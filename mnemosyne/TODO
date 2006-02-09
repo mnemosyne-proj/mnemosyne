@@ -1,0 +1,54 @@
+1.0
+
+-superkaramba
+
+-utility to split XML file in subfiles with a limited number of questions.
+
+-website (relative layout, google analytics, sitemaps)
+
+-improve graphics
+
+
+1.1 and later
+
+-sounds 
+
+-prefix current directory to img or sound tag file
+
+-import ascii, csv
+
+-reset learning data on export
+
+-statistics
+
+-feedback about uploads in GUI
+
+-html preview
+
+-hints? separate mnemonics?
+
+-drop-down box in edit edits to show only items in a single category
+
+-select multiple items to delete or change category
+
+-make sure the same question isn't asked twice in row
+
+-bug in Qt: get rid of dummy '.' status tips
+
+-moving mem files back and forth between Linux and Windows suffers from CR/LF
+ vs CR
+
+
+Superkaramba:
+
+- Check Unicode
+
+- set fonts, left align
+
+- Allow clicking anywhere in the status window, rather than just on the
+  text.
+
+- Automatic detection of PyQt executable exit (bug in Superkaramba).
+
+- Check if we still need to be able to access the item by id as argument
+  to the PyQt executable

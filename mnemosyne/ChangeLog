@@ -1,0 +1,65 @@
+MNEMOSYNE 0.9: 2006-02-08
+
+- first release of the new core.
+
+PYQT MEMAID 0.2.5: 2005-10-13 
+
+- more bug fixes to work with recent versions of PyQt.
+- fix time offset bug when importing XML.
+
+PYQT MEMAID 0.2.4: 2005-09-25
+
+- honor the font setting in the input and edit dialogs.
+- update code to work with Superkaramba 0.36. Unicode is still a problem, 
+  though.
+- improve XML importing and exporting (Jarno Elonen)
+- pressing the 'find' button repeatedly will scroll through all occurences
+  of the string in the list now (Jarno Elonen).
+- automatic import of pre-0.2.3 databases (Jarno Elonen)
+
+PYQT MEMAID 0.2.3: 2005-02-10
+
+- changes to file format to fix occasional saving under Windows problem.
+- fix bug with regard to category corruption when deleting an item.
+  Thanks to Jarno Elonen for tracking this down. 
+
+PYQT MEMAID 0.2.2: 2004-10-17
+
+- better compatibility when importing from other MemAid versions
+- fixed SuperKaramba widget to work with recent versions of KDE and
+  SuperKaramba. Unicode characters are still a problem, which is probably
+  a bug in SuperKaramba.
+- added option to add vice versa question (Jarno Elonen)
+- better scheduling of inverse questions (Jarno Elonen)
+- added tooltips for grades (Jarno Elonen)
+- fixed digest crash for Unicode question (Jarno Elonen)
+
+PYQT MEMAID 0.2.1: 2003-11-30
+
+- added option to edit the current item
+- better handling of newlines and '<' literals
+- fixed error related to setdefaultencoding on some platforms
+- fixed bug when loading a new database using the SuperKaramba widget
+
+
+PYQT MEMAID 0.2: 2003-11-22
+
+- support for categories
+- includes a stand-alone program pyqt_memaid to add/edit questions
+- full support for Unicode, regardless of how your system locale is set
+- XML dataformat
+
+
+MEMAID SUPERKARAMBA 0.1.2: 2003-10-23
+
+- Don't require SWIG anymore to build
+
+
+MEMAID SUPERKARAMBA 0.1.1: 2003-10-22
+
+- Update for SuperKaramba 0.33
+
+
+MEMAID SUPERKARAMBA 0.1: 2003-10-18
+
+- First public release

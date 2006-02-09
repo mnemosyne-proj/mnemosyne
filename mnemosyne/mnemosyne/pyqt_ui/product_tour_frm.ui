@@ -1,0 +1,215 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ProductTourFrm</class>
+<widget class="QWizard">
+    <property name="name">
+        <cstring>ProductTourFrm</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>489</width>
+            <height>333</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>3</hsizetype>
+            <vsizetype>3</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="caption">
+        <string>Mnemosyne product tour</string>
+    </property>
+    <widget class="QWidget">
+        <property name="name">
+            <cstring>WizardPage</cstring>
+        </property>
+        <attribute name="title">
+            <string>Introduction</string>
+        </attribute>
+        <hbox>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <property name="resizeMode">
+                <enum>Minimum</enum>
+            </property>
+            <widget class="QLabel">
+                <property name="name">
+                    <cstring>textLabel1</cstring>
+                </property>
+                <property name="text">
+                    <string>Greetings!
+
+I am Mnemosyne, the Greek Muse of Memory. 
+
+I can make it more efficient for you to memorise and remember answers to questions, by helping you focus on the items you're most likely to forget and by not wasting your time on things you know well.
+
+For that, I'll decide when to ask you the questions, and you'll need to rate how well you remember the answers.
+
+Let's look at the meaning of these ratings now.</string>
+                </property>
+                <property name="alignment">
+                    <set>WordBreak|AlignTop</set>
+                </property>
+            </widget>
+        </hbox>
+    </widget>
+    <widget class="QWidget">
+        <property name="name">
+            <cstring>WizardPage</cstring>
+        </property>
+        <attribute name="title">
+            <string>Grades 0-2</string>
+        </attribute>
+        <hbox>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLabel">
+                <property name="name">
+                    <cstring>textLabel2</cstring>
+                </property>
+                <property name="text">
+                    <string>Grades range from 0 to 5.
+
+Grades 0 and 1 are used if you don't know the answer yet, or if you have forgotten it. An item with grade 1 is starting to get more familiar than one with grade 0, and will be repeated less often.
+
+I will keep on asking you these questions until you give them a grade 2 or higher (the exact grade doesn't matter). Grade 2 basically means that you think you'll be able to remember the item for at least one or two days.
+
+I will schedule this item to some future date, when I think you'll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</string>
+                </property>
+                <property name="alignment">
+                    <set>WordBreak|AlignTop</set>
+                </property>
+            </widget>
+        </hbox>
+    </widget>
+    <widget class="QWidget">
+        <property name="name">
+            <cstring>WizardPage</cstring>
+        </property>
+        <attribute name="title">
+            <string>Grades 3-5</string>
+        </attribute>
+        <hbox>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLabel">
+                <property name="name">
+                    <cstring>textLabel3</cstring>
+                </property>
+                <property name="text">
+                    <string>If in the future I ask you the question too soon, and you're able to remember it without any effort, you rate the item a 5. I'll take this into account by waiting a lot longer before asking you this question again.
+
+If I get it just right, so that you remember it, albeit with some effort, you use grade 4.
+
+If on the other hand it takes you significant effort to remember the answer, and you think I've waited too long to ask you this question, then rate the item 3.
+
+If you fail to remember it altogether, rate it between 0 and 2 (the exact grade doesn't matter), and I'll keep on asking you this question until you think you'll be able to remember it again for a few days.</string>
+                </property>
+                <property name="alignment">
+                    <set>WordBreak|AlignTop</set>
+                </property>
+            </widget>
+        </hbox>
+    </widget>
+    <widget class="QWidget">
+        <property name="name">
+            <cstring>WizardPage</cstring>
+        </property>
+        <attribute name="title">
+            <string>Statistics</string>
+        </attribute>
+        <hbox>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLayoutWidget">
+                <property name="name">
+                    <cstring>layout1</cstring>
+                </property>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLabel">
+                        <property name="name">
+                            <cstring>textLabel4</cstring>
+                        </property>
+                        <property name="text">
+                            <string>If you're into statistics, I can keep detailed logs of your revisions.
+
+Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
+
+Uncheck the following boxes if you do not want to do this.</string>
+                        </property>
+                        <property name="alignment">
+                            <set>WordBreak|AlignTop</set>
+                        </property>
+                    </widget>
+                    <widget class="QCheckBox">
+                        <property name="name">
+                            <cstring>keepLogs</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Keep detailed logs</string>
+                        </property>
+                        <property name="checked">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                    <widget class="QCheckBox">
+                        <property name="name">
+                            <cstring>uploadLogs</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Upload anonymous logs</string>
+                        </property>
+                        <property name="checked">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                </vbox>
+            </widget>
+        </hbox>
+    </widget>
+    <widget class="QWidget">
+        <property name="name">
+            <cstring>WizardPage</cstring>
+        </property>
+        <attribute name="title">
+            <string>Ready to start</string>
+        </attribute>
+        <hbox>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLabel">
+                <property name="name">
+                    <cstring>textLabel7</cstring>
+                </property>
+                <property name="text">
+                    <string>Now you're ready to start!
+
+Add new questions by clicking on the 'plus' icon.
+
+Remember, there is no need to worry about saving your work, I will do so automatically.
+
+For best results, I suggest you do your revisions every day, although I'll try to cope as best I can if you postpone your revisions or if you want to learn ahead of time.
+
+Happy learning!</string>
+                </property>
+                <property name="alignment">
+                    <set>WordBreak|AlignTop</set>
+                </property>
+            </widget>
+        </hbox>
+    </widget>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

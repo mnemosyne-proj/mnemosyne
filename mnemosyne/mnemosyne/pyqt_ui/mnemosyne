@@ -1,0 +1,44 @@
+#! /usr/bin/env python
+
+##############################################################################
+#
+# Mnemosyne <Peter.Bienstman@UGent.be>
+#
+##############################################################################
+
+import sys, os
+from qt import *
+from mnemosyne.pyqt_ui.main_dlg import *
+from mnemosyne.core import *
+
+# Create main widget.
+
+try:
+    filename = sys.argv[1]
+except:
+    filename = None
+
+try:
+    item_id = sys.argv[2]
+except:
+    item_id = None
+
+initialise()
+
+a = QApplication(sys.argv)
+w = MainDlg(filename, item_id)
+
+QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
+QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))
+
+a.setMainWidget(w)
+w.show()
+
+if get_config("first_run") == True:
+    w.productTour()
+    set_config("first_run", False)
+    
+a.exec_loop()
+
+finalise()
+

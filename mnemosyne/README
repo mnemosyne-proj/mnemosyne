@@ -1,0 +1,12 @@
+INSTALLATION:
+
+-Make sure you have PyQt (http://www.riverbankcomputing.co.uk/pyqt/index.php)
+ installed.
+-If you want to import XML, also install PyXML (http://pyxml.sourceforge.net)
+-Type 'python setup.py install' as root.
+-Run the application by typing 'mnemosyne'.
+-To run the SuperKaramba widget, copy the mnemosyne_superkaramba directory 
+ to wherever you keep your superkaramba themes. Run superkaramba, and
+ point it to superkaramba_mnemosyne.theme. SuperKaramba 0.33 or higher is
+ required.
+
