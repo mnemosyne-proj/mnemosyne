@@ -124,6 +124,10 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
 
     def edit(self):
+        
+        if self.popup_item == None:
+            return
+        
         item = self.popup_item.item
         dlg = EditItemDlg(item,self,"Edit current item",0)
         dlg.exec_loop()
@@ -138,6 +142,9 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
     
     def viceversa(self):
+
+        if self.popup_item == None:
+            return
         
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
@@ -158,6 +165,10 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
     
     def delete(self):
+
+        if self.popup_item == None:
+            return
+        
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
                     self.trUtf8("Delete this item?"),

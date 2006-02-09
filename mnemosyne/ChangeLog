@@ -1,6 +1,7 @@
 MNEMOSYNE 0.9.1: 2006-02-09
 
 - fixed bug where an item would get asked twice after editing
+- fixed bug when using the popup menu on an empty spot
 
 MNEMOSYNE 0.9: 2006-02-08
 
