@@ -1,3 +1,7 @@
+MNEMOSYNE 0.9.1: 2006-02-09
+
+- fixed bug where an item would get asked twice after editing
+
 MNEMOSYNE 0.9: 2006-02-08
 
 - first release of the new core.

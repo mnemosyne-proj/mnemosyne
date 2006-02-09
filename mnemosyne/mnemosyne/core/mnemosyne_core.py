@@ -1221,6 +1221,26 @@ def in_revision_queue(item):
 
 ##############################################################################
 #
+# remove_from_revision_queue
+#
+#   Remove a single instance of an item from the queue. Necessary when
+#   the queue needs to be rebuilt, and there is still a question pending.
+#
+##############################################################################
+
+def remove_from_revision_queue(item):
+    
+    global revision_queue
+    
+    for i in revision_queue:
+        if i.id == item.id:
+            revision_queue.remove(i)
+            return
+
+
+
+##############################################################################
+#
 # still_exits
 #
 ##############################################################################
