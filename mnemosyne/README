@@ -1,5 +1,6 @@
 INSTALLATION:
 
+-Make sure you have Python 2.4
 -Make sure you have PyQt (http://www.riverbankcomputing.co.uk/pyqt/index.php)
  installed.
 -If you want to import XML, also install PyXML (http://pyxml.sourceforge.net)
