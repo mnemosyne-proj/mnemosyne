@@ -1177,12 +1177,14 @@ def rebuild_revision_queue(learn_ahead = False):
     random.shuffle(revision_queue)
 
     # If the queue is empty, then add items which are not yet memorised.
+    # Take only the first five grade 0 items from the unlearned items,
+    # to avoid too long intervals between repetitions.
     
     if len(revision_queue) == 0:
         
         not_memorised = [i for i in items if i.is_due_for_acquisition_rep()]
 
-        grade_0 = [i for i in not_memorised if i.grade == 0]
+        grade_0 = [i for i in not_memorised if i.grade == 0][0:5]
         grade_1 = [i for i in not_memorised if i.grade == 1]
 
         random.shuffle(grade_0)
