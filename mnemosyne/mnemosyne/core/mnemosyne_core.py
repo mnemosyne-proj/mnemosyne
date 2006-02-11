@@ -1056,10 +1056,7 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
     # Add new items.
     
     for item in import_items:
-        
-        #if get_item_by_id(item.id) != None: # Avoid duplicate id's.
-        #    item.new_id()
-            
+                    
         items.append(item)
         
         if item.is_due_for_retention_rep():
@@ -1070,7 +1067,7 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
                     item.id, item.grade, item.ret_reps,
                     item.last_rep, item.next_rep, interval)
 
-    items.sort(key=Item.sort_key)
+    #items.sort(key=Item.sort_key)
 
     # Clean up.
 
@@ -1125,8 +1122,8 @@ def add_new_item(grade, question, answer, cat_name):
  
     item.next_rep = time_of_start.days_since() + new_interval
     
-    items.append(item)
-    items.sort(key=Item.sort_key)
+    items.insert(0,item)
+    #items.sort(key=Item.sort_key)
     logger.info("New item %s %d %d", item.id, item.grade, new_interval)
 
     load_failed = False
@@ -1460,8 +1457,8 @@ def process_answer(item, new_grade):
                 item.next_rep += 1
                 noise += 1
 
-    items.sort(key=Item.sort_key)
-
+    #items.sort(key=Item.sort_key)    
+        
     logger.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
                 item.id, item.grade, item.easiness,
                 item.acq_reps, item.ret_reps, item.lapses,
