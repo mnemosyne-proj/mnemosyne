@@ -69,7 +69,8 @@ def clean_duplicates(self):
                   unicode(self.trUtf8("There are items with different " +
                           "answers for question:<br><br> %s")) \
                                           % (itemlist[0].q),
-                  self.trUtf8("&Merge and edit"), self.trUtf8("&Ignore"),
+                  self.trUtf8("&Merge and edit"),
+                  self.trUtf8("&Don't merge"),
                   QString(), 0, -1)
 
             showed_box = True
