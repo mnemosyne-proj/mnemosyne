@@ -1198,13 +1198,13 @@ def rebuild_revision_queue(learn_ahead = False):
 
     if len(revision_queue) == 0:
         
-        items.sort(key=Item.sort_key)
-        
         if learn_ahead == False:
             return
         else:
             revision_queue = [i for i in items \
                               if i.qualifies_for_learn_ahead()]
+
+            revision_queue.sort(key=Item.sort_key)
 
 
 
