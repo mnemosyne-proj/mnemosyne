@@ -45,7 +45,7 @@ config = {}
 
 def initialise():
 
-    from mnemosyne_log import *
+    import mnemosyne_log
 
     global upload_thread, load_failed
 
@@ -73,12 +73,12 @@ def initialise():
 
     load_config()
 
-    archive_old_log()
+    mnemosyne_log.archive_old_log()
     
-    start_logging()
+    mnemosyne_log.start_logging()
 
     if get_config("upload_logs") == True:
-        upload_thread = Uploader()
+        upload_thread = mnemosyne_log.Uploader()
         upload_thread.start()
 
     import mnemosyne.version
