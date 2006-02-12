@@ -46,7 +46,9 @@ class ImportDlg(ImportFrm):
     def browse(self):
         
         out = unicode(QFileDialog.getOpenFileName( \
-            get_config("import_dir"),"*.xml")).encode("utf-8")
+            get_config("import_dir"), "(*.xml *.XML *.txt *.TXT)"))\
+                                                         .encode("utf-8")
+        
         if out != "":
             self.filename.setText(out)
             
@@ -64,7 +66,7 @@ class ImportDlg(ImportFrm):
         fname = unicode(self.filename.text()).encode("utf-8")
         cat_name = unicode(self.categories.currentText()).encode("utf-8")
         reset_learning_data = self.reset_box.isChecked()
-        status = import_XML(fname, cat_name, reset_learning_data)
+        status = import_file(fname, cat_name, reset_learning_data)
 
         if status == False:
             QMessageBox.critical(None,

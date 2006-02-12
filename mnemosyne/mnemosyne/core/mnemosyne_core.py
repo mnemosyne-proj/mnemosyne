@@ -273,11 +273,13 @@ class Item:
     #
     # is_due_for_retention_rep
     #
+    #  Due for a retention repetion within 'days' days?
+    #
     ##########################################################################
     
-    def is_due_for_retention_rep(self):
+    def is_due_for_retention_rep(self, days=0):
         return (self.grade >= 2) and (self.cat.active == True) and \
-               (time_of_start.days_since() >= self.next_rep)
+               (time_of_start.days_since() >= self.next_rep - days)
 
     ##########################################################################
     #
@@ -368,10 +370,12 @@ def non_memorised_items():
 #
 # scheduled_items
 #
+#   Number of items scheduled within 'days' days.
+#
 ##############################################################################
 
-def scheduled_items():
-    return sum(1 for i in items if i.is_due_for_retention_rep())
+def scheduled_items(days=0):
+    return sum(1 for i in items if i.is_due_for_retention_rep(days))
 
 
 
@@ -1078,6 +1082,117 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
     load_failed = False
 
     return True
+
+
+
+##############################################################################
+#
+# import_txt
+#
+##############################################################################
+
+def import_txt(filename, default_cat_name):
+    
+    global categories, category_by_name, load_failed, items
+
+    # If no database is active, create one.
+
+    if not time_of_start:
+        new_database(config["path"])
+
+    # Create default category if necessary.
+
+    if default_cat_name not in category_by_name.keys():
+        default_cat = Category(default_cat_name)
+        categories.append(default_cat)
+        category_by_name[default_cat_name] = default_cat
+    else:
+        default_cat = category_by_name[default_cat_name]
+
+    # Parse txt file.
+
+    avg_easiness = average_easiness()
+
+    f = file(filename, 'r')
+
+    for line in f:
+        
+        item = Item()
+
+        try:
+            item.q, item.a = line.split('\t')
+        except Exception, e:
+            print "Error parsing txt file:\n"
+            traceback.print_exc()
+            return False
+
+        #print item.q, item.a
+     
+        # Swallow EOL.
+
+        if item.a[-2:] == '\r\n':
+            item.a = item.a[:-2]
+            
+        if item.a[-1:] == '\n':
+            item.a = item.a[:-1]
+
+        # Encode utf-8.
+
+        #item.q = item.q.encode("utf-8")
+        #item.a = item.a.encode("utf-8")
+        
+        #print item.q, item.a
+        
+        # Don't add if the item is already in the database.
+
+        unique = True
+        
+        for i in get_items():
+            if i.q == item.q and i.a == item.a:
+                unique = False
+                continue
+
+        if unique == False:
+            continue
+        
+        item.easiness = avg_easiness
+        item.cat = default_cat
+        item.new_id()
+                    
+        items.append(item)
+            
+        interval = time_of_start.days_since() - item.next_rep
+        logger.info("Imported item %s %d %d %d %d %d",
+                    item.id, item.grade, item.ret_reps,
+                    item.last_rep, item.next_rep, interval)
+
+    # Clean up.
+
+    if default_cat.in_use() == False:
+        del category_by_name[default_cat.name]
+        categories.remove(default_cat)
+
+    load_failed = False
+
+    return True
+
+
+
+##############################################################################
+#
+# import_file
+#
+##############################################################################
+
+def import_file(filename, default_cat_name, reset_learning_data=False):
+    
+    if filename[-4:] == '.xml' or filename[-4:] == '.XML':
+        return import_XML(filename, default_cat_name, reset_learning_data)
+        
+    if filename[-4:] == '.txt' or filename[-4:] == '.TXT':
+        return import_txt(filename, default_cat_name)
+
+    return False
 
 
 

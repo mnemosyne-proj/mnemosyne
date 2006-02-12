@@ -558,7 +558,7 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>&amp;Import from XML</string>
+            <string>&amp;Import</string>
         </property>
         <property name="toolTip">
             <string></string>
@@ -578,7 +578,7 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>&amp;Export to XML</string>
+            <string>&amp;Export</string>
         </property>
         <property name="toolTip">
             <string></string>
