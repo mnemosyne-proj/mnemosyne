@@ -1013,9 +1013,14 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
     # Determine if we import a Mnemosyne or a Memaid file.
 
     handler = None
-    
-    f = file(filename)
-    f.readline()
+
+    f = None
+    try:
+        f = file(filename)
+        f.readline()
+    except:
+        print "Unable to open file."
+        return False
 
     if "mnemosyne" in f.readline():
         handler = XML_Importer(default_cat, reset_learning_data)
@@ -1113,7 +1118,12 @@ def import_txt(filename, default_cat_name):
 
     avg_easiness = average_easiness()
 
-    f = file(filename, 'r')
+    f = None
+    try:
+        f = file(filename)
+    except:
+        print "Unable to open file."
+        return False
 
     for line in f:
         
