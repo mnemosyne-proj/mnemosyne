@@ -536,7 +536,8 @@ class MainDlg(MainFrm):
         QMessageBox.about(None,
             self.trUtf8("Mnemosyne"),
             self.trUtf8("Mnemosyne " + mnemosyne.version.version + "\n\n"+
-                        "Author: Peter Bienstman\n"))
+                        "Author: Peter Bienstman\n\n" +
+                        "More info: http://mnemosyne-proj.sourceforge.net\n"))
         unpause_thinking()
 
     ##########################################################################
@@ -604,9 +605,9 @@ class MainDlg(MainFrm):
         
         if self.item.cat.name != "<default>":
             self.question_label.setText(escape("Question: " +
-                                          self.item.cat.name.decode("utf-8")))
+                                          self.item.cat.name))
 
-        self.question.setText(escape(self.item.q).decode("utf-8"))
+        self.question.setText(escape(self.item.q))
 
         self.editCurrentItemAction.setEnabled(1)
         self.deleteCurrentItemAction.setEnabled(1)
@@ -625,13 +626,13 @@ class MainDlg(MainFrm):
             return
                 
         if self.item.cat.name != "<default>":
-            self.question_label.setText(escape("Question: " +
-                                          self.item.cat.name.decode("utf-8")))
+            self.question_label.setText(escape("Question: " + \
+                                               self.item.cat.name))
             
-        self.question.setText(escape(self.item.q).decode("utf-8"))
+        self.question.setText(escape(self.item.q))
             
         if self.answer.text() != "":
-            self.answer.setText(escape(self.item.a).decode("utf-8"))
+            self.answer.setText(escape(self.item.a))
 
     ##########################################################################
     #
@@ -648,7 +649,7 @@ class MainDlg(MainFrm):
             return
 
         stop_thinking()
-        self.answer.setText(escape(self.item.a).decode("utf-8"))        
+        self.answer.setText(escape(self.item.a))        
         self.show_button.setEnabled(0)
         self.grades.setEnabled(1)
         
@@ -666,5 +667,3 @@ class MainDlg(MainFrm):
         self.question.setText("")
         self.answer.setText("")
         self.newQuestion()
-                 
-        

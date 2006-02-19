@@ -30,7 +30,7 @@ class ExportDlg(ExportFrm):
         ExportFrm.__init__(self,parent,name,modal,fl)
 
         for cat in get_categories():
-            c = QListBoxText(self.categories, cat.name.decode("utf-8"))
+            c = QListBoxText(self.categories, cat.name)
             self.categories.setSelected(c, 1)
         self.categories.sort()
 
@@ -92,8 +92,7 @@ class ExportDlg(ExportFrm):
         item = self.categories.firstItem()
         while item != None:
             if item.isSelected() == True:
-                cat_names_to_export.append(unicode(item.text()) \
-                                           .encode("utf-8"))
+                cat_names_to_export.append(unicode(item.text()))
             item = item.next()
 
         export_XML(fname, cat_names_to_export)

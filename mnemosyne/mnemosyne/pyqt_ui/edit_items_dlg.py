@@ -20,9 +20,7 @@ from edit_item_dlg import *
 
 class ListItem(QListViewItem):
     def __init__(self, parent, item):
-        QListViewItem.__init__(self,parent, item.q.decode("utf-8"),
-                               item.a.decode("utf-8"),
-                               item.cat.name.decode("utf-8"))
+        QListViewItem.__init__(self,parent, item.q, item.a, item.cat.name)
 
         self.item = item
         
@@ -98,11 +96,11 @@ class EditItemsDlg(EditItemsFrm):
     
     def cell_edited(self, item, col):
 
-        item.item.q  = unicode(item.text(0)).encode("utf-8")
-        item.item.a  = unicode(item.text(1)).encode("utf-8")
+        item.item.q  = unicode(item.text(0))
+        item.item.a  = unicode(item.text(1))
             
         old_cat_name = item.item.cat.name
-        new_cat_name = unicode(item.text(2)).encode("utf-8")
+        new_cat_name = unicode(item.text(2))
         
         if old_cat_name != new_cat_name:
             item.item.change_category(new_cat_name)
@@ -131,9 +129,9 @@ class EditItemsDlg(EditItemsFrm):
         item = self.popup_item.item
         dlg = EditItemDlg(item,self,"Edit current item",0)
         dlg.exec_loop()
-        self.popup_item.setText(0, item.q.decode("utf-8"))
-        self.popup_item.setText(1, item.a.decode("utf-8"))
-        self.popup_item.setText(2, item.cat.name.decode("utf-8"))
+        self.popup_item.setText(0, item.q)
+        self.popup_item.setText(1, item.a)
+        self.popup_item.setText(2, item.cat.name)
                 
     ##########################################################################
     #

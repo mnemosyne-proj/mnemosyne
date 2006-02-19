@@ -29,13 +29,13 @@ class EditItemDlg(EditItemFrm):
 
         self.item = item
 
-        self.categories.insertItem(self.item.cat.name.decode("utf-8"))
+        self.categories.insertItem(self.item.cat.name)
         for cat in get_categories():
             if cat.name != self.item.cat.name:
-                self.categories.insertItem(cat.name.decode("utf-8"))
+                self.categories.insertItem(cat.name)
 
-        self.question.setText(self.item.q.decode("utf-8"))
-        self.answer.setText(self.item.a.decode("utf-8"))
+        self.question.setText(self.item.q)
+        self.answer.setText(self.item.a)
         
         self.connect(self.ok_button, SIGNAL("clicked()"), self.apply)
 
@@ -61,12 +61,12 @@ class EditItemDlg(EditItemFrm):
     
     def apply(self):
 
-        new_cat_name = unicode(self.categories.currentText()).encode("utf-8")
+        new_cat_name = unicode(self.categories.currentText())
 
         if new_cat_name != self.item.cat.name:
             self.item.change_category(new_cat_name)   
         
-        self.item.q  = unicode(self.question.text()).encode("utf-8")
-        self.item.a  = unicode(self.answer.text())  .encode("utf-8")
+        self.item.q  = unicode(self.question.text())
+        self.item.a  = unicode(self.answer.text())
 
         self.accept()

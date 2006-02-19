@@ -41,6 +41,14 @@
                 <property name="name">
                     <cstring>textLabel1</cstring>
                 </property>
+                <property name="sizePolicy">
+                    <sizepolicy>
+                        <hsizetype>5</hsizetype>
+                        <vsizetype>3</vsizetype>
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                    </sizepolicy>
+                </property>
                 <property name="text">
                     <string>Greetings!
 
@@ -73,12 +81,20 @@ Let's look at the meaning of these ratings now.</string>
                 <property name="name">
                     <cstring>textLabel2</cstring>
                 </property>
+                <property name="sizePolicy">
+                    <sizepolicy>
+                        <hsizetype>5</hsizetype>
+                        <vsizetype>3</vsizetype>
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                    </sizepolicy>
+                </property>
                 <property name="text">
                     <string>Grades range from 0 to 5.
 
 Grades 0 and 1 are used if you don't know the answer yet, or if you have forgotten it. An item with grade 1 is starting to get more familiar than one with grade 0, and will be repeated less often.
 
-I will keep on asking you these questions until you give them a grade 2 or higher (the exact grade doesn't matter). Grade 2 basically means that you think you'll be able to remember the item for at least one or two days.
+I will keep on asking you these questions until you give them a grade 2 or higher (the exact grade doesn't matter). Grade 2 basically means that you think you'll be able to remember the item for at least one or two days. It signals the transition between short and long term memory.
 
 I will schedule this item to some future date, when I think you'll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</string>
                 </property>
@@ -102,6 +118,14 @@ I will schedule this item to some future date, when I think you'll still be able
             <widget class="QLabel">
                 <property name="name">
                     <cstring>textLabel3</cstring>
+                </property>
+                <property name="sizePolicy">
+                    <sizepolicy>
+                        <hsizetype>5</hsizetype>
+                        <vsizetype>3</vsizetype>
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                    </sizepolicy>
                 </property>
                 <property name="text">
                     <string>If in the future I ask you the question too soon, and you're able to remember it without any effort, you rate the item a 5. I'll take this into account by waiting a lot longer before asking you this question again.
@@ -140,6 +164,14 @@ If you fail to remember it altogether, rate it between 0 and 2 (the exact grade 
                     <widget class="QLabel">
                         <property name="name">
                             <cstring>textLabel4</cstring>
+                        </property>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>5</hsizetype>
+                                <vsizetype>3</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
                         </property>
                         <property name="text">
                             <string>If you're into statistics, I can keep detailed logs of your revisions.
@@ -192,6 +224,14 @@ Uncheck the following boxes if you do not want to do this.</string>
             <widget class="QLabel">
                 <property name="name">
                     <cstring>textLabel7</cstring>
+                </property>
+                <property name="sizePolicy">
+                    <sizepolicy>
+                        <hsizetype>5</hsizetype>
+                        <vsizetype>1</vsizetype>
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                    </sizepolicy>
                 </property>
                 <property name="text">
                     <string>Now you're ready to start!

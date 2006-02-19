@@ -248,7 +248,8 @@ class Item:
     
     def new_id(self):
 
-        digest = md5.new(self.q + self.a + time.ctime()).hexdigest()
+        digest = md5.new(self.q.encode("utf-8") + self.a.encode("utf-8") + \
+                         time.ctime()).hexdigest()
         self.id = digest[0:8]
         
     ##########################################################################
@@ -656,17 +657,17 @@ def write_item_XML(e, outfile):
     
     print >> outfile, "<item id=\""+str(e.id) + "\"" \
                          + " gr=\""+str(e.grade) + "\"" \
-                         + " e=\""+str(e.easiness) + "\"" \
+                         + " e=\""+ "%.3f" % e.easiness + "\"" \
                          + " ac_rp=\""+str(e.acq_reps) + "\"" \
                          + " rt_rp=\""+str(e.ret_reps) + "\""  \
                          + " lps=\""+str(e.lapses) + "\"" \
                          + " ac_rp_l=\""+str(e.acq_reps_since_lapse) + "\"" \
-                         + " rt_rp_l=\""+str(e.ret_reps_since_lapse) + "\""  \
+                         + " rt_rp_l=\""+str(e.ret_reps_since_lapse) + "\"" \
                          + " l_rp=\""+str(e.last_rep) + "\"" \
                          + " n_rp=\""+str(e.next_rep) + "\">"
-    print >> outfile, " <cat><![CDATA["+e.cat.name+"]]></cat>"
-    print >> outfile, " <Q><![CDATA["+e.q+"]]></Q>"
-    print >> outfile, " <A><![CDATA["+e.a+"]]></A>"
+    print >> outfile, " <cat><![CDATA["+e.cat.name.encode("utf-8")+"]]></cat>"
+    print >> outfile, " <Q><![CDATA["+e.q.encode("utf-8")+"]]></Q>"
+    print >> outfile, " <A><![CDATA["+e.a.encode("utf-8")+"]]></A>"
     print >> outfile, "</item>"
 
 
@@ -696,7 +697,7 @@ def write_category_XML(category, outfile):
     
     print >> outfile, "<category active=\"" \
           + bool_to_digit(category.active) + "\">"
-    print >> outfile, " <name><![CDATA["+category.name \
+    print >> outfile, " <name><![CDATA["+category.name.encode("utf-8") \
           +"]]></name>"
     print >> outfile, "</category>"
 
@@ -713,7 +714,7 @@ def export_XML(path, cat_names_to_export):
     outfile = file(path,'w')
 
     print >> outfile, """<?xml version="1.0" encoding="UTF-8"?>"""
-    print >> outfile, "<mnemosyne core_version=\"0\" time_of_start=\""\
+    print >> outfile, "<mnemosyne core_version=\"1\" time_of_start=\""\
                       +str(long(time_of_start.time))+"\">"
     
     for cat in categories:
@@ -831,8 +832,8 @@ class XML_Importer(saxutils.DefaultHandler):
        
         if name == "A":
 
-            self.item.q = unicode(self.text["Q"]).encode("utf-8")
-            self.item.a = unicode(self.text["A"]).encode("utf-8")
+            self.item.q = self.text["Q"]
+            self.item.a = self.text["A"]
 
             # Don't add if the item is already in the database.
 
@@ -841,7 +842,7 @@ class XML_Importer(saxutils.DefaultHandler):
                     return
 
             if "cat" in self.text.keys():
-                cat_name = unicode(self.text["cat"]).encode("utf-8")
+                cat_name = self.text["cat"]
                 if not cat_name in category_by_name.keys():
                     new_cat = Category(cat_name)
                     categories.append(new_cat)
@@ -866,7 +867,7 @@ class XML_Importer(saxutils.DefaultHandler):
 
         elif name == "name":
             
-            name = unicode(self.text["name"]).encode("utf-8")
+            name = self.text["name"]
             
             if name not in category_by_name.keys():
                 cat = Category(name, self.active)
@@ -941,8 +942,8 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
        
         if name == "A":
 
-            self.item.q = unicode(self.text["Q"]).encode("utf-8")
-            self.item.a = unicode(self.text["A"]).encode("utf-8")
+            self.item.q = self.text["Q"]
+            self.item.a = self.text["A"]
 
             # Don't add if the item is already in the database.
 
@@ -951,7 +952,7 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
                     return
 
             if "cat" in self.text.keys():
-                cat_name = unicode(self.text["cat"]).encode("utf-8")
+                cat_name = self.text["cat"]
                 if not cat_name in category_by_name.keys():
                     new_cat = Category(cat_name)
                     categories.append(new_cat)
@@ -976,7 +977,7 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
 
         elif name == "name":
             
-            name = unicode(self.text["name"]).encode("utf-8")
+            name = self.text["name"]
             
             if name not in category_by_name.keys():
                 cat = Category(name, self.active)
@@ -1017,11 +1018,15 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
     f = None
     try:
         f = file(filename)
-        f.readline()
     except:
-        print "Unable to open file."
-        return False
-
+        try:
+            f = file(unicode(filename).encode("latin"))
+        except:
+            print "Unable to open file."
+            return False
+    
+    f.readline()
+        
     if "mnemosyne" in f.readline():
         handler = XML_Importer(default_cat, reset_learning_data)
     else:
@@ -1122,10 +1127,22 @@ def import_txt(filename, default_cat_name):
     try:
         f = file(filename)
     except:
-        print "Unable to open file."
-        return False
-
+        try:
+            f = file(filename.encode("latin"))
+        except:
+            print "Unable to open file."
+            return False
+    
     for line in f:
+        
+        try:
+            line = unicode(line, "latin")
+        except:
+            try:
+                line = unicode(line, "utf-8")
+            except:
+                print "Unrecognised encoding."
+                return False
         
         item = Item()
 
@@ -1134,9 +1151,7 @@ def import_txt(filename, default_cat_name):
         except Exception, e:
             print "Error parsing txt file:\n"
             traceback.print_exc()
-            return False
-
-        #print item.q, item.a
+            return False   
      
         # Swallow EOL.
 
@@ -1145,13 +1160,6 @@ def import_txt(filename, default_cat_name):
             
         if item.a[-1:] == '\n':
             item.a = item.a[:-1]
-
-        # Encode utf-8.
-
-        #item.q = item.q.encode("utf-8")
-        #item.a = item.a.encode("utf-8")
-        
-        #print item.q, item.a
         
         # Don't add if the item is already in the database.
 

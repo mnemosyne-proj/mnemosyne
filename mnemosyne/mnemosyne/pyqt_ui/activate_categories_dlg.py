@@ -30,7 +30,7 @@ class ActivateCategoriesDlg(ActivateCategoriesFrm):
         ActivateCategoriesFrm.__init__(self,parent,name,modal,fl)
 
         for cat in get_categories():
-            c = QListBoxText(self.cat_list, cat.name.decode("utf-8"))
+            c = QListBoxText(self.cat_list, cat.name)
             self.cat_list.setSelected(c, cat.active)
         self.cat_list.sort()
         
@@ -78,11 +78,9 @@ class ActivateCategoriesDlg(ActivateCategoriesFrm):
         item = self.cat_list.firstItem()
         while item != None:
             if item.isSelected() == True:
-                get_category_by_name(unicode(item.text()).encode("utf-8")) \
-                                                           .active = True
+                get_category_by_name(unicode(item.text())).active = True
             else:
-                get_category_by_name(unicode(item.text()).encode("utf-8")) \
-                                                           .active = False
+                get_category_by_name(unicode(item.text())).active = False
             item = item.next()
 
         self.close()

@@ -33,7 +33,7 @@ class AddItemsDlg(AddItemsFrm):
         self.categories.insertItem("<default>")
         for cat in get_categories():
             if cat.name != "<default>":
-                self.categories.insertItem(cat.name.decode("utf-8"))
+                self.categories.insertItem(cat.name)
 
         self.connect(self.grades,SIGNAL("clicked(int)"),
                      self.new_item)
@@ -135,11 +135,11 @@ class AddItemsDlg(AddItemsFrm):
     #
     ##########################################################################
 
-    def new_item(self, grade):        
+    def new_item(self, grade):
 
-        q        = unicode(self.question.text()         ).encode("utf-8")
-        a        = unicode(self.answer.text()           ).encode("utf-8")
-        cat_name = unicode(self.categories.currentText()).encode("utf-8")
+        q        = unicode(self.question.text())
+        a        = unicode(self.answer.text())
+        cat_name = unicode(self.categories.currentText())
 
         if q == "" or a == "":
             return
@@ -153,8 +153,8 @@ class AddItemsDlg(AddItemsFrm):
             
             # Swap question and answer.
             
-            self.question.setText(a.decode("utf-8"))
-            self.answer.setText(q.decode("utf-8"))
+            self.question.setText(a)
+            self.answer.setText(q)
             self.addViceVersa.setChecked(False)
             
         elif orig_added:

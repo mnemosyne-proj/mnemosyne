@@ -88,7 +88,7 @@ def clean_duplicates(self):
                 dlg.exec_loop()
 
 
-    # Finised.
+    # Finished.
 
     if showed_box == False:
         QMessageBox.information(None, self.trUtf8("Mnemosyne"),
