@@ -9,7 +9,6 @@ import traceback
 logger = logging.getLogger("mnemosyne")
 
 
-
 ##############################################################################
 #
 # Global variables
@@ -1076,7 +1075,7 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
         if item.is_due_for_retention_rep():
             revision_queue[0:0] = [item]
             
-        interval = time_of_start.days_since() - item.next_rep
+        interval = item.next_rep - time_of_start.days_since()
         logger.info("Imported item %s %d %d %d %d %d",
                     item.id, item.grade, item.ret_reps,
                     item.last_rep, item.next_rep, interval)
@@ -1179,7 +1178,7 @@ def import_txt(filename, default_cat_name):
                     
         items.append(item)
             
-        interval = time_of_start.days_since() - item.next_rep
+        interval = item.next_rep - time_of_start.days_since()
         logger.info("Imported item %s %d %d %d %d %d",
                     item.id, item.grade, item.ret_reps,
                     item.last_rep, item.next_rep, interval)
@@ -1507,6 +1506,13 @@ def process_answer(item, new_grade):
                  if i.id == item.id:
                      revision_queue.remove(i)
                      break
+
+         # If this is the very first time we grade this item, (e.g. after
+         # importing it) allow for slightly longer scheduled intervals,
+         # as we might know this item from before (similar to add_new_item). 
+
+         if item.acq_reps == 1 and item.ret_reps == 0 and new_grade > 2:
+             new_interval = new_grade
 
     # In the retention phase and dropping back to the acquisition phase.
 

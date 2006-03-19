@@ -1,10 +1,10 @@
+-double check edit when scheduled.
+
 0.9.2:
 
 -make 'number of grade 0 items to take' user configurable
 
 -reverse check when taking limited number of grade 0 items
-
--make grades > 2 kick in at the very first revision
 
 -use QTextEdit instead of QLabel in main window
 
@@ -12,6 +12,7 @@
 
 -clicking cancel after 'merge and edit' *does* merge
 
+-website in product tour
 
 1.0:
 
@@ -30,7 +31,7 @@
 
 1.1 and later:
 
--sounds 
+-sounds (first external player, later gstreamer?)
 
 -prefix current directory to img or sound tag file
 
