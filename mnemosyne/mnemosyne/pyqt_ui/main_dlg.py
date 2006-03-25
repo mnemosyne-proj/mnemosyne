@@ -446,6 +446,11 @@ class MainDlg(MainFrm):
         self.updateStatusBar()
         if not in_revision_queue(self.item):
             self.newQuestion()
+        else:
+            self.updateQuestion()
+            remove_from_revision_queue(self.item) # It's already being asked.
+        if number_of_items() == 0:
+            self.editItemsAction.setEnabled(0)
         unpause_thinking()
 
     ##########################################################################
