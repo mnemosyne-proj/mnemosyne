@@ -39,6 +39,9 @@ class ConfigurationDlg(ConfigurationFrm):
             get_config("check_duplicates_when_adding"))
         self.duplicatesCats.setChecked( \
             get_config("allow_duplicates_in_diff_cat"))
+
+        self.grade_0_items.setValue( \
+            get_config("grade_0_items_at_once"))
         
         self.connect(self.button_QA_font, SIGNAL("clicked()"),
                      self.QA_font)
@@ -116,6 +119,7 @@ class ConfigurationDlg(ConfigurationFrm):
         set_config("upload_server", unicode(self.uploadServer.text()))
         set_config("check_duplicates_when_adding",self.checkDuplicates.isOn())
         set_config("allow_duplicates_in_diff_cat",self.duplicatesCats.isOn())
+        set_config("grade_0_items_at_once", self.grade_0_items.value())
 
         update_logging_status()             
         

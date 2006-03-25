@@ -7,7 +7,8 @@ old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 	
 - only a limited number of grade 0 items is moved to the learning queue
-  at a single time
+  at a single time. This is 5 by default, but can be set through the
+  configuration screen
 - added ability to import from tab separated text files (as exported e.g.
   by Excel)
 

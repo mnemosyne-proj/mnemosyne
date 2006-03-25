@@ -124,7 +124,8 @@ def init_config():
         config["check_duplicates_when_adding"] = True
     if not config.has_key("allow_duplicates_in_diff_cat"):     
         config["allow_duplicates_in_diff_cat"] = True
-
+    if not config.has_key("grade_0_items_at_once"):
+        config["grade_0_items_at_once"] = 5
 
 
 ##############################################################################
@@ -1311,17 +1312,35 @@ def rebuild_revision_queue(learn_ahead = False):
         
         not_memorised = [i for i in items if i.is_due_for_acquisition_rep()]
 
-        grade_0 = [i for i in not_memorised if i.grade == 0][0:5]
+        grade_0 = [i for i in not_memorised if i.grade == 0]
         grade_1 = [i for i in not_memorised if i.grade == 1]
 
-        random.shuffle(grade_0)
-        revision_queue[0:0] = grade_0
+        limit = get_config("grade_0_items_at_once")
+
+        grade_0_selected = []
+
+        for i in grade_0:
+
+            reverse_present = False
+
+            for j in grade_0_selected:
+                if j.q == i.a and j.a == i.q:
+                    reverse_present = True
+
+            if not reverse_present:
+                grade_0_selected.append(i)
+
+            if len(grade_0_selected) == limit:
+                break
+
+        random.shuffle(grade_0_selected)
+        revision_queue[0:0] = grade_0_selected
 
         random.shuffle(grade_1)
         revision_queue[0:0] = grade_1
         
-        random.shuffle(grade_0)
-        revision_queue[0:0] = grade_0
+        random.shuffle(grade_0_selected)
+        revision_queue[0:0] = grade_0_selected
 
     # If the queue is still empty, then simply return. The user can signal
     # that he wants to learn ahead by calling rebuild_revision_queue with

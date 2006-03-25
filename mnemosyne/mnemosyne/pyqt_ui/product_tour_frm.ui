@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>489</width>
-            <height>333</height>
+            <height>386</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -111,7 +111,7 @@ I will schedule this item to some future date, when I think you'll still be able
         <attribute name="title">
             <string>Grades 3-5</string>
         </attribute>
-        <hbox>
+        <vbox>
             <property name="name">
                 <cstring>unnamed</cstring>
             </property>
@@ -140,7 +140,7 @@ If you fail to remember it altogether, rate it between 0 and 2 (the exact grade 
                     <set>WordBreak|AlignTop</set>
                 </property>
             </widget>
-        </hbox>
+        </vbox>
     </widget>
     <widget class="QWidget">
         <property name="name">
@@ -228,21 +228,26 @@ Uncheck the following boxes if you do not want to do this.</string>
                 <property name="sizePolicy">
                     <sizepolicy>
                         <hsizetype>5</hsizetype>
-                        <vsizetype>1</vsizetype>
+                        <vsizetype>3</vsizetype>
                         <horstretch>0</horstretch>
                         <verstretch>0</verstretch>
                     </sizepolicy>
                 </property>
                 <property name="text">
                     <string>Now you're ready to start!
-
+&lt;p&gt;
 Add new questions by clicking on the 'plus' icon.
-
+&lt;p&gt;
 Remember, there is no need to worry about saving your work, I will do so automatically.
-
+&lt;p&gt;
 For best results, I suggest you do your revisions every day, although I'll try to cope as best I can if you postpone your revisions or if you want to learn ahead of time.
-
+&lt;p&gt;
+For more documentation, see &lt;a href ="http://mnemosyne-proj.sourceforge.net"&gt;http://www.mnemosyne-proj.sourceforge.net&lt;/a&gt;
+&lt;p&gt;
 Happy learning!</string>
+                </property>
+                <property name="textFormat">
+                    <enum>RichText</enum>
                 </property>
                 <property name="alignment">
                     <set>WordBreak|AlignTop</set>
