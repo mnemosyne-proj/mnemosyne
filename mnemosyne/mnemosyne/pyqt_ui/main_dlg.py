@@ -444,6 +444,11 @@ class MainDlg(MainFrm):
         dlg.exec_loop()
         rebuild_revision_queue()
         self.updateStatusBar()
+        
+        if self.item == None: # Button shows 'learn ahead of schedule'.
+            self.show_button.setText("&Show answer")
+            self.languageChange() # Reset shortcuts.
+   
         if not in_revision_queue(self.item):
             self.newQuestion()
         else:
@@ -648,7 +653,7 @@ class MainDlg(MainFrm):
     def showAnswer(self):
 
         if self.item == None: # Button shows 'learn ahead of schedule'.
-            self.show_button.setText("Show answer")
+            self.show_button.setText("&Show answer")
             self.languageChange() # Reset keyboard shortcuts.
             self.newQuestion(learn_ahead = True)
             return
