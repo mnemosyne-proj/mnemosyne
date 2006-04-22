@@ -160,7 +160,7 @@
                         </sizepolicy>
                     </property>
                     <property name="title">
-                        <string>Grade your answer (5 is best):</string>
+                        <string>Grade your answer:</string>
                     </property>
                     <property name="alignment">
                         <set>AlignVCenter|AlignLeft</set>

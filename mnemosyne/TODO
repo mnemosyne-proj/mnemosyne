@@ -8,6 +8,10 @@
 
 -check product tour for large fonts
 
+-export to txt
+
+-limited statistics
+
 1.0:
 
 -superkaramba
@@ -29,21 +33,26 @@
 
 -prefix current directory to img or sound tag file
 
--export ascii
-
 -reset learning data on export
 
 -statistics
+
+-optimise for very large databases (http://www.equi4.com/metakit.html, 
+  sql?)
+
+-multiple categories per item, hierarchical categories
 
 -feedback about uploads in GUI
 
 -automatic backups
 
--celan duplicates for answers too?
+-clean duplicates for answers too?
 
 -handle filenames in multiple encodings
 
 -html preview
+
+-drag and drop of pictures?
 
 -hints? separate mnemonics?
 
@@ -53,7 +62,10 @@
 
 -make sure the same question isn't asked twice in row
 
--bug in Qt: get rid of dummy '.' status tips
+-bug in Qt? : get rid of dummy '.' status tips
+
+-bug in Qt? : shortcuts don't change back after changing 'show answer' 
+ button text
 
 -moving mem files back and forth between Linux and Windows suffers from CR/LF
  vs CR

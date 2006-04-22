@@ -1305,7 +1305,7 @@ def rebuild_revision_queue(learn_ahead = False):
     random.shuffle(revision_queue)
 
     # If the queue is empty, then add items which are not yet memorised.
-    # Take only the first five grade 0 items from the unlearned items,
+    # Take only a limited number of grade 0 items from the unlearned items,
     # to avoid too long intervals between repetitions.
     
     if len(revision_queue) == 0:

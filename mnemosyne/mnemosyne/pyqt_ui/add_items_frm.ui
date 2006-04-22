@@ -114,7 +114,7 @@
                         </sizepolicy>
                     </property>
                     <property name="title">
-                        <string>Select initial grade (5 is best):</string>
+                        <string>Select initial grade:</string>
                     </property>
                     <property name="alignment">
                         <set>AlignVCenter|AlignLeft</set>
