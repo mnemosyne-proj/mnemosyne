@@ -1,3 +1,5 @@
+-open file in 'rb' and 'wb'
+
 0.9.3:
 
 -use QTextEdit instead of QLabel in main window
@@ -11,6 +13,8 @@
 -export to txt
 
 -limited statistics
+
+-per category statistics in 'Activate categories'.
 
 1.0:
 
