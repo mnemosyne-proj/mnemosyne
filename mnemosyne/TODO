@@ -1,3 +1,7 @@
+-resize back after expand
+
+-new category in 'add items' is not reflected in drop-down box
+
 -open file in 'rb' and 'wb'
 
 0.9.3:
@@ -53,12 +57,17 @@
 -clean duplicates for answers too?
 
 -handle filenames in multiple encodings
+-file(...).read().decode('utf-8') to check encoding of text file
 
 -html preview
 
 -drag and drop of pictures?
 
+-colors?
+
 -hints? separate mnemonics?
+
+-back button?
 
 -drop-down box in edit edits to show only items in a single category
 

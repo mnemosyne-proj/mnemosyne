@@ -70,6 +70,9 @@ def initialise():
     if not exists(join(basedir,"history")):
         os.mkdir(join(basedir,"history"))
 
+    lockfile = file(join(basedir,"MNEMOSYNE_LOCK"),'w')
+    lockfile.close()
+
     load_config()
 
     mnemosyne_log.archive_old_log()
@@ -1639,4 +1642,7 @@ def finalise():
         print "done!"
     
     logger.info("Program stopped")
+
+    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    os.remove(os.path.join(basedir,"MNEMOSYNE_LOCK"))
     

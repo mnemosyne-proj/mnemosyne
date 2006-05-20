@@ -23,9 +23,25 @@ try:
 except:
     item_id = None
 
+a = QApplication(sys.argv)
+
+# Check if there is another instance of Mnemosyne running.
+
+basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
+    status = QMessageBox.warning(None,
+             a.trUtf8("Mnemosyne"),
+             a.trUtf8("Another running copy of Mnemosyne was detected.\n" +\
+                      "Starting a new copy could lead to data loss!\n"),
+             a.trUtf8("&Exit"), a.trUtf8("&Continue"),
+             QString(), 0, -1)
+    if status == 0:
+        sys.exit()
+    
+# Start program.
+
 initialise()
 
-a = QApplication(sys.argv)
 w = MainDlg(filename, item_id)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
