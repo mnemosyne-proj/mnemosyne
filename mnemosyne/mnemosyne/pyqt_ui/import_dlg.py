@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Widget to import items from XML <Peter.Bienstman@UGent.be>
+# Widget to import items <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 

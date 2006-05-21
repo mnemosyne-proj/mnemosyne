@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>ExportFrm</class>
 <widget class="QDialog">
     <property name="name">
@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Export to XML</string>
+        <string>Export to file</string>
     </property>
     <widget class="QLayoutWidget">
         <property name="name">
@@ -36,7 +36,7 @@
                     <cstring>textLabel1</cstring>
                 </property>
                 <property name="text">
-                    <string>XML file to export to:</string>
+                    <string>File to export to (XML or txt):</string>
                 </property>
             </widget>
             <widget class="QLayoutWidget">

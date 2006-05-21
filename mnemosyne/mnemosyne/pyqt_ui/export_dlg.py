@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Widget to import items from XML <Peter.Bienstman@UGent.be>
+# Widget to export items <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
@@ -49,7 +49,7 @@ class ExportDlg(ExportFrm):
     def browse(self):
 
         out = unicode(QFileDialog.getSaveFileName(self.default_fname,\
-                                                  "*.xml")).encode("utf-8")
+                                         "(*.xml *.XML *.txt *.TXT)"))
         if out != "":
             
             if out[-4:] != ".xml":
@@ -95,7 +95,7 @@ class ExportDlg(ExportFrm):
                 cat_names_to_export.append(unicode(item.text()))
             item = item.next()
 
-        export_XML(fname, cat_names_to_export)
+        export_file(fname, cat_names_to_export)
 
         self.close()
         

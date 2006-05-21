@@ -1,10 +1,13 @@
+0.9.4:
+
 -resize back after expand
 
+-best way to selectively increase font size?
+
 -new category in 'add items' is not reflected in drop-down box
+-sort category names
 
 -open file in 'rb' and 'wb'
-
-0.9.3:
 
 -use QTextEdit instead of QLabel in main window
 
@@ -13,8 +16,6 @@
 -clicking cancel after 'merge and edit' *does* merge
 
 -check product tour for large fonts
-
--export to txt
 
 -limited statistics
 
@@ -38,8 +39,6 @@
 1.1 and later:
 
 -sounds (first external player, later gstreamer?)
-
--prefix current directory to img or sound tag file
 
 -reset learning data on export
 

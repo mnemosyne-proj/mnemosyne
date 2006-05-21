@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Import XML</string>
+        <string>Import from file</string>
     </property>
     <hbox>
         <property name="name">
@@ -32,7 +32,7 @@
                         <cstring>textLabel1</cstring>
                     </property>
                     <property name="text">
-                        <string>File to import:</string>
+                        <string>File to import from (XML or txt):</string>
                     </property>
                 </widget>
                 <widget class="QLayoutWidget">

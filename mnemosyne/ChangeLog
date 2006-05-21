@@ -1,5 +1,10 @@
 MNEMOSYNE 0.9.3:
 
+- relative paths can now be used in img tags, i.e. <img src="foo/bar.png">
+  instead of <"img src="/home/johndoe/.mnemosyne/foo/bar.png">. Paths are
+  relative to the location of the *.mem file.
+- added ability to export to a txt file (only the questions and the 
+  answers are exported)
 - added locking mechanism which warns you if you start a second
   instance of the program, which could lead to data loss.
 - fixed obscure button labelling bug (patch by J. David Lee)
