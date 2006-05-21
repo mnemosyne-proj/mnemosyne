@@ -612,11 +612,13 @@ def list_is_loaded():
 #
 # escape
 #
-#   Escapes literal < (unmatched tag) and new line from string.
+#   Do some text preprocessing.
 #
 ##############################################################################
 
 def escape(old_string):
+    
+    # Escape literal < (unmatched tag) and new line from string.
     
     hanging = []
     open = 0
@@ -645,6 +647,20 @@ def escape(old_string):
             new_string += "&lt;"
         else:
             new_string += old_string[i]
+
+    # Fill out relative paths.
+
+    prefix = os.path.dirname(get_config("path"))
+
+    i = new_string.lower().find("img src")
+
+    if i != -1:
+        start = new_string.find("\"", i)
+        end   = new_string.find("\"", start+1)
+
+        if new_string[start+1] != "\\" and new_string[start+1] != "/":
+            full_path = os.path.join(prefix, new_string[start+1:end])
+            return new_string[:start] + full_path +new_string[end+1:]
 
     return new_string
 
@@ -712,9 +728,9 @@ def write_category_XML(category, outfile):
 #
 ##############################################################################
 
-def export_XML(path, cat_names_to_export):
+def export_XML(filename, cat_names_to_export):
     
-    outfile = file(path,'w')
+    outfile = file(filename,'w')
 
     print >> outfile, """<?xml version="1.0" encoding="UTF-8"?>"""
     print >> outfile, "<mnemosyne core_version=\"1\" time_of_start=\""\
@@ -732,6 +748,23 @@ def export_XML(path, cat_names_to_export):
 
     outfile.close()
 
+
+
+##############################################################################
+#
+# export_txt
+#
+##############################################################################
+
+def export_txt(filename, cat_names_to_export):
+    
+    outfile = file(filename,'w')
+
+    for e in items:
+        print >> outfile, e.q , "\t", e.a
+
+    outfile.close()
+   
 
 
 ##############################################################################
@@ -1212,6 +1245,24 @@ def import_file(filename, default_cat_name, reset_learning_data=False):
         
     if filename[-4:] == '.txt' or filename[-4:] == '.TXT':
         return import_txt(filename, default_cat_name)
+
+    return False
+
+
+
+##############################################################################
+#
+# export_file
+#
+##############################################################################
+
+def export_file(filename, cat_names_to_export):
+    
+    if filename[-4:] == '.xml' or filename[-4:] == '.XML':
+        return export_XML(filename, cat_names_to_export)
+        
+    if filename[-4:] == '.txt' or filename[-4:] == '.TXT':
+        return export_txt(filename, cat_names_to_export)
 
     return False
 
