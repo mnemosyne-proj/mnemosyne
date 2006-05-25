@@ -610,6 +610,24 @@ def list_is_loaded():
 
 ##############################################################################
 #
+# expand_path
+#
+#   Make relative path absolute and normalise slashes.
+#
+##############################################################################
+
+def expand_path(p):
+
+    if p[0] == "/" or p[1] == ":": # Unix or Windows absolute path.
+        return os.path.normpath(p)
+    else:
+        prefix = os.path.dirname(get_config("path"))   
+        return os.path.normpath(os.path.join(prefix, p))
+
+
+
+##############################################################################
+#
 # escape
 #
 #   Do some text preprocessing.
@@ -650,18 +668,21 @@ def escape(old_string):
 
     # Fill out relative paths.
 
-    prefix = os.path.dirname(get_config("path"))
-
     i = new_string.lower().find("img src")
 
     if i != -1:
+        
         start = new_string.find("\"", i)
         end   = new_string.find("\"", start+1)
 
-        if new_string[start+1] != "\\" and new_string[start+1] != "/":
-            full_path = os.path.join(prefix, new_string[start+1:end])
-            return new_string[:start] + full_path +new_string[end+1:]
+        old_path = new_string[start+1:end]
 
+        new_string = new_string[:start+1] + \
+                     expand_path(old_path) + \
+                     new_string[end:]
+
+        print new_string
+        
     return new_string
 
 

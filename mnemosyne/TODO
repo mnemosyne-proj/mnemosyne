@@ -1,17 +1,19 @@
-0.9.4:
+Before 1.0:
 
--resize back after expand
+-html preview
 
--best way to selectively increase font size?
+-drag and drop of pictures
 
 -new category in 'add items' is not reflected in drop-down box
+
 -sort category names
 
 -open file in 'rb' and 'wb'
 
 -use QTextEdit instead of QLabel in main window
 
--website: FAQ on categories + hierarchy + import text + # grade 0 items
+-website: FAQ on categories + hierarchy + import/export text + # grade 0 
+items
 
 -clicking cancel after 'merge and edit' *does* merge
 
@@ -21,13 +23,22 @@
 
 -per category statistics in 'Activate categories'.
 
-1.0:
+-resize back after expand
 
--superkaramba
+-best way to selectively increase font size?
 
 -website:
   relative layout 
   Google analytics & sitemaps
+
+<script src="http://www.google-analytics.com/urchin.js" 
+type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-333870-1";
+urchinTracker();
+</script>
+
   add to CVS
   php includes
   better mailing list page
@@ -36,7 +47,11 @@
 -graphics in software and on website
 
 
-1.1 and later:
+
+
+Adfer 1.0:
+
+-superkaramba / plasma
 
 -sounds (first external player, later gstreamer?)
 
@@ -57,10 +72,6 @@
 
 -handle filenames in multiple encodings
 -file(...).read().decode('utf-8') to check encoding of text file
-
--html preview
-
--drag and drop of pictures?
 
 -colors?
 
