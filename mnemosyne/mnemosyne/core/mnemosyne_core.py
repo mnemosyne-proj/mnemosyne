@@ -1709,7 +1709,7 @@ def process_answer(item, new_grade):
 def finalise():
 
     if upload_thread:
-        print "Waiting for uploader thread to stop...",
+        print "Waiting for uploader thread to stop..."
         upload_thread.join()
         print "done!"
     
