@@ -680,8 +680,6 @@ def escape(old_string):
         new_string = new_string[:start+1] + \
                      expand_path(old_path) + \
                      new_string[end:]
-
-        print new_string
         
     return new_string
 
