@@ -1,3 +1,8 @@
+MNEMOSYNE 0.9.4: 
+
+- relative path names now work for multiple img tags in the same string.
+  (patch by J. David Lee).
+
 MNEMOSYNE 0.9.3: 2006-05-25
 
 - relative paths can now be used in img tags, i.e. <img src="foo/bar.png">

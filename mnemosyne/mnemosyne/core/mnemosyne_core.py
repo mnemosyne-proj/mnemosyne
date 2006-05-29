@@ -669,8 +669,8 @@ def escape(old_string):
     # Fill out relative paths.
 
     i = new_string.lower().find("img src")
-
-    if i != -1:
+    
+    while i != -1:
         
         start = new_string.find("\"", i)
         end   = new_string.find("\"", start+1)
@@ -680,6 +680,8 @@ def escape(old_string):
         new_string = new_string[:start+1] + \
                      expand_path(old_path) + \
                      new_string[end:]
+
+        i = new_string.lower().find("img src", end+1)
         
     return new_string
 
