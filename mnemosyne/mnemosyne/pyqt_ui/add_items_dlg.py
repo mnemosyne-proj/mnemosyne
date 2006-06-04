@@ -48,7 +48,28 @@ class AddItemsDlg(AddItemsFrm):
         self.question.setTabChangesFocus(1)
         self.answer.setTabChangesFocus(1)
 
+        # Doesn't seem to work yet...
+        
+        #self.question.__class__.dropEvent = self.my_drop_event
 
+
+
+    ##########################################################################
+    #
+    # my_drop_event
+    #
+    ##########################################################################
+
+    def my_drop_event(self, e):
+        
+        t=QString()
+        
+        if QTextDrag.decode(e, t): # fills t with decoded text
+            
+            self.insert(t)
+            self.emit(SIGNAL("textChanged()"), ())
+
+        
 
     ##########################################################################
     #

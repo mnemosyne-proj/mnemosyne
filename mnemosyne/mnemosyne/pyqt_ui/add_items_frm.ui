@@ -79,6 +79,9 @@
                     <property name="name">
                         <cstring>question</cstring>
                     </property>
+                    <property name="acceptDrops">
+                        <bool>true</bool>
+                    </property>
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
@@ -91,6 +94,9 @@
                 <widget class="QTextEdit">
                     <property name="name">
                         <cstring>answer</cstring>
+                    </property>
+                    <property name="acceptDrops">
+                        <bool>true</bool>
                     </property>
                 </widget>
                 <widget class="QCheckBox">

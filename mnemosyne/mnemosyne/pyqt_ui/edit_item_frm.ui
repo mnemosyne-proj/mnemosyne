@@ -79,6 +79,9 @@
                     <property name="name">
                         <cstring>question</cstring>
                     </property>
+                    <property name="acceptDrops">
+                        <bool>true</bool>
+                    </property>
                     <property name="textFormat">
                         <enum>PlainText</enum>
                     </property>
@@ -94,6 +97,9 @@
                 <widget class="QTextEdit">
                     <property name="name">
                         <cstring>answer</cstring>
+                    </property>
+                    <property name="acceptDrops">
+                        <bool>true</bool>
                     </property>
                     <property name="textFormat">
                         <enum>PlainText</enum>
