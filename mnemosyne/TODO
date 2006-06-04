@@ -6,8 +6,6 @@ Before 1.0:
 
 -new category in 'add items' is not reflected in drop-down box
 
--sort category names
-
 -open file in 'rb' and 'wb'
 
 -use QTextEdit instead of QLabel in main window

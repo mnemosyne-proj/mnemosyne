@@ -1,7 +1,10 @@
-MNEMOSYNE 0.9.4: 
+MNEMOSYNE 0.9.4: 2006-06-04
 
+- category names are now sorted alphabetically.
 - relative path names now work for multiple img tags in the same string.
   (patch by J. David Lee).
+- removed leftover debug code which could cause problems with Unicode 
+  items.
 
 MNEMOSYNE 0.9.3: 2006-05-25
 
