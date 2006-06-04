@@ -1,3 +1,14 @@
+MNEMOSYNE 0.9.5:
+
+*** IMPORTANT UPGRADE NOTICE ***
+
+This version uses a different database format. Before upgrading, export your
+old data as xml. After upgrade, create a new database and import the old data
+from the xml file.
+
+-databases can now be moved back and forth between Windows and Unix.
+
+
 MNEMOSYNE 0.9.4: 2006-06-04
 
 - category names are now sorted alphabetically.

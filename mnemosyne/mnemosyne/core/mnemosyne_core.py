@@ -166,7 +166,7 @@ def load_config():
     basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
     try:
-        config_file = file(os.path.join(basedir, "config"), 'r')
+        config_file = file(os.path.join(basedir, "config"), 'rb')
         for k,v in cPickle.load(config_file).iteritems():
             config[k] = v
     except:
@@ -184,7 +184,7 @@ def load_config():
 
 def save_config():
     basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-    config_file = file(os.path.join(basedir,"config"), 'w')
+    config_file = file(os.path.join(basedir,"config"), 'wb')
     cPickle.dump(config, config_file)
 
 
@@ -510,7 +510,7 @@ def load_database(path):
         unload_database()
 
     try:
-        infile = file(path)
+        infile = file(path, 'rb')
         db = cPickle.load(infile)
 
         time_of_start = db[0]
@@ -556,7 +556,7 @@ def save_database(path):
         return False
         
     try:
-        outfile = file(path,'w')
+        outfile = file(path,'wb')
 
         db = [time_of_start, categories, items]
         cPickle.dump(db, outfile)
