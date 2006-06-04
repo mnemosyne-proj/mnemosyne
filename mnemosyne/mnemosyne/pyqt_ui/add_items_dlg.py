@@ -31,9 +31,11 @@ class AddItemsDlg(AddItemsFrm):
         AddItemsFrm.__init__(self,parent,name,modal,fl)
         
         self.categories.insertItem("<default>")
-        for cat in get_categories():
-            if cat.name != "<default>":
-                self.categories.insertItem(cat.name)
+        names = [cat.name for cat in get_categories()]
+        names.sort()
+        for name in names:
+            if name != "<default>":
+                self.categories.insertItem(name)
 
         self.connect(self.grades,SIGNAL("clicked(int)"),
                      self.new_item)

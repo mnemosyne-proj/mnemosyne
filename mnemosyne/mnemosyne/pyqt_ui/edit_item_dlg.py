@@ -30,9 +30,12 @@ class EditItemDlg(EditItemFrm):
         self.item = item
 
         self.categories.insertItem(self.item.cat.name)
-        for cat in get_categories():
-            if cat.name != self.item.cat.name:
-                self.categories.insertItem(cat.name)
+
+        names = [cat.name for cat in get_categories()]
+        names.sort()
+        for name in names:
+            if name != self.item.cat.name:
+                self.categories.insertItem(name)
 
         self.question.setText(self.item.q)
         self.answer.setText(self.item.a)
