@@ -1568,7 +1568,7 @@ def get_new_question(learn_ahead = False):
 
 def process_answer(item, new_grade):
 
-    global revision_queue
+    global revision_queue, items
 
     scheduled_interval = item.next_rep              - item.last_rep
     actual_interval    = time_of_start.days_since() - item.last_rep
@@ -1618,6 +1618,12 @@ def process_answer(item, new_grade):
          item.ret_reps_since_lapse = 0
 
          new_interval = 0
+
+         # Move this item to the front of the list, to have precedence over
+         # items which are still being learned for the first time.
+
+         items.remove(item)
+         items.insert(0,item)
 
     # In the retention phase and staying there.
 
