@@ -20,7 +20,7 @@ MNEMOSYNE 0.9.4: 2006-06-04
 MNEMOSYNE 0.9.3: 2006-05-25
 
 - relative paths can now be used in img tags, i.e. <img src="foo/bar.png">
-  instead of <"img src="/home/johndoe/.mnemosyne/foo/bar.png">. Paths are
+  instead of <img src="/home/johndoe/.mnemosyne/foo/bar.png">. Paths are
   relative to the location of the *.mem file.
 - added ability to export to a txt file (only the questions and the 
   answers are exported).
