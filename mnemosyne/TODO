@@ -57,6 +57,8 @@ Adfer 1.0:
 
 -sounds (first external player, later gstreamer?)
 
+-mimetex for formulas
+
 -reset learning data on export
 
 -statistics
