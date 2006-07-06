@@ -6,8 +6,10 @@ This version uses a different database format. Before upgrading, export your
 old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 
+-fixed a bug where exporting to txt always exported all categories
+ (reported by Dariusz Laska).
 -items which you forget will no longer be pushed out of the revision queue
- by items which you still need to leatn.
+ by items which you still need to learn.
 -databases can now be moved back and forth between Windows and Unix.
 
 

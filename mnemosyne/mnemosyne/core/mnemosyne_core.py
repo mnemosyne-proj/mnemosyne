@@ -782,7 +782,8 @@ def export_txt(filename, cat_names_to_export):
     outfile = file(filename,'w')
 
     for e in items:
-        print >> outfile, e.q , "\t", e.a
+        if e.cat.name in cat_names_to_export:
+            print >> outfile, e.q , "\t", e.a
 
     outfile.close()
    
