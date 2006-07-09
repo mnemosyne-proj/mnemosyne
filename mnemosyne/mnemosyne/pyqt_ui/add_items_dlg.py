@@ -188,3 +188,5 @@ class AddItemsDlg(AddItemsFrm):
             self.answer.setText("")
             
         self.question.setFocus()
+
+        save_database(get_config("path"))
