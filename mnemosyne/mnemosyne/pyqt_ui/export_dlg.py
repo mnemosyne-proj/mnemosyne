@@ -95,7 +95,9 @@ class ExportDlg(ExportFrm):
                 cat_names_to_export.append(unicode(item.text()))
             item = item.next()
 
-        export_file(fname, cat_names_to_export)
+        reset_learning_data = self.reset_box.isChecked()
+
+        export_file(fname, cat_names_to_export, reset_learning_data)
 
         self.close()
         
