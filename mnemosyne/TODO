@@ -10,8 +10,6 @@ Before 1.0:
 
 -new category in 'add items' is not reflected in drop-down box
 
--open file in 'rb' and 'wb'
-
 -use QTextEdit instead of QLabel in main window
 
 -website: FAQ on categories + hierarchy + import/export text + # grade 0 
@@ -23,13 +21,12 @@ items
 
 -limited statistics
 
--per category statistics in 'Activate categories'.
+-per category statistics in 'Activate categories'?
 
 -resize back after expand
 
 -best way to selectively increase font size?
 
--utf-8 txt import
 
 -website:
   relative layout 
@@ -53,15 +50,17 @@ urchinTracker();
 
 
 
-Adfer 1.0:
+After 1.0:
 
--superkaramba / plasma
+-utf-8 txt import
+-handle filenames in multiple encodings
+-file(...).read().decode('utf-8') to check encoding of text file
 
 -sounds (first external player, later gstreamer?)
 
--mimetex for formulas
+-superkaramba / plasma
 
--reset learning data on export
+-mimetex for formulas
 
 -statistics
 
@@ -75,9 +74,6 @@ Adfer 1.0:
 -automatic backups
 
 -clean duplicates for answers too?
-
--handle filenames in multiple encodings
--file(...).read().decode('utf-8') to check encoding of text file
 
 -colors?
 
