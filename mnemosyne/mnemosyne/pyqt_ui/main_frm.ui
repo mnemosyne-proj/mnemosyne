@@ -519,7 +519,7 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>Activate &amp;categories</string>
+            <string>Ac&amp;tivate categories</string>
         </property>
         <property name="toolTip">
             <string></string>
@@ -631,7 +631,7 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>Edit &amp;current item</string>
+            <string>E&amp;dit current item</string>
         </property>
         <property name="toolTip">
             <string>Edit current item</string>
