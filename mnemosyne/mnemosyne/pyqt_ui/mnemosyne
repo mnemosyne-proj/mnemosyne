@@ -41,7 +41,7 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
 # Start program.
 
 initialise()
-
+            
 w = MainDlg(filename, item_id)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)

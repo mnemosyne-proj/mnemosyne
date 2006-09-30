@@ -66,12 +66,12 @@ class MainDlg(MainFrm):
                      self.activateCategories)
         self.connect(self.productTourAction,SIGNAL("activated()"),
                      self.productTour)
-        
+
         if filename != None:
             load_database(filename)
         else:
             load_database(get_config("path"))
-            
+        
         self.updateCaption()
         self.updateStatusBar()
 
@@ -309,6 +309,7 @@ class MainDlg(MainFrm):
         self.updateStatusBar()
         if self.item == None:
             self.show_button.setText("&Show answer")
+            self.show_button.setDefault(True)
             self.newQuestion()
 
         if number_of_items() != 0:
@@ -621,6 +622,7 @@ class MainDlg(MainFrm):
 
         self.editCurrentItemAction.setEnabled(1)
         self.deleteCurrentItemAction.setEnabled(1)
+        self.show_button.setDefault(True)
         self.show_button.setEnabled(1)
         start_thinking()
 
@@ -661,6 +663,8 @@ class MainDlg(MainFrm):
         stop_thinking()
         self.answer.setText(escape(self.item.a))        
         self.show_button.setEnabled(0)
+        self.show_button.setDefault(False)
+        self.grade_4_button.setDefault(True)
         self.grades.setEnabled(1)
         
     ##########################################################################
@@ -673,6 +677,7 @@ class MainDlg(MainFrm):
 
         process_answer(self.item, grade)
         self.grades.setEnabled(0)
+        self.grade_4_button.setDefault(False)
         self.updateStatusBar()
         self.question.setText("")
         self.answer.setText("")

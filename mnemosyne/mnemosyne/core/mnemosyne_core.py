@@ -26,7 +26,6 @@ upload_thread = None
 load_failed = False
 
 items = []
-import_items = []
 revision_queue = []
 
 categories = []
@@ -689,119 +688,195 @@ def escape(old_string):
 
 ##############################################################################
 #
-# write_item_XML
+# FileFormat
+#
+# Each file format that Mnemosyne supports is identified by a name (a string).
+# Additionally, a file format needs a file name filter (in a string), a
+# function to import data from a file of the respective type, and a function
+# to export data in the respective format.
+#
+# The file format name will appear in the import and export dialogues.
+# Therefore, they shall be easy to understand by a user, e.g. "Text
+# with tab-separated Q/A".
+#
+# The file name filter has to be given in Qt format, e. g. "XML Files (*.xml
+# *XML)". It will be used in the file selection dialogues.
+#
+# TODO-dh: Think about creating a directory, where each .py file is read at
+#     startup.  With such a mechanism, adding additional file formats would
+#     not even demand any code change in Mnemosyne's core.
 #
 ##############################################################################
 
-def write_item_XML(e, outfile, reset_learning_data=False):
+file_formats = []
 
-    if reset_learning_data == False:
-        print >> outfile, "<item id=\""+str(e.id) + "\"" \
-                         + " gr=\""+str(e.grade) + "\"" \
-                         + " e=\""+ "%.3f" % e.easiness + "\"" \
-                         + " ac_rp=\""+str(e.acq_reps) + "\"" \
-                         + " rt_rp=\""+str(e.ret_reps) + "\""  \
-                         + " lps=\""+str(e.lapses) + "\"" \
-                         + " ac_rp_l=\""+str(e.acq_reps_since_lapse) + "\"" \
-                         + " rt_rp_l=\""+str(e.ret_reps_since_lapse) + "\"" \
-                         + " l_rp=\""+str(e.last_rep) + "\"" \
-                         + " n_rp=\""+str(e.next_rep) + "\">"
+class FileFormat:
+
+    def __init__(self, name, filter="",
+                 import_function=False, export_function=False):
+
+        self.name = name
+        self.filter = filter
+        self.import_function = import_function
+        self.export_function = export_function
+
+
+
+##############################################################################
+#
+# register_file_format
+#
+##############################################################################
+
+def register_file_format(name, filter="",
+                         import_function=False, export_function=False):
+
+    global file_formats
+    
+    file_formats.append(FileFormat(name, filter,
+                                   import_function, export_function))
+    
+    file_formats.sort(lambda x,y: cmp(x.name, y.name))
+
+
+
+##############################################################################
+#
+# get_importable_file_formats
+#
+##############################################################################
+
+def get_importable_file_formats():
+     return [f for f in file_formats if f.import_function]
+
+
+
+##############################################################################
+#
+# get_exportable_file_formats
+#
+##############################################################################
+
+def get_exportable_file_formats():
+     return [f for f in file_formats if f.export_function]
+
+
+
+##############################################################################
+#
+# get_file_format_from_name
+#
+##############################################################################
+
+def get_file_format_from_name(name):
+
+    for fformat in file_formats:
+        if name == fformat.name:
+            return fformat
+
+    raise NameError("Illegal file format name.")
+
+
+
+##############################################################################
+#
+# swallow_eol
+#
+##############################################################################
+
+def swallow_eol(s):
+
+    if s[-2:] == '\r\n':
+        return s[:-2]
+
+    if s[-1:] == '\n':
+        return s[:-1]
+
+    return s
+
+
+
+##############################################################################
+#
+# import_file
+#
+##############################################################################
+
+def import_file(filename, fformat_name, default_cat_name,
+                reset_learning_data=False):
+
+    global category_by_name, categories, load_failed, revision_queue
+
+    # If no database is active, create one.
+
+    if not time_of_start:
+        new_database(config["path"])
+
+    # Create default category if necessary.
+
+    if default_cat_name not in category_by_name.keys():
+        default_cat = Category(default_cat_name)
+        categories.append(default_cat)
+        category_by_name[default_cat_name] = default_cat
     else:
-         print >> outfile, "<item>"
-         
-    print >> outfile, " <cat><![CDATA["+e.cat.name.encode("utf-8")+"]]></cat>"
-    print >> outfile, " <Q><![CDATA["+e.q.encode("utf-8")+"]]></Q>"
-    print >> outfile, " <A><![CDATA["+e.a.encode("utf-8")+"]]></A>"
-    print >> outfile, "</item>"
+        default_cat = category_by_name[default_cat_name]
 
+    # Call import function according to file format name
 
+    fformat = get_file_format_from_name(fformat_name)
+    imported_items = fformat.import_function(filename, default_cat,
+                                             reset_learning_data)
+    if imported_items == False:
+        return False # Failure.
 
-##############################################################################
-#
-# bool_to_digit
-#
-##############################################################################
-
-def bool_to_digit(b):
+    # Add new items.
     
-    if b == True:
-        return "1"
-    else:
-        return "0"
+    for item in imported_items:
+                    
+        # Don't add if the item is already in the database.
+
+        for i in get_items():
+            if i.q == item.q and i.a == item.a:
+                break
+        else:
+            items.append(item)
+            
+            if item.is_due_for_retention_rep():
+                revision_queue[0:0] = [item]
+                
+            interval = item.next_rep - time_of_start.days_since()
+            logger.info("Imported item %s %d %d %d %d %d",
+                        item.id, item.grade, item.ret_reps,
+                        item.last_rep, item.next_rep, interval)
+
+    # Clean up.
+
+    if default_cat.in_use() == False:
+        del category_by_name[default_cat.name]
+        categories.remove(default_cat)
+
+    load_failed = False
+
+    return True # Success.
 
 
 
 ##############################################################################
 #
-# write_category_XML
+# export_file
 #
 ##############################################################################
 
-def write_category_XML(category, outfile, reset_learning_data):
-
-    if reset_learning_data == True:
-        active = True
-    else:
-        active = category.active
+def export_file(filename, fformat_name,
+                cat_names_to_export, reset_learning_data):
     
-    print >> outfile, "<category active=\"" \
-          + bool_to_digit(active) + "\">"
-    print >> outfile, " <name><![CDATA["+category.name.encode("utf-8") \
-          +"]]></name>"
-    print >> outfile, "</category>"
+    # Call export function according to file format name.
 
-    
+    fformat = get_file_format_from_name(fformat_name)
+    fformat.export_function(filename, cat_names_to_export, reset_learning_data)
 
-##############################################################################
-#
-# export_XML
-#
-##############################################################################
+    return True
 
-def export_XML(filename, cat_names_to_export, reset_learning_data):
-    
-    outfile = file(filename,'w')
-
-    print >> outfile, """<?xml version="1.0" encoding="UTF-8"?>"""
-
-    print >> outfile, "<mnemosyne core_version=\"1\"",
-
-    if reset_learning_data == False:
-        print >> outfile, "time_of_start=\"" + \
-              str(long(time_of_start.time))+"\"",
-
-    print >> outfile, ">"
-    
-    for cat in categories:
-        if cat.name in cat_names_to_export:
-            write_category_XML(cat, outfile, reset_learning_data)
-
-    for e in items:
-        if e.cat.name in cat_names_to_export:
-            write_item_XML(e, outfile, reset_learning_data)
-
-    print >> outfile, """</mnemosyne>"""
-
-    outfile.close()
-
-
-
-##############################################################################
-#
-# export_txt
-#
-##############################################################################
-
-def export_txt(filename, cat_names_to_export):
-    
-    outfile = file(filename,'w')
-
-    for e in items:
-        if e.cat.name in cat_names_to_export:
-            print >> outfile, e.q , "\t", e.a
-
-    outfile.close()
-   
 
 
 ##############################################################################
@@ -824,6 +899,8 @@ class XML_Importer(saxutils.DefaultHandler):
 
         self.default_cat = default_cat
         self.reset_learning_data = reset_learning_data
+
+        self.imported_items = []
 
     def to_bool(self, string):
         if string == '0':
@@ -897,7 +974,10 @@ class XML_Importer(saxutils.DefaultHandler):
 
     def endElement(self, name):
 
-        global import_items, categories, category_by_name
+        def decode_cdata(s):
+            return saxutils.unescape(s)
+
+        global categories, category_by_name
     
         self.reading[name] = False
 
@@ -905,17 +985,11 @@ class XML_Importer(saxutils.DefaultHandler):
        
         if name == "A":
 
-            self.item.q = self.text["Q"]
-            self.item.a = self.text["A"]
-
-            # Don't add if the item is already in the database.
-
-            for i in get_items():
-                if i.q == self.item.q and i.a == self.item.a:
-                    return
+            self.item.q = decode_cdata(self.text["Q"])
+            self.item.a = decode_cdata(self.text["A"])
 
             if "cat" in self.text.keys():
-                cat_name = self.text["cat"]
+                cat_name = decode_cdata(self.text["cat"])
                 if not cat_name in category_by_name.keys():
                     new_cat = Category(cat_name)
                     categories.append(new_cat)
@@ -934,7 +1008,7 @@ class XML_Importer(saxutils.DefaultHandler):
                 self.item.next_rep = 0
                 self.item.last_rep = 0
 
-            import_items.append(self.item)
+            self.imported_items.append(self.item)
 
         # A category ends with 'name'.
 
@@ -966,6 +1040,8 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
 
         self.default_cat = default_cat
         self.reset_learning_data = reset_learning_data
+
+        self.imported_items = []
 
     def to_bool(self, string):
         if string == '0':
@@ -1007,7 +1083,7 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
 
     def endElement(self, name):
 
-        global import_items, categories, category_by_name
+        global categories, category_by_name
     
         self.reading[name] = False
 
@@ -1017,12 +1093,6 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
 
             self.item.q = self.text["Q"]
             self.item.a = self.text["A"]
-
-            # Don't add if the item is already in the database.
-
-            for i in get_items():
-                if i.q == self.item.q and i.a == self.item.a:
-                    return
 
             if "cat" in self.text.keys():
                 cat_name = self.text["cat"]
@@ -1044,7 +1114,7 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
                 self.item.next_rep = 0
                 self.item.last_rep = 0
 
-            import_items.append(self.item)
+            self.imported_items.append(self.item)
 
         # A category ends with 'name'.
 
@@ -1057,32 +1127,21 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
                 categories.append(cat)
                 category_by_name[name] = cat
 
-             
+          
 
 ##############################################################################
 #
 # import_XML
 #
+#   Note that we do not register separate file formats for Mnemosyne and
+#   Memaid XML. We're able to figure out the difference on our own and do not
+#   need to put this burden on the user.
+#
 ##############################################################################
 
-def import_XML(filename, default_cat_name, reset_learning_data=False):
+def import_XML(filename, default_cat, reset_learning_data=False):
     
-    global import_items, categories, category_by_name, load_failed
-    global items, revision_queue
-
-    # If no database is active, create one.
-
-    if not time_of_start:
-        new_database(config["path"])
-
-    # Create default category if necessary.
-
-    if default_cat_name not in category_by_name.keys():
-        default_cat = Category(default_cat_name)
-        categories.append(default_cat)
-        category_by_name[default_cat_name] = default_cat
-    else:
-        default_cat = category_by_name[default_cat_name]
+    global items
 
     # Determine if we import a Mnemosyne or a Memaid file.
 
@@ -1131,7 +1190,7 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
 
     if reset_learning_data == False:
         if cur_start_date <= imp_start_date :
-            for item in import_items:
+            for item in handler.imported_items:
                 item.last_rep += abs(offset)
                 item.next_rep += abs(offset)
         else:
@@ -1139,32 +1198,116 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
             for item in items:
                 item.last_rep += abs(offset)
                 item.next_rep += abs(offset)
-            
-    # Add new items.
+
+    return handler.imported_items
+
+
+
+##############################################################################
+#
+# write_item_XML
+#
+##############################################################################
+
+def write_item_XML(e, outfile, reset_learning_data=False):
+
+    def encode_cdata(s):
+        return "<![CDATA[" + saxutils.escape(s.encode("utf-8")) + "]]>"
+
+    if reset_learning_data == False:
+        print >> outfile, "<item id=\""+str(e.id) + "\"" \
+                         + " gr=\""+str(e.grade) + "\"" \
+                         + " e=\""+ "%.3f" % e.easiness + "\"" \
+                         + " ac_rp=\""+str(e.acq_reps) + "\"" \
+                         + " rt_rp=\""+str(e.ret_reps) + "\""  \
+                         + " lps=\""+str(e.lapses) + "\"" \
+                         + " ac_rp_l=\""+str(e.acq_reps_since_lapse) + "\"" \
+                         + " rt_rp_l=\""+str(e.ret_reps_since_lapse) + "\"" \
+                         + " l_rp=\""+str(e.last_rep) + "\"" \
+                         + " n_rp=\""+str(e.next_rep) + "\">"
+    else:
+         print >> outfile, "<item>"
+         
+    print >> outfile, " <cat>" + encode_cdata(e.cat.name) + "</cat>"
+    print >> outfile, " <Q>" + encode_cdata(e.q) + "</Q>"
+    print >> outfile, " <A>" + encode_cdata(e.a) + "</A>"
+    print >> outfile, "</item>"
+
+
+
+##############################################################################
+#
+# bool_to_digit
+#
+##############################################################################
+
+def bool_to_digit(b):
     
-    for item in import_items:
-                    
-        items.append(item)
-        
-        if item.is_due_for_retention_rep():
-            revision_queue[0:0] = [item]
-            
-        interval = item.next_rep - time_of_start.days_since()
-        logger.info("Imported item %s %d %d %d %d %d",
-                    item.id, item.grade, item.ret_reps,
-                    item.last_rep, item.next_rep, interval)
+    if b == True:
+        return "1"
+    else:
+        return "0"
 
-    # Clean up.
 
-    if default_cat.in_use() == False:
-        del category_by_name[default_cat.name]
-        categories.remove(default_cat)
-        
-    import_items = []
 
-    load_failed = False
+##############################################################################
+#
+# write_category_XML
+#
+##############################################################################
 
-    return True
+def write_category_XML(category, outfile, reset_learning_data):
+
+    if reset_learning_data == True:
+        active = True
+    else:
+        active = category.active
+    
+    print >> outfile, "<category active=\"" \
+          + bool_to_digit(active) + "\">"
+    print >> outfile, " <name><![CDATA["+category.name.encode("utf-8") \
+          +"]]></name>"
+    print >> outfile, "</category>"
+
+    
+
+##############################################################################
+#
+# export_XML
+#
+##############################################################################
+
+def export_XML(filename, cat_names_to_export, reset_learning_data):
+    
+    outfile = file(filename,'w')
+
+    print >> outfile, """<?xml version="1.0" encoding="UTF-8"?>"""
+
+    print >> outfile, "<mnemosyne core_version=\"1\"",
+
+    if reset_learning_data == False:
+        print >> outfile, "time_of_start=\"" + \
+              str(long(time_of_start.time))+"\"",
+
+    print >> outfile, ">"
+    
+    for cat in categories:
+        if cat.name in cat_names_to_export:
+            write_category_XML(cat, outfile, reset_learning_data)
+
+    for e in items:
+        if e.cat.name in cat_names_to_export:
+            write_item_XML(e, outfile, reset_learning_data)
+
+    print >> outfile, """</mnemosyne>"""
+
+    outfile.close()
+
+
+register_file_format("XML",
+                     filter="XML file (*.xml *.XML)",
+                     import_function=import_XML,
+                     export_function=export_XML)
 
 
 
@@ -1172,25 +1315,15 @@ def import_XML(filename, default_cat_name, reset_learning_data=False):
 #
 # import_txt
 #
+#   Question and answers on a single line, separated by tab.
+#
 ##############################################################################
 
-def import_txt(filename, default_cat_name):
+def import_txt(filename, default_cat, reset_learning_data=False):
     
-    global categories, category_by_name, load_failed, items
+    global items
 
-    # If no database is active, create one.
-
-    if not time_of_start:
-        new_database(config["path"])
-
-    # Create default category if necessary.
-
-    if default_cat_name not in category_by_name.keys():
-        default_cat = Category(default_cat_name)
-        categories.append(default_cat)
-        category_by_name[default_cat_name] = default_cat
-    else:
-        default_cat = category_by_name[default_cat_name]
+    imported_items = []
 
     # Parse txt file.
 
@@ -1225,83 +1358,285 @@ def import_txt(filename, default_cat_name):
             print "Error parsing txt file:\n"
             traceback.print_exc()
             return False   
-     
-        # Swallow EOL.
 
-        if item.a[-2:] == '\r\n':
-            item.a = item.a[:-2]
-            
-        if item.a[-1:] == '\n':
-            item.a = item.a[:-1]
-        
-        # Don't add if the item is already in the database.
-
-        unique = True
-        
-        for i in get_items():
-            if i.q == item.q and i.a == item.a:
-                unique = False
-                continue
-
-        if unique == False:
-            continue
+        item.a = swallow_eol(item.a)
         
         item.easiness = avg_easiness
         item.cat = default_cat
         item.new_id()
                     
-        items.append(item)
+        imported_items.append(item)
+
+    return imported_items
+
+
+
+##############################################################################
+#
+# export_txt
+#
+##############################################################################
+
+def export_txt(filename, cat_names_to_export, reset_learning_data=False):
+    
+    outfile = file(filename,'w')
+
+    for e in items:
+        if e.cat.name in cat_names_to_export:
+            print >> outfile, e.q + "\t" + e.a
+
+    outfile.close()
+    
+
+register_file_format("Text with tab separated Q/A",
+                     filter="Text file (*.txt *.TXT)",
+                     import_function=import_txt,
+                     export_function=export_txt)
+
+
+
+##############################################################################
+#
+# Functions for importing and exporting files in SuperMemo's text file format:
+# A line starting with `Q: ´ holds a question, a line starting with `A: ´
+# holds an answer.  Several consecutive question lines form a multi line
+# question, several consecutive answer lines form a multi line answer.  After
+# the answer lines, learning data may follow.  This consists of a line like
+# `I: REP=8 LAP=0 EF=3.200 UF=2.370 INT=429 LAST=27.01.06´ and a line like
+# `O: 36´.  After each item (even the last one) there must be an empty line.
+#
+##############################################################################
+
+def read_line_sm7qa(f):
+
+    line = f.readline()
+
+    if not line:
+        return False
+
+    line = swallow_eol(line)
+
+    # Supermemo uses the octet 0x03 to represent the ú character.  Since this
+    # does not seem to be a standard encoding, we simply replace this.
+    
+    line = line.replace("\x03", "ú")
+
+    try:
+        line = unicode(line, "latin")
+    except:
+        try:
+            line = unicode(line, "utf-8")
+        except:
+            print "Unrecognised encoding."
+            return False
+
+    return line
+
+
+
+def import_sm7qa(filename, default_cat, reset_learning_data=False):
+
+    global items
+
+    # Parse txt file.
+
+    avg_easiness = average_easiness()
+
+    f = None
+    try:
+        f = file(filename)
+    except:
+        try:
+            f = file(filename.encode("latin"))
+        except:
+            print "Unable to open file."
+            return False
+
+    imported_items = []
+    state = "ITEM-START"
+    error = False
+
+    while not error and state != "END-OF-FILE":
+
+        line = read_line_sm7qa(f)
+
+        # Perform the actions of the current state and calculate the next state.
+
+        if state == "ITEM-START":
             
-        interval = item.next_rep - time_of_start.days_since()
-        logger.info("Imported item %s %d %d %d %d %d",
-                    item.id, item.grade, item.ret_reps,
-                    item.last_rep, item.next_rep, interval)
+            # Expecting a new item to start, or the end of the input file.
+            
+            if line == False:
+                next_state = "END-OF-FILE"
+            elif line == "":
+                next_state = "ITEM-START"
+            elif line.startswith("Q:"):
+                question = line[2:].strip()
+                repetitions = 0
+                lapses = 0
+                easiness = avg_easiness
+                interval = 0
+                last = 0
+                next_state = "QUESTION"
+            else:
+                error = True
+        elif state == "QUESTION":
+            
+            # We have already read the first question line. Further question
+            # lines may follow, or the first answer line.
 
-    # Clean up.
+            if line == False:
+                error = True
+            elif line.startswith("Q:"):
+                question = question + "\n" + line[2:].strip()
+                next_state = "QUESTION"
+            elif line.startswith("A:"):
+                answer = line[2:].strip()
+                next_state = "ANSWER"
+            else:
+                error = True
+        elif state == "ANSWER":
+            
+            # We have already read the first answer line. Further answer
+            # lines may follow, or the lines with the learning data.
+            # Otherwise, the item has to end with either an empty line or with
+            # the end of the input file.
+            
+            if line == False:
+                next_state = "END-OF-FILE"
+            elif line == "":
+                next_state = "ITEM-START"
+            elif line.startswith("A:"):
+                answer = answer + "\n" + line[2:].strip()
+                next_state = "ANSWER"
+            elif line.startswith("I:"):
+                attributes = line[2:].split()
+                if len(attributes) != 6:
+                    error = True
+                else:
+                    if ( attributes[0].startswith("REP=")
+                            and attributes[1].startswith("LAP=")
+                            and attributes[2].startswith("EF=")
+                            and attributes[4].startswith("INT=")
+                            and attributes[5].startswith("LAST=") ):
+                        repetitions = int(attributes[0][4:])
+                        lapses = int(attributes[1][4:])
+                        easiness = float(attributes[2][3:])
+                        interval = int(attributes[4][4:])
+                        if attributes[5] == "LAST=0":
+                            last = 0
+                        else:
+                            last = time.strptime(attributes[5][5:], "%d.%m.%y")
+                    else:
+                        error = True
+                next_state = "LEARNING-DATA"
+            else:
+                error = True
+        elif state == "LEARNING-DATA":
+            
+            # We have already read the first line of the learning data. The
+            # second line with the learning data has to follow.
+            
+            if line == False:
+                error = True
+            elif line.startswith("O:"): # This line is ignored.
+                next_state = "ITEM-END"
+            else:
+                error = True
+        elif state == "ITEM-END":
+            
+            # We have already read all learning data. The item has to end
+            # with either an empty line or with the end of the input file.
+            
+            if line == False:
+                next_state = "END-OF-FILE"
+            elif line == "":
+                next_state = "ITEM-START"
+            else:
+                error = True
 
-    if default_cat.in_use() == False:
-        del category_by_name[default_cat.name]
-        categories.remove(default_cat)
+        # Perform the transition actions that are common for a set of
+        # transitions.
 
-    load_failed = False
+        if ( (state == "ANSWER" and next_state == "END-OF-FILE")
+                or (state == "ANSWER" and next_state == "ITEM-START")
+                or (state == "ITEM-END" and next_state == "END-OF-FILE")
+                or (state == "ITEM-END" and next_state == "ITEM-START") ):
+            item = Item()
 
-    return True
+            if not reset_learning_data:
+                
+                # Calculate the dates for the last and next repetitions.
+                
+                if last == 0:
+                    last_in_seconds = 0
+                else:
+                    last_in_seconds = StartTime(time.mktime(last)).time \
+                                      - time_of_start.time
+                last_in_days = last_in_seconds / 60. / 60. / 24.
+                item.last_rep = long(max(0, last_in_days ))
+                item.next_rep = long(max(0, last_in_days + interval ))
+
+                # A grade information is not given directly in the file format.
+                
+                if item.next_rep > 0:
+                    
+                    # SuperMemo has scheduled the item for tomorrow or later. We
+                    # set the grade to 4 to make Mnemosyne comply to this.
+                    
+                    item.grade = 4
+                    
+                elif repetitions == 0:
+                    
+                    # The item is new, there are no repetitions yet.
+                    
+                    item.grade = 0
+                    
+                elif repetitions == 1 and lapses > 0:
+                    
+                    # The learner had a lapse with the last repetition.
+                    
+                    item.grade = 0
+                    
+                else:
+                    
+                    # There were either no lapses yet, or some successful
+                    # repetitions since.
+                    
+                    item.grade = 4
+                    
+                item.easiness = easiness
+
+                # The following information is not reconstructed from SuperMemo:
+                #
+                # item.acq_reps, item.ret_reps, item.lapses,
+                # item.acq_reps_since_lapse, item.ret_reps_since_lapse
+
+                # The following information from SuperMemo is not used: UF, O_value
+
+            item.q = saxutils.escape(question)
+            item.a = saxutils.escape(answer)
+            item.cat = default_cat
+
+            item.new_id()
+
+            imported_items.append(item)
+
+        # Go to the next state.
+
+        state = next_state
+
+    if error:
+        return False
+    else:
+        return imported_items
 
 
+register_file_format("SuperMemo7 Text in Q:/A: format",
+                     filter="SuperMemo7 text tile (*.txt *.TXT)",
+                     import_function=import_sm7qa,
+                     export_function=False)
 
-##############################################################################
-#
-# import_file
-#
-##############################################################################
-
-def import_file(filename, default_cat_name, reset_learning_data=False):
-    
-    if filename[-4:] == '.xml' or filename[-4:] == '.XML':
-        return import_XML(filename, default_cat_name, reset_learning_data)
-        
-    if filename[-4:] == '.txt' or filename[-4:] == '.TXT':
-        return import_txt(filename, default_cat_name)
-
-    return False
-
-
-
-##############################################################################
-#
-# export_file
-#
-##############################################################################
-
-def export_file(filename, cat_names_to_export, reset_learning_data):
-    
-    if filename[-4:] == '.xml' or filename[-4:] == '.XML':
-        return export_XML(filename, cat_names_to_export, reset_learning_data)
-        
-    if filename[-4:] == '.txt' or filename[-4:] == '.TXT':
-        return export_txt(filename, cat_names_to_export)
-
-    return False
 
 
 
@@ -1483,17 +1818,6 @@ def remove_from_revision_queue(item):
 
 ##############################################################################
 #
-# still_exits
-#
-##############################################################################
-
-def still_exits(item):
-    return item in items
-
-
-
-##############################################################################
-#
 # start_thinking
 #
 ##############################################################################
@@ -1588,8 +1912,6 @@ def process_answer(item, new_grade):
 
     scheduled_interval = item.next_rep              - item.last_rep
     actual_interval    = time_of_start.days_since() - item.last_rep
-
-    rebuild_needed = False
 
     # In the acquisition phase and staying there.
     

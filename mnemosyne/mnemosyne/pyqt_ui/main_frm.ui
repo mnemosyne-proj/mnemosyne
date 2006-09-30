@@ -78,6 +78,9 @@
                     <property name="text">
                         <string></string>
                     </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
                     <property name="scaledContents">
                         <bool>true</bool>
                     </property>
@@ -87,7 +90,7 @@
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
-                        <cstring>textLabel2_2</cstring>
+                        <cstring>answer_label</cstring>
                     </property>
                     <property name="text">
                         <string>Answer:</string>
@@ -127,6 +130,9 @@
                     <property name="text">
                         <string></string>
                     </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
                     <property name="scaledContents">
                         <bool>true</bool>
                     </property>
@@ -146,9 +152,6 @@
                     </property>
                     <property name="text">
                         <string>Show answer</string>
-                    </property>
-                    <property name="accel">
-                        <string>Enter</string>
                     </property>
                 </widget>
                 <widget class="QButtonGroup">
@@ -189,7 +192,7 @@
                                 </property>
                                 <widget class="QPushButton">
                                     <property name="name">
-                                        <cstring>pushButton1</cstring>
+                                        <cstring>grade_0_button</cstring>
                                     </property>
                                     <property name="text">
                                         <string>&amp;0</string>
@@ -206,7 +209,7 @@
                                 </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
-                                        <cstring>pushButton1_2</cstring>
+                                        <cstring>grade_1_button</cstring>
                                     </property>
                                     <property name="text">
                                         <string>&amp;1</string>
@@ -223,7 +226,7 @@
                                 </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
-                                        <cstring>pushButton1_3</cstring>
+                                        <cstring>grade_2_button</cstring>
                                     </property>
                                     <property name="text">
                                         <string>&amp;2</string>
@@ -240,7 +243,7 @@
                                 </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
-                                        <cstring>pushButton1_4</cstring>
+                                        <cstring>grade_3_button</cstring>
                                     </property>
                                     <property name="text">
                                         <string>&amp;3</string>
@@ -257,7 +260,7 @@
                                 </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
-                                        <cstring>pushButton1_5</cstring>
+                                        <cstring>grade_4_button</cstring>
                                     </property>
                                     <property name="text">
                                         <string>&amp;4</string>
@@ -274,7 +277,7 @@
                                 </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
-                                        <cstring>pushButton1_6</cstring>
+                                        <cstring>grade_5_button</cstring>
                                     </property>
                                     <property name="text">
                                         <string>&amp;5</string>
@@ -711,6 +714,35 @@
             <string>&amp;Mnemosyne product tour</string>
         </property>
     </action>
+    <action>
+        <property name="name">
+            <cstring>defaultAction</cstring>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>pressEnterAction</cstring>
+        </property>
+        <property name="accel">
+            <string>Enter</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>pressReturnAction</cstring>
+        </property>
+        <property name="accel">
+            <string>Return</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>pressSpaceAction</cstring>
+        </property>
+        <property name="accel">
+            <string>Space</string>
+        </property>
+    </action>
 </actions>
 <images>
     <image name="image0">
@@ -787,15 +819,45 @@
         <receiver>MainFrm</receiver>
         <slot>helpAbout()</slot>
     </connection>
+    <connection>
+        <sender>defaultAction</sender>
+        <signal>activated()</signal>
+        <receiver>show_button</receiver>
+        <slot>animateClick()</slot>
+    </connection>
+    <connection>
+        <sender>defaultAction</sender>
+        <signal>activated()</signal>
+        <receiver>grade_4_button</receiver>
+        <slot>animateClick()</slot>
+    </connection>
+    <connection>
+        <sender>pressEnterAction</sender>
+        <signal>activated()</signal>
+        <receiver>defaultAction</receiver>
+        <slot>activate()</slot>
+    </connection>
+    <connection>
+        <sender>pressReturnAction</sender>
+        <signal>activated()</signal>
+        <receiver>defaultAction</receiver>
+        <slot>activate()</slot>
+    </connection>
+    <connection>
+        <sender>pressSpaceAction</sender>
+        <signal>activated()</signal>
+        <receiver>defaultAction</receiver>
+        <slot>activate()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>show_button</tabstop>
-    <tabstop>pushButton1</tabstop>
-    <tabstop>pushButton1_2</tabstop>
-    <tabstop>pushButton1_3</tabstop>
-    <tabstop>pushButton1_4</tabstop>
-    <tabstop>pushButton1_5</tabstop>
-    <tabstop>pushButton1_6</tabstop>
+    <tabstop>grade_0_button</tabstop>
+    <tabstop>grade_1_button</tabstop>
+    <tabstop>grade_2_button</tabstop>
+    <tabstop>grade_3_button</tabstop>
+    <tabstop>grade_4_button</tabstop>
+    <tabstop>grade_5_button</tabstop>
 </tabstops>
 <slots>
     <slot>fileNew()</slot>

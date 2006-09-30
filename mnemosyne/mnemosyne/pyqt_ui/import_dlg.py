@@ -29,6 +29,10 @@ class ImportDlg(ImportFrm):
         
         ImportFrm.__init__(self,parent,name,modal,fl)
 
+        for fformat in get_importable_file_formats():
+            self.fileformats.insertItem(fformat.name)
+        self.fileformats.setCurrentText("XML")
+
         self.categories.insertItem("<default>")
         for cat in get_categories():
             if cat.name != "<default>":
@@ -45,8 +49,16 @@ class ImportDlg(ImportFrm):
 
     def browse(self):
 
-        out = unicode(QFileDialog.getOpenFileName( \
-            get_config("import_dir"), "(*.xml *.XML *.txt *.TXT)"))
+        fformat = get_file_format_from_name(
+                      unicode(self.fileformats.currentText()))
+
+        out = unicode(QFileDialog.getOpenFileName(
+                  get_config("import_dir"),
+                  "All Files (*);;" + fformat.filter,
+                  None,
+                  None,
+                  QString(),
+                  fformat.filter))
        
         if out != "":
             self.filename.setText(out)
@@ -63,9 +75,11 @@ class ImportDlg(ImportFrm):
     def apply(self):
 
         fname = unicode(self.filename.text())
+        fformat_name = unicode(self.fileformats.currentText())
         cat_name = unicode(self.categories.currentText())
         reset_learning_data = self.reset_box.isChecked()
-        status = import_file(fname, cat_name, reset_learning_data)
+        status = import_file(
+                     fname, fformat_name, cat_name, reset_learning_data)
 
         if status == False:
             QMessageBox.critical(None,

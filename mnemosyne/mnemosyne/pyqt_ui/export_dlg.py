@@ -29,6 +29,10 @@ class ExportDlg(ExportFrm):
         
         ExportFrm.__init__(self,parent,name,modal,fl)
 
+        for fformat in get_exportable_file_formats():
+            self.fileformats.insertItem(fformat.name)
+        self.fileformats.setCurrentText("XML")
+
         for cat in get_categories():
             c = QListBoxText(self.categories, cat.name)
             self.categories.setSelected(c, 1)
@@ -48,13 +52,18 @@ class ExportDlg(ExportFrm):
 
     def browse(self):
 
-        out = unicode(QFileDialog.getSaveFileName(self.default_fname,\
-                                         "(*.xml *.XML *.txt *.TXT)"))
-        if out != "":
-            
-            if out[-4:] != ".xml":
-                out += ".xml"
+        fformat = get_file_format_from_name(
+                      unicode(self.fileformats.currentText()))
 
+        out = unicode(QFileDialog.getSaveFileName(
+                  get_config("import_dir"),
+                  "All Files (*);;" + fformat.filter,
+                  None,
+                  None,
+                  QString(),
+                  fformat.filter))
+
+        if out != "":
             self.filename.setText(out)
 
     ##########################################################################
@@ -78,6 +87,7 @@ class ExportDlg(ExportFrm):
     def apply(self):
 
         fname = unicode(self.filename.text()).encode("utf-8")
+        fformat_name = unicode(self.fileformats.currentText())
 
         if os.path.exists(fname):
             status = QMessageBox.warning(None,
@@ -97,9 +107,7 @@ class ExportDlg(ExportFrm):
 
         reset_learning_data = self.reset_box.isChecked()
 
-        export_file(fname, cat_names_to_export, reset_learning_data)
+        export_file(
+            fname, fformat_name, cat_names_to_export, reset_learning_data)
 
         self.close()
-        
-
-                

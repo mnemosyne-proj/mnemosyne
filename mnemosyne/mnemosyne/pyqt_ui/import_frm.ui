@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>394</width>
-            <height>223</height>
+            <width>396</width>
+            <height>322</height>
         </rect>
     </property>
     <property name="caption">
@@ -32,7 +32,7 @@
                         <cstring>textLabel1</cstring>
                     </property>
                     <property name="text">
-                        <string>File to import from (XML or txt):</string>
+                        <string>File to import from:</string>
                     </property>
                 </widget>
                 <widget class="QLayoutWidget">
@@ -57,6 +57,28 @@
                             </property>
                         </widget>
                     </hbox>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel_5</cstring>
+                    </property>
+                    <property name="text">
+                        <string>File format:</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox">
+                    <property name="name">
+                        <cstring>fileformats</cstring>
+                    </property>
+                    <property name="editable">
+                        <bool>false</bool>
+                    </property>
+                    <property name="autoCompletion">
+                        <bool>true</bool>
+                    </property>
+                    <property name="duplicatesEnabled">
+                        <bool>false</bool>
+                    </property>
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
@@ -160,7 +182,9 @@
 <tabstops>
     <tabstop>filename</tabstop>
     <tabstop>browse_button</tabstop>
+    <tabstop>fileformats</tabstop>
     <tabstop>categories</tabstop>
+    <tabstop>reset_box</tabstop>
     <tabstop>ok_button</tabstop>
     <tabstop>cancel_button</tabstop>
 </tabstops>

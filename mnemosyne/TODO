@@ -1,8 +1,18 @@
 Before 1.0:
 
+-reverse order of grade 0 items?
+
+-total number of items only for active categories (patch exists)
+
 -use QTextEdit instead of QLabel in main window
 
 -new category in 'add items' is not reflected in drop-down box
+
+-determine file type based on suffix?
+
+-change file suffix when changing export file format
+
+-Unicode text export
 
 -clicking cancel after 'merge and edit' *does* merge
 
@@ -21,22 +31,29 @@ Before 1.0:
 -per category statistics in 'Activate categories'?
 
 -website:
-  relative CSS layout
+  relative CSS layout 
+    http://www.webreference.com/authoring/style/sheets/css_mastery2/
   better mailing list page
   contributors page
 
 -graphics in software and on website
 
+-select multiple items to delete or change category
 
 
 
 After 1.0:
+
+-use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
+QTableWidget
 
 -utf-8 txt import
 -handle filenames in multiple encodings
 -file(...).read().decode('utf-8') to check encoding of text file
 
 -sounds (first external player, later gstreamer?)
+
+-make <a> links clickable
 
 -superkaramba / plasma
 
@@ -47,9 +64,13 @@ After 1.0:
 -optimise for very large databases (http://www.equi4.com/metakit.html, 
   sql?)
 
+-DTD for xml format
+
 -multiple categories per item, hierarchical categories
 
 -feedback about uploads in GUI / add time-out
+
+-unify save and export?
 
 -automatic backups
 
@@ -61,9 +82,9 @@ After 1.0:
 
 -back button?
 
--drop-down box in edit edits to show only items in a single category
+-make vice-versa a switch?
 
--select multiple items to delete or change category
+-drop-down box in edit edits to show only items in a single category
 
 -make sure the same question isn't asked twice in row
 
@@ -71,9 +92,6 @@ After 1.0:
 
 -bug in Qt? : shortcuts don't change back after changing 'show answer' 
  button text
-
--moving mem files back and forth between Linux and Windows suffers from CR/LF
- vs CR
 
 
 Superkaramba:

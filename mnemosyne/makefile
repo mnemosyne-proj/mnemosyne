@@ -16,7 +16,7 @@ clean:
 	cd mnemosyne/pyqt_ui ; make clean	
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/core/*~ mnemosyne/core/*.pyc
- 
+
 distrib: FORCE
 	make clean
 	cd mnemosyne/pyqt_ui ; make

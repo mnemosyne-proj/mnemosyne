@@ -1,3 +1,11 @@
+MNEMOSYNE 0.9.6:
+
+-added import from SuperMemo7 text files (code thanks to Dirk Herrmann).
+-either space, enter or return can be used to show the answer. The default
+ answer grade is set to 4, which once again can be chosen by either space,
+ enter or return (patch by Dirk Herrmann).
+
+
 MNEMOSYNE 0.9.5: 2006-08-03
 
 *** IMPORTANT UPGRADE NOTICE ***
