@@ -241,6 +241,8 @@ class EditItemsDlg(EditItemsFrm):
             self.item_list.ensureItemVisible(f)
             self.item_list.setFocus()
         elif self.found_once == True: # Wrap search.
+            # Prevent infinite recursion in case the item was deleted by now.
+            self.last_search_str = None
             self.item_list.clearSelection()
             self.find()
                     
