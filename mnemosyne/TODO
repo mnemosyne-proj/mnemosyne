@@ -1,8 +1,23 @@
 Before 1.0:
 
+-total number of items only for active categories (patch exists)
+
+-utf-8 txt import
+-file(...).read().decode('utf-8') to check encoding of text file
+
+-search after edit bug
+
+-Unicode text export
+
 -reverse order of grade 0 items?
 
--total number of items only for active categories (patch exists)
+-make both sets of number keys work as shortcut
+
+-handle filenames in multiple encodings
+
+-latex for formulas
+
+-html preview
 
 -use QTextEdit instead of QLabel in main window
 
@@ -12,13 +27,9 @@ Before 1.0:
 
 -change file suffix when changing export file format
 
--Unicode text export
-
 -clicking cancel after 'merge and edit' *does* merge
 
 -limited statistics
-
--html preview
 
 -drag and drop of pictures
 
@@ -47,17 +58,11 @@ After 1.0:
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
 QTableWidget
 
--utf-8 txt import
--handle filenames in multiple encodings
--file(...).read().decode('utf-8') to check encoding of text file
-
 -sounds (first external player, later gstreamer?)
 
 -make <a> links clickable
 
 -superkaramba / plasma
-
--mimetex for formulas
 
 -statistics
 

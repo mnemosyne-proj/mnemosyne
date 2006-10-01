@@ -780,24 +780,6 @@ def get_file_format_from_name(name):
 
 ##############################################################################
 #
-# swallow_eol
-#
-##############################################################################
-
-def swallow_eol(s):
-
-    if s[-2:] == '\r\n':
-        return s[:-2]
-
-    if s[-1:] == '\n':
-        return s[:-1]
-
-    return s
-
-
-
-##############################################################################
-#
 # import_file
 #
 ##############################################################################
@@ -1359,7 +1341,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
             traceback.print_exc()
             return False   
 
-        item.a = swallow_eol(item.a)
+        item.a = item.a.rstrip()
         
         item.easiness = avg_easiness
         item.cat = default_cat
@@ -1414,7 +1396,7 @@ def read_line_sm7qa(f):
     if not line:
         return False
 
-    line = swallow_eol(line)
+    line = line.rstrip()
 
     # Supermemo uses the octet 0x03 to represent the ú character.  Since this
     # does not seem to be a standard encoding, we simply replace this.
