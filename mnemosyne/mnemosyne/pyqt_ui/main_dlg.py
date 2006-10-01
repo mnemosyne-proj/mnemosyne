@@ -558,8 +558,8 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def updateCaption(self):
-        self.setCaption("Mnemosyne - " \
-                        + os.path.basename(get_config("path"))[:-4])
+        self.setCaption(unicode("Mnemosyne - " \
+                        + os.path.basename(get_config("path"))[:-4],"utf-8"))
         
     ##########################################################################
     #

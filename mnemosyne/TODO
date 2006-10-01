@@ -4,8 +4,6 @@ Before 1.0:
 
 -make both sets of number keys work as shortcut
 
--handle filenames in multiple encodings
-
 -latex for formulas
 
 -html preview
