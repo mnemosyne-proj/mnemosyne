@@ -570,7 +570,7 @@ class MainDlg(MainFrm):
     def updateStatusBar(self):
         self.sched .setText("Scheduled: "     + str(scheduled_items()))
         self.notmem.setText("Not memorised: " + str(non_memorised_items()))
-        self.all   .setText("All: "           + str(number_of_items()))
+        self.all   .setText("All: "           + str(active_items()))
         
     ##########################################################################
     #

@@ -283,6 +283,15 @@ class Item:
     def is_due_for_retention_rep(self, days=0):
         return (self.grade >= 2) and (self.cat.active == True) and \
                (time_of_start.days_since() >= self.next_rep - days)
+    
+    ##########################################################################
+    #
+    # is_in_active_category
+    #
+    ##########################################################################
+
+    def is_in_active_category(self):
+        return (self.cat.active == True)
 
     ##########################################################################
     #
@@ -379,6 +388,19 @@ def non_memorised_items():
 
 def scheduled_items(days=0):
     return sum(1 for i in items if i.is_due_for_retention_rep(days))
+
+
+
+##############################################################################
+#
+# active_items
+#
+#   Number of items in an active category.
+#
+##############################################################################
+
+def active_items():
+    return sum(1 for i in items if i.is_in_active_category())
 
 
 

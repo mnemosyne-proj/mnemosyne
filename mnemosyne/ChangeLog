@@ -5,6 +5,9 @@ MNEMOSYNE 0.9.6:
  answer grade is set to 4, which once again can be chosen by either space,
  enter or return (patch by Dirk Herrmann).
 -importing of txt files in utf8 encoding now works (patch by Ian MacLean)
+-the total number of items in the status bar now only takes into account
+ items in active categories (patch by Mike Charlton)
+
 
 MNEMOSYNE 0.9.5: 2006-08-03
 
