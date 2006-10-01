@@ -1331,6 +1331,10 @@ def import_txt(filename, default_cat, reset_learning_data=False):
             except:
                 print "Unrecognised encoding."
                 return False
+
+        line = line.rstrip()
+        if len(line) == 0:
+            continue
         
         item = Item()
 
@@ -1339,9 +1343,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
         except Exception, e:
             print "Error parsing txt file:\n"
             traceback.print_exc()
-            return False   
-
-        item.a = item.a.rstrip()
+            return False
         
         item.easiness = avg_easiness
         item.cat = default_cat
