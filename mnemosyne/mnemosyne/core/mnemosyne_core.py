@@ -1389,7 +1389,7 @@ def export_txt(filename, cat_names_to_export, reset_learning_data=False):
 
     for e in items:
         if e.cat.name in cat_names_to_export:
-            print >> outfile, e.q + "\t" + e.a
+            print >> outfile, e.q.encode("utf-8") + "\t" + e.a.encode("utf-8")
 
     outfile.close()
     

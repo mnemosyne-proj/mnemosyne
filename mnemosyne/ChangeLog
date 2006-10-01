@@ -4,7 +4,9 @@ MNEMOSYNE 0.9.6:
 -either space, enter or return can be used to show the answer. The default
  answer grade is set to 4, which once again can be chosen by either space,
  enter or return (patch by Dirk Herrmann).
--importing of txt files in utf8 encoding now works (patch by Ian MacLean).
+-importing of txt files in utf8 unicode encoding now works (patch by Ian 
+ MacLean).
+-exporting to txt files now uses utf8 encoding.
 -the total number of items in the status bar now only takes into account
  items in active categories (patch by Mike Charlton).
 -prevent infinite recursion when search for an item that was recently 

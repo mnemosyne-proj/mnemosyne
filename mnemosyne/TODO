@@ -1,9 +1,5 @@
 Before 1.0:
 
--search after edit bug
-
--Unicode text export
-
 -reverse order of grade 0 items?
 
 -make both sets of number keys work as shortcut
@@ -57,6 +53,8 @@ QTableWidget
 
 -make <a> links clickable
 
+-add <add item> option to edit items list?
+
 -superkaramba / plasma
 
 -statistics
@@ -83,6 +81,9 @@ QTableWidget
 -back button?
 
 -make vice-versa a switch?
+
+-remember category and vice-versa settings across invocations when adding 
+ items?
 
 -drop-down box in edit edits to show only items in a single category
 
