@@ -12,6 +12,7 @@ MNEMOSYNE 0.9.6:
 -prevent infinite recursion when search for an item that was recently 
  deleted.
 -the titlebar now displays unicode filenames correctly.
+-fixed incorrect button text when switching databases.
 
 
 MNEMOSYNE 0.9.5: 2006-08-03

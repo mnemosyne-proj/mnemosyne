@@ -218,6 +218,10 @@ class MainDlg(MainFrm):
                 unpause_thinking()
                 return
 
+            if self.item == None: # Button shows 'learn ahead of schedule'.
+                self.show_button.setText("&Show answer")
+                self.languageChange() # Reset shortcuts.
+
             self.updateStatusBar()
             self.newQuestion()
 
