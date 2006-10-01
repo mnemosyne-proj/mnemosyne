@@ -1324,10 +1324,10 @@ def import_txt(filename, default_cat, reset_learning_data=False):
     for line in f:
         
         try:
-            line = unicode(line, "latin")
+            line = unicode(line, "utf-8")
         except:
             try:
-                line = unicode(line, "utf-8")
+                line = unicode(line, "latin")
             except:
                 print "Unrecognised encoding."
                 return False

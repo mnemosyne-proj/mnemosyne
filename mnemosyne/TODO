@@ -2,9 +2,6 @@ Before 1.0:
 
 -total number of items only for active categories (patch exists)
 
--utf-8 txt import
--file(...).read().decode('utf-8') to check encoding of text file
-
 -search after edit bug
 
 -Unicode text export
