@@ -1685,7 +1685,7 @@ def add_new_item(grade, question, answer, cat_name):
  
     item.next_rep = time_of_start.days_since() + new_interval
     
-    items.insert(0,item)
+    items.append(item)
 
     logger.info("New item %s %d %d", item.id, item.grade, new_interval)
 

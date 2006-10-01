@@ -1,12 +1,10 @@
 Before 1.0:
 
--reverse order of grade 0 items?
-
--make both sets of number keys work as shortcut
+-html preview
 
 -latex for formulas
 
--html preview
+-update website FAQ on keyboard shortcuts
 
 -use QTextEdit instead of QLabel in main window
 
