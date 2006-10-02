@@ -226,6 +226,20 @@ class Item:
 
         self.id = 0
         
+        self.q         = None
+        self.a         = None
+        self.cat       = None
+        
+        self.reset_learning_data()
+
+    ##########################################################################
+    #
+    # reset_learning_data
+    #
+    ##########################################################################
+
+    def reset_learning_data(self):
+
         self.grade                = 0
         self.easiness             = 2.5
         
@@ -237,11 +251,7 @@ class Item:
         
         self.last_rep  = 0 # In days since beginning.
         self.next_rep  = 0 #
-        
-        self.q         = None
-        self.a         = None
-        self.cat       = None
-    
+
     ##########################################################################
     #
     # new_id
@@ -1006,11 +1016,8 @@ class XML_Importer(saxutils.DefaultHandler):
                 self.item.new_id()
                 
             if self.reset_learning_data == True:
-                self.item.new_id()
-                self.item.grade    = 0
-                self.item.ret_reps = 0
-                self.item.next_rep = 0
-                self.item.last_rep = 0
+                self.item.reset_learning_data()
+                self.item.easiness = average_easiness()
 
             self.imported_items.append(self.item)
 
@@ -1112,11 +1119,8 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
                 self.item.new_id()
 
             if self.reset_learning_data == True:
-                self.item.new_id()
-                self.item.grade    = 0
-                self.item.ret_reps = 0
-                self.item.next_rep = 0
-                self.item.last_rep = 0
+                self.item.reset_learning_data()
+                self.item.easiness = average_easiness()
 
             self.imported_items.append(self.item)
 
