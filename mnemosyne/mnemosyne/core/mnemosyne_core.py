@@ -1385,6 +1385,8 @@ def import_txt(filename, default_cat, reset_learning_data=False):
 #
 # export_txt
 #
+#   Newlines are converted to <br> to keep items on a single line.
+#
 ##############################################################################
 
 def export_txt(filename, cat_names_to_export, reset_learning_data=False):
@@ -1393,7 +1395,15 @@ def export_txt(filename, cat_names_to_export, reset_learning_data=False):
 
     for e in items:
         if e.cat.name in cat_names_to_export:
-            print >> outfile, e.q.encode("utf-8") + "\t" + e.a.encode("utf-8")
+            question = e.q.encode("utf-8")
+            question = question.replace("\t", " ")
+            question = question.replace("\n", "<br>")
+            
+            answer = e.a.encode("utf-8")
+            answer = answer.replace("\t", " ")
+            answer = answer.replace("\n", "<br>")
+            
+            print >> outfile, question + "\t" + answer
 
     outfile.close()
     
@@ -1689,7 +1699,7 @@ def add_new_item(grade, question, answer, cat_name):
  
     item.next_rep = time_of_start.days_since() + new_interval
     
-    items.append(item)
+    items.append(item)    
 
     logger.info("New item %s %d %d", item.id, item.grade, new_interval)
 
