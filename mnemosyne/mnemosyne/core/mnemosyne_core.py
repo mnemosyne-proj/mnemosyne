@@ -343,6 +343,21 @@ class Item:
 
 ##############################################################################
 #
+# items_are_inverses
+#
+##############################################################################
+
+def items_are_inverses(item1, item2):
+
+    if item1.q == item2.a and item2.q == item1.a:
+        return True
+    else:
+        return False
+
+
+
+##############################################################################
+#
 # get_items
 #
 ##############################################################################
@@ -1653,7 +1668,7 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
 
 
 register_file_format("SuperMemo7 Text in Q:/A: format",
-                     filter="SuperMemo7 text tile (*.txt *.TXT)",
+                     filter="SuperMemo7 text file (*.txt *.TXT)",
                      import_function=import_sm7qa,
                      export_function=False)
 
@@ -1767,13 +1782,10 @@ def rebuild_revision_queue(learn_ahead = False):
 
         for i in grade_0:
 
-            reverse_present = False
-
             for j in grade_0_selected:
-                if j.q == i.a and j.a == i.q:
-                    reverse_present = True
-
-            if not reverse_present:
+                if items_are_inverses(i, j):
+                    break
+            else:
                 grade_0_selected.append(i)
 
             if len(grade_0_selected) == limit:
@@ -2049,8 +2061,7 @@ def process_answer(item, new_grade):
     # Don't schedule inverse or identical questions on the same day.
 
     for j in items:
-        if (j.q == item.q and j.a == item.a) or \
-           (j.q == item.a and j.a == item.q):
+        if (j.q == item.q and j.a == item.a) or items_are_inverses(item, j):
             if j != item and j.next_rep == item.next_rep and item.grade >= 2:
                 item.next_rep += 1
                 noise += 1

@@ -194,6 +194,9 @@
                                     <property name="name">
                                         <cstring>grade_0_button</cstring>
                                     </property>
+                                    <property name="focusPolicy">
+                                        <enum>NoFocus</enum>
+                                    </property>
                                     <property name="text">
                                         <string>&amp;0</string>
                                     </property>
@@ -210,6 +213,9 @@
                                 <widget class="QPushButton">
                                     <property name="name">
                                         <cstring>grade_1_button</cstring>
+                                    </property>
+                                    <property name="focusPolicy">
+                                        <enum>NoFocus</enum>
                                     </property>
                                     <property name="text">
                                         <string>&amp;1</string>
@@ -228,6 +234,9 @@
                                     <property name="name">
                                         <cstring>grade_2_button</cstring>
                                     </property>
+                                    <property name="focusPolicy">
+                                        <enum>NoFocus</enum>
+                                    </property>
                                     <property name="text">
                                         <string>&amp;2</string>
                                     </property>
@@ -244,6 +253,9 @@
                                 <widget class="QPushButton">
                                     <property name="name">
                                         <cstring>grade_3_button</cstring>
+                                    </property>
+                                    <property name="focusPolicy">
+                                        <enum>NoFocus</enum>
                                     </property>
                                     <property name="text">
                                         <string>&amp;3</string>
@@ -262,6 +274,9 @@
                                     <property name="name">
                                         <cstring>grade_4_button</cstring>
                                     </property>
+                                    <property name="focusPolicy">
+                                        <enum>NoFocus</enum>
+                                    </property>
                                     <property name="text">
                                         <string>&amp;4</string>
                                     </property>
@@ -278,6 +293,9 @@
                                 <widget class="QPushButton">
                                     <property name="name">
                                         <cstring>grade_5_button</cstring>
+                                    </property>
+                                    <property name="focusPolicy">
+                                        <enum>NoFocus</enum>
                                     </property>
                                     <property name="text">
                                         <string>&amp;5</string>
@@ -851,13 +869,6 @@
     </connection>
 </connections>
 <tabstops>
-    <tabstop>show_button</tabstop>
-    <tabstop>grade_0_button</tabstop>
-    <tabstop>grade_1_button</tabstop>
-    <tabstop>grade_2_button</tabstop>
-    <tabstop>grade_3_button</tabstop>
-    <tabstop>grade_4_button</tabstop>
-    <tabstop>grade_5_button</tabstop>
 </tabstops>
 <slots>
     <slot>fileNew()</slot>
