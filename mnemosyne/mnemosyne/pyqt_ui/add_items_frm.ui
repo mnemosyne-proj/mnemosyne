@@ -21,7 +21,7 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout7</cstring>
+                <cstring>layout24</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -256,12 +256,23 @@
                 </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout14</cstring>
+                        <cstring>layout23</cstring>
                     </property>
                     <hbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
                         </property>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>preview_button</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Preview</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+P</string>
+                            </property>
+                        </widget>
                         <spacer>
                             <property name="name">
                                 <cstring>spacer1</cstring>
@@ -274,7 +285,7 @@
                             </property>
                             <property name="sizeHint">
                                 <size>
-                                    <width>210</width>
+                                    <width>150</width>
                                     <height>31</height>
                                 </size>
                             </property>
@@ -284,7 +295,7 @@
                                 <cstring>cancel</cstring>
                             </property>
                             <property name="text">
-                                <string>&amp;Close</string>
+                                <string>&amp;Cancel</string>
                             </property>
                             <property name="accel">
                                 <string>Alt+C</string>

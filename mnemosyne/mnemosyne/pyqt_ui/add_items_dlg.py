@@ -39,6 +39,9 @@ class AddItemsDlg(AddItemsFrm):
 
         self.connect(self.grades,SIGNAL("clicked(int)"),
                      self.new_item)
+
+        self.connect(self.preview_button,SIGNAL("clicked()"),
+                     self.preview)
         
         if get_config("QA_font") != None:
             font = QFont()
@@ -70,6 +73,22 @@ class AddItemsDlg(AddItemsFrm):
             
             self.insert(t)
             self.emit(SIGNAL("textChanged()"), ())
+
+
+
+    ##########################################################################
+    #
+    # preview
+    #
+    ##########################################################################
+
+    def preview(self):
+        
+        dlg = PreviewItemDlg(unicode(self.question.text()),
+                             unicode(self.answer.text()),
+                             unicode(self.categories.currentText()),
+                             self,"Preview current item",0)
+        dlg.exec_loop()
 
         
 

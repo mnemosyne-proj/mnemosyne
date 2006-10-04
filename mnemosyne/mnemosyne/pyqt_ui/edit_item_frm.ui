@@ -15,13 +15,13 @@
     <property name="caption">
         <string>Edit item</string>
     </property>
-    <hbox>
+    <vbox>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout8</cstring>
+                <cstring>layout18</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -107,7 +107,7 @@
                 </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout6</cstring>
+                        <cstring>layout17</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -136,7 +136,35 @@
                             </property>
                             <property name="sizeHint">
                                 <size>
-                                    <width>331</width>
+                                    <width>50</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>preview_button</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Preview</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+P</string>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer3</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>50</width>
                                     <height>20</height>
                                 </size>
                             </property>
@@ -159,7 +187,7 @@
                 </widget>
             </vbox>
         </widget>
-    </hbox>
+    </vbox>
 </widget>
 <connections>
     <connection>

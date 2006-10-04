@@ -1,12 +1,10 @@
 Before 1.0:
 
--html preview
-
 -latex for formulas
 
 -update website FAQ on keyboard shortcuts
 
--use QTextEdit instead of QLabel in main window
+-use QTextEdit instead of QLabel in main window?
 
 -new category in 'add items' is not reflected in drop-down box
 
@@ -22,7 +20,7 @@ Before 1.0:
 
 -resize back after expand
 
--check product tour for large fonts
+-check product tour for large fonts (minimum expanding size policy)?
 
 -best way to selectively increase font size?
 

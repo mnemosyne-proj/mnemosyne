@@ -1,0 +1,159 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>PreviewItemFrm</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>PreviewItemFrm</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>352</width>
+            <height>253</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Preview item</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout15</cstring>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>question_label</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Question:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>question</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>3</hsizetype>
+                            <vsizetype>3</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="paletteBackgroundColor">
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                    </property>
+                    <property name="frameShape">
+                        <enum>LineEditPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Sunken</enum>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
+                    <property name="scaledContents">
+                        <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                        <set>WordBreak|AlignCenter</set>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>answer_label</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Answer:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>answer</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>3</hsizetype>
+                            <vsizetype>3</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="paletteBackgroundColor">
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                    </property>
+                    <property name="frameShape">
+                        <enum>LineEditPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Sunken</enum>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
+                    <property name="scaledContents">
+                        <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                        <set>WordBreak|AlignCenter</set>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout6</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>ok_button</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;OK</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+O</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>ok_button</sender>
+        <signal>clicked()</signal>
+        <receiver>PreviewItemFrm</receiver>
+        <slot>accept()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>ok_button</tabstop>
+</tabstops>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

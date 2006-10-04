@@ -7,6 +7,8 @@
 from qt import *
 from mnemosyne.core import *
 from edit_item_frm import *
+from preview_item_dlg import *
+
 
     
 ##############################################################################
@@ -40,8 +42,9 @@ class EditItemDlg(EditItemFrm):
         self.question.setText(self.item.q)
         self.answer.setText(self.item.a)
         
-        self.connect(self.ok_button, SIGNAL("clicked()"), self.apply)
-
+        self.connect(self.ok_button,      SIGNAL("clicked()"), self.apply)
+        self.connect(self.preview_button, SIGNAL("clicked()"), self.preview)
+        
         self.question.setFocus()
 
         if get_config("QA_font") != None:
@@ -53,6 +56,22 @@ class EditItemDlg(EditItemFrm):
             
         self.question.setTabChangesFocus(1)
         self.answer.setTabChangesFocus(1)
+
+        
+
+    ##########################################################################
+    #
+    # preview
+    #
+    ##########################################################################
+
+    def preview(self):
+        
+        dlg = PreviewItemDlg(unicode(self.question.text()),
+                             unicode(self.answer.text()),
+                             unicode(self.categories.currentText()),
+                             self,"Preview current item",0)
+        dlg.exec_loop()
 
         
 

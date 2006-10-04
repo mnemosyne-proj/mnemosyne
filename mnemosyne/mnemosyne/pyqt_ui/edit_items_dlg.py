@@ -10,6 +10,7 @@ from qt import *
 from mnemosyne.core import *
 from edit_items_frm import *
 from edit_item_dlg import *
+from preview_item_dlg import *
 
 
 ##############################################################################
@@ -29,7 +30,7 @@ class ListItem(QListViewItem):
         self.setRenameEnabled(1, 1)
         self.setRenameEnabled(2, 1)
 
-    
+
     
 ##############################################################################
 #
@@ -64,6 +65,7 @@ class EditItemsDlg(EditItemsFrm):
 
         self.popup = QPopupMenu(self, "menu")
         self.popup.insertItem(self.tr("&Edit"), self.edit)
+        self.popup.insertItem(self.tr("&Preview"), self.preview)        
         self.popup.insertItem(self.tr("&Add vice versa"), self.viceversa)
         self.popup.insertItem(self.tr("&Delete"), self.delete)
         
@@ -132,7 +134,24 @@ class EditItemsDlg(EditItemsFrm):
         self.popup_item.setText(0, item.q)
         self.popup_item.setText(1, item.a)
         self.popup_item.setText(2, item.cat.name)
-                
+        
+    ##########################################################################
+    #
+    # preview
+    #
+    ##########################################################################
+
+    def preview(self):
+        
+        if self.popup_item == None:
+            return
+        
+        item = self.popup_item.item
+        dlg = PreviewItemDlg(item.q,item.a,item.cat.name,
+                             self,"Preview current item",0)
+        
+        dlg.exec_loop()
+        
     ##########################################################################
     #
     # viceversa
