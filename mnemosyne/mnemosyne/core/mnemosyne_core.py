@@ -22,7 +22,6 @@ thinking_time = 0
 time_of_last_question = 0
 
 upload_thread = None
-
 load_failed = False
 
 items = []
@@ -674,13 +673,13 @@ def expand_path(p):
 
 ##############################################################################
 #
-# escape
+# preprocess
 #
-#   Do some text preprocessing.
+#   Do some text preprocessing of Q/A strings and handle special tags.
 #
 ##############################################################################
 
-def escape(old_string):
+def preprocess(old_string):
     
     # Escape literal < (unmatched tag) and new line from string.
     

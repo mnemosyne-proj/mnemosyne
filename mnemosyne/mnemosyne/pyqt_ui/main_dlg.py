@@ -619,10 +619,10 @@ class MainDlg(MainFrm):
             return
         
         if self.item.cat.name != "<default>":
-            self.question_label.setText(escape("Question: " +
-                                          self.item.cat.name))
+            self.question_label.setText(preprocess("Question: " +
+                                        self.item.cat.name))
 
-        self.question.setText(escape(self.item.q))
+        self.question.setText(preprocess(self.item.q))
 
         self.editCurrentItemAction.setEnabled(1)
         self.deleteCurrentItemAction.setEnabled(1)
@@ -642,13 +642,13 @@ class MainDlg(MainFrm):
             return
                 
         if self.item.cat.name != "<default>":
-            self.question_label.setText(escape("Question: " + \
-                                               self.item.cat.name))
+            self.question_label.setText(preprocess("Question: " + \
+                                                   self.item.cat.name))
             
-        self.question.setText(escape(self.item.q))
+        self.question.setText(preprocess(self.item.q))
             
         if self.answer.text() != "":
-            self.answer.setText(escape(self.item.a))
+            self.answer.setText(preprocess(self.item.a))
 
     ##########################################################################
     #
@@ -665,7 +665,7 @@ class MainDlg(MainFrm):
             return
 
         stop_thinking()
-        self.answer.setText(escape(self.item.a))        
+        self.answer.setText(preprocess(self.item.a))        
         self.show_button.setEnabled(0)
         self.show_button.setDefault(False)
         self.grade_4_button.setDefault(True)

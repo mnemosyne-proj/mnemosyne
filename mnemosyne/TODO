@@ -53,6 +53,8 @@ QTableWidget
 
 -statistics
 
+-animated GIFs?
+
 -optimise for very large databases (http://www.equi4.com/metakit.html, 
   sql?)
 
