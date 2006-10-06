@@ -776,7 +776,7 @@ def preprocess(old_string):
         end = new_string.find("</latex>", start+1)
 
         if end == -1:
-            continue
+            break
 
         latex_command = new_string[start+7:end]
 
