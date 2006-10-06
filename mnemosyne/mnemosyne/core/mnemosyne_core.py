@@ -5,7 +5,7 @@
 ##############################################################################
 
 import random, time, os, string, sys, cPickle, md5, struct, logging
-import traceback
+import traceback, shutil
 logger = logging.getLogger("mnemosyne")
 
 
@@ -67,6 +67,9 @@ def initialise():
     
     if not exists(join(basedir,"history")):
         os.mkdir(join(basedir,"history"))
+
+    if not exists(join(basedir,"latex")):
+        os.mkdir(join(basedir,"latex"))
 
     lockfile = file(join(basedir,"MNEMOSYNE_LOCK"),'w')
     lockfile.close()
@@ -673,6 +676,42 @@ def expand_path(p):
 
 ##############################################################################
 #
+# process_latex
+#
+##############################################################################
+
+def process_latex(latex_command):
+    
+    basedir   = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    latexdir  = os.path.join(basedir, "latex")
+    imag_name = md5.new(latex_command).hexdigest() + ".png"
+    imag_file = os.path.join(latexdir, imag_name)
+
+    if not os.path.exists(imag_file):
+        
+        os.chdir(latexdir)
+    
+        f = file("tmp.tex", 'w')
+        print >> f, "\\documentclass[12pt]{article}"
+        print >> f, "\\pagestyle{empty} \\begin{document} \\begin{displaymath}"     
+        print >> f, latex_command
+        print >> f, "\\end{displaymath} \\end{document}"
+        f.close()
+
+        try:
+            os.system("latex tmp.tex")
+            os.system("dvipng -D 200 -T tight tmp.dvi")
+            shutil.copy("tmp1.png", imag_name)
+        except:
+            print "Problem with latex. Are latex and dvipnh installed?"
+            return ""
+
+    return  "<img src=\"" + latexdir + "/" + imag_name + "\" >"
+
+
+
+##############################################################################
+#
 # preprocess
 #
 #   Do some text preprocessing of Q/A strings and handle special tags.
@@ -711,7 +750,7 @@ def preprocess(old_string):
         else:
             new_string += old_string[i]
 
-    # Fill out relative paths.
+    # Fill out relative paths for img tags.
 
     i = new_string.lower().find("img src")
     
@@ -727,6 +766,25 @@ def preprocess(old_string):
                      new_string[end:]
 
         i = new_string.lower().find("img src", end+1)
+
+    # Process latex tags.
+
+    start = new_string.lower().find("<latex>")
+    
+    while start != -1:
+        
+        end = new_string.find("</latex>", start+1)
+
+        if end == -1:
+            continue
+
+        latex_command = new_string[start+7:end]
+
+        new_string = new_string[:start] + \
+                     process_latex(latex_command) + \
+                     new_string[end+8:]
+
+        start = new_string.lower().find("<latex>", end+1)    
         
     return new_string
 

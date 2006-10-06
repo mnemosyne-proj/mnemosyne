@@ -1,10 +1,14 @@
 MNEMOSYNE 0.9.6:
 
+-added LaTeX support. Everything between the tags <latex> and </latex> is 
+ passed to LaTeX and converted in a picture transparently. For this you 
+ need latex and dvipng installed. Windows users can just download MiKTeX.
+ (thanks to input from Henrik Skov Midtiby and J. David Lee)
+-added possibility to preview an item. Useful if you work with tags.
 -added import from SuperMemo7 text files (code thanks to Dirk Herrmann).
 -either space, enter or return can be used to show the answer. The default
  answer grade is set to 4, which once again can be chosen by either space,
  enter or return (patch by Dirk Herrmann).
--added possibility to preview an item. Useful if you work with tags.
 -importing of txt files in utf8 unicode encoding now works (patch by Ian 
  MacLean).
 -exporting to txt files now uses utf8 encoding.
