@@ -1563,7 +1563,8 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
 
         line = read_line_sm7qa(f)
 
-        # Perform the actions of the current state and calculate the next state.
+        # Perform the actions of the current state and calculate
+        # the next state.
 
         if state == "ITEM-START":
             
@@ -1684,8 +1685,8 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
                 
                 if item.next_rep > 0:
                     
-                    # SuperMemo has scheduled the item for tomorrow or later. We
-                    # set the grade to 4 to make Mnemosyne comply to this.
+                    # SuperMemo has scheduled the item for tomorrow or later.
+                    # We set the grade to 4 to make Mnemosyne comply to this.
                     
                     item.grade = 4
                     
@@ -1710,12 +1711,42 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
                     
                 item.easiness = easiness
 
-                # The following information is not reconstructed from SuperMemo:
-                #
-                # item.acq_reps, item.ret_reps, item.lapses,
-                # item.acq_reps_since_lapse, item.ret_reps_since_lapse
+                # There is no possibility to calculate the correct values for
+                # item.acq_reps and item.ret_reps from the SuperMemo file
+                # format.  Thus, to distinguish between a new item and an item
+                # that already has some learning data, the values are set to 0
+                # or 1.
+                
+                if repetitions == 0:
+                    item.acq_reps = 0
+                    item.ret_reps = 0
+                else:
+                    item.acq_reps = 1
+                    item.ret_reps = 1
 
-                # The following information from SuperMemo is not used: UF, O_value
+                item.lapses = lapses
+
+                # The following information is not reconstructed from
+                # SuperMemo: item.acq_reps_since_lapse
+
+                item.ret_reps_since_lapse = max(0, repetitions - 1)
+
+                # Calculate the dates for the last and next repetitions.  The
+                # logic makes sure that the interval between last_rep and
+                # next_rep is kept.  To do this, it may happen that last_rep
+                # gets a negative value.
+                
+                if last == 0:
+                    last_in_days = 0
+                else:
+                    last_absolute_sec = StartTime(time.mktime(last)).time
+                    last_relative_sec = last_absolute_sec - time_of_start.time
+                    last_in_days = last_relative_sec / 60. / 60. / 24.
+                item.next_rep = long( max( 0, last_in_days + interval ) )
+                item.last_rep = item.next_rep - interval
+
+                # The following information from SuperMemo is not used:
+                # UF, O_value
 
             item.q = saxutils.escape(question)
             item.a = saxutils.escape(answer)
