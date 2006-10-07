@@ -27,14 +27,14 @@ Sure, you can use ordinary html-syntax for that:
 
 The path is relative to the location of your <code>*.mem</code> file, although you can use absolute paths too. You can also use HTML tags to change the colour, formatting and style of your text.
 
-<h2 id="question">How do I handle mathematical our chemical formulas?</h2>
-You can either import them as picture, or approximate them using ordinary text. For multi-line formulas, it's best to use a fixed-width font, and to mark the checkbox 'left align Q/A' in the preference window.
+<h2 id="question">How do I best handle mathematical our chemical formulas?</h2>
+A low-tech option is to approximate them using ordinary text. For multi-line formulas, it's best to use a fixed-width font, and to mark the checkbox 'left align Q/A' in the preference window. A high-tech option is letting LaTeX render your formulas, e.g.<code>&lt;latex>x^2+y^2=z^2&lt;/latex></code>. For this you need latex and dvipng installed. Windows users can download <a href="http://www.miktex.org/">MiKTeX</a> for that.
 
 <h2 id="question">Adding sounds to question or answers would be nice!</h2>
 It sure would! A future version will use html <code>&lt;sound> </code> tags to specify a sound file, which will then be played by an external program (which you can choose).
 
 <h2 id="question">Can I use keyboard shortcuts while doing the revisions?</h2>
-Sure! Press enter on the numerical keypad to show the answer, and then use the numerical keypad again to grade your answer.
+Sure! To show the answer you can either press enter, space or return. To grade your answer you can just press the number keys.
 
 <h2 id="question">Can I use hierachical categories?</h2>
 Not yet, but in the mean time, you can give your categories names like 'Science:Physics' and 'Science:Mathematics'. 

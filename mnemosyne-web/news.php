@@ -6,6 +6,29 @@
 
 <h1>News</h1>
 <br>
+<b>2006-10-07</b>: released Mnemosyne 0.9.6<br>
+-added LaTeX support for formulas, e.g. <code>&lt;latex>x^2+y^2=z^2&lt;/latex></code>. For
+ this you need latex and dvipng installed. Windows users can download
+ MiKTeX. (thanks to input from Henrik Skov Midtiby and J. David Lee)<br>
+-added possibility to preview an item. Useful if you work with tags.<br>
+-added import from SuperMemo7 text files (code thanks to Dirk Herrmann).<br>
+-either space, enter or return can be used to show the answer. The default
+ answer grade is set to 4, which once again can be chosen by either space,
+ enter or return (patch by Dirk Herrmann).<br>
+-importing of txt files in utf8 unicode encoding now works (patch by Ian
+ MacLean).<br>
+-exporting to txt files now uses utf8 encoding.<br>
+-the total number of items in the status bar now only takes into account
+ items in active categories (patch by Mike Charlton).<br>
+-prevent infinite recursion when searching for an item that was recently
+ deleted.<br>
+-the titlebar now displays unicode filenames correctly.<br>
+-After the window expands to accomodate a large item, it will shrink
+ back again.<br>
+-fixed incorrect button text when switching databases.<br>
+-new grade 0/1 items will now be scheduled after existing grade 0/1 items.<br>
+
+<br>
 <b>2006-08-03</b>: released Mnemosyne 0.9.5<br>
 *** IMPORTANT UPGRADE NOTICE ***
 <br>
