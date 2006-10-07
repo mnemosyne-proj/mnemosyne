@@ -24,44 +24,39 @@ Before 1.0:
 
 After 1.0:
 
--determine file type based on suffix?
+-determine file type based on suffix
 
--change file suffix when changing export file format?
+-change file suffix when changing export file format
 
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
-QTableWidget
+QTableWidget (might be made obsolete by 2.0)
 
--paste from clipboard?
+-drop-down box in edit edits to show only items in a single category
 
--best way to selectively increase font size?
-
--per category statistics in 'Activate categories'?
-
--make <a> links clickable
-
--add <add item> option to edit items list?
+-add 'add item' option to edit items list?
 
 -clean obsolete latex images
 
--superkaramba / plasma
+-make <a> links clickable
 
--statistics
-
--animated GIFs?
-
--Qt4
-
--Qt/Sqlite backend
+-animated GIFs
 
 -DTD for xml format
 
--multiple categories per item, hierarchical categories
-
 -feedback about uploads in GUI / add time-out
+
+-automatic backups
+
+-paste from clipboard
+
+-make really sure the same question isn't asked twice in row
 
 -unify save and export?
 
--automatic backups
+-best way to selectively increase font size?
+
+-remember category and vice-versa settings across invocations when adding 
+ items?
 
 -clean duplicates for answers too?
 
@@ -71,14 +66,23 @@ QTableWidget
 
 -back button?
 
+
+
+Mnemosyne 2.0:
+
+-Upgrade to Qt4
+
+-Qt/Sqlite backend
+
+-advanced statistics
+
+-multiple categories per item, hierarchical categories
+
+-multiple answers per questions
+
+-per category statistics in 'Activate categories'
+
 -make vice-versa a switch?
-
--remember category and vice-versa settings across invocations when adding 
- items?
-
--drop-down box in edit edits to show only items in a single category
-
--make sure the same question isn't asked twice in row
 
 -bug in Qt? : get rid of dummy '.' status tips
 
@@ -86,7 +90,8 @@ QTableWidget
  button text
 
 
-Superkaramba:
+
+Superkaramba / Plasma
 
 - Check Unicode
 
