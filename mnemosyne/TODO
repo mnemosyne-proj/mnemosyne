@@ -4,8 +4,6 @@ Before 1.0:
 
 -use QTextEdit instead of QLabel in main window?
 
--check product tour for large fonts (minimum expanding size policy)?
-
 -sounds
 
 -limited statistics
