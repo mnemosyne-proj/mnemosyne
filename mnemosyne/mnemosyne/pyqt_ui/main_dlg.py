@@ -584,6 +584,7 @@ class MainDlg(MainFrm):
 
     def clearQuestion(self):
         self.item = None
+        self.adjustSize()
         self.question_label.setText("Question:")
         self.question.setText("")
         self.answer.setText("")
@@ -637,7 +638,8 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def updateQuestion(self):
-
+        self.adjustSize()
+        
         if self.item == None:
             return
                 

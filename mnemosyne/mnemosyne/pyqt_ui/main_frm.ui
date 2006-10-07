@@ -14,8 +14,8 @@
     </property>
     <property name="sizePolicy">
         <sizepolicy>
-            <hsizetype>3</hsizetype>
-            <vsizetype>3</vsizetype>
+            <hsizetype>7</hsizetype>
+            <vsizetype>7</vsizetype>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
         </sizepolicy>
@@ -61,6 +61,12 @@
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                         </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>0</width>
+                            <height>75</height>
+                        </size>
                     </property>
                     <property name="paletteBackgroundColor">
                         <color>
@@ -113,6 +119,12 @@
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                         </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>0</width>
+                            <height>75</height>
+                        </size>
                     </property>
                     <property name="paletteBackgroundColor">
                         <color>
@@ -868,8 +880,6 @@
         <slot>activate()</slot>
     </connection>
 </connections>
-<tabstops>
-</tabstops>
 <slots>
     <slot>fileNew()</slot>
     <slot>fileOpen()</slot>

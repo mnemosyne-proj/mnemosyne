@@ -2,8 +2,6 @@ Before 1.0:
 
 -update website FAQ on keyboard shortcuts/formulas
 
--use QTextEdit instead of QLabel in main window?
-
 -sounds
 
 -limited statistics
@@ -15,8 +13,6 @@ Before 1.0:
 -drag and drop of pictures / clipboard?
 
 -select multiple items to delete or change category
-
--resize back after expand
 
 -determine file type based on suffix?
 
