@@ -16,7 +16,7 @@ MNEMOSYNE 0.9.6: 2006-10-07
 -prevent infinite recursion when searching for an item that was recently 
  deleted.
 -the titlebar now displays unicode filenames correctly.
--After the window expands to accomodate a large item, it will shrink 
+-after the window expands to accomodate a large item, it will shrink 
  back again.
 -fixed incorrect button text when switching databases.
 -new grade 0/1 items will now be scheduled after existing grade 0/1 items.
