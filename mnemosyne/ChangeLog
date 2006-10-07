@@ -1,4 +1,4 @@
-MNEMOSYNE 0.9.6:
+MNEMOSYNE 0.9.6: 2006-10-07
 
 -added LaTeX support for formulas, e.g. <latex>x^2+y^2=z^2</latex>. For 
  this you need latex and dvipng installed. Windows users can download 

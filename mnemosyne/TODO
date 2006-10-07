@@ -1,7 +1,5 @@
 Before 1.0:
 
--update website FAQ on keyboard shortcuts/formulas
-
 -sounds
 
 -limited statistics
@@ -10,13 +8,9 @@ Before 1.0:
 
 -clicking cancel after 'merge and edit' *does* merge
 
--drag and drop of pictures / clipboard?
+-drag and drop of pictures
 
 -select multiple items to delete or change category
-
--determine file type based on suffix?
-
--change file suffix when changing export file format?
 
 -website:
   relative CSS layout 
@@ -30,8 +24,14 @@ Before 1.0:
 
 After 1.0:
 
+-determine file type based on suffix?
+
+-change file suffix when changing export file format?
+
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
 QTableWidget
+
+-paste from clipboard?
 
 -best way to selectively increase font size?
 
