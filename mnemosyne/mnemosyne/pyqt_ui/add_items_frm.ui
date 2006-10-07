@@ -21,7 +21,7 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout24</cstring>
+                <cstring>layout10</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -256,7 +256,7 @@
                 </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout23</cstring>
+                        <cstring>layout9</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -264,13 +264,16 @@
                         </property>
                         <widget class="QPushButton">
                             <property name="name">
-                                <cstring>preview_button</cstring>
+                                <cstring>cancel</cstring>
                             </property>
                             <property name="text">
-                                <string>&amp;Preview</string>
+                                <string>&amp;Cancel</string>
                             </property>
                             <property name="accel">
-                                <string>Alt+P</string>
+                                <string>Alt+C</string>
+                            </property>
+                            <property name="autoDefault">
+                                <bool>false</bool>
                             </property>
                         </widget>
                         <spacer>
@@ -285,20 +288,20 @@
                             </property>
                             <property name="sizeHint">
                                 <size>
-                                    <width>150</width>
+                                    <width>151</width>
                                     <height>31</height>
                                 </size>
                             </property>
                         </spacer>
                         <widget class="QPushButton">
                             <property name="name">
-                                <cstring>cancel</cstring>
+                                <cstring>preview_button</cstring>
                             </property>
                             <property name="text">
-                                <string>&amp;Cancel</string>
+                                <string>&amp;Preview</string>
                             </property>
                             <property name="accel">
-                                <string>Alt+C</string>
+                                <string>Alt+P</string>
                             </property>
                             <property name="autoDefault">
                                 <bool>false</bool>
