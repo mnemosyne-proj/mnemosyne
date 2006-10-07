@@ -584,7 +584,6 @@ class MainDlg(MainFrm):
 
     def clearQuestion(self):
         self.item = None
-        self.adjustSize()
         self.question_label.setText("Question:")
         self.question.setText("")
         self.answer.setText("")
@@ -592,6 +591,7 @@ class MainDlg(MainFrm):
         self.editCurrentItemAction.setEnabled(0)
         self.deleteCurrentItemAction.setEnabled(0)
         self.grades.setEnabled(0)
+        self.adjustSize()
         
     ##########################################################################
     #
@@ -629,6 +629,8 @@ class MainDlg(MainFrm):
         self.deleteCurrentItemAction.setEnabled(1)
         self.show_button.setDefault(True)
         self.show_button.setEnabled(1)
+        self.adjustSize()
+        
         start_thinking()
 
     ##########################################################################
@@ -638,7 +640,6 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def updateQuestion(self):
-        self.adjustSize()
         
         if self.item == None:
             return
@@ -651,6 +652,8 @@ class MainDlg(MainFrm):
             
         if self.answer.text() != "":
             self.answer.setText(preprocess(self.item.a))
+
+        self.adjustSize()
 
     ##########################################################################
     #
@@ -672,6 +675,7 @@ class MainDlg(MainFrm):
         self.show_button.setDefault(False)
         self.grade_4_button.setDefault(True)
         self.grades.setEnabled(1)
+        self.adjustSize()
         
     ##########################################################################
     #
