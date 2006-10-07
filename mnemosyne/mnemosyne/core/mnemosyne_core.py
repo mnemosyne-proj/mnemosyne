@@ -1049,6 +1049,8 @@ class XML_Importer(saxutils.DefaultHandler):
                 
         elif name == "category":
             self.active = self.to_bool(attrs.get("active"))
+            self.text["name"] = None
+
         else:
             self.reading[name] = True
             self.text[name] = ""
@@ -1067,39 +1069,42 @@ class XML_Importer(saxutils.DefaultHandler):
     
         self.reading[name] = False
 
-        # An item ends with 'A'.
-       
-        if name == "A":
+        if name == "cat":
+
+            cat_name = decode_cdata(self.text["cat"])
+            if not cat_name in category_by_name.keys():
+                new_cat = Category(cat_name)
+                categories.append(new_cat)
+                category_by_name[cat_name] = new_cat
+            self.item.cat = category_by_name[cat_name]
+
+        elif name == "Q":
 
             self.item.q = decode_cdata(self.text["Q"])
+
+        elif name == "A":
+
             self.item.a = decode_cdata(self.text["A"])
 
-            if "cat" in self.text.keys():
-                cat_name = decode_cdata(self.text["cat"])
-                if not cat_name in category_by_name.keys():
-                    new_cat = Category(cat_name)
-                    categories.append(new_cat)
-                    category_by_name[cat_name] = new_cat
-                self.item.cat = category_by_name[cat_name]
-            else:
-                self.item.cat = self.default_cat
+        elif name == "item":
 
             if self.item.id == 0:
                 self.item.new_id()
-                
+
+            if self.item.cat == None:
+                self.item.cat = self.default_cat
+
             if self.reset_learning_data == True:
                 self.item.reset_learning_data()
                 self.item.easiness = average_easiness()
 
             self.imported_items.append(self.item)
 
-        # A category ends with 'name'.
+        elif name == "category":
 
-        elif name == "name":
-            
             name = self.text["name"]
             
-            if name not in category_by_name.keys():
+            if (name != None) and (name not in category_by_name.keys()):
                 cat = Category(name, self.active)
                 categories.append(cat)
                 category_by_name[name] = cat
@@ -1166,29 +1171,37 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
 
     def endElement(self, name):
 
+        def decode_cdata(s):
+            return saxutils.unescape(s)
+
         global categories, category_by_name
     
         self.reading[name] = False
 
-        # An item ends with 'A'.
-       
-        if name == "A":
+        if name == "cat":
 
-            self.item.q = self.text["Q"]
-            self.item.a = self.text["A"]
+            cat_name = decode_cdata(self.text["cat"])
+            if not cat_name in category_by_name.keys():
+                new_cat = Category(cat_name)
+                categories.append(new_cat)
+                category_by_name[cat_name] = new_cat
+            self.item.cat = category_by_name[cat_name]
 
-            if "cat" in self.text.keys():
-                cat_name = self.text["cat"]
-                if not cat_name in category_by_name.keys():
-                    new_cat = Category(cat_name)
-                    categories.append(new_cat)
-                    category_by_name[cat_name] = new_cat
-                self.item.cat = category_by_name[cat_name]
-            else:
-                self.item.cat = self.default_cat
+        elif name == "Q":
+
+            self.item.q = decode_cdata(self.text["Q"])
+
+        elif name == "A":
+
+            self.item.a = decode_cdata(self.text["A"])
+
+        elif name == "item":
 
             if self.item.id == 0:
                 self.item.new_id()
+
+            if self.item.cat == None:
+                self.item.cat = self.default_cat
 
             if self.reset_learning_data == True:
                 self.item.reset_learning_data()
@@ -1196,13 +1209,11 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
 
             self.imported_items.append(self.item)
 
-        # A category ends with 'name'.
+        elif name == "category":
 
-        elif name == "name":
-            
             name = self.text["name"]
             
-            if name not in category_by_name.keys():
+            if (name != None) and (name not in category_by_name.keys()):
                 cat = Category(name, self.active)
                 categories.append(cat)
                 category_by_name[name] = cat
