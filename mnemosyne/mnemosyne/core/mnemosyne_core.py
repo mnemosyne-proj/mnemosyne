@@ -1670,37 +1670,29 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
 
             if not reset_learning_data:
                 
-                # Calculate the dates for the last and next repetitions.
+                # A grade information is not given directly in the file
+                # format.  To make the transition to Mnemosyne smooth for a
+                # SuperMemo user, we make sure that all items get queried in a
+                # similar way as SuperMemo would have done it.
                 
-                if last == 0:
-                    last_in_seconds = 0
-                else:
-                    last_in_seconds = StartTime(time.mktime(last)).time \
-                                      - time_of_start.time
-                last_in_days = last_in_seconds / 60. / 60. / 24.
-                item.last_rep = long(max(0, last_in_days ))
-                item.next_rep = long(max(0, last_in_days + interval ))
-
-                # A grade information is not given directly in the file format.
-                
-                if item.next_rep > 0:
-                    
-                    # SuperMemo has scheduled the item for tomorrow or later.
-                    # We set the grade to 4 to make Mnemosyne comply to this.
-                    
-                    item.grade = 4
-                    
-                elif repetitions == 0:
+                if repetitions == 0:
                     
                     # The item is new, there are no repetitions yet.
+                    # SuperMemo queries such item's in a dedicated learning
+                    # mode "Memorize new items", thus offering the user to
+                    # learn as many new items per session as desired.  We
+                    # achieve a similar behaviour by grading the item 0.
                     
                     item.grade = 0
                     
                 elif repetitions == 1 and lapses > 0:
                     
                     # The learner had a lapse with the last repetition.
+                    # SuperMemo users will expect such items to be queried
+                    # during the next session.  Thus, to avoid confusion, we
+                    # set the initial grade to 1.
                     
-                    item.grade = 0
+                    item.grade = 1
                     
                 else:
                     
