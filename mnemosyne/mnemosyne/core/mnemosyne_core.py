@@ -323,23 +323,9 @@ class Item:
     
     def change_category(self, new_cat_name):
 
-        global categories, category_by_name
-
-        # Case 1: a new category was created.
-
-        if new_cat_name not in category_by_name.keys():
-            cat = Category(new_cat_name)
-            categories.append(cat)
-            category_by_name[new_cat_name] = cat
-
         old_cat = self.cat
-        self.cat = category_by_name[new_cat_name]
-    
-        # Case 2: deleted last item of old_cat.
-
-        if old_cat.in_use() == False:
-            del category_by_name[old_cat.name]
-            categories.remove(old_cat)
+        self.cat = get_category_by_name(new_cat_name)
+        remove_category_if_unused(old_cat)
 
 
 
@@ -499,23 +485,63 @@ def get_categories():
 
 ##############################################################################
 #
-# get_category_by_name
-#
-##############################################################################
-
-def get_category_by_name(name):
-    return category_by_name[name]
-
-
-
-##############################################################################
-#
 # get_category_names
 #
 ##############################################################################
 
 def get_category_names():
     return category_by_name.keys()
+
+
+
+##############################################################################
+#
+# ensure_category_exists
+#
+##############################################################################
+
+def ensure_category_exists(name):
+
+    global category_by_name, categories
+
+    if name not in category_by_name.keys():
+        category = Category(name)
+        categories.append(category)
+        category_by_name[name] = category
+
+
+
+##############################################################################
+#
+# get_category_by_name
+#
+##############################################################################
+
+def get_category_by_name(name):
+
+    global category_by_name
+
+    ensure_category_exists(name)
+    return category_by_name[name]
+
+
+
+##############################################################################
+#
+# remove_category_if_unused
+#
+##############################################################################
+
+def remove_category_if_unused(cat):
+
+    global items, category_by_name, categories
+
+    for item in items:
+        if cat.name == item.cat.name:
+            break
+    else:
+        del category_by_name[cat.name]
+        categories.remove(cat)
 
 
 
@@ -576,10 +602,9 @@ def load_database(path):
         return False
 
     for c in categories:
-        if not c.in_use():
-            categories.remove(c)
-        else:
-            category_by_name[c.name] = c
+        category_by_name[c.name] = c
+    for c in categories:
+        remove_category_if_unused(c)
 
     config["path"] = path
 
@@ -795,9 +820,9 @@ def preprocess(old_string):
 # FileFormat
 #
 # Each file format that Mnemosyne supports is identified by a name (a string).
-# Additionally, a file format needs a file name filter (in a string), a
-# function to import data from a file of the respective type, and a function
-# to export data in the respective format.
+# Additionally, a file format needs a file name filter (a string), a function
+# to import data from a file of the respective type, and a function to export
+# data in the respective format.
 #
 # The file format name will appear in the import and export dialogues.
 # Therefore, they shall be easy to understand by a user, e.g. "Text
@@ -891,24 +916,16 @@ def get_file_format_from_name(name):
 def import_file(filename, fformat_name, default_cat_name,
                 reset_learning_data=False):
 
-    global category_by_name, categories, load_failed, revision_queue
+    global load_failed, revision_queue
 
     # If no database is active, create one.
 
     if not time_of_start:
         new_database(config["path"])
 
-    # Create default category if necessary.
-
-    if default_cat_name not in category_by_name.keys():
-        default_cat = Category(default_cat_name)
-        categories.append(default_cat)
-        category_by_name[default_cat_name] = default_cat
-    else:
-        default_cat = category_by_name[default_cat_name]
-
     # Call import function according to file format name
 
+    default_cat = get_category_by_name(default_cat_name)
     fformat = get_file_format_from_name(fformat_name)
     imported_items = fformat.import_function(filename, default_cat,
                                              reset_learning_data)
@@ -937,9 +954,7 @@ def import_file(filename, fformat_name, default_cat_name,
 
     # Clean up.
 
-    if default_cat.in_use() == False:
-        del category_by_name[default_cat.name]
-        categories.remove(default_cat)
+    remove_category_if_unused(default_cat)
 
     load_failed = False
 
@@ -1065,18 +1080,12 @@ class XML_Importer(saxutils.DefaultHandler):
         def decode_cdata(s):
             return saxutils.unescape(s)
 
-        global categories, category_by_name
-    
         self.reading[name] = False
 
         if name == "cat":
 
             cat_name = decode_cdata(self.text["cat"])
-            if not cat_name in category_by_name.keys():
-                new_cat = Category(cat_name)
-                categories.append(new_cat)
-                category_by_name[cat_name] = new_cat
-            self.item.cat = category_by_name[cat_name]
+            self.item.cat = get_category_by_name(cat_name)
 
         elif name == "Q":
 
@@ -1103,11 +1112,8 @@ class XML_Importer(saxutils.DefaultHandler):
         elif name == "category":
 
             name = self.text["name"]
-            
-            if (name != None) and (name not in category_by_name.keys()):
-                cat = Category(name, self.active)
-                categories.append(cat)
-                category_by_name[name] = cat
+            if (name != None):
+                ensure_category_exists(name)
 
 
 
@@ -1174,18 +1180,12 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
         def decode_cdata(s):
             return saxutils.unescape(s)
 
-        global categories, category_by_name
-    
         self.reading[name] = False
 
         if name == "cat":
 
             cat_name = decode_cdata(self.text["cat"])
-            if not cat_name in category_by_name.keys():
-                new_cat = Category(cat_name)
-                categories.append(new_cat)
-                category_by_name[cat_name] = new_cat
-            self.item.cat = category_by_name[cat_name]
+            self.item.cat = get_category_by_name(cat_name)
 
         elif name == "Q":
 
@@ -1212,11 +1212,8 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
         elif name == "category":
 
             name = self.text["name"]
-            
-            if (name != None) and (name not in category_by_name.keys()):
-                cat = Category(name, self.active)
-                categories.append(cat)
-                category_by_name[name] = cat
+            if (name != None):
+                ensure_category_exists(name)
 
           
 
@@ -1317,8 +1314,8 @@ def write_item_XML(e, outfile, reset_learning_data=False):
                          + " l_rp=\""+str(e.last_rep) + "\"" \
                          + " n_rp=\""+str(e.next_rep) + "\">"
     else:
-         print >> outfile, "<item>"
-         
+        print >> outfile, "<item>"
+
     print >> outfile, " <cat>" + encode_cdata(e.cat.name) + "</cat>"
     print >> outfile, " <Q>" + encode_cdata(e.q) + "</Q>"
     print >> outfile, " <A>" + encode_cdata(e.a) + "</A>"
@@ -1678,7 +1675,7 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
                 if repetitions == 0:
                     
                     # The item is new, there are no repetitions yet.
-                    # SuperMemo queries such item's in a dedicated learning
+                    # SuperMemo queries such items in a dedicated learning
                     # mode "Memorize new items", thus offering the user to
                     # learn as many new items per session as desired.  We
                     # achieve a similar behaviour by grading the item 0.
@@ -1774,20 +1771,13 @@ register_file_format("SuperMemo7 Text in Q:/A: format",
 
 def add_new_item(grade, question, answer, cat_name):
 
-    global items, categories, category_by_name, load_failed
+    global items, load_failed
 
-    if cat_name not in category_by_name.keys():
-        cat = Category(cat_name)
-        categories.append(cat)
-        category_by_name[cat_name] = cat
-    else:
-        cat = category_by_name[cat_name]
-    
     item = Item()
     
     item.q     = question
     item.a     = answer
-    item.cat   = cat
+    item.cat   = get_category_by_name(cat_name)
     item.grade = grade
 
     item.easiness = average_easiness()
@@ -1827,10 +1817,7 @@ def delete_item(e):
     
     items.remove(e)
     rebuild_revision_queue()
-    
-    if old_cat.in_use() == False:
-        del category_by_name[old_cat.name]
-        categories.remove(old_cat)
+    remove_category_if_unused(old_cat)
 
     logger.info("Deleted item %s", e.id)
 
