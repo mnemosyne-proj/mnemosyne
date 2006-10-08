@@ -8,23 +8,31 @@ Before 1.0:
 
 -clicking cancel after 'merge and edit' *does* merge
 
--drag and drop of pictures
+-drag and drop of pictures, sound files
 
 -select multiple items to delete or change category
+
+-better action icons
+
+-Mnemosyne picture / logo
 
 -website:
   relative CSS layout 
     http://www.webreference.com/authoring/style/sheets/css_mastery2/
   better mailing list page
   contributors page
-
--graphics in software and on website
-
+  screenshots
+  Mnemosyne picture/logo
 
 
 After 1.0:
 
--determine file type based on suffix
+-easier 'add vice versa' for foreign word / pronunciation / translation
+ triplets
+
+-option to automatically increase font size for non-latin characters 
+
+-determine export file type based on suffix
 
 -change file suffix when changing export file format
 
@@ -36,6 +44,9 @@ QTableWidget (might be made obsolete by 2.0)
 -add 'add item' option to edit items list?
 
 -clean obsolete latex images
+
+-remember category and vice-versa settings across invocations when adding 
+ items
 
 -make <a> links clickable
 
@@ -49,23 +60,13 @@ QTableWidget (might be made obsolete by 2.0)
 
 -paste from clipboard
 
--make really sure the same question isn't asked twice in row
+-make really sure the same question isn't asked twice in row?
 
 -unify save and export?
 
--best way to selectively increase font size?
-
--remember category and vice-versa settings across invocations when adding 
- items?
-
 -clean duplicates for answers too?
 
--colors?
-
 -hints? separate mnemonics?
-
--back button?
-
 
 
 Mnemosyne 2.0:
@@ -74,15 +75,20 @@ Mnemosyne 2.0:
 
 -Qt/Sqlite backend
 
--advanced statistics
+-advanced statistics, history, ...
 
 -multiple categories per item, hierarchical categories
 
+-advanced database editor, with tree view of categories, drand and drop
+ to change categories, add item option, ...
+
 -multiple answers per questions
+
+-separate colors per category?
 
 -per category statistics in 'Activate categories'
 
--make vice-versa a switch?
+-undo button?
 
 -bug in Qt? : get rid of dummy '.' status tips
 
@@ -93,14 +99,14 @@ Mnemosyne 2.0:
 
 Superkaramba / Plasma
 
-- Check Unicode
+-Check Unicode
 
-- set fonts, left align
+-set fonts, left align
 
-- Allow clicking anywhere in the status window, rather than just on the
-  text.
+-Allow clicking anywhere in the status window, rather than just on the
+ text.
 
-- Automatic detection of PyQt executable exit (bug in Superkaramba).
+-Automatic detection of PyQt executable exit (bug in Superkaramba).
 
-- Check if we still need to be able to access the item by id as argument
-  to the PyQt executable
+-Check if we still need to be able to access the item by id as argument
+ to the PyQt executable
