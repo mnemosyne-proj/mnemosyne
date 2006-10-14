@@ -4,7 +4,11 @@ Before 1.0:
 
 -limited statistics
 
+-check for file opening errors on save/export
+
 -new category in 'add items' is not reflected in drop-down box
+
+-after save failed and succesfull load, edit items is grayed out.
 
 -clicking cancel after 'merge and edit' *does* merge
 

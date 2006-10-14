@@ -22,6 +22,43 @@ from mnemosyne.core import *
 
 ##############################################################################
 #
+# messageUnableToSave
+#
+##############################################################################
+
+def messageUnableToSave(fileName):
+    QMessageBox.critical(None,
+                         qApp.translate("Mnemosyne", "Mnemosyne"),
+                         qApp.translate("Mnemosyne", "Unable to save file:")
+                         + QString("\n" + fileName),
+                         qApp.translate("Mnemosyne", "&OK"),
+                         "", "", 0, -1)
+
+
+
+##############################################################################
+#
+# queryOverwriteFile
+#
+##############################################################################
+
+def queryOverwriteFile(fileName):
+    status = QMessageBox.warning(None,
+                                 qApp.translate("Mnemosyne", "Mnemosyne"),
+                                 qApp.translate("Mnemosyne", "File exists: ")
+                                 + QString("\n" + fileName),
+                                 qApp.translate("Mnemosyne", "&Overwrite"),
+                                 qApp.translate("Mnemosyne", "&Cancel"),
+                                 "", 1, -1)
+    if status == 0:
+        return True
+    else:
+        return False
+
+
+
+##############################################################################
+#
 # MainDlg
 #
 ##############################################################################
@@ -164,12 +201,7 @@ class MainDlg(MainFrm):
                 out += ".mem"
                 
             if os.path.exists(out):
-                status = QMessageBox.warning(None,
-                    self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Overwrite existing file?"),
-                    self.trUtf8("&Yes"), self.trUtf8("&No"),
-                    QString(), 1, -1)
-                if status == 1:
+                if not queryOverwriteFile(out):
                     unpause_thinking()
                     return
 
@@ -193,17 +225,15 @@ class MainDlg(MainFrm):
 
         pause_thinking()
                 
-        out = unicode(QFileDialog.getOpenFileName(get_config("path"),\
+        oldPath = get_config("path")
+        out = unicode(QFileDialog.getOpenFileName(oldPath,\
                                                   "*.mem")).encode("utf-8")
         if out != "":
 
             status = unload_database()
             if status == False:
-                QMessageBox.critical(None,
-                                     self.trUtf8("Mnemosyne"),
-                                     self.trUtf8("Unable to save file."),
-                                     self.trUtf8("&OK"), QString(), QString(),
-                                     0, -1)   
+                messageUnableToSave(oldPath)
+
             self.clearQuestion()
             self.updateStatusBar()
             
@@ -237,13 +267,10 @@ class MainDlg(MainFrm):
 
         pause_thinking()
 
-        status = save_database(get_config("path"))
-        
+        path = get_config("path")
+        status = save_database(path)
         if status == False:
-            QMessageBox.critical(None,
-                 self.trUtf8("Mnemosyne"),
-                 self.trUtf8("Unable to save file."),
-                 self.trUtf8("&OK"), QString(), QString(), 0, -1)
+            messageUnableToSave(path)
 
         unpause_thinking()
 
@@ -265,21 +292,13 @@ class MainDlg(MainFrm):
                 out += ".mem"
 
             if os.path.exists(out) and out != get_config("path"):
-                status = QMessageBox.warning(None,
-                    self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Overwrite existing file?"),
-                    self.trUtf8("&Yes"), self.trUtf8("&No"),
-                    QString(), 1, -1)
-                if status == 1:
+                if not queryOverwriteFile(out):
                     unpause_thinking()
                     return
                 
             status = save_database(out)
             if status == False:
-                QMessageBox.critical(None,
-                    self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Unable to save file."),
-                    self.trUtf8("&OK"), QString(), QString(), 0, -1)
+                messageUnableToSave(out)
                 unpause_thinking()
                 return            
 
@@ -520,11 +539,7 @@ class MainDlg(MainFrm):
         save_config()
         status = unload_database()
         if status == False:
-            QMessageBox.critical(None,
-                                 self.trUtf8("Mnemosyne"),
-                                 self.trUtf8("Unable to save file."),
-                                 self.trUtf8("&OK"), QString(), QString(),
-                                 0, -1)   
+            messageUnableToSave(get_config("path"))
         event.accept()
 
     ##########################################################################
