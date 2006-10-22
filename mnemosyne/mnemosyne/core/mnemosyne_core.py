@@ -1439,6 +1439,10 @@ def import_txt(filename, default_cat, reset_learning_data=False):
                 return False
 
         line = line.rstrip()
+
+        if line[0] == u'\ufeff': # Microsoft Word unicode export oddity.
+            line = line[1:]
+        
         if len(line) == 0:
             continue
         

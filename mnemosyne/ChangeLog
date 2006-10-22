@@ -1,3 +1,9 @@
+MNEMOSYNE 0.9.7
+
+-worked around Microsoft Word unicode export oddity.
+
+
+
 MNEMOSYNE 0.9.6: 2006-10-07
 
 -added LaTeX support for formulas, e.g. <latex>x^2+y^2=z^2</latex>. For 

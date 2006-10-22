@@ -1,3 +1,8 @@
+ in queryOverwriteFile
+    qApp.translate("Mnemosyne", "File exists: ")
+TypeError: unsupported operand type(s) for +: 'QString' and 'QString'
+
+
 Before 1.0:
 
 -Q and A on different lines
@@ -64,6 +69,8 @@ QTableWidget (might be made obsolete by 2.0)
 -animated GIFs
 
 -DTD for xml format
+
+-import Excel's Unicode format
 
 -feedback about uploads in GUI / add time-out
 
