@@ -4,19 +4,24 @@
 
 <div id="content">
 
+          There is no comprehensive manual for Mnemosyne (yet), but you can get all the relevant information by reading the <a href="principles.php">principles<a> page and the FAQ below.
+
 <h1>Frequently asked questions</h1>
 
-<h2 id="question">Can I import data from MemAid?</h2>
-If your favorite Memaid client has that option, export your data as XML. You can then import this data into Mnemosyne.
+<h2 id="question">What is the recommended way to organise my items in different categories and files?</h2>
+To make your life as easy as possible, we recommend keeping all your items in a single file and use categories to add some structure to them. E.g., to a question 'house' in a category 'Spanish', you'll need to answer 'casa', whereas the same question in the 'French' category requires 'maison'. We recommend that you keep all your categories active at the same time, and let Mnemosyne figure out what items to review. Manually activating and deactivating categories can become very tedious. Keeping each category in a different file requires even more mouse clicks from your part.
 
-<h2 id="question">What about importing from a text file?</h2>
-You can import from a file with extension <code>'.txt'</code> where each line consists of a question and an answer, separated by a tab.
+<h2 id="question">I've just added a whole lot of new items. What is the best way to starting working with these?</h2>
+By default, Mnemosyne will only show you 5 different items you've put in grade 0 at once. This is because it does not make sense to try and memorise e.g. 100 new items all at once. However, you can change this number 5 by using the 'number of grade 0 items to learn at once' option in the 'Configure' menu. If you already know all your items, you can just go through all of them in a single pass and grade them 3, 4 or 5. However, we recommend only going through a limited number of new items each day, in order to help Mnemosyne achieve a better spread of your workload when revising these items again.
+   
+<h2 id="question">I have a bunch of items in a word processor or a spread sheet program. Can I import them into Mnemosyne?</h2>
+Mnemosyne can import plain text files where each line contains a question/answer pair separated by a tab. So e.g. if you have such a list in Word, save it as plain text (*.txt), choose 'other encoding - Unicode (UTF-8)' if your data contains funny characters, and then you get a file which you can import in Mnemosyne if you choose the 'Text with tab separated Q/A' format. The same goes for Excel using 'save as', 'tab delimited (txt)'. However, Excel's unicode text format is not the standard UTF-8, so this only works for latin characters.
+
+<h2 id="question">What other file formats can I import?</h2>
+You can import Memaid's XML format (Mnemosyne's predecessor) and also Supermemo7's text format.
 
 <h2 id="question">I'd like to print out a list of my items.</h2>
 In the export function, export to a file with extension <code>'.txt'</code>, which you can then open in your favourite word processor.
-
-<h2 id="question">What's the deal with the 'number of grade 0 items to learn at once' option?</h2>
-When you add lots of new items to your database, you obviously won't be able to learn them all at once. By default, Mnemosyne will concentrate on only 5 new items at a time, although you can change this number using this setting.
 
 <h2 id="question">Can I add pictures to questions or anwers?</h2>
 Sure, you can use ordinary html-syntax for that:
