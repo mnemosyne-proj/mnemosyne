@@ -1440,11 +1440,11 @@ def import_txt(filename, default_cat, reset_learning_data=False):
 
         line = line.rstrip()
 
-        if line[0] == u'\ufeff': # Microsoft Word unicode export oddity.
-            line = line[1:]
-        
         if len(line) == 0:
             continue
+
+        if line[0] == u'\ufeff': # Microsoft Word unicode export oddity.
+            line = line[1:]
         
         item = Item()
 
@@ -1496,6 +1496,80 @@ register_file_format("Text with tab separated Q/A",
                      filter="Text file (*.txt *.TXT)",
                      import_function=import_txt,
                      export_function=export_txt)
+
+
+##############################################################################
+#
+# import_txt
+#
+#   Question and answers each on a separate line.
+#
+##############################################################################
+
+def import_txt_2(filename, default_cat, reset_learning_data=False):
+    
+    global items
+
+    imported_items = []
+
+    # Parse txt file.
+
+    avg_easiness = average_easiness()
+
+    f = None
+    try:
+        f = file(filename)
+    except:
+        try:
+            f = file(filename.encode("latin"))
+        except:
+            print "Unable to open file."
+            return False
+
+    Q_A = []
+    
+    for line in f:
+        
+        try:
+            line = unicode(line, "utf-8")
+        except:
+            try:
+                line = unicode(line, "latin")
+            except:
+                print "Unrecognised encoding."
+                return False
+
+        line = line.rstrip()
+
+        if len(line) == 0:
+            continue
+
+        if line[0] == u'\ufeff': # Microsoft Word unicode export oddity.
+            line = line[1:]
+
+        Q_A.append(line)
+
+        if len(Q_A) == 2:
+            
+            item = Item()
+
+            item.q = Q_A[0]
+            item.a = Q_A[1]    
+        
+            item.easiness = avg_easiness
+            item.cat = default_cat
+            item.new_id()
+                    
+            imported_items.append(item)
+
+            Q_A = []
+
+    return imported_items
+
+register_file_format("Text with Q and A each on separate line",
+                     filter="Text file (*.txt *.TXT)",
+                     import_function=import_txt_2,
+                     export_function=False)
 
 
 

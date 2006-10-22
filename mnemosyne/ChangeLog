@@ -1,14 +1,16 @@
 MNEMOSYNE 0.9.7
 
--worked around Microsoft Word unicode export oddity.
-
+-added option to import text files where question and answer each are on
+ their own line.
+-improved import dialog.
+-worked around Microsoft oddity when importing Word unicode text files.
 
 
 MNEMOSYNE 0.9.6: 2006-10-07
 
 -added LaTeX support for formulas, e.g. <latex>x^2+y^2=z^2</latex>. For 
  this you need latex and dvipng installed. Windows users can download 
- MiKTeX. (thanks to input from Henrik Skov Midtiby and J. David Lee)
+ MiKTeX. (thanks to input from Henrik Skov Midtiby and J. David Lee.)
 -added possibility to preview an item. Useful if you work with tags.
 -added import from SuperMemo7 text files (code thanks to Dirk Herrmann).
 -either space, enter or return can be used to show the answer. The default

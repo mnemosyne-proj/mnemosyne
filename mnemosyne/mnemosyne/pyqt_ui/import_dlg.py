@@ -31,7 +31,7 @@ class ImportDlg(ImportFrm):
 
         for fformat in get_importable_file_formats():
             self.fileformats.insertItem(fformat.name)
-        self.fileformats.setCurrentText("XML")
+        self.fileformats.setCurrentText("Text with tab separated Q/A")
 
         self.categories.insertItem("<default>")
         for cat in get_categories():
