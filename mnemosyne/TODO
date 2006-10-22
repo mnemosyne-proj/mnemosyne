@@ -1,5 +1,11 @@
 Before 1.0:
 
+-Q and A on different lines
+
+-select multiple items to delete or change category (QListViewIterator)
+
+-remember window size set by the user
+
 -sounds
 
 -limited statistics
@@ -14,8 +20,6 @@ Before 1.0:
 
 -drag and drop of pictures, sound files
 
--select multiple items to delete or change category
-
 -better action icons
 
 -Mnemosyne picture / logo
@@ -26,6 +30,7 @@ Before 1.0:
   better mailing list page
   contributors page
   screenshots
+  categories in faq
   Mnemosyne picture/logo
 
 
@@ -39,6 +44,8 @@ After 1.0:
 -determine export file type based on suffix
 
 -change file suffix when changing export file format
+
+-add items: cancel --> exit?
 
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
 QTableWidget (might be made obsolete by 2.0)
