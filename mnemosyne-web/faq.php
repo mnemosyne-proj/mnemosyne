@@ -39,7 +39,7 @@ A low-tech option is to approximate them using ordinary text. For multi-line for
 It sure would! A future version will use html <code>&lt;sound> </code> tags to specify a sound file, which will then be played by an external program (which you can choose).
 
 <h2 id="question">Can I use keyboard shortcuts while doing the revisions?</h2>
-Sure! To show the answer you can either press enter, space or return. To grade your answer you can just press the number keys.
+Sure! To show the answer you can either press enter, space or return. To grade your answer you can just press the number keys. You can use the delete button to get rid of an item.
 
 <h2 id="question">Can I use hierachical categories?</h2>
 Not yet, but in the mean time, you can give your categories names like 'Science:Physics' and 'Science:Mathematics'. 
@@ -48,7 +48,7 @@ Not yet, but in the mean time, you can give your categories names like 'Science:
 It is recommended that you export all your data to a new XML file from time to time.
 
 <h2 id="question">Exactly what algorithm is used to schedule revisions?</h2>
-The algorithm used is very similar to <a href="http://www.supermemo.com/english/ol/sm2.htm">SM2</a> used in one of the early versions of <a href="http://www.supermemo.com">SuperMemo</a>. There are some modifications to be able to deal with early and late repitions, and to add a small healthy dose of randomness to the intervals.
+The algorithm used is very similar to <a href="http://www.supermemo.com/english/ol/sm2.htm">SM2</a> used in one of the early versions of <a href="http://www.supermemo.com">SuperMemo</a>. There are some modifications to be able to deal with early and late repetitions, and to add a small healthy dose of randomness to the intervals.
 
 <h2 id="question">But Supermemo now uses SM11. Doesn't this mean that Mnemosyne is a lot worse than Supermemo?</h2>
 Perhaps. Perhaps not. We are personally a bit skeptical that the huge complexity of these new algorithms provides for a statistically relevant benefit. But that is one of the facts we hope to find out with our data collection. We will only make modifications to our algorithms either based on common sense, or if the data tells us that there is a statistically relevant reason to do so.
