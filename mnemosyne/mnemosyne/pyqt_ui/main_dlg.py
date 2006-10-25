@@ -24,13 +24,16 @@ from mnemosyne.core import *
 #
 # messageUnableToSave
 #
+#  Note: operator+ would be nicer than append, but the PyQt version we use
+#        under Windows does not support this.
+#
 ##############################################################################
 
 def messageUnableToSave(fileName):
     QMessageBox.critical(None,
                          qApp.translate("Mnemosyne", "Mnemosyne"),
-                         qApp.translate("Mnemosyne", "Unable to save file:")
-                         + QString("\n" + fileName),
+                         qApp.translate("Mnemosyne", "Unable to save file:")\
+                         .append(QString("\n" + fileName)),
                          qApp.translate("Mnemosyne", "&OK"),
                          "", "", 0, -1)
 
@@ -43,10 +46,12 @@ def messageUnableToSave(fileName):
 ##############################################################################
 
 def queryOverwriteFile(fileName):
+    print fileName
+
     status = QMessageBox.warning(None,
                                  qApp.translate("Mnemosyne", "Mnemosyne"),
-                                 qApp.translate("Mnemosyne", "File exists: ")
-                                 + QString("\n" + fileName),
+                                 qApp.translate("Mnemosyne", "File exists: ")\
+                                 .append(QString("\n" + fileName)),
                                  qApp.translate("Mnemosyne", "&Overwrite"),
                                  qApp.translate("Mnemosyne", "&Cancel"),
                                  "", 1, -1)
