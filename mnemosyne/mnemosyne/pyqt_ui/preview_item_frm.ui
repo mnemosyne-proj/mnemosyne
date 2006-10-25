@@ -139,6 +139,9 @@
                     <property name="accel">
                         <string>Alt+O</string>
                     </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
                 </widget>
             </hbox>
         </widget>

@@ -3,6 +3,8 @@ MNEMOSYNE 0.9.7
 -added option to import text files where question and answer each are on
  their own line.
 -improved import dialog.
+-made the OK button respond to the enter key in a few dialogs. (reported 
+ by J. Forrez.)
 -worked around Microsoft oddity when importing Word unicode text files.
 
 

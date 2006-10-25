@@ -1,7 +1,14 @@
+-delete shortcut in edit items
+
+-enter shortcut in import
+
+windows: recommend uninstall?
+
  in queryOverwriteFile
     qApp.translate("Mnemosyne", "File exists: ")
 TypeError: unsupported operand type(s) for +: 'QString' and 'QString'
 
+better check if latex failed?
 
 Before 1.0:
 
@@ -69,8 +76,6 @@ QTableWidget (might be made obsolete by 2.0)
 -animated GIFs
 
 -DTD for xml format
-
--import Excel's Unicode format
 
 -feedback about uploads in GUI / add time-out
 
