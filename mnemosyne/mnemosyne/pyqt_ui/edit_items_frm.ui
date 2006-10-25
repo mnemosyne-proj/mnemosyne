@@ -98,6 +98,12 @@
                     <property name="name">
                         <cstring>item_list</cstring>
                     </property>
+                    <property name="mouseTracking">
+                        <bool>false</bool>
+                    </property>
+                    <property name="selectionMode">
+                        <enum>Extended</enum>
+                    </property>
                     <property name="allColumnsShowFocus">
                         <bool>true</bool>
                     </property>

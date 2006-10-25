@@ -52,7 +52,7 @@ class EditItemsDlg(EditItemsFrm):
 
         parent.statusBar().message("Please wait...")
         
-        self.popup_item = None
+        self.selected = []
         self.found_once = False
         self.last_search_str = None
 
@@ -63,11 +63,16 @@ class EditItemsDlg(EditItemsFrm):
                      SIGNAL("itemRenamed(QListViewItem*,int)"),
                      self.cell_edited)
 
-        self.popup = QPopupMenu(self, "menu")
-        self.popup.insertItem(self.tr("&Edit"), self.edit)
-        self.popup.insertItem(self.tr("&Preview"), self.preview)        
-        self.popup.insertItem(self.tr("&Add vice versa"), self.viceversa)
-        self.popup.insertItem(self.tr("&Delete"), self.delete)
+        self.popup_1 = QPopupMenu(self, "menu1")
+        self.popup_1.insertItem(self.tr("&Edit"), self.edit)
+        self.popup_1.insertItem(self.tr("&Preview"), self.preview)        
+        self.popup_1.insertItem(self.tr("&Add vice versa"), self.viceversa)
+        self.popup_1.insertItem(self.tr("&Delete"), self.delete)
+        
+        self.popup_2 = QPopupMenu(self, "menu2")
+        self.popup_2.insertItem(self.tr("&Change category"), self.delete)
+        self.popup_2.insertItem(self.tr("&Add vice versa"), self.viceversa)
+        self.popup_2.insertItem(self.tr("&Delete"), self.delete)
         
         self.connect(self.item_list,
           SIGNAL("contextMenuRequested(QListViewItem*,const QPoint&,int)"),
@@ -81,6 +86,8 @@ class EditItemsDlg(EditItemsFrm):
                      self.find)
         self.connect(self.close_button, SIGNAL("clicked()"),
                      self.close)
+
+        self.item_list.keyPressEvent = self.listView_keyPressEvent
 
         if get_config("list_font") != None:
             font = QFont()
@@ -96,16 +103,33 @@ class EditItemsDlg(EditItemsFrm):
     #
     ##########################################################################
     
-    def cell_edited(self, item, col):
+    def cell_edited(self, list_item, col):
 
-        item.item.q  = unicode(item.text(0))
-        item.item.a  = unicode(item.text(1))
+        list_item.item.q = unicode(list_item.text(0))
+        list_item.item.a = unicode(list_item.text(1))
             
-        old_cat_name = item.item.cat.name
-        new_cat_name = unicode(item.text(2))
+        old_cat_name = list_item.item.cat.name
+        new_cat_name = unicode(list_item.text(2))
         
         if old_cat_name != new_cat_name:
-            item.item.change_category(new_cat_name)
+            list_item.item.change_category(new_cat_name)
+            
+    ##########################################################################
+    #
+    # find_selected
+    #
+    ##########################################################################
+
+    def find_selected(self):
+    
+        self.selected = []
+
+        iter = QListViewItemIterator(self.item_list,
+                                     QListViewItemIterator.Selected)
+        
+        while iter.current():
+            self.selected.append(iter.current())
+            iter += 1
 
     ##########################################################################
     #
@@ -113,9 +137,16 @@ class EditItemsDlg(EditItemsFrm):
     #
     ##########################################################################
     
-    def show_popup(self,item,point,i):
-        self.popup_item = item
-        self.popup.popup(point)
+    def show_popup(self, list_item, point, i):
+
+        self.find_selected()
+
+        if len(self.selected) == 0:
+            return
+        elif len(self.selected) == 1:
+            self.popup_1.popup(point)
+        else:
+            self.popup_2.popup(point)            
         
     ##########################################################################
     #
@@ -125,15 +156,12 @@ class EditItemsDlg(EditItemsFrm):
 
     def edit(self):
         
-        if self.popup_item == None:
-            return
-        
-        item = self.popup_item.item
-        dlg = EditItemDlg(item,self,"Edit current item",0)
+        list_item = self.selected[0]
+        dlg = EditItemDlg(list_item.item,self,"Edit current item",0)
         dlg.exec_loop()
-        self.popup_item.setText(0, item.q)
-        self.popup_item.setText(1, item.a)
-        self.popup_item.setText(2, item.cat.name)
+        list_item.setText(0, list_item.item.q)
+        list_item.setText(1, list_item.item.a)
+        list_item.setText(2, list_item.item.cat.name)
         
     ##########################################################################
     #
@@ -142,11 +170,8 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
 
     def preview(self):
-        
-        if self.popup_item == None:
-            return
-        
-        item = self.popup_item.item
+                
+        item = self.selected[0].item
         dlg = PreviewItemDlg(item.q,item.a,item.cat.name,
                              self,"Preview current item",0)
         
@@ -159,9 +184,6 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
     
     def viceversa(self):
-
-        if self.popup_item == None:
-            return
         
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
@@ -171,7 +193,7 @@ class EditItemsDlg(EditItemsFrm):
         if status == 1:
             return
         else:
-            i = self.popup_item.item
+            item = self.selected[0].item
             new_item = add_new_item(i.grade, i.a, i.q, i.cat.name)
             ListItem(self.item_list, new_item)
 
@@ -183,20 +205,23 @@ class EditItemsDlg(EditItemsFrm):
     
     def delete(self):
 
-        if self.popup_item == None:
-            return
+        if len(self.selected) > 1:
+            message = "Delete these items?"
+        else:
+            message = "Delete this item?"            
         
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Delete this item?"),
+                    self.trUtf8(message),
                     self.trUtf8("&Yes"), self.trUtf8("&No"),
                     QString(), 1, -1)
         if status == 1:
             return
         else:
-            delete_item(self.popup_item.item)
-            self.item_list.takeItem(self.popup_item)
-            self.popup_item = None
+            for list_item in self.selected:
+                delete_item(list_item.item)
+                self.item_list.takeItem(list_item)
+            self.selected = []
 
        
     ##########################################################################
@@ -210,6 +235,9 @@ class EditItemsDlg(EditItemsFrm):
         # If this is a new search, check if the item is present at all.
 
         to_find = self.to_find.text()
+
+        if len(to_find) == 0:
+            return
         
         if self.to_find.text() != self.last_search_str:
             
@@ -256,9 +284,11 @@ class EditItemsDlg(EditItemsFrm):
                                     
         if f:
             self.find_button.setText("&Find again")
-            self.item_list.setSelected(f, 1)
-            self.item_list.ensureItemVisible(f)
             self.item_list.setFocus()
+            self.item_list.clearSelection()
+            self.item_list.ensureItemVisible(f)
+            self.item_list.setSelected(f, 1)
+            self.item_list.setCurrentItem(f)
         elif self.found_once == True: # Wrap search.
             # Prevent infinite recursion in case the item was deleted by now.
             self.last_search_str = None
@@ -274,10 +304,23 @@ class EditItemsDlg(EditItemsFrm):
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_F3:
             self.find()
-            e.accept()
+            
+    ##########################################################################
+    #
+    # listView_keyPressEvent
+    #
+    ##########################################################################
+    
+    def listView_keyPressEvent(self, e):
+        if e.key() == Qt.Key_Delete:
+            self.find_selected()
+            if len(self.selected) == 0:
+                return
+            else:
+                self.delete()         
         else:
-            e.ignore()
-
+            QListView.keyPressEvent(self.item_list, e)
+            
     ##########################################################################
     #
     # reset_find
