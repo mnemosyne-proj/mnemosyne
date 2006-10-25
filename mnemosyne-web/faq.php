@@ -41,6 +41,9 @@ It sure would! A future version will use html <code>&lt;sound> </code> tags to s
 <h2 id="question">Can I use keyboard shortcuts while doing the revisions?</h2>
 Sure! To show the answer you can either press enter, space or return. To grade your answer you can just press the number keys. You can use the delete button to get rid of an item.
 
+<h2 id="question">How can I sort the items in the 'Edit items' list by category?</h2>
+Just click on the 'Category' column title. Clicking again changes the sort order.
+
 <h2 id="question">Can I use hierachical categories?</h2>
 Not yet, but in the mean time, you can give your categories names like 'Science:Physics' and 'Science:Mathematics'. 
 
