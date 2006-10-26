@@ -715,6 +715,8 @@ def expand_path(p):
 ##############################################################################
 
 def process_latex(latex_command):
+
+    error_str = "<b>Problem with latex. Are latex and dvipng installed?</b>"
     
     basedir   = os.path.join(os.path.expanduser("~"), ".mnemosyne")
     latexdir  = os.path.join(basedir, "latex")
@@ -732,13 +734,15 @@ def process_latex(latex_command):
         print >> f, "\\end{displaymath} \\end{document}"
         f.close()
 
-        try:
-            os.system("latex tmp.tex")
-            os.system("dvipng -D 200 -T tight tmp.dvi")
-            shutil.copy("tmp1.png", imag_name)
-        except:
-            print "Problem with latex. Are latex and dvipnh installed?"
-            return ""
+        status = os.system("latex tmp.tex")
+        if status != 0:
+            return error_str
+        
+        status = os.system("dvipng -D 200 -T tight tmp.dvi")
+        if status != 0:
+            return error_str
+
+        shutil.copy("tmp1.png", imag_name)
 
     return  "<img src=\"" + latexdir + "/" + imag_name + "\" >"
 
