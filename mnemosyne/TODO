@@ -1,32 +1,25 @@
--delete shortcut in edit items
+-add vice versa multi --> update duplicate check for items without 
+revision
 
--enter shortcut in import
+-change categories multi
 
-windows: recommend uninstall?
+-check for file opening errors on save/export
 
- in queryOverwriteFile
-    qApp.translate("Mnemosyne", "File exists: ")
-TypeError: unsupported operand type(s) for +: 'QString' and 'QString'
-
-better check if latex failed?
-
-Before 1.0:
-
--Q and A on different lines
-
--select multiple items to delete or change category (QListViewIterator)
+-better check if latex failed?
 
 -remember window size set by the user
+
+-clean up icons
+
+Before 1.0:
 
 -sounds
 
 -limited statistics
 
--check for file opening errors on save/export
-
 -new category in 'add items' is not reflected in drop-down box
 
--after save failed and succesfull load, edit items is grayed out.
+-after save failed and succesful load, edit items is grayed out.
 
 -clicking cancel after 'merge and edit' *does* merge
 
@@ -57,7 +50,9 @@ After 1.0:
 
 -change file suffix when changing export file format
 
--add items: cancel --> exit?
+-add items: rename cancel --> exit?
+
+-check unicode filenames
 
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
 QTableWidget (might be made obsolete by 2.0)

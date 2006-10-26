@@ -277,6 +277,15 @@ class Item:
     
     ##########################################################################
     #
+    # sort_key_newest
+    #
+    ##########################################################################
+
+    def sort_key_newest(self):
+        return self.acq_reps + self.ret_reps
+    
+    ##########################################################################
+    #
     # is_due_for_acquisition_rep
     #
     ##########################################################################
@@ -1869,8 +1878,8 @@ def add_new_item(grade, question, answer, cat_name):
     if grade == 4:
         new_interval = random.randint(2,3)
     if grade == 5:
-        new_interval = random.randint(3,6)        
- 
+        new_interval = random.randint(3,6)
+
     item.next_rep = time_of_start.days_since() + new_interval
     
     items.append(item)    

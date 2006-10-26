@@ -185,17 +185,27 @@ class EditItemsDlg(EditItemsFrm):
     
     def viceversa(self):
         
+        if len(self.selected) > 1:
+            message = "Add vice versa of these items?"
+        else:
+            message = "Add vice versa of this item?"
+            
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Add vice virsa of this item?"),
+                    self.trUtf8(message +
+                     "\n\nThis could create duplicates if the vice " +\
+                     "versas are already present," +\
+                     "\nso you might want to run 'clean duplicates' "+\
+                     "afterwards."),
                     self.trUtf8("&Yes"), self.trUtf8("&No"),
                     QString(), 1, -1)
         if status == 1:
             return
         else:
-            item = self.selected[0].item
-            new_item = add_new_item(i.grade, i.a, i.q, i.cat.name)
-            ListItem(self.item_list, new_item)
+            for list_item in self.selected:
+                i = list_item.item
+                new_list_item = add_new_item(i.grade, i.a, i.q, i.cat.name)
+                ListItem(self.item_list, new_list_item)
 
     ##########################################################################
     #

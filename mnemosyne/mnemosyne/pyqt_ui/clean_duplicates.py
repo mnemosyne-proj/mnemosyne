@@ -37,6 +37,11 @@ def clean_duplicates(self):
     n_removed = 0   
     for q, itemlist in items_for_question.iteritems():
         if len(itemlist) > 1:
+
+            # Make sure we keep the oldest copy.
+            
+            itemlist.sort(key=Item.sort_key_newest, reverse=True)
+            
             old_len = len(itemlist)
             for j in range(old_len-1):
                 if j < len(itemlist):
