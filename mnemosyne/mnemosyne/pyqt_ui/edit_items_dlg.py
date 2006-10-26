@@ -11,6 +11,7 @@ from mnemosyne.core import *
 from edit_items_frm import *
 from edit_item_dlg import *
 from preview_item_dlg import *
+from change_category_dlg import *
 
 
 ##############################################################################
@@ -70,7 +71,8 @@ class EditItemsDlg(EditItemsFrm):
         self.popup_1.insertItem(self.tr("&Delete"), self.delete)
         
         self.popup_2 = QPopupMenu(self, "menu2")
-        self.popup_2.insertItem(self.tr("&Change category"), self.delete)
+        self.popup_2.insertItem(self.tr("&Change category"),
+                                                      self.change_category)
         self.popup_2.insertItem(self.tr("&Add vice versa"), self.viceversa)
         self.popup_2.insertItem(self.tr("&Delete"), self.delete)
         
@@ -107,12 +109,7 @@ class EditItemsDlg(EditItemsFrm):
 
         list_item.item.q = unicode(list_item.text(0))
         list_item.item.a = unicode(list_item.text(1))
-            
-        old_cat_name = list_item.item.cat.name
-        new_cat_name = unicode(list_item.text(2))
-        
-        if old_cat_name != new_cat_name:
-            list_item.item.change_category(new_cat_name)
+        list_item.item.change_category(unicode(list_item.text(2)))
             
     ##########################################################################
     #
@@ -232,8 +229,20 @@ class EditItemsDlg(EditItemsFrm):
                 delete_item(list_item.item)
                 self.item_list.takeItem(list_item)
             self.selected = []
-
-       
+            
+    ##########################################################################
+    #
+    # change_category
+    #
+    ##########################################################################
+    
+    def change_category(self):
+        
+        dlg = ChangeCategoryDlg(self.selected,self,"Change category",0)
+        dlg.exec_loop()     
+        for list_item in self.selected:
+            list_item.setText(2, list_item.item.cat.name)
+            
     ##########################################################################
     #
     # find
