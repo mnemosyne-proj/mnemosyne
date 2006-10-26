@@ -41,7 +41,7 @@ class ExportDlg(ExportFrm):
         self.default_fname = get_config("path")[:-3]+"xml"
         self.filename.setText(self.default_fname)
         self.connect(self.browse_button, SIGNAL("clicked()"), self.browse)
-        self.connect(self.all_button, SIGNAL("clicked()"), self.select_all )
+        self.connect(self.all_button, SIGNAL("clicked()"), self.select_all)
         self.connect(self.ok_button, SIGNAL("clicked()"), self.apply)
      
     ##########################################################################
@@ -87,12 +87,13 @@ class ExportDlg(ExportFrm):
     def apply(self):
 
         fname = unicode(self.filename.text()).encode("utf-8")
+        
         fformat_name = unicode(self.fileformats.currentText())
 
         if os.path.exists(fname):
             status = QMessageBox.warning(None,
                     self.trUtf8(""),
-                    self.trUtf8("""Overwrite existing file?"""),
+                    self.trUtf8("Overwrite existing file?"),
                     self.trUtf8("&Yes"), self.trUtf8("&No"),
                     QString(), 1, -1)
             if status == 1:
@@ -114,7 +115,7 @@ class ExportDlg(ExportFrm):
             QMessageBox.critical(None,
                          qApp.translate("Mnemosyne", "Mnemosyne"),
                          qApp.translate("Mnemosyne", "Unable to save file:")\
-                         .append(QString("\n" + fName)),
+                         .append(QString("\n" + fname)),
                          qApp.translate("Mnemosyne", "&OK"),
                          "", "", 0, -1)
 

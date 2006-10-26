@@ -983,9 +983,11 @@ def export_file(filename, fformat_name,
     # Call export function according to file format name.
 
     fformat = get_file_format_from_name(fformat_name)
-    fformat.export_function(filename, cat_names_to_export, reset_learning_data)
 
-    return True
+    status = fformat.export_function(filename, cat_names_to_export,
+                                     reset_learning_data)
+
+    return status
 
 
 
@@ -1375,7 +1377,7 @@ def write_category_XML(category, outfile, reset_learning_data):
 ##############################################################################
 
 def export_XML(filename, cat_names_to_export, reset_learning_data):
-
+        
     try:
         outfile = file(filename,'w')
     except:
