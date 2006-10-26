@@ -108,7 +108,7 @@ class MainDlg(MainFrm):
                      self.activateCategories)
         self.connect(self.productTourAction,SIGNAL("activated()"),
                      self.productTour)
-
+        
         if filename != None:
             load_database(filename)
         else:
@@ -712,3 +712,4 @@ class MainDlg(MainFrm):
         self.question.setText("")
         self.answer.setText("")
         self.newQuestion()
+        
