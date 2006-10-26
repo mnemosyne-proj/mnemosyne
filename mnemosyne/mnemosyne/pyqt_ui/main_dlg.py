@@ -91,8 +91,8 @@ class MainDlg(MainFrm):
         
         self.statusBar().setSizeGripEnabled(0)
         
-        self.connect(self.importAction,SIGNAL("activated()"), self.importXML)
-        self.connect(self.exportAction,SIGNAL("activated()"), self.exportXML)
+        self.connect(self.importAction,SIGNAL("activated()"), self.Import)
+        self.connect(self.exportAction,SIGNAL("activated()"), self.export)
         
         self.connect(self.addItemsAction,SIGNAL("activated()"),
                      self.addItems)
@@ -313,11 +313,11 @@ class MainDlg(MainFrm):
             
     ##########################################################################
     #
-    # importXML
+    # Import
     #
     ##########################################################################
 
-    def importXML(self):
+    def Import(self):
 
         pause_thinking()
         
@@ -325,12 +325,10 @@ class MainDlg(MainFrm):
             from xml.sax import saxutils, make_parser
             from xml.sax.handler import feature_namespaces
         except:
-            QMessageBox.critical(None,
+            QMessageBox.Warning(None,
                   self.trUtf8("Mnemosyne"),
                   self.trUtf8("PyXML must be installed to import XML."),
                   self.trUtf8("&OK"), QString(), QString(), 0, -1)
-            unpause_thinking()
-            return
 
         dlg = ImportDlg(self,"Import",0)
         dlg.exec_loop()
@@ -347,11 +345,11 @@ class MainDlg(MainFrm):
         
     ##########################################################################
     #
-    # exportXML
+    # export
     #
     ##########################################################################
 
-    def exportXML(self):
+    def export(self):
         pause_thinking()
         dlg = ExportDlg(self,"Export",0)
         dlg.exec_loop()

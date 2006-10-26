@@ -107,7 +107,15 @@ class ExportDlg(ExportFrm):
 
         reset_learning_data = self.reset_box.isChecked()
 
-        export_file(
+        status = export_file(
             fname, fformat_name, cat_names_to_export, reset_learning_data)
+
+        if status == False:
+            QMessageBox.critical(None,
+                         qApp.translate("Mnemosyne", "Mnemosyne"),
+                         qApp.translate("Mnemosyne", "Unable to save file:")\
+                         .append(QString("\n" + fName)),
+                         qApp.translate("Mnemosyne", "&OK"),
+                         "", "", 0, -1)
 
         self.close()

@@ -71,6 +71,8 @@ QTableWidget (might be made obsolete by 2.0)
 
 -automatic backups
 
+-selectively disable XML import if sax is not found.
+
 -paste from clipboard
 
 -make really sure the same question isn't asked twice in row?
