@@ -30,12 +30,7 @@ class AddItemsDlg(AddItemsFrm):
         
         AddItemsFrm.__init__(self,parent,name,modal,fl)
         
-        self.categories.insertItem("<default>")
-        names = [cat.name for cat in get_categories()]
-        names.sort()
-        for name in names:
-            if name != "<default>":
-                self.categories.insertItem(name)
+        self.update_combobox("<default>")
 
         self.connect(self.grades,SIGNAL("clicked(int)"),
                      self.new_item)
@@ -57,7 +52,29 @@ class AddItemsDlg(AddItemsFrm):
         
         #self.question.__class__.dropEvent = self.my_drop_event
 
+    ##########################################################################
+    #
+    # update_combobox
+    #
+    ##########################################################################
 
+    def update_combobox(self, current_cat_name):
+
+        no_of_categories = self.categories.count()
+        for i in range(no_of_categories-1,-1,-1):
+            self.categories.removeItem(i)
+
+        self.categories.insertItem("<default>")
+        names = [cat.name for cat in get_categories()]
+        names.sort()
+        for name in names:
+            if name != "<default>":
+                self.categories.insertItem(name)
+
+        for i in range(self.categories.count()):
+            if self.categories.text(i) == current_cat_name:
+                self.categories.setCurrentItem(i)
+                break
 
     ##########################################################################
     #
@@ -141,10 +158,8 @@ class AddItemsDlg(AddItemsFrm):
                 if status == 0: # Merge and edit.
                     
                     new_item = add_new_item(grade, q, a, cat_name)
+                    self.update_combobox(cat_name)
                     
-                    if cat_name not in get_category_names():
-                        self.categories.insertItem(cat_name)
-                        
                     for i in same_questions:
                         new_item.grade = min(new_item.grade, i.grade)
                         new_item.a += ' / ' + i.a
@@ -159,10 +174,8 @@ class AddItemsDlg(AddItemsFrm):
                     return False
 
         add_new_item(grade, q, a, cat_name)
-        
-        if cat_name not in get_category_names():
-            self.categories.insertItem(cat_name)
-            
+        self.update_combobox(cat_name)
+                
         return True
 
 
