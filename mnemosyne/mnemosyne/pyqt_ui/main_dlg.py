@@ -108,11 +108,19 @@ class MainDlg(MainFrm):
                      self.activateCategories)
         self.connect(self.productTourAction,SIGNAL("activated()"),
                      self.productTour)
+
+        if filename == None:
+            filename = get_config("path")
         
-        if filename != None:
-            load_database(filename)
-        else:
-            load_database(get_config("path"))
+        status = load_database(filename)
+        
+        if status == False:
+            QMessageBox.critical(None,
+                    self.trUtf8("Mnemosyne"),
+                    self.trUtf8("Unable to load file. Creating a new database."),
+                    self.trUtf8("&OK"), QString(), QString(), 0, -1)
+            filename = filename[0:-3]+"bak.mem"
+            new_database(filename)
         
         self.updateCaption()
         self.updateStatusBar()
@@ -211,7 +219,7 @@ class MainDlg(MainFrm):
             self.updateStatusBar()
             
             status = load_database(out)
-            self.updateCaption()
+            
             if status == False:
                 QMessageBox.critical(None,
                     self.trUtf8("Mnemosyne"),
@@ -220,6 +228,8 @@ class MainDlg(MainFrm):
                     self.trUtf8("&OK"), QString(), QString(), 0, -1)
                 unpause_thinking()
                 return
+
+            self.updateCaption()
 
             if self.item == None: # Button shows 'learn ahead of schedule'.
                 self.show_button.setText("&Show answer")

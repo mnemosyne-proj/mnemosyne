@@ -592,6 +592,10 @@ def load_database(path):
     if list_is_loaded():
         unload_database()
 
+    if not os.path.exists(path):
+        load_failed = True
+        return False
+
     try:
         infile = file(path, 'rb')
         db = cPickle.load(infile)
