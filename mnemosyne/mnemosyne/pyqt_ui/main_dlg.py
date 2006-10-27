@@ -143,39 +143,6 @@ class MainDlg(MainFrm):
         if get_config("left_align") == True:
             self.question.setAlignment(Qt.AlignAuto | Qt.AlignVCenter)
             self.answer.setAlignment(Qt.AlignAuto | Qt.AlignVCenter)
-            
-        if sys.platform == "win32":
-            path = "pixmaps"
-        else:
-            path = os.path.join(sys.exec_prefix,"lib","python"+sys.version[:3],
-                                "site-packages","mnemosyne", "pixmaps")
-
-        self.fileNewAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"filenew.png"))))
-        self.fileOpenAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"fileopen.png"))))
-        self.fileSaveAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"filesave.png"))))
-        self.fileSaveAsAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"filesaveas.png"))))
-        self.importAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"fileimport.png"))))
-        self.exportAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"fileexport.png"))))
-        self.fileExitAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"exit.png"))))
-        self.configurationAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"configure.png"))))
-        self.addItemsAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"edit_add.png"))))
-        self.editItemsAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"edit.png"))))
-        self.editCurrentItemAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"editclear.png"))))
-        self.deleteCurrentItemAction.setIconSet \
-             (QIconSet(QPixmap(os.path.join(path,"editdelete.png"))))
-
-        self.setIcon(QPixmap(os.path.join(path,"mnemosyne.png")))
 
         if item_id != None:
             try:

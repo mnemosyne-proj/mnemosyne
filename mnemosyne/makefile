@@ -35,8 +35,8 @@ distrib: FORCE
 	cp mnemosyne/pyqt_ui/*.ui distrib/mnemosyne/pyqt_ui
 	cp mnemosyne/pyqt_ui/mnemosyne distrib/mnemosyne/pyqt_ui
 
-	mkdir distrib/pixmaps
-	cp pixmaps/*.png distrib/pixmaps
+	#mkdir distrib/pixmaps
+	#cp pixmaps/*.png distrib/pixmaps
 
 	V=`python mnemosyne/version.py` && mv distrib mnemosyne-$${V}
 
