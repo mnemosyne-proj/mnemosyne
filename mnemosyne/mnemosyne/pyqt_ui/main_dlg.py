@@ -30,6 +30,7 @@ from mnemosyne.core import *
 ##############################################################################
 
 def messageUnableToSave(fileName):
+    
     QMessageBox.critical(None,
                          qApp.translate("Mnemosyne", "Mnemosyne"),
                          qApp.translate("Mnemosyne", "Unable to save file:")\
@@ -46,8 +47,7 @@ def messageUnableToSave(fileName):
 ##############################################################################
 
 def queryOverwriteFile(fileName):
-    print fileName
-
+    
     status = QMessageBox.warning(None,
                                  qApp.translate("Mnemosyne", "Mnemosyne"),
                                  qApp.translate("Mnemosyne", "File exists: ")\
@@ -213,11 +213,12 @@ class MainDlg(MainFrm):
             unload_database()
             self.clearQuestion()
             self.updateStatusBar()
-
+            self.editItemsAction.setEnabled(0)
+            
             new_database(out)
             load_database(get_config("path"))
             self.updateCaption()
-            
+                        
         unpause_thinking()
             
     ##########################################################################
@@ -259,6 +260,11 @@ class MainDlg(MainFrm):
 
             self.updateStatusBar()
             self.newQuestion()
+
+        if number_of_items() != 0:
+            self.editItemsAction.setEnabled(1)
+        else:
+            self.editItemsAction.setEnabled(0)           
 
         unpause_thinking()
                 
@@ -333,6 +339,7 @@ class MainDlg(MainFrm):
         dlg = ImportDlg(self,"Import",0)
         dlg.exec_loop()
         self.updateStatusBar()
+
         if self.item == None:
             self.show_button.setText("&Show answer")
             self.show_button.setDefault(True)
@@ -340,7 +347,9 @@ class MainDlg(MainFrm):
 
         if number_of_items() != 0:
             self.editItemsAction.setEnabled(1)
-
+        else:
+            self.editItemsAction.setEnabled(0)
+            
         unpause_thinking()
         
     ##########################################################################
@@ -362,6 +371,7 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def fileExit(self):
+        
         self.updateStatusBar()
         self.close()
         
@@ -372,15 +382,20 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def addItems(self):
+        
         pause_thinking()
+        
         dlg = AddItemsDlg(self,"Add items",0)
         dlg.exec_loop()
         self.updateStatusBar()
+        
         if self.item == None:
             self.show_button.setText("&Show answer")
             self.newQuestion()
+            
         if number_of_items() != 0:
             self.editItemsAction.setEnabled(1)
+            
         unpause_thinking()
         
     ##########################################################################
@@ -390,18 +405,23 @@ class MainDlg(MainFrm):
     ##########################################################################
     
     def editItems(self):
-        pause_thinking()   
+        
+        pause_thinking()
+        
         dlg = EditItemsDlg(self,"Edit items",0)
         dlg.exec_loop()
         rebuild_revision_queue()
         self.updateStatusBar()
+        
         if not in_revision_queue(self.item):
             self.newQuestion()
         else:
             self.updateQuestion()
             remove_from_revision_queue(self.item) # It's already being asked.
+
         if number_of_items() == 0:
             self.editItemsAction.setEnabled(0)
+            
         unpause_thinking()
         
     ##########################################################################
@@ -411,15 +431,19 @@ class MainDlg(MainFrm):
     ##########################################################################
     
     def cleanDuplicates(self):
+        
         pause_thinking()
+        
         self.statusBar().message("Please wait...")
         clean_duplicates(self)
         rebuild_revision_queue()
         self.updateStatusBar()
+        
         if not in_revision_queue(self.item):
             self.newQuestion()
         else:
-            self.updateQuestion()        
+            self.updateQuestion()
+            
         unpause_thinking()
         
     ##########################################################################
@@ -429,6 +453,7 @@ class MainDlg(MainFrm):
     ##########################################################################
     
     def editCurrentItem(self):
+        
         pause_thinking()
         dlg = EditItemDlg(self.item,self,"Edit current item",0)
         dlg.exec_loop()
@@ -442,12 +467,15 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def deleteCurrentItem(self):
+        
         pause_thinking()
+        
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
                     self.trUtf8("Delete current item?"),
                     self.trUtf8("&Yes"), self.trUtf8("&No"),
                     QString(), 1, -1)
+        
         if status == 1:
             unpause_thinking()
             return
@@ -455,8 +483,10 @@ class MainDlg(MainFrm):
             delete_item(self.item)
             self.updateStatusBar()
             self.newQuestion()
+            
         if number_of_items() == 0:
             self.editItemsAction.setEnabled(0)
+            
         unpause_thinking()
 
     ##########################################################################
@@ -466,6 +496,7 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def activateCategories(self):
+        
         pause_thinking()
         dlg = ActivateCategoriesDlg(self,"Activate categories",0)
         dlg.exec_loop()
@@ -481,8 +512,7 @@ class MainDlg(MainFrm):
         else:
             self.updateQuestion()
             remove_from_revision_queue(self.item) # It's already being asked.
-        if number_of_items() == 0:
-            self.editItemsAction.setEnabled(0)
+            
         unpause_thinking()
 
     ##########################################################################
@@ -492,6 +522,7 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def showToolbar(self, active):
+        
         pause_thinking()
         if active:
             self.toolbar.show()
@@ -539,6 +570,7 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def closeEvent(self, event):
+        
         save_config()
         status = unload_database()
         if status == False:
@@ -552,6 +584,7 @@ class MainDlg(MainFrm):
     ##########################################################################
     
     def productTour(self):
+        
         pause_thinking()
         dlg = ProductTourDlg(self,"Mnemosyne product tour",0)
         dlg.exec_loop()
@@ -564,6 +597,7 @@ class MainDlg(MainFrm):
     ##########################################################################
     
     def helpAbout(self):
+        
         import mnemosyne.version
         pause_thinking()
         QMessageBox.about(None,
@@ -590,6 +624,7 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def updateStatusBar(self):
+        
         self.sched .setText("Scheduled: "     + str(scheduled_items()))
         self.notmem.setText("Not memorised: " + str(non_memorised_items()))
         self.all   .setText("All: "           + str(active_items()))
@@ -601,6 +636,7 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def clearQuestion(self):
+        
         self.item = None
         self.question_label.setText("Question:")
         self.question.setText("")
@@ -624,12 +660,6 @@ class MainDlg(MainFrm):
         if number_of_items() == 0:
             return
 
-        self.question.setText("")
-        self.answer.setText("")
-        self.editCurrentItemAction.setEnabled(0)
-        self.deleteCurrentItemAction.setEnabled(0)
-        self.grades.setEnabled(0)
-         
         self.item = get_new_question(learn_ahead)
 
         if self.item == None:

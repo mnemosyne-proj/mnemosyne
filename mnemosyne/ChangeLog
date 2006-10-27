@@ -8,11 +8,9 @@ version before doing an upgrade.)
 -added option to import text files where question and answer are each on
  their own line.
 -make delete button work in 'edit items' dialog (reported by J. Forrez).
--made the OK button respond to the enter key in a few more dialogs 
- (reported by J. Forrez).
--improved import dialog.
 -worked around oddity (extra first character in text file) when importing 
  Word unicode text files.
+-various small interface cleanups and fixes.
 -updated documentation on the website.
 
 

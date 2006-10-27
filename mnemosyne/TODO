@@ -1,10 +1,9 @@
--check for file opening errors on save/export
+-clicking cancel after 'merge and edit' *does* merge
 
--better check if latex failed?
-
--remember window size set by the user
+-'unable to save' message when moving from Linux to Windows
 
 -clean up icons
+
 
 Before 1.0:
 
@@ -12,13 +11,14 @@ Before 1.0:
 
 -limited statistics
 
--new category in 'add items' is not reflected in drop-down box
-
--after save failed and succesful load, edit items is grayed out.
-
--clicking cancel after 'merge and edit' *does* merge
-
 -drag and drop of pictures, sound files
+
+-option to automatically increase font size for non-latin characters 
+
+-change file suffix when changing export file format
+
+-remember category and vice-versa settings across invocations when adding 
+ items
 
 -better action icons
 
@@ -39,27 +39,21 @@ After 1.0:
 -easier 'add vice versa' for foreign word / pronunciation / translation
  triplets
 
--option to automatically increase font size for non-latin characters 
-
--determine export file type based on suffix
-
--change file suffix when changing export file format
+-determine export file type based on suffix?
 
 -add items: rename cancel --> exit?
 
--check unicode filenames
+-check unicode filenames (might work on Windows, can't load them on my 
+system)
 
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
 QTableWidget (might be made obsolete by 2.0)
 
--drop-down box in edit edits to show only items in a single category
+-drop-down box in edit items to show only items in a single category?
 
 -add 'add item' option to edit items list?
 
 -clean obsolete latex images
-
--remember category and vice-versa settings across invocations when adding 
- items
 
 -make <a> links clickable
 
@@ -86,6 +80,8 @@ QTableWidget (might be made obsolete by 2.0)
 
 Mnemosyne 2.0:
 
+-rename items to cards, edit items to knowledge manager
+
 -Upgrade to Qt4
 
 -Qt/Sqlite backend
@@ -96,6 +92,10 @@ Mnemosyne 2.0:
 
 -advanced database editor, with tree view of categories, drand and drop
  to change categories, add item option, ...
+
+-icon handling patch Dirk (needs Qt4?)
+
+-remember window size set by the user (needs Qt4)
 
 -multiple answers per questions
 
