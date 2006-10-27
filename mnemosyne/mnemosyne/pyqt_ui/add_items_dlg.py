@@ -52,6 +52,8 @@ class AddItemsDlg(AddItemsFrm):
         
         #self.question.__class__.dropEvent = self.my_drop_event
 
+
+
     ##########################################################################
     #
     # update_combobox
@@ -75,6 +77,8 @@ class AddItemsDlg(AddItemsFrm):
             if self.categories.text(i) == current_cat_name:
                 self.categories.setCurrentItem(i)
                 break
+
+
 
     ##########################################################################
     #
@@ -146,11 +150,15 @@ class AddItemsDlg(AddItemsFrm):
             # and merge if the user wishes so.
             
             if len(same_questions) != 0:
-                    
+
+                answers = a
+                for i in same_questions:
+                    answers += ' / ' + i.a
+                        
                 status = QMessageBox.question(None,
                       self.trUtf8("Mnemosyne"),
                       self.trUtf8("There are different answers for "+
-                                  "this question."),
+                                  "this question:\n\n" + answers.encode("utf8")),
                       self.trUtf8("&Merge and edit"),
                       self.trUtf8("&Add as is"),
                       self.trUtf8("&Don't add"), 0, -1)
@@ -166,6 +174,7 @@ class AddItemsDlg(AddItemsFrm):
                         delete_item(i)
                         
                     dlg = EditItemDlg(new_item, self, "Edit merged item", 0)
+                    
                     dlg.exec_loop()
                     
                     return True

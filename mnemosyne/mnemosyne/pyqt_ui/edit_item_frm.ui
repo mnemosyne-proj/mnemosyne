@@ -107,7 +107,7 @@
                 </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout17</cstring>
+                        <cstring>button_layout</cstring>
                     </property>
                     <hbox>
                         <property name="name">
