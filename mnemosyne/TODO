@@ -8,7 +8,11 @@ Before 1.0:
 
 -option to automatically increase font size for non-latin characters 
 
+-prevent unicode filenames
+
 -change file suffix when changing export file format
+
+-determine export file type based on suffix?
 
 -remember category and vice-versa settings across invocations when adding 
  items
@@ -23,7 +27,7 @@ Before 1.0:
   better mailing list page
   contributors page
   screenshots
-  categories in faq
+  categories in faq?
   Mnemosyne picture/logo
 
 
@@ -32,19 +36,7 @@ After 1.0:
 -easier 'add vice versa' for foreign word / pronunciation / translation
  triplets
 
--determine export file type based on suffix?
-
--add items: rename cancel --> exit?
-
--check unicode filenames (might work on Windows, can't load them on my 
-system)
-
--use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
-QTableWidget (might be made obsolete by 2.0)
-
--drop-down box in edit items to show only items in a single category?
-
--add 'add item' option to edit items list?
+-figure out how to deal with unicode filenames
 
 -clean obsolete latex images
 
@@ -58,9 +50,16 @@ QTableWidget (might be made obsolete by 2.0)
 
 -automatic backups
 
--selectively disable XML import if sax is not found.
-
 -paste from clipboard
+
+-selectively disable XML import if sax is not found?
+
+-use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
+QTableWidget (might be made obsolete by 2.0)
+
+-drop-down box in edit items to show only items in a single category?
+
+-add 'add item' option to edit items list?
 
 -make really sure the same question isn't asked twice in row?
 

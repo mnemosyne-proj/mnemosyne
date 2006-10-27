@@ -117,9 +117,9 @@ class MainDlg(MainFrm):
         if status == False:
             QMessageBox.critical(None,
                     self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Unable to load file. Creating a new database."),
+                    self.trUtf8("Unable to load file. Creating a tmp database."),
                     self.trUtf8("&OK"), QString(), QString(), 0, -1)
-            filename = filename[0:-3]+"bak.mem"
+            filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             new_database(filename)
         
         self.updateCaption()
@@ -226,6 +226,7 @@ class MainDlg(MainFrm):
                     self.trUtf8("File doesn't appear to be in "+\
                                 "the correct format."),
                     self.trUtf8("&OK"), QString(), QString(), 0, -1)
+                self.editItemsAction.setEnabled(0)
                 unpause_thinking()
                 return
 
