@@ -8,7 +8,9 @@ Before 1.0:
 
 -option to automatically increase font size for non-latin characters 
 
--prevent unicode filenames
+-unicode filenames?
+
+-remember window size set by the user
 
 -change file suffix when changing export file format
 
@@ -35,8 +37,6 @@ After 1.0:
 
 -easier 'add vice versa' for foreign word / pronunciation / translation
  triplets
-
--figure out how to deal with unicode filenames
 
 -clean obsolete latex images
 
@@ -86,8 +86,6 @@ Mnemosyne 2.0:
  to change categories, add item option, ...
 
 -icon handling patch Dirk (needs Qt4?)
-
--remember window size set by the user (needs Qt4)
 
 -multiple answers per questions
 

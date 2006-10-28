@@ -79,6 +79,8 @@ class MainDlg(MainFrm):
     def __init__(self, filename, item_id, parent = None,name = None,fl = 0):
         MainFrm.__init__(self,parent,name,fl)
 
+        self.shrink = True
+
         self.item = None
         
         self.sched  = QLabel("Scheduled: 0", self.statusBar())
@@ -161,6 +163,17 @@ class MainDlg(MainFrm):
                 pass
         
         self.newQuestion()
+
+    ##########################################################################
+    #
+    # resizeEvent
+    #
+    ##########################################################################
+    
+    def resizeEvent(self, e):
+        
+        if e.spontaneous() == True:
+            self.shrink = False
         
     ##########################################################################
     #
@@ -623,7 +636,9 @@ class MainDlg(MainFrm):
         self.editCurrentItemAction.setEnabled(0)
         self.deleteCurrentItemAction.setEnabled(0)
         self.grades.setEnabled(0)
-        self.adjustSize()
+
+        if self.shrink == True:
+            self.adjustSize()
         
     ##########################################################################
     #
@@ -655,7 +670,9 @@ class MainDlg(MainFrm):
         self.deleteCurrentItemAction.setEnabled(1)
         self.show_button.setDefault(True)
         self.show_button.setEnabled(1)
-        self.adjustSize()
+
+        if self.shrink == True:
+            self.adjustSize()
         
         start_thinking()
 
@@ -679,7 +696,8 @@ class MainDlg(MainFrm):
         if self.answer.text() != "":
             self.answer.setText(preprocess(self.item.a))
 
-        self.adjustSize()
+        if self.shrink == True:
+            self.adjustSize()
 
     ##########################################################################
     #
@@ -701,7 +719,9 @@ class MainDlg(MainFrm):
         self.show_button.setDefault(False)
         self.grade_4_button.setDefault(True)
         self.grades.setEnabled(1)
-        self.adjustSize()
+
+        if self.shrink == True:
+            self.adjustSize()
         
     ##########################################################################
     #

@@ -7,6 +7,7 @@ version before doing an upgrade.)
  to delete them, change their categories, or add their vice versas.
 -added option to import text files where question and answer are each on
  their own line.
+-again respect window size set by user.
 -make delete button work in 'edit items' dialog (reported by J. Forrez).
 -worked around oddity (extra first character in text file) when importing 
  Word unicode text files.
