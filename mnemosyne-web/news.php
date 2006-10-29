@@ -6,6 +6,22 @@
 
 <h1>News</h1>
 <br>
+<b>2006-10-27</b>: released Mnemosyne 0.9.7<br>
+(Note that for Windows users we recommend uninstalling the previous
+version before doing an upgrade.)
+<br>
+-multiple items can now be selected in the 'edit items' dialog in order
+ to delete them, change their categories, or add their vice versas.<br>
+-added option to import text files where question and answer are each on
+ their own line.<br>
+-again respect window size set by user.<br>
+-make delete button work in 'edit items' dialog (reported by J. Forrez).<br>
+-worked around oddity (extra first character in text file) when importing
+ Word unicode text files.<br>
+-various small interface cleanups and fixes.<br>
+-updated documentation on the website.<br>
+
+<br>
 <b>2006-10-07</b>: released Mnemosyne 0.9.6<br>
 -added LaTeX support for formulas, e.g. <code>&lt;latex>x^2+y^2=z^2&lt;/latex></code>. For
  this you need latex and dvipng installed. Windows users can download
