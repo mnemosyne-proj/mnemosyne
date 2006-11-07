@@ -79,18 +79,18 @@ class MainDlg(MainFrm):
     def __init__(self, filename, item_id, parent = None,name = None,fl = 0):
         MainFrm.__init__(self,parent,name,fl)
 
-        self.shrink = True
-
+        self.state = "EMPTY"
         self.item = None
         
-        self.sched  = QLabel("Scheduled: 0", self.statusBar())
-        self.notmem = QLabel("Not memorised: 0", self.statusBar())        
-        self.all    = QLabel("All: 0", self.statusBar())
+        self.shrink = True
+        
+        self.sched  = QLabel("", self.statusBar())
+        self.notmem = QLabel("", self.statusBar())        
+        self.all    = QLabel("", self.statusBar())
         
         self.statusBar().addWidget(self.sched,0,1)
         self.statusBar().addWidget(self.notmem,0,1)
         self.statusBar().addWidget(self.all,0,1)
-        
         self.statusBar().setSizeGripEnabled(0)
         
         if filename == None:
@@ -106,26 +106,6 @@ class MainDlg(MainFrm):
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             new_database(filename)
         
-        self.updateCaption()
-        self.updateStatusBar()
-
-        if number_of_items() != 0:
-            self.editItemsAction.setEnabled(1) 
-            
-        if get_config("hide_toolbar") == True:
-            self.toolbar.hide()
-            self.showToolbarAction.setOn(0)
-        
-        if get_config("QA_font") != None:
-            font = QFont()
-            font.fromString(get_config("QA_font"))
-            self.question.setFont(font)
-            self.answer.setFont(font)
-            
-        if get_config("left_align") == True:
-            self.question.setAlignment(Qt.AlignAuto | Qt.AlignVCenter)
-            self.answer.setAlignment(Qt.AlignAuto | Qt.AlignVCenter)
-
         if item_id != None:
             try:
                 item = get_item_by_id(long(item_id))
@@ -135,6 +115,7 @@ class MainDlg(MainFrm):
                 pass
         
         self.newQuestion()
+        self.updateDialog()
 
     ##########################################################################
     #
@@ -171,14 +152,13 @@ class MainDlg(MainFrm):
                     return
 
             unload_database()
-            self.clearQuestion()
-            self.updateStatusBar()
-            self.editItemsAction.setEnabled(0)
-            
+            self.state = "EMPTY"
+            self.item = None
             new_database(out)
             load_database(get_config("path"))
-            self.updateCaption()
-                        
+
+        self.updateDialog()
+        
         unpause_thinking()
             
     ##########################################################################
@@ -200,8 +180,8 @@ class MainDlg(MainFrm):
             if status == False:
                 messageUnableToSave(oldPath)
 
-            self.clearQuestion()
-            self.updateStatusBar()
+            self.state = "EMPTY"
+            self.item = None
             
             status = load_database(out)
             
@@ -211,24 +191,13 @@ class MainDlg(MainFrm):
                     self.trUtf8("File doesn't appear to be in "+\
                                 "the correct format."),
                     self.trUtf8("&OK"), QString(), QString(), 0, -1)
-                self.editItemsAction.setEnabled(0)
+                self.updateDialog()
                 unpause_thinking()
                 return
 
-            self.updateCaption()
-
-            if self.item == None: # Button shows 'learn ahead of schedule'.
-                self.show_button.setText("&Show answer")
-                self.languageChange() # Reset shortcuts.
-
-            self.updateStatusBar()
             self.newQuestion()
 
-        if number_of_items() != 0:
-            self.editItemsAction.setEnabled(1)
-        else:
-            self.editItemsAction.setEnabled(0)           
-
+        self.updateDialog()
         unpause_thinking()
                 
     ##########################################################################
@@ -276,8 +245,7 @@ class MainDlg(MainFrm):
                 unpause_thinking()
                 return            
 
-            self.updateCaption()
-
+        self.updateDialog()
         unpause_thinking()
             
     ##########################################################################
@@ -301,18 +269,10 @@ class MainDlg(MainFrm):
 
         dlg = ImportDlg(self,"Import",0)
         dlg.exec_loop()
-        self.updateStatusBar()
-
         if self.item == None:
-            self.show_button.setText("&Show answer")
-            self.show_button.setDefault(True)
             self.newQuestion()
 
-        if number_of_items() != 0:
-            self.editItemsAction.setEnabled(1)
-        else:
-            self.editItemsAction.setEnabled(0)
-            
+        self.updateDialog()
         unpause_thinking()
         
     ##########################################################################
@@ -335,7 +295,6 @@ class MainDlg(MainFrm):
 
     def fileExit(self):
         
-        self.updateStatusBar()
         self.close()
         
     ##########################################################################
@@ -350,15 +309,11 @@ class MainDlg(MainFrm):
         
         dlg = AddItemsDlg(self,"Add items",0)
         dlg.exec_loop()
-        self.updateStatusBar()
         
         if self.item == None:
-            self.show_button.setText("&Show answer")
             self.newQuestion()
             
-        if number_of_items() != 0:
-            self.editItemsAction.setEnabled(1)
-            
+        self.updateDialog()
         unpause_thinking()
         
     ##########################################################################
@@ -374,17 +329,13 @@ class MainDlg(MainFrm):
         dlg = EditItemsDlg(self,"Edit items",0)
         dlg.exec_loop()
         rebuild_revision_queue()
-        self.updateStatusBar()
         
         if not in_revision_queue(self.item):
             self.newQuestion()
         else:
-            self.updateQuestion()
             remove_from_revision_queue(self.item) # It's already being asked.
 
-        if number_of_items() == 0:
-            self.editItemsAction.setEnabled(0)
-            
+        self.updateDialog()
         unpause_thinking()
         
     ##########################################################################
@@ -400,13 +351,11 @@ class MainDlg(MainFrm):
         self.statusBar().message("Please wait...")
         clean_duplicates(self)
         rebuild_revision_queue()
-        self.updateStatusBar()
         
         if not in_revision_queue(self.item):
             self.newQuestion()
-        else:
-            self.updateQuestion()
             
+        self.updateDialog()
         unpause_thinking()
         
     ##########################################################################
@@ -420,7 +369,7 @@ class MainDlg(MainFrm):
         pause_thinking()
         dlg = EditItemDlg(self.item,self,"Edit current item",0)
         dlg.exec_loop()
-        self.updateQuestion()
+        self.updateDialog()
         unpause_thinking()
 
     ##########################################################################
@@ -439,17 +388,11 @@ class MainDlg(MainFrm):
                     self.trUtf8("&Yes"), self.trUtf8("&No"),
                     QString(), 1, -1)
         
-        if status == 1:
-            unpause_thinking()
-            return
-        else:
+        if status == 0:
             delete_item(self.item)
-            self.updateStatusBar()
             self.newQuestion()
             
-        if number_of_items() == 0:
-            self.editItemsAction.setEnabled(0)
-            
+        self.updateDialog()
         unpause_thinking()
 
     ##########################################################################
@@ -461,21 +404,17 @@ class MainDlg(MainFrm):
     def activateCategories(self):
         
         pause_thinking()
+        
         dlg = ActivateCategoriesDlg(self,"Activate categories",0)
         dlg.exec_loop()
-        rebuild_revision_queue()
-        self.updateStatusBar()
         
-        if self.item == None: # Button shows 'learn ahead of schedule'.
-            self.show_button.setText("&Show answer")
-            self.languageChange() # Reset shortcuts.
-   
+        rebuild_revision_queue()
         if not in_revision_queue(self.item):
             self.newQuestion()
         else:
-            self.updateQuestion()
             remove_from_revision_queue(self.item) # It's already being asked.
             
+        self.updateDialog()
         unpause_thinking()
 
     ##########################################################################
@@ -488,11 +427,10 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         if active:
-            self.toolbar.show()
             set_config("hide_toolbar", False)
         else:
-            self.toolbar.hide()
             set_config("hide_toolbar", True)
+        self.updateDialog()
         unpause_thinking()
         
     ##########################################################################
@@ -506,24 +444,7 @@ class MainDlg(MainFrm):
         pause_thinking()
         dlg = ConfigurationDlg(self,"Configure Mnemosyne",0)
         dlg.exec_loop()
-        
-        if get_config("QA_font") != None:
-            font = QFont()
-            font.fromString(get_config("QA_font"))
-            self.question.setFont(font)
-            self.answer.setFont(font)
-        else:
-            self.question.setFont(self.show_button.font())
-            self.answer.setFont(self.show_button.font())
-            
-        if get_config("left_align") == True:
-            self.question.setAlignment(Qt.AlignAuto | Qt.AlignVCenter)
-            self.answer.setAlignment(Qt.AlignAuto | Qt.AlignVCenter)
-        else:
-            self.question.setAlignment(Qt.AlignCenter)
-            self.answer.setAlignment(Qt.AlignCenter)
-            
-        self.updateQuestion()
+        self.updateDialog()
         unpause_thinking()
             
     ##########################################################################
@@ -572,104 +493,23 @@ class MainDlg(MainFrm):
 
     ##########################################################################
     #
-    # updateCaption
-    #
-    ##########################################################################
-
-    def updateCaption(self):
-        self.setCaption(unicode("Mnemosyne - " \
-                        + os.path.basename(get_config("path"))[:-4],"utf-8"))
-        
-    ##########################################################################
-    #
-    # updateStatusBar
-    #
-    ##########################################################################
-
-    def updateStatusBar(self):
-        
-        self.sched .setText("Scheduled: "     + str(scheduled_items()))
-        self.notmem.setText("Not memorised: " + str(non_memorised_items()))
-        self.all   .setText("All: "           + str(active_items()))
-        
-    ##########################################################################
-    #
-    # clearQuestion
-    #
-    ##########################################################################
-
-    def clearQuestion(self):
-        
-        self.item = None
-        self.question_label.setText("Question:")
-        self.question.setText("")
-        self.answer.setText("")
-        self.show_button.setEnabled(0)
-        self.editCurrentItemAction.setEnabled(0)
-        self.deleteCurrentItemAction.setEnabled(0)
-        self.grades.setEnabled(0)
-
-        if self.shrink == True:
-            self.adjustSize()
-        
-    ##########################################################################
-    #
     # newQuestion
     #
     ##########################################################################
 
     def newQuestion(self, learn_ahead = False):
         
-        self.clearQuestion()
-        
         if number_of_items() == 0:
-            return
-
-        self.item = get_new_question(learn_ahead)
-
-        if self.item == None:
-            self.show_button.setText("Learn ahead of schedule")
-            self.show_button.setEnabled(1)
-            return
-        
-        if self.item.cat.name != "<default>":
-            self.question_label.setText(preprocess("Question: " +
-                                        self.item.cat.name))
-
-        self.question.setText(preprocess(self.item.q))
-
-        self.editCurrentItemAction.setEnabled(1)
-        self.deleteCurrentItemAction.setEnabled(1)
-        self.show_button.setDefault(True)
-        self.show_button.setEnabled(1)
-
-        if self.shrink == True:
-            self.adjustSize()
+            self.state = "EMPTY"
+            self.item = None
+        else:
+            self.item = get_new_question(learn_ahead)
+            if self.item != None:
+                self.state = "SELECT SHOW"
+            else:
+                self.state = "SELECT AHEAD"
         
         start_thinking()
-
-    ##########################################################################
-    #
-    # updateQuestion
-    #
-    ##########################################################################
-
-    def updateQuestion(self):
-        
-        if self.item == None:
-            return
-                
-        if self.item.cat.name != "<default>":
-            self.question_label.setText(preprocess("Question: " + \
-                                                   self.item.cat.name))
-            
-        self.question.setText(preprocess(self.item.q))
-            
-        if self.answer.text() != "":
-            self.answer.setText(preprocess(self.item.a))
-
-        if self.shrink == True:
-            self.adjustSize()
 
     ##########################################################################
     #
@@ -679,21 +519,12 @@ class MainDlg(MainFrm):
 
     def showAnswer(self):
 
-        if self.item == None: # Button shows 'learn ahead of schedule'.
-            self.show_button.setText("&Show answer")
-            self.languageChange() # Reset keyboard shortcuts.
+        if self.state == "SELECT AHEAD":
             self.newQuestion(learn_ahead = True)
-            return
-
-        stop_thinking()
-        self.answer.setText(preprocess(self.item.a))        
-        self.show_button.setEnabled(0)
-        self.show_button.setDefault(False)
-        self.grade_4_button.setDefault(True)
-        self.grades.setEnabled(1)
-
-        if self.shrink == True:
-            self.adjustSize()
+        else:
+            stop_thinking()
+            self.state = "SELECT GRADE"
+        self.updateDialog()
         
     ##########################################################################
     #
@@ -704,10 +535,107 @@ class MainDlg(MainFrm):
     def gradeAnswer(self, grade):
 
         process_answer(self.item, grade)
-        self.grades.setEnabled(0)
-        self.grade_4_button.setDefault(False)
-        self.updateStatusBar()
-        self.question.setText("")
-        self.answer.setText("")
         self.newQuestion()
+        self.updateDialog()
+
+    ##########################################################################
+    #
+    # updateDialog
+    #
+    ##########################################################################
+
+    def updateDialog(self):
+
+        # Update caption.
         
+        database_name = os.path.basename(get_config("path"))[:-4]
+        caption_text = unicode("Mnemosyne - " + database_name, "utf-8")
+        self.setCaption(caption_text)
+
+        # Update menu bar.
+        
+        self.editCurrentItemAction.setEnabled(self.item != None)
+        self.deleteCurrentItemAction.setEnabled(self.item != None)
+        self.editItemsAction.setEnabled(number_of_items() > 0)
+
+        # Update tool bar.
+        
+        if get_config("hide_toolbar") == True:
+            self.toolbar.hide()
+            self.showToolbarAction.setOn(0)
+        else:
+            self.toolbar.show()
+            self.showToolbarAction.setOn(1)
+
+        # Update question and answer font.
+        
+        if get_config("QA_font") != None:
+            font = QFont()
+            font.fromString(get_config("QA_font"))
+        else:
+            font = self.show_button.font()
+
+        self.question.setFont(font)
+        self.answer.setFont(font)
+
+        # Update question and answer alignment.
+        
+        if get_config("left_align") == True:
+            alignment = Qt.AlignAuto | Qt.AlignVCenter
+        else:
+            alignment = Qt.AlignCenter
+
+        self.question.setAlignment(alignment)
+        self.answer.setAlignment(alignment)
+
+        # Update question label.
+        
+        question_label_text = self.trUtf8("Question:")
+        if self.item != None and self.item.cat.name != "<default>":
+            question_label_text += " " + preprocess(self.item.cat.name)
+        self.question_label.setText(question_label_text)
+
+        # Update question content.
+        
+        if self.item == None:
+            self.question.setText("")
+        else:
+            self.question.setText(preprocess(self.item.q))
+
+        # Update answer content.
+        
+        if self.item == None or self.state == "SELECT SHOW":
+            self.answer.setText("")
+        else:
+            self.answer.setText(preprocess(self.item.a))
+
+        # Update buttons.
+        
+        if self.state == "EMPTY":
+            show_enabled, default, text = 0, 1, "&Show answer"
+            grades_enabled = 0
+        elif self.state == "SELECT SHOW":
+            show_enabled, default, text = 1, 1, "&Show answer"
+            grades_enabled = 0
+        elif self.state == "SELECT GRADE":
+            show_enabled, default, text = 0, 1, "&Show answer"
+            grades_enabled = 1
+        elif self.state == "SELECT AHEAD":
+            show_enabled, default, text = 1, 0, "Learn ahead of schedule"
+            grades_enabled = 0
+
+        self.show_button.setText(self.trUtf8(text))
+        self.show_button.setDefault(default)
+        self.show_button.setEnabled(show_enabled)
+
+        self.grade_4_button.setDefault(grades_enabled)
+        self.grades.setEnabled(grades_enabled)
+
+        # Update status bar.
+        
+        self.sched .setText("Scheduled: "     + str(scheduled_items()))
+        self.notmem.setText("Not memorised: " + str(non_memorised_items()))
+        self.all   .setText("All: "           + str(active_items()))
+
+        if self.shrink == True:
+            self.adjustSize()
