@@ -1,5 +1,3 @@
--respect left align in preview
-
   File "mnemosyne\pyqt_ui\edit_item_dlg.pyc", line 73, in preview
   File "mnemosyne\pyqt_ui\preview_item_dlg.pyc", line 39, in __init__
   File "mnemosyne\core\mnemosyne_core.pyc", line 806, in preprocess

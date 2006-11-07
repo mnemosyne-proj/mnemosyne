@@ -36,5 +36,13 @@ class PreviewItemDlg(PreviewItemFrm):
             self.question.setFont(font)
             self.answer.setFont(font)
 
+        if get_config("left_align") == True:
+            alignment = Qt.AlignAuto | Qt.AlignVCenter
+        else:
+            alignment = Qt.AlignCenter
+
+        self.question.setAlignment(alignment)
+        self.answer.setAlignment(alignment)
+
         self.question.setText(preprocess(q))
         self.answer.setText(preprocess(a))

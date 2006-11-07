@@ -3,6 +3,11 @@ MNEMOSYNE 0.9.7: 2006-10-27
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-respect left align option in 'preview items' (reported by E. Grannan).
+
+
+MNEMOSYNE 0.9.7: 2006-10-27
+
 -multiple items can now be selected in the 'edit items' dialog in order
  to delete them, change their categories, or add their vice versas.
 -added option to import text files where question and answer are each on
