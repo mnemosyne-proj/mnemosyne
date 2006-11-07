@@ -2,13 +2,13 @@ Before 1.0:
 
 -sounds
 
--limited statistics (Jmemorize?)
+-limited statistics
 
 -drag and drop of pictures, sound files
 
 -option to automatically increase font size for non-latin characters 
 
--unicode filenames?
+-unicode filenames? (remove encode, set LANG to UTF-8 in system)
 
 -remember window size set by the user
 
