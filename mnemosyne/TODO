@@ -1,8 +1,20 @@
+-respect left align in preview
+
+  File "mnemosyne\pyqt_ui\edit_item_dlg.pyc", line 73, in preview
+  File "mnemosyne\pyqt_ui\preview_item_dlg.pyc", line 39, in __init__
+  File "mnemosyne\core\mnemosyne_core.pyc", line 806, in preprocess
+  File "mnemosyne\core\mnemosyne_core.pyc", line 707, in expand_path
+IndexError: string index out of range
+
+-no error when moving config from windows to linux
+
+-export dialog change order.
+
 Before 1.0:
 
 -sounds
 
--limited statistics
+-limited statistics (Jmemorize?)
 
 -drag and drop of pictures, sound files
 
@@ -18,6 +30,8 @@ Before 1.0:
 
 -remember category and vice-versa settings across invocations when adding 
  items
+
+-what if window becomes larges than screen?
 
 -better action icons
 
@@ -78,7 +92,7 @@ Mnemosyne 2.0:
 
 -Qt/Sqlite backend
 
--advanced statistics, history, ...
+-advanced statistics, history, ... (look at graph in JMemorize)
 
 -multiple categories per item, hierarchical categories
 

@@ -844,16 +844,94 @@
         <slot>fileSaveAs()</slot>
     </connection>
     <connection>
+        <sender>importAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>Import()</slot>
+    </connection>
+    <connection>
+        <sender>exportAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>export()</slot>
+    </connection>
+    <connection>
         <sender>fileExitAction</sender>
         <signal>activated()</signal>
         <receiver>MainFrm</receiver>
         <slot>fileExit()</slot>
     </connection>
     <connection>
+        <sender>addItemsAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>addItems()</slot>
+    </connection>
+    <connection>
+        <sender>editItemsAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>editItems()</slot>
+    </connection>
+    <connection>
+        <sender>cleanDuplicatesAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>cleanDuplicates()</slot>
+    </connection>
+    <connection>
+        <sender>editCurrentItemAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>editCurrentItem()</slot>
+    </connection>
+    <connection>
+        <sender>deleteCurrentItemAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>deleteCurrentItem()</slot>
+    </connection>
+    <connection>
+        <sender>activateCategoriesAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>activateCategories()</slot>
+    </connection>
+    <connection>
+        <sender>showToolbarAction</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>MainFrm</receiver>
+        <slot>showToolbar()</slot>
+    </connection>
+    <connection>
+        <sender>configurationAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>configuration()</slot>
+    </connection>
+    <connection>
+        <sender>productTourAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>productTour()</slot>
+    </connection>
+    <connection>
         <sender>helpAboutAction</sender>
         <signal>activated()</signal>
         <receiver>MainFrm</receiver>
         <slot>helpAbout()</slot>
+    </connection>
+    <connection>
+        <sender>show_button</sender>
+        <signal>clicked()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>showAnswer()</slot>
+    </connection>
+    <connection>
+        <sender>grades</sender>
+        <signal>clicked(int)</signal>
+        <receiver>MainFrm</receiver>
+        <slot>gradeAnswer()</slot>
     </connection>
     <connection>
         <sender>defaultAction</sender>
@@ -891,17 +969,23 @@
     <slot>fileOpen()</slot>
     <slot>fileSave()</slot>
     <slot>fileSaveAs()</slot>
-    <slot>filePrint()</slot>
     <slot>fileExit()</slot>
-    <slot>editUndo()</slot>
-    <slot>editRedo()</slot>
-    <slot>editCut()</slot>
-    <slot>editCopy()</slot>
-    <slot>editPaste()</slot>
-    <slot>editFind()</slot>
-    <slot>helpIndex()</slot>
-    <slot>helpContents()</slot>
     <slot>helpAbout()</slot>
+    <slot>addItems()</slot>
+    <slot>Import()</slot>
+    <slot>export()</slot>
+    <slot>editItems()</slot>
+    <slot>cleanDuplicates()</slot>
+    <slot>editCurrentItem()</slot>
+    <slot>deleteCurrentItem()</slot>
+    <slot>activateCategories()</slot>
+    <slot>showToolbar()</slot>
+    <slot>configuration()</slot>
+    <slot>productTour()</slot>
+    <slot>showAnswer()</slot>
+    <slot>gradeAnswer()</slot>
+    <slot>nextQuestion()</slot>
+    <slot>learnAhead()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

@@ -93,24 +93,6 @@ class MainDlg(MainFrm):
         
         self.statusBar().setSizeGripEnabled(0)
         
-        self.connect(self.importAction,SIGNAL("activated()"), self.Import)
-        self.connect(self.exportAction,SIGNAL("activated()"), self.export)
-        
-        self.connect(self.addItemsAction,SIGNAL("activated()"),
-                     self.addItems)
-        self.connect(self.editItemsAction,SIGNAL("activated()"),
-                     self.editItems)
-        self.connect(self.cleanDuplicatesAction,SIGNAL("activated()"),
-                     self.cleanDuplicates)
-        self.connect(self.editCurrentItemAction,SIGNAL("activated()"),
-                     self.editCurrentItem)
-        self.connect(self.deleteCurrentItemAction,SIGNAL("activated()"),
-                     self.deleteCurrentItem)
-        self.connect(self.activateCategoriesAction,SIGNAL("activated()"),
-                     self.activateCategories)
-        self.connect(self.productTourAction,SIGNAL("activated()"),
-                     self.productTour)
-
         if filename == None:
             filename = get_config("path")
         
@@ -133,16 +115,6 @@ class MainDlg(MainFrm):
         if get_config("hide_toolbar") == True:
             self.toolbar.hide()
             self.showToolbarAction.setOn(0)
-        
-        self.connect(self.showToolbarAction,SIGNAL("toggled(bool)"),
-                     self.showToolbar)
-        self.connect(self.configurationAction,SIGNAL("activated()"),
-                     self.configuration)
-   
-        self.connect(self.show_button, SIGNAL("clicked()"),
-                     self.showAnswer)
-        self.connect(self.grades,SIGNAL("clicked(int)"),
-                     self.gradeAnswer)
         
         if get_config("QA_font") != None:
             font = QFont()
