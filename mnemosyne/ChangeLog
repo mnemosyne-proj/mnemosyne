@@ -4,6 +4,7 @@ MNEMOSYNE 0.9.7: 2006-10-27
 version before doing an upgrade.)
 
 -respect left align option in 'preview items' (reported by E. Grannan).
+-various small interface cleanups and fixes.
 
 
 MNEMOSYNE 0.9.7: 2006-10-27

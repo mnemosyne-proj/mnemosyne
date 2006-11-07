@@ -6,7 +6,6 @@ IndexError: string index out of range
 
 -no error when moving config from windows to linux
 
--export dialog change order.
 
 Before 1.0:
 

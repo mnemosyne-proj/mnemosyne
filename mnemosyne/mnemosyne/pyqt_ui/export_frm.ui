@@ -21,12 +21,34 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout9</cstring>
+                <cstring>layout8</cstring>
             </property>
             <vbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel_5</cstring>
+                    </property>
+                    <property name="text">
+                        <string>File format:</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox">
+                    <property name="name">
+                        <cstring>fileformats</cstring>
+                    </property>
+                    <property name="editable">
+                        <bool>false</bool>
+                    </property>
+                    <property name="autoCompletion">
+                        <bool>true</bool>
+                    </property>
+                    <property name="duplicatesEnabled">
+                        <bool>false</bool>
+                    </property>
+                </widget>
                 <widget class="QLabel">
                     <property name="name">
                         <cstring>textLabel1</cstring>
@@ -57,28 +79,6 @@
                             </property>
                         </widget>
                     </hbox>
-                </widget>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>textLabel_5</cstring>
-                    </property>
-                    <property name="text">
-                        <string>File format:</string>
-                    </property>
-                </widget>
-                <widget class="QComboBox">
-                    <property name="name">
-                        <cstring>fileformats</cstring>
-                    </property>
-                    <property name="editable">
-                        <bool>false</bool>
-                    </property>
-                    <property name="autoCompletion">
-                        <bool>true</bool>
-                    </property>
-                    <property name="duplicatesEnabled">
-                        <bool>false</bool>
-                    </property>
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
