@@ -704,7 +704,8 @@ def list_is_loaded():
 
 def expand_path(p):
 
-    if p[0] == "/" or p[1] == ":": # Unix or Windows absolute path.
+    if (    ( (len(p) > 1) and p[0] == "/") \
+         or ( (len(p) > 2) and p[1] == ":") ) : # Unix or Windows absolute path.
         return os.path.normpath(p)
     else:
         prefix = os.path.dirname(get_config("path"))   
