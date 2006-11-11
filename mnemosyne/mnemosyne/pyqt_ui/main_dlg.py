@@ -554,7 +554,10 @@ class MainDlg(MainFrm):
 
         # Update menu bar.
         
-        self.editCurrentItemAction.setEnabled(self.item != None)
+        if self.item != None and self.state == "SELECT GRADE":
+            self.editCurrentItemAction.setEnabled(True)
+        else:
+            self.editCurrentItemAction.setEnabled(False)
         self.deleteCurrentItemAction.setEnabled(self.item != None)
         self.editItemsAction.setEnabled(number_of_items() > 0)
 
