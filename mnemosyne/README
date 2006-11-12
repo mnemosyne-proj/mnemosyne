@@ -4,10 +4,16 @@ INSTALLATION:
 -Make sure you have PyQt (http://www.riverbankcomputing.co.uk/pyqt/index.php)
  installed.
 -If you want to import XML, also install PyXML (http://pyxml.sourceforge.net)
+-If you want to be able to enter formulas using latex syntax, make sure that
+ latex is installed.
 -Type 'python setup.py install' as root.
 -Run the application by typing 'mnemosyne'.
--To run the SuperKaramba widget, copy the mnemosyne_superkaramba directory 
- to wherever you keep your superkaramba themes. Run superkaramba, and
- point it to superkaramba_mnemosyne.theme. SuperKaramba 0.33 or higher is
- required.
 
+
+HACKING ON MNEMOSYNE:
+
+If you want to contribute to mnemosyne or want to make any local changes, you
+will additionally need the following tools:
+
+-Qt-Designer: Useful to modify the .ui xml-files.
+-pyuic: required to convert the .ui files to python code.

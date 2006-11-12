@@ -82,6 +82,9 @@
                     <property name="acceptDrops">
                         <bool>true</bool>
                     </property>
+                    <property name="textFormat">
+                        <enum>PlainText</enum>
+                    </property>
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
@@ -97,6 +100,9 @@
                     </property>
                     <property name="acceptDrops">
                         <bool>true</bool>
+                    </property>
+                    <property name="textFormat">
+                        <enum>PlainText</enum>
                     </property>
                 </widget>
                 <widget class="QCheckBox">

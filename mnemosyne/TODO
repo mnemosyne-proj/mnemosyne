@@ -92,6 +92,8 @@ Mnemosyne 2.0:
 
 -icon handling patch Dirk (needs Qt4?)
 
+-priorities for categories
+
 -multiple answers per questions
 
 -separate colors per category?
