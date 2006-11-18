@@ -33,7 +33,7 @@ class EditItemDlg(EditItemFrm):
 
         self.categories.insertItem(self.item.cat.name)
 
-        names = [cat.name for cat in get_categories()]
+        names = get_category_names()
         names.sort()
         for name in names:
             if name != self.item.cat.name:
