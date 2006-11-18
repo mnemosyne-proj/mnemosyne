@@ -286,6 +286,15 @@ class Item:
     
     ##########################################################################
     #
+    # is_new
+    #
+    ##########################################################################
+    
+    def is_new(self):
+        return (self.acq_reps == 0) and (self.ret_reps == 0)
+    
+    ##########################################################################
+    #
     # is_due_for_acquisition_rep
     #
     ##########################################################################
@@ -1873,6 +1882,46 @@ register_file_format("SuperMemo7 Text in Q:/A: format",
 
 ##############################################################################
 #
+# calculate_initial_interval
+#
+##############################################################################
+
+def calculate_initial_interval(grade):
+
+    # If this is the first time we grade this item, allow for slightly
+    # longer scheduled intervals, as we might know this item from before.
+
+    interval = (0, 0, 1, 3, 4, 5) [grade]
+    return interval
+
+
+
+##############################################################################
+#
+# calculate_interval_noise
+#
+##############################################################################
+
+def calculate_interval_noise(interval):
+
+    if interval == 0:
+        noise = 0
+    elif interval == 1:
+        noise = random.randint(0,1)
+    elif interval <= 10:
+        noise = random.randint(-1,1)
+    elif interval <= 60:
+        noise = random.randint(-3,3)
+    else:
+        a = .05 * interval
+        noise = int(random.uniform(-a,a))
+
+    return noise
+
+
+
+##############################################################################
+#
 # add_new_item
 #
 ##############################################################################
@@ -1887,20 +1936,16 @@ def add_new_item(grade, question, answer, cat_name):
     item.a     = answer
     item.cat   = get_category_by_name(cat_name)
     item.grade = grade
-
-    item.easiness = average_easiness()
     
+    item.acq_reps = 1
+    item.acq_reps_since_lapse = 1
+    
+    item.easiness = average_easiness()
+
     item.new_id()
-
-    new_interval = 0
-
-    if grade == 2 or grade == 3:
-        new_interval = random.randint(1,2)
-    if grade == 4:
-        new_interval = random.randint(2,3)
-    if grade == 5:
-        new_interval = random.randint(3,6)
-
+    
+    new_interval  = calculate_initial_interval(grade)
+    new_interval += calculate_interval_noise(new_interval)
     item.next_rep = time_of_start.days_since() + new_interval
     
     items.append(item)    
@@ -2131,18 +2176,27 @@ def process_answer(item, new_grade):
     scheduled_interval = item.next_rep              - item.last_rep
     actual_interval    = time_of_start.days_since() - item.last_rep
 
-    # In the acquisition phase and staying there.
-    
-    if item.grade in [0,1] and new_grade in [0,1]:
+    if item.is_new():
 
+        # The item is not graded yet, e.g. because it is imported.
+
+        item.acq_reps = 1
+        item.acq_reps_since_lapse = 1
+
+        new_interval = calculate_initial_interval(new_grade)
+
+    elif item.grade in [0,1] and new_grade in [0,1]:
+
+        # In the acquisition phase and staying there.
+    
         item.acq_reps += 1
         item.acq_reps_since_lapse += 1
         
         new_interval = 0
 
-    # In the acquisition phase and moving to the retention phase.
+    elif item.grade in [0,1] and new_grade in [2,3,4,5]:
 
-    if item.grade in [0,1] and new_grade in [2,3,4,5]:
+         # In the acquisition phase and moving to the retention phase.
 
          item.acq_reps += 1
          item.acq_reps_since_lapse += 1
@@ -2157,16 +2211,9 @@ def process_answer(item, new_grade):
                      revision_queue.remove(i)
                      break
 
-         # If this is the very first time we grade this item, (e.g. after
-         # importing it) allow for slightly longer scheduled intervals,
-         # as we might know this item from before (similar to add_new_item). 
+    elif item.grade in [2,3,4,5] and new_grade in [0,1]:
 
-         if item.acq_reps == 1 and item.ret_reps == 0 and new_grade > 2:
-             new_interval = new_grade
-
-    # In the retention phase and dropping back to the acquisition phase.
-
-    if item.grade in [2,3,4,5] and new_grade in [0,1]:
+         # In the retention phase and dropping back to the acquisition phase.
 
          item.ret_reps += 1
          item.lapses += 1
@@ -2181,9 +2228,9 @@ def process_answer(item, new_grade):
          items.remove(item)
          items.insert(0,item)
 
-    # In the retention phase and staying there.
+    elif item.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
 
-    if item.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
+        # In the retention phase and staying there.
 
         item.ret_reps += 1
         item.ret_reps_since_lapse += 1
@@ -2226,17 +2273,7 @@ def process_answer(item, new_grade):
 
     # Add some randomness to interval.
 
-    if new_interval == 0:
-        noise = 0
-    elif new_interval == 1:
-        noise = random.randint(0,1)
-    elif new_interval <= 10:
-        noise = random.randint(-1,1)
-    elif new_interval <= 60:
-        noise = random.randint(-3,3)
-    else:
-        a = .05 * new_interval
-        noise = int(random.uniform(-a,a))
+    noise = calculate_interval_noise(new_interval)
 
     # Update grade and interval.
     
