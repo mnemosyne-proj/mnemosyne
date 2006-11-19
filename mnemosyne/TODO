@@ -1,5 +1,7 @@
 Before 1.0:
 
+-remember window size set by the user + column size in edit window
+
 -sounds
 
 -limited statistics
@@ -9,8 +11,6 @@ Before 1.0:
 -option to automatically increase font size for non-latin characters 
 
 -unicode filenames? (remove encode, set LANG to UTF-8 in system)
-
--remember window size set by the user
 
 -change file suffix when changing export file format
 
