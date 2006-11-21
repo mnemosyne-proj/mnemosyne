@@ -1143,6 +1143,7 @@ class XML_Importer(saxutils.DefaultHandler):
             name = self.text["name"]
             if (name != None):
                 ensure_category_exists(name)
+            get_category_by_name(name).active = self.active
 
 
 
@@ -1243,6 +1244,7 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
             name = self.text["name"]
             if (name != None):
                 ensure_category_exists(name)
+            get_category_by_name(name).active = self.active
 
           
 
