@@ -1,8 +1,9 @@
-MNEMOSYNE 0.9.7: 2006-10-27
+MNEMOSYNE 0.9.8
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-fixed hang when end quotes are not present inside a tag.
 -fixed regression where the active flag of categories was not respected on
  import (reported by A. Rachmatullah).
 -disable 'edit item' as long as the aswer is not shown, to prevent 

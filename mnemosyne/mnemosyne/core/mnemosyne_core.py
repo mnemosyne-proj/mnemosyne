@@ -811,6 +811,9 @@ def preprocess(old_string):
         start = new_string.find("\"", i)
         end   = new_string.find("\"", start+1)
 
+        if end == -1:
+            break
+
         old_path = new_string[start+1:end]
 
         new_string = new_string[:start+1] + \
