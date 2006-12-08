@@ -97,7 +97,7 @@ def upload(filename):
     
     if rcode != 200:
         msg = "HTTP error: %s, %s\n%s %s" % (rcode, uri, rmsg, response)
-        raise ValueError
+        raise ValueError(msg)
 
 
 
