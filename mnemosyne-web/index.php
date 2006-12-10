@@ -16,7 +16,7 @@ The Mnemosyne Project has two aspects:
 The Mnemosyne software resembles a traditional flash-card program to help you memorise question/answer pairs, but with an important twist: it uses a sophisticated algorithm to schedule the best time for an item to come up for review.
  Difficult items that you tend to forget quickly will be scheduled more often, while Mnemosyne won't waste your time on things you remember well.
 <br><br>
-The software runs on Linux and Windows machines. It fully supports Unicode and allows you to use graphics in your questions and answers.
+The software runs on Linux, Windows and <a href="http://www.snozle.com/article/get-mnemosyne-to-work-on-osx">Mac OSX</a>. It fully supports Unicode and allows you to use graphics in your questions and answers.
 <h2>Memory research</h2>
 <br>
 While you use the software, detailed statistics can be kept on your learning process. If you want, these logs can be uploaded in a transparent and anonymous way to a central server for analysis. 
