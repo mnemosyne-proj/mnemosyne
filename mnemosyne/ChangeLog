@@ -3,6 +3,8 @@ MNEMOSYNE 0.9.8
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-make tab-separated import resistant to the presence of multiple tabs 
+ (reported by J. Forrez).
 -fixed hang when end quotes are not present inside a tag.
 -fixed regression where the active flag of categories was not respected on
  import (reported by A. Rachmatullah).

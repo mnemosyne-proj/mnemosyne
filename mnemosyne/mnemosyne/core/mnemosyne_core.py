@@ -1488,7 +1488,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
         item = Item()
 
         try:
-            item.q, item.a = line.split('\t')
+            item.q, item.a = line.split('\t',1)
         except Exception, e:
             print "Error parsing txt file:\n"
             traceback.print_exc()
