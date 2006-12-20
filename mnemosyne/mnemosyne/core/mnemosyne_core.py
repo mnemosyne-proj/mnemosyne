@@ -1109,23 +1109,20 @@ class XML_Importer(saxutils.DefaultHandler):
 
     def endElement(self, name):
 
-        def decode_cdata(s):
-            return saxutils.unescape(s)
-
         self.reading[name] = False
 
         if name == "cat":
 
-            cat_name = decode_cdata(self.text["cat"])
+            cat_name = self.text["cat"]
             self.item.cat = get_category_by_name(cat_name)
 
         elif name == "Q":
 
-            self.item.q = decode_cdata(self.text["Q"])
+            self.item.q = self.text["Q"]
 
         elif name == "A":
 
-            self.item.a = decode_cdata(self.text["A"])
+            self.item.a = self.text["A"]
 
         elif name == "item":
 
@@ -1210,23 +1207,20 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
 
     def endElement(self, name):
 
-        def decode_cdata(s):
-            return saxutils.unescape(s)
-
         self.reading[name] = False
 
         if name == "cat":
 
-            cat_name = decode_cdata(self.text["cat"])
+            cat_name = self.text["cat"]
             self.item.cat = get_category_by_name(cat_name)
 
         elif name == "Q":
 
-            self.item.q = decode_cdata(self.text["Q"])
+            self.item.q = self.text["Q"]
 
         elif name == "A":
 
-            self.item.a = decode_cdata(self.text["A"])
+            self.item.a = self.text["A"]
 
         elif name == "item":
 
@@ -1327,14 +1321,22 @@ def import_XML(filename, default_cat, reset_learning_data=False):
 
 ##############################################################################
 #
+# encode_cdata
+#
+##############################################################################
+
+def encode_cdata(s):
+    return saxutils.escape(s.encode("utf-8"))
+
+
+
+##############################################################################
+#
 # write_item_XML
 #
 ##############################################################################
 
 def write_item_XML(e, outfile, reset_learning_data=False):
-
-    def encode_cdata(s):
-        return "<![CDATA[" + saxutils.escape(s.encode("utf-8")) + "]]>"
 
     if reset_learning_data == False:
         print >> outfile, "<item id=\""+str(e.id) + "\"" \
@@ -1387,8 +1389,7 @@ def write_category_XML(category, outfile, reset_learning_data):
     
     print >> outfile, "<category active=\"" \
           + bool_to_digit(active) + "\">"
-    print >> outfile, " <name><![CDATA["+category.name.encode("utf-8") \
-          +"]]></name>"
+    print >> outfile, " <name>" + encode_cdata(category.name) + "</name>"
     print >> outfile, "</category>"
 
     
