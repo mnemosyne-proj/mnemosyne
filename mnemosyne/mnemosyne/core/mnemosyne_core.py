@@ -758,7 +758,7 @@ def process_latex(latex_command):
 
         shutil.copy("tmp1.png", imag_name)
 
-    return  "<img src=\"" + latexdir + "/" + imag_name + "\" >"
+    return  "<img src=\"" + latexdir + "/" + imag_name + "\">"
 
 
 
@@ -820,6 +820,9 @@ def preprocess(old_string):
                      expand_path(old_path) + \
                      new_string[end:]
 
+        # Since new_string is always longer now, we can start searching
+        # from the previous end tag.
+        
         i = new_string.lower().find("img src", end+1)
 
     # Process latex tags.
@@ -839,7 +842,10 @@ def preprocess(old_string):
                      process_latex(latex_command) + \
                      new_string[end+8:]
 
-        start = new_string.lower().find("<latex>", end+1)    
+        # Start search for next tag from beginning, as the previous
+        # step has eliminated the previous latex tag.
+        
+        start = new_string.lower().find("<latex>")
         
     return new_string
 
