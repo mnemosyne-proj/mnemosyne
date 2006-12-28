@@ -743,12 +743,13 @@ def process_latex(latex_command):
     
         f = file("tmp.tex", 'w')
         print >> f, "\\documentclass[12pt]{article}"
-        print >> f, "\\pagestyle{empty} \\begin{document} \\begin{displaymath}"     
+        print >> f, "\\pagestyle{empty} \\begin{document}" +\
+                    "\\begin{displaymath}"     
         print >> f, latex_command
         print >> f, "\\end{displaymath} \\end{document}"
         f.close()
 
-        status = os.system("latex tmp.tex")
+        status = os.system("latex -interaction=nonstopmode tmp.tex")
         if status != 0:
             return error_str
         

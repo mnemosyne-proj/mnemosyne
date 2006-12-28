@@ -4,6 +4,7 @@ MNEMOSYNE 0.9.8
 version before doing an upgrade.)
 
 -fixed handling of multiple latex tags (reported by M. Boespflug).
+-don't hang on latex errors (reported by M. Boespflug).
 -make tab-separated import resistant to the presence of multiple tabs 
  (reported by J. Forrez).
 -fixed hang when end quotes are not present inside a tag.
