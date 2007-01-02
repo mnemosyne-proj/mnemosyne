@@ -8,6 +8,8 @@ Before 1.0:
 
 -drag and drop of pictures, sound files
 
+-give more feedback on import failure
+
 -option to automatically increase font size for non-latin characters 
 
 -unicode filenames? (remove encode, set LANG to UTF-8 in system)
