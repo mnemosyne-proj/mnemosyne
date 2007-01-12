@@ -3,7 +3,7 @@ INSTALLATION:
 -Make sure you have Python 2.4
 -Make sure you have PyQt (http://www.riverbankcomputing.co.uk/pyqt/index.php)
  installed.
--If you want to import XML, also install PyXML (http://pyxml.sourceforge.net)
+-Also install PyXML (http://pyxml.sourceforge.net)
 -If you want to be able to enter formulas using latex syntax, make sure that
  latex is installed.
 -Type 'python setup.py install' as root.
