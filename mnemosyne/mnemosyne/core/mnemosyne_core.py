@@ -2224,9 +2224,12 @@ def process_answer(item, new_grade):
                      revision_queue.remove(i)
                      break
 
-    elif item.grade in [2,3,4,5] and new_grade in [0,1]:
+    elif item.grade in [2,3,4,5] and new_grade in [0,1,2]:
 
          # In the retention phase and dropping back to the acquisition phase.
+
+         if new_grade == 2:
+             new_grade = 1
 
          item.ret_reps += 1
          item.lapses += 1
@@ -2241,7 +2244,7 @@ def process_answer(item, new_grade):
          items.remove(item)
          items.insert(0,item)
 
-    elif item.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
+    elif item.grade in [2,3,4,5] and new_grade in [3,4,5]:
 
         # In the retention phase and staying there.
 

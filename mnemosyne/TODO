@@ -32,6 +32,7 @@ Before 1.0:
 -website:
   relative CSS layout 
     http://www.webreference.com/authoring/style/sheets/css_mastery2/
+    http://www.cssbasics.com/
   better mailing list page
   contributors page
   screenshots
@@ -84,6 +85,9 @@ QTableWidget (might be made obsolete by 2.0)
 Mnemosyne 2.0:
 
 -rename items to cards, edit items to knowledge manager
+
+-regular expression search, all results in separate window (i.e. filter 
+behaviour)
 
 -Upgrade to Qt4
 
