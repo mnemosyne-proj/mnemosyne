@@ -144,10 +144,10 @@
                                 <cstring>close_button</cstring>
                             </property>
                             <property name="text">
-                                <string>&amp;Close</string>
+                                <string>E&amp;xit</string>
                             </property>
                             <property name="accel">
-                                <string>Alt+C</string>
+                                <string>Alt+X</string>
                             </property>
                             <property name="autoDefault">
                                 <bool>false</bool>

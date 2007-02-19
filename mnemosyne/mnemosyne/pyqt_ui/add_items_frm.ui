@@ -21,7 +21,7 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout10</cstring>
+                <cstring>layout6</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -262,7 +262,7 @@
                 </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout9</cstring>
+                        <cstring>layout5</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -270,13 +270,13 @@
                         </property>
                         <widget class="QPushButton">
                             <property name="name">
-                                <cstring>cancel</cstring>
+                                <cstring>preview_button</cstring>
                             </property>
                             <property name="text">
-                                <string>E&amp;xit</string>
+                                <string>&amp;Preview</string>
                             </property>
                             <property name="accel">
-                                <string>Alt+X</string>
+                                <string>Alt+P</string>
                             </property>
                             <property name="autoDefault">
                                 <bool>false</bool>
@@ -294,20 +294,20 @@
                             </property>
                             <property name="sizeHint">
                                 <size>
-                                    <width>151</width>
+                                    <width>171</width>
                                     <height>31</height>
                                 </size>
                             </property>
                         </spacer>
                         <widget class="QPushButton">
                             <property name="name">
-                                <cstring>preview_button</cstring>
+                                <cstring>cancel</cstring>
                             </property>
                             <property name="text">
-                                <string>&amp;Preview</string>
+                                <string>E&amp;xit</string>
                             </property>
                             <property name="accel">
-                                <string>Alt+P</string>
+                                <string>Alt+X</string>
                             </property>
                             <property name="autoDefault">
                                 <bool>false</bool>
