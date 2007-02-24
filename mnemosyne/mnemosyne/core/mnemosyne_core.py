@@ -6,6 +6,7 @@
 
 import random, time, os, string, sys, cPickle, md5, struct, logging
 import traceback, shutil
+import mnemosyne.version
 logger = logging.getLogger("mnemosyne")
 
 
@@ -84,7 +85,6 @@ def initialise():
         upload_thread = mnemosyne_log.Uploader()
         upload_thread.start()
 
-    import mnemosyne.version
     logger.info("Program started : Mnemosyne " + mnemosyne.version.version)
 
 
@@ -593,6 +593,10 @@ def new_database(path):
 #
 ##############################################################################
 
+database_header_line \
+    = "--- Mnemosyne Data Base --- Format Version %s ---" \
+      % mnemosyne.version.dbVersion
+
 def load_database(path):
 
     global config, time_of_start, categories, category_by_name, items
@@ -607,6 +611,19 @@ def load_database(path):
 
     try:
         infile = file(path, 'rb')
+        header_line = infile.readline().rstrip()
+        if header_line != database_header_line:
+
+            # As long as the data base version equals 1, the header line is
+            # optional.  As soon as mnemosyne switches to a new data base
+            # version, the code should be replaced as follows:
+
+            # infile.close()
+            # return False
+
+            assert(mnemosyne.version.dbVersion == "1")
+            infile = file(path, 'rb')
+
         db = cPickle.load(infile)
 
         time_of_start = db[0]
@@ -652,6 +669,7 @@ def save_database(path):
         
     try:
         outfile = file(path,'wb')
+        print >> outfile, database_header_line
 
         db = [time_of_start, categories, items]
         cPickle.dump(db, outfile)
