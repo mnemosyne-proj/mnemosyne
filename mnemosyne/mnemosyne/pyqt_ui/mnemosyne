@@ -24,11 +24,6 @@ try:
 except:
     filename = None
 
-try:
-    item_id = sys.argv[2]
-except:
-    item_id = None
-
 a = QApplication(sys.argv)
 
 # Check if there is another instance of Mnemosyne running.
@@ -48,7 +43,7 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
 
 initialise()
             
-w = MainDlg(filename, item_id)
+w = MainDlg(filename)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
 QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))

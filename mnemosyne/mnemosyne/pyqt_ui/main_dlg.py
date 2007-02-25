@@ -76,7 +76,7 @@ class MainDlg(MainFrm):
     #
     ##########################################################################
     
-    def __init__(self, filename, item_id, parent = None,name = None,fl = 0):
+    def __init__(self, filename, parent = None,name = None,fl = 0):
         MainFrm.__init__(self,parent,name,fl)
 
         self.state = "EMPTY"
@@ -105,14 +105,6 @@ class MainDlg(MainFrm):
                     self.trUtf8("&OK"), QString(), QString(), 0, -1)
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             new_database(filename)
-        
-        if item_id != None:
-            try:
-                item = get_item_by_id(long(item_id))
-                dlg = EditItemDlg(item,self,"Edit item",0)
-                dlg.exec_loop()
-            except:
-                pass
         
         self.newQuestion()
         self.updateDialog()
