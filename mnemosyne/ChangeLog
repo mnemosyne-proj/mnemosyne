@@ -3,6 +3,7 @@ MNEMOSYNE 0.9.8
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-fix corner cases in scheduling algorithm (patch by Querido).
 -make button ordering more consistent in add items (reported by N. Kriha).
 -fixed handling of multiple latex tags (reported by M. Boespflug).
 -don't hang on latex errors (reported by M. Boespflug).

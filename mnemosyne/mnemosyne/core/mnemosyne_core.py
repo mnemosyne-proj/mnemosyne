@@ -1970,6 +1970,8 @@ def add_new_item(grade, question, answer, cat_name):
     
     item.acq_reps = 1
     item.acq_reps_since_lapse = 1
+
+    item.last_rep = time_of_start.days_since()
     
     item.easiness = average_easiness()
 
@@ -2206,6 +2208,11 @@ def process_answer(item, new_grade):
 
     scheduled_interval = item.next_rep              - item.last_rep
     actual_interval    = time_of_start.days_since() - item.last_rep
+
+    # Take care of corner case when learning ahead on the same day.
+
+    if actual_interval == 0:
+        actual_interval = 1 # Otherwise new interval can become zero.
 
     if item.is_new():
 
