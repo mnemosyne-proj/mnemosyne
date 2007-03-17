@@ -15,6 +15,7 @@ version before doing an upgrade.)
 -disable 'edit item' as long as the aswer is not shown, to prevent 
  accidentally revealing it (patch by D. Herrmann).
 -respect left align option in 'preview items' (reported by E. Grannan).
+-making saving more robust while Windows is shutting down (fix by Tom).
 -various small interface cleanups and fixes.
 
 

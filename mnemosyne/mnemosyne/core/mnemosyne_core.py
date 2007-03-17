@@ -668,14 +668,23 @@ def save_database(path):
         return False
         
     try:
-        outfile = file(path,'wb')
+        
+        # Write to a backup file first, as shutting down Windows can
+        # interrupt the dump command and corrupt the database.
+        
+        outfile = file(path + "~", 'wb')
+        
         print >> outfile, database_header_line
 
         db = [time_of_start, categories, items]
         cPickle.dump(db, outfile)
 
         outfile.close()
+
+        shutil.move(path + "~", path) # Should be atomic.
+        
     except:
+        
         return False
 
     config["path"] = path
