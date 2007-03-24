@@ -36,7 +36,7 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
                       "Starting a new copy could lead to data loss!\n"),
              a.trUtf8("&Exit"), a.trUtf8("&Continue"),
              QString(), 0, -1)
-    if status == 0:
+    if status == 0 || status == -1:
         sys.exit()
     
 # Start program.
