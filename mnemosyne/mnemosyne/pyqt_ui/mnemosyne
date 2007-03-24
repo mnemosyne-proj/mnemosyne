@@ -38,7 +38,7 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
              QString(), 0, -1)
     if status == 0 || status == -1:
         sys.exit()
-    
+
 # Start program.
 
 initialise()
