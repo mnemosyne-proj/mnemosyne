@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>436</width>
-            <height>399</height>
+            <width>428</width>
+            <height>407</height>
         </rect>
     </property>
     <property name="caption">
@@ -18,13 +18,13 @@
     <property name="sizeGripEnabled">
         <bool>true</bool>
     </property>
-    <hbox>
+    <vbox>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout10</cstring>
+                <cstring>layout14</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -56,54 +56,113 @@
                     <property name="title">
                         <string>Appearance</string>
                     </property>
-                    <hbox>
+                    <vbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
                         </property>
                         <widget class="QLayoutWidget">
                             <property name="name">
-                                <cstring>layout17</cstring>
+                                <cstring>layout15</cstring>
                             </property>
-                            <hbox>
+                            <vbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QPushButton">
+                                <widget class="QLayoutWidget">
                                     <property name="name">
-                                        <cstring>button_QA_font</cstring>
+                                        <cstring>layout17</cstring>
                                     </property>
-                                    <property name="text">
-                                        <string>Set Q/A font</string>
-                                    </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>Set the font used when showing single questions and answers</string>
-                                    </property>
+                                    <hbox>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QPushButton">
+                                            <property name="name">
+                                                <cstring>button_QA_font</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>Set Q/A font</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Set the font used when showing single questions and answers</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QPushButton">
+                                            <property name="name">
+                                                <cstring>button_list_font</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>Set list font</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Set the font used when showing the list of all the items in the database</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QCheckBox">
+                                            <property name="name">
+                                                <cstring>leftAlign</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>left align Q/A</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Useful with a fixed width font to display chemical and mathematical formulas</string>
+                                            </property>
+                                        </widget>
+                                    </hbox>
                                 </widget>
-                                <widget class="QPushButton">
+                                <widget class="QLayoutWidget">
                                     <property name="name">
-                                        <cstring>button_list_font</cstring>
+                                        <cstring>layout11</cstring>
                                     </property>
-                                    <property name="text">
-                                        <string>Set list font</string>
-                                    </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>Set the font used when showing the list of all the items in the database</string>
-                                    </property>
+                                    <hbox>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QLabel">
+                                            <property name="name">
+                                                <cstring>textLabel1_2</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>Increase size of non-latin characters by</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Sometimes complex glyphs are hard to read at the default latin font size</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QSpinBox">
+                                            <property name="name">
+                                                <cstring>font_increase</cstring>
+                                            </property>
+                                            <property name="maxValue">
+                                                <number>111</number>
+                                            </property>
+                                            <property name="lineStep">
+                                                <number>1</number>
+                                            </property>
+                                            <property name="value">
+                                                <number>0</number>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Sometimes complex glyphs are hard to read at the default latin font size</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QLabel">
+                                            <property name="name">
+                                                <cstring>textLabel1_2_2</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>point(s)</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Sometimes complex glyphs are hard to read at the default latin font size</string>
+                                            </property>
+                                        </widget>
+                                    </hbox>
                                 </widget>
-                                <widget class="QCheckBox">
-                                    <property name="name">
-                                        <cstring>leftAlign</cstring>
-                                    </property>
-                                    <property name="text">
-                                        <string>left align Q/A</string>
-                                    </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>Useful with a fixed width font to display chemical and mathematical formulas</string>
-                                    </property>
-                                </widget>
-                            </hbox>
+                            </vbox>
                         </widget>
-                    </hbox>
+                    </vbox>
                 </widget>
                 <widget class="QButtonGroup">
                     <property name="name">
@@ -181,6 +240,9 @@
                                             </property>
                                             <property name="text">
                                                 <string>mnemosyne-project.dyndns.org:80</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Only change this when told so by the developpers</string>
                                             </property>
                                         </widget>
                                     </hbox>
@@ -341,7 +403,7 @@
                 </widget>
             </vbox>
         </widget>
-    </hbox>
+    </vbox>
 </widget>
 <connections>
     <connection>

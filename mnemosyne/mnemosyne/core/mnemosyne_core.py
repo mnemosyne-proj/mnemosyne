@@ -124,6 +124,8 @@ def init_config():
         config["list_font"] = None
     if not config.has_key("left_align"):        
         config["left_align"] = False
+    if not config.has_key("non_latin_font_size_increase"):
+        config["non_latin_font_size_increase"] = 0
     if not config.has_key("check_duplicates_when_adding"):      
         config["check_duplicates_when_adding"] = True
     if not config.has_key("allow_duplicates_in_diff_cat"):     
@@ -794,6 +796,62 @@ def process_latex(latex_command):
 
 ##############################################################################
 #
+# set_non_latin_font_size
+#
+#   Useful to increase size of non-latin unicode characters.
+#
+##############################################################################
+
+def set_non_latin_font_size(old_string, font_size):
+
+    def in_latin_plane(ucode):
+        
+        # Basic Latin (US-ASCII): {U+0000..U+007F}
+        # Latin-1 (ISO-8859-1): {U+0080..U+00FF}
+        # Latin Extended: {U+0100..U+024F}
+        # IPA Extensions: {U+0250..U+02AF}\
+        # Spacing Modifier Letters: {U+02B0..U+02FF}
+        # Combining Diacritical Marks: {U+0300..U+036F}  
+        # Greek: {U+0370..U+03FF}
+        # Cyrillic: {U+0400..U+04FF}
+        # Latin Extended Additional
+        # Greek Extended
+        
+        plane = ((0x0000,0x04FF), (0x1E00,0x1EFF), (0x1F00,0x1FFF))
+        for i in plane:
+            if ucode > i[0] and ucode < i[1]:
+                return True
+        return False
+    
+    new_string = ""
+    in_unicode_substring = False
+    
+    for i in range(len(old_string)):
+        if not in_latin_plane(ord(old_string[i])):
+            if in_unicode_substring == True:
+                new_string += old_string[i]
+            else:
+                in_unicode_substring = True
+                new_string += '<font size="' + str(font_size) + '">'\
+                                + old_string[i]
+        else:
+            if in_unicode_substring == True:
+                in_unicode_substring = False
+                new_string += '</font>' + old_string[i]
+            else:
+                new_string += old_string[i]
+                
+    # Make sure to close the last tag.
+    
+    if not in_latin_plane(ord(old_string[-1])):
+        new_string += '</font>'
+    
+    return new_string
+
+
+
+##############################################################################
+#
 # preprocess
 #
 #   Do some text preprocessing of Q/A strings and handle special tags.
@@ -876,7 +934,7 @@ def preprocess(old_string):
         # step has eliminated the previous latex tag.
         
         start = new_string.lower().find("<latex>")
-        
+    
     return new_string
 
 

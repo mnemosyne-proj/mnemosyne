@@ -3,6 +3,8 @@ MNEMOSYNE 0.9.8
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-add option to increase size of non-latin characters relative to latin
+ characters (together with N. Kriha).
 -disable 'edit item' as long as the aswer is not shown, to prevent 
  accidentally revealing it (patch by D. Herrmann).
 -fix handling of < inside latex tags (reported by jgurling, patch by N. 

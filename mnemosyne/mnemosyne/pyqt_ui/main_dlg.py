@@ -573,6 +573,11 @@ class MainDlg(MainFrm):
         self.question.setFont(font)
         self.answer.setFont(font)
 
+        # Size for non-latin characters.
+
+        increase_non_latin = get_config("non_latin_font_size_increase")
+        non_latin_size = font.pointSize() + increase_non_latin
+
         # Update question and answer alignment.
 
         # Note: for some reason the default alignment is not AlignCenter
@@ -599,14 +604,20 @@ class MainDlg(MainFrm):
         if self.item == None:
             self.question.setText("")
         else:
-            self.question.setText(preprocess(self.item.q))
+            text = preprocess(self.item.q)
+            if increase_non_latin:
+                text = set_non_latin_font_size(text, non_latin_size)
+            self.question.setText(text)
 
         # Update answer content.
         
         if self.item == None or self.state == "SELECT SHOW":
             self.answer.setText("")
         else:
-            self.answer.setText(preprocess(self.item.a))
+            text = preprocess(self.item.a)            
+            if increase_non_latin:
+                text = set_non_latin_font_size(text, non_latin_size)
+            self.answer.setText(text)
 
         # Update buttons.
         
