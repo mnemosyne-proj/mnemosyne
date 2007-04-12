@@ -1681,10 +1681,10 @@ def read_line_sm7qa(f):
     line = line.replace("\x03", "ú")
 
     try:
-        line = unicode(line, "latin")
+        line = unicode(line, "utf-8")
     except:
         try:
-            line = unicode(line, "utf-8")
+            line = unicode(line, "latin")
         except:
             print "Unrecognised encoding."
             return False
