@@ -36,7 +36,7 @@ The path is relative to the location of your <code>*.mem</code> file, although y
 A low-tech option is to approximate them using ordinary text. For multi-line formulas, it's best to use a fixed-width font, and to mark the checkbox 'left align Q/A' in the preference window. A high-tech option is letting LaTeX render your formulas, e.g.<code>&lt;latex>x^2+y^2=z^2&lt;/latex></code>. For this you need latex and dvipng installed. Windows users can download <a href="http://www.miktex.org/">MiKTeX</a> for that.
 
 <h2 id="question">Adding sounds to question or answers would be nice!</h2>
-It sure would! A future version will use html <code>&lt;sound> </code> tags to specify a sound file, which will then be played by an external program (which you can choose).
+You can use tags like <code>&lt;sound src="a.wav"></code>. The path is relative to the location of your <code>*.mem</code> file, although you can use absolute paths too. To play the sound again, press the 'R' key in the main window. Supported file formats are wav, ogg and mp3. On Linux, this requires properly installing pygame and its dependencies like SDL.
 
 <h2 id="question">Can I use keyboard shortcuts while doing the revisions?</h2>
 Sure! To show the answer you can either press enter, space or return. To grade your answer you can just press the number keys. You can use the delete button to get rid of an item.

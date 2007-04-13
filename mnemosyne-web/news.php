@@ -5,11 +5,41 @@
 <div id="content">
 
 <h1>News</h1>
+
+<br>
+<b>2007-04-13</b>: released Mnemosyne 0.9.8<br>
+<br>
+(Note that for Windows users we recommend uninstalling the previous
+version before doing an upgrade.)<br><br>
+-added sound support through tags like <sound src="a.wav">. The path to
+ the sound file is either absolute or relative to the location of your
+ .mem file. To play the sound again, press the 'R' key in the main window.
+ Supported file formats are wav, ogg and mp3. On Linux, this requires
+ properly installing pygame and its dependencies like SDL.<br>
+-add option to increase size of non-latin characters relative to latin
+ characters (together with N. Kriha).<br>
+-disable 'edit item' as long as the answer is not shown, to prevent
+ accidentally revealing it (patch by D. Herrmann).<br>
+-fix handling of < inside latex tags (reported by jgurling, patch by N.
+ Kriha).<br>
+-warn when exiting an 'Add items' which contains an item which has not
+ been added (requested by Airconditioning).<br>
+-fix UTF-8 handling in the Supermemo7 file format (reported by Loco)
+-fix corner cases in scheduling algorithm (patch by Querido).<br>
+-make button ordering more consistent in add items (reported by N. Kriha).<br>
+-fixed handling of multiple latex tags (reported by M. Boespflug).<br>
+-don't hang on latex errors (reported by M. Boespflug).
+-make tab-separated import resistant to the presence of multiple tabs
+ (reported by J. Forrez).<br>
+-fixed hang when end quotes are not present inside a tag.<br>
+-fixed regression where the active flag of categories was not respected on
+ import (reported by A. Rachmatullah).<br>
+-respect left align option in 'preview items' (reported by E. Grannan).<br>
+-making saving more robust while Windows is shutting down (fix by Tom).<br>
+-various small interface cleanups and fixes.<br>
+
 <br>
 <b>2006-10-27</b>: released Mnemosyne 0.9.7<br>
-(Note that for Windows users we recommend uninstalling the previous
-version before doing an upgrade.)
-<br>
 -multiple items can now be selected in the 'edit items' dialog in order
  to delete them, change their categories, or add their vice versas.<br>
 -added option to import text files where question and answer are each on
