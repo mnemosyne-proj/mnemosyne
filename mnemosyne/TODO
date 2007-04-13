@@ -1,12 +1,9 @@
 Before 1.0:
 
--confirmation when closing "Add Item" window (by Airconditioning)
+-limited statistics (schedule, per category breakdown of 
+unknown/scheduled/.., distribution over grades, per item pop-up)
 
 -remember window size set by the user + column size in edit window
-
--sounds
-
--limited statistics
 
 -drag and drop of pictures, sound files
 
@@ -62,8 +59,6 @@ After 1.0:
 
 -paste from clipboard
 
--selectively disable XML import if sax is not found?
-
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
 QTableWidget (might be made obsolete by 2.0)
 
@@ -106,6 +101,8 @@ behaviour)
 
 -multiple answers per questions
 
+-better sound replay support, through clicking on an icon
+
 -separate colors per category?
 
 -per category statistics in 'Activate categories'
@@ -129,6 +126,3 @@ Superkaramba / Plasma
  text.
 
 -Automatic detection of PyQt executable exit (bug in Superkaramba).
-
--Check if we still need to be able to access the item by id as argument
- to the PyQt executable

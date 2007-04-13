@@ -134,6 +134,7 @@ def init_config():
         config["grade_0_items_at_once"] = 5
 
 
+
 ##############################################################################
 #
 # get_config
@@ -616,8 +617,8 @@ def load_database(path):
         header_line = infile.readline().rstrip()
         if header_line != database_header_line:
 
-            # As long as the data base version equals 1, the header line is
-            # optional.  As soon as mnemosyne switches to a new data base
+            # As long as the database version equals 1, the header line is
+            # optional.  As soon as Mnemosyne switches to a new data base
             # version, the code should be replaced as follows:
 
             # infile.close()
@@ -890,9 +891,9 @@ def preprocess(old_string):
         else:
             new_string += old_string[i]
 
-    # Fill out relative paths for img tags.
+    # Fill out relative paths for src tags (e.g. img src or sound src).
 
-    i = new_string.lower().find("img src")
+    i = new_string.lower().find("src")
     
     while i != -1:
         
@@ -911,7 +912,7 @@ def preprocess(old_string):
         # Since new_string is always longer now, we can start searching
         # from the previous end tag.
         
-        i = new_string.lower().find("img src", end+1)
+        i = new_string.lower().find("src", end+1)
 
     # Process latex tags.
 

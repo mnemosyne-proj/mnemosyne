@@ -776,6 +776,14 @@
             <string>Space</string>
         </property>
     </action>
+    <action>
+        <property name="name">
+            <cstring>pressRAction</cstring>
+        </property>
+        <property name="accel">
+            <string>R</string>
+        </property>
+    </action>
 </actions>
 <images>
     <image name="image0">
@@ -963,6 +971,12 @@
         <receiver>defaultAction</receiver>
         <slot>activate()</slot>
     </connection>
+    <connection>
+        <sender>pressRAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>replaySound()</slot>
+    </connection>
 </connections>
 <slots>
     <slot>fileNew()</slot>
@@ -986,6 +1000,7 @@
     <slot>gradeAnswer()</slot>
     <slot>nextQuestion()</slot>
     <slot>learnAhead()</slot>
+    <slot>replaySound()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

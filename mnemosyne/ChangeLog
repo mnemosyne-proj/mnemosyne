@@ -1,14 +1,21 @@
-MNEMOSYNE 0.9.8
+MNEMOSYNE 0.9.8: 2007-04-13
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-added sound support through tags like <sound src="a.wav">. The path to
+ the sound file is either absolute or relative to the location of your 
+ .mem file. To play the sound again, press the 'R' key in the main window. 
+ Supported file formats are wav, ogg and mp3. On Linux, this requires
+ properly installing pygame and its dependencies like SDL.
 -add option to increase size of non-latin characters relative to latin
  characters (together with N. Kriha).
--disable 'edit item' as long as the aswer is not shown, to prevent 
+-disable 'edit item' as long as the answer is not shown, to prevent 
  accidentally revealing it (patch by D. Herrmann).
 -fix handling of < inside latex tags (reported by jgurling, patch by N. 
- Kriha)
+ Kriha).
+-warn when exiting an 'Add items' which contains an item which has not
+ been added (requested by Airconditioning).
 -fix UTF-8 handling in the Supermemo7 file format (reported by Loco)
 -fix corner cases in scheduling algorithm (patch by Querido).
 -make button ordering more consistent in add items (reported by N. Kriha).

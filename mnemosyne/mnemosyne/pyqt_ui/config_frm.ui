@@ -12,6 +12,14 @@
             <height>407</height>
         </rect>
     </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>3</hsizetype>
+            <vsizetype>3</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
     <property name="caption">
         <string>Mnemosyne configuration</string>
     </property>
@@ -24,7 +32,7 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout14</cstring>
+                <cstring>layout12</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -231,7 +239,7 @@
                                                 <string>Upload server:</string>
                                             </property>
                                             <property name="toolTip" stdset="0">
-                                                <string>Only change this when told so by the developpers</string>
+                                                <string>Only change this when prompted by the Mnemosyne developpers</string>
                                             </property>
                                         </widget>
                                         <widget class="QLineEdit">
@@ -242,7 +250,7 @@
                                                 <string>mnemosyne-project.dyndns.org:80</string>
                                             </property>
                                             <property name="toolTip" stdset="0">
-                                                <string>Only change this when told so by the developpers</string>
+                                                <string>Only change this when prompted by the Mnemosyne developpers</string>
                                             </property>
                                         </widget>
                                     </hbox>

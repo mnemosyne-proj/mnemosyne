@@ -96,6 +96,32 @@ class AddItemsDlg(AddItemsFrm):
             self.emit(SIGNAL("textChanged()"), ())
 
 
+            
+    ##########################################################################
+    #
+    # reject
+    #
+    ##########################################################################
+    
+    def reject(self):
+
+        if not self.question.text() and not self.answer.text():
+            QDialog.reject(self)
+            return
+
+        status = QMessageBox.warning(None,
+                        qApp.translate("Mnemosyne", "Mnemosyne"),
+                        qApp.translate("Mnemosyne", "Abandon current item?"),
+                        qApp.translate("Mnemosyne", "&Yes"),
+                        qApp.translate("Mnemosyne", "&No"),
+                        "", 1, -1)
+        if status == 0:
+            QDialog.reject(self)
+            return
+        else:
+            return
+
+
 
     ##########################################################################
     #
@@ -158,7 +184,7 @@ class AddItemsDlg(AddItemsFrm):
                 status = QMessageBox.question(None,
                       self.trUtf8("Mnemosyne"),
                       self.trUtf8("There are different answers for "+
-                                  "this question:\n\n" + answers.encode("utf8")),
+                                  "this question:\n\n"+answers.encode("utf8")),
                       self.trUtf8("&Merge and edit"),
                       self.trUtf8("&Add as is"),
                       self.trUtf8("&Don't add"), 0, -1)

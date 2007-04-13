@@ -17,7 +17,7 @@ try:
 
     # We need the absolute path for the file name: It will be stored in the
     # user's configuration and shall also point to the right location when
-    # mnemosyne is started from a different directory next time.
+    # Mnemosyne is started from a different directory next time.
 
     filename = os.path.abspath(sys.argv[1])
 
@@ -40,6 +40,9 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
         sys.exit()
 
 # Start program.
+
+import pygame
+pygame.mixer.init()
 
 initialise()
             

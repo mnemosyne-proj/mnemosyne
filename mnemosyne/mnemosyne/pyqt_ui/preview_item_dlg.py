@@ -7,6 +7,7 @@
 from qt import *
 from mnemosyne.core import *
 from preview_item_frm import *
+from sound import *
 
     
 ##############################################################################
@@ -35,6 +36,8 @@ class PreviewItemDlg(PreviewItemFrm):
             font.fromString(get_config("QA_font"))
             self.question.setFont(font)
             self.answer.setFont(font)
+        else:
+            font = self.question_label.font()
 
         # Note: for some reason the default alignment is not AlignCenter
         # (68) but some other value (2116) which seems to make a difference
@@ -48,5 +51,19 @@ class PreviewItemDlg(PreviewItemFrm):
         self.question.setAlignment(alignment)
         self.answer.setAlignment(alignment)
 
-        self.question.setText(preprocess(q))
-        self.answer.setText(preprocess(a))
+        # Question and answer fields.
+        
+        increase_non_latin = get_config("non_latin_font_size_increase")
+        non_latin_size = font.pointSize() + increase_non_latin
+
+        text = preprocess(q)
+        play_sound(text)
+        if increase_non_latin:
+            text = set_non_latin_font_size(text, non_latin_size)
+        self.question.setText(text)
+
+        text = preprocess(a)
+        play_sound(text)
+        if increase_non_latin:
+            text = set_non_latin_font_size(text, non_latin_size)
+        self.answer.setText(text)        

@@ -16,6 +16,7 @@ from edit_items_dlg import *
 from activate_categories_dlg import *
 from config_dlg import *
 from product_tour_dlg import *
+from sound import *
 from mnemosyne.core import *
 
 
@@ -83,6 +84,9 @@ class MainDlg(MainFrm):
         self.item = None
         
         self.shrink = True
+
+        self.q_sound_played = False
+        self.a_sound_played = False
         
         self.sched  = QLabel("", self.statusBar())
         self.notmem = QLabel("", self.statusBar())        
@@ -250,15 +254,9 @@ class MainDlg(MainFrm):
 
         pause_thinking()
         
-        try:
-            from xml.sax import saxutils, make_parser
-            from xml.sax.handler import feature_namespaces
-        except:
-            QMessageBox.Warning(None,
-                  self.trUtf8("Mnemosyne"),
-                  self.trUtf8("PyXML must be installed to import XML."),
-                  self.trUtf8("&OK"), QString(), QString(), 0, -1)
-
+        from xml.sax import saxutils, make_parser
+        from xml.sax.handler import feature_namespaces
+        
         dlg = ImportDlg(self,"Import",0)
         dlg.exec_loop()
         if self.item == None:
@@ -500,6 +498,9 @@ class MainDlg(MainFrm):
                 self.state = "SELECT SHOW"
             else:
                 self.state = "SELECT AHEAD"
+
+        self.q_sound_played = False
+        self.a_sound_played = False
         
         start_thinking()
 
@@ -605,8 +606,14 @@ class MainDlg(MainFrm):
             self.question.setText("")
         else:
             text = preprocess(self.item.q)
+
+            if self.q_sound_played == False:
+                play_sound(text)
+                self.q_sound_played = True
+                
             if increase_non_latin:
                 text = set_non_latin_font_size(text, non_latin_size)
+
             self.question.setText(text)
 
         # Update answer content.
@@ -614,7 +621,12 @@ class MainDlg(MainFrm):
         if self.item == None or self.state == "SELECT SHOW":
             self.answer.setText("")
         else:
-            text = preprocess(self.item.a)            
+            text = preprocess(self.item.a)
+
+            if self.a_sound_played == False:
+                play_sound(text)
+                self.a_sound_played = True
+                
             if increase_non_latin:
                 text = set_non_latin_font_size(text, non_latin_size)
             self.answer.setText(text)
@@ -649,3 +661,14 @@ class MainDlg(MainFrm):
 
         if self.shrink == True:
             self.adjustSize()
+
+    ##########################################################################
+    #
+    # replaySound
+    #
+    ##########################################################################
+
+    def replaySound(self):
+        play_sound(preprocess(self.item.q))
+        if self.state == "SELECT GRADE":
+            play_sound(preprocess(self.item.a))

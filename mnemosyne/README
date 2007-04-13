@@ -1,9 +1,11 @@
 INSTALLATION:
 
--Make sure you have Python 2.4
--Make sure you have PyQt (http://www.riverbankcomputing.co.uk/pyqt/index.php)
- installed.
--Also install PyXML (http://pyxml.sourceforge.net)
+First install the following dependencies:
+
+-Python 2.4 (http://www.python.org)
+-PyQt (http://www.riverbankcomputing.co.uk/pyqt/index.php)
+-PyXML (http://pyxml.sourceforge.net)
+-pygame and its dependencies (http://www.pygame.org)
 -If you want to be able to enter formulas using latex syntax, make sure that
  latex is installed.
 -Type 'python setup.py install' as root.
@@ -17,3 +19,6 @@ will additionally need the following tools:
 
 -Qt-Designer: Useful to modify the .ui xml-files.
 -pyuic: required to convert the .ui files to python code.
+
+If you cjeck out the source from CVS, you have to install it by typing 
+'make' rather than 'python setup.py install'
