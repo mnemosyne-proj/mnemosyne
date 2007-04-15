@@ -5,20 +5,14 @@ unknown/scheduled/.., distribution over grades, per item pop-up)
 
 -remember window size set by the user + column size in edit window
 
--drag and drop of pictures, sound files
+-remember category and vice-versa settings across invocations when adding 
+ items
 
 -give more feedback on import failure
 
 -unicode filenames? (remove encode, set LANG to UTF-8 in system)
 
 -change file suffix when changing export file format
-
--determine export file type based on suffix?
-
--remember category and vice-versa settings across invocations when adding 
- items
-
--what if window becomes larges than screen?
 
 -better action icons
 
@@ -39,8 +33,15 @@ unknown/scheduled/.., distribution over grades, per item pop-up)
 
 After 1.0:
 
+-add/edit window with menus/shortcuts to insert sound and pictures 
+tags through a file selector
+
 -easier 'add vice versa' for foreign word / pronunciation / translation
  triplets
+
+-paste from clipboard
+
+-drag and drop of pictures, sound files
 
 -clean obsolete latex images
 
@@ -57,8 +58,6 @@ After 1.0:
 
 -automatic backups
 
--paste from clipboard
-
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
 QTableWidget (might be made obsolete by 2.0)
 
@@ -67,6 +66,10 @@ QTableWidget (might be made obsolete by 2.0)
 -add 'add item' option to edit items list?
 
 -make really sure the same question isn't asked twice in row?
+
+-determine export file type based on suffix?
+
+-what if window becomes larges than screen?
 
 -unify save and export?
 
