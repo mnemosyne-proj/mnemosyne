@@ -2293,6 +2293,14 @@ def process_answer(item, new_grade):
 
         new_interval = calculate_initial_interval(new_grade)
 
+        # Make sure the second copy of a grade 0 item doesn't show up again.
+
+        if item.grade == 0 and new_grade in [2,3,4,5]:
+            for i in revision_queue:
+                if i.id == item.id:
+                    revision_queue.remove(i)
+                    break
+
     elif item.grade in [0,1] and new_grade in [0,1]:
 
         # In the acquisition phase and staying there.
@@ -2406,7 +2414,7 @@ def process_answer(item, new_grade):
                 item.acq_reps_since_lapse, item.ret_reps_since_lapse,
                 scheduled_interval, actual_interval,
                 new_interval, noise, thinking_time)
-    
+
 
 
 ##############################################################################

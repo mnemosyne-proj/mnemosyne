@@ -1,7 +1,12 @@
-MNEMOSYNE 0.9.8: 2007-04-13
+MNEMOSYNE 0.9.8.1: 2007-04-21
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
+
+-fix scheduling bug when importing new items (reported by Jim Slattery).
+
+
+MNEMOSYNE 0.9.8: 2007-04-13
 
 -added sound support through tags like <sound src="a.wav">. The path to
  the sound file is either absolute or relative to the location of your 
