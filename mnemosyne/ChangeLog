@@ -1,9 +1,14 @@
-MNEMOSYNE 0.9.8.1: 2007-04-21
+MNEMOSYNE 0.9.8.1: 2007-04-23
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
--fix scheduling bug when importing new items (reported by Jim Slattery).
+-fix scheduling bug when importing new grade 0 items (reported by Jim 
+Slattery).
+-remove incorrect statement with respect to grade 2 behaviour from the 
+manual. In 0.9.8, the code was changed to be consistent with the old 
+manual. This has been reverted, so that grade 2 behaviour is again more 
+like 0.9.7.
 
 
 MNEMOSYNE 0.9.8: 2007-04-13

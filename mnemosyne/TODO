@@ -1,3 +1,8 @@
+-clean up interval of imported txt data
+-is turning off logging reported?
+-catch too many values to unpack error in 1476
+-catch error in 2279: no lock file
+
 Before 1.0:
 
 -limited statistics (schedule, per category breakdown of 
