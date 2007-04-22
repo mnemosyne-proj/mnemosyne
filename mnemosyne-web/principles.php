@@ -35,7 +35,7 @@ If Mnemosyne gets it just right, so that you remember it, albeit with some effor
 <br><br>
 If on the other hand it takes you significant effort to remember the answer, and you think the software has waited too long to ask you this question, then rate the item 3.
 <br><br>
-If you fail to remember it altogether, rate it between 0 and 2 (the exact grade doesn't matter), and Mnemosyne will keep on asking you this question until you think you'll be able to remember it again for a few days.
+If you fail to remember it altogether, rate it either 0 or 1, and Mnemosyne will keep on asking you this question until you think you'll be able to remember it again for a few days.
 <br><br>
 For best results, it is suggested to do your revisions every day, although Mnemosyne will try to cope as well as possible if you postpone your revisions or if you want to learn ahead of time.
 <br>
