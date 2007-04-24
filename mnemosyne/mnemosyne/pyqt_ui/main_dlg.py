@@ -580,15 +580,11 @@ class MainDlg(MainFrm):
         non_latin_size = font.pointSize() + increase_non_latin
 
         # Update question and answer alignment.
-
-        # Note: for some reason the default alignment is not AlignCenter
-        # (68) but some other value (2116) which seems to make a difference
-        # in how the widgets are laid out and resized.
         
         if get_config("left_align") == True:
-            alignment = Qt.AlignAuto | Qt.AlignVCenter
+            alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.WordBreak
         else:
-            alignment = 2116
+            alignment = Qt.AlignHCenter | Qt.AlignVCenter | Qt.WordBreak
 
         self.question.setAlignment(alignment)
         self.answer.setAlignment(alignment)

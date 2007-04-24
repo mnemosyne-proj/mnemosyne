@@ -1,7 +1,12 @@
-MNEMOSYNE 0.9.8.1: 2007-04-23
+MNEMOSYNE 0.9.9
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
+
+-fix word wrap when using left alignment (reported by TomC)
+
+
+MNEMOSYNE 0.9.8.1: 2007-04-23
 
 -fix scheduling bug when importing new grade 0 items (reported by Jim 
 Slattery).
