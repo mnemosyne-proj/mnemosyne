@@ -1,3 +1,4 @@
+-write OS to logfile
 -don't fail if no sound present
 -clean up interval of imported txt data
 -is turning off logging reported?
