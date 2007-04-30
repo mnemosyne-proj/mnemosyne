@@ -20,5 +20,5 @@ will additionally need the following tools:
 -Qt-Designer: Useful to modify the .ui xml-files.
 -pyuic: required to convert the .ui files to python code.
 
-If you cjeck out the source from CVS, you have to install it by typing 
+If you check out the source from CVS, you have to install it by typing 
 'make' rather than 'python setup.py install'
