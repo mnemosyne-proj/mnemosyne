@@ -1,3 +1,4 @@
+-faq about SDL_AUDIODRIVER="alsa"
 -write OS to logfile
 -don't fail if no sound present
 -clean up interval of imported txt data
