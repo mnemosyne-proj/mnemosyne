@@ -791,7 +791,7 @@ def process_latex(latex_command):
 
         shutil.copy("tmp1.png", imag_name)
 
-    return  "<img src=\"" + latexdir + "/" + imag_name + "\">"
+    return "<img src=\"" + latexdir + "/"+imag_name+"\" align=middle>"
 
 
 

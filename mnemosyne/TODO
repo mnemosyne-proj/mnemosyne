@@ -1,3 +1,5 @@
+-Qt::WStyle_MinMax  WStyle_SysMenu (reply to mail)
+-<latex math="no">, more docs about latex
 -faq about SDL_AUDIODRIVER="alsa"
 -write OS to logfile
 -don't fail if no sound present
@@ -87,6 +89,8 @@ QTableWidget (might be made obsolete by 2.0)
 
 -USB key version?
 
+-corner case: If M > 0 and k < 0 then (a,b) is a local maximum
+If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
 
 Mnemosyne 2.0:
 
