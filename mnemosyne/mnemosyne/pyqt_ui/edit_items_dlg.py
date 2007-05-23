@@ -47,10 +47,11 @@ class EditItemsDlg(EditItemsFrm):
     #
     ##########################################################################
     
-    def __init__(self, parent=None, name=None, modal=0, fl=0):
+    def __init__(self, parent=None, name=None, modal=0):
         
-        EditItemsFrm.__init__(self,parent,name,modal,fl)
-
+        EditItemsFrm.__init__(self,parent,name,modal,
+                              Qt.WStyle_MinMax | Qt.WStyle_SysMenu)
+        
         parent.statusBar().message("Please wait...")
         
         self.selected = []
