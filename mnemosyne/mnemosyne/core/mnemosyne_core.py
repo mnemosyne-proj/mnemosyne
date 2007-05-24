@@ -85,6 +85,24 @@ def initialise():
         upload_thread = mnemosyne_log.Uploader()
         upload_thread.start()
 
+    # Create default latex preamble and postamble.
+
+    latexdir  = os.path.join(basedir,  "latex")
+    preamble  = os.path.join(latexdir, "preamble")
+    postamble = os.path.join(latexdir, "postamble")
+
+    if not os.path.exists(preamble):
+        f = file(preamble, 'w')
+        print >> f, "\\documentclass[12pt]{article}"
+        print >> f, "\\pagestyle{empty}" 
+        print >> f, "\\begin{document}"
+        f.close()
+
+    if not os.path.exists(postamble):
+        f = file(postamble, 'w')
+        print >> f, "\\end{document}"
+        f.close()
+
     logger.info("Program started : Mnemosyne " + mnemosyne.version.version)
 
 
@@ -828,14 +846,16 @@ def process_latex(latex_command):
     if not os.path.exists(imag_file):
         
         os.chdir(latexdir)
-
-        os.remove("tmp1.png")
+        
+        if os.path.exists("tmp1.png"):
+            os.remove("tmp1.png")
     
         f = file("tmp.tex", 'w')
-        print >> f, "\\documentclass[12pt]{article}"
-        print >> f, "\\pagestyle{empty} \\begin{document}" 
+        for line in file("preamble"): 
+            print >> f, line,
         print >> f, latex_command
-        print >> f, "\\end{document}"
+        for line in file("postamble"): 
+            print >> f, line,       
         f.close()
 
         os.system("latex -interaction=nonstopmode tmp.tex")
