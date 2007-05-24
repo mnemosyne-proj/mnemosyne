@@ -4,7 +4,7 @@
 #
 ##############################################################################
 
-import random, time, os, string, sys, cPickle, md5, struct, logging
+import random, time, os, string, sys, cPickle, md5, struct, logging, re
 import traceback, shutil
 import mnemosyne.version
 logger = logging.getLogger("mnemosyne")
@@ -754,49 +754,6 @@ def expand_path(p):
 
 ##############################################################################
 #
-# process_latex
-#
-##############################################################################
-
-def process_latex(latex_command):
-
-    latex_command = latex_command.replace("&lt;", "<") 
-
-    error_str = "<b>Problem with latex. Are latex and dvipng installed?</b>"
-    
-    basedir   = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-    latexdir  = os.path.join(basedir, "latex")
-    imag_name = md5.new(latex_command).hexdigest() + ".png"
-    imag_file = os.path.join(latexdir, imag_name)
-
-    if not os.path.exists(imag_file):
-        
-        os.chdir(latexdir)
-    
-        f = file("tmp.tex", 'w')
-        print >> f, "\\documentclass[12pt]{article}"
-        print >> f, "\\pagestyle{empty} \\begin{document}" +\
-                    "\\begin{displaymath}"     
-        print >> f, latex_command
-        print >> f, "\\end{displaymath} \\end{document}"
-        f.close()
-
-        status = os.system("latex -interaction=nonstopmode tmp.tex")
-        if status != 0:
-            return error_str
-        
-        status = os.system("dvipng -D 200 -T tight tmp.dvi")
-        if status != 0:
-            return error_str
-
-        shutil.copy("tmp1.png", imag_name)
-
-    return "<img src=\"" + latexdir + "/"+imag_name+"\" align=middle>"
-
-
-
-##############################################################################
-#
 # set_non_latin_font_size
 #
 #   Useful to increase size of non-latin unicode characters.
@@ -853,13 +810,83 @@ def set_non_latin_font_size(old_string, font_size):
 
 ##############################################################################
 #
+# process_latex
+#
+##############################################################################
+
+def process_latex(latex_command):
+
+    latex_command = latex_command.replace("&lt;", "<") 
+
+    error_str = "<b>Problem with latex. Are latex and dvipng installed?</b>"
+    
+    basedir   = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    latexdir  = os.path.join(basedir, "latex")
+    imag_name = md5.new(latex_command).hexdigest() + ".png"
+    imag_file = os.path.join(latexdir, imag_name)
+
+    if not os.path.exists(imag_file):
+        
+        os.chdir(latexdir)
+    
+        f = file("tmp.tex", 'w')
+        print >> f, "\\documentclass[12pt]{article}"
+        print >> f, "\\pagestyle{empty} \\begin{document}" 
+        print >> f, latex_command
+        print >> f, "\\end{document}"
+        f.close()
+
+        status = os.system("latex -interaction=nonstopmode tmp.tex")
+        if status != 0:
+            return error_str
+        
+        status = os.system("dvipng -D 200 -T tight tmp.dvi")
+        if status != 0:
+            return error_str
+
+        shutil.copy("tmp1.png", imag_name)
+
+    return "<img src=\"" + latexdir + "/"+imag_name+"\" align=middle>"
+
+
+
+##############################################################################
+#
 # preprocess
 #
 #   Do some text preprocessing of Q/A strings and handle special tags.
 #
 ##############################################################################
 
-def preprocess(old_string):
+# The regular expressions to find the latex tags are global so they don't
+# get recompiled all the time. match.group(1) identifies the text between
+# the tags (thanks to the parentheses), match.group() is the text plus the
+# tags.
+
+re1 = re.compile(r"<latex>(.+?)</latex>", re.DOTALL | re.IGNORECASE)
+re2 = re.compile(r"<\$>(.+?)</\$>",       re.DOTALL | re.IGNORECASE)
+re3 = re.compile(r"<\$\$>(.+?)</\$\$>",   re.DOTALL | re.IGNORECASE)
+
+def preprocess(s):
+
+    # Process <latex>...</latex> tags.
+    
+    for match in re1.finditer(s):   
+        imgtag = process_latex(match.group(1))
+        s = s.replace(match.group(), imgtag)
+    
+    # Process <$>...</$> (equation) tags.
+
+    for match in re2.finditer(s):
+        imgtag = process_latex("$" + match.group(1) + "$")
+        s = s.replace(match.group(), imgtag)
+     
+    # Process <$$>...</$$> (displaymath) tags.
+
+    for match in re3.finditer(s):
+        imgtag = process_latex("\\begin{displaymath}\n" + match.group(1) \
+                               + "\n\\end{displaymath}\n")
+        s = s.replace(match.group(), "<center>" + imgtag + "</center>")
     
     # Escape literal < (unmatched tag) and new line from string.
     
@@ -867,76 +894,53 @@ def preprocess(old_string):
     open = 0
     pending = 0
 
-    for i in range(len(old_string)):
-        if old_string[i] == '<':
+    for i in range(len(s)):
+        if s[i] == '<':
             if open != 0:
                 hanging.append(pending)
                 pending = i
                 continue
             open += 1
             pending = i
-        elif old_string[i] == '>':
+        elif s[i] == '>':
             if open > 0:
                 open -= 1
 
     if open != 0:
         hanging.append(pending)
 
-    new_string = ""
-    for i in range(len(old_string)):
-        if old_string[i] == '\n':
-            new_string += "<br>"
+    new_s = ""
+    for i in range(len(s)):
+        if s[i] == '\n':
+            new_s += "<br>"
         elif i in hanging:
-            new_string += "&lt;"
+            new_s += "&lt;"
         else:
-            new_string += old_string[i]
+            new_s += s[i]
 
+    
     # Fill out relative paths for src tags (e.g. img src or sound src).
 
-    i = new_string.lower().find("src")
+    i = new_s.lower().find("src")
     
     while i != -1:
         
-        start = new_string.find("\"", i)
-        end   = new_string.find("\"", start+1)
+        start = new_s.find("\"", i)
+        end   = new_s.find("\"", start+1)
 
         if end == -1:
             break
 
-        old_path = new_string[start+1:end]
+        old_path = new_s[start+1:end]
 
-        new_string = new_string[:start+1] + \
-                     expand_path(old_path) + \
-                     new_string[end:]
+        new_s = new_s[:start+1] + expand_path(old_path) + new_s[end:]
 
-        # Since new_string is always longer now, we can start searching
+        # Since new_s is always longer now, we can start searching
         # from the previous end tag.
         
-        i = new_string.lower().find("src", end+1)
-
-    # Process latex tags.
-
-    start = new_string.lower().find("<latex>")
+        i = new_s.lower().find("src", end+1)
     
-    while start != -1:
-        
-        end = new_string.find("</latex>", start+1)
-
-        if end == -1:
-            break
-
-        latex_command = new_string[start+7:end]
-
-        new_string = new_string[:start] + \
-                     process_latex(latex_command) + \
-                     new_string[end+8:]
-
-        # Start search for next tag from beginning, as the previous
-        # step has eliminated the previous latex tag.
-        
-        start = new_string.lower().find("<latex>")
-    
-    return new_string
+    return new_s
 
 
 
