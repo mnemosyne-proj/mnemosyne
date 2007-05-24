@@ -828,6 +828,8 @@ def process_latex(latex_command):
     if not os.path.exists(imag_file):
         
         os.chdir(latexdir)
+
+        os.remove("tmp1.png")
     
         f = file("tmp.tex", 'w')
         print >> f, "\\documentclass[12pt]{article}"
@@ -836,12 +838,10 @@ def process_latex(latex_command):
         print >> f, "\\end{document}"
         f.close()
 
-        status = os.system("latex -interaction=nonstopmode tmp.tex")
-        if status != 0:
-            return error_str
-        
-        status = os.system("dvipng -D 200 -T tight tmp.dvi")
-        if status != 0:
+        os.system("latex -interaction=nonstopmode tmp.tex")
+        os.system("dvipng -D 200 -T tight tmp.dvi")
+
+        if not os.path.exists("tmp1.png"):
             return error_str
 
         shutil.copy("tmp1.png", imag_name)

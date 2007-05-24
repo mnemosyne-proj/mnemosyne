@@ -3,8 +3,10 @@ MNEMOSYNE 0.9.9
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-don't abort on small latex errors which the latex interpreter can fix
+ itself (like missing $) (requested by S. Scharrer)
 -add maximise button to add and edit items under Windows (thanks to
- pizzasource and sscharrer)
+ pizzasource and S. Scharrer)
 -fix word wrap when using left alignment (reported by TomC)
 
 

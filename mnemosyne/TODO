@@ -129,6 +129,8 @@ behaviour)
 -bug in Qt? : shortcuts don't change back after changing 'show answer' 
  button text
 
+-bug in Qt? : spaces around images are not respected.
+
 
 
 Superkaramba / Plasma
