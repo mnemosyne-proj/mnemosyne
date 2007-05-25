@@ -157,7 +157,11 @@ def init_config():
         config["allow_duplicates_in_diff_cat"] = True
     if not config.has_key("grade_0_items_at_once"):
         config["grade_0_items_at_once"] = 5
-
+    if not config.has_key("last_add_vice_versa"):               
+        config["last_add_vice_versa"] = False
+    if not config.has_key("last_add_category"):               
+        config["last_add_category"] = "<default>"
+        
 
 
 ##############################################################################

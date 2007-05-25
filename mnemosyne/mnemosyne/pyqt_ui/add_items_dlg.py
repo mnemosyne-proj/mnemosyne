@@ -31,7 +31,8 @@ class AddItemsDlg(AddItemsFrm):
         AddItemsFrm.__init__(self,parent,name,modal,
                              Qt.WStyle_MinMax | Qt.WStyle_SysMenu)
         
-        self.update_combobox("<default>")
+        self.addViceVersa.setChecked(get_config("last_add_vice_versa"))
+        self.update_combobox(get_config("last_add_category"))
 
         self.connect(self.grades,SIGNAL("clicked(int)"),
                      self.new_item)
@@ -256,5 +257,8 @@ class AddItemsDlg(AddItemsFrm):
             self.answer.setText("")
             
         self.question.setFocus()
+
+        set_config("last_add_vice_versa", self.addViceVersa.isOn())
+        set_config("last_add_category",   cat_name)
 
         save_database(get_config("path"))

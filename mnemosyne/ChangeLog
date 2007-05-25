@@ -4,6 +4,8 @@ MNEMOSYNE 0.9.9
 version before doing an upgrade.)
 
 -added simple per-item statistics in pop-up menu in 'edit items'
+-remember category and vice-versa settings across invocations when adding 
+ items
 -new latex tags, based on code by Christopher Gilbreth:
    -<$>...</$>         : for inline equations
    -<$$>...</$$>       : for centered equations on a separate line
