@@ -109,7 +109,8 @@ def initialise():
         print >> f, "dvipng -D 200 -T tight tmp.dvi" 
         f.close()        
 
-    logger.info("Program started : Mnemosyne " + mnemosyne.version.version)
+    logger.info("Program started : Mnemosyne " + mnemosyne.version.version \
+                + " " + os.name)
 
 
 

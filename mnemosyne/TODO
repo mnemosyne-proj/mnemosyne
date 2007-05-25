@@ -1,6 +1,5 @@
 -faq about SDL_AUDIODRIVER="alsa"
 -web docs about latex
--write OS to logfile
 -clean up interval of imported txt data
 -is turning off logging reported?
 -catch too many values to unpack error in 1476
