@@ -41,8 +41,11 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
 
 # Start program.
 
-import pygame
-pygame.mixer.init()
+try:
+    import pygame
+    pygame.mixer.init()
+except:
+    print "Unable to initialise sound."
 
 initialise()
             
