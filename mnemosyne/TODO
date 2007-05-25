@@ -4,7 +4,7 @@
 Before 1.0:
 
 -limited statistics (schedule, per category breakdown of 
-unknown/scheduled/.., distribution over grades, per item pop-up)
+unknown/scheduled/.., distribution over grades)
 
 -remember window size set by the user + column size in edit window
 
@@ -63,6 +63,8 @@ tags through a file selector
 
 -use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
 QTableWidget (might be made obsolete by 2.0)
+
+-clean up interval when importing from txt
 
 -drop-down box in edit items to show only items in a single category?
 

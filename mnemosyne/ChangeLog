@@ -3,6 +3,7 @@ MNEMOSYNE 0.9.9
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-added simple per-item statistics in pop-up menu in 'edit items'
 -new latex tags, based on code by Christopher Gilbreth:
    -<$>...</$>         : for inline equations
    -<$$>...</$$>       : for centered equations on a separate line

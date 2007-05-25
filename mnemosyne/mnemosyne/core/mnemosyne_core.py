@@ -341,6 +341,24 @@ class Item:
     def is_due_for_retention_rep(self, days=0):
         return (self.grade >= 2) and (self.cat.active == True) and \
                (time_of_start.days_since() >= self.next_rep - days)
+
+    ##########################################################################
+    #
+    # days_since_last_rep
+    #
+    ##########################################################################
+    
+    def days_since_last_rep(self):
+        return time_of_start.days_since() - self.last_rep
+
+    ##########################################################################
+    #
+    # days_until_next_rep
+    #
+    ##########################################################################
+    
+    def days_until_next_rep(self):
+        return self.next_rep - time_of_start.days_since()
     
     ##########################################################################
     #

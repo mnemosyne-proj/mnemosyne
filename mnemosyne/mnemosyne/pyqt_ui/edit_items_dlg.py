@@ -69,6 +69,7 @@ class EditItemsDlg(EditItemsFrm):
         self.popup_1.insertItem(self.tr("&Edit"), self.edit)
         self.popup_1.insertItem(self.tr("&Preview"), self.preview)        
         self.popup_1.insertItem(self.tr("&Add vice versa"), self.viceversa)
+        self.popup_1.insertItem(self.tr("&Statistics"), self.statistics)
         self.popup_1.insertItem(self.tr("&Delete"), self.delete)
         
         self.popup_2 = QPopupMenu(self, "menu2")
@@ -204,6 +205,30 @@ class EditItemsDlg(EditItemsFrm):
                 i = list_item.item
                 new_list_item = add_new_item(i.grade, i.a, i.q, i.cat.name)
                 ListItem(self.item_list, new_list_item)
+
+    ##########################################################################
+    #
+    # statistics
+    #
+    ##########################################################################
+    
+    def statistics(self):
+
+        item = self.selected[0].item
+
+        message = ""
+        message += "Grade: " + str(item.grade) + "\n"
+        message += "Easiness: %1.2f" % item.easiness + "\n"
+        message += "Revisions: " + str(item.acq_reps+item.ret_reps) + "\n"
+        message += "Lapses: " + str(item.lapses) + "\n"
+        message += "Days since last revision: " + \
+                   str(item.days_since_last_rep()) + "\n"
+        message += "Days until next revision: " + \
+                   str(item.days_until_next_rep()) + "\n"
+                
+        QMessageBox.information(None, self.trUtf8("Mnemosyne"),
+                                self.trUtf8(message), self.trUtf8("&OK"),
+                                QString(), QString(), 0, -1)
 
     ##########################################################################
     #
