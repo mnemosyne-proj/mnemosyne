@@ -3,7 +3,7 @@ MNEMOSYNE 0.9.9
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
--new latex tags:
+-new latex tags, based on code by Christopher Gilbreth:
    -<$>...</$>         : for inline equations
    -<$$>...</$$>       : for centered equations on a separate line
    -<latex>...</latex> : for latex code not in a certain environment
