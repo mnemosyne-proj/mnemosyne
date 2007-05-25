@@ -6,10 +6,7 @@ Before 1.0:
 -limited statistics (schedule, per category breakdown of 
 unknown/scheduled/.., distribution over grades)
 
--remember window size set by the user + column size in edit window
-
--remember category and vice-versa settings across invocations when adding 
- items
+-remember column size, sort order in edit window
 
 -give more feedback on import failure
 
@@ -65,6 +62,8 @@ tags through a file selector
 QTableWidget (might be made obsolete by 2.0)
 
 -clean up interval when importing from txt
+
+-remember window size set by the user?
 
 -drop-down box in edit items to show only items in a single category?
 
