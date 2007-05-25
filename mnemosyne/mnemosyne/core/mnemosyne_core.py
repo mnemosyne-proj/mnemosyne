@@ -90,7 +90,8 @@ def initialise():
     latexdir  = os.path.join(basedir,  "latex")
     preamble  = os.path.join(latexdir, "preamble")
     postamble = os.path.join(latexdir, "postamble")
-
+    dvipng    = os.path.join(latexdir, "dvipng")
+    
     if not os.path.exists(preamble):
         f = file(preamble, 'w')
         print >> f, "\\documentclass[12pt]{article}"
@@ -102,6 +103,11 @@ def initialise():
         f = file(postamble, 'w')
         print >> f, "\\end{document}"
         f.close()
+
+    if not os.path.exists(dvipng):
+        f = file(dvipng, 'w')
+        print >> f, "dvipng -D 200 -T tight tmp.dvi" 
+        f.close()        
 
     logger.info("Program started : Mnemosyne " + mnemosyne.version.version)
 
@@ -859,7 +865,10 @@ def process_latex(latex_command):
         f.close()
 
         os.system("latex -interaction=nonstopmode tmp.tex")
-        os.system("dvipng -D 200 -T tight tmp.dvi")
+
+        f = file("dvipng")       
+        os.system(f.readline())
+        f.close()
 
         if not os.path.exists("tmp1.png"):
             return error_str

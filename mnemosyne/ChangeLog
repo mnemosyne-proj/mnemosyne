@@ -3,8 +3,20 @@ MNEMOSYNE 0.9.9
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-new latex tags:
+   -<$>...</$>         : for inline equations
+   -<$$>...</$$>       : for centered equations on a separate line
+   -<latex>...</latex> : for latex code not in a certain environment
+ This means that the functionality of the old <latex>...</latex> tags is
+ now taken over by <$>...</$>. However, there is no need to update your 
+ items, as you can rely on the following new feature: 
 -don't abort on small latex errors which the latex interpreter can fix
  itself (like missing $) (requested by S. Scharrer)
+-the preamble and postamble used when processing the latex tags can now
+ be customised by editing the files 'preamble' and 'postamble' in 
+ <home dir>/.mnemosyne/latex
+-the command invoking dvipng to create images from latex can now be 
+ customised by editing the file 'dvipng' in <home dir>/.mnemosyne/latex
 -add maximise button to add and edit items under Windows (thanks to
  pizzasource and S. Scharrer)
 -fix word wrap when using left alignment (reported by TomC)
