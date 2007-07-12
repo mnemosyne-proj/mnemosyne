@@ -110,7 +110,10 @@
                         <cstring>addViceVersa</cstring>
                     </property>
                     <property name="text">
-                        <string>Add vice versa too</string>
+                        <string>&amp;Add vice versa too</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+A</string>
                     </property>
                 </widget>
                 <widget class="QButtonGroup">
