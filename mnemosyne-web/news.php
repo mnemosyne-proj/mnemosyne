@@ -6,11 +6,21 @@
 
 <h1>News</h1>
 
+
 <br>
-<b>2007-04-13</b>: released Mnemosyne 0.9.8<br>
+<b>2007-04-23</b>: released Mnemosyne 0.9.8.1<br>
 <br>
 (Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)<br><br>
+-fix scheduling bug when importing new grade 0 items (reported by Jim
+Slattery).<br>
+-remove incorrect statement with respect to grade 2 behaviour from the
+manual. In 0.9.8, the code was changed to be consistent with the old
+manual. This has been reverted, so that grade 2 behaviour is again more
+like 0.9.7.<br>
+<br>
+<b>2007-04-13</b>: released Mnemosyne 0.9.8<br>
+<br>
 -added sound support through tags like <sound src="a.wav">. The path to
  the sound file is either absolute or relative to the location of your
  .mem file. To play the sound again, press the 'R' key in the main window.
