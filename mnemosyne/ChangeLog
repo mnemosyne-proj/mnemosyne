@@ -22,8 +22,10 @@ version before doing an upgrade.)
  customised by editing the file 'dvipng' in <home dir>/.mnemosyne/latex
 -add maximise button to add and edit items under Windows (thanks to
  pizzasource and S. Scharrer)
+-respect setting 'number of grade 0 items to learn at once' to zero 
+ (reported by pizzasource)
 -fix word wrap when using left alignment (reported by TomC)
--don't abort when sound initialisation fails.
+-don't abort when sound initialisation fails
 
 
 MNEMOSYNE 0.9.8.1: 2007-04-23

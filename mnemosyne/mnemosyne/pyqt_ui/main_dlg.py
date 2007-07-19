@@ -434,6 +434,13 @@ class MainDlg(MainFrm):
         pause_thinking()
         dlg = ConfigurationDlg(self,"Configure Mnemosyne",0)
         dlg.exec_loop()
+
+        rebuild_revision_queue()
+        if not in_revision_queue(self.item):
+            self.newQuestion()
+        else:
+            remove_from_revision_queue(self.item) # It's already being asked.
+            
         self.updateDialog()
         unpause_thinking()
             

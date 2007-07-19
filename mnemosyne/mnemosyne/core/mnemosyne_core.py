@@ -2170,16 +2170,16 @@ def rebuild_revision_queue(learn_ahead = False):
 
         grade_0_selected = []
 
-        for i in grade_0:
+        if limit != 0:
+            for i in grade_0:
+                for j in grade_0_selected:
+                    if items_are_inverses(i, j):
+                        break
+                else:
+                    grade_0_selected.append(i)
 
-            for j in grade_0_selected:
-                if items_are_inverses(i, j):
+                if len(grade_0_selected) == limit:
                     break
-            else:
-                grade_0_selected.append(i)
-
-            if len(grade_0_selected) == limit:
-                break
 
         random.shuffle(grade_0_selected)
         revision_queue[0:0] = grade_0_selected
