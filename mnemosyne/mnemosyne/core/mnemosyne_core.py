@@ -1828,6 +1828,7 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
 
     imported_items = []
     state = "ITEM-START"
+    next_state = None
     error = False
 
     while not error and state != "END-OF-FILE":
@@ -1876,7 +1877,7 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
             # lines may follow, or the lines with the learning data.
             # Otherwise, the item has to end with either an empty line or with
             # the end of the input file.
-            
+
             if line == False:
                 next_state = "END-OF-FILE"
             elif line == "":
