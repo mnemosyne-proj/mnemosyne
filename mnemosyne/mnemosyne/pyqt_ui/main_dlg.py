@@ -12,6 +12,7 @@ from export_dlg import *
 from add_items_dlg import *
 from edit_item_dlg import *
 from clean_duplicates import *
+from statistics_dlg import *
 from edit_items_dlg import *
 from activate_categories_dlg import *
 from config_dlg import *
@@ -346,6 +347,19 @@ class MainDlg(MainFrm):
             self.newQuestion()
             
         self.updateDialog()
+        unpause_thinking()
+
+    ##########################################################################
+    #
+    # showStatistics
+    #
+    ##########################################################################
+    
+    def showStatistics(self):
+        
+        pause_thinking()
+        dlg = StatisticsDlg(self,"Statistics",0)
+        dlg.exec_loop()
         unpause_thinking()
         
     ##########################################################################

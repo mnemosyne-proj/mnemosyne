@@ -352,6 +352,7 @@
         <action name="addItemsAction"/>
         <action name="editItemsAction"/>
         <action name="cleanDuplicatesAction"/>
+        <action name="ShowStatisticsAction"/>
         <separator/>
         <action name="editCurrentItemAction"/>
         <action name="deleteCurrentItemAction"/>
@@ -784,6 +785,20 @@
             <string>R</string>
         </property>
     </action>
+    <action>
+        <property name="name">
+            <cstring>ShowStatisticsAction</cstring>
+        </property>
+        <property name="text">
+            <string>Show statistics</string>
+        </property>
+        <property name="menuText">
+            <string>Show &amp;statistics</string>
+        </property>
+        <property name="accel">
+            <string>Alt+S</string>
+        </property>
+    </action>
 </actions>
 <images>
     <image name="image0">
@@ -977,7 +992,16 @@
         <receiver>MainFrm</receiver>
         <slot>replaySound()</slot>
     </connection>
+    <connection>
+        <sender>ShowStatisticsAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>showStatistics()</slot>
+    </connection>
 </connections>
+<includes>
+    <include location="local" impldecl="in implementation">main_frm.ui.h</include>
+</includes>
 <slots>
     <slot>fileNew()</slot>
     <slot>fileOpen()</slot>
@@ -1001,6 +1025,7 @@
     <slot>nextQuestion()</slot>
     <slot>learnAhead()</slot>
     <slot>replaySound()</slot>
+    <slot>showStatistics()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

@@ -3,6 +3,9 @@ MNEMOSYNE 0.9.9
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-added 'Show statistics' menu option, showing the schedule for the
+ next week, the distribution of the items over the grades and the number 
+ of items for each category.
 -added simple per-item statistics in pop-up menu in 'edit items'.
 -performance improvements.
 -new latex tags, based on code by Christopher Gilbreth and bug reports by 

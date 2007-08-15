@@ -4,9 +4,6 @@
 
 Before 1.0:
 
--limited statistics (schedule, per category breakdown of 
-unknown/scheduled/.., distribution over grades)
-
 -remember column size, sort order in edit window
 
 -give more feedback on import failure
@@ -98,7 +95,8 @@ behaviour)
 
 -Qt/Sqlite backend
 
--advanced statistics, history, ... (look at graph in JMemorize)
+-advanced statistics, history, forgetting indek... (look at graph in 
+ JMemorize)
 
 -multiple categories per item, hierarchical categories
 

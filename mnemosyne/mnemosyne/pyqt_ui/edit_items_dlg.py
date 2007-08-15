@@ -22,7 +22,7 @@ from change_category_dlg import *
 
 class ListItem(QListViewItem):
     def __init__(self, parent, item):
-        QListViewItem.__init__(self,parent, item.q, item.a, item.cat.name)
+        QListViewItem.__init__(self, parent, item.q, item.a, item.cat.name)
 
         self.item = item
         
