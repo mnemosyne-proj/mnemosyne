@@ -18,6 +18,7 @@ logger = logging.getLogger("mnemosyne")
 
 time_of_start = None
 import_time_of_start = None
+days_since_start = None
 
 thinking_time = 0
 time_of_last_question = 0
@@ -237,10 +238,14 @@ class StartTime:
         t = time.localtime(start_time)
         self.time = time.mktime([t[0],t[1],t[2], 3,30,0, t[6],t[7],t[8]])
 
-    def days_since(self):
-        return long( (time.time() - self.time) / 60. / 60. / 24. )
-
-        
+    # Since this information is frequently needed, we calculate it once
+    # and store it in a global variable, which is updated when the database
+    # loads and in rebuild_revision_queue.
+    
+    def update_days_since(self):
+        global days_since_start
+        days_since_start = int( (time.time() - self.time) / 60. / 60. / 24.)
+    
     
 ##############################################################################
 #
@@ -344,7 +349,7 @@ class Item:
     
     def is_due_for_retention_rep(self, days=0):
         return (self.grade >= 2) and (self.cat.active == True) and \
-               (time_of_start.days_since() >= self.next_rep - days)
+               (days_since_start >= self.next_rep - days)
 
     ##########################################################################
     #
@@ -353,7 +358,7 @@ class Item:
     ##########################################################################
     
     def days_since_last_rep(self):
-        return time_of_start.days_since() - self.last_rep
+        return days_since_start - self.last_rep
 
     ##########################################################################
     #
@@ -362,7 +367,7 @@ class Item:
     ##########################################################################
     
     def days_until_next_rep(self):
-        return self.next_rep - time_of_start.days_since()
+        return self.next_rep - days_since_start
     
     ##########################################################################
     #
@@ -381,7 +386,7 @@ class Item:
     
     def qualifies_for_learn_ahead(self):
         return (self.grade >= 2) and (self.cat.active == True) and \
-               (time_of_start.days_since() < self.next_rep) 
+               (days_since_start < self.next_rep) 
         
     ##########################################################################
     #
@@ -681,6 +686,8 @@ def load_database(path):
         items         = db[2]
         
         infile.close()
+
+        time_of_start.update_days_since()
 
         load_failed = False
 
@@ -1128,7 +1135,7 @@ def import_file(filename, fformat_name, default_cat_name,
             if item.is_due_for_retention_rep():
                 revision_queue[0:0] = [item]
                 
-            interval = item.next_rep - time_of_start.days_since()
+            interval = item.next_rep - days_since_start
             logger.info("Imported item %s %d %d %d %d %d",
                         item.id, item.grade, item.ret_reps,
                         item.last_rep, item.next_rep, interval)
@@ -2098,7 +2105,7 @@ def add_new_item(grade, question, answer, cat_name):
     item.acq_reps = 1
     item.acq_reps_since_lapse = 1
 
-    item.last_rep = time_of_start.days_since()
+    item.last_rep = days_since_start
     
     item.easiness = average_easiness()
 
@@ -2106,7 +2113,7 @@ def add_new_item(grade, question, answer, cat_name):
     
     new_interval  = calculate_initial_interval(grade)
     new_interval += calculate_interval_noise(new_interval)
-    item.next_rep = time_of_start.days_since() + new_interval
+    item.next_rep = days_since_start + new_interval
     
     items.append(item)    
 
@@ -2150,6 +2157,8 @@ def rebuild_revision_queue(learn_ahead = False):
 
     if len(items) == 0:
         return
+
+    time_of_start.update_days_since()
 
     # Always add items that are due for revision.
 
@@ -2334,7 +2343,7 @@ def process_answer(item, new_grade):
     global revision_queue, items
 
     scheduled_interval = item.next_rep              - item.last_rep
-    actual_interval    = time_of_start.days_since() - item.last_rep
+    actual_interval    = days_since_start - item.last_rep
 
     # Take care of corner case when learning ahead on the same day.
 
@@ -2453,8 +2462,8 @@ def process_answer(item, new_grade):
     # Update grade and interval.
     
     item.grade    = new_grade
-    item.last_rep = time_of_start.days_since()
-    item.next_rep = time_of_start.days_since() + new_interval + noise
+    item.last_rep = days_since_start
+    item.next_rep = days_since_start + new_interval + noise
 
     # Don't schedule inverse or identical questions on the same day.
 

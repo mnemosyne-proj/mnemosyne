@@ -3,9 +3,8 @@ MNEMOSYNE 0.9.9
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
--added simple per-item statistics in pop-up menu in 'edit items'
--remember category and vice-versa settings across invocations when adding 
- items
+-added simple per-item statistics in pop-up menu in 'edit items'.
+-performance improvements.
 -new latex tags, based on code by Christopher Gilbreth and bug reports by 
  Jamned:
    -<$>...</$>         : for inline equations
@@ -15,18 +14,20 @@ version before doing an upgrade.)
  now taken over by <$>...</$>. However, there is no need to update your 
  items, as you can rely on the following new feature: 
 -don't abort on small latex errors which the latex interpreter can fix
- itself (like missing $) (requested by S. Scharrer)
+ itself (like missing $) (requested by S. Scharrer).
 -the preamble and postamble used when processing the latex tags can now
  be customised by editing the files 'preamble' and 'postamble' in 
- <home dir>/.mnemosyne/latex
+ <home dir>/.mnemosyne/latex.
 -the command invoking dvipng to create images from latex can now be 
  customised by editing the file 'dvipng' in <home dir>/.mnemosyne/latex
+-remember category and vice-versa settings across invocations when adding 
+ items.
 -add maximise button to add and edit items under Windows (thanks to
- pizzasource and S. Scharrer)
+ pizzasource and S. Scharrer).
 -respect setting 'number of grade 0 items to learn at once' to zero 
- (reported by pizzasource)
--fix word wrap when using left alignment (reported by TomC)
--don't abort when sound initialisation fails
+ (reported by pizzasource).
+-fix word wrap when using left alignment (reported by TomC).
+-don't abort when sound initialisation fails.
 
 
 MNEMOSYNE 0.9.8.1: 2007-04-23
