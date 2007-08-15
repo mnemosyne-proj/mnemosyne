@@ -55,9 +55,6 @@ tags through a file selector
 
 -automatic backups
 
--use QTableView/QStandardItemModel or QSortFilterProxyModel instead 
-QTableWidget (might be made obsolete by 2.0)
-
 -clean up interval when importing from txt
 
 -remember window size set by the user?
@@ -83,6 +80,8 @@ QTableWidget (might be made obsolete by 2.0)
 -corner case: If M > 0 and k < 0 then (a,b) is a local maximum
 If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
 
+
+
 Mnemosyne 2.0:
 
 -rename items to cards, edit items to knowledge manager
@@ -92,9 +91,11 @@ behaviour)
 
 -Upgrade to Qt4
 
+-instead of QListview, use the model/view framework from Qt4
+
 -Qt/Sqlite backend
 
--advanced statistics, history, forgetting indek... (look at graph in 
+-advanced statistics, history, forgetting index... (look at graph in 
  JMemorize)
 
 -multiple categories per item, hierarchical categories

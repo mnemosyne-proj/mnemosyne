@@ -18,6 +18,10 @@ from change_category_dlg import *
 #
 # ListItem
 #
+#   Note: first I thought the subclassing was the main culprit of the
+#   slowdown, but testing shows that without it, it is just as slow.
+#   A Qt4 based model/view construction seems like the only way out.
+#
 ##############################################################################
 
 class ListItem(QListViewItem):
@@ -97,7 +101,7 @@ class EditItemsDlg(EditItemsFrm):
             font = QFont()
             font.fromString(get_config("list_font"))
             self.to_find.setFont(font)
-            self.item_list.setFont(font)
+            self.item_list.setFont(font) # Takes a lot of time!
 
         parent.statusBar().clear()
 
