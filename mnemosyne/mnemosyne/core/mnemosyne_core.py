@@ -936,8 +936,8 @@ def preprocess(s):
     # Process <$$>...</$$> (displaymath) tags.
 
     for match in re3.finditer(s):
-        imgtag = process_latex("\\begin{displaymath}\n" + match.group(1) \
-                               + "\n\\end{displaymath}\n")
+        imgtag = process_latex("\\begin{displaymath}" + match.group(1) \
+                               + "\\end{displaymath}")
         s = s.replace(match.group(), "<center>" + imgtag + "</center>")
     
     # Escape literal < (unmatched tag) and new line from string.

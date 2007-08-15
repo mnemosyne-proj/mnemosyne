@@ -1,3 +1,4 @@
+-allow empty answer
 -faq about SDL_AUDIODRIVER="alsa"
 -web docs about latex
 
