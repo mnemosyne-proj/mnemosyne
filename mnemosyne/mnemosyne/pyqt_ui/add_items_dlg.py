@@ -233,8 +233,12 @@ class AddItemsDlg(AddItemsFrm):
         a        = unicode(self.answer.text())
         cat_name = unicode(self.categories.currentText())
 
-        if q == "" or a == "":
-            return
+        if self.addViceVersa.isOn():
+            if q == "" or a == "":
+                return
+        else:
+            if q == "":
+                return            
 
         orig_added = self.check_duplicates_and_add(grade, q, a, cat_name)
         rev_added = True
