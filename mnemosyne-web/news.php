@@ -6,6 +6,43 @@
 
 <h1>News</h1>
 
+<br>
+<b>2007-08-16</b>: released Mnemosyne 0.9.9<br>
+<br>
+(Note that for Windows users we recommend uninstalling the previous
+version before doing an upgrade.)<br><br>
+-added 'Show statistics' menu option, showing the schedule for the
+ next week, the distribution of the items over the grades and the number
+ of items for each category.<br>
+-added simple per-item statistics in pop-up menu in 'edit items'.
+-performance improvements.<br>
+-new latex tags, based on code by Christopher Gilbreth and bug reports by
+ Jamned:
+<ul>
+<li><code>&lt;$></code>...<code>&lt;/$></code> for inline equations</li>
+<li><code>&lt;$$></code>...<code>&lt;/$$> </code> for centered equations on a separate line</li>
+<li><code>&lt;latex></code>...<code>&lt;/latex></code> for latex code not in a certain environment</li>
+</ul>
+ This means that the functionality of the old <code>&lt;latex></code>...<code>&lt;/latex></code> tags is
+ now taken over by <code>&lt;$></code>...<code>&lt;/$></code>. However, there is no need to update your
+ items, as you can rely on the following new feature:<br>
+-don't abort on small latex errors which the latex interpreter can fix
+ itself (like missing $) (requested by S. Scharrer).<br>
+-the preamble and postamble used when processing the latex tags can now
+ be customised by editing the files 'preamble' and 'postamble' in
+ <code>&lt;home dir>/.mnemosyne/latex.</code><br>
+-the command invoking dvipng to create images from latex can now be
+ customised by editing the file 'dvipng' in <code>&lt;home dir>/.mnemosyne/latex</code><br>
+-remember category and vice-versa settings across invocations when adding
+ items.<br>
+-add maximise button to add and edit items under Windows (thanks to
+ pizzasource and S. Scharrer).<br>
+-respect setting 'number of grade 0 items to learn at once' to zero
+ (reported by pizzasource).<br>
+-fix word wrap when using left alignment (reported by TomC).<br>
+-don't abort when sound initialisation fails.<br>
+
+
 
 <br>
 <b>2007-04-23</b>: released Mnemosyne 0.9.8.1<br>

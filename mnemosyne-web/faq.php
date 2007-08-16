@@ -32,11 +32,23 @@ Sure, you can use ordinary html-syntax for that:
 
 The path is relative to the location of your <code>*.mem</code> file, although you can use absolute paths too. You can also use HTML tags to change the colour, formatting and style of your text.
 
-<h2 id="question">How do I best handle mathematical our chemical formulas?</h2>
-A low-tech option is to approximate them using ordinary text. For multi-line formulas, it's best to use a fixed-width font, and to mark the checkbox 'left align Q/A' in the preference window. A high-tech option is letting LaTeX render your formulas, e.g.<code>&lt;latex>x^2+y^2=z^2&lt;/latex></code>. For this you need latex and dvipng installed. Windows users can download <a href="http://www.miktex.org/">MiKTeX</a> for that.
+<h2 id="question">How do I best handle mathematical or chemical formulas?</h2>
+A low-tech option is to approximate them using ordinary text. For multi-line formulas, it's best to use a fixed-width font, and to mark the checkbox 'left align Q/A' in the preference window. A better option is letting LaTeX render your formulas, which you can do by using tags like <code>&lt;$>x^2+y^2=z^2&lt;/$></code>. For this you need LaTeX and dvipng installed. Windows users can download <a href="http://www.miktex.org/">MiKTeX</a> for that.
+
+<h2 id="question">I am a LaTeX guru and I want more control over how my formulas are displayed.</h2>
+The <code>&lt;$></code>...<code>&lt;/$></code> tags use LaTeX's inline math environment, but there are two more tags:
+<ul>
+<li>The <code>&lt;$$></code>...<code>&lt;/$$></code> tags for centered equations on a separate line (LaTeX's <code>displaymath</code> environment)</li>
+<li>The <code>&lt;latex></code>...<code>&lt;/latex></code> tags for code which is not in any environment, but just embedded between a typical latex pre- and postamble.</li> 
+</ul>
+By the way, you can edit what goes into the pre- and postamble by delving into your <code>.mnemosyne/latex</code> directory and editing the aptly named <code>preable</code> and <code>postamble</code> files to your heart's content. While you're there, feel free to edit the <code>dvipng</code> file as well.
 
 <h2 id="question">Adding sounds to question or answers would be nice!</h2>
 You can use tags like <code>&lt;sound src="a.wav"></code>. The path is relative to the location of your <code>*.mem</code> file, although you can use absolute paths too. To play the sound again, press the 'R' key in the main window. Supported file formats are wav, ogg and mp3. On Linux, this requires properly installing pygame and its dependencies like SDL.
+
+<h2 id="question">I'm under Linux, and it seems Mnemosyne prevents other programs from using sound.</h2>
+Add this to your environment:
+<code>export SDL_AUDIODRIVER="alsa"</code>
 
 <h2 id="question">Can I use keyboard shortcuts while doing the revisions?</h2>
 Sure! To show the answer you can either press enter, space or return. To grade your answer you can just press the number keys. You can use the delete button to get rid of an item.
