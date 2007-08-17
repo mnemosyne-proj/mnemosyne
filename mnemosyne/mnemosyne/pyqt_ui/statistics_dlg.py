@@ -26,8 +26,8 @@ class ListItem(QListViewItem):
     def compare(self, item, column, ascending):
         if column == 0:
             return self.key(0,ascending).compare(item.key(0,ascending))
-        else:
-            return int(self.text(1)) - int(item.text(1))
+        else: # Funny casts for Windows compatibility.
+            return int(str(self.text(1))) - int(str(item.text(1)))
 
 
         
