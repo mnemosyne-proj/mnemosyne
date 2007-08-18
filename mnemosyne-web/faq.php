@@ -82,7 +82,7 @@ We plan to have this project run for as long as possible, years and hopefully de
 Sure! The data was contributed by people on a voluntary basis, so it would be unethical to restrict access to it or charge money for it. Anyone interested can contact us to help analyse the data.
 
       <h2 id="question">When I start the program under Windows, I get a message about a missing <code>'~\\.mnemosyne'</code> directory</h2>
-In the system control panel, go to 'system settings' and add <code>HOMEPATH=%USERPROFILE$</code> to your environment variables. You might need a reboot.
+In the system control panel, go to 'system settings' and add <code>HOMEPATH=%USERPROFILE%</code> to your environment variables. You might need a reboot.
 
 
 <?php
