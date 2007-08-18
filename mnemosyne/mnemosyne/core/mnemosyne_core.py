@@ -126,42 +126,24 @@ def init_config():
 
     basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
  
-    if not config.has_key("first_run"):        
-        config["first_run"] = True
-    if not config.has_key("path"):
-        config["path"] = os.path.join(basedir, "default.mem")
-    if not config.has_key("import_dir"):        
-        config["import_dir"] = basedir
-    if not config.has_key("user_id"):                          
-        config["user_id"] = md5.new(str(random.random())).hexdigest()[0:8]
-    if not config.has_key("keep_logs"):              
-        config["keep_logs"] = True
-    if not config.has_key("upload_logs"):              
-        config["upload_logs"] = True
-    if not config.has_key("upload_server"):              
-        config["upload_server"] = "mnemosyne-proj.dyndns.org:80"    
-    if not config.has_key("log_index"):              
-        config["log_index"] = 1
-    if not config.has_key("hide_toolbar"):         
-        config["hide_toolbar"] = False
-    if not config.has_key("QA_font"):               
-        config["QA_font"] = None
-    if not config.has_key("list_font"):               
-        config["list_font"] = None
-    if not config.has_key("left_align"):        
-        config["left_align"] = False
-    if not config.has_key("non_latin_font_size_increase"):
-        config["non_latin_font_size_increase"] = 0
-    if not config.has_key("check_duplicates_when_adding"):      
-        config["check_duplicates_when_adding"] = True
-    if not config.has_key("allow_duplicates_in_diff_cat"):     
-        config["allow_duplicates_in_diff_cat"] = True
-    if not config.has_key("grade_0_items_at_once"):
-        config["grade_0_items_at_once"] = 5
-    if not config.has_key("last_add_vice_versa"):               
-        config["last_add_vice_versa"] = False
-    if not config.has_key("last_add_category"):               
-        config["last_add_category"] = "<default>"
+    config.setdefault("first_run", True)
+    config.setdefault("path", os.path.join(basedir, "default.mem"))
+    config.setdefault("import_dir", basedir)
+    config.setdefault("user_id",md5.new(str(random.random())).hexdigest()[0:8])
+    config.setdefault("keep_logs", True)
+    config.setdefault("upload_logs", True)
+    config.setdefault("upload_server", "mnemosyne-proj.dyndns.org:80")    
+    config.setdefault("log_index", 1)
+    config.setdefault("hide_toolbar", False)
+    config.setdefault("QA_font", None)
+    config.setdefault("list_font", None)
+    config.setdefault("left_align", False)
+    config.setdefault("non_latin_font_size_increase", 0)
+    config.setdefault("check_duplicates_when_adding", True)
+    config.setdefault("allow_duplicates_in_diff_cat", True)
+    config.setdefault("grade_0_items_at_once", 5)
+    config.setdefault("last_add_vice_versa", False)
+    config.setdefault("last_add_category", "<default>")
         
 
 

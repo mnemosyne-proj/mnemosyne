@@ -1,6 +1,3 @@
--faq about SDL_AUDIODRIVER="alsa"
--web docs about latex
-
 Before 1.0:
 
 -remember column size, sort order in edit window
@@ -31,7 +28,7 @@ Before 1.0:
 After 1.0:
 
 -add/edit window with menus/shortcuts to insert sound and pictures 
-tags through a file selector
+tags through a file selector. Use pop-up window?
 
 -easier 'add vice versa' for foreign word / pronunciation / translation
  triplets

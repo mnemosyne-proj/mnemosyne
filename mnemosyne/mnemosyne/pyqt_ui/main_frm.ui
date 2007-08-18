@@ -796,7 +796,7 @@
             <string>Show &amp;statistics</string>
         </property>
         <property name="accel">
-            <string>Alt+S</string>
+            <string>Ctrl+S</string>
         </property>
     </action>
 </actions>

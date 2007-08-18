@@ -1,7 +1,15 @@
-MNEMOSYNE 0.9.9 : 2007-08-16
+MNEMOSYNE 0.9.10
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
+
+-changed shortcut for 'Show statistics' from Alt-S to Ctrl-S so as not to
+ interfere with 'Show answer' (reported by Gintautas Miliauskas).
+-fix bug when showing the statistics for an empty database (reported by 
+ Gintautas Miliauskas).
+
+
+MNEMOSYNE 0.9.9 : 2007-08-16
 
 -added 'Show statistics' menu option, showing the schedule for the
  next week, the distribution of the items over the grades and the number 

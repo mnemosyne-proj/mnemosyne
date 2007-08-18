@@ -71,10 +71,14 @@ class StatisticsDlg(StatisticsFrm):
         for item in get_items():
             grades[item.grade] += 1
 
+        norm = sum(grades)
+        if norm == 0:
+            norm = 1 # Avoid division by zero.
+
         for grade in range(0,6):
             text += "Grade " + str(grade) + " : " \
                     + str(grades[grade]) + " ("\
-                    + ("%.1f" % (100.*grades[grade] / sum(grades))) + " %)\n"
+                    + ("%.1f" % (100.*grades[grade] / norm)) + " %)\n"
         
         self.grades_info.setText(text)
 
