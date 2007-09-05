@@ -11,7 +11,6 @@ The Mnemosyne Project has two aspects:
 <li>It's a sophisticated free flash-card tool which optimises your learning process</li>
 <li>It's a research project into the nature of long-term memory</li>
 </ul>
-<b>News</b>: Mnemosyne needs artwork! We got some, but we <a href="http://kde-artists.org/node/408">lost it</a>!
 <h2>Efficient learning</h2>
 <br>
 The Mnemosyne software resembles a traditional flash-card program to help you memorise question/answer pairs, but with an important twist: it uses a sophisticated algorithm to schedule the best time for an item to come up for review.
