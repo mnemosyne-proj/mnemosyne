@@ -14,6 +14,8 @@
 <body>
 
 <div id="menubar">
+
+<img src="pictures/mnemosyne_logo.png">
 	
 <h3><a href="index.php">Overview</a></h3>
 <h3><a href="news.php">News</a></h3>
