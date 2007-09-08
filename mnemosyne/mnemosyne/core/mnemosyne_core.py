@@ -816,6 +816,9 @@ def set_non_latin_font_size(old_string, font_size):
             if ucode > i[0] and ucode < i[1]:
                 return True
         return False
+
+    if old_string == "":
+        return old_string
     
     new_string = ""
     in_unicode_substring = False
@@ -836,7 +839,7 @@ def set_non_latin_font_size(old_string, font_size):
                 new_string += old_string[i]
                 
     # Make sure to close the last tag.
-    
+              
     if not in_latin_plane(ord(old_string[-1])):
         new_string += '</font>'
     
