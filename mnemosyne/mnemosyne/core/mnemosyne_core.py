@@ -1109,11 +1109,15 @@ def import_file(filename, fformat_name, default_cat_name,
     
     for item in imported_items:
                     
-        # Don't add if the item is already in the database.
+        # Check for duplicates.
 
         for i in get_items():
             if i.q == item.q and i.a == item.a:
-                break
+                if get_config("check_duplicates_when_adding") == True:
+                    if get_config("allow_duplicates_in_diff_cat") == False:
+                        break
+                    elif i.cat == item.cat:
+                        break
         else:
             items.append(item)
             

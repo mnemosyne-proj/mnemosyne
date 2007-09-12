@@ -3,6 +3,8 @@ MNEMOSYNE 0.9.10
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-respect duplicate handling configuration options when importing (reported 
+ by lebowski_404).
 -changed shortcut for 'Show statistics' from Alt-S to Ctrl-S so as not to
  interfere with 'Show answer' (reported by Gintautas Miliauskas).
 -fix bug when showing the statistics for an empty database (reported by 
