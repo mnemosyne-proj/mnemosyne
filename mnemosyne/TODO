@@ -1,8 +1,10 @@
 -add 2>&1 1>latex_out.txt to the latex command
+-accelators to popup menu in edit items
 
 Before 1.0:
 
 -remember column size, sort order in edit window
+-remember last import/export format
 
 -give more feedback on import failure
 
@@ -31,6 +33,10 @@ tags through a file selector. Use pop-up window?
 
 -easier 'add vice versa' for foreign word / pronunciation / translation
  triplets
+
+-template expansion (disable add-vice-versa) ( both {../..} and {}..{})
+
+-cloze deletion (disable add-vice-versa and template expansion)
 
 -paste from clipboard
 
@@ -90,6 +96,8 @@ behaviour)
 -Upgrade to Qt4
 
 -instead of QListview, use the model/view framework from Qt4
+
+-subclassing QTextEdit, and add accelerators for new actions
 
 -Qt/Sqlite backend
 

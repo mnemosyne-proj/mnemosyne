@@ -71,7 +71,7 @@ class EditItemsDlg(EditItemsFrm):
 
         self.popup_1 = QPopupMenu(self, "menu1")
         self.popup_1.insertItem(self.tr("&Edit"), self.edit)
-        self.popup_1.insertItem(self.tr("&Preview"), self.preview)        
+        self.popup_1.insertItem(self.tr("&Preview"), self.preview, Qt.Key_P)        
         self.popup_1.insertItem(self.tr("&Add vice versa"), self.viceversa)
         self.popup_1.insertItem(self.tr("&Statistics"), self.statistics)
         self.popup_1.insertItem(self.tr("&Delete"), self.delete)
