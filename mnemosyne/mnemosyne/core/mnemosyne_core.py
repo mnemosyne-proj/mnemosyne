@@ -129,6 +129,8 @@ def init_config():
     config.setdefault("first_run", True)
     config.setdefault("path", os.path.join(basedir, "default.mem"))
     config.setdefault("import_dir", basedir)
+    config.setdefault("import_img_dir", basedir)
+    config.setdefault("import_sound_dir", basedir)    
     config.setdefault("user_id",md5.new(str(random.random())).hexdigest()[0:8])
     config.setdefault("keep_logs", True)
     config.setdefault("upload_logs", True)
@@ -785,6 +787,28 @@ def expand_path(p):
     else:
         prefix = os.path.dirname(get_config("path"))   
         return os.path.normpath(os.path.join(prefix, p))
+
+
+
+##############################################################################
+#
+# contract_path
+#
+#   Make absolute path relative and normalise slashes.
+#
+##############################################################################
+
+def contract_path(p):
+
+    if (    ( (len(p) > 1) and p[0] == "/") \
+         or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
+        prefix = os.path.dirname(get_config("path"))
+        try:
+            return p.split(prefix)[1][1:]
+        except:
+            return p            
+    else:
+        return p
 
 
 

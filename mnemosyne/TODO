@@ -1,5 +1,20 @@
--add 2>&1 1>latex_out.txt to the latex command
+text on add_items: right click for more options
+
+1st preview
+  File 
+"/usr/lib/python2.4/site-packages/mnemosyne/pyqt_ui/edit_items_dlg.py", 
+line 177, in preview
+    item = self.selected[0].item
+IndexError: list index out of range
+
+pg up and down in preview
+
+test contract path under windows
+
+ -add 2>&1 1>latex_out.txt to the latex 
+command
 -accelators to popup menu in edit items
+-restore paste in popupmenu
 
 Before 1.0:
 
@@ -100,6 +115,8 @@ behaviour)
 -subclassing QTextEdit, and add accelerators for new actions
 
 -Qt/Sqlite backend
+
+-front widget that allows copying
 
 -advanced statistics, history, forgetting index, histogram of grades 
 and intervals... (look at graph in JMemorize)

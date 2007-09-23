@@ -50,59 +50,10 @@ class AddItemsDlg(AddItemsFrm):
             
         self.question.setTabChangesFocus(1)
         self.answer.setTabChangesFocus(1)
-
-        # Not the most elegant way, leads to lots of code duplication,
-        # but subclassing results in not being able to use the designer
-        # anymore.
-        
-        self.dummy = QTextEdit()
-        
-        self.question.createPopupMenu = self.show_popup_q
-        self.answer.createPopupMenu   = self.show_popup_a
         
         # Doesn't seem to work yet...
         
         #self.question.__class__.dropEvent = self.my_drop_event
-
-
-
-    ##########################################################################
-    #
-    # show_popup
-    #
-    ##########################################################################
-
-    def show_popup_q(self, point):
-        
-        popup = self.dummy.createPopupMenu(point)
-        popup.insertSeparator()
-        popup.insertItem(self.tr("Insert &picture"), self.insert_picture_q)
-        return popup
-    
-    def show_popup_a(self, point):
-        
-        popup = self.dummy.createPopupMenu(point)
-        popup.insertSeparator()
-        popup.insertItem(self.tr("Insert &picture"), self.insert_picture_a)
-        return popup
-    
-
-            
-    ##########################################################################
-    #
-    # insert_picture
-    #
-    ##########################################################################
-
-    def insert_picture_q(self):
-        
-        print "insert"
-        self.question.insert("Hello")
-
-    def insert_picture_a(self):
-        
-        print "insert"
-        self.answer.insert("Hello")   
 
 
 
