@@ -146,7 +146,7 @@ def init_config():
     config.setdefault("grade_0_items_at_once", 5)
     config.setdefault("last_add_vice_versa", False)
     config.setdefault("last_add_category", "<default>")
-        
+    config.setdefault("3_way_input", False)        
 
 
 ##############################################################################

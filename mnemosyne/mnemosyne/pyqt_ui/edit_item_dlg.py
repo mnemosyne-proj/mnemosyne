@@ -57,6 +57,18 @@ class EditItemDlg(EditItemFrm):
         self.question.setTabChangesFocus(1)
         self.answer.setTabChangesFocus(1)
 
+
+
+    ##########################################################################
+    #
+    # allow_3_way
+    #
+    ##########################################################################
+
+    def allow_3_way(self):
+
+        return False
+
         
 
     ##########################################################################

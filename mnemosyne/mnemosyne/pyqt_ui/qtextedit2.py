@@ -47,6 +47,15 @@ class QTextEdit2(QTextEdit):
                          self.insert_img, 'Ctrl+P')
         popup.insertItem(self.tr("Insert &sound"),      
                          self.insert_sound, 'Ctrl+S')
+
+        if self.parent().allow_3_way():
+                    
+            popup.insertSeparator()
+            popup.insertItem(self.tr("&3-way input"),
+                             self.toggle_3_way, 'Ctrl+3', 333)
+
+            popup.setItemChecked(333, get_config("3_way_input"))
+        
         return popup
 
 
@@ -61,8 +70,10 @@ class QTextEdit2(QTextEdit):
         
         if event.key() == Qt.Key_P and event.state() == Qt.ControlButton:
             self.insert_img()
-        if event.key() == Qt.Key_S and event.state() == Qt.ControlButton:
+        elif event.key() == Qt.Key_S and event.state() == Qt.ControlButton:
             self.insert_sound()
+        elif event.key() == Qt.Key_3 and event.state() == Qt.ControlButton:
+            self.toggle_3_way()
         else:
             QTextEdit.keyPressEvent(self, event)
 
@@ -98,4 +109,20 @@ class QTextEdit2(QTextEdit):
                                                   "*")).encode("utf-8")
         if fname:
             self.insert("<sound src=\""+contract_path(fname)+"\">")
-            set_config("import_sound_dir", os.path.dirname(fname))            
+            set_config("import_sound_dir", os.path.dirname(fname))
+
+
+        
+    ##########################################################################
+    #
+    # toggle_3_way
+    #
+    ##########################################################################
+    
+    def toggle_3_way(self):
+        
+        b = not get_config("3_way_input")
+        set_config("3_way_input", b)
+
+        self.emit(PYSIGNAL("3_way_input_toggled"), ())
+        

@@ -35,11 +35,17 @@ class AddItemsDlg(AddItemsFrm):
         self.addViceVersa.setChecked(get_config("last_add_vice_versa"))
         self.update_combobox(get_config("last_add_category"))
 
-        self.connect(self.grades,SIGNAL("clicked(int)"),
+        self.connect(self.grades, SIGNAL("clicked(int)"),
                      self.new_item)
 
-        self.connect(self.preview_button,SIGNAL("clicked()"),
+        self.connect(self.preview_button, SIGNAL("clicked()"),
                      self.preview)
+
+        self.connect(self.question, PYSIGNAL("3_way_input_toggled"),
+                     self.toggle_3_way)
+
+        self.connect(self.answer, PYSIGNAL("3_way_input_toggled"),
+                     self.toggle_3_way)
         
         if get_config("QA_font") != None:
             font = QFont()
@@ -125,6 +131,33 @@ class AddItemsDlg(AddItemsFrm):
             return
 
 
+
+    ##########################################################################
+    #
+    # allow_3_way
+    #
+    ##########################################################################
+
+    def allow_3_way(self):
+
+        return True
+
+        
+
+    ##########################################################################
+    #
+    # toggle_3_way
+    #
+    ##########################################################################
+
+    def toggle_3_way(self):
+
+        if not get_config("3_way_input"):
+            self.question.show()
+        else:
+            self.question.hide()            
+
+        
 
     ##########################################################################
     #
