@@ -1,7 +1,23 @@
-MNEMOSYNE 0.9.10
+MNEMOSYNE 1.0
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
+
+-added a feature to make dealing with vocabulary in foreign scripts 
+ easier. Right clicking the text field in 'add items' gives you to option
+ to switch to 3-way input, which replaces the question and answer fields 
+ by 3 fields: written form, pronunciation, translation. After selecting an
+ initial grade, 2 items will be added:
+
+  Q: written form
+  A: pronunciation
+     translation
+
+ and
+
+  Q: translation
+  A: written form
+     pronunciation  
 
 -add feature to insert a picture or a sound tag by using a file selector. 
  Accessed through popup-menu or keyboard short-cuts.

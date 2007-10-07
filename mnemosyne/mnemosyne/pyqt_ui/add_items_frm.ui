@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>340</width>
-            <height>416</height>
+            <width>339</width>
+            <height>471</height>
         </rect>
     </property>
     <property name="caption">
@@ -21,7 +21,7 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout6</cstring>
+                <cstring>layout8</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -69,7 +69,7 @@
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
-                        <cstring>textLabel2</cstring>
+                        <cstring>q_label</cstring>
                     </property>
                     <property name="text">
                         <string>Question:</string>
@@ -88,7 +88,34 @@
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
-                        <cstring>textLabel2_2</cstring>
+                        <cstring>p_label</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>3</hsizetype>
+                            <vsizetype>3</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Pronunciation:</string>
+                    </property>
+                </widget>
+                <widget class="QTextEdit">
+                    <property name="name">
+                        <cstring>pronunciation</cstring>
+                    </property>
+                    <property name="acceptDrops">
+                        <bool>true</bool>
+                    </property>
+                    <property name="textFormat">
+                        <enum>PlainText</enum>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>a_label</cstring>
                     </property>
                     <property name="text">
                         <string>Answer:</string>
@@ -257,7 +284,7 @@
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
-                        <cstring>textLabel1_2</cstring>
+                        <cstring>help_label</cstring>
                     </property>
                     <property name="text">
                         <string>Type question and answer, then pick initial grade.</string>
@@ -333,13 +360,17 @@
 <tabstops>
     <tabstop>categories</tabstop>
     <tabstop>question</tabstop>
+    <tabstop>pronunciation</tabstop>
     <tabstop>answer</tabstop>
+    <tabstop>addViceVersa</tabstop>
     <tabstop>pushButton1</tabstop>
     <tabstop>pushButton1_2</tabstop>
     <tabstop>pushButton1_3</tabstop>
     <tabstop>pushButton1_4</tabstop>
     <tabstop>pushButton1_5</tabstop>
     <tabstop>pushButton1_6</tabstop>
+    <tabstop>preview_button</tabstop>
+    <tabstop>cancel</tabstop>
 </tabstops>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

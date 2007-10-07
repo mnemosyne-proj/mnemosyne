@@ -1,4 +1,21 @@
+better name for 3-way input?
+
+-shortcut of statistics, save, remove s short cut for show answer
+
+-Easier moving of config file between Windows and Linux: if in basepath,
+ store only relative path. Make sure the slashes are correct.
+
+add researh wiki link to front page
+
+download analysis source
+
+title for import file dialogs
+
+cnctl p: preview and insert picture
+
 document new features
+
+faq on sharing databases
 
 filter file types on import
 
@@ -23,7 +40,7 @@ command
 Before 1.0:
 
 -remember column size, sort order in edit window
--remember last import/export format
+-remember last import/export format + reset flag
 
 -give more feedback on import failure
 
@@ -67,8 +84,7 @@ tags through a file selector. Use pop-up window?
 
 -keyboard shortcut to undo last grade?
 
--Easier moving of config file between Windows and Linux: if in basepath,
- store only relative path. Make sure the slashes are correct.
+-text file in some directory as template per category?
 
 -animated GIFs
 

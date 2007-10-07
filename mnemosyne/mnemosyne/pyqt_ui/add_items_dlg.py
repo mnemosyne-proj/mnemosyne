@@ -42,20 +42,27 @@ class AddItemsDlg(AddItemsFrm):
                      self.preview)
 
         self.connect(self.question, PYSIGNAL("3_way_input_toggled"),
-                     self.toggle_3_way)
+                     self.update_dialog)
+        
+        self.connect(self.pronunciation, PYSIGNAL("3_way_input_toggled"),
+                     self.update_dialog)
 
         self.connect(self.answer, PYSIGNAL("3_way_input_toggled"),
-                     self.toggle_3_way)
+                     self.update_dialog)
         
         if get_config("QA_font") != None:
             font = QFont()
             font.fromString(get_config("QA_font"))
             self.question.setFont(font)
+            self.pronunciation.setFont(font)
             self.answer.setFont(font)
             #self.categories.setFont(font)
             
         self.question.setTabChangesFocus(1)
+        self.pronunciation.setTabChangesFocus(1)
         self.answer.setTabChangesFocus(1)
+
+        self.update_dialog()
         
         # Doesn't seem to work yet...
         
@@ -142,22 +149,29 @@ class AddItemsDlg(AddItemsFrm):
 
         return True
 
-        
-
+    
     ##########################################################################
     #
-    # toggle_3_way
+    # update_dialog
     #
     ##########################################################################
 
-    def toggle_3_way(self):
+    def update_dialog(self):
 
-        if not get_config("3_way_input"):
-            self.question.show()
+        if get_config("3_way_input") == False:
+            self.q_label.setText("Question:")
+            self.p_label.hide()            
+            self.pronunciation.hide()
+            self.a_label.setText("Answer:")
+            self.addViceVersa.show()         
         else:
-            self.question.hide()            
+            self.q_label.setText("Written form:")
+            self.p_label.show()            
+            self.pronunciation.show()
+            self.a_label.setText("Translation:")            
+            self.addViceVersa.hide()
 
-        
+
 
     ##########################################################################
     #
@@ -166,11 +180,19 @@ class AddItemsDlg(AddItemsFrm):
     ##########################################################################
 
     def preview(self):
+
+        if get_config("3_way_input") == False:
         
-        dlg = PreviewItemDlg(unicode(self.question.text()),
-                             unicode(self.answer.text()),
-                             unicode(self.categories.currentText()),
-                             self,"Preview current item",0)
+            dlg = PreviewItemDlg(unicode(self.question.text()),
+                                 unicode(self.answer.text()),
+                                 unicode(self.categories.currentText()),
+                                 self,"Preview current item",0)
+        else:
+            dlg = PreviewItemDlg(unicode(self.question.text()),
+                                 unicode(self.pronunciation.text()+"\n"\
+                                         +self.answer.text()),
+                                 unicode(self.categories.currentText()),
+                                 self,"Preview current item",0)            
         dlg.exec_loop()
 
         
@@ -264,6 +286,7 @@ class AddItemsDlg(AddItemsFrm):
     def new_item(self, grade):
 
         q        = unicode(self.question.text())
+        p        = unicode(self.pronunciation.text())
         a        = unicode(self.answer.text())
         cat_name = unicode(self.categories.currentText())
 
@@ -272,28 +295,39 @@ class AddItemsDlg(AddItemsFrm):
                 return
         else:
             if q == "":
-                return            
+                return
 
-        orig_added = self.check_duplicates_and_add(grade, q, a, cat_name)
-        rev_added = True
-        if orig_added and self.addViceVersa.isOn():
-            rev_added = self.check_duplicates_and_add(grade, a, q, cat_name)
+        if get_config("3_way_input") == False:
 
-        if self.addViceVersa.isOn() and orig_added and not rev_added:
+            orig_added = self.check_duplicates_and_add(grade,q,a,cat_name)
+            rev_added = True
+            if orig_added and self.addViceVersa.isOn():
+                rev_added = self.check_duplicates_and_add(grade,a,q,cat_name)
+
+            if self.addViceVersa.isOn() and orig_added and not rev_added:
             
-            # Swap question and answer.
+                # Swap question and answer.
             
-            self.question.setText(a)
-            self.answer.setText(q)
-            self.addViceVersa.setChecked(False)
+                self.question.setText(a)
+                self.answer.setText(q)
+                self.addViceVersa.setChecked(False)
             
-        elif orig_added:
+            elif orig_added:
             
-            # Clear the form to make room for new question.
+                # Clear the form to make room for new question.
+            
+                self.question.setText("")
+                self.answer.setText("")
+
+        else: # 3-way input.
+            
+            self.check_duplicates_and_add(grade,q,p+'\n'+a,cat_name)
+            self.check_duplicates_and_add(grade,a,q+'\n'+p,cat_name)
             
             self.question.setText("")
+            self.pronunciation.setText("")            
             self.answer.setText("")
-            
+                
         self.question.setFocus()
 
         set_config("last_add_vice_versa", self.addViceVersa.isOn())
