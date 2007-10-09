@@ -1,5 +1,3 @@
-better name for 3-way input?
-
 -shortcut of statistics, save, remove s short cut for show answer
 
 -Easier moving of config file between Windows and Linux: if in basepath,
@@ -9,13 +7,15 @@ add researh wiki link to front page
 
 download analysis source
 
+faq on unison sync
+
 title for import file dialogs
 
 cnctl p: preview and insert picture
 
 document new features
 
-faq on sharing databases
+faq on sharing databases (+call for help on website)
 
 filter file types on import
 
@@ -34,8 +34,6 @@ test contract path under windows
 
  -add 2>&1 1>latex_out.txt to the latex 
 command
--accelators to popup menu in edit items
--restore paste in popupmenu
 
 Before 1.0:
 
