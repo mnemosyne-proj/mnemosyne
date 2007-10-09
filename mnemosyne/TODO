@@ -1,3 +1,5 @@
+-relative paths for import dir, ... + note in Changelog
+
 -shortcut of statistics, save, remove s short cut for show answer
 
 -Easier moving of config file between Windows and Linux: if in basepath,
@@ -19,7 +21,7 @@ faq on sharing databases (+call for help on website)
 
 filter file types on import
 
-text on add_items: right click for more options
+text on add_items: right click for more options?
 
 1st preview
   File 

@@ -127,7 +127,7 @@ def init_config():
     basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
  
     config.setdefault("first_run", True)
-    config.setdefault("path", os.path.join(basedir, "default.mem"))
+    config.setdefault("path", "default.mem")
     config.setdefault("import_dir", basedir)
     config.setdefault("import_img_dir", basedir)
     config.setdefault("import_sound_dir", basedir)    
@@ -612,6 +612,8 @@ def new_database(path):
 
     global config, time_of_start, load_failed
 
+    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+
     if len(items) > 0:
         unload_database()
 
@@ -622,7 +624,7 @@ def new_database(path):
 
     logger.info("New database")
 
-    save_database(path)
+    save_database(contract_path(path, basedir))
 
 
 
@@ -641,6 +643,10 @@ def load_database(path):
     global config, time_of_start, categories, category_by_name, items
     global load_failed
 
+    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+  
+    path = expand_path(path, basedir)
+        
     if list_is_loaded():
         unload_database()
 
@@ -686,7 +692,7 @@ def load_database(path):
     for c in categories:
         remove_category_if_unused(c)
 
-    config["path"] = path
+    config["path"] = contract_path(path, basedir)
 
     logger.info("Loaded database %d %d %d", scheduled_items(), \
                 non_memorised_items(), number_of_items())
@@ -704,6 +710,10 @@ def load_database(path):
 def save_database(path):
 
     global config
+        
+    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+
+    path = expand_path(path, basedir)
 
     if load_failed == True: # Don't erase a database which failed to load.
         return False
@@ -728,7 +738,7 @@ def save_database(path):
         
         return False
 
-    config["path"] = path
+    config["path"] = contract_path(path, basedir)
     
     return True
 
@@ -779,13 +789,17 @@ def list_is_loaded():
 #
 ##############################################################################
 
-def expand_path(p):
+def expand_path(p, prefix=None):
+
+    if prefix == None:
+        prefix = os.path.dirname(get_config("path"))
+    if prefix == '':
+        prefix = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
     if (    ( (len(p) > 1) and p[0] == "/") \
          or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
         return os.path.normpath(p)
-    else:
-        prefix = os.path.dirname(get_config("path"))   
+    else:  
         return os.path.normpath(os.path.join(prefix, p))
 
 
@@ -798,11 +812,15 @@ def expand_path(p):
 #
 ##############################################################################
 
-def contract_path(p):
+def contract_path(p, prefix=None):
+    
+    if prefix == None:
+        prefix = os.path.dirname(get_config("path"))
+    if prefix == '':
+        prefix = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
     if (    ( (len(p) > 1) and p[0] == "/") \
          or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
-        prefix = os.path.dirname(get_config("path"))
         try:
             return p.split(prefix)[1][1:]
         except:
