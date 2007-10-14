@@ -2373,7 +2373,7 @@ def process_answer(item, new_grade):
 
     global revision_queue, items
 
-    scheduled_interval = item.next_rep              - item.last_rep
+    scheduled_interval = item.next_rep    - item.last_rep
     actual_interval    = days_since_start - item.last_rep
 
     # Take care of corner case when learning ahead on the same day.
@@ -2503,6 +2503,8 @@ def process_answer(item, new_grade):
             if j != item and j.next_rep == item.next_rep and item.grade >= 2:
                 item.next_rep += 1
                 noise += 1
+
+    # Create log entry.
         
     logger.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
                 item.id, item.grade, item.easiness,

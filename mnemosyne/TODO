@@ -1,28 +1,14 @@
--relative paths for import dir, ... + note in Changelog
+Mnemosyne 0.9.10:
 
--shortcut of statistics, save, remove s short cut for show answer
+-add 2>&1 1>latex_out.txt to the latex command. test under Windows.
 
--Easier moving of config file between Windows and Linux: if in basepath,
- store only relative path. Make sure the slashes are correct.
+-relative paths for import dir, ... + note in Changelog (easier to move 
+ between Windows and Linux
+-test path contraction under Windows
 
-add researh wiki link to front page
-
-download analysis source
-
-faq on unison sync
-
-title for import file dialogs
-
-cnctl p: preview and insert picture
-
-document new features
-
-faq on sharing databases (+call for help on website)
-
-filter file types on import
-
-text on add_items: right click for more options?
-
+-keyboard shortcuts:
+-statistics, save, remove s shortcut for show answer
+-ctrl p: preview and insert picture (--> image)
 1st preview
   File 
 "/usr/lib/python2.4/site-packages/mnemosyne/pyqt_ui/edit_items_dlg.py", 
@@ -30,23 +16,33 @@ line 177, in preview
     item = self.selected[0].item
 IndexError: list index out of range
 
-pg up and down in preview
-
-test contract path under windows
-
- -add 2>&1 1>latex_out.txt to the latex 
-command
-
-Before 1.0:
-
 -remember column size, sort order in edit window
 -remember last import/export format + reset flag
 
--give more feedback on import failure
+-title for import file dialogs
+-filter file types on import pictures, sound
 
--unicode filenames? (remove encode, set LANG to UTF-8 in system)
+-document new features (also on screen shots page): 3-way input, ...
+-update faq: unison sync, database sharing, call for help on database site
 
--change file suffix when changing export file format
+
+
+Memosyne analysis:
+
+-add to cvs
+-document
+-release
+-research section on web site
+
+
+
+Mnemosyne 1.0:
+
+-text on add_items: right click for more options?
+
+-I got it right but probably won't remember it tomorrow?
+
+-rename items to cards
 
 -better action icons
 
@@ -58,17 +54,20 @@ Before 1.0:
   relative CSS layout 
     http://www.webreference.com/authoring/style/sheets/css_mastery2/
     http://www.cssbasics.com/
-  better mailing list page
+  better mailing list / forums page
   contributors page
+
 
 
 After 1.0:
 
--add/edit window with menus/shortcuts to insert sound and pictures 
-tags through a file selector. Use pop-up window?
+-unicode filenames (remove encode, set LANG to UTF-8 in system)
 
--easier 'add vice versa' for foreign word / pronunciation / translation
- triplets
+-give more feedback on import failure
+
+-change file suffix when changing export file format
+
+-pg up and down in preview mode
 
 -template expansion (disable add-vice-versa) ( both {../..} and {}..{})
 
@@ -78,11 +77,11 @@ tags through a file selector. Use pop-up window?
 
 -drag and drop of pictures, sound files
 
--clean obsolete latex images
+-clean obsolete latex images / autogenerate them
 
 -make <a> links clickable
 
--keyboard shortcut to undo last grade?
+-undo last grade + keyboard shortcut
 
 -text file in some directory as template per category?
 
@@ -106,7 +105,7 @@ tags through a file selector. Use pop-up window?
 
 -determine export file type based on suffix?
 
--what if window becomes larges than screen?
+-what if window becomes larger than screen?
 
 -unify save and export?
 
@@ -123,18 +122,19 @@ If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
 
 Mnemosyne 2.0:
 
--rename items to cards, edit items to knowledge manager
+-benchmark SQLAlchemy
+
+-rename 'edit cards' to knowledge manager
 
 -regular expression search, all results in separate window (i.e. filter 
 behaviour)
 
 -Upgrade to Qt4
 
--instead of QListview, use the model/view framework from Qt4
+-instead of QListview, use the model/view framework from Qt4 
+ or database widget
 
--subclassing QTextEdit, and add accelerators for new actions
-
--Qt/Sqlite backend
+-autosave
 
 -front widget that allows copying
 
@@ -150,11 +150,11 @@ and intervals... (look at graph in JMemorize)
 
 -priorities for categories
 
--multiple answers per questions
+-multiple answers per questions?
 
 -better sound replay support, through clicking on an icon
 
--forward / backward when previewing items in th database?
+-forward / backward when previewing items in the database?
 
 -separate colors per category?
 
@@ -169,7 +169,16 @@ and intervals... (look at graph in JMemorize)
 
 -bug in Qt? : spaces around images are not respected.
 
--Windows Mobile port (venster, Tkinter)
+
+
+
+Far away:
+
+-Windows Mobile port (PyQt, venster?, Tkinter?)
+
+-foreign language text widget, integrated with online dict,
+ easy creation of new cards
+
 
 
 Superkaramba / Plasma
