@@ -43,8 +43,8 @@ class QTextEdit2(QTextEdit):
 
         popup = QTextEdit.createPopupMenu(self, pos)
         popup.insertSeparator()
-        popup.insertItem(self.tr("Insert &picture"),
-                         self.insert_img, 'Ctrl+P')
+        popup.insertItem(self.tr("Insert &image"),
+                         self.insert_img, 'Ctrl+I')
         popup.insertItem(self.tr("Insert &sound"),      
                          self.insert_sound, 'Ctrl+S')
 
@@ -68,7 +68,7 @@ class QTextEdit2(QTextEdit):
     
     def keyPressEvent(self, event):
         
-        if event.key() == Qt.Key_P and event.state() == Qt.ControlButton:
+        if event.key() == Qt.Key_I and event.state() == Qt.ControlButton:
             self.insert_img()
         elif event.key() == Qt.Key_S and event.state() == Qt.ControlButton:
             self.insert_sound()
@@ -87,12 +87,13 @@ class QTextEdit2(QTextEdit):
     
     def insert_img(self):
 
-        path = get_config("import_img_dir")
+        path = expand_path(get_config("import_img_dir"))
         fname = unicode(QFileDialog.getOpenFileName(path,\
                                                     "*")).encode("utf-8")
         if fname:
             self.insert("<img src=\""+contract_path(fname)+"\">")
-            set_config("import_img_dir", os.path.dirname(fname))
+            set_config("import_img_dir", \
+                       contract_path(os.path.dirname(fname)))
 
 
         
@@ -104,12 +105,13 @@ class QTextEdit2(QTextEdit):
     
     def insert_sound(self):
 
-        path = get_config("import_sound_dir")
+        path = expand_path(get_config("import_sound_dir"))
         fname = unicode(QFileDialog.getOpenFileName(path,\
                                                   "*")).encode("utf-8")
         if fname:
             self.insert("<sound src=\""+contract_path(fname)+"\">")
-            set_config("import_sound_dir", os.path.dirname(fname))
+            set_config("import_sound_dir", \
+                       contract_path(os.path.dirname(fname)))
 
 
         

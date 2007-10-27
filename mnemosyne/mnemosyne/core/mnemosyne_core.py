@@ -55,7 +55,7 @@ def initialise():
     
     # Set default paths.
 
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    basedir = join(os.path.expanduser("~"), ".mnemosyne")
 
     if not exists(basedir):
         os.mkdir(basedir)
@@ -147,6 +147,7 @@ def init_config():
     config.setdefault("last_add_vice_versa", False)
     config.setdefault("last_add_category", "<default>")
     config.setdefault("3_way_input", False)        
+
 
 
 ##############################################################################
@@ -921,7 +922,8 @@ def process_latex(latex_command):
             print >> f, line,       
         f.close()
 
-        os.system("latex -interaction=nonstopmode tmp.tex")
+        os.system("latex -interaction=nonstopmode tmp.tex "+\
+                  " 2>&1 1>latex_out.txt")
 
         f = file("dvipng")       
         os.system(f.readline())

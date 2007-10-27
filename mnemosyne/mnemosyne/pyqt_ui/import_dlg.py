@@ -39,7 +39,7 @@ class ImportDlg(ImportFrm):
                 self.categories.insertItem(cat.name)
         
         self.connect(self.browse_button, SIGNAL("clicked()"), self.browse)
-        self.connect(self.ok_button, SIGNAL("clicked()"), self.apply)
+        self.connect(self.ok_button,     SIGNAL("clicked()"), self.apply)
 
     ##########################################################################
     #
@@ -53,7 +53,7 @@ class ImportDlg(ImportFrm):
                       unicode(self.fileformats.currentText()))
 
         out = unicode(QFileDialog.getOpenFileName(
-                  get_config("import_dir"),
+                  expand_path(get_config("import_dir")),
                   "All Files (*);;" + fformat.filter,
                   None,
                   None,
@@ -88,6 +88,6 @@ class ImportDlg(ImportFrm):
                              "the correct format."),
                  self.trUtf8("&OK"), QString(), QString(), 0, -1)
         else:
-            set_config("import_dir", os.path.dirname(fname))
+            set_config("import_dir", contract_path(os.path.dirname(fname)))
         
         self.close()

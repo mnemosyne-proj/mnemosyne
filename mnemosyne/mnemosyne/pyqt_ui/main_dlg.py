@@ -106,7 +106,8 @@ class MainDlg(MainFrm):
         if status == False:
             QMessageBox.critical(None,
                     self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Unable to load file. Creating a tmp database."),
+                    self.trUtf8("Unable to load file. "+\
+                                "Creating a tmp database."),
                     self.trUtf8("&OK"), QString(), QString(), 0, -1)
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             new_database(filename)
@@ -136,8 +137,9 @@ class MainDlg(MainFrm):
         pause_thinking()
 
         path = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-        out = unicode(QFileDialog.getSaveFileName(path, "*.mem"))\
-              .encode("utf-8")
+        out = unicode(QFileDialog.getSaveFileName(path,
+                 "Mnemosyne databases (*.mem)", self, None, "New"))\
+                 .encode("utf-8")
         if out != "":
             
             if out[-4:] != ".mem":

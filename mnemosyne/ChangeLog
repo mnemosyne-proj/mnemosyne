@@ -1,4 +1,4 @@
-MNEMOSYNE 1.0
+MNEMOSYNE 0.9.10
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
@@ -21,10 +21,17 @@ version before doing an upgrade.)
 
 -add feature to insert a picture or a sound tag by using a file selector. 
  Accessed through popup-menu or keyboard short-cuts.
+-when possible, paths in the config file are now saved relative to the 
+ .mnemosyne directory rather than as absolute paths. This makes it easier
+ to copy the .mnemosyne directory back and forth between a Linux and a
+ Windows machine.
 -respect duplicate handling configuration options when importing (reported 
  by lebowski_404).
 -changed shortcut for 'Show statistics' from Alt-S to Ctrl-S so as not to
  interfere with 'Show answer' (reported by Gintautas Miliauskas).
+-latex output and error messages are now written to the file 
+ .mnemosyne/latex/latex_out.txt rather than to the screen, so that they
+ are not lost for Windows users.
 -fix bug when showing the statistics for an empty database (reported by 
  Gintautas Miliauskas).
 

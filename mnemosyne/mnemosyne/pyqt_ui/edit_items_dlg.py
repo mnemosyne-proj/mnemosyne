@@ -70,11 +70,15 @@ class EditItemsDlg(EditItemsFrm):
                      self.cell_edited)
 
         self.popup_1 = QPopupMenu(self, "menu1")
-        self.popup_1.insertItem(self.tr("&Edit"), self.edit)
-        self.popup_1.insertItem(self.tr("&Preview"), self.preview, Qt.Key_P)        
+        self.popup_1.insertItem(self.tr("&Edit"), self.edit, \
+                                Qt.CTRL+Qt.Key_E)
+        self.popup_1.insertItem(self.tr("&Preview"), self.preview, \
+                                Qt.CTRL+Qt.Key_P)
         self.popup_1.insertItem(self.tr("&Add vice versa"), self.viceversa)
-        self.popup_1.insertItem(self.tr("&Statistics"), self.statistics)
-        self.popup_1.insertItem(self.tr("&Delete"), self.delete)
+        self.popup_1.insertItem(self.tr("&Statistics"), self.statistics, \
+                                Qt.CTRL+Qt.Key_S)
+        self.popup_1.insertItem(self.tr("&Delete"), self.delete, \
+                                Qt.Key_Delete)
         
         self.popup_2 = QPopupMenu(self, "menu2")
         self.popup_2.insertItem(self.tr("&Change category"),
@@ -94,8 +98,6 @@ class EditItemsDlg(EditItemsFrm):
                      self.find)
         self.connect(self.close_button, SIGNAL("clicked()"),
                      self.close)
-
-        self.item_list.keyPressEvent = self.listView_keyPressEvent
 
         if get_config("list_font") != None:
             font = QFont()
@@ -159,6 +161,8 @@ class EditItemsDlg(EditItemsFrm):
 
     def edit(self):
         
+        self.find_selected()
+        
         list_item = self.selected[0]
         dlg = EditItemDlg(list_item.item,self,"Edit current item",0)
         dlg.exec_loop()
@@ -173,7 +177,9 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
 
     def preview(self):
-                
+        
+        self.find_selected()
+        
         item = self.selected[0].item
         dlg = PreviewItemDlg(item.q,item.a,item.cat.name,
                              self,"Preview current item",0)
@@ -188,6 +194,8 @@ class EditItemsDlg(EditItemsFrm):
     
     def viceversa(self):
         
+        self.find_selected()
+         
         if len(self.selected) > 1:
             message = "Add vice versa of these items?"
         else:
@@ -217,7 +225,9 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
     
     def statistics(self):
-
+        
+        self.find_selected()
+        
         item = self.selected[0].item
 
         message = ""
@@ -241,6 +251,8 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
     
     def delete(self):
+
+        self.find_selected()
 
         if len(self.selected) > 1:
             message = "Delete these items?"
@@ -267,6 +279,8 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
     
     def change_category(self):
+
+        self.find_selected()
         
         dlg = ChangeCategoryDlg(self.selected,self,"Change category",0)
         dlg.exec_loop()     
@@ -353,22 +367,6 @@ class EditItemsDlg(EditItemsFrm):
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_F3:
             self.find()
-            
-    ##########################################################################
-    #
-    # listView_keyPressEvent
-    #
-    ##########################################################################
-    
-    def listView_keyPressEvent(self, e):
-        if e.key() == Qt.Key_Delete:
-            self.find_selected()
-            if len(self.selected) == 0:
-                return
-            else:
-                self.delete()         
-        else:
-            QListView.keyPressEvent(self.item_list, e)
             
     ##########################################################################
     #

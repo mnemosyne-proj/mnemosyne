@@ -1,20 +1,26 @@
+log counting
+
 Mnemosyne 0.9.10:
 
 -add 2>&1 1>latex_out.txt to the latex command. test under Windows.
-
--relative paths for import dir, ... + note in Changelog (easier to move 
- between Windows and Linux
 -test path contraction under Windows
 
 -keyboard shortcuts:
--statistics, save, remove s shortcut for show answer
--ctrl p: preview and insert picture (--> image)
-1st preview
-  File 
-"/usr/lib/python2.4/site-packages/mnemosyne/pyqt_ui/edit_items_dlg.py", 
-line 177, in preview
-    item = self.selected[0].item
-IndexError: list index out of range
+
+new
+open
+save
+statistics
+add (select all)
+clean duplicates: remove
+
+edit current
+edit all
+edit in list
+preview
+
+add vv?
+
 
 -remember column size, sort order in edit window
 -remember last import/export format + reset flag
@@ -23,7 +29,8 @@ IndexError: list index out of range
 -filter file types on import pictures, sound
 
 -document new features (also on screen shots page): 3-way input, ...
--update faq: unison sync, database sharing, call for help on database site
+-update faq: unison sync, database sharing, call for help on database 
+site, feature request philosophy
 
 
 
@@ -38,13 +45,18 @@ Memosyne analysis:
 
 Mnemosyne 1.0:
 
+-add current item statistics to dialog
 -text on add_items: right click for more options?
 
 -I got it right but probably won't remember it tomorrow?
 
 -rename items to cards
 
--better action icons
+-rename 'edit cards' to 'knowledge manager'
+
+-menu order?
+
+-better action icons (remove some altogether?)
 
 -Mnemosyne logo
 
@@ -69,6 +81,8 @@ After 1.0:
 
 -pg up and down in preview mode
 
+-tip of the day
+
 -template expansion (disable add-vice-versa) ( both {../..} and {}..{})
 
 -cloze deletion (disable add-vice-versa and template expansion)
@@ -92,6 +106,8 @@ After 1.0:
 -feedback about uploads in GUI / add time-out
 
 -automatic backups
+
+-forward / backward when previewing items in the database
 
 -clean up interval when importing from txt
 
@@ -124,7 +140,7 @@ Mnemosyne 2.0:
 
 -benchmark SQLAlchemy
 
--rename 'edit cards' to knowledge manager
+-http://spyced.blogspot.com/2007/01/why-sqlalchemy-impresses-me.html
 
 -regular expression search, all results in separate window (i.e. filter 
 behaviour)
@@ -146,21 +162,19 @@ and intervals... (look at graph in JMemorize)
 -advanced database editor, with tree view of categories, drand and drop
  to change categories, add item option, ...
 
+-per category statistics in 'Activate categories'
+
+-undo button
+
 -icon handling patch Dirk (needs Qt4?)
-
--priorities for categories
-
--multiple answers per questions?
 
 -better sound replay support, through clicking on an icon
 
--forward / backward when previewing items in the database?
+-priorities for categories?
 
 -separate colors per category?
 
--per category statistics in 'Activate categories'
-
--undo button?
+-multiple answers per questions?
 
 -bug in Qt? : get rid of dummy '.' status tips
 
