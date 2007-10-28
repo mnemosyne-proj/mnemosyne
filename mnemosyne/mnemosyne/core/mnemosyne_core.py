@@ -2124,7 +2124,7 @@ def calculate_interval_noise(interval):
 #
 ##############################################################################
 
-def add_new_item(grade, question, answer, cat_name):
+def add_new_item(grade, question, answer, cat_name, id=None):
 
     global items, load_failed
 
@@ -2142,7 +2142,10 @@ def add_new_item(grade, question, answer, cat_name):
     
     item.easiness = average_easiness()
 
-    item.new_id()
+    if id == None:
+        item.new_id()
+    else:
+        item.id = id 
     
     new_interval  = calculate_initial_interval(grade)
     new_interval += calculate_interval_noise(new_interval)

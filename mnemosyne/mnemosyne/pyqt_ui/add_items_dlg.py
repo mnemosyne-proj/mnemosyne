@@ -203,7 +203,7 @@ class AddItemsDlg(AddItemsFrm):
     #
     ##########################################################################
 
-    def check_duplicates_and_add(self, grade, q, a, cat_name):
+    def check_duplicates_and_add(self, grade, q, a, cat_name, id_suffix=None):
 
         if get_config("check_duplicates_when_adding") == True:
 
@@ -225,7 +225,7 @@ class AddItemsDlg(AddItemsFrm):
                                             "Duplicate not added."),
                                 self.trUtf8("&OK"))
                 
-                            return True   
+                            return None
                         
                     elif item.cat.name == cat_name or not allow_dif_cat:
                         same_questions.append(item)
@@ -249,7 +249,7 @@ class AddItemsDlg(AddItemsFrm):
                 
                 if status == 0: # Merge and edit.
                     
-                    new_item = add_new_item(grade, q, a, cat_name)
+                    new_item = add_new_item(grade, q, a, cat_name, id)
                     self.update_combobox(cat_name)
                     
                     for i in same_questions:
@@ -261,15 +261,15 @@ class AddItemsDlg(AddItemsFrm):
                     
                     dlg.exec_loop()
                     
-                    return True
+                    return new_item
 
                 if status == 2: # Don't add.
-                    return False
+                    return None
 
-        add_new_item(grade, q, a, cat_name)
+        new_item = add_new_item(grade, q, a, cat_name, id_suffix)
         self.update_combobox(cat_name)
                 
-        return True
+        return new_item
 
 
 
@@ -300,9 +300,10 @@ class AddItemsDlg(AddItemsFrm):
         if get_config("3_way_input") == False:
 
             orig_added = self.check_duplicates_and_add(grade,q,a,cat_name)
-            rev_added = True
+            rev_added = None
             if orig_added and self.addViceVersa.isOn():
-                rev_added = self.check_duplicates_and_add(grade,a,q,cat_name)
+                rev_added = self.check_duplicates_and_add(grade,a,q,\
+                                               cat_name,orig_added.id+'.inv')
 
             if self.addViceVersa.isOn() and orig_added and not rev_added:
             
@@ -321,8 +322,9 @@ class AddItemsDlg(AddItemsFrm):
 
         else: # 3-way input.
             
-            self.check_duplicates_and_add(grade,q,p+'\n'+a,cat_name)
-            self.check_duplicates_and_add(grade,a,q+'\n'+p,cat_name)
+            i = self.check_duplicates_and_add(grade,q,p+'\n'+a,cat_name)
+            self.check_duplicates_and_add(grade,a,q+'\n'+p,cat_name,
+                                          i.id+'.tr.1')
             
             self.question.setText("")
             self.pronunciation.setText("")            

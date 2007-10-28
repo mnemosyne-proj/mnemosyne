@@ -162,6 +162,8 @@ class EditItemsDlg(EditItemsFrm):
     def edit(self):
         
         self.find_selected()
+        if len(self.selected) == 0:
+            return
         
         list_item = self.selected[0]
         dlg = EditItemDlg(list_item.item,self,"Edit current item",0)
@@ -179,6 +181,8 @@ class EditItemsDlg(EditItemsFrm):
     def preview(self):
         
         self.find_selected()
+        if len(self.selected) == 0:
+            return
         
         item = self.selected[0].item
         dlg = PreviewItemDlg(item.q,item.a,item.cat.name,
@@ -195,7 +199,9 @@ class EditItemsDlg(EditItemsFrm):
     def viceversa(self):
         
         self.find_selected()
-         
+        if len(self.selected) == 0:
+            return
+        
         if len(self.selected) > 1:
             message = "Add vice versa of these items?"
         else:
@@ -215,7 +221,8 @@ class EditItemsDlg(EditItemsFrm):
         else:
             for list_item in self.selected:
                 i = list_item.item
-                new_list_item = add_new_item(i.grade, i.a, i.q, i.cat.name)
+                new_list_item = add_new_item(i.grade,i.a,i.q,i.cat.name,\
+                                             i.id+'.inv')
                 ListItem(self.item_list, new_list_item)
 
     ##########################################################################
@@ -227,6 +234,8 @@ class EditItemsDlg(EditItemsFrm):
     def statistics(self):
         
         self.find_selected()
+        if len(self.selected) == 0:
+            return
         
         item = self.selected[0].item
 
@@ -253,7 +262,9 @@ class EditItemsDlg(EditItemsFrm):
     def delete(self):
 
         self.find_selected()
-
+        if len(self.selected) == 0:
+            return
+        
         if len(self.selected) > 1:
             message = "Delete these items?"
         else:
@@ -281,6 +292,8 @@ class EditItemsDlg(EditItemsFrm):
     def change_category(self):
 
         self.find_selected()
+        if len(self.selected) == 0:
+            return
         
         dlg = ChangeCategoryDlg(self.selected,self,"Change category",0)
         dlg.exec_loop()     

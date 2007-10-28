@@ -500,7 +500,7 @@ class MainDlg(MainFrm):
         QMessageBox.about(None,
             self.trUtf8("Mnemosyne"),
             self.trUtf8("Mnemosyne " + mnemosyne.version.version + "\n\n"+
-                        "Author: Peter Bienstman\n\n" +
+                        "Main author: Peter Bienstman\n\n" +
                         "More info: http://mnemosyne-proj.sourceforge.net\n"))
         unpause_thinking()
 

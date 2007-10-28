@@ -1,5 +1,3 @@
-log counting
-
 Mnemosyne 0.9.10:
 
 -add 2>&1 1>latex_out.txt to the latex command. test under Windows.
@@ -9,18 +7,33 @@ Mnemosyne 0.9.10:
 
 new
 open
-save
-statistics
-add (select all)
+save : S
+statistics : T? (2 times)
+
+insert sound : S?
+insert image : I
+3 way input: 3
+
+find: F3, add ctrl f?
+
+add (select all?) : A
 clean duplicates: remove
 
-edit current
-edit all
-edit in list
-preview
+edit current : E 
+edit all : K (knowledge manager)
+edit in list : E
+preview : P (implement)
+replay sound
 
+in text edit: undo, redo, cut, copy, paste
 add vv?
 
+export location not saved?
+
+add vice versa: default yes
+
+
+check accelerators
 
 -remember column size, sort order in edit window
 -remember last import/export format + reset flag
@@ -45,14 +58,13 @@ Memosyne analysis:
 
 Mnemosyne 1.0:
 
--add current item statistics to dialog
+-add current item statistics to dialog?
+
 -text on add_items: right click for more options?
 
 -I got it right but probably won't remember it tomorrow?
 
--rename items to cards
-
--rename 'edit cards' to 'knowledge manager'
+-rename items to cards, database to deck
 
 -menu order?
 
@@ -60,7 +72,7 @@ Mnemosyne 1.0:
 
 -Mnemosyne logo
 
--desktop file
+-desktop file to /usr/share/applications, icon file
 
 -website:
   relative CSS layout 
@@ -76,6 +88,8 @@ After 1.0:
 -unicode filenames (remove encode, set LANG to UTF-8 in system)
 
 -give more feedback on import failure
+
+-graphical statistics
 
 -change file suffix when changing export file format
 
@@ -110,6 +124,8 @@ After 1.0:
 -forward / backward when previewing items in the database
 
 -clean up interval when importing from txt
+
+-tooltips with scheduled interval for each grade?
 
 -remember window size set by the user?
 
@@ -146,6 +162,8 @@ Mnemosyne 2.0:
 behaviour)
 
 -Upgrade to Qt4
+
+-rename edit_items to knowledge manager, items to cards at the source level
 
 -instead of QListview, use the model/view framework from Qt4 
  or database widget
