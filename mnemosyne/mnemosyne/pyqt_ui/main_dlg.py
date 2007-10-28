@@ -138,8 +138,7 @@ class MainDlg(MainFrm):
 
         path = os.path.join(os.path.expanduser("~"), ".mnemosyne")
         out = unicode(QFileDialog.getSaveFileName(path,
-                 "Mnemosyne databases (*.mem)", self, None, "New"))\
-                 .encode("utf-8")
+                 "Mnemosyne databases (*.mem)", self, None, "New"))
         if out != "":
             
             if out[-4:] != ".mem":
@@ -172,8 +171,7 @@ class MainDlg(MainFrm):
                 
         oldPath = expand_path(get_config("path"))
         out = unicode(QFileDialog.getOpenFileName(oldPath,\
-                 "Mnemosyne databases (*.mem)", self, None, "Open"))\
-                 .encode("utf-8")
+                 "Mnemosyne databases (*.mem)", self, None, "Open"))
         if out != "":
 
             status = unload_database()
@@ -228,9 +226,8 @@ class MainDlg(MainFrm):
         pause_thinking()
 
         oldPath = expand_path(get_config("path"))
-        out = unicode(QFileDialog.getOpenFileName(oldPath,\
-                 "Mnemosyne databases (*.mem)", self, None, "Save As"))\
-                 .encode("utf-8")
+        out = unicode(QFileDialog.getSaveFileName(oldPath,\
+                 "Mnemosyne databases (*.mem)", self, None, "Save As"))
                          
         if out != "":
             
@@ -569,7 +566,7 @@ class MainDlg(MainFrm):
         # Update caption.
         
         database_name = os.path.basename(get_config("path"))[:-4]
-        caption_text = unicode("Mnemosyne - " + database_name, "utf-8")
+        caption_text = u"Mnemosyne - " + database_name
         self.setCaption(caption_text)
 
         # Update menu bar.

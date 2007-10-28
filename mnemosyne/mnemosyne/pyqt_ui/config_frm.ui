@@ -303,7 +303,7 @@
                         <cstring>buttonGroup4</cstring>
                     </property>
                     <property name="title">
-                        <string>Revision process</string>
+                        <string>Repetition process</string>
                     </property>
                     <vbox>
                         <property name="name">

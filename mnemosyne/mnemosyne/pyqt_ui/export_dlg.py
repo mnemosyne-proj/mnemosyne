@@ -86,7 +86,7 @@ class ExportDlg(ExportFrm):
 
     def apply(self):
 
-        fname = unicode(self.filename.text()).encode("utf-8")
+        fname = unicode(self.filename.text())
         
         fformat_name = unicode(self.fileformats.currentText())
 
