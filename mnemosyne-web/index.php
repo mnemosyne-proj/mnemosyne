@@ -13,8 +13,8 @@ The Mnemosyne Project has two aspects:
 </ul>
 <h2>Efficient learning</h2>
 <br>
-The Mnemosyne software resembles a traditional flash-card program to help you memorise question/answer pairs, but with an important twist: it uses a sophisticated algorithm to schedule the best time for an item to come up for review.
- Difficult items that you tend to forget quickly will be scheduled more often, while Mnemosyne won't waste your time on things you remember well.
+The Mnemosyne software resembles a traditional flash-card program to help you memorise question/answer pairs, but with an important twist: it uses a sophisticated algorithm to schedule the best time for a card to come up for review.
+ Difficult cards that you tend to forget quickly will be scheduled more often, while Mnemosyne won't waste your time on things you remember well.
 <br><br>
 The software runs on Linux, Windows and <a href="http://snozle.com/2007/05/20/installing-mnemosyne-on-osx-revisited">Mac OSX</a>. For a tour of some of the features, see the screenshots page.
 <h2>Memory research</h2>
