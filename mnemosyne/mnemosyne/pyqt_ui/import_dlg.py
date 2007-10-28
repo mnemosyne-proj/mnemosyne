@@ -31,12 +31,15 @@ class ImportDlg(ImportFrm):
 
         for fformat in get_importable_file_formats():
             self.fileformats.insertItem(fformat.name)
-        self.fileformats.setCurrentText("Text with tab separated Q/A")
+
+        self.fileformats.setCurrentText(get_config("import_format"))
 
         self.categories.insertItem("<default>")
         for cat in get_categories():
             if cat.name != "<default>":
                 self.categories.insertItem(cat.name)
+
+        self.reset_box.setChecked(get_config("reset_learning_data_import"))
         
         self.connect(self.browse_button, SIGNAL("clicked()"), self.browse)
         self.connect(self.ok_button,     SIGNAL("clicked()"), self.apply)
@@ -86,5 +89,7 @@ class ImportDlg(ImportFrm):
                  self.trUtf8("&OK"), QString(), QString(), 0, -1)
         else:
             set_config("import_dir", contract_path(os.path.dirname(fname)))
+            set_config("import_format", fformat_name)
+            set_config("reset_learning_data_import", reset_learning_data)
         
         self.close()

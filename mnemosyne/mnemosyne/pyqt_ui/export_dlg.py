@@ -31,12 +31,15 @@ class ExportDlg(ExportFrm):
 
         for fformat in get_exportable_file_formats():
             self.fileformats.insertItem(fformat.name)
-        self.fileformats.setCurrentText("XML")
-
+            
+        self.fileformats.setCurrentText(get_config("export_format"))
+        
         for cat in get_categories():
             c = QListBoxText(self.categories, cat.name)
             self.categories.setSelected(c, 1)
         self.categories.sort()
+
+        self.reset_box.setChecked(get_config("reset_learning_data_export"))
 
         self.default_fname = get_config("path")[:-3]+"xml"
         self.filename.setText(self.default_fname)
@@ -117,5 +120,7 @@ class ExportDlg(ExportFrm):
                          "", "", 0, -1)
         else:
             set_config("export_dir", contract_path(os.path.dirname(fname)))
+            set_config("export_format", fformat_name)
+            set_config("reset_learning_data_export", reset_learning_data)
 
         self.close()

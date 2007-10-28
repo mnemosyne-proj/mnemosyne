@@ -99,6 +99,20 @@ class EditItemsDlg(EditItemsFrm):
         self.connect(self.close_button, SIGNAL("clicked()"),
                      self.close)
 
+        if get_config("column_0_width") != None:
+            
+            self.item_list.setColumnWidthMode(0, QListView.Manual)
+            self.item_list.setColumnWidthMode(1, QListView.Manual)
+            self.item_list.setColumnWidthMode(2, QListView.Manual)
+            
+            self.item_list.setColumnWidth(0, get_config("column_0_width"))
+            self.item_list.setColumnWidth(1, get_config("column_1_width"))
+            self.item_list.setColumnWidth(2, get_config("column_2_width"))
+
+            self.item_list.setSortColumn(get_config("sort_column"))
+            self.item_list.setSortOrder(\
+                Qt.SortOrder(get_config("sort_order")))            
+                        
         if get_config("list_font") != None:
             font = QFont()
             font.fromString(get_config("list_font"))
@@ -392,4 +406,21 @@ class EditItemsDlg(EditItemsFrm):
         self.found_once = False
         self.last_search_str = None
         self.find_button.setText("&Find")
+
+    ##########################################################################
+    #
+    # closeEvent
+    #
+    ##########################################################################
+
+    def closeEvent(self, event):
+
+        set_config("column_0_width", self.item_list.columnWidth(0))
+        set_config("column_1_width", self.item_list.columnWidth(1))
+        set_config("column_2_width", self.item_list.columnWidth(2))
+
+        set_config("sort_column", self.item_list.sortColumn())
+        set_config("sort_order", int(self.item_list.sortOrder()))        
+        
+        event.accept()
         
