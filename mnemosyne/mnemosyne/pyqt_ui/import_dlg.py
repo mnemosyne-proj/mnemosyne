@@ -55,10 +55,7 @@ class ImportDlg(ImportFrm):
         out = unicode(QFileDialog.getOpenFileName(
                   expand_path(get_config("import_dir")),
                   "All Files (*);;" + fformat.filter,
-                  None,
-                  None,
-                  QString(),
-                  fformat.filter))
+                  self, None, "Import", fformat.filter))
        
         if out != "":
             self.filename.setText(out)

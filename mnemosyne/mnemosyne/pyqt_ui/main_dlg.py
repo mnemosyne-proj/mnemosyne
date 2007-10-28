@@ -170,9 +170,10 @@ class MainDlg(MainFrm):
 
         pause_thinking()
                 
-        oldPath = get_config("path")
+        oldPath = expand_path(get_config("path"))
         out = unicode(QFileDialog.getOpenFileName(oldPath,\
-                                                  "*.mem")).encode("utf-8")
+                 "Mnemosyne databases (*.mem)", self, None, "Open"))\
+                 .encode("utf-8")
         if out != "":
 
             status = unload_database()
@@ -225,9 +226,12 @@ class MainDlg(MainFrm):
     def fileSaveAs(self):
         
         pause_thinking()
-        
-        out = unicode(QFileDialog.getSaveFileName(get_config("path"),\
-                                                  "*.mem")).encode("utf-8")
+
+        oldPath = expand_path(get_config("path"))
+        out = unicode(QFileDialog.getOpenFileName(oldPath,\
+                 "Mnemosyne databases (*.mem)", self, None, "Save As"))\
+                 .encode("utf-8")
+                         
         if out != "":
             
             if out[-4:] != ".mem":

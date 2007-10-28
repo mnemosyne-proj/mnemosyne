@@ -88,8 +88,10 @@ class QTextEdit2(QTextEdit):
     def insert_img(self):
 
         path = expand_path(get_config("import_img_dir"))
-        fname = unicode(QFileDialog.getOpenFileName(path,\
-                                                    "*")).encode("utf-8")
+
+        fname = unicode(QFileDialog.getOpenFileName(path,
+                  "Image files (*.png *.PNG *.gif *.GIF *.jpg *.JPG)",
+                  self, None, "Insert image")).encode("utf-8")
         if fname:
             self.insert("<img src=\""+contract_path(fname)+"\">")
             set_config("import_img_dir", \
@@ -106,8 +108,11 @@ class QTextEdit2(QTextEdit):
     def insert_sound(self):
 
         path = expand_path(get_config("import_sound_dir"))
+        
         fname = unicode(QFileDialog.getOpenFileName(path,\
-                                                  "*")).encode("utf-8")
+                  "Sound files (*.wav *.WAV *.mp3 *.MP3)",
+                  self, None, "Insert sound")).encode("utf-8")
+        
         if fname:
             self.insert("<sound src=\""+contract_path(fname)+"\">")
             set_config("import_sound_dir", \
