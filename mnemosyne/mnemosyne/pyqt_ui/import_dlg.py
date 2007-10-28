@@ -74,7 +74,7 @@ class ImportDlg(ImportFrm):
 
     def apply(self):
 
-        fname = unicode(self.filename.text()).encode("utf-8")
+        fname = unicode(self.filename.text())
         fformat_name = unicode(self.fileformats.currentText())
         cat_name = unicode(self.categories.currentText())
         reset_learning_data = self.reset_box.isChecked()
