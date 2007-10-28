@@ -215,7 +215,7 @@ class EditItemsDlg(EditItemsFrm):
                      "\nso you might want to run 'clean duplicates' "+\
                      "afterwards."),
                     self.trUtf8("&Yes"), self.trUtf8("&No"),
-                    QString(), 1, -1)
+                    QString(), 2, -1)
         if status == 1:
             return
         else:

@@ -56,7 +56,7 @@ class ExportDlg(ExportFrm):
                       unicode(self.fileformats.currentText()))
 
         out = unicode(QFileDialog.getSaveFileName(
-                  get_config("import_dir"),
+                  expand_path(get_config("export_dir")),
                   "All Files (*);;" + fformat.filter,
                   None,
                   None,
@@ -118,5 +118,7 @@ class ExportDlg(ExportFrm):
                          .append(QString("\n" + fname)),
                          qApp.translate("Mnemosyne", "&OK"),
                          "", "", 0, -1)
+        else:
+            set_config("export_dir", contract_path(os.path.dirname(fname)))
 
         self.close()

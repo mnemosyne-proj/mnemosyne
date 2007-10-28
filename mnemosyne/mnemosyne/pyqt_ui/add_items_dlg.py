@@ -41,13 +41,13 @@ class AddItemsDlg(AddItemsFrm):
         self.connect(self.preview_button, SIGNAL("clicked()"),
                      self.preview)
 
-        self.connect(self.question, PYSIGNAL("3_way_input_toggled"),
+        self.connect(self.question, PYSIGNAL("3_sided_input_toggled"),
                      self.update_dialog)
         
-        self.connect(self.pronunciation, PYSIGNAL("3_way_input_toggled"),
+        self.connect(self.pronunciation, PYSIGNAL("3_sided_input_toggled"),
                      self.update_dialog)
 
-        self.connect(self.answer, PYSIGNAL("3_way_input_toggled"),
+        self.connect(self.answer, PYSIGNAL("3_sided_input_toggled"),
                      self.update_dialog)
         
         if get_config("QA_font") != None:
@@ -141,11 +141,11 @@ class AddItemsDlg(AddItemsFrm):
 
     ##########################################################################
     #
-    # allow_3_way
+    # allow_3_sided
     #
     ##########################################################################
 
-    def allow_3_way(self):
+    def allow_3_sided(self):
 
         return True
 
@@ -158,7 +158,7 @@ class AddItemsDlg(AddItemsFrm):
 
     def update_dialog(self):
 
-        if get_config("3_way_input") == False:
+        if get_config("3_sided_input") == False:
             self.q_label.setText("Question:")
             self.p_label.hide()            
             self.pronunciation.hide()
@@ -181,7 +181,7 @@ class AddItemsDlg(AddItemsFrm):
 
     def preview(self):
 
-        if get_config("3_way_input") == False:
+        if get_config("3_sided_input") == False:
         
             dlg = PreviewItemDlg(unicode(self.question.text()),
                                  unicode(self.answer.text()),
@@ -297,7 +297,7 @@ class AddItemsDlg(AddItemsFrm):
             if q == "":
                 return
 
-        if get_config("3_way_input") == False:
+        if get_config("3_sided_input") == False:
 
             orig_added = self.check_duplicates_and_add(grade,q,a,cat_name)
             rev_added = None
@@ -320,14 +320,14 @@ class AddItemsDlg(AddItemsFrm):
                 self.question.setText("")
                 self.answer.setText("")
 
-        else: # 3-way input.
+        else: # 3-sided input.
             
             i = self.check_duplicates_and_add(grade,q,p+'\n'+a,cat_name)
             self.check_duplicates_and_add(grade,a,q+'\n'+p,cat_name,
                                           i.id+'.tr.1')
             
             self.question.setText("")
-            self.pronunciation.setText("")            
+            self.pronunciation.setText("")  
             self.answer.setText("")
                 
         self.question.setFocus()

@@ -61,11 +61,11 @@ class EditItemDlg(EditItemFrm):
 
     ##########################################################################
     #
-    # allow_3_way
+    # allow_3_sided
     #
     ##########################################################################
 
-    def allow_3_way(self):
+    def allow_3_sided(self):
 
         return False
 

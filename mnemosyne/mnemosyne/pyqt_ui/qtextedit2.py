@@ -48,13 +48,13 @@ class QTextEdit2(QTextEdit):
         popup.insertItem(self.tr("Insert &sound"),      
                          self.insert_sound, 'Ctrl+S')
 
-        if self.parent().allow_3_way():
+        if self.parent().allow_3_sided():
                     
             popup.insertSeparator()
-            popup.insertItem(self.tr("&3-way input"),
-                             self.toggle_3_way, 'Ctrl+3', 333)
+            popup.insertItem(self.tr("&3-sided input"),
+                             self.toggle_3_sided, 'Ctrl+3', 333)
 
-            popup.setItemChecked(333, get_config("3_way_input"))
+            popup.setItemChecked(333, get_config("3_sided_input"))
         
         return popup
 
@@ -73,7 +73,7 @@ class QTextEdit2(QTextEdit):
         elif event.key() == Qt.Key_S and event.state() == Qt.ControlButton:
             self.insert_sound()
         elif event.key() == Qt.Key_3 and event.state() == Qt.ControlButton:
-            self.toggle_3_way()
+            self.toggle_3_sided()
         else:
             QTextEdit.keyPressEvent(self, event)
 
@@ -117,14 +117,14 @@ class QTextEdit2(QTextEdit):
         
     ##########################################################################
     #
-    # toggle_3_way
+    # toggle_3_sided
     #
     ##########################################################################
     
-    def toggle_3_way(self):
+    def toggle_3_sided(self):
         
-        b = not get_config("3_way_input")
-        set_config("3_way_input", b)
+        b = not get_config("3_sided_input")
+        set_config("3_sided_input", b)
 
-        self.emit(PYSIGNAL("3_way_input_toggled"), ())
+        self.emit(PYSIGNAL("3_sided_input_toggled"), ())
         
