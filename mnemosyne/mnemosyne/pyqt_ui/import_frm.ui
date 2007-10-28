@@ -85,7 +85,7 @@
                         <cstring>textLabel2</cstring>
                     </property>
                     <property name="text">
-                        <string>Put items without category into this category:</string>
+                        <string>Put cards without category into this category:</string>
                     </property>
                 </widget>
                 <widget class="QComboBox">
@@ -107,7 +107,7 @@
                         <cstring>textLabel3</cstring>
                     </property>
                     <property name="text">
-                        <string>Note: all items will be added to the current database.</string>
+                        <string>Note: all cards will be added to the current database.</string>
                     </property>
                 </widget>
                 <widget class="QCheckBox">

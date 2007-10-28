@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Edit items</string>
+        <string>Edit deck</string>
     </property>
     <vbox>
         <property name="name">
@@ -58,7 +58,7 @@
                         <cstring>textLabel1</cstring>
                     </property>
                     <property name="text">
-                        <string>To edit an item, right-click on it.</string>
+                        <string>To edit a card, right-click on it.</string>
                     </property>
                 </widget>
                 <widget class="QListView">

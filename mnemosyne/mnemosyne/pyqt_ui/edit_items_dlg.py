@@ -75,14 +75,14 @@ class EditItemsDlg(EditItemsFrm):
         self.popup_1.insertItem(self.tr("&Preview"), self.preview, \
                                 Qt.CTRL+Qt.Key_P)
         self.popup_1.insertItem(self.tr("&Add vice versa"), self.viceversa)
-        self.popup_1.insertItem(self.tr("&Statistics"), self.statistics, \
-                                Qt.CTRL+Qt.Key_S)
+        self.popup_1.insertItem(self.tr("S&tatistics"), self.statistics, \
+                                Qt.CTRL+Qt.Key_T)
         self.popup_1.insertItem(self.tr("&Delete"), self.delete, \
                                 Qt.Key_Delete)
         
         self.popup_2 = QPopupMenu(self, "menu2")
         self.popup_2.insertItem(self.tr("&Change category"),
-                                                      self.change_category)
+                                self.change_category)
         self.popup_2.insertItem(self.tr("&Add vice versa"), self.viceversa)
         self.popup_2.insertItem(self.tr("&Delete"), self.delete)
         
@@ -166,7 +166,7 @@ class EditItemsDlg(EditItemsFrm):
             return
         
         list_item = self.selected[0]
-        dlg = EditItemDlg(list_item.item,self,"Edit current item",0)
+        dlg = EditItemDlg(list_item.item,self,"Edit current card",0)
         dlg.exec_loop()
         list_item.setText(0, list_item.item.q)
         list_item.setText(1, list_item.item.a)
@@ -186,7 +186,7 @@ class EditItemsDlg(EditItemsFrm):
         
         item = self.selected[0].item
         dlg = PreviewItemDlg(item.q,item.a,item.cat.name,
-                             self,"Preview current item",0)
+                             self,"Preview current card",0)
         
         dlg.exec_loop()
         
@@ -203,9 +203,9 @@ class EditItemsDlg(EditItemsFrm):
             return
         
         if len(self.selected) > 1:
-            message = "Add vice versa of these items?"
+            message = "Add vice versa of these card?"
         else:
-            message = "Add vice versa of this item?"
+            message = "Add vice versa of this card?"
             
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
@@ -266,9 +266,9 @@ class EditItemsDlg(EditItemsFrm):
             return
         
         if len(self.selected) > 1:
-            message = "Delete these items?"
+            message = "Delete these cards?"
         else:
-            message = "Delete this item?"            
+            message = "Delete this card?"            
         
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
@@ -378,7 +378,8 @@ class EditItemsDlg(EditItemsFrm):
     ##########################################################################
     
     def keyPressEvent(self, e):
-        if e.key() == Qt.Key_F3:
+        if e.key() == Qt.Key_F3 or \
+          (e.key() == Qt.Key_F and e.state() == Qt.ControlButton):
             self.find()
             
     ##########################################################################

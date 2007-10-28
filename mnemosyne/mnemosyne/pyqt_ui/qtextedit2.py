@@ -66,16 +66,16 @@ class QTextEdit2(QTextEdit):
     #
     ##########################################################################
     
-    def keyPressEvent(self, event):
+    def keyPressEvent(self, e):
         
-        if event.key() == Qt.Key_I and event.state() == Qt.ControlButton:
+        if e.key() == Qt.Key_I and e.state() == Qt.ControlButton:
             self.insert_img()
-        elif event.key() == Qt.Key_S and event.state() == Qt.ControlButton:
+        elif e.key() == Qt.Key_S and e.state() == Qt.ControlButton:
             self.insert_sound()
-        elif event.key() == Qt.Key_3 and event.state() == Qt.ControlButton:
+        elif e.key() == Qt.Key_3 and e.state() == Qt.ControlButton:
             self.toggle_3_sided()
         else:
-            QTextEdit.keyPressEvent(self, event)
+            QTextEdit.keyPressEvent(self, e)
 
 
 

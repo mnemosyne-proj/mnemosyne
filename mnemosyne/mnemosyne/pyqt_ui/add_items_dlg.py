@@ -127,7 +127,7 @@ class AddItemsDlg(AddItemsFrm):
 
         status = QMessageBox.warning(None,
                         qApp.translate("Mnemosyne", "Mnemosyne"),
-                        qApp.translate("Mnemosyne", "Abandon current item?"),
+                        qApp.translate("Mnemosyne", "Abandon current card?"),
                         qApp.translate("Mnemosyne", "&Yes"),
                         qApp.translate("Mnemosyne", "&No"),
                         "", 1, -1)
@@ -186,13 +186,13 @@ class AddItemsDlg(AddItemsFrm):
             dlg = PreviewItemDlg(unicode(self.question.text()),
                                  unicode(self.answer.text()),
                                  unicode(self.categories.currentText()),
-                                 self,"Preview current item",0)
+                                 self,"Preview current card",0)
         else:
             dlg = PreviewItemDlg(unicode(self.question.text()),
                                  unicode(self.pronunciation.text()+"\n"\
                                          +self.answer.text()),
                                  unicode(self.categories.currentText()),
-                                 self,"Preview current item",0)            
+                                 self,"Preview current card",0)            
         dlg.exec_loop()
 
         
@@ -221,7 +221,7 @@ class AddItemsDlg(AddItemsFrm):
                         if item.cat.name == cat_name or not allow_dif_cat:
                             QMessageBox.information(None,
                                 self.trUtf8("Mnemosyne"),
-                                self.trUtf8("Item is already in database.\n"+
+                                self.trUtf8("Card is already in database.\n"+
                                             "Duplicate not added."),
                                 self.trUtf8("&OK"))
                 
@@ -257,7 +257,7 @@ class AddItemsDlg(AddItemsFrm):
                         new_item.a += ' / ' + i.a
                         delete_item(i)
                         
-                    dlg = EditItemDlg(new_item, self, "Edit merged item", 0)
+                    dlg = EditItemDlg(new_item, self, "Edit merged card", 0)
                     
                     dlg.exec_loop()
                     

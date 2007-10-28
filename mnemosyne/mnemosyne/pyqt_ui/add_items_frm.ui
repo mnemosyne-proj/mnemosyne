@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Add items</string>
+        <string>Add cards</string>
     </property>
     <vbox>
         <property name="name">
@@ -137,10 +137,10 @@
                         <cstring>addViceVersa</cstring>
                     </property>
                     <property name="text">
-                        <string>&amp;Add vice versa too</string>
+                        <string>Add &amp;vice versa too</string>
                     </property>
                     <property name="accel">
-                        <string>Alt+A</string>
+                        <string>Alt+V</string>
                     </property>
                 </widget>
                 <widget class="QButtonGroup">
@@ -184,7 +184,7 @@
                                         <string>&amp;0</string>
                                     </property>
                                     <property name="accel">
-                                        <string>0</string>
+                                        <string>Ctrl+0</string>
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
@@ -201,7 +201,7 @@
                                         <string>&amp;1</string>
                                     </property>
                                     <property name="accel">
-                                        <string>1</string>
+                                        <string>Ctrl+1</string>
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
@@ -218,7 +218,7 @@
                                         <string>&amp;2</string>
                                     </property>
                                     <property name="accel">
-                                        <string>2</string>
+                                        <string>Ctrl+2</string>
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
@@ -235,7 +235,7 @@
                                         <string>&amp;3</string>
                                     </property>
                                     <property name="accel">
-                                        <string>3</string>
+                                        <string>Ctrl+3</string>
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
@@ -252,7 +252,7 @@
                                         <string>&amp;4</string>
                                     </property>
                                     <property name="accel">
-                                        <string>4</string>
+                                        <string>Ctrl+4</string>
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
@@ -269,7 +269,7 @@
                                         <string>&amp;5</string>
                                     </property>
                                     <property name="accel">
-                                        <string>5</string>
+                                        <string>Ctrl+5</string>
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
@@ -306,7 +306,7 @@
                                 <string>&amp;Preview</string>
                             </property>
                             <property name="accel">
-                                <string>Alt+P</string>
+                                <string>Ctrl+P</string>
                             </property>
                             <property name="autoDefault">
                                 <bool>false</bool>

@@ -283,7 +283,7 @@
                                         <cstring>checkDuplicates</cstring>
                                     </property>
                                     <property name="text">
-                                        <string>Check for duplicates when adding new items</string>
+                                        <string>Check for duplicates when adding new cards</string>
                                     </property>
                                 </widget>
                                 <widget class="QCheckBox">
@@ -322,7 +322,7 @@
                                         <cstring>textLabel1</cstring>
                                     </property>
                                     <property name="text">
-                                        <string>Number of grade 0 items to learn at once:</string>
+                                        <string>Number of grade 0 cards to learn at once:</string>
                                     </property>
                                 </widget>
                                 <widget class="QSpinBox">

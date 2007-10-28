@@ -348,18 +348,18 @@
         <separator/>
         <action name="fileExitAction"/>
     </item>
-    <item text="&amp;Database" name="Database">
+    <item text="&amp;Deck" name="Deck">
         <action name="addItemsAction"/>
-        <action name="editItemsAction"/>
-        <action name="cleanDuplicatesAction"/>
-        <action name="ShowStatisticsAction"/>
-        <separator/>
         <action name="editCurrentItemAction"/>
         <action name="deleteCurrentItemAction"/>
         <separator/>
+        <action name="editItemsAction"/>
         <action name="activateCategoriesAction"/>
+        <action name="cleanDuplicatesAction"/>
+        <separator/>
+        <action name="ShowStatisticsAction"/>
     </item>
-    <item text="Se&amp;ttings" name="Settings">
+    <item text="&amp;Settings" name="Settings">
         <action name="showToolbarAction"/>
         <action name="configurationAction"/>
     </item>
@@ -536,10 +536,10 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>&amp;Add items</string>
+            <string>&amp;Add cards</string>
         </property>
         <property name="toolTip">
-            <string>Add items</string>
+            <string>Add cards</string>
         </property>
         <property name="statusTip">
             <string>.</string>
@@ -556,7 +556,7 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>Ac&amp;tivate categories</string>
+            <string>Act&amp;ivate categories</string>
         </property>
         <property name="toolTip">
             <string></string>
@@ -579,16 +579,16 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>&amp;Edit items</string>
+            <string>Edit &amp;deck</string>
         </property>
         <property name="toolTip">
-            <string>Edit items</string>
+            <string>Edit deck</string>
         </property>
         <property name="statusTip">
             <string>.</string>
         </property>
         <property name="accel">
-            <string>Ctrl+E</string>
+            <string>Ctrl+D</string>
         </property>
     </action>
     <action>
@@ -668,16 +668,16 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>E&amp;dit current item</string>
+            <string>&amp;Edit current card</string>
         </property>
         <property name="toolTip">
-            <string>Edit current item</string>
+            <string>Edit current card</string>
         </property>
         <property name="statusTip">
             <string>.</string>
         </property>
         <property name="accel">
-            <string>Alt+E</string>
+            <string>Ctrl+E</string>
         </property>
     </action>
     <action>
@@ -694,10 +694,10 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>&amp;Delete current item</string>
+            <string>&amp;Delete current card</string>
         </property>
         <property name="toolTip">
-            <string>Delete current item</string>
+            <string>Delete current card</string>
         </property>
         <property name="statusTip">
             <string>.</string>
@@ -718,9 +718,6 @@
         </property>
         <property name="statusTip">
             <string>.</string>
-        </property>
-        <property name="accel">
-            <string>Alt+C</string>
         </property>
     </action>
     <action>
@@ -782,7 +779,7 @@
             <cstring>pressRAction</cstring>
         </property>
         <property name="accel">
-            <string>R</string>
+            <string>Ctrl+R</string>
         </property>
     </action>
     <action>
@@ -793,10 +790,10 @@
             <string>Show statistics</string>
         </property>
         <property name="menuText">
-            <string>Show &amp;statistics</string>
+            <string>Show s&amp;tatistics</string>
         </property>
         <property name="accel">
-            <string>Ctrl+S</string>
+            <string>Ctrl+T</string>
         </property>
     </action>
 </actions>

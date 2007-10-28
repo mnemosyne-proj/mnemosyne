@@ -71,7 +71,7 @@ def clean_duplicates(self):
         if len(itemlist) > 1:
                 
             status = QMessageBox.question(None, self.trUtf8("Mnemosyne"),
-                  unicode(self.trUtf8("There are items with different " +
+                  unicode(self.trUtf8("There are cards with different " +
                           "answers for question:<br><br> %s")) \
                                           % (itemlist[0].q),
                   self.trUtf8("&Merge and edit"),
@@ -89,7 +89,7 @@ def clean_duplicates(self):
                     delete_item(i)
                 new_item = add_new_item(new_item.grade, new_item.q,
                                         new_item.a, new_item.cat.name)
-                dlg = EditItemDlg(new_item,self,"Edit merged item",0)
+                dlg = EditItemDlg(new_item,self,"Edit merged card",0)
                 dlg.exec_loop()
 
 

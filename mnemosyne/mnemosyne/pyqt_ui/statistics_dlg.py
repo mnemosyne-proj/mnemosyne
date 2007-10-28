@@ -52,7 +52,7 @@ class StatisticsDlg(StatisticsFrm):
 
         # Schedule information.
 
-        text = "Scheduled items for the next days:\n\n"
+        text = "Scheduled cards for the next days:\n\n"
 
         old_cumulative = 0
         for days in range(0,8):
@@ -65,7 +65,7 @@ class StatisticsDlg(StatisticsFrm):
 
         # Grade information.
 
-        text = "Number of items with the following grades:\n\n"
+        text = "Number of cards with the following grades:\n\n"
 
         grades = [0, 0, 0, 0, 0, 0]
         for item in get_items():

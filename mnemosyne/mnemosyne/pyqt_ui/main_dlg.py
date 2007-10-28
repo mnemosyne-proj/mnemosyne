@@ -300,7 +300,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        dlg = AddItemsDlg(self,"Add items",0)
+        dlg = AddItemsDlg(self,"Add cards",0)
         dlg.exec_loop()
         
         if self.item == None:
@@ -319,7 +319,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        dlg = EditItemsDlg(self,"Edit items",0)
+        dlg = EditItemsDlg(self,"Edit cards",0)
         dlg.exec_loop()
         rebuild_revision_queue()
         
@@ -373,7 +373,7 @@ class MainDlg(MainFrm):
     def editCurrentItem(self):
         
         pause_thinking()
-        dlg = EditItemDlg(self.item,self,"Edit current item",0)
+        dlg = EditItemDlg(self.item,self,"Edit current card",0)
         dlg.exec_loop()
         self.updateDialog()
         unpause_thinking()
@@ -390,7 +390,7 @@ class MainDlg(MainFrm):
         
         status = QMessageBox.warning(None,
                     self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Delete current item?"),
+                    self.trUtf8("Delete current card?"),
                     self.trUtf8("&Yes"), self.trUtf8("&No"),
                     QString(), 1, -1)
         
@@ -653,13 +653,13 @@ class MainDlg(MainFrm):
         # Update buttons.
         
         if self.state == "EMPTY":
-            show_enabled, default, text = 0, 1, "&Show answer"
+            show_enabled, default, text = 0, 1, "Show &answer"
             grades_enabled = 0
         elif self.state == "SELECT SHOW":
-            show_enabled, default, text = 1, 1, "&Show answer"
+            show_enabled, default, text = 1, 1, "Show &answer"
             grades_enabled = 0
         elif self.state == "SELECT GRADE":
-            show_enabled, default, text = 0, 1, "&Show answer"
+            show_enabled, default, text = 0, 1, "Show &answer"
             grades_enabled = 1
         elif self.state == "SELECT AHEAD":
             show_enabled, default, text = 1, 0, "Learn ahead of schedule"

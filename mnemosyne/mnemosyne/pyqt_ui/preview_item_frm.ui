@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Preview item</string>
+        <string>Preview card</string>
     </property>
     <vbox>
         <property name="name">

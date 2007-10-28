@@ -93,7 +93,7 @@
                         </column>
                         <column>
                             <property name="text">
-                                <string>Items</string>
+                                <string>Cards</string>
                             </property>
                             <property name="clickable">
                                 <bool>true</bool>
