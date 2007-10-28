@@ -21,7 +21,7 @@ body {
 	position: absolute;
 	left: 170px;
 	top: 50px;	
-	border-left: 1px #3300FF dashed; 	
+	border-left: 1px #A50303 dashed; 	
 	padding: 10 10 10 20px; }
 
 #question {       
@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {
         font-weight: normal;
         text-shadow: #ccc 2px 3px 3px;
         font-variant: small-caps;
-	color: #3300FF; }
+	color: #A50303; }
 
 h1 { font-size: 24px; }
 h2 { font-size: 18px; }
@@ -49,8 +49,8 @@ h4 { font-size: 14px; }
 h5 { font-size: 10px; }
 h6 { font-size:  9px; } 
 
-A:link     { color:#3300FF; text-decoration: none; }
-A:visited  { color:#3300FF; text-decoration: none; }
+A:link     { color:#A50303; text-decoration: none; }
+A:visited  { color:#A50303; text-decoration: none; }
 
 ol, ul, li {
 	font-size: 12px;

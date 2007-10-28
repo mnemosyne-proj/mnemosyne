@@ -44,15 +44,15 @@ class QTextEdit2(QTextEdit):
         popup = QTextEdit.createPopupMenu(self, pos)
         popup.insertSeparator()
         popup.insertItem(self.tr("Insert &image"),
-                         self.insert_img, 'Ctrl+I')
-        popup.insertItem(self.tr("Insert &sound"),      
-                         self.insert_sound, 'Ctrl+S')
+                         self.insert_img, Qt.CTRL + Qt.Key_I)
+        popup.insertItem(self.tr("Insert &sound"),
+                         self.insert_sound, Qt.CTRL + Qt.Key_S)
 
         if self.parent().allow_3_sided():
                     
             popup.insertSeparator()
             popup.insertItem(self.tr("&3-sided input"),
-                             self.toggle_3_sided, 'Ctrl+3', 333)
+                             self.toggle_3_sided, Qt.Key_unknown, 333)
 
             popup.setItemChecked(333, get_config("3_sided_input"))
         

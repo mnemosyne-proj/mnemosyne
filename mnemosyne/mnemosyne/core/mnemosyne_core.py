@@ -129,7 +129,11 @@ def init_config():
     config.setdefault("first_run", True)
     config.setdefault("path", "default.mem")
     config.setdefault("import_dir", basedir)
+    config.setdefault("import_format", "XML")
+    config.setdefault("reset_learning_data_import", False)
     config.setdefault("export_dir", basedir)
+    config.setdefault("export_format", "XML")
+    config.setdefault("reset_learning_data_export", False)    
     config.setdefault("import_img_dir", basedir)
     config.setdefault("import_sound_dir", basedir)    
     config.setdefault("user_id",md5.new(str(random.random())).hexdigest()[0:8])
@@ -147,7 +151,12 @@ def init_config():
     config.setdefault("grade_0_items_at_once", 5)
     config.setdefault("last_add_vice_versa", False)
     config.setdefault("last_add_category", "<default>")
-    config.setdefault("3_sided_input", False)        
+    config.setdefault("3_sided_input", False)
+    config.setdefault("column_0_width", None)
+    config.setdefault("column_1_width", None)
+    config.setdefault("column_2_width", None)    
+    config.setdefault("sort_column", None)
+    config.setdefault("sort_order", None)    
 
 
 

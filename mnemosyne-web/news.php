@@ -7,10 +7,52 @@
 <h1>News</h1>
 
 <br>
-<b>2007-08-16</b>: released Mnemosyne 0.9.9<br>
+<b>2007-10-28</b>: released Mnemosyne 0.9.10<br>
 <br>
 (Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)<br><br>
+-added 3-sided cards, to make dealing with vocabulary in foreign scripts 
+ easier. Right clicking the text field in 'add cards' gives you to option
+ to switch to 3-sided card input, which replaces the question and answer
+ fields by 3 fields: written form, pronunciation, translation. After 
+ selecting an initial grade, 2 cards will be added:
+<br><br>
+  Q: written form<br>
+  A: pronunciation<br>
+     translation<br>
+<br>
+ and<br>
+<br>
+  Q: translation<br>
+  A: written form<br>
+     pronunciation <br> 
+<br>
+-when creating multiple cards from the same data (either through add vice
+ versa or the 3-sided input), the relationship between these cards is now
+ stored. In a future version, this will make it possible that editing one 
+ card of the set automatically updates the other ones.<br>
+-added feature to insert an image or a sound tag by using a file selector. 
+ Accessed through popup-menu or keyboard shortcuts.<br>
+-remember more settings across invocations: file formats and directories,
+ reset learning data, column width and sorting order, ...<br>
+-rationalised keyboard shortcuts and menus. Added list of keyboard shortcuts
+ to the website.<br>
+-polished file dialogs.<br>
+-when possible, paths in the config file are now saved relative to the 
+ .mnemosyne directory rather than as absolute paths. This makes it easier
+ to copy the .mnemosyne directory back and forth between a Linux and a
+ Windows machine.<br>
+-respect duplicate handling configuration options when importing (reported 
+ by lebowski_404).<br>
+-latex output and error messages are now written to the file 
+ <code>.mnemosyne/latex/latex_out.txt</code> rather than to the screen, so that they are not lost for Windows users.<br>
+-fixed bug when showing the statistics for an empty database (reported by 
+ Gintautas Miliauskas).
+<br>
+
+<br>
+<b>2007-08-16</b>: released Mnemosyne 0.9.9<br>
+<br>
 -added 'Show statistics' menu option, showing the schedule for the
  next week, the distribution of the items over the grades and the number
  of items for each category.<br>
