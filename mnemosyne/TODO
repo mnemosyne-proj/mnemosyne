@@ -1,76 +1,29 @@
-Mnemosyne 0.9.10:
-
--add 2>&1 1>latex_out.txt to the latex command. test under Windows.
--test path contraction under Windows
-
--keyboard shortcuts:
-
-new
-open
-save : S
-statistics : T? (2 times)
-
-insert sound : S?
-insert image : I
-3 way input: 3
-
-find: F3, add ctrl f?
-
-add (select all?) : A
-clean duplicates: remove
-
-edit current : E 
-edit all : K (knowledge manager)
-edit in list : E
-preview : P (implement)
-replay sound
-
-in text edit: undo, redo, cut, copy, paste
-add vv?
-
-export location not saved?
-
-add vice versa: default yes
-
-
-check accelerators
-
--remember column size, sort order in edit window
--remember last import/export format + reset flag
-
--title for import file dialogs
--filter file types on import pictures, sound
-
--document new features (also on screen shots page): 3-way input, ...
--update faq: unison sync, database sharing, call for help on database 
-site, feature request philosophy
-
-
-
 Memosyne analysis:
 
 -add to cvs
 -document
 -release
 -research section on web site
-
+-add Ryan to authors
 
 
 Mnemosyne 1.0:
 
--add current item statistics to dialog?
+-tooltips with keyboard shortcuts
 
--text on add_items: right click for more options?
+-rename product tour to getting started
 
--I got it right but probably won't remember it tomorrow?
+-make sure we accept all the image and sound files types (ogg)
 
--rename items to cards, database to deck
+-automatic backups
 
--menu order?
+-config file (e.g. for align left)
 
--better action icons (remove some altogether?)
+-tooltips with scheduled interval for each grade
 
--Mnemosyne logo
+-give more feedback on import failure
+
+-small version of Mnemosyne logo, add logo to about and getting started
 
 -desktop file to /usr/share/applications, icon file
 
@@ -80,119 +33,63 @@ Mnemosyne 1.0:
     http://www.cssbasics.com/
   better mailing list / forums page
   contributors page
+  feature page
+  better explanation of short term / long term
+  faq on backlog
+  faq on grayed out edit button (to config.py? remove altogether?)
+  update screenshots
+
+
+-move to subversion
+
+
+Mnemosyne 1.0.x series:
+
+-add current card statistics to statistics dialog
+
+-basic graphical statistics
+
+-change file suffix when changing export format
 
 
 
-After 1.0:
-
--unicode filenames (remove encode, set LANG to UTF-8 in system)
-
--give more feedback on import failure
-
--graphical statistics
-
--change file suffix when changing export file format
-
--pg up and down in preview mode
-
--tip of the day
-
--template expansion (disable add-vice-versa) ( both {../..} and {}..{})
-
--cloze deletion (disable add-vice-versa and template expansion)
-
--paste from clipboard
-
--drag and drop of pictures, sound files
-
--clean obsolete latex images / autogenerate them
-
--make <a> links clickable
-
--undo last grade + keyboard shortcut
-
--text file in some directory as template per category?
-
--animated GIFs
-
--DTD for xml format
-
--feedback about uploads in GUI / add time-out
-
--automatic backups
-
--forward / backward when previewing items in the database
-
--clean up interval when importing from txt
-
--tooltips with scheduled interval for each grade?
-
--remember window size set by the user?
-
--drop-down box in edit items to show only items in a single category?
-
--add 'add item' option to edit items list?
-
--make really sure the same question isn't asked twice in row?
-
--determine export file type based on suffix?
-
--what if window becomes larger than screen?
-
--unify save and export?
-
--clean duplicates for answers too?
-
--hints? separate mnemonics?
-
--USB key version?
-
--corner case: If M > 0 and k < 0 then (a,b) is a local maximum
-If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
+Mnemosyne 1.1:
 
 
+-benchmark SQLAlchemy and move to sqlite backend (encode card relations and
+ tag hierarchy in name, multiple category fields per card)
 
-Mnemosyne 2.0:
+-What to do with StartTime object?
 
--benchmark SQLAlchemy
-
--http://spyced.blogspot.com/2007/01/why-sqlalchemy-impresses-me.html
-
--regular expression search, all results in separate window (i.e. filter 
-behaviour)
-
--Upgrade to Qt4
+-test database widget to see if we need Qt4 now. (Note: if the category is
+ stored as a number, we probably do. If so, see if first updating to Qt4
+ is a better incremental development policy.
 
 -rename edit_items to knowledge manager, items to cards at the source level
 
--instead of QListview, use the model/view framework from Qt4 
- or database widget
+-detect and mark inverses
+
+-what if doing 'add vice versa' when the id is already '.inv'?
+
+-update XML import/export to new database format
+
+-make sure that reset learning data (both import and export) doesn't break
+ the connection between cards.
 
 -autosave
 
--front widget that allows copying
+-make really sure the same question isn't asked twice in a row
 
--advanced statistics, history, forgetting index, histogram of grades 
-and intervals... (look at graph in JMemorize)
 
--multiple categories per item, hierarchical categories
 
--advanced database editor, with tree view of categories, drand and drop
- to change categories, add item option, ...
+Mnemosyne 1.2:
 
--per category statistics in 'Activate categories'
+-Upgrade to Qt4
 
--undo button
+-front widget that allows copying, can produce scroll bars
 
--icon handling patch Dirk (needs Qt4?)
-
--better sound replay support, through clicking on an icon
-
--priorities for categories?
-
--separate colors per category?
-
--multiple answers per questions?
+-instead of QListview, use the model/view framework from Qt4 
+ or database widget
 
 -bug in Qt? : get rid of dummy '.' status tips
 
@@ -201,6 +98,134 @@ and intervals... (look at graph in JMemorize)
 
 -bug in Qt? : spaces around images are not respected.
 
+-consistent editing of vice versa and three-sided cards
+
+
+
+Mnemosyne 1.3:
+
+-rename categories to tags?
+
+-GUI support for multiple tags per card (Note: for tags relating
+ to direction of card, we probably don't need to specify them explicitly,
+ but can read them off the IDs.)
+
+
+
+Mnemosyne 1.4
+
+-synonym handling
+
+
+
+Mnemosyne 1.5
+
+-hierarchical tags
+
+-advanced deck manager, with tree view of tags, drag and drop
+ to change tags, count of items/facts...
+
+-regular expression search?
+
+-add 'add card' option to deck manager?
+
+
+
+Mnemosyne 1.6
+
+-plugin mechanism
+
+-check out python eggs
+
+-custom card types with custom fields, template for cards
+
+-language specific card types (arabic, japanese, integrated dictionary lookup)
+
+-make more publicity
+
+-template expansion (disable add-vice-versa) ( both {../..} and {}..{})
+
+-cloze deletion (disable add-vice-versa and template expansion)
+
+-mnemosyne analysis as plugin
+
+
+
+Miscellaneous
+
+-tip of the day
+
+-unify number shortcuts (with and without Ctrl)
+
+-forward / backward when previewing cards in the database
+
+-clean up interval when importing from txt
+
+-USB key version as alternative for web based revision
+
+-recreate user_id and log_index from files in history folder
+
+-paste from clipboard
+
+-drag and drop of pictures, sound files
+
+-autoupgrade, or at least notify of available upgrade (needs a separate thread)
+
+-mini toolbar for adding pictures and sounds
+
+-remember window size set by the user?
+
+-undo last grade + keyboard shortcut
+
+-per category statistics in 'Activate categories'
+
+-icon handling patch Dirk
+
+-manual
+
+-better sound replay support, through clicking on an icon
+
+-option to type right answer
+
+-integrate Mnemosyne analysis, advanced statistics, history, 
+ forgetting index, histogram of grades and intervals... (look at graphs 
+ in JMemorize)
+
+-getting the last repetition of a card: 
+ http://spyced.blogspot.com/2007/01/why-sqlalchemy-impresses-me.html
+
+-eager loading / joins?
+
+-importing cards from rss feed
+
+-clean obsolete latex images / autogenerate them
+
+-make <a> links clickable
+
+-feedback about uploads in GUI / add time-out
+
+-investigate ridiculously large thinking times
+
+-animated GIFs
+
+-DTD for xml format
+
+-priorities for categories?
+
+-determine import / export file type based on suffix 
+ (i.e. remove file format field)? Probably not possible, as
+ file dialogs only return filenames, not the chosen filter type.
+
+-separate colors per category?
+
+-unify save and export?
+
+-clean duplicates for answers too?
+
+-hints? separate mnemonics?
+
+-corner case: If M > 0 and k < 0 then (a,b) is a local maximum
+If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
 
 
 

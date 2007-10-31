@@ -1,13 +1,23 @@
-MNEMOSYNE 0.9.10
+
+MNEMOSYNE 1.0
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
--added a feature to make dealing with vocabulary in foreign scripts 
- easier. Right clicking the text field in 'add items' gives you to option
- to switch to 3-way input, which replaces the question and answer fields 
- by 3 fields: written form, pronunciation, translation. After selecting an
- initial grade, 2 items will be added:
+-new logo, thanks to a contributor whose name sadly got lost in the 
+ demise of the open-collab site.
+-new icons, based on the Crystal iconset.
+-added support for Unicode filenames.
+-fixed 'Save as' option.
+
+	
+MNEMOSYNE 0.9.10 : 2007-10-28
+
+-added 3-sided cards, to make dealing with vocabulary in foreign scripts 
+ easier. Right clicking the text field in 'add cards' gives you to option
+ to switch to 3-sided card input, which replaces the question and answer
+ fields by 3 fields: written form, pronunciation, translation. After 
+ selecting an initial grade, 2 cards will be added:
 
   Q: written form
   A: pronunciation
@@ -19,16 +29,23 @@ version before doing an upgrade.)
   A: written form
      pronunciation  
 
+-when creating multiple cards from the same data (either through add vice
+ versa or the 3-sided input), the relationship between these cards is now
+ stored. In a future version, this will make it possible that editing one 
+ card of the set automatically updates the other ones.
 -added feature to insert an image or a sound tag by using a file selector. 
  Accessed through popup-menu or keyboard shortcuts.
+-remember more settings across invocations: file formats and directories,
+ reset learning data, column width and sorting order, ...
+-rationalised keyboard shortcuts and menus. Added list of keyboard shortcuts
+ to the website.
+-polished file dialogs.
 -when possible, paths in the config file are now saved relative to the 
  .mnemosyne directory rather than as absolute paths. This makes it easier
  to copy the .mnemosyne directory back and forth between a Linux and a
  Windows machine.
 -respect duplicate handling configuration options when importing (reported 
  by lebowski_404).
--rationalised keyboard shortcuts and menu layout.
--polished file dialogs.
 -latex output and error messages are now written to the file 
  .mnemosyne/latex/latex_out.txt rather than to the screen, so that they
  are not lost for Windows users.
