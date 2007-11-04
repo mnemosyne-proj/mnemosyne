@@ -66,6 +66,38 @@ def queryOverwriteFile(fileName):
 
 ##############################################################################
 #
+# Tooltip texts
+#
+##############################################################################
+
+tooltip = [["","","","","",""],["","","","","",""]]
+
+tooltip[0][0] = "You don't remember this card yet."
+tooltip[0][1] = "Like '0', but it's getting more familiar. "+\
+                "Show it less often."
+tooltip[0][2] = "You've memorised this card now, and will probably "+\
+                "remember it for a few days."
+tooltip[0][3] = "You've memorised this card now, and will probably "+\
+                "remember it for a few days."
+tooltip[0][4] = "You've memorised this card now, and will probably "+\
+                "remember it for a few days."
+tooltip[0][5] = "You've memorised this card now, and will probably "+\
+                "remember it for a few days."
+
+tooltip[1][0] = "You have forgotten this card completely."
+tooltip[1][1] = "You have forgotten this card completely."
+tooltip[1][2] = "Barely correct answer. The interval was way too short."
+tooltip[1][3] = "Correct answer, but with much effort. The interval was "+\
+                "probably too long."
+tooltip[1][4] = "Correct answer, with some effort. The interval was "+\
+                "probably just right."
+tooltip[1][5] = "Correct answer, but without any difficulties. The "+\
+                "interval was probably too short."
+
+
+
+##############################################################################
+#
 # MainDlg
 #
 ##############################################################################
@@ -97,7 +129,16 @@ class MainDlg(MainFrm):
         self.statusBar().addWidget(self.notmem,0,1)
         self.statusBar().addWidget(self.all,0,1)
         self.statusBar().setSizeGripEnabled(0)
-        
+
+        self.grade_buttons = []
+
+        self.grade_buttons.append(self.grade_0_button)
+        self.grade_buttons.append(self.grade_1_button)
+        self.grade_buttons.append(self.grade_2_button)
+        self.grade_buttons.append(self.grade_3_button) 
+        self.grade_buttons.append(self.grade_4_button)
+        self.grade_buttons.append(self.grade_5_button)      
+                
         if filename == None:
             filename = get_config("path")
         
@@ -473,7 +514,9 @@ class MainDlg(MainFrm):
         status = unload_database()
         if status == False:
             messageUnableToSave(get_config("path"))
-        event.accept()
+            event.ignore()
+        else:
+            event.accept()
 
     ##########################################################################
     #
@@ -554,7 +597,26 @@ class MainDlg(MainFrm):
         process_answer(self.item, grade)
         self.newQuestion()
         self.updateDialog()
+        
+    ##########################################################################
+    #
+    # next_rep_string
+    #
+    ##########################################################################
 
+    def next_rep_string(self, days):
+        
+        if days == 0:
+            return qApp.translate("Mnemosyne",
+                                  "\nNext repetition: today.")
+        elif days == 1:
+            return qApp.translate("Mnemosyne",
+                                  "\nNext repetition: tomorrow.")
+        else: 
+            return qApp.translate("Mnemosyne", "\nNext repetition in ").\
+                   append(QString(str(days))).\
+                   append(qApp.translate("Mnemosyne", " days."))
+        
     ##########################################################################
     #
     # updateDialog
@@ -578,7 +640,7 @@ class MainDlg(MainFrm):
         self.deleteCurrentItemAction.setEnabled(self.item != None)
         self.editItemsAction.setEnabled(number_of_items() > 0)
 
-        # Update tool bar.
+        # Update toolbar.
         
         if get_config("hide_toolbar") == True:
             self.toolbar.hide()
@@ -651,7 +713,7 @@ class MainDlg(MainFrm):
                 text = set_non_latin_font_size(text, non_latin_size)
             self.answer.setText(text)
 
-        # Update buttons.
+        # Update 'show answer' button.
         
         if self.state == "EMPTY":
             show_enabled, default, text = 0, 1, "Show &answer"
@@ -670,8 +732,50 @@ class MainDlg(MainFrm):
         self.show_button.setDefault(default)
         self.show_button.setEnabled(show_enabled)
 
+        # Update grade buttons.
+
+        if self.item != None and self.item.grade in [0,1]:
+            i = 0 # Acquisition phase.
+        else:
+            i = 1 # Retention phase.     
+            
         self.grade_4_button.setDefault(grades_enabled)
         self.grades.setEnabled(grades_enabled)
+        
+        QToolTip.setWakeUpDelay(0)
+
+        set_config("show_intervals", "never")
+
+        for grade in range(0,6):
+
+            # Tooltip.
+            
+            QToolTip.remove(self.grade_buttons[grade])
+            
+            if self.state == "SELECT GRADE" and \
+               get_config("show_intervals") == "tooltip":
+                QToolTip.add(self.grade_buttons[grade],
+                      qApp.translate("Mnemosyne", tooltip[i][grade]).
+                      append(self.next_rep_string(process_answer(self.item,
+                                                  grade, dry_run=True))))
+            else:
+                QToolTip.add(self.grade_buttons[grade],
+                             qApp.translate("Mnemosyne", tooltip[i][grade]))
+
+            # Button text.
+                    
+            if self.state == "SELECT GRADE" and \
+               get_config("show_intervals") == "button":
+                self.grade_buttons[grade].setText(\
+                        str(process_answer(self.item, grade, dry_run=True)))
+                self.grades.setTitle(qApp.translate("Mnemosyne",
+                                     "Pick days until next repetition:"))
+            else:
+                self.grade_buttons[grade].setText(str(grade))
+                self.grades.setTitle(qApp.translate("Mnemosyne",
+                                     "Grade your answer:"))
+
+            self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
 
         # Update status bar.
         

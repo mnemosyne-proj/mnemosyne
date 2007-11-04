@@ -19,6 +19,8 @@ Mnemosyne 1.0:
 
 -config file (e.g. for align left)
 
+-go over preference dialog (tooltips)
+
 -tooltips with scheduled interval for each grade
 
 -give more feedback on import failure
@@ -39,8 +41,12 @@ Mnemosyne 1.0:
   faq on grayed out edit button (to config.py? remove altogether?)
   update screenshots
 
+-remove tooltips from main frm
+
+-prerelease 1.0, ask feedback on show intervals
 
 -move to subversion
+
 
 
 Mnemosyne 1.0.x series:
@@ -49,23 +55,17 @@ Mnemosyne 1.0.x series:
 
 -basic graphical statistics
 
--change file suffix when changing export format
 
 
 
-Mnemosyne 1.1:
+Mnemosyne 1.1: (note: needs to be combined with the Qt4 update from 1.2)
 
-
--benchmark SQLAlchemy and move to sqlite backend (encode card relations and
- tag hierarchy in name, multiple category fields per card)
+-move to sqlite backend (encode card relations and tag hierarchy in name, 
+ multiple category fields per card)
 
 -What to do with StartTime object?
 
--test database widget to see if we need Qt4 now. (Note: if the category is
- stored as a number, we probably do. If so, see if first updating to Qt4
- is a better incremental development policy.
-
--rename edit_items to knowledge manager, items to cards at the source level
+-rename edit_items, items, product tour at the source level
 
 -detect and mark inverses
 
@@ -98,7 +98,11 @@ Mnemosyne 1.2:
 
 -bug in Qt? : spaces around images are not respected.
 
+-does <p align="left"> work as advertised? Otherwise table tag.
+
 -consistent editing of vice versa and three-sided cards
+
+-option to type right answer
 
 
 
@@ -149,6 +153,8 @@ Mnemosyne 1.6
 
 -mnemosyne analysis as plugin
 
+-save category state as plugin
+
 
 
 Miscellaneous
@@ -160,6 +166,8 @@ Miscellaneous
 -forward / backward when previewing cards in the database
 
 -clean up interval when importing from txt
+
+-change file suffix when changing export format
 
 -USB key version as alternative for web based revision
 
@@ -185,8 +193,6 @@ Miscellaneous
 
 -better sound replay support, through clicking on an icon
 
--option to type right answer
-
 -integrate Mnemosyne analysis, advanced statistics, history, 
  forgetting index, histogram of grades and intervals... (look at graphs 
  in JMemorize)
@@ -203,6 +209,8 @@ Miscellaneous
 -make <a> links clickable
 
 -feedback about uploads in GUI / add time-out
+
+-translations
 
 -investigate ridiculously large thinking times
 

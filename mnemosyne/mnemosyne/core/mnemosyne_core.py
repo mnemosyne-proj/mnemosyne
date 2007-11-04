@@ -157,6 +157,7 @@ def init_config():
     config.setdefault("column_2_width", None)    
     config.setdefault("sort_column", None)
     config.setdefault("sort_order", None)    
+    config.setdefault("show_intervals", "never")
 
 
 
@@ -2384,30 +2385,42 @@ def get_new_question(learn_ahead = False):
 #
 ##############################################################################
 
-def process_answer(item, new_grade):
+def process_answer(item, new_grade, dry_run=False):
 
     global revision_queue, items
 
+    # Calculate scheduled and actual interval, taking care of corner
+    # case when learning ahead on the same day.
+    
     scheduled_interval = item.next_rep    - item.last_rep
     actual_interval    = days_since_start - item.last_rep
 
-    # Take care of corner case when learning ahead on the same day.
-
     if actual_interval == 0:
         actual_interval = 1 # Otherwise new interval can become zero.
+
+    # Initialise new values for item attributes.
+
+    new_easiness             = item.easiness      
+    new_acq_reps             = item.acq_reps
+    new_ret_reps             = item.ret_reps
+    new_lapses               = item.lapses
+    new_acq_reps_since_lapse = item.acq_reps_since_lapse
+    new_ret_reps_since_lapse = item.ret_reps_since_lapse
+
+    # Start processing the answer.
 
     if item.is_new():
 
         # The item is not graded yet, e.g. because it is imported.
 
-        item.acq_reps = 1
-        item.acq_reps_since_lapse = 1
+        new_acq_reps = 1
+        new_acq_reps_since_lapse = 1
 
         new_interval = calculate_initial_interval(new_grade)
 
         # Make sure the second copy of a grade 0 item doesn't show up again.
 
-        if item.grade == 0 and new_grade in [2,3,4,5]:
+        if dry_run == False and item.grade == 0 and new_grade in [2,3,4,5]:
             for i in revision_queue:
                 if i.id == item.id:
                     revision_queue.remove(i)
@@ -2417,81 +2430,79 @@ def process_answer(item, new_grade):
 
         # In the acquisition phase and staying there.
     
-        item.acq_reps += 1
-        item.acq_reps_since_lapse += 1
-        
+        new_acq_reps += 1
+        new_acq_reps_since_lapse += 1        
         new_interval = 0
 
     elif item.grade in [0,1] and new_grade in [2,3,4,5]:
 
-         # In the acquisition phase and moving to the retention phase.
+        # In the acquisition phase and moving to the retention phase.
 
-         item.acq_reps += 1
-         item.acq_reps_since_lapse += 1
+        new_acq_reps += 1
+        new_acq_reps_since_lapse += 1       
+        new_interval = 1
 
-         new_interval = 1
+        # Make sure the second copy of a grade 0 item doesn't show up again.
 
-         # Make sure the second copy of a grade 0 item doesn't show up again.
-
-         if item.grade == 0:
-             for i in revision_queue:
-                 if i.id == item.id:
-                     revision_queue.remove(i)
-                     break
+        if dry_run == False and item.grade == 0:
+            for i in revision_queue:
+                if i.id == item.id:
+                    revision_queue.remove(i)
+                    break
 
     elif item.grade in [2,3,4,5] and new_grade in [0,1]:
 
-         # In the retention phase and dropping back to the acquisition phase.
+        # In the retention phase and dropping back to the acquisition phase.
 
-         item.ret_reps += 1
-         item.lapses += 1
-         item.acq_reps_since_lapse = 0
-         item.ret_reps_since_lapse = 0
+        new_ret_reps += 1
+        new_lapses += 1
+        new_acq_reps_since_lapse = 0
+        new_ret_reps_since_lapse = 0
+        new_interval = 0
 
-         new_interval = 0
+        # Move this item to the front of the list, to have precedence over
+        # items which are still being learned for the first time.
 
-         # Move this item to the front of the list, to have precedence over
-         # items which are still being learned for the first time.
-
-         items.remove(item)
-         items.insert(0,item)
+        if dry_run == False:
+            items.remove(item)
+            items.insert(0,item)
 
     elif item.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
 
         # In the retention phase and staying there.
 
-        item.ret_reps += 1
-        item.ret_reps_since_lapse += 1
+        new_ret_reps += 1
+        new_ret_reps_since_lapse += 1
 
         if actual_interval >= scheduled_interval:
             if new_grade == 2:
-                item.easiness -= 0.16
+                new_easiness -= 0.16
             if new_grade == 3:
-                item.easiness -= 0.14
+                new_easiness -= 0.14              
             if new_grade == 5:
-                item.easiness += 0.10
-            if item.easiness < 1.3:
-                item.easiness = 1.3
+                new_easiness += 0.10
+            if new_easiness < 1.3:
+                new_easiness = 1.3
             
         new_interval = 0
         
-        if item.ret_reps_since_lapse == 1:
-            new_interval = 6
+        if new_ret_reps_since_lapse == 1:
+            new_interval = 6 + (new_grade - 4)
         else:
             if new_grade == 2 or new_grade == 3:
                 if actual_interval <= scheduled_interval:
-                    new_interval = actual_interval * item.easiness
+                    new_interval = actual_interval * new_easiness
                 else:
                     new_interval = scheduled_interval
                     
             if new_grade == 4:
-                new_interval = actual_interval * item.easiness
+                new_interval = actual_interval * new_easiness
                 
             if new_grade == 5:
                 if actual_interval < scheduled_interval:
                     new_interval = scheduled_interval # Avoid spacing.
                 else:
-                    new_interval = actual_interval * item.easiness
+                    new_interval = actual_interval * new_easiness
 
         # Shouldn't happen, but build in a safeguard.
 
@@ -2501,13 +2512,26 @@ def process_answer(item, new_grade):
 
         new_interval = int(new_interval)
 
+    # If dry_run == True, we stop here and return the scheduled interval.
+
+    if dry_run == True:
+        return new_interval
+
     # Add some randomness to interval.
 
     noise = calculate_interval_noise(new_interval)
 
-    # Update grade and interval.
-    
+    # Update item information.
+
     item.grade    = new_grade
+    item.easiness = new_easiness
+    
+    item.acq_resp             = new_acq_reps
+    item.ret_reps             = new_ret_reps
+    item.lapses               = new_lapses
+    item.acq_reps_since_lapse = new_acq_reps_since_lapse
+    item.ret_reps_since_lapse = new_ret_reps_since_lapse
+        
     item.last_rep = days_since_start
     item.next_rep = days_since_start + new_interval + noise
 

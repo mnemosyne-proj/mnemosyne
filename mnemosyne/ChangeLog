@@ -4,10 +4,12 @@ MNEMOSYNE 1.0
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-improve tooltips.
 -new logo, thanks to a contributor whose name sadly got lost in the 
  demise of the open-collab site.
 -new icons, based on the Crystal iconset.
 -added support for Unicode filenames.
+-don't exit when final save failed (requested by lebowski_404).
 -fixed 'Save as' option.
 
 	
