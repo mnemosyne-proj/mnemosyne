@@ -1,4 +1,4 @@
-version = "0.9.10"
+version = "1.0"
 dbVersion = "1"
 
 if __name__ == "__main__":

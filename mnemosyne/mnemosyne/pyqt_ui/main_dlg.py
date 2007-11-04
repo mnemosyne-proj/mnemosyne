@@ -86,7 +86,7 @@ tooltip[0][5] = "You've memorised this card now, and will probably "+\
 
 tooltip[1][0] = "You have forgotten this card completely."
 tooltip[1][1] = "You have forgotten this card completely."
-tooltip[1][2] = "Barely correct answer. The interval was way too short."
+tooltip[1][2] = "Barely correct answer. The interval was way too long."
 tooltip[1][3] = "Correct answer, but with much effort. The interval was "+\
                 "probably too long."
 tooltip[1][4] = "Correct answer, with some effort. The interval was "+\
