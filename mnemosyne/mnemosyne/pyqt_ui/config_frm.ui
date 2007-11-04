@@ -103,7 +103,7 @@
                                                 <string>Set list font</string>
                                             </property>
                                             <property name="toolTip" stdset="0">
-                                                <string>Set the font used when showing the list of all the items in the database</string>
+                                                <string>Set the font used when showing the list of all the cards in the deck</string>
                                             </property>
                                         </widget>
                                         <widget class="QCheckBox">

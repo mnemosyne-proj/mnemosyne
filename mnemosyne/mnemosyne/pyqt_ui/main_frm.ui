@@ -221,9 +221,6 @@
                                     <property name="autoDefault">
                                         <bool>false</bool>
                                     </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>You don't remember this item yet or forgot it.</string>
-                                    </property>
                                 </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
@@ -240,9 +237,6 @@
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
-                                    </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>Like '0', but the item is getting more familiar.</string>
                                     </property>
                                 </widget>
                                 <widget class="QPushButton">
@@ -261,9 +255,6 @@
                                     <property name="autoDefault">
                                         <bool>false</bool>
                                     </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>You've memorised this item now, and will probably remember it for a few days.</string>
-                                    </property>
                                 </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
@@ -280,9 +271,6 @@
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
-                                    </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>Correct answer, but with much effort. The interval was probably too long.</string>
                                     </property>
                                 </widget>
                                 <widget class="QPushButton">
@@ -301,9 +289,6 @@
                                     <property name="autoDefault">
                                         <bool>false</bool>
                                     </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>Correct answer, with some effort. The interval was probably just right.</string>
-                                    </property>
                                 </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
@@ -320,9 +305,6 @@
                                     </property>
                                     <property name="autoDefault">
                                         <bool>false</bool>
-                                    </property>
-                                    <property name="toolTip" stdset="0">
-                                        <string>Correct answer, but without any difficulties. The interval was probably too short.</string>
                                     </property>
                                 </widget>
                             </hbox>
@@ -534,13 +516,10 @@
             <iconset>image6</iconset>
         </property>
         <property name="text">
-            <string></string>
+            <string>Add cards</string>
         </property>
         <property name="menuText">
             <string>&amp;Add cards</string>
-        </property>
-        <property name="toolTip">
-            <string>Add cards</string>
         </property>
         <property name="statusTip">
             <string>.</string>
@@ -577,13 +556,10 @@
             <iconset>image7</iconset>
         </property>
         <property name="text">
-            <string></string>
+            <string>Edit deck</string>
         </property>
         <property name="menuText">
             <string>Edit &amp;deck</string>
-        </property>
-        <property name="toolTip">
-            <string>Edit deck</string>
         </property>
         <property name="statusTip">
             <string>.</string>
@@ -660,13 +636,10 @@
             <iconset>image8</iconset>
         </property>
         <property name="text">
-            <string></string>
+            <string>Edit current card</string>
         </property>
         <property name="menuText">
             <string>&amp;Edit current card</string>
-        </property>
-        <property name="toolTip">
-            <string>Edit current card</string>
         </property>
         <property name="statusTip">
             <string>.</string>
@@ -686,13 +659,10 @@
             <iconset>image9</iconset>
         </property>
         <property name="text">
-            <string></string>
+            <string>Delete current card</string>
         </property>
         <property name="menuText">
             <string>&amp;Delete current card</string>
-        </property>
-        <property name="toolTip">
-            <string>Delete current card</string>
         </property>
         <property name="statusTip">
             <string>.</string>
@@ -734,10 +704,10 @@
             <cstring>productTourAction</cstring>
         </property>
         <property name="text">
-            <string>Mnemosyne product tour</string>
+            <string>Getting started</string>
         </property>
         <property name="menuText">
-            <string>&amp;Mnemosyne product tour</string>
+            <string>&amp;Getting started</string>
         </property>
     </action>
     <action>
@@ -789,6 +759,9 @@
         </property>
         <property name="menuText">
             <string>Show s&amp;tatistics</string>
+        </property>
+        <property name="statusTip">
+            <string>.</string>
         </property>
         <property name="accel">
             <string>Ctrl+T</string>

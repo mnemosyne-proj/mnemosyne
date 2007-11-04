@@ -21,7 +21,7 @@
         </sizepolicy>
     </property>
     <property name="caption">
-        <string>Mnemosyne product tour</string>
+        <string>Getting started with Mnemosyne</string>
     </property>
     <widget class="QWidget">
         <property name="name">
@@ -52,7 +52,7 @@
                 <property name="text">
                     <string>Greetings!
 
-I am Mnemosyne, the Greek goddess of Memory. 
+I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. 
 
 I can make it more efficient for you to memorise and remember answers to questions, by helping you focus on the cards you're most likely to forget and by not wasting your time on things you know well.
 
@@ -236,7 +236,7 @@ Uncheck the following boxes if you do not want to do this.</string>
                 <property name="text">
                     <string>Now you're ready to start!
 &lt;p&gt;
-Add new questions by clicking on the 'plus' icon.
+Add new cards by clicking on the icon with the 'plus' sign in the top left.
 &lt;p&gt;
 Remember, there is no need to worry about saving your work, I will do so automatically.
 &lt;p&gt;

@@ -9,19 +9,11 @@ Memosyne analysis:
 
 Mnemosyne 1.0:
 
--tooltips with keyboard shortcuts
-
--rename product tour to getting started
-
--make sure we accept all the image and sound files types (ogg)
-
 -automatic backups
 
--config file (e.g. for align left)
-
--go over preference dialog (tooltips)
-
--tooltips with scheduled interval for each grade
+-simplify config window
+-document config file
+-create config file automatically at startup.
 
 -give more feedback on import failure
 
@@ -41,8 +33,6 @@ Mnemosyne 1.0:
   faq on grayed out edit button (to config.py? remove altogether?)
   update screenshots
 
--remove tooltips from main frm
-
 -prerelease 1.0, ask feedback on show intervals
 
 -move to subversion
@@ -55,6 +45,7 @@ Mnemosyne 1.0.x series:
 
 -basic graphical statistics
 
+-write some example plugins
 
 
 
@@ -137,7 +128,7 @@ Mnemosyne 1.5
 
 Mnemosyne 1.6
 
--plugin mechanism
+-more advanced plugin mechanism
 
 -check out python eggs
 

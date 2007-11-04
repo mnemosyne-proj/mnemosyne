@@ -9,6 +9,9 @@ version before doing an upgrade.)
  demise of the open-collab site.
 -new icons, based on the Crystal iconset.
 -added support for Unicode filenames.
+-implemented a basic plugin system. The directory .mnemosyne/plugins
+ can contain python scripts which will be executed at run time and
+ which can be used to customise Mnemosyne or add new features.
 -don't exit when final save failed (requested by lebowski_404).
 -fixed 'Save as' option.
 

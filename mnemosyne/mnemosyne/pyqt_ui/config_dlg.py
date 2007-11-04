@@ -28,6 +28,8 @@ class ConfigurationDlg(ConfigurationFrm):
     def __init__(self, parent=None, name=None, modal=0, fl=0):
         
         ConfigurationFrm.__init__(self,parent,name,modal,fl)
+
+        QToolTip.setWakeUpDelay(600)
         
         self.font_increase.setValue( \
             get_config("non_latin_font_size_increase"))
