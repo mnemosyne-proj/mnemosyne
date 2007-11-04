@@ -156,6 +156,8 @@ class MainDlg(MainFrm):
         self.newQuestion()
         self.updateDialog()
 
+        run_plugins()
+
     ##########################################################################
     #
     # resizeEvent

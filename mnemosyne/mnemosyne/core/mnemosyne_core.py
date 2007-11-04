@@ -72,7 +72,10 @@ def initialise():
 
     if not exists(join(basedir,"latex")):
         os.mkdir(join(basedir,"latex"))
-
+        
+    if not exists(join(basedir,"plugins")):
+        os.mkdir(join(basedir,"plugins"))
+        
     lockfile = file(join(basedir,"MNEMOSYNE_LOCK"),'w')
     lockfile.close()
 
@@ -108,7 +111,7 @@ def initialise():
     if not os.path.exists(dvipng):
         f = file(dvipng, 'w')
         print >> f, "dvipng -D 200 -T tight tmp.dvi" 
-        f.close()        
+        f.close()     
 
     logger.info("Program started : Mnemosyne " + mnemosyne.version.version \
                 + " " + os.name)
@@ -222,8 +225,6 @@ def load_config():
             print "Error in config.py!"
             print traceback.print_exc()
 
-    print get_config("show_intervals")
-
 
 
 ##############################################################################
@@ -234,8 +235,32 @@ def load_config():
 
 def save_config():
     basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-    config_file = file(os.path.join(basedir,"config"), 'wb')
+    config_file = file(os.path.join(basedir, "config"), 'wb')
     cPickle.dump(config, config_file)
+
+
+
+##############################################################################
+#
+# run_plugins
+#
+##############################################################################
+
+def run_plugins():
+
+    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    plugindir = os.path.join(basedir, "plugins")
+    
+    sys.path.insert(0, plugindir)
+    
+    for plugin in os.listdir(plugindir):
+        
+        if plugin.endswith(".py"):
+            try:
+                __import__(plugin[:-3])
+            except:
+                print "Error running plugin ", plugin
+                print traceback.print_exc()
 
 
 
