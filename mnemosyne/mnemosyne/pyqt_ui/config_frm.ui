@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>428</width>
-            <height>407</height>
+            <height>385</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -106,17 +106,6 @@
                                                 <string>Set the font used when showing the list of all the cards in the deck</string>
                                             </property>
                                         </widget>
-                                        <widget class="QCheckBox">
-                                            <property name="name">
-                                                <cstring>leftAlign</cstring>
-                                            </property>
-                                            <property name="text">
-                                                <string>left align Q/A</string>
-                                            </property>
-                                            <property name="toolTip" stdset="0">
-                                                <string>Useful with a fixed width font to display chemical and mathematical formulas</string>
-                                            </property>
-                                        </widget>
                                     </hbox>
                                 </widget>
                                 <widget class="QLayoutWidget">
@@ -177,7 +166,7 @@
                         <cstring>buttonGroup2</cstring>
                     </property>
                     <property name="title">
-                        <string>Logs and uploading</string>
+                        <string>Log uploading</string>
                     </property>
                     <hbox>
                         <property name="name">
@@ -201,17 +190,6 @@
                                         </property>
                                         <widget class="QCheckBox">
                                             <property name="name">
-                                                <cstring>keepLogs</cstring>
-                                            </property>
-                                            <property name="text">
-                                                <string>Keep detailed logs</string>
-                                            </property>
-                                            <property name="toolTip" stdset="0">
-                                                <string>Keep statistics of all your reviews</string>
-                                            </property>
-                                        </widget>
-                                        <widget class="QCheckBox">
-                                            <property name="name">
                                                 <cstring>uploadLogs</cstring>
                                             </property>
                                             <property name="text">
@@ -231,28 +209,6 @@
                                         <property name="name">
                                             <cstring>unnamed</cstring>
                                         </property>
-                                        <widget class="QLabel">
-                                            <property name="name">
-                                                <cstring>textLabel5</cstring>
-                                            </property>
-                                            <property name="text">
-                                                <string>Upload server:</string>
-                                            </property>
-                                            <property name="toolTip" stdset="0">
-                                                <string>Only change this when prompted by the Mnemosyne developpers</string>
-                                            </property>
-                                        </widget>
-                                        <widget class="QLineEdit">
-                                            <property name="name">
-                                                <cstring>uploadServer</cstring>
-                                            </property>
-                                            <property name="text">
-                                                <string>mnemosyne-project.dyndns.org:80</string>
-                                            </property>
-                                            <property name="toolTip" stdset="0">
-                                                <string>Only change this when prompted by the Mnemosyne developpers</string>
-                                            </property>
-                                        </widget>
                                     </hbox>
                                 </widget>
                             </vbox>

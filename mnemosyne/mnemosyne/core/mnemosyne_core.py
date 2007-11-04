@@ -111,8 +111,26 @@ def initialise():
     if not os.path.exists(dvipng):
         f = file(dvipng, 'w')
         print >> f, "dvipng -D 200 -T tight tmp.dvi" 
-        f.close()     
+        f.close()
 
+    # Create default config.py.
+    
+    configfile = os.path.join(basedir, "config.py")
+    if not os.path.exists(configfile):
+        f = file(configfile, 'w')
+        print >> f, "# Mnemosyne configuration file.\n"
+        print >> f, "# Align question/answers to the left (True/False).\n"
+        print >> f, "left_align = False\n"
+        print >> f, "# Keep detailed logs (True/False).\n"
+        print >> f, "keep_logs = True\n"
+        print >> f, "# Upload server. Only change when prompted by the"+\
+                    "developers.\n"
+        print >> f, "upload_server = \"mnemosyne-proj.dyndns.org:80\"\n"
+        print >> f, "# Set to True to prevent you from accidentally "+\
+                    "revealing the answer\n# when clicking the edit button.\n"
+        print >> f, "only_editable_when_answer_shown = False\n"
+        f.close()        
+        
     logger.info("Program started : Mnemosyne " + mnemosyne.version.version \
                 + " " + os.name)
 
@@ -161,6 +179,7 @@ def init_config():
     config.setdefault("sort_column", None)
     config.setdefault("sort_order", None)    
     config.setdefault("show_intervals", "never")
+    config.setdefault("only_editable_when_answer_shown", False)
 
 
 
@@ -2532,7 +2551,7 @@ def process_answer(item, new_grade, dry_run=False):
         new_interval = 0
         
         if new_ret_reps_since_lapse == 1:
-            new_interval = 6 + (new_grade - 4)
+            new_interval = 6
         else:
             if new_grade == 2 or new_grade == 3:
                 if actual_interval <= scheduled_interval:

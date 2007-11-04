@@ -11,15 +11,11 @@ Mnemosyne 1.0:
 
 -automatic backups
 
--simplify config window
--document config file
--create config file automatically at startup.
-
 -give more feedback on import failure
 
 -small version of Mnemosyne logo, add logo to about and getting started
 
--desktop file to /usr/share/applications, icon file
+-desktop file to /usr/share/applications, icon file (also Windows)
 
 -website:
   relative CSS layout 
@@ -30,10 +26,12 @@ Mnemosyne 1.0:
   feature page
   better explanation of short term / long term
   faq on backlog
-  faq on grayed out edit button (to config.py? remove altogether?)
+  faq on spartan options screen / config screen
   update screenshots
+  document new features
+  remove left align qa from formula faq
 
--prerelease 1.0, ask feedback on show intervals
+-prerelease 1.0
 
 -move to subversion
 
@@ -94,6 +92,8 @@ Mnemosyne 1.2:
 -consistent editing of vice versa and three-sided cards
 
 -option to type right answer
+
+-remove 'check duplicates when adding' option
 
 
 

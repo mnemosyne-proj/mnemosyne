@@ -34,12 +34,8 @@ class ConfigurationDlg(ConfigurationFrm):
         self.font_increase.setValue( \
             get_config("non_latin_font_size_increase"))
         
-        self.leftAlign .setChecked(get_config("left_align"))
-        self.keepLogs  .setChecked(get_config("keep_logs"))
         self.uploadLogs.setChecked(get_config("upload_logs"))
-        
-        self.uploadServer.setText(get_config("upload_server"))
-        
+                
         self.checkDuplicates.setChecked( \
             get_config("check_duplicates_when_adding"))
         self.duplicatesCats.setChecked( \
@@ -102,16 +98,12 @@ class ConfigurationDlg(ConfigurationFrm):
         set_config("QA_font",   None)        
         set_config("list_font", None)
         
-        self.leftAlign      .setChecked(False)
-        self.keepLogs       .setChecked(True)
         self.uploadLogs     .setChecked(True)
         self.checkDuplicates.setChecked(True)
         self.duplicatesCats .setChecked(True)
 
         self.font_increase.setValue(0)
         self.grade_0_items.setValue(5)
-        
-        self.uploadServer.setText("mnemosyne-proj.dyndns.org:80")
         
     ##########################################################################
     #
@@ -121,10 +113,7 @@ class ConfigurationDlg(ConfigurationFrm):
 
     def apply(self):
 
-        set_config("left_align",    self.leftAlign .isOn())
-        set_config("keep_logs",     self.keepLogs  .isOn())
         set_config("upload_logs",   self.uploadLogs.isOn())
-        set_config("upload_server", unicode(self.uploadServer.text()))
         set_config("check_duplicates_when_adding",self.checkDuplicates.isOn())
         set_config("allow_duplicates_in_diff_cat",self.duplicatesCats.isOn())
         set_config("grade_0_items_at_once", self.grade_0_items.value())

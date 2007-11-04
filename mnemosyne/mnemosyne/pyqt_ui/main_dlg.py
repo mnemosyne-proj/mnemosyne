@@ -634,11 +634,18 @@ class MainDlg(MainFrm):
         self.setCaption(caption_text)
 
         # Update menu bar.
-        
-        if self.item != None and self.state == "SELECT GRADE":
-            self.editCurrentItemAction.setEnabled(True)
+
+        if get_config("only_editable_when_answer_shown") == True:
+            if self.item != None and self.state == "SELECT GRADE":
+                self.editCurrentItemAction.setEnabled(True)
+            else:
+                self.editCurrentItemAction.setEnabled(False)
         else:
-            self.editCurrentItemAction.setEnabled(False)
+            if self.item != None:
+                self.editCurrentItemAction.setEnabled(True)
+            else:
+                self.editCurrentItemAction.setEnabled(False)            
+            
         self.deleteCurrentItemAction.setEnabled(self.item != None)
         self.editItemsAction.setEnabled(number_of_items() > 0)
 
