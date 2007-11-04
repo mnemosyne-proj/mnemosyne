@@ -195,6 +195,8 @@ def load_config():
 
     basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
+    # Read pickled config object.
+
     try:
         config_file = file(os.path.join(basedir, "config"), 'rb')
         for k,v in cPickle.load(config_file).iteritems():
@@ -202,7 +204,25 @@ def load_config():
     except:
         pass
 
+    # Set defaults.
+
     init_config()
+
+    # Load user config file.
+
+    sys.path.insert(0, basedir)
+    config_file = os.path.join(basedir, "config.py")
+    if os.path.exists(config_file):
+        try:
+            import config as _config
+            for var in dir(_config):
+                if var in config.keys():
+                    set_config(var, getattr(_config, var))
+        except:
+            print "Error in config.py!"
+            print traceback.print_exc()
+
+    print get_config("show_intervals")
 
 
 

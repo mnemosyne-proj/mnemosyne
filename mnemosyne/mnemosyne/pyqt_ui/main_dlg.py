@@ -744,8 +744,6 @@ class MainDlg(MainFrm):
         
         QToolTip.setWakeUpDelay(0)
 
-        set_config("show_intervals", "never")
-
         for grade in range(0,6):
 
             # Tooltip.
@@ -753,7 +751,7 @@ class MainDlg(MainFrm):
             QToolTip.remove(self.grade_buttons[grade])
             
             if self.state == "SELECT GRADE" and \
-               get_config("show_intervals") == "tooltip":
+               get_config("show_intervals") == "tooltips":
                 QToolTip.add(self.grade_buttons[grade],
                       qApp.translate("Mnemosyne", tooltip[i][grade]).
                       append(self.next_rep_string(process_answer(self.item,
@@ -765,7 +763,7 @@ class MainDlg(MainFrm):
             # Button text.
                     
             if self.state == "SELECT GRADE" and \
-               get_config("show_intervals") == "button":
+               get_config("show_intervals") == "buttons":
                 self.grade_buttons[grade].setText(\
                         str(process_answer(self.item, grade, dry_run=True)))
                 self.grades.setTitle(qApp.translate("Mnemosyne",
