@@ -8,15 +8,13 @@ Memosyne analysis:
 
 Mnemosyne 1.0:
 
--show actual interval in status bar
-
--tip of the day
-
 -give more feedback on import failure, plugin failure
 
 -USB key version as alternative for web based revision
 
 -small version of Mnemosyne logo, add logo to about and getting started
+
+-tip of the day
 
 -desktop file to /usr/share/applications, icon file (also Windows)
 

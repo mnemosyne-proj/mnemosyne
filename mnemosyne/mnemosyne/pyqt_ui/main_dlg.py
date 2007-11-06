@@ -599,10 +599,14 @@ class MainDlg(MainFrm):
 
     def gradeAnswer(self, grade):
 
-        process_answer(self.item, grade)
+        interval = process_answer(self.item, grade)
         self.newQuestion()
         self.updateDialog()
-        
+
+        if get_config("show_intervals") == "statusbar":
+            self.statusBar().message("Returns in " + str(interval) \
+                                     + " day(s).")
+            
     ##########################################################################
     #
     # next_rep_string

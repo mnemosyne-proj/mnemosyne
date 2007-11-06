@@ -862,7 +862,7 @@ def backup_database():
 
     # Export to XML. Create only a single file per day.
 
-    db_name = config["path"][:-4] 
+    db_name = config["path"][:-4]
 
     filename = db_name + "-" +\
                datetime.date.today().strftime("%Y%m%d") + ".xml"
@@ -2657,6 +2657,8 @@ def process_answer(item, new_grade, dry_run=False):
                 item.acq_reps_since_lapse, item.ret_reps_since_lapse,
                 scheduled_interval, actual_interval,
                 new_interval, noise, thinking_time)
+
+    return new_interval + noise
 
 
 
