@@ -4,6 +4,8 @@ MNEMOSYNE 1.0
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-increase the maximum value of 'increase size of non-latin characters'
+ to 200 (Requested by Mike Charlton).
 -removed a few rarely used options from the configuration dialog and
  placed them in .mnemosyne/config.py, a new file which can be used to
  set these and other rarely used options.

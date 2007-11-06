@@ -132,7 +132,7 @@
                                                 <cstring>font_increase</cstring>
                                             </property>
                                             <property name="maxValue">
-                                                <number>111</number>
+                                                <number>200</number>
                                             </property>
                                             <property name="lineStep">
                                                 <number>1</number>
