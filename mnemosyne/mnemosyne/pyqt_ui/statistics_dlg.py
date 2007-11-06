@@ -69,7 +69,8 @@ class StatisticsDlg(StatisticsFrm):
 
         grades = [0, 0, 0, 0, 0, 0]
         for item in get_items():
-            grades[item.grade] += 1
+            if item.is_in_active_category():
+                grades[item.grade] += 1
 
         norm = sum(grades)
         if norm == 0:

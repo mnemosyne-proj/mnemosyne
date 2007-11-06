@@ -9,12 +9,6 @@ Memosyne analysis:
 
 Mnemosyne 1.0:
 
--fix grade statistics tab
-
--compact preference dialog
-
--example plugin
-
 -automatic backups
 
 -tip of the day
@@ -31,7 +25,8 @@ Mnemosyne 1.0:
   relative CSS layout 
     http://www.webreference.com/authoring/style/sheets/css_mastery2/
     http://www.cssbasics.com/
-  community page: mailing list, forums, contributors page
+  community page: mailing list, forums, contributors page (Ryan, Joonatan, 
+    Dirk)
   feature page
   better explanation of short term / long term?
   faq on non latin size
