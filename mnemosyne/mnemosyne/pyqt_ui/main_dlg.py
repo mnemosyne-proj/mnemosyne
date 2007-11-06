@@ -513,6 +513,9 @@ class MainDlg(MainFrm):
     def closeEvent(self, event):
         
         save_config()
+        
+        backup_database()
+        
         status = unload_database()
         if status == False:
             messageUnableToSave(get_config("path"))

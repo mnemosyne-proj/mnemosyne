@@ -4,6 +4,8 @@ MNEMOSYNE 1.0
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-automatically back up the database to XML on exit. The last five backups 
+ are kept in .mnemosyne/backup.
 -increase the maximum value of 'increase size of non-latin characters'
  to 200 (requested by Mike Charlton).
 -don't count inactive cards in the grade distribution in the statistics

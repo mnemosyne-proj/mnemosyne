@@ -5,7 +5,7 @@
 ##############################################################################
 
 import random, time, os, string, sys, cPickle, md5, struct, logging, re
-import traceback, shutil
+import traceback, shutil, datetime, bz2
 import mnemosyne.version
 logger = logging.getLogger("mnemosyne")
 
@@ -60,21 +60,24 @@ def initialise():
     if not exists(basedir):
         os.mkdir(basedir)
     
-    if not exists(join(basedir,"config")):
+    if not exists(join(basedir, "config")):
         init_config()
         save_config()    
      
-    if not exists(join(basedir,"default.mem")):
-        new_database(join(basedir,"default.mem"))
+    if not exists(join(basedir, "default.mem")):
+        new_database(join(basedir, "default.mem"))
     
-    if not exists(join(basedir,"history")):
-        os.mkdir(join(basedir,"history"))
+    if not exists(join(basedir, "history")):
+        os.mkdir(join(basedir, "history"))
 
-    if not exists(join(basedir,"latex")):
-        os.mkdir(join(basedir,"latex"))
+    if not exists(join(basedir, "latex")):
+        os.mkdir(join(basedir, "latex"))
         
-    if not exists(join(basedir,"plugins")):
-        os.mkdir(join(basedir,"plugins"))
+    if not exists(join(basedir, "plugins")):
+        os.mkdir(join(basedir, "plugins"))
+        
+    if not exists(join(basedir, "backups")):
+        os.mkdir(join(basedir, "backups"))
         
     lockfile = file(join(basedir,"MNEMOSYNE_LOCK"),'w')
     lockfile.close()
@@ -845,6 +848,45 @@ def unload_database():
     return True
 
 
+
+##############################################################################
+#
+# backup_database
+#
+##############################################################################
+
+def backup_database():
+
+    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    backupdir = os.path.join(basedir, "backups")
+
+    # Export to XML. Create only a single file per day.
+
+    db_name = config["path"][:-4] 
+
+    filename = db_name + "-" +\
+               datetime.date.today().strftime("%Y%m%d") + ".xml"
+    filename = os.path.join(backupdir, filename)
+
+    export_XML(filename, get_category_names(), reset_learning_data=False)
+
+    # Compress the file.
+
+    f = bz2.BZ2File(filename + ".bz2", 'w')
+    for l in file(filename):
+        f.write(l)
+    f.close()
+
+    os.remove(filename)
+
+    # Only keep the last five logs.
+
+    files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
+    files.sort()
+    if len(files) > 5:
+        os.remove(os.path.join(backupdir, files[1]))
+
+    
 
 ##############################################################################
 #
@@ -1658,7 +1700,7 @@ def write_category_XML(category, outfile, reset_learning_data):
     print >> outfile, " <name>" + encode_cdata(category.name) + "</name>"
     print >> outfile, "</category>"
 
-    
+
 
 ##############################################################################
 #
