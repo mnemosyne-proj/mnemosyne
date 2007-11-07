@@ -14,9 +14,13 @@ Mnemosyne 1.0:
 
 -small version of Mnemosyne logo, add logo to about and getting started
 
+-tooltip for 'grade 0 limit'
+
 -tip of the day
 
 -desktop file to /usr/share/applications, icon file (also Windows)
+
+-check plugins for windows.
 
 -check automatic backups
 

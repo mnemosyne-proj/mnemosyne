@@ -126,7 +126,7 @@ def initialise():
         print >> f, "left_align = False\n"
         print >> f, "# Keep detailed logs (True/False).\n"
         print >> f, "keep_logs = True\n"
-        print >> f, "# Upload server. Only change when prompted by the"+\
+        print >> f, "# Upload server. Only change when prompted by the "+\
                     "developers.\n"
         print >> f, "upload_server = \"mnemosyne-proj.dyndns.org:80\"\n"
         print >> f, "# Set to True to prevent you from accidentally "+\
@@ -237,6 +237,7 @@ def load_config():
 
     sys.path.insert(0, basedir)
     config_file = os.path.join(basedir, "config.py")
+
     if os.path.exists(config_file):
         try:
             import config as _config
