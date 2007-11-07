@@ -94,10 +94,10 @@ def initialise():
 
     # Create default latex preamble and postamble.
 
-    latexdir  = os.path.join(basedir,  "latex")
-    preamble  = os.path.join(latexdir, "preamble")
-    postamble = os.path.join(latexdir, "postamble")
-    dvipng    = os.path.join(latexdir, "dvipng")
+    latexdir  = join(basedir,  "latex")
+    preamble  = join(latexdir, "preamble")
+    postamble = join(latexdir, "postamble")
+    dvipng    = join(latexdir, "dvipng")
     
     if not os.path.exists(preamble):
         f = file(preamble, 'w')

@@ -10,6 +10,7 @@ import sys, os
 from qt import *
 from mnemosyne.pyqt_ui.main_dlg import *
 from mnemosyne.core import *
+from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 
 # Create main widget.
 
