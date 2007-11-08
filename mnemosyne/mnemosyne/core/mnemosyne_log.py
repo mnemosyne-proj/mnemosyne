@@ -18,7 +18,7 @@ from mnemosyne.core import *
 
 def archive_old_log():
 
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    basedir = get_basedir()
     
     log_name = os.path.join(basedir,"log.txt")
     
@@ -110,12 +110,12 @@ def upload(filename):
 class Uploader(Thread):
     
     def run(self):
+
+        basedir = get_basedir()
         
         join = os.path.join
         
         logger = logging.getLogger("mnemosyne")
-        
-        basedir = join(os.path.expanduser("~"), ".mnemosyne")
     
         # Find out which files haven't been uploaded yet.
 
@@ -167,7 +167,8 @@ class Uploader(Thread):
 
 def start_logging():
 
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    basedir = get_basedir()
+
     log_name = os.path.join(basedir, "log.txt")
 
     logger = logging.getLogger("mnemosyne")

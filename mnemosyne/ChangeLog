@@ -4,6 +4,11 @@ MNEMOSYNE 1.0
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-Mnemosyne can now be run from a USB drive. Copy both the Mnemosyne directory
+ from C:\Program Files to your USB drive, as well as your .mnemosyne 
+ directory from inside your home directory. Create a shortcut on the USB 
+ drive (say it's called F) which reads
+   F:\Mnemosyne\mnemosyne.exe -d F:\.mnemosyne
 -automatically back up the database to XML on exit. The last five backups 
  are kept in .mnemosyne/backup.
 -increase the maximum value of 'increase size of non-latin characters'

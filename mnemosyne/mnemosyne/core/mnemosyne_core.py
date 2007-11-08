@@ -10,11 +10,27 @@ import mnemosyne.version
 logger = logging.getLogger("mnemosyne")
 
 
+
+##############################################################################
+#
+# basedir
+#
+##############################################################################
+
+basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+
+def get_basedir():
+    return basedir
+
+
+
 ##############################################################################
 #
 # Global variables
 #
 ##############################################################################
+
+basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
 time_of_start = None
 import_time_of_start = None
@@ -42,20 +58,21 @@ config = {}
 #
 ##############################################################################
 
-def initialise():
+def initialise(basedir_ = None):
 
     import mnemosyne_log
 
-    global upload_thread, load_failed
+    global upload_thread, load_failed, basedir
 
     load_failed = False
 
     join   = os.path.join
     exists = os.path.exists
-    
+
     # Set default paths.
 
-    basedir = join(os.path.expanduser("~"), ".mnemosyne")
+    if basedir_ != None:
+        basedir = basedir_
 
     if not exists(basedir):
         os.mkdir(basedir)
@@ -147,8 +164,6 @@ def initialise():
 
 def init_config():
     global config
-
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
  
     config.setdefault("first_run", True)
     config.setdefault("path", "default.mem")
@@ -218,8 +233,6 @@ def set_config(key, value):
 def load_config():
     global config
 
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-
     # Read pickled config object.
 
     try:
@@ -257,7 +270,7 @@ def load_config():
 ##############################################################################
 
 def save_config():
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    
     config_file = file(os.path.join(basedir, "config"), 'wb')
     cPickle.dump(config, config_file)
 
@@ -271,7 +284,6 @@ def save_config():
 
 def run_plugins():
 
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
     plugindir = os.path.join(basedir, "plugins")
     
     sys.path.insert(0, plugindir)
@@ -692,8 +704,6 @@ def new_database(path):
 
     global config, time_of_start, load_failed
 
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-
     if len(items) > 0:
         unload_database()
 
@@ -722,8 +732,6 @@ def load_database(path):
 
     global config, time_of_start, categories, category_by_name, items
     global load_failed
-
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
   
     path = expand_path(path, basedir)
         
@@ -790,8 +798,6 @@ def load_database(path):
 def save_database(path):
 
     global config
-        
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
     path = expand_path(path, basedir)
 
@@ -858,7 +864,9 @@ def unload_database():
 
 def backup_database():
 
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    if number_of_items() == 0:
+        return
+
     backupdir = os.path.join(basedir, "backups")
 
     # Export to XML. Create only a single file per day.
@@ -1020,7 +1028,6 @@ def process_latex(latex_command):
 
     error_str = "<b>Problem with latex. Are latex and dvipng installed?</b>"
     
-    basedir   = os.path.join(os.path.expanduser("~"), ".mnemosyne")
     latexdir  = os.path.join(basedir, "latex")
     imag_name = md5.new(latex_command).hexdigest() + ".png"
     imag_file = os.path.join(latexdir, imag_name)
@@ -2678,6 +2685,5 @@ def finalise():
     
     logger.info("Program stopped")
 
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
     os.remove(os.path.join(basedir,"MNEMOSYNE_LOCK"))
     

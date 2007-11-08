@@ -11,25 +11,30 @@ from qt import *
 from mnemosyne.pyqt_ui.main_dlg import *
 from mnemosyne.core import *
 from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
+from optparse import OptionParser
+
+# Parse options.
+
+parser = OptionParser()
+parser.usage = "%prog [<database.mem>]"
+parser.add_option("-d", "--datadir", dest="datadir",
+                  help="data directory",
+                  default=os.path.join(os.path.expanduser("~"), ".mnemosyne"))
+(options, args) = parser.parse_args()
+
+basedir = os.path.abspath(options.datadir)
+
+if len(args) > 1:
+    filename = args[0]
+else:
+    filename = None
 
 # Create main widget.
-
-try:
-
-    # We need the absolute path for the file name: It will be stored in the
-    # user's configuration and shall also point to the right location when
-    # Mnemosyne is started from a different directory next time.
-
-    filename = os.path.abspath(sys.argv[1])
-
-except:
-    filename = None
 
 a = QApplication(sys.argv)
 
 # Check if there is another instance of Mnemosyne running.
 
-basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
     status = QMessageBox.warning(None,
              a.trUtf8("Mnemosyne"),
@@ -48,7 +53,7 @@ try:
 except:
     print "Unable to initialise sound."
 
-initialise()
+initialise(basedir)
             
 w = MainDlg(filename)
 
