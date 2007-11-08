@@ -61,7 +61,7 @@ class ConfigurationDlg(ConfigurationFrm):
     
     def QA_font(self):
 
-        current_font = self.uploadServer.font()
+        current_font = self.button_ok.font()
         
         if get_config("QA_font") != None:
             current_font.fromString(get_config("QA_font"))
@@ -78,7 +78,7 @@ class ConfigurationDlg(ConfigurationFrm):
     
     def list_font(self):
         
-        current_font = self.uploadServer.font()
+        current_font = self.button_ok.font()
         
         if get_config("list_font") != None:
             current_font.fromString(get_config("list_font"))
