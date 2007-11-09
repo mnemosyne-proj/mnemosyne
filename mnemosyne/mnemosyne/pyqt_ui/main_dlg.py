@@ -24,6 +24,25 @@ from mnemosyne.core import *
 
 ##############################################################################
 #
+# Display extra errors set by the library.
+#
+##############################################################################
+
+def display_errors():
+
+    s = get_error_string()
+
+    if s:
+        QMessageBox.critical(None,
+                             qApp.translate("Mnemosyne", "Mnemosyne"),
+                             QString(s),
+                             qApp.translate("Mnemosyne", "&OK"),
+                             "", "", 0, -1)
+
+
+
+##############################################################################
+#
 # messageUnableToSave
 #
 #  Note: operator+ would be nicer than append, but the PyQt version we use
@@ -157,6 +176,7 @@ class MainDlg(MainFrm):
         self.updateDialog()
 
         run_plugins()
+        display_errors()
 
     ##########################################################################
     #
@@ -227,12 +247,7 @@ class MainDlg(MainFrm):
             status = load_database(out)
             
             if status == False:
-                QMessageBox.critical(None,
-                    self.trUtf8("Mnemosyne"),
-                    self.trUtf8("File doesn't appear to be in "+\
-                                "the correct format."),
-                    self.trUtf8("&OK"), QString(), QString(), 0, -1)
-                self.updateDialog()
+                display_errors()
                 unpause_thinking()
                 return
 
@@ -306,6 +321,8 @@ class MainDlg(MainFrm):
         
         dlg = ImportDlg(self,"Import",0)
         dlg.exec_loop()
+        display_errors()
+        
         if self.item == None:
             self.newQuestion()
 
@@ -319,9 +336,13 @@ class MainDlg(MainFrm):
     ##########################################################################
 
     def export(self):
+        
         pause_thinking()
+        
         dlg = ExportDlg(self,"Export",0)
         dlg.exec_loop()
+        display_errors()
+        
         unpause_thinking()
         
     ##########################################################################

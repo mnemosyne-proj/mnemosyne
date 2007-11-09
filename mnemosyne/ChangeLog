@@ -18,7 +18,9 @@ version before doing an upgrade.)
 -removed a few rarely used options from the configuration dialog and
  placed them in .mnemosyne/config.py, a new file which can be used to
  set these and other rarely used options.
--improve tooltips.
+-improved tooltips.
+-more verbose error messages when an import failed, showing the line that
+ failed to parse.
 -new logo, thanks to a contributor whose name sadly got lost in the 
  demise of the open-collab site.
 -new icons, based on the Crystal iconset.

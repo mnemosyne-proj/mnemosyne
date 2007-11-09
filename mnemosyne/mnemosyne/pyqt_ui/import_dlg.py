@@ -81,13 +81,7 @@ class ImportDlg(ImportFrm):
         status = import_file(
                      fname, fformat_name, cat_name, reset_learning_data)
 
-        if status == False:
-            QMessageBox.critical(None,
-                 self.trUtf8("Mnemosyne"),
-                 self.trUtf8("File doesn't appear to be in " +\
-                             "the correct format."),
-                 self.trUtf8("&OK"), QString(), QString(), 0, -1)
-        else:
+        if status == True:
             set_config("import_dir", contract_path(os.path.dirname(fname)))
             set_config("import_format", fformat_name)
             set_config("reset_learning_data_import", reset_learning_data)

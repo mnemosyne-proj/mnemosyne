@@ -10,6 +10,8 @@ from random import randint
 from string import joinfields
 from mnemosyne.core import *
 
+
+
 ##############################################################################
 #
 # Archive log to history folder if it's large enough.

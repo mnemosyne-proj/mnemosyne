@@ -26,11 +26,48 @@ def get_basedir():
 
 ##############################################################################
 #
-# Global variables
+# Like traceback.print_exc(), but returns a string
 #
 ##############################################################################
 
-basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+def traceback_string():
+
+    type, value, tb = sys.exc_info()
+    
+    body = "\nTraceback (innermost last):\n"
+    list = traceback.format_tb(tb, limit=None) + \
+           traceback.format_exception_only(type, value)
+    body = body + "%-20s %s" % (string.join(list[:-1], ""), list[-1],)
+    
+    return body
+
+
+
+##############################################################################
+#
+# Mechanism to communicate extra error messages to the GUI.
+#
+##############################################################################
+
+error_string = ""
+
+def set_error_string(s):
+    global error_string
+    error_string = s
+    return s
+
+def get_error_string():
+    global error_string
+    s = error_string
+    error_string = None
+    return s
+
+
+##############################################################################
+#
+# Global variables
+#
+##############################################################################
 
 time_of_start = None
 import_time_of_start = None
@@ -258,8 +295,8 @@ def load_config():
                 if var in config.keys():
                     set_config(var, getattr(_config, var))
         except:
-            print "Error in config.py!"
-            print traceback.print_exc()
+            print set_error_string("Error in config.py!\n" \
+                                   + traceback_string())
 
 
 
@@ -294,8 +331,8 @@ def run_plugins():
             try:
                 __import__(plugin[:-3])
             except:
-                print "Error running plugin ", plugin
-                print traceback.print_exc()
+                print set_error_string("Error running plugin %s:\n" % plugin \
+                                       + traceback_string())
 
 
 
@@ -739,6 +776,7 @@ def load_database(path):
         unload_database()
 
     if not os.path.exists(path):
+        print set_error_string("File not found.")
         load_failed = True
         return False
 
@@ -770,9 +808,8 @@ def load_database(path):
         load_failed = False
 
     except:
-
+        print set_error_string("Invalid database format.")
         load_failed = True
-        
         return False
 
     for c in categories:
@@ -821,7 +858,7 @@ def save_database(path):
         shutil.move(path + "~", path) # Should be atomic.
         
     except:
-        
+        print set_error_string("Unable to save database.")
         return False
 
     config["path"] = contract_path(path, basedir)
@@ -1607,8 +1644,7 @@ def import_XML(filename, default_cat, reset_learning_data=False):
     try:
         parser.parse(file(filename))
     except Exception, e:
-        print "Error parsing XML:\n"
-        traceback.print_exc()
+        print set_error_string("Error parsing XML:\n" + traceback_string())
         return False
 
     # Calculate offset with current start date.
@@ -1780,7 +1816,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
         try:
             f = file(filename.encode("latin"))
         except:
-            print "Unable to open file."
+            print set_error_string("Unable to open file.")
             return False
     
     for line in f:
@@ -1791,7 +1827,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
             try:
                 line = unicode(line, "latin")
             except:
-                print "Unrecognised encoding."
+                print set_error_string("Unrecognised encoding.")
                 return False
 
         line = line.rstrip()
@@ -1807,8 +1843,8 @@ def import_txt(filename, default_cat, reset_learning_data=False):
         try:
             item.q, item.a = line.split('\t',1)
         except Exception, e:
-            print "Error parsing txt file:\n"
-            traceback.print_exc()
+            s = "Error parsing txt file around line:\n\n" + line
+            print set_error_string(s + "\n" + traceback_string())
             return False
         
         item.easiness = avg_easiness
@@ -1884,7 +1920,7 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
         try:
             f = file(filename.encode("latin"))
         except:
-            print "Unable to open file."
+            print set_error_string("Unable to open file.")
             return False
 
     Q_A = []
@@ -1897,7 +1933,7 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
             try:
                 line = unicode(line, "latin")
             except:
-                print "Unrecognised encoding."
+                print set_error_string("Unrecognised encoding.")
                 return False
 
         line = line.rstrip()
