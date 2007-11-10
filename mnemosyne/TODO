@@ -1,7 +1,5 @@
 Mnemosyne 1.0:
 
--3 sided import
-
 -make sure that reset learning data (both import and export) doesn't break
  the connection between cards.
 

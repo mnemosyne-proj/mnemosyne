@@ -1771,7 +1771,9 @@ register_file_format("XML",
 #
 # import_txt
 #
-#   Question and answers on a single line, separated by tab.
+#   Question and answers on a single line, separated by tabs.
+#   Or, for three-sided cards: written form, pronunciation, translation,
+#   separated by tabs.
 #
 ##############################################################################
 
@@ -1811,20 +1813,56 @@ def import_txt(filename, default_cat, reset_learning_data=False):
 
         if line[0] == u'\ufeff': # Microsoft Word unicode export oddity.
             line = line[1:]
-        
-        item = Item()
 
-        try:
-            item.q, item.a = line.split('\t',1)
-        except Exception, e:
+        fields = line.split('\t')
+
+        # Three sided card.
+
+        if len(fields) == 3:
+
+            # Card 1.
+            
+            item = Item()
+            
+            item.q = fields[0]
+            item.a = fields[1] + '\n' + fields[2]
+            item.easiness = avg_easiness
+            item.cat = default_cat
+            item.new_id()
+                    
+            imported_items.append(item)
+
+            id = item.id
+
+            # Card 2.
+            
+            item = Item()
+            
+            item.q = fields[2]
+            item.a = fields[0] + '\n' + fields[1]
+            item.easiness = avg_easiness
+            item.cat = default_cat
+            item.id = id + '.tr.1'
+                    
+            imported_items.append(item)
+
+        # Two sided card.
+        
+        elif len(fields) == 2:
+            
+            item = Item()
+            
+            item.q = fields[0]
+            item.a = fields[1]
+            item.easiness = avg_easiness
+            item.cat = default_cat
+            item.new_id()
+                    
+            imported_items.append(item)
+            
+        else:
             raise MnemosyneError("Import failed.\n"+\
                                  "Missing answer field on line:\n" + line)
-        
-        item.easiness = avg_easiness
-        item.cat = default_cat
-        item.new_id()
-                    
-        imported_items.append(item)
 
     return imported_items
 

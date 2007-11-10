@@ -4,6 +4,9 @@ MNEMOSYNE 1.0
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
+-when importing from tab separated txt files, the presence of 3 columns
+ on a line gives results in the import of 3-sided cards (written form / 
+ pronunciation / translation).
 -Mnemosyne can now be run from a USB drive. Copy both the Mnemosyne directory
  from C:\Program Files to your USB drive, as well as your .mnemosyne 
  directory from inside your home directory. Create a shortcut on the USB 
