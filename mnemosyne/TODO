@@ -16,6 +16,9 @@ Mnemosyne 1.0:
 
 -3 sided import
 
+-make sure that reset learning data (both import and export) doesn't break
+ the connection between cards.
+
 -check automatic backups
 
 -website:
@@ -42,6 +45,10 @@ Mnemosyne 1.0:
 
 Mnemosyne 1.0.x series:
 
+-change file suffix when changing export format
+
+-recreate user_id and log_index from files in history folder
+
 -add current card statistics to statistics dialog
 
 -basic graphical statistics
@@ -63,9 +70,6 @@ Mnemosyne 1.1: (note: needs to be combined with the Qt4 update from 1.2)
 -what if doing 'add vice versa' when the id is already '.inv'?
 
 -update XML import/export to new database format
-
--make sure that reset learning data (both import and export) doesn't break
- the connection between cards.
 
 -autosave
 
@@ -158,10 +162,6 @@ Miscellaneous
 -forward / backward when previewing cards in the database
 
 -clean up interval when importing from txt
-
--change file suffix when changing export format
-
--recreate user_id and log_index from files in history folder
 
 -paste from clipboard
 

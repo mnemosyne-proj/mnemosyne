@@ -2676,7 +2676,7 @@ def process_answer(item, new_grade, dry_run=False):
     item.grade    = new_grade
     item.easiness = new_easiness
     
-    item.acq_resp             = new_acq_reps
+    item.acq_reps             = new_acq_reps
     item.ret_reps             = new_ret_reps
     item.lapses               = new_lapses
     item.acq_reps_since_lapse = new_acq_reps_since_lapse
