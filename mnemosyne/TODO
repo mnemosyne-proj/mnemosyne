@@ -1,18 +1,4 @@
-Memosyne analysis:
-
--add to cvs
--document
--release
--research section on web site
-
-
 Mnemosyne 1.0:
-
--small version of Mnemosyne logo, add logo to about and getting started
-
--tip of the day
-
--desktop file to /usr/share/applications, icon file (also Windows)
 
 -3 sided import
 
@@ -20,6 +6,12 @@ Mnemosyne 1.0:
  the connection between cards.
 
 -check automatic backups
+
+-small version of Mnemosyne logo, add logo to about and getting started
+
+-tip of the day
+
+-desktop file to /usr/share/applications, icon file (also Windows)
 
 -website:
   relative CSS layout 
@@ -43,7 +35,16 @@ Mnemosyne 1.0:
 
 
 
-Mnemosyne 1.0.x series:
+Memosyne analysis:
+
+-add to cvs
+-document
+-release
+-research section on web site
+
+
+
+Mnemosyne 1.1
 
 -change file suffix when changing export format
 
@@ -53,12 +54,16 @@ Mnemosyne 1.0.x series:
 
 -basic graphical statistics
 
--write some more example plugins
+-move latex customisation code to config.py
+
+-refactor code to genenate default config.py
+
+-write some more example plugins?
 
 
 
 
-Mnemosyne 1.1: (note: needs to be combined with the Qt4 update from 1.2)
+Mnemosyne 2.0:
 
 -move to sqlite backend (encode card relations and tag hierarchy in name, 
  multiple category fields per card)
@@ -74,10 +79,6 @@ Mnemosyne 1.1: (note: needs to be combined with the Qt4 update from 1.2)
 -autosave
 
 -make really sure the same question isn't asked twice in a row
-
-
-
-Mnemosyne 1.2:
 
 -Upgrade to Qt4
 
@@ -101,9 +102,11 @@ Mnemosyne 1.2:
 
 -remove 'check duplicates when adding' option?
 
+-three sided export?
 
 
-Mnemosyne 1.3:
+
+Mnemosyne 2.1:
 
 -GUI support for multiple categories per card (Note: for categories relating
  to direction of card, we probably don't need to specify them explicitly,
@@ -111,13 +114,13 @@ Mnemosyne 1.3:
 
 
 
-Mnemosyne 1.4
+Mnemosyne 2.2
 
 -synonym handling
 
 
 
-Mnemosyne 1.5
+Mnemosyne 2.3
 
 -hierarchical categories
 
@@ -130,9 +133,9 @@ Mnemosyne 1.5
 
 
 
-Mnemosyne 1.6
+Mnemosyne 2.4
 
--more advanced plugin mechanism
+-more advanced plugin mechanism, plugin manager
 
 -check out python eggs
 
@@ -165,6 +168,8 @@ Miscellaneous
 
 -paste from clipboard
 
+-feedback about uploads in GUI / add time-out
+
 -drag and drop of pictures, sound files
 
 -autoupgrade, or at least notify of available upgrade (needs a separate thread)
@@ -175,11 +180,7 @@ Miscellaneous
 
 -undo last grade + keyboard shortcut
 
--per category statistics in 'Activate categories'
-
 -icon handling patch Dirk
-
--plugin manager
 
 -manual
 
@@ -189,18 +190,11 @@ Miscellaneous
  forgetting index, histogram of grades and intervals... (look at graphs 
  in JMemorize)
 
--getting the last repetition of a card: 
- http://spyced.blogspot.com/2007/01/why-sqlalchemy-impresses-me.html
-
--eager loading / joins?
-
 -importing cards from rss feed
 
 -clean obsolete latex images / autogenerate them
 
 -make <a> links clickable
-
--feedback about uploads in GUI / add time-out
 
 -translations
 

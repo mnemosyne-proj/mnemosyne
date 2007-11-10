@@ -49,18 +49,11 @@ def traceback_string():
 #
 ##############################################################################
 
-error_string = ""
+class MnemosyneError(Exception):
+    
+    def __init__(self, msg):
+        self.msg = msg
 
-def set_error_string(s):
-    global error_string
-    error_string = s
-    return s
-
-def get_error_string():
-    global error_string
-    s = error_string
-    error_string = None
-    return s
 
 
 ##############################################################################
@@ -295,7 +288,7 @@ def load_config():
                 if var in config.keys():
                     set_config(var, getattr(_config, var))
         except:
-            print set_error_string("Error in config.py!\n" \
+            raise MnemosyneError("Error in config.py.\n\n" \
                                    + traceback_string())
 
 
@@ -331,8 +324,8 @@ def run_plugins():
             try:
                 __import__(plugin[:-3])
             except:
-                print set_error_string("Error running plugin %s:\n" % plugin \
-                                       + traceback_string())
+                raise MnemosyneError("Error running plugin %s:\n" \
+                                       % plugin + traceback_string())
 
 
 
@@ -776,9 +769,8 @@ def load_database(path):
         unload_database()
 
     if not os.path.exists(path):
-        print set_error_string("File not found.")
         load_failed = True
-        return False
+        raise MnemosyneError("File not found.")
 
     try:
         infile = file(path, 'rb')
@@ -808,9 +800,8 @@ def load_database(path):
         load_failed = False
 
     except:
-        print set_error_string("Invalid database format.")
         load_failed = True
-        return False
+        raise MnemosyneError("Invalid database format.")
 
     for c in categories:
         category_by_name[c.name] = c
@@ -821,8 +812,6 @@ def load_database(path):
 
     logger.info("Loaded database %d %d %d", scheduled_items(), \
                 non_memorised_items(), number_of_items())
-    
-    return True
 
 
 
@@ -839,7 +828,7 @@ def save_database(path):
     path = expand_path(path, basedir)
 
     if load_failed == True: # Don't erase a database which failed to load.
-        return False
+        return
         
     try:
         
@@ -858,12 +847,9 @@ def save_database(path):
         shutil.move(path + "~", path) # Should be atomic.
         
     except:
-        print set_error_string("Unable to save database.")
-        return False
+        raise MnemosyneError("Unable to save database %s." % path)
 
     config["path"] = contract_path(path, basedir)
-    
-    return True
 
 
 
@@ -877,9 +863,7 @@ def unload_database():
 
     global items, revision_queue, categories, category_by_name
         
-    status = save_database(config["path"])
-    if status == False:
-        return False
+    save_database(config["path"])
     
     logger.info("Saved database %d %d %d", scheduled_items(), \
                 non_memorised_items(), number_of_items())        
@@ -1282,7 +1266,7 @@ def get_file_format_from_name(name):
         if name == fformat.name:
             return fformat
 
-    raise NameError("Illegal file format name.")
+    raise MnemosyneError("Illegal file format name.")
 
 
 
@@ -1302,14 +1286,12 @@ def import_file(filename, fformat_name, default_cat_name,
     if not time_of_start:
         new_database(config["path"])
 
-    # Call import function according to file format name
+    # Call import function according to file format name.
 
     default_cat = get_category_by_name(default_cat_name)
     fformat = get_file_format_from_name(fformat_name)
     imported_items = fformat.import_function(filename, default_cat,
                                              reset_learning_data)
-    if imported_items == False:
-        return False # Failure.
 
     # Add new items.
     
@@ -1341,8 +1323,6 @@ def import_file(filename, fformat_name, default_cat_name,
 
     load_failed = False
 
-    return True # Success.
-
 
 
 ##############################################################################
@@ -1358,10 +1338,8 @@ def export_file(filename, fformat_name,
 
     fformat = get_file_format_from_name(fformat_name)
 
-    status = fformat.export_function(filename, cat_names_to_export,
-                                     reset_learning_data)
-
-    return status
+    fformat.export_function(filename, cat_names_to_export, \
+                            reset_learning_data)
 
 
 
@@ -1623,8 +1601,7 @@ def import_XML(filename, default_cat, reset_learning_data=False):
         try:
             f = file(unicode(filename).encode("latin"))
         except:
-            print "Unable to open file."
-            return False
+            raise MnemosyneError("Unable to open file.")
     
     f.readline()
         
@@ -1644,8 +1621,7 @@ def import_XML(filename, default_cat, reset_learning_data=False):
     try:
         parser.parse(file(filename))
     except Exception, e:
-        print set_error_string("Error parsing XML:\n" + traceback_string())
-        return False
+        raise MnemosyneError("Error parsing XML:\n" + traceback_string())
 
     # Calculate offset with current start date.
     
@@ -1816,8 +1792,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
         try:
             f = file(filename.encode("latin"))
         except:
-            print set_error_string("Unable to open file.")
-            return False
+            raise MnemosyneError("Unable to open file.")
     
     for line in f:
         
@@ -1827,8 +1802,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
             try:
                 line = unicode(line, "latin")
             except:
-                print set_error_string("Unrecognised encoding.")
-                return False
+                raise MnemosyneError("Unrecognised encoding.")
 
         line = line.rstrip()
 
@@ -1843,9 +1817,8 @@ def import_txt(filename, default_cat, reset_learning_data=False):
         try:
             item.q, item.a = line.split('\t',1)
         except Exception, e:
-            s = "Error parsing txt file around line:\n\n" + line
-            print set_error_string(s + "\n" + traceback_string())
-            return False
+            raise MnemosyneError("Import failed.\n"+\
+                                 "Missing answer field on line:\n" + line)
         
         item.easiness = avg_easiness
         item.cat = default_cat
@@ -1920,8 +1893,7 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
         try:
             f = file(filename.encode("latin"))
         except:
-            print set_error_string("Unable to open file.")
-            return False
+            raise MnemosyneError("Unable to open file.")
 
     Q_A = []
     
@@ -1933,8 +1905,7 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
             try:
                 line = unicode(line, "latin")
             except:
-                print set_error_string("Unrecognised encoding.")
-                return False
+                raise MnemosyneError("Unrecognised encoding.")
 
         line = line.rstrip()
 
@@ -2002,8 +1973,7 @@ def read_line_sm7qa(f):
         try:
             line = unicode(line, "latin")
         except:
-            print "Unrecognised encoding."
-            return False
+            raise MnemosyneError("Unrecognised encoding.")
 
     return line
 
@@ -2024,8 +1994,7 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
         try:
             f = file(filename.encode("latin"))
         except:
-            print "Unable to open file."
-            return False
+            raise MnemosyneError("Unable to open file.")
 
     imported_items = []
     state = "ITEM-START"

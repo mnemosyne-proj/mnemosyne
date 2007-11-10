@@ -8,6 +8,7 @@ from qt import *
 
 from mnemosyne.core import *
 from export_frm import *
+from message_boxes import *
 
 
 
@@ -90,13 +91,8 @@ class ExportDlg(ExportFrm):
         
         fformat_name = unicode(self.fileformats.currentText())
 
-        if os.path.exists(fname):
-            status = QMessageBox.warning(None,
-                    self.trUtf8(""),
-                    self.trUtf8("Overwrite existing file?"),
-                    self.trUtf8("&Yes"), self.trUtf8("&No"),
-                    QString(), 1, -1)
-            if status == 1:
+        if os.path.exists(fname):   
+            if not queryOverwriteFile(fname):
                 return
 
         cat_names_to_export = []
@@ -108,19 +104,14 @@ class ExportDlg(ExportFrm):
 
         reset_learning_data = self.reset_box.isChecked()
 
-        status = export_file(
-            fname, fformat_name, cat_names_to_export, reset_learning_data)
-
-        if status == False:
-            QMessageBox.critical(None,
-                         qApp.translate("Mnemosyne", "Mnemosyne"),
-                         qApp.translate("Mnemosyne", "Unable to save file:")\
-                         .append(QString("\n" + fname)),
-                         qApp.translate("Mnemosyne", "&OK"),
-                         "", "", 0, -1)
-        else:
-            set_config("export_dir", contract_path(os.path.dirname(fname)))
-            set_config("export_format", fformat_name)
-            set_config("reset_learning_data_export", reset_learning_data)
+        try:
+            export_file(
+                fname, fformat_name, cat_names_to_export, reset_learning_data)
+        except MnemosyneError, e:
+            messagebox_errors(e.msg) # Needs to be caught at this level.
+            
+        set_config("export_dir", contract_path(os.path.dirname(fname)))
+        set_config("export_format", fformat_name)
+        set_config("reset_learning_data_export", reset_learning_data)
 
         self.close()

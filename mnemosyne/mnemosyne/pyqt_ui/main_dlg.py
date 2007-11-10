@@ -17,69 +17,9 @@ from edit_items_dlg import *
 from activate_categories_dlg import *
 from config_dlg import *
 from product_tour_dlg import *
+from message_boxes import *
 from sound import *
 from mnemosyne.core import *
-
-
-
-##############################################################################
-#
-# Display extra errors set by the library.
-#
-##############################################################################
-
-def display_errors():
-
-    s = get_error_string()
-
-    if s:
-        QMessageBox.critical(None,
-                             qApp.translate("Mnemosyne", "Mnemosyne"),
-                             QString(s),
-                             qApp.translate("Mnemosyne", "&OK"),
-                             "", "", 0, -1)
-
-
-
-##############################################################################
-#
-# messageUnableToSave
-#
-#  Note: operator+ would be nicer than append, but the PyQt version we use
-#        under Windows does not support this.
-#
-##############################################################################
-
-def messageUnableToSave(fileName):
-    
-    QMessageBox.critical(None,
-                         qApp.translate("Mnemosyne", "Mnemosyne"),
-                         qApp.translate("Mnemosyne", "Unable to save file:")\
-                         .append(QString("\n" + fileName)),
-                         qApp.translate("Mnemosyne", "&OK"),
-                         "", "", 0, -1)
-
-
-
-##############################################################################
-#
-# queryOverwriteFile
-#
-##############################################################################
-
-def queryOverwriteFile(fileName):
-    
-    status = QMessageBox.warning(None,
-                                 qApp.translate("Mnemosyne", "Mnemosyne"),
-                                 qApp.translate("Mnemosyne", "File exists: ")\
-                                 .append(QString("\n" + fileName)),
-                                 qApp.translate("Mnemosyne", "&Overwrite"),
-                                 qApp.translate("Mnemosyne", "&Cancel"),
-                                 "", 1, -1)
-    if status == 0:
-        return True
-    else:
-        return False
 
 
 
@@ -160,23 +100,22 @@ class MainDlg(MainFrm):
                 
         if filename == None:
             filename = get_config("path")
-        
-        status = load_database(filename)
-        
-        if status == False:
-            QMessageBox.critical(None,
-                    self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Unable to load file. "+\
-                                "Creating a tmp database."),
-                    self.trUtf8("&OK"), QString(), QString(), 0, -1)
+
+        try:
+            load_database(filename)
+        except MnemosyneError, e:
+            messagebox_errors(e.msg + "\n\nUnable to load file. "+\
+                           "Creating a tmp database.")
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             new_database(filename)
         
         self.newQuestion()
         self.updateDialog()
 
-        run_plugins()
-        display_errors()
+        try:
+            run_plugins()
+        except MnemosyneError, e:
+            messagebox_errors(e.msg)
 
     ##########################################################################
     #
@@ -237,17 +176,18 @@ class MainDlg(MainFrm):
                  "Mnemosyne databases (*.mem)", self, None, "Open"))
         if out != "":
 
-            status = unload_database()
-            if status == False:
-                messageUnableToSave(oldPath)
+            try:
+                unload_database()
+            except MnemosyneError, e:
+                messagebox_errors(e.msg)
 
             self.state = "EMPTY"
             self.item = None
-            
-            status = load_database(out)
-            
-            if status == False:
-                display_errors()
+
+            try:
+                load_database(out)
+            except MnemosyneError, e:
+                messagebox_errors(e.msg)
                 unpause_thinking()
                 return
 
@@ -267,9 +207,11 @@ class MainDlg(MainFrm):
         pause_thinking()
 
         path = get_config("path")
-        status = save_database(path)
-        if status == False:
-            messageUnableToSave(path)
+        
+        try:
+            save_database(path)
+        except MnemosyneError, e:
+            messagebox_errors(e.msg)
 
         unpause_thinking()
 
@@ -297,9 +239,10 @@ class MainDlg(MainFrm):
                     unpause_thinking()
                     return
                 
-            status = save_database(out)
-            if status == False:
-                messageUnableToSave(out)
+            try:
+                save_database(out)
+            except MnemosyneError, e:
+                messagebox_errors(e.msg)
                 unpause_thinking()
                 return            
 
@@ -318,11 +261,10 @@ class MainDlg(MainFrm):
         
         from xml.sax import saxutils, make_parser
         from xml.sax.handler import feature_namespaces
-        
-        dlg = ImportDlg(self,"Import",0)
+
+        dlg = ImportDlg(self, "Import", 0)
         dlg.exec_loop()
-        display_errors()
-        
+         
         if self.item == None:
             self.newQuestion()
 
@@ -338,11 +280,10 @@ class MainDlg(MainFrm):
     def export(self):
         
         pause_thinking()
-        
-        dlg = ExportDlg(self,"Export",0)
+
+        dlg = ExportDlg(self, "Export", 0)
         dlg.exec_loop()
-        display_errors()
-        
+                
         unpause_thinking()
         
     ##########################################################################
@@ -365,7 +306,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        dlg = AddItemsDlg(self,"Add cards",0)
+        dlg = AddItemsDlg(self, "Add cards", 0)
         dlg.exec_loop()
         
         if self.item == None:
@@ -384,7 +325,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        dlg = EditItemsDlg(self,"Edit cards",0)
+        dlg = EditItemsDlg(self, "Edit cards", 0)
         dlg.exec_loop()
         rebuild_revision_queue()
         
@@ -425,7 +366,7 @@ class MainDlg(MainFrm):
     def showStatistics(self):
         
         pause_thinking()
-        dlg = StatisticsDlg(self,"Statistics",0)
+        dlg = StatisticsDlg(self, "Statistics", 0)
         dlg.exec_loop()
         unpause_thinking()
         
@@ -438,7 +379,7 @@ class MainDlg(MainFrm):
     def editCurrentItem(self):
         
         pause_thinking()
-        dlg = EditItemDlg(self.item,self,"Edit current card",0)
+        dlg = EditItemDlg(self.item, self, "Edit current card", 0)
         dlg.exec_loop()
         self.updateDialog()
         unpause_thinking()
@@ -476,7 +417,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        dlg = ActivateCategoriesDlg(self,"Activate categories",0)
+        dlg = ActivateCategoriesDlg(self, "Activate categories", 0)
         dlg.exec_loop()
         
         rebuild_revision_queue()
@@ -513,7 +454,7 @@ class MainDlg(MainFrm):
     def configuration(self):
         
         pause_thinking()
-        dlg = ConfigurationDlg(self,"Configure Mnemosyne",0)
+        dlg = ConfigurationDlg(self, "Configure Mnemosyne", 0)
         dlg.exec_loop()
 
         rebuild_revision_queue()
@@ -536,10 +477,11 @@ class MainDlg(MainFrm):
         save_config()
         
         backup_database()
-        
-        status = unload_database()
-        if status == False:
-            messageUnableToSave(get_config("path"))
+
+        try:
+            unload_database()
+        except MnemosyneError, e:
+            messagebox_errors(e.msg)
             event.ignore()
         else:
             event.accept()
@@ -553,7 +495,7 @@ class MainDlg(MainFrm):
     def productTour(self):
         
         pause_thinking()
-        dlg = ProductTourDlg(self,"Mnemosyne product tour",0)
+        dlg = ProductTourDlg(self, "Getting started with Mnemosyne", 0)
         dlg.exec_loop()
         unpause_thinking()
         

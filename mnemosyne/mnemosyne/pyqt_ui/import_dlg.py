@@ -8,6 +8,7 @@ from qt import *
 
 from mnemosyne.core import *
 from import_frm import *
+from message_boxes import *
 
 
 
@@ -78,12 +79,14 @@ class ImportDlg(ImportFrm):
         fformat_name = unicode(self.fileformats.currentText())
         cat_name = unicode(self.categories.currentText())
         reset_learning_data = self.reset_box.isChecked()
-        status = import_file(
-                     fname, fformat_name, cat_name, reset_learning_data)
 
-        if status == True:
-            set_config("import_dir", contract_path(os.path.dirname(fname)))
-            set_config("import_format", fformat_name)
-            set_config("reset_learning_data_import", reset_learning_data)
+        try:
+            import_file(fname, fformat_name, cat_name, reset_learning_data)
+        except MnemosyneError, e:
+            messagebox_errors(e.msg) # Needs to be caught at this level.
+
+        set_config("import_dir", contract_path(os.path.dirname(fname)))
+        set_config("import_format", fformat_name)
+        set_config("reset_learning_data_import", reset_learning_data)
         
         self.close()
