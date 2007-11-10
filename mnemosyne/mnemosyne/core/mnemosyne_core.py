@@ -5,7 +5,7 @@
 ##############################################################################
 
 import random, time, os, string, sys, cPickle, md5, struct, logging, re
-import traceback, shutil, datetime, bz2
+import traceback, shutil, datetime, bz2, copy
 import mnemosyne.version
 logger = logging.getLogger("mnemosyne")
 
@@ -2546,6 +2546,12 @@ def process_answer(item, new_grade, dry_run=False):
 
     global revision_queue, items
 
+    # When doing a dry run, make a copy to operate on. Note that this
+    # leaves the original in items and the reference in the GUI intact.
+
+    if dry_run:
+        item = copy.copy(item)
+
     # Calculate scheduled and actual interval, taking care of corner
     # case when learning ahead on the same day.
     
@@ -2555,29 +2561,18 @@ def process_answer(item, new_grade, dry_run=False):
     if actual_interval == 0:
         actual_interval = 1 # Otherwise new interval can become zero.
 
-    # Initialise new values for item attributes.
-
-    new_easiness             = item.easiness      
-    new_acq_reps             = item.acq_reps
-    new_ret_reps             = item.ret_reps
-    new_lapses               = item.lapses
-    new_acq_reps_since_lapse = item.acq_reps_since_lapse
-    new_ret_reps_since_lapse = item.ret_reps_since_lapse
-
-    # Start processing the answer.
-
     if item.is_new():
 
         # The item is not graded yet, e.g. because it is imported.
 
-        new_acq_reps = 1
-        new_acq_reps_since_lapse = 1
+        item.acq_reps = 1
+        item.acq_reps_since_lapse = 1
 
         new_interval = calculate_initial_interval(new_grade)
 
         # Make sure the second copy of a grade 0 item doesn't show up again.
 
-        if dry_run == False and item.grade == 0 and new_grade in [2,3,4,5]:
+        if not dry_run and item.grade == 0 and new_grade in [2,3,4,5]:
             for i in revision_queue:
                 if i.id == item.id:
                     revision_queue.remove(i)
@@ -2587,79 +2582,82 @@ def process_answer(item, new_grade, dry_run=False):
 
         # In the acquisition phase and staying there.
     
-        new_acq_reps += 1
-        new_acq_reps_since_lapse += 1        
+        item.acq_reps += 1
+        item.acq_reps_since_lapse += 1
+        
         new_interval = 0
 
     elif item.grade in [0,1] and new_grade in [2,3,4,5]:
 
-        # In the acquisition phase and moving to the retention phase.
+         # In the acquisition phase and moving to the retention phase.
 
-        new_acq_reps += 1
-        new_acq_reps_since_lapse += 1       
-        new_interval = 1
+         item.acq_reps += 1
+         item.acq_reps_since_lapse += 1
 
-        # Make sure the second copy of a grade 0 item doesn't show up again.
+         new_interval = 1
 
-        if dry_run == False and item.grade == 0:
-            for i in revision_queue:
-                if i.id == item.id:
-                    revision_queue.remove(i)
-                    break
+         # Make sure the second copy of a grade 0 item doesn't show up again.
+
+         if not dry_run and item.grade == 0:
+             for i in revision_queue:
+                 if i.id == item.id:
+                     revision_queue.remove(i)
+                     break
 
     elif item.grade in [2,3,4,5] and new_grade in [0,1]:
 
-        # In the retention phase and dropping back to the acquisition phase.
+         # In the retention phase and dropping back to the acquisition phase.
 
-        new_ret_reps += 1
-        new_lapses += 1
-        new_acq_reps_since_lapse = 0
-        new_ret_reps_since_lapse = 0
-        new_interval = 0
+         item.ret_reps += 1
+         item.lapses += 1
+         item.acq_reps_since_lapse = 0
+         item.ret_reps_since_lapse = 0
 
-        # Move this item to the front of the list, to have precedence over
-        # items which are still being learned for the first time.
+         new_interval = 0
 
-        if dry_run == False:
-            items.remove(item)
-            items.insert(0,item)
+         # Move this item to the front of the list, to have precedence over
+         # items which are still being learned for the first time.
+
+         if not dry_run:
+             items.remove(item)
+             items.insert(0,item)
 
     elif item.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
 
         # In the retention phase and staying there.
 
-        new_ret_reps += 1
-        new_ret_reps_since_lapse += 1
+        item.ret_reps += 1
+        item.ret_reps_since_lapse += 1
 
         if actual_interval >= scheduled_interval:
             if new_grade == 2:
-                new_easiness -= 0.16
+                item.easiness -= 0.16
             if new_grade == 3:
-                new_easiness -= 0.14              
+                item.easiness -= 0.14
             if new_grade == 5:
-                new_easiness += 0.10
-            if new_easiness < 1.3:
-                new_easiness = 1.3
+                item.easiness += 0.10
+            if item.easiness < 1.3:
+                item.easiness = 1.3
             
         new_interval = 0
         
-        if new_ret_reps_since_lapse == 1:
+        if item.ret_reps_since_lapse == 1:
             new_interval = 6
         else:
             if new_grade == 2 or new_grade == 3:
                 if actual_interval <= scheduled_interval:
-                    new_interval = actual_interval * new_easiness
+                    new_interval = actual_interval * item.easiness
                 else:
                     new_interval = scheduled_interval
                     
             if new_grade == 4:
-                new_interval = actual_interval * new_easiness
+                new_interval = actual_interval * item.easiness
                 
             if new_grade == 5:
                 if actual_interval < scheduled_interval:
                     new_interval = scheduled_interval # Avoid spacing.
                 else:
-                    new_interval = actual_interval * new_easiness
+                    new_interval = actual_interval * item.easiness
 
         # Shouldn't happen, but build in a safeguard.
 
@@ -2669,29 +2667,21 @@ def process_answer(item, new_grade, dry_run=False):
 
         new_interval = int(new_interval)
 
-    # If dry_run == True, we stop here and return the scheduled interval.
+    # When doing a dry run, stop here and return the scheduled interval.
 
-    if dry_run == True:
+    if dry_run:
         return new_interval
 
     # Add some randomness to interval.
 
     noise = calculate_interval_noise(new_interval)
 
-    # Update item information.
-
-    item.grade    = new_grade
-    item.easiness = new_easiness
+    # Update grade and interval.
     
-    item.acq_reps             = new_acq_reps
-    item.ret_reps             = new_ret_reps
-    item.lapses               = new_lapses
-    item.acq_reps_since_lapse = new_acq_reps_since_lapse
-    item.ret_reps_since_lapse = new_ret_reps_since_lapse
-        
+    item.grade    = new_grade
     item.last_rep = days_since_start
     item.next_rep = days_since_start + new_interval + noise
-
+    
     # Don't schedule inverse or identical questions on the same day.
 
     for j in items:
@@ -2699,7 +2689,7 @@ def process_answer(item, new_grade, dry_run=False):
             if j != item and j.next_rep == item.next_rep and item.grade >= 2:
                 item.next_rep += 1
                 noise += 1
-
+                
     # Create log entry.
         
     logger.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
