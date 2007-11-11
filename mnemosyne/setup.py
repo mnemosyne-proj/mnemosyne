@@ -113,9 +113,12 @@ class build_installer(py2exe):
 
 if sys.platform == "win32": # For py2exe.
     base_path = ""
+    data_files = None
 else:
     base_path = os.path.join(sys.exec_prefix, "lib", "python"+sys.version[:3],
                              "site-packages","mnemosyne")
+    data_files = [('/usr/share/applications', ['mnemosyne.desktop']),
+                  ('/usr/share/icons', ['pixmaps/mnemosyne.png'])]  
   
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path   = os.path.join(base_path, "util")
@@ -126,8 +129,7 @@ setup (name = "mnemosyne",
        author = "Peter Bienstman",
        author_email = "Peter.Bienstman@UGent.be",
        packages = ["mnemosyne", "mnemosyne.pyqt_ui","mnemosyne.core"],
-       data_files = [('/usr/share/applications', ['mnemosyne.desktop']),
-                     ('/usr/share/icons', ['pixmaps/mnemosyne.png'])],
+       data_files = data_files,
        scripts = ['mnemosyne/pyqt_ui/mnemosyne'],
        windows = [{'script':'mnemosyne/pyqt_ui/mnemosyne',
                    "icon_resources":[(1,"pixmaps/mnemosyne.ico")]}],
