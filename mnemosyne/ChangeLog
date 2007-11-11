@@ -22,6 +22,8 @@ version before doing an upgrade.)
  placed them in .mnemosyne/config.py, a new file which can be used to
  set these and other rarely used options.
 -improved tooltips.
+-added desktop file, so that Mnemosyne shows up in the application menu
+ under Linux.
 -more verbose error messages when an import failed, showing the line that
  failed to parse.
 -new logo, thanks to a contributor whose name sadly got lost in the 

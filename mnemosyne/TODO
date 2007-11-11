@@ -3,11 +3,9 @@ Mnemosyne 1.0:
 -make sure that reset learning data (both import and export) doesn't break
  the connection between cards.
 
--small version of Mnemosyne logo, add logo to about and getting started
+-add logo to about and getting started
 
 -tip of the day
-
--desktop file to /usr/share/applications, icon file (also Windows)
 
 -website:
   relative CSS layout 
