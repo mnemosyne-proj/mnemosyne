@@ -3,8 +3,6 @@ Mnemosyne 1.0:
 -make sure that reset learning data (both import and export) doesn't break
  the connection between cards.
 
--check automatic backups
-
 -small version of Mnemosyne logo, add logo to about and getting started
 
 -tip of the day
@@ -21,6 +19,7 @@ Mnemosyne 1.0:
   better explanation of short term / long term?
   faq on non latin size
   faq on backlog
+  difference grade 0 grade 1
   faq on grade 0 items per day / session
   faq on spartan options screen / config screen
   update screenshots

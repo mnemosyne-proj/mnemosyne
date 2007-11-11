@@ -914,7 +914,7 @@ def backup_database():
     files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
     files.sort()
     if len(files) > 5:
-        os.remove(os.path.join(backupdir, files[1]))
+        os.remove(os.path.join(backupdir, files[0]))
 
     
 
