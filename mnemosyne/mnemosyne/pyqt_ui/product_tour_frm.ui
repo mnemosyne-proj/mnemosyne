@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>508</width>
-            <height>320</height>
+            <height>336</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -178,21 +178,10 @@ If you fail to remember it altogether, rate it either 0 or 1, and I'll keep on a
 
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
 
-Uncheck the following boxes if you do not want to do this.</string>
+Uncheck the following box if you do not want to do this.</string>
                         </property>
                         <property name="alignment">
                             <set>WordBreak|AlignTop</set>
-                        </property>
-                    </widget>
-                    <widget class="QCheckBox">
-                        <property name="name">
-                            <cstring>keepLogs</cstring>
-                        </property>
-                        <property name="text">
-                            <string>Keep detailed logs</string>
-                        </property>
-                        <property name="checked">
-                            <bool>true</bool>
                         </property>
                     </widget>
                     <widget class="QCheckBox">
