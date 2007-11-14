@@ -17,8 +17,8 @@ from edit_items_dlg import *
 from activate_categories_dlg import *
 from config_dlg import *
 from product_tour_dlg import *
-from message_boxes import *
 from sound import *
+from message_boxes import *
 from mnemosyne.core import *
 
 
@@ -31,27 +31,32 @@ from mnemosyne.core import *
 
 tooltip = [["","","","","",""],["","","","","",""]]
 
-tooltip[0][0] = "You don't remember this card yet."
-tooltip[0][1] = "Like '0', but it's getting more familiar. "+\
-                "Show it less often."
-tooltip[0][2] = "You've memorised this card now, and will probably "+\
-                "remember it for a few days."
-tooltip[0][3] = "You've memorised this card now, and will probably "+\
-                "remember it for a few days."
-tooltip[0][4] = "You've memorised this card now, and will probably "+\
-                "remember it for a few days."
-tooltip[0][5] = "You've memorised this card now, and will probably "+\
-                "remember it for a few days."
+def install_tooltip_strings():
 
-tooltip[1][0] = "You have forgotten this card completely."
-tooltip[1][1] = "You have forgotten this card completely."
-tooltip[1][2] = "Barely correct answer. The interval was way too long."
-tooltip[1][3] = "Correct answer, but with much effort. The interval was "+\
-                "probably too long."
-tooltip[1][4] = "Correct answer, with some effort. The interval was "+\
-                "probably just right."
-tooltip[1][5] = "Correct answer, but without any difficulties. The "+\
-                "interval was probably too short."
+    global tooltip
+    
+    tooltip[0][0] = \
+        qApp.trUtf8("You don't remember this card yet.")
+    tooltip[0][1] = \
+        qApp.trUtf8("Like '0', but it's getting more familiar.").append(\
+        qApp.trUtf8(" Show it less often."))
+    tooltip[0][2] = tooltip[0][3] = tooltip[0][4] = tooltip[0][5] = \
+        qApp.trUtf8("You've memorised this card now,").append(\
+        qApp.trUtf8(" and will probably remember it for a few days."))
+
+    tooltip[1][0] = tooltip[1][1] = \
+        qApp.trUtf8("You have forgotten this card completely.")
+    tooltip[1][2] = \
+        qApp.trUtf8("Barely correct answer. The interval was way too long.")
+    tooltip[1][3] = \
+        qApp.trUtf8("Correct answer, but with much effort.").append(\
+        qApp.trUtf8(" The interval was probably too long."))
+    tooltip[1][4] = \
+        qApp.trUtf8("Correct answer, with some effort.").append(\
+        qApp.trUtf8(" The interval was probably just right."))
+    tooltip[1][5] = \
+        qApp.trUtf8("Correct answer, but without any").append(\
+        qApp.trUtf8(" difficulties. The interval was probably too short."))
 
 
 
@@ -70,6 +75,7 @@ class MainDlg(MainFrm):
     ##########################################################################
     
     def __init__(self, filename, parent = None,name = None,fl = 0):
+        
         MainFrm.__init__(self,parent,name,fl)
 
         self.state = "EMPTY"
@@ -104,7 +110,7 @@ class MainDlg(MainFrm):
         try:
             load_database(filename)
         except MnemosyneError, e:
-            messagebox_errors(e.msg + "\n\nUnable to load file. "+\
+            messagebox_errors(e + "\n\nUnable to load file. "+\
                            "Creating a tmp database.")
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             new_database(filename)
@@ -115,7 +121,7 @@ class MainDlg(MainFrm):
         try:
             run_plugins()
         except MnemosyneError, e:
-            messagebox_errors(e.msg)
+            messagebox_errors(e)
 
     ##########################################################################
     #
@@ -179,7 +185,7 @@ class MainDlg(MainFrm):
             try:
                 unload_database()
             except MnemosyneError, e:
-                messagebox_errors(e.msg)
+                messagebox_errors(e)
 
             self.state = "EMPTY"
             self.item = None
@@ -187,7 +193,7 @@ class MainDlg(MainFrm):
             try:
                 load_database(out)
             except MnemosyneError, e:
-                messagebox_errors(e.msg)
+                messagebox_errors(e)
                 unpause_thinking()
                 return
 
@@ -211,7 +217,7 @@ class MainDlg(MainFrm):
         try:
             save_database(path)
         except MnemosyneError, e:
-            messagebox_errors(e.msg)
+            messagebox_errors(e)
 
         unpause_thinking()
 
@@ -242,7 +248,7 @@ class MainDlg(MainFrm):
             try:
                 save_database(out)
             except MnemosyneError, e:
-                messagebox_errors(e.msg)
+                messagebox_errors(e)
                 unpause_thinking()
                 return            
 
@@ -262,7 +268,7 @@ class MainDlg(MainFrm):
         from xml.sax import saxutils, make_parser
         from xml.sax.handler import feature_namespaces
 
-        dlg = ImportDlg(self, "Import", 0)
+        dlg = ImportDlg(self)
         dlg.exec_loop()
          
         if self.item == None:
@@ -281,7 +287,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
 
-        dlg = ExportDlg(self, "Export", 0)
+        dlg = ExportDlg(self)
         dlg.exec_loop()
                 
         unpause_thinking()
@@ -306,7 +312,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        dlg = AddItemsDlg(self, "Add cards", 0)
+        dlg = AddItemsDlg(self)
         dlg.exec_loop()
         
         if self.item == None:
@@ -325,7 +331,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        dlg = EditItemsDlg(self, "Edit cards", 0)
+        dlg = EditItemsDlg(self)
         dlg.exec_loop()
         rebuild_revision_queue()
         
@@ -366,7 +372,7 @@ class MainDlg(MainFrm):
     def showStatistics(self):
         
         pause_thinking()
-        dlg = StatisticsDlg(self, "Statistics", 0)
+        dlg = StatisticsDlg(self)
         dlg.exec_loop()
         unpause_thinking()
         
@@ -379,7 +385,7 @@ class MainDlg(MainFrm):
     def editCurrentItem(self):
         
         pause_thinking()
-        dlg = EditItemDlg(self.item, self, "Edit current card", 0)
+        dlg = EditItemDlg(self.item, self)
         dlg.exec_loop()
         self.updateDialog()
         unpause_thinking()
@@ -417,7 +423,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        dlg = ActivateCategoriesDlg(self, "Activate categories", 0)
+        dlg = ActivateCategoriesDlg(self)
         dlg.exec_loop()
         
         rebuild_revision_queue()
@@ -454,7 +460,7 @@ class MainDlg(MainFrm):
     def configuration(self):
         
         pause_thinking()
-        dlg = ConfigurationDlg(self, "Configure Mnemosyne", 0)
+        dlg = ConfigurationDlg(self)
         dlg.exec_loop()
 
         rebuild_revision_queue()
@@ -481,7 +487,7 @@ class MainDlg(MainFrm):
         try:
             unload_database()
         except MnemosyneError, e:
-            messagebox_errors(e.msg)
+            messagebox_errors(e)
             event.ignore()
         else:
             event.accept()
@@ -495,7 +501,7 @@ class MainDlg(MainFrm):
     def productTour(self):
         
         pause_thinking()
-        dlg = ProductTourDlg(self, "Getting started with Mnemosyne", 0)
+        dlg = ProductTourDlg(self)
         dlg.exec_loop()
         unpause_thinking()
         
@@ -579,15 +585,13 @@ class MainDlg(MainFrm):
     def next_rep_string(self, days):
         
         if days == 0:
-            return qApp.translate("Mnemosyne",
-                                  "\nNext repetition: today.")
+            return QString('\n') + self.trUtf8("Next repetition: today.")
         elif days == 1:
-            return qApp.translate("Mnemosyne",
-                                  "\nNext repetition: tomorrow.")
+            return QString('\n') + self.trUtf8("Next repetition: tomorrow.")
         else: 
-            return qApp.translate("Mnemosyne", "\nNext repetition in ").\
+            return QString('\n') + self.trUtf8("Next repetition in ").\
                    append(QString(str(days))).\
-                   append(qApp.translate("Mnemosyne", " days."))
+                   append(qApp.trUtf8(" days."))
         
     ##########################################################################
     #
@@ -707,7 +711,7 @@ class MainDlg(MainFrm):
             show_enabled, default, text = 1, 0, "Learn ahead of schedule"
             grades_enabled = 0
 
-        self.show_button.setText(self.trUtf8(text))
+        self.show_button.setText(text)
         self.show_button.setDefault(default)
         self.show_button.setEnabled(show_enabled)
 
@@ -732,12 +736,12 @@ class MainDlg(MainFrm):
             if self.state == "SELECT GRADE" and \
                get_config("show_intervals") == "tooltips":
                 QToolTip.add(self.grade_buttons[grade],
-                      qApp.translate("Mnemosyne", tooltip[i][grade]).
+                      tooltip[i][grade].
                       append(self.next_rep_string(process_answer(self.item,
                                                   grade, dry_run=True))))
             else:
                 QToolTip.add(self.grade_buttons[grade],
-                             qApp.translate("Mnemosyne", tooltip[i][grade]))
+                            tooltip[i][grade])
 
             # Button text.
                     
@@ -745,12 +749,11 @@ class MainDlg(MainFrm):
                get_config("show_intervals") == "buttons":
                 self.grade_buttons[grade].setText(\
                         str(process_answer(self.item, grade, dry_run=True)))
-                self.grades.setTitle(qApp.translate("Mnemosyne",
-                                     "Pick days until next repetition:"))
+                self.grades.setTitle(\
+                    qApp.trUtf8("Pick days until next repetition:"))
             else:
                 self.grade_buttons[grade].setText(str(grade))
-                self.grades.setTitle(qApp.translate("Mnemosyne",
-                                     "Grade your answer:"))
+                self.grades.setTitle(qApp.trUtf8("Grade your answer:"))
 
             self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
 

@@ -1,5 +1,11 @@
 Mnemosyne 1.0:
 
+-make more things translatable
+-check if error messages, tool tips show up in translations
+-translations
+
+-better USB scheme
+
 -make sure that reset learning data (both import and export) doesn't break
  the connection between cards.
 
@@ -153,6 +159,7 @@ Mnemosyne 2.4
 -active alert as plugin
 
 
+
 Miscellaneous
 
 -unify number shortcuts (with and without Ctrl)
@@ -162,6 +169,9 @@ Miscellaneous
 -clean up interval when importing from txt
 
 -paste from clipboard
+
+-preselect all in some text fields, so that the users can start typing
+ immediately
 
 -feedback about uploads in GUI / add time-out
 
@@ -190,8 +200,6 @@ Miscellaneous
 -clean obsolete latex images / autogenerate them
 
 -make <a> links clickable
-
--translations
 
 -investigate ridiculously large thinking times
 

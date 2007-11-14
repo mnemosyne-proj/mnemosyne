@@ -9,7 +9,7 @@
 import sys, os
 from qt import *
 from mnemosyne.pyqt_ui.main_dlg import *
-from mnemosyne.core import *
+from mnemosyne.pyqt_ui.message_boxes import *
 from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 from optparse import OptionParser
 
@@ -33,6 +33,9 @@ else:
 
 a = QApplication(sys.argv)
 
+install_error_strings()
+install_tooltip_strings()
+
 # Check if there is another instance of Mnemosyne running.
 
 if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
@@ -53,8 +56,11 @@ try:
 except:
     print "Unable to initialise sound."
 
-initialise(basedir)
-            
+try:
+    initialise(basedir)
+except MnemosyneError, e:
+    messagebox_errors(e)
+
 w = MainDlg(filename)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
@@ -70,4 +76,3 @@ if get_config("first_run") == True:
 a.exec_loop()
 
 finalise()
-

@@ -1,11 +1,27 @@
 ##############################################################################
 #
-# Main widget for Mnemosyne <Peter.Bienstman@UGent.be>
+# Message boxes for warnings and errors. <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
 import sys, os
+from mnemosyne.core.exceptions import *
 from qt import *
+
+
+
+##############################################################################
+#
+# Error message strings.
+#
+#  We don't provide these strings in libmnemosyne because they need to be
+#  exposed to Qt's internationalisation mechanism.
+#
+##############################################################################
+
+def install_error_strings():
+    
+    ConfigError.msg = qApp.trUtf8("Error in config.py.")
 
 
 
@@ -15,12 +31,20 @@ from qt import *
 #
 ##############################################################################
 
-def messagebox_errors(s):
-    QMessageBox.critical(None,
-                         qApp.translate("Mnemosyne", "Mnemosyne"),
-                         QString(s),
-                         qApp.translate("Mnemosyne", "&OK"),
-                         "", "", 0, -1)
+def messagebox_errors(e):
+
+    if e.stack_trace:
+        QMessageBox.critical(None,
+                             qApp.trUtf8("Mnemosyne"),
+                             e.msg.append(QString("\n" + e.stack_trace)),
+                             qApp.trUtf8("&OK"),
+                             "", "", 0, -1)
+    else:
+        QMessageBox.critical(None,
+                             qApp.trUtf8("Mnemosyne"),
+                             e.msg,
+                             qApp.trUtf8("&OK"),
+                             "", "", 0, -1)        
 
 
 
@@ -33,11 +57,11 @@ def messagebox_errors(s):
 def queryOverwriteFile(fileName):
     
     status = QMessageBox.warning(None,
-                                 qApp.translate("Mnemosyne", "Mnemosyne"),
-                                 qApp.translate("Mnemosyne", "File exists: ")\
+                                 qApp.trUtf8("Mnemosyne"),
+                                 qApp.trUtf8("File exists:")\
                                  .append(QString("\n" + fileName)),
-                                 qApp.translate("Mnemosyne", "&Overwrite"),
-                                 qApp.translate("Mnemosyne", "&Cancel"),
+                                 qApp.trUtf8("&Overwrite"),
+                                 qApp.trUtf8("&Cancel"),
                                  "", 1, -1)
     if status == 0:
         return True

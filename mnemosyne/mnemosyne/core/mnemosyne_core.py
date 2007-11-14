@@ -5,8 +5,11 @@
 ##############################################################################
 
 import random, time, os, string, sys, cPickle, md5, struct, logging, re
-import traceback, shutil, datetime, bz2, copy
+import shutil, datetime, bz2, copy
+
+from mnemosyne.core.exceptions import *
 import mnemosyne.version
+
 logger = logging.getLogger("mnemosyne")
 
 
@@ -21,38 +24,6 @@ basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
 def get_basedir():
     return basedir
-
-
-
-##############################################################################
-#
-# Like traceback.print_exc(), but returns a string
-#
-##############################################################################
-
-def traceback_string():
-
-    type, value, tb = sys.exc_info()
-    
-    body = "\nTraceback (innermost last):\n"
-    list = traceback.format_tb(tb, limit=None) + \
-           traceback.format_exception_only(type, value)
-    body = body + "%-20s %s" % (string.join(list[:-1], ""), list[-1],)
-    
-    return body
-
-
-
-##############################################################################
-#
-# Mechanism to communicate extra error messages to the GUI.
-#
-##############################################################################
-
-class MnemosyneError(Exception):
-    
-    def __init__(self, msg):
-        self.msg = msg
 
 
 
@@ -288,8 +259,7 @@ def load_config():
                 if var in config.keys():
                     set_config(var, getattr(_config, var))
         except:
-            raise MnemosyneError("Error in config.py.\n\n" \
-                                   + traceback_string())
+            raise ConfigError(stack_trace=True)
 
 
 
@@ -1982,12 +1952,12 @@ register_file_format("Text with Q and A each on separate line",
 ##############################################################################
 #
 # Functions for importing and exporting files in SuperMemo's text file format:
-# A line starting with `Q: ´ holds a question, a line starting with `A: ´
+# A line starting with 'Q: ' holds a question, a line starting with 'A: '
 # holds an answer.  Several consecutive question lines form a multi line
 # question, several consecutive answer lines form a multi line answer.  After
 # the answer lines, learning data may follow.  This consists of a line like
-# `I: REP=8 LAP=0 EF=3.200 UF=2.370 INT=429 LAST=27.01.06´ and a line like
-# `O: 36´.  After each item (even the last one) there must be an empty line.
+# 'I: REP=8 LAP=0 EF=3.200 UF=2.370 INT=429 LAST=27.01.06' and a line like
+# 'O: 36'.  After each item (even the last one) there must be an empty line.
 #
 ##############################################################################
 
@@ -2000,10 +1970,11 @@ def read_line_sm7qa(f):
 
     line = line.rstrip()
 
-    # Supermemo uses the octet 0x03 to represent the ú character.  Since this
-    # does not seem to be a standard encoding, we simply replace this.
+    # Supermemo uses the octet 0x03 to represent the accented u character.
+    # Since this does not seem to be a standard encoding, we simply replace
+    # this.
     
-    line = line.replace("\x03", "ú")
+    line = line.replace("\x03", "\xfa")
 
     try:
         line = unicode(line, "utf-8")
