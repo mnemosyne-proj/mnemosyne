@@ -153,7 +153,7 @@ def initialise(basedir_ = None):
         f.close()        
         
     logger.info("Program started : Mnemosyne " + mnemosyne.version.version \
-                + " " + os.name)
+                + " " + os.name + " " + sys.platform)
 
 
 
