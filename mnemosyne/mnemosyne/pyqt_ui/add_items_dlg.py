@@ -126,10 +126,10 @@ class AddItemsDlg(AddItemsFrm):
             return
 
         status = QMessageBox.warning(None,
-                        qApp.translate("Mnemosyne", "Mnemosyne"),
-                        qApp.translate("Mnemosyne", "Abandon current card?"),
-                        qApp.translate("Mnemosyne", "&Yes"),
-                        qApp.translate("Mnemosyne", "&No"),
+                        self.trUtf8("Mnemosyne"),
+                        self.trUtf8("Abandon current card?"),
+                        self.trUtf8("&Yes"),
+                        self.trUtf8("&No"),
                         "", 1, -1)
         if status == 0:
             QDialog.reject(self)
@@ -159,16 +159,16 @@ class AddItemsDlg(AddItemsFrm):
     def update_dialog(self):
 
         if get_config("3_sided_input") == False:
-            self.q_label.setText("Question:")
+            self.q_label.setText(self.trUtf8("Question:"))
             self.p_label.hide()            
             self.pronunciation.hide()
-            self.a_label.setText("Answer:")
+            self.a_label.setText(self.trUtf8("Answer:"))
             self.addViceVersa.show()         
         else:
-            self.q_label.setText("Written form:")
+            self.q_label.setText(self.trUtf8("Written form:"))
             self.p_label.show()            
             self.pronunciation.show()
-            self.a_label.setText("Translation:")            
+            self.a_label.setText(self.trUtf8("Translation:"))          
             self.addViceVersa.hide()
 
 
@@ -186,13 +186,13 @@ class AddItemsDlg(AddItemsFrm):
             dlg = PreviewItemDlg(unicode(self.question.text()),
                                  unicode(self.answer.text()),
                                  unicode(self.categories.currentText()),
-                                 self,"Preview current card",0)
+                                 self)
         else:
             dlg = PreviewItemDlg(unicode(self.question.text()),
                                  unicode(self.pronunciation.text()+"\n"\
                                          +self.answer.text()),
                                  unicode(self.categories.currentText()),
-                                 self,"Preview current card",0)            
+                                 self)            
         dlg.exec_loop()
 
         
@@ -221,8 +221,8 @@ class AddItemsDlg(AddItemsFrm):
                         if item.cat.name == cat_name or not allow_dif_cat:
                             QMessageBox.information(None,
                                 self.trUtf8("Mnemosyne"),
-                                self.trUtf8("Card is already in database.\n"+
-                                            "Duplicate not added."),
+                                self.trUtf8("Card is already in database.\n")\
+                                .append(self.trUtf8("Duplicate not added.")),
                                 self.trUtf8("&OK"))
                 
                             return None
@@ -240,12 +240,13 @@ class AddItemsDlg(AddItemsFrm):
                     answers += ' / ' + i.a
                         
                 status = QMessageBox.question(None,
-                      self.trUtf8("Mnemosyne"),
-                      self.trUtf8("There are different answers for "+
-                                  "this question:\n\n"+answers.encode("utf8")),
-                      self.trUtf8("&Merge and edit"),
-                      self.trUtf8("&Add as is"),
-                      self.trUtf8("&Don't add"), 0, -1)
+                   self.trUtf8("Mnemosyne"),
+                   self.trUtf8(\
+                    "There are different answers for this question:\n\n")\
+                                              .append(answers),
+                   self.trUtf8("&Merge and edit"),
+                   self.trUtf8("&Add as is"),
+                   self.trUtf8("&Don't add"), 0, -1)
                 
                 if status == 0: # Merge and edit.
                     
@@ -257,7 +258,7 @@ class AddItemsDlg(AddItemsFrm):
                         new_item.a += ' / ' + i.a
                         delete_item(i)
                         
-                    dlg = EditItemDlg(new_item, self, "Edit merged card", 0)
+                    dlg = EditItemDlg(new_item, self)
                     
                     dlg.exec_loop()
                     
