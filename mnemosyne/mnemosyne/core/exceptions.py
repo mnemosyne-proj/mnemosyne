@@ -37,9 +37,11 @@ class MnemosyneError(Exception):
 
     msg = '' # Will be filled in by the UI, to allow translation.
     
-    def __init__(self, stack_trace=False):
+    def __init__(self, stack_trace=False, info=None):
         if stack_trace == True:
-            self.stack_trace = traceback_string()
+            self.info = traceback_string()
+        else:
+            self.info = info
 
 
 
@@ -52,5 +54,26 @@ class MnemosyneError(Exception):
 class ConfigError(MnemosyneError):
     pass
 
+class PluginError(MnemosyneError):
+    pass
+
+class LoadError(MnemosyneError):
+    pass
+
+class LoadErrorCreateTmp(MnemosyneError):
+    pass
+
+class InvalidFormatError(MnemosyneError):
+    pass
+
+class SaveError(MnemosyneError):
+    pass
+
 class XMLError(MnemosyneError):
+    pass
+
+class EncodingError(MnemosyneError):
+    pass
+
+class MissingAnswerError(MnemosyneError):
     pass

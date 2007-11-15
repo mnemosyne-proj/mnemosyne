@@ -294,8 +294,7 @@ def run_plugins():
             try:
                 __import__(plugin[:-3])
             except:
-                raise MnemosyneError("Error running plugin %s:\n" \
-                                       % plugin + traceback_string())
+                raise PluginError(stack_trace=True)
 
 
 
@@ -321,6 +320,7 @@ class StartTime:
     def update_days_since(self):
         global days_since_start
         days_since_start = int( (time.time() - self.time) / 60. / 60. / 24.)
+
     
     
 ##############################################################################
@@ -740,7 +740,7 @@ def load_database(path):
 
     if not os.path.exists(path):
         load_failed = True
-        raise MnemosyneError("File not found.")
+        raise LoadError()
 
     try:
         infile = file(path, 'rb')
@@ -771,7 +771,7 @@ def load_database(path):
 
     except:
         load_failed = True
-        raise MnemosyneError("Invalid database format.")
+        raise InvalidFormatError()
 
     for c in categories:
         category_by_name[c.name] = c
@@ -817,7 +817,7 @@ def save_database(path):
         shutil.move(path + "~", path) # Should be atomic.
         
     except:
-        raise MnemosyneError("Unable to save database %s." % path)
+        raise SaveError()
 
     config["path"] = contract_path(path, basedir)
 
@@ -1236,7 +1236,7 @@ def get_file_format_from_name(name):
         if name == fformat.name:
             return fformat
 
-    raise MnemosyneError("Illegal file format name.")
+    raise InvalidFormatError()
 
 
 
@@ -1571,7 +1571,7 @@ def import_XML(filename, default_cat, reset_learning_data=False):
         try:
             f = file(unicode(filename).encode("latin"))
         except:
-            raise MnemosyneError("Unable to open file.")
+            raise LoadError()
     
     f.readline()
         
@@ -1591,7 +1591,7 @@ def import_XML(filename, default_cat, reset_learning_data=False):
     try:
         parser.parse(file(filename))
     except Exception, e:
-        raise MnemosyneError("Error parsing XML:\n" + traceback_string())
+        raise XMLError(stack_trace=True)
 
     # Calculate offset with current start date.
     
@@ -1764,7 +1764,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
         try:
             f = file(filename.encode("latin"))
         except:
-            raise MnemosyneError("Unable to open file.")
+            raise LoadError()
     
     for line in f:
         
@@ -1774,7 +1774,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
             try:
                 line = unicode(line, "latin")
             except:
-                raise MnemosyneError("Unrecognised encoding.")
+                raise EncodingError()
 
         line = line.rstrip()
 
@@ -1831,8 +1831,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
             imported_items.append(item)
             
         else:
-            raise MnemosyneError("Import failed.\n"+\
-                                 "Missing answer field on line:\n" + line)
+            raise MissingAnswerError(info=line)
 
     return imported_items
 
@@ -1901,7 +1900,7 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
         try:
             f = file(filename.encode("latin"))
         except:
-            raise MnemosyneError("Unable to open file.")
+            raise LoadError()
 
     Q_A = []
     
@@ -1913,7 +1912,7 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
             try:
                 line = unicode(line, "latin")
             except:
-                raise MnemosyneError("Unrecognised encoding.")
+                raise EncodingError()
 
         line = line.rstrip()
 
@@ -1982,7 +1981,7 @@ def read_line_sm7qa(f):
         try:
             line = unicode(line, "latin")
         except:
-            raise MnemosyneError("Unrecognised encoding.")
+            raise EncodingError()
 
     return line
 
@@ -2003,7 +2002,7 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
         try:
             f = file(filename.encode("latin"))
         except:
-            raise MnemosyneError("Unable to open file.")
+            raise LoadError()
 
     imported_items = []
     state = "ITEM-START"
@@ -2209,7 +2208,7 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
         return imported_items
 
 
-register_file_format("SuperMemo7 Text in Q:/A: format",
+register_file_format("SuperMemo7 text in Q:/A: format",
                      filter="SuperMemo7 text file (*.txt *.TXT)",
                      import_function=import_sm7qa,
                      export_function=False)

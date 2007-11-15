@@ -21,7 +21,16 @@ from qt import *
 
 def install_error_strings():
     
-    ConfigError.msg = qApp.trUtf8("Error in config.py.")
+    ConfigError.msg        = qApp.trUtf8("Error in config.py:")
+    PluginError.msg        = qApp.trUtf8("Error when running plugin:")
+    LoadError.msg          = qApp.trUtf8("Unable to load file.")
+    InvalidFormatError.msg = qApp.trUtf8("Invalid file format.")
+    SaveError.msg          = qApp.trUtf8("Unable to save file.")    
+    XMLError.msg           = qApp.trUtf8("Unable to parse XML:")
+    EncodingError.msg      = qApp.trUtf8("Unrecognised encoding.")
+    MissingAnswerError.msg = qApp.trUtf8("Missing answer on line:")
+    LoadErrorCreateTmp.msg = \
+            qApp.trUtf8("Unable to load database.\nCreating tmp file.")
 
 
 
@@ -33,18 +42,13 @@ def install_error_strings():
 
 def messagebox_errors(e):
 
-    if e.stack_trace:
-        QMessageBox.critical(None,
-                             qApp.trUtf8("Mnemosyne"),
-                             e.msg.append(QString("\n" + e.stack_trace)),
-                             qApp.trUtf8("&OK"),
-                             "", "", 0, -1)
+    if e.info:
+        msg = e.msg.append(QString("\n")).append(e.info)
     else:
-        QMessageBox.critical(None,
-                             qApp.trUtf8("Mnemosyne"),
-                             e.msg,
-                             qApp.trUtf8("&OK"),
-                             "", "", 0, -1)        
+        msg = e.msg
+                                   
+    QMessageBox.critical(None, qApp.trUtf8("Mnemosyne"), msg,
+                         qApp.trUtf8("&OK"), "", "", 0, -1)
 
 
 

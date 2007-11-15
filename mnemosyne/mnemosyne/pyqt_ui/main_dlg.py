@@ -110,8 +110,7 @@ class MainDlg(MainFrm):
         try:
             load_database(filename)
         except MnemosyneError, e:
-            messagebox_errors(e + "\n\nUnable to load file. "+\
-                           "Creating a tmp database.")
+            messagebox_errors(LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             new_database(filename)
         
@@ -146,7 +145,7 @@ class MainDlg(MainFrm):
 
         path = os.path.join(os.path.expanduser("~"), ".mnemosyne")
         out = unicode(QFileDialog.getSaveFileName(path,
-                 "Mnemosyne databases (*.mem)", self, None, "New"))
+                 self.trUtf8("Mnemosyne databases (*.mem)"), self))
         if out != "":
             
             if out[-4:] != ".mem":
@@ -179,7 +178,7 @@ class MainDlg(MainFrm):
                 
         oldPath = expand_path(get_config("path"))
         out = unicode(QFileDialog.getOpenFileName(oldPath,\
-                 "Mnemosyne databases (*.mem)", self, None, "Open"))
+                 self.trUtf8("Mnemosyne databases (*.mem)"), self))
         if out != "":
 
             try:
@@ -233,7 +232,7 @@ class MainDlg(MainFrm):
 
         oldPath = expand_path(get_config("path"))
         out = unicode(QFileDialog.getSaveFileName(oldPath,\
-                 "Mnemosyne databases (*.mem)", self, None, "Save As"))
+                 self.trUtf8("Mnemosyne databases (*.mem)"), self))
                          
         if out != "":
             
@@ -353,7 +352,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        self.statusBar().message("Please wait...")
+        self.statusBar().message(self.trUtf8("Please wait..."))
         clean_duplicates(self)
         rebuild_revision_queue()
         
@@ -517,9 +516,10 @@ class MainDlg(MainFrm):
         pause_thinking()
         QMessageBox.about(None,
             self.trUtf8("Mnemosyne"),
-            self.trUtf8("Mnemosyne " + mnemosyne.version.version + "\n\n"+
-                        "Main author: Peter Bienstman\n\n" +
-                        "More info: http://mnemosyne-proj.sourceforge.net\n"))
+            self.trUtf8("Mnemosyne").append(" " + \
+            mnemosyne.version.version + "\n\n").append(\
+            self.trUtf8("Main author: Peter Bienstman\n\n")).append(\
+            self.trUtf8("More info: http://mnemosyne-proj.sourceforge.net\n")))
         unpause_thinking()
 
     ##########################################################################
@@ -573,8 +573,8 @@ class MainDlg(MainFrm):
         self.updateDialog()
 
         if get_config("show_intervals") == "statusbar":
-            self.statusBar().message("Returns in " + str(interval) \
-                                     + " day(s).")
+            self.statusBar().message(self.trUtf8("Returns in ").append(\
+                str(interval)).append(self.trUtf8(" day(s).")))
             
     ##########################################################################
     #
@@ -699,16 +699,17 @@ class MainDlg(MainFrm):
         # Update 'show answer' button.
         
         if self.state == "EMPTY":
-            show_enabled, default, text = 0, 1, "Show &answer"
+            show_enabled, default, text = 0, 1, self.trUtf8("Show &answer")
             grades_enabled = 0
         elif self.state == "SELECT SHOW":
-            show_enabled, default, text = 1, 1, "Show &answer"
+            show_enabled, default, text = 1, 1, self.trUtf8("Show &answer")
             grades_enabled = 0
         elif self.state == "SELECT GRADE":
-            show_enabled, default, text = 0, 1, "Show &answer"
+            show_enabled, default, text = 0, 1, self.trUtf8("Show &answer")
             grades_enabled = 1
         elif self.state == "SELECT AHEAD":
-            show_enabled, default, text = 1, 0, "Learn ahead of schedule"
+            show_enabled, default, text = 1, 0, \
+                                     self.trUtf8("Learn ahead of schedule")
             grades_enabled = 0
 
         self.show_button.setText(text)
@@ -750,18 +751,21 @@ class MainDlg(MainFrm):
                 self.grade_buttons[grade].setText(\
                         str(process_answer(self.item, grade, dry_run=True)))
                 self.grades.setTitle(\
-                    qApp.trUtf8("Pick days until next repetition:"))
+                    self.trUtf8("Pick days until next repetition:"))
             else:
                 self.grade_buttons[grade].setText(str(grade))
-                self.grades.setTitle(qApp.trUtf8("Grade your answer:"))
+                self.grades.setTitle(self.trUtf8("Grade your answer:"))
 
             self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
 
         # Update status bar.
         
-        self.sched .setText("Scheduled: "     + str(scheduled_items()))
-        self.notmem.setText("Not memorised: " + str(non_memorised_items()))
-        self.all   .setText("All: "           + str(active_items()))
+        self.sched .setText(self.trUtf8("Scheduled: ") \
+                            + str(scheduled_items()))
+        self.notmem.setText(self.trUtf8("Not memorised: ") \
+                            + str(non_memorised_items()))
+        self.all   .setText(self.trUtf8("All: ") \
+                            + str(active_items()))
 
         if self.shrink == True:
             self.adjustSize()
