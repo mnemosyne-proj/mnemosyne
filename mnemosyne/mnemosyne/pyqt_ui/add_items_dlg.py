@@ -241,12 +241,12 @@ class AddItemsDlg(AddItemsFrm):
                         
                 status = QMessageBox.question(None,
                    self.trUtf8("Mnemosyne"),
-                   self.trUtf8(\
-                    "There are different answers for this question:\n\n")\
-                                              .append(answers),
+                   self.trUtf8("There are different answers for")\
+                     .append(self.trUtf8(" this question:\n\n"))\
+                     .append(answers),
                    self.trUtf8("&Merge and edit"),
                    self.trUtf8("&Add as is"),
-                   self.trUtf8("&Don't add"), 0, -1)
+                   self.trUtf8("&Do not add"), 0, -1)
                 
                 if status == 0: # Merge and edit.
                     

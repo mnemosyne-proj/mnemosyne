@@ -1,16 +1,16 @@
 Mnemosyne 1.0:
 
--check if error messages, tool tips show up in translations
--translations
+-set locale from config file (chicken/egg)
+-test translations under windows
+
+-add logo to about
+
+-tip of the day
 
 -better USB scheme
 
 -make sure that reset learning data (both import and export) doesn't break
  the connection between cards.
-
--add logo to about
-
--tip of the day
 
 -website:
   relative CSS layout 

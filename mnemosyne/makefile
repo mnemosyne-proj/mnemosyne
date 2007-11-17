@@ -1,6 +1,9 @@
 default:
 	cd mnemosyne/pyqt_ui ; make clean
 	cd mnemosyne/pyqt_ui ; make
+	rm mnemosyne/pyqt_ui/locale/mnemosyne_XX.ts
+	cd mnemosyne/pyqt_ui ; pylupdate mnemosyne.pro
+	cd mnemosyne/pyqt_ui ; lrelease mnemosyne.pro
 	python setup.py install
 	rm -f -R build
 
@@ -34,6 +37,10 @@ distrib: FORCE
 	cp mnemosyne/pyqt_ui/*.py distrib/mnemosyne/pyqt_ui
 	cp mnemosyne/pyqt_ui/*.ui distrib/mnemosyne/pyqt_ui
 	cp mnemosyne/pyqt_ui/mnemosyne distrib/mnemosyne/pyqt_ui
+
+	mkdir distrib/mnemosyne/pyqt_ui/locale	
+	cp mnemosyne/pyqt_ui/locale/*.ts distrib/mnemosyne/pyqt_ui/locale
+	cp mnemosyne/pyqt_ui/locale/*.qm distrib/mnemosyne/pyqt_ui/locale
 
 	mkdir distrib/pixmaps
 	cp pixmaps/mnemosyne.png distrib/pixmaps

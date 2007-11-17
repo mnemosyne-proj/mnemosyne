@@ -21,6 +21,8 @@ from sound import *
 from message_boxes import *
 from mnemosyne.core import *
 
+prefix = os.path.dirname(__file__)
+
 
 
 ##############################################################################

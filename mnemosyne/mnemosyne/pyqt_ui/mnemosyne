@@ -6,7 +6,7 @@
 #
 ##############################################################################
 
-import sys, os
+import sys, os, locale
 from qt import *
 from mnemosyne.pyqt_ui.main_dlg import *
 from mnemosyne.pyqt_ui.message_boxes import *
@@ -33,9 +33,6 @@ else:
 
 a = QApplication(sys.argv)
 
-install_error_strings()
-install_tooltip_strings()
-
 # Check if there is another instance of Mnemosyne running.
 
 if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
@@ -48,6 +45,26 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
     if status == 0 or status == -1:
         sys.exit()
 
+try:
+    initialise(basedir)
+except MnemosyneError, e:
+    messagebox_errors(e)
+
+# Install translator.
+
+translator = QTranslator(a)
+print locale.getlocale()[0], prefix
+
+loc = get_config("locale")
+if loc == None:
+    loc = locale.getlocale()[0]
+
+print translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
+a.installTranslator(translator)
+
+install_error_strings()
+install_tooltip_strings()
+
 # Start program.
 
 try:
@@ -56,15 +73,13 @@ try:
 except:
     print "Unable to initialise sound."
 
-try:
-    initialise(basedir)
-except MnemosyneError, e:
-    messagebox_errors(e)
 
 w = MainDlg(filename)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
 QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))
+
+# Show widget.
 
 a.setMainWidget(w)
 w.show()
