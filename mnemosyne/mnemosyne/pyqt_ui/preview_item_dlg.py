@@ -28,8 +28,9 @@ class PreviewItemDlg(PreviewItemFrm):
         
         PreviewItemFrm.__init__(self,parent,name,modal,fl)
 
-        if cat != "<default>":
-            self.question_label.setText(preprocess("Question: " + cat))
+        if cat != self.trUtf8("<default>"):
+            self.question_label.setText(preprocess(\
+                unicode(self.trUtf8("Question:")) + " " + cat))
 
         if get_config("QA_font") != None:
             font = QFont()

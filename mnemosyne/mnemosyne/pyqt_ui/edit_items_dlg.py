@@ -70,21 +70,21 @@ class EditItemsDlg(EditItemsFrm):
                      self.cell_edited)
 
         self.popup_1 = QPopupMenu(self, "menu1")
-        self.popup_1.insertItem(self.tr("&Edit"), self.edit, \
-                                Qt.CTRL+Qt.Key_E)
-        self.popup_1.insertItem(self.tr("&Preview"), self.preview, \
-                                Qt.CTRL+Qt.Key_P)
-        self.popup_1.insertItem(self.tr("&Add vice versa"), self.viceversa)
-        self.popup_1.insertItem(self.tr("S&tatistics"), self.statistics, \
-                                Qt.CTRL+Qt.Key_T)
-        self.popup_1.insertItem(self.tr("&Delete"), self.delete, \
+        self.popup_1.insertItem(self.trUtf8("&Edit"), self.edit, \
+                                QKeySequence(self.trUtf8("Ctrl+E")))
+        self.popup_1.insertItem(self.trUtf8("&Preview"), self.preview, \
+                                QKeySequence(self.trUtf8("Ctrl+P")))
+        self.popup_1.insertItem(self.trUtf8("&Add vice versa"), self.viceversa)
+        self.popup_1.insertItem(self.trUtf8("S&tatistics"), self.statistics, \
+                                QKeySequence(self.trUtf8("Ctrl+T")))
+        self.popup_1.insertItem(self.trUtf8("&Delete"), self.delete, \
                                 Qt.Key_Delete)
         
         self.popup_2 = QPopupMenu(self, "menu2")
-        self.popup_2.insertItem(self.tr("&Change category"),
+        self.popup_2.insertItem(self.trUtf8("&Change category"),
                                 self.change_category)
-        self.popup_2.insertItem(self.tr("&Add vice versa"), self.viceversa)
-        self.popup_2.insertItem(self.tr("&Delete"), self.delete)
+        self.popup_2.insertItem(self.trUtf8("&Add vice versa"), self.viceversa)
+        self.popup_2.insertItem(self.trUtf8("&Delete"), self.delete)
         
         self.connect(self.item_list,
           SIGNAL("contextMenuRequested(QListViewItem*,const QPoint&,int)"),
@@ -180,7 +180,7 @@ class EditItemsDlg(EditItemsFrm):
             return
         
         list_item = self.selected[0]
-        dlg = EditItemDlg(list_item.item,self,"Edit current card",0)
+        dlg = EditItemDlg(list_item.item, self)
         dlg.exec_loop()
         list_item.setText(0, list_item.item.q)
         list_item.setText(1, list_item.item.a)
@@ -199,8 +199,7 @@ class EditItemsDlg(EditItemsFrm):
             return
         
         item = self.selected[0].item
-        dlg = PreviewItemDlg(item.q,item.a,item.cat.name,
-                             self,"Preview current card",0)
+        dlg = PreviewItemDlg(item.q, item.a, item.cat.name, self)
         
         dlg.exec_loop()
         
@@ -217,19 +216,20 @@ class EditItemsDlg(EditItemsFrm):
             return
         
         if len(self.selected) > 1:
-            message = "Add vice versa of these card?"
+            message = self.trUtf8("Add vice versa of these cards?")
         else:
-            message = "Add vice versa of this card?"
+            message = self.trUtf8("Add vice versa of this card?")
             
         status = QMessageBox.warning(None,
-                    self.trUtf8("Mnemosyne"),
-                    self.trUtf8(message +
-                     "\n\nThis could create duplicates if the vice " +\
-                     "versas are already present," +\
-                     "\nso you might want to run 'clean duplicates' "+\
-                     "afterwards."),
-                    self.trUtf8("&Yes"), self.trUtf8("&No"),
-                    QString(), 2, -1)
+            self.trUtf8("Mnemosyne"),
+            message.append(self.trUtf8(\
+             "\n\nThis could create duplicates if the vice "))\
+            .append(self.trUtf8(\
+             "versas are already present, \nso you might want to run "))\
+            .append(self.trUtf8("clean duplicates' afterwards.")),
+             self.trUtf8("&Yes"), self.trUtf8("&No"),
+             QString(), 2, -1)
+        
         if status == 1:
             return
         else:
@@ -253,19 +253,27 @@ class EditItemsDlg(EditItemsFrm):
         
         item = self.selected[0].item
 
-        message = ""
-        message += "Grade: " + str(item.grade) + "\n"
-        message += "Easiness: %1.2f" % item.easiness + "\n"
-        message += "Revisions: " + str(item.acq_reps+item.ret_reps) + "\n"
-        message += "Lapses: " + str(item.lapses) + "\n"
-        message += "Days since last revision: " + \
-                   str(item.days_since_last_rep()) + "\n"
-        message += "Days until next revision: " + \
-                   str(item.days_until_next_rep()) + "\n"
+        message = QString()
+        message.append(self.trUtf8("Grade:"))
+        message.append(" " + QString(str(item.grade) + "\n"))
+        
+        message.append(self.trUtf8("Easiness:"))
+        message.append(" " + QString("%1.2f" % item.easiness + "\n"))
+        
+        message.append(self.trUtf8("Repetitions:"))
+        message.append(" " + QString(str(item.acq_reps+item.ret_reps) + "\n"))
+        
+        message.append(self.trUtf8("Lapses:"))
+        message.append(" " + QString(str(item.lapses) + "\n"))
+        
+        message.append(self.trUtf8("Days since last repetition:"))
+        message.append(" " + QString(str(item.days_since_last_rep()) + "\n"))
+        
+        message.append(self.trUtf8("Days until next repetition:"))
+        message.append(" " + QString(str(item.days_until_next_rep()) + "\n"))
                 
-        QMessageBox.information(None, self.trUtf8("Mnemosyne"),
-                                self.trUtf8(message), self.trUtf8("&OK"),
-                                QString(), QString(), 0, -1)
+        QMessageBox.information(None, self.trUtf8("Mnemosyne"), message,
+                                self.trUtf8("&OK"),QString(),QString(),0,-1)
 
     ##########################################################################
     #
@@ -280,15 +288,14 @@ class EditItemsDlg(EditItemsFrm):
             return
         
         if len(self.selected) > 1:
-            message = "Delete these cards?"
+            message = self.trUtf8("Delete these cards?")
         else:
-            message = "Delete this card?"            
+            message = self.trUtf8("Delete this card?")           
         
-        status = QMessageBox.warning(None,
-                    self.trUtf8("Mnemosyne"),
-                    self.trUtf8(message),
-                    self.trUtf8("&Yes"), self.trUtf8("&No"),
+        status = QMessageBox.warning(None, self.trUtf8("Mnemosyne"),
+                    message, self.trUtf8("&Yes"), self.trUtf8("&No"),
                     QString(), 1, -1)
+        
         if status == 1:
             return
         else:
@@ -309,7 +316,7 @@ class EditItemsDlg(EditItemsFrm):
         if len(self.selected) == 0:
             return
         
-        dlg = ChangeCategoryDlg(self.selected,self,"Change category",0)
+        dlg = ChangeCategoryDlg(self.selected, self)
         dlg.exec_loop()     
         for list_item in self.selected:
             list_item.setText(2, list_item.item.cat.name)
@@ -373,7 +380,7 @@ class EditItemsDlg(EditItemsFrm):
             iter += 1
                                     
         if f:
-            self.find_button.setText("&Find again")
+            self.find_button.setText(self.trUtf8("&Find again"))
             self.item_list.setFocus()
             self.item_list.clearSelection()
             self.item_list.ensureItemVisible(f)
@@ -393,7 +400,8 @@ class EditItemsDlg(EditItemsFrm):
     
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_F3 or \
-          (e.key() == Qt.Key_F and e.state() == Qt.ControlButton):
+          (e.key() == QKeySequence(self.trUtf8("F")) and e.state() == \
+                                                          Qt.ControlButton):
             self.find()
             
     ##########################################################################
@@ -405,7 +413,7 @@ class EditItemsDlg(EditItemsFrm):
     def reset_find(self):
         self.found_once = False
         self.last_search_str = None
-        self.find_button.setText("&Find")
+        self.find_button.setText(self.trUtf8("&Find"))
 
     ##########################################################################
     #

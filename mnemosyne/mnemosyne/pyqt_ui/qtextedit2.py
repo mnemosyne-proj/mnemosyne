@@ -43,15 +43,17 @@ class QTextEdit2(QTextEdit):
 
         popup = QTextEdit.createPopupMenu(self, pos)
         popup.insertSeparator()
-        popup.insertItem(self.tr("Insert &image"),
-                         self.insert_img, Qt.CTRL + Qt.Key_I)
-        popup.insertItem(self.tr("Insert &sound"),
-                         self.insert_sound, Qt.CTRL + Qt.Key_S)
+        popup.insertItem(self.trUtf8("Insert &image"),
+                         self.insert_img,
+                         QKeySequence(self.trUtf8("Ctrl+I")))
+        popup.insertItem(self.trUtf8("Insert &sound"),
+                         self.insert_sound,
+                         QKeySequence(self.trUtf8("Ctrl+S")))
 
         if self.parent().allow_3_sided():
                     
             popup.insertSeparator()
-            popup.insertItem(self.tr("&3-sided input"),
+            popup.insertItem(self.trUtf8("&3-sided input"),
                              self.toggle_3_sided, Qt.Key_unknown, 333)
 
             popup.setItemChecked(333, get_config("3_sided_input"))
@@ -90,9 +92,10 @@ class QTextEdit2(QTextEdit):
         path = expand_path(get_config("import_img_dir"))
 
         fname = unicode(QFileDialog.getOpenFileName(path,
-                  "Image files (*.png *.PNG *.gif *.GIF "+\
-                               "*.jpg *.JPG *.bmp *.BMP *.jpeg *.JPEG)",
-                  self, None, "Insert image"))
+                  self.trUtf8("Image files").append(QString(\
+                    " (*.png *.PNG *.gif *.GIF")).append(QString(\
+                    " *.jpg *.JPG *.bmp *.BMP *.jpeg *.JPEG)")),
+                  self, None, self.trUtf8("Insert image")))
         if fname:
             self.insert("<img src=\""+contract_path(fname)+"\">")
             set_config("import_img_dir", \
@@ -111,8 +114,9 @@ class QTextEdit2(QTextEdit):
         path = expand_path(get_config("import_sound_dir"))
         
         fname = unicode(QFileDialog.getOpenFileName(path,\
-                  "Sound files (*.wav *.WAV *.mp3 *.MP3 *.ogg *.OGG)",
-                  self, None, "Insert sound"))
+                  self.trUtf8("Sound files").append(QString(\
+                    " (*.wav *.WAV *.mp3 *.MP3 *.ogg *.OGG)")),
+                  self, None, self.trUtf8("Insert sound")))
         
         if fname:
             self.insert("<sound src=\""+contract_path(fname)+"\">")

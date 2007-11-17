@@ -82,7 +82,7 @@ class EditItemDlg(EditItemFrm):
         dlg = PreviewItemDlg(unicode(self.question.text()),
                              unicode(self.answer.text()),
                              unicode(self.categories.currentText()),
-                             self,"Preview current card",0)
+                             self)
         dlg.exec_loop()
 
         

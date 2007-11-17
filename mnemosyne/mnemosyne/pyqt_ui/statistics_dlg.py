@@ -52,20 +52,22 @@ class StatisticsDlg(StatisticsFrm):
 
         # Schedule information.
 
-        text = "Scheduled cards for the next days:\n\n"
+        text = self.trUtf8("Scheduled cards for the next days:\n\n")
 
         old_cumulative = 0
         for days in range(0,8):
             cumulative = scheduled_items(days)
-            text += "In " + str(days) + " day(s) : " \
-                    + str(cumulative - old_cumulative) + "\n"
+            text.append(self.trUtf8("In")).\
+                 append(QString(" " + str(days) + " ")).\
+                 append(self.trUtf8("day(s) :")).\
+                 append(QString(" " + str(cumulative-old_cumulative) + "\n"))
             old_cumulative = cumulative
             
         self.schedule_info.setText(text)
 
         # Grade information.
 
-        text = "Number of cards with the following grades:\n\n"
+        text = self.trUtf8("Number of cards with the following grades:\n\n")
 
         grades = [0, 0, 0, 0, 0, 0]
         for item in get_items():
@@ -77,9 +79,10 @@ class StatisticsDlg(StatisticsFrm):
             norm = 1 # Avoid division by zero.
 
         for grade in range(0,6):
-            text += "Grade " + str(grade) + " : " \
+            text.append(self.trUtf8("Grade")).\
+                 append(QString(" " + str(grade) + " : " \
                     + str(grades[grade]) + " ("\
-                    + ("%.1f" % (100.*grades[grade] / norm)) + " %)\n"
+                    + ("%.1f" % (100.*grades[grade] / norm)) + " %)\n"))
         
         self.grades_info.setText(text)
 

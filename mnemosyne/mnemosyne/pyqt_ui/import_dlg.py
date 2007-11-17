@@ -35,9 +35,9 @@ class ImportDlg(ImportFrm):
 
         self.fileformats.setCurrentText(get_config("import_format"))
 
-        self.categories.insertItem("<default>")
+        self.categories.insertItem(self.trUtf8("<default>"))
         for cat in get_categories():
-            if cat.name != "<default>":
+            if cat.name != self.trUtf8("<default>"):
                 self.categories.insertItem(cat.name)
 
         self.reset_box.setChecked(get_config("reset_learning_data_import"))
@@ -58,8 +58,8 @@ class ImportDlg(ImportFrm):
 
         out = unicode(QFileDialog.getOpenFileName(
                   expand_path(get_config("import_dir")),
-                  "All Files (*);;" + fformat.filter,
-                  self, None, "Import", fformat.filter))
+                  self.trUtf8("All Files (*);;") + fformat.filter,
+                  self, None, self.trUtf8("Import"), fformat.filter))
        
         if out != "":
             self.filename.setText(out)

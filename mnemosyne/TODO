@@ -1,6 +1,5 @@
 Mnemosyne 1.0:
 
--make more things translatable
 -check if error messages, tool tips show up in translations
 -translations
 
@@ -9,7 +8,7 @@ Mnemosyne 1.0:
 -make sure that reset learning data (both import and export) doesn't break
  the connection between cards.
 
--add logo to about and getting started
+-add logo to about
 
 -tip of the day
 
@@ -167,6 +166,8 @@ Miscellaneous
 -forward / backward when previewing cards in the database
 
 -clean up interval when importing from txt
+
+-make file format strings translatable
 
 -paste from clipboard
 

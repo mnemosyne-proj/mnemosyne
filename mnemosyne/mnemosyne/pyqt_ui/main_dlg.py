@@ -479,11 +479,9 @@ class MainDlg(MainFrm):
 
     def closeEvent(self, event):
         
-        save_config()
-        
-        backup_database()
-
         try:
+            save_config()
+            backup_database()
             unload_database()
         except MnemosyneError, e:
             messagebox_errors(e)
@@ -661,7 +659,7 @@ class MainDlg(MainFrm):
         # Update question label.
         
         question_label_text = self.trUtf8("Question:")
-        if self.item != None and self.item.cat.name != "<default>":
+        if self.item!=None and self.item.cat.name!=self.trUtf8("<default>"):
             question_label_text += " " + preprocess(self.item.cat.name)
         self.question_label.setText(question_label_text)
 

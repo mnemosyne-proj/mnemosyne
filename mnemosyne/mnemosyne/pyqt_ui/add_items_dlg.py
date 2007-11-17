@@ -82,11 +82,11 @@ class AddItemsDlg(AddItemsFrm):
         for i in range(no_of_categories-1,-1,-1):
             self.categories.removeItem(i)
 
-        self.categories.insertItem("<default>")
+        self.categories.insertItem(self.trUtf8("<default>"))
         names = [cat.name for cat in get_categories()]
         names.sort()
         for name in names:
-            if name != "<default>":
+            if name != self.trUtf8("<default>"):
                 self.categories.insertItem(name)
 
         for i in range(self.categories.count()):

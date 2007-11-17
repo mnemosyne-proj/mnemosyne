@@ -1731,7 +1731,7 @@ def export_XML(filename, cat_names_to_export, reset_learning_data):
 
 
 register_file_format("XML",
-                     filter="XML file (*.xml *.XML)",
+                     filter="XML files (*.xml *.XML)",
                      import_function=import_XML,
                      export_function=export_XML)
 
@@ -1870,7 +1870,7 @@ def export_txt(filename, cat_names_to_export, reset_learning_data=False):
     
 
 register_file_format("Text with tab separated Q/A",
-                     filter="Text file (*.txt *.TXT)",
+                     filter="Text files (*.txt *.TXT)",
                      import_function=import_txt,
                      export_function=export_txt)
 
@@ -1942,7 +1942,7 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
     return imported_items
 
 register_file_format("Text with Q and A each on separate line",
-                     filter="Text file (*.txt *.TXT)",
+                     filter="Text files (*.txt *.TXT)",
                      import_function=import_txt_2,
                      export_function=False)
 
@@ -2209,7 +2209,7 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
 
 
 register_file_format("SuperMemo7 text in Q:/A: format",
-                     filter="SuperMemo7 text file (*.txt *.TXT)",
+                     filter="SuperMemo7 text files (*.txt *.TXT)",
                      import_function=import_sm7qa,
                      export_function=False)
 
