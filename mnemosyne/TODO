@@ -1,7 +1,7 @@
 Mnemosyne 1.0:
 
--set locale from config file (chicken/egg)
 -test translations under windows
+-regenerate german file
 
 -add logo to about
 

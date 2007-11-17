@@ -260,6 +260,11 @@ def load_config():
     # Load user config file.
 
     sys.path.insert(0, basedir)
+
+    config_file_c = os.path.join(basedir, "config.pyc")
+    if os.path.exists(config_file_c):
+        os.remove(config_file_c)
+    
     config_file = os.path.join(basedir, "config.py")
 
     if os.path.exists(config_file):

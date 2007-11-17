@@ -33,6 +33,35 @@ else:
 
 a = QApplication(sys.argv)
 
+# Get the locale from the user's config.py, to install the translator as
+# soon as possible.
+
+loc = locale.getlocale()[0]
+
+sys.path.insert(0, basedir)
+
+config_file_c = os.path.join(basedir, "config.pyc")
+if os.path.exists(config_file_c):
+    os.remove(config_file_c)
+
+try:
+    import config as _config
+    if _config.locale != None:
+        loc = _config.locale      
+except:
+    pass
+
+# Install translator.
+
+translator = QTranslator(a)
+print locale.getlocale()[0], loc, prefix
+
+print translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
+a.installTranslator(translator)
+
+install_error_strings()
+install_tooltip_strings()
+
 # Check if there is another instance of Mnemosyne running.
 
 if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
@@ -50,21 +79,6 @@ try:
 except MnemosyneError, e:
     messagebox_errors(e)
 
-# Install translator.
-
-translator = QTranslator(a)
-print locale.getlocale()[0], prefix
-
-loc = get_config("locale")
-if loc == None:
-    loc = locale.getlocale()[0]
-
-print translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
-a.installTranslator(translator)
-
-install_error_strings()
-install_tooltip_strings()
-
 # Start program.
 
 try:
@@ -72,7 +86,6 @@ try:
     pygame.mixer.init()
 except:
     print "Unable to initialise sound."
-
 
 w = MainDlg(filename)
 
