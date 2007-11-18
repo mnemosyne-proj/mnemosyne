@@ -8,7 +8,11 @@ Mnemosyne 1.0:
 
 -tip of the day
 
+-string freeze, enlist translators
+
 -better USB scheme
+
+-recreate user_id and log_index from files in history folder
 
 -make sure that reset learning data (both import and export) doesn't break
  the connection between cards.
@@ -48,8 +52,6 @@ Memosyne analysis:
 Mnemosyne 1.1
 
 -change file suffix when changing export format
-
--recreate user_id and log_index from files in history folder
 
 -add current card statistics to statistics dialog
 
