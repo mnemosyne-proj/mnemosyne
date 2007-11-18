@@ -1,5 +1,9 @@
 Mnemosyne 1.0:
 
+-warn when save on exit failed.
+
+-recheck captions of file dialogs
+
 -add logo to about
 
 -tip of the day
