@@ -41,5 +41,4 @@ FORMS = activate_categories_frm.ui \
 	import_frm.ui \
 	statistics_frm.ui
 
-TRANSLATIONS = locale/mnemosyne_XX.ts \
-	locale/mnemosyne_de.ts
+TRANSLATIONS = locale/mnemosyne_XX.ts

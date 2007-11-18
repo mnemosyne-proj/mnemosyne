@@ -1,4 +1,5 @@
-import os, sys
+import os, sys, shutil
+
 from distutils.core import setup, Extension
 
 if sys.platform == "win32":
@@ -15,6 +16,7 @@ class InnoScript:
                  dist_dir,
                  windows_exe_files = [],
                  lib_files = [],
+                 qm_files = [],
                  version = mnemosyne.version.version):
         self.lib_dir = lib_dir
         self.dist_dir = dist_dir
@@ -24,6 +26,7 @@ class InnoScript:
         self.version = version
         self.windows_exe_files = [self.chop(p) for p in windows_exe_files]
         self.lib_files = [self.chop(p) for p in lib_files]
+        self.qm_files = [self.chop(p) for p in qm_files]
 
     def chop(self, pathname):
         assert pathname.startswith(self.dist_dir)
@@ -42,10 +45,10 @@ class InnoScript:
         print >> ofi
 
         print >> ofi, r"[Files]"
-        for path in self.windows_exe_files + self.lib_files:
-            print >> ofi, r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' % (path, os.path.dirname(path))
+        for path in self.windows_exe_files + self.lib_files + self.qm_files:
+            print >> ofi, r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' % (path, os.path.dirname(path))         
         print >> ofi
-
+        
         print >> ofi, r"[Icons]"
         for path in self.windows_exe_files:
             print >> ofi, r'Name: "{group}\%s"; Filename: "{app}\%s"' % (self.name, path),
@@ -89,25 +92,52 @@ else:
         pass
     
 class build_installer(py2exe):
+    
     # This first builds the exe file(s), then creates a Windows installer.
     # You need InnoSetup for it.
+    
     def run(self):
+        
         # First, let py2exe do it's work.
+        
         py2exe.run(self)
 
         lib_dir = self.lib_dir
         dist_dir = self.dist_dir
+
+        # Prepare to install translations.
         
-        # create the Installer, using the files py2exe has created.
+        join = os.path.join
+        
+        pyqt_ui_dir = join("mnemosyne", "pyqt_ui")
+        locale_dir = join(pyqt_ui_dir, "locale")
+
+        os.mkdir(join(dist_dir, "locale"))
+
+        self.qm_files = []
+        for p in os.listdir(locale_dir):
+            if p.endswith(".qm"):
+                 src = join(os.path.abspath(locale_dir), p)
+                 dest = join(join(dist_dir, "locale"), p)
+                 shutil.copy(src, dest)
+                 self.qm_files.append(dest)     
+        
+        # Create the Installer, using the files py2exe has created.
+        
         script = InnoScript("Mnemosyne",
                             lib_dir,
                             dist_dir,
                             self.windows_exe_files,
                             self.lib_files,
+                            self.qm_files,
                             version=mnemosyne.version.version)
         script.create()
         script.compile()
+        
         # Note: the final setup.exe will be in an Output subdirectory.
+
+
+
         
 #############################################################################
 

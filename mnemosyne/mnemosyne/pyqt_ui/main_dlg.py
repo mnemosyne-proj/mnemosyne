@@ -760,12 +760,12 @@ class MainDlg(MainFrm):
 
         # Update status bar.
         
-        self.sched .setText(self.trUtf8("Scheduled: ") \
-                            + str(scheduled_items()))
-        self.notmem.setText(self.trUtf8("Not memorised: ") \
-                            + str(non_memorised_items()))
-        self.all   .setText(self.trUtf8("All: ") \
-                            + str(active_items()))
+        self.sched .setText(self.trUtf8("Scheduled: ").append(QString(\
+                            str(scheduled_items()))))
+        self.notmem.setText(self.trUtf8("Not memorised: ").append(QString(\
+                            str(non_memorised_items()))))
+        self.all   .setText(self.trUtf8("All: ").append(QString(\
+                            str(active_items()))))
 
         if self.shrink == True:
             self.adjustSize()

@@ -33,10 +33,17 @@ else:
 
 a = QApplication(sys.argv)
 
+# Under Windows, move out of library.zip to get the true prefix.
+
+if sys.platform == "win32":
+    prefix = os.path.split(prefix)[0]
+    prefix = os.path.split(prefix)[0]
+    prefix = os.path.split(prefix)[0]
+
 # Get the locale from the user's config.py, to install the translator as
 # soon as possible.
 
-loc = locale.getlocale()[0]
+loc = str(QLocale().name()) # Default to system locale.
 
 sys.path.insert(0, basedir)
 
@@ -54,9 +61,7 @@ except:
 # Install translator.
 
 translator = QTranslator(a)
-print locale.getlocale()[0], loc, prefix
-
-print translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
+translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
 a.installTranslator(translator)
 
 install_error_strings()
