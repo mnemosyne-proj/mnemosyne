@@ -210,6 +210,23 @@ def init_config():
     config.setdefault("only_editable_when_answer_shown", False)
     config.setdefault("locale", None)
 
+    dir = os.listdir(os.path.join(basedir, "history"))
+    history_files = [x for x in dir if x[-4:] == ".bz2"]
+    history_files.sort()
+    if history_files:
+
+        if get_config("log_index") == 1:
+            print "reconstruction needed."
+            
+        last = history_files[-1]
+        user, index = last.split('_')
+        index = int(index.split('.')[0])+1
+
+        print "reconstructed:", user, index
+        print "stored:", get_config("user_id"), get_config("log_index")
+
+    
+
 
 
 ##############################################################################
