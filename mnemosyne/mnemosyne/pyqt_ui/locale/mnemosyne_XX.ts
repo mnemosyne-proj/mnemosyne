@@ -20,11 +20,7 @@
 <context>
     <name>AboutFrm</name>
     <message>
-        <source>Mnemosyne</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>textLabel1</source>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -972,6 +968,10 @@ so you might want to run </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Down, Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -997,6 +997,14 @@ so you might want to run </source>
     </message>
     <message>
         <source>Ctrl+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tip of the day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tip of the day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1057,7 +1065,7 @@ so you might want to run </source>
 <context>
     <name>ProductTourFrm</name>
     <message>
-        <source>Getting started with Mnemosyne</source>
+        <source>Getting started</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1237,6 +1245,64 @@ Happy learning!</source>
     </message>
     <message>
         <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TipDlg</name>
+    <message>
+        <source>Tip 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tip 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tip 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TipFrm</name>
+    <message>
+        <source>Tip of the day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Did you know...?&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Show tips on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

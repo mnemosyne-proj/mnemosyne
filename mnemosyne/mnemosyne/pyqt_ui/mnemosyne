@@ -105,6 +105,8 @@ w.show()
 if get_config("first_run") == True:
     w.productTour()
     set_config("first_run", False)
+elif get_config("show_daily_tips") == True:
+    w.Tip()
     
 a.exec_loop()
 

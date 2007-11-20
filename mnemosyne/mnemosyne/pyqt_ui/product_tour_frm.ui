@@ -21,7 +21,7 @@
         </sizepolicy>
     </property>
     <property name="caption">
-        <string>Getting started with Mnemosyne</string>
+        <string>Getting started</string>
     </property>
     <widget class="QWidget">
         <property name="name">

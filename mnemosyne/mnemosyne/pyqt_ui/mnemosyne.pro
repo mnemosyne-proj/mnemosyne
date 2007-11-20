@@ -28,7 +28,9 @@ SOURCES = activate_categories_dlg.py \
 	import_frm.py \
 	statistics_frm.py \
 	about_dlg.py \
-	about_frm.py
+	about_frm.py \
+	tip_dlg.py \
+	tip_frm.py
 
 FORMS = activate_categories_frm.ui \
 	edit_item_frm.ui \
@@ -41,6 +43,8 @@ FORMS = activate_categories_frm.ui \
 	product_tour_frm.ui \
 	config_frm.ui \
 	import_frm.ui \
-	statistics_frm.ui
+	statistics_frm.ui \
+	about_frm.ui \
+	tip_frm.ui
 
 TRANSLATIONS = locale/mnemosyne_XX.ts

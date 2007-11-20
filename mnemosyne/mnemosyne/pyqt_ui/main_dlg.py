@@ -17,6 +17,7 @@ from edit_items_dlg import *
 from activate_categories_dlg import *
 from config_dlg import *
 from product_tour_dlg import *
+from tip_dlg import *
 from about_dlg import *
 from sound import *
 from message_boxes import *
@@ -502,6 +503,19 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         dlg = ProductTourDlg(self)
+        dlg.exec_loop()
+        unpause_thinking()
+        
+    ##########################################################################
+    #
+    # Tip
+    #
+    ##########################################################################
+    
+    def Tip(self):
+        
+        pause_thinking()
+        dlg = TipDlg(self)
         dlg.exec_loop()
         unpause_thinking()
         

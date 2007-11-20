@@ -209,7 +209,9 @@ def init_config():
     config.setdefault("show_intervals", "never")
     config.setdefault("only_editable_when_answer_shown", False)
     config.setdefault("locale", None)
-
+    config.setdefault("show_daily_tips", True)
+    config.setdefault("tip", 0)    
+    
     dir = os.listdir(os.path.join(basedir, "history"))
     history_files = [x for x in dir if x[-4:] == ".bz2"]
     history_files.sort()

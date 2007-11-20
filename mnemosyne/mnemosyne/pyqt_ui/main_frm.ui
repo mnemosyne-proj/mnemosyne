@@ -347,6 +347,7 @@
     </item>
     <item text="&amp;Help" name="helpMenu">
         <action name="productTourAction"/>
+        <action name="TipAction"/>
         <separator/>
         <action name="helpAboutAction"/>
     </item>
@@ -372,7 +373,6 @@
         <action name="editCurrentItemAction"/>
         <action name="deleteCurrentItemAction"/>
         <action name="editItemsAction"/>
-        <action name="ShowStatisticsAction"/>
     </toolbar>
 </toolbars>
 <actions>
@@ -714,6 +714,9 @@
         <property name="name">
             <cstring>defaultAction</cstring>
         </property>
+        <property name="accel">
+            <string>Down, Down</string>
+        </property>
     </action>
     <action>
         <property name="name">
@@ -765,6 +768,17 @@
         </property>
         <property name="accel">
             <string>Ctrl+T</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>TipAction</cstring>
+        </property>
+        <property name="text">
+            <string>Tip of the day</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Tip of the day</string>
         </property>
     </action>
 </actions>
@@ -963,10 +977,13 @@
         <receiver>MainFrm</receiver>
         <slot>showStatistics()</slot>
     </connection>
+    <connection>
+        <sender>TipAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainFrm</receiver>
+        <slot>Tip()</slot>
+    </connection>
 </connections>
-<includes>
-    <include location="local" impldecl="in implementation">main_frm.ui.h</include>
-</includes>
 <slots>
     <slot>fileNew()</slot>
     <slot>fileOpen()</slot>
@@ -991,6 +1008,7 @@
     <slot>learnAhead()</slot>
     <slot>replaySound()</slot>
     <slot>showStatistics()</slot>
+    <slot>Tip()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
