@@ -302,9 +302,12 @@ def load_config():
 ##############################################################################
 
 def save_config():
-    
-    config_file = file(os.path.join(basedir, "config"), 'wb')
-    cPickle.dump(config, config_file)
+
+    try:
+        config_file = file(os.path.join(basedir, "config"), 'wb')
+        cPickle.dump(config, config_file)
+    except:
+        raise SaveError()
 
 
 

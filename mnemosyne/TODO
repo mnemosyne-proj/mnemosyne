@@ -1,7 +1,5 @@
 Mnemosyne 1.0:
 
--warn when save on exit failed.
-
 -recheck captions of file dialogs
 
 -tip of the day
