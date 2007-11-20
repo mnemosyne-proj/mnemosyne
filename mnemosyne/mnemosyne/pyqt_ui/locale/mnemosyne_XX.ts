@@ -1,5 +1,34 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name>AboutDlg</name>
+    <message>
+        <source>Mnemosyne</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main author: Peter Bienstman
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More info: http://mnemosyne-proj.sourceforge.net
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AboutFrm</name>
+    <message>
+        <source>Mnemosyne</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>textLabel1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ActivateCategoriesFrm</name>
     <message>
         <source>Activate categories</source>
@@ -689,17 +718,6 @@ so you might want to run </source>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Main author: Peter Bienstman
-
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>More info: http://mnemosyne-proj.sourceforge.net
-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -26,7 +26,9 @@ SOURCES = activate_categories_dlg.py \
 	product_tour_frm.py \
 	config_frm.py \
 	import_frm.py \
-	statistics_frm.py
+	statistics_frm.py \
+	about_dlg.py \
+	about_frm.py
 
 FORMS = activate_categories_frm.ui \
 	edit_item_frm.ui \

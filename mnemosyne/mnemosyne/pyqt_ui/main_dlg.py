@@ -17,6 +17,7 @@ from edit_items_dlg import *
 from activate_categories_dlg import *
 from config_dlg import *
 from product_tour_dlg import *
+from about_dlg import *
 from sound import *
 from message_boxes import *
 from mnemosyne.core import *
@@ -512,14 +513,9 @@ class MainDlg(MainFrm):
     
     def helpAbout(self):
         
-        import mnemosyne.version
         pause_thinking()
-        QMessageBox.about(None,
-            self.trUtf8("Mnemosyne"),
-            self.trUtf8("Mnemosyne").append(" " + \
-            mnemosyne.version.version + "\n\n").append(\
-            self.trUtf8("Main author: Peter Bienstman\n\n")).append(\
-            self.trUtf8("More info: http://mnemosyne-proj.sourceforge.net\n")))
+        dlg = AboutDlg(self)
+        dlg.exec_loop()
         unpause_thinking()
 
     ##########################################################################
