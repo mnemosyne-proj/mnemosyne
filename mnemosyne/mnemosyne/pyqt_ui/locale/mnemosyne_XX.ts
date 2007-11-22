@@ -1251,15 +1251,99 @@ Happy learning!</source>
 <context>
     <name>TipDlg</name>
     <message>
-        <source>Tip 1</source>
+        <source>For optimal results, it&apos;s best to do your repetitions every day.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tip 2</source>
+        <source>If you&apos;ve been away for a few days, don&apos;t worry about your backlog. Do as many cards as you feel like to catch up, the rest will be automatically rescheduled to the future.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tip 3</source>
+        <source>The &apos;number of grade 0 cards to learn at once&apos; setting determines how many new cards you are trying to learn at the same time. It does &lt;b&gt;not&lt;/b&gt; tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grade 1 cards are different from grade 0 cards in the sense that they show up less often and are not subject to the &apos;number of grade 0 cards to learn at once&apos; setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can use keyboard shortcuts to do your repetitions. Enter, Return or Space stand for the default action (&apos;Show answer&apos; or &apos;grade 4&apos;). The number keys can be used for grading.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can select the categories you wish to study in the &apos;Activate categories&apos; menu option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is recommended to put all your cards in a single database and use categories to organise them. Using &apos;Activate categories&apos; is much more convenient than have to load and unload several databases.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can import cards in a wide variety of formats: tab delimited txt files, Supermemo files, ... .</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have cards in Word or Excel, export them to tab delimited txt files with UTF-8 unicode encoding to be able to import them into Mnemosyne.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you want to print out your cards, export them to a txt file which you can then print from your favourite Word processor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can share your cards with someone else by exporting them to XML and choosing the &apos;Reset learning data&apos; option on export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you study a foreign language with a different script, the default font size is sometimes a bit small. If you want to increase the size of these characters but keep the size of English text, use the &apos;increase size of non-latin characters by X points&apos; option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can add images and sounds to your cards. Right-click on the question or answer field when editing a card to bring up a pop-up menu to do so.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is recommended to keep your sound and image files inside your .mnemosyne directory. That way, it&apos;s easier to transfer your data between different computers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When adding a three-sided card, two regular cards will be created. One with as question the written form and as answer the pronunciation and the translation, and one with as question the translation and as answer the written form and the pronunciation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can use basic HTML tags in your cards to control their appearance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mnemosyne can use LaTeX to render mathematical formulas, e.g. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (For this, you need LaTeX and dvipng installed.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can run Mnemosyne from a USB key. Copy C:Program FilesMnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can sort the cards in the &apos;Edit Deck&apos; dialog by answer or by category by clicking on the corresponding column title. Clicking again changes the sort order.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -93,6 +93,9 @@
                                     <property name="text">
                                         <string></string>
                                     </property>
+                                    <property name="alignment">
+                                        <set>WordBreak|AlignVCenter</set>
+                                    </property>
                                 </widget>
                             </vbox>
                         </widget>
