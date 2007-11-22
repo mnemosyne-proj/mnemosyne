@@ -373,6 +373,7 @@
         <action name="editCurrentItemAction"/>
         <action name="deleteCurrentItemAction"/>
         <action name="editItemsAction"/>
+        <action name="ShowStatisticsAction"/>
     </toolbar>
 </toolbars>
 <actions>
