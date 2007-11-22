@@ -6,8 +6,6 @@ Mnemosyne 1.0:
 
 -better USB scheme
 
--recreate user_id and log_index from files in history folder
-
 -make sure that reset learning data (both import and export) doesn't break
  the connection between cards.
 
