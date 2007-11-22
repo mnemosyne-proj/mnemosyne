@@ -1,9 +1,5 @@
 Mnemosyne 1.0:
 
--tip of the day
-
--string freeze, enlist translators
-
 -better USB scheme
 
 -make sure that reset learning data (both import and export) doesn't break
