@@ -1,5 +1,7 @@
 Mnemosyne 1.0:
 
+-show statistics in taskbar
+
 -tip of the day
 
 -string freeze, enlist translators
@@ -124,6 +126,8 @@ Mnemosyne 2.3
 -advanced deck manager, with tree view, drag and drop to change categories, 
  count of cards/facts...
 
+-make 'search' behave as a filter
+
 -regular expression search?
 
 -add 'add card' option to deck manager?
@@ -157,6 +161,8 @@ Mnemosyne 2.4
 
 
 Miscellaneous
+
+-auto identifying similar cards
 
 -unify number shortcuts (with and without Ctrl)
 
