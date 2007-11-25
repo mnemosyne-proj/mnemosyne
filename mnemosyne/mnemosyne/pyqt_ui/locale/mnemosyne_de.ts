@@ -551,6 +551,14 @@ Vielleicht möchtest Du </translation>
         <source>&amp;Find</source>
         <translation>&amp;Suchen</translation>
     </message>
+    <message>
+        <source>Please wait...</source>
+        <translation type="unfinished">Bitte warten...</translation>
+    </message>
+    <message>
+        <source>Add &amp;vice versa</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditItemsFrm</name>
@@ -1375,7 +1383,7 @@ Viel Spass und Erfolg!</translation>
     </message>
     <message>
         <source>You can run Mnemosyne from a USB key. Copy C:Program FilesMnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
-        <translation>Du kannst Mnemosyne von einem USB Stick aus ausführen. Kopiere dazu C:\Programme\Mnemosyne auf den USB Stick und kopiere dann das .mnemosyne Verzeichnis von Deinem Heimverzeichnis in das Mnemosyne Verzeichnis auf Deinem USB Stick.</translation>
+        <translation type="obsolete">Du kannst Mnemosyne von einem USB Stick aus ausführen. Kopiere dazu C:\Programme\Mnemosyne auf den USB Stick und kopiere dann das .mnemosyne Verzeichnis von Deinem Heimverzeichnis in das Mnemosyne Verzeichnis auf Deinem USB Stick.</translation>
     </message>
     <message>
         <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
@@ -1387,11 +1395,19 @@ Viel Spass und Erfolg!</translation>
     </message>
     <message>
         <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
-        <translation>Möchtest Du eine genauere Kontrolle über das LaTeX Verhalten, dann lies die Erklärung zu den &lt;$$&gt;...&lt;/$$&gt; und &lt;latex&gt;...&lt;/latex&gt; Tags auf der Mnemosyne Webseite.</translation>
+        <translation type="obsolete">Möchtest Du eine genauere Kontrolle über das LaTeX Verhalten, dann lies die Erklärung zu den &lt;$$&gt;...&lt;/$$&gt; und &lt;latex&gt;...&lt;/latex&gt; Tags auf der Mnemosyne Webseite.</translation>
     </message>
     <message>
         <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
         <translation>Erfahrene Benutzer können Mnemosyne noch besser konfigurieren, indem sie die Datei config.py in ihrem .mnemosyne Verzeichnis bearbeiten. Sie können auch Plugins installieren, um Mnemosyne noch weiter an ihre Bedürfnisse anzupassen.</translation>
+    </message>
+    <message>
+        <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

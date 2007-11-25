@@ -69,13 +69,13 @@ class TipDlg(TipFrm):
 
         self.tips.append(self.trUtf8("""The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won't help you if that drive dies... """))
 
-        self.tips.append(self.trUtf8("""You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key."""))
+        self.tips.append(self.trUtf8("""You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key."""))
 
         self.tips.append(self.trUtf8("""If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information."""))
 
         self.tips.append(self.trUtf8("""You can sort the cards in the 'Edit Deck' dialog by answer or by category by clicking on the corresponding column title. Clicking again changes the sort order."""))
 
-        self.tips.append(self.trUtf8("""If you want more fine-grained control over LaTeX's behaviour, see the explanation the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's website."""))
+        self.tips.append(self.trUtf8("""If you want more fine-grained control over LaTeX's behaviour, see the explanation of the <$$>...</$$> and <latex>...</latex> tags on Mnemosyne's website."""))
 
         self.tips.append(self.trUtf8("""Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further."""))
 

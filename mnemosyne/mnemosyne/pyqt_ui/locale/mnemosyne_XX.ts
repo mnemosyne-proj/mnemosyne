@@ -420,6 +420,10 @@
 <context>
     <name>EditItemsDlg</name>
     <message>
+        <source>Please wait...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -453,6 +457,10 @@
     </message>
     <message>
         <source>&amp;Change category</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add &amp;vice versa</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1327,7 +1335,7 @@ Happy learning!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can run Mnemosyne from a USB key. Copy C:Program FilesMnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
+        <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1339,7 +1347,7 @@ Happy learning!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
+        <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

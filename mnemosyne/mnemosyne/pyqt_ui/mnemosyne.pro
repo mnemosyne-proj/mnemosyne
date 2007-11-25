@@ -47,4 +47,5 @@ FORMS = activate_categories_frm.ui \
 	about_frm.ui \
 	tip_frm.ui
 
-TRANSLATIONS = locale/mnemosyne_XX.ts
+TRANSLATIONS = locale/mnemosyne_XX.ts \
+	locale/mnemosyne_de.ts

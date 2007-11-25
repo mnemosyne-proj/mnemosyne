@@ -56,7 +56,7 @@ class EditItemsDlg(EditItemsFrm):
         EditItemsFrm.__init__(self,parent,name,modal,
                               Qt.WStyle_MinMax | Qt.WStyle_SysMenu)
         
-        parent.statusBar().message("Please wait...")
+        parent.statusBar().message(self.trUtf8("Please wait..."))
         
         self.selected = []
         self.found_once = False
@@ -83,7 +83,7 @@ class EditItemsDlg(EditItemsFrm):
         self.popup_2 = QPopupMenu(self, "menu2")
         self.popup_2.insertItem(self.trUtf8("&Change category"),
                                 self.change_category)
-        self.popup_2.insertItem(self.trUtf8("&Add vice versa"), self.viceversa)
+        self.popup_2.insertItem(self.trUtf8("Add &vice versa"), self.viceversa)
         self.popup_2.insertItem(self.trUtf8("&Delete"), self.delete)
         
         self.connect(self.item_list,
