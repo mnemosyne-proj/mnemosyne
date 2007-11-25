@@ -1,9 +1,5 @@
 Mnemosyne 1.0:
 
--integrate German translation
-
--multiple sound tags per field
-
 -better USB scheme: .mnemosyne dir as subdir of Mnemosyne dir
 
 -website:

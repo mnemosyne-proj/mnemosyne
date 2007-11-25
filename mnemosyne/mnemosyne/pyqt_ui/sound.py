@@ -18,7 +18,8 @@ def play_sound(text):
 
     i = text.lower().find("sound src")
     
-    if i != -1:
+    while i != -1:
+        
         start = text.find("\"", i)
         end   = text.find("\"", start+1)
 
@@ -33,4 +34,7 @@ def play_sound(text):
                 pygame.mixer.music.load(filename)
                 pygame.mixer.music.play()
         except:
-            print "Unable to play music from file", filename 
+            print "Unable to play music from file", filename
+
+        i = text.lower().find("sound src", i+1)    
+            
