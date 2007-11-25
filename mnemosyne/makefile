@@ -2,8 +2,9 @@ default:
 	cd mnemosyne/pyqt_ui ; make clean
 	cd mnemosyne/pyqt_ui ; make
 	rm -f mnemosyne/pyqt_ui/locale/mnemosyne_XX.ts
+	rm -f mnemosyne/pyqt_ui/locale/*.qm
 	cd mnemosyne/pyqt_ui ; pylupdate mnemosyne.pro
-	cd mnemosyne/pyqt_ui ; lrelease mnemosyne.pro
+	cd mnemosyne/pyqt_ui ; /usr/qt/3/bin/lrelease mnemosyne.pro
 	python setup.py install
 	rm -f -R build
 
