@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>Ctrl+0</source>
-        <translation>Strg+0</translation>
+        <translation>Ctrl+0</translation>
     </message>
     <message>
         <source>You don&apos;t remember this item yet or forgot it.</source>
@@ -187,7 +187,7 @@
     </message>
     <message>
         <source>Ctrl+1</source>
-        <translation>Strg+1</translation>
+        <translation>Ctrl+1</translation>
     </message>
     <message>
         <source>Like &apos;0&apos;, but the item is getting more familiar.</source>
@@ -199,7 +199,7 @@
     </message>
     <message>
         <source>Ctrl+2</source>
-        <translation>Strg+2</translation>
+        <translation>Ctrl+2</translation>
     </message>
     <message>
         <source>You&apos;ve memorised this item now, and will probably remember it for a few days.</source>
@@ -211,7 +211,7 @@
     </message>
     <message>
         <source>Ctrl+3</source>
-        <translation>Strg+3</translation>
+        <translation>Ctrl+3</translation>
     </message>
     <message>
         <source>Correct answer, but with much effort. The interval was probably too long</source>
@@ -223,7 +223,7 @@
     </message>
     <message>
         <source>Ctrl+4</source>
-        <translation>Strg+4</translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <source>Correct answer, with some effort. The interval was probably just right.</source>
@@ -235,7 +235,7 @@
     </message>
     <message>
         <source>Ctrl+5</source>
-        <translation>Strg+5</translation>
+        <translation>Ctrl+5</translation>
     </message>
     <message>
         <source>Correct answer, but without any difficulties. The interval was probably too short.</source>
@@ -251,7 +251,7 @@
     </message>
     <message>
         <source>Ctrl+P</source>
-        <translation>Strg+P</translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -412,7 +412,7 @@
     </message>
     <message>
         <source>Ctrl+P</source>
-        <translation>Strg+P</translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -431,7 +431,7 @@
     </message>
     <message>
         <source>Ctrl+E</source>
-        <translation>Strg+E</translation>
+        <translation>Ctrl+E</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
@@ -439,7 +439,7 @@
     </message>
     <message>
         <source>Ctrl+P</source>
-        <translation>Strg+P</translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <source>&amp;Add vice versa</source>
@@ -451,7 +451,7 @@
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation>Strg+T</translation>
+        <translation>Ctrl+T</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -862,7 +862,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Ctrl+N</source>
-        <translation>Strg+N</translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -870,7 +870,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Ctrl+O</source>
-        <translation>Strg+O</translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -878,7 +878,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Ctrl+S</source>
-        <translation>Strg+S</translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -906,7 +906,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Ctrl+A</source>
-        <translation>Strg+A</translation>
+        <translation>Ctrl+A</translation>
     </message>
     <message>
         <source>Act&amp;ivate categories</source>
@@ -922,7 +922,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Ctrl+D</source>
-        <translation>Strg+D</translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -946,7 +946,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Ctrl+E</source>
-        <translation>Strg+E</translation>
+        <translation>Ctrl+E</translation>
     </message>
     <message>
         <source>Delete current card</source>
@@ -994,7 +994,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Ctrl+R</source>
-        <translation>Strg+R</translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <source>Show statistics</source>
@@ -1006,7 +1006,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation>Strg+T</translation>
+        <translation>Ctrl+T</translation>
     </message>
     <message>
         <source>Tip of the day</source>
@@ -1202,7 +1202,7 @@ Viel Spass und Erfolg!</translation>
     </message>
     <message>
         <source>Ctrl+I</source>
-        <translation>Strg+I</translation>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <source>Insert &amp;sound</source>
@@ -1210,7 +1210,7 @@ Viel Spass und Erfolg!</translation>
     </message>
     <message>
         <source>Ctrl+S</source>
-        <translation>Strg+S</translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <source>&amp;3-sided input</source>
