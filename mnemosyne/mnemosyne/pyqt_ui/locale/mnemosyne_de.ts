@@ -553,7 +553,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Please wait...</source>
-        <translation type="unfinished">Bitte warten...</translation>
+        <translation>Bitte warten...</translation>
     </message>
     <message>
         <source>Add &amp;vice versa</source>
@@ -966,7 +966,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Del</source>
-        <translation>Entf</translation>
+        <translation>Del</translation>
     </message>
     <message>
         <source>&amp;Clean duplicates</source>
@@ -998,7 +998,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Space</source>
-        <translation>Leertaste</translation>
+        <translation>Space</translation>
     </message>
     <message>
         <source>Ctrl+R</source>
@@ -1247,7 +1247,7 @@ Viel Spass und Erfolg!</translation>
         <source>Scheduled cards for the next days:
 
 </source>
-        <translation>Vorgemerkte Karten für die nächsten Tage:
+        <translation type="unfinished">Vorgemerkte Karten für die nächsten Tage:
 
 </translation>
     </message>
