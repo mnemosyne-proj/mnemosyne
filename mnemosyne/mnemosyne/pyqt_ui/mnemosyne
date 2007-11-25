@@ -22,7 +22,14 @@ parser.add_option("-d", "--datadir", dest="datadir",
                   default=os.path.join(os.path.expanduser("~"), ".mnemosyne"))
 (options, args) = parser.parse_args()
 
-basedir = os.path.abspath(options.datadir)
+# Determine basedir.
+
+if os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
+    basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
+else:
+    basedir = os.path.abspath(options.datadir)
+
+# Filename argument.
 
 if len(args) > 1:
     filename = args[0]

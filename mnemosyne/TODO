@@ -1,6 +1,10 @@
 Mnemosyne 1.0:
 
--better USB scheme: .mnemosyne dir as subdir of Mnemosyne dir
+-wait for updated German translation
+
+-prerelease 1.0
+
+-move to subversion
 
 -website:
   relative CSS layout 
@@ -18,10 +22,6 @@ Mnemosyne 1.0:
   update screenshots
   document new features
   remove left align qa from formula faq
-
--prerelease 1.0
-
--move to subversion
 
 
 

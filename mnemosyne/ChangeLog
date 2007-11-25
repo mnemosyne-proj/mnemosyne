@@ -5,10 +5,11 @@ MNEMOSYNE 1.0
 version before doing an upgrade.)
 
 -added tip of the day wizard.
--Mnemosyne can now be run from a USB drive. Copy both the Mnemosyne directory
- from C:\Program Files to your USB drive, as well as your .mnemosyne 
- directory from inside your home directory. Create a shortcut on the USB 
- drive (say it's called F) which reads
+-Mnemosyne can now be run from a USB drive. Copy the Mnemosyne directory
+ from C:\Program Files to your USB drive, and then copy the .mnemosyne 
+ directory from inside your home directory to inside the Mnemosyne directory
+ on the USB drive. Alternatively, you can start mnemosyne with the -d option
+ to specify where .mnemosyne directory is located, e.g. 
    F:\Mnemosyne\mnemosyne.exe -d F:\.mnemosyne
 -new logo, thanks to a contributor whose name sadly got lost in the 
  demise of the open-collab site.
