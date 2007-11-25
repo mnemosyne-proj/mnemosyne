@@ -1,9 +1,10 @@
 Mnemosyne 1.0:
 
--better USB scheme
+-integrate German translation
 
--make sure that reset learning data (both import and export) doesn't break
- the connection between cards.
+-multiple sound tags per field
+
+-better USB scheme: .mnemosyne dir as subdir of Mnemosyne dir
 
 -website:
   relative CSS layout 
@@ -73,6 +74,8 @@ Mnemosyne 2.0:
 
 -Upgrade to Qt4
 
+-MVC
+
 -front widget that allows copying, can produce scroll bars
 
 -instead of QListview, use the model/view framework from Qt4 
@@ -95,6 +98,7 @@ Mnemosyne 2.0:
 
 -three sided export?
 
+-gettext io Qt localisation
 
 
 Mnemosyne 2.1:

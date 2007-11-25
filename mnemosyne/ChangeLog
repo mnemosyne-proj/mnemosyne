@@ -19,6 +19,8 @@ version before doing an upgrade.)
 -when importing from tab separated txt files, the presence of 3 columns
  on a line gives results in the import of 3-sided cards (written form / 
  pronunciation / translation).
+-choosing 'reset learning data' on export now preserves the relationship
+ between cards (for e.g. inverses and three-sided cards).
 -automatically back up the database to XML on exit. The last five backups 
  are kept in .mnemosyne/backup.
 -removed a few rarely used options from the configuration dialog and

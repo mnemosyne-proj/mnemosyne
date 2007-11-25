@@ -1275,6 +1275,67 @@ def get_file_format_from_name(name):
 
 ##############################################################################
 #
+# anonymise_id
+#
+#   Returns anonymous version of id (_0, _1, ...), but keeps item's
+#   original id intact.
+#
+##############################################################################
+
+id_to_anon = {}
+
+def anonymise_id(item):
+    
+    global id_to_anon
+
+    if '.' in item.id:
+        old_id, suffix = item.id.split('.', 1)
+    else:
+        old_id, suffix = item.id, ''
+
+    if suffix:
+        suffix = '.' + suffix
+    
+    return id_to_anon.setdefault(old_id, '_'+str(len(id_to_anon)))+suffix
+
+
+
+##############################################################################
+#
+# unanonymise_id
+#
+#   Create a new id from an anonymous one, and updates item's id with it.
+#
+##############################################################################
+
+anon_to_id = {}
+
+def unanonymise_id(item):
+    
+    global anon_to_id
+    
+    if '.' in item.id:
+        old_id, suffix = item.id.split('.', 1)
+    else:
+        old_id, suffix = item.id, ''
+
+    if suffix:
+        suffix = '.' + suffix
+
+    if old_id.startswith('_'):
+        if old_id in anon_to_id:
+            item.id = anon_to_id[old_id] + suffix
+        else:
+            item.new_id()
+            anon_to_id[old_id] = item.id
+            item.id += suffix
+
+    return item.id
+
+
+
+##############################################################################
+#
 # import_file
 #
 ##############################################################################
@@ -1282,7 +1343,7 @@ def get_file_format_from_name(name):
 def import_file(filename, fformat_name, default_cat_name,
                 reset_learning_data=False):
 
-    global load_failed, revision_queue
+    global load_failed, revision_queue, anon_to_id
 
     # If no database is active, create one.
 
@@ -1326,6 +1387,8 @@ def import_file(filename, fformat_name, default_cat_name,
 
     load_failed = False
 
+    anon_to_id = {}
+
 
 
 ##############################################################################
@@ -1336,6 +1399,8 @@ def import_file(filename, fformat_name, default_cat_name,
 
 def export_file(filename, fformat_name,
                 cat_names_to_export, reset_learning_data):
+
+    global id_to_anon
     
     # Call export function according to file format name.
 
@@ -1343,6 +1408,8 @@ def export_file(filename, fformat_name,
 
     fformat.export_function(filename, cat_names_to_export, \
                             reset_learning_data)
+
+    id_to_anon = {}
 
 
 
@@ -1462,6 +1529,9 @@ class XML_Importer(saxutils.DefaultHandler):
 
             if self.item.id == 0:
                 self.item.new_id()
+
+            if self.item.id.startswith('_'):
+                unanonymise_id(self.item)
 
             if self.item.cat == None:
                 self.item.cat = self.default_cat
@@ -1681,7 +1751,7 @@ def write_item_XML(e, outfile, reset_learning_data=False):
                          + " l_rp=\""+str(e.last_rep) + "\"" \
                          + " n_rp=\""+str(e.next_rep) + "\">"
     else:
-        print >> outfile, "<item>"
+        print >> outfile, "<item id=\"" + anonymise_id(e) + "\">"
 
     print >> outfile, " <cat>" + encode_cdata(e.cat.name) + "</cat>"
     print >> outfile, " <Q>" + encode_cdata(e.q) + "</Q>"

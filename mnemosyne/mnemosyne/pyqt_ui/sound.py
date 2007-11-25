@@ -10,7 +10,7 @@ import pygame
 #
 # play_sound
 #
-#  extract path from a <sound src=".."> tag and play it
+#  Extract path from a <sound src=".."> tag and play it.
 #
 ##############################################################################
 
