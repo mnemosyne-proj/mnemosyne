@@ -5,7 +5,7 @@
 ##############################################################################
 
 import random, time, os, string, sys, cPickle, md5, struct, logging, re
-import shutil, datetime, bz2, copy
+import shutil, datetime, bz2, copy, cStringIO 
 
 from mnemosyne.core.exceptions import *
 import mnemosyne.version
@@ -1686,13 +1686,17 @@ def import_XML(filename, default_cat, reset_learning_data=False):
     f.close()
 
     # Parse XML file.
-
+    
     parser = make_parser()
     parser.setFeature(feature_namespaces, 0)
     parser.setContentHandler(handler)
 
     try:
-        parser.parse(file(filename))
+        # Use cStringIo to avoid a crash in sax when filename has unicode
+        # characters.
+        s = file(filename).read()
+        f = cStringIO.StringIO(s)
+        parser.parse(f)
     except Exception, e:
         raise XMLError(stack_trace=True)
 

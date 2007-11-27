@@ -60,9 +60,9 @@ class ExportDlg(ExportFrm):
                       unicode(self.fileformats.currentText()))
 
         out = unicode(QFileDialog.getSaveFileName(
-                  expand_path(get_config("export_dir")),
-                  self.trUtf8("All Files (*);;") + fformat.filter,
-                  self, None, self.trUtf8("Export"), fformat.filter))
+              expand_path(get_config("export_dir")),
+              self.trUtf8("All Files (*);;").append(QString(fformat.filter)),
+              self, None, self.trUtf8("Export"), fformat.filter))
 
         if out != "":
             self.filename.setText(out)
