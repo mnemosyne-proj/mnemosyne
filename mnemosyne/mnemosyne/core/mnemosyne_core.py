@@ -778,16 +778,8 @@ def load_database(path):
     try:
         infile = file(path, 'rb')
         header_line = infile.readline().rstrip()
-        if header_line != database_header_line:
-
-            # As long as the database version equals 1, the header line is
-            # optional.  As soon as Mnemosyne switches to a new data base
-            # version, the code should be replaced as follows:
-
-            # infile.close()
-            # return False
-
-            assert(mnemosyne.version.dbVersion == "1")
+            
+        if not header_line.startswith("--- Mnemosyne Data Base"):
             infile = file(path, 'rb')
 
         db = cPickle.load(infile)
@@ -797,6 +789,14 @@ def load_database(path):
         items         = db[2]
         
         infile.close()
+
+        # Fix consequences of id generation bug.
+        
+        if header_line.endswith("Format Version 1 ---"):
+            for i in items:
+                if type(i.id) != type("string") and \
+                   type(i.id) != type(u"unicode"):
+                    i.new_id()
 
         time_of_start.update_days_since()
 
