@@ -203,7 +203,7 @@ class AddItemsDlg(AddItemsFrm):
     #
     ##########################################################################
 
-    def check_duplicates_and_add(self, grade, q, a, cat_name, id_suffix=None):
+    def check_duplicates_and_add(self, grade, q, a, cat_name, id=None):
 
         if get_config("check_duplicates_when_adding") == True:
 
@@ -267,7 +267,7 @@ class AddItemsDlg(AddItemsFrm):
                 if status == 2: # Don't add.
                     return None
 
-        new_item = add_new_item(grade, q, a, cat_name, id_suffix)
+        new_item = add_new_item(grade, q, a, cat_name, id)
         self.update_combobox(cat_name)
                 
         return new_item
