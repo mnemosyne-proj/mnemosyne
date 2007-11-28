@@ -217,7 +217,7 @@ def init_config():
 
     if get_config("log_index") == 1:
     
-        dir = os.listdir(os.path.join(basedir, "history"))
+        dir = os.listdir(unicode(os.path.join(basedir, "history")))
         history_files = [x for x in dir if x[-4:] == ".bz2"]
         history_files.sort()
         if history_files:
@@ -317,7 +317,7 @@ def save_config():
 
 def run_plugins():
 
-    plugindir = os.path.join(basedir, "plugins")
+    plugindir = unicode(os.path.join(basedir, "plugins"))
     
     sys.path.insert(0, plugindir)
     
@@ -891,11 +891,11 @@ def backup_database():
     if number_of_items() == 0:
         return
 
-    backupdir = os.path.join(basedir, "backups")
+    backupdir = unicode(os.path.join(basedir, "backups"))
 
     # Export to XML. Create only a single file per day.
 
-    db_name = config["path"][:-4]
+    db_name = os.path.basename(config["path"])[:-4]
 
     filename = db_name + "-" +\
                datetime.date.today().strftime("%Y%m%d") + ".xml"

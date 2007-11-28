@@ -69,7 +69,7 @@ def upload(filename):
     data = f.read()
     f.close()
 
-    upload_name = filename.split("/")[-1].split("\\")[-1]
+    upload_name = str(filename.split("/")[-1].split("\\")[-1])
 
     hdr = []; part = []; total = []
     hdr.append('Content-Disposition: form-data;' + \
@@ -121,7 +121,7 @@ class Uploader(Thread):
     
         # Find out which files haven't been uploaded yet.
 
-        dir = os.listdir(join(basedir, "history"))
+        dir = os.listdir(unicode(join(basedir, "history")))
         history_files = [x for x in dir if x[-4:] == ".bz2"]
     
         uploaded = None
