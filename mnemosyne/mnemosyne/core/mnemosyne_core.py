@@ -804,7 +804,7 @@ def load_database(path):
 
     except:
         load_failed = True
-        raise InvalidFormatError()
+        raise InvalidFormatError(stack_trace=True)
 
     for c in categories:
         category_by_name[c.name] = c
