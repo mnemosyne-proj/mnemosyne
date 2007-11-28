@@ -152,6 +152,8 @@ Miscellaneous
 
 -unify number shortcuts (with and without Ctrl)
 
+-pop-up of context info
+
 -forward / backward when previewing cards in the database
 
 -clean up interval when importing from txt
