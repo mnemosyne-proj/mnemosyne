@@ -58,10 +58,10 @@ def clean_duplicates(self):
 
     showed_box = False
     if n_removed > 0:
-        QMessageBox.information(None, qApp.trUtf8("Mnemosyne"),
-            qApp.trUtf8("Removed duplicates: ").\
+        QMessageBox.information(None, self.trUtf8("Mnemosyne"),
+            self.trUtf8("Removed duplicates: ").\
                         append(QString(str(n_removed))),
-            qApp.trUtf8("&OK"))
+            self.trUtf8("&OK"))
         showed_box = True
 
     # Ask about different answers for same question and merge if the
@@ -71,12 +71,12 @@ def clean_duplicates(self):
         
         if len(itemlist) > 1:
                 
-            status = QMessageBox.question(None, qApp.trUtf8("Mnemosyne"),
-                qApp.trUtf8(\
+            status = QMessageBox.question(None, self.trUtf8("Mnemosyne"),
+                self.trUtf8(\
                  "There are cards with different answers for question:\n\n").\
                  append(QString(itemlist[0].q)),
-                qApp.trUtf8("&Merge and edit"),
-                qApp.trUtf8("&Don't merge"),
+                self.trUtf8("&Merge and edit"),
+                self.trUtf8("&Don't merge"),
                 QString(), 0, -1)
 
             showed_box = True
@@ -97,6 +97,6 @@ def clean_duplicates(self):
     # Finished.
 
     if showed_box == False:
-        QMessageBox.information(None, qApp.trUtf8("Mnemosyne"),
-                                qApp.trUtf8("Done!"), qApp.trUtf8("&OK"))
+        QMessageBox.information(None, self.trUtf8("Mnemosyne"),
+                                self.trUtf8("Done!"), self.trUtf8("&OK"))
     

@@ -71,9 +71,6 @@ translator = QTranslator(a)
 translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
 a.installTranslator(translator)
 
-install_error_strings()
-install_tooltip_strings()
-
 # Check if there is another instance of Mnemosyne running.
 
 if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
@@ -100,6 +97,8 @@ except:
     print "Unable to initialise sound."
 
 w = MainDlg(filename)
+install_error_strings(w)
+install_tooltip_strings(w)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
 QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))

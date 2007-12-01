@@ -35,32 +35,32 @@ prefix = os.path.dirname(__file__)
 
 tooltip = [["","","","","",""],["","","","","",""]]
 
-def install_tooltip_strings():
+def install_tooltip_strings(self):
 
     global tooltip
     
     tooltip[0][0] = \
-        qApp.trUtf8("You don't remember this card yet.")
+        self.trUtf8("You don't remember this card yet.")
     tooltip[0][1] = \
-        qApp.trUtf8("Like '0', but it's getting more familiar.").append(\
-        qApp.trUtf8(" Show it less often."))
+        self.trUtf8("Like '0', but it's getting more familiar.").append(\
+        self.trUtf8(" Show it less often."))
     tooltip[0][2] = tooltip[0][3] = tooltip[0][4] = tooltip[0][5] = \
-        qApp.trUtf8("You've memorised this card now,").append(\
-        qApp.trUtf8(" and will probably remember it for a few days."))
+        self.trUtf8("You've memorised this card now,").append(\
+        self.trUtf8(" and will probably remember it for a few days."))
 
     tooltip[1][0] = tooltip[1][1] = \
-        qApp.trUtf8("You have forgotten this card completely.")
+        self.trUtf8("You have forgotten this card completely.")
     tooltip[1][2] = \
-        qApp.trUtf8("Barely correct answer. The interval was way too long.")
+        self.trUtf8("Barely correct answer. The interval was way too long.")
     tooltip[1][3] = \
-        qApp.trUtf8("Correct answer, but with much effort.").append(\
-        qApp.trUtf8(" The interval was probably too long."))
+        self.trUtf8("Correct answer, but with much effort.").append(\
+        self.trUtf8(" The interval was probably too long."))
     tooltip[1][4] = \
-        qApp.trUtf8("Correct answer, with some effort.").append(\
-        qApp.trUtf8(" The interval was probably just right."))
+        self.trUtf8("Correct answer, with some effort.").append(\
+        self.trUtf8(" The interval was probably just right."))
     tooltip[1][5] = \
-        qApp.trUtf8("Correct answer, but without any").append(\
-        qApp.trUtf8(" difficulties. The interval was probably too short."))
+        self.trUtf8("Correct answer, but without any").append(\
+        self.trUtf8(" difficulties. The interval was probably too short."))
 
 
 
@@ -114,7 +114,7 @@ class MainDlg(MainFrm):
         try:
             load_database(filename)
         except MnemosyneError, e:
-            messagebox_errors(LoadErrorCreateTmp())
+            messagebox_errors(self, LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             new_database(filename)
         
@@ -124,7 +124,7 @@ class MainDlg(MainFrm):
         try:
             run_plugins()
         except MnemosyneError, e:
-            messagebox_errors(e)
+            messagebox_errors(self, e)
 
     ##########################################################################
     #
@@ -149,14 +149,15 @@ class MainDlg(MainFrm):
 
         path = os.path.join(os.path.expanduser("~"), ".mnemosyne")
         out = unicode(QFileDialog.getSaveFileName(path,
-                 self.trUtf8("Mnemosyne databases (*.mem)"), self))
+                 self.trUtf8("Mnemosyne databases (*.mem)"), self, None,\
+                 self.trUtf8("New")))
         if out != "":
             
             if out[-4:] != ".mem":
                 out += ".mem"
                 
             if os.path.exists(out):
-                if not queryOverwriteFile(out):
+                if not queryOverwriteFile(self, out):
                     unpause_thinking()
                     return
 
@@ -188,7 +189,7 @@ class MainDlg(MainFrm):
             try:
                 unload_database()
             except MnemosyneError, e:
-                messagebox_errors(e)
+                messagebox_errors(self, e)
 
             self.state = "EMPTY"
             self.item = None
@@ -196,7 +197,7 @@ class MainDlg(MainFrm):
             try:
                 load_database(out)
             except MnemosyneError, e:
-                messagebox_errors(e)
+                messagebox_errors(self, e)
                 unpause_thinking()
                 return
 
@@ -220,7 +221,7 @@ class MainDlg(MainFrm):
         try:
             save_database(path)
         except MnemosyneError, e:
-            messagebox_errors(e)
+            messagebox_errors(self, e)
 
         unpause_thinking()
 
@@ -244,14 +245,14 @@ class MainDlg(MainFrm):
                 out += ".mem"
 
             if os.path.exists(out) and out != get_config("path"):
-                if not queryOverwriteFile(out):
+                if not queryOverwriteFile(self, out):
                     unpause_thinking()
                     return
                 
             try:
                 save_database(out)
             except MnemosyneError, e:
-                messagebox_errors(e)
+                messagebox_errors(self, e)
                 unpause_thinking()
                 return            
 
@@ -488,7 +489,7 @@ class MainDlg(MainFrm):
             backup_database()
             unload_database()
         except MnemosyneError, e:
-            messagebox_errors(e)
+            messagebox_errors(self, e)
             event.ignore()
         else:
             event.accept()
@@ -601,7 +602,7 @@ class MainDlg(MainFrm):
         else: 
             return QString('\n') + self.trUtf8("Next repetition in ").\
                    append(QString(str(days))).\
-                   append(qApp.trUtf8(" days."))
+                   append(self.trUtf8(" days."))
         
     ##########################################################################
     #
@@ -751,8 +752,7 @@ class MainDlg(MainFrm):
                       append(self.next_rep_string(process_answer(self.item,
                                                   grade, dry_run=True))))
             else:
-                QToolTip.add(self.grade_buttons[grade],
-                            tooltip[i][grade])
+                QToolTip.add(self.grade_buttons[grade], tooltip[i][grade])
 
             # Button text.
                     

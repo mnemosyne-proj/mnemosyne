@@ -1,5 +1,139 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name></name>
+    <message>
+        <source>Error in config.py:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when running plugin:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to load file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid file format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to save file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to parse XML:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unrecognised encoding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missing answer on line:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to load database.
+Creating tmp file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mnemosyne</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File exists:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Overwrite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removed duplicates: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are cards with different answers for question:
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge and edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Don&apos;t merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Done!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don&apos;t remember this card yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Show it less often.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;ve memorised this card now,</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> and will probably remember it for a few days.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have forgotten this card completely.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barely correct answer. The interval was way too long.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Correct answer, but with much effort.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> The interval was probably too long.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Correct answer, with some effort.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> The interval was probably just right.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Correct answer, but without any</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> difficulties. The interval was probably too short.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AboutDlg</name>
     <message>
         <source>Mnemosyne</source>
@@ -705,6 +839,10 @@ so you might want to run </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Please wait...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -742,6 +880,10 @@ so you might want to run </source>
     </message>
     <message>
         <source>Next repetition in </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> days.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1395,144 +1537,6 @@ Happy learning!</source>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>qApp</name>
-    <message>
-        <source>Error in config.py:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error when running plugin:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to load file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid file format.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to save file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to parse XML:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unrecognised encoding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Missing answer on line:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to load database.
-Creating tmp file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mnemosyne</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File exists:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Overwrite</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Removed duplicates: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There are cards with different answers for question:
-
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Merge and edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Don&apos;t merge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Done!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You don&apos;t remember this card yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Show it less often.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You&apos;ve memorised this card now,</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> and will probably remember it for a few days.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You have forgotten this card completely.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Barely correct answer. The interval was way too long.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Correct answer, but with much effort.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> The interval was probably too long.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Correct answer, with some effort.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> The interval was probably just right.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Correct answer, but without any</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> difficulties. The interval was probably too short.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> days.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

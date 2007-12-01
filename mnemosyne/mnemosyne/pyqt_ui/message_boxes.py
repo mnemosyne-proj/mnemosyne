@@ -19,18 +19,18 @@ from qt import *
 #
 ##############################################################################
 
-def install_error_strings():
+def install_error_strings(self):
     
-    ConfigError.msg        = qApp.trUtf8("Error in config.py:")
-    PluginError.msg        = qApp.trUtf8("Error when running plugin:")
-    LoadError.msg          = qApp.trUtf8("Unable to load file.")
-    InvalidFormatError.msg = qApp.trUtf8("Invalid file format.")
-    SaveError.msg          = qApp.trUtf8("Unable to save file.")    
-    XMLError.msg           = qApp.trUtf8("Unable to parse XML:")
-    EncodingError.msg      = qApp.trUtf8("Unrecognised encoding.")
-    MissingAnswerError.msg = qApp.trUtf8("Missing answer on line:")
+    ConfigError.msg        = self.trUtf8("Error in config.py:")
+    PluginError.msg        = self.trUtf8("Error when running plugin:")
+    LoadError.msg          = self.trUtf8("Unable to load file.")
+    InvalidFormatError.msg = self.trUtf8("Invalid file format.")
+    SaveError.msg          = self.trUtf8("Unable to save file.")    
+    XMLError.msg           = self.trUtf8("Unable to parse XML:")
+    EncodingError.msg      = self.trUtf8("Unrecognised encoding.")
+    MissingAnswerError.msg = self.trUtf8("Missing answer on line:")
     LoadErrorCreateTmp.msg = \
-            qApp.trUtf8("Unable to load database.\nCreating tmp file.")
+            self.trUtf8("Unable to load database.\nCreating tmp file.")
 
 
 
@@ -40,15 +40,15 @@ def install_error_strings():
 #
 ##############################################################################
 
-def messagebox_errors(e):
+def messagebox_errors(self, e):
 
     if e.info:
         msg = e.msg.append(QString("\n")).append(e.info)
     else:
         msg = e.msg
                                    
-    QMessageBox.critical(None, qApp.trUtf8("Mnemosyne"), msg,
-                         qApp.trUtf8("&OK"), "", "", 0, -1)
+    QMessageBox.critical(None, self.trUtf8("Mnemosyne"), msg,
+                         self.trUtf8("&OK"), "", "", 0, -1)
 
 
 
@@ -58,14 +58,14 @@ def messagebox_errors(e):
 #
 ##############################################################################
 
-def queryOverwriteFile(fileName):
+def queryOverwriteFile(self, fileName):
     
     status = QMessageBox.warning(None,
-                                 qApp.trUtf8("Mnemosyne"),
-                                 qApp.trUtf8("File exists:")\
+                                 self.trUtf8("Mnemosyne"),
+                                 self.trUtf8("File exists:")\
                                  .append(QString("\n" + fileName)),
-                                 qApp.trUtf8("&Overwrite"),
-                                 qApp.trUtf8("&Cancel"),
+                                 self.trUtf8("&Overwrite"),
+                                 self.trUtf8("&Cancel"),
                                  "", 1, -1)
     if status == 0:
         return True

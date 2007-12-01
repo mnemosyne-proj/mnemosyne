@@ -93,7 +93,8 @@ Mnemosyne 2.0:
 
 -three sided export?
 
--gettext io Qt localisation
+-gettext io Qt localisation? But then what about Qt only messages, like
+ filedialog?
 
 
 Mnemosyne 2.1:

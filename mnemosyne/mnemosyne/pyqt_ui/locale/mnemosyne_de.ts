@@ -1,5 +1,142 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name></name>
+    <message>
+        <source>Mnemosyne</source>
+        <translation type="unfinished">Mnemosyne</translation>
+    </message>
+    <message>
+        <source>Removed duplicates: </source>
+        <translation type="unfinished">Entfernte Duplikate: </translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>There are cards with different answers for question:
+
+</source>
+        <translation type="unfinished">Es gibt Karten mit verschiedene Antworten für die Frage:
+
+</translation>
+    </message>
+    <message>
+        <source>&amp;Merge and edit</source>
+        <translation type="unfinished">&amp;Zusammenfassen und bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;Don&apos;t merge</source>
+        <translation type="unfinished">&amp;Nicht zusammenfassen</translation>
+    </message>
+    <message>
+        <source>Done!</source>
+        <translation type="unfinished">Fertig!</translation>
+    </message>
+    <message>
+        <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
+        <translation type="unfinished">Wie &apos;0&apos;, aber es beginnt vertrauter zu werden.</translation>
+    </message>
+    <message>
+        <source> Show it less often.</source>
+        <translation type="unfinished"> Zeige sie weniger oft.</translation>
+    </message>
+    <message>
+        <source>Error in config.py:</source>
+        <translation type="unfinished">Fehler in config.py:</translation>
+    </message>
+    <message>
+        <source>Error when running plugin:</source>
+        <translation type="unfinished">Fehler beim Ausführen des Plugin:</translation>
+    </message>
+    <message>
+        <source>Unable to load file.</source>
+        <translation type="unfinished">Konnte die Datei nicht laden.</translation>
+    </message>
+    <message>
+        <source>Invalid file format.</source>
+        <translation type="unfinished">Fasches Dateiformat.</translation>
+    </message>
+    <message>
+        <source>Unable to save file.</source>
+        <translation type="unfinished">Konnte die Datei nicht speichern.</translation>
+    </message>
+    <message>
+        <source>Unable to parse XML:</source>
+        <translation type="unfinished">Konnte XML nicht parsen:</translation>
+    </message>
+    <message>
+        <source>Unrecognised encoding.</source>
+        <translation type="unfinished">Unbekannte Kodierung.</translation>
+    </message>
+    <message>
+        <source>Missing answer on line:</source>
+        <translation type="unfinished">Fehlende Antwort in Zeile:</translation>
+    </message>
+    <message>
+        <source>Unable to load database.
+Creating tmp file.</source>
+        <translation type="unfinished">Konnte die Datenbank nicht laden.
+Erstelle temporäre Datei.</translation>
+    </message>
+    <message>
+        <source>File exists:</source>
+        <translation type="unfinished">Vorhandene Datei:</translation>
+    </message>
+    <message>
+        <source>&amp;Overwrite</source>
+        <translation type="unfinished">&amp;Überschreiben</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Abbrechen</translation>
+    </message>
+    <message>
+        <source>You don&apos;t remember this card yet.</source>
+        <translation type="unfinished">Du kannst Dich noch nicht an diese Karte erinnern.</translation>
+    </message>
+    <message>
+        <source>You&apos;ve memorised this card now,</source>
+        <translation type="unfinished">Du hast diese Karte jetzt gelernt,</translation>
+    </message>
+    <message>
+        <source> and will probably remember it for a few days.</source>
+        <translation type="unfinished"> und wirst sie für ein paar Tage behalten können.</translation>
+    </message>
+    <message>
+        <source>You have forgotten this card completely.</source>
+        <translation type="unfinished">Du hast diese Karte komplett vergessen.</translation>
+    </message>
+    <message>
+        <source>Barely correct answer. The interval was way too long.</source>
+        <translation type="unfinished">Gerade noch richtige Antwort. Das Lernintervall war viel zu lang.</translation>
+    </message>
+    <message>
+        <source>Correct answer, but with much effort.</source>
+        <translation type="unfinished">Richtige Anwort, aber mit viel Anstrengung.</translation>
+    </message>
+    <message>
+        <source> The interval was probably too long.</source>
+        <translation type="unfinished"> Das Lernintervall war vermutlich zu lang.</translation>
+    </message>
+    <message>
+        <source>Correct answer, with some effort.</source>
+        <translation type="unfinished">Richtige Antwort, mit ein wenig Anstrengung.</translation>
+    </message>
+    <message>
+        <source> The interval was probably just right.</source>
+        <translation type="unfinished"> Das Lernintervall war wohl genau richtig.</translation>
+    </message>
+    <message>
+        <source>Correct answer, but without any</source>
+        <translation type="unfinished">Richtige Anwort, ganz ohne</translation>
+    </message>
+    <message>
+        <source> difficulties. The interval was probably too short.</source>
+        <translation type="unfinished"> Schwierigkeiten. Das Lerninterwall war wahrscheinlich zu kurz.</translation>
+    </message>
+</context>
+<context>
     <name>AboutDlg</name>
     <message>
         <source>Mnemosyne</source>
@@ -789,6 +926,14 @@ Vielleicht möchtest Du </translation>
         <source>All: </source>
         <translation>Alle: </translation>
     </message>
+    <message>
+        <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> days.</source>
+        <translation type="unfinished"> Tage.</translation>
+    </message>
 </context>
 <context>
     <name>MainFrm</name>
@@ -1449,141 +1594,141 @@ Viel Spass und Erfolg!</translation>
     <name>qApp</name>
     <message>
         <source>Error in config.py:</source>
-        <translation>Fehler in config.py:</translation>
+        <translation type="obsolete">Fehler in config.py:</translation>
     </message>
     <message>
         <source>Error when running plugin:</source>
-        <translation>Fehler beim Ausführen des Plugin:</translation>
+        <translation type="obsolete">Fehler beim Ausführen des Plugin:</translation>
     </message>
     <message>
         <source>Unable to load file.</source>
-        <translation>Konnte die Datei nicht laden.</translation>
+        <translation type="obsolete">Konnte die Datei nicht laden.</translation>
     </message>
     <message>
         <source>Invalid file format.</source>
-        <translation>Fasches Dateiformat.</translation>
+        <translation type="obsolete">Fasches Dateiformat.</translation>
     </message>
     <message>
         <source>Unable to save file.</source>
-        <translation>Konnte die Datei nicht speichern.</translation>
+        <translation type="obsolete">Konnte die Datei nicht speichern.</translation>
     </message>
     <message>
         <source>Unable to parse XML:</source>
-        <translation>Konnte XML nicht parsen:</translation>
+        <translation type="obsolete">Konnte XML nicht parsen:</translation>
     </message>
     <message>
         <source>Unrecognised encoding.</source>
-        <translation>Unbekannte Kodierung.</translation>
+        <translation type="obsolete">Unbekannte Kodierung.</translation>
     </message>
     <message>
         <source>Missing answer on line:</source>
-        <translation>Fehlende Antwort in Zeile:</translation>
+        <translation type="obsolete">Fehlende Antwort in Zeile:</translation>
     </message>
     <message>
         <source>Unable to load database.
 Creating tmp file.</source>
-        <translation>Konnte die Datenbank nicht laden.
+        <translation type="obsolete">Konnte die Datenbank nicht laden.
 Erstelle temporäre Datei.</translation>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>File exists:</source>
-        <translation>Vorhandene Datei:</translation>
+        <translation type="obsolete">Vorhandene Datei:</translation>
     </message>
     <message>
         <source>&amp;Overwrite</source>
-        <translation>&amp;Überschreiben</translation>
+        <translation type="obsolete">&amp;Überschreiben</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Abbrechen</translation>
+        <translation type="obsolete">&amp;Abbrechen</translation>
     </message>
     <message>
         <source>Removed duplicates: </source>
-        <translation>Entfernte Duplikate: </translation>
+        <translation type="obsolete">Entfernte Duplikate: </translation>
     </message>
     <message>
         <source>There are cards with different answers for question:
 
 </source>
-        <translation>Es gibt Karten mit verschiedene Antworten für die Frage:
+        <translation type="obsolete">Es gibt Karten mit verschiedene Antworten für die Frage:
 
 </translation>
     </message>
     <message>
         <source>&amp;Merge and edit</source>
-        <translation>&amp;Zusammenfassen und bearbeiten</translation>
+        <translation type="obsolete">&amp;Zusammenfassen und bearbeiten</translation>
     </message>
     <message>
         <source>&amp;Don&apos;t merge</source>
-        <translation>&amp;Nicht zusammenfassen</translation>
+        <translation type="obsolete">&amp;Nicht zusammenfassen</translation>
     </message>
     <message>
         <source>Done!</source>
-        <translation>Fertig!</translation>
+        <translation type="obsolete">Fertig!</translation>
     </message>
     <message>
         <source>You don&apos;t remember this card yet.</source>
-        <translation>Du kannst Dich noch nicht an diese Karte erinnern.</translation>
+        <translation type="obsolete">Du kannst Dich noch nicht an diese Karte erinnern.</translation>
     </message>
     <message>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation>Wie &apos;0&apos;, aber es beginnt vertrauter zu werden.</translation>
+        <translation type="obsolete">Wie &apos;0&apos;, aber es beginnt vertrauter zu werden.</translation>
     </message>
     <message>
         <source> Show it less often.</source>
-        <translation> Zeige sie weniger oft.</translation>
+        <translation type="obsolete"> Zeige sie weniger oft.</translation>
     </message>
     <message>
         <source>You&apos;ve memorised this card now,</source>
-        <translation>Du hast diese Karte jetzt gelernt,</translation>
+        <translation type="obsolete">Du hast diese Karte jetzt gelernt,</translation>
     </message>
     <message>
         <source> and will probably remember it for a few days.</source>
-        <translation> und wirst sie für ein paar Tage behalten können.</translation>
+        <translation type="obsolete"> und wirst sie für ein paar Tage behalten können.</translation>
     </message>
     <message>
         <source>You have forgotten this card completely.</source>
-        <translation>Du hast diese Karte komplett vergessen.</translation>
+        <translation type="obsolete">Du hast diese Karte komplett vergessen.</translation>
     </message>
     <message>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation>Gerade noch richtige Antwort. Das Lernintervall war viel zu lang.</translation>
+        <translation type="obsolete">Gerade noch richtige Antwort. Das Lernintervall war viel zu lang.</translation>
     </message>
     <message>
         <source>Correct answer, but with much effort.</source>
-        <translation>Richtige Anwort, aber mit viel Anstrengung.</translation>
+        <translation type="obsolete">Richtige Anwort, aber mit viel Anstrengung.</translation>
     </message>
     <message>
         <source> The interval was probably too long.</source>
-        <translation> Das Lernintervall war vermutlich zu lang.</translation>
+        <translation type="obsolete"> Das Lernintervall war vermutlich zu lang.</translation>
     </message>
     <message>
         <source>Correct answer, with some effort.</source>
-        <translation>Richtige Antwort, mit ein wenig Anstrengung.</translation>
+        <translation type="obsolete">Richtige Antwort, mit ein wenig Anstrengung.</translation>
     </message>
     <message>
         <source> The interval was probably just right.</source>
-        <translation> Das Lernintervall war wohl genau richtig.</translation>
+        <translation type="obsolete"> Das Lernintervall war wohl genau richtig.</translation>
     </message>
     <message>
         <source>Correct answer, but without any</source>
-        <translation>Richtige Anwort, ganz ohne</translation>
+        <translation type="obsolete">Richtige Anwort, ganz ohne</translation>
     </message>
     <message>
         <source> difficulties. The interval was probably too short.</source>
-        <translation> Schwierigkeiten. Das Lerninterwall war wahrscheinlich zu kurz.</translation>
+        <translation type="obsolete"> Schwierigkeiten. Das Lerninterwall war wahrscheinlich zu kurz.</translation>
     </message>
     <message>
         <source> days.</source>
-        <translation> Tage.</translation>
+        <translation type="obsolete"> Tage.</translation>
     </message>
 </context>
 </TS>
