@@ -502,6 +502,9 @@
         <property name="toolTip">
             <string>About</string>
         </property>
+        <property name="statusTip">
+            <string>.</string>
+        </property>
         <property name="accel">
             <string></string>
         </property>
@@ -710,6 +713,9 @@
         <property name="menuText">
             <string>&amp;Getting started</string>
         </property>
+        <property name="statusTip">
+            <string>.</string>
+        </property>
     </action>
     <action>
         <property name="name">
@@ -780,6 +786,9 @@
         </property>
         <property name="menuText">
             <string>&amp;Tip of the day</string>
+        </property>
+        <property name="statusTip">
+            <string>.</string>
         </property>
     </action>
 </actions>
