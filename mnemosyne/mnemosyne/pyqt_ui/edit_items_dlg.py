@@ -255,22 +255,22 @@ class EditItemsDlg(EditItemsFrm):
 
         message = QString()
         message.append(self.trUtf8("Grade:"))
-        message.append(" " + QString(str(item.grade) + "\n"))
+        message.append(QString(" " + str(item.grade) + "\n"))
         
         message.append(self.trUtf8("Easiness:"))
-        message.append(" " + QString("%1.2f" % item.easiness + "\n"))
+        message.append(QString(" " + "%1.2f" % item.easiness + "\n"))
         
         message.append(self.trUtf8("Repetitions:"))
-        message.append(" " + QString(str(item.acq_reps+item.ret_reps) + "\n"))
+        message.append(QString(" " + str(item.acq_reps+item.ret_reps) + "\n"))
         
         message.append(self.trUtf8("Lapses:"))
-        message.append(" " + QString(str(item.lapses) + "\n"))
+        message.append(QString(" " + str(item.lapses) + "\n"))
         
         message.append(self.trUtf8("Days since last repetition:"))
-        message.append(" " + QString(str(item.days_since_last_rep()) + "\n"))
+        message.append(QString(" " + str(item.days_since_last_rep()) + "\n"))
         
         message.append(self.trUtf8("Days until next repetition:"))
-        message.append(" " + QString(str(item.days_until_next_rep()) + "\n"))
+        message.append(QString(" " + str(item.days_until_next_rep()) + "\n"))
                 
         QMessageBox.information(None, self.trUtf8("Mnemosyne"), message,
                                 self.trUtf8("&OK"),QString(),QString(),0,-1)
