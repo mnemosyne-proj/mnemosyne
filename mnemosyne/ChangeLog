@@ -10,6 +10,16 @@ version before doing an upgrade.)
  on the USB drive. Alternatively, you can start mnemosyne with the -d option
  to specify where .mnemosyne directory is located, e.g. 
    F:\Mnemosyne\mnemosyne.exe -d F:\.mnemosyne
+	
+ To run the Linux version from a USB key, untar the source file
+ mnemosyne-X.X.tgz (with X.X the version number) to the USB key. Copy your 
+ .mnemosyne directory to the USB key as well. Change to the directory where 
+ the USB key is mounted and type
+
+ PYTHONPATH=mnemosyne-X.X python mnemosyne-X.X/mnemosyne/pyqt_ui/mnemosyne -d .
+
+ (This assumes that the system you are working on has Python installed, as 
+ well as all the libraries Mnemosyne requires.)
 -new logo, thanks to a contributor whose name sadly got lost in the 
  demise of the open-collab site.
 -new icons, based on the Crystal iconset.
