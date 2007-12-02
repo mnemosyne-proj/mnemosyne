@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 
 ##############################################################################
 #
@@ -18,16 +18,18 @@ from optparse import OptionParser
 parser = OptionParser()
 parser.usage = "%prog [<database.mem>]"
 parser.add_option("-d", "--datadir", dest="datadir",
-                  help="data directory",
-                  default=os.path.join(os.path.expanduser("~"), ".mnemosyne"))
+                  help="data directory", default=None)
 (options, args) = parser.parse_args()
 
 # Determine basedir.
 
-if os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
-    basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
-else:
+if options.datadir != None:
     basedir = os.path.abspath(options.datadir)
+else:
+    if os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
+        basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
+    else:
+        basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
 # Filename argument.
 
@@ -69,6 +71,10 @@ except:
 
 translator = QTranslator(a)
 translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
+a.installTranslator(translator)
+
+translator = QTranslator(a)
+translator.load("qt_"+loc+".qm", os.path.join(prefix,'locale'))
 a.installTranslator(translator)
 
 # Check if there is another instance of Mnemosyne running.

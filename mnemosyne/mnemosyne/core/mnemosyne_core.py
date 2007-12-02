@@ -77,14 +77,7 @@ def initialise(basedir_ = None):
 
     if not exists(basedir):
         os.mkdir(basedir)
-    
-    if not exists(join(basedir, "config")):
-        init_config()
-        save_config()    
-     
-    if not exists(join(basedir, "default.mem")):
-        new_database(join(basedir, "default.mem"))
-    
+
     if not exists(join(basedir, "history")):
         os.mkdir(join(basedir, "history"))
 
@@ -96,7 +89,14 @@ def initialise(basedir_ = None):
         
     if not exists(join(basedir, "backups")):
         os.mkdir(join(basedir, "backups"))
-        
+         
+    if not exists(join(basedir, "config")):
+        init_config()
+        save_config()    
+     
+    if not exists(join(basedir, "default.mem")):
+        new_database(join(basedir, "default.mem"))
+    
     lockfile = file(join(basedir,"MNEMOSYNE_LOCK"),'w')
     lockfile.close()
 
