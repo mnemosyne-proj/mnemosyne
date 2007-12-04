@@ -184,6 +184,9 @@ Miscellaneous
 
 -better sound replay support, through clicking on an icon
 
+-allow to play more than 2 sounds (pygame limitation) 
+ (http://rene.f0o.com/mywiki/LectureFiveOne)
+
 -integrate Mnemosyne analysis, advanced statistics, history, 
  forgetting index, histogram of grades and intervals... (look at graphs 
  in JMemorize)

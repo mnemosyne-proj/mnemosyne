@@ -929,7 +929,7 @@ dus wellicht wilt u </translation>
     </message>
     <message>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw</translation>
     </message>
     <message>
         <source> days.</source>
@@ -1144,7 +1144,8 @@ dus wellicht wilt u </translation>
     </message>
     <message>
         <source>Space</source>
-        <translation>Spatie</translation>
+        <translation>Space
+</translation>
     </message>
     <message>
         <source>Ctrl+R</source>
@@ -1330,7 +1331,7 @@ For best results, I suggest you do your revisions every day, although I&apos;ll 
 For more documentation, see &lt;a href =&quot;http://mnemosyne-proj.sourceforge.net&quot;&gt;http://www.mnemosyne-proj.sourceforge.net&lt;/a&gt;
 &lt;p&gt;
 Happy learning!</source>
-        <translation>Je bent nu klaar voor de start!
+        <translation type="obsolete">Je bent nu klaar voor de start!
 &lt;p&gt;
 Voeg nieuwe kaarten toe door op het &apos;plus&apos; icoon te klikken, linksbovenaan.
 &lt;p&gt;
@@ -1345,6 +1346,30 @@ Veel plezier met leren!</translation>
     <message>
         <source>Ready to start</source>
         <translation>Klaar om te starten</translation>
+    </message>
+    <message>
+        <source>Now you&apos;re ready to start!
+&lt;p&gt;
+Add new cards by clicking on the icon with the &apos;plus&apos; sign in the top left.
+&lt;p&gt;
+Remember, there is no need to worry about saving your work, I will do so automatically.
+&lt;p&gt;
+For best results, I suggest you do your revisions every day, although I&apos;ll try to cope as best I can if you postpone your revisions or if you want to learn ahead of time.
+&lt;p&gt;
+For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
+&lt;p&gt;
+Happy learning!</source>
+        <translation type="unfinished">Je bent nu klaar voor de start!
+&lt;p&gt;
+Voeg nieuwe kaarten toe door op het &apos;plus&apos; icoon te klikken, links bovenaan.
+&lt;p&gt;
+Je hoeft je niet druk te maken om alles steeds op te slaan, ik zal dat automatisch doen.
+&lt;p&gt;
+De beste resultaten krijg je als je iedere dag een aantal keer door de geroosterde vragen loopt, alhoewel ik ook mijn best doe als je besluit dit uit te stellen, of vooruit wilt lopen op de vragen.
+
+Voor meer documentatie, bekijk http://mnemosyne-proj.sourceforge.net.
+&lt;p&gt;
+Veel plezier met leren!</translation>
     </message>
 </context>
 <context>

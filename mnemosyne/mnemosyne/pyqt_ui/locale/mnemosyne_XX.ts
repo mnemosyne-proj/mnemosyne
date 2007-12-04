@@ -1291,7 +1291,7 @@ Remember, there is no need to worry about saving your work, I will do so automat
 &lt;p&gt;
 For best results, I suggest you do your revisions every day, although I&apos;ll try to cope as best I can if you postpone your revisions or if you want to learn ahead of time.
 &lt;p&gt;
-For more documentation, see &lt;a href =&quot;http://mnemosyne-proj.sourceforge.net&quot;&gt;http://www.mnemosyne-proj.sourceforge.net&lt;/a&gt;
+For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
 &lt;p&gt;
 Happy learning!</source>
         <translation type="unfinished"></translation>

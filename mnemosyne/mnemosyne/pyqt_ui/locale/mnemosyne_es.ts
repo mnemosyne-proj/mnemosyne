@@ -926,7 +926,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nueva</translation>
     </message>
     <message>
         <source> days.</source>
@@ -1326,7 +1326,7 @@ For best results, I suggest you do your revisions every day, although I&apos;ll 
 For more documentation, see &lt;a href =&quot;http://mnemosyne-proj.sourceforge.net&quot;&gt;http://www.mnemosyne-proj.sourceforge.net&lt;/a&gt;
 &lt;p&gt;
 Happy learning!</source>
-        <translation>¡Ya puede comenzar!
+        <translation type="obsolete">¡Ya puede comenzar!
 &lt;p&gt;
 Añada nuevas tarjetas pinchando en el icono con el signo &quot;más&quot;.
 &lt;p&gt;
@@ -1341,6 +1341,30 @@ Puede obtener más información en &lt;a href =&quot;http://mnemosyne-proj.sourc
     <message>
         <source>Ready to start</source>
         <translation>Comenzar</translation>
+    </message>
+    <message>
+        <source>Now you&apos;re ready to start!
+&lt;p&gt;
+Add new cards by clicking on the icon with the &apos;plus&apos; sign in the top left.
+&lt;p&gt;
+Remember, there is no need to worry about saving your work, I will do so automatically.
+&lt;p&gt;
+For best results, I suggest you do your revisions every day, although I&apos;ll try to cope as best I can if you postpone your revisions or if you want to learn ahead of time.
+&lt;p&gt;
+For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
+&lt;p&gt;
+Happy learning!</source>
+        <translation type="unfinished">¡Ya puede comenzar!
+&lt;p&gt;
+Añada nuevas tarjetas pinchando en el icono con el signo &quot;más&quot;.
+&lt;p&gt;
+No tiene que preocuparse de guardar la sesión. Se hará automáticamente.
+&lt;p&gt;
+Para obtener mejores resultados, le sugerimos hacer revisiones diarias. En cualquier caso el programa se adaptará lo mejor que pueda a sus hábitos de estudio.
+&lt;p&gt;
+Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
+&lt;p&gt;
+¡Buen aprendizaje!</translation>
     </message>
 </context>
 <context>

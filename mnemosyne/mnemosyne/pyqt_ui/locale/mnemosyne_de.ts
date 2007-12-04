@@ -300,7 +300,7 @@ Erstelle temporäre Datei.</translation>
     </message>
     <message>
         <source>Alt+V</source>
-        <translation>Alt+V</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Select initial grade:</source>
@@ -616,7 +616,7 @@ Erstelle temporäre Datei.</translation>
 This could create duplicates if the vice </source>
         <translation>
 
-Das kann Duplikate erzeugen, wenn die vertauschten</translation>
+Das kann Duplikate erzeugen, wenn die vertauschten </translation>
     </message>
     <message>
         <source>versas are already present, 
@@ -928,11 +928,11 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source> days.</source>
-        <translation type="unfinished"> Tage.</translation>
+        <translation> Tage.</translation>
     </message>
 </context>
 <context>
@@ -1330,7 +1330,7 @@ For best results, I suggest you do your revisions every day, although I&apos;ll 
 For more documentation, see &lt;a href =&quot;http://mnemosyne-proj.sourceforge.net&quot;&gt;http://www.mnemosyne-proj.sourceforge.net&lt;/a&gt;
 &lt;p&gt;
 Happy learning!</source>
-        <translation>Jetzt kannst Du anfangen!
+        <translation type="obsolete">Jetzt kannst Du anfangen!
 &lt;p&gt;
 Du kannst neue Fragen hinzufügen, indem du auf das &apos;Plus&apos; Symol links oben klickst.
 &lt;p&gt;
@@ -1345,6 +1345,30 @@ Viel Spass und Erfolg!</translation>
     <message>
         <source>Ready to start</source>
         <translation>Startklar</translation>
+    </message>
+    <message>
+        <source>Now you&apos;re ready to start!
+&lt;p&gt;
+Add new cards by clicking on the icon with the &apos;plus&apos; sign in the top left.
+&lt;p&gt;
+Remember, there is no need to worry about saving your work, I will do so automatically.
+&lt;p&gt;
+For best results, I suggest you do your revisions every day, although I&apos;ll try to cope as best I can if you postpone your revisions or if you want to learn ahead of time.
+&lt;p&gt;
+For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
+&lt;p&gt;
+Happy learning!</source>
+        <translation>Jetzt kannst Du anfangen!
+&lt;p&gt;
+Du kannst neue Fragen hinzufügen, indem du auf das &apos;Plus&apos; Symbol links oben klickst.
+&lt;p&gt;
+Es ist im Übrigen nicht notwendig, daß Du Dir über das Abspeichern Deiner Übungen Gedanken machst. Das werde ich automatisch erledigen.
+&lt;p&gt;
+Für gute Ergebnisse schlage ich vor, daß Du Deine Übungen jeden Tag machst, auch wenn ich mein Bestes geben werde, wenn Du die Übungen aufschiebst oder aber voraus lernst.
+&lt;p&gt;
+Für weitergehende Informationen, besuche http://www.mnemosyne-proj.sourceforge.net.
+&lt;p&gt;
+Viel Spass und Erfolg!</translation>
     </message>
 </context>
 <context>
