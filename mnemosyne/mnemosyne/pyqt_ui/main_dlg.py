@@ -126,6 +126,10 @@ class MainDlg(MainFrm):
         except MnemosyneError, e:
             messagebox_errors(self, e)
 
+        self.timer = QTimer(self)
+        self.connect(self.timer, SIGNAL("timeout()"), soundmanager.update)
+        self.timer.start(250, False)
+
     ##########################################################################
     #
     # resizeEvent
