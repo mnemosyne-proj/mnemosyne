@@ -51,6 +51,7 @@ version before doing an upgrade.)
  under Linux.
 -more verbose error messages when an import failed, showing the line that
  failed to parse.
+-log uploading now works if a proxy is needed to access the web.
 -added support for Unicode filenames.
 -recreate user id from history folder in case the config file was 
  accidentally deleted.

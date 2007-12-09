@@ -4,7 +4,7 @@
 #
 ##############################################################################
 
-import os, logging, bz2, sets, traceback, httplib, time
+import os, logging, bz2, sets, traceback, time, urllib2
 from threading import Thread
 from random import randint
 from string import joinfields
@@ -84,22 +84,15 @@ def upload(filename):
 
     contentType = 'multipart/form-data; boundary=%s' % boundary
     contentLength = str(len(query))
-    h = httplib.HTTP()
-    h.connect(host, int(port))
-    h.putrequest('POST', uri)
-    h.putheader('Accept', '*/*')
-    h.putheader('Proxy-Connection', 'Keep-Alive')
-    h.putheader('Content-Type', contentType)
-    h.putheader('Content-Length', contentLength)
-    h.endheaders()
-    h.send(query)
 
-    rcode, rmsg, headers = h.getreply()
-    response = h.getfile().read()
-    
-    if rcode != 200:
-        msg = "HTTP error: %s, %s\n%s %s" % (rcode, uri, rmsg, response)
-        raise ValueError(msg)
+    headers = {'Accept'           : '*/*',
+               'Proxy-Connection' : 'Keep-Alive',
+               'Content-Type'     : contentType,
+               'Content-Length'   : contentLength}
+
+    req = urllib2.Request('http://'+host+':'+port+uri, query, headers)
+    response = urllib2.urlopen(req)
+    html = response.read()
 
 
 
