@@ -403,6 +403,8 @@ class EditItemsDlg(EditItemsFrm):
           (e.key() == QKeySequence(self.trUtf8("F")) and e.state() == \
                                                           Qt.ControlButton):
             self.find()
+        if e.key() == Qt.Key_Escape:
+            self.close()
             
     ##########################################################################
     #
