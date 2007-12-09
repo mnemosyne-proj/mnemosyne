@@ -189,8 +189,9 @@ class AddItemsDlg(AddItemsFrm):
                                  self)
         else:
             dlg = PreviewItemDlg(unicode(self.question.text()),
-                                 unicode(self.pronunciation.text()+"\n"\
-                                         +self.answer.text()),
+                                 unicode(QString(self.pronunciation.text()).\
+                                         append(QString("\n")).\
+                                         append(QString(self.answer.text()))),
                                  unicode(self.categories.currentText()),
                                  self)            
         dlg.exec_loop()
