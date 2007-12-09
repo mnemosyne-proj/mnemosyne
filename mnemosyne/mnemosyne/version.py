@@ -1,4 +1,4 @@
-version = "1.0-RC"
+version = "1.99"
 dbVersion = "2"
 
 if __name__ == "__main__":
