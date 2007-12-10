@@ -155,8 +155,8 @@ upload_server = "mnemosyne-proj.dyndns.org:80"
 # when clicking the edit button.
 only_editable_when_answer_shown = False
 
-# The translation to use, e.g. 'de' for German. If set to None,
-# the system's locale will be used.
+# The translation to use, e.g. 'de' for German (including quotes).
+# If set to None, the system's locale will be used.
 locale = None"""
 
         f.close()        

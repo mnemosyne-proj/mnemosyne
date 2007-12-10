@@ -92,7 +92,7 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
 try:
     initialise(basedir)
 except MnemosyneError, e:
-    messagebox_errors(e)
+    messagebox_errors(a, e)
 
 # Start program.
 

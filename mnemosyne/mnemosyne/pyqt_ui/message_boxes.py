@@ -43,7 +43,7 @@ def install_error_strings(self):
 def messagebox_errors(self, e):
 
     if e.info:
-        msg = e.msg.append(QString("\n")).append(e.info)
+        msg = QString(e.msg).append(QString("\n")).append(e.info)
     else:
         msg = e.msg
                                    
