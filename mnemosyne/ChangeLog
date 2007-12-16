@@ -43,9 +43,10 @@ version before doing an upgrade.)
 -don't count inactive cards in the grade distribution in the statistics
  window (reported by Joonatan Kaartinen).
 -add support for translations. (German translation provided by Martin Mueller,
- Spanish by Daniel Alvarez Wise, Dutch by Edwin de Jong) The translation will
- be chosen automatically based on your system's localisation, but can be 
- overridden by editing the 'locale' variable in .mnemosyne/config.py. 
+ Spanish by Daniel Alvarez Wise and Juan Alonsa, Dutch by Edwin de Jong) 
+ The translation will be chosen automatically based on your system's 
+ localisation, but can be overridden by editing the 'locale' variable in 
+ .mnemosyne/config.py. 
 -improved tooltips.
 -added desktop file, so that Mnemosyne shows up in the application menu
  under Linux.

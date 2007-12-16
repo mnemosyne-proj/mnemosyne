@@ -11,7 +11,7 @@
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;De acuerdo</translation>
+        <translation type="unfinished">&amp;Aceptar</translation>
     </message>
     <message>
         <source>There are cards with different answers for question:
@@ -30,15 +30,15 @@
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished">¡Hecho!</translation>
+        <translation type="unfinished">¡Completado!</translation>
     </message>
     <message>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation type="unfinished">Recuerda con algún fallo.</translation>
+        <translation type="unfinished">Como 0 pero te empieza a resultar familiar.</translation>
     </message>
     <message>
         <source> Show it less often.</source>
-        <translation type="unfinished"> Mostrar menos a menudo.</translation>
+        <translation type="unfinished"> Mostrar con menos frecuencia.</translation>
     </message>
     <message>
         <source>Error in config.py:</source>
@@ -46,7 +46,7 @@
     </message>
     <message>
         <source>Error when running plugin:</source>
-        <translation type="unfinished">Error al ejecutar el añadido:</translation>
+        <translation type="unfinished">Error al ejecutar el plugin:</translation>
     </message>
     <message>
         <source>Unable to load file.</source>
@@ -54,11 +54,11 @@
     </message>
     <message>
         <source>Invalid file format.</source>
-        <translation type="unfinished">Formato de fichero incómodo.</translation>
+        <translation type="unfinished">Formato de fichero incorrecto.</translation>
     </message>
     <message>
         <source>Unable to save file.</source>
-        <translation type="unfinished">No se pudo guardar el archivo.</translation>
+        <translation type="unfinished">Imposible guardar el archivo.</translation>
     </message>
     <message>
         <source>Unable to parse XML:</source>
@@ -66,7 +66,7 @@
     </message>
     <message>
         <source>Unrecognised encoding.</source>
-        <translation type="unfinished">Codificación no reconocida.</translation>
+        <translation type="unfinished">Codificación desconocida.</translation>
     </message>
     <message>
         <source>Missing answer on line:</source>
@@ -75,8 +75,8 @@
     <message>
         <source>Unable to load database.
 Creating tmp file.</source>
-        <translation type="unfinished">No se pudo cargar la colección.
-Creando archivo temporal.</translation>
+        <translation type="unfinished">Imposible cargar la base de datos.
+Creando un archivo temporal.</translation>
     </message>
     <message>
         <source>File exists:</source>
@@ -92,47 +92,47 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>You don&apos;t remember this card yet.</source>
-        <translation type="unfinished">Aun no recuerda esta tarjeta.</translation>
+        <translation type="unfinished">Aún no recuerda esta tarjeta.</translation>
     </message>
     <message>
         <source>You&apos;ve memorised this card now,</source>
-        <translation type="unfinished">Ha memorizado esta tarjeta.</translation>
+        <translation type="unfinished">Acaba de memorizar esta tarjeta.</translation>
     </message>
     <message>
         <source> and will probably remember it for a few days.</source>
-        <translation type="unfinished"> y probablemente la recordará unos días.</translation>
+        <translation type="unfinished"> y probablemente la recuerde durante unos días.</translation>
     </message>
     <message>
         <source>You have forgotten this card completely.</source>
-        <translation type="unfinished">Ha olvidado completamente esta tarjeta completamente.</translation>
+        <translation type="unfinished">Ha olvidado completamente esta tarjeta.</translation>
     </message>
     <message>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation type="unfinished">Respuesta correcta a duras penas. El intervalo fue demasiado largo.</translation>
+        <translation type="unfinished">Respuesta a duras penas correcta. El intervalo ha sido demasiado largo.</translation>
     </message>
     <message>
         <source>Correct answer, but with much effort.</source>
-        <translation type="unfinished">Respuesta correcta, pero con mucho esfuerzo.</translation>
+        <translation type="unfinished">Respuesta correcta pero con mucho esfuerzo.</translation>
     </message>
     <message>
         <source> The interval was probably too long.</source>
-        <translation type="unfinished"> El intervalo probablemente fue demasiado largo.</translation>
+        <translation type="unfinished"> El intervalo ha sido probablemente demasiado largo.</translation>
     </message>
     <message>
         <source>Correct answer, with some effort.</source>
-        <translation type="unfinished">Respuesta correcta, con algún esfuerzo.</translation>
+        <translation type="unfinished">Respuesta correcta aunque con cierto esfuerzo.</translation>
     </message>
     <message>
         <source> The interval was probably just right.</source>
-        <translation type="unfinished"> El intervalo fue apropiado.</translation>
+        <translation type="unfinished"> El intervalo ha sido apropiado.</translation>
     </message>
     <message>
         <source>Correct answer, but without any</source>
-        <translation type="unfinished">Respuesta correcta, sin ninguna</translation>
+        <translation type="unfinished">Respuesta correcta pero sin ningún</translation>
     </message>
     <message>
         <source> difficulties. The interval was probably too short.</source>
-        <translation type="unfinished">dificultad. El intervalo fue muy corto.</translation>
+        <translation type="unfinished"> esfuerzo. El intervalo ha sido demasiado corto.</translation>
     </message>
 </context>
 <context>
@@ -160,7 +160,7 @@ Creando archivo temporal.</translation>
     <name>AboutFrm</name>
     <message>
         <source>About</source>
-        <translation>Sobre</translation>
+        <translation>Acerca de</translation>
     </message>
 </context>
 <context>
@@ -171,7 +171,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Select the categories to activate:</source>
-        <translation>Seleccionar las categorías a activar:</translation>
+        <translation>Seleccione las categorías a activar:</translation>
     </message>
     <message>
         <source>Activate none</source>
@@ -183,7 +183,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -235,15 +235,15 @@ Creando archivo temporal.</translation>
     <message>
         <source>Card is already in database.
 </source>
-        <translation>La tarjeta ya está en la colección.</translation>
+        <translation>La tarjeta ya está en la base de datos.</translation>
     </message>
     <message>
         <source>Duplicate not added.</source>
-        <translation>Duplicado no añadido.</translation>
+        <translation>Tarjeta duplicada no añadida.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>There are different answers for</source>
@@ -350,7 +350,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Correct answer, but with much effort. The interval was probably too long</source>
-        <translation>Respuesta correcta, pero con mucho esfuerzo. El programa se demoró demasiado en preguntarle</translation>
+        <translation>Respuesta correcta pero con mucho esfuerzo. El programa ha tardado demasiado en preguntarle</translation>
     </message>
     <message>
         <source>&amp;4</source>
@@ -362,7 +362,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Correct answer, with some effort. The interval was probably just right.</source>
-        <translation>Respuesta correcta con cierto esfuerzo. El programa preguntó en el momento apropiado.</translation>
+        <translation>Respuesta correcta con cierto esfuerzo. El programa preguntado en el momento apropiado.</translation>
     </message>
     <message>
         <source>&amp;5</source>
@@ -374,7 +374,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Correct answer, but without any difficulties. The interval was probably too short.</source>
-        <translation>Respuesta correcta sin ningún esfuerzo. El programa preguntó demasiado pronto.</translation>
+        <translation>Respuesta correcta pero sin ningún esfuerzo. El programa ha preguntado demasiado pronto.</translation>
     </message>
     <message>
         <source>Type question and answer, then pick initial grade.</source>
@@ -409,7 +409,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -428,7 +428,7 @@ Creando archivo temporal.</translation>
     <name>ConfigurationFrm</name>
     <message>
         <source>Mnemosyne configuration</source>
-        <translation>Configuración de Mnemosyne</translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <source>Hover with the mouse over the buttons to get extra information.</source>
@@ -440,7 +440,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Set Q/A font</source>
-        <translation>Tipo de letra de las preguntas y respuestas</translation>
+        <translation>Tipo de letra para las preguntas y respuestas</translation>
     </message>
     <message>
         <source>Set the font used when showing single questions and answers</source>
@@ -452,15 +452,15 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Set the font used when showing the list of all the cards in the deck</source>
-        <translation>Tipo de letra para la lista de todas las tarjetas de la colección</translation>
+        <translation>Tipo de letra para la lista de todas las tarjetas de la base de datos</translation>
     </message>
     <message>
         <source>Increase size of non-latin characters by</source>
-        <translation>Incremento del tamaño de los caracteres no latinos</translation>
+        <translation>Aumentar el tamaño de los caracteres no latinos</translation>
     </message>
     <message>
         <source>Sometimes complex glyphs are hard to read at the default latin font size</source>
-        <translation>A veces los caracteres complejos son difíciles de leer con el tipo de letra habitual</translation>
+        <translation>A veces los caracteres complejos son difíciles de leer con el tipo de letra por defecto</translation>
     </message>
     <message>
         <source>point(s)</source>
@@ -476,19 +476,19 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Share anonymous statistics to contribute to memory research</source>
-        <translation>Enviar estadísticas anónimas para contribuir al estudio de la memoria lejana</translation>
+        <translation>Enviar estadísticas anónimas para contribuir al proyecto de investigación sobre la memoria</translation>
     </message>
     <message>
         <source>Duplicate handling</source>
-        <translation>Manejo de duplicados</translation>
+        <translation>Gestión de duplicados</translation>
     </message>
     <message>
         <source>Check for duplicates when adding new cards</source>
-        <translation>Comprobar duplicados al añadir tarjetas nuevas</translation>
+        <translation>Comprobar duplicados al añadir nuevas tarjetas</translation>
     </message>
     <message>
         <source>Allow duplicates in different categories</source>
-        <translation>Permitir duplicados en diferentes categorías</translation>
+        <translation>Permitir duplicados si están en diferentes categorías</translation>
     </message>
     <message>
         <source>Repetition process</source>
@@ -500,15 +500,15 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Note: this is NOT the number of grade 0 cards you want to memorise *per day*</source>
-        <translation>Aviso: este no es el número de tarjetas de puntuación 0 que quiere memorizas *por día*</translation>
+        <translation>Aviso: este no es el número de tarjetas de puntuación 0 que desea memorizar *por día*</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>Defaults</source>
-        <translation>Restablecer valores por defecto</translation>
+        <translation>Reestablecer valores por defecto</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -535,7 +535,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -598,7 +598,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>&amp;Change category</source>
-        <translation>&amp;Cambiar categoría</translation>
+        <translation>&amp;Cambiar de categoría</translation>
     </message>
     <message>
         <source>Add &amp;vice versa</source>
@@ -606,11 +606,11 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Add vice versa of these cards?</source>
-        <translation>¿Añadir la viceversa de estas tarjetas?</translation>
+        <translation>¿Añadir la versión opuesta de estas tarjetas?</translation>
     </message>
     <message>
         <source>Add vice versa of this card?</source>
-        <translation>¿Añadir la viceversa de esta tarjeta?</translation>
+        <translation>¿Añadir la versión opuesta de esta tarjeta?</translation>
     </message>
     <message>
         <source>Mnemosyne</source>
@@ -622,17 +622,17 @@ Creando archivo temporal.</translation>
 This could create duplicates if the vice </source>
         <translation>
 
-Esto podría crear duplicados si la viceversa </translation>
+Esto puede crear duplicados si la versión opuesta </translation>
     </message>
     <message>
         <source>versas are already present, 
 so you might want to run </source>
-        <translation>ya están presentes,
-así que tal vez quiera ejecutar </translation>
+        <translation>ya está presente.
+Tal vez desee ejecutar </translation>
     </message>
     <message>
         <source>clean duplicates&apos; afterwards.</source>
-        <translation>eliminar duplicados después</translation>
+        <translation>eliminar duplicados al acabar.</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
@@ -668,7 +668,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>Delete these cards?</source>
@@ -680,11 +680,11 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>The text you entered was not found.</source>
-        <translation>El texto introducido no fue encontrado.</translation>
+        <translation>NO se ha encontrado el texto introducido.</translation>
     </message>
     <message>
         <source>&amp;Find again</source>
-        <translation>&amp;Volver a buscar</translation>
+        <translation>&amp;Buscar de nuevo</translation>
     </message>
     <message>
         <source>F</source>
@@ -711,7 +711,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>Edit deck</source>
-        <translation>Editar colección</translation>
+        <translation>Editar base de datos</translation>
     </message>
     <message>
         <source>&amp;Find</source>
@@ -719,7 +719,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>To edit a card, right-click on it.</source>
-        <translation>Para editar una tarjeta pínchela con el botón derecho del ratón.</translation>
+        <translation>Para editar una tarjeta haga click sobre ella con el botón derecho del ratón.</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -753,7 +753,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>File to export to:</source>
-        <translation>Fichero al que exportar:</translation>
+        <translation>Fichero al que desea exportar:</translation>
     </message>
     <message>
         <source>&amp;Browse</source>
@@ -773,7 +773,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -823,7 +823,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>Note: all cards will be added to the current database.</source>
-        <translation>Aviso: todas las tarjetas se incorporarán a la colección actual.</translation>
+        <translation>Aviso: todas las tarjetas se incorporarán a la base de datos actual.</translation>
     </message>
     <message>
         <source>Reset learning data on import</source>
@@ -831,7 +831,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -846,7 +846,7 @@ así que tal vez quiera ejecutar </translation>
     <name>MainDlg</name>
     <message>
         <source>Mnemosyne databases (*.mem)</source>
-        <translation>Colecciones de Mnemosyne (*.mem)</translation>
+        <translation>Bases de datos Mnemosyne (*.mem)</translation>
     </message>
     <message>
         <source>Please wait...</source>
@@ -870,7 +870,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>Returns in </source>
-        <translation>Vuelve a aparecer en  </translation>
+        <translation>Volverá a aparecer en </translation>
     </message>
     <message>
         <source> day(s).</source>
@@ -886,7 +886,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>Next repetition in </source>
-        <translation>Próxima repetición en </translation>
+        <translation>Próxima repetición dentro de </translation>
     </message>
     <message>
         <source>Question:</source>
@@ -902,7 +902,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>Learn ahead of schedule</source>
-        <translation>Aprender por adelantado</translation>
+        <translation>Aprender antes de tiempo</translation>
     </message>
     <message>
         <source>Pick days until next repetition:</source>
@@ -1065,11 +1065,11 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>Edit deck</source>
-        <translation>Editar colección</translation>
+        <translation>Editar base de datos</translation>
     </message>
     <message>
         <source>Edit &amp;deck</source>
-        <translation>E&amp;ditar colección</translation>
+        <translation>E&amp;ditar base de datos</translation>
     </message>
     <message>
         <source>Ctrl+D</source>
@@ -1113,11 +1113,11 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>&amp;Clean duplicates</source>
-        <translation>&amp;Eliminar duplicadas</translation>
+        <translation>&amp;Eliminar duplicados</translation>
     </message>
     <message>
         <source>&amp;Configure Mnemosyne</source>
-        <translation>&amp;Configurar Mnemosyne</translation>
+        <translation>&amp;Configuración</translation>
     </message>
     <message>
         <source>Getting started</source>
@@ -1177,7 +1177,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>&amp;Deck</source>
-        <translation>&amp;Colección</translation>
+        <translation>&amp;Base de datos</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -1215,7 +1215,7 @@ así que tal vez quiera ejecutar </translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -1226,7 +1226,7 @@ así que tal vez quiera ejecutar </translation>
     <name>ProductTourFrm</name>
     <message>
         <source>Getting started</source>
-        <translation>Comenzar</translation>
+        <translation>Comenzando</translation>
     </message>
     <message>
         <source>Greetings!
@@ -1242,7 +1242,7 @@ Let&apos;s look at the meaning of these ratings now.</source>
 
 Mnemosyne toma su nombre de un tipo de mariposa, cuyo nombre proviene a su vez de la diosa griega de la memoria.
 
-El objetivo del programa es hacer más eficiente el proceso de memorizar la respuesta a preguntas. Mnemosyne le hace repasar más a menudo la información que más le cuesta recordar, sin desperdiciar su tiempo con cosas que ya sabe.
+El objetivo del programa es hacer más eficiente el proceso de memorizar la respuesta a preguntas. Mnemosyne le hace repasar más a menudo la información que más le cuesta recordar sin desperdiciar su tiempo con cosas que ya sabe.
 
 Usted debe evaluar su conocimiento de las preguntas atendiendo al siguiente criterio:</translation>
     </message>
@@ -1260,11 +1260,11 @@ I will keep on asking you these questions until you give them a grade 2 or highe
 I will schedule this card at some future date, when I think you&apos;ll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</source>
         <translation>Las puntuaciones van de 0 a 5.
 
-Las puntuaciones 0 y 1 se utilizan cuando no conocía aún la respuesta. Utilice el 0 cuando no tenga ninguna idea y el 1 aun sin saberla le resulte familiar. Mnemosyne continuará preguntándole estas preguntas hasta que las asigne una puntuación superior a 1.
+Las puntuaciones 0 y 1 se utilizan cuando todavía no conoce la respuesta. Utilice el 0 cuando no tenga ninguna idea y el 1 cuando aun sin saberla le resulte familiar. Mnemosyne continuará mostrándole estas preguntas hasta que las asigne una puntuación superior a 1.
 
 Asigne la puntuación 2 cuando piense que podrá recordar la respuesta unos días. Esto marca el paso de memoria reciente a memoria lejana.
 
-Mnemosyne volverá a preguntarle esta tarjeta cuando estime que Vd. podrá recordarla con algún esfuerzo. Esto es lo más eficiente para el proceso de aprendizaje.</translation>
+Mnemosyne volverá a mostrarle esta tarjeta cuando estime que usted pueda recordarla con cierto esfuerzo. Esta es la forma más eficiente para el proceso de memorización.</translation>
     </message>
     <message>
         <source>Grades 0-2</source>
@@ -1284,7 +1284,7 @@ Si puede recordarla con un ligero esfuerzo, asigne 4.
 
 Si tiene que hacer un esfuerzo considerable, asigne 3.
 
-Si no la recordaba, asigne 0 ó 1 y el programa insistirá sobre esta tarjeta hasta que pueda recordarla unos días.</translation>
+Si no la recuerda, asigne 0 ó 1 y el programa insistirá sobre esta tarjeta hasta que pueda recordarla unos días.</translation>
     </message>
     <message>
         <source>Grades 3-5</source>
@@ -1300,7 +1300,7 @@ Uncheck the following box if you do not want to do this.</source>
 
 Si da su consentimiento, estas estadísticas se enviarán de forma completamente anónima para su posterior análisis. Esto ayudará a mejorar futuras versiones del programa. Además contribuirá a la investigación científica de la memoria lejana.
 
-Deseleccione el siguiente recuadro si no está de acuerdo.</translation>
+Desactive la siguiente opción si no está de acuerdo.</translation>
     </message>
     <message>
         <source>Upload anonymous logs</source>
@@ -1330,7 +1330,7 @@ Happy learning!</source>
 &lt;p&gt;
 Añada nuevas tarjetas pinchando en el icono con el signo &quot;más&quot;.
 &lt;p&gt;
-No tiene que preocuparse de guardar la sesión. Se hará automáticamente.
+No tiene que preocuparse por guardar la sesión, se guarda automáticamente.
 &lt;p&gt;
 Para obtener mejores resultados, le sugerimos hacer revisiones diarias. En cualquier caso el programa se adaptará lo mejor que pueda a sus hábitos de estudio.
 &lt;p&gt;
@@ -1387,7 +1387,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>&amp;3-sided input</source>
-        <translation>Tarjeta de &amp;3 lados</translation>
+        <translation>Tarjeta de &amp;3 entradas</translation>
     </message>
     <message>
         <source>Image files</source>
@@ -1395,7 +1395,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>Insert image</source>
-        <translation>Añadir imagen</translation>
+        <translation>Insertar imagen</translation>
     </message>
     <message>
         <source>Sound files</source>
@@ -1465,7 +1465,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;De acuerdo</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
 </context>
 <context>
@@ -1492,7 +1492,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>You can use keyboard shortcuts to do your repetitions. Enter, Return or Space stand for the default action (&apos;Show answer&apos; or &apos;grade 4&apos;). The number keys can be used for grading.</source>
-        <translation>Para uso diario puede manejar el programa mediante su teclado. El retorno de carro y la barra espaciadora ejecutan la acción por defecto (&quot;Mostrar respuesta&quot; o &quot;Puntuación 4&quot;). Las teclas numéricas pueden usarse para puntuar.</translation>
+        <translation>Durante su uso puede controlar el programa únicamente con el teclado. El retorno de carro y la barra espaciadora ejecutan la acción por defecto (&quot;Mostrar respuesta&quot; o &quot;Puntuación 4&quot;). Las teclas numéricas pueden usarse para puntuar.</translation>
     </message>
     <message>
         <source>You can select the categories you wish to study in the &apos;Activate categories&apos; menu option.</source>
@@ -1500,7 +1500,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>It is recommended to put all your cards in a single database and use categories to organise them. Using &apos;Activate categories&apos; is much more convenient than have to load and unload several databases.</source>
-        <translation>Se recomienda que ponga todas sus tarjetas en una colección y que use las categorías para organizarlas. Esto es más simple que manejar varias colecciones.</translation>
+        <translation>Se recomienda que ponga todas sus tarjetas en una base de datos y que use las categorías para organizarlas. Esto es más simple que manejar varias colecciones.</translation>
     </message>
     <message>
         <source>You can import cards in a wide variety of formats: tab delimited txt files, Supermemo files, ... .</source>
@@ -1508,7 +1508,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>If you have cards in Word or Excel, export them to tab delimited txt files with UTF-8 unicode encoding to be able to import them into Mnemosyne.</source>
-        <translation>Si tiene tarjetas en Word o Excel, expórtelas a un archivo delimitado por tabuladores con codificación unicode UTF-8 para poder importarlas a Mnemosyne.</translation>
+        <translation>Si tiene tarjetas en Word o Excel, expórtelas a un archivo delimitado por tabuladores con codificación unicode UTF-8 para poder importarlas en Mnemosyne.</translation>
     </message>
     <message>
         <source>If you want to print out your cards, export them to a txt file which you can then print from your favourite Word processor.</source>
@@ -1520,7 +1520,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>If you study a foreign language with a different script, the default font size is sometimes a bit small. If you want to increase the size of these characters but keep the size of English text, use the &apos;increase size of non-latin characters by X points&apos; option.</source>
-        <translation>Si estudia un idioma con un juego de caracteres diferentes, el tamaño de letra normal puede resultar demasiado pequeño. Puede incrementar estos caracteres, manteniendo el de los occidentales con la opción &quot;Incremento de los caracteres no latinos&quot;.</translation>
+        <translation>Si estudia un idioma con un juego de caracteres diferentes el tamaño de letra normal puede resultar demasiado pequeño. Puede incrementar el tamaño de estos caracteres manteniendo el de los occidentales con la opción &quot;Incremento de los caracteres no latinos&quot;.</translation>
     </message>
     <message>
         <source>You can add images and sounds to your cards. Right-click on the question or answer field when editing a card to bring up a pop-up menu to do so.</source>
@@ -1544,27 +1544,27 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
-        <translation>La mejor manera de guardar sus datos es hacer una copia de su directorio .mnemosyne (si sigue la recomendación de guardar ahí todos sus archivos) en un disco duro diferente, un pendrive o algún lugar de Internet. Mnemosyne guarda automáticamente copias de seguridad en el directorio .mnemosyne/backups, pero eso no será de ayuda si falla su disco duro.</translation>
+        <translation>La mejor manera de hacer una copia de seguridad de sus datos es hacer una copia de su directorio .mnemosyne completo (si ha seguido la recomendación de guardar ahí todos sus archivos) en un disco duro diferente, una llave USB o algún lugar de Internet. Mnemosyne guarda automáticamente copias de seguridad en el directorio .mnemosyne/backups, pero si falla su disco duro no servirán de mucho.</translation>
     </message>
     <message>
         <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
-        <translation>Puede ejecutar Mnemosyne desde un pendrive. Para ello copie C:\Program Files\Mnemosyne al pendrive y luego copie el directorio .mnemosyne desde su directorio de usuario al directorio Mnemosyne del pendrive.</translation>
+        <translation>Puede ejecutar Mnemosyne desde una llave USB. Para ello copie C:\Archivos de Programa\Mnemosyne a la llave USB y luego copie el directorio .mnemosyne desde su directorio de usuario al directorio Mnemosyne de la llave USB.</translation>
     </message>
     <message>
         <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
-        <translation>Si utiliza Mnemosyne en varios ordenadores, el programa Unison puede ayudarle a sincronizar sus datos entre los mismos. Vea la página web de Mnemosyne para más información.</translation>
+        <translation>Si utiliza Mnemosyne en varios ordenadores el programa Unison puede ayudarle a sincronizar sus datos entre los mismos. Para más información visite la web de Mnemosyne.</translation>
     </message>
     <message>
         <source>You can sort the cards in the &apos;Edit Deck&apos; dialog by answer or by category by clicking on the corresponding column title. Clicking again changes the sort order.</source>
-        <translation>Puede ordenar las tarjetas en el cuadro de edición, pinchando en el correspondiente título de columna. Pinchar de nuevo invierte el orden.</translation>
+        <translation>Puede ordenar las tarjetas en el cuadro de edición, haciendo click en el correspondiente título de columna. Haga click de nuevo para invertir el orden.</translation>
     </message>
     <message>
         <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
-        <translation>Si quiere mayor control sobre el comportamiento de LaTeX, consulte las explicaciones en la página web de Mnemosyne.</translation>
+        <translation>Si desea mayor control sobre el comportamiento de LaTeX, consulte las explicaciones detalladas en la página web de Mnemosyne.</translation>
     </message>
     <message>
         <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
-        <translation>Los usuarios avanzados pueden personalizar el programa editando el fichero config.py o instalando añadidos al programa.</translation>
+        <translation>Los usuarios avanzados pueden personalizar el programa editando el fichero config.py o instalando plugins.</translation>
     </message>
 </context>
 <context>
@@ -1618,7 +1618,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>Error when running plugin:</source>
-        <translation type="obsolete">Error al ejecutar el añadido:</translation>
+        <translation type="obsolete">Error al ejecutar el plugin:</translation>
     </message>
     <message>
         <source>Unable to load file.</source>
@@ -1626,11 +1626,11 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>Invalid file format.</source>
-        <translation type="obsolete">Formato de fichero incómodo.</translation>
+        <translation type="obsolete">Formato de fichero incorrecto.</translation>
     </message>
     <message>
         <source>Unable to save file.</source>
-        <translation type="obsolete">No se pudo guardar el archivo.</translation>
+        <translation type="obsolete">No se ha podido guardar el archivo.</translation>
     </message>
     <message>
         <source>Unable to parse XML:</source>
@@ -1638,7 +1638,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>Unrecognised encoding.</source>
-        <translation type="obsolete">Codificación no reconocida.</translation>
+        <translation type="obsolete">Codificación desconocida.</translation>
     </message>
     <message>
         <source>Missing answer on line:</source>
@@ -1647,7 +1647,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     <message>
         <source>Unable to load database.
 Creating tmp file.</source>
-        <translation type="obsolete">No se pudo cargar la colección.
+        <translation type="obsolete">No se ha podido cargar la base de datos.
 Creando archivo temporal.</translation>
     </message>
     <message>
@@ -1656,7 +1656,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="obsolete">&amp;De acuerdo</translation>
+        <translation type="obsolete">&amp;Aceptar</translation>
     </message>
     <message>
         <source>File exists:</source>
@@ -1672,7 +1672,7 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Removed duplicates: </source>
-        <translation type="obsolete">Duplicadas eliminadas: </translation>
+        <translation type="obsolete">Duplicados eliminadas: </translation>
     </message>
     <message>
         <source>There are cards with different answers for question:
@@ -1699,15 +1699,15 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation type="obsolete">Recuerda con algún fallo.</translation>
+        <translation type="obsolete">Igual que 0 pero se le está volviendo familiar.</translation>
     </message>
     <message>
         <source> Show it less often.</source>
-        <translation type="obsolete"> Mostrar menos a menudo.</translation>
+        <translation type="obsolete"> Mostrar con menos frecuencia.</translation>
     </message>
     <message>
         <source>You&apos;ve memorised this card now,</source>
-        <translation type="obsolete">Ha memorizado esta tarjeta.</translation>
+        <translation type="obsolete">Acaba de memorizar esta tarjeta</translation>
     </message>
     <message>
         <source> and will probably remember it for a few days.</source>
@@ -1715,35 +1715,35 @@ Creando archivo temporal.</translation>
     </message>
     <message>
         <source>You have forgotten this card completely.</source>
-        <translation type="obsolete">Ha olvidado completamente esta tarjeta completamente.</translation>
+        <translation type="obsolete">Ha olvidado esta tarjeta completamente.</translation>
     </message>
     <message>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation type="obsolete">Respuesta correcta a duras penas. El intervalo fue demasiado largo.</translation>
+        <translation type="obsolete">Respuesta a duras penas correcta. El intervalo ha sido demasiado largo.</translation>
     </message>
     <message>
         <source>Correct answer, but with much effort.</source>
-        <translation type="obsolete">Respuesta correcta, pero con mucho esfuerzo.</translation>
+        <translation type="obsolete">Respuesta correcta pero con mucho esfuerzo.</translation>
     </message>
     <message>
         <source> The interval was probably too long.</source>
-        <translation type="obsolete"> El intervalo probablemente fue demasiado largo.</translation>
+        <translation type="obsolete"> El intervalo ha sido probablemente demasiado largo.</translation>
     </message>
     <message>
         <source>Correct answer, with some effort.</source>
-        <translation type="obsolete">Respuesta correcta, con algún esfuerzo.</translation>
+        <translation type="obsolete">Respuesta correcta pero con cierto esfuerzo.</translation>
     </message>
     <message>
         <source> The interval was probably just right.</source>
-        <translation type="obsolete"> El intervalo fue apropiado.</translation>
+        <translation type="obsolete"> El intervalo ha sido apropiado.</translation>
     </message>
     <message>
         <source>Correct answer, but without any</source>
-        <translation type="obsolete">Respuesta correcta, sin ninguna</translation>
+        <translation type="obsolete">Respuesta correcta pero sin ningún</translation>
     </message>
     <message>
         <source> difficulties. The interval was probably too short.</source>
-        <translation type="obsolete">dificultad. El intervalo fue muy corto.</translation>
+        <translation type="obsolete">esfuerzo. El intervalo fue muy corto.</translation>
     </message>
     <message>
         <source> days.</source>
