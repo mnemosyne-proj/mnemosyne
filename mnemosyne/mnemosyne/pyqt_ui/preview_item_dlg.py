@@ -50,17 +50,16 @@ class PreviewItemDlg(PreviewItemFrm):
 
         # Question and answer fields.
         
-        increase_non_latin = get_config("non_latin_font_size_increase")
-        non_latin_size = font.pointSize() + increase_non_latin
+        non_latin_size = get_config("non_latin_font_size_increase")
 
         text = preprocess(q)
         play_sound(text)
-        if increase_non_latin:
+        if non_latin_size:
             text = set_non_latin_font_size(text, non_latin_size)
         self.question.setText(text)
 
         text = preprocess(a)
         play_sound(text)
-        if increase_non_latin:
+        if non_latin_size:
             text = set_non_latin_font_size(text, non_latin_size)
         self.answer.setText(text)        
