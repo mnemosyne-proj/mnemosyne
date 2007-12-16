@@ -660,7 +660,8 @@ class MainDlg(MainFrm):
 
         # Size for non-latin characters.
 
-        non_latin_size = get_config("non_latin_font_size_increase")
+        increase_non_latin = get_config("non_latin_font_size_increase")
+        non_latin_size = font.pointSize() + increase_non_latin
         
         # Update question and answer alignment.
         
@@ -690,7 +691,7 @@ class MainDlg(MainFrm):
                 play_sound(text)
                 self.q_sound_played = True
                 
-            if non_latin_size:
+            if increase_non_latin:
                 text = set_non_latin_font_size(text, non_latin_size)
 
             self.question.setText(text)
@@ -706,7 +707,7 @@ class MainDlg(MainFrm):
                 play_sound(text)
                 self.a_sound_played = True
                 
-            if non_latin_size:
+            if increase_non_latin:
                 text = set_non_latin_font_size(text, non_latin_size)
             self.answer.setText(text)
 

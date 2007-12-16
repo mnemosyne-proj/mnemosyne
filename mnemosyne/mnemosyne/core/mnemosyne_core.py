@@ -987,11 +987,9 @@ def contract_path(p, prefix=None):
 #
 #   Useful to increase size of non-latin unicode characters.
 #
-#   TODO: set font_size_increase from within libmnemosyne.
-#
 ##############################################################################
 
-def set_non_latin_font_size(old_string, font_size_increase):
+def set_non_latin_font_size(old_string, font_size):
 
     def in_latin_plane(ucode):
         
@@ -1024,8 +1022,8 @@ def set_non_latin_font_size(old_string, font_size_increase):
                 new_string += old_string[i]
             else:
                 in_unicode_substring = True
-                new_string += '<font size=+' + str(font_size_increase) + '>'\
-                                + old_string[i]
+                new_string += '<font style=\"font-size:' + str(font_size) +\
+                              'pt\">' + old_string[i]
         else:
             if in_unicode_substring == True:
                 in_unicode_substring = False

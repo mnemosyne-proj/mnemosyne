@@ -40,6 +40,9 @@ version before doing an upgrade.)
  set these and other rarely used options.
 -increase the maximum value of 'increase size of non-latin characters'
  to 200 (requested by Mike Charlton).
+-make 'increase size of non-latin characters' more robust (Nils Kriha).
+ Previously, not all values of this setting would result in a visible
+ change.
 -don't count inactive cards in the grade distribution in the statistics
  window (reported by Joonatan Kaartinen).
 -add support for translations. (German translation provided by Martin Mueller,

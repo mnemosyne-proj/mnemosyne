@@ -49,17 +49,18 @@ class PreviewItemDlg(PreviewItemFrm):
         self.answer.setAlignment(alignment)
 
         # Question and answer fields.
-        
-        non_latin_size = get_config("non_latin_font_size_increase")
+
+        increase_non_latin = get_config("non_latin_font_size_increase")
+        non_latin_size = font.pointSize() + increase_non_latin
 
         text = preprocess(q)
         play_sound(text)
-        if non_latin_size:
+        if increase_non_latin:
             text = set_non_latin_font_size(text, non_latin_size)
         self.question.setText(text)
 
         text = preprocess(a)
         play_sound(text)
-        if non_latin_size:
+        if increase_non_latin:
             text = set_non_latin_font_size(text, non_latin_size)
         self.answer.setText(text)        
