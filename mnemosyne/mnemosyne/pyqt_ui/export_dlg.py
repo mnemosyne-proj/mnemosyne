@@ -92,7 +92,7 @@ class ExportDlg(ExportFrm):
         fformat_name = unicode(self.fileformats.currentText())
 
         if os.path.exists(fname):   
-            if not queryOverwriteFile(fname):
+            if not queryOverwriteFile(self, fname):
                 return
 
         cat_names_to_export = []
