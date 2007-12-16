@@ -103,7 +103,6 @@ except:
     print "Unable to initialise sound."
 
 w = MainDlg(filename)
-install_error_strings(w)
 install_tooltip_strings(w)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
