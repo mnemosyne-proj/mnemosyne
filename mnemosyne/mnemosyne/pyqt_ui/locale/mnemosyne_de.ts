@@ -1063,7 +1063,7 @@ Vielleicht möchtest Du </translation>
     </message>
     <message>
         <source>Act&amp;ivate categories</source>
-        <translation>Kategorien akt&amp;ivieren</translation>
+        <translation type="obsolete">Kategorien akt&amp;ivieren</translation>
     </message>
     <message>
         <source>Edit deck</source>
@@ -1188,6 +1188,14 @@ Vielleicht möchtest Du </translation>
     <message>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
+    </message>
+    <message>
+        <source>Activate cate&amp;gories</source>
+        <translation>Kategorien akt&amp;ivieren</translation>
+    </message>
+    <message>
+        <source>Ctrl+G</source>
+        <translation>Ctrl+G</translation>
     </message>
 </context>
 <context>

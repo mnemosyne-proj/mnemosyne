@@ -540,13 +540,16 @@
             <string></string>
         </property>
         <property name="menuText">
-            <string>Act&amp;ivate categories</string>
+            <string>Activate cate&amp;gories</string>
         </property>
         <property name="toolTip">
             <string></string>
         </property>
         <property name="statusTip">
             <string></string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+G</string>
         </property>
     </action>
     <action>

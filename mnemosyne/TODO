@@ -1,5 +1,3 @@
--exception strings
-
 -website:
   relative CSS layout 
     http://www.webreference.com/authoring/style/sheets/css_mastery2/
@@ -16,7 +14,7 @@
   update screenshots
   document new features
   remove left align qa from formula faq
-
+  ctrl G
 
 
 Memosyne analysis:
@@ -49,6 +47,8 @@ Mnemosyne 2.0:
 
 -move to sqlite backend (encode card relations and tag hierarchy in name, 
  multiple category fields per card)
+
+-field for date added?
 
 -rename edit_items, items, product tour at the source level
 
@@ -88,8 +88,9 @@ Mnemosyne 2.0:
 
 -three sided export?
 
--gettext io Qt localisation? But then what about Qt only messages, like
- filedialog?
+-gettext io Qt localisation? Still need it partly for Qt itself, though.
+
+-cntrl enter in add and edit instead of clicking ok
 
 
 Mnemosyne 2.1:

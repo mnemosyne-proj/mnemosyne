@@ -1064,7 +1064,7 @@ dus wellicht wilt u </translation>
     </message>
     <message>
         <source>Act&amp;ivate categories</source>
-        <translation>Act&amp;iveer categorieën</translation>
+        <translation type="obsolete">Act&amp;iveer categorieën</translation>
     </message>
     <message>
         <source>Edit deck</source>
@@ -1190,6 +1190,14 @@ dus wellicht wilt u </translation>
     <message>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
+    </message>
+    <message>
+        <source>Activate cate&amp;gories</source>
+        <translation>Act&amp;iveer categorieën</translation>
+    </message>
+    <message>
+        <source>Ctrl+G</source>
+        <translation>Ctrl+G</translation>
     </message>
 </context>
 <context>

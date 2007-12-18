@@ -1061,7 +1061,7 @@ Tal vez desee ejecutar </translation>
     </message>
     <message>
         <source>Act&amp;ivate categories</source>
-        <translation>Act&amp;ivar Categorías</translation>
+        <translation type="obsolete">Act&amp;ivar Categorías</translation>
     </message>
     <message>
         <source>Edit deck</source>
@@ -1186,6 +1186,14 @@ Tal vez desee ejecutar </translation>
     <message>
         <source>&amp;Help</source>
         <translation>&amp;Ayuda</translation>
+    </message>
+    <message>
+        <source>Activate cate&amp;gories</source>
+        <translation>Act&amp;ivar Categorías</translation>
+    </message>
+    <message>
+        <source>Ctrl+G</source>
+        <translation>Ctrl+G</translation>
     </message>
 </context>
 <context>

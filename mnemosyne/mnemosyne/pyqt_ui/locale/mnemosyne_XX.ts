@@ -1050,7 +1050,11 @@ so you might want to run </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Act&amp;ivate categories</source>
+        <source>Activate cate&amp;gories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
