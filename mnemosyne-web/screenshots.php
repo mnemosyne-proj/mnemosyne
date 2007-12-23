@@ -36,7 +36,7 @@ From the info in the screenshot above, two cards will be created:
 <p>You can get some basic statistical info:</p>
 <p><img src="pictures/statistics.png"></p>
 <br>
-<p>The configuration screen:</p>
+<p>The configuration screen. To keep the user interface as clear as possible, only the most used options are listed here. Advanced users can fully configure Mnemosyne through the <code>config.py</code> file and the plugin mechanism.</p>
 <p><img src="pictures/config.png"></p>
 <br>
 <p>The screen where you can browse and edit your database:</p>
