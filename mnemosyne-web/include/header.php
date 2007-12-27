@@ -25,7 +25,7 @@
 <h3><a href="faq.php">Documentation</a></h3>
 <h3><a href="community.php">Community</a></h3>
 <h3><a href="http://sourceforge.net/projects/mnemosyne-proj">Sourceforge page</a></h3>
-<h3><a href="news.php">News</a></h3>
+<h3><a href="news.php">Changelog</a></h3>
 <h3><a href="history.php">History</a></h3>
 
 </div>

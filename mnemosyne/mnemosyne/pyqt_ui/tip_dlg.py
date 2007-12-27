@@ -67,7 +67,7 @@ class TipDlg(TipFrm):
 
         self.tips.append(self.trUtf8("""Mnemosyne can use LaTeX to render mathematical formulas, e.g. <$>x^2+y^2=z^2</$>. (For this, you need LaTeX and dvipng installed.)"""))
 
-        self.tips.append(self.trUtf8("""The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won't help you if that drive dies... """))
+        self.tips.append(self.trUtf8("""The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won't help you if that drive dies..."""))
 
         self.tips.append(self.trUtf8("""You can run Mnemosyne from a USB key. Copy C:\\Program Files\\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key."""))
 
