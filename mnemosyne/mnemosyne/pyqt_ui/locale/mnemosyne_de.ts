@@ -1556,7 +1556,7 @@ Viel Spass und Erfolg!</translation>
     </message>
     <message>
         <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
-        <translation>Der beste Weg um eine Sicherung Deiner Daten zu erstellen, ist Dein .mnemosyne Verzeichnis auf ein anderes Laufwerk zu kopieren (Wenn Du der Empfehlung folgst, alle Deine Dateien dort abzulegen). Mnemosyne bewahrt XML basierte Sicherungen automatisch in .mnemosyne/backups auf, aber das wird Dir nicht helfen, wenn Deine Festplatte kaputt geht... </translation>
+        <translation type="obsolete">Der beste Weg um eine Sicherung Deiner Daten zu erstellen, ist Dein .mnemosyne Verzeichnis auf ein anderes Laufwerk zu kopieren (Wenn Du der Empfehlung folgst, alle Deine Dateien dort abzulegen). Mnemosyne bewahrt XML basierte Sicherungen automatisch in .mnemosyne/backups auf, aber das wird Dir nicht helfen, wenn Deine Festplatte kaputt geht... </translation>
     </message>
     <message>
         <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
@@ -1577,6 +1577,10 @@ Viel Spass und Erfolg!</translation>
     <message>
         <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
         <translation>Möchtest Du eine genauere Kontrolle über das LaTeX Verhalten, dann lies die Erklärung zu den &lt;$$&gt;...&lt;/$$&gt; und &lt;latex&gt;...&lt;/latex&gt; Tags auf der Mnemosyne Webseite.</translation>
+    </message>
+    <message>
+        <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

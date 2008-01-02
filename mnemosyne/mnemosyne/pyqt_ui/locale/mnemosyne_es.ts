@@ -1552,7 +1552,7 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
-        <translation>La mejor manera de hacer una copia de seguridad de sus datos es hacer una copia de su directorio .mnemosyne completo (si ha seguido la recomendación de guardar ahí todos sus archivos) en un disco duro diferente, una llave USB o algún lugar de Internet. Mnemosyne guarda automáticamente copias de seguridad en el directorio .mnemosyne/backups, pero si falla su disco duro no servirán de mucho.</translation>
+        <translation type="obsolete">La mejor manera de hacer una copia de seguridad de sus datos es hacer una copia de su directorio .mnemosyne completo (si ha seguido la recomendación de guardar ahí todos sus archivos) en un disco duro diferente, una llave USB o algún lugar de Internet. Mnemosyne guarda automáticamente copias de seguridad en el directorio .mnemosyne/backups, pero si falla su disco duro no servirán de mucho.</translation>
     </message>
     <message>
         <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
@@ -1573,6 +1573,10 @@ Puede obtener más información en http://www.mnemosyne-proj.sourceforge.net.
     <message>
         <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
         <translation>Los usuarios avanzados pueden personalizar el programa editando el fichero config.py o instalando plugins.</translation>
+    </message>
+    <message>
+        <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

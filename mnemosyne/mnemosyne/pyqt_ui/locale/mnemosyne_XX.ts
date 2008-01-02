@@ -1477,7 +1477,7 @@ Happy learning!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
+        <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

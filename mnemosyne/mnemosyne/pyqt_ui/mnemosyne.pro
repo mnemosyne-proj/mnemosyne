@@ -50,4 +50,7 @@ FORMS = activate_categories_frm.ui \
 TRANSLATIONS = locale/mnemosyne_XX.ts \
 	locale/mnemosyne_de.ts \
 	locale/mnemosyne_es.ts \
+	locale/mnemosyne_cs.ts \
 	locale/mnemosyne_nl.ts
+
+
