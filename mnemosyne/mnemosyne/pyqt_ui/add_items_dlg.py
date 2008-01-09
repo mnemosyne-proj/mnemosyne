@@ -325,8 +325,10 @@ class AddItemsDlg(AddItemsFrm):
         else: # 3-sided input.
             
             i = self.check_duplicates_and_add(grade,q,p+'\n'+a,cat_name)
-            self.check_duplicates_and_add(grade,a,q+'\n'+p,cat_name,
-                                          i.id+'.tr.1')
+
+            if i:
+                self.check_duplicates_and_add(grade,a,q+'\n'+p,cat_name,
+                                              i.id+'.tr.1')
             
             self.question.setText("")
             self.pronunciation.setText("")  

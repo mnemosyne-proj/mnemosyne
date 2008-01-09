@@ -1,7 +1,3 @@
--website:
-  news
-
-
 Memosyne analysis:
 
 -add to cvs
@@ -25,6 +21,9 @@ Mnemosyne 1.1
 
 -write some more example plugins?
 
+-checkbox to include inactive cards in statistics
+
+-alt tabbing gives low res icon.
 
 
 
