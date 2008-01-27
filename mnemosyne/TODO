@@ -53,7 +53,7 @@ Mnemosyne 2.0:
 -front widget that allows copying, can produce scroll bars
 
 -instead of QListview, use the model/view framework from Qt4 
- or database widget
+ or database widget. Test deleting large number of cards.
 
 -bug in Qt? : get rid of dummy '.' status tips
 
@@ -75,6 +75,8 @@ Mnemosyne 2.0:
 -gettext io Qt localisation? Still need it partly for Qt itself, though.
 
 -cntrl enter in add and edit instead of clicking ok
+
+-color coding button groups?
 
 
 Mnemosyne 2.1:
