@@ -61,7 +61,7 @@ Vytvářím tmp soubor.</translation>
     </message>
     <message>
         <source>Removed duplicates: </source>
-        <translation>Odebrané duplikáty: </translation>
+        <translation>Odebrané duplicitní kartičky: </translation>
     </message>
     <message>
         <source>There are cards with different answers for question:
@@ -123,7 +123,7 @@ Vytvářím tmp soubor.</translation>
     </message>
     <message>
         <source> The interval was probably just right.</source>
-        <translation> Interval byl pravděpodobně akorát.</translation>
+        <translation> Interval byl pravděpodobně odpovídající.</translation>
     </message>
     <message>
         <source>Correct answer, but without any</source>
@@ -131,7 +131,7 @@ Vytvářím tmp soubor.</translation>
     </message>
     <message>
         <source> difficulties. The interval was probably too short.</source>
-        <translation>potíží. Interval byl pravděpodobně moc krátký.</translation>
+        <translation> potíží. Interval byl pravděpodobně moc krátký.</translation>
     </message>
 </context>
 <context>
@@ -479,15 +479,15 @@ Vytvářím tmp soubor.</translation>
     </message>
     <message>
         <source>Duplicate handling</source>
-        <translation>Zacházení s duplikáty</translation>
+        <translation>Zacházení s duplicitními kartičkami</translation>
     </message>
     <message>
         <source>Check for duplicates when adding new cards</source>
-        <translation>Kontrolovat duplikáty při přidávání nových karet</translation>
+        <translation>Kontrolovat duplikáty při přidávání nových kartiček</translation>
     </message>
     <message>
         <source>Allow duplicates in different categories</source>
-        <translation>Povolit duplikáty v různých kategoriích</translation>
+        <translation>Povolit duplicitní kartičky v různých kategoriích</translation>
     </message>
     <message>
         <source>Repetition process</source>
@@ -495,11 +495,11 @@ Vytvářím tmp soubor.</translation>
     </message>
     <message>
         <source>Number of grade 0 cards to learn at once:</source>
-        <translation>Počet karet se stupněm 0 pro okamžité učení:</translation>
+        <translation>Počet karet s hodnocením 0 pro okamžité učení:</translation>
     </message>
     <message>
         <source>Note: this is NOT the number of grade 0 cards you want to memorise *per day*</source>
-        <translation>Pozn.: toto NENÍ počet karet se stupněm 0, které se chcete naučit *za den*</translation>
+        <translation>Pozn.: toto NENÍ počet karet se hodnocením 0, které se chcete naučit *za den*</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -631,7 +631,7 @@ takže by jste potom měl(a) provést </translation>
     </message>
     <message>
         <source>clean duplicates&apos; afterwards.</source>
-        <translation>&apos;Odstranit duplikáty&apos;.</translation>
+        <translation>&apos;Odstranit duplicitní kartičky&apos;.</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
@@ -748,7 +748,7 @@ takže by jste potom měl(a) provést </translation>
     </message>
     <message>
         <source>File format:</source>
-        <translation>Formát soubor:</translation>
+        <translation>Formát souboru:</translation>
     </message>
     <message>
         <source>File to export to:</source>
@@ -909,7 +909,7 @@ takže by jste potom měl(a) provést </translation>
     </message>
     <message>
         <source>Learn ahead of schedule</source>
-        <translation>Učit se dopředu</translation>
+        <translation>Učit se navíc</translation>
     </message>
     <message>
         <source>Pick days until next repetition:</source>
@@ -1112,7 +1112,7 @@ takže by jste potom měl(a) provést </translation>
     </message>
     <message>
         <source>&amp;Clean duplicates</source>
-        <translation>&amp;Odstranit duplikáty</translation>
+        <translation>&amp;Odstranit duplicitní kartičky</translation>
     </message>
     <message>
         <source>&amp;Configure Mnemosyne</source>
@@ -1140,7 +1140,7 @@ takže by jste potom měl(a) provést </translation>
     </message>
     <message>
         <source>Space</source>
-        <translation>Mezera</translation>
+        <translation>Space</translation>
     </message>
     <message>
         <source>Ctrl+R</source>
@@ -1188,11 +1188,11 @@ takže by jste potom měl(a) provést </translation>
     </message>
     <message>
         <source>Activate cate&amp;gories</source>
-        <translation type="unfinished"></translation>
+        <translation>Akt&amp;ivovat kategorie</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+G</translation>
     </message>
 </context>
 <context>
@@ -1247,9 +1247,9 @@ For that, I&apos;ll decide when to ask you the questions, and you&apos;ll need t
 Let&apos;s look at the meaning of these ratings now.</source>
         <translation>Ahojky!
 
-Já jsem Mnemosyne, druh motýla pojmenovaný po Řecké bohyni paměti.
+Já jsem Mnemosyne, druh motýla pojmenovaný po řecké bohyni paměti.
 
-Můžu vám pomoct se zapamatováním odpovědí na otázky tím, že se zaměříme na karty s otázkami, které zapomínáte a nebudeme tak plýtvat časem na věci, které znáte dobře.
+Můžu vám pomoct si zapamatovat odpovědi na otázky tím, že se zaměříme na karty s otázkami, které zapomínáte a nebudeme tak plýtvat časem na věci, které znáte dobře.
 
 Já rozhodnu, kdy se vás budu ptát na otázky a vy potom ohodnotíte, jak dobře si pamatujete odpovědi.
 
@@ -1305,7 +1305,7 @@ Pokud si nemůžete vzpomenout vůbec, ohodnoťte ji 0 nebo 1 a já se vás na n
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
 
 Uncheck the following box if you do not want to do this.</source>
-        <translation>Pokud máte zájem o statistiky, je možné udržovat detailní záznamy vašich revizí.
+        <translation>Pokud máte zájem o statistiky, je možné udržovat podrobné záznamy učebního procesu.
 
 Krom toho můžu uploadovat kompletně anonymní verze těchto záznamů  na centrální stránky, takže mi pomůžete mě vylepšovat. Tím také přispějete k vědeckému výzkumu dlouhodobé paměti.
 
@@ -1341,7 +1341,7 @@ Nové karty přidáte kliknutím na ikonu vlevo nahoře (se znakem &apos;plus&ap
 &lt;p&gt;
 O ukládání vaší práce se starat nemusíte, to já budu dělat automaticky.
 &lt;p&gt;
-Nejlepších výsledků dosáhnete, pokud budete opakovat každý den. Budu ale dělat, co je v mých silách i pokud opakování odložíte nebo se rozhodnete učit se dopředu. 
+Nejlepších výsledků dosáhnete, pokud budete opakovat každý den. Budu ale dělat, co je v mých silách i pokud opakování odložíte nebo se rozhodnete naučit se něco navíc.
 &lt;p&gt;
 Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
 &lt;p&gt;
@@ -1413,7 +1413,7 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
         <source>Number of cards with the following grades:
 
 </source>
-        <translation>Počty karet s následujícími hodnoceními:
+        <translation>Počty karet s danými hodnoceními:
         
 </translation>
     </message>
@@ -1465,7 +1465,7 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>The &apos;number of grade 0 cards to learn at once&apos; setting determines how many new cards you are trying to learn at the same time. It does &lt;b&gt;not&lt;/b&gt; tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel.</source>
-        <translation>Nastavení &apos;Počet karet se stupněm 0 pro okamžité učení&apos; určuje kolik nových karet se chcete učit zároveň. Toto &lt;b&gt;ne&lt;/b&gt;říká kolik nových karet se potřebujete naučit za den. To si rozhodnete sami: můžete se naučit více nebo méně, záleží na vás.</translation>
+        <translation>Nastavení &apos;Počet karet s hodnocením 0 pro okamžité učení&apos; udává kolik neprobraných karet se budete učit najednou. Rozhodně &lt;b&gt;ne&lt;/b&gt;určuje kolik nových karet se máte naučit za den. To si rozhodnete sami: můžete se naučit více nebo méně, záleží na Vás.</translation>
     </message>
     <message>
         <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
@@ -1473,11 +1473,11 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>Grade 1 cards are different from grade 0 cards in the sense that they show up less often and are not subject to the &apos;number of grade 0 cards to learn at once&apos; setting.</source>
-        <translation>Karty s hodnocením 1 se liší od karet s hodnocením 0 v tom smyslu, že se nezobrazují tak často a také se s nimi nepočítá v nastavení &apos;Počet karet se stupněm 0 pro okamžité učení&apos;.</translation>
+        <translation>Karty s hodnocením 1 se liší od karet s hodnocením 0 v tom smyslu, že se nezobrazují tak často a také se s nimi nepočítá v nastavení &apos;Počet karet s hodnocením 0 pro okamžité učení&apos;.</translation>
     </message>
     <message>
         <source>You can use keyboard shortcuts to do your repetitions. Enter, Return or Space stand for the default action (&apos;Show answer&apos; or &apos;grade 4&apos;). The number keys can be used for grading.</source>
-        <translation>K opakování můžete používat klávesové zkratky: Enter ukáže odpověď a mezerník ohodnotí kartu stupněm 4. Klávesy s čísly je moužné použít pro ohodnocení karet.</translation>
+        <translation>K opakování můžete používat klávesové zkratky: Enter ukáže odpověď a mezerník ohodnotí kartu stupněm 4. Hodnotit lze i numerickými klávesami.</translation>
     </message>
     <message>
         <source>You can select the categories you wish to study in the &apos;Activate categories&apos; menu option.</source>
@@ -1489,7 +1489,7 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>You can import cards in a wide variety of formats: tab delimited txt files, Supermemo files, ... .</source>
-        <translation>Je možné importovat karty různých formátů: txt soubory s hesly oddělenými tabulátorem, Supermemo soubory, aj.</translation>
+        <translation>Je možné importovat karty různých formátů: txt soubory s hesly oddělenými tabulátorem, soubory ve formátu programu Supermemo, aj.</translation>
     </message>
     <message>
         <source>If you have cards in Word or Excel, export them to tab delimited txt files with UTF-8 unicode encoding to be able to import them into Mnemosyne.</source>
@@ -1497,27 +1497,27 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>If you want to print out your cards, export them to a txt file which you can then print from your favourite Word processor.</source>
-        <translation>Pokud chcete vaše kartičky vytisknout, exportujte je do txt soubory, který pak můžete vytisknout.</translation>
+        <translation>Pokud chcete vaše kartičky vytisknout, exportujte je do txt souboru, který pak můžete vytisknout.</translation>
     </message>
     <message>
         <source>You can share your cards with someone else by exporting them to XML and choosing the &apos;Reset learning data&apos; option on export.</source>
-        <translation>Svoje kartičky můžete sdílet s někým jiným tak, že je exportujete do XML (vyberte možnost &apos;Resetovat učební proces&apos;).</translation>
+        <translation>Pokud chcete sdílet s někým své kartičky, exportujte je do XML (současně vyberte možnost &apos;Resetovat učební proces&apos;).</translation>
     </message>
     <message>
         <source>If you study a foreign language with a different script, the default font size is sometimes a bit small. If you want to increase the size of these characters but keep the size of English text, use the &apos;increase size of non-latin characters by X points&apos; option.</source>
-        <translation>Pokud studujete cizí jazyk s jiným písmem, může být defaultní velikost fontu menší. Pokud chcete zvětšit velikost těchto znaků, ale ponechat velikost textu ve vašem jazyce, použijte možnost &apos;Zvětšit velikost ne-latin znaků o X bodů&apos;.</translation>
+        <translation>Pokud studujete cizí jazyk s jiným písmem, může být přednastavená velikost fontu menší. Jestliže chcete zvětšit velikost těchto znaků, ale ponechat velikost textu ve vašem jazyce, použijte možnost &apos;Zvětšit velikost ne-latin znaků o X bodů&apos;.</translation>
     </message>
     <message>
         <source>You can add images and sounds to your cards. Right-click on the question or answer field when editing a card to bring up a pop-up menu to do so.</source>
-        <translation>Do karet je možné přidávat také obrázky a zvuky. Při editaci karty klikněte pravým tlačítkem myši na pole s otázkou nebo odpovědí a v menu vyberte jednu z možností.</translation>
+        <translation>Do karet je možné přidávat také obrázky a zvuky. Během editace nebo při přidávání karty, klikněte v editačním okně karty pravým tlačítkem myši na pole s otázkou nebo odpovědí a v menu vyberte jednu z možností.</translation>
     </message>
     <message>
         <source>It is recommended to keep your sound and image files inside your .mnemosyne directory. That way, it&apos;s easier to transfer your data between different computers.</source>
-        <translation>Je doporučeno nechávat soubory s obrázky a zvuky uvnitř vašeho .mnemosyne adresáře (adresář, kde jsou uloženy databáze). Takto je pak možné snadněji přenášet vaše data mezi různými počítači.</translation>
+        <translation>Doporučuje se nechávat soubory s obrázky a zvuky uvnitř vašeho .mnemosyne adresáře (adresář, kde jsou uloženy databáze). Snadněji se vám pak budou přenášet data mezi počítači.</translation>
     </message>
     <message>
         <source>When adding a three-sided card, two regular cards will be created. One with as question the written form and as answer the pronunciation and the translation, and one with as question the translation and as answer the written form and the pronunciation.</source>
-        <translation>Když přidáváte kartu se 3 stranami, budou vytvořeny dvě karty. V první kartě bude v otázce zápis (slovíčka) a v odpovědi výslovnost a překlad. V druhé kartě bude v otázce překlad a v odpovědi zápis a výslovnost.</translation>
+        <translation>Při přidávání karty můžete zvolit 3-strannou kartu (psaná forma, výslovnost, překlad) a to tak, že kliknete pravým tlačítkem myši na pole s otázkou a vyberete možnost &apos;3-stranná karta&apos;. Když přidáváte kartu se 3 stranami, budou vytvořeny a přidány dvě karty. V první kartě bude v otázce zápis (slovíčka) a v odpovědi výslovnost a překlad. V druhé kartě bude v otázce překlad a v odpovědi zápis a výslovnost.</translation>
     </message>
     <message>
         <source>You can use basic HTML tags in your cards to control their appearance.</source>
@@ -1533,7 +1533,7 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
-        <translation>Mnemosyne můžete mít (spouštět) i na USB klíči. Stačí kopírovat C:\Program Files\Mnemosyne na USB klíč a potom .mnemosyne adresář z vašeho domovského adresáře dovnitř adresáře Mnemosyne na USB klíči.</translation>
+        <translation>Mnemosyne je možné mít a spouštět z USB klíčenky. Stačí zkopírovat adresář C:\Program Files\Mnemosyne na klíčenku a do něj adresář .mnemosyne z vašeho domovského adresáře.</translation>
     </message>
     <message>
         <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
@@ -1560,7 +1560,7 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     </message>
     <message>
         <source>&lt;b&gt;Did you know...?&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Věděli jste ...?&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Věděli jste, že ...?&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&amp;Show tips on startup</source>
