@@ -139,6 +139,13 @@
             </widget>
            </item>
            <item>
+            <widget class="Line" name="line" >
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="grade_2_button" >
              <property name="sizePolicy" >
               <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
@@ -201,6 +208,9 @@
              </property>
              <property name="shortcut" >
               <string>4</string>
+             </property>
+             <property name="default" >
+              <bool>true</bool>
              </property>
             </widget>
            </item>
