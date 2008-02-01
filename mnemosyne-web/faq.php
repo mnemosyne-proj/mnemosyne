@@ -176,9 +176,19 @@ We plan to have this project run for as long as possible, years and hopefully de
 <h2 id="question">Will the data collected by the project be available to anyone?</h2>
 Sure! The data was contributed by people on a voluntary basis, so it would be unethical to restrict access to it or charge money for it. Anyone interested can contact us to help analyse the data. We only ask that, should that analysis ever result in a scientific journal paper, we become coauthors of that paper.
 
-      <h2 id="question">When I start the program under Windows, I get a message about a missing <code>'~\\.mnemosyne'</code> directory</h2>
+<h2 id="question">When I start the program under Windows, I get a message about a missing <code>'~\\.mnemosyne'</code> directory</h2>
 In the system control panel, go to 'system settings' and add <code>HOMEPATH=%USERPROFILE%</code> to your environment variables. You might need a reboot. If that fails, you can always try <code>HOMEPATH=C:\</code> or something. 
 
+<h2 id="question">What other features are planned for Mnemosyne?</h2>
+
+You can have a look at the latest version of the TODO list
+<a 
+href="http://mnemosyne-proj.svn.sourceforge.net/viewvc/mnemosyne-proj/trunk/mnemosyne/TODO?view=markup"> 
+here</a>. There is no time table for the implementation of any given 
+feature, as this is a purely a hobby project, depending very much 
+on the amount of available free time. However, the project has been 
+progressing slowly but steadily since 2003, and we foresee that it will 
+continue to do so for many, many years.
 
 <?php
         include 'include/footer.php';

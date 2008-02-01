@@ -1,13 +1,24 @@
-Memosyne analysis:
+Memosyne analysis: Add-on package to do full custom statistical
+analysis on the entire history of your learning process.
+Status: initial code written, but clean up needed.
 
--add to cvs
+-add to svn
 -document
 -release
 -research section on web site
 
 
 
-Mnemosyne 1.1
+Mnemosyne 1.1: upgrade from Qt3 to Qt4 for improved speed, and 
+the possibility to get rid of some interface quirks
+
+-front widget that allows copying, can produce scroll bars. This should
+ solve issues when a card contains a very large picture
+
+-MVC?
+
+-instead of QListview, use the model/view framework from Qt4 to get a 
+ much faster 'Edit Deck'. Test deleting large number of cards.
 
 -change file suffix when changing export format
 
@@ -25,9 +36,13 @@ Mnemosyne 1.1
 
 -alt tabbing gives low res icon.
 
+-Phonon backend instead of PyGame to improve sound playback
 
 
-Mnemosyne 2.0:
+
+Mnemosyne 1.2: SQL backend for better speed and lower memory requirements.
+This will also lay the foundation for custom card types and make a port
+to mobile devices (Maemo, Windows Mobile, ...) possible.
 
 -move to sqlite backend (encode card relations and tag hierarchy in name, 
  multiple category fields per card)
@@ -45,15 +60,6 @@ Mnemosyne 2.0:
 -autosave
 
 -make really sure the same question isn't asked twice in a row
-
--Upgrade to Qt4
-
--MVC
-
--front widget that allows copying, can produce scroll bars
-
--instead of QListview, use the model/view framework from Qt4 
- or database widget. Test deleting large number of cards.
 
 -bug in Qt? : get rid of dummy '.' status tips
 
@@ -79,7 +85,7 @@ Mnemosyne 2.0:
 -color coding button groups?
 
 
-Mnemosyne 2.1:
+Mnemosyne 1.3:
 
 -GUI support for multiple categories per card (Note: for categories relating
  to direction of card, we probably don't need to specify them explicitly,
@@ -87,13 +93,13 @@ Mnemosyne 2.1:
 
 
 
-Mnemosyne 2.2
+Mnemosyne 1.4
 
 -synonym handling
 
 
 
-Mnemosyne 2.3
+Mnemosyne 1.5
 
 -hierarchical categories
 
@@ -108,7 +114,7 @@ Mnemosyne 2.3
 
 
 
-Mnemosyne 2.4
+Mnemosyne 1.6
 
 -more advanced plugin mechanism, plugin manager
 
@@ -135,6 +141,8 @@ Mnemosyne 2.4
 
 
 Miscellaneous
+
+-don't randomise very first view, because of dependencies
 
 -auto identifying similar cards
 
