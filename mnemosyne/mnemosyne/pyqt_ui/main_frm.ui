@@ -16,7 +16,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle" >
-   <string>MainWindow</string>
+   <string>Mnemosyne</string>
   </property>
   <property name="windowIcon" >
    <iconset>../../pixmaps/mnemosyne.png</iconset>
