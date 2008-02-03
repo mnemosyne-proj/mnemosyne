@@ -7,8 +7,8 @@
 #
 ##############################################################################
 
-from qt import *
-from mnemosyne.core import *
+from PyQt4 import QtCore, QtGui
+from mnemosyne.libmnemosyne import *
 import os
 
 

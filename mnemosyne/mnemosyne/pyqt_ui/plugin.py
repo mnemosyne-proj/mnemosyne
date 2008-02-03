@@ -12,7 +12,7 @@
 #
 ##############################################################################
 
-import qt
+from PyQt4 import QtCore, QtGui
 
 def get_main_widget():
     

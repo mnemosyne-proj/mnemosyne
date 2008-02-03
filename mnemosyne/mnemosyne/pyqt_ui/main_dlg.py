@@ -4,24 +4,28 @@
 #
 ##############################################################################
 
+# TODO: rename to MainWindow
+# TODO: show toolbar
+
 import sys, os
-from qt import *
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 from main_frm import *
-from import_dlg import *
-from export_dlg import *
-from add_items_dlg import *
-from edit_item_dlg import *
-from clean_duplicates import *
-from statistics_dlg import *
-from edit_items_dlg import *
-from activate_categories_dlg import *
-from config_dlg import *
-from product_tour_dlg import *
-from tip_dlg import *
-from about_dlg import *
+#from import_dlg import *
+#from export_dlg import *
+#from add_items_dlg import *
+#from edit_item_dlg import *
+#from clean_duplicates import *
+#from statistics_dlg import *
+#from edit_items_dlg import *
+#from activate_categories_dlg import *
+#from config_dlg import *
+#from product_tour_dlg import *
+#from tip_dlg import *
+#from about_dlg import *
 from sound import *
 from message_boxes import *
-from mnemosyne.core import *
+from mnemosyne.libmnemosyne import *
 
 prefix = os.path.dirname(__file__)
 
@@ -70,7 +74,7 @@ def install_tooltip_strings(self):
 #
 ##############################################################################
 
-class MainDlg(MainFrm):
+class MainDlg(QMainWindow, Ui_MainFrm):
 
     ##########################################################################
     #
@@ -78,9 +82,10 @@ class MainDlg(MainFrm):
     #
     ##########################################################################
     
-    def __init__(self, filename, parent = None,name = None,fl = 0):
+    def __init__(self, filename, parent = None):
         
-        MainFrm.__init__(self,parent,name,fl)
+        QMainWindow.__init__(self, parent)
+        self.setupUi(self)
 
         self.state = "EMPTY"
         self.item = None
@@ -90,14 +95,14 @@ class MainDlg(MainFrm):
         self.q_sound_played = False
         self.a_sound_played = False
         
-        self.sched  = QLabel("", self.statusBar())
-        self.notmem = QLabel("", self.statusBar())        
-        self.all    = QLabel("", self.statusBar())
+        self.sched  = QLabel("", self.statusbar)
+        self.notmem = QLabel("", self.statusbar)        
+        self.all    = QLabel("", self.statusbar)
         
-        self.statusBar().addWidget(self.sched,0,1)
-        self.statusBar().addWidget(self.notmem,0,1)
-        self.statusBar().addWidget(self.all,0,1)
-        self.statusBar().setSizeGripEnabled(0)
+        self.statusbar.addWidget(self.sched)
+        self.statusbar.addWidget(self.notmem)
+        self.statusbar.addWidget(self.all)
+        self.statusbar.setSizeGripEnabled(0)
 
         self.grade_buttons = []
 
@@ -312,15 +317,15 @@ class MainDlg(MainFrm):
         
     ##########################################################################
     #
-    # addItems
+    # addCards
     #
     ##########################################################################
 
-    def addItems(self):
+    def addCards(self):
         
         pause_thinking()
         
-        dlg = AddItemsDlg(self)
+        dlg = AddCardsDlg(self)
         dlg.exec_loop()
         
         if self.item == None:
@@ -331,15 +336,15 @@ class MainDlg(MainFrm):
         
     ##########################################################################
     #
-    # editItems
+    # editCards
     #
     ##########################################################################
     
-    def editItems(self):
+    def editCards(self):
         
         pause_thinking()
         
-        dlg = EditItemsDlg(self)
+        dlg = EditCardsDlg(self)
         dlg.exec_loop()
         rebuild_revision_queue()
         
@@ -361,7 +366,7 @@ class MainDlg(MainFrm):
         
         pause_thinking()
         
-        self.statusBar().message(self.trUtf8("Please wait..."))
+        self.statusbar.message(self.trUtf8("Please wait..."))
         clean_duplicates(self)
         rebuild_revision_queue()
         
@@ -386,25 +391,25 @@ class MainDlg(MainFrm):
         
     ##########################################################################
     #
-    # editCurrentItem
+    # editCurrentCard
     #
     ##########################################################################
     
-    def editCurrentItem(self):
+    def editCurrentCard(self):
         
         pause_thinking()
-        dlg = EditItemDlg(self.item, self)
+        dlg = EditCardDlg(self.item, self)
         dlg.exec_loop()
         self.updateDialog()
         unpause_thinking()
 
     ##########################################################################
     #
-    # deleteCurrentItem
+    # deleteCurrentCard
     #
     ##########################################################################
 
-    def deleteCurrentItem(self):
+    def deleteCurrentCard(self):
         
         pause_thinking()
         
@@ -588,7 +593,7 @@ class MainDlg(MainFrm):
         self.updateDialog()
 
         if get_config("show_intervals") == "statusbar":
-            self.statusBar().message(self.trUtf8("Returns in ").append(\
+            self.statusbar.message(self.trUtf8("Returns in ").append(\
                 str(interval)).append(self.trUtf8(" day(s).")))
             
     ##########################################################################
@@ -616,36 +621,36 @@ class MainDlg(MainFrm):
 
     def updateDialog(self):
 
-        # Update caption.
+        # Update title.
         
         database_name = os.path.basename(get_config("path"))[:-4]
-        caption_text = u"Mnemosyne - " + database_name
-        self.setCaption(caption_text)
+        title = u"Mnemosyne - " + database_name
+        self.setWindowTitle(title)
 
         # Update menu bar.
 
         if get_config("only_editable_when_answer_shown") == True:
             if self.item != None and self.state == "SELECT GRADE":
-                self.editCurrentItemAction.setEnabled(True)
+                self.actionEditCurrentCard.setEnabled(True)
             else:
-                self.editCurrentItemAction.setEnabled(False)
+                self.actionEditCurrentCard.setEnabled(False)
         else:
             if self.item != None:
-                self.editCurrentItemAction.setEnabled(True)
+                self.actionEditCurrentCard.setEnabled(True)
             else:
-                self.editCurrentItemAction.setEnabled(False)            
+                self.actionEditCurrentCard.setEnabled(False)            
             
-        self.deleteCurrentItemAction.setEnabled(self.item != None)
-        self.editItemsAction.setEnabled(number_of_items() > 0)
+        self.actionDeleteCurrentCard.setEnabled(self.item != None)
+        self.actionEditDeck.setEnabled(number_of_items() > 0)
 
         # Update toolbar.
         
         if get_config("hide_toolbar") == True:
-            self.toolbar.hide()
-            self.showToolbarAction.setOn(0)
+            self.toolBar.hide()
+            self.actionShowToolbar.setChecked(0)
         else:
-            self.toolbar.show()
-            self.showToolbarAction.setOn(1)
+            self.toolBar.show()
+            self.actionShowToolbar.setChecked(1)
 
         # Update question and answer font.
         

@@ -9,9 +9,9 @@ default: $(WIDGETS)
 
 $(WIDGETS): %.py: %.ui
 	pyuic4 $< > $@
-	echo "from qtextedit2 import *" > tmp
-	sed 's/QTextEdit(/QTextEdit2(/' $@ >> tmp
-	mv tmp $@
+#	echo "from qtextedit2 import *" > tmp
+#	sed 's/QTextEdit(/QTextEdit2(/' $@ >> tmp
+#	mv tmp $@
 
 clean:
 	rm -f *~ *.pyc

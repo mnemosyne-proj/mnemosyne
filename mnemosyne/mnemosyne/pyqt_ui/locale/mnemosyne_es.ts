@@ -41,129 +41,129 @@
         <translation type="unfinished">¡Completado!</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="45"/>
+        <location filename="main_dlg.py" line="49"/>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
         <translation type="unfinished">Como 0 pero te empieza a resultar familiar.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="46"/>
+        <location filename="main_dlg.py" line="50"/>
         <source> Show it less often.</source>
         <translation type="unfinished"> Mostrar con menos frecuencia.</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="28"/>
+        <location filename="message_boxes.py" line="30"/>
         <source>Error in config.py:</source>
         <translation type="unfinished">Error en el archivo config.py:</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="30"/>
+        <location filename="message_boxes.py" line="32"/>
         <source>Error when running plugin:</source>
         <translation type="unfinished">Error al ejecutar el plugin:</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="32"/>
+        <location filename="message_boxes.py" line="34"/>
         <source>Unable to load file.</source>
         <translation type="unfinished">Imposible cargar el archivo.</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="34"/>
+        <location filename="message_boxes.py" line="36"/>
         <source>Invalid file format.</source>
         <translation type="unfinished">Formato de fichero incorrecto.</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="36"/>
+        <location filename="message_boxes.py" line="38"/>
         <source>Unable to save file.</source>
         <translation type="unfinished">Imposible guardar el archivo.</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="38"/>
+        <location filename="message_boxes.py" line="40"/>
         <source>Unable to parse XML:</source>
         <translation type="unfinished">Archivo XML incorrecto:</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="40"/>
+        <location filename="message_boxes.py" line="42"/>
         <source>Unrecognised encoding.</source>
         <translation type="unfinished">Codificación desconocida.</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="42"/>
+        <location filename="message_boxes.py" line="44"/>
         <source>Missing answer on line:</source>
         <translation type="unfinished">Falta la respuesta en la línea:</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="45"/>
+        <location filename="message_boxes.py" line="47"/>
         <source>Unable to load database.
 Creating tmp file.</source>
         <translation type="unfinished">Imposible cargar la base de datos.
 Creando un archivo temporal.</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="64"/>
+        <location filename="message_boxes.py" line="66"/>
         <source>File exists:</source>
         <translation type="unfinished">El archivo ya existe:</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="65"/>
+        <location filename="message_boxes.py" line="67"/>
         <source>&amp;Overwrite</source>
         <translation type="unfinished">&amp;Sobrescribir</translation>
     </message>
     <message>
-        <location filename="message_boxes.py" line="66"/>
+        <location filename="message_boxes.py" line="68"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="44"/>
+        <location filename="main_dlg.py" line="48"/>
         <source>You don&apos;t remember this card yet.</source>
         <translation type="unfinished">Aún no recuerda esta tarjeta.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="48"/>
+        <location filename="main_dlg.py" line="52"/>
         <source>You&apos;ve memorised this card now,</source>
         <translation type="unfinished">Acaba de memorizar esta tarjeta.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="49"/>
+        <location filename="main_dlg.py" line="53"/>
         <source> and will probably remember it for a few days.</source>
         <translation type="unfinished"> y probablemente la recuerde durante unos días.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="53"/>
+        <location filename="main_dlg.py" line="57"/>
         <source>You have forgotten this card completely.</source>
         <translation type="unfinished">Ha olvidado completamente esta tarjeta.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="55"/>
+        <location filename="main_dlg.py" line="59"/>
         <source>Barely correct answer. The interval was way too long.</source>
         <translation type="unfinished">Respuesta a duras penas correcta. El intervalo ha sido demasiado largo.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="56"/>
+        <location filename="main_dlg.py" line="60"/>
         <source>Correct answer, but with much effort.</source>
         <translation type="unfinished">Respuesta correcta pero con mucho esfuerzo.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="57"/>
+        <location filename="main_dlg.py" line="61"/>
         <source> The interval was probably too long.</source>
         <translation type="unfinished"> El intervalo ha sido probablemente demasiado largo.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="59"/>
+        <location filename="main_dlg.py" line="63"/>
         <source>Correct answer, with some effort.</source>
         <translation type="unfinished">Respuesta correcta aunque con cierto esfuerzo.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="60"/>
+        <location filename="main_dlg.py" line="64"/>
         <source> The interval was probably just right.</source>
         <translation type="unfinished"> El intervalo ha sido apropiado.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="62"/>
+        <location filename="main_dlg.py" line="66"/>
         <source>Correct answer, but without any</source>
         <translation type="unfinished">Respuesta correcta pero sin ningún</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="63"/>
+        <location filename="main_dlg.py" line="67"/>
         <source> difficulties. The interval was probably too short.</source>
         <translation type="unfinished"> esfuerzo. El intervalo ha sido demasiado corto.</translation>
     </message>
@@ -1040,132 +1040,327 @@ Tal vez desee ejecutar </translation>
 <context>
     <name>MainDlg</name>
     <message>
-        <location filename="main_dlg.py" line="244"/>
+        <location filename="main_dlg.py" line="249"/>
         <source>Mnemosyne databases (*.mem)</source>
         <translation>Bases de datos Mnemosyne (*.mem)</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="364"/>
+        <location filename="main_dlg.py" line="369"/>
         <source>Please wait...</source>
         <translation>Por favor espere...</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="412"/>
+        <location filename="main_dlg.py" line="417"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="413"/>
+        <location filename="main_dlg.py" line="418"/>
         <source>Delete current card?</source>
         <translation>¿Desechar esta tarjeta?</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="414"/>
+        <location filename="main_dlg.py" line="419"/>
         <source>&amp;Yes</source>
         <translation>&amp;Sí</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="414"/>
+        <location filename="main_dlg.py" line="419"/>
         <source>&amp;No</source>
         <translation>&amp;No</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="591"/>
+        <location filename="main_dlg.py" line="596"/>
         <source>Returns in </source>
         <translation>Volverá a aparecer en </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="592"/>
+        <location filename="main_dlg.py" line="597"/>
         <source> day(s).</source>
         <translation> día(s).</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="604"/>
+        <location filename="main_dlg.py" line="609"/>
         <source>Next repetition: today.</source>
         <translation>Próxima repetición: hoy.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="606"/>
+        <location filename="main_dlg.py" line="611"/>
         <source>Next repetition: tomorrow.</source>
         <translation>Próxima repetición: mañana.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="607"/>
+        <location filename="main_dlg.py" line="612"/>
         <source>Next repetition in </source>
         <translation>Próxima repetición dentro de </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="679"/>
+        <location filename="main_dlg.py" line="684"/>
         <source>Question:</source>
         <translation>Pregunta:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="680"/>
+        <location filename="main_dlg.py" line="685"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;por defecto&gt;</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="724"/>
+        <location filename="main_dlg.py" line="729"/>
         <source>Show &amp;answer</source>
         <translation>Mostrar &amp;respuesta</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="728"/>
+        <location filename="main_dlg.py" line="733"/>
         <source>Learn ahead of schedule</source>
         <translation>Aprender antes de tiempo</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="768"/>
+        <location filename="main_dlg.py" line="773"/>
         <source>Pick days until next repetition:</source>
         <translation>Escoger días hasta la próxima repetición:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="771"/>
+        <location filename="main_dlg.py" line="776"/>
         <source>Grade your answer:</source>
         <translation>Evalúe su respuesta:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="777"/>
+        <location filename="main_dlg.py" line="782"/>
         <source>Scheduled: </source>
         <translation>Planificadas:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="779"/>
+        <location filename="main_dlg.py" line="784"/>
         <source>Not memorised: </source>
         <translation>No memorizadas: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="781"/>
+        <location filename="main_dlg.py" line="786"/>
         <source>All: </source>
         <translation>Todas: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="157"/>
+        <location filename="main_dlg.py" line="162"/>
         <source>New</source>
         <translation type="unfinished">Nueva</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="609"/>
+        <location filename="main_dlg.py" line="614"/>
         <source> days.</source>
         <translation type="unfinished"> días.</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="302"/>
+        <source>Answer:</source>
+        <translation type="obsolete">Respuesta:</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="306"/>
+        <source>0</source>
+        <translation type="obsolete">0</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="308"/>
+        <source>1</source>
+        <translation type="obsolete">1</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="310"/>
+        <source>2</source>
+        <translation type="obsolete">2</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="312"/>
+        <source>3</source>
+        <translation type="obsolete">3</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="314"/>
+        <source>4</source>
+        <translation type="obsolete">4</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="316"/>
+        <source>5</source>
+        <translation type="obsolete">5</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="317"/>
+        <source>&amp;File</source>
+        <translation type="obsolete">&amp;Archivo</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="318"/>
+        <source>&amp;Deck</source>
+        <translation type="obsolete">&amp;Base de datos</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="319"/>
+        <source>&amp;Settings</source>
+        <translation type="obsolete">&amp;Configuración</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="320"/>
+        <source>&amp;Help</source>
+        <translation type="obsolete">&amp;Ayuda</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="322"/>
+        <source>Activate cate&amp;gories</source>
+        <translation type="obsolete">Act&amp;ivar Categorías</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="323"/>
+        <source>Ctrl+G</source>
+        <translation type="obsolete">Ctrl+G</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="324"/>
+        <source>&amp;Add cards</source>
+        <translation type="obsolete">&amp;Añadir tarjetas</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="325"/>
+        <source>Ctrl+A</source>
+        <translation type="obsolete">Ctrl+A</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="326"/>
+        <source>&amp;Clean duplicates</source>
+        <translation type="obsolete">&amp;Eliminar duplicados</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="327"/>
+        <source>&amp;Configure Mnemosyne</source>
+        <translation type="obsolete">&amp;Configuración</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="329"/>
+        <source>&amp;Delete current card</source>
+        <translation type="obsolete">&amp;Desechar esta tarjeta</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="331"/>
+        <source>&amp;Edit current card</source>
+        <translation type="obsolete">&amp;Editar esta tarjeta</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="332"/>
+        <source>Ctrl+E</source>
+        <translation type="obsolete">Ctrl+E</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="333"/>
+        <source>Edit &amp;deck</source>
+        <translation type="obsolete">E&amp;ditar base de datos</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="334"/>
+        <source>Ctrl+D</source>
+        <translation type="obsolete">Ctrl+C</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="335"/>
+        <source>&amp;Export</source>
+        <translation type="obsolete">&amp;Exportar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="336"/>
+        <source>E&amp;xit</source>
+        <translation type="obsolete">&amp;Salir</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="337"/>
+        <source>&amp;New</source>
+        <translation type="obsolete">&amp;Nueva</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="338"/>
+        <source>Ctrl+N</source>
+        <translation type="obsolete">Ctrl+N</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="339"/>
+        <source>&amp;Open...</source>
+        <translation type="obsolete">A&amp;brir...</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="340"/>
+        <source>Ctrl+O</source>
+        <translation type="obsolete">Ctrl+B</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="341"/>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Guardar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="344"/>
+        <source>&amp;About</source>
+        <translation type="obsolete">&amp;Sobre</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="345"/>
+        <source>&amp;Import</source>
+        <translation type="obsolete">&amp;Importar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="347"/>
+        <source>Enter</source>
+        <translation type="obsolete">Seleccionar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="351"/>
+        <source>Return</source>
+        <translation type="obsolete">Volver</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="353"/>
+        <source>Space</source>
+        <translation type="obsolete">Espacio</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="354"/>
+        <source>&amp;Getting started</source>
+        <translation type="obsolete">&amp;Comenzar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="355"/>
+        <source>Show s&amp;tatistics</source>
+        <translation type="obsolete">Mostrar es&amp;tadísticas</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="356"/>
+        <source>Ctrl+T</source>
+        <translation type="obsolete">Ctrl+T</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="357"/>
+        <source>Show &amp;toolbar</source>
+        <translation type="obsolete">Mostrar barra de herramien&amp;tas</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="358"/>
+        <source>&amp;Tip of the day</source>
+        <translation type="obsolete">&amp;Consejo del día</translation>
     </message>
 </context>
 <context>
     <name>MainFrm</name>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="300"/>
         <source>Mnemosyne</source>
-        <translation type="obsolete">Mnemosyne</translation>
+        <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="301"/>
         <source>Question:</source>
-        <translation type="obsolete">Pregunta:</translation>
+        <translation type="unfinished">Pregunta:</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="302"/>
         <source>Answer:</source>
-        <translation type="obsolete">Respuesta:</translation>
+        <translation type="unfinished">Respuesta:</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1173,9 +1368,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Mostrar respuesta</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="304"/>
         <source>Grade your answer:</source>
-        <translation type="obsolete">Evalúe su respuesta:</translation>
+        <translation type="unfinished">Evalúe su respuesta:</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1183,9 +1378,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">&amp;0</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="306"/>
         <source>0</source>
-        <translation type="obsolete">0</translation>
+        <translation type="unfinished">0</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1193,9 +1388,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">&amp;1</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="308"/>
         <source>1</source>
-        <translation type="obsolete">1</translation>
+        <translation type="unfinished">1</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1203,9 +1398,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">&amp;2</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="310"/>
         <source>2</source>
-        <translation type="obsolete">2</translation>
+        <translation type="unfinished">2</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1213,9 +1408,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">&amp;3</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="312"/>
         <source>3</source>
-        <translation type="obsolete">3</translation>
+        <translation type="unfinished">3</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1223,9 +1418,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">&amp;4</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="314"/>
         <source>4</source>
-        <translation type="obsolete">4</translation>
+        <translation type="unfinished">4</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1233,14 +1428,14 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">&amp;5</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="316"/>
         <source>5</source>
-        <translation type="obsolete">5</translation>
+        <translation type="unfinished">5</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="337"/>
         <source>&amp;New</source>
-        <translation type="obsolete">&amp;Nueva</translation>
+        <translation type="unfinished">&amp;Nueva</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1248,29 +1443,29 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">.</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="338"/>
         <source>Ctrl+N</source>
-        <translation type="obsolete">Ctrl+N</translation>
+        <translation type="unfinished">Ctrl+N</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="339"/>
         <source>&amp;Open...</source>
-        <translation type="obsolete">A&amp;brir...</translation>
+        <translation type="unfinished">A&amp;brir...</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="340"/>
         <source>Ctrl+O</source>
-        <translation type="obsolete">Ctrl+B</translation>
+        <translation type="unfinished">Ctrl+B</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="341"/>
         <source>&amp;Save</source>
-        <translation type="obsolete">&amp;Guardar</translation>
+        <translation type="unfinished">&amp;Guardar</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="342"/>
         <source>Ctrl+S</source>
-        <translation type="obsolete">Ctrl+G</translation>
+        <translation type="unfinished">Ctrl+G</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1278,9 +1473,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">G&amp;uardar Como...</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="336"/>
         <source>E&amp;xit</source>
-        <translation type="obsolete">&amp;Salir</translation>
+        <translation type="unfinished">&amp;Salir</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1288,9 +1483,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Sobre</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="344"/>
         <source>&amp;About</source>
-        <translation type="obsolete">&amp;Sobre</translation>
+        <translation type="unfinished">&amp;Sobre</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1298,14 +1493,14 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Añadir tarjetas</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="324"/>
         <source>&amp;Add cards</source>
-        <translation type="obsolete">&amp;Añadir tarjetas</translation>
+        <translation type="unfinished">&amp;Añadir tarjetas</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="325"/>
         <source>Ctrl+A</source>
-        <translation type="obsolete">Ctrl+A</translation>
+        <translation type="unfinished">Ctrl+A</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1318,29 +1513,29 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Editar base de datos</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="333"/>
         <source>Edit &amp;deck</source>
-        <translation type="obsolete">E&amp;ditar base de datos</translation>
+        <translation type="unfinished">E&amp;ditar base de datos</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="334"/>
         <source>Ctrl+D</source>
-        <translation type="obsolete">Ctrl+C</translation>
+        <translation type="unfinished">Ctrl+C</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="345"/>
         <source>&amp;Import</source>
-        <translation type="obsolete">&amp;Importar</translation>
+        <translation type="unfinished">&amp;Importar</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="335"/>
         <source>&amp;Export</source>
-        <translation type="obsolete">&amp;Exportar</translation>
+        <translation type="unfinished">&amp;Exportar</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="357"/>
         <source>Show &amp;toolbar</source>
-        <translation type="obsolete">Mostrar barra de herramien&amp;tas</translation>
+        <translation type="unfinished">Mostrar barra de herramien&amp;tas</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1348,14 +1543,14 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Editar esta tarjeta</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="331"/>
         <source>&amp;Edit current card</source>
-        <translation type="obsolete">&amp;Editar esta tarjeta</translation>
+        <translation type="unfinished">&amp;Editar esta tarjeta</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="332"/>
         <source>Ctrl+E</source>
-        <translation type="obsolete">Ctrl+E</translation>
+        <translation type="unfinished">Ctrl+E</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1363,9 +1558,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Desechar esta tarjeta</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="329"/>
         <source>&amp;Delete current card</source>
-        <translation type="obsolete">&amp;Desechar esta tarjeta</translation>
+        <translation type="unfinished">&amp;Desechar esta tarjeta</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1373,14 +1568,14 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Del</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="326"/>
         <source>&amp;Clean duplicates</source>
-        <translation type="obsolete">&amp;Eliminar duplicados</translation>
+        <translation type="unfinished">&amp;Eliminar duplicados</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="327"/>
         <source>&amp;Configure Mnemosyne</source>
-        <translation type="obsolete">&amp;Configuración</translation>
+        <translation type="unfinished">&amp;Configuración</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1388,9 +1583,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Comenzar</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="354"/>
         <source>&amp;Getting started</source>
-        <translation type="obsolete">&amp;Comenzar</translation>
+        <translation type="unfinished">&amp;Comenzar</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1398,19 +1593,19 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Abajo, Abajo</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="347"/>
         <source>Enter</source>
-        <translation type="obsolete">Seleccionar</translation>
+        <translation type="unfinished">Seleccionar</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="351"/>
         <source>Return</source>
-        <translation type="obsolete">Volver</translation>
+        <translation type="unfinished">Volver</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="353"/>
         <source>Space</source>
-        <translation type="obsolete">Espacio</translation>
+        <translation type="unfinished">Espacio</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1423,14 +1618,14 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Mostrar estadísticas</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="355"/>
         <source>Show s&amp;tatistics</source>
-        <translation type="obsolete">Mostrar es&amp;tadísticas</translation>
+        <translation type="unfinished">Mostrar es&amp;tadísticas</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="356"/>
         <source>Ctrl+T</source>
-        <translation type="obsolete">Ctrl+T</translation>
+        <translation type="unfinished">Ctrl+T</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1438,9 +1633,9 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Consejo del día</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
+        <location filename="main_frm.py" line="358"/>
         <source>&amp;Tip of the day</source>
-        <translation type="obsolete">&amp;Consejo del día</translation>
+        <translation type="unfinished">&amp;Consejo del día</translation>
     </message>
     <message>
         <location filename="" line="134831276"/>
@@ -1448,302 +1643,302 @@ Tal vez desee ejecutar </translation>
         <translation type="obsolete">Barra de herramientas principal</translation>
     </message>
     <message>
-        <location filename="" line="134831276"/>
-        <source>&amp;File</source>
-        <translation type="obsolete">&amp;Archivo</translation>
-    </message>
-    <message>
-        <location filename="" line="134831276"/>
-        <source>&amp;Deck</source>
-        <translation type="obsolete">&amp;Base de datos</translation>
-    </message>
-    <message>
-        <location filename="" line="134831276"/>
-        <source>&amp;Settings</source>
-        <translation type="obsolete">&amp;Configuración</translation>
-    </message>
-    <message>
-        <location filename="" line="134831276"/>
-        <source>&amp;Help</source>
-        <translation type="obsolete">&amp;Ayuda</translation>
-    </message>
-    <message>
-        <location filename="" line="134831276"/>
-        <source>Activate cate&amp;gories</source>
-        <translation type="obsolete">Act&amp;ivar Categorías</translation>
-    </message>
-    <message>
-        <location filename="" line="134831276"/>
-        <source>Ctrl+G</source>
-        <translation type="obsolete">Ctrl+G</translation>
-    </message>
-</context>
-<context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="main_frm.py" line="301"/>
-        <source>Mnemosyne</source>
-        <translation type="unfinished">Mnemosyne</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="302"/>
-        <source>Question:</source>
-        <translation type="unfinished">Pregunta:</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="303"/>
-        <source>Answer:</source>
-        <translation type="unfinished">Respuesta:</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="304"/>
-        <source>Show &amp;answer</source>
-        <translation type="unfinished">Mostrar &amp;respuesta</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="305"/>
-        <source>Grade your answer:</source>
-        <translation type="unfinished">Evalúe su respuesta:</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="307"/>
-        <source>0</source>
-        <translation type="unfinished">0</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="309"/>
-        <source>1</source>
-        <translation type="unfinished">1</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="311"/>
-        <source>2</source>
-        <translation type="unfinished">2</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="313"/>
-        <source>3</source>
-        <translation type="unfinished">3</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="315"/>
-        <source>4</source>
-        <translation type="unfinished">4</translation>
-    </message>
-    <message>
         <location filename="main_frm.py" line="317"/>
-        <source>5</source>
-        <translation type="unfinished">5</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="318"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="319"/>
+        <location filename="main_frm.py" line="318"/>
         <source>&amp;Deck</source>
         <translation type="unfinished">&amp;Base de datos</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="320"/>
+        <location filename="main_frm.py" line="319"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">&amp;Configuración</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="321"/>
+        <location filename="main_frm.py" line="320"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Ayuda</translation>
     </message>
     <message>
         <location filename="main_frm.py" line="322"/>
-        <source>toolBar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="323"/>
         <source>Activate cate&amp;gories</source>
         <translation type="unfinished">Act&amp;ivar Categorías</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="324"/>
+        <location filename="main_frm.py" line="323"/>
         <source>Ctrl+G</source>
         <translation type="unfinished">Ctrl+G</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="325"/>
-        <source>&amp;Add cards</source>
-        <translation type="unfinished">&amp;Añadir tarjetas</translation>
+        <location filename="main_frm.py" line="303"/>
+        <source>Show &amp;answer</source>
+        <translation type="unfinished">Mostrar &amp;respuesta</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="326"/>
-        <source>Ctrl+A</source>
-        <translation type="unfinished">Ctrl+A</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="327"/>
-        <source>&amp;Clean duplicates</source>
-        <translation type="unfinished">&amp;Eliminar duplicados</translation>
+        <location filename="main_frm.py" line="321"/>
+        <source>toolBar</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="main_frm.py" line="328"/>
-        <source>&amp;Configure Mnemosyne</source>
-        <translation type="unfinished">&amp;Configuración</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="329"/>
         <source>default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="main_frm.py" line="330"/>
-        <source>&amp;Delete current card</source>
-        <translation type="unfinished">&amp;Desechar esta tarjeta</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="331"/>
         <source>Backspace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="332"/>
-        <source>&amp;Edit current card</source>
-        <translation type="unfinished">&amp;Editar esta tarjeta</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="333"/>
-        <source>Ctrl+E</source>
-        <translation type="unfinished">Ctrl+E</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="334"/>
-        <source>Edit &amp;deck</source>
-        <translation type="unfinished">E&amp;ditar base de datos</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="335"/>
-        <source>Ctrl+D</source>
-        <translation type="unfinished">Ctrl+C</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="336"/>
-        <source>&amp;Export</source>
-        <translation type="unfinished">&amp;Exportar</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="337"/>
-        <source>E&amp;xit</source>
-        <translation type="unfinished">&amp;Salir</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="338"/>
-        <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nueva</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="339"/>
-        <source>Ctrl+N</source>
-        <translation type="unfinished">Ctrl+N</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="340"/>
-        <source>&amp;Open...</source>
-        <translation type="unfinished">A&amp;brir...</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="341"/>
-        <source>Ctrl+O</source>
-        <translation type="unfinished">Ctrl+B</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="342"/>
-        <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Guardar</translation>
-    </message>
-    <message>
         <location filename="main_frm.py" line="343"/>
-        <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="344"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="345"/>
-        <source>&amp;About</source>
-        <translation type="unfinished">&amp;Sobre</translation>
-    </message>
-    <message>
         <location filename="main_frm.py" line="346"/>
-        <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importar</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="347"/>
         <source>pressEnter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="main_frm.py" line="348"/>
-        <source>Enter</source>
-        <translation type="unfinished">Seleccionar</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="349"/>
         <source>pressR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="350"/>
+        <location filename="main_frm.py" line="349"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="351"/>
+        <location filename="main_frm.py" line="350"/>
         <source>pressReturn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="main_frm.py" line="352"/>
-        <source>Return</source>
-        <translation type="unfinished">Volver</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="353"/>
         <source>pressSpace</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <location filename="main_frm.py" line="300"/>
+        <source>Mnemosyne</source>
+        <translation type="obsolete">Mnemosyne</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="301"/>
+        <source>Question:</source>
+        <translation type="obsolete">Pregunta:</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="302"/>
+        <source>Answer:</source>
+        <translation type="obsolete">Respuesta:</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="303"/>
+        <source>Show &amp;answer</source>
+        <translation type="obsolete">Mostrar &amp;respuesta</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="304"/>
+        <source>Grade your answer:</source>
+        <translation type="obsolete">Evalúe su respuesta:</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="306"/>
+        <source>0</source>
+        <translation type="obsolete">0</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="308"/>
+        <source>1</source>
+        <translation type="obsolete">1</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="310"/>
+        <source>2</source>
+        <translation type="obsolete">2</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="312"/>
+        <source>3</source>
+        <translation type="obsolete">3</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="314"/>
+        <source>4</source>
+        <translation type="obsolete">4</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="316"/>
+        <source>5</source>
+        <translation type="obsolete">5</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="317"/>
+        <source>&amp;File</source>
+        <translation type="obsolete">&amp;Archivo</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="318"/>
+        <source>&amp;Deck</source>
+        <translation type="obsolete">&amp;Base de datos</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="319"/>
+        <source>&amp;Settings</source>
+        <translation type="obsolete">&amp;Configuración</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="320"/>
+        <source>&amp;Help</source>
+        <translation type="obsolete">&amp;Ayuda</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="322"/>
+        <source>Activate cate&amp;gories</source>
+        <translation type="obsolete">Act&amp;ivar Categorías</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="323"/>
+        <source>Ctrl+G</source>
+        <translation type="obsolete">Ctrl+G</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="324"/>
+        <source>&amp;Add cards</source>
+        <translation type="obsolete">&amp;Añadir tarjetas</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="325"/>
+        <source>Ctrl+A</source>
+        <translation type="obsolete">Ctrl+A</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="326"/>
+        <source>&amp;Clean duplicates</source>
+        <translation type="obsolete">&amp;Eliminar duplicados</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="327"/>
+        <source>&amp;Configure Mnemosyne</source>
+        <translation type="obsolete">&amp;Configuración</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="329"/>
+        <source>&amp;Delete current card</source>
+        <translation type="obsolete">&amp;Desechar esta tarjeta</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="331"/>
+        <source>&amp;Edit current card</source>
+        <translation type="obsolete">&amp;Editar esta tarjeta</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="332"/>
+        <source>Ctrl+E</source>
+        <translation type="obsolete">Ctrl+E</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="333"/>
+        <source>Edit &amp;deck</source>
+        <translation type="obsolete">E&amp;ditar base de datos</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="334"/>
+        <source>Ctrl+D</source>
+        <translation type="obsolete">Ctrl+C</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="335"/>
+        <source>&amp;Export</source>
+        <translation type="obsolete">&amp;Exportar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="336"/>
+        <source>E&amp;xit</source>
+        <translation type="obsolete">&amp;Salir</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="337"/>
+        <source>&amp;New</source>
+        <translation type="obsolete">&amp;Nueva</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="338"/>
+        <source>Ctrl+N</source>
+        <translation type="obsolete">Ctrl+N</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="339"/>
+        <source>&amp;Open...</source>
+        <translation type="obsolete">A&amp;brir...</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="340"/>
+        <source>Ctrl+O</source>
+        <translation type="obsolete">Ctrl+B</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="341"/>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Guardar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="344"/>
+        <source>&amp;About</source>
+        <translation type="obsolete">&amp;Sobre</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="345"/>
+        <source>&amp;Import</source>
+        <translation type="obsolete">&amp;Importar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="347"/>
+        <source>Enter</source>
+        <translation type="obsolete">Seleccionar</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="351"/>
+        <source>Return</source>
+        <translation type="obsolete">Volver</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="353"/>
+        <source>Space</source>
+        <translation type="obsolete">Espacio</translation>
+    </message>
     <message>
         <location filename="main_frm.py" line="354"/>
-        <source>Space</source>
-        <translation type="unfinished">Espacio</translation>
+        <source>&amp;Getting started</source>
+        <translation type="obsolete">&amp;Comenzar</translation>
     </message>
     <message>
         <location filename="main_frm.py" line="355"/>
-        <source>&amp;Getting started</source>
-        <translation type="unfinished">&amp;Comenzar</translation>
+        <source>Show s&amp;tatistics</source>
+        <translation type="obsolete">Mostrar es&amp;tadísticas</translation>
     </message>
     <message>
         <location filename="main_frm.py" line="356"/>
-        <source>Show s&amp;tatistics</source>
-        <translation type="unfinished">Mostrar es&amp;tadísticas</translation>
+        <source>Ctrl+T</source>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <location filename="main_frm.py" line="357"/>
-        <source>Ctrl+T</source>
-        <translation type="unfinished">Ctrl+T</translation>
+        <source>Show &amp;toolbar</source>
+        <translation type="obsolete">Mostrar barra de herramien&amp;tas</translation>
     </message>
     <message>
         <location filename="main_frm.py" line="358"/>
-        <source>Show &amp;toolbar</source>
-        <translation type="unfinished">Mostrar barra de herramien&amp;tas</translation>
-    </message>
-    <message>
-        <location filename="main_frm.py" line="359"/>
         <source>&amp;Tip of the day</source>
-        <translation type="unfinished">&amp;Consejo del día</translation>
+        <translation type="obsolete">&amp;Consejo del día</translation>
     </message>
 </context>
 <context>

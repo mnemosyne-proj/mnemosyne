@@ -8,7 +8,7 @@ import os, logging, bz2, sets, traceback, time, urllib2
 from threading import Thread
 from random import randint
 from string import joinfields
-from mnemosyne.core import *
+from mnemosyne.libmnemosyne import *
 
 
 

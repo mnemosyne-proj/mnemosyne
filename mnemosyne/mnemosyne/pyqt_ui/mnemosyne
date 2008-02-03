@@ -7,7 +7,8 @@
 ##############################################################################
 
 import sys, os, locale
-from qt import *
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 from mnemosyne.pyqt_ui.main_dlg import *
 from mnemosyne.pyqt_ui.message_boxes import *
 from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.

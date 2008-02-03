@@ -7,7 +7,7 @@
 import random, time, os, string, sys, cPickle, md5, struct, logging, re
 import shutil, datetime, bz2, copy, cStringIO 
 
-from mnemosyne.core.exceptions import *
+from mnemosyne.libmnemosyne.exceptions import *
 import mnemosyne.version
 
 logger = logging.getLogger("mnemosyne")

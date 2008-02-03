@@ -5,8 +5,10 @@
 ##############################################################################
 
 import sys, os
-from mnemosyne.core.exceptions import *
-from qt import *
+from mnemosyne.libmnemosyne.exceptions import *
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 
 
