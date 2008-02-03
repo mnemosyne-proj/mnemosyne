@@ -1,19 +1,24 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="1.1">
 <context>
     <name></name>
     <message>
+        <location filename="clean_duplicates.py" line="100"/>
         <source>Mnemosyne</source>
         <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
+        <location filename="clean_duplicates.py" line="62"/>
         <source>Removed duplicates: </source>
         <translation type="unfinished">Entfernte Duplikate: </translation>
     </message>
     <message>
+        <location filename="clean_duplicates.py" line="101"/>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
+        <location filename="clean_duplicates.py" line="76"/>
         <source>There are cards with different answers for question:
 
 </source>
@@ -22,116 +27,144 @@
 </translation>
     </message>
     <message>
+        <location filename="clean_duplicates.py" line="78"/>
         <source>&amp;Merge and edit</source>
         <translation type="unfinished">&amp;Zusammenfassen und bearbeiten</translation>
     </message>
     <message>
+        <location filename="clean_duplicates.py" line="79"/>
         <source>&amp;Don&apos;t merge</source>
         <translation type="unfinished">&amp;Nicht zusammenfassen</translation>
     </message>
     <message>
+        <location filename="clean_duplicates.py" line="101"/>
         <source>Done!</source>
         <translation type="unfinished">Fertig!</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="45"/>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
         <translation type="unfinished">Wie &apos;0&apos;, aber es beginnt vertrauter zu werden.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="46"/>
         <source> Show it less often.</source>
         <translation type="unfinished"> Zeige sie weniger oft.</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="28"/>
         <source>Error in config.py:</source>
         <translation type="unfinished">Fehler in config.py:</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="30"/>
         <source>Error when running plugin:</source>
         <translation type="unfinished">Fehler beim Ausführen des Plugin:</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="32"/>
         <source>Unable to load file.</source>
         <translation type="unfinished">Konnte die Datei nicht laden.</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="34"/>
         <source>Invalid file format.</source>
         <translation type="unfinished">Fasches Dateiformat.</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="36"/>
         <source>Unable to save file.</source>
         <translation type="unfinished">Konnte die Datei nicht speichern.</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="38"/>
         <source>Unable to parse XML:</source>
         <translation type="unfinished">Konnte XML nicht parsen:</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="40"/>
         <source>Unrecognised encoding.</source>
         <translation type="unfinished">Unbekannte Kodierung.</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="42"/>
         <source>Missing answer on line:</source>
         <translation type="unfinished">Fehlende Antwort in Zeile:</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="45"/>
         <source>Unable to load database.
 Creating tmp file.</source>
         <translation type="unfinished">Konnte die Datenbank nicht laden.
 Erstelle temporäre Datei.</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="64"/>
         <source>File exists:</source>
         <translation type="unfinished">Vorhandene Datei:</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="65"/>
         <source>&amp;Overwrite</source>
         <translation type="unfinished">&amp;Überschreiben</translation>
     </message>
     <message>
+        <location filename="message_boxes.py" line="66"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Abbrechen</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="44"/>
         <source>You don&apos;t remember this card yet.</source>
         <translation type="unfinished">Du kannst Dich noch nicht an diese Karte erinnern.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="48"/>
         <source>You&apos;ve memorised this card now,</source>
         <translation type="unfinished">Du hast diese Karte jetzt gelernt,</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="49"/>
         <source> and will probably remember it for a few days.</source>
         <translation type="unfinished"> und wirst sie für ein paar Tage behalten können.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="53"/>
         <source>You have forgotten this card completely.</source>
         <translation type="unfinished">Du hast diese Karte komplett vergessen.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="55"/>
         <source>Barely correct answer. The interval was way too long.</source>
         <translation type="unfinished">Gerade noch richtige Antwort. Das Lernintervall war viel zu lang.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="56"/>
         <source>Correct answer, but with much effort.</source>
         <translation type="unfinished">Richtige Anwort, aber mit viel Anstrengung.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="57"/>
         <source> The interval was probably too long.</source>
         <translation type="unfinished"> Das Lernintervall war vermutlich zu lang.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="59"/>
         <source>Correct answer, with some effort.</source>
         <translation type="unfinished">Richtige Antwort, mit ein wenig Anstrengung.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="60"/>
         <source> The interval was probably just right.</source>
         <translation type="unfinished"> Das Lernintervall war wohl genau richtig.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="62"/>
         <source>Correct answer, but without any</source>
         <translation type="unfinished">Richtige Anwort, ganz ohne</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="63"/>
         <source> difficulties. The interval was probably too short.</source>
         <translation type="unfinished"> Schwierigkeiten. Das Lerninterwall war wahrscheinlich zu kurz.</translation>
     </message>
@@ -139,10 +172,12 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>AboutDlg</name>
     <message>
+        <location filename="about_dlg.py" line="30"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
+        <location filename="about_dlg.py" line="32"/>
         <source>Main author: Peter Bienstman
 
 </source>
@@ -151,6 +186,7 @@ Erstelle temporäre Datei.</translation>
 </translation>
     </message>
     <message>
+        <location filename="about_dlg.py" line="33"/>
         <source>More info: http://mnemosyne-proj.sourceforge.net
 </source>
         <translation>Mehr Informationen unter: http://mnemosyne-proj.sourceforge.net
@@ -160,6 +196,7 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>AboutFrm</name>
     <message>
+        <location filename="about_frm.ui" line="16"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
@@ -167,30 +204,37 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>ActivateCategoriesFrm</name>
     <message>
+        <location filename="activate_categories_frm.ui" line="16"/>
         <source>Activate categories</source>
         <translation>Kategorien aktivieren</translation>
     </message>
     <message>
+        <location filename="activate_categories_frm.ui" line="35"/>
         <source>Select the categories to activate:</source>
         <translation>Wähle die zu aktivierenden Kategorien:</translation>
     </message>
     <message>
+        <location filename="activate_categories_frm.ui" line="59"/>
         <source>Activate none</source>
         <translation>Keine aktivieren</translation>
     </message>
     <message>
+        <location filename="activate_categories_frm.ui" line="67"/>
         <source>Activate all</source>
         <translation>Alle aktivieren</translation>
     </message>
     <message>
+        <location filename="activate_categories_frm.ui" line="88"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="activate_categories_frm.ui" line="91"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
+        <location filename="activate_categories_frm.ui" line="122"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
@@ -198,60 +242,74 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>AddItemsDlg</name>
     <message>
+        <location filename="add_items_dlg.py" line="90"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;Standard&gt;</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="244"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="130"/>
         <source>Abandon current card?</source>
         <translation>Aktuelle Karte abbrechen?</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="131"/>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="132"/>
         <source>&amp;No</source>
         <translation>&amp;Nein</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="162"/>
         <source>Question:</source>
         <translation>Frage:</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="165"/>
         <source>Answer:</source>
         <translation>Antwort:</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="168"/>
         <source>Written form:</source>
         <translation>Schriftform:</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="171"/>
         <source>Translation:</source>
         <translation>Übersetzung:</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="226"/>
         <source>Card is already in database.
 </source>
         <translation>Die Karte ist bereits in der Datenbank.
 </translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="226"/>
         <source>Duplicate not added.</source>
         <translation>Duplikate wurden nicht hinzugefügt.</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="227"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="246"/>
         <source>There are different answers for</source>
         <translation>Es gibt verschiedene Antworten für</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="246"/>
         <source> this question:
 
 </source>
@@ -260,14 +318,17 @@ Erstelle temporäre Datei.</translation>
 </translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="248"/>
         <source>&amp;Merge and edit</source>
         <translation>&amp;Zusammenfassen und bearbeiten</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="249"/>
         <source>&amp;Add as is</source>
         <translation>&amp;Unverändert hinzufügen</translation>
     </message>
     <message>
+        <location filename="add_items_dlg.py" line="250"/>
         <source>&amp;Do not add</source>
         <translation>&amp;Weglassen</translation>
     </message>
@@ -275,126 +336,157 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>AddItemsFrm</name>
     <message>
+        <location filename="add_items_frm.ui" line="16"/>
         <source>Add cards</source>
         <translation>Karten hinzufügen</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="43"/>
         <source>Category:</source>
         <translation>Kategorie:</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="75"/>
         <source>Question:</source>
         <translation>Frage:</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="102"/>
         <source>Pronunciation:</source>
         <translation>Aussprache:</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="121"/>
         <source>Answer:</source>
         <translation>Antwort:</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="140"/>
         <source>Add &amp;vice versa too</source>
         <translation>Auch ver&amp;tauscht hinzufügen</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="143"/>
         <source>Alt+V</source>
         <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="159"/>
         <source>Select initial grade:</source>
         <translation>Wähle die Anfangsbewertung:</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="184"/>
         <source>&amp;0</source>
         <translation>&amp;0</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="187"/>
         <source>Ctrl+0</source>
         <translation>Ctrl+0</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="193"/>
         <source>You don&apos;t remember this item yet or forgot it.</source>
         <translation>Du kannst Dich nicht mehr an diese Einheit erinnern oder hast sie vergessen.</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="201"/>
         <source>&amp;1</source>
         <translation>&amp;1</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="204"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="210"/>
         <source>Like &apos;0&apos;, but the item is getting more familiar.</source>
         <translation>Wie &apos;0&apos;, aber es beginnt vertrauter zu werden.</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="218"/>
         <source>&amp;2</source>
         <translation>&amp;2</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="221"/>
         <source>Ctrl+2</source>
         <translation>Ctrl+2</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="227"/>
         <source>You&apos;ve memorised this item now, and will probably remember it for a few days.</source>
         <translation>Du hast diese Einheit jetzt gelernt und wirst sie für ein paar Tage behalten können.</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="235"/>
         <source>&amp;3</source>
         <translation>&amp;3</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="238"/>
         <source>Ctrl+3</source>
         <translation>Ctrl+3</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="244"/>
         <source>Correct answer, but with much effort. The interval was probably too long</source>
         <translation>Richtige Anwort, aber mit viel Anstrengung. Das Lernintervall war vermutlich zu lang</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="252"/>
         <source>&amp;4</source>
         <translation>&amp;4</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="255"/>
         <source>Ctrl+4</source>
         <translation>Ctrl+4</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="261"/>
         <source>Correct answer, with some effort. The interval was probably just right.</source>
         <translation>Richtige Antwort, mit ein wenig Anstrengung. Das Lernintervall war genau richtig.</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="269"/>
         <source>&amp;5</source>
         <translation>&amp;5</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="272"/>
         <source>Ctrl+5</source>
         <translation>Ctrl+5</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="278"/>
         <source>Correct answer, but without any difficulties. The interval was probably too short.</source>
         <translation>Richtige Anwort, ganz ohne Schwierigkeiten. Das Lernintervall war wohl zu kurz.</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="290"/>
         <source>Type question and answer, then pick initial grade.</source>
         <translation>Schreibe die Frage und Antwort, dann wähle die Anfangsbewertung.</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="306"/>
         <source>&amp;Preview</source>
         <translation>&amp;Vorschau</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="309"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="337"/>
         <source>E&amp;xit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
+        <location filename="add_items_frm.ui" line="340"/>
         <source>Alt+X</source>
         <translation>Alt+X</translation>
     </message>
@@ -402,26 +494,32 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>ChangeCategoryFrm</name>
     <message>
+        <location filename="change_category_frm.ui" line="16"/>
         <source>Change category</source>
         <translation>Kategorie ändern</translation>
     </message>
     <message>
+        <location filename="change_category_frm.ui" line="43"/>
         <source>Category:</source>
         <translation>Kategorie:</translation>
     </message>
     <message>
+        <location filename="change_category_frm.ui" line="83"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="change_category_frm.ui" line="86"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
+        <location filename="change_category_frm.ui" line="111"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
     <message>
+        <location filename="change_category_frm.ui" line="114"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
@@ -429,90 +527,112 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>ConfigurationFrm</name>
     <message>
+        <location filename="config_frm.ui" line="24"/>
         <source>Mnemosyne configuration</source>
         <translation>Mnemosyne einrichten</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="54"/>
         <source>Hover with the mouse over the buttons to get extra information.</source>
         <translation>Für weitergehende Informationen fahre mit der Maus über die Buttons.</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="65"/>
         <source>Appearance</source>
         <translation>Erscheinungsbild</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="92"/>
         <source>Set Q/A font</source>
         <translation>F/A Schrift einstellen</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="95"/>
         <source>Set the font used when showing single questions and answers</source>
         <translation>Schriftgröße für die Anzeige der Fragen und Antworten einstellen</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="103"/>
         <source>Set list font</source>
         <translation>Listenschrift einstellen</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="106"/>
         <source>Set the font used when showing the list of all the cards in the deck</source>
         <translation>Schriftgröße für die Auflistung aller Karten in einer Kartei einstellen</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="124"/>
         <source>Increase size of non-latin characters by</source>
         <translation>Erhöhe die Schriftgröße für nicht-latin Zeichen um</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="155"/>
         <source>Sometimes complex glyphs are hard to read at the default latin font size</source>
         <translation>Manchmal sind Bildzeichen in der Standard Latin Schriftgröße schwer zu lesen</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="152"/>
         <source>point(s)</source>
         <translation>Punkt(e)</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="169"/>
         <source>Log uploading</source>
         <translation>Upload des Logbuchs</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="196"/>
         <source>Upload anonymous logs</source>
         <translation>Upload von anonymisierten Logbüchern</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="199"/>
         <source>Share anonymous statistics to contribute to memory research</source>
         <translation>Gib anonyme Statistiken frei, um zur Lernforschung beizutragen</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="223"/>
         <source>Duplicate handling</source>
         <translation>Duplikate</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="242"/>
         <source>Check for duplicates when adding new cards</source>
         <translation>Auf Duplikate prüfen, wenn neue Karten hinzugefügt werden</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="250"/>
         <source>Allow duplicates in different categories</source>
         <translation>Erlaube Duplikate in verschiedenen Kategorien</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="262"/>
         <source>Repetition process</source>
         <translation>Lernprozess</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="281"/>
         <source>Number of grade 0 cards to learn at once:</source>
         <translation>Kartenanzahl mit der Bewertung 0, die auf einmal gelernt werden:</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="284"/>
         <source>Note: this is NOT the number of grade 0 cards you want to memorise *per day*</source>
         <translation>Beachte: Das ist NICHT die Anzahl der mit 0 bewerteten Karten, die Du *pro Tag* lernen willst</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="318"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="352"/>
         <source>Defaults</source>
         <translation>Standard wiederherstellen</translation>
     </message>
     <message>
+        <location filename="config_frm.ui" line="360"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
@@ -520,42 +640,52 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>EditItemFrm</name>
     <message>
+        <location filename="edit_item_frm.ui" line="16"/>
         <source>Edit card</source>
         <translation>Karte bearbeiten</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="43"/>
         <source>Category:</source>
         <translation>Kategorie:</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="75"/>
         <source>Question:</source>
         <translation>Frage:</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="94"/>
         <source>Answer:</source>
         <translation>Antwort:</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="121"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="124"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="149"/>
         <source>&amp;Preview</source>
         <translation>&amp;Vorschau</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="152"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="177"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
     <message>
+        <location filename="edit_item_frm.ui" line="180"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
@@ -563,54 +693,67 @@ Erstelle temporäre Datei.</translation>
 <context>
     <name>EditItemsDlg</name>
     <message>
+        <location filename="edit_items_dlg.py" line="73"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="74"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="75"/>
         <source>&amp;Preview</source>
         <translation>&amp;Vorschau</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="76"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="77"/>
         <source>&amp;Add vice versa</source>
         <translation>Ver&amp;tauscht hinzufügen</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="78"/>
         <source>S&amp;tatistics</source>
         <translation>Statisti&amp;ken</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="79"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="87"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="84"/>
         <source>&amp;Change category</source>
         <translation>Kategorie &amp;ändern</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="220"/>
         <source>Add vice versa of these cards?</source>
         <translation>Diese Karten vertauscht hinzufügen?</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="223"/>
         <source>Add vice versa of this card?</source>
         <translation>Diese Karte vertauscht hinzufügen?</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="354"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="226"/>
         <source>
 
 This could create duplicates if the vice </source>
@@ -619,80 +762,99 @@ This could create duplicates if the vice </source>
 Das kann Duplikate erzeugen, wenn die vertauschten </translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="228"/>
         <source>versas are already present, 
 so you might want to run </source>
         <translation>Karten bereits existieren.
 Vielleicht möchtest Du </translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="229"/>
         <source>clean duplicates&apos; afterwards.</source>
         <translation>danach &apos;Duplikate aufräumen&apos; ausführen.</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="296"/>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="296"/>
         <source>&amp;No</source>
         <translation>&amp;Nein</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="257"/>
         <source>Grade:</source>
         <translation>Bewertung:</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="260"/>
         <source>Easiness:</source>
         <translation>Leichtigkeit:</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="263"/>
         <source>Repetitions:</source>
         <translation>Wiederholungen:</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="266"/>
         <source>Lapses:</source>
         <translation>Fehler:</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="269"/>
         <source>Days since last repetition:</source>
         <translation>Tage seit der letzten Wiederholung:</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="272"/>
         <source>Days until next repetition:</source>
         <translation>Tage bis zur nächsten Wiederholung:</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="356"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="292"/>
         <source>Delete these cards?</source>
         <translation>Diese Karten löschen?</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="295"/>
         <source>Delete this card?</source>
         <translation>Diese Karte löschen?</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="355"/>
         <source>The text you entered was not found.</source>
         <translation>Der eingegebene Text wurde nicht gefunden.</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="383"/>
         <source>&amp;Find again</source>
         <translation>&amp;Weitersuchen</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="403"/>
         <source>F</source>
         <translation>F</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="418"/>
         <source>&amp;Find</source>
         <translation>&amp;Suchen</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="59"/>
         <source>Please wait...</source>
         <translation>Bitte warten...</translation>
     </message>
     <message>
+        <location filename="edit_items_dlg.py" line="86"/>
         <source>Add &amp;vice versa</source>
         <translation>Ver&amp;tauscht hinzufügen</translation>
     </message>
@@ -700,34 +862,42 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>EditItemsFrm</name>
     <message>
+        <location filename="edit_items_frm.ui" line="67"/>
         <source>Question</source>
         <translation>Frage</translation>
     </message>
     <message>
+        <location filename="edit_items_frm.ui" line="78"/>
         <source>Answer</source>
         <translation>Antwort</translation>
     </message>
     <message>
+        <location filename="edit_items_frm.ui" line="89"/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
+        <location filename="edit_items_frm.ui" line="16"/>
         <source>Edit deck</source>
         <translation>Kartei bearbeiten</translation>
     </message>
     <message>
+        <location filename="edit_items_frm.ui" line="48"/>
         <source>&amp;Find</source>
         <translation>&amp;Suchen</translation>
     </message>
     <message>
+        <location filename="edit_items_frm.ui" line="61"/>
         <source>To edit a card, right-click on it.</source>
         <translation>Zum Bearbeiten einer Karte, klicke mit der rechten Maustaste darauf.</translation>
     </message>
     <message>
+        <location filename="edit_items_frm.ui" line="147"/>
         <source>E&amp;xit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
+        <location filename="edit_items_frm.ui" line="150"/>
         <source>Alt+X</source>
         <translation>Alt+X</translation>
     </message>
@@ -735,10 +905,12 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>ExportDlg</name>
     <message>
+        <location filename="export_dlg.py" line="64"/>
         <source>All Files (*);;</source>
         <translation>Alle Dateien (*);;</translation>
     </message>
     <message>
+        <location filename="export_dlg.py" line="65"/>
         <source>Export</source>
         <translation>Exportieren</translation>
     </message>
@@ -746,42 +918,52 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>ExportFrm</name>
     <message>
+        <location filename="export_frm.ui" line="16"/>
         <source>Export to file</source>
         <translation>Datei exportieren</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="35"/>
         <source>File format:</source>
         <translation>Dateiformat:</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="57"/>
         <source>File to export to:</source>
         <translation>Datei in die exportiert werden soll:</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="78"/>
         <source>&amp;Browse</source>
         <translation>&amp;Durchsuchen</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="88"/>
         <source>Categories to export:</source>
         <translation>Kategorien die exportiert werden sollen:</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="112"/>
         <source>&amp;Select all</source>
         <translation>Alles aus&amp;wählen</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="125"/>
         <source>Reset learning data on export</source>
         <translation>Lerndaten beim Export zurücksetzen</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="141"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="144"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
+        <location filename="export_frm.ui" line="172"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
@@ -789,14 +971,17 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>ImportDlg</name>
     <message>
+        <location filename="import_dlg.py" line="41"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;Standard&gt;</translation>
     </message>
     <message>
+        <location filename="import_dlg.py" line="61"/>
         <source>All Files (*);;</source>
         <translation>Alle Dateien (*);;</translation>
     </message>
     <message>
+        <location filename="import_dlg.py" line="62"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
@@ -804,42 +989,52 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>ImportFrm</name>
     <message>
+        <location filename="import_frm.ui" line="16"/>
         <source>Import from file</source>
         <translation>Datei importieren</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="35"/>
         <source>File format:</source>
         <translation>Dateiformat:</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="57"/>
         <source>File to import from:</source>
         <translation>Datei die importiert werden soll:</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="78"/>
         <source>&amp;Browse</source>
         <translation>&amp;Durchsuchen</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="88"/>
         <source>Put cards without category into this category:</source>
         <translation>Karten ohne Kategorie verschieben nach:</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="110"/>
         <source>Note: all cards will be added to the current database.</source>
         <translation>Achtung: Alle Karten werden der aktuellen Datenbank hinzugefügt.</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="118"/>
         <source>Reset learning data on import</source>
         <translation>Lerndaten beim Import zurücksetzen</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="134"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="137"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
+        <location filename="import_frm.ui" line="165"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
@@ -847,90 +1042,112 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>MainDlg</name>
     <message>
+        <location filename="main_dlg.py" line="244"/>
         <source>Mnemosyne databases (*.mem)</source>
         <translation>Mnemosyne Datenbanken (*.mem)</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="364"/>
         <source>Please wait...</source>
         <translation>Bitte warten...</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="412"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="413"/>
         <source>Delete current card?</source>
         <translation>Aktuelle Karte löschen?</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="414"/>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="414"/>
         <source>&amp;No</source>
         <translation>&amp;Nein</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="591"/>
         <source>Returns in </source>
         <translation>Kommt wieder in </translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="592"/>
         <source> day(s).</source>
         <translation> Tag(en).</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="604"/>
         <source>Next repetition: today.</source>
         <translation>Nächste Wiederholung: heute.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="606"/>
         <source>Next repetition: tomorrow.</source>
         <translation>Nächste Wiederholung: morgen.</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="607"/>
         <source>Next repetition in </source>
         <translation>Nächste Wiederholung in </translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="679"/>
         <source>Question:</source>
         <translation>Frage:</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="680"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;Standard&gt;</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="724"/>
         <source>Show &amp;answer</source>
         <translation>&amp;Antwort anzeigen</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="728"/>
         <source>Learn ahead of schedule</source>
         <translation>Ohne Rücksicht auf den Zeitplan weiterlernen</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="768"/>
         <source>Pick days until next repetition:</source>
         <translation>Wähle die Tage bis zur nächsten Wiederholung:</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="771"/>
         <source>Grade your answer:</source>
         <translation>Bewerte deine Antwort:</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="777"/>
         <source>Scheduled: </source>
         <translation>Vorgemerkt: </translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="779"/>
         <source>Not memorised: </source>
         <translation>Nicht gelernte: </translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="781"/>
         <source>All: </source>
         <translation>Alle: </translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="157"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
     <message>
+        <location filename="main_dlg.py" line="609"/>
         <source> days.</source>
         <translation> Tage.</translation>
     </message>
@@ -938,273 +1155,608 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>MainFrm</name>
     <message>
+        <location filename="" line="134831276"/>
         <source>Mnemosyne</source>
-        <translation>Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Question:</source>
-        <translation>Frage:</translation>
+        <translation type="obsolete">Frage:</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Answer:</source>
-        <translation>Antwort:</translation>
+        <translation type="obsolete">Antwort:</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Show answer</source>
-        <translation>Antwort anzeigen</translation>
+        <translation type="obsolete">Antwort anzeigen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Grade your answer:</source>
-        <translation>Bewerte deine Antwort:</translation>
+        <translation type="obsolete">Bewerte deine Antwort:</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;0</source>
-        <translation>&amp;0</translation>
+        <translation type="obsolete">&amp;0</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>0</source>
-        <translation>0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;1</source>
-        <translation>&amp;1</translation>
+        <translation type="obsolete">&amp;1</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>1</source>
-        <translation>1</translation>
+        <translation type="obsolete">1</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;2</source>
-        <translation>&amp;2</translation>
+        <translation type="obsolete">&amp;2</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>2</source>
-        <translation>2</translation>
+        <translation type="obsolete">2</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;3</source>
-        <translation>&amp;3</translation>
+        <translation type="obsolete">&amp;3</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>3</source>
-        <translation>3</translation>
+        <translation type="obsolete">3</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;4</source>
-        <translation>&amp;4</translation>
+        <translation type="obsolete">&amp;4</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>4</source>
-        <translation>4</translation>
+        <translation type="obsolete">4</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;5</source>
-        <translation>&amp;5</translation>
+        <translation type="obsolete">&amp;5</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>5</source>
-        <translation>5</translation>
+        <translation type="obsolete">5</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;New</source>
-        <translation>&amp;Neu</translation>
+        <translation type="obsolete">&amp;Neu</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>.</source>
-        <translation>.</translation>
+        <translation type="obsolete">.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+N</source>
-        <translation>Ctrl+N</translation>
+        <translation type="obsolete">Ctrl+N</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Öffnen...</translation>
+        <translation type="obsolete">&amp;Öffnen...</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+O</source>
-        <translation>Ctrl+O</translation>
+        <translation type="obsolete">Ctrl+O</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Save</source>
-        <translation>&amp;Speichern</translation>
+        <translation type="obsolete">&amp;Speichern</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+S</source>
-        <translation>Ctrl+S</translation>
+        <translation type="obsolete">Ctrl+S</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Save &amp;As...</source>
-        <translation>Speichern &amp;unter...</translation>
+        <translation type="obsolete">Speichern &amp;unter...</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>E&amp;xit</source>
-        <translation>&amp;Beenden</translation>
+        <translation type="obsolete">&amp;Beenden</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>About</source>
-        <translation>Über</translation>
+        <translation type="obsolete">Über</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;About</source>
-        <translation>&amp;Über</translation>
+        <translation type="obsolete">&amp;Über</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Add cards</source>
-        <translation>Karten hinzufügen</translation>
+        <translation type="obsolete">Karten hinzufügen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Add cards</source>
-        <translation>Karten &amp;hinzufügen</translation>
+        <translation type="obsolete">Karten &amp;hinzufügen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+A</source>
-        <translation>Ctrl+A</translation>
+        <translation type="obsolete">Ctrl+A</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Act&amp;ivate categories</source>
         <translation type="obsolete">Kategorien akt&amp;ivieren</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Edit deck</source>
-        <translation>Kartei bearbeiten</translation>
+        <translation type="obsolete">Kartei bearbeiten</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Edit &amp;deck</source>
-        <translation>Kartei &amp;bearbeiten</translation>
+        <translation type="obsolete">Kartei &amp;bearbeiten</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+D</source>
-        <translation>Ctrl+D</translation>
+        <translation type="obsolete">Ctrl+D</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Import</source>
-        <translation>&amp;Import</translation>
+        <translation type="obsolete">&amp;Import</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Export</source>
-        <translation>&amp;Exportieren</translation>
+        <translation type="obsolete">&amp;Exportieren</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Show &amp;toolbar</source>
-        <translation>Zeige &amp;Symbolleiste</translation>
+        <translation type="obsolete">Zeige &amp;Symbolleiste</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Edit current card</source>
-        <translation>Aktuelle Karte bearbeiten</translation>
+        <translation type="obsolete">Aktuelle Karte bearbeiten</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Edit current card</source>
-        <translation>&amp;Aktuelle Karte bearbeiten</translation>
+        <translation type="obsolete">&amp;Aktuelle Karte bearbeiten</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+E</source>
-        <translation>Ctrl+E</translation>
+        <translation type="obsolete">Ctrl+E</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Delete current card</source>
-        <translation>Aktuelle Karte löschen</translation>
+        <translation type="obsolete">Aktuelle Karte löschen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Delete current card</source>
-        <translation>Aktuelle Karte &amp;löschen</translation>
+        <translation type="obsolete">Aktuelle Karte &amp;löschen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Del</source>
-        <translation>Del</translation>
+        <translation type="obsolete">Del</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Clean duplicates</source>
-        <translation>&amp;Duplikate aufräumen</translation>
+        <translation type="obsolete">&amp;Duplikate aufräumen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Configure Mnemosyne</source>
-        <translation>Mnemosyne &amp;einrichten</translation>
+        <translation type="obsolete">Mnemosyne &amp;einrichten</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Getting started</source>
-        <translation>Einführung</translation>
+        <translation type="obsolete">Einführung</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Getting started</source>
-        <translation>&amp;Einführung</translation>
+        <translation type="obsolete">&amp;Einführung</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Down, Down</source>
-        <translation>Abwärts, Abwärts</translation>
+        <translation type="obsolete">Abwärts, Abwärts</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Enter</source>
-        <translation>Enter</translation>
+        <translation type="obsolete">Enter</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Return</source>
-        <translation>Return</translation>
+        <translation type="obsolete">Return</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Space</source>
-        <translation>Space</translation>
+        <translation type="obsolete">Space</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+R</source>
-        <translation>Ctrl+R</translation>
+        <translation type="obsolete">Ctrl+R</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Show statistics</source>
-        <translation>Zeige Statistiken</translation>
+        <translation type="obsolete">Zeige Statistiken</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Show s&amp;tatistics</source>
-        <translation>Zeige Statisti&amp;ken</translation>
+        <translation type="obsolete">Zeige Statisti&amp;ken</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Tip of the day</source>
-        <translation>Tipp des Tages</translation>
+        <translation type="obsolete">Tipp des Tages</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Tip of the day</source>
-        <translation>&amp;Tipp des Tages</translation>
+        <translation type="obsolete">&amp;Tipp des Tages</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Main toolbar (Mnemosyne)</source>
-        <translation>Symbolleiste (Mnemosyne)</translation>
+        <translation type="obsolete">Symbolleiste (Mnemosyne)</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;File</source>
-        <translation>&amp;Datei</translation>
+        <translation type="obsolete">&amp;Datei</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Deck</source>
-        <translation>&amp;Kartei</translation>
+        <translation type="obsolete">&amp;Kartei</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Einstellungen</translation>
+        <translation type="obsolete">&amp;Einstellungen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Help</source>
-        <translation>&amp;Hilfe</translation>
+        <translation type="obsolete">&amp;Hilfe</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Activate cate&amp;gories</source>
-        <translation>Kategorien akt&amp;ivieren</translation>
+        <translation type="obsolete">Kategorien akt&amp;ivieren</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
+        <translation type="obsolete">Ctrl+G</translation>
+    </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <location filename="main_frm.py" line="301"/>
+        <source>Mnemosyne</source>
+        <translation type="unfinished">Mnemosyne</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="302"/>
+        <source>Question:</source>
+        <translation type="unfinished">Frage:</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="303"/>
+        <source>Answer:</source>
+        <translation type="unfinished">Antwort:</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="304"/>
+        <source>Show &amp;answer</source>
+        <translation type="unfinished">&amp;Antwort anzeigen</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="305"/>
+        <source>Grade your answer:</source>
+        <translation type="unfinished">Bewerte deine Antwort:</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="307"/>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="309"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="311"/>
+        <source>2</source>
+        <translation type="unfinished">2</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="313"/>
+        <source>3</source>
+        <translation type="unfinished">3</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="315"/>
+        <source>4</source>
+        <translation type="unfinished">4</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="317"/>
+        <source>5</source>
+        <translation type="unfinished">5</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="318"/>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Datei</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="319"/>
+        <source>&amp;Deck</source>
+        <translation type="unfinished">&amp;Kartei</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="320"/>
+        <source>&amp;Settings</source>
+        <translation type="unfinished">&amp;Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="321"/>
+        <source>&amp;Help</source>
+        <translation type="unfinished">&amp;Hilfe</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="322"/>
+        <source>toolBar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="323"/>
+        <source>Activate cate&amp;gories</source>
+        <translation type="unfinished">Kategorien akt&amp;ivieren</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="324"/>
+        <source>Ctrl+G</source>
+        <translation type="unfinished">Ctrl+G</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="325"/>
+        <source>&amp;Add cards</source>
+        <translation type="unfinished">Karten &amp;hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="326"/>
+        <source>Ctrl+A</source>
+        <translation type="unfinished">Ctrl+A</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="327"/>
+        <source>&amp;Clean duplicates</source>
+        <translation type="unfinished">&amp;Duplikate aufräumen</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="328"/>
+        <source>&amp;Configure Mnemosyne</source>
+        <translation type="unfinished">Mnemosyne &amp;einrichten</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="329"/>
+        <source>default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="330"/>
+        <source>&amp;Delete current card</source>
+        <translation type="unfinished">Aktuelle Karte &amp;löschen</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="331"/>
+        <source>Backspace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="332"/>
+        <source>&amp;Edit current card</source>
+        <translation type="unfinished">&amp;Aktuelle Karte bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="333"/>
+        <source>Ctrl+E</source>
+        <translation type="unfinished">Ctrl+E</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="334"/>
+        <source>Edit &amp;deck</source>
+        <translation type="unfinished">Kartei &amp;bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="335"/>
+        <source>Ctrl+D</source>
+        <translation type="unfinished">Ctrl+D</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="336"/>
+        <source>&amp;Export</source>
+        <translation type="unfinished">&amp;Exportieren</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="337"/>
+        <source>E&amp;xit</source>
+        <translation type="unfinished">&amp;Beenden</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="338"/>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Neu</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="339"/>
+        <source>Ctrl+N</source>
+        <translation type="unfinished">Ctrl+N</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="340"/>
+        <source>&amp;Open...</source>
+        <translation type="unfinished">&amp;Öffnen...</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="341"/>
+        <source>Ctrl+O</source>
+        <translation type="unfinished">Ctrl+O</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="342"/>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Speichern</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="343"/>
+        <source>Ctrl+S</source>
+        <translation type="unfinished">Ctrl+S</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="344"/>
+        <source>Save &amp;as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="345"/>
+        <source>&amp;About</source>
+        <translation type="unfinished">&amp;Über</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="346"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Import</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="347"/>
+        <source>pressEnter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="348"/>
+        <source>Enter</source>
+        <translation type="unfinished">Enter</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="349"/>
+        <source>pressR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="350"/>
+        <source>R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="351"/>
+        <source>pressReturn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="352"/>
+        <source>Return</source>
+        <translation type="unfinished">Return</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="353"/>
+        <source>pressSpace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="354"/>
+        <source>Space</source>
+        <translation type="unfinished">Space</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="355"/>
+        <source>&amp;Getting started</source>
+        <translation type="unfinished">&amp;Einführung</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="356"/>
+        <source>Show s&amp;tatistics</source>
+        <translation type="unfinished">Zeige Statisti&amp;ken</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="357"/>
+        <source>Ctrl+T</source>
+        <translation type="unfinished">Ctrl+T</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="358"/>
+        <source>Show &amp;toolbar</source>
+        <translation type="unfinished">Zeige &amp;Symbolleiste</translation>
+    </message>
+    <message>
+        <location filename="main_frm.py" line="359"/>
+        <source>&amp;Tip of the day</source>
+        <translation type="unfinished">&amp;Tipp des Tages</translation>
     </message>
 </context>
 <context>
     <name>PreviewItemDlg</name>
     <message>
+        <location filename="preview_item_dlg.py" line="32"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;Standard&gt;</translation>
     </message>
     <message>
+        <location filename="preview_item_dlg.py" line="33"/>
         <source>Question:</source>
         <translation>Frage:</translation>
     </message>
@@ -1212,22 +1764,27 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>PreviewItemFrm</name>
     <message>
+        <location filename="preview_item_frm.ui" line="16"/>
         <source>Preview card</source>
         <translation>Kartenvorschau</translation>
     </message>
     <message>
+        <location filename="preview_item_frm.ui" line="35"/>
         <source>Question:</source>
         <translation>Frage:</translation>
     </message>
     <message>
+        <location filename="preview_item_frm.ui" line="81"/>
         <source>Answer:</source>
         <translation>Antwort:</translation>
     </message>
     <message>
+        <location filename="preview_item_frm.ui" line="137"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
+        <location filename="preview_item_frm.ui" line="140"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
@@ -1235,10 +1792,12 @@ Vielleicht möchtest Du </translation>
 <context>
     <name>ProductTourFrm</name>
     <message>
+        <location filename="product_tour_frm.ui" line="24"/>
         <source>Getting started</source>
         <translation>Einführung</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="80"/>
         <source>Greetings!
 
 I am Mnemosyne, a type of butterfly named after the Greek goddess of Memory. 
@@ -1259,10 +1818,12 @@ Darum werde ich entscheiden, wann ich dir die Frage stelle und du musst bewerten
 Nun laß uns einmal die Bedeutung dieser Bewertungen ansehen.</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="31"/>
         <source>Introduction</source>
         <translation>Einführung</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="122"/>
         <source>Grades range from 0 to 5.
 
 Grades 0 and 1 are used if you don&apos;t know the answer yet, or if you have forgotten it. A card with grade 1 is starting to get more familiar than one with grade 0, and will be repeated less often.
@@ -1279,10 +1840,12 @@ Bis Du eine Frage mit 2 oder besser bewertest (die exakte Bewertung spielt keine
 Ich werde die Karte dann für ein späteres Datum vormerken. Dabei gehe ich davon aus, daß Du dann immer noch in der Lage sein wirst, Dich mit ein wenig Anstrengung an die Antwort zu erinnern ohne sie ganz und gar vergessen zu haben. Das ist die effektivste Methode um zu lernen.</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="103"/>
         <source>Grades 0-2</source>
         <translation>Bewertungen von 0 bis 2</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="160"/>
         <source>If in the future I ask you the question too soon, and you&apos;re able to remember it without any effort, you rate the card a 5. I&apos;ll take this into account by waiting a lot longer before asking you this question again.
 
 If I get it just right, so that you remember it, albeit with some effort, you use grade 4.
@@ -1299,10 +1862,12 @@ Andererseits, wenn Dich das Erinnern der Antwort sehr viel Mühe kostet und Du d
 Erinnerst Du Dich gar nicht mehr, dann vergieb eine 0 oder 1. Daraufhin werde ich Dir die Frage so lange weiterstellen, bis Du meinst, dass Du in der Lage bist, Dich in ein paar Tagen wieder zu erinnern.</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="141"/>
         <source>Grades 3-5</source>
         <translation>Bewertungen von 3 bis 5</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="206"/>
         <source>If you&apos;re into statistics, I can keep detailed logs of your revisions.
 
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
@@ -1315,18 +1880,22 @@ Und nicht nur das. Wenn Du möchtest, kann ich eine komplett anonymisierte Versi
 Wenn Du das nicht möchtest, dann deaktiviere die nachfolgende Checkbox.</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="221"/>
         <source>Upload anonymous logs</source>
         <translation>Upload von anonymisierten Logbüchern</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="232"/>
         <source>(You can always change this setting later using the &apos;Configure Mnemosyne&apos; menu option.)</source>
         <translation>(Du kannst diese Einstellung jederzeit unter dem Menüeintrag &apos;Mnemosyne einrichten&apos; ändern.)</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="179"/>
         <source>Statistics</source>
         <translation>Statistiken</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Now you&apos;re ready to start!
 &lt;p&gt;
 Add new cards by clicking on the icon with the &apos;plus&apos; sign in the top left.
@@ -1351,10 +1920,12 @@ Für weitergehende Informationen, besuche &lt;a href =&quot;http://mnemosyne-pro
 Viel Spass und Erfolg!</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="244"/>
         <source>Ready to start</source>
         <translation>Startklar</translation>
     </message>
     <message>
+        <location filename="product_tour_frm.ui" line="263"/>
         <source>Now you&apos;re ready to start!
 &lt;p&gt;
 Add new cards by clicking on the icon with the &apos;plus&apos; sign in the top left.
@@ -1382,38 +1953,47 @@ Viel Spass und Erfolg!</translation>
 <context>
     <name>QTextEdit2</name>
     <message>
+        <location filename="qtextedit2.py" line="46"/>
         <source>Insert &amp;image</source>
         <translation>&amp;Bild einfügen</translation>
     </message>
     <message>
+        <location filename="qtextedit2.py" line="48"/>
         <source>Ctrl+I</source>
         <translation>Ctrl+I</translation>
     </message>
     <message>
+        <location filename="qtextedit2.py" line="49"/>
         <source>Insert &amp;sound</source>
         <translation>&amp;Musik einfügen</translation>
     </message>
     <message>
+        <location filename="qtextedit2.py" line="51"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
+        <location filename="qtextedit2.py" line="56"/>
         <source>&amp;3-sided input</source>
         <translation>&amp;3-seitige Eingabe</translation>
     </message>
     <message>
+        <location filename="qtextedit2.py" line="95"/>
         <source>Image files</source>
         <translation>Bilddateien</translation>
     </message>
     <message>
+        <location filename="qtextedit2.py" line="98"/>
         <source>Insert image</source>
         <translation>Bild einfügen</translation>
     </message>
     <message>
+        <location filename="qtextedit2.py" line="117"/>
         <source>Sound files</source>
         <translation>Musikdateien</translation>
     </message>
     <message>
+        <location filename="qtextedit2.py" line="119"/>
         <source>Insert sound</source>
         <translation>Musik einfügen</translation>
     </message>
@@ -1421,6 +2001,7 @@ Viel Spass und Erfolg!</translation>
 <context>
     <name>StatisticsDlg</name>
     <message>
+        <location filename="statistics_dlg.py" line="57"/>
         <source>Scheduled cards for the next days:
 
 </source>
@@ -1429,14 +2010,17 @@ Viel Spass und Erfolg!</translation>
 </translation>
     </message>
     <message>
+        <location filename="statistics_dlg.py" line="60"/>
         <source>In</source>
         <translation>In</translation>
     </message>
     <message>
+        <location filename="statistics_dlg.py" line="62"/>
         <source>day(s) :</source>
         <translation>Tag(en):</translation>
     </message>
     <message>
+        <location filename="statistics_dlg.py" line="72"/>
         <source>Number of cards with the following grades:
 
 </source>
@@ -1445,6 +2029,7 @@ Viel Spass und Erfolg!</translation>
 </translation>
     </message>
     <message>
+        <location filename="statistics_dlg.py" line="82"/>
         <source>Grade</source>
         <translation>Bewertung</translation>
     </message>
@@ -1452,30 +2037,37 @@ Viel Spass und Erfolg!</translation>
 <context>
     <name>StatisticsFrm</name>
     <message>
+        <location filename="statistics_frm.ui" line="85"/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
+        <location filename="statistics_frm.ui" line="96"/>
         <source>Cards</source>
         <translation>Karten</translation>
     </message>
     <message>
+        <location filename="statistics_frm.ui" line="16"/>
         <source>Statistics</source>
         <translation>Statistiken</translation>
     </message>
     <message>
+        <location filename="statistics_frm.ui" line="40"/>
         <source>Schedule</source>
         <translation>Zeitplan</translation>
     </message>
     <message>
+        <location filename="statistics_frm.ui" line="58"/>
         <source>Grades</source>
         <translation>Bewertungen</translation>
     </message>
     <message>
+        <location filename="statistics_frm.ui" line="76"/>
         <source>Categories</source>
         <translation>Kategorien</translation>
     </message>
     <message>
+        <location filename="statistics_frm.ui" line="148"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -1483,102 +2075,127 @@ Viel Spass und Erfolg!</translation>
 <context>
     <name>TipDlg</name>
     <message>
+        <location filename="tip_dlg.py" line="34"/>
         <source>For optimal results, it&apos;s best to do your repetitions every day.</source>
         <translation>Für hervorragende Ergebnisse ist es am Besten, wenn Du Deine Übungen jeden Tag machst.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="36"/>
         <source>If you&apos;ve been away for a few days, don&apos;t worry about your backlog. Do as many cards as you feel like to catch up, the rest will be automatically rescheduled to the future.</source>
         <translation>Wenn Du ein paar Tage nicht üben konntest, dann mach Dir keine Sorgen über Deinen Lernrückstand. Hole so viele Karten nach wie Du möchtest, die Restlichen werden automatisch neu eingeplant.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="38"/>
         <source>The &apos;number of grade 0 cards to learn at once&apos; setting determines how many new cards you are trying to learn at the same time. It does &lt;b&gt;not&lt;/b&gt; tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel.</source>
         <translation>Die Einstellung &apos;Kartenanzahl mit der Bewertung 0, die auf einmal gelernt werden&apos; legt fest, wieviele neue Karten Du zur selben Zeit versuchst zu lernen. Sie sagt &lt;b&gt;nichts&lt;/b&gt; darüber aus, wieviele neue Karten Du pro Tag lernen musst. Entscheide selbst: Du kannst mehr Karten oder auch weniger Karten lernen, ganz wie Du es willst.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="40"/>
         <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
         <translation>Versuche im Großen und Ganzen Deine Übungen jeden Tag zu machen, aber sorge Dich nicht zu sehr, mit dem &apos;Vorgemerkt&apos; Zähler auf Null zu kommen und auf keinen Fall darüber den &apos;Nicht gelernte&apos; Zähler auf Null zu bringen.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="42"/>
         <source>Grade 1 cards are different from grade 0 cards in the sense that they show up less often and are not subject to the &apos;number of grade 0 cards to learn at once&apos; setting.</source>
         <translation>Karten mit der Bewertung 1 unterscheiden sich von einer Karte mit 0 in der Weise, dass sie weniger oft angezeigt werden und sich in der Einstellung &apos;Kartenanzahl mit der Bewertung 0, die auf einmal gelernt werden&apos; nicht mehr auswirken.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="44"/>
         <source>You can use keyboard shortcuts to do your repetitions. Enter, Return or Space stand for the default action (&apos;Show answer&apos; or &apos;grade 4&apos;). The number keys can be used for grading.</source>
         <translation>Für Deine Übungen kannst Du Tastaturkürzel verwenden. Enter, Return oder Leertaste stehen für die Standardeingaben (&apos;Antwort anzeigen&apos; oder &apos;Bewertung 4&apos;). Die Nummerntasten können zum Bewerten benutzt werden.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="46"/>
         <source>You can select the categories you wish to study in the &apos;Activate categories&apos; menu option.</source>
         <translation>Mit der Einstellung &apos;Kategorien aktivieren&apos; kannst Du festlegen, welche Kategorien Du lernen möchtest.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="48"/>
         <source>It is recommended to put all your cards in a single database and use categories to organise them. Using &apos;Activate categories&apos; is much more convenient than have to load and unload several databases.</source>
         <translation>Es wird empfohlen, dass Du alle Karten in einer Datenbank speicherst und Kategorien zum Einordnen verwendest.  &apos;Kategorien aktivieren&apos; zu benutzen ist sehr viel bequemer als ständig verschiedene Datenbanken zu laden.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="50"/>
         <source>You can import cards in a wide variety of formats: tab delimited txt files, Supermemo files, ... .</source>
         <translation>Du kannst Karten in vielen verschiedenen Formaten importieren: Tab getrennte txt Dateien, Supermemo Dateien, ... .</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="52"/>
         <source>If you have cards in Word or Excel, export them to tab delimited txt files with UTF-8 unicode encoding to be able to import them into Mnemosyne.</source>
         <translation>Wenn Du Karten in Word oder Excel hast, dann exportiere diese in Tab getrennte txt Dateien mit UTF-8 Unicode Kodierung, damit Du sie in Mnemosyne importieren kannst.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="54"/>
         <source>If you want to print out your cards, export them to a txt file which you can then print from your favourite Word processor.</source>
         <translation>Wenn Du Deine Karten drucken möchtest, dann exportiere sie einfach in eine txt Datei. Diese kannst Du dann in Deiner Textverarbeitung öffnen und drucken.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="56"/>
         <source>You can share your cards with someone else by exporting them to XML and choosing the &apos;Reset learning data&apos; option on export.</source>
         <translation>Du kannst Deine Karten mit anderen teilen, wenn Du sie in das XML format exportierst und die Einstellung &apos;Lerndaten beim Export zurücksetzen&apos; beim Exportieren auswählst.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="58"/>
         <source>If you study a foreign language with a different script, the default font size is sometimes a bit small. If you want to increase the size of these characters but keep the size of English text, use the &apos;increase size of non-latin characters by X points&apos; option.</source>
         <translation>Wenn Du eine ausländische Sprache mit eigener Schrift lernst, ist die Schriftgröße manchmal ein wenig klein. Willst Du die Größe dieser Buchstaben erhöhen, aber die Größe für deutschen Text beibehalten, dann verwende die &apos;Erhöhe die Schriftgröße für nicht-latin Zeichen um X Punkt(e)&apos; Einstellung.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="60"/>
         <source>You can add images and sounds to your cards. Right-click on the question or answer field when editing a card to bring up a pop-up menu to do so.</source>
         <translation>Zu Deine Karten kannst Du Bilder und Musik hinzufügen. Ein &apos;Rechtsklick&apos; im Frage- oder Antwortfeld beim Bearbeiten einer Karte öffnet ein entsprechendes Pop-Up Menü.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="62"/>
         <source>It is recommended to keep your sound and image files inside your .mnemosyne directory. That way, it&apos;s easier to transfer your data between different computers.</source>
         <translation>Es wird empfohlen, dass Du Bild- und Musikdateien in Deinem .mnemosyne Verzeichnis ablegst. Das macht es einfacher die Daten zwischen verschiedenen Computern hin und her zu übertragen.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="64"/>
         <source>When adding a three-sided card, two regular cards will be created. One with as question the written form and as answer the pronunciation and the translation, and one with as question the translation and as answer the written form and the pronunciation.</source>
         <translation>Beim Hinzufügen einer dreiseitigen Karte werden zwei normale Karten erstellt. Eine mit der Schriftform als Frage und der Aussprache und Übersetzung als Antwort. Eine weitere mit der Übersetzung als Frage und der Schriftform und Aussprache als Antwort.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="66"/>
         <source>You can use basic HTML tags in your cards to control their appearance.</source>
         <translation>Um das Erscheinungsbild anzupassen, kannst Du einfache HTML Tags in Deinen Karten verwenden.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="68"/>
         <source>Mnemosyne can use LaTeX to render mathematical formulas, e.g. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (For this, you need LaTeX and dvipng installed.)</source>
         <translation>Mnemosyne kann LaTeX verwenden um mathematische Formeln, wie z.B. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt; anzuzeigen. (Dafür muss aber LaTeX und dvipng installiert sein.)</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
         <translation type="obsolete">Der beste Weg um eine Sicherung Deiner Daten zu erstellen, ist Dein .mnemosyne Verzeichnis auf ein anderes Laufwerk zu kopieren (Wenn Du der Empfehlung folgst, alle Deine Dateien dort abzulegen). Mnemosyne bewahrt XML basierte Sicherungen automatisch in .mnemosyne/backups auf, aber das wird Dir nicht helfen, wenn Deine Festplatte kaputt geht... </translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="74"/>
         <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
         <translation>Wenn Du Mnemosyne auf mehreren Computern benutzt, dann gibt es eine praktische Hilfe mit dem Namen Unison um Dir zu helfen Deine Daten zu synchronisieren. Besuche die Mnemosyne Webseite für mehr Informationen hierzu.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="76"/>
         <source>You can sort the cards in the &apos;Edit Deck&apos; dialog by answer or by category by clicking on the corresponding column title. Clicking again changes the sort order.</source>
         <translation>Du kannst die Karten im &apos;Kartei bearbeiten&apos; Dialog nach Antworten oder Kategorien sortieren, wenn Du auf den entsprechenden Spaltentitel klickst. Erneutes klicken ändert die Sortierreihenfolge.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="80"/>
         <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
         <translation>Erfahrene Benutzer können Mnemosyne noch besser konfigurieren, indem sie die Datei config.py in ihrem .mnemosyne Verzeichnis bearbeiten. Sie können auch Plugins installieren, um Mnemosyne noch weiter an ihre Bedürfnisse anzupassen.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="72"/>
         <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
         <translation>Du kannst Mnemosyne von einem USB Stick aus ausführen. Kopiere dazu C:\Programme\Mnemosyne auf den USB Stick und kopiere dann das .mnemosyne Verzeichnis von Deinem Heimverzeichnis in das Mnemosyne Verzeichnis auf Deinem USB Stick.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="78"/>
         <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
         <translation>Möchtest Du eine genauere Kontrolle über das LaTeX Verhalten, dann lies die Erklärung zu den &lt;$$&gt;...&lt;/$$&gt; und &lt;latex&gt;...&lt;/latex&gt; Tags auf der Mnemosyne Webseite.</translation>
     </message>
     <message>
+        <location filename="tip_dlg.py" line="70"/>
         <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1586,42 +2203,52 @@ Viel Spass und Erfolg!</translation>
 <context>
     <name>TipFrm</name>
     <message>
+        <location filename="tip_frm.ui" line="16"/>
         <source>Tip of the day</source>
         <translation>Tipp des Tages</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="78"/>
         <source>&lt;b&gt;Did you know...?&lt;/b&gt;</source>
         <translation>&lt;b&gt;Wußtest Du, dass...?&lt;/b&gt;</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="131"/>
         <source>&amp;Show tips on startup</source>
         <translation>&amp;Zeige Tipps beim Start</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="134"/>
         <source>Alt+S</source>
         <translation>Alt+S</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="145"/>
         <source>&amp;Previous</source>
         <translation>&amp;Vorheriger</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="148"/>
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="156"/>
         <source>&amp;Next</source>
         <translation>&amp;Weiter</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="159"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="167"/>
         <source>&amp;Close</source>
         <translation>&amp;Schließen</translation>
     </message>
     <message>
+        <location filename="tip_frm.ui" line="170"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
@@ -1629,68 +2256,84 @@ Viel Spass und Erfolg!</translation>
 <context>
     <name>qApp</name>
     <message>
+        <location filename="" line="134831276"/>
         <source>Error in config.py:</source>
         <translation type="obsolete">Fehler in config.py:</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Error when running plugin:</source>
         <translation type="obsolete">Fehler beim Ausführen des Plugin:</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Unable to load file.</source>
         <translation type="obsolete">Konnte die Datei nicht laden.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Invalid file format.</source>
         <translation type="obsolete">Fasches Dateiformat.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Unable to save file.</source>
         <translation type="obsolete">Konnte die Datei nicht speichern.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Unable to parse XML:</source>
         <translation type="obsolete">Konnte XML nicht parsen:</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Unrecognised encoding.</source>
         <translation type="obsolete">Unbekannte Kodierung.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Missing answer on line:</source>
         <translation type="obsolete">Fehlende Antwort in Zeile:</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Unable to load database.
 Creating tmp file.</source>
         <translation type="obsolete">Konnte die Datenbank nicht laden.
 Erstelle temporäre Datei.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Mnemosyne</source>
         <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>File exists:</source>
         <translation type="obsolete">Vorhandene Datei:</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Overwrite</source>
         <translation type="obsolete">&amp;Überschreiben</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Abbrechen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Removed duplicates: </source>
         <translation type="obsolete">Entfernte Duplikate: </translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>There are cards with different answers for question:
 
 </source>
@@ -1699,70 +2342,87 @@ Erstelle temporäre Datei.</translation>
 </translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Merge and edit</source>
         <translation type="obsolete">&amp;Zusammenfassen und bearbeiten</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>&amp;Don&apos;t merge</source>
         <translation type="obsolete">&amp;Nicht zusammenfassen</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Done!</source>
         <translation type="obsolete">Fertig!</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>You don&apos;t remember this card yet.</source>
         <translation type="obsolete">Du kannst Dich noch nicht an diese Karte erinnern.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
         <translation type="obsolete">Wie &apos;0&apos;, aber es beginnt vertrauter zu werden.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source> Show it less often.</source>
         <translation type="obsolete"> Zeige sie weniger oft.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>You&apos;ve memorised this card now,</source>
         <translation type="obsolete">Du hast diese Karte jetzt gelernt,</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source> and will probably remember it for a few days.</source>
         <translation type="obsolete"> und wirst sie für ein paar Tage behalten können.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>You have forgotten this card completely.</source>
         <translation type="obsolete">Du hast diese Karte komplett vergessen.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Barely correct answer. The interval was way too long.</source>
         <translation type="obsolete">Gerade noch richtige Antwort. Das Lernintervall war viel zu lang.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Correct answer, but with much effort.</source>
         <translation type="obsolete">Richtige Anwort, aber mit viel Anstrengung.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source> The interval was probably too long.</source>
         <translation type="obsolete"> Das Lernintervall war vermutlich zu lang.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Correct answer, with some effort.</source>
         <translation type="obsolete">Richtige Antwort, mit ein wenig Anstrengung.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source> The interval was probably just right.</source>
         <translation type="obsolete"> Das Lernintervall war wohl genau richtig.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source>Correct answer, but without any</source>
         <translation type="obsolete">Richtige Anwort, ganz ohne</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source> difficulties. The interval was probably too short.</source>
         <translation type="obsolete"> Schwierigkeiten. Das Lerninterwall war wahrscheinlich zu kurz.</translation>
     </message>
     <message>
+        <location filename="" line="134831276"/>
         <source> days.</source>
         <translation type="obsolete"> Tage.</translation>
     </message>

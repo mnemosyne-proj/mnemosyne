@@ -154,11 +154,13 @@ pixmap_path = os.path.join(base_path, "pixmaps")
 util_path   = os.path.join(base_path, "util")
 doc_path    = os.path.join(base_path, "docs")
 
+package_name = "mnemosyne_devel"
+
 setup (name = "mnemosyne",
        version = mnemosyne.version.version,
        author = "Peter Bienstman",
        author_email = "Peter.Bienstman@UGent.be",
-       packages = ["mnemosyne", "mnemosyne.pyqt_ui","mnemosyne.core"],
+       packages = ["mnemosyne", "mnemosyne.pyqt_ui","mnemosyne.libmnemosyne"],
        package_data = {"mnemosyne.pyqt_ui": ['locale/*.qm']},
        data_files = data_files,
        scripts = ['mnemosyne/pyqt_ui/mnemosyne'],

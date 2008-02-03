@@ -3,6 +3,8 @@ MNEMOSYNE 1.1
 (Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)
 
+-Visually distuigish grades 0 and 1 from other grades (based on input
+ from Juan Alonso and Mike Charlton.
 -Czech translation by Jiri Popelka and Petr Tomica.
 
 

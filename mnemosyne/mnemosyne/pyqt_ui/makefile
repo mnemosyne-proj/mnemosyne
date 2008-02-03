@@ -3,10 +3,12 @@ WIDGETS = activate_categories_frm.py config_frm.py change_category_frm.py \
 	export_frm.py main_frm.py edit_item_frm.py product_tour_frm.py \
 	statistics_frm.py about_frm.py tip_frm.py
 
+WIDGETS = main_frm.py
+
 default: $(WIDGETS)
 
 $(WIDGETS): %.py: %.ui
-	pyuic $< > $@
+	pyuic4 $< > $@
 	echo "from qtextedit2 import *" > tmp
 	sed 's/QTextEdit(/QTextEdit2(/' $@ >> tmp
 	mv tmp $@
