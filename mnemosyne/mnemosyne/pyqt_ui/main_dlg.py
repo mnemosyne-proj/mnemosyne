@@ -133,7 +133,8 @@ class MainDlg(QMainWindow, Ui_MainFrm):
 
         self.timer = QTimer(self)
         self.connect(self.timer, SIGNAL("timeout()"), soundmanager.update)
-        self.timer.start(250, False)
+        self.timer.setSingleShot(False)
+        self.timer.start(250)
 
     ##########################################################################
     #
@@ -669,14 +670,16 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         non_latin_size = font.pointSize() + increase_non_latin
         
         # Update question and answer alignment.
-        
-        if get_config("left_align") == True:
-            alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.WordBreak
-        else:
-            alignment = Qt.AlignHCenter | Qt.AlignVCenter | Qt.WordBreak
 
-        self.question.setAlignment(alignment)
-        self.answer.setAlignment(alignment)
+        # TODO: move alingment to Qt4
+        
+        #if get_config("left_align") == True:
+        #    alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.TextWordWrap
+        #else:
+        #    alignment = Qt.AlignHCenter | Qt.AlignVCenter | Qt.TextWordWrap
+
+        #self.question.setAlignment(alignment)
+        #self.answer.setAlignment(alignment)
 
         # Update question label.
         
@@ -746,22 +749,27 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         self.grade_4_button.setDefault(grades_enabled)
         self.grades.setEnabled(grades_enabled)
         
-        QToolTip.setWakeUpDelay(0)
+        #QToolTip.setWakeUpDelay(0) #TODO?
 
         for grade in range(0,6):
 
             # Tooltip.
             
-            QToolTip.remove(self.grade_buttons[grade])
+            #QToolTip.remove(self.grade_buttons[grade])
             
             if self.state == "SELECT GRADE" and \
                get_config("show_intervals") == "tooltips":
-                QToolTip.add(self.grade_buttons[grade],
-                      tooltip[i][grade].
+                #QToolTip.add(self.grade_buttons[grade],
+                #      tooltip[i][grade].
+                #      append(self.next_rep_string(process_answer(self.item,
+                #                                  grade, dry_run=True))))
+                self.grade_buttons[grade].setToolTip(tooltip[i][grade].
                       append(self.next_rep_string(process_answer(self.item,
                                                   grade, dry_run=True))))
             else:
-                QToolTip.add(self.grade_buttons[grade], tooltip[i][grade])
+                self.grade_buttons[grade].setToolTip(tooltip[i][grade])
+                
+                #QToolTip.add(self.grade_buttons[grade], tooltip[i][grade])
 
             # Button text.
                     
@@ -775,7 +783,8 @@ class MainDlg(QMainWindow, Ui_MainFrm):
                 self.grade_buttons[grade].setText(str(grade))
                 self.grades.setTitle(self.trUtf8("Grade your answer:"))
 
-            self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
+            # Todo: accelerator update needed?
+            #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
 
         # Update status bar.
         

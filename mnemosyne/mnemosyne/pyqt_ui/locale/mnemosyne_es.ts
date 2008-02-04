@@ -1040,112 +1040,112 @@ Tal vez desee ejecutar </translation>
 <context>
     <name>MainDlg</name>
     <message>
-        <location filename="main_dlg.py" line="249"/>
+        <location filename="main_dlg.py" line="250"/>
         <source>Mnemosyne databases (*.mem)</source>
         <translation>Bases de datos Mnemosyne (*.mem)</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="369"/>
+        <location filename="main_dlg.py" line="370"/>
         <source>Please wait...</source>
         <translation>Por favor espere...</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="417"/>
+        <location filename="main_dlg.py" line="418"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="418"/>
+        <location filename="main_dlg.py" line="419"/>
         <source>Delete current card?</source>
         <translation>¿Desechar esta tarjeta?</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="419"/>
+        <location filename="main_dlg.py" line="420"/>
         <source>&amp;Yes</source>
         <translation>&amp;Sí</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="419"/>
+        <location filename="main_dlg.py" line="420"/>
         <source>&amp;No</source>
         <translation>&amp;No</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="596"/>
+        <location filename="main_dlg.py" line="597"/>
         <source>Returns in </source>
         <translation>Volverá a aparecer en </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="597"/>
+        <location filename="main_dlg.py" line="598"/>
         <source> day(s).</source>
         <translation> día(s).</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="609"/>
+        <location filename="main_dlg.py" line="610"/>
         <source>Next repetition: today.</source>
         <translation>Próxima repetición: hoy.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="611"/>
+        <location filename="main_dlg.py" line="612"/>
         <source>Next repetition: tomorrow.</source>
         <translation>Próxima repetición: mañana.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="612"/>
+        <location filename="main_dlg.py" line="613"/>
         <source>Next repetition in </source>
         <translation>Próxima repetición dentro de </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="684"/>
+        <location filename="main_dlg.py" line="687"/>
         <source>Question:</source>
         <translation>Pregunta:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="685"/>
+        <location filename="main_dlg.py" line="688"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;por defecto&gt;</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="729"/>
+        <location filename="main_dlg.py" line="732"/>
         <source>Show &amp;answer</source>
         <translation>Mostrar &amp;respuesta</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="733"/>
+        <location filename="main_dlg.py" line="736"/>
         <source>Learn ahead of schedule</source>
         <translation>Aprender antes de tiempo</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="773"/>
+        <location filename="main_dlg.py" line="781"/>
         <source>Pick days until next repetition:</source>
         <translation>Escoger días hasta la próxima repetición:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="776"/>
+        <location filename="main_dlg.py" line="784"/>
         <source>Grade your answer:</source>
         <translation>Evalúe su respuesta:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="782"/>
+        <location filename="main_dlg.py" line="791"/>
         <source>Scheduled: </source>
         <translation>Planificadas:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="784"/>
+        <location filename="main_dlg.py" line="793"/>
         <source>Not memorised: </source>
         <translation>No memorizadas: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="786"/>
+        <location filename="main_dlg.py" line="795"/>
         <source>All: </source>
         <translation>Todas: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="162"/>
+        <location filename="main_dlg.py" line="163"/>
         <source>New</source>
         <translation type="unfinished">Nueva</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="614"/>
+        <location filename="main_dlg.py" line="615"/>
         <source> days.</source>
         <translation type="unfinished"> días.</translation>
     </message>

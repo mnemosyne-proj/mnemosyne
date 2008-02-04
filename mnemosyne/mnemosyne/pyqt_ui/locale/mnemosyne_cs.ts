@@ -1039,112 +1039,112 @@ takže by jste potom měl(a) provést </translation>
 <context>
     <name>MainDlg</name>
     <message>
-        <location filename="main_dlg.py" line="249"/>
+        <location filename="main_dlg.py" line="250"/>
         <source>Mnemosyne databases (*.mem)</source>
         <translation>Mnemosyne databáze (*.mem)</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="162"/>
+        <location filename="main_dlg.py" line="163"/>
         <source>New</source>
         <translation>Nová</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="369"/>
+        <location filename="main_dlg.py" line="370"/>
         <source>Please wait...</source>
         <translation>Čekejte prosím...</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="417"/>
+        <location filename="main_dlg.py" line="418"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="418"/>
+        <location filename="main_dlg.py" line="419"/>
         <source>Delete current card?</source>
         <translation>Smazat tuto kartu?</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="419"/>
+        <location filename="main_dlg.py" line="420"/>
         <source>&amp;Yes</source>
         <translation>&amp;Ano</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="419"/>
+        <location filename="main_dlg.py" line="420"/>
         <source>&amp;No</source>
         <translation>&amp;Ne</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="596"/>
+        <location filename="main_dlg.py" line="597"/>
         <source>Returns in </source>
         <translation>Ukáže se za </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="597"/>
+        <location filename="main_dlg.py" line="598"/>
         <source> day(s).</source>
         <translation> dnů.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="609"/>
+        <location filename="main_dlg.py" line="610"/>
         <source>Next repetition: today.</source>
         <translation>Další opakování: dnes.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="611"/>
+        <location filename="main_dlg.py" line="612"/>
         <source>Next repetition: tomorrow.</source>
         <translation>Další opakování: zítra.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="612"/>
+        <location filename="main_dlg.py" line="613"/>
         <source>Next repetition in </source>
         <translation>Další opakování za </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="614"/>
+        <location filename="main_dlg.py" line="615"/>
         <source> days.</source>
         <translation> dnů.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="684"/>
+        <location filename="main_dlg.py" line="687"/>
         <source>Question:</source>
         <translation>Otázka:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="685"/>
+        <location filename="main_dlg.py" line="688"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;default&gt;</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="729"/>
+        <location filename="main_dlg.py" line="732"/>
         <source>Show &amp;answer</source>
         <translation>Ukázat &amp;odpověď</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="733"/>
+        <location filename="main_dlg.py" line="736"/>
         <source>Learn ahead of schedule</source>
         <translation>Učit se navíc</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="773"/>
+        <location filename="main_dlg.py" line="781"/>
         <source>Pick days until next repetition:</source>
         <translation>Vyberte počet dnů do dalšího opakování:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="776"/>
+        <location filename="main_dlg.py" line="784"/>
         <source>Grade your answer:</source>
         <translation>Ohodnoťte svou odpověď:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="782"/>
+        <location filename="main_dlg.py" line="791"/>
         <source>Scheduled: </source>
         <translation>Naplánovaných: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="784"/>
+        <location filename="main_dlg.py" line="793"/>
         <source>Not memorised: </source>
         <translation>Nezapamatovaných: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="786"/>
+        <location filename="main_dlg.py" line="795"/>
         <source>All: </source>
         <translation>Všech: </translation>
     </message>
