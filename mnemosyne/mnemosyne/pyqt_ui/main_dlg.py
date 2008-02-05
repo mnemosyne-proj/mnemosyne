@@ -99,9 +99,9 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         self.notmem = QLabel("", self.statusbar)        
         self.all    = QLabel("", self.statusbar)
         
-        self.statusbar.addWidget(self.sched)
-        self.statusbar.addWidget(self.notmem)
-        self.statusbar.addWidget(self.all)
+        self.statusbar.addPermanentWidget(self.sched)
+        self.statusbar.addPermanentWidget(self.notmem)
+        self.statusbar.addPermanentWidget(self.all)
         self.statusbar.setSizeGripEnabled(0)
 
         self.grade_buttons = []

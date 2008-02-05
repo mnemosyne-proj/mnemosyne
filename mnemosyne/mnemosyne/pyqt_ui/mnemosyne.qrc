@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/mnemosyne" >
+        <file>pixmaps/add.png</file>
+        <file>pixmaps/configure.png</file>
+        <file>pixmaps/deck.png</file>
+        <file>pixmaps/delete.png</file>
+        <file>pixmaps/edit.png</file>
+        <file>pixmaps/exit.png</file>
+        <file>pixmaps/filenew.png</file>
+        <file>pixmaps/fileopen.png</file>
+        <file>pixmaps/filesave.png</file>
+        <file>pixmaps/filesaveas.png</file>
+        <file>pixmaps/mnemosyne.png</file>
+        <file>pixmaps/statistics.png</file>
+    </qresource>
+</RCC>

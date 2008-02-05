@@ -5,6 +5,7 @@ default:
 	rm -f mnemosyne/pyqt_ui/locale/mnemosyne_XX.ts
 	rm -f mnemosyne/pyqt_ui/locale/mnemosyne*.qm
 	cd mnemosyne/pyqt_ui ; pylupdate4 mnemosyne.pro
+	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	cd mnemosyne/pyqt_ui ; lrelease mnemosyne.pro
 	python setup.py install
 	rm -f -R build

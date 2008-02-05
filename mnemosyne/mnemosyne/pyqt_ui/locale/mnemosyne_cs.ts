@@ -1352,17 +1352,17 @@ takže by jste potom měl(a) provést </translation>
 <context>
     <name>MainFrm</name>
     <message>
-        <location filename="main_frm.py" line="300"/>
+        <location filename="main_frm.py" line="299"/>
         <source>Mnemosyne</source>
         <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="301"/>
+        <location filename="main_frm.py" line="300"/>
         <source>Question:</source>
         <translation type="unfinished">Otázka:</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="302"/>
+        <location filename="main_frm.py" line="301"/>
         <source>Answer:</source>
         <translation type="unfinished">Odpověď:</translation>
     </message>
@@ -1372,7 +1372,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Ukázat odpověď</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="304"/>
+        <location filename="main_frm.py" line="303"/>
         <source>Grade your answer:</source>
         <translation type="unfinished">Ohodnoťte svou odpověď:</translation>
     </message>
@@ -1382,7 +1382,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;0</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="306"/>
+        <location filename="main_frm.py" line="305"/>
         <source>0</source>
         <translation type="unfinished">0</translation>
     </message>
@@ -1392,7 +1392,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;1</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="308"/>
+        <location filename="main_frm.py" line="307"/>
         <source>1</source>
         <translation type="unfinished">1</translation>
     </message>
@@ -1402,7 +1402,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;2</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="310"/>
+        <location filename="main_frm.py" line="309"/>
         <source>2</source>
         <translation type="unfinished">2</translation>
     </message>
@@ -1412,7 +1412,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;3</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="312"/>
+        <location filename="main_frm.py" line="311"/>
         <source>3</source>
         <translation type="unfinished">3</translation>
     </message>
@@ -1422,7 +1422,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;4</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="314"/>
+        <location filename="main_frm.py" line="313"/>
         <source>4</source>
         <translation type="unfinished">4</translation>
     </message>
@@ -1432,12 +1432,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;5</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="316"/>
+        <location filename="main_frm.py" line="315"/>
         <source>5</source>
         <translation type="unfinished">5</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="337"/>
+        <location filename="main_frm.py" line="336"/>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Nová</translation>
     </message>
@@ -1447,27 +1447,27 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">.</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="338"/>
+        <location filename="main_frm.py" line="337"/>
         <source>Ctrl+N</source>
         <translation type="unfinished">Ctrl+N</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="339"/>
+        <location filename="main_frm.py" line="338"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="340"/>
+        <location filename="main_frm.py" line="339"/>
         <source>Ctrl+O</source>
         <translation type="unfinished">Ctrl+O</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="341"/>
+        <location filename="main_frm.py" line="340"/>
         <source>&amp;Save</source>
         <translation type="unfinished">&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="342"/>
+        <location filename="main_frm.py" line="341"/>
         <source>Ctrl+S</source>
         <translation type="unfinished">Ctrl+S</translation>
     </message>
@@ -1477,7 +1477,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Uložit j&amp;ako</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="336"/>
+        <location filename="main_frm.py" line="335"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">&amp;Konec</translation>
     </message>
@@ -1487,7 +1487,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">O</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="344"/>
+        <location filename="main_frm.py" line="343"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;O</translation>
     </message>
@@ -1497,12 +1497,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Přidat karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="324"/>
+        <location filename="main_frm.py" line="323"/>
         <source>&amp;Add cards</source>
         <translation type="unfinished">Přid&amp;at karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="325"/>
+        <location filename="main_frm.py" line="324"/>
         <source>Ctrl+A</source>
         <translation type="unfinished">Ctrl+A</translation>
     </message>
@@ -1517,27 +1517,27 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Editovat karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="333"/>
+        <location filename="main_frm.py" line="332"/>
         <source>Edit &amp;deck</source>
         <translation type="unfinished">E&amp;ditovat karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="334"/>
+        <location filename="main_frm.py" line="333"/>
         <source>Ctrl+D</source>
         <translation type="unfinished">Ctrl+D</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="345"/>
+        <location filename="main_frm.py" line="344"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Importovat</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="335"/>
+        <location filename="main_frm.py" line="334"/>
         <source>&amp;Export</source>
         <translation type="unfinished">&amp;Exportovat</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="357"/>
+        <location filename="main_frm.py" line="356"/>
         <source>Show &amp;toolbar</source>
         <translation type="unfinished">Zobrazovat nástrojovou lištu</translation>
     </message>
@@ -1547,12 +1547,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Editovat tuto kartu</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="331"/>
+        <location filename="main_frm.py" line="330"/>
         <source>&amp;Edit current card</source>
         <translation type="unfinished">&amp;Editovat tuto kartu</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="332"/>
+        <location filename="main_frm.py" line="331"/>
         <source>Ctrl+E</source>
         <translation type="unfinished">Ctrl+E</translation>
     </message>
@@ -1562,7 +1562,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Smazat tuto kartu</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="329"/>
+        <location filename="main_frm.py" line="328"/>
         <source>&amp;Delete current card</source>
         <translation type="unfinished">&amp;Smazat tuto kartu</translation>
     </message>
@@ -1572,12 +1572,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Del</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="326"/>
+        <location filename="main_frm.py" line="325"/>
         <source>&amp;Clean duplicates</source>
         <translation type="unfinished">&amp;Odstranit duplicitní kartičky</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="327"/>
+        <location filename="main_frm.py" line="326"/>
         <source>&amp;Configure Mnemosyne</source>
         <translation type="unfinished">&amp;Konfigurovat Mnemosyne</translation>
     </message>
@@ -1587,7 +1587,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Jak začít</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="354"/>
+        <location filename="main_frm.py" line="353"/>
         <source>&amp;Getting started</source>
         <translation type="unfinished">&amp;Jak začít</translation>
     </message>
@@ -1597,17 +1597,17 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Dolů, Dolů</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="347"/>
+        <location filename="main_frm.py" line="346"/>
         <source>Enter</source>
         <translation type="unfinished">Enter</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="351"/>
+        <location filename="main_frm.py" line="350"/>
         <source>Return</source>
         <translation type="unfinished">Return</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="353"/>
+        <location filename="main_frm.py" line="352"/>
         <source>Space</source>
         <translation type="unfinished">Space</translation>
     </message>
@@ -1622,12 +1622,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Ukázat statistiky</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="355"/>
+        <location filename="main_frm.py" line="354"/>
         <source>Show s&amp;tatistics</source>
         <translation type="unfinished">Ukázat s&amp;tatistiky</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="356"/>
+        <location filename="main_frm.py" line="355"/>
         <source>Ctrl+T</source>
         <translation type="unfinished">Ctrl+T</translation>
     </message>
@@ -1637,7 +1637,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Tip dne</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="358"/>
+        <location filename="main_frm.py" line="357"/>
         <source>&amp;Tip of the day</source>
         <translation type="unfinished">&amp;Tip dne</translation>
     </message>
@@ -1647,82 +1647,82 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Hlavní nástrojová lišta (Mnemosyne)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="317"/>
+        <location filename="main_frm.py" line="316"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Databáze</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="318"/>
+        <location filename="main_frm.py" line="317"/>
         <source>&amp;Deck</source>
         <translation type="unfinished">&amp;Karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="319"/>
+        <location filename="main_frm.py" line="318"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="320"/>
+        <location filename="main_frm.py" line="319"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="322"/>
+        <location filename="main_frm.py" line="321"/>
         <source>Activate cate&amp;gories</source>
         <translation type="unfinished">Akt&amp;ivovat kategorie</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="323"/>
+        <location filename="main_frm.py" line="322"/>
         <source>Ctrl+G</source>
         <translation type="unfinished">Ctrl+G</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="303"/>
+        <location filename="main_frm.py" line="302"/>
         <source>Show &amp;answer</source>
         <translation type="unfinished">Ukázat &amp;odpověď</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="321"/>
+        <location filename="main_frm.py" line="320"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="328"/>
+        <location filename="main_frm.py" line="327"/>
         <source>default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="330"/>
+        <location filename="main_frm.py" line="329"/>
         <source>Backspace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="343"/>
+        <location filename="main_frm.py" line="342"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="346"/>
+        <location filename="main_frm.py" line="345"/>
         <source>pressEnter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="348"/>
+        <location filename="main_frm.py" line="347"/>
         <source>pressR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="349"/>
+        <location filename="main_frm.py" line="348"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="350"/>
+        <location filename="main_frm.py" line="349"/>
         <source>pressReturn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="352"/>
+        <location filename="main_frm.py" line="351"/>
         <source>pressSpace</source>
         <translation type="unfinished"></translation>
     </message>

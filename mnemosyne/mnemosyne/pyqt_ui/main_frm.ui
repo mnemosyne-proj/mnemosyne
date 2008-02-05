@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="sizePolicy" >
-   <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -19,7 +19,7 @@
    <string>Mnemosyne</string>
   </property>
   <property name="windowIcon" >
-   <iconset>../../pixmaps/mnemosyne.png</iconset>
+   <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/mnemosyne.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QVBoxLayout" >
@@ -100,12 +100,6 @@
               <size>
                <width>40</width>
                <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize" >
-              <size>
-               <width>40</width>
-               <height>16777215</height>
               </size>
              </property>
              <property name="text" >
@@ -330,7 +324,7 @@
   </action>
   <action name="actionAddCards" >
    <property name="icon" >
-    <iconset>../../pixmaps/add.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/add.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Add cards</string>
@@ -346,7 +340,7 @@
   </action>
   <action name="actionConfiguration" >
    <property name="icon" >
-    <iconset>../../pixmaps/configure.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/configure.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Configure Mnemosyne</string>
@@ -359,7 +353,7 @@
   </action>
   <action name="actionDeleteCurrentCard" >
    <property name="icon" >
-    <iconset>../../pixmaps/delete.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/delete.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Delete current card</string>
@@ -370,7 +364,7 @@
   </action>
   <action name="actionEditCurrentCard" >
    <property name="icon" >
-    <iconset>../../pixmaps/edit.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/edit.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Edit current card</string>
@@ -381,7 +375,7 @@
   </action>
   <action name="actionEditDeck" >
    <property name="icon" >
-    <iconset>../../pixmaps/deck.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/deck.png</iconset>
    </property>
    <property name="text" >
     <string>Edit &amp;deck</string>
@@ -397,7 +391,7 @@
   </action>
   <action name="actionFileExit" >
    <property name="icon" >
-    <iconset>../../pixmaps/exit.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/exit.png</iconset>
    </property>
    <property name="text" >
     <string>E&amp;xit</string>
@@ -416,7 +410,7 @@
   </action>
   <action name="actionFileOpen" >
    <property name="icon" >
-    <iconset>../../pixmaps/fileopen.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/fileopen.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Open...</string>
@@ -427,7 +421,7 @@
   </action>
   <action name="actionFileSave" >
    <property name="icon" >
-    <iconset>../../pixmaps/filesave.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/filesave.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Save</string>
@@ -438,7 +432,7 @@
   </action>
   <action name="actionFileSaveAs" >
    <property name="icon" >
-    <iconset>../../pixmaps/filesaveas.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/filesaveas.png</iconset>
    </property>
    <property name="text" >
     <string>Save &amp;as...</string>
@@ -493,7 +487,7 @@
   </action>
   <action name="actionShowStatistics" >
    <property name="icon" >
-    <iconset>../../pixmaps/statistics.png</iconset>
+    <iconset resource="mnemosyne.qrc" >:/mnemosyne/pixmaps/statistics.png</iconset>
    </property>
    <property name="text" >
     <string>Show s&amp;tatistics</string>
@@ -519,6 +513,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="mnemosyne.qrc" />
+ </resources>
  <connections/>
 </ui>
