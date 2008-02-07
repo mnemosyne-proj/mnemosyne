@@ -144,6 +144,8 @@ Miscellaneous
 
 -don't randomise very first view, because of dependencies
 
+-natural sort order of categories which contain numbers (1 vs 01)
+
 -auto identifying similar cards
 
 -unify number shortcuts (with and without Ctrl)
