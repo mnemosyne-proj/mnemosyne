@@ -38,6 +38,9 @@ the possibility to get rid of some interface quirks
 
 -Phonon backend instead of PyGame to improve sound playback
 
+-dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
+ seem to work when unicode is present in the path
+
 
 
 Mnemosyne 1.2: SQL backend for better speed and lower memory requirements.
