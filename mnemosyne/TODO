@@ -38,6 +38,8 @@ the possibility to get rid of some interface quirks
 
 -Phonon backend instead of PyGame to improve sound playback
 
+-prioritise lapsed cards in review
+
 -dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
  seem to work when unicode is present in the path
 
