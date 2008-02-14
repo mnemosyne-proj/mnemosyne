@@ -790,20 +790,13 @@ def load_database(path):
         
         infile.close()
 
-        # Fix consequences of id generation bug.
-        
-        if header_line.endswith("Format Version 1 ---"):
-            for i in items:
-                if type(i.id) != type("string") and \
-                   type(i.id) != type(u"unicode"):
-                    i.new_id()
-
         time_of_start.update_days_since()
 
         load_failed = False
 
     except:
         load_failed = True
+        
         raise InvalidFormatError(stack_trace=True)
 
     for c in categories:

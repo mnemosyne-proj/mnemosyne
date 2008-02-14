@@ -524,6 +524,10 @@ class MainDlg(QMainWindow, Ui_MainFrm):
     ##########################################################################
     
     def Tip(self):
+
+        # ToDO: activate tips.
+
+        return
         
         pause_thinking()
         dlg = TipDlg(self)
@@ -795,8 +799,9 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         self.all   .setText(self.trUtf8("All: ").append(QString(\
                             str(active_items()))))
 
-        if self.shrink == True:
-            self.adjustSize()
+        # TODO: autoshrinking.
+        #if self.shrink == True:
+        #    self.adjustSize()
 
     ##########################################################################
     #

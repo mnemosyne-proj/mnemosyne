@@ -1072,72 +1072,72 @@ dus wellicht wilt u </translation>
         <translation>&amp;Nee</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="597"/>
+        <location filename="main_dlg.py" line="601"/>
         <source>Returns in </source>
         <translation>Komt over </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="598"/>
+        <location filename="main_dlg.py" line="602"/>
         <source> day(s).</source>
         <translation>dag(en) terug.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="610"/>
+        <location filename="main_dlg.py" line="614"/>
         <source>Next repetition: today.</source>
         <translation>Volgende bevraging: vandaag.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="612"/>
+        <location filename="main_dlg.py" line="616"/>
         <source>Next repetition: tomorrow.</source>
         <translation>Volgende bevraging: morgen.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="613"/>
+        <location filename="main_dlg.py" line="617"/>
         <source>Next repetition in </source>
         <translation>Volgende bevraging over </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="687"/>
+        <location filename="main_dlg.py" line="691"/>
         <source>Question:</source>
         <translation>Vraag:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="688"/>
+        <location filename="main_dlg.py" line="692"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;standaard&gt;</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="732"/>
+        <location filename="main_dlg.py" line="736"/>
         <source>Show &amp;answer</source>
         <translation>Toon &amp;antwoord</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="736"/>
+        <location filename="main_dlg.py" line="740"/>
         <source>Learn ahead of schedule</source>
         <translation>Leer vooruit op schema</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="781"/>
+        <location filename="main_dlg.py" line="785"/>
         <source>Pick days until next repetition:</source>
         <translation>Aantal dagen tot volgende bevraging:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="784"/>
+        <location filename="main_dlg.py" line="788"/>
         <source>Grade your answer:</source>
         <translation>Beoordeel uw antwoord:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="791"/>
+        <location filename="main_dlg.py" line="795"/>
         <source>Scheduled: </source>
         <translation>Geroosterd: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="793"/>
+        <location filename="main_dlg.py" line="797"/>
         <source>Not memorised: </source>
         <translation>Niet onthouden: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="795"/>
+        <location filename="main_dlg.py" line="799"/>
         <source>All: </source>
         <translation>Alle: </translation>
     </message>
@@ -1147,7 +1147,7 @@ dus wellicht wilt u </translation>
         <translation>Nieuw</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="615"/>
+        <location filename="main_dlg.py" line="619"/>
         <source> days.</source>
         <translation type="unfinished"> dagen.</translation>
     </message>

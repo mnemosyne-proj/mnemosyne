@@ -1070,72 +1070,72 @@ Tal vez desee ejecutar </translation>
         <translation>&amp;No</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="597"/>
+        <location filename="main_dlg.py" line="601"/>
         <source>Returns in </source>
         <translation>Volverá a aparecer en </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="598"/>
+        <location filename="main_dlg.py" line="602"/>
         <source> day(s).</source>
         <translation> día(s).</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="610"/>
+        <location filename="main_dlg.py" line="614"/>
         <source>Next repetition: today.</source>
         <translation>Próxima repetición: hoy.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="612"/>
+        <location filename="main_dlg.py" line="616"/>
         <source>Next repetition: tomorrow.</source>
         <translation>Próxima repetición: mañana.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="613"/>
+        <location filename="main_dlg.py" line="617"/>
         <source>Next repetition in </source>
         <translation>Próxima repetición dentro de </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="687"/>
+        <location filename="main_dlg.py" line="691"/>
         <source>Question:</source>
         <translation>Pregunta:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="688"/>
+        <location filename="main_dlg.py" line="692"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;por defecto&gt;</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="732"/>
+        <location filename="main_dlg.py" line="736"/>
         <source>Show &amp;answer</source>
         <translation>Mostrar &amp;respuesta</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="736"/>
+        <location filename="main_dlg.py" line="740"/>
         <source>Learn ahead of schedule</source>
         <translation>Aprender antes de tiempo</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="781"/>
+        <location filename="main_dlg.py" line="785"/>
         <source>Pick days until next repetition:</source>
         <translation>Escoger días hasta la próxima repetición:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="784"/>
+        <location filename="main_dlg.py" line="788"/>
         <source>Grade your answer:</source>
         <translation>Evalúe su respuesta:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="791"/>
+        <location filename="main_dlg.py" line="795"/>
         <source>Scheduled: </source>
         <translation>Planificadas:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="793"/>
+        <location filename="main_dlg.py" line="797"/>
         <source>Not memorised: </source>
         <translation>No memorizadas: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="795"/>
+        <location filename="main_dlg.py" line="799"/>
         <source>All: </source>
         <translation>Todas: </translation>
     </message>
@@ -1145,7 +1145,7 @@ Tal vez desee ejecutar </translation>
         <translation type="unfinished">Nueva</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="615"/>
+        <location filename="main_dlg.py" line="619"/>
         <source> days.</source>
         <translation type="unfinished"> días.</translation>
     </message>

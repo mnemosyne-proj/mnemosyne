@@ -3,7 +3,13 @@ MNEMOSYNE 1.1
 (Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)
 
--Visually distuigish grades 0 and 1 from other grades (based on input
+*** IMPORTANT UPGRADE NOTICE ***
+
+This version uses a different database format. Before upgrading, export your 
+old data as xml. After upgrade, create a new database and import the old data
+from the xml file.
+
+-Visually distinguish grades 0 and 1 from other grades (based on input
  from Juan Alonso and Mike Charlton.
 -Czech translation by Jiri Popelka and Petr Tomica.
 

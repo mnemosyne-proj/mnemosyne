@@ -1065,77 +1065,77 @@ so you might want to run </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="597"/>
+        <location filename="main_dlg.py" line="601"/>
         <source>Returns in </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="598"/>
+        <location filename="main_dlg.py" line="602"/>
         <source> day(s).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="610"/>
+        <location filename="main_dlg.py" line="614"/>
         <source>Next repetition: today.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="612"/>
+        <location filename="main_dlg.py" line="616"/>
         <source>Next repetition: tomorrow.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="613"/>
+        <location filename="main_dlg.py" line="617"/>
         <source>Next repetition in </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="615"/>
+        <location filename="main_dlg.py" line="619"/>
         <source> days.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="687"/>
+        <location filename="main_dlg.py" line="691"/>
         <source>Question:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="688"/>
+        <location filename="main_dlg.py" line="692"/>
         <source>&lt;default&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="732"/>
+        <location filename="main_dlg.py" line="736"/>
         <source>Show &amp;answer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="736"/>
+        <location filename="main_dlg.py" line="740"/>
         <source>Learn ahead of schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="781"/>
+        <location filename="main_dlg.py" line="785"/>
         <source>Pick days until next repetition:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="784"/>
+        <location filename="main_dlg.py" line="788"/>
         <source>Grade your answer:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="791"/>
+        <location filename="main_dlg.py" line="795"/>
         <source>Scheduled: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="793"/>
+        <location filename="main_dlg.py" line="797"/>
         <source>Not memorised: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="795"/>
+        <location filename="main_dlg.py" line="799"/>
         <source>All: </source>
         <translation type="unfinished"></translation>
     </message>
