@@ -13,7 +13,7 @@ from PyQt4.QtGui import *
 from main_frm import *
 #from import_dlg import *
 #from export_dlg import *
-#from add_items_dlg import *
+from add_cards_dlg import *
 #from edit_item_dlg import *
 #from clean_duplicates import *
 #from statistics_dlg import *
@@ -329,8 +329,8 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         dlg = AddCardsDlg(self)
         dlg.exec_loop()
         
-        if self.item == None:
-            self.newQuestion()
+        #if self.item == None:
+        #    self.newQuestion()
             
         self.updateDialog()
         unpause_thinking()

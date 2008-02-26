@@ -5,35 +5,38 @@
 #
 ##############################################################################
 
-from qt import *
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
-from mnemosyne.core import *
-from add_items_frm import *
-from edit_item_dlg import *
-
+from mnemosyne.libmnemosyne import *
+from add_cards_frm import *
+#from edit_item_dlg import *
 
 
 ##############################################################################
 #
-# AddItemsDlg
+# AddCardsDlg
 #
 ##############################################################################
 
-class AddItemsDlg(AddItemsFrm):
+class AddCardsDlg(QWidget, Ui_AddCardsFrm):
 
     ##########################################################################
     #
     # __init__
     #
     ##########################################################################
+    
+    def __init__(self, filename, parent = None):
+        
+        QWidget.__init__(self, parent)
 
-    def __init__(self, parent=None, name=None, modal=0):
+        # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))
         
-        AddItemsFrm.__init__(self,parent,name,modal,
-                             Qt.WStyle_MinMax | Qt.WStyle_SysMenu)
-        
-        self.addViceVersa.setChecked(get_config("last_add_vice_versa"))
-        self.update_combobox(get_config("last_add_category"))
+        self.setupUi(self)
+           
+        #self.addViceVersa.setChecked(get_config("last_add_vice_versa"))
+        #self.update_combobox(get_config("last_add_category"))
 
         self.connect(self.grades, SIGNAL("clicked(int)"),
                      self.new_item)
@@ -41,33 +44,20 @@ class AddItemsDlg(AddItemsFrm):
         self.connect(self.preview_button, SIGNAL("clicked()"),
                      self.preview)
 
-        self.connect(self.question, PYSIGNAL("3_sided_input_toggled"),
-                     self.update_dialog)
-        
-        self.connect(self.pronunciation, PYSIGNAL("3_sided_input_toggled"),
-                     self.update_dialog)
 
-        self.connect(self.answer, PYSIGNAL("3_sided_input_toggled"),
-                     self.update_dialog)
         
-        if get_config("QA_font") != None:
-            font = QFont()
-            font.fromString(get_config("QA_font"))
-            self.question.setFont(font)
-            self.pronunciation.setFont(font)
-            self.answer.setFont(font)
+        #if get_config("QA_font") != None:
+        #    font = QFont()
+        #    font.fromString(get_config("QA_font"))
+        #    self.question.setFont(font)
+        #    self.pronunciation.setFont(font)
+        #    self.answer.setFont(font)
             #self.categories.setFont(font)
             
-        self.question.setTabChangesFocus(1)
-        self.pronunciation.setTabChangesFocus(1)
-        self.answer.setTabChangesFocus(1)
-
-        self.update_dialog()
+        #self.question.setTabChangesFocus(1)
+        #self.pronunciation.setTabChangesFocus(1)
+        #self.answer.setTabChangesFocus(1)
         
-        # Doesn't seem to work yet...
-        
-        #self.question.__class__.dropEvent = self.my_drop_event
-
 
 
     ##########################################################################
@@ -96,20 +86,7 @@ class AddItemsDlg(AddItemsFrm):
 
 
 
-    ##########################################################################
-    #
-    # my_drop_event
-    #
-    ##########################################################################
 
-    def my_drop_event(self, e):
-        
-        t=QString()
-        
-        if QTextDrag.decode(e, t): # fills t with decoded text
-            
-            self.insert(t)
-            self.emit(SIGNAL("textChanged()"), ())
 
 
             
@@ -137,39 +114,6 @@ class AddItemsDlg(AddItemsFrm):
         else:
             return
 
-
-
-    ##########################################################################
-    #
-    # allow_3_sided
-    #
-    ##########################################################################
-
-    def allow_3_sided(self):
-
-        return True
-
-    
-    ##########################################################################
-    #
-    # update_dialog
-    #
-    ##########################################################################
-
-    def update_dialog(self):
-
-        if get_config("3_sided_input") == False:
-            self.q_label.setText(self.trUtf8("Question:"))
-            self.p_label.hide()            
-            self.pronunciation.hide()
-            self.a_label.setText(self.trUtf8("Answer:"))
-            self.addViceVersa.show()         
-        else:
-            self.q_label.setText(self.trUtf8("Written form:"))
-            self.p_label.show()            
-            self.pronunciation.show()
-            self.a_label.setText(self.trUtf8("Translation:"))          
-            self.addViceVersa.hide()
 
 
 

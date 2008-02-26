@@ -1,9 +1,9 @@
 SOURCES = activate_categories_dlg.py \
 	message_boxes.py \
-	edit_items_dlg.py \
+	edit_cards_dlg.py \
 	plugin.py \
-	add_items_dlg.py \
-	preview_item_dlg.py \
+	add_cards_dlg.py \
+	preview_cards_dlg.py \
 	export_dlg.py \
 	change_category_dlg.py \
 	product_tour_dlg.py \
@@ -14,13 +14,13 @@ SOURCES = activate_categories_dlg.py \
 	sound.py \
 	main_dlg.py \
 	statistics_dlg.py \
-	edit_item_dlg.py \
+	edit_cards_dlg.py \
 	activate_categories_frm.py \
-	edit_item_frm.py \
+	edit_cards_frm.py \
 	main_frm.py \
-	add_items_frm.py \
-	edit_items_frm.py \
-	preview_item_frm.py \
+	add_cards_frm.py \
+	edit_cards_frm.py \
+	preview_cards_frm.py \
 	change_category_frm.py \
 	export_frm.py \
 	product_tour_frm.py \
@@ -33,11 +33,11 @@ SOURCES = activate_categories_dlg.py \
 	tip_frm.py
 
 FORMS = activate_categories_frm.ui \
-	edit_item_frm.ui \
+	edit_cards_frm.ui \
 	main_frm.ui \
-	add_items_frm.ui \
-	edit_items_frm.ui \
-	preview_item_frm.ui \
+	add_cards_frm.ui \
+	edit_cards_frm.ui \
+	preview_cards_frm.ui \
 	change_category_frm.ui \
 	export_frm.ui \
 	product_tour_frm.ui \
