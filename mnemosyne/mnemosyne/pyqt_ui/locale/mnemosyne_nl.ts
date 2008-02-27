@@ -242,54 +242,54 @@ Ik creëer tmp bestand.</translation>
 <context>
     <name>AddCardsDlg</name>
     <message>
-        <location filename="add_cards_dlg.py" line="80"/>
+        <location filename="add_cards_dlg.py" line="85"/>
         <source>&lt;default&gt;</source>
         <translation type="unfinished">&lt;standaard&gt;</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="188"/>
+        <location filename="add_cards_dlg.py" line="193"/>
         <source>Mnemosyne</source>
         <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="107"/>
+        <location filename="add_cards_dlg.py" line="112"/>
         <source>Abandon current card?</source>
         <translation type="unfinished">Wilt u de huidige kaart permanent verwijderen?</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="108"/>
+        <location filename="add_cards_dlg.py" line="113"/>
         <source>&amp;Yes</source>
         <translation type="unfinished">&amp;Ja</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="109"/>
+        <location filename="add_cards_dlg.py" line="114"/>
         <source>&amp;No</source>
         <translation type="unfinished">&amp;Nee</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="170"/>
+        <location filename="add_cards_dlg.py" line="175"/>
         <source>Card is already in database.
 </source>
         <translation type="unfinished">Kaart is reeds in de gegevensbank aanwezig.
 </translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="170"/>
+        <location filename="add_cards_dlg.py" line="175"/>
         <source>Duplicate not added.</source>
         <translation type="unfinished">Duplikaat niet toegevoegd.</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="171"/>
+        <location filename="add_cards_dlg.py" line="176"/>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="190"/>
+        <location filename="add_cards_dlg.py" line="195"/>
         <source>There are different answers for</source>
         <translation type="unfinished">Er zijn verschillende antwoorden voor</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="190"/>
+        <location filename="add_cards_dlg.py" line="195"/>
         <source> this question:
 
 </source>
@@ -298,17 +298,17 @@ Ik creëer tmp bestand.</translation>
 </translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="192"/>
+        <location filename="add_cards_dlg.py" line="197"/>
         <source>&amp;Merge and edit</source>
         <translation type="unfinished">&amp;Samenvoegen en bewerken</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="193"/>
+        <location filename="add_cards_dlg.py" line="198"/>
         <source>&amp;Add as is</source>
         <translation type="unfinished">&amp;Toevoegen in deze vorm</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="194"/>
+        <location filename="add_cards_dlg.py" line="199"/>
         <source>&amp;Do not add</source>
         <translation type="unfinished">&amp;Niet toevoegen</translation>
     </message>
@@ -316,94 +316,94 @@ Ik creëer tmp bestand.</translation>
 <context>
     <name>AddCardsFrm</name>
     <message>
-        <location filename="add_cards_frm.py" line="177"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="add_cards_frm.py" line="178"/>
+        <location filename="add_cards_frm.py" line="176"/>
         <source>Card type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="179"/>
+        <location filename="add_cards_frm.py" line="177"/>
         <source>Category:</source>
         <translation type="unfinished">Categorie:</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="180"/>
+        <location filename="add_cards_frm.py" line="178"/>
         <source>Select initial grade:</source>
         <translation type="unfinished">Kies eerste beoordeling:</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="181"/>
+        <location filename="add_cards_frm.py" line="179"/>
         <source>0</source>
         <translation type="unfinished">0</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="182"/>
+        <location filename="add_cards_frm.py" line="180"/>
         <source>Ctrl+0</source>
         <translation type="unfinished">Ctrl+0</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="183"/>
+        <location filename="add_cards_frm.py" line="181"/>
         <source>1</source>
         <translation type="unfinished">1</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="184"/>
+        <location filename="add_cards_frm.py" line="182"/>
         <source>Ctrl+1</source>
         <translation type="unfinished">Ctrl+1</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="185"/>
+        <location filename="add_cards_frm.py" line="183"/>
         <source>2</source>
         <translation type="unfinished">2</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="186"/>
+        <location filename="add_cards_frm.py" line="184"/>
         <source>Ctrl+2</source>
         <translation type="unfinished">Ctrl+2</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="187"/>
+        <location filename="add_cards_frm.py" line="185"/>
         <source>3</source>
         <translation type="unfinished">3</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="188"/>
+        <location filename="add_cards_frm.py" line="186"/>
         <source>Ctrl+3</source>
         <translation type="unfinished">Ctrl+3</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="189"/>
+        <location filename="add_cards_frm.py" line="187"/>
         <source>4</source>
         <translation type="unfinished">4</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="190"/>
+        <location filename="add_cards_frm.py" line="188"/>
         <source>Ctrl+4</source>
         <translation type="unfinished">Ctrl+4</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="191"/>
+        <location filename="add_cards_frm.py" line="189"/>
         <source>5</source>
         <translation type="unfinished">5</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="192"/>
+        <location filename="add_cards_frm.py" line="190"/>
         <source>Ctrl+5</source>
         <translation type="unfinished">Ctrl+5</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="193"/>
+        <location filename="add_cards_frm.py" line="191"/>
         <source>&amp;Preview</source>
         <translation type="unfinished">&amp;Voorvertoning</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="194"/>
+        <location filename="add_cards_frm.py" line="192"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">&amp;Afsluiten</translation>
+    </message>
+    <message>
+        <location filename="add_cards_frm.py" line="175"/>
+        <source>Add cards</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1209,97 +1209,97 @@ dus wellicht wilt u </translation>
         <translation>Mnemosyne gegevensbanken (*.mem)</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="370"/>
+        <location filename="main_dlg.py" line="372"/>
         <source>Please wait...</source>
         <translation>Een moment...</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="418"/>
+        <location filename="main_dlg.py" line="420"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="419"/>
+        <location filename="main_dlg.py" line="421"/>
         <source>Delete current card?</source>
         <translation>Verwijder huidige kaart?</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="420"/>
+        <location filename="main_dlg.py" line="422"/>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="420"/>
+        <location filename="main_dlg.py" line="422"/>
         <source>&amp;No</source>
         <translation>&amp;Nee</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="601"/>
+        <location filename="main_dlg.py" line="603"/>
         <source>Returns in </source>
         <translation>Komt over </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="602"/>
+        <location filename="main_dlg.py" line="604"/>
         <source> day(s).</source>
         <translation>dag(en) terug.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="614"/>
+        <location filename="main_dlg.py" line="616"/>
         <source>Next repetition: today.</source>
         <translation>Volgende bevraging: vandaag.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="616"/>
+        <location filename="main_dlg.py" line="618"/>
         <source>Next repetition: tomorrow.</source>
         <translation>Volgende bevraging: morgen.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="617"/>
+        <location filename="main_dlg.py" line="619"/>
         <source>Next repetition in </source>
         <translation>Volgende bevraging over </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="691"/>
+        <location filename="main_dlg.py" line="693"/>
         <source>Question:</source>
         <translation>Vraag:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="692"/>
+        <location filename="main_dlg.py" line="694"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;standaard&gt;</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="736"/>
+        <location filename="main_dlg.py" line="738"/>
         <source>Show &amp;answer</source>
         <translation>Toon &amp;antwoord</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="740"/>
+        <location filename="main_dlg.py" line="742"/>
         <source>Learn ahead of schedule</source>
         <translation>Leer vooruit op schema</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="785"/>
+        <location filename="main_dlg.py" line="787"/>
         <source>Pick days until next repetition:</source>
         <translation>Aantal dagen tot volgende bevraging:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="788"/>
+        <location filename="main_dlg.py" line="790"/>
         <source>Grade your answer:</source>
         <translation>Beoordeel uw antwoord:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="795"/>
+        <location filename="main_dlg.py" line="797"/>
         <source>Scheduled: </source>
         <translation>Geroosterd: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="797"/>
+        <location filename="main_dlg.py" line="799"/>
         <source>Not memorised: </source>
         <translation>Niet onthouden: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="799"/>
+        <location filename="main_dlg.py" line="801"/>
         <source>All: </source>
         <translation>Alle: </translation>
     </message>
@@ -1309,7 +1309,7 @@ dus wellicht wilt u </translation>
         <translation>Nieuw</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="619"/>
+        <location filename="main_dlg.py" line="621"/>
         <source> days.</source>
         <translation type="unfinished"> dagen.</translation>
     </message>

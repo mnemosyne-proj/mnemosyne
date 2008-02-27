@@ -524,8 +524,8 @@
    <slot>addCards</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>164</x>
-     <y>226</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
      <x>164</x>

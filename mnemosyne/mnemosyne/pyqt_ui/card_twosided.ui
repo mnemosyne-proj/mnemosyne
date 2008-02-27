@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>Form</class>
- <widget class="QWidget" name="Form" >
+ <class>CardTwoSided</class>
+ <widget class="QWidget" name="CardTwoSided" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -9,10 +9,19 @@
     <height>283</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Form</string>
-  </property>
   <layout class="QHBoxLayout" >
+   <property name="leftMargin" >
+    <number>0</number>
+   </property>
+   <property name="topMargin" >
+    <number>0</number>
+   </property>
+   <property name="rightMargin" >
+    <number>0</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>0</number>
+   </property>
    <item>
     <layout class="QVBoxLayout" >
      <item>
@@ -29,7 +38,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="question" />
+      <widget class="QTextBrowser" name="question" >
+       <property name="tabChangesFocus" >
+        <bool>true</bool>
+       </property>
+       <property name="undoRedoEnabled" >
+        <bool>true</bool>
+       </property>
+       <property name="readOnly" >
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="answer_label" >
@@ -39,7 +58,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="answer" />
+      <widget class="QTextBrowser" name="answer" >
+       <property name="tabChangesFocus" >
+        <bool>true</bool>
+       </property>
+       <property name="undoRedoEnabled" >
+        <bool>true</bool>
+       </property>
+       <property name="readOnly" >
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="vice_versa" >

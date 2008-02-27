@@ -327,7 +327,9 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         pause_thinking()
         
         dlg = AddCardsDlg(self)
-        dlg.exec_loop()
+        dlg.exec_()
+
+        print "done"
         
         #if self.item == None:
         #    self.newQuestion()

@@ -8,8 +8,10 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+
 from mnemosyne.libmnemosyne import *
 from add_cards_frm import *
+from card_twosided_dlg import *
 #from edit_item_dlg import *
 
 
@@ -19,7 +21,7 @@ from add_cards_frm import *
 #
 ##############################################################################
 
-class AddCardsDlg(QWidget, Ui_AddCardsFrm):
+class AddCardsDlg(QDialog, Ui_AddCardsFrm):
 
     ##########################################################################
     #
@@ -29,11 +31,16 @@ class AddCardsDlg(QWidget, Ui_AddCardsFrm):
     
     def __init__(self, filename, parent = None):
         
-        QWidget.__init__(self, parent)
+        QDialog.__init__(self, parent)
 
-        # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))
+        # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
         
         self.setupUi(self)
+        
+        self.replace_me = CardTwoSidedDlg()
+
+        self.vboxlayout.insertWidget(1, self.replace_me)
+        
            
         #self.addViceVersa.setChecked(get_config("last_add_vice_versa"))
         #self.update_combobox(get_config("last_add_category"))
@@ -54,9 +61,6 @@ class AddCardsDlg(QWidget, Ui_AddCardsFrm):
         #    self.answer.setFont(font)
             #self.categories.setFont(font)
             
-        #self.question.setTabChangesFocus(1)
-        #self.pronunciation.setTabChangesFocus(1)
-        #self.answer.setTabChangesFocus(1)
         
 
 

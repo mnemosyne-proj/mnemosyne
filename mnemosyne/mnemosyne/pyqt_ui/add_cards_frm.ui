@@ -1,30 +1,30 @@
 <ui version="4.0" >
  <class>AddCardsFrm</class>
- <widget class="QWidget" name="AddCardsFrm" >
+ <widget class="QDialog" name="AddCardsFrm" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>361</width>
-    <height>267</height>
+    <width>330</width>
+    <height>176</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Form</string>
+   <string>Add cards</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QHBoxLayout" >
    <item>
     <layout class="QVBoxLayout" >
      <item>
-      <layout class="QHBoxLayout" >
-       <item>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
         <widget class="QLabel" name="label_2" >
          <property name="text" >
           <string>Card type:</string>
          </property>
         </widget>
        </item>
-       <item>
+       <item row="0" column="1" >
         <widget class="QComboBox" name="card_type" >
          <property name="sizePolicy" >
           <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
@@ -34,18 +34,14 @@
          </property>
         </widget>
        </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" >
-       <item>
+       <item row="1" column="0" >
         <widget class="QLabel" name="label" >
          <property name="text" >
           <string>Category:</string>
          </property>
         </widget>
        </item>
-       <item>
+       <item row="1" column="1" >
         <widget class="QComboBox" name="category" >
          <property name="sizePolicy" >
           <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
@@ -59,9 +55,6 @@
         </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <widget class="QWidget" native="1" name="widget" />
      </item>
      <item>
       <widget class="QGroupBox" name="grades" >
@@ -109,6 +102,9 @@
             <property name="shortcut" >
              <string>Ctrl+0</string>
             </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -130,6 +126,9 @@
             </property>
             <property name="shortcut" >
              <string>Ctrl+1</string>
+            </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -160,6 +159,9 @@
             <property name="shortcut" >
              <string>Ctrl+2</string>
             </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -181,6 +183,9 @@
             </property>
             <property name="shortcut" >
              <string>Ctrl+3</string>
+            </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -204,8 +209,8 @@
             <property name="shortcut" >
              <string>Ctrl+4</string>
             </property>
-            <property name="default" >
-             <bool>true</bool>
+            <property name="autoDefault" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -229,6 +234,9 @@
             <property name="shortcut" >
              <string>Ctrl+5</string>
             </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -242,6 +250,9 @@
         <widget class="QPushButton" name="preview_button" >
          <property name="text" >
           <string>&amp;Preview</string>
+         </property>
+         <property name="autoDefault" >
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -263,6 +274,9 @@
          <property name="text" >
           <string>E&amp;xit</string>
          </property>
+         <property name="autoDefault" >
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -272,22 +286,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>exit_button</sender>
-   <signal>clicked()</signal>
-   <receiver>AddCardsFrm</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>312</x>
-     <y>242</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>180</x>
-     <y>133</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
