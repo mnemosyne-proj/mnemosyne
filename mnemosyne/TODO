@@ -43,6 +43,7 @@ the possibility to get rid of some interface quirks
 -dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
  seem to work when unicode is present in the path
 
+-redirect windows error log to a file
 
 
 Mnemosyne 1.2: SQL backend for better speed and lower memory requirements.
