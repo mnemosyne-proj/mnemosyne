@@ -108,7 +108,7 @@ class ExportDlg(ExportFrm):
             export_file(
                 fname, fformat_name, cat_names_to_export, reset_learning_data)
         except MnemosyneError, e:
-            messagebox_errors(e) # Needs to be caught at this level.
+            messagebox_errors(self, e) # Needs to be caught at this level.
             
         set_config("export_dir", contract_path(os.path.dirname(fname)))
         set_config("export_format", fformat_name)

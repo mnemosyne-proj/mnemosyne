@@ -11,12 +11,16 @@ from the xml file.
 
 -Visually distinguish grades 0 and 1 from other grades (based on input
  from Juan Alonso and Mike Charlton.
+
+	
+MNEMOSYNE 1.0.1
+
+-Make import of tab delimited files more robust (reported by nairbv)
 -Czech translation by Jiri Popelka and Petr Tomica.
 -Chinese translation by Leon Goo.
+	
 
-
-
-MNEMOSYNE 1.0 
+MNEMOSYNE 1.0 : 2007-12-27
 
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)

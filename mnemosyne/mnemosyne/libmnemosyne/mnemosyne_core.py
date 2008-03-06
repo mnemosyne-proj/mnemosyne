@@ -1888,7 +1888,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
 
         # Three sided card.
 
-        if len(fields) == 3:
+        if len(fields) >= 3:
 
             # Card 1.
             
