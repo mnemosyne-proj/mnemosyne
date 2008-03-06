@@ -30,7 +30,7 @@ the possibility to get rid of some interface quirks
 
 -refactor code to genenate default config.py
 
--write some more example plugins?
+-write some more example plugins? (like customising shortcuts)
 
 -checkbox to include inactive cards in statistics
 
