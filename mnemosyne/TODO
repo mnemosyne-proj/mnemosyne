@@ -1,4 +1,11 @@
+Mnemosyne 1.0.1:
+
+-redirect windows error log to a file
+-support for Supermemo's unicode encoding
+-default action set to zero for grades 0 and 1?
+
 -update list of translations on website
+-Google analytics
 
 
 Memosyne analysis: Add-on package to do full custom statistical
@@ -46,7 +53,6 @@ the possibility to get rid of some interface quirks
 -dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
  seem to work when unicode is present in the path
 
--redirect windows error log to a file
 
 
 Mnemosyne 1.2: SQL backend for better speed and lower memory requirements.
