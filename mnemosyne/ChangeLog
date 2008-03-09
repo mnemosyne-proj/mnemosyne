@@ -21,7 +21,7 @@ MNEMOSYNE 1.0.1
 -On Windows, log errors to a file in the user's directory, as opposed to a
  file in a system directory (requested by nairbv).
 -Visually distinguish grades 0 and 1 from other grades (based on input
- from Juan Alonso and Mike Charlton.
+ from Juan Alonso and Mike Charlton.)
 -Czech translation by Jiri Popelka and Petr Tomica.
 -Chinese translation by Leon Goo.
 	
