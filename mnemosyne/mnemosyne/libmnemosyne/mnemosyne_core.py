@@ -1839,6 +1839,26 @@ register_file_format("XML",
 
 ##############################################################################
 #
+# process_html_unicode
+#
+#   Parse html style escaped unicode (e.g. &#33267;)
+#
+##############################################################################
+
+re0 = re.compile(r"&#(.+?);", re.DOTALL | re.IGNORECASE)
+
+def process_html_unicode(s):
+
+    for match in re0.finditer(s):   
+        u = unichr(int(match.group(1)))  # Integer part.
+        s = s.replace(match.group(), u)  # Integer part with &# and ;.
+        
+    return s
+
+
+
+##############################################################################
+#
 # import_txt
 #
 #   Question and answers on a single line, separated by tabs.
@@ -1877,7 +1897,8 @@ def import_txt(filename, default_cat, reset_learning_data=False):
                 raise EncodingError()
 
         line = line.rstrip()
-
+        line = process_html_unicode(line)
+        
         if len(line) == 0:
             continue
 
@@ -1977,7 +1998,7 @@ register_file_format("Text with tab separated Q/A",
 
 ##############################################################################
 #
-# import_txt
+# import_txt_2
 #
 #   Question and answers each on a separate line.
 #
@@ -2015,7 +2036,8 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
                 raise EncodingError()
 
         line = line.rstrip()
-
+        line = process_html_unicode(line)
+        
         if len(line) == 0:
             continue
 
@@ -2067,8 +2089,6 @@ def read_line_sm7qa(f):
     if not line:
         return False
 
-    line = line.rstrip()
-
     # Supermemo uses the octet 0x03 to represent the accented u character.
     # Since this does not seem to be a standard encoding, we simply replace
     # this.
@@ -2082,6 +2102,9 @@ def read_line_sm7qa(f):
             line = unicode(line, "latin")
         except:
             raise EncodingError()
+        
+    line = line.rstrip()
+    line = process_html_unicode(line)
 
     return line
 
