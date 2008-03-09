@@ -164,7 +164,13 @@ locale = None"""
     logger.info("Program started : Mnemosyne " + mnemosyne.version.version \
                 + " " + os.name + " " + sys.platform)
 
+    # Write errors to a file (otherwise this causes problem on Windows).
 
+    if sys.platform == "win32":
+        error_log = os.path.join(basedir, "error_log.txt")
+        sys.stderr = file(error_log, 'a')
+
+        
 
 ##############################################################################
 #
