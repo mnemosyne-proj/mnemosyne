@@ -749,22 +749,28 @@ class MainDlg(QMainWindow, Ui_MainFrm):
 
         self.grade_0_button.setDefault(False)
         self.grade_4_button.setDefault(False)
-            
+
         if self.item != None and self.item.grade in [0,1]:
             i = 0 # Acquisition phase.
-            self.grade_0_button.setDefault(grades_enabled)            
-            self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                         self.grade_4_button.animateClick)
+            self.grade_0_button.setDefault(grades_enabled)
+            try: # Windows bug workaround.
+                self.disconnect(self.defaultAction,SIGNAL("activated()"),
+                                self.grade_4_button.animateClick)
+            except:
+                pass
             self.connect(self.defaultAction,SIGNAL("activated()"),
                          self.grade_0_button.animateClick)
         else:
             i = 1 # Retention phase.
             self.grade_4_button.setDefault(grades_enabled)
-            self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                         self.grade_0_button.animateClick)
+            try:
+                self.disconnect(self.defaultAction,SIGNAL("activated()"),
+                                self.grade_0_button.animateClick)
+            except:
+                pass
             self.connect(self.defaultAction,SIGNAL("activated()"),
                          self.grade_4_button.animateClick)
-            
+                        
         self.grades.setEnabled(grades_enabled)
 
         #QToolTip.setWakeUpDelay(0) #TODO?
