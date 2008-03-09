@@ -1,8 +1,6 @@
 Mnemosyne 1.0.1:
 
 -redirect windows error log to a file
--support for Supermemo's unicode encoding
--default action set to zero for grades 0 and 1?
 
 -update list of translations on website
 -Google analytics
