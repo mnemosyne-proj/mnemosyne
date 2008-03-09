@@ -15,6 +15,8 @@ MNEMOSYNE 1.0.1
 -Make grade 0 the keyboard default for cards with previous grades 0 or 1.
 -Add support for html style escaped unicode in txt import, to allow import
  of Supermemo databases containing unicode (requested by Patrick Kenny).
+-Support import of Supermemo for Palm databases that were converted to XML
+ by smconv.pl from http://smconvpl.sourceforge.net (code by Felix Engel).
 -Make import of tab delimited files more robust (reported by nairbv).
 -On Windows, log errors to a file in the user's directory, as opposed to a
  file in a system directory (requested by nairbv).
