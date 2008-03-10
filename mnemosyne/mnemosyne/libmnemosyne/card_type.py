@@ -10,22 +10,30 @@
 #
 ##############################################################################
 
+card_types = []
+
 class CardType:
 
-    def __init__(self, widget_factory, name):
+    def __init__(self, name, widget_class, new_cards_function=None,
+                 update_cards_function=None):
 
-        self.widget_factory = widget_factory
         self.name = name
+        self.widget_class = widget_class
+        self.new_cards_function = new_cards_function
+        self.update_cards_function = update_cards_function
 
-    def widget(self):
 
-        return self.widget_factory()
 
-    def new_cards(self, data):
+##############################################################################
+#
+# register_card_type
+#
+##############################################################################
 
-        pass
+def register_card_type(name, widget_class, new_cards_function=None,
+                 update_cards_function=None):
 
-    def update_cards(self, data):
-
-        pass
-        
+    global card_types
+    
+    card_types.append(CardType(name, widget_class, new_cards_function,
+                               update_cards_function))

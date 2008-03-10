@@ -114,7 +114,7 @@ QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))
 #a.setMainWidget(w)
 w.show()
 
-# TODO: check first run wizari.
+# TODO: check first run wizard.
 
 if get_config("first_run") == True:
     w.productTour()

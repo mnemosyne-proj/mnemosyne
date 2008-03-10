@@ -2,8 +2,6 @@
 #
 # Two sided card <Peter.Bienstman@UGent.be>
 #
-# TODO: rename
-#
 ##############################################################################
 
 from PyQt4.QtCore import *
@@ -12,20 +10,15 @@ from PyQt4.QtGui import *
 from card_twosided import *
 
 from libmnemosyne import *
+from libmnemosyne.two_sided_card_type import *
 
 ##############################################################################
 #
-# CardTwoSidedDlg
+# CardTwoSidedDlg # todo: rename to widget
 #
 ##############################################################################
 
 class CardTwoSidedDlg(QWidget, Ui_CardTwoSided):
-
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
     
     def __init__(self, parent = None):
         
@@ -33,24 +26,14 @@ class CardTwoSidedDlg(QWidget, Ui_CardTwoSided):
         self.setupUi(self)
 
 
+
 ##############################################################################
 #
-# CardTwoSidedType
+# register card type
 #
 ##############################################################################
 
-class CardTwoSidedType(CardType):
-
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
-    
-    def __init__(self, parent = None):
-        
-        QWidget.__init__(self, parent)
-        self.setupUi(self)
-
+register_card_type("Two-sided card", CardTwoSidedDlg, new_cards_two_sided,
+                   update_cards_two_sided))
 
 
