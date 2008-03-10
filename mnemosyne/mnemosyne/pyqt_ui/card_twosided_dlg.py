@@ -11,6 +11,8 @@ from PyQt4.QtGui import *
 
 from card_twosided import *
 
+from libmnemosyne import *
+
 ##############################################################################
 #
 # CardTwoSidedDlg
@@ -29,4 +31,26 @@ class CardTwoSidedDlg(QWidget, Ui_CardTwoSided):
         
         QWidget.__init__(self, parent)
         self.setupUi(self)
+
+
+##############################################################################
+#
+# CardTwoSidedType
+#
+##############################################################################
+
+class CardTwoSidedType(CardType):
+
+    ##########################################################################
+    #
+    # __init__
+    #
+    ##########################################################################
+    
+    def __init__(self, parent = None):
+        
+        QWidget.__init__(self, parent)
+        self.setupUi(self)
+
+
 
