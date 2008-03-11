@@ -745,29 +745,33 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         self.show_button.setDefault(default)
         self.show_button.setEnabled(show_enabled)
 
-        # Update grade buttons.
+        # Update grade buttons. Make sure that no signals get connected
+        # twice, and put the disconnects inside a try statement to work
+        # around a Windows issue.
 
         self.grade_0_button.setDefault(False)
         self.grade_4_button.setDefault(False)
 
+        try:
+            self.disconnect(self.defaultAction,SIGNAL("activated()"),
+                            self.grade_0_button.animateClick)
+        except:
+            pass
+        
+        try:
+            self.disconnect(self.defaultAction,SIGNAL("activated()"),
+                            self.grade_4_button.animateClick)
+        except:
+            pass
+        
         if self.item != None and self.item.grade in [0,1]:
             i = 0 # Acquisition phase.
             self.grade_0_button.setDefault(grades_enabled)
-            try: # Windows bug workaround.
-                self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                                self.grade_4_button.animateClick)
-            except:
-                pass
             self.connect(self.defaultAction,SIGNAL("activated()"),
                          self.grade_0_button.animateClick)
         else:
             i = 1 # Retention phase.
             self.grade_4_button.setDefault(grades_enabled)
-            try:
-                self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                                self.grade_0_button.animateClick)
-            except:
-                pass
             self.connect(self.defaultAction,SIGNAL("activated()"),
                          self.grade_4_button.animateClick)
                         
