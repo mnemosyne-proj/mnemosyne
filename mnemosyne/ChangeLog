@@ -18,6 +18,9 @@ MNEMOSYNE 1.0.1
 -Support import of Supermemo for Palm databases that were converted to XML
  by smconv.pl from http://smconvpl.sourceforge.net (code by Felix Engel).
 -Make import of tab delimited files more robust (reported by nairbv).
+-Added new option in config.py (backups_to_keep) to be able to change the
+ number of daily backups to keep. Set to -1 for no limit (requested by 
+ Patrick Kenny).
 -On Windows, log errors to a file in the user's directory, as opposed to a
  file in a system directory (requested by nairbv).
 -Visually distinguish grades 0 and 1 from other grades (based on input

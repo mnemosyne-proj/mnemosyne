@@ -157,7 +157,10 @@ only_editable_when_answer_shown = False
 
 # The translation to use, e.g. 'de' for German (including quotes).
 # If set to None, the system's locale will be used.
-locale = None"""
+locale = None
+
+# The number of daily backups to keep. Set to -1 for no limit.
+backups_to_keep = 5"""
 
         f.close()        
         
@@ -217,7 +220,8 @@ def init_config():
     config.setdefault("locale", None)
     config.setdefault("show_daily_tips", True)
     config.setdefault("tip", 0)
-
+    config.setdefault("backups_to_keep", 5)
+    
     # Recreate user id and log index from history folder in case the
     # config file was accidentally deleted.
 
@@ -911,11 +915,14 @@ def backup_database():
 
     os.remove(filename)
 
-    # Only keep the last five logs.
+    # Only keep the last logs.
+
+    if get_config("backups_to_keep") < 0:
+        return
 
     files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
     files.sort()
-    if len(files) > 5:
+    if len(files) > get_config("backups_to_keep"):
         os.remove(os.path.join(backupdir, files[0]))
 
     
