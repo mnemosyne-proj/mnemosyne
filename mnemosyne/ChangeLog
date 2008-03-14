@@ -25,9 +25,10 @@ MNEMOSYNE 1.0.1
  file in a system directory (requested by nairbv).
 -Visually distinguish grades 0 and 1 from other grades (based on input
  from Juan Alonso and Mike Charlton.)
--Czech translation by Jiri Popelka and Petr Tomica.
--Chinese translation by Leon Goo.
-	
+-Czech translation (cs) by Jiri Popelka and Petr Tomica.
+-Chinese translation (zh_CN, zh_HK, zh_SG, zh_TW) by Leon Goo.
+-French translation (fr) by Jamshid Bahar.
+
 
 MNEMOSYNE 1.0 : 2007-12-27
 
