@@ -1,4 +1,3 @@
--update list of translations, contributor, import formats on website
 -Google analytics
 
 
@@ -152,6 +151,8 @@ Mnemosyne 1.6
 
 
 Miscellaneous
+
+-keyboard shortcut for showing individual card statistics from main window
 
 -don't randomise very first view, because of dependencies
 
