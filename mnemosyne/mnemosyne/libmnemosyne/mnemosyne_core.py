@@ -160,8 +160,11 @@ only_editable_when_answer_shown = False
 locale = None
 
 # The number of daily backups to keep. Set to -1 for no limit.
-backups_to_keep = 5"""
+backups_to_keep = 5
 
+# The moment the new day starts. Defaults to 3 am. Could be useful to
+# change if you are a night bird.
+day_starts_at = 3"""
         f.close()        
         
     logger.info("Program started : Mnemosyne " + mnemosyne.version.version \
@@ -221,6 +224,7 @@ def init_config():
     config.setdefault("show_daily_tips", True)
     config.setdefault("tip", 0)
     config.setdefault("backups_to_keep", 5)
+    config.setdefault("day_starts_at", 3)
     
     # Recreate user id and log index from history folder in case the
     # config file was accidentally deleted.
@@ -351,10 +355,12 @@ class StartTime:
 
     def __init__(self, start_time):
 
-        # Reset to 3.30 am
+        # Reset to 3.00 am by default.
+
+        h = get_config("day_starts_at")
 
         t = time.localtime(start_time)
-        self.time = time.mktime([t[0],t[1],t[2], 3,30,0, t[6],t[7],t[8]])
+        self.time = time.mktime([t[0],t[1],t[2], h,0,0, t[6],t[7],t[8]])
 
     # Since this information is frequently needed, we calculate it once
     # and store it in a global variable, which is updated when the database
