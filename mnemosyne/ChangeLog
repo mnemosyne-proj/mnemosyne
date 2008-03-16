@@ -10,7 +10,7 @@ old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 
 	
-MNEMOSYNE 1.0.1
+MNEMOSYNE 1.0.1 : 2008-03-16
 
 -Make grade 0 the keyboard default for cards with previous grades 0 or 1.
 -Add support for html style escaped unicode in txt import, to allow import
