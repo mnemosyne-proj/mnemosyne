@@ -4,27 +4,30 @@
 #
 ##############################################################################
 
-from card_type import *
+from mnemosyne.libmnemosyne import *
 
 
 
 ##############################################################################
 #
-# TwoSidedCardType
+# new_cards_two_sided
 #
 ##############################################################################
 
-class TwoSidedCardType(CardType):
+def new_cards_two_sided(q, a, cat_name, id):
 
-    def new_cards(self, data):
-
-        q, a, cat_name, id = data
-
-        add_new_item(grade, q, a, cat_name, id)
-
-    def update_cards(self, data):
-
-        pass
+    add_new_item(grade, q, a, cat_name, id)
 
 
-register_card_type(TwoSidedCardType)
+
+##############################################################################
+#
+# update_cards_two_sided
+#
+##############################################################################
+
+def update_cards_two_sided(data):
+
+    pass
+
+
