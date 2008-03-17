@@ -1,11 +1,13 @@
-Memosyne analysis: Add-on package to do full custom statistical
-analysis on the entire history of your learning process.
-Status: initial code written, but clean up needed.
+Mnemosyne 1.0.2:
 
--add to svn
--document
--release
--research section on web site
+-backport Christopher's Qt3 scrollbar patch
+
+-keyboard shortcut for showing individual card statistics from main window
+
+-option to randomise order for new cards.
+
+-when randomising is off, don't randomise very first revision, because of 
+ dependencies
 
 
 
@@ -27,8 +29,6 @@ the possibility to get rid of some interface quirks
 -basic graphical statistics
 
 -move latex customisation code to config.py
-
--refactor code to genenate default config.py
 
 -write some more example plugins? (like customising shortcuts)
 
@@ -147,11 +147,20 @@ Mnemosyne 1.6
 
 
 
+Memosyne analysis: Add-on package to do full custom statistical
+analysis on the entire history of your learning process.
+Status: initial code written, but clean up needed.
+
+-add to svn
+-document
+-release
+-research section on web site
+
+
+
+
 Miscellaneous
 
--keyboard shortcut for showing individual card statistics from main window
-
--don't randomise very first view, because of dependencies
 
 -natural sort order of categories which contain numbers (1 vs 01)
 
