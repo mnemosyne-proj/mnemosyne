@@ -30,7 +30,8 @@ the possibility to get rid of some interface quirks
 
 -move latex customisation code to config.py
 
--write some more example plugins? (like customising shortcuts)
+-write some more example plugins? (like customising shortcuts, erasing
+ card history)
 
 -checkbox to include inactive cards in statistics
 
@@ -42,6 +43,8 @@ the possibility to get rid of some interface quirks
 
 -dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
  seem to work when unicode is present in the path
+
+-reactivate keyboard default 0 for cards with grade 0 or 1.
 
 
 

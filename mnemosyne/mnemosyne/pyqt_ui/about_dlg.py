@@ -30,4 +30,4 @@ class AboutDlg(AboutFrm):
             self.trUtf8("Mnemosyne").append(" " + \
             mnemosyne.version.version + "\n\n").append(\
             self.trUtf8("Main author: Peter Bienstman\n\n")).append(\
-            self.trUtf8("More info: http://mnemosyne-proj.sourceforge.net\n")))
+            self.trUtf8("More info: http://mnemosyne-proj.org\n")))
