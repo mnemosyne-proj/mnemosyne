@@ -10,6 +10,12 @@ old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 
 	
+MNEMOSYNE 1.0.2 :
+
+-Polish translation by Tomasz Nazarenko.
+
+	
+	
 MNEMOSYNE 1.0.1.1 : 2008-03-22
 	
 -Disabled making grade 0 the keyboard default for cards with previous
