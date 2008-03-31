@@ -111,7 +111,12 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         self.grade_buttons.append(self.grade_2_button)
         self.grade_buttons.append(self.grade_3_button) 
         self.grade_buttons.append(self.grade_4_button)
-        self.grade_buttons.append(self.grade_5_button)      
+        self.grade_buttons.append(self.grade_5_button)
+
+        try:
+            run_plugins()
+        except MnemosyneError, e:
+            messagebox_errors(self, e)
                 
         if filename == None:
             filename = get_config("path")
@@ -125,11 +130,6 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         
         self.newQuestion()
         self.updateDialog()
-
-        try:
-            run_plugins()
-        except MnemosyneError, e:
-            messagebox_errors(self, e)
 
         self.timer = QTimer(self)
         self.connect(self.timer, SIGNAL("timeout()"), soundmanager.update)

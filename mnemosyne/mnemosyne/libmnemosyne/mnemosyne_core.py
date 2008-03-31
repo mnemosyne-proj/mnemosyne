@@ -55,6 +55,22 @@ config = {}
 
 ##############################################################################
 #
+# Register plugin hooks.
+#
+##############################################################################
+
+plugin_hooks = {}
+
+def register_plugin_hook(name, plugin_function):
+
+    global plugin_hooks
+
+    plugin_hooks[name] = plugin_function
+
+
+
+##############################################################################
+#
 # initialise
 #
 ##############################################################################
@@ -824,6 +840,9 @@ def load_database(path):
 
     logger.info("Loaded database %d %d %d", scheduled_items(), \
                 non_memorised_items(), number_of_items())
+
+    if "after_load" in plugin_hooks:
+        plugin_hooks["after_load"]()
 
 
 
