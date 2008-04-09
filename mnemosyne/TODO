@@ -1,6 +1,8 @@
 sort categories in import dialog
 
-Add Polish translation to web
+Add new translations to web
+
+latex, $ tags and spaces
 
 Mnemosyne 1.0.2:
 
@@ -12,6 +14,8 @@ Mnemosyne 1.0.2:
 
 -when randomising is off, don't randomise very first revision, because of 
  dependencies
+
+-prioritise lapsed cards over old grade 1 cards
 
 
 
