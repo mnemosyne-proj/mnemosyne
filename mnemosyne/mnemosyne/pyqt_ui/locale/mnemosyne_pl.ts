@@ -1137,7 +1137,7 @@ Konieczne może być</translation>
     <message>
         <location filename="" line="269"/>
         <source>Not memorised: </source>
-        <translation>Nie zapamiętanych:</translation>
+        <translation>Niezapamiętanych:</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1548,7 +1548,7 @@ I will keep on asking you these questions until you give them a grade 2 or highe
 I will schedule this card at some future date, when I think you&apos;ll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</source>
         <translation>Oceny mieszczą się w zakresie od 0 do 5.
 
-Przy pomocy 0 i 1 oznaczane są karty zawierające informacje nieznane lub niezapamiętane. Kartę z oceną 1 traktuję jako już znaną, lecz jeszcze nie zapamiętaną.
+Przy pomocy 0 i 1 oznaczane są karty zawierające informacje nieznane lub niezapamiętane. Kartę z oceną 1 traktuję jako już znaną, lecz jeszcze niezapamiętaną.
 
 Dlatego pytania, na które udzielone odpowiedzi otrzymają ocenę 0 oraz 1 będę zadawał dopóki dopóty otrzymają ocenę wyższą, np. 2. Dwójka oznacza, że zapamiętasz kartę na czas około 2 dni. Ocena ta sygnalizuje, że informacja przechodzi z pamięci krótkotrwałej do długotrwałej.
 
@@ -1782,7 +1782,7 @@ Przyjemnej nauki!</translation>
     <message>
         <location filename="" line="269"/>
         <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
-        <translation>Podsumujmy wszystkie rady: pamiętaj aby powtórki wykonywać codziennie i nie przejmuj się jeśli wskaźniki &quot;zaplanowanych&quot; oraz &quot;nie zapamiętanych&quot; nadal wyświetlają pewną liczbę nie przyswojonych informacji. Ich przeznaczeniem jest informować, a nie zmuszać do dalszej nauki, która zależy tylko i wyłącznie od twoich chęci. </translation>
+        <translation>Podsumujmy wszystkie rady: pamiętaj aby powtórki wykonywać codziennie i nie przejmuj się jeśli wskaźniki &quot;zaplanowanych&quot; oraz &quot;niezapamiętanych&quot; nadal wyświetlają pewną liczbę nie przyswojonych informacji. Ich przeznaczeniem jest informować, a nie zmuszać do dalszej nauki, która zależy tylko i wyłącznie od twoich chęci. </translation>
     </message>
     <message>
         <location filename="" line="269"/>
