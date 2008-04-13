@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="pl">
+<!DOCTYPE TS><TS version="1.1" language="pl_PL">
 <defaultcodec></defaultcodec>
 <context>
     <name></name>
@@ -110,62 +110,62 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation>Niemal jak &apos;0&apos;, jednak odpowiedź brzmi znajomo.</translation>
+        <translation>Informacja znana, jednak niezapamiętana.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source> Show it less often.</source>
-        <translation>Wyświetlaj rzadziej.</translation>
+        <translation> Wyświetlaj rzadziej.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>You&apos;ve memorised this card now,</source>
-        <translation>Zapamiętałeś tę kartę,</translation>
+        <translation>Informacja zapamiętana</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source> and will probably remember it for a few days.</source>
-        <translation>i będziesz ją pamiętał przez co najmniej kilka dni.</translation>
+        <translation> i pozostanie w pamięci przez około 2 dni.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>You have forgotten this card completely.</source>
-        <translation>Zupełnie zapomniałeś.</translation>
+        <translation>Karta niezapamiętana.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation>Niemal błędna odpowiedź. Przerwa między powtórkami była zbyt długa.</translation>
+        <translation>Odpowiedź zawierała błędy. Przerwa między powtórkami była zbyt długa.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Correct answer, but with much effort.</source>
-        <translation>Poprawna odpowiedź, lecz jej udzielenie wymagało wiele wysiłku.</translation>
+        <translation>Poprawna odpowiedź udzielona z wielkim wysiłkiem.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source> The interval was probably too long.</source>
-        <translation>Przerwa między powtórkami była zbyt długa.</translation>
+        <translation> Przerwa między powtórkami była zbyt długa.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Correct answer, with some effort.</source>
-        <translation>Poprawna odpowiedź, której udzielenie wymagało niewielkiego wysiłku.</translation>
+        <translation>Poprawna odpowiedź udzielona bez znaczącego wysiłku.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source> The interval was probably just right.</source>
-        <translation>Przerwa między powtórkami była odpowiednia.</translation>
+        <translation> Przerwa między powtórkami jest odpowiednia.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Correct answer, but without any</source>
-        <translation>Poprawna odpowiedź, udzielona</translation>
+        <translation>Poprawna odpowiedź udzielona</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source> difficulties. The interval was probably too short.</source>
-        <translation>z łatwością. Przerwa między powtórkami była prawdopodobnie zbyt krótka.</translation>
+        <translation> z łatwością. Przerwa między powtórkami była zbyt krótka.</translation>
     </message>
 </context>
 <context>
@@ -207,12 +207,12 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Select the categories to activate:</source>
-        <translation>Zaznacz kategorie, które chcesz aktywować:</translation>
+        <translation>Zaznacz kategorie do aktywacji:</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Activate none</source>
-        <translation>Żadna nie aktywna</translation>
+        <translation>Dezaktywuj wszystkie</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -331,7 +331,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Add cards</source>
-        <translation>Dodaj karty</translation>
+        <translation>Dodaj kartę</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -381,7 +381,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>You don&apos;t remember this item yet or forgot it.</source>
-        <translation>Karta została zapomniana lub nie jest jeszcze zapamiętana.</translation>
+        <translation>Informacja zapomniana lub niezapamiętana.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -396,7 +396,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Like &apos;0&apos;, but the item is getting more familiar.</source>
-        <translation>Karta nie zapamiętana, jednak jest już znana.</translation>
+        <translation>Informacja znana, jednak niezapamiętana.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -411,7 +411,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>You&apos;ve memorised this item now, and will probably remember it for a few days.</source>
-        <translation>Zapamiętałeś już tę informację na prawdopodobnie kilka dni.</translation>
+        <translation>Informacja zapamiętana i pozostanie w pamięci przez około 2 dni.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -426,7 +426,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Correct answer, but with much effort. The interval was probably too long</source>
-        <translation>Udzielenie poprawnej odpowiedzi wymagało wiele wysiłku. Czas, który upłynął od poprzedniego wyświetlenia karty był zbyt długi</translation>
+        <translation>Poprawna odpowiedź udzielona z wielkim wysiłkiem. Przerwa między powtórkami była zbyt długa.`</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -441,7 +441,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Correct answer, with some effort. The interval was probably just right.</source>
-        <translation>Odpowiedź udzielona została bez znaczącego wysiłku. Czas, który upłynął od poprzedniego wyświetlenia karty jest odpowiedni.</translation>
+        <translation>Poprawna odpowiedź udzielona bez znaczącego wysiłku. Przerwa między powtórkami jest odpowiednia.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -456,7 +456,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Correct answer, but without any difficulties. The interval was probably too short.</source>
-        <translation>Odopowiedź udzielona została z łatwością. Czas, który upłynął od poprzedniego wyświetlenia karty był zbyt krótki.</translation>
+        <translation>Poprawna odpowiedź udzielona z łatwością.Przerwa między powtórkami była za krótka.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -527,7 +527,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Hover with the mouse over the buttons to get extra information.</source>
-        <translation>Zatrzymaj kursor myszy nad przyciskiem aby uzyskać więcej informacji na jego temat.</translation>
+        <translation>Aby uzyskać więcej informacji na temat przycisku zatrzymaj nad nim kursor myszy.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -537,22 +537,22 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Set Q/A font</source>
-        <translation>Ustaw czcionkę dla pytań i odpowiedzi</translation>
+        <translation>Ustaw czcionkę pytań i odpowiedzi</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Set the font used when showing single questions and answers</source>
-        <translation>Ustaw czcionkę wyświetlanych osobno pytań i odpowiedzi</translation>
+        <translation>Ustawia czcionkę wyświetlanych pytań i odpowiedzi</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Set list font</source>
-        <translation>Ustaw czcionkę spisu</translation>
+        <translation>Ustaw czcionkę edytora zestawu kart</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Set the font used when showing the list of all the cards in the deck</source>
-        <translation>Ustaw czcionkę dla spisu wszystkich kart w zestawie</translation>
+        <translation>Ustaw czcionkę używaną w edytorze zestawu kart</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -567,7 +567,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>point(s)</source>
-        <translation>punkt(y)</translation>
+        <translation>punkty(ów)</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -577,7 +577,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Upload anonymous logs</source>
-        <translation>Przesyłaj annonimowe dane dziennika</translation>
+        <translation>Przesyłaj anonimowe dane dziennika powtórek</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -622,7 +622,7 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
     <message>
         <location filename="" line="269"/>
         <source>Defaults</source>
-        <translation>Domyślnie</translation>
+        <translation>Domyślne</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1102,7 +1102,7 @@ Konieczne może być</translation>
     <message>
         <location filename="" line="269"/>
         <source>Question:</source>
-        <translation>Pytanie:</translation>
+        <translation>Pytanie z kategorii:</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1117,7 +1117,7 @@ Konieczne może być</translation>
     <message>
         <location filename="" line="269"/>
         <source>Learn ahead of schedule</source>
-        <translation>Nauka przed upływem wyznaczonego czasu</translation>
+        <translation>Nauka przed wyznaczonym czasem</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1132,17 +1132,17 @@ Konieczne może być</translation>
     <message>
         <location filename="" line="269"/>
         <source>Scheduled: </source>
-        <translation>Zaplanowane:</translation>
+        <translation>Zaplanowanych:</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Not memorised: </source>
-        <translation>Nie zapamiętane:</translation>
+        <translation>Nie zapamiętanych:</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>All: </source>
-        <translation>Wszystkie:</translation>
+        <translation>Wszystkich: </translation>
     </message>
 </context>
 <context>
@@ -1290,12 +1290,12 @@ Konieczne może być</translation>
     <message>
         <location filename="" line="269"/>
         <source>Add cards</source>
-        <translation>Dodaj karty</translation>
+        <translation>Dodaj kartę</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>&amp;Add cards</source>
-        <translation>&amp;Dodaj karty</translation>
+        <translation>&amp;Dodaj kartę</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1305,7 +1305,7 @@ Konieczne może być</translation>
     <message>
         <location filename="" line="269"/>
         <source>Act&amp;ivate categories</source>
-        <translation>Ak&amp;tywuj kategorie</translation>
+        <translation>Akt&amp;ywuj kategorie</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1524,11 +1524,11 @@ For that, I&apos;ll decide when to ask you the questions, and you&apos;ll need t
 Let&apos;s look at the meaning of these ratings now.</source>
         <translation>Witaj!
 
-Jestem programem Mnemosyne, nazwanym tak od imienia greckiej boginii pamięci.
+Jestem programem Mnemosyne nazwanym tak od imienia greckiej boginii pamięci.
 
-Pomogę ci w zapamiętywaniu wyświetlając pytania odnośnie tylko tych informacji, które możesz zapomnieć.
+Pomagam w zapamiętywaniu wyświetlając pytania odnośnie tylko tych informacji, które mogą zostać zapomniane.
 
-Jednak, aby było to możliwe, poproszę cię abyś oceniał swoje odpowiedzi według proponowanej przeze mnie skali.
+Jednak abym mógł wykonywać swoje zadanie dobrze ważne jest abyś oceniał swoje odpowiedzi według proponowanej przeze mnie skali.
 
 Przyjrzyjmy się jej bliżej.</translation>
     </message>
@@ -1574,7 +1574,7 @@ Z drugiej strony, jeśli w udzielenie odpowiedzi włożyłeś nieco wysiłku, oc
 
 Pozostała jeszcze ocena 3, z której skorzystaj gdy udzielenie odpowiedzi sprawia ci wiele kłopotów i uważasz, że czekałem zbyt długo z zadaniem pytania.
 
-Jeśli całkiem zapomniałeś jak brzmi odpowiedź na dane pytanie to oceń je na 0 lub 1, a wtedy będę daną informację powtarzał do momentu, aż otrzyma ocenę wyższą.</translation>
+Jeśli całkiem zapomniałeś jak brzmi odpowiedź na dane pytanie to oceń ją na 0 lub 1. Wtedy daną informację będę powtarzał do momentu, aż otrzyma ocenę wyższą.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1590,19 +1590,19 @@ Not only that, but if you want, I can upload transparently a completely anonymou
 Uncheck the following box if you do not want to do this.</source>
         <translation>Jeśli lubisz śledzić postępy to na pewno ucieszy cię informacja, że potrafię prowadzić dziennik powtórek.
 
-Za twoją zgodą mogę przesyłać na stronę projektu jego anonimową wersję w celach badawczych. W ten sposób nie tylko pomagasz mi stawać się coraz lepszym, ale też pomagasz w badaniach naukowych nad pamięcią długotrwałą.
+Za twoją zgodą mogę przesyłać jego anonimową wersję na stronę projektu.  W ten sposób nie tylko pomagasz mi stawać się coraz lepszym, ale też przyczyniasz się do rozwoju badań naukowych nad pamięcią długotrwałą.
 
 Odznacz to pole wyboru jeśli nie wyrażasz zgody.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Upload anonymous logs</source>
-        <translation>Przesyłaj anonimowe dzienniki</translation>
+        <translation>Przesyłaj anonimowe dane dziennika powtórek</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>(You can always change this setting later using the &apos;Configure Mnemosyne&apos; menu option.)</source>
-        <translation>(Zawsze możesz dokonać zmiany tego ustawienia, które znajduje się w menu opcji &quot;Preferencje&quot;.)</translation>
+        <translation>(Zawsze możesz dokonać zmiany tego ustawienia w menu opcji &quot;Ustawienia Mnemosyne&quot;.)</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1628,11 +1628,11 @@ Aby dodać nową kartę kliknij na ikonę plusa znajdującą się w lewym górny
 &lt;p&gt;
 Pamiętaj, że wszelkie zmiany zapisuję automatycznie, więc nie musisz zaprzątać sobie tym głowy.
 &lt;p&gt;
-W celu osiągnięcia najlepszych rezultatów staraj się robić powtórki codziennie. Jednak jeśli przełożysz je na później lub powtórzysz przed czasem, to zrobię wszystko co w mojej mocy, aby zapamiętywanie nadal było jak najefektywniejsze.
+W celu osiągnięcia najlepszych rezultatów staraj się robić powtórki codziennie. Jednak jeśli przełożysz je na później lub powtórzysz przed czasem, to zrobię wszystko co w mojej mocy aby zapamiętywanie nadal było jak najefektywniejsze.
 &lt;p&gt;
 Aby uzyskać więcej informacji przejdź do witryny: http://www.mnemosyne-proj.sourceforge.net
 &lt;p&gt;
-Udanej nauki!</translation>
+Przyjemnej nauki!</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1714,7 +1714,9 @@ Udanej nauki!</translation>
         <source>Number of cards with the following grades:
 
 </source>
-        <translation>Ilość kart które otrzymały ocenę:</translation>
+        <translation>Ilość kart, które otrzymały ocenę:
+
+</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1732,7 +1734,7 @@ Udanej nauki!</translation>
     <message>
         <location filename="" line="269"/>
         <source>Cards</source>
-        <translation>Karty</translation>
+        <translation>Kart</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1780,7 +1782,7 @@ Udanej nauki!</translation>
     <message>
         <location filename="" line="269"/>
         <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
-        <translation>Podsumujmy wszystkie rady: pamiętaj aby powtórki wykonywać codziennie i nie przejmuj się jeśli wskaźniki &quot;zaplanowane&quot; oraz &quot;nie zapamiętane&quot; informują, że istnieją jeszcze nie przyswojone informacje. Ich przeznaczeniem jest informować, a nie zmuszać do dalszej nauki, która zależy tylko i wyłącznie od twoich chęci.</translation>
+        <translation>Podsumujmy wszystkie rady: pamiętaj aby powtórki wykonywać codziennie i nie przejmuj się jeśli wskaźniki &quot;zaplanowanych&quot; oraz &quot;nie zapamiętanych&quot; nadal wyświetlają pewną liczbę nie przyswojonych informacji. Ich przeznaczeniem jest informować, a nie zmuszać do dalszej nauki, która zależy tylko i wyłącznie od twoich chęci. </translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1830,7 +1832,7 @@ Udanej nauki!</translation>
     <message>
         <location filename="" line="269"/>
         <source>You can add images and sounds to your cards. Right-click on the question or answer field when editing a card to bring up a pop-up menu to do so.</source>
-        <translation>Podczas edycji karty możesz dodawać pliki graficzne i dzwięki poprzez kliknięcie prawym przyciskiem myszy na polu pytania lub odpowiedzi i wybranie odpowiedniej opcji wywołanym menu podręcznym.</translation>
+        <translation>Podczas edycji karty możesz dodawać pliki graficzne oraz dzwięki poprzez kliknięcie prawym przyciskiem myszy na polu pytania lub odpowiedzi i wybranie odpowiedniej opcji w menu podręcznym.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1840,7 +1842,7 @@ Udanej nauki!</translation>
     <message>
         <location filename="" line="269"/>
         <source>When adding a three-sided card, two regular cards will be created. One with as question the written form and as answer the pronunciation and the translation, and one with as question the translation and as answer the written form and the pronunciation.</source>
-        <translation>Podczas dodawania karty podzielonej na trzy części, dodawane są do bazy dwie zwykłe karty. W pierwszej z nich jako pytanie służy informacja na temat formy pisemnej, na które odpowiedzią jest jej wymowa oraz tłumaczenie, natomiast w drugiej karcie jako pytanie służy informacja na temat tłumaczenia, a odpowiedzią na nie jest jego forma pisemna i wymowa.</translation>
+        <translation>Podczas dodawania karty podzielonej na trzy części dodawane są do bazy dwie zwykłe karty. W pierwszej z nich jako pytanie służy informacja na temat formy pisemnej, na które odpowiedzią jest jej wymowa oraz tłumaczenie. W drugiej karcie jako pytanie służy informacja na temat tłumaczenia, a odpowiedzią na nie jest jego forma pisemna i wymowa.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1850,12 +1852,12 @@ Udanej nauki!</translation>
     <message>
         <location filename="" line="269"/>
         <source>Mnemosyne can use LaTeX to render mathematical formulas, e.g. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (For this, you need LaTeX and dvipng installed.)</source>
-        <translation>Mnemosyne może wykorzystywać oprogramowanie LaTeX do zapisywania równań matematycznych takich jak &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;, jednak aby było to możliwe należy uprzednio zainstalować zarówno &quot;LaTeX&quot; jaki i &quot;dvipng&quot;</translation>
+        <translation>Mnemosyne może wykorzystywać oprogramowanie LaTeX do zapisywania równań matematycznych takich jak &lt;$&gt;x^2+y^2=z^2&lt;/$&gt; (Aby było to możliwe należy uprzednio zainstalować zarówno &quot;LaTeX&quot; jaki i &quot;dvipng&quot;).</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
-        <translation type="unfinished">Mnemosyne wykonuje automatyczne kopie zapasowe bazy danych i umieszcza je w katalogu .mnemosyne/backups, jednak w razie uszkodzenia dysku procedura ta nie chroni przed utratą danych. Dlatego zalecane jest wykonywanie kopii zapasowej poprzez skopiowanie folderu .mnemosyne na inny nośnik (operacja ta jest prosta jeśli wszystkie pliki powiązane z bazą przechowywane są w katalogu głównym programu)</translation>
+        <translation>Mnemosyne automatycznie wykonuje kopię zapasową bazy danych i umieszcza ją w katalogu .mnemosyne/backups, jednak w razie uszkodzenia dysku procedura ta nie chroni przed utratą danych. Dlatego zalecane jest wykonywanie kopii zapasowej poprzez skopiowanie folderu .mnemosyne na inny nośnik (jeśli wszystkie pliki powiązane z bazą przechowywane są w katalogu głównym programu wystarczy tylko go skopiować w porządane miejsce) </translation>
     </message>
     <message>
         <location filename="" line="269"/>
@@ -1870,17 +1872,17 @@ Udanej nauki!</translation>
     <message>
         <location filename="" line="269"/>
         <source>You can sort the cards in the &apos;Edit Deck&apos; dialog by answer or by category by clicking on the corresponding column title. Clicking again changes the sort order.</source>
-        <translation>W oknie &quot;Edytuj zestaw&quot; można sortować dane według odpowiedzi lub kategorii klikając na nazwę właściwej kolumny. Ponowne kliknięcie zmienia porzadek w jakim sortowane są elementy.</translation>
+        <translation>W oknie &quot;Edytuj zestaw kart&quot; można sortować dane według odpowiedzi lub kategorii klikając na odpowiednią nazwę kolumny. Ponowne kliknięcie zmienia kolejność sortowania elementów.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
-        <translation>Bardziej zaawansowane polecenia programu LaTeX dostępne są za pomocą znaczników &lt;$$&gt;...&lt;/$$&gt; oraz &lt;latex&gt;...&lt;/latex&gt;, które zostały szczegółowo omówione na stronie Mnemosyne.</translation>
+        <translation>Bardziej zaawansowane polecenia programu LaTeX dostępne są za pomocą znaczników &lt;$$&gt;...&lt;/$$&gt; oraz &lt;latex&gt;...&lt;/latex&gt; i zostały szczegółowo omówione na stronie Mnemosyne.</translation>
     </message>
     <message>
         <location filename="" line="269"/>
         <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
-        <translation>Zaawansowani użytkownicy Mnemosyne mogą jeszcze bardziej dostosować program do swoich potrzeb poprzez instalację dodatkowych wtyczek lub edycję pliku konfiguracyjnego &quot;config.spy&quot;, który znajdujące się w katalogu .mnemosyne.</translation>
+        <translation>Zaawansowani użytkownicy Mnemosyne mogą dostosowywać program do swoich potrzeb poprzez instalację dodatkowych wtyczek lub edycję znajdującego się w katalogu .mnemosyne pliku konfiguracyjnego &quot;config.spy&quot;.</translation>
     </message>
 </context>
 <context>

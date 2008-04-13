@@ -4,6 +4,8 @@ Add new translations to web
 
 latex, $ tags and spaces
 
+example plugin: activate all categories on startup
+
 Mnemosyne 1.0.2:
 
 -backport Christopher's Qt3 scrollbar patch
