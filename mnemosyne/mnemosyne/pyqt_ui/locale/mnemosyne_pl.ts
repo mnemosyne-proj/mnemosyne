@@ -145,10 +145,10 @@ Tworzenie pliku tymczasowego &quot;tmp&quot;.</translation>
         <source>Main author: Peter Bienstman
 
 </source>
-        <translation>Autor programu: Peter Bienstman</translation>
+        <translation>Autor programu: Peter Bienstman </translation>
     </message>
     <message>
-        <source>More info: http://mnemosyne-proj.sourceforge.net
+        <source> More info: http://mnemosyne-proj.sourceforge.net
 </source>
         <translation type="obsolete">Dodatkowe informacje można uzyskać na stronie: http://mnemosyne-proj.sourceforge.net</translation>
     </message>
@@ -1466,7 +1466,7 @@ Przyjemnej nauki!</translation>
     </message>
     <message>
         <source>The &apos;number of grade 0 cards to learn at once&apos; setting determines how many new cards you are trying to learn at the same time. It does &lt;b&gt;not&lt;/b&gt; tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel.</source>
-        <translation>Opcja &quot;Ilość przeznaczonych do zapamiętania kart, które otrzymały ocenę 0&quot; określa ilość kart przeznaczonych do nauki w tym samym czasie. &lt;b&gt;Nie&lt;/b&gt; jest to ilości kart przeznaczonych do nauki dziennie, gdyż jest ona dowolna i zależna od twoich chęci.</translation>
+        <translation>Opcja &quot;Ilość przeznaczonych do zapamiętania kart, które otrzymały ocenę 0&quot; określa ilość kart przeznaczonych do nauki w tym samym czasie. &lt;b&gt;Nie&lt;/b&gt; jest to ilość kart przeznaczonych do nauki dziennie, gdyż jest ona dowolna i zależna od twoich chęci.</translation>
     </message>
     <message>
         <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
