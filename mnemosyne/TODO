@@ -8,6 +8,9 @@ example plugin: activate all categories on startup
 
 pyXML?
 
+reword 'Another copy is running dialog'
+
+
 Mnemosyne 1.0.2:
 
 -backport Christopher's Qt3 scrollbar patch
@@ -57,6 +60,10 @@ the possibility to get rid of some interface quirks
  seem to work when unicode is present in the path
 
 -reactivate keyboard default 0 for cards with grade 0 or 1.
+
+-remember size of edit card window
+
+-button to go to next card in the list
 
 
 
@@ -176,6 +183,7 @@ Status: initial code written, but clean up needed.
 
 Miscellaneous
 
+-set +x on executable to cope with very secure root umasks
 
 -natural sort order of categories which contain numbers (1 vs 01)
 
