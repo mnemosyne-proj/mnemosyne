@@ -12,6 +12,8 @@ from the xml file.
 	
 MNEMOSYNE 1.0.2 :
 
+-Fixed bug where relative paths wouldn't work with non-standard directory
+ locations (reported by reynard and stvltvs).
 -Polish translation by Tomasz Nazarenko.
 -Japanese translation by Patrick Kenny.
 

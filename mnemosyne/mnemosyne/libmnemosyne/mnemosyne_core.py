@@ -972,11 +972,17 @@ def list_is_loaded():
 ##############################################################################
 
 def expand_path(p, prefix=None):
+    
+    # By default, make paths relative to the database location.
 
     if prefix == None:
         prefix = os.path.dirname(get_config("path"))
+
+    # If there was no dirname in the last statement, it was a relative
+    # path and we set the prefix to the basedir.
+    
     if prefix == '':
-        prefix = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+        prefix = get_basedir()
 
     if (    ( (len(p) > 1) and p[0] == "/") \
          or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
@@ -995,11 +1001,17 @@ def expand_path(p, prefix=None):
 ##############################################################################
 
 def contract_path(p, prefix=None):
-    
+
+    # By default, make paths relative to the database location.
+
     if prefix == None:
         prefix = os.path.dirname(get_config("path"))
+
+    # If there was no dirname in the last statement, it was a relative
+    # path and we set the prefix to the basedir.
+    
     if prefix == '':
-        prefix = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+        prefix = get_basedir()
 
     if (    ( (len(p) > 1) and p[0] == "/") \
          or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
