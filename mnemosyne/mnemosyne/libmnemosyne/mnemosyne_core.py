@@ -1739,6 +1739,7 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
         self.datecommit = ""
         self.interval = 0
         self.interval_prev = 0
+        self.commit = 0
 
     def to_bool(self, string):
         if string == '0':

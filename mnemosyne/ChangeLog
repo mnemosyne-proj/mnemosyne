@@ -14,6 +14,7 @@ MNEMOSYNE 1.0.2 :
 
 -Fixed bug where relative paths wouldn't work with non-standard directory
  locations (reported by reynard and stvltvs).
+-Make import of Supermemo for Palm databases more robust (Felix Engel).
 -Polish translation by Tomasz Nazarenko.
 -Japanese translation by Patrick Kenny.
 
