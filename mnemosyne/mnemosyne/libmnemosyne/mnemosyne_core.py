@@ -1958,8 +1958,8 @@ def import_XML(filename, default_cat, reset_learning_data=False):
         except:
             raise LoadError()
     
-    f.readline()
-    l = f.readline();    
+    l = f.readline()
+    l += f.readline();    
     if "mnemosyne" in l:
         handler = XML_Importer(default_cat, reset_learning_data)
     elif "smconv_pl" in l:
