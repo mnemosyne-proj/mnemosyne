@@ -58,5 +58,6 @@ TRANSLATIONS = locale/mnemosyne_XX.ts \
         locale/mnemosyne_zh_TW.ts \
         locale/mnemosyne_fr.ts \
 	locale/mnemosyne_pl.ts \
+	locale/mnemosyne_fa.ts \
 	locale/mnemosyne_ja.ts
 
