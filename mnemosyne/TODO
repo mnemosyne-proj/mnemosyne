@@ -1,3 +1,8 @@
+ 
+merge Chris Aakre's wcu import support
+
+merge Timothy Bourke's 'answer on top of questions' patches (2 sets)
+
 sort categories in import dialog
 
 Add new translations to web
@@ -10,7 +15,8 @@ pyXML?
 
 reword 'Another copy is running dialog'
 
-polish shortcuts (tab + enter on searh, preview Alt-p). Reported by spboulet.
+polish shortcuts (tab + enter on search, enter same function as F3, 
+preview Alt-p). Reported by spboulet and varkhan1.
 
 
 Mnemosyne 1.0.2:
