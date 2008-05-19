@@ -15,6 +15,10 @@ pyXML?
 
 reword 'Another copy is running dialog'
 
+Patch from Konrad:
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout, "replace")
+sys.stderr = codecs.getwriter("utf-8")(sys.stderr, "replace")
+
 polish shortcuts (tab + enter on search, enter same function as F3, 
 preview Alt-p). Reported by spboulet and varkhan1.
 
