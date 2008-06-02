@@ -85,6 +85,8 @@ Mnemosyne 1.2: SQL backend for better speed and lower memory requirements.
 This will also lay the foundation for custom card types and make a port
 to mobile devices (Maemo, Windows Mobile, ...) possible.
 
+-refactor day_start_at (Konrad)
+
 -move to sqlite backend (encode card relations and tag hierarchy in name, 
  multiple category fields per card)
 
