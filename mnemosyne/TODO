@@ -199,6 +199,8 @@ Status: initial code written, but clean up needed.
 
 Miscellaneous
 
+-smarter sorting. See suggestios by larryrenslow
+
 -set +x on executable to cope with very secure root umasks
 
 -natural sort order of categories which contain numbers (1 vs 01)
