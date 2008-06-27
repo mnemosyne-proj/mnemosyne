@@ -1,10 +1,8 @@
-xml import tests
+xml import tests (wcu, memaid, plconv)
 
 add hooks before display
 
 merge Konrad OSX patches + start time patches + protect patches
- 
-merge Chris Aakre's wcu import support
 
 merge Timothy Bourke's 'answer on top of questions' patches (2 sets)
 

@@ -12,6 +12,7 @@ from the xml file.
 	
 MNEMOSYNE 1.0.2 :
 
+-Added import/export support for CueCard wcu files (Chris Aakre).	
 -Make dvipng invocation more robust. Especially helpful for Ubuntu users.
  (Thanks to Stephen Boulet and franny1).
 -Changed compression format of the backups from bz2 to gz. This results in
