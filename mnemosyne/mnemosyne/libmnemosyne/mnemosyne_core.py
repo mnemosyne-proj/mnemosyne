@@ -1057,6 +1057,7 @@ def set_non_latin_font_size(old_string, font_size):
         return old_string
     
     new_string = ""
+    in_tag = False
     in_unicode_substring = False
     
     for i in range(len(old_string)):
