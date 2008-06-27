@@ -12,6 +12,8 @@ from the xml file.
 	
 MNEMOSYNE 1.0.2 :
 
+-Make dvipng invocation more robust. Especially helpful for Ubuntu users.
+ (Thanks to Stephen Boulet and franny1).
 -Changed compression format of the backups from bz2 to gz. This results in
  less compression, but a much faster program exit (suggested by Konrad Wojas).
 -Fixed bug where relative paths wouldn't work with non-standard directory

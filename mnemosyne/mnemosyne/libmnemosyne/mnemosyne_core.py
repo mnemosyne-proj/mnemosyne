@@ -1118,7 +1118,7 @@ def process_latex(latex_command):
                   " 2>&1 1>latex_out.txt")
 
         f = file("dvipng")       
-        os.system(f.readline())
+        os.system(f.readline().rstrip())
         f.close()
 
         if not os.path.exists("tmp1.png"):
