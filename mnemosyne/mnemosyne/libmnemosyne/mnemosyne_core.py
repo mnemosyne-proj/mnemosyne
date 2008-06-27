@@ -5,7 +5,7 @@
 ##############################################################################
 
 import random, time, os, string, sys, cPickle, md5, struct, logging, re
-import shutil, datetime, bz2, copy, cStringIO 
+import shutil, datetime, bz2, gzip, copy, cStringIO 
 
 from mnemosyne.libmnemosyne.exceptions import *
 import mnemosyne.version
@@ -933,7 +933,7 @@ def backup_database():
 
     # Compress the file.
 
-    f = bz2.BZ2File(filename + ".bz2", 'w')
+    f = gzip.GzipFile(filename + ".gz", 'w')
     for l in file(filename):
         f.write(l)
     f.close()
