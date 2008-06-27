@@ -1061,13 +1061,24 @@ def set_non_latin_font_size(old_string, font_size):
     
     for i in range(len(old_string)):
         if not in_latin_plane(ord(old_string[i])):
-            if in_unicode_substring == True:
+
+            # Don't substitute within XML tags, or file names get messed up.
+            
+            if in_tag or in_unicode_substring == True:
                 new_string += old_string[i]
             else:
                 in_unicode_substring = True
                 new_string += '<font style=\"font-size:' + str(font_size) +\
                               'pt\">' + old_string[i]
         else:
+            
+            # First check for tag start/end.
+            
+            if old_string[i] == '<':
+                in_tag = True
+            elif old_string[i] == '>':
+                in_tag = False
+                
             if in_unicode_substring == True:
                 in_unicode_substring = False
                 new_string += '</font>' + old_string[i]

@@ -18,6 +18,8 @@ MNEMOSYNE 1.0.2 :
  less compression, but a much faster program exit (suggested by Konrad Wojas).
 -Fixed bug where relative paths wouldn't work with non-standard directory
  locations (reported by reynard and stvltvs).
+-Fixed bug with non-latin filenames and increase size of non-latin characters
+ (Nils Barth).
 -Make import of Supermemo for Palm databases more robust (Felix Engel).
 -Make XML import from svgtoquiz more robust (bug reported by Mercado1).
 -Polish translation by Tomasz Nazarenko.
