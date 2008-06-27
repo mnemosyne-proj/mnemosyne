@@ -254,7 +254,7 @@ Ik creëer tmp bestand.</translation>
     <message>
         <location filename="add_cards_dlg.py" line="111"/>
         <source>Abandon current card?</source>
-        <translation type="unfinished">Wilt u de huidige kaart permanent verwijderen?</translation>
+        <translation type="unfinished">Huidige kaart opgeven?</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="112"/>
