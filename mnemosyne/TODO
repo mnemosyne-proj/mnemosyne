@@ -4,8 +4,6 @@ add hooks before display
 
 merge Konrad OSX patches + start time patches + protect patches
 
-merge Timothy Bourke's 'answer on top of questions' patches (2 sets)
-
 sort categories in import dialog
 
 Add new translations to web
