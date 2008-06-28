@@ -23,6 +23,7 @@ MNEMOSYNE 1.0.2 :
  (Thanks to Stephen Boulet and franny1).
 -Changed compression format of the backups from bz2 to gz. This results in
  less compression, but a much faster program exit (suggested by Konrad Wojas).
+-Fixed bug where day_starts_at was not working (Konrad Wojas).
 -Fixed bug where relative paths wouldn't work with non-standard directory
  locations (reported by reynard and stvltvs).
 -Fixed bug with non-latin filenames and increase size of non-latin characters

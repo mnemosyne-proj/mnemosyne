@@ -365,26 +365,48 @@ def run_plugins():
 #
 # StartTime
 #
+# TODO: remove obsolete code?
+#
 ##############################################################################
 
 class StartTime:
 
     def __init__(self, start_time):
-
-        # Reset to 3.00 am by default.
-
+        
         h = get_config("day_starts_at")
 
-        t = time.localtime(start_time)
+        # Compatibility code for older versions.
+        
+        t = time.localtime(start_time) # In seconds from Unix epoch in UTC.
         self.time = time.mktime([t[0],t[1],t[2], h,0,0, t[6],t[7],t[8]])
+
+        # New implementation (will use local time by default).
+        
+        adjusted_now = datetime.datetime.now() - datetime.timedelta(hours=h)
+        self.date = adjusted_now.date()
 
     # Since this information is frequently needed, we calculate it once
     # and store it in a global variable, which is updated when the database
     # loads and in rebuild_revision_queue.
     
     def update_days_since(self):
+        
         global days_since_start
-        days_since_start = int( (time.time() - self.time) / 60. / 60. / 24.)
+
+        # If this is a database with the obsolete time stamp, update it
+        # with a date attribute. The adjustment for 'day_starts_at' is not
+        # relevant here, as we only store the date part.
+        
+        if not getattr(self, 'date', None):
+            self.date = datetime.datetime.fromtimestamp(self.time).date()
+        
+        # Now calculate the difference in days.
+        
+        h = get_config("day_starts_at")
+        adjusted_now = datetime.datetime.now() - datetime.timedelta(hours=h)
+        dt = adjusted_now.date() - self.date
+        
+        days_since_start = dt.days
 
     
     

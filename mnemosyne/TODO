@@ -1,7 +1,5 @@
 Mnemosyne 1.0.2
 
--merge Konrad starttime patches
-
 -backport Christopher's Qt3 scrollbar patch
 
 -add hooks to filter strings before display
