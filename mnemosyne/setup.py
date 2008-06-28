@@ -1,6 +1,7 @@
 import os, sys, shutil
 
-from distutils.core import setup, Extension
+from distutils.core import Extension
+from setuptools import setup
 
 if sys.platform == "win32":
     import py2exe
@@ -144,6 +145,9 @@ class build_installer(py2exe):
 if sys.platform == "win32": # For py2exe.
     base_path = ""
     data_files = None
+elif sys.platform == "darwin": # For py2app.
+    base_path = ""
+    data_files = []
 else:
     base_path = os.path.join(sys.exec_prefix, "lib", "python"+sys.version[:3],
                              "site-packages","mnemosyne")
@@ -168,5 +172,10 @@ setup (name = "mnemosyne",
                    "icon_resources":[(1,"pixmaps/mnemosyne.ico")]}],
        #console = [{'script':'mnemosyne/pyqt_ui/mnemosyne',
        #            "icon_resources":[(1,"mnemosyne/pixmaps/mnemosyne.ico")]}],
-       cmdclass = {"py2exe": build_installer}
-       )
+       cmdclass = {"py2exe": build_installer},
+       # py2app
+       setup_requires = setup_requires,
+       options = {'py2app' : py2app_options},
+       app = py2app_app
+)
+
