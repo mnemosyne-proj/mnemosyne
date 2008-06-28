@@ -6,13 +6,18 @@
 #
 ##############################################################################
 
-import sys, os, locale
+import sys, os, locale. codecs
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from mnemosyne.pyqt_ui.main_dlg import *
 from mnemosyne.pyqt_ui.message_boxes import *
 from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 from optparse import OptionParser
+
+# Don't stumble over unicode in error messages.
+
+sys.stdout = codecs.getwriter(sys.stdout.encoding)(sys.stdout, "replace") 
+sys.stderr = codecs.getwriter(sys.stderr.encoding)(sys.stderr, "replace")
 
 # Parse options.
 
