@@ -1,32 +1,30 @@
 Mnemosyne 1.0.2
 
-xml import tests (wcu, memaid, plconv)
-
-add hooks before display
-
-merge Konrad start time patches
-
-sort categories in import dialog
-
-Add new translations to web
-
-latex, $ tags and spaces? Cannot reproduce...
-http://sourceforge.net/forum/message.php?msg_id=4894781
-
-example plugin: randomise cards, activate all categories
-
-reword 'Another copy is running dialog'
-
-polish shortcuts (tab + enter on search, enter same function as F3, 
-preview Alt-p). Reported by spboulet and varkhan1.
-
--prioritise lapsed cards in review
+-merge Konrad starttime patches
 
 -backport Christopher's Qt3 scrollbar patch
 
--keyboard shortcut for showing individual card statistics from main window
+-add hooks to filter strings before display
+
+-prioritise lapsed cards in review
 
 -don't randomise very first revision, because of dependencies
+
+-sort categories in import dialog
+
+-example plugins: randomise cards, activate all categories
+
+-reword 'Another copy is running dialog'
+
+-polish shortcuts (tab + enter on search, enter same function as F3, 
+preview Alt-p). Reported by spboulet and varkhan1.
+
+-keyboard shortcut for showing individual card statistics from main window
+
+-add new translations to web
+
+-bug with latex, $ tags and spaces? Cannot reproduce this...
+http://sourceforge.net/forum/message.php?msg_id=4894781
 
 
 
@@ -34,6 +32,7 @@ Mnemosyne 1.1: upgrade from Qt3 to Qt4 for improved speed, and
 the possibility to get rid of some interface quirks
 
 -get rid of PyXML, pygame
+-xml import tests (wcu, memaid, plconv)
 
 -front widget that allows copying, can produce scroll bars. This should
  solve issues when a card contains a very large picture
