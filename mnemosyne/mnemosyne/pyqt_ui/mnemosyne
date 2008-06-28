@@ -16,8 +16,9 @@ from optparse import OptionParser
 
 # Don't stumble over unicode in error messages.
 
-sys.stdout = codecs.getwriter(sys.stdout.encoding)(sys.stdout, "replace") 
-sys.stderr = codecs.getwriter(sys.stderr.encoding)(sys.stderr, "replace")
+if sys.stdout.encoding and sys.stderr.encoding:
+    sys.stdout = codecs.getwriter(sys.stdout.encoding)(sys.stdout, "replace") 
+    sys.stderr = codecs.getwriter(sys.stderr.encoding)(sys.stderr, "replace")
 
 # Parse options.
 
