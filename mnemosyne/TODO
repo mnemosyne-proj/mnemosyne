@@ -4,7 +4,7 @@ xml import tests (wcu, memaid, plconv)
 
 add hooks before display
 
-merge Konrad start time patches + protect patches
+merge Konrad start time patches
 
 sort categories in import dialog
 

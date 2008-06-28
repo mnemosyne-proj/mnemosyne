@@ -1058,10 +1058,11 @@ def set_non_latin_font_size(old_string, font_size):
     
     new_string = ""
     in_tag = False
+    in_protect = 0
     in_unicode_substring = False
     
     for i in range(len(old_string)):
-        if not in_latin_plane(ord(old_string[i])):
+        if not in_latin_plane(ord(old_string[i])) and not in_protect:
 
             # Don't substitute within XML tags, or file names get messed up.
             
@@ -1079,7 +1080,16 @@ def set_non_latin_font_size(old_string, font_size):
                 in_tag = True
             elif old_string[i] == '>':
                 in_tag = False
-                
+
+            # Test for <protect> tags.
+
+            if old_string[i:].startswith('<protect>'):
+                in_protect += 1
+            elif old_string[i:].startswith('</protect>'):
+                in_protect = max(0, in_protect - 1)
+
+            # Close tag.
+               
             if in_unicode_substring == True:
                 in_unicode_substring = False
                 new_string += '</font>' + old_string[i]
@@ -1088,9 +1098,13 @@ def set_non_latin_font_size(old_string, font_size):
                 
     # Make sure to close the last tag.
               
-    if not in_latin_plane(ord(old_string[-1])):
+    if not in_latin_plane(ord(old_string[-1])) and not in_protect:
         new_string += '</font>'
 
+    # Now we can strip all the <protect> tags.
+
+    new_string = new_string.replace('<protect>', '').replace('</protect>', '')
+    
     return new_string
 
 
