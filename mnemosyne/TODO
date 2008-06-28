@@ -1,3 +1,5 @@
+Mnemosyne 1.0.2
+
 xml import tests (wcu, memaid, plconv)
 
 add hooks before display
@@ -8,11 +10,10 @@ sort categories in import dialog
 
 Add new translations to web
 
-latex, $ tags and spaces
+latex, $ tags and spaces? Cannot reproduce...
+http://sourceforge.net/forum/message.php?msg_id=4894781
 
-example plugin: activate all categories on startup
-
-pyXML?
+example plugin: randomise cards, activate all categories
 
 reword 'Another copy is running dialog'
 
@@ -24,24 +25,20 @@ sys.stderr = codecs.getwriter(sys.stderr.encoding)(sys.stderr, "replace")
 polish shortcuts (tab + enter on search, enter same function as F3, 
 preview Alt-p). Reported by spboulet and varkhan1.
 
-
-Mnemosyne 1.0.2:
+-prioritise lapsed cards in review
 
 -backport Christopher's Qt3 scrollbar patch
 
 -keyboard shortcut for showing individual card statistics from main window
 
--option to randomise order for new cards.
-
--when randomising is off, don't randomise very first revision, because of 
- dependencies
-
--prioritise lapsed cards over old grade 1 cards
+-don't randomise very first revision, because of dependencies
 
 
 
 Mnemosyne 1.1: upgrade from Qt3 to Qt4 for improved speed, and 
 the possibility to get rid of some interface quirks
+
+-get rid of PyXML, pygame
 
 -front widget that allows copying, can produce scroll bars. This should
  solve issues when a card contains a very large picture
@@ -68,8 +65,6 @@ the possibility to get rid of some interface quirks
 
 -Phonon backend instead of PyGame to improve sound playback
 
--prioritise lapsed cards in review
-
 -dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
  seem to work when unicode is present in the path
 
@@ -78,6 +73,8 @@ the possibility to get rid of some interface quirks
 -remember size of edit card window
 
 -button to go to next card in the list
+
+-plugin for midi files
 
 
 
@@ -90,7 +87,7 @@ to mobile devices (Maemo, Windows Mobile, ...) possible.
 -move to sqlite backend (encode card relations and tag hierarchy in name, 
  multiple category fields per card)
 
--field for date added?
+-field for date added
 
 -rename edit_items, items, product tour at the source level
 

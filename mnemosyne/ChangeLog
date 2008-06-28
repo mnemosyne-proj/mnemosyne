@@ -14,7 +14,8 @@ MNEMOSYNE 1.0.2 :
 
 -Added import/export support for CueCard wcu files (Chris Aakre).
 -Added features to improve display of map cards from svgtoquiz (Timothy 
- Bourke).	
+ Bourke).
+-Added midi files to "import sound" file dialog (suggested by Johan Forsberg).
 -Make dvipng invocation more robust. Especially helpful for Ubuntu users.
  (Thanks to Stephen Boulet and franny1).
 -Changed compression format of the backups from bz2 to gz. This results in
