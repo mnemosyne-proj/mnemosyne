@@ -187,8 +187,6 @@ Miscellaneous
 
 -smarter sorting. See suggestios by larryrenslow
 
--set +x on executable to cope with very secure root umasks
-
 -natural sort order of categories which contain numbers (1 vs 01)
 
 -auto identifying similar cards
@@ -225,8 +223,6 @@ Miscellaneous
 -'teacher mode' on export, which allows pupils to update previously imported 
  cards, as opposed to adding new cards. Implemented through id's of the form
  T.<fixed card id for all pupils>.<pupil user id>
-
--manual
 
 -better sound replay support, through clicking on an icon
 
