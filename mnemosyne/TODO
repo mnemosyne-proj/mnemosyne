@@ -1,4 +1,6 @@
-Mnemosyne 1.0.2
+-add new translations to web
+
+Mnemosyne 1.1
 
 -backport Christopher's Qt3 scrollbar patch
 
@@ -8,26 +10,29 @@ Mnemosyne 1.0.2
 
 -don't randomise very first revision, because of dependencies
 
+-prioritise overdue lapsed cards with lower scheduled intervals
+
 -sort categories in import dialog
 
 -example plugins: randomise cards, activate all categories
-
--reword 'Another copy is running dialog'
 
 -polish shortcuts (tab + enter on search, enter same function as F3, 
 preview Alt-p). Reported by spboulet and varkhan1.
 
 -keyboard shortcut for showing individual card statistics from main window
 
--add new translations to web
-
 -bug with latex, $ tags and spaces? Cannot reproduce this...
 http://sourceforge.net/forum/message.php?msg_id=4894781
 
 
 
-Mnemosyne 1.1: upgrade from Qt3 to Qt4 for improved speed, and 
-the possibility to get rid of some interface quirks
+Mnemosyne 2.0: Major rewrite
+
+-upgrade from Qt3 to Qt4 for improved speed, and the possibility to get rid 
+ of some interface quirks
+-SQL backend for better speed and lower memory requirements. This will also 
+ lay the foundation for custom card types and make a port
+ to mobile devices (Maemo, Windows Mobile, ...) possible.
 
 -get rid of PyXML, pygame
 -xml import tests (wcu, memaid, plconv)
@@ -67,12 +72,6 @@ the possibility to get rid of some interface quirks
 -button to go to next card in the list
 
 -plugin for midi files
-
-
-
-Mnemosyne 1.2: SQL backend for better speed and lower memory requirements.
-This will also lay the foundation for custom card types and make a port
-to mobile devices (Maemo, Windows Mobile, ...) possible.
 
 -refactor day_start_at (Konrad)
 
@@ -119,7 +118,7 @@ to mobile devices (Maemo, Windows Mobile, ...) possible.
 -example plugin: randomise order of new cards
 
 
-Mnemosyne 1.3:
+Mnemosyne 2.1:
 
 -GUI support for multiple categories per card (Note: for categories relating
  to direction of card, we probably don't need to specify them explicitly,
@@ -127,13 +126,13 @@ Mnemosyne 1.3:
 
 
 
-Mnemosyne 1.4
+Mnemosyne 2.2
 
 -synonym handling
 
 
 
-Mnemosyne 1.5
+Mnemosyne 2.3
 
 -hierarchical categories
 
@@ -148,7 +147,7 @@ Mnemosyne 1.5
 
 
 
-Mnemosyne 1.6
+Mnemosyne 2.4
 
 -more advanced plugin mechanism, plugin manager
 

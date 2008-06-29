@@ -1,4 +1,4 @@
-MNEMOSYNE 1.1
+MNEMOSYNE 2.0
 
 (Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)
@@ -18,11 +18,14 @@ MNEMOSYNE 1.0.2 :
 -Added support for Mac installer through py2app (Konrad Wojas).
 -Added <protect>...</protect> tags. Text within these tags will not be
  touched by 'increase size of non-latin characters' (Konrad Wojas).
--Added midi files to "import sound" file dialog (suggested by Johan Forsberg).
--Make dvipng invocation more robust. Especially helpful for Ubuntu users.
- (Thanks to Stephen Boulet and franny1).
 -Changed compression format of the backups from bz2 to gz. This results in
  less compression, but a much faster program exit (suggested by Konrad Wojas).
+-Added midi files to "import sound" file dialog (suggested by Johan Forsberg).
+-Polish translation by Tomasz Nazarenko.
+-Japanese translation by Patrick Kenny.	
+-Persian translation by Bahman Eslami.
+-Make dvipng invocation more robust. Especially helpful for Ubuntu users.
+ (Thanks to Stephen Boulet and franny1).
 -Fixed bug where day_starts_at was not working (Konrad Wojas).
 -Fixed bug where relative paths wouldn't work with non-standard directory
  locations (reported by reynard and stvltvs).
@@ -30,10 +33,8 @@ MNEMOSYNE 1.0.2 :
  (Nils Barth).
 -Make import of Supermemo for Palm databases more robust (Felix Engel).
 -Make XML import from svgtoquiz more robust (bug reported by Mercado1).
--Polish translation by Tomasz Nazarenko.
--Japanese translation by Patrick Kenny.
--Persian translation by Bahman Eslami.
 
+	
 	
 MNEMOSYNE 1.0.1.1 : 2008-03-22
 	

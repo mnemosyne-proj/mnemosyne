@@ -83,8 +83,10 @@ a.installTranslator(translator)
 if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
     status = QMessageBox.warning(None,
              a.trUtf8("Mnemosyne"),
-             a.trUtf8("Another running copy of Mnemosyne was detected.\n" +\
-                      "Starting a new copy could lead to data loss!\n"),
+             a.trUtf8("Either Mnemosyne didn't shut down properly,\n" +
+                      "or another copy of Mnemosyne is still running.\n" +
+                      "Continuing in the latter case could lead to data " +
+                      "loss!\n"),
              a.trUtf8("&Exit"), a.trUtf8("&Continue"),
              QString(), 0, -1)
     if status == 0 or status == -1:
