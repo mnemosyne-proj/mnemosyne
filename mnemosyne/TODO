@@ -12,8 +12,6 @@ Mnemosyne 1.1
 
 -prioritise overdue lapsed cards with lower scheduled intervals
 
--sort categories in import dialog
-
 -example plugins: randomise cards, activate all categories
 
 -polish shortcuts (tab + enter on search, enter same function as F3, 

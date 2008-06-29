@@ -36,9 +36,12 @@ class ImportDlg(ImportFrm):
         self.fileformats.setCurrentText(get_config("import_format"))
 
         self.categories.insertItem(self.trUtf8("<default>"))
-        for cat in get_categories():
-            if cat.name != self.trUtf8("<default>"):
-                self.categories.insertItem(cat.name)
+
+        names = [cat.name for cat in get_categories()]
+        names.sort()
+        for name in names:
+            if name != self.trUtf8("<default>"):
+                self.categories.insertItem(name)
 
         self.reset_box.setChecked(get_config("reset_learning_data_import"))
         
