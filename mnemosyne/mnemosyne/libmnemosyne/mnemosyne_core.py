@@ -380,10 +380,9 @@ class StartTime:
         t = time.localtime(start_time) # In seconds from Unix epoch in UTC.
         self.time = time.mktime([t[0],t[1],t[2], h,0,0, t[6],t[7],t[8]])
 
-        # New implementation (will use local time by default).
-        
-        adjusted_now = datetime.datetime.now() - datetime.timedelta(hours=h)
-        self.date = adjusted_now.date()
+        # New implementation.
+
+        self.date = datetime.datetime.fromtimestamp(self.time).date()
 
     # Since this information is frequently needed, we calculate it once
     # and store it in a global variable, which is updated when the database
@@ -2049,7 +2048,7 @@ def import_XML(filename, default_cat, reset_learning_data=False):
                 item.last_rep += abs(offset)
                 item.next_rep += abs(offset)
         else:
-            time_of_start.time = imp_start_date
+            time_of_start = StartTime(imp_start_date)
             for item in items:
                 item.last_rep += abs(offset)
                 item.next_rep += abs(offset)
