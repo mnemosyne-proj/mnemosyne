@@ -157,14 +157,40 @@ else:
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path   = os.path.join(base_path, "util")
 doc_path    = os.path.join(base_path, "docs")
+build_path  = os.path.join(base_path, "build")
 
+setup_requires = []
+
+# py2app (OS X)
+py2app_options = {
+    'argv_emulation': True, 
+    'includes' : 'sip,qt,cPickle,md5,logging,shutil,xml.sax,xml.sax.drivers2.drv_pyexpat',
+    'resources' : 'mnemosyne',
+    'iconfile' : 'pixmaps/mnemosyne.icns'
+}
+py2app_app = ['build/Mnemosyne.py']
+if 'py2app' in sys.argv:
+    setup_requires.append('py2app')
+    # create the application script
+    if not os.path.exists(build_path):
+        os.mkdir(build_path)
+    # create a copy in build/ with name Mnemosyne.py, because py2app
+    #   needs a script that ends in .py
+    appscript = os.path.join(build_path, 'Mnemosyne.py')
+    source = os.path.join(base_path, "mnemosyne", "pyqt_ui", "mnemosyne")
+    if os.path.exists(appscript):
+        os.unlink(appscript)
+    shutil.copyfile(source, appscript)
+    
 package_name = "mnemosyne_devel"
 
-setup (name = "mnemosyne",
+setup (name = "Mnemosyne",
        version = mnemosyne.version.version,
        author = "Peter Bienstman",
        author_email = "Peter.Bienstman@UGent.be",
-       packages = ["mnemosyne", "mnemosyne.pyqt_ui","mnemosyne.libmnemosyne"],
+       packages = ["mnemosyne", "mnemosyne.pyqt_ui", \
+                   "mnemosyne.libmnemosyne", \
+                   "mnemosyne.libmnemosyne.card_types"],
        package_data = {"mnemosyne.pyqt_ui": ['locale/*.qm']},
        data_files = data_files,
        scripts = ['mnemosyne/pyqt_ui/mnemosyne'],

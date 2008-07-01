@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>CardTwoSided</class>
- <widget class="QWidget" name="CardTwoSided" >
+ <class>CardTwoSidedWdgt</class>
+ <widget class="QWidget" name="CardTwoSidedWdgt" >
   <property name="geometry" >
    <rect>
     <x>0</x>

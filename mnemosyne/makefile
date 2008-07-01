@@ -1,5 +1,5 @@
 default:
-	rm -r /usr/lib/python2.4/site-packages/mnemosyne/
+	rm -rf /usr/lib/python2.4/site-packages/Mnemosyne-1.0*
 	cd mnemosyne/pyqt_ui ; make clean
 	cd mnemosyne/pyqt_ui ; make
 	rm -f mnemosyne/pyqt_ui/locale/mnemosyne_XX.ts

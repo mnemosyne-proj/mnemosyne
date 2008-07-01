@@ -1,25 +1,25 @@
 ##############################################################################
 #
-# Two sided card <Peter.Bienstman@UGent.be>
+# Two sided card widget <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from card_twosided import *
+from ui_card_twosided_wdgt import *
 
 from mnemosyne.libmnemosyne import *
 from mnemosyne.libmnemosyne.card_type import * # TODO: merge
-from mnemosyne.libmnemosyne.two_sided_card_type import *
+from mnemosyne.libmnemosyne.card_types.two_sided import *
 
 ##############################################################################
 #
-# CardTwoSidedDlg # todo: rename to widget
+# CardTwoSidedWdgt
 #
 ##############################################################################
 
-class CardTwoSidedDlg(QWidget, Ui_CardTwoSided):
+class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
     
     def __init__(self, parent = None):
         
@@ -34,7 +34,7 @@ class CardTwoSidedDlg(QWidget, Ui_CardTwoSided):
 #
 ##############################################################################
 
-register_card_type("Two-sided card", CardTwoSidedDlg, new_cards_two_sided,
+register_card_type("Two-sided card", CardTwoSidedWdgt, new_cards_two_sided,
                    update_cards_two_sided)
 
 

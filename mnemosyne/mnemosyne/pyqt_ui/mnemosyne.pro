@@ -1,30 +1,8 @@
-SOURCES = activate_categories_dlg.py \
-	message_boxes.py \
-	edit_cards_dlg.py \
-	plugin.py \
-	add_cards_dlg.py \
-	preview_cards_dlg.py \
-	export_dlg.py \
-	change_category_dlg.py \
-	product_tour_dlg.py \
-	import_dlg.py \
-	clean_duplicates.py \
-	qtextedit2.py \
-	config_dlg.py \
-	sound.py \
-	main_dlg.py \
-	statistics_dlg.py \
-	edit_cards_dlg.py \
-	main_dlg.py \
-	add_cards_dlg.py \
-	edit_cards_dlg.py \
-	preview_cards_dlg.py \
-	about_dlg.py \
-	tip_dlg.py
-
-FORMS = activate_categories_dlg.ui \
+FORMS = main_window.ui \
+	add_cards_dlg.ui \
+	card_twosided_wdgt.ui \
+	activate_categories_dlg.ui \
 	edit_cards_dlg.ui \
-	main_dlg.ui \
 	add_cards_dlg.ui \
 	edit_cards_dlg.ui \
 	preview_cards_dlg.ui \
@@ -36,6 +14,30 @@ FORMS = activate_categories_dlg.ui \
 	statistics_dlg.ui \
 	about_dlg.ui \
 	tip_dlg.ui
+
+SOURCES = main_window.py \
+	add_cards_dlg.py \ 	
+	card_twosided_wdgt.py \
+	activate_categories_dlg.py \
+	message_boxes.py \
+	edit_cards_dlg.py \
+	plugin.py \
+	preview_cards_dlg.py \
+	export_dlg.py \
+	change_category_dlg.py \
+	product_tour_dlg.py \
+	import_dlg.py \
+	clean_duplicates.py \
+	qtextedit2.py \
+	config_dlg.py \
+	sound.py \
+	statistics_dlg.py \
+	edit_cards_dlg.py \
+	main_window.py \
+	edit_cards_dlg.py \
+	preview_cards_dlg.py \
+	about_dlg.py \
+	tip_dlg.py
 
 TRANSLATIONS = locale/mnemosyne_XX.ts \
 	locale/mnemosyne_de.ts \
@@ -49,5 +51,6 @@ TRANSLATIONS = locale/mnemosyne_XX.ts \
         locale/mnemosyne_fr.ts \
 	locale/mnemosyne_pl.ts \
 	locale/mnemosyne_fa.ts \
-	locale/mnemosyne_ja.ts
+	locale/mnemosyne_ja.ts \
+	locale/mnemosyne_pt_BR.ts
 

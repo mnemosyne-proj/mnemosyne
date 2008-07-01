@@ -10,8 +10,8 @@ from PyQt4.QtGui import *
 
 
 from mnemosyne.libmnemosyne import *
-from add_cards_frm import *
-from card_twosided_dlg import *
+from ui_add_cards_dlg import *
+from card_twosided_wdgt import *
 #from edit_item_dlg import *
 
 
@@ -21,7 +21,7 @@ from card_twosided_dlg import *
 #
 ##############################################################################
 
-class AddCardsDlg(QDialog, Ui_AddCardsFrm):
+class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
     ##########################################################################
     #
@@ -37,20 +37,20 @@ class AddCardsDlg(QDialog, Ui_AddCardsFrm):
         
         self.setupUi(self)
         
-        self.replace_me = CardTwoSidedDlg()
+        self.replace_me = CardTwoSidedWdgt()
 
         self.vboxlayout.insertWidget(1, self.replace_me)
         
-           
-        #self.addViceVersa.setChecked(get_config("last_add_vice_versa"))
-        #self.update_combobox(get_config("last_add_category"))
+        for card_type in get_card_types():
+            self.card_types.addItem(card_type)
+        
+        self.update_combobox(get_config("last_add_category"))
 
         self.connect(self.grades, SIGNAL("clicked(int)"),
-                     self.new_item)
+                     self.new_card)
 
-        self.connect(self.preview_button, SIGNAL("clicked()"),
-                     self.preview)
-
+        #self.connect(self.preview_button, SIGNAL("clicked()"),
+        #             self.preview)
 
         
         #if get_config("QA_font") != None:
@@ -59,7 +59,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsFrm):
         #    self.question.setFont(font)
         #    self.pronunciation.setFont(font)
         #    self.answer.setFont(font)
-            #self.categories.setFont(font)
+        #self.categories.setFont(font)
             
         
 
@@ -76,20 +76,28 @@ class AddCardsDlg(QDialog, Ui_AddCardsFrm):
         for i in range(no_of_categories-1,-1,-1):
             self.categories.removeItem(i)
 
-        self.categories.insertItem(self.trUtf8("<default>"))
-        names = [cat.name for cat in get_categories()]
-        names.sort()
-        for name in names:
+        self.categories.addItem(self.trUtf8("<default>"))
+        for name in get_category_names():
             if name != self.trUtf8("<default>"):
-                self.categories.insertItem(name)
+                self.categories.addItem(name)
 
         for i in range(self.categories.count()):
-            if self.categories.text(i) == current_cat_name:
-                self.categories.setCurrentItem(i)
+            if self.categories.itemText(i) == current_cat_name:
+                self.categories.setCurrentIndex(i)
                 break
 
 
+    ##########################################################################
+    #
+    # new_card
+    #
+    ##########################################################################
+    
+    def new_card(self,data):
 
+        print 'new card'
+
+        get_card_type_by_name(self.card_types.current_text).new_card(data)
 
 
 
@@ -233,7 +241,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsFrm):
     #
     ##########################################################################
 
-    def new_card(self, grade):
+    def new_card_old(self, grade):
 
         q        = unicode(self.question.text())
         p        = unicode(self.pronunciation.text())

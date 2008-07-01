@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>AddCardsFrm</class>
- <widget class="QDialog" name="AddCardsFrm" >
+ <class>AddCardsDlg</class>
+ <widget class="QDialog" name="AddCardsDlg" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -25,7 +25,7 @@
         </widget>
        </item>
        <item row="0" column="1" >
-        <widget class="QComboBox" name="card_type" >
+        <widget class="QComboBox" name="card_types" >
          <property name="sizePolicy" >
           <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
            <horstretch>0</horstretch>
@@ -42,7 +42,7 @@
         </widget>
        </item>
        <item row="1" column="1" >
-        <widget class="QComboBox" name="category" >
+        <widget class="QComboBox" name="categories" >
          <property name="sizePolicy" >
           <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
            <horstretch>0</horstretch>

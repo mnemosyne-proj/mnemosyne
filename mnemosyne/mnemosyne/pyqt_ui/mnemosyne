@@ -9,7 +9,7 @@
 import sys, os, locale
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from mnemosyne.pyqt_ui.main_dlg import *
+from mnemosyne.pyqt_ui.main_window import *
 from mnemosyne.pyqt_ui.message_boxes import *
 from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 from optparse import OptionParser
@@ -105,7 +105,7 @@ try:
 except:
     print "Unable to initialise sound."
 
-w = MainDlg(filename)
+w = MainWindow(filename)
 install_tooltip_strings(w)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)

@@ -5,168 +5,168 @@
     <message>
         <location filename="message_boxes.py" line="30"/>
         <source>Error in config.py:</source>
-        <translation>Erreur dans config.py :</translation>
+        <translation type="unfinished">Erreur dans config.py :</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="32"/>
         <source>Error when running plugin:</source>
-        <translation>Erreur à l&apos;exécution du plugin :</translation>
+        <translation type="unfinished">Erreur à l&apos;exécution du plugin :</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="34"/>
         <source>Unable to load file.</source>
-        <translation>impossible de charger le fichier.</translation>
+        <translation type="unfinished">impossible de charger le fichier.</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="36"/>
         <source>Invalid file format.</source>
-        <translation>Format de fichier invalide.</translation>
+        <translation type="unfinished">Format de fichier invalide.</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="38"/>
         <source>Unable to save file.</source>
-        <translation>Impossible d&apos;enregistrer le fichier.</translation>
+        <translation type="unfinished">Impossible d&apos;enregistrer le fichier.</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="40"/>
         <source>Unable to parse XML:</source>
-        <translation>impossible d&apos;analyser le fichier XML :</translation>
+        <translation type="unfinished">impossible d&apos;analyser le fichier XML :</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="42"/>
         <source>Unrecognised encoding.</source>
-        <translation>Encodage non-reconnu.</translation>
+        <translation type="unfinished">Encodage non-reconnu.</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="44"/>
         <source>Missing answer on line:</source>
-        <translation>Réponse absente à la ligne :</translation>
+        <translation type="unfinished">Réponse absente à la ligne :</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="47"/>
         <source>Unable to load database.
 Creating tmp file.</source>
-        <translation>impossible de charger la base de donnée.
+        <translation type="unfinished">impossible de charger la base de donnée.
 Création d&apos;un fichier tmp.</translation>
     </message>
     <message>
         <location filename="clean_duplicates.py" line="100"/>
         <source>Mnemosyne</source>
-        <translation>Mnemosyne</translation>
+        <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
         <location filename="clean_duplicates.py" line="101"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="66"/>
         <source>File exists:</source>
-        <translation>Le fichier existe :</translation>
+        <translation type="unfinished">Le fichier existe :</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="67"/>
         <source>&amp;Overwrite</source>
-        <translation>&amp;Écraser</translation>
+        <translation type="unfinished">&amp;Écraser</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="68"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Annuler</translation>
+        <translation type="unfinished">&amp;Annuler</translation>
     </message>
     <message>
         <location filename="clean_duplicates.py" line="62"/>
         <source>Removed duplicates: </source>
-        <translation>Cartes à double retirés : </translation>
+        <translation type="unfinished">Cartes à double retirés : </translation>
     </message>
     <message>
         <location filename="clean_duplicates.py" line="76"/>
         <source>There are cards with different answers for question:
 
 </source>
-        <translation>Il y a des cartes avec des réponses différentes pour la question :
+        <translation type="unfinished">Il y a des cartes avec des réponses différentes pour la question :
 
 </translation>
     </message>
     <message>
         <location filename="clean_duplicates.py" line="78"/>
         <source>&amp;Merge and edit</source>
-        <translation>&amp;Fusionner et éditer</translation>
+        <translation type="unfinished">&amp;Fusionner et éditer</translation>
     </message>
     <message>
         <location filename="clean_duplicates.py" line="79"/>
         <source>&amp;Don&apos;t merge</source>
-        <translation>&amp;Ne pas fusionner</translation>
+        <translation type="unfinished">&amp;Ne pas fusionner</translation>
     </message>
     <message>
         <location filename="clean_duplicates.py" line="101"/>
         <source>Done!</source>
-        <translation>Fini!</translation>
+        <translation type="unfinished">Fini!</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="48"/>
+        <location filename="main_window.py" line="48"/>
         <source>You don&apos;t remember this card yet.</source>
-        <translation type="obsolete">Vous ne vous souvenez pas encore de cette carte.</translation>
+        <translation type="unfinished">Vous ne vous souvenez pas encore de cette carte.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="49"/>
+        <location filename="main_window.py" line="49"/>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation type="obsolete">Comme &apos;0&apos;, mais ça devient plus familier.</translation>
+        <translation type="unfinished">Comme &apos;0&apos;, mais ça devient plus familier.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="50"/>
+        <location filename="main_window.py" line="50"/>
         <source> Show it less often.</source>
-        <translation type="obsolete"> Le montrer moins souvent.</translation>
+        <translation type="unfinished"> Le montrer moins souvent.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="52"/>
+        <location filename="main_window.py" line="52"/>
         <source>You&apos;ve memorised this card now,</source>
-        <translation type="obsolete">Maintenant, vous avez mémorisé cette carte</translation>
+        <translation type="unfinished">Maintenant, vous avez mémorisé cette carte</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="53"/>
+        <location filename="main_window.py" line="53"/>
         <source> and will probably remember it for a few days.</source>
-        <translation type="obsolete"> et vous en souviendrez pendant quelques jours.</translation>
+        <translation type="unfinished"> et vous en souviendrez pendant quelques jours.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="57"/>
+        <location filename="main_window.py" line="57"/>
         <source>You have forgotten this card completely.</source>
-        <translation type="obsolete">Vous avez complétement oublié cette carte.</translation>
+        <translation type="unfinished">Vous avez complétement oublié cette carte.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="59"/>
+        <location filename="main_window.py" line="59"/>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation type="obsolete">Réponse à peine correcte. L&apos;intervalle était beaucoup trop longue.</translation>
+        <translation type="unfinished">Réponse à peine correcte. L&apos;intervalle était beaucoup trop longue.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="60"/>
+        <location filename="main_window.py" line="60"/>
         <source>Correct answer, but with much effort.</source>
-        <translation type="obsolete">Réponse correcte, mais avec beaucoup d&apos;effort.</translation>
+        <translation type="unfinished">Réponse correcte, mais avec beaucoup d&apos;effort.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="61"/>
+        <location filename="main_window.py" line="61"/>
         <source> The interval was probably too long.</source>
-        <translation type="obsolete">  L&apos;intervalle était probablement trop longue.</translation>
+        <translation type="unfinished">  L&apos;intervalle était probablement trop longue.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="63"/>
+        <location filename="main_window.py" line="63"/>
         <source>Correct answer, with some effort.</source>
-        <translation type="obsolete">Réponse correcte, avec un peu d&apos;effort.</translation>
+        <translation type="unfinished">Réponse correcte, avec un peu d&apos;effort.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="64"/>
+        <location filename="main_window.py" line="64"/>
         <source> The interval was probably just right.</source>
-        <translation type="obsolete"> L&apos;intervalle était probablement adéquat.</translation>
+        <translation type="unfinished"> L&apos;intervalle était probablement adéquat.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="66"/>
+        <location filename="main_window.py" line="66"/>
         <source>Correct answer, but without any</source>
-        <translation type="obsolete">Réponse correcte, mais sans</translation>
+        <translation type="unfinished">Réponse correcte, mais sans</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="67"/>
+        <location filename="main_window.py" line="67"/>
         <source> difficulties. The interval was probably too short.</source>
-        <translation type="obsolete"> difficultés.  L&apos;intervalle était probablement trop courte.</translation>
+        <translation type="unfinished"> difficultés.  L&apos;intervalle était probablement trop courte.</translation>
     </message>
 </context>
 <context>
@@ -174,14 +174,14 @@ Création d&apos;un fichier tmp.</translation>
     <message>
         <location filename="about_dlg.py" line="30"/>
         <source>Mnemosyne</source>
-        <translation>Mnemosyne</translation>
+        <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
         <location filename="about_dlg.py" line="32"/>
         <source>Main author: Peter Bienstman
 
 </source>
-        <translation>Auteur principal : Peter Bienstman
+        <translation type="unfinished">Auteur principal : Peter Bienstman
 
 </translation>
     </message>
@@ -248,161 +248,251 @@ Création d&apos;un fichier tmp.</translation>
 <context>
     <name>AddCardsDlg</name>
     <message>
-        <location filename="add_cards_dlg.py" line="84"/>
+        <location filename="add_cards_dlg.py" line="82"/>
         <source>&lt;default&gt;</source>
-        <translation type="obsolete">&lt;default&gt;</translation>
+        <translation type="unfinished">&lt;default&gt;</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="192"/>
+        <location filename="add_cards_dlg.py" line="200"/>
         <source>Mnemosyne</source>
-        <translation type="obsolete">Mnemosyne</translation>
+        <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="111"/>
+        <location filename="add_cards_dlg.py" line="119"/>
         <source>Abandon current card?</source>
-        <translation type="obsolete">Abandonner la carte en cours?</translation>
+        <translation type="unfinished">Abandonner la carte en cours?</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="112"/>
+        <location filename="add_cards_dlg.py" line="120"/>
         <source>&amp;Yes</source>
-        <translation type="obsolete">&amp;Oui</translation>
+        <translation type="unfinished">&amp;Oui</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="113"/>
+        <location filename="add_cards_dlg.py" line="121"/>
         <source>&amp;No</source>
-        <translation type="obsolete">&amp;Non</translation>
+        <translation type="unfinished">&amp;Non</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="174"/>
+        <location filename="add_cards_dlg.py" line="182"/>
         <source>Card is already in database.
 </source>
-        <translation type="obsolete">Carte déjà dans la base de donnée.
+        <translation type="unfinished">Carte déjà dans la base de donnée.
 </translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="174"/>
+        <location filename="add_cards_dlg.py" line="182"/>
         <source>Duplicate not added.</source>
-        <translation type="obsolete">Le double n&apos;a pas été ajouté.</translation>
+        <translation type="unfinished">Le double n&apos;a pas été ajouté.</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="175"/>
+        <location filename="add_cards_dlg.py" line="183"/>
         <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="194"/>
+        <location filename="add_cards_dlg.py" line="202"/>
         <source>There are different answers for</source>
-        <translation type="obsolete">Il y a des réponses différentes pour </translation>
+        <translation type="unfinished">Il y a des réponses différentes pour </translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="194"/>
+        <location filename="add_cards_dlg.py" line="202"/>
         <source> this question:
 
 </source>
-        <translation type="obsolete"> cette question :
+        <translation type="unfinished"> cette question :
 
 </translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="196"/>
+        <location filename="add_cards_dlg.py" line="204"/>
         <source>&amp;Merge and edit</source>
-        <translation type="obsolete">&amp;Fusionner et éditer</translation>
+        <translation type="unfinished">&amp;Fusionner et éditer</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="197"/>
+        <location filename="add_cards_dlg.py" line="205"/>
         <source>&amp;Add as is</source>
-        <translation type="obsolete">&amp;Ajouter tel quel</translation>
+        <translation type="unfinished">&amp;Ajouter tel quel</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="198"/>
+        <location filename="add_cards_dlg.py" line="206"/>
         <source>&amp;Do not add</source>
-        <translation type="obsolete">&amp;Ne pas ajouter</translation>
+        <translation type="unfinished">&amp;Ne pas ajouter</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="13"/>
+        <source>Add cards</source>
+        <translation type="unfinished">Ajouter des cartes</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="23"/>
+        <source>Card type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="40"/>
+        <source>Category:</source>
+        <translation type="unfinished">Catégorie :</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="80"/>
+        <source>Select initial grade:</source>
+        <translation type="unfinished">sélectionner la note initiale :</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="100"/>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="103"/>
+        <source>Ctrl+0</source>
+        <translation type="unfinished">Ctrl+0</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="125"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="128"/>
+        <source>Ctrl+1</source>
+        <translation type="unfinished">Ctrl+1</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="157"/>
+        <source>2</source>
+        <translation type="unfinished">2</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="160"/>
+        <source>Ctrl+2</source>
+        <translation type="unfinished">Ctrl+2</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="182"/>
+        <source>3</source>
+        <translation type="unfinished">3</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="185"/>
+        <source>Ctrl+3</source>
+        <translation type="unfinished">Ctrl+3</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="207"/>
+        <source>4</source>
+        <translation type="unfinished">4</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="210"/>
+        <source>Ctrl+4</source>
+        <translation type="unfinished">Ctrl+4</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="232"/>
+        <source>5</source>
+        <translation type="unfinished">5</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="235"/>
+        <source>Ctrl+5</source>
+        <translation type="unfinished">Ctrl+5</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="252"/>
+        <source>&amp;Preview</source>
+        <translation type="unfinished">A&amp;perçu</translation>
+    </message>
+    <message>
+        <location filename="add_cards_dlg.ui" line="275"/>
+        <source>E&amp;xit</source>
+        <translation type="unfinished">&amp;Quitter</translation>
     </message>
 </context>
 <context>
     <name>AddCardsFrm</name>
     <message>
-        <location filename="add_cards_frm.py" line="175"/>
+        <location filename="add_cards_dlg.ui" line="13"/>
         <source>Add cards</source>
         <translation type="obsolete">Ajouter des cartes</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="177"/>
+        <location filename="add_cards_dlg.ui" line="40"/>
         <source>Category:</source>
         <translation type="obsolete">Catégorie :</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="178"/>
+        <location filename="add_cards_dlg.ui" line="80"/>
         <source>Select initial grade:</source>
         <translation type="obsolete">sélectionner la note initiale :</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="179"/>
+        <location filename="add_cards_dlg.ui" line="100"/>
         <source>0</source>
         <translation type="obsolete">0</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="180"/>
+        <location filename="add_cards_dlg.ui" line="103"/>
         <source>Ctrl+0</source>
         <translation type="obsolete">Ctrl+0</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="181"/>
+        <location filename="add_cards_dlg.ui" line="125"/>
         <source>1</source>
         <translation type="obsolete">1</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="182"/>
+        <location filename="add_cards_dlg.ui" line="128"/>
         <source>Ctrl+1</source>
         <translation type="obsolete">Ctrl+1</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="183"/>
+        <location filename="add_cards_dlg.ui" line="157"/>
         <source>2</source>
         <translation type="obsolete">2</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="184"/>
+        <location filename="add_cards_dlg.ui" line="160"/>
         <source>Ctrl+2</source>
         <translation type="obsolete">Ctrl+2</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="185"/>
+        <location filename="add_cards_dlg.ui" line="182"/>
         <source>3</source>
         <translation type="obsolete">3</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="186"/>
+        <location filename="add_cards_dlg.ui" line="185"/>
         <source>Ctrl+3</source>
         <translation type="obsolete">Ctrl+3</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="187"/>
+        <location filename="add_cards_dlg.ui" line="207"/>
         <source>4</source>
         <translation type="obsolete">4</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="188"/>
+        <location filename="add_cards_dlg.ui" line="210"/>
         <source>Ctrl+4</source>
         <translation type="obsolete">Ctrl+4</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="189"/>
+        <location filename="add_cards_dlg.ui" line="232"/>
         <source>5</source>
         <translation type="obsolete">5</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="190"/>
+        <location filename="add_cards_dlg.ui" line="235"/>
         <source>Ctrl+5</source>
         <translation type="obsolete">Ctrl+5</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="191"/>
+        <location filename="add_cards_dlg.ui" line="252"/>
         <source>&amp;Preview</source>
         <translation type="obsolete">A&amp;perçu</translation>
     </message>
     <message>
-        <location filename="add_cards_frm.py" line="192"/>
+        <location filename="add_cards_dlg.ui" line="275"/>
         <source>E&amp;xit</source>
         <translation type="obsolete">&amp;Quitter</translation>
     </message>
@@ -657,6 +747,24 @@ Création d&apos;un fichier tmp.</translation>
         <location filename="" line="0"/>
         <source>Alt+X</source>
         <translation type="obsolete">Alt+X</translation>
+    </message>
+</context>
+<context>
+    <name>CardTwoSidedWdgt</name>
+    <message>
+        <location filename="card_twosided_wdgt.ui" line="36"/>
+        <source>Question:</source>
+        <translation type="unfinished">Question :</translation>
+    </message>
+    <message>
+        <location filename="card_twosided_wdgt.ui" line="56"/>
+        <source>Answer:</source>
+        <translation type="unfinished">Réponse :</translation>
+    </message>
+    <message>
+        <location filename="card_twosided_wdgt.ui" line="76"/>
+        <source>Add &amp;vice versa too</source>
+        <translation type="unfinished">Aussi ajouter une carte &amp;vice-versa</translation>
     </message>
 </context>
 <context>
@@ -1075,12 +1183,12 @@ so you might want to run </source>
     <message>
         <location filename="export_dlg.py" line="64"/>
         <source>All Files (*);;</source>
-        <translation>Tous les fichiers (*);;</translation>
+        <translation type="unfinished">Tous les fichiers (*);;</translation>
     </message>
     <message>
         <location filename="export_dlg.py" line="65"/>
         <source>Export</source>
-        <translation>Exporter</translation>
+        <translation type="unfinished">Exporter</translation>
     </message>
 </context>
 <context>
@@ -1141,17 +1249,17 @@ so you might want to run </source>
     <message>
         <location filename="import_dlg.py" line="44"/>
         <source>&lt;default&gt;</source>
-        <translation>&lt;default&gt;</translation>
+        <translation type="unfinished">&lt;default&gt;</translation>
     </message>
     <message>
         <location filename="import_dlg.py" line="64"/>
         <source>All Files (*);;</source>
-        <translation>Tous les fichiers (*);;</translation>
+        <translation type="unfinished">Tous les fichiers (*);;</translation>
     </message>
     <message>
         <location filename="import_dlg.py" line="65"/>
         <source>Import</source>
-        <translation>Importer</translation>
+        <translation type="unfinished">Importer</translation>
     </message>
 </context>
 <context>
@@ -1323,19 +1431,19 @@ so you might want to run </source>
 <context>
     <name>MainFrm</name>
     <message>
-        <location filename="main_dlg.py" line="300"/>
+        <location filename="main_window.ui" line="19"/>
         <source>Mnemosyne</source>
-        <translation>Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="301"/>
+        <location filename="main_window.ui" line="37"/>
         <source>Question:</source>
-        <translation>Question :</translation>
+        <translation type="obsolete">Question :</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="302"/>
+        <location filename="main_window.ui" line="49"/>
         <source>Answer:</source>
-        <translation>Réponse :</translation>
+        <translation type="obsolete">Réponse :</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1343,9 +1451,9 @@ so you might want to run </source>
         <translation type="obsolete">Afficher la réponse</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="304"/>
+        <location filename="main_window.ui" line="86"/>
         <source>Grade your answer:</source>
-        <translation>Noter votre réponse :</translation>
+        <translation type="obsolete">Noter votre réponse :</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1353,9 +1461,9 @@ so you might want to run </source>
         <translation type="obsolete">&amp;0</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="306"/>
+        <location filename="main_window.ui" line="109"/>
         <source>0</source>
-        <translation>0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1363,9 +1471,9 @@ so you might want to run </source>
         <translation type="obsolete">&amp;1</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="308"/>
+        <location filename="main_window.ui" line="131"/>
         <source>1</source>
-        <translation>1</translation>
+        <translation type="obsolete">1</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1373,9 +1481,9 @@ so you might want to run </source>
         <translation type="obsolete">&amp;2</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="310"/>
+        <location filename="main_window.ui" line="160"/>
         <source>2</source>
-        <translation>2</translation>
+        <translation type="obsolete">2</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1383,9 +1491,9 @@ so you might want to run </source>
         <translation type="obsolete">&amp;3</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="312"/>
+        <location filename="main_window.ui" line="182"/>
         <source>3</source>
-        <translation>3</translation>
+        <translation type="obsolete">3</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1393,9 +1501,9 @@ so you might want to run </source>
         <translation type="obsolete">&amp;4</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="314"/>
+        <location filename="main_window.ui" line="204"/>
         <source>4</source>
-        <translation>4</translation>
+        <translation type="obsolete">4</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1403,14 +1511,14 @@ so you might want to run </source>
         <translation type="obsolete">&amp;5</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="316"/>
+        <location filename="main_window.ui" line="229"/>
         <source>5</source>
-        <translation>5</translation>
+        <translation type="obsolete">5</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="337"/>
+        <location filename="main_window.ui" line="405"/>
         <source>&amp;New</source>
-        <translation>&amp;Nouveau</translation>
+        <translation type="obsolete">&amp;Nouveau</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1418,29 +1526,29 @@ so you might want to run </source>
         <translation type="obsolete">.</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="338"/>
+        <location filename="main_window.ui" line="408"/>
         <source>Ctrl+N</source>
-        <translation>Ctrl+N</translation>
+        <translation type="obsolete">Ctrl+N</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="339"/>
+        <location filename="main_window.ui" line="416"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Ouvrir...</translation>
+        <translation type="obsolete">&amp;Ouvrir...</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="340"/>
+        <location filename="main_window.ui" line="419"/>
         <source>Ctrl+O</source>
-        <translation>Ctrl+O</translation>
+        <translation type="obsolete">Ctrl+O</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="341"/>
+        <location filename="main_window.ui" line="427"/>
         <source>&amp;Save</source>
-        <translation>&amp;Enregistrer</translation>
+        <translation type="obsolete">&amp;Enregistrer</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="342"/>
+        <location filename="main_window.ui" line="430"/>
         <source>Ctrl+S</source>
-        <translation>Ctrl+S</translation>
+        <translation type="obsolete">Ctrl+S</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1448,9 +1556,9 @@ so you might want to run </source>
         <translation type="obsolete">Enregistrer &amp;sous...</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="336"/>
+        <location filename="main_window.ui" line="397"/>
         <source>E&amp;xit</source>
-        <translation>&amp;Quitter</translation>
+        <translation type="obsolete">&amp;Quitter</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1458,9 +1566,9 @@ so you might want to run </source>
         <translation type="obsolete">À propos</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="344"/>
+        <location filename="main_window.ui" line="443"/>
         <source>&amp;About</source>
-        <translation>À &amp;propos de Mnemosyne</translation>
+        <translation type="obsolete">À &amp;propos de Mnemosyne</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1468,24 +1576,24 @@ so you might want to run </source>
         <translation type="obsolete">Ajouter des cartes</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="324"/>
+        <location filename="main_window.ui" line="330"/>
         <source>&amp;Add cards</source>
-        <translation>&amp;Ajouter des cartes</translation>
+        <translation type="obsolete">&amp;Ajouter des cartes</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="325"/>
+        <location filename="main_window.ui" line="333"/>
         <source>Ctrl+A</source>
-        <translation>Ctrl+A</translation>
+        <translation type="obsolete">Ctrl+A</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="322"/>
+        <location filename="main_window.ui" line="319"/>
         <source>Activate cate&amp;gories</source>
-        <translation>Activer les caté&amp;gories</translation>
+        <translation type="obsolete">Activer les caté&amp;gories</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="323"/>
+        <location filename="main_window.ui" line="322"/>
         <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
+        <translation type="obsolete">Ctrl+G</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1493,29 +1601,29 @@ so you might want to run </source>
         <translation type="obsolete">Éditer le jeu de cartes</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="333"/>
+        <location filename="main_window.ui" line="381"/>
         <source>Edit &amp;deck</source>
-        <translation>Éditer le &amp;jeu de carte</translation>
+        <translation type="obsolete">Éditer le &amp;jeu de carte</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="334"/>
+        <location filename="main_window.ui" line="384"/>
         <source>Ctrl+D</source>
-        <translation>Ctrl+D</translation>
+        <translation type="obsolete">Ctrl+D</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="345"/>
+        <location filename="main_window.ui" line="448"/>
         <source>&amp;Import</source>
-        <translation>&amp;Importer</translation>
+        <translation type="obsolete">&amp;Importer</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="335"/>
+        <location filename="main_window.ui" line="389"/>
         <source>&amp;Export</source>
-        <translation>&amp;Exporter</translation>
+        <translation type="obsolete">&amp;Exporter</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="357"/>
+        <location filename="main_window.ui" line="507"/>
         <source>Show &amp;toolbar</source>
-        <translation>Afficher la barre d&apos;ou&amp;tils</translation>
+        <translation type="obsolete">Afficher la barre d&apos;ou&amp;tils</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1523,14 +1631,14 @@ so you might want to run </source>
         <translation type="obsolete">Éditer la carte actuelle</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="331"/>
+        <location filename="main_window.ui" line="370"/>
         <source>&amp;Edit current card</source>
-        <translation>É&amp;diter la carte actuelle</translation>
+        <translation type="obsolete">É&amp;diter la carte actuelle</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="332"/>
+        <location filename="main_window.ui" line="373"/>
         <source>Ctrl+E</source>
-        <translation>Ctrl+E</translation>
+        <translation type="obsolete">Ctrl+E</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1538,9 +1646,9 @@ so you might want to run </source>
         <translation type="obsolete">Supprimer la carte actuelle</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="329"/>
+        <location filename="main_window.ui" line="359"/>
         <source>&amp;Delete current card</source>
-        <translation>&amp;Supprimer la carte actuelle</translation>
+        <translation type="obsolete">&amp;Supprimer la carte actuelle</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1548,14 +1656,14 @@ so you might want to run </source>
         <translation type="obsolete">Del</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="326"/>
+        <location filename="main_window.ui" line="338"/>
         <source>&amp;Clean duplicates</source>
-        <translation>&amp;Gérer les cartes à doubles</translation>
+        <translation type="obsolete">&amp;Gérer les cartes à doubles</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="327"/>
+        <location filename="main_window.ui" line="346"/>
         <source>&amp;Configure Mnemosyne</source>
-        <translation>&amp;Configurer Mnemosyne</translation>
+        <translation type="obsolete">&amp;Configurer Mnemosyne</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1563,9 +1671,9 @@ so you might want to run </source>
         <translation type="obsolete">Premiers pas</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="354"/>
+        <location filename="main_window.ui" line="485"/>
         <source>&amp;Getting started</source>
-        <translation>&amp;Premiers pas</translation>
+        <translation type="obsolete">&amp;Premiers pas</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1573,19 +1681,19 @@ so you might want to run </source>
         <translation type="obsolete">Down, Down</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="347"/>
+        <location filename="main_window.ui" line="456"/>
         <source>Enter</source>
-        <translation>Enter</translation>
+        <translation type="obsolete">Enter</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="351"/>
+        <location filename="main_window.ui" line="472"/>
         <source>Return</source>
-        <translation>Return</translation>
+        <translation type="obsolete">Return</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="353"/>
+        <location filename="main_window.ui" line="480"/>
         <source>Space</source>
-        <translation>Space</translation>
+        <translation type="obsolete">Space</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1598,14 +1706,14 @@ so you might want to run </source>
         <translation type="obsolete">Afficher les statistiques</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="355"/>
+        <location filename="main_window.ui" line="493"/>
         <source>Show s&amp;tatistics</source>
-        <translation>Afficher les s&amp;tatistiques</translation>
+        <translation type="obsolete">Afficher les s&amp;tatistiques</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="356"/>
+        <location filename="main_window.ui" line="496"/>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1613,9 +1721,9 @@ so you might want to run </source>
         <translation type="obsolete">Astuce du jour</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="358"/>
+        <location filename="main_window.ui" line="512"/>
         <source>&amp;Tip of the day</source>
-        <translation>&amp;Astuce du jour</translation>
+        <translation type="obsolete">&amp;Astuce du jour</translation>
     </message>
     <message>
         <location filename="" line="0"/>
@@ -1623,74 +1731,387 @@ so you might want to run </source>
         <translation type="obsolete">Barre d&apos;outils principale (Mnemosyne)</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="317"/>
+        <location filename="main_window.ui" line="253"/>
         <source>&amp;File</source>
-        <translation>&amp;Fichier</translation>
+        <translation type="obsolete">&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="318"/>
+        <location filename="main_window.ui" line="267"/>
         <source>&amp;Deck</source>
-        <translation>&amp;Jeu de cartes</translation>
+        <translation type="obsolete">&amp;Jeu de cartes</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="319"/>
+        <location filename="main_window.ui" line="281"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Paramètres</translation>
+        <translation type="obsolete">&amp;Paramètres</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="320"/>
+        <location filename="main_window.ui" line="288"/>
         <source>&amp;Help</source>
-        <translation>&amp;Aide</translation>
+        <translation type="obsolete">&amp;Aide</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="303"/>
+        <location filename="main_window.ui" line="61"/>
+        <source>Show &amp;answer</source>
+        <translation type="obsolete">Afficher la &amp;réponse</translation>
+    </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <location filename="main_window.py" line="250"/>
+        <source>Mnemosyne databases (*.mem)</source>
+        <translation type="unfinished">Bases de données Mnemosyne (*.mem)</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="163"/>
+        <source>New</source>
+        <translation type="unfinished">Nouveau</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="372"/>
+        <source>Please wait...</source>
+        <translation type="unfinished">Veuillez patienter...</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="420"/>
+        <source>Mnemosyne</source>
+        <translation type="unfinished">Mnemosyne</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="421"/>
+        <source>Delete current card?</source>
+        <translation type="unfinished">Supprimer la carte actuelle?</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="422"/>
+        <source>&amp;Yes</source>
+        <translation type="unfinished">&amp;Oui</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="422"/>
+        <source>&amp;No</source>
+        <translation type="unfinished">&amp;Non</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="603"/>
+        <source>Returns in </source>
+        <translation type="unfinished">Revient dans </translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="604"/>
+        <source> day(s).</source>
+        <translation type="unfinished"> jour(s).</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="616"/>
+        <source>Next repetition: today.</source>
+        <translation type="unfinished">Prochaine répétition : aujourd&apos;hui.</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="618"/>
+        <source>Next repetition: tomorrow.</source>
+        <translation type="unfinished">Prochaine répétition : demain.</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="619"/>
+        <source>Next repetition in </source>
+        <translation type="unfinished">Prochaine répétition dans </translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="621"/>
+        <source> days.</source>
+        <translation type="unfinished"> jours.</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="693"/>
+        <source>Question:</source>
+        <translation type="unfinished">Question :</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="694"/>
+        <source>&lt;default&gt;</source>
+        <translation type="unfinished">&lt;default&gt;</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="738"/>
         <source>Show &amp;answer</source>
         <translation type="unfinished">Afficher la &amp;réponse</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="321"/>
+        <location filename="main_window.py" line="742"/>
+        <source>Learn ahead of schedule</source>
+        <translation type="unfinished">Apprendre en avance</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="809"/>
+        <source>Pick days until next repetition:</source>
+        <translation type="unfinished">Choisisser le nombre de jours jusqu&apos;à la prochaine répétition :</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="812"/>
+        <source>Grade your answer:</source>
+        <translation type="unfinished">Noter votre réponse :</translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="819"/>
+        <source>Scheduled: </source>
+        <translation type="unfinished">Cartes planifiés : </translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="821"/>
+        <source>Not memorised: </source>
+        <translation type="unfinished">Non-mémorisés : </translation>
+    </message>
+    <message>
+        <location filename="main_window.py" line="823"/>
+        <source>All: </source>
+        <translation type="unfinished">Total : </translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="49"/>
+        <source>Answer:</source>
+        <translation type="unfinished">Réponse :</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="109"/>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="131"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="160"/>
+        <source>2</source>
+        <translation type="unfinished">2</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="182"/>
+        <source>3</source>
+        <translation type="unfinished">3</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="204"/>
+        <source>4</source>
+        <translation type="unfinished">4</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="229"/>
+        <source>5</source>
+        <translation type="unfinished">5</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="253"/>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Fichier</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="267"/>
+        <source>&amp;Deck</source>
+        <translation type="unfinished">&amp;Jeu de cartes</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="281"/>
+        <source>&amp;Settings</source>
+        <translation type="unfinished">&amp;Paramètres</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="288"/>
+        <source>&amp;Help</source>
+        <translation type="unfinished">&amp;Aide</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="303"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="328"/>
+        <location filename="main_window.ui" line="319"/>
+        <source>Activate cate&amp;gories</source>
+        <translation type="unfinished">Activer les caté&amp;gories</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="322"/>
+        <source>Ctrl+G</source>
+        <translation type="unfinished">Ctrl+G</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="330"/>
+        <source>&amp;Add cards</source>
+        <translation type="unfinished">&amp;Ajouter des cartes</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="333"/>
+        <source>Ctrl+A</source>
+        <translation type="unfinished">Ctrl+A</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="338"/>
+        <source>&amp;Clean duplicates</source>
+        <translation type="unfinished">&amp;Gérer les cartes à doubles</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="346"/>
+        <source>&amp;Configure Mnemosyne</source>
+        <translation type="unfinished">&amp;Configurer Mnemosyne</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="351"/>
         <source>default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="330"/>
+        <location filename="main_window.ui" line="359"/>
+        <source>&amp;Delete current card</source>
+        <translation type="unfinished">&amp;Supprimer la carte actuelle</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="362"/>
         <source>Backspace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="343"/>
+        <location filename="main_window.ui" line="370"/>
+        <source>&amp;Edit current card</source>
+        <translation type="unfinished">É&amp;diter la carte actuelle</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="373"/>
+        <source>Ctrl+E</source>
+        <translation type="unfinished">Ctrl+E</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="381"/>
+        <source>Edit &amp;deck</source>
+        <translation type="unfinished">Éditer le &amp;jeu de carte</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="384"/>
+        <source>Ctrl+D</source>
+        <translation type="unfinished">Ctrl+D</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="389"/>
+        <source>&amp;Export</source>
+        <translation type="unfinished">&amp;Exporter</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="397"/>
+        <source>E&amp;xit</source>
+        <translation type="unfinished">&amp;Quitter</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="405"/>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Nouveau</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="408"/>
+        <source>Ctrl+N</source>
+        <translation type="unfinished">Ctrl+N</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="416"/>
+        <source>&amp;Open...</source>
+        <translation type="unfinished">&amp;Ouvrir...</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="419"/>
+        <source>Ctrl+O</source>
+        <translation type="unfinished">Ctrl+O</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="427"/>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Enregistrer</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="430"/>
+        <source>Ctrl+S</source>
+        <translation type="unfinished">Ctrl+S</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="438"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="346"/>
+        <location filename="main_window.ui" line="443"/>
+        <source>&amp;About</source>
+        <translation type="unfinished">À &amp;propos de Mnemosyne</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="448"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Importer</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="453"/>
         <source>pressEnter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="348"/>
+        <location filename="main_window.ui" line="456"/>
+        <source>Enter</source>
+        <translation type="unfinished">Enter</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="461"/>
         <source>pressR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="349"/>
+        <location filename="main_window.ui" line="464"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="350"/>
+        <location filename="main_window.ui" line="469"/>
         <source>pressReturn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="352"/>
+        <location filename="main_window.ui" line="472"/>
+        <source>Return</source>
+        <translation type="unfinished">Return</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="477"/>
         <source>pressSpace</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="480"/>
+        <source>Space</source>
+        <translation type="unfinished">Space</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="485"/>
+        <source>&amp;Getting started</source>
+        <translation type="unfinished">&amp;Premiers pas</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="493"/>
+        <source>Show s&amp;tatistics</source>
+        <translation type="unfinished">Afficher les s&amp;tatistiques</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="496"/>
+        <source>Ctrl+T</source>
+        <translation type="unfinished">Ctrl+T</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="507"/>
+        <source>Show &amp;toolbar</source>
+        <translation type="unfinished">Afficher la barre d&apos;ou&amp;tils</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="512"/>
+        <source>&amp;Tip of the day</source>
+        <translation type="unfinished">&amp;Astuce du jour</translation>
     </message>
 </context>
 <context>
@@ -1875,47 +2296,47 @@ Joyeux apprentissage!</translation>
     <message>
         <location filename="qtextedit2.py" line="46"/>
         <source>Insert &amp;image</source>
-        <translation>Insérer une &amp;image</translation>
+        <translation type="unfinished">Insérer une &amp;image</translation>
     </message>
     <message>
         <location filename="qtextedit2.py" line="48"/>
         <source>Ctrl+I</source>
-        <translation>Ctrl+I</translation>
+        <translation type="unfinished">Ctrl+I</translation>
     </message>
     <message>
         <location filename="qtextedit2.py" line="49"/>
         <source>Insert &amp;sound</source>
-        <translation>Insérer un &amp;son</translation>
+        <translation type="unfinished">Insérer un &amp;son</translation>
     </message>
     <message>
         <location filename="qtextedit2.py" line="51"/>
         <source>Ctrl+S</source>
-        <translation>Ctrl+S</translation>
+        <translation type="unfinished">Ctrl+S</translation>
     </message>
     <message>
         <location filename="qtextedit2.py" line="56"/>
         <source>&amp;3-sided input</source>
-        <translation>Carte à &amp;3-faces</translation>
+        <translation type="unfinished">Carte à &amp;3-faces</translation>
     </message>
     <message>
         <location filename="qtextedit2.py" line="95"/>
         <source>Image files</source>
-        <translation>Fichiers image</translation>
+        <translation type="unfinished">Fichiers image</translation>
     </message>
     <message>
         <location filename="qtextedit2.py" line="98"/>
         <source>Insert image</source>
-        <translation>Insérer une image</translation>
+        <translation type="unfinished">Insérer une image</translation>
     </message>
     <message>
         <location filename="qtextedit2.py" line="117"/>
         <source>Sound files</source>
-        <translation>Fichiers son</translation>
+        <translation type="unfinished">Fichiers son</translation>
     </message>
     <message>
         <location filename="qtextedit2.py" line="119"/>
         <source>Insert sound</source>
-        <translation>Insérer un son</translation>
+        <translation type="unfinished">Insérer un son</translation>
     </message>
 </context>
 <context>
@@ -1925,33 +2346,33 @@ Joyeux apprentissage!</translation>
         <source>Scheduled cards for the next days:
 
 </source>
-        <translation>Cartes planifiées pour les jours suivants :
+        <translation type="unfinished">Cartes planifiées pour les jours suivants :
 
 </translation>
     </message>
     <message>
         <location filename="statistics_dlg.py" line="60"/>
         <source>In</source>
-        <translation>Dans</translation>
+        <translation type="unfinished">Dans</translation>
     </message>
     <message>
         <location filename="statistics_dlg.py" line="62"/>
         <source>day(s) :</source>
-        <translation> jour(s) :</translation>
+        <translation type="unfinished"> jour(s) :</translation>
     </message>
     <message>
         <location filename="statistics_dlg.py" line="72"/>
         <source>Number of cards with the following grades:
 
 </source>
-        <translation>Nombre de cartes avec les notes suivantes :
+        <translation type="unfinished">Nombre de cartes avec les notes suivantes :
 
 </translation>
     </message>
     <message>
         <location filename="statistics_dlg.py" line="82"/>
         <source>Grade</source>
-        <translation>Note</translation>
+        <translation type="unfinished">Note</translation>
     </message>
 </context>
 <context>
@@ -1997,92 +2418,92 @@ Joyeux apprentissage!</translation>
     <message>
         <location filename="tip_dlg.py" line="34"/>
         <source>For optimal results, it&apos;s best to do your repetitions every day.</source>
-        <translation>Pour des résultats optimaux, il vaut mieux faire ses répétions chaque jour.</translation>
+        <translation type="unfinished">Pour des résultats optimaux, il vaut mieux faire ses répétions chaque jour.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="36"/>
         <source>If you&apos;ve been away for a few days, don&apos;t worry about your backlog. Do as many cards as you feel like to catch up, the rest will be automatically rescheduled to the future.</source>
-        <translation>Si vous vous êtes absenté quelques jours, ne vous faites pas de soucis pour votre retard accumulé. Pour le rattrapper, faites autant de cartes que votre humeur le dicte, le reste sera automatiquement replanifié pour une date ultérieure.</translation>
+        <translation type="unfinished">Si vous vous êtes absenté quelques jours, ne vous faites pas de soucis pour votre retard accumulé. Pour le rattrapper, faites autant de cartes que votre humeur le dicte, le reste sera automatiquement replanifié pour une date ultérieure.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="38"/>
         <source>The &apos;number of grade 0 cards to learn at once&apos; setting determines how many new cards you are trying to learn at the same time. It does &lt;b&gt;not&lt;/b&gt; tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel.</source>
-        <translation>Le paramètre &quot;nombres de cartes de note 0 à apprendre à la fois&quot; détermine combien de nouvelles cartes vous essayez d&apos;apprendre simultanément. Cela ne vous dit &lt;b&gt;pas&lt;/b&gt; combien de nouvelles cartes vous devez apprendre par jour. Vous êtes seule juge en la matière : vous pouvez apprendre plus de cartes ou moins de cartes, selon votre humeur de moment.</translation>
+        <translation type="unfinished">Le paramètre &quot;nombres de cartes de note 0 à apprendre à la fois&quot; détermine combien de nouvelles cartes vous essayez d&apos;apprendre simultanément. Cela ne vous dit &lt;b&gt;pas&lt;/b&gt; combien de nouvelles cartes vous devez apprendre par jour. Vous êtes seule juge en la matière : vous pouvez apprendre plus de cartes ou moins de cartes, selon votre humeur de moment.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="40"/>
         <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
-        <translation>Pour résumer, essayer de faire vos répétitions chaque jour, mais ne vous soucier pas trop de ramener à zéro le compteur &quot;cartes planifiés&quot;, et en aucun cas de ramener le compteur &quot;non-mémorisés&quot; à zéro.</translation>
+        <translation type="unfinished">Pour résumer, essayer de faire vos répétitions chaque jour, mais ne vous soucier pas trop de ramener à zéro le compteur &quot;cartes planifiés&quot;, et en aucun cas de ramener le compteur &quot;non-mémorisés&quot; à zéro.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="42"/>
         <source>Grade 1 cards are different from grade 0 cards in the sense that they show up less often and are not subject to the &apos;number of grade 0 cards to learn at once&apos; setting.</source>
-        <translation>Les cartes notées 1 sont différentes des cartes notées 0, dans la mesure ou elles apparaissent moins souvent et ne sont pas soumises au paramètre &quot;Nombres de cartes de note 0 à apprendre à la fois&quot;.</translation>
+        <translation type="unfinished">Les cartes notées 1 sont différentes des cartes notées 0, dans la mesure ou elles apparaissent moins souvent et ne sont pas soumises au paramètre &quot;Nombres de cartes de note 0 à apprendre à la fois&quot;.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="44"/>
         <source>You can use keyboard shortcuts to do your repetitions. Enter, Return or Space stand for the default action (&apos;Show answer&apos; or &apos;grade 4&apos;). The number keys can be used for grading.</source>
-        <translation>Vous pouvez utiliser des raccourcis clavier pour faire vos répétitions. Entrée, Retour ou Espace pour l&apos;action par défaut (&quot;afficher la réponse&quot;). On peut utiliser les touches numériques pour noter.</translation>
+        <translation type="unfinished">Vous pouvez utiliser des raccourcis clavier pour faire vos répétitions. Entrée, Retour ou Espace pour l&apos;action par défaut (&quot;afficher la réponse&quot;). On peut utiliser les touches numériques pour noter.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="46"/>
         <source>You can select the categories you wish to study in the &apos;Activate categories&apos; menu option.</source>
-        <translation>Vous pouvez choisir les catégories à réviser via l&apos;option &quot;Activer les catégories&quot;.</translation>
+        <translation type="unfinished">Vous pouvez choisir les catégories à réviser via l&apos;option &quot;Activer les catégories&quot;.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="48"/>
         <source>It is recommended to put all your cards in a single database and use categories to organise them. Using &apos;Activate categories&apos; is much more convenient than have to load and unload several databases.</source>
-        <translation>Il est recommendé de mettre toutes vos cartes dans une seule base de données et d&apos;utiliser des catégories pour les organiser. Se servir de &quot;&apos;Activer les catégories&quot; est bien plus commode que de devoir charger et décharger plusieurs bases de données.</translation>
+        <translation type="unfinished">Il est recommendé de mettre toutes vos cartes dans une seule base de données et d&apos;utiliser des catégories pour les organiser. Se servir de &quot;&apos;Activer les catégories&quot; est bien plus commode que de devoir charger et décharger plusieurs bases de données.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="50"/>
         <source>You can import cards in a wide variety of formats: tab delimited txt files, Supermemo files, ... .</source>
-        <translation>Vous pouvez importer des cartes dans une grande variété de formats : fichiers txt délimité par une tabulation, fichiers Supermemo, ... .</translation>
+        <translation type="unfinished">Vous pouvez importer des cartes dans une grande variété de formats : fichiers txt délimité par une tabulation, fichiers Supermemo, ... .</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="52"/>
         <source>If you have cards in Word or Excel, export them to tab delimited txt files with UTF-8 unicode encoding to be able to import them into Mnemosyne.</source>
-        <translation>Si vous avez de cartes dans Word ou dans Excel, exporter les en tant que &quot; fichier txt délimité par une tabulation&quot; avec l&apos;encodage &quot;UTF-8 unicode&quot;  pour pouvoir les importer dans Mnemosyne.</translation>
+        <translation type="unfinished">Si vous avez de cartes dans Word ou dans Excel, exporter les en tant que &quot; fichier txt délimité par une tabulation&quot; avec l&apos;encodage &quot;UTF-8 unicode&quot;  pour pouvoir les importer dans Mnemosyne.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="54"/>
         <source>If you want to print out your cards, export them to a txt file which you can then print from your favourite Word processor.</source>
-        <translation>Si vous désirez imprimer vos cartes, exportez les vers un fichier txt que vous pourrez ensuite imprimer via votre logiciel de traitement de texte préféré.</translation>
+        <translation type="unfinished">Si vous désirez imprimer vos cartes, exportez les vers un fichier txt que vous pourrez ensuite imprimer via votre logiciel de traitement de texte préféré.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="56"/>
         <source>You can share your cards with someone else by exporting them to XML and choosing the &apos;Reset learning data&apos; option on export.</source>
-        <translation>Vous pouvez partagez vos cartes avec autrui en les exportant au format XML et en choisissant l&apos;option &quot;Ré-initialiser les données d&apos;apprentissage lors de l&apos;export&quot;.</translation>
+        <translation type="unfinished">Vous pouvez partagez vos cartes avec autrui en les exportant au format XML et en choisissant l&apos;option &quot;Ré-initialiser les données d&apos;apprentissage lors de l&apos;export&quot;.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="58"/>
         <source>If you study a foreign language with a different script, the default font size is sometimes a bit small. If you want to increase the size of these characters but keep the size of English text, use the &apos;increase size of non-latin characters by X points&apos; option.</source>
-        <translation>Si vous étudier une langue étrangère avec un scripte différent, la taille de police par défaut est parfois un peu petite. Si vous désirez agrandire la taille de ces caractères sans changer celle de l&apos;alphabet latin, utilisez l&apos;option &quot;Agrandir les caractères non-latin de X point&quot;.</translation>
+        <translation type="unfinished">Si vous étudier une langue étrangère avec un scripte différent, la taille de police par défaut est parfois un peu petite. Si vous désirez agrandire la taille de ces caractères sans changer celle de l&apos;alphabet latin, utilisez l&apos;option &quot;Agrandir les caractères non-latin de X point&quot;.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="60"/>
         <source>You can add images and sounds to your cards. Right-click on the question or answer field when editing a card to bring up a pop-up menu to do so.</source>
-        <translation>Vous pouvez ajouter des images et des sons à vos cartes. Quand vous éditer une carte, faites un clic droit dans la partie question ou réponse pour faire apparaître un menu contextuel.</translation>
+        <translation type="unfinished">Vous pouvez ajouter des images et des sons à vos cartes. Quand vous éditer une carte, faites un clic droit dans la partie question ou réponse pour faire apparaître un menu contextuel.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="62"/>
         <source>It is recommended to keep your sound and image files inside your .mnemosyne directory. That way, it&apos;s easier to transfer your data between different computers.</source>
-        <translation>Il est recommandé de garder vos fichiers de sons et d&apos;images à l&apos;intérieur du répértoire .mnemosyne. Il vous sera ainsi plus facile de transférer vos données d&apos;un ordinateur à l&apos;autre.</translation>
+        <translation type="unfinished">Il est recommandé de garder vos fichiers de sons et d&apos;images à l&apos;intérieur du répértoire .mnemosyne. Il vous sera ainsi plus facile de transférer vos données d&apos;un ordinateur à l&apos;autre.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="64"/>
         <source>When adding a three-sided card, two regular cards will be created. One with as question the written form and as answer the pronunciation and the translation, and one with as question the translation and as answer the written form and the pronunciation.</source>
-        <translation>À l&apos;ajout d&apos;une carte à trois faces, deux cartes standard seront créées. L&apos;une aura pour question la forme écrite et pour réponse la prononciation et la traduction. L&apos;autre aura pour question la traduction et pour la réponse la forme écrite et sa prononciation.</translation>
+        <translation type="unfinished">À l&apos;ajout d&apos;une carte à trois faces, deux cartes standard seront créées. L&apos;une aura pour question la forme écrite et pour réponse la prononciation et la traduction. L&apos;autre aura pour question la traduction et pour la réponse la forme écrite et sa prononciation.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="66"/>
         <source>You can use basic HTML tags in your cards to control their appearance.</source>
-        <translation>Vous pouvez vous servir de balises HTML élémentaires dans vos cartes pour contrôler leur apparence.</translation>
+        <translation type="unfinished">Vous pouvez vous servir de balises HTML élémentaires dans vos cartes pour contrôler leur apparence.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="68"/>
         <source>Mnemosyne can use LaTeX to render mathematical formulas, e.g. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (For this, you need LaTeX and dvipng installed.)</source>
-        <translation>XXXXXXXXXXXXX
+        <translation type="unfinished">XXXXXXXXXXXXX
 Mnemosyne peut utiliser LaTeX pour exprimer des formules mathématiques, i.e. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (Dans ce cas, LaTeX et dvipng doivent être installés.)</translation>
     </message>
     <message>
@@ -2093,27 +2514,27 @@ Mnemosyne peut utiliser LaTeX pour exprimer des formules mathématiques, i.e. &l
     <message>
         <location filename="tip_dlg.py" line="72"/>
         <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
-        <translation>Vous pouvez lancer Mnemosyne depuis une clé USB. Copiez C:\Program Files\Mnemosyne dans votre clé USB, puis copiez le répertoire .mnemosyne de votre répértoire personnel dans le répertoire Mnemosyne de votre clé USB.</translation>
+        <translation type="unfinished">Vous pouvez lancer Mnemosyne depuis une clé USB. Copiez C:\Program Files\Mnemosyne dans votre clé USB, puis copiez le répertoire .mnemosyne de votre répértoire personnel dans le répertoire Mnemosyne de votre clé USB.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="74"/>
         <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
-        <translation>Si vous utilisez Mnemosyne sur plusieurs ordinateurs, il y a un outil bien pratique nommée Unison qui vous aidera à synchroniser vos données. Référez vous au Site web de Mnemosyne pour de plus amples renseignements.</translation>
+        <translation type="unfinished">Si vous utilisez Mnemosyne sur plusieurs ordinateurs, il y a un outil bien pratique nommée Unison qui vous aidera à synchroniser vos données. Référez vous au Site web de Mnemosyne pour de plus amples renseignements.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="76"/>
         <source>You can sort the cards in the &apos;Edit Deck&apos; dialog by answer or by category by clicking on the corresponding column title. Clicking again changes the sort order.</source>
-        <translation>Dans le dialogue &quot;éditer le jeu de cartes&quot;, vous pouvez trier les cartes par réponse ou par catégorie en cliquant sur le titre de la colonne correspondante. Un deuxième clic changera l&apos;ordre du tri.</translation>
+        <translation type="unfinished">Dans le dialogue &quot;éditer le jeu de cartes&quot;, vous pouvez trier les cartes par réponse ou par catégorie en cliquant sur le titre de la colonne correspondante. Un deuxième clic changera l&apos;ordre du tri.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="78"/>
         <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
-        <translation>Si vous désirez un contrôle plus fin sur le comportement de LaTeX, voyez les explications concernant les balises &lt;$$&gt;...&lt;/$$&gt; et &lt;latex&gt;...&lt;/latex&gt; sur le site de Mnemosyne.</translation>
+        <translation type="unfinished">Si vous désirez un contrôle plus fin sur le comportement de LaTeX, voyez les explications concernant les balises &lt;$$&gt;...&lt;/$$&gt; et &lt;latex&gt;...&lt;/latex&gt; sur le site de Mnemosyne.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="80"/>
         <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
-        <translation>Les utilisateurs avancés peuvent davantage personnaliser Mnemosyne en éditant le fichier config.py dans leur répertoire .mnemosyne. Ils peuvent aussi installer des plugins pour personnaliser encore plus Mnemosyne.</translation>
+        <translation type="unfinished">Les utilisateurs avancés peuvent davantage personnaliser Mnemosyne en éditant le fichier config.py dans leur répertoire .mnemosyne. Ils peuvent aussi installer des plugins pour personnaliser encore plus Mnemosyne.</translation>
     </message>
     <message>
         <location filename="tip_dlg.py" line="70"/>

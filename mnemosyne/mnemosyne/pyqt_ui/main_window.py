@@ -10,9 +10,10 @@ import sys, os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ui_main_window import *
+
+from add_cards_dlg import *
 #from import_dlg import *
 #from export_dlg import *
-from add_cards_dlg import *
 #from edit_item_dlg import *
 #from clean_duplicates import *
 #from statistics_dlg import *
