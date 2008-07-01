@@ -172,7 +172,9 @@ upload_server = "mnemosyne-proj.dyndns.org:80"
 only_editable_when_answer_shown = False
 
 # The translation to use, e.g. 'de' for German (including quotes).
-# If set to None, the system's locale will be used.
+# See http://www.mnemosyne-proj.org/help/translations.php for a list
+# of available translations.
+# If locale is set to None, the system's locale will be used.
 locale = None
 
 # The number of daily backups to keep. Set to -1 for no limit.
