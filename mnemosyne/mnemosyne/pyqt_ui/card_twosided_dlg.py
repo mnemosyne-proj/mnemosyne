@@ -9,8 +9,9 @@ from PyQt4.QtGui import *
 
 from card_twosided import *
 
-from libmnemosyne import *
-from libmnemosyne.two_sided_card_type import *
+from mnemosyne.libmnemosyne import *
+from mnemosyne.libmnemosyne.card_type import * # TODO: merge
+from mnemosyne.libmnemosyne.two_sided_card_type import *
 
 ##############################################################################
 #
@@ -34,6 +35,6 @@ class CardTwoSidedDlg(QWidget, Ui_CardTwoSided):
 ##############################################################################
 
 register_card_type("Two-sided card", CardTwoSidedDlg, new_cards_two_sided,
-                   update_cards_two_sided))
+                   update_cards_two_sided)
 
 

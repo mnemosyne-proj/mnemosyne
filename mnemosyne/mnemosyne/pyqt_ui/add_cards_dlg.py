@@ -225,15 +225,15 @@ class AddCardsDlg(QDialog, Ui_AddCardsFrm):
 
     ##########################################################################
     #
-    # new_item
+    # new_card
     #
     #   Don't rebuild revision queue afterwards, as this can cause corruption
-    #   for the current item. The new items will show up after the old queue
+    #   for the current card. The new cards will show up after the old queue
     #   is empty.
     #
     ##########################################################################
 
-    def new_item(self, grade):
+    def new_card(self, grade):
 
         q        = unicode(self.question.text())
         p        = unicode(self.pronunciation.text())

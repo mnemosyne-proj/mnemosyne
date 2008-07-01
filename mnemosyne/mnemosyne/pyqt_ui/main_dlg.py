@@ -4,13 +4,12 @@
 #
 ##############################################################################
 
-# TODO: rename to MainWindow
 # TODO: show toolbar
 
 import sys, os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from main_frm import *
+from ui_main_window import *
 #from import_dlg import *
 #from export_dlg import *
 from add_cards_dlg import *
@@ -70,11 +69,11 @@ def install_tooltip_strings(self):
 
 ##############################################################################
 #
-# MainDlg
+# MainWindow
 #
 ##############################################################################
 
-class MainDlg(QMainWindow, Ui_MainFrm):
+class MainWindow(QMainWindow, Ui_MainWindow):
 
     ##########################################################################
     #
@@ -767,12 +766,12 @@ class MainDlg(QMainWindow, Ui_MainFrm):
         if self.item != None and self.item.grade in [0,1]:
             i = 0 # Acquisition phase.
             self.grade_0_button.setDefault(grades_enabled)
-            self.connect(self.defaultAction,SIGNAL("activated()"),
+            self.connect(self.actionDefault,SIGNAL("activated()"),
                          self.grade_0_button.animateClick)
         else:
             i = 1 # Retention phase.
             self.grade_4_button.setDefault(grades_enabled)
-            self.connect(self.defaultAction,SIGNAL("activated()"),
+            self.connect(self.actionDefault,SIGNAL("activated()"),
                          self.grade_4_button.animateClick)
                         
         self.grades.setEnabled(grades_enabled)

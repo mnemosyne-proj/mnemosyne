@@ -101,67 +101,67 @@ Ik creëer tmp bestand.</translation>
     <message>
         <location filename="main_dlg.py" line="48"/>
         <source>You don&apos;t remember this card yet.</source>
-        <translation type="unfinished">Je kent deze kaart nog niet.</translation>
+        <translation type="obsolete">Je kent deze kaart nog niet.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="49"/>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation type="unfinished">Als &apos;0&apos;, maar het wordt iets duidelijker.</translation>
+        <translation type="obsolete">Als &apos;0&apos;, maar het wordt iets duidelijker.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="50"/>
         <source> Show it less often.</source>
-        <translation type="unfinished"> Toon het minder vaak.</translation>
+        <translation type="obsolete"> Toon het minder vaak.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="52"/>
         <source>You&apos;ve memorised this card now,</source>
-        <translation type="unfinished">Je hebt deze kaart nu onthouden,</translation>
+        <translation type="obsolete">Je hebt deze kaart nu onthouden,</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="53"/>
         <source> and will probably remember it for a few days.</source>
-        <translation type="unfinished"> en zult het waarschijnlijk blijven onthouden voor een aantal dagen.</translation>
+        <translation type="obsolete"> en zult het waarschijnlijk blijven onthouden voor een aantal dagen.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="57"/>
         <source>You have forgotten this card completely.</source>
-        <translation type="unfinished">Deze kaart ben je volledig vergeten.</translation>
+        <translation type="obsolete">Deze kaart ben je volledig vergeten.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="59"/>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation type="unfinished">Nauwelijks correct antwoord. Het tijdsinterval was veel te lang.</translation>
+        <translation type="obsolete">Nauwelijks correct antwoord. Het tijdsinterval was veel te lang.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="60"/>
         <source>Correct answer, but with much effort.</source>
-        <translation type="unfinished">Correct antwoord, maar met enige moeite.</translation>
+        <translation type="obsolete">Correct antwoord, maar met enige moeite.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="61"/>
         <source> The interval was probably too long.</source>
-        <translation type="unfinished"> Het interval was waarschijnlijk te lang.</translation>
+        <translation type="obsolete"> Het interval was waarschijnlijk te lang.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="63"/>
         <source>Correct answer, with some effort.</source>
-        <translation type="unfinished">Correct antwoord, met enige moeite.</translation>
+        <translation type="obsolete">Correct antwoord, met enige moeite.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="64"/>
         <source> The interval was probably just right.</source>
-        <translation type="unfinished"> Het tijdsinterval was vermoedelijk precies juist.</translation>
+        <translation type="obsolete"> Het tijdsinterval was vermoedelijk precies juist.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="66"/>
         <source>Correct answer, but without any</source>
-        <translation type="unfinished">Correct antwoord, maar zonder enige</translation>
+        <translation type="obsolete">Correct antwoord, maar zonder enige</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="67"/>
         <source> difficulties. The interval was probably too short.</source>
-        <translation type="unfinished"> moeite. Het interval was waarschijnlijk te kort.</translation>
+        <translation type="obsolete"> moeite. Het interval was waarschijnlijk te kort.</translation>
     </message>
     <message>
         <location filename="message_boxes.py" line="68"/>
@@ -189,8 +189,14 @@ Ik creëer tmp bestand.</translation>
         <location filename="about_dlg.py" line="33"/>
         <source>More info: http://mnemosyne-proj.sourceforge.net
 </source>
-        <translation>Voor meer informatie: http://mnemosyne-proj.sourceforge.net
+        <translation type="obsolete">Voor meer informatie: http://mnemosyne-proj.sourceforge.net
 </translation>
+    </message>
+    <message>
+        <location filename="about_dlg.py" line="33"/>
+        <source>More info: http://mnemosyne-proj.org
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -198,7 +204,7 @@ Ik creëer tmp bestand.</translation>
     <message>
         <location filename="about_frm.ui" line="16"/>
         <source>About</source>
-        <translation>Over</translation>
+        <translation type="obsolete">Over</translation>
     </message>
 </context>
 <context>
@@ -206,37 +212,37 @@ Ik creëer tmp bestand.</translation>
     <message>
         <location filename="activate_categories_frm.ui" line="16"/>
         <source>Activate categories</source>
-        <translation>Activeer categorieën</translation>
+        <translation type="obsolete">Activeer categorieën</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="35"/>
         <source>Select the categories to activate:</source>
-        <translation>Selecteer de te activeren categorieën:</translation>
+        <translation type="obsolete">Selecteer de te activeren categorieën:</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="59"/>
         <source>Activate none</source>
-        <translation>Activeer geen</translation>
+        <translation type="obsolete">Activeer geen</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="67"/>
         <source>Activate all</source>
-        <translation>Activeer alle</translation>
+        <translation type="obsolete">Activeer alle</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="88"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="91"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="122"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Annuleer</translation>
+        <translation type="obsolete">&amp;Annuleer</translation>
     </message>
 </context>
 <context>
@@ -244,166 +250,156 @@ Ik creëer tmp bestand.</translation>
     <message>
         <location filename="add_cards_dlg.py" line="84"/>
         <source>&lt;default&gt;</source>
-        <translation type="unfinished">&lt;standaard&gt;</translation>
+        <translation type="obsolete">&lt;standaard&gt;</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="192"/>
         <source>Mnemosyne</source>
-        <translation type="unfinished">Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="111"/>
         <source>Abandon current card?</source>
-        <translation type="unfinished">Huidige kaart opgeven?</translation>
+        <translation type="obsolete">Huidige kaart opgeven?</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="112"/>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Ja</translation>
+        <translation type="obsolete">&amp;Ja</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="113"/>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Nee</translation>
+        <translation type="obsolete">&amp;Nee</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="174"/>
         <source>Card is already in database.
 </source>
-        <translation type="unfinished">Kaart is reeds in de gegevensbank aanwezig.
+        <translation type="obsolete">Kaart is reeds in de gegevensbank aanwezig.
 </translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="174"/>
         <source>Duplicate not added.</source>
-        <translation type="unfinished">Duplikaat niet toegevoegd.</translation>
+        <translation type="obsolete">Duplikaat niet toegevoegd.</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="175"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="194"/>
         <source>There are different answers for</source>
-        <translation type="unfinished">Er zijn verschillende antwoorden voor</translation>
+        <translation type="obsolete">Er zijn verschillende antwoorden voor</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="194"/>
         <source> this question:
 
 </source>
-        <translation type="unfinished"> deze vraag:
+        <translation type="obsolete"> deze vraag:
 
 </translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="196"/>
         <source>&amp;Merge and edit</source>
-        <translation type="unfinished">&amp;Samenvoegen en bewerken</translation>
+        <translation type="obsolete">&amp;Samenvoegen en bewerken</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="197"/>
         <source>&amp;Add as is</source>
-        <translation type="unfinished">&amp;Toevoegen in deze vorm</translation>
+        <translation type="obsolete">&amp;Toevoegen in deze vorm</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="198"/>
         <source>&amp;Do not add</source>
-        <translation type="unfinished">&amp;Niet toevoegen</translation>
+        <translation type="obsolete">&amp;Niet toevoegen</translation>
     </message>
 </context>
 <context>
     <name>AddCardsFrm</name>
     <message>
-        <location filename="add_cards_frm.py" line="176"/>
-        <source>Card type:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="add_cards_frm.py" line="177"/>
         <source>Category:</source>
-        <translation type="unfinished">Categorie:</translation>
+        <translation type="obsolete">Categorie:</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="178"/>
         <source>Select initial grade:</source>
-        <translation type="unfinished">Kies eerste beoordeling:</translation>
+        <translation type="obsolete">Kies eerste beoordeling:</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="179"/>
         <source>0</source>
-        <translation type="unfinished">0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="180"/>
         <source>Ctrl+0</source>
-        <translation type="unfinished">Ctrl+0</translation>
+        <translation type="obsolete">Ctrl+0</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="181"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation type="obsolete">1</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="182"/>
         <source>Ctrl+1</source>
-        <translation type="unfinished">Ctrl+1</translation>
+        <translation type="obsolete">Ctrl+1</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="183"/>
         <source>2</source>
-        <translation type="unfinished">2</translation>
+        <translation type="obsolete">2</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="184"/>
         <source>Ctrl+2</source>
-        <translation type="unfinished">Ctrl+2</translation>
+        <translation type="obsolete">Ctrl+2</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="185"/>
         <source>3</source>
-        <translation type="unfinished">3</translation>
+        <translation type="obsolete">3</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="186"/>
         <source>Ctrl+3</source>
-        <translation type="unfinished">Ctrl+3</translation>
+        <translation type="obsolete">Ctrl+3</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="187"/>
         <source>4</source>
-        <translation type="unfinished">4</translation>
+        <translation type="obsolete">4</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="188"/>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation type="obsolete">Ctrl+4</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="189"/>
         <source>5</source>
-        <translation type="unfinished">5</translation>
+        <translation type="obsolete">5</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="190"/>
         <source>Ctrl+5</source>
-        <translation type="unfinished">Ctrl+5</translation>
+        <translation type="obsolete">Ctrl+5</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="191"/>
         <source>&amp;Preview</source>
-        <translation type="unfinished">&amp;Voorvertoning</translation>
+        <translation type="obsolete">&amp;Voorvertoning</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="192"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished">&amp;Afsluiten</translation>
-    </message>
-    <message>
-        <location filename="add_cards_frm.py" line="175"/>
-        <source>Add cards</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Afsluiten</translation>
     </message>
 </context>
 <context>
@@ -658,32 +654,32 @@ Ik creëer tmp bestand.</translation>
     <message>
         <location filename="change_category_frm.ui" line="16"/>
         <source>Change category</source>
-        <translation>Verander categorie</translation>
+        <translation type="obsolete">Verander categorie</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="43"/>
         <source>Category:</source>
-        <translation>Categorie:</translation>
+        <translation type="obsolete">Categorie:</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="83"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="86"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="111"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+        <translation type="obsolete">&amp;Cancel</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="114"/>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
 </context>
 <context>
@@ -691,112 +687,112 @@ Ik creëer tmp bestand.</translation>
     <message>
         <location filename="config_frm.ui" line="24"/>
         <source>Mnemosyne configuration</source>
-        <translation>Mnemosyne configuratie</translation>
+        <translation type="obsolete">Mnemosyne configuratie</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="54"/>
         <source>Hover with the mouse over the buttons to get extra information.</source>
-        <translation>Sta met de muiscursor enige tijd stil over de knoppen, om meer informatie te krijgen.</translation>
+        <translation type="obsolete">Sta met de muiscursor enige tijd stil over de knoppen, om meer informatie te krijgen.</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="65"/>
         <source>Appearance</source>
-        <translation>Uiterlijk</translation>
+        <translation type="obsolete">Uiterlijk</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="92"/>
         <source>Set Q/A font</source>
-        <translation>Stel Vraag en Antwoord lettertype in</translation>
+        <translation type="obsolete">Stel Vraag en Antwoord lettertype in</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="95"/>
         <source>Set the font used when showing single questions and answers</source>
-        <translation>Stel het lettertype in voor het weergeven van losse vragen en antwoorden</translation>
+        <translation type="obsolete">Stel het lettertype in voor het weergeven van losse vragen en antwoorden</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="103"/>
         <source>Set list font</source>
-        <translation>Stel het lettertype van de lijst in</translation>
+        <translation type="obsolete">Stel het lettertype van de lijst in</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="106"/>
         <source>Set the font used when showing the list of all the cards in the deck</source>
-        <translation>Stel het lettertype in voor het weergeven van een lijst van alle kaarten</translation>
+        <translation type="obsolete">Stel het lettertype in voor het weergeven van een lijst van alle kaarten</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="124"/>
         <source>Increase size of non-latin characters by</source>
-        <translation>Vergroot de non-latin letters met</translation>
+        <translation type="obsolete">Vergroot de non-latin letters met</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="155"/>
         <source>Sometimes complex glyphs are hard to read at the default latin font size</source>
-        <translation>Soms zijn complexe symbolen moeilijk te lezen in de standaard lettertypegrootte</translation>
+        <translation type="obsolete">Soms zijn complexe symbolen moeilijk te lezen in de standaard lettertypegrootte</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="152"/>
         <source>point(s)</source>
-        <translation>punt(en)</translation>
+        <translation type="obsolete">punt(en)</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="169"/>
         <source>Log uploading</source>
-        <translation>Log uploaden</translation>
+        <translation type="obsolete">Log uploaden</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="196"/>
         <source>Upload anonymous logs</source>
-        <translation>Uploaden van anonieme logbestanden</translation>
+        <translation type="obsolete">Uploaden van anonieme logbestanden</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="199"/>
         <source>Share anonymous statistics to contribute to memory research</source>
-        <translation>Deel anonieme statistieken om mee te helpen aan geheugenonderzoek</translation>
+        <translation type="obsolete">Deel anonieme statistieken om mee te helpen aan geheugenonderzoek</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="223"/>
         <source>Duplicate handling</source>
-        <translation>Behandeling duplicaten</translation>
+        <translation type="obsolete">Behandeling duplicaten</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="242"/>
         <source>Check for duplicates when adding new cards</source>
-        <translation>Controleer op duplicaten bij het toevoegen van nieuwe kaarten</translation>
+        <translation type="obsolete">Controleer op duplicaten bij het toevoegen van nieuwe kaarten</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="250"/>
         <source>Allow duplicates in different categories</source>
-        <translation>Sta duplicaten toe in verschillende categorieën</translation>
+        <translation type="obsolete">Sta duplicaten toe in verschillende categorieën</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="262"/>
         <source>Repetition process</source>
-        <translation>Herhalingsproces</translation>
+        <translation type="obsolete">Herhalingsproces</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="281"/>
         <source>Number of grade 0 cards to learn at once:</source>
-        <translation>Aantal 0 beoordelingskaarten in eenmaal te leren:</translation>
+        <translation type="obsolete">Aantal 0 beoordelingskaarten in eenmaal te leren:</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="284"/>
         <source>Note: this is NOT the number of grade 0 cards you want to memorise *per day*</source>
-        <translation>Let op: dit in NIET het aantal kaarten met beoordeling 0 welke je *per dag* wil leren</translation>
+        <translation type="obsolete">Let op: dit in NIET het aantal kaarten met beoordeling 0 welke je *per dag* wil leren</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="318"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="352"/>
         <source>Defaults</source>
-        <translation>Standaard</translation>
+        <translation type="obsolete">Standaard</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="360"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Annuleer</translation>
+        <translation type="obsolete">&amp;Annuleer</translation>
     </message>
 </context>
 <context>
@@ -1082,68 +1078,68 @@ dus wellicht wilt u </translation>
     <message>
         <location filename="export_frm.ui" line="16"/>
         <source>Export to file</source>
-        <translation>Exporteer naar bestand</translation>
+        <translation type="obsolete">Exporteer naar bestand</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="35"/>
         <source>File format:</source>
-        <translation>Bestandsformaat:</translation>
+        <translation type="obsolete">Bestandsformaat:</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="57"/>
         <source>File to export to:</source>
-        <translation>Bestand om naar te exporteren:</translation>
+        <translation type="obsolete">Bestand om naar te exporteren:</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="78"/>
         <source>&amp;Browse</source>
-        <translation>&amp;Blader</translation>
+        <translation type="obsolete">&amp;Blader</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="88"/>
         <source>Categories to export:</source>
-        <translation>Te exporteren categorieën:</translation>
+        <translation type="obsolete">Te exporteren categorieën:</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="112"/>
         <source>&amp;Select all</source>
-        <translation>&amp;Selecteer alles</translation>
+        <translation type="obsolete">&amp;Selecteer alles</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="125"/>
         <source>Reset learning data on export</source>
-        <translation>Verwijder leergegevens tijdens export</translation>
+        <translation type="obsolete">Verwijder leergegevens tijdens export</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="141"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="144"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="172"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Annuleer</translation>
+        <translation type="obsolete">&amp;Annuleer</translation>
     </message>
 </context>
 <context>
     <name>ImportDlg</name>
     <message>
-        <location filename="import_dlg.py" line="41"/>
+        <location filename="import_dlg.py" line="44"/>
         <source>&lt;default&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="import_dlg.py" line="61"/>
+        <location filename="import_dlg.py" line="64"/>
         <source>All Files (*);;</source>
         <translation>Alle bestanden (*);;</translation>
     </message>
     <message>
-        <location filename="import_dlg.py" line="62"/>
+        <location filename="import_dlg.py" line="65"/>
         <source>Import</source>
         <translation>Importeer</translation>
     </message>
@@ -1153,52 +1149,52 @@ dus wellicht wilt u </translation>
     <message>
         <location filename="import_frm.ui" line="16"/>
         <source>Import from file</source>
-        <translation>Importeer uit bestand</translation>
+        <translation type="obsolete">Importeer uit bestand</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="35"/>
         <source>File format:</source>
-        <translation>Bestandsformaat:</translation>
+        <translation type="obsolete">Bestandsformaat:</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="57"/>
         <source>File to import from:</source>
-        <translation>Importeer uit bestand:</translation>
+        <translation type="obsolete">Importeer uit bestand:</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="78"/>
         <source>&amp;Browse</source>
-        <translation>&amp;Blader</translation>
+        <translation type="obsolete">&amp;Blader</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="88"/>
         <source>Put cards without category into this category:</source>
-        <translation>Stop categorieloze kaarten in deze categorie:</translation>
+        <translation type="obsolete">Stop categorieloze kaarten in deze categorie:</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="110"/>
         <source>Note: all cards will be added to the current database.</source>
-        <translation>Let op: alle kaarten zullen aan de huidige gegevensbank toegevoerd worden.</translation>
+        <translation type="obsolete">Let op: alle kaarten zullen aan de huidige gegevensbank toegevoerd worden.</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="118"/>
         <source>Reset learning data on import</source>
-        <translation>Verwijder leergegevens tijdens import</translation>
+        <translation type="obsolete">Verwijder leergegevens tijdens import</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="134"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="137"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="165"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Annuleer</translation>
+        <translation type="obsolete">&amp;Annuleer</translation>
     </message>
 </context>
 <context>
@@ -1206,112 +1202,112 @@ dus wellicht wilt u </translation>
     <message>
         <location filename="main_dlg.py" line="250"/>
         <source>Mnemosyne databases (*.mem)</source>
-        <translation>Mnemosyne gegevensbanken (*.mem)</translation>
+        <translation type="obsolete">Mnemosyne gegevensbanken (*.mem)</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="372"/>
         <source>Please wait...</source>
-        <translation>Een moment...</translation>
+        <translation type="obsolete">Een moment...</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="420"/>
         <source>Mnemosyne</source>
-        <translation>Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="421"/>
         <source>Delete current card?</source>
-        <translation>Verwijder huidige kaart?</translation>
+        <translation type="obsolete">Verwijder huidige kaart?</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="422"/>
         <source>&amp;Yes</source>
-        <translation>&amp;Ja</translation>
+        <translation type="obsolete">&amp;Ja</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="422"/>
         <source>&amp;No</source>
-        <translation>&amp;Nee</translation>
+        <translation type="obsolete">&amp;Nee</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="603"/>
         <source>Returns in </source>
-        <translation>Komt over </translation>
+        <translation type="obsolete">Komt over </translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="604"/>
         <source> day(s).</source>
-        <translation>dag(en) terug.</translation>
+        <translation type="obsolete">dag(en) terug.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="616"/>
         <source>Next repetition: today.</source>
-        <translation>Volgende bevraging: vandaag.</translation>
+        <translation type="obsolete">Volgende bevraging: vandaag.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="618"/>
         <source>Next repetition: tomorrow.</source>
-        <translation>Volgende bevraging: morgen.</translation>
+        <translation type="obsolete">Volgende bevraging: morgen.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="619"/>
         <source>Next repetition in </source>
-        <translation>Volgende bevraging over </translation>
+        <translation type="obsolete">Volgende bevraging over </translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="693"/>
         <source>Question:</source>
-        <translation>Vraag:</translation>
+        <translation type="obsolete">Vraag:</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="694"/>
         <source>&lt;default&gt;</source>
-        <translation>&lt;standaard&gt;</translation>
+        <translation type="obsolete">&lt;standaard&gt;</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="738"/>
         <source>Show &amp;answer</source>
-        <translation>Toon &amp;antwoord</translation>
+        <translation type="obsolete">Toon &amp;antwoord</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="742"/>
         <source>Learn ahead of schedule</source>
-        <translation>Leer vooruit op schema</translation>
+        <translation type="obsolete">Leer vooruit op schema</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="787"/>
+        <location filename="main_dlg.py" line="809"/>
         <source>Pick days until next repetition:</source>
-        <translation>Aantal dagen tot volgende bevraging:</translation>
+        <translation type="obsolete">Aantal dagen tot volgende bevraging:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="790"/>
+        <location filename="main_dlg.py" line="812"/>
         <source>Grade your answer:</source>
-        <translation>Beoordeel uw antwoord:</translation>
+        <translation type="obsolete">Beoordeel uw antwoord:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="797"/>
+        <location filename="main_dlg.py" line="819"/>
         <source>Scheduled: </source>
-        <translation>Geroosterd: </translation>
+        <translation type="obsolete">Geroosterd: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="799"/>
+        <location filename="main_dlg.py" line="821"/>
         <source>Not memorised: </source>
-        <translation>Niet onthouden: </translation>
+        <translation type="obsolete">Niet onthouden: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="801"/>
+        <location filename="main_dlg.py" line="823"/>
         <source>All: </source>
-        <translation>Alle: </translation>
+        <translation type="obsolete">Alle: </translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="163"/>
         <source>New</source>
-        <translation>Nieuw</translation>
+        <translation type="obsolete">Nieuw</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="621"/>
         <source> days.</source>
-        <translation type="unfinished"> dagen.</translation>
+        <translation type="obsolete"> dagen.</translation>
     </message>
     <message>
         <location filename="main_frm.py" line="306"/>
@@ -1493,17 +1489,17 @@ dus wellicht wilt u </translation>
 <context>
     <name>MainFrm</name>
     <message>
-        <location filename="main_frm.py" line="300"/>
+        <location filename="main_dlg.py" line="300"/>
         <source>Mnemosyne</source>
         <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="301"/>
+        <location filename="main_dlg.py" line="301"/>
         <source>Question:</source>
         <translation type="unfinished">Vraag:</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="302"/>
+        <location filename="main_dlg.py" line="302"/>
         <source>Answer:</source>
         <translation type="unfinished">Anwoord:</translation>
     </message>
@@ -1513,7 +1509,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Toon anwoord</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="304"/>
+        <location filename="main_dlg.py" line="304"/>
         <source>Grade your answer:</source>
         <translation type="unfinished">Beoordeel jouw antwoord:</translation>
     </message>
@@ -1523,7 +1519,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">&amp;0</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="306"/>
+        <location filename="main_dlg.py" line="306"/>
         <source>0</source>
         <translation type="unfinished">0</translation>
     </message>
@@ -1533,7 +1529,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">&amp;1</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="308"/>
+        <location filename="main_dlg.py" line="308"/>
         <source>1</source>
         <translation type="unfinished">1</translation>
     </message>
@@ -1543,7 +1539,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">&amp;2</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="310"/>
+        <location filename="main_dlg.py" line="310"/>
         <source>2</source>
         <translation type="unfinished">2</translation>
     </message>
@@ -1553,7 +1549,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">&amp;3</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="312"/>
+        <location filename="main_dlg.py" line="312"/>
         <source>3</source>
         <translation type="unfinished">3</translation>
     </message>
@@ -1563,7 +1559,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">&amp;4</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="314"/>
+        <location filename="main_dlg.py" line="314"/>
         <source>4</source>
         <translation type="unfinished">4</translation>
     </message>
@@ -1573,12 +1569,12 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">&amp;5</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="316"/>
+        <location filename="main_dlg.py" line="316"/>
         <source>5</source>
         <translation type="unfinished">5</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="337"/>
+        <location filename="main_dlg.py" line="337"/>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Nieuw</translation>
     </message>
@@ -1588,27 +1584,27 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">.</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="338"/>
+        <location filename="main_dlg.py" line="338"/>
         <source>Ctrl+N</source>
         <translation type="unfinished">Ctrl+N</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="339"/>
+        <location filename="main_dlg.py" line="339"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Open...</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="340"/>
+        <location filename="main_dlg.py" line="340"/>
         <source>Ctrl+O</source>
         <translation type="unfinished">Ctrl+O</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="341"/>
+        <location filename="main_dlg.py" line="341"/>
         <source>&amp;Save</source>
         <translation type="unfinished">&amp;Bewaar</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="342"/>
+        <location filename="main_dlg.py" line="342"/>
         <source>Ctrl+S</source>
         <translation type="unfinished">Ctrl+B</translation>
     </message>
@@ -1618,7 +1614,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Bewaar &amp;Als...</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="336"/>
+        <location filename="main_dlg.py" line="336"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">A&amp;fsluiten</translation>
     </message>
@@ -1628,7 +1624,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Over</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="344"/>
+        <location filename="main_dlg.py" line="344"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Over</translation>
     </message>
@@ -1638,12 +1634,12 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Voeg kaarten toe</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="324"/>
+        <location filename="main_dlg.py" line="324"/>
         <source>&amp;Add cards</source>
         <translation type="unfinished">&amp;Voeg kaarten toe</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="325"/>
+        <location filename="main_dlg.py" line="325"/>
         <source>Ctrl+A</source>
         <translation type="unfinished">Ctrl+V</translation>
     </message>
@@ -1658,27 +1654,27 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Bewerk kaartenbak</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="333"/>
+        <location filename="main_dlg.py" line="333"/>
         <source>Edit &amp;deck</source>
         <translation type="unfinished">Bewerk &amp;kaartenbak</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="334"/>
+        <location filename="main_dlg.py" line="334"/>
         <source>Ctrl+D</source>
         <translation type="unfinished">Ctrl+K</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="345"/>
+        <location filename="main_dlg.py" line="345"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Importeer</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="335"/>
+        <location filename="main_dlg.py" line="335"/>
         <source>&amp;Export</source>
         <translation type="unfinished">&amp;Exporteer</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="357"/>
+        <location filename="main_dlg.py" line="357"/>
         <source>Show &amp;toolbar</source>
         <translation type="unfinished">Toon &amp;toolbar</translation>
     </message>
@@ -1688,12 +1684,12 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Bewerk deze kaart</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="331"/>
+        <location filename="main_dlg.py" line="331"/>
         <source>&amp;Edit current card</source>
         <translation type="unfinished">Bewerk &amp;deze kaart</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="332"/>
+        <location filename="main_dlg.py" line="332"/>
         <source>Ctrl+E</source>
         <translation type="unfinished">Ctrl+D</translation>
     </message>
@@ -1703,7 +1699,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Verwijder deze kaart</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="329"/>
+        <location filename="main_dlg.py" line="329"/>
         <source>&amp;Delete current card</source>
         <translation type="unfinished">Ver&amp;wijder deze kaart</translation>
     </message>
@@ -1713,12 +1709,12 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Verw</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="326"/>
+        <location filename="main_dlg.py" line="326"/>
         <source>&amp;Clean duplicates</source>
         <translation type="unfinished">Verwijder d&amp;uplicaten</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="327"/>
+        <location filename="main_dlg.py" line="327"/>
         <source>&amp;Configure Mnemosyne</source>
         <translation type="unfinished">&amp;Configureer Mnemosyne</translation>
     </message>
@@ -1728,7 +1724,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Eerste stappen</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="354"/>
+        <location filename="main_dlg.py" line="354"/>
         <source>&amp;Getting started</source>
         <translation type="unfinished">Eerste s&amp;tappen</translation>
     </message>
@@ -1738,17 +1734,17 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Onder, Onder</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="347"/>
+        <location filename="main_dlg.py" line="347"/>
         <source>Enter</source>
         <translation type="unfinished">Enter</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="351"/>
+        <location filename="main_dlg.py" line="351"/>
         <source>Return</source>
         <translation type="unfinished">Return</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="353"/>
+        <location filename="main_dlg.py" line="353"/>
         <source>Space</source>
         <translation type="unfinished">Space
 </translation>
@@ -1764,12 +1760,12 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Toon statistieken</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="355"/>
+        <location filename="main_dlg.py" line="355"/>
         <source>Show s&amp;tatistics</source>
         <translation type="unfinished">Toon stat&amp;istieken</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="356"/>
+        <location filename="main_dlg.py" line="356"/>
         <source>Ctrl+T</source>
         <translation type="unfinished">Ctrl+I</translation>
     </message>
@@ -1779,7 +1775,7 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Tip van de dag</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="358"/>
+        <location filename="main_dlg.py" line="358"/>
         <source>&amp;Tip of the day</source>
         <translation type="unfinished">&amp;Tip van de dag</translation>
     </message>
@@ -1789,82 +1785,82 @@ dus wellicht wilt u </translation>
         <translation type="obsolete">Hoofd toolbar (Mnemosyne)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="317"/>
+        <location filename="main_dlg.py" line="317"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Bestand</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="318"/>
+        <location filename="main_dlg.py" line="318"/>
         <source>&amp;Deck</source>
         <translation type="unfinished">&amp;Kaartenbak</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="319"/>
+        <location filename="main_dlg.py" line="319"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">&amp;Instellingen</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="320"/>
+        <location filename="main_dlg.py" line="320"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Help</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="322"/>
+        <location filename="main_dlg.py" line="322"/>
         <source>Activate cate&amp;gories</source>
         <translation type="unfinished">Act&amp;iveer categorieën</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="323"/>
+        <location filename="main_dlg.py" line="323"/>
         <source>Ctrl+G</source>
         <translation type="unfinished">Ctrl+G</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="303"/>
+        <location filename="main_dlg.py" line="303"/>
         <source>Show &amp;answer</source>
         <translation type="unfinished">Toon &amp;antwoord</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="321"/>
+        <location filename="main_dlg.py" line="321"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="328"/>
+        <location filename="main_dlg.py" line="328"/>
         <source>default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="330"/>
+        <location filename="main_dlg.py" line="330"/>
         <source>Backspace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="343"/>
+        <location filename="main_dlg.py" line="343"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="346"/>
+        <location filename="main_dlg.py" line="346"/>
         <source>pressEnter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="348"/>
+        <location filename="main_dlg.py" line="348"/>
         <source>pressR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="349"/>
+        <location filename="main_dlg.py" line="349"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="350"/>
+        <location filename="main_dlg.py" line="350"/>
         <source>pressReturn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="352"/>
+        <location filename="main_dlg.py" line="352"/>
         <source>pressSpace</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2104,7 +2100,7 @@ dus wellicht wilt u </translation>
     <message>
         <location filename="product_tour_frm.ui" line="24"/>
         <source>Getting started</source>
-        <translation>Eerste stappen</translation>
+        <translation type="obsolete">Eerste stappen</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="80"/>
@@ -2117,7 +2113,7 @@ I can make it more efficient for you to memorise and remember answers to questio
 For that, I&apos;ll decide when to ask you the questions, and you&apos;ll need to rate how well you remember the answers.
 
 Let&apos;s look at the meaning of these ratings now.</source>
-        <translation>Goedendag!
+        <translation type="obsolete">Goedendag!
 Ik ben Mnemosyne, een vlinder vernoemd naar de Griekse godin van het geheugen. 
 
 De antwoorden die je vaker vergeet stel ik je vaker en antwoorden op vragen die je goed kent laat ik je verder geen tijd op verliezen door ze te vaak te vragen. Daardoor wordt het voor jij meer efficient om de antwoorden op vragen te onthouden.
@@ -2129,7 +2125,7 @@ Laten we eens kijken naar deze beoordelingen.</translation>
     <message>
         <location filename="product_tour_frm.ui" line="31"/>
         <source>Introduction</source>
-        <translation>Introductie</translation>
+        <translation type="obsolete">Introductie</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="122"/>
@@ -2140,7 +2136,7 @@ Grades 0 and 1 are used if you don&apos;t know the answer yet, or if you have fo
 I will keep on asking you these questions until you give them a grade 2 or higher (the exact grade doesn&apos;t matter). Grade 2 basically means that you think you&apos;ll be able to remember the card for at least one or two days. It signals the transition between short and long term memory.
 
 I will schedule this card at some future date, when I think you&apos;ll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</source>
-        <translation>Beoordelingen van 0 tot 5.
+        <translation type="obsolete">Beoordelingen van 0 tot 5.
 
 De &apos;0&apos; en &apos;1&apos; beoordelingen worden gebruikt als je het antwoord nog niet kent of dat je het opnieuw vergeten bent. Een kaart met beoordeling &apos;1&apos; wordt al enigszins meer bekend dan een &apos;0&apos; en zal minder vaak herhaald worden.
 
@@ -2151,7 +2147,7 @@ Hierna zal ik de kaart ergens in de toekomst roosteren, op een moment dat ik den
     <message>
         <location filename="product_tour_frm.ui" line="103"/>
         <source>Grades 0-2</source>
-        <translation>Beoordelingen 0-2</translation>
+        <translation type="obsolete">Beoordelingen 0-2</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="160"/>
@@ -2162,7 +2158,7 @@ If I get it just right, so that you remember it, albeit with some effort, you us
 If on the other hand it takes you significant effort to remember the answer, and you think I&apos;ve waited too long to ask you this question, then rate the card 3.
 
 If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep on asking you this question until you think you&apos;ll be able to remember it again for a few days.</source>
-        <translation>Als ik je een bepaalde vraag te snel stel en je kunt het beantwoorden zonder enige moeie, geef het dan een &apos;5&apos; als beoordeling. Dit neem ik mee voor de volgende keer door een stuk langer te wachten voordat ik je de vraag opnieuw stel.
+        <translation type="obsolete">Als ik je een bepaalde vraag te snel stel en je kunt het beantwoorden zonder enige moeie, geef het dan een &apos;5&apos; als beoordeling. Dit neem ik mee voor de volgende keer door een stuk langer te wachten voordat ik je de vraag opnieuw stel.
 
 Als ik het precies goed doe, zodanig dat je het met enige moeite kunt onthouden, gebruik dan een &apos;4&apos; als beoordeling.
 
@@ -2173,7 +2169,7 @@ Ben je het helemaal vergeten, geef het dan een &apos;0&apos; of een &apos;1&apos
     <message>
         <location filename="product_tour_frm.ui" line="141"/>
         <source>Grades 3-5</source>
-        <translation>Beoordelingen 3-5</translation>
+        <translation type="obsolete">Beoordelingen 3-5</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="206"/>
@@ -2182,7 +2178,7 @@ Ben je het helemaal vergeten, geef het dan een &apos;0&apos; of een &apos;1&apos
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
 
 Uncheck the following box if you do not want to do this.</source>
-        <translation>Houdt je van statistiek? Ik kan een gedetaileerd log bijhouden van jouw revisies.
+        <translation type="obsolete">Houdt je van statistiek? Ik kan een gedetaileerd log bijhouden van jouw revisies.
 
 Daarnaast kan ik, mocht je dat willen, een anoniem log sturen naar een centrale locatie ter analyse, zodat jij kunt helpen mij beter te maken. Op deze manier kun je ook je steentje bijdragen aan lange-termijn geheugenonderzoek.
 
@@ -2191,17 +2187,17 @@ Klik het volgende aankruisvak aan, mocht je dit willen.</translation>
     <message>
         <location filename="product_tour_frm.ui" line="221"/>
         <source>Upload anonymous logs</source>
-        <translation>Verstuur een anonieme log</translation>
+        <translation type="obsolete">Verstuur een anonieme log</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="232"/>
         <source>(You can always change this setting later using the &apos;Configure Mnemosyne&apos; menu option.)</source>
-        <translation>(Je kunt dit later altijd veranderen in het &apos;Configureer Mnemosyne&apos; dialoog)</translation>
+        <translation type="obsolete">(Je kunt dit later altijd veranderen in het &apos;Configureer Mnemosyne&apos; dialoog)</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="179"/>
         <source>Statistics</source>
-        <translation>Statistieken</translation>
+        <translation type="obsolete">Statistieken</translation>
     </message>
     <message>
         <location filename="" line="134945244"/>
@@ -2231,7 +2227,7 @@ Veel plezier met leren!</translation>
     <message>
         <location filename="product_tour_frm.ui" line="244"/>
         <source>Ready to start</source>
-        <translation>Klaar om te starten</translation>
+        <translation type="obsolete">Klaar om te starten</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="263"/>
@@ -2246,7 +2242,7 @@ For best results, I suggest you do your revisions every day, although I&apos;ll 
 For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
 &lt;p&gt;
 Happy learning!</source>
-        <translation type="unfinished">Je bent nu klaar voor de start!
+        <translation type="obsolete">Je bent nu klaar voor de start!
 &lt;p&gt;
 Voeg nieuwe kaarten toe door op het &apos;plus&apos; icoon te klikken, links bovenaan.
 &lt;p&gt;
@@ -2348,37 +2344,37 @@ Veel plezier met leren!</translation>
     <message>
         <location filename="statistics_frm.ui" line="85"/>
         <source>Category</source>
-        <translation>Categorie</translation>
+        <translation type="obsolete">Categorie</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="96"/>
         <source>Cards</source>
-        <translation>Kaarten</translation>
+        <translation type="obsolete">Kaarten</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="16"/>
         <source>Statistics</source>
-        <translation>Statistieken</translation>
+        <translation type="obsolete">Statistieken</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="40"/>
         <source>Schedule</source>
-        <translation>Rooster</translation>
+        <translation type="obsolete">Rooster</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="58"/>
         <source>Grades</source>
-        <translation>Beoordelingen</translation>
+        <translation type="obsolete">Beoordelingen</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="76"/>
         <source>Categories</source>
-        <translation>Categorieën</translation>
+        <translation type="obsolete">Categorieën</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="148"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -2514,52 +2510,52 @@ Veel plezier met leren!</translation>
     <message>
         <location filename="tip_frm.ui" line="16"/>
         <source>Tip of the day</source>
-        <translation>Tip van de dag</translation>
+        <translation type="obsolete">Tip van de dag</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="78"/>
         <source>&lt;b&gt;Did you know...?&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Wist je dat...?&lt;/b&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;Wist je dat...?&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="131"/>
         <source>&amp;Show tips on startup</source>
-        <translation>&amp;Toon tips bij het starten</translation>
+        <translation type="obsolete">&amp;Toon tips bij het starten</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="134"/>
         <source>Alt+S</source>
-        <translation>Alt+T</translation>
+        <translation type="obsolete">Alt+T</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="145"/>
         <source>&amp;Previous</source>
-        <translation>&amp;Vorige</translation>
+        <translation type="obsolete">&amp;Vorige</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="148"/>
         <source>Alt+P</source>
-        <translation>Alt+V</translation>
+        <translation type="obsolete">Alt+V</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="156"/>
         <source>&amp;Next</source>
-        <translation>V&amp;olgende</translation>
+        <translation type="obsolete">V&amp;olgende</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="159"/>
         <source>Alt+N</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="167"/>
         <source>&amp;Close</source>
-        <translation>&amp;Sluiten</translation>
+        <translation type="obsolete">&amp;Sluiten</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="170"/>
         <source>Alt+C</source>
-        <translation>Alt+S</translation>
+        <translation type="obsolete">Alt+S</translation>
     </message>
 </context>
 <context>

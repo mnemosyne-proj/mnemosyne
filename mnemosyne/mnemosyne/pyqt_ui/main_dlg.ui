@@ -1,6 +1,6 @@
 <ui version="4.0" >
  <class>MainFrm</class>
- <widget class="QMainWindow" name="MainFrm" >
+ <widget class="QMainWindow" name="MainDlg" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -520,7 +520,7 @@
   <connection>
    <sender>actionAddCards</sender>
    <signal>activated()</signal>
-   <receiver>MainFrm</receiver>
+   <receiver>MainDlg</receiver>
    <slot>addCards</slot>
    <hints>
     <hint type="sourcelabel" >

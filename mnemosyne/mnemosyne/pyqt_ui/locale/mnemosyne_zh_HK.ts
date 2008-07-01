@@ -105,67 +105,67 @@ Creating tmp file.</source>
     <message>
         <location filename="main_dlg.py" line="48"/>
         <source>You don&apos;t remember this card yet.</source>
-        <translation>你還不記得這張卡片。</translation>
+        <translation type="obsolete">你還不記得這張卡片。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="49"/>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation>類似于‘0’，但它正變得更熟悉。</translation>
+        <translation type="obsolete">類似于‘0’，但它正變得更熟悉。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="50"/>
         <source> Show it less often.</source>
-        <translation>更少地察看它。</translation>
+        <translation type="obsolete">更少地察看它。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="52"/>
         <source>You&apos;ve memorised this card now,</source>
-        <translation>現在你記下了這張卡片，</translation>
+        <translation type="obsolete">現在你記下了這張卡片，</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="53"/>
         <source> and will probably remember it for a few days.</source>
-        <translation>并可能記住几天。</translation>
+        <translation type="obsolete">并可能記住几天。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="57"/>
         <source>You have forgotten this card completely.</source>
-        <translation>你完全忘記了這張卡片。</translation>
+        <translation type="obsolete">你完全忘記了這張卡片。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="59"/>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation>勉強正確的答案。間隔的時間實在太長了。</translation>
+        <translation type="obsolete">勉強正確的答案。間隔的時間實在太長了。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="60"/>
         <source>Correct answer, but with much effort.</source>
-        <translation>正確的答案，但非常費勁。</translation>
+        <translation type="obsolete">正確的答案，但非常費勁。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="61"/>
         <source> The interval was probably too long.</source>
-        <translation>間隔的時間可能太長了。</translation>
+        <translation type="obsolete">間隔的時間可能太長了。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="63"/>
         <source>Correct answer, with some effort.</source>
-        <translation>正確的答案，需要稍作努力。</translation>
+        <translation type="obsolete">正確的答案，需要稍作努力。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="64"/>
         <source> The interval was probably just right.</source>
-        <translation>間隔的時間可能正好。</translation>
+        <translation type="obsolete">間隔的時間可能正好。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="66"/>
         <source>Correct answer, but without any</source>
-        <translation>正確的答案，但沒有任何</translation>
+        <translation type="obsolete">正確的答案，但沒有任何</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="67"/>
         <source> difficulties. The interval was probably too short.</source>
-        <translation>困難。間隔的時間可能太短了。</translation>
+        <translation type="obsolete">困難。間隔的時間可能太短了。</translation>
     </message>
 </context>
 <context>
@@ -188,8 +188,14 @@ Creating tmp file.</source>
         <location filename="about_dlg.py" line="33"/>
         <source>More info: http://mnemosyne-proj.sourceforge.net
 </source>
-        <translation>更多資訊： http://mnemosyne-proj.sourceforge.net
+        <translation type="obsolete">更多資訊： http://mnemosyne-proj.sourceforge.net
 </translation>
+    </message>
+    <message>
+        <location filename="about_dlg.py" line="33"/>
+        <source>More info: http://mnemosyne-proj.org
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -197,7 +203,7 @@ Creating tmp file.</source>
     <message>
         <location filename="about_frm.ui" line="16"/>
         <source>About</source>
-        <translation>關于</translation>
+        <translation type="obsolete">關于</translation>
     </message>
 </context>
 <context>
@@ -205,37 +211,37 @@ Creating tmp file.</source>
     <message>
         <location filename="activate_categories_frm.ui" line="16"/>
         <source>Activate categories</source>
-        <translation>啟動分類</translation>
+        <translation type="obsolete">啟動分類</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="35"/>
         <source>Select the categories to activate:</source>
-        <translation>選取要啟動的分類：</translation>
+        <translation type="obsolete">選取要啟動的分類：</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="59"/>
         <source>Activate none</source>
-        <translation>無一啟動</translation>
+        <translation type="obsolete">無一啟動</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="67"/>
         <source>Activate all</source>
-        <translation>全部啟動</translation>
+        <translation type="obsolete">全部啟動</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="88"/>
         <source>&amp;OK</source>
-        <translation>確認(&amp;O)</translation>
+        <translation type="obsolete">確認(&amp;O)</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="91"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="122"/>
         <source>&amp;Cancel</source>
-        <translation>取消(&amp;C)</translation>
+        <translation type="obsolete">取消(&amp;C)</translation>
     </message>
 </context>
 <context>
@@ -243,73 +249,73 @@ Creating tmp file.</source>
     <message>
         <location filename="add_cards_dlg.py" line="84"/>
         <source>&lt;default&gt;</source>
-        <translation type="unfinished">&lt;預設&gt;</translation>
+        <translation type="obsolete">&lt;預設&gt;</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="192"/>
         <source>Mnemosyne</source>
-        <translation type="unfinished">Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="111"/>
         <source>Abandon current card?</source>
-        <translation type="unfinished">放棄目前卡片？</translation>
+        <translation type="obsolete">放棄目前卡片？</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="112"/>
         <source>&amp;Yes</source>
-        <translation type="unfinished">是(&amp;Y)</translation>
+        <translation type="obsolete">是(&amp;Y)</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="113"/>
         <source>&amp;No</source>
-        <translation type="unfinished">否(&amp;N)</translation>
+        <translation type="obsolete">否(&amp;N)</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="174"/>
         <source>Card is already in database.
 </source>
-        <translation type="unfinished">卡片已在資料程式庫中。
+        <translation type="obsolete">卡片已在資料程式庫中。
 </translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="174"/>
         <source>Duplicate not added.</source>
-        <translation type="unfinished">重複項沒有被添加。</translation>
+        <translation type="obsolete">重複項沒有被添加。</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="175"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">確認(&amp;O)</translation>
+        <translation type="obsolete">確認(&amp;O)</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="194"/>
         <source>There are different answers for</source>
-        <translation type="unfinished">有不同答案回答了</translation>
+        <translation type="obsolete">有不同答案回答了</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="194"/>
         <source> this question:
 
 </source>
-        <translation type="unfinished">這個問題：
+        <translation type="obsolete">這個問題：
 
 </translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="196"/>
         <source>&amp;Merge and edit</source>
-        <translation type="unfinished">合併后編輯(&amp;M)</translation>
+        <translation type="obsolete">合併后編輯(&amp;M)</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="197"/>
         <source>&amp;Add as is</source>
-        <translation type="unfinished">照此添加(&amp;A)</translation>
+        <translation type="obsolete">照此添加(&amp;A)</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="198"/>
         <source>&amp;Do not add</source>
-        <translation type="unfinished">不要添加(&amp;D)</translation>
+        <translation type="obsolete">不要添加(&amp;D)</translation>
     </message>
 </context>
 <context>
@@ -317,92 +323,87 @@ Creating tmp file.</source>
     <message>
         <location filename="add_cards_frm.py" line="175"/>
         <source>Add cards</source>
-        <translation type="unfinished">添加卡片</translation>
-    </message>
-    <message>
-        <location filename="add_cards_frm.py" line="176"/>
-        <source>Card type:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">添加卡片</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="177"/>
         <source>Category:</source>
-        <translation type="unfinished">分類：</translation>
+        <translation type="obsolete">分類：</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="178"/>
         <source>Select initial grade:</source>
-        <translation type="unfinished">選取初始評分：</translation>
+        <translation type="obsolete">選取初始評分：</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="179"/>
         <source>0</source>
-        <translation type="unfinished">0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="180"/>
         <source>Ctrl+0</source>
-        <translation type="unfinished">Ctrl+0</translation>
+        <translation type="obsolete">Ctrl+0</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="181"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation type="obsolete">1</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="182"/>
         <source>Ctrl+1</source>
-        <translation type="unfinished">Ctrl+1</translation>
+        <translation type="obsolete">Ctrl+1</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="183"/>
         <source>2</source>
-        <translation type="unfinished">2</translation>
+        <translation type="obsolete">2</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="184"/>
         <source>Ctrl+2</source>
-        <translation type="unfinished">Ctrl+2</translation>
+        <translation type="obsolete">Ctrl+2</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="185"/>
         <source>3</source>
-        <translation type="unfinished">3</translation>
+        <translation type="obsolete">3</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="186"/>
         <source>Ctrl+3</source>
-        <translation type="unfinished">Ctrl+3</translation>
+        <translation type="obsolete">Ctrl+3</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="187"/>
         <source>4</source>
-        <translation type="unfinished">4</translation>
+        <translation type="obsolete">4</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="188"/>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation type="obsolete">Ctrl+4</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="189"/>
         <source>5</source>
-        <translation type="unfinished">5</translation>
+        <translation type="obsolete">5</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="190"/>
         <source>Ctrl+5</source>
-        <translation type="unfinished">Ctrl+5</translation>
+        <translation type="obsolete">Ctrl+5</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="191"/>
         <source>&amp;Preview</source>
-        <translation type="unfinished">預覽(&amp;P)</translation>
+        <translation type="obsolete">預覽(&amp;P)</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="192"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished">結束(&amp;X)</translation>
+        <translation type="obsolete">結束(&amp;X)</translation>
     </message>
 </context>
 <context>
@@ -662,32 +663,32 @@ Creating tmp file.</source>
     <message>
         <location filename="change_category_frm.ui" line="16"/>
         <source>Change category</source>
-        <translation>變更分類</translation>
+        <translation type="obsolete">變更分類</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="43"/>
         <source>Category:</source>
-        <translation>分類：</translation>
+        <translation type="obsolete">分類：</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="83"/>
         <source>&amp;OK</source>
-        <translation>確認(&amp;O)</translation>
+        <translation type="obsolete">確認(&amp;O)</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="86"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="111"/>
         <source>&amp;Cancel</source>
-        <translation>取消(&amp;C)</translation>
+        <translation type="obsolete">取消(&amp;C)</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="114"/>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
 </context>
 <context>
@@ -695,112 +696,112 @@ Creating tmp file.</source>
     <message>
         <location filename="config_frm.ui" line="24"/>
         <source>Mnemosyne configuration</source>
-        <translation>Mnemosyne 配置</translation>
+        <translation type="obsolete">Mnemosyne 配置</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="54"/>
         <source>Hover with the mouse over the buttons to get extra information.</source>
-        <translation>把滑鼠指標懸停在按鈕上來獲得其餘資訊。</translation>
+        <translation type="obsolete">把滑鼠指標懸停在按鈕上來獲得其餘資訊。</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="65"/>
         <source>Appearance</source>
-        <translation>外觀</translation>
+        <translation type="obsolete">外觀</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="92"/>
         <source>Set Q/A font</source>
-        <translation>設定問題／答案字型</translation>
+        <translation type="obsolete">設定問題／答案字型</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="95"/>
         <source>Set the font used when showing single questions and answers</source>
-        <translation>設定用于察看單個問題和答案的字型</translation>
+        <translation type="obsolete">設定用于察看單個問題和答案的字型</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="103"/>
         <source>Set list font</source>
-        <translation>設定清單字型</translation>
+        <translation type="obsolete">設定清單字型</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="106"/>
         <source>Set the font used when showing the list of all the cards in the deck</source>
-        <translation>設定用于察看卡片疊中所有卡片清單的字型</translation>
+        <translation type="obsolete">設定用于察看卡片疊中所有卡片清單的字型</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="124"/>
         <source>Increase size of non-latin characters by</source>
-        <translation>增加非拉丁字元大小</translation>
+        <translation type="obsolete">增加非拉丁字元大小</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="155"/>
         <source>Sometimes complex glyphs are hard to read at the default latin font size</source>
-        <translation>複雜的象徵式用預設的拉丁字型大小往往很難讀</translation>
+        <translation type="obsolete">複雜的象徵式用預設的拉丁字型大小往往很難讀</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="152"/>
         <source>point(s)</source>
-        <translation>磅(pt)</translation>
+        <translation type="obsolete">磅(pt)</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="169"/>
         <source>Log uploading</source>
-        <translation>日誌上傳</translation>
+        <translation type="obsolete">日誌上傳</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="196"/>
         <source>Upload anonymous logs</source>
-        <translation>上傳匿名日誌</translation>
+        <translation type="obsolete">上傳匿名日誌</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="199"/>
         <source>Share anonymous statistics to contribute to memory research</source>
-        <translation>分享匿名統計資訊來為記憶研究做貢獻</translation>
+        <translation type="obsolete">分享匿名統計資訊來為記憶研究做貢獻</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="223"/>
         <source>Duplicate handling</source>
-        <translation>重複項處理</translation>
+        <translation type="obsolete">重複項處理</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="242"/>
         <source>Check for duplicates when adding new cards</source>
-        <translation>添加新卡片時檢查重複項</translation>
+        <translation type="obsolete">添加新卡片時檢查重複項</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="250"/>
         <source>Allow duplicates in different categories</source>
-        <translation>允許不同分類中有重複項</translation>
+        <translation type="obsolete">允許不同分類中有重複項</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="262"/>
         <source>Repetition process</source>
-        <translation>重複過程</translation>
+        <translation type="obsolete">重複過程</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="281"/>
         <source>Number of grade 0 cards to learn at once:</source>
-        <translation>一次學習0分卡片數量：</translation>
+        <translation type="obsolete">一次學習0分卡片數量：</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="284"/>
         <source>Note: this is NOT the number of grade 0 cards you want to memorise *per day*</source>
-        <translation>注意：這并不是你 *每天* 想要記下的0分卡片數量</translation>
+        <translation type="obsolete">注意：這并不是你 *每天* 想要記下的0分卡片數量</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="318"/>
         <source>&amp;OK</source>
-        <translation>確認(&amp;O)</translation>
+        <translation type="obsolete">確認(&amp;O)</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="352"/>
         <source>Defaults</source>
-        <translation>預設設定</translation>
+        <translation type="obsolete">預設設定</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="360"/>
         <source>&amp;Cancel</source>
-        <translation>取消(&amp;C)</translation>
+        <translation type="obsolete">取消(&amp;C)</translation>
     </message>
 </context>
 <context>
@@ -1085,68 +1086,68 @@ so you might want to run </source>
     <message>
         <location filename="export_frm.ui" line="16"/>
         <source>Export to file</source>
-        <translation>導出到檔案</translation>
+        <translation type="obsolete">導出到檔案</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="35"/>
         <source>File format:</source>
-        <translation>檔案格式：</translation>
+        <translation type="obsolete">檔案格式：</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="57"/>
         <source>File to export to:</source>
-        <translation>導出到檔案：</translation>
+        <translation type="obsolete">導出到檔案：</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="78"/>
         <source>&amp;Browse</source>
-        <translation>瀏覽(&amp;B)</translation>
+        <translation type="obsolete">瀏覽(&amp;B)</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="88"/>
         <source>Categories to export:</source>
-        <translation>要導出的分類：</translation>
+        <translation type="obsolete">要導出的分類：</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="112"/>
         <source>&amp;Select all</source>
-        <translation>選取全部(&amp;S)</translation>
+        <translation type="obsolete">選取全部(&amp;S)</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="125"/>
         <source>Reset learning data on export</source>
-        <translation>導出時重置學習資料</translation>
+        <translation type="obsolete">導出時重置學習資料</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="141"/>
         <source>&amp;OK</source>
-        <translation>確認(&amp;O)</translation>
+        <translation type="obsolete">確認(&amp;O)</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="144"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="172"/>
         <source>&amp;Cancel</source>
-        <translation>取消(&amp;C)</translation>
+        <translation type="obsolete">取消(&amp;C)</translation>
     </message>
 </context>
 <context>
     <name>ImportDlg</name>
     <message>
-        <location filename="import_dlg.py" line="41"/>
+        <location filename="import_dlg.py" line="44"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;預設&gt;</translation>
     </message>
     <message>
-        <location filename="import_dlg.py" line="61"/>
+        <location filename="import_dlg.py" line="64"/>
         <source>All Files (*);;</source>
         <translation>所有檔案 (*);;</translation>
     </message>
     <message>
-        <location filename="import_dlg.py" line="62"/>
+        <location filename="import_dlg.py" line="65"/>
         <source>Import</source>
         <translation>導入</translation>
     </message>
@@ -1156,52 +1157,52 @@ so you might want to run </source>
     <message>
         <location filename="import_frm.ui" line="16"/>
         <source>Import from file</source>
-        <translation>從檔案導入</translation>
+        <translation type="obsolete">從檔案導入</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="35"/>
         <source>File format:</source>
-        <translation>檔案格式：</translation>
+        <translation type="obsolete">檔案格式：</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="57"/>
         <source>File to import from:</source>
-        <translation>從檔案導入：</translation>
+        <translation type="obsolete">從檔案導入：</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="78"/>
         <source>&amp;Browse</source>
-        <translation>瀏覽(&amp;B)</translation>
+        <translation type="obsolete">瀏覽(&amp;B)</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="88"/>
         <source>Put cards without category into this category:</source>
-        <translation>將沒有分類的卡片放到這個分類中：</translation>
+        <translation type="obsolete">將沒有分類的卡片放到這個分類中：</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="110"/>
         <source>Note: all cards will be added to the current database.</source>
-        <translation>注意：所有卡片將被添加到目前資料程式庫。</translation>
+        <translation type="obsolete">注意：所有卡片將被添加到目前資料程式庫。</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="118"/>
         <source>Reset learning data on import</source>
-        <translation>導入時重置學習資料</translation>
+        <translation type="obsolete">導入時重置學習資料</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="134"/>
         <source>&amp;OK</source>
-        <translation>確認(&amp;O)</translation>
+        <translation type="obsolete">確認(&amp;O)</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="137"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="165"/>
         <source>&amp;Cancel</source>
-        <translation>取消(&amp;C)</translation>
+        <translation type="obsolete">取消(&amp;C)</translation>
     </message>
 </context>
 <context>
@@ -1209,128 +1210,128 @@ so you might want to run </source>
     <message>
         <location filename="main_dlg.py" line="250"/>
         <source>Mnemosyne databases (*.mem)</source>
-        <translation>Mnemosyne 資料程式庫 (*.mem)</translation>
+        <translation type="obsolete">Mnemosyne 資料程式庫 (*.mem)</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="163"/>
         <source>New</source>
-        <translation>新建</translation>
+        <translation type="obsolete">新建</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="372"/>
         <source>Please wait...</source>
-        <translation>請稍候...</translation>
+        <translation type="obsolete">請稍候...</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="420"/>
         <source>Mnemosyne</source>
-        <translation>Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="421"/>
         <source>Delete current card?</source>
-        <translation>移除目前卡片？</translation>
+        <translation type="obsolete">移除目前卡片？</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="422"/>
         <source>&amp;Yes</source>
-        <translation>是(&amp;Y)</translation>
+        <translation type="obsolete">是(&amp;Y)</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="422"/>
         <source>&amp;No</source>
-        <translation>否(&amp;N)</translation>
+        <translation type="obsolete">否(&amp;N)</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="603"/>
         <source>Returns in </source>
-        <translation>在</translation>
+        <translation type="obsolete">在</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="604"/>
         <source> day(s).</source>
-        <translation>天后傳回。</translation>
+        <translation type="obsolete">天后傳回。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="616"/>
         <source>Next repetition: today.</source>
-        <translation>下次重複：今天。</translation>
+        <translation type="obsolete">下次重複：今天。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="618"/>
         <source>Next repetition: tomorrow.</source>
-        <translation>下次重複：明天。</translation>
+        <translation type="obsolete">下次重複：明天。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="619"/>
         <source>Next repetition in </source>
-        <translation>下次重複在</translation>
+        <translation type="obsolete">下次重複在</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="621"/>
         <source> days.</source>
-        <translation>天后。</translation>
+        <translation type="obsolete">天后。</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="693"/>
         <source>Question:</source>
-        <translation>問題：</translation>
+        <translation type="obsolete">問題：</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="694"/>
         <source>&lt;default&gt;</source>
-        <translation>&lt;預設&gt;</translation>
+        <translation type="obsolete">&lt;預設&gt;</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="738"/>
         <source>Show &amp;answer</source>
-        <translation>察看答案(&amp;A)</translation>
+        <translation type="obsolete">察看答案(&amp;A)</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="742"/>
         <source>Learn ahead of schedule</source>
-        <translation>提前學習</translation>
+        <translation type="obsolete">提前學習</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="787"/>
+        <location filename="main_dlg.py" line="809"/>
         <source>Pick days until next repetition:</source>
-        <translation>選取直到下次重複的天數：</translation>
+        <translation type="obsolete">選取直到下次重複的天數：</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="790"/>
+        <location filename="main_dlg.py" line="812"/>
         <source>Grade your answer:</source>
-        <translation>給你的答案評分：</translation>
+        <translation type="obsolete">給你的答案評分：</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="797"/>
+        <location filename="main_dlg.py" line="819"/>
         <source>Scheduled: </source>
-        <translation>計划：</translation>
+        <translation type="obsolete">計划：</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="799"/>
+        <location filename="main_dlg.py" line="821"/>
         <source>Not memorised: </source>
-        <translation>未記：</translation>
+        <translation type="obsolete">未記：</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="801"/>
+        <location filename="main_dlg.py" line="823"/>
         <source>All: </source>
-        <translation>所有：</translation>
+        <translation type="obsolete">所有：</translation>
     </message>
 </context>
 <context>
     <name>MainFrm</name>
     <message>
-        <location filename="main_frm.py" line="300"/>
+        <location filename="main_dlg.py" line="300"/>
         <source>Mnemosyne</source>
         <translation>Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="301"/>
+        <location filename="main_dlg.py" line="301"/>
         <source>Question:</source>
         <translation>問題：</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="302"/>
+        <location filename="main_dlg.py" line="302"/>
         <source>Answer:</source>
         <translation>答案：</translation>
     </message>
@@ -1340,7 +1341,7 @@ so you might want to run </source>
         <translation type="obsolete">察看答案</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="304"/>
+        <location filename="main_dlg.py" line="304"/>
         <source>Grade your answer:</source>
         <translation>給你的答案評分：</translation>
     </message>
@@ -1350,7 +1351,7 @@ so you might want to run </source>
         <translation type="obsolete">&amp;0</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="306"/>
+        <location filename="main_dlg.py" line="306"/>
         <source>0</source>
         <translation>0</translation>
     </message>
@@ -1360,7 +1361,7 @@ so you might want to run </source>
         <translation type="obsolete">&amp;1</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="308"/>
+        <location filename="main_dlg.py" line="308"/>
         <source>1</source>
         <translation>1</translation>
     </message>
@@ -1370,7 +1371,7 @@ so you might want to run </source>
         <translation type="obsolete">&amp;2</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="310"/>
+        <location filename="main_dlg.py" line="310"/>
         <source>2</source>
         <translation>2</translation>
     </message>
@@ -1380,7 +1381,7 @@ so you might want to run </source>
         <translation type="obsolete">&amp;3</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="312"/>
+        <location filename="main_dlg.py" line="312"/>
         <source>3</source>
         <translation>3</translation>
     </message>
@@ -1390,7 +1391,7 @@ so you might want to run </source>
         <translation type="obsolete">&amp;4</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="314"/>
+        <location filename="main_dlg.py" line="314"/>
         <source>4</source>
         <translation>4</translation>
     </message>
@@ -1400,12 +1401,12 @@ so you might want to run </source>
         <translation type="obsolete">&amp;5</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="316"/>
+        <location filename="main_dlg.py" line="316"/>
         <source>5</source>
         <translation>5</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="337"/>
+        <location filename="main_dlg.py" line="337"/>
         <source>&amp;New</source>
         <translation>新建(&amp;N)</translation>
     </message>
@@ -1415,27 +1416,27 @@ so you might want to run </source>
         <translation type="obsolete">.</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="338"/>
+        <location filename="main_dlg.py" line="338"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="339"/>
+        <location filename="main_dlg.py" line="339"/>
         <source>&amp;Open...</source>
         <translation>開啟(&amp;O)...</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="340"/>
+        <location filename="main_dlg.py" line="340"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="341"/>
+        <location filename="main_dlg.py" line="341"/>
         <source>&amp;Save</source>
         <translation>儲存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="342"/>
+        <location filename="main_dlg.py" line="342"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
@@ -1445,7 +1446,7 @@ so you might want to run </source>
         <translation type="obsolete">存新檔(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="336"/>
+        <location filename="main_dlg.py" line="336"/>
         <source>E&amp;xit</source>
         <translation>結束(&amp;X)</translation>
     </message>
@@ -1455,7 +1456,7 @@ so you might want to run </source>
         <translation type="obsolete">關于</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="344"/>
+        <location filename="main_dlg.py" line="344"/>
         <source>&amp;About</source>
         <translation>關于(&amp;A)</translation>
     </message>
@@ -1465,17 +1466,17 @@ so you might want to run </source>
         <translation type="obsolete">添加卡片</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="324"/>
+        <location filename="main_dlg.py" line="324"/>
         <source>&amp;Add cards</source>
         <translation>添加卡片(&amp;A)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="325"/>
+        <location filename="main_dlg.py" line="325"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="322"/>
+        <location filename="main_dlg.py" line="322"/>
         <source>Activate cate&amp;gories</source>
         <translation>啟動分類(&amp;G)</translation>
     </message>
@@ -1485,27 +1486,27 @@ so you might want to run </source>
         <translation type="obsolete">編輯卡片疊</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="333"/>
+        <location filename="main_dlg.py" line="333"/>
         <source>Edit &amp;deck</source>
         <translation>編輯卡片疊(&amp;D)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="334"/>
+        <location filename="main_dlg.py" line="334"/>
         <source>Ctrl+D</source>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="345"/>
+        <location filename="main_dlg.py" line="345"/>
         <source>&amp;Import</source>
         <translation>導入(&amp;I)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="335"/>
+        <location filename="main_dlg.py" line="335"/>
         <source>&amp;Export</source>
         <translation>導出(&amp;E)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="357"/>
+        <location filename="main_dlg.py" line="357"/>
         <source>Show &amp;toolbar</source>
         <translation>察看工具軸(&amp;T)</translation>
     </message>
@@ -1515,12 +1516,12 @@ so you might want to run </source>
         <translation type="obsolete">編輯目前卡片</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="331"/>
+        <location filename="main_dlg.py" line="331"/>
         <source>&amp;Edit current card</source>
         <translation>編輯目前卡片(&amp;E)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="332"/>
+        <location filename="main_dlg.py" line="332"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
@@ -1530,7 +1531,7 @@ so you might want to run </source>
         <translation type="obsolete">移除目前卡片</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="329"/>
+        <location filename="main_dlg.py" line="329"/>
         <source>&amp;Delete current card</source>
         <translation>移除目前卡片(&amp;D)</translation>
     </message>
@@ -1540,12 +1541,12 @@ so you might want to run </source>
         <translation type="obsolete">Del</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="326"/>
+        <location filename="main_dlg.py" line="326"/>
         <source>&amp;Clean duplicates</source>
         <translation>清除重複項(&amp;C)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="327"/>
+        <location filename="main_dlg.py" line="327"/>
         <source>&amp;Configure Mnemosyne</source>
         <translation>配置 Mnemosyne(&amp;C)</translation>
     </message>
@@ -1555,7 +1556,7 @@ so you might want to run </source>
         <translation type="obsolete">入門指引</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="354"/>
+        <location filename="main_dlg.py" line="354"/>
         <source>&amp;Getting started</source>
         <translation>入門指引(&amp;G)</translation>
     </message>
@@ -1565,17 +1566,17 @@ so you might want to run </source>
         <translation type="obsolete">Down, Down</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="347"/>
+        <location filename="main_dlg.py" line="347"/>
         <source>Enter</source>
         <translation>Enter</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="351"/>
+        <location filename="main_dlg.py" line="351"/>
         <source>Return</source>
         <translation>Return</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="353"/>
+        <location filename="main_dlg.py" line="353"/>
         <source>Space</source>
         <translation>Space</translation>
     </message>
@@ -1590,12 +1591,12 @@ so you might want to run </source>
         <translation type="obsolete">察看統計</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="355"/>
+        <location filename="main_dlg.py" line="355"/>
         <source>Show s&amp;tatistics</source>
         <translation>察看統計(&amp;T)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="356"/>
+        <location filename="main_dlg.py" line="356"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
@@ -1605,7 +1606,7 @@ so you might want to run </source>
         <translation type="obsolete">今日說明</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="358"/>
+        <location filename="main_dlg.py" line="358"/>
         <source>&amp;Tip of the day</source>
         <translation>今日說明(&amp;T)</translation>
     </message>
@@ -1615,77 +1616,77 @@ so you might want to run </source>
         <translation type="obsolete">主工具軸 (Mnemosyne)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="317"/>
+        <location filename="main_dlg.py" line="317"/>
         <source>&amp;File</source>
         <translation>檔案(&amp;F)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="318"/>
+        <location filename="main_dlg.py" line="318"/>
         <source>&amp;Deck</source>
         <translation>卡片疊(&amp;D)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="319"/>
+        <location filename="main_dlg.py" line="319"/>
         <source>&amp;Settings</source>
         <translation>設定(&amp;S)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="320"/>
+        <location filename="main_dlg.py" line="320"/>
         <source>&amp;Help</source>
         <translation>說明(&amp;H)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="303"/>
+        <location filename="main_dlg.py" line="303"/>
         <source>Show &amp;answer</source>
         <translation type="unfinished">察看答案(&amp;A)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="321"/>
+        <location filename="main_dlg.py" line="321"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="323"/>
+        <location filename="main_dlg.py" line="323"/>
         <source>Ctrl+G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="328"/>
+        <location filename="main_dlg.py" line="328"/>
         <source>default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="330"/>
+        <location filename="main_dlg.py" line="330"/>
         <source>Backspace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="343"/>
+        <location filename="main_dlg.py" line="343"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="346"/>
+        <location filename="main_dlg.py" line="346"/>
         <source>pressEnter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="348"/>
+        <location filename="main_dlg.py" line="348"/>
         <source>pressR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="349"/>
+        <location filename="main_dlg.py" line="349"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="350"/>
+        <location filename="main_dlg.py" line="350"/>
         <source>pressReturn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="352"/>
+        <location filename="main_dlg.py" line="352"/>
         <source>pressSpace</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1736,7 +1737,7 @@ so you might want to run </source>
     <message>
         <location filename="product_tour_frm.ui" line="24"/>
         <source>Getting started</source>
-        <translation>入門指引</translation>
+        <translation type="obsolete">入門指引</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="80"/>
@@ -1749,7 +1750,7 @@ I can make it more efficient for you to memorise and remember answers to questio
 For that, I&apos;ll decide when to ask you the questions, and you&apos;ll need to rate how well you remember the answers.
 
 Let&apos;s look at the meaning of these ratings now.</source>
-        <translation>你好！
+        <translation type="obsolete">你好！
 
 我是 Mnemosyne，以希臘的記憶女神命名的一種蝴蝶。
 
@@ -1762,7 +1763,7 @@ Let&apos;s look at the meaning of these ratings now.</source>
     <message>
         <location filename="product_tour_frm.ui" line="31"/>
         <source>Introduction</source>
-        <translation>介紹</translation>
+        <translation type="obsolete">介紹</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="122"/>
@@ -1773,7 +1774,7 @@ Grades 0 and 1 are used if you don&apos;t know the answer yet, or if you have fo
 I will keep on asking you these questions until you give them a grade 2 or higher (the exact grade doesn&apos;t matter). Grade 2 basically means that you think you&apos;ll be able to remember the card for at least one or two days. It signals the transition between short and long term memory.
 
 I will schedule this card at some future date, when I think you&apos;ll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</source>
-        <translation>評分範圍從0到5。
+        <translation type="obsolete">評分範圍從0到5。
 
 如果你還不知道答案，或者你已經忘記了，你就打0分或1分。比起0分來，1分的卡片正開始變得更熟悉，并將較少被重複。
 
@@ -1784,7 +1785,7 @@ I will schedule this card at some future date, when I think you&apos;ll still be
     <message>
         <location filename="product_tour_frm.ui" line="103"/>
         <source>Grades 0-2</source>
-        <translation>0-2分</translation>
+        <translation type="obsolete">0-2分</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="160"/>
@@ -1795,7 +1796,7 @@ If I get it just right, so that you remember it, albeit with some effort, you us
 If on the other hand it takes you significant effort to remember the answer, and you think I&apos;ve waited too long to ask you this question, then rate the card 3.
 
 If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep on asking you this question until you think you&apos;ll be able to remember it again for a few days.</source>
-        <translation>如果將來我過早地問你問題，而你能毫不費力地記起它，你就給這張卡片打5分。顧及于此，我會等上很長時間再問你這個問題。
+        <translation type="obsolete">如果將來我過早地問你問題，而你能毫不費力地記起它，你就給這張卡片打5分。顧及于此，我會等上很長時間再問你這個問題。
 
 如果我做得恰到好處，使你雖需稍作努力，但能記起它，你就打4分。
 
@@ -1806,7 +1807,7 @@ If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep
     <message>
         <location filename="product_tour_frm.ui" line="141"/>
         <source>Grades 3-5</source>
-        <translation>3-5分</translation>
+        <translation type="obsolete">3-5分</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="206"/>
@@ -1815,7 +1816,7 @@ If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
 
 Uncheck the following box if you do not want to do this.</source>
-        <translation>要是你對統計感興趣，我可以為你的復習留下詳細的日誌。
+        <translation type="obsolete">要是你對統計感興趣，我可以為你的復習留下詳細的日誌。
 
 不僅如此，如果你希望，我可以把這些日誌的一個完全匿名的版本不知不覺地上傳到一個中心網站用作解析，那你就能幫我變得更好了。以這種方式，你也為長期記憶的科學研究做出了貢獻。
 
@@ -1824,17 +1825,17 @@ Uncheck the following box if you do not want to do this.</source>
     <message>
         <location filename="product_tour_frm.ui" line="221"/>
         <source>Upload anonymous logs</source>
-        <translation>上傳匿名日誌</translation>
+        <translation type="obsolete">上傳匿名日誌</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="232"/>
         <source>(You can always change this setting later using the &apos;Configure Mnemosyne&apos; menu option.)</source>
-        <translation>（以后你始終能變更這項設定，請用“配置 Mnemosyne”功能表項）</translation>
+        <translation type="obsolete">（以后你始終能變更這項設定，請用“配置 Mnemosyne”功能表項）</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="179"/>
         <source>Statistics</source>
-        <translation>統計</translation>
+        <translation type="obsolete">統計</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="263"/>
@@ -1849,7 +1850,7 @@ For best results, I suggest you do your revisions every day, although I&apos;ll 
 For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
 &lt;p&gt;
 Happy learning!</source>
-        <translation>現在你已經做好了開始的准備！
+        <translation type="obsolete">現在你已經做好了開始的准備！
 &lt;p&gt;
 點擊左上角帶有加號的圖像來添加新卡片。
 &lt;p&gt;
@@ -1864,7 +1865,7 @@ Happy learning!</source>
     <message>
         <location filename="product_tour_frm.ui" line="244"/>
         <source>Ready to start</source>
-        <translation>准備開始</translation>
+        <translation type="obsolete">准備開始</translation>
     </message>
 </context>
 <context>
@@ -1956,37 +1957,37 @@ Happy learning!</source>
     <message>
         <location filename="statistics_frm.ui" line="85"/>
         <source>Category</source>
-        <translation>分類</translation>
+        <translation type="obsolete">分類</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="96"/>
         <source>Cards</source>
-        <translation>卡片</translation>
+        <translation type="obsolete">卡片</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="16"/>
         <source>Statistics</source>
-        <translation>統計</translation>
+        <translation type="obsolete">統計</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="40"/>
         <source>Schedule</source>
-        <translation>計划</translation>
+        <translation type="obsolete">計划</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="58"/>
         <source>Grades</source>
-        <translation>評分</translation>
+        <translation type="obsolete">評分</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="76"/>
         <source>Categories</source>
-        <translation>分類</translation>
+        <translation type="obsolete">分類</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="148"/>
         <source>&amp;OK</source>
-        <translation>確認(&amp;O)</translation>
+        <translation type="obsolete">確認(&amp;O)</translation>
     </message>
 </context>
 <context>
@@ -2122,52 +2123,52 @@ Happy learning!</source>
     <message>
         <location filename="tip_frm.ui" line="16"/>
         <source>Tip of the day</source>
-        <translation>今日說明</translation>
+        <translation type="obsolete">今日說明</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="78"/>
         <source>&lt;b&gt;Did you know...?&lt;/b&gt;</source>
-        <translation>&lt;b&gt;你知道嗎？&lt;/b&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;你知道嗎？&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="131"/>
         <source>&amp;Show tips on startup</source>
-        <translation>啟動時察看說明(&amp;S)</translation>
+        <translation type="obsolete">啟動時察看說明(&amp;S)</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="134"/>
         <source>Alt+S</source>
-        <translation>Alt+S</translation>
+        <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="145"/>
         <source>&amp;Previous</source>
-        <translation>前一條(&amp;P)</translation>
+        <translation type="obsolete">前一條(&amp;P)</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="148"/>
         <source>Alt+P</source>
-        <translation>Alt+P</translation>
+        <translation type="obsolete">Alt+P</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="156"/>
         <source>&amp;Next</source>
-        <translation>下一條(&amp;N)</translation>
+        <translation type="obsolete">下一條(&amp;N)</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="159"/>
         <source>Alt+N</source>
-        <translation>Alt+N</translation>
+        <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="167"/>
         <source>&amp;Close</source>
-        <translation>關閉(&amp;C)</translation>
+        <translation type="obsolete">關閉(&amp;C)</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="170"/>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
 </context>
 </TS>

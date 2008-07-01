@@ -104,67 +104,67 @@ Vytvářím tmp soubor.</translation>
     <message>
         <location filename="main_dlg.py" line="48"/>
         <source>You don&apos;t remember this card yet.</source>
-        <translation>Tuto kartu jste si zatím nezapamatoval(a).</translation>
+        <translation type="obsolete">Tuto kartu jste si zatím nezapamatoval(a).</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="49"/>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation>Jako &apos;0&apos;, ale už vám to připadá povědomé.</translation>
+        <translation type="obsolete">Jako &apos;0&apos;, ale už vám to připadá povědomé.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="50"/>
         <source> Show it less often.</source>
-        <translation>Neukazovat tak často.</translation>
+        <translation type="obsolete">Neukazovat tak často.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="52"/>
         <source>You&apos;ve memorised this card now,</source>
-        <translation>Tuto kartu jste si právě zapamatoval(a)</translation>
+        <translation type="obsolete">Tuto kartu jste si právě zapamatoval(a)</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="53"/>
         <source> and will probably remember it for a few days.</source>
-        <translation> a pravděpodobně si ji několik dnů budete pamatovat.</translation>
+        <translation type="obsolete"> a pravděpodobně si ji několik dnů budete pamatovat.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="57"/>
         <source>You have forgotten this card completely.</source>
-        <translation>Tuto kartu jste kompletně zapomněl(a).</translation>
+        <translation type="obsolete">Tuto kartu jste kompletně zapomněl(a).</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="59"/>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation>Téměř správná odpověď. Interval byl příliš dlouhý.</translation>
+        <translation type="obsolete">Téměř správná odpověď. Interval byl příliš dlouhý.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="60"/>
         <source>Correct answer, but with much effort.</source>
-        <translation>Správná odpověď, ale s velkým úsilím.</translation>
+        <translation type="obsolete">Správná odpověď, ale s velkým úsilím.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="61"/>
         <source> The interval was probably too long.</source>
-        <translation> Interval byl pravděpodobně moc dlouhý.</translation>
+        <translation type="obsolete"> Interval byl pravděpodobně moc dlouhý.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="63"/>
         <source>Correct answer, with some effort.</source>
-        <translation>Správná odpověď, i když s určitým úsilím.</translation>
+        <translation type="obsolete">Správná odpověď, i když s určitým úsilím.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="64"/>
         <source> The interval was probably just right.</source>
-        <translation> Interval byl pravděpodobně odpovídající.</translation>
+        <translation type="obsolete"> Interval byl pravděpodobně odpovídající.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="66"/>
         <source>Correct answer, but without any</source>
-        <translation>Správná odpověď bez jakýchkoliv</translation>
+        <translation type="obsolete">Správná odpověď bez jakýchkoliv</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="67"/>
         <source> difficulties. The interval was probably too short.</source>
-        <translation> potíží. Interval byl pravděpodobně moc krátký.</translation>
+        <translation type="obsolete"> potíží. Interval byl pravděpodobně moc krátký.</translation>
     </message>
 </context>
 <context>
@@ -187,8 +187,14 @@ Vytvářím tmp soubor.</translation>
         <location filename="about_dlg.py" line="33"/>
         <source>More info: http://mnemosyne-proj.sourceforge.net
 </source>
-        <translation>Více informací: http://mnemosyne-proj.sourceforge.net
+        <translation type="obsolete">Více informací: http://mnemosyne-proj.sourceforge.net
 </translation>
+    </message>
+    <message>
+        <location filename="about_dlg.py" line="33"/>
+        <source>More info: http://mnemosyne-proj.org
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -196,7 +202,7 @@ Vytvářím tmp soubor.</translation>
     <message>
         <location filename="about_frm.ui" line="16"/>
         <source>About</source>
-        <translation>O programu</translation>
+        <translation type="obsolete">O programu</translation>
     </message>
 </context>
 <context>
@@ -204,37 +210,37 @@ Vytvářím tmp soubor.</translation>
     <message>
         <location filename="activate_categories_frm.ui" line="16"/>
         <source>Activate categories</source>
-        <translation>Aktivovat kategorie</translation>
+        <translation type="obsolete">Aktivovat kategorie</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="35"/>
         <source>Select the categories to activate:</source>
-        <translation>Vyberte, které kategorie aktivovat:</translation>
+        <translation type="obsolete">Vyberte, které kategorie aktivovat:</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="59"/>
         <source>Activate none</source>
-        <translation>Neaktivovat žádné</translation>
+        <translation type="obsolete">Neaktivovat žádné</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="67"/>
         <source>Activate all</source>
-        <translation>Aktivovat všechny</translation>
+        <translation type="obsolete">Aktivovat všechny</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="88"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="91"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="activate_categories_frm.ui" line="122"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Zrušit</translation>
+        <translation type="obsolete">&amp;Zrušit</translation>
     </message>
 </context>
 <context>
@@ -242,165 +248,160 @@ Vytvářím tmp soubor.</translation>
     <message>
         <location filename="add_cards_dlg.py" line="84"/>
         <source>&lt;default&gt;</source>
-        <translation type="unfinished">&lt;default&gt;</translation>
+        <translation type="obsolete">&lt;default&gt;</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="192"/>
         <source>Mnemosyne</source>
-        <translation type="unfinished">Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="111"/>
         <source>Abandon current card?</source>
-        <translation type="unfinished">Zahodit tuto kartu?</translation>
+        <translation type="obsolete">Zahodit tuto kartu?</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="112"/>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Ano</translation>
+        <translation type="obsolete">&amp;Ano</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="113"/>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Ne</translation>
+        <translation type="obsolete">&amp;Ne</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="174"/>
         <source>Card is already in database.
 </source>
-        <translation type="unfinished">Karta již je v databázi.</translation>
+        <translation type="obsolete">Karta již je v databázi.</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="174"/>
         <source>Duplicate not added.</source>
-        <translation type="unfinished">Duplikát nebyl přidán.</translation>
+        <translation type="obsolete">Duplikát nebyl přidán.</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="175"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="194"/>
         <source>There are different answers for</source>
-        <translation type="unfinished">Existují různé odpovědi na</translation>
+        <translation type="obsolete">Existují různé odpovědi na</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="194"/>
         <source> this question:
 
 </source>
-        <translation type="unfinished"> tuto otázku:
+        <translation type="obsolete"> tuto otázku:
 
 </translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="196"/>
         <source>&amp;Merge and edit</source>
-        <translation type="unfinished">&amp;Sloučit a editovat</translation>
+        <translation type="obsolete">&amp;Sloučit a editovat</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="197"/>
         <source>&amp;Add as is</source>
-        <translation type="unfinished">&amp;Přidat jak je</translation>
+        <translation type="obsolete">&amp;Přidat jak je</translation>
     </message>
     <message>
         <location filename="add_cards_dlg.py" line="198"/>
         <source>&amp;Do not add</source>
-        <translation type="unfinished">&amp;Nepřidávat</translation>
+        <translation type="obsolete">&amp;Nepřidávat</translation>
     </message>
 </context>
 <context>
     <name>AddCardsFrm</name>
     <message>
-        <location filename="add_cards_frm.py" line="176"/>
-        <source>Card type:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="add_cards_frm.py" line="177"/>
         <source>Category:</source>
-        <translation type="unfinished">Kategorie:</translation>
+        <translation type="obsolete">Kategorie:</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="178"/>
         <source>Select initial grade:</source>
-        <translation type="unfinished">Vyberte počáteční stupeň:</translation>
+        <translation type="obsolete">Vyberte počáteční stupeň:</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="179"/>
         <source>0</source>
-        <translation type="unfinished">0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="180"/>
         <source>Ctrl+0</source>
-        <translation type="unfinished">Ctrl+0</translation>
+        <translation type="obsolete">Ctrl+0</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="181"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation type="obsolete">1</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="182"/>
         <source>Ctrl+1</source>
-        <translation type="unfinished">Ctrl+1</translation>
+        <translation type="obsolete">Ctrl+1</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="183"/>
         <source>2</source>
-        <translation type="unfinished">2</translation>
+        <translation type="obsolete">2</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="184"/>
         <source>Ctrl+2</source>
-        <translation type="unfinished">Ctrl+2</translation>
+        <translation type="obsolete">Ctrl+2</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="185"/>
         <source>3</source>
-        <translation type="unfinished">3</translation>
+        <translation type="obsolete">3</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="186"/>
         <source>Ctrl+3</source>
-        <translation type="unfinished">Ctrl+3</translation>
+        <translation type="obsolete">Ctrl+3</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="187"/>
         <source>4</source>
-        <translation type="unfinished">4</translation>
+        <translation type="obsolete">4</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="188"/>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation type="obsolete">Ctrl+4</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="189"/>
         <source>5</source>
-        <translation type="unfinished">5</translation>
+        <translation type="obsolete">5</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="190"/>
         <source>Ctrl+5</source>
-        <translation type="unfinished">Ctrl+5</translation>
+        <translation type="obsolete">Ctrl+5</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="191"/>
         <source>&amp;Preview</source>
-        <translation type="unfinished">&amp;Náhled</translation>
+        <translation type="obsolete">&amp;Náhled</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="192"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished">&amp;Konec</translation>
+        <translation type="obsolete">&amp;Konec</translation>
     </message>
     <message>
         <location filename="add_cards_frm.py" line="175"/>
         <source>Add cards</source>
-        <translation type="unfinished">Přidat karty</translation>
+        <translation type="obsolete">Přidat karty</translation>
     </message>
 </context>
 <context>
@@ -659,32 +660,32 @@ Vytvářím tmp soubor.</translation>
     <message>
         <location filename="change_category_frm.ui" line="16"/>
         <source>Change category</source>
-        <translation>Změnit kategorii</translation>
+        <translation type="obsolete">Změnit kategorii</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="43"/>
         <source>Category:</source>
-        <translation>Kategorie:</translation>
+        <translation type="obsolete">Kategorie:</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="83"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="86"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="111"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Zrušit</translation>
+        <translation type="obsolete">&amp;Zrušit</translation>
     </message>
     <message>
         <location filename="change_category_frm.ui" line="114"/>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
 </context>
 <context>
@@ -692,112 +693,112 @@ Vytvářím tmp soubor.</translation>
     <message>
         <location filename="config_frm.ui" line="24"/>
         <source>Mnemosyne configuration</source>
-        <translation>Nastavení Mnemosyne</translation>
+        <translation type="obsolete">Nastavení Mnemosyne</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="54"/>
         <source>Hover with the mouse over the buttons to get extra information.</source>
-        <translation>Pro získání dalších informací najeďte myší nad tlačítka.</translation>
+        <translation type="obsolete">Pro získání dalších informací najeďte myší nad tlačítka.</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="65"/>
         <source>Appearance</source>
-        <translation>Vzhled</translation>
+        <translation type="obsolete">Vzhled</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="92"/>
         <source>Set Q/A font</source>
-        <translation>Nastavit Q/A fonty</translation>
+        <translation type="obsolete">Nastavit Q/A fonty</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="95"/>
         <source>Set the font used when showing single questions and answers</source>
-        <translation>Nastavení fontu použitého při zobrazení jednotlivých otázek a odpovědí</translation>
+        <translation type="obsolete">Nastavení fontu použitého při zobrazení jednotlivých otázek a odpovědí</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="103"/>
         <source>Set list font</source>
-        <translation>Nastavení fontu seznamu</translation>
+        <translation type="obsolete">Nastavení fontu seznamu</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="106"/>
         <source>Set the font used when showing the list of all the cards in the deck</source>
-        <translation>Nastavení fontu použitého při zobrazení seznamu všech karet</translation>
+        <translation type="obsolete">Nastavení fontu použitého při zobrazení seznamu všech karet</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="124"/>
         <source>Increase size of non-latin characters by</source>
-        <translation>Zvětšit velikost ne-latin znaků o</translation>
+        <translation type="obsolete">Zvětšit velikost ne-latin znaků o</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="155"/>
         <source>Sometimes complex glyphs are hard to read at the default latin font size</source>
-        <translation>Při původní velikosti latin fontu se komplexní glyfy někdy špatně čtou</translation>
+        <translation type="obsolete">Při původní velikosti latin fontu se komplexní glyfy někdy špatně čtou</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="152"/>
         <source>point(s)</source>
-        <translation>bod(ů)</translation>
+        <translation type="obsolete">bod(ů)</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="169"/>
         <source>Log uploading</source>
-        <translation>Posílání logů</translation>
+        <translation type="obsolete">Posílání logů</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="196"/>
         <source>Upload anonymous logs</source>
-        <translation>Posílat anonymní logy</translation>
+        <translation type="obsolete">Posílat anonymní logy</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="199"/>
         <source>Share anonymous statistics to contribute to memory research</source>
-        <translation>Sdílet anonymní statistiky a tím přispívat na výzkum paměti</translation>
+        <translation type="obsolete">Sdílet anonymní statistiky a tím přispívat na výzkum paměti</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="223"/>
         <source>Duplicate handling</source>
-        <translation>Zacházení s duplicitními kartičkami</translation>
+        <translation type="obsolete">Zacházení s duplicitními kartičkami</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="242"/>
         <source>Check for duplicates when adding new cards</source>
-        <translation>Kontrolovat duplikáty při přidávání nových kartiček</translation>
+        <translation type="obsolete">Kontrolovat duplikáty při přidávání nových kartiček</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="250"/>
         <source>Allow duplicates in different categories</source>
-        <translation>Povolit duplicitní kartičky v různých kategoriích</translation>
+        <translation type="obsolete">Povolit duplicitní kartičky v různých kategoriích</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="262"/>
         <source>Repetition process</source>
-        <translation>Proces opakování</translation>
+        <translation type="obsolete">Proces opakování</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="281"/>
         <source>Number of grade 0 cards to learn at once:</source>
-        <translation>Počet karet s hodnocením 0 pro okamžité učení:</translation>
+        <translation type="obsolete">Počet karet s hodnocením 0 pro okamžité učení:</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="284"/>
         <source>Note: this is NOT the number of grade 0 cards you want to memorise *per day*</source>
-        <translation>Pozn.: toto NENÍ počet karet se hodnocením 0, které se chcete naučit *za den*</translation>
+        <translation type="obsolete">Pozn.: toto NENÍ počet karet se hodnocením 0, které se chcete naučit *za den*</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="318"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="352"/>
         <source>Defaults</source>
-        <translation>Původní</translation>
+        <translation type="obsolete">Původní</translation>
     </message>
     <message>
         <location filename="config_frm.ui" line="360"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Zrušit</translation>
+        <translation type="obsolete">&amp;Zrušit</translation>
     </message>
 </context>
 <context>
@@ -1083,68 +1084,68 @@ takže by jste potom měl(a) provést </translation>
     <message>
         <location filename="export_frm.ui" line="16"/>
         <source>Export to file</source>
-        <translation>Export do souboru</translation>
+        <translation type="obsolete">Export do souboru</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="35"/>
         <source>File format:</source>
-        <translation>Formát souboru:</translation>
+        <translation type="obsolete">Formát souboru:</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="57"/>
         <source>File to export to:</source>
-        <translation>Exportovat do souboru:</translation>
+        <translation type="obsolete">Exportovat do souboru:</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="78"/>
         <source>&amp;Browse</source>
-        <translation>&amp;Procházet</translation>
+        <translation type="obsolete">&amp;Procházet</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="88"/>
         <source>Categories to export:</source>
-        <translation>Exportovat kategorie:</translation>
+        <translation type="obsolete">Exportovat kategorie:</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="112"/>
         <source>&amp;Select all</source>
-        <translation>&amp;Vybrat vše</translation>
+        <translation type="obsolete">&amp;Vybrat vše</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="125"/>
         <source>Reset learning data on export</source>
-        <translation>Resetovat učební proces při exportu</translation>
+        <translation type="obsolete">Resetovat učební proces při exportu</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="141"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="144"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="export_frm.ui" line="172"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Zrušit</translation>
+        <translation type="obsolete">&amp;Zrušit</translation>
     </message>
 </context>
 <context>
     <name>ImportDlg</name>
     <message>
-        <location filename="import_dlg.py" line="41"/>
+        <location filename="import_dlg.py" line="44"/>
         <source>&lt;default&gt;</source>
         <translation>&lt;default&gt;</translation>
     </message>
     <message>
-        <location filename="import_dlg.py" line="61"/>
+        <location filename="import_dlg.py" line="64"/>
         <source>All Files (*);;</source>
         <translation>Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="import_dlg.py" line="62"/>
+        <location filename="import_dlg.py" line="65"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
@@ -1154,52 +1155,52 @@ takže by jste potom měl(a) provést </translation>
     <message>
         <location filename="import_frm.ui" line="16"/>
         <source>Import from file</source>
-        <translation>Import ze souboru</translation>
+        <translation type="obsolete">Import ze souboru</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="35"/>
         <source>File format:</source>
-        <translation>Formát souboru:</translation>
+        <translation type="obsolete">Formát souboru:</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="57"/>
         <source>File to import from:</source>
-        <translation>Importovat ze souboru:</translation>
+        <translation type="obsolete">Importovat ze souboru:</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="78"/>
         <source>&amp;Browse</source>
-        <translation>&amp;Procházet</translation>
+        <translation type="obsolete">&amp;Procházet</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="88"/>
         <source>Put cards without category into this category:</source>
-        <translation>Karty bez kategorie vložit do kategorie:</translation>
+        <translation type="obsolete">Karty bez kategorie vložit do kategorie:</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="110"/>
         <source>Note: all cards will be added to the current database.</source>
-        <translation>Pozn.: všechny karty budou přidány do současné databáze.</translation>
+        <translation type="obsolete">Pozn.: všechny karty budou přidány do současné databáze.</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="118"/>
         <source>Reset learning data on import</source>
-        <translation>Resetovat učební proces při importu</translation>
+        <translation type="obsolete">Resetovat učební proces při importu</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="134"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="137"/>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <location filename="import_frm.ui" line="165"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Zrušit</translation>
+        <translation type="obsolete">&amp;Zrušit</translation>
     </message>
 </context>
 <context>
@@ -1207,112 +1208,112 @@ takže by jste potom měl(a) provést </translation>
     <message>
         <location filename="main_dlg.py" line="250"/>
         <source>Mnemosyne databases (*.mem)</source>
-        <translation>Mnemosyne databáze (*.mem)</translation>
+        <translation type="obsolete">Mnemosyne databáze (*.mem)</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="163"/>
         <source>New</source>
-        <translation>Nová</translation>
+        <translation type="obsolete">Nová</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="372"/>
         <source>Please wait...</source>
-        <translation>Čekejte prosím...</translation>
+        <translation type="obsolete">Čekejte prosím...</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="420"/>
         <source>Mnemosyne</source>
-        <translation>Mnemosyne</translation>
+        <translation type="obsolete">Mnemosyne</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="421"/>
         <source>Delete current card?</source>
-        <translation>Smazat tuto kartu?</translation>
+        <translation type="obsolete">Smazat tuto kartu?</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="422"/>
         <source>&amp;Yes</source>
-        <translation>&amp;Ano</translation>
+        <translation type="obsolete">&amp;Ano</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="422"/>
         <source>&amp;No</source>
-        <translation>&amp;Ne</translation>
+        <translation type="obsolete">&amp;Ne</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="603"/>
         <source>Returns in </source>
-        <translation>Ukáže se za </translation>
+        <translation type="obsolete">Ukáže se za </translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="604"/>
         <source> day(s).</source>
-        <translation> dnů.</translation>
+        <translation type="obsolete"> dnů.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="616"/>
         <source>Next repetition: today.</source>
-        <translation>Další opakování: dnes.</translation>
+        <translation type="obsolete">Další opakování: dnes.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="618"/>
         <source>Next repetition: tomorrow.</source>
-        <translation>Další opakování: zítra.</translation>
+        <translation type="obsolete">Další opakování: zítra.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="619"/>
         <source>Next repetition in </source>
-        <translation>Další opakování za </translation>
+        <translation type="obsolete">Další opakování za </translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="621"/>
         <source> days.</source>
-        <translation> dnů.</translation>
+        <translation type="obsolete"> dnů.</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="693"/>
         <source>Question:</source>
-        <translation>Otázka:</translation>
+        <translation type="obsolete">Otázka:</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="694"/>
         <source>&lt;default&gt;</source>
-        <translation>&lt;default&gt;</translation>
+        <translation type="obsolete">&lt;default&gt;</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="738"/>
         <source>Show &amp;answer</source>
-        <translation>Ukázat &amp;odpověď</translation>
+        <translation type="obsolete">Ukázat &amp;odpověď</translation>
     </message>
     <message>
         <location filename="main_dlg.py" line="742"/>
         <source>Learn ahead of schedule</source>
-        <translation>Učit se navíc</translation>
+        <translation type="obsolete">Učit se navíc</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="787"/>
+        <location filename="main_dlg.py" line="809"/>
         <source>Pick days until next repetition:</source>
-        <translation>Vyberte počet dnů do dalšího opakování:</translation>
+        <translation type="obsolete">Vyberte počet dnů do dalšího opakování:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="790"/>
+        <location filename="main_dlg.py" line="812"/>
         <source>Grade your answer:</source>
-        <translation>Ohodnoťte svou odpověď:</translation>
+        <translation type="obsolete">Ohodnoťte svou odpověď:</translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="797"/>
+        <location filename="main_dlg.py" line="819"/>
         <source>Scheduled: </source>
-        <translation>Naplánovaných: </translation>
+        <translation type="obsolete">Naplánovaných: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="799"/>
+        <location filename="main_dlg.py" line="821"/>
         <source>Not memorised: </source>
-        <translation>Nezapamatovaných: </translation>
+        <translation type="obsolete">Nezapamatovaných: </translation>
     </message>
     <message>
-        <location filename="main_dlg.py" line="801"/>
+        <location filename="main_dlg.py" line="823"/>
         <source>All: </source>
-        <translation>Všech: </translation>
+        <translation type="obsolete">Všech: </translation>
     </message>
     <message>
         <location filename="main_frm.py" line="302"/>
@@ -1518,17 +1519,17 @@ takže by jste potom měl(a) provést </translation>
 <context>
     <name>MainFrm</name>
     <message>
-        <location filename="main_frm.py" line="300"/>
+        <location filename="main_dlg.py" line="300"/>
         <source>Mnemosyne</source>
         <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="301"/>
+        <location filename="main_dlg.py" line="301"/>
         <source>Question:</source>
         <translation type="unfinished">Otázka:</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="302"/>
+        <location filename="main_dlg.py" line="302"/>
         <source>Answer:</source>
         <translation type="unfinished">Odpověď:</translation>
     </message>
@@ -1538,7 +1539,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Ukázat odpověď</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="304"/>
+        <location filename="main_dlg.py" line="304"/>
         <source>Grade your answer:</source>
         <translation type="unfinished">Ohodnoťte svou odpověď:</translation>
     </message>
@@ -1548,7 +1549,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;0</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="306"/>
+        <location filename="main_dlg.py" line="306"/>
         <source>0</source>
         <translation type="unfinished">0</translation>
     </message>
@@ -1558,7 +1559,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;1</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="308"/>
+        <location filename="main_dlg.py" line="308"/>
         <source>1</source>
         <translation type="unfinished">1</translation>
     </message>
@@ -1568,7 +1569,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;2</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="310"/>
+        <location filename="main_dlg.py" line="310"/>
         <source>2</source>
         <translation type="unfinished">2</translation>
     </message>
@@ -1578,7 +1579,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;3</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="312"/>
+        <location filename="main_dlg.py" line="312"/>
         <source>3</source>
         <translation type="unfinished">3</translation>
     </message>
@@ -1588,7 +1589,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;4</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="314"/>
+        <location filename="main_dlg.py" line="314"/>
         <source>4</source>
         <translation type="unfinished">4</translation>
     </message>
@@ -1598,12 +1599,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">&amp;5</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="316"/>
+        <location filename="main_dlg.py" line="316"/>
         <source>5</source>
         <translation type="unfinished">5</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="337"/>
+        <location filename="main_dlg.py" line="337"/>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Nová</translation>
     </message>
@@ -1613,27 +1614,27 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">.</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="338"/>
+        <location filename="main_dlg.py" line="338"/>
         <source>Ctrl+N</source>
         <translation type="unfinished">Ctrl+N</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="339"/>
+        <location filename="main_dlg.py" line="339"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="340"/>
+        <location filename="main_dlg.py" line="340"/>
         <source>Ctrl+O</source>
         <translation type="unfinished">Ctrl+O</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="341"/>
+        <location filename="main_dlg.py" line="341"/>
         <source>&amp;Save</source>
         <translation type="unfinished">&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="342"/>
+        <location filename="main_dlg.py" line="342"/>
         <source>Ctrl+S</source>
         <translation type="unfinished">Ctrl+S</translation>
     </message>
@@ -1643,7 +1644,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Uložit j&amp;ako</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="336"/>
+        <location filename="main_dlg.py" line="336"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">&amp;Konec</translation>
     </message>
@@ -1653,7 +1654,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">O</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="344"/>
+        <location filename="main_dlg.py" line="344"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;O</translation>
     </message>
@@ -1663,12 +1664,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Přidat karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="324"/>
+        <location filename="main_dlg.py" line="324"/>
         <source>&amp;Add cards</source>
         <translation type="unfinished">Přid&amp;at karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="325"/>
+        <location filename="main_dlg.py" line="325"/>
         <source>Ctrl+A</source>
         <translation type="unfinished">Ctrl+A</translation>
     </message>
@@ -1683,27 +1684,27 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Editovat karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="333"/>
+        <location filename="main_dlg.py" line="333"/>
         <source>Edit &amp;deck</source>
         <translation type="unfinished">E&amp;ditovat karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="334"/>
+        <location filename="main_dlg.py" line="334"/>
         <source>Ctrl+D</source>
         <translation type="unfinished">Ctrl+D</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="345"/>
+        <location filename="main_dlg.py" line="345"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Importovat</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="335"/>
+        <location filename="main_dlg.py" line="335"/>
         <source>&amp;Export</source>
         <translation type="unfinished">&amp;Exportovat</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="357"/>
+        <location filename="main_dlg.py" line="357"/>
         <source>Show &amp;toolbar</source>
         <translation type="unfinished">Zobrazovat nástrojovou lištu</translation>
     </message>
@@ -1713,12 +1714,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Editovat tuto kartu</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="331"/>
+        <location filename="main_dlg.py" line="331"/>
         <source>&amp;Edit current card</source>
         <translation type="unfinished">&amp;Editovat tuto kartu</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="332"/>
+        <location filename="main_dlg.py" line="332"/>
         <source>Ctrl+E</source>
         <translation type="unfinished">Ctrl+E</translation>
     </message>
@@ -1728,7 +1729,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Smazat tuto kartu</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="329"/>
+        <location filename="main_dlg.py" line="329"/>
         <source>&amp;Delete current card</source>
         <translation type="unfinished">&amp;Smazat tuto kartu</translation>
     </message>
@@ -1738,12 +1739,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Del</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="326"/>
+        <location filename="main_dlg.py" line="326"/>
         <source>&amp;Clean duplicates</source>
         <translation type="unfinished">&amp;Odstranit duplicitní kartičky</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="327"/>
+        <location filename="main_dlg.py" line="327"/>
         <source>&amp;Configure Mnemosyne</source>
         <translation type="unfinished">&amp;Konfigurovat Mnemosyne</translation>
     </message>
@@ -1753,7 +1754,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Jak začít</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="354"/>
+        <location filename="main_dlg.py" line="354"/>
         <source>&amp;Getting started</source>
         <translation type="unfinished">&amp;Jak začít</translation>
     </message>
@@ -1763,17 +1764,17 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Dolů, Dolů</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="347"/>
+        <location filename="main_dlg.py" line="347"/>
         <source>Enter</source>
         <translation type="unfinished">Enter</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="351"/>
+        <location filename="main_dlg.py" line="351"/>
         <source>Return</source>
         <translation type="unfinished">Return</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="353"/>
+        <location filename="main_dlg.py" line="353"/>
         <source>Space</source>
         <translation type="unfinished">Space</translation>
     </message>
@@ -1788,12 +1789,12 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Ukázat statistiky</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="355"/>
+        <location filename="main_dlg.py" line="355"/>
         <source>Show s&amp;tatistics</source>
         <translation type="unfinished">Ukázat s&amp;tatistiky</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="356"/>
+        <location filename="main_dlg.py" line="356"/>
         <source>Ctrl+T</source>
         <translation type="unfinished">Ctrl+T</translation>
     </message>
@@ -1803,7 +1804,7 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Tip dne</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="358"/>
+        <location filename="main_dlg.py" line="358"/>
         <source>&amp;Tip of the day</source>
         <translation type="unfinished">&amp;Tip dne</translation>
     </message>
@@ -1813,82 +1814,82 @@ takže by jste potom měl(a) provést </translation>
         <translation type="obsolete">Hlavní nástrojová lišta (Mnemosyne)</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="317"/>
+        <location filename="main_dlg.py" line="317"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Databáze</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="318"/>
+        <location filename="main_dlg.py" line="318"/>
         <source>&amp;Deck</source>
         <translation type="unfinished">&amp;Karty</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="319"/>
+        <location filename="main_dlg.py" line="319"/>
         <source>&amp;Settings</source>
         <translation type="unfinished">&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="320"/>
+        <location filename="main_dlg.py" line="320"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="322"/>
+        <location filename="main_dlg.py" line="322"/>
         <source>Activate cate&amp;gories</source>
         <translation type="unfinished">Akt&amp;ivovat kategorie</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="323"/>
+        <location filename="main_dlg.py" line="323"/>
         <source>Ctrl+G</source>
         <translation type="unfinished">Ctrl+G</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="303"/>
+        <location filename="main_dlg.py" line="303"/>
         <source>Show &amp;answer</source>
         <translation type="unfinished">Ukázat &amp;odpověď</translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="321"/>
+        <location filename="main_dlg.py" line="321"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="328"/>
+        <location filename="main_dlg.py" line="328"/>
         <source>default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="330"/>
+        <location filename="main_dlg.py" line="330"/>
         <source>Backspace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="343"/>
+        <location filename="main_dlg.py" line="343"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="346"/>
+        <location filename="main_dlg.py" line="346"/>
         <source>pressEnter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="348"/>
+        <location filename="main_dlg.py" line="348"/>
         <source>pressR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="349"/>
+        <location filename="main_dlg.py" line="349"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="350"/>
+        <location filename="main_dlg.py" line="350"/>
         <source>pressReturn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_frm.py" line="352"/>
+        <location filename="main_dlg.py" line="352"/>
         <source>pressSpace</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2162,7 +2163,7 @@ takže by jste potom měl(a) provést </translation>
     <message>
         <location filename="product_tour_frm.ui" line="24"/>
         <source>Getting started</source>
-        <translation>Jak začít</translation>
+        <translation type="obsolete">Jak začít</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="80"/>
@@ -2175,7 +2176,7 @@ I can make it more efficient for you to memorise and remember answers to questio
 For that, I&apos;ll decide when to ask you the questions, and you&apos;ll need to rate how well you remember the answers.
 
 Let&apos;s look at the meaning of these ratings now.</source>
-        <translation>Ahojky!
+        <translation type="obsolete">Ahojky!
 
 Já jsem Mnemosyne, druh motýla pojmenovaný po řecké bohyni paměti.
 
@@ -2188,7 +2189,7 @@ Teď se podíváme na možnosti hodnocení.</translation>
     <message>
         <location filename="product_tour_frm.ui" line="31"/>
         <source>Introduction</source>
-        <translation>Úvod</translation>
+        <translation type="obsolete">Úvod</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="122"/>
@@ -2199,7 +2200,7 @@ Grades 0 and 1 are used if you don&apos;t know the answer yet, or if you have fo
 I will keep on asking you these questions until you give them a grade 2 or higher (the exact grade doesn&apos;t matter). Grade 2 basically means that you think you&apos;ll be able to remember the card for at least one or two days. It signals the transition between short and long term memory.
 
 I will schedule this card at some future date, when I think you&apos;ll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</source>
-        <translation>Rozsah hodnocení je od 0 do 5.
+        <translation type="obsolete">Rozsah hodnocení je od 0 do 5.
 
 Hodnocení 0 a 1 použijte pokud neznáte odpověď nebo jste ji zapomněli. Karta s hodnocením 1 vám připadá povědomější než karta s ohodnocením 0 a proto nebude opakována tak často.
 
@@ -2210,7 +2211,7 @@ Já potom tuto kartu naplánuji na určité datum v budoucnu, kdy si myslím, ž
     <message>
         <location filename="product_tour_frm.ui" line="103"/>
         <source>Grades 0-2</source>
-        <translation>Hodnocení 0 až 2</translation>
+        <translation type="obsolete">Hodnocení 0 až 2</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="160"/>
@@ -2221,7 +2222,7 @@ If I get it just right, so that you remember it, albeit with some effort, you us
 If on the other hand it takes you significant effort to remember the answer, and you think I&apos;ve waited too long to ask you this question, then rate the card 3.
 
 If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep on asking you this question until you think you&apos;ll be able to remember it again for a few days.</source>
-        <translation>Pokud vám v budoucnu položím otázku příliš brzo a vy na ni dokážete bez jakýchkoliv potíží odpovědět, dejte kartě hodnocení 5. Já to vezmu v potaz a příště počkám mnohem déle, než vám tuto otázku znovu položím.
+        <translation type="obsolete">Pokud vám v budoucnu položím otázku příliš brzo a vy na ni dokážete bez jakýchkoliv potíží odpovědět, dejte kartě hodnocení 5. Já to vezmu v potaz a příště počkám mnohem déle, než vám tuto otázku znovu položím.
 
 Pokud se trefím do správného okamžiku a vy dokážete na otázku správně odpovědět i když s určitým úsilím, dejte kartě hodnocení 4.
 
@@ -2232,7 +2233,7 @@ Pokud si nemůžete vzpomenout vůbec, ohodnoťte ji 0 nebo 1 a já se vás na n
     <message>
         <location filename="product_tour_frm.ui" line="141"/>
         <source>Grades 3-5</source>
-        <translation>Hodnocení 3 až 5</translation>
+        <translation type="obsolete">Hodnocení 3 až 5</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="206"/>
@@ -2241,7 +2242,7 @@ Pokud si nemůžete vzpomenout vůbec, ohodnoťte ji 0 nebo 1 a já se vás na n
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
 
 Uncheck the following box if you do not want to do this.</source>
-        <translation>Pokud máte zájem o statistiky, je možné udržovat podrobné záznamy učebního procesu.
+        <translation type="obsolete">Pokud máte zájem o statistiky, je možné udržovat podrobné záznamy učebního procesu.
 
 Krom toho můžu uploadovat kompletně anonymní verze těchto záznamů  na centrální stránky, takže mi pomůžete mě vylepšovat. Tím také přispějete k vědeckému výzkumu dlouhodobé paměti.
 
@@ -2250,17 +2251,17 @@ Odznačte následující rámeček, pokud nemáte zájem o výše uvedené možn
     <message>
         <location filename="product_tour_frm.ui" line="221"/>
         <source>Upload anonymous logs</source>
-        <translation>Uploadovat anonymní logy</translation>
+        <translation type="obsolete">Uploadovat anonymní logy</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="232"/>
         <source>(You can always change this setting later using the &apos;Configure Mnemosyne&apos; menu option.)</source>
-        <translation>(Toto nastavení můžete kdykoliv později změnit v menu v &apos;Konfigurovat Mnemosyne&apos;)</translation>
+        <translation type="obsolete">(Toto nastavení můžete kdykoliv později změnit v menu v &apos;Konfigurovat Mnemosyne&apos;)</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="179"/>
         <source>Statistics</source>
-        <translation>Statistiky</translation>
+        <translation type="obsolete">Statistiky</translation>
     </message>
     <message>
         <location filename="product_tour_frm.ui" line="263"/>
@@ -2275,7 +2276,7 @@ For best results, I suggest you do your revisions every day, although I&apos;ll 
 For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
 &lt;p&gt;
 Happy learning!</source>
-        <translation>Nyní jste připraveni začít!
+        <translation type="obsolete">Nyní jste připraveni začít!
 &lt;p&gt;
 Nové karty přidáte kliknutím na ikonu vlevo nahoře (se znakem &apos;plus&apos;). 
 &lt;p&gt;
@@ -2290,7 +2291,7 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     <message>
         <location filename="product_tour_frm.ui" line="244"/>
         <source>Ready to start</source>
-        <translation>Připraveni začít</translation>
+        <translation type="obsolete">Připraveni začít</translation>
     </message>
 </context>
 <context>
@@ -2382,37 +2383,37 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     <message>
         <location filename="statistics_frm.ui" line="85"/>
         <source>Category</source>
-        <translation>Kategorie</translation>
+        <translation type="obsolete">Kategorie</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="96"/>
         <source>Cards</source>
-        <translation>Karty</translation>
+        <translation type="obsolete">Karty</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="16"/>
         <source>Statistics</source>
-        <translation>Statistiky</translation>
+        <translation type="obsolete">Statistiky</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="40"/>
         <source>Schedule</source>
-        <translation>Rozvrh</translation>
+        <translation type="obsolete">Rozvrh</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="58"/>
         <source>Grades</source>
-        <translation>Hodnocení</translation>
+        <translation type="obsolete">Hodnocení</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="76"/>
         <source>Categories</source>
-        <translation>Kategorie</translation>
+        <translation type="obsolete">Kategorie</translation>
     </message>
     <message>
         <location filename="statistics_frm.ui" line="148"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -2548,52 +2549,52 @@ Další dokumentace viz. http://www.mnemosyne-proj.sourceforge.net.
     <message>
         <location filename="tip_frm.ui" line="16"/>
         <source>Tip of the day</source>
-        <translation>Tip dne</translation>
+        <translation type="obsolete">Tip dne</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="78"/>
         <source>&lt;b&gt;Did you know...?&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Věděli jste, že ...?&lt;/b&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;Věděli jste, že ...?&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="131"/>
         <source>&amp;Show tips on startup</source>
-        <translation>Ukazovat tipy při &amp;startu</translation>
+        <translation type="obsolete">Ukazovat tipy při &amp;startu</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="134"/>
         <source>Alt+S</source>
-        <translation>Alt+S</translation>
+        <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="145"/>
         <source>&amp;Previous</source>
-        <translation>&amp;Předchozí</translation>
+        <translation type="obsolete">&amp;Předchozí</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="148"/>
         <source>Alt+P</source>
-        <translation>Alt+P</translation>
+        <translation type="obsolete">Alt+P</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="156"/>
         <source>&amp;Next</source>
-        <translation>&amp;Další</translation>
+        <translation type="obsolete">&amp;Další</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="159"/>
         <source>Alt+N</source>
-        <translation>Alt+N</translation>
+        <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="167"/>
         <source>&amp;Close</source>
-        <translation>&amp;Zavřít</translation>
+        <translation type="obsolete">&amp;Zavřít</translation>
     </message>
     <message>
         <location filename="tip_frm.ui" line="170"/>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
 </context>
 </TS>
