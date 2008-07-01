@@ -69,6 +69,8 @@ Mnemosyne 2.0: Major rewrite
 
 -button to go to next card in the list
 
+-generators instead of list comprehensions?
+
 -plugin for midi files
 
 -refactor day_start_at (Konrad)
