@@ -46,12 +46,23 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         
         self.update_combobox(get_config("last_add_category"))
 
-        self.connect(self.grades, SIGNAL("clicked(int)"),
-                     self.new_card)
+        self.grades = QButtonGroup()
 
+        self.grades.addButton(self.grade_0_button, 0)
+        self.grades.addButton(self.grade_1_button, 1)
+        self.grades.addButton(self.grade_2_button, 2)
+        self.grades.addButton(self.grade_3_button, 3)
+        self.grades.addButton(self.grade_4_button, 4)
+        self.grades.addButton(self.grade_5_button, 5)
+        
+        self.connect(self.grades, SIGNAL("buttonClicked(int)"),
+                     self.new_card)
+        
         #self.connect(self.preview_button, SIGNAL("clicked()"),
         #             self.preview)
 
+
+        # TODO: fonts?
         
         #if get_config("QA_font") != None:
         #    font = QFont()
@@ -93,11 +104,13 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
     #
     ##########################################################################
     
-    def new_card(self,data):
+    def new_card(self, grade):
 
-        print 'new card'
+        print 'new card', grade
 
-        get_card_type_by_name(self.card_types.current_text).new_card(data)
+        print self.replace_me.get_data()
+
+        #get_card_type_by_name(self.card_types.current_text).new_card(data)
 
 
 

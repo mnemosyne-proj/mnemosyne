@@ -280,70 +280,70 @@ Creating tmp file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="82"/>
+        <location filename="add_cards_dlg.py" line="93"/>
         <source>&lt;default&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="200"/>
+        <location filename="add_cards_dlg.py" line="213"/>
         <source>Mnemosyne</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="119"/>
+        <location filename="add_cards_dlg.py" line="132"/>
         <source>Abandon current card?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="120"/>
+        <location filename="add_cards_dlg.py" line="133"/>
         <source>&amp;Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="121"/>
+        <location filename="add_cards_dlg.py" line="134"/>
         <source>&amp;No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="182"/>
+        <location filename="add_cards_dlg.py" line="195"/>
         <source>Card is already in database.
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="182"/>
+        <location filename="add_cards_dlg.py" line="195"/>
         <source>Duplicate not added.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="183"/>
+        <location filename="add_cards_dlg.py" line="196"/>
         <source>&amp;OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="202"/>
+        <location filename="add_cards_dlg.py" line="215"/>
         <source>There are different answers for</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="202"/>
+        <location filename="add_cards_dlg.py" line="215"/>
         <source> this question:
 
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="204"/>
+        <location filename="add_cards_dlg.py" line="217"/>
         <source>&amp;Merge and edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="205"/>
+        <location filename="add_cards_dlg.py" line="218"/>
         <source>&amp;Add as is</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="206"/>
+        <location filename="add_cards_dlg.py" line="219"/>
         <source>&amp;Do not add</source>
         <translation type="unfinished"></translation>
     </message>

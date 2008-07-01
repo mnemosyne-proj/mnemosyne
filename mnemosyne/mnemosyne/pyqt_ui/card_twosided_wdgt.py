@@ -26,6 +26,10 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
         QWidget.__init__(self, parent)
         self.setupUi(self)
 
+    def get_data(self):
+        return "<q>" + self.question.document().toPlainText() + "</q>" + \
+               "<a>" + self.answer  .document().toPlainText() + "</a>"
+
 
 
 ##############################################################################
