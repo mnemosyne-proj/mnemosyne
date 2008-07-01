@@ -8,6 +8,8 @@ import random, time, os, string, sys, cPickle, md5, struct, logging, re
 import shutil, datetime, bz2, gzip, copy, cStringIO 
 
 from mnemosyne.libmnemosyne.exceptions import *
+from mnemosyne.libmnemosyne.card_types import *
+
 import mnemosyne.version
 
 logger = logging.getLogger("mnemosyne")
@@ -753,7 +755,7 @@ def get_categories():
 ##############################################################################
 
 def get_category_names():
-    return category_by_name.keys()
+    return sorted(category_by_name.keys())
 
 
 

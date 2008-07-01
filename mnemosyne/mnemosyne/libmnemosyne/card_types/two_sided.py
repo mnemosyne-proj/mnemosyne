@@ -16,6 +16,8 @@ from mnemosyne.libmnemosyne import *
 
 def new_cards_two_sided(q, a, cat_name, id):
 
+    print 'add'
+
     add_new_item(grade, q, a, cat_name, id)
 
 
