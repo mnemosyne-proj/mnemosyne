@@ -18,8 +18,34 @@ logger = logging.getLogger("mnemosyne")
 #
 # basedir
 #
+# TODO: remove obsolete code?
+#
 ##############################################################################
 
+if sys.platform == 'darwin':
+    
+    _old_basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    basedir = os.path.join(os.path.expanduser("~"), "Library", "Mnemosyne")
+    if not os.path.exists(basedir) and os.path.exists(_old_basedir):
+        
+        # Migrate Mnemosyne basedir to new location and create a symlink from 
+        # the old one. The other way around is a bad idea, because a user
+        # might decide to clean up the old obsolte directory, not realising
+        # the new one is a symlink.
+        
+        print "Migrating ~/.mnemosyne/ to ~/Library/Mnemosyne/"
+        
+        # Lets just call /bin/mv to do the dirty work for us. We use '~'
+        # so that we don't have to worry about escaping.
+        
+        os.system('/bin/mv ~/.mnemosyne/ ~/Library/Mnemosyne/')
+        
+        # Now create a symlink for backwards compatibility.
+        
+        os.symlink(basedir, _old_basedir)
+else:
+    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+    
 basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
 def get_basedir():
