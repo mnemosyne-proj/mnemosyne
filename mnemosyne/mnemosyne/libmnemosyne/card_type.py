@@ -55,8 +55,6 @@ def get_card_type_by_name(name):
 def register_card_type(name, widget_class, new_cards_function=None,
                  update_cards_function=None):
 
-    print 'registring card type', name
-
     global card_types
     
     card_types[name] = CardType(name, widget_class, new_cards_function,

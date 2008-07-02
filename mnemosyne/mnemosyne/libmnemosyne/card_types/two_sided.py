@@ -14,11 +14,15 @@ from mnemosyne.libmnemosyne import *
 #
 ##############################################################################
 
-def new_cards_two_sided(q, a, cat_name, id):
+def new_cards_two_sided(data):
 
-    print 'add'
+    # TODO: cat name
 
-    add_new_item(grade, q, a, cat_name, id)
+    # TODO: id
+
+    print 'add', data
+
+    #add_new_item(grade, q, a, cat_name, id)
 
 
 

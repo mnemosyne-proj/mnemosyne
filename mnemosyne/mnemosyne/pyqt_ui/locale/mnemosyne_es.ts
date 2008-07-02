@@ -252,48 +252,48 @@ Creando un archivo temporal.</translation>
         <translation type="unfinished">&lt;por defecto&gt;</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="213"/>
+        <location filename="add_cards_dlg.py" line="227"/>
         <source>Mnemosyne</source>
         <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="132"/>
+        <location filename="add_cards_dlg.py" line="146"/>
         <source>Abandon current card?</source>
         <translation type="unfinished">¿Desechar esta tarjeta?</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="133"/>
+        <location filename="add_cards_dlg.py" line="147"/>
         <source>&amp;Yes</source>
         <translation type="unfinished">&amp;Sí</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="134"/>
+        <location filename="add_cards_dlg.py" line="148"/>
         <source>&amp;No</source>
         <translation type="unfinished">&amp;No</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="195"/>
+        <location filename="add_cards_dlg.py" line="209"/>
         <source>Card is already in database.
 </source>
         <translation type="unfinished">La tarjeta ya está en la base de datos.</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="195"/>
+        <location filename="add_cards_dlg.py" line="209"/>
         <source>Duplicate not added.</source>
         <translation type="unfinished">Tarjeta duplicada no añadida.</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="196"/>
+        <location filename="add_cards_dlg.py" line="210"/>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;Aceptar</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="215"/>
+        <location filename="add_cards_dlg.py" line="229"/>
         <source>There are different answers for</source>
         <translation type="unfinished">Hay múltiples respuestas para</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="215"/>
+        <location filename="add_cards_dlg.py" line="229"/>
         <source> this question:
 
 </source>
@@ -302,17 +302,17 @@ Creando un archivo temporal.</translation>
 </translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="217"/>
+        <location filename="add_cards_dlg.py" line="231"/>
         <source>&amp;Merge and edit</source>
         <translation type="unfinished">&amp;Fusionar y editar</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="218"/>
+        <location filename="add_cards_dlg.py" line="232"/>
         <source>&amp;Add as is</source>
         <translation type="unfinished">&amp;Añadir tal cual</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="219"/>
+        <location filename="add_cards_dlg.py" line="233"/>
         <source>&amp;Do not add</source>
         <translation type="unfinished">N&amp;o añadir</translation>
     </message>
@@ -1961,7 +1961,7 @@ Tal vez desee ejecutar </translation>
         <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="693"/>
+        <location filename="main_window.py" line="697"/>
         <source>Question:</source>
         <translation type="unfinished">Pregunta:</translation>
     </message>
@@ -1971,12 +1971,12 @@ Tal vez desee ejecutar </translation>
         <translation type="unfinished">Respuesta:</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="738"/>
+        <location filename="main_window.py" line="742"/>
         <source>Show &amp;answer</source>
         <translation type="unfinished">Mostrar &amp;respuesta</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="812"/>
+        <location filename="main_window.py" line="816"/>
         <source>Grade your answer:</source>
         <translation type="unfinished">Evalúe su respuesta:</translation>
     </message>
@@ -2201,62 +2201,62 @@ Tal vez desee ejecutar </translation>
         <translation type="unfinished">&amp;No</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="603"/>
+        <location filename="main_window.py" line="607"/>
         <source>Returns in </source>
         <translation type="unfinished">Volverá a aparecer en </translation>
     </message>
     <message>
-        <location filename="main_window.py" line="604"/>
+        <location filename="main_window.py" line="608"/>
         <source> day(s).</source>
         <translation type="unfinished"> día(s).</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="616"/>
+        <location filename="main_window.py" line="620"/>
         <source>Next repetition: today.</source>
         <translation type="unfinished">Próxima repetición: hoy.</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="618"/>
+        <location filename="main_window.py" line="622"/>
         <source>Next repetition: tomorrow.</source>
         <translation type="unfinished">Próxima repetición: mañana.</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="619"/>
+        <location filename="main_window.py" line="623"/>
         <source>Next repetition in </source>
         <translation type="unfinished">Próxima repetición dentro de </translation>
     </message>
     <message>
-        <location filename="main_window.py" line="621"/>
+        <location filename="main_window.py" line="625"/>
         <source> days.</source>
         <translation type="unfinished"> días.</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="694"/>
+        <location filename="main_window.py" line="698"/>
         <source>&lt;default&gt;</source>
         <translation type="unfinished">&lt;por defecto&gt;</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="742"/>
+        <location filename="main_window.py" line="746"/>
         <source>Learn ahead of schedule</source>
         <translation type="unfinished">Aprender antes de tiempo</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="809"/>
+        <location filename="main_window.py" line="813"/>
         <source>Pick days until next repetition:</source>
         <translation type="unfinished">Escoger días hasta la próxima repetición:</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="819"/>
+        <location filename="main_window.py" line="823"/>
         <source>Scheduled: </source>
         <translation type="unfinished">Planificadas:</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="821"/>
+        <location filename="main_window.py" line="825"/>
         <source>Not memorised: </source>
         <translation type="unfinished">No memorizadas: </translation>
     </message>
     <message>
-        <location filename="main_window.py" line="823"/>
+        <location filename="main_window.py" line="827"/>
         <source>All: </source>
         <translation type="unfinished">Todas: </translation>
     </message>

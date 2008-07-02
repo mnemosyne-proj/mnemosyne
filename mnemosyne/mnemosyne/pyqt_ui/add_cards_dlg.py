@@ -37,9 +37,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         
         self.setupUi(self)
         
-        self.replace_me = CardTwoSidedWdgt()
+        self.card_widget = CardTwoSidedWdgt()
 
-        self.vboxlayout.insertWidget(1, self.replace_me)
+        self.vboxlayout.insertWidget(1, self.card_widget)
         
         for card_type in get_card_types():
             self.card_types.addItem(card_type)
@@ -105,12 +105,24 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
     ##########################################################################
     
     def new_card(self, grade):
+        
+        data = self.card_widget.get_data()
+        
+        if data is None:
+            return
 
         print 'new card', grade
 
-        print self.replace_me.get_data()
 
-        #get_card_type_by_name(self.card_types.current_text).new_card(data)
+        card_type_name = unicode(self.card_types.currentText())
+
+        card_type = get_card_type_by_name(card_type_name)
+
+        data['grade'] = grade
+
+        data['cat_name'] = unicode(self.categories.currentText())
+
+        card_type.new_card(data)
 
 
 
@@ -123,7 +135,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
     
     def reject(self):
 
-        if not self.question.text() and not self.answer.text():
+        data = self.card_widget.get_data()
+
+        if data is None:
             QDialog.reject(self)
             return
 

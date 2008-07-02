@@ -252,49 +252,49 @@ Creating tmp file.</source>
         <translation type="unfinished">&lt;默认&gt;</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="213"/>
+        <location filename="add_cards_dlg.py" line="227"/>
         <source>Mnemosyne</source>
         <translation type="unfinished">Mnemosyne</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="132"/>
+        <location filename="add_cards_dlg.py" line="146"/>
         <source>Abandon current card?</source>
         <translation type="unfinished">放弃当前卡片？</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="133"/>
+        <location filename="add_cards_dlg.py" line="147"/>
         <source>&amp;Yes</source>
         <translation type="unfinished">是(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="134"/>
+        <location filename="add_cards_dlg.py" line="148"/>
         <source>&amp;No</source>
         <translation type="unfinished">否(&amp;N)</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="195"/>
+        <location filename="add_cards_dlg.py" line="209"/>
         <source>Card is already in database.
 </source>
         <translation type="unfinished">卡片已在数据库中。
 </translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="195"/>
+        <location filename="add_cards_dlg.py" line="209"/>
         <source>Duplicate not added.</source>
         <translation type="unfinished">重复项没有被添加。</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="196"/>
+        <location filename="add_cards_dlg.py" line="210"/>
         <source>&amp;OK</source>
         <translation type="unfinished">确认(&amp;O)</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="215"/>
+        <location filename="add_cards_dlg.py" line="229"/>
         <source>There are different answers for</source>
         <translation type="unfinished">有不同答案回答了</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="215"/>
+        <location filename="add_cards_dlg.py" line="229"/>
         <source> this question:
 
 </source>
@@ -303,17 +303,17 @@ Creating tmp file.</source>
 </translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="217"/>
+        <location filename="add_cards_dlg.py" line="231"/>
         <source>&amp;Merge and edit</source>
         <translation type="unfinished">合并后编辑(&amp;M)</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="218"/>
+        <location filename="add_cards_dlg.py" line="232"/>
         <source>&amp;Add as is</source>
         <translation type="unfinished">照此添加(&amp;A)</translation>
     </message>
     <message>
-        <location filename="add_cards_dlg.py" line="219"/>
+        <location filename="add_cards_dlg.py" line="233"/>
         <source>&amp;Do not add</source>
         <translation type="unfinished">不要添加(&amp;D)</translation>
     </message>
@@ -1787,77 +1787,77 @@ so you might want to run </source>
         <translation type="unfinished">否(&amp;N)</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="603"/>
+        <location filename="main_window.py" line="607"/>
         <source>Returns in </source>
         <translation type="unfinished">在</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="604"/>
+        <location filename="main_window.py" line="608"/>
         <source> day(s).</source>
         <translation type="unfinished">天后返回。</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="616"/>
+        <location filename="main_window.py" line="620"/>
         <source>Next repetition: today.</source>
         <translation type="unfinished">下次重复：今天。</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="618"/>
+        <location filename="main_window.py" line="622"/>
         <source>Next repetition: tomorrow.</source>
         <translation type="unfinished">下次重复：明天。</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="619"/>
+        <location filename="main_window.py" line="623"/>
         <source>Next repetition in </source>
         <translation type="unfinished">下次重复在</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="621"/>
+        <location filename="main_window.py" line="625"/>
         <source> days.</source>
         <translation type="unfinished">天后。</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="693"/>
+        <location filename="main_window.py" line="697"/>
         <source>Question:</source>
         <translation type="unfinished">问题：</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="694"/>
+        <location filename="main_window.py" line="698"/>
         <source>&lt;default&gt;</source>
         <translation type="unfinished">&lt;默认&gt;</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="738"/>
+        <location filename="main_window.py" line="742"/>
         <source>Show &amp;answer</source>
         <translation type="unfinished">显示答案(&amp;A)</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="742"/>
+        <location filename="main_window.py" line="746"/>
         <source>Learn ahead of schedule</source>
         <translation type="unfinished">提前学习</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="809"/>
+        <location filename="main_window.py" line="813"/>
         <source>Pick days until next repetition:</source>
         <translation type="unfinished">选取直到下次重复的天数：</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="812"/>
+        <location filename="main_window.py" line="816"/>
         <source>Grade your answer:</source>
         <translation type="unfinished">给你的答案评分：</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="819"/>
+        <location filename="main_window.py" line="823"/>
         <source>Scheduled: </source>
         <translation type="unfinished">计划：</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="821"/>
+        <location filename="main_window.py" line="825"/>
         <source>Not memorised: </source>
         <translation type="unfinished">未记：</translation>
     </message>
     <message>
-        <location filename="main_window.py" line="823"/>
+        <location filename="main_window.py" line="827"/>
         <source>All: </source>
         <translation type="unfinished">所有：</translation>
     </message>

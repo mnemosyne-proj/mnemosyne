@@ -4,6 +4,9 @@
 #
 ##############################################################################
 
+import gettext
+_ = gettext.gettext
+
 import random, time, os, string, sys, cPickle, md5, struct, logging, re
 import shutil, datetime, bz2, gzip, copy, cStringIO 
 
@@ -35,7 +38,7 @@ if sys.platform == 'darwin':
         # might decide to clean up the old obsolte directory, not realising
         # the new one is a symlink.
         
-        print "Migrating ~/.mnemosyne/ to ~/Library/Mnemosyne/"
+        print _("Migrating ~/.mnemosyne/ to ~/Library/Mnemosyne/")
         
         # Lets just call /bin/mv to do the dirty work for us. We use '~'
         # so that we don't have to worry about escaping.
@@ -71,7 +74,7 @@ time_of_last_question = 0
 upload_thread = None
 load_failed = False
 
-items = []
+cards = []
 revision_queue = []
 
 categories = []
@@ -255,10 +258,10 @@ def init_config():
     config.setdefault("non_latin_font_size_increase", 0)
     config.setdefault("check_duplicates_when_adding", True)
     config.setdefault("allow_duplicates_in_diff_cat", True)
-    config.setdefault("grade_0_items_at_once", 5)
+    config.setdefault("grade_0_cards_at_once", 5)
     config.setdefault("last_add_vice_versa", False)
     config.setdefault("last_add_category", "<default>")
-    config.setdefault("3_sided_input", False)
+    config.setdefault("3_sided_input", False) # TODO: remove
     config.setdefault("column_0_width", None)
     config.setdefault("column_1_width", None)
     config.setdefault("column_2_width", None)    
@@ -323,7 +326,7 @@ def load_config():
 
     try:
         config_file = file(os.path.join(basedir, "config"), 'rb')
-        for k,v in cPickle.load(config_file).iteritems():
+        for k,v in cPickle.load(config_file).itercards():
             config[k] = v
     except:
         pass
@@ -441,11 +444,11 @@ class StartTime:
     
 ##############################################################################
 #
-# Item
+# Card
 #
 ##############################################################################
 
-class Item:
+class Card:
 
     ##########################################################################
     #
@@ -596,13 +599,13 @@ class Item:
 
 ##############################################################################
 #
-# items_are_inverses
+# cards_are_inverses
 #
 ##############################################################################
 
-def items_are_inverses(item1, item2):
+def cards_are_inverses(card1, card2):
 
-    if item1.q == item2.a and item2.q == item1.a:
+    if card1.q == card2.a and card2.q == card1.a:
         return True
     else:
         return False
@@ -611,24 +614,24 @@ def items_are_inverses(item1, item2):
 
 ##############################################################################
 #
-# get_items
+# get_cards
 #
 ##############################################################################
 
-def get_items():
-    return items
+def get_cards():
+    return cards
 
 
 
 ##############################################################################
 #
-# get_item_by_id
+# get_card_by_id
 #
 ##############################################################################
 
-def get_item_by_id(id):
+def get_card_by_id(id):
     try:
-        return [i for i in items if i.id == id][0]
+        return [i for i in cards if i.id == id][0]
     except:
         return None
 
@@ -636,49 +639,49 @@ def get_item_by_id(id):
 
 ##############################################################################
 #
-# number_of_items
+# number_of_cards
 #
 ##############################################################################
 
-def number_of_items():
-    return len(items)
-
-
-
-##############################################################################
-#
-# non_memorised_items
-#
-##############################################################################
-
-def non_memorised_items():
-    return sum(1 for i in items if i.is_due_for_acquisition_rep())
+def number_of_cards():
+    return len(cards)
 
 
 
 ##############################################################################
 #
-# scheduled_items
-#
-#   Number of items scheduled within 'days' days.
+# non_memorised_cards
 #
 ##############################################################################
 
-def scheduled_items(days=0):
-    return sum(1 for i in items if i.is_due_for_retention_rep(days))
+def non_memorised_cards():
+    return sum(1 for i in cards if i.is_due_for_acquisition_rep())
 
 
 
 ##############################################################################
 #
-# active_items
+# scheduled_cards
 #
-#   Number of items in an active category.
+#   Number of cards scheduled within 'days' days.
 #
 ##############################################################################
 
-def active_items():
-    return sum(1 for i in items if i.is_in_active_category())
+def scheduled_cards(days=0):
+    return sum(1 for i in cards if i.is_due_for_retention_rep(days))
+
+
+
+##############################################################################
+#
+# active_cards
+#
+#   Number of cards in an active category.
+#
+##############################################################################
+
+def active_cards():
+    return sum(1 for i in cards if i.is_in_active_category())
 
 
 
@@ -690,12 +693,12 @@ def active_items():
 
 def average_easiness():
 
-    if len(items) == 0:
+    if len(cards) == 0:
         return 2.5
-    if len(items) == 1:
-        return items[0].easiness
+    if len(cards) == 1:
+        return cards[0].easiness
     else:
-        return sum(i.easiness for i in items) / len(items)
+        return sum(i.easiness for i in cards) / len(cards)
 
 
 
@@ -728,7 +731,7 @@ class Category:
 
         used = False
 
-        for e in items:
+        for e in cards:
             if self.name == e.cat.name:
                 used = True
                 break
@@ -799,10 +802,10 @@ def get_category_by_name(name):
 
 def remove_category_if_unused(cat):
 
-    global items, category_by_name, categories
+    global cards, category_by_name, categories
 
-    for item in items:
-        if cat.name == item.cat.name:
+    for card in cards:
+        if cat.name == card.cat.name:
             break
     else:
         del category_by_name[cat.name]
@@ -820,7 +823,7 @@ def new_database(path):
 
     global config, time_of_start, load_failed
 
-    if len(items) > 0:
+    if len(cards) > 0:
         unload_database()
 
     load_failed = False
@@ -846,7 +849,7 @@ database_header_line \
 
 def load_database(path):
 
-    global config, time_of_start, categories, category_by_name, items
+    global config, time_of_start, categories, category_by_name, cards
     global load_failed
   
     path = expand_path(path, basedir)
@@ -869,7 +872,7 @@ def load_database(path):
 
         time_of_start = db[0]
         categories    = db[1]
-        items         = db[2]
+        cards         = db[2]
         
         infile.close()
 
@@ -889,8 +892,8 @@ def load_database(path):
 
     config["path"] = contract_path(path, basedir)
 
-    logger.info("Loaded database %d %d %d", scheduled_items(), \
-                non_memorised_items(), number_of_items())
+    logger.info("Loaded database %d %d %d", scheduled_cards(), \
+                non_memorised_cards(), number_of_cards())
 
     if "after_load" in plugin_hooks:
         plugin_hooks["after_load"]()
@@ -921,7 +924,7 @@ def save_database(path):
         
         print >> outfile, database_header_line
 
-        db = [time_of_start, categories, items]
+        db = [time_of_start, categories, cards]
         cPickle.dump(db, outfile)
 
         outfile.close()
@@ -943,13 +946,13 @@ def save_database(path):
 
 def unload_database():
 
-    global items, revision_queue, categories, category_by_name
+    global cards, revision_queue, categories, category_by_name
         
     save_database(config["path"])
     
-    logger.info("Saved database %d %d %d", scheduled_items(), \
-                non_memorised_items(), number_of_items())        
-    items = []
+    logger.info("Saved database %d %d %d", scheduled_cards(), \
+                non_memorised_cards(), number_of_cards())        
+    cards = []
     revision_queue = []
         
     categories = []
@@ -967,7 +970,7 @@ def unload_database():
 
 def backup_database():
 
-    if number_of_items() == 0:
+    if number_of_cards() == 0:
         return
 
     backupdir = unicode(os.path.join(basedir, "backups"))
@@ -1010,7 +1013,7 @@ def backup_database():
 ##############################################################################
 
 def list_is_loaded():
-    return len(items) != 0
+    return len(cards) != 0
 
 
 
@@ -1170,7 +1173,7 @@ def process_latex(latex_command):
 
     latex_command = latex_command.replace("&lt;", "<") 
 
-    error_str = "<b>Problem with latex. Are latex and dvipng installed?</b>"
+    error_str = _("<b>Problem with latex. Are latex and dvipng installed?</b>")
     
     latexdir  = os.path.join(basedir, "latex")
     imag_name = md5.new(latex_command.encode("utf-8")).hexdigest() + ".png"
@@ -1397,21 +1400,21 @@ def get_file_format_from_name(name):
 #
 # anonymise_id
 #
-#   Returns anonymous version of id (_0, _1, ...), but keeps item's
+#   Returns anonymous version of id (_0, _1, ...), but keeps card's
 #   original id intact.
 #
 ##############################################################################
 
 id_to_anon = {}
 
-def anonymise_id(item):
+def anonymise_id(card):
     
     global id_to_anon
 
-    if '.' in item.id:
-        old_id, suffix = item.id.split('.', 1)
+    if '.' in card.id:
+        old_id, suffix = card.id.split('.', 1)
     else:
-        old_id, suffix = item.id, ''
+        old_id, suffix = card.id, ''
 
     if suffix:
         suffix = '.' + suffix
@@ -1424,33 +1427,33 @@ def anonymise_id(item):
 #
 # unanonymise_id
 #
-#   Create a new id from an anonymous one, and updates item's id with it.
+#   Create a new id from an anonymous one, and updates card's id with it.
 #
 ##############################################################################
 
 anon_to_id = {}
 
-def unanonymise_id(item):
+def unanonymise_id(card):
     
     global anon_to_id
     
-    if '.' in item.id:
-        old_id, suffix = item.id.split('.', 1)
+    if '.' in card.id:
+        old_id, suffix = card.id.split('.', 1)
     else:
-        old_id, suffix = item.id, ''
+        old_id, suffix = card.id, ''
 
     if suffix:
         suffix = '.' + suffix
 
     if old_id.startswith('_'):
         if old_id in anon_to_id:
-            item.id = anon_to_id[old_id] + suffix
+            card.id = anon_to_id[old_id] + suffix
         else:
-            item.new_id()
-            anon_to_id[old_id] = item.id
-            item.id += suffix
+            card.new_id()
+            anon_to_id[old_id] = card.id
+            card.id += suffix
 
-    return item.id
+    return card.id
 
 
 
@@ -1474,32 +1477,32 @@ def import_file(filename, fformat_name, default_cat_name,
 
     default_cat = get_category_by_name(default_cat_name)
     fformat = get_file_format_from_name(fformat_name)
-    imported_items = fformat.import_function(filename, default_cat,
+    imported_cards = fformat.import_function(filename, default_cat,
                                              reset_learning_data)
 
-    # Add new items.
+    # Add new cards.
     
-    for item in imported_items:
+    for card in imported_cards:
                     
         # Check for duplicates.
 
-        for i in get_items():
-            if i.q == item.q and i.a == item.a:
+        for i in get_cards():
+            if i.q == card.q and i.a == card.a:
                 if get_config("check_duplicates_when_adding") == True:
                     if get_config("allow_duplicates_in_diff_cat") == False:
                         break
-                    elif i.cat == item.cat:
+                    elif i.cat == card.cat:
                         break
         else:
-            items.append(item)
+            cards.append(card)
             
-            if item.is_due_for_retention_rep():
-                revision_queue[0:0] = [item]
+            if card.is_due_for_retention_rep():
+                revision_queue[0:0] = [card]
                 
-            interval = item.next_rep - days_since_start
-            logger.info("Imported item %s %d %d %d %d %d",
-                        item.id, item.grade, item.ret_reps,
-                        item.last_rep, item.next_rep, interval)
+            interval = card.next_rep - days_since_start
+            logger.info("Imported card %s %d %d %d %d %d",
+                        card.id, card.grade, card.ret_reps,
+                        card.last_rep, card.next_rep, interval)
 
     # Clean up.
 
@@ -1554,7 +1557,7 @@ class XML_Importer(saxutils.DefaultHandler):
         self.default_cat = default_cat
         self.reset_learning_data = reset_learning_data
 
-        self.imported_items = []
+        self.imported_cards = []
 
     def to_bool(self, string):
         if string == '0':
@@ -1573,47 +1576,47 @@ class XML_Importer(saxutils.DefaultHandler):
                 import_time_of_start = time_of_start
                 
         elif name == "item":
-            self.item = Item()
+            self.card = Card()
             
-            self.item.id = 0
+            self.card.id = 0
             if attrs.get("id"):
-                self.item.id = attrs.get("id")
+                self.card.id = attrs.get("id")
 
-            self.item.grade = 0
+            self.card.grade = 0
             if attrs.get("gr"):
-                self.item.grade = int(attrs.get("gr"))
+                self.card.grade = int(attrs.get("gr"))
 
-            self.item.easiness = average_easiness()
+            self.card.easiness = average_easiness()
             if attrs.get("e"):
-                self.item.easiness = float(attrs.get("e"))
+                self.card.easiness = float(attrs.get("e"))
 
-            self.item.acq_reps = 0
+            self.card.acq_reps = 0
             if attrs.get("ac_rp"):
-                self.item.acq_reps = int(attrs.get("ac_rp"))
+                self.card.acq_reps = int(attrs.get("ac_rp"))
 
-            self.item.ret_reps = 0
+            self.card.ret_reps = 0
             if attrs.get("rt_rp"):
-                self.item.ret_reps = int(attrs.get("rt_rp"))
+                self.card.ret_reps = int(attrs.get("rt_rp"))
                 
-            self.item.lapses = 0
+            self.card.lapses = 0
             if attrs.get("lps"):
-                self.item.lapses = int(attrs.get("lps"))
+                self.card.lapses = int(attrs.get("lps"))
                 
-            self.item.acq_reps_since_lapse = 0
+            self.card.acq_reps_since_lapse = 0
             if attrs.get("ac_rp_l"):
-                self.item.acq_reps_since_lapse = int(attrs.get("ac_rp_l"))
+                self.card.acq_reps_since_lapse = int(attrs.get("ac_rp_l"))
 
-            self.item.ret_reps_since_lapse = 0
+            self.card.ret_reps_since_lapse = 0
             if attrs.get("rt_rp_l"):
-                self.item.ret_reps_since_lapse = int(attrs.get("rt_rp_l"))
+                self.card.ret_reps_since_lapse = int(attrs.get("rt_rp_l"))
                 
-            self.item.last_rep = 0
+            self.card.last_rep = 0
             if attrs.get("l_rp"):
-                self.item.last_rep = int(attrs.get("l_rp"))
+                self.card.last_rep = int(attrs.get("l_rp"))
                 
-            self.item.next_rep = 0
+            self.card.next_rep = 0
             if attrs.get("n_rp"):
-                self.item.next_rep = int(float(attrs.get("n_rp")))
+                self.card.next_rep = int(float(attrs.get("n_rp")))
                 
         elif name == "category":
             self.active = self.to_bool(attrs.get("active"))
@@ -1635,32 +1638,32 @@ class XML_Importer(saxutils.DefaultHandler):
         if name == "cat":
 
             cat_name = self.text["cat"]
-            self.item.cat = get_category_by_name(cat_name)
+            self.card.cat = get_category_by_name(cat_name)
 
         elif name == "Q":
 
-            self.item.q = self.text["Q"]
+            self.card.q = self.text["Q"]
 
         elif name == "A":
 
-            self.item.a = self.text["A"]
+            self.card.a = self.text["A"]
 
         elif name == "item":
 
-            if self.item.id == 0:
-                self.item.new_id()
+            if self.card.id == 0:
+                self.card.new_id()
 
-            if self.item.id.startswith('_'):
-                unanonymise_id(self.item)
+            if self.card.id.startswith('_'):
+                unanonymise_id(self.card)
 
-            if self.item.cat == None:
-                self.item.cat = self.default_cat
+            if self.card.cat == None:
+                self.card.cat = self.default_cat
 
             if self.reset_learning_data == True:
-                self.item.reset_learning_data()
-                self.item.easiness = average_easiness()
+                self.card.reset_learning_data()
+                self.card.easiness = average_easiness()
 
-            self.imported_items.append(self.item)
+            self.imported_cards.append(self.card)
 
         elif name == "category":
 
@@ -1689,7 +1692,7 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
         self.default_cat = default_cat
         self.reset_learning_data = reset_learning_data
 
-        self.imported_items = []
+        self.imported_cards = []
 
     def to_bool(self, string):
         if string == '0':
@@ -1708,15 +1711,15 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
                 import_time_of_start = time_of_start
                 
         elif name == "item":
-            self.item = Item()
+            self.card = Card()
 
-            self.item.id        = long(attrs.get("id"))
-            self.item.grade     =  int(attrs.get("gr"))
-            self.item.next_rep  =  int(attrs.get("tm_t_rpt"))
-            self.item.ret_reps  =  int(attrs.get("rp"))
+            self.card.id        = long(attrs.get("id"))
+            self.card.grade     =  int(attrs.get("gr"))
+            self.card.next_rep  =  int(attrs.get("tm_t_rpt"))
+            self.card.ret_reps  =  int(attrs.get("rp"))
             interval            =  int(attrs.get("ivl"))
-            self.item.last_rep  = self.item.next_rep - interval
-            self.item.easiness  = average_easiness()
+            self.card.last_rep  = self.card.next_rep - interval
+            self.card.easiness  = average_easiness()
 
         elif name == "category":
             self.active = self.to_bool(attrs.get("scheduled"))
@@ -1736,29 +1739,29 @@ class memaid_XML_Importer(saxutils.DefaultHandler):
         if name == "cat":
 
             cat_name = self.text["cat"]
-            self.item.cat = get_category_by_name(cat_name)
+            self.card.cat = get_category_by_name(cat_name)
 
         elif name == "Q":
 
-            self.item.q = self.text["Q"]
+            self.card.q = self.text["Q"]
 
         elif name == "A":
 
-            self.item.a = self.text["A"]
+            self.card.a = self.text["A"]
 
         elif name == "item":
 
-            if self.item.id == 0:
-                self.item.new_id()
+            if self.card.id == 0:
+                self.card.new_id()
 
-            if self.item.cat == None:
-                self.item.cat = self.default_cat
+            if self.card.cat == None:
+                self.card.cat = self.default_cat
 
             if self.reset_learning_data == True:
-                self.item.reset_learning_data()
-                self.item.easiness = average_easiness()
+                self.card.reset_learning_data()
+                self.card.easiness = average_easiness()
 
-            self.imported_items.append(self.item)
+            self.imported_cards.append(self.card)
 
         elif name == "category":
 
@@ -1810,7 +1813,7 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
         self.default_cat = default_cat
         self.reset_learning_data = reset_learning_data
 
-        self.imported_items = []
+        self.imported_cards = []
         self.lapses = 0
         self.recalls = 0
         self.difficulty = 40 
@@ -1845,7 +1848,7 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
 	# once the whole database has been read.
 	
         if name == "card":
-            self.item = Item();
+            self.card = Card();
             if attrs.get("commit"):
                 self.commit = attrs.get("commit")
             if attrs.get("category"):
@@ -1897,7 +1900,7 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
 
     def guess_grade(self):
         
-	# Very easy items are scarce in SM and must be easiest grade.
+	# Very easy cards are scarce in SM and must be easiest grade.
         
 	if self.difficulty < 10:
 		return 5
@@ -1936,9 +1939,9 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
             # Small values should be easy, large ones hard.
             
             if dp > 0.4:
-                self.item.easiness = 1.28 - 1.32 * math.log(dp)
+                self.card.easiness = 1.28 - 1.32 * math.log(dp)
             else:
-                self.item.easiness = 4.2 - (1.139 * math.exp(dp) )
+                self.card.easiness = 4.2 - (1.139 * math.exp(dp) )
 
             # Grades are 0-5. In SM for Palm there are commited and uncommited 
             # cards. Uncommited cards go to grade 0.
@@ -1950,11 +1953,11 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
             # cards should have converged by now.
                 
             if self.commit == False:
-                self.item.grade = 0
+                self.card.grade = 0
             else:
-                self.item.grade = self.guess_grade()
+                self.card.grade = self.guess_grade()
 
-            self.item.lapses = self.lapses
+            self.card.lapses = self.lapses
 		
             # Handle dates, assume starttime to be the epoch.
             # Need to determine last_rep and next_rep.
@@ -1962,38 +1965,38 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
             try:
                 struct_t = time.strptime(self.datenexttest,"%Y-%m-%d")
             except:
-                print "Failed to parse time - using zero."
+                print _("Failed to parse time - using zero.")
 
             t_sec = int(0)
 
             try:
                 t_sec = time.mktime(struct_t)
             except:
-                print "mktime failed - using zero."
+                print _("mktime failed - using zero.")
 
-            self.item.next_rep = int(t_sec / 86400)
+            self.card.next_rep = int(t_sec / 86400)
 
             # last_rep is interval in days before next_rep.
 
-            self.item.last_rep = self.item.next_rep - self.interval
+            self.card.last_rep = self.card.next_rep - self.interval
 
             # Try to fill acquisiton reps and retention reps.
             # Since SM statistics are only available for commited
             # cards, I take acq_reps = 0 and ret_reps = lapses + recalls.
             
-            self.item.ret_reps = self.lapses + self.recalls
+            self.card.ret_reps = self.lapses + self.recalls
 
-            self.item.cat = get_category_by_name(self.category)
-            self.imported_items.append(self.item)
+            self.card.cat = get_category_by_name(self.category)
+            self.imported_cards.append(self.card)
 		
 	elif name == "card_field":
             if self.reading["Q"]:
                 self.reading["Q"] = False
-                self.item.q = self.text["Q"]
+                self.card.q = self.text["Q"]
                 self.text["Q"] = ""
             if self.reading["A"]:
                 self.reading["A"] = False
-                self.item.a = self.text["A"]
+                self.card.a = self.text["A"]
                 self.text["A"] = ""
 
 	elif name == "smconv_pl":
@@ -2001,11 +2004,11 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
             # During the import, there was no guarantee that the start time
             # has already been read. Now, at the smconv_pl closing tag, the
             # import_time_of_start variable has been set. Update all imported
-            # items accordingly.
+            # cards accordingly.
 
             now = import_time_of_start.time
             diff = int(now / 86400)
-            for i in self.imported_items:
+            for i in self.imported_cards:
                 i.next_rep = i.next_rep - diff
                 i.last_rep = i.last_rep - diff
 
@@ -2022,7 +2025,7 @@ class smconv_XML_Importer(saxutils.DefaultHandler):
 ##############################################################################
 
 def import_XML(filename, default_cat, reset_learning_data=False):
-    global items
+    global cards
 
     # Determine if we import a Mnemosyne or a Memaid file.
 
@@ -2074,16 +2077,16 @@ def import_XML(filename, default_cat, reset_learning_data=False):
 
     if reset_learning_data == False:
         if cur_start_date <= imp_start_date :
-            for item in handler.imported_items:
-                item.last_rep += abs(offset)
-                item.next_rep += abs(offset)
+            for card in handler.imported_cards:
+                card.last_rep += abs(offset)
+                card.next_rep += abs(offset)
         else:
             time_of_start = StartTime(imp_start_date)
-            for item in items:
-                item.last_rep += abs(offset)
-                item.next_rep += abs(offset)
+            for card in cards:
+                card.last_rep += abs(offset)
+                card.next_rep += abs(offset)
 
-    return handler.imported_items
+    return handler.imported_cards
 
 
 
@@ -2100,11 +2103,11 @@ def encode_cdata(s):
 
 ##############################################################################
 #
-# write_item_XML
+# write_card_XML
 #
 ##############################################################################
 
-def write_item_XML(e, outfile, reset_learning_data=False):
+def write_card_XML(e, outfile, reset_learning_data=False):
 
     if reset_learning_data == False:
         print >> outfile, "<item id=\""+str(e.id) + "\"" \
@@ -2189,9 +2192,9 @@ def export_XML(filename, cat_names_to_export, reset_learning_data):
         if cat.name in cat_names_to_export:
             write_category_XML(cat, outfile, reset_learning_data)
 
-    for e in items:
+    for e in cards:
         if e.cat.name in cat_names_to_export:
-            write_item_XML(e, outfile, reset_learning_data)
+            write_card_XML(e, outfile, reset_learning_data)
 
     print >> outfile, """</mnemosyne>"""
 
@@ -2201,12 +2204,12 @@ def export_XML(filename, cat_names_to_export, reset_learning_data):
 
 
 register_file_format("XML",
-                     filter="XML files (*.xml *.XML)",
+                     filter=_("XML files (*.xml *.XML)"),
                      import_function=import_XML,
                      export_function=export_XML)
 
-register_file_format("Supermemo for Palm through smconv.pl",
-                     filter="XML files (*.xml *.XML)",
+register_file_format(_("Supermemo for Palm through smconv.pl"),
+                     filter=_("XML files (*.xml *.XML)"),
                      import_function=import_XML,
                      export_function=None)
 
@@ -2244,9 +2247,9 @@ def process_html_unicode(s):
 
 def import_txt(filename, default_cat, reset_learning_data=False):
     
-    global items
+    global cards
 
-    imported_items = []
+    imported_cards = []
 
     # Parse txt file.
 
@@ -2288,48 +2291,48 @@ def import_txt(filename, default_cat, reset_learning_data=False):
 
             # Card 1.
             
-            item = Item()
+            card = Card()
             
-            item.q = fields[0]
-            item.a = fields[1] + '\n' + fields[2]
-            item.easiness = avg_easiness
-            item.cat = default_cat
-            item.new_id()
+            card.q = fields[0]
+            card.a = fields[1] + '\n' + fields[2]
+            card.easiness = avg_easiness
+            card.cat = default_cat
+            card.new_id()
                     
-            imported_items.append(item)
+            imported_cards.append(card)
 
-            id = item.id
+            id = card.id
 
             # Card 2.
             
-            item = Item()
+            card = Card()
             
-            item.q = fields[2]
-            item.a = fields[0] + '\n' + fields[1]
-            item.easiness = avg_easiness
-            item.cat = default_cat
-            item.id = id + '.tr.1'
+            card.q = fields[2]
+            card.a = fields[0] + '\n' + fields[1]
+            card.easiness = avg_easiness
+            card.cat = default_cat
+            card.id = id + '.tr.1'
                     
-            imported_items.append(item)
+            imported_cards.append(card)
 
         # Two sided card.
         
         elif len(fields) == 2:
             
-            item = Item()
+            card = Card()
             
-            item.q = fields[0]
-            item.a = fields[1]
-            item.easiness = avg_easiness
-            item.cat = default_cat
-            item.new_id()
+            card.q = fields[0]
+            card.a = fields[1]
+            card.easiness = avg_easiness
+            card.cat = default_cat
+            card.new_id()
                     
-            imported_items.append(item)
+            imported_cards.append(card)
             
         else:
             raise MissingAnswerError(info=line)
 
-    return imported_items
+    return imported_cards
 
 
 
@@ -2337,7 +2340,7 @@ def import_txt(filename, default_cat, reset_learning_data=False):
 #
 # export_txt
 #
-#   Newlines are converted to <br> to keep items on a single line.
+#   Newlines are converted to <br> to keep cards on a single line.
 #
 ##############################################################################
 
@@ -2348,7 +2351,7 @@ def export_txt(filename, cat_names_to_export, reset_learning_data=False):
     except:
         return False
 
-    for e in items:
+    for e in cards:
         if e.cat.name in cat_names_to_export:
             question = e.q.encode("utf-8")
             question = question.replace("\t", " ")
@@ -2365,8 +2368,8 @@ def export_txt(filename, cat_names_to_export, reset_learning_data=False):
     return True
     
 
-register_file_format("Text with tab separated Q/A",
-                     filter="Text files (*.txt *.TXT)",
+register_file_format(_("Text with tab separated Q/A"),
+                     filter=_("Text files (*.txt *.TXT)"),
                      import_function=import_txt,
                      export_function=export_txt)
 
@@ -2381,9 +2384,9 @@ register_file_format("Text with tab separated Q/A",
 
 def import_txt_2(filename, default_cat, reset_learning_data=False):
     
-    global items
+    global cards
 
-    imported_items = []
+    imported_cards = []
 
     # Parse txt file.
 
@@ -2423,23 +2426,23 @@ def import_txt_2(filename, default_cat, reset_learning_data=False):
 
         if len(Q_A) == 2:
             
-            item = Item()
+            card = Card()
 
-            item.q = Q_A[0]
-            item.a = Q_A[1]    
+            card.q = Q_A[0]
+            card.a = Q_A[1]    
         
-            item.easiness = avg_easiness
-            item.cat = default_cat
-            item.new_id()
+            card.easiness = avg_easiness
+            card.cat = default_cat
+            card.new_id()
                     
-            imported_items.append(item)
+            imported_cards.append(card)
 
             Q_A = []
 
-    return imported_items
+    return imported_cards
 
-register_file_format("Text with Q and A each on separate line",
-                     filter="Text files (*.txt *.TXT)",
+register_file_format(_("Text with Q and A each on separate line"),
+                     filter=_("Text files (*.txt *.TXT)"),
                      import_function=import_txt_2,
                      export_function=False)
 
@@ -2453,7 +2456,7 @@ register_file_format("Text with Q and A each on separate line",
 # question, several consecutive answer lines form a multi line answer.  After
 # the answer lines, learning data may follow.  This consists of a line like
 # 'I: REP=8 LAP=0 EF=3.200 UF=2.370 INT=429 LAST=27.01.06' and a line like
-# 'O: 36'.  After each item (even the last one) there must be an empty line.
+# 'O: 36'.  After each card (even the last one) there must be an empty line.
 #
 ##############################################################################
 
@@ -2487,7 +2490,7 @@ def read_line_sm7qa(f):
 
 def import_sm7qa(filename, default_cat, reset_learning_data=False):
 
-    global items
+    global cards
 
     # Parse txt file.
 
@@ -2502,8 +2505,8 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
         except:
             raise LoadError()
 
-    imported_items = []
-    state = "ITEM-START"
+    imported_cards = []
+    state = "CARD-START"
     next_state = None
     error = False
 
@@ -2514,14 +2517,14 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
         # Perform the actions of the current state and calculate
         # the next state.
 
-        if state == "ITEM-START":
+        if state == "CARD-START":
             
-            # Expecting a new item to start, or the end of the input file.
+            # Expecting a new card to start, or the end of the input file.
             
             if line == False:
                 next_state = "END-OF-FILE"
             elif line == "":
-                next_state = "ITEM-START"
+                next_state = "CARD-START"
             elif line.startswith("Q:"):
                 question = line[2:].strip()
                 repetitions = 0
@@ -2551,13 +2554,13 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
             
             # We have already read the first answer line. Further answer
             # lines may follow, or the lines with the learning data.
-            # Otherwise, the item has to end with either an empty line or with
+            # Otherwise, the card has to end with either an empty line or with
             # the end of the input file.
 
             if line == False:
                 next_state = "END-OF-FILE"
             elif line == "":
-                next_state = "ITEM-START"
+                next_state = "CARD-START"
             elif line.startswith("A:"):
                 answer = answer + "\n" + line[2:].strip()
                 next_state = "ANSWER"
@@ -2592,18 +2595,18 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
             if line == False:
                 error = True
             elif line.startswith("O:"): # This line is ignored.
-                next_state = "ITEM-END"
+                next_state = "CARD-END"
             else:
                 error = True
-        elif state == "ITEM-END":
+        elif state == "CARD-END":
             
-            # We have already read all learning data. The item has to end
+            # We have already read all learning data. The card has to end
             # with either an empty line or with the end of the input file.
             
             if line == False:
                 next_state = "END-OF-FILE"
             elif line == "":
-                next_state = "ITEM-START"
+                next_state = "CARD-START"
             else:
                 error = True
 
@@ -2611,65 +2614,65 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
         # transitions.
 
         if ( (state == "ANSWER" and next_state == "END-OF-FILE")
-                or (state == "ANSWER" and next_state == "ITEM-START")
-                or (state == "ITEM-END" and next_state == "END-OF-FILE")
-                or (state == "ITEM-END" and next_state == "ITEM-START") ):
-            item = Item()
+                or (state == "ANSWER" and next_state == "CARD-START")
+                or (state == "CARD-END" and next_state == "END-OF-FILE")
+                or (state == "CARD-END" and next_state == "CARD-START") ):
+            card = Card()
 
             if not reset_learning_data:
                 
                 # A grade information is not given directly in the file
                 # format.  To make the transition to Mnemosyne smooth for a
-                # SuperMemo user, we make sure that all items get queried in a
+                # SuperMemo user, we make sure that all cards get queried in a
                 # similar way as SuperMemo would have done it.
                 
                 if repetitions == 0:
                     
-                    # The item is new, there are no repetitions yet.
-                    # SuperMemo queries such items in a dedicated learning
-                    # mode "Memorize new items", thus offering the user to
-                    # learn as many new items per session as desired.  We
-                    # achieve a similar behaviour by grading the item 0.
+                    # The card is new, there are no repetitions yet.
+                    # SuperMemo queries such cards in a dedicated learning
+                    # mode "Memorize new cards", thus offering the user to
+                    # learn as many new cards per session as desired.  We
+                    # achieve a similar behaviour by grading the card 0.
                     
-                    item.grade = 0
+                    card.grade = 0
                     
                 elif repetitions == 1 and lapses > 0:
                     
                     # The learner had a lapse with the last repetition.
-                    # SuperMemo users will expect such items to be queried
+                    # SuperMemo users will expect such cards to be queried
                     # during the next session.  Thus, to avoid confusion, we
                     # set the initial grade to 1.
                     
-                    item.grade = 1
+                    card.grade = 1
                     
                 else:
                     
                     # There were either no lapses yet, or some successful
                     # repetitions since.
                     
-                    item.grade = 4
+                    card.grade = 4
                     
-                item.easiness = easiness
+                card.easiness = easiness
 
                 # There is no possibility to calculate the correct values for
-                # item.acq_reps and item.ret_reps from the SuperMemo file
-                # format.  Thus, to distinguish between a new item and an item
+                # card.acq_reps and card.ret_reps from the SuperMemo file
+                # format.  Thus, to distinguish between a new card and an card
                 # that already has some learning data, the values are set to 0
                 # or 1.
                 
                 if repetitions == 0:
-                    item.acq_reps = 0
-                    item.ret_reps = 0
+                    card.acq_reps = 0
+                    card.ret_reps = 0
                 else:
-                    item.acq_reps = 1
-                    item.ret_reps = 1
+                    card.acq_reps = 1
+                    card.ret_reps = 1
 
-                item.lapses = lapses
+                card.lapses = lapses
 
                 # The following information is not reconstructed from
-                # SuperMemo: item.acq_reps_since_lapse
+                # SuperMemo: card.acq_reps_since_lapse
 
-                item.ret_reps_since_lapse = max(0, repetitions - 1)
+                card.ret_reps_since_lapse = max(0, repetitions - 1)
 
                 # Calculate the dates for the last and next repetitions.  The
                 # logic makes sure that the interval between last_rep and
@@ -2682,19 +2685,19 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
                     last_absolute_sec = StartTime(time.mktime(last)).time
                     last_relative_sec = last_absolute_sec - time_of_start.time
                     last_in_days = last_relative_sec / 60. / 60. / 24.
-                item.next_rep = long( max( 0, last_in_days + interval ) )
-                item.last_rep = item.next_rep - interval
+                card.next_rep = long( max( 0, last_in_days + interval ) )
+                card.last_rep = card.next_rep - interval
 
                 # The following information from SuperMemo is not used:
                 # UF, O_value
 
-            item.q = saxutils.escape(question)
-            item.a = saxutils.escape(answer)
-            item.cat = default_cat
+            card.q = saxutils.escape(question)
+            card.a = saxutils.escape(answer)
+            card.cat = default_cat
 
-            item.new_id()
+            card.new_id()
 
-            imported_items.append(item)
+            imported_cards.append(card)
 
         # Go to the next state.
 
@@ -2703,11 +2706,11 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
     if error:
         return False
     else:
-        return imported_items
+        return imported_cards
 
 
-register_file_format("SuperMemo7 text in Q:/A: format",
-                     filter="SuperMemo7 text files (*.txt *.TXT)",
+register_file_format(_("SuperMemo7 text in Q:/A: format"),
+                     filter=_("SuperMemo7 text files (*.txt *.TXT)"),
                      import_function=import_sm7qa,
                      export_function=False)
 
@@ -2724,8 +2727,8 @@ register_file_format("SuperMemo7 text in Q:/A: format",
 
 def import_wcu(filename, default_cat, reset_learning_data=False):
     
-    global items
-    imported_items = []
+    global cards
+    imported_cards = []
     avg_easiness = average_easiness()
 
     from xml.dom import minidom, Node
@@ -2743,7 +2746,7 @@ def import_wcu(filename, default_cat, reset_learning_data=False):
         for node in parent.childNodes:
             if node.nodeType == Node.ELEMENT_NODE:
                 
-                card = Item()
+                card = Card()
                 
                 if node.attributes.has_key("QuestionPicture"):
                     card.q='<img src="'+\
@@ -2768,9 +2771,9 @@ def import_wcu(filename, default_cat, reset_learning_data=False):
                 
                 wcuwalk(node, cards, level+1)
 
-    wcuwalk(minidom.parse(filename).documentElement,imported_items)
+    wcuwalk(minidom.parse(filename).documentElement,imported_cards)
     
-    return imported_items
+    return imported_cards
 
 
 
@@ -2787,7 +2790,7 @@ def export_wcu(filename, cat_names_to_export, reset_learning_data=False):
     print >> outfile, '<?xml version="1.0" encoding="utf-8"?>'
     print >> outfile, '<CueCards Version="1">'
     
-    for e in items:
+    for e in cards:
         if e.cat.name in cat_names_to_export:
             question = e.q.encode("utf-8")
             question = question.replace("\n", "<br/>")
@@ -2801,8 +2804,8 @@ def export_wcu(filename, cat_names_to_export, reset_learning_data=False):
     
     return True
 
-register_file_format("Cuecard .wcu",
-                     filter="Cuecard files (*.wcu *.WCU)",
+register_file_format(_("Cuecard .wcu"),
+                     filter=_("Cuecard files (*.wcu *.WCU)"),
                      import_function=import_wcu,
                      export_function=export_wcu)
 
@@ -2816,8 +2819,8 @@ register_file_format("Cuecard .wcu",
 
 def calculate_initial_interval(grade):
 
-    # If this is the first time we grade this item, allow for slightly
-    # longer scheduled intervals, as we might know this item from before.
+    # If this is the first time we grade this card, allow for slightly
+    # longer scheduled intervals, as we might know this card from before.
 
     interval = (0, 0, 1, 3, 4, 5) [grade]
     return interval
@@ -2850,62 +2853,62 @@ def calculate_interval_noise(interval):
 
 ##############################################################################
 #
-# add_new_item
+# add_new_card
 #
 ##############################################################################
 
-def add_new_item(grade, question, answer, cat_name, id=None):
+def add_new_card(grade, question, answer, cat_name, id=None):
 
-    global items, load_failed
+    global cards, load_failed
 
-    item = Item()
+    card = Card()
     
-    item.q     = question
-    item.a     = answer
-    item.cat   = get_category_by_name(cat_name)
-    item.grade = grade
+    card.q     = question
+    card.a     = answer
+    card.cat   = get_category_by_name(cat_name)
+    card.grade = grade
     
-    item.acq_reps = 1
-    item.acq_reps_since_lapse = 1
+    card.acq_reps = 1
+    card.acq_reps_since_lapse = 1
 
-    item.last_rep = days_since_start
+    card.last_rep = days_since_start
     
-    item.easiness = average_easiness()
+    card.easiness = average_easiness()
 
     if id == None:
-        item.new_id()
+        card.new_id()
     else:
-        item.id = id 
+        card.id = id 
     
     new_interval  = calculate_initial_interval(grade)
     new_interval += calculate_interval_noise(new_interval)
-    item.next_rep = days_since_start + new_interval
+    card.next_rep = days_since_start + new_interval
     
-    items.append(item)    
+    cards.append(card)    
 
-    logger.info("New item %s %d %d", item.id, item.grade, new_interval)
+    logger.info("New card %s %d %d", card.id, card.grade, new_interval)
 
     load_failed = False
     
-    return item
+    return card
 
 
 
 ##############################################################################
 #
-# delete_item
+# delete_card
 #
 ##############################################################################
 
-def delete_item(e):
+def delete_card(e):
 
     old_cat = e.cat
     
-    items.remove(e)
+    cards.remove(e)
     rebuild_revision_queue()
     remove_category_if_unused(old_cat)
 
-    logger.info("Deleted item %s", e.id)
+    logger.info("Deleted card %s", e.id)
 
 
 
@@ -2921,35 +2924,35 @@ def rebuild_revision_queue(learn_ahead = False):
     
     revision_queue = []
 
-    if len(items) == 0:
+    if len(cards) == 0:
         return
 
     time_of_start.update_days_since()
 
-    # Always add items that are due for revision.
+    # Always add cards that are due for revision.
 
-    revision_queue = [i for i in items if i.is_due_for_retention_rep()]
+    revision_queue = [i for i in cards if i.is_due_for_retention_rep()]
     random.shuffle(revision_queue)
 
-    # If the queue is empty, then add items which are not yet memorised.
-    # Take only a limited number of grade 0 items from the unlearned items,
+    # If the queue is empty, then add cards which are not yet memorised.
+    # Take only a limited number of grade 0 cards from the unlearned cards,
     # to avoid too long intervals between repetitions.
     
     if len(revision_queue) == 0:
         
-        not_memorised = [i for i in items if i.is_due_for_acquisition_rep()]
+        not_memorised = [i for i in cards if i.is_due_for_acquisition_rep()]
 
         grade_0 = [i for i in not_memorised if i.grade == 0]
         grade_1 = [i for i in not_memorised if i.grade == 1]
 
-        limit = get_config("grade_0_items_at_once")
+        limit = get_config("grade_0_cards_at_once")
 
         grade_0_selected = []
 
         if limit != 0:
             for i in grade_0:
                 for j in grade_0_selected:
-                    if items_are_inverses(i, j):
+                    if cards_are_inverses(i, j):
                         break
                 else:
                     grade_0_selected.append(i)
@@ -2969,17 +2972,17 @@ def rebuild_revision_queue(learn_ahead = False):
     # If the queue is still empty, then simply return. The user can signal
     # that he wants to learn ahead by calling rebuild_revision_queue with
     # 'learn_ahead' set to True. Don't shuffle this queue, as it's more
-    # useful to review the earliest scheduled items first.
+    # useful to review the earliest scheduled cards first.
 
     if len(revision_queue) == 0:
         
         if learn_ahead == False:
             return
         else:
-            revision_queue = [i for i in items \
+            revision_queue = [i for i in cards \
                               if i.qualifies_for_learn_ahead()]
 
-            revision_queue.sort(key=Item.sort_key)
+            revision_queue.sort(key=Card.sort_key)
 
 
 
@@ -2989,8 +2992,8 @@ def rebuild_revision_queue(learn_ahead = False):
 #
 ##############################################################################
 
-def in_revision_queue(item):
-    return item in revision_queue
+def in_revision_queue(card):
+    return card in revision_queue
 
 
 
@@ -2998,17 +3001,17 @@ def in_revision_queue(item):
 #
 # remove_from_revision_queue
 #
-#   Remove a single instance of an item from the queue. Necessary when
+#   Remove a single instance of an card from the queue. Necessary when
 #   the queue needs to be rebuilt, and there is still a question pending.
 #
 ##############################################################################
 
-def remove_from_revision_queue(item):
+def remove_from_revision_queue(card):
     
     global revision_queue
     
     for i in revision_queue:
-        if i.id == item.id:
+        if i.id == card.id:
             revision_queue.remove(i)
             return
 
@@ -3091,10 +3094,10 @@ def get_new_question(learn_ahead = False):
 
     # Pick the first question and remove it from the queue.
 
-    item = revision_queue[0]
-    revision_queue.remove(item)
+    card = revision_queue[0]
+    revision_queue.remove(card)
 
-    return item
+    return card
 
 
 
@@ -3104,122 +3107,122 @@ def get_new_question(learn_ahead = False):
 #
 ##############################################################################
 
-def process_answer(item, new_grade, dry_run=False):
+def process_answer(card, new_grade, dry_run=False):
 
-    global revision_queue, items
+    global revision_queue, cards
 
     # When doing a dry run, make a copy to operate on. Note that this
-    # leaves the original in items and the reference in the GUI intact.
+    # leaves the original in cards and the reference in the GUI intact.
 
     if dry_run:
-        item = copy.copy(item)
+        card = copy.copy(card)
 
     # Calculate scheduled and actual interval, taking care of corner
     # case when learning ahead on the same day.
     
-    scheduled_interval = item.next_rep    - item.last_rep
-    actual_interval    = days_since_start - item.last_rep
+    scheduled_interval = card.next_rep    - card.last_rep
+    actual_interval    = days_since_start - card.last_rep
 
     if actual_interval == 0:
         actual_interval = 1 # Otherwise new interval can become zero.
 
-    if item.is_new():
+    if card.is_new():
 
-        # The item is not graded yet, e.g. because it is imported.
+        # The card is not graded yet, e.g. because it is imported.
 
-        item.acq_reps = 1
-        item.acq_reps_since_lapse = 1
+        card.acq_reps = 1
+        card.acq_reps_since_lapse = 1
 
         new_interval = calculate_initial_interval(new_grade)
 
-        # Make sure the second copy of a grade 0 item doesn't show up again.
+        # Make sure the second copy of a grade 0 card doesn't show up again.
 
-        if not dry_run and item.grade == 0 and new_grade in [2,3,4,5]:
+        if not dry_run and card.grade == 0 and new_grade in [2,3,4,5]:
             for i in revision_queue:
-                if i.id == item.id:
+                if i.id == card.id:
                     revision_queue.remove(i)
                     break
 
-    elif item.grade in [0,1] and new_grade in [0,1]:
+    elif card.grade in [0,1] and new_grade in [0,1]:
 
         # In the acquisition phase and staying there.
     
-        item.acq_reps += 1
-        item.acq_reps_since_lapse += 1
+        card.acq_reps += 1
+        card.acq_reps_since_lapse += 1
         
         new_interval = 0
 
-    elif item.grade in [0,1] and new_grade in [2,3,4,5]:
+    elif card.grade in [0,1] and new_grade in [2,3,4,5]:
 
          # In the acquisition phase and moving to the retention phase.
 
-         item.acq_reps += 1
-         item.acq_reps_since_lapse += 1
+         card.acq_reps += 1
+         card.acq_reps_since_lapse += 1
 
          new_interval = 1
 
-         # Make sure the second copy of a grade 0 item doesn't show up again.
+         # Make sure the second copy of a grade 0 card doesn't show up again.
 
-         if not dry_run and item.grade == 0:
+         if not dry_run and card.grade == 0:
              for i in revision_queue:
-                 if i.id == item.id:
+                 if i.id == card.id:
                      revision_queue.remove(i)
                      break
 
-    elif item.grade in [2,3,4,5] and new_grade in [0,1]:
+    elif card.grade in [2,3,4,5] and new_grade in [0,1]:
 
          # In the retention phase and dropping back to the acquisition phase.
 
-         item.ret_reps += 1
-         item.lapses += 1
-         item.acq_reps_since_lapse = 0
-         item.ret_reps_since_lapse = 0
+         card.ret_reps += 1
+         card.lapses += 1
+         card.acq_reps_since_lapse = 0
+         card.ret_reps_since_lapse = 0
 
          new_interval = 0
 
-         # Move this item to the front of the list, to have precedence over
-         # items which are still being learned for the first time.
+         # Move this card to the front of the list, to have precedence over
+         # cards which are still being learned for the first time.
 
          if not dry_run:
-             items.remove(item)
-             items.insert(0,item)
+             cards.remove(card)
+             cards.insert(0,card)
 
-    elif item.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
+    elif card.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
 
         # In the retention phase and staying there.
 
-        item.ret_reps += 1
-        item.ret_reps_since_lapse += 1
+        card.ret_reps += 1
+        card.ret_reps_since_lapse += 1
 
         if actual_interval >= scheduled_interval:
             if new_grade == 2:
-                item.easiness -= 0.16
+                card.easiness -= 0.16
             if new_grade == 3:
-                item.easiness -= 0.14
+                card.easiness -= 0.14
             if new_grade == 5:
-                item.easiness += 0.10
-            if item.easiness < 1.3:
-                item.easiness = 1.3
+                card.easiness += 0.10
+            if card.easiness < 1.3:
+                card.easiness = 1.3
             
         new_interval = 0
         
-        if item.ret_reps_since_lapse == 1:
+        if card.ret_reps_since_lapse == 1:
             new_interval = 6
         else:
             if new_grade == 2 or new_grade == 3:
                 if actual_interval <= scheduled_interval:
-                    new_interval = actual_interval * item.easiness
+                    new_interval = actual_interval * card.easiness
                 else:
                     new_interval = scheduled_interval
                     
             if new_grade == 4:
-                new_interval = actual_interval * item.easiness
+                new_interval = actual_interval * card.easiness
                 
             if new_grade == 5:
                 if actual_interval < scheduled_interval:
                     new_interval = scheduled_interval # Avoid spacing.
                 else:
-                    new_interval = actual_interval * item.easiness
+                    new_interval = actual_interval * card.easiness
 
         # Shouldn't happen, but build in a safeguard.
 
@@ -3240,24 +3243,24 @@ def process_answer(item, new_grade, dry_run=False):
 
     # Update grade and interval.
     
-    item.grade    = new_grade
-    item.last_rep = days_since_start
-    item.next_rep = days_since_start + new_interval + noise
+    card.grade    = new_grade
+    card.last_rep = days_since_start
+    card.next_rep = days_since_start + new_interval + noise
     
     # Don't schedule inverse or identical questions on the same day.
 
-    for j in items:
-        if (j.q == item.q and j.a == item.a) or items_are_inverses(item, j):
-            if j != item and j.next_rep == item.next_rep and item.grade >= 2:
-                item.next_rep += 1
+    for j in cards:
+        if (j.q == card.q and j.a == card.a) or cards_are_inverses(card, j):
+            if j != card and j.next_rep == card.next_rep and card.grade >= 2:
+                card.next_rep += 1
                 noise += 1
                 
     # Create log entry.
         
     logger.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
-                item.id, item.grade, item.easiness,
-                item.acq_reps, item.ret_reps, item.lapses,
-                item.acq_reps_since_lapse, item.ret_reps_since_lapse,
+                card.id, card.grade, card.easiness,
+                card.acq_reps, card.ret_reps, card.lapses,
+                card.acq_reps_since_lapse, card.ret_reps_since_lapse,
                 scheduled_interval, actual_interval,
                 new_interval, noise, thinking_time)
 
@@ -3274,9 +3277,9 @@ def process_answer(item, new_grade, dry_run=False):
 def finalise():
 
     if upload_thread:
-        print "Waiting for uploader thread to stop..."
+        print _("Waiting for uploader thread to stop...")
         upload_thread.join()
-        print "done!"
+        print _("done!")
     
     logger.info("Program stopped")
 

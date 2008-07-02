@@ -514,6 +514,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def productTour(self):
         
+        # ToDO: activate tour.
+
+        return
+        
         pause_thinking()
         dlg = ProductTourDlg(self)
         dlg.exec_loop()
@@ -557,7 +561,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def newQuestion(self, learn_ahead = False):
         
-        if number_of_items() == 0:
+        if number_of_cards() == 0:
             self.state = "EMPTY"
             self.item = None
         else:
@@ -648,7 +652,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.actionEditCurrentCard.setEnabled(False)            
             
         self.actionDeleteCurrentCard.setEnabled(self.item != None)
-        self.actionEditDeck.setEnabled(number_of_items() > 0)
+        self.actionEditDeck.setEnabled(number_of_cards() > 0)
 
         # Update toolbar.
         
@@ -817,11 +821,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Update status bar.
         
         self.sched .setText(self.trUtf8("Scheduled: ").append(QString(\
-                            str(scheduled_items()))))
+                            str(scheduled_cards()))))
         self.notmem.setText(self.trUtf8("Not memorised: ").append(QString(\
-                            str(non_memorised_items()))))
+                            str(non_memorised_cards()))))
         self.all   .setText(self.trUtf8("All: ").append(QString(\
-                            str(active_items()))))
+                            str(active_cards()))))
 
         # TODO: autoshrinking.
         #if self.shrink == True:
