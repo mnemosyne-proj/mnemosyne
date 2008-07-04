@@ -24,6 +24,7 @@ MNEMOSYNE 1.0.2 :
 -Polish translation by Tomasz Nazarenko.
 -Japanese translation by Patrick Kenny.	
 -Persian translation by Bahman Eslami.
+-Brazilian Portugese translation by Fabio Kreusch.
 -Make dvipng invocation more robust. Especially helpful for Ubuntu users.
  (Thanks to Stephen Boulet and franny1).
 -Fixed bug where day_starts_at was not working (Konrad Wojas).
