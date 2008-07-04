@@ -4,7 +4,7 @@ Mnemosyne 1.1
 
 -backport Christopher's Qt3 scrollbar patch
 
--add hooks to filter strings before display
+-add hooks to filter strings before display, and get_new_question
 
 -prioritise lapsed cards in review
 
