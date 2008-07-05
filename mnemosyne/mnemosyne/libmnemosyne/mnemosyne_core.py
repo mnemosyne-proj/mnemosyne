@@ -19,39 +19,61 @@ logger = logging.getLogger("mnemosyne")
 
 
 
+# TODO: check if basedir code can be improved.
+
 ##############################################################################
 #
-# basedir
+# migrate_basedir
 #
-# TODO: remove obsolete code?
+##############################################################################
+
+def migrate_basedir(old, new):
+
+    if os.path.islink(_old_basedir):
+
+        print "Not migrating %s to %s because " % (old, new) \
+                + "it is a symlink."
+        return
+
+    # Migrate Mnemosyne basedir to new location and create a symlink from 
+    # the old one. The other way around is a bad idea, because a user
+    # might decide to clean up the old obsolete directory, not realising
+    # the new one is a symlink.
+        
+    print "Migrating %s to %s" % (old, new)
+    try:
+        os.rename(old, new)
+    except OSError:
+        print "Move failed, manual migration required."
+        return
+
+    # Now create a symlink for backwards compatibility.
+
+    try:
+        os.symlink(new, old)
+    except OSError:
+        print "Symlink creation failed (only needed for older versions)."
+
+
+
+##############################################################################
+#
+# Create basedir
 #
 ##############################################################################
 
 if sys.platform == 'darwin':
-    
+
     _old_basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
     basedir = os.path.join(os.path.expanduser("~"), "Library", "Mnemosyne")
+
     if not os.path.exists(basedir) and os.path.exists(_old_basedir):
-        
-        # Migrate Mnemosyne basedir to new location and create a symlink from 
-        # the old one. The other way around is a bad idea, because a user
-        # might decide to clean up the old obsolte directory, not realising
-        # the new one is a symlink.
-        
-        print _("Migrating ~/.mnemosyne/ to ~/Library/Mnemosyne/")
-        
-        # Lets just call /bin/mv to do the dirty work for us. We use '~'
-        # so that we don't have to worry about escaping.
-        
-        os.system('/bin/mv ~/.mnemosyne/ ~/Library/Mnemosyne/')
-        
-        # Now create a symlink for backwards compatibility.
-        
-        os.symlink(basedir, _old_basedir)
+        migrate_basedir(_old_basedir, basedir)
+
 else:
+        
+    _old_basedir = None
     basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-    
-basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
 def get_basedir():
     return basedir
@@ -274,7 +296,17 @@ def init_config():
     config.setdefault("tip", 0)
     config.setdefault("backups_to_keep", 5)
     config.setdefault("day_starts_at", 3)
-    
+	
+    # Update paths if the location has migrated.
+
+    if _old_basedir:
+
+        for key in ['import_dir', 'export_dir', 'import_img_dir',
+                    'import_sound_dir']:
+
+            if config[key] == _old_basedir:
+                config[key] = basedir
+				
     # Recreate user id and log index from history folder in case the
     # config file was accidentally deleted.
 

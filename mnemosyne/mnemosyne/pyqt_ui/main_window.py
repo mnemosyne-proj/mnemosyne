@@ -157,8 +157,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         pause_thinking()
 
-        path = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-        out = unicode(QFileDialog.getSaveFileName(path,
+		# TODO: improve basedir handling.
+		
+        out = unicode(QFileDialog.getSaveFileName(basedir,
                  self.trUtf8("Mnemosyne databases (*.mem)"), self, None,\
                  self.trUtf8("New")))
         if out != "":

@@ -16,6 +16,7 @@ MNEMOSYNE 1.0.2 :
 -Added features to improve display of map cards from svgtoquiz (Timothy 
  Bourke).
 -Added support for Mac installer through py2app (Konrad Wojas).
+-On OSX, Mnemosyne now stores its data in Library/Mnemosyne (Konrad Wojas).
 -Added <protect>...</protect> tags. Text within these tags will not be
  touched by 'increase size of non-latin characters' (Konrad Wojas).
 -Changed compression format of the backups from bz2 to gz. This results in

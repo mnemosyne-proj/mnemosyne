@@ -9,6 +9,11 @@
 import sys, os, locale
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+
+# TODO: improve imports.
+
+from mnemosyne.core import basedir, get_config, set_config, \
+                           initialise, finalise
 from mnemosyne.pyqt_ui.main_window import *
 from mnemosyne.pyqt_ui.message_boxes import *
 from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
@@ -22,15 +27,17 @@ parser.add_option("-d", "--datadir", dest="datadir",
                   help="data directory", default=None)
 (options, args) = parser.parse_args()
 
-# Determine basedir.
-
+# Check if we have to override the basedir determined in mnemosyne.core,
+# either because we explicitly specified a datadir on the command line,
+# or because there is a .mnemosyne directory present in the current directory.
+# The latter is handy when Mnemosyne is run from a USB key, so that there
+# is no need to refer to a drive letter which can change from computer to
+# computer.
+    
 if options.datadir != None:
     basedir = os.path.abspath(options.datadir)
-else:
-    if os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
-        basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
-    else:
-        basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
+elif os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
+    basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
 
 # Filename argument.
 
