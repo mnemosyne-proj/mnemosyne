@@ -1,9 +1,8 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=Mnemosyne
 Comment=A flash card program to make your review process more efficient
 Exec=mnemosyne %f
 Icon=mnemosyne
-Categories=Edutainment;Education
+Categories=Education
 Terminal=false
 Type=Application
