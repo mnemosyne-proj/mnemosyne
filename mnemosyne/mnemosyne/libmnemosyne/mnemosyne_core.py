@@ -253,6 +253,8 @@ day_starts_at = 3"""
 #
 # init_config
 #
+# TODO: make sure this does not get called when upgrading
+#
 ##############################################################################
 
 def init_config():
@@ -3314,6 +3316,9 @@ def finalise():
         print _("done!")
     
     logger.info("Program stopped")
-
-    os.remove(os.path.join(basedir,"MNEMOSYNE_LOCK"))
     
+    try:
+        os.remove(os.path.join(basedir,"MNEMOSYNE_LOCK"))
+    except OSError:
+        print "Failed to remove lock file."
+        print traceback_string()
