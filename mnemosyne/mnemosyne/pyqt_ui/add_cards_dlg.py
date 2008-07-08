@@ -5,11 +5,15 @@
 #
 ##############################################################################
 
+import gettext
+_ = gettext.gettext
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
 from mnemosyne.libmnemosyne import *
+from mnemosyne.libmnemosyne.category import *
 from ui_add_cards_dlg import *
 from card_twosided_wdgt import *
 #from edit_item_dlg import *
@@ -113,7 +117,6 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
         print 'new card', grade
 
-
         card_type_name = unicode(self.card_types.currentText())
 
         card_type = get_card_type_by_name(card_type_name)
@@ -141,12 +144,10 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             QDialog.reject(self)
             return
 
-        status = QMessageBox.warning(None,
-                        self.trUtf8("Mnemosyne"),
-                        self.trUtf8("Abandon current card?"),
-                        self.trUtf8("&Yes"),
-                        self.trUtf8("&No"),
-                        "", 1, -1)
+        status = QMessageBox.warning(None, _("Mnemosyne"),
+                                     _("Abandon current card?"),
+                                     _("&Yes"), _("&No"),
+                                     "", 1, -1)
         if status == 0:
             QDialog.reject(self)
             return
