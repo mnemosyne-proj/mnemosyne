@@ -8,6 +8,11 @@ version before doing an upgrade.)
 This version uses a different database format. Before upgrading, export your 
 old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
+	
+MNEMOSYNE 1.1 :
+
+-Hebrew translation by Mical T.
+	
 
 	
 MNEMOSYNE 1.0.2 : 2008-07-10
