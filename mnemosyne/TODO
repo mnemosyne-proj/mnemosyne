@@ -1,5 +1,3 @@
--add new translations to web
-
 Mnemosyne 1.1
 
 -backport Christopher's Qt3 scrollbar patch
@@ -22,6 +20,7 @@ preview Alt-p). Reported by spboulet and varkhan1.
 -bug with latex, $ tags and spaces? Cannot reproduce this...
 http://sourceforge.net/forum/message.php?msg_id=4894781
 
+-add new translations to web
 
 
 Mnemosyne 2.0: Major rewrite
