@@ -733,13 +733,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Update 'show answer' button.
         
         if self.state == "EMPTY":
-            show_enabled, default, text = 0, 1, self.trUtf8("Show &answer")
+            show_enabled, default, text = 0, 1, self.trUtf8("Show answer")
             grades_enabled = 0
         elif self.state == "SELECT SHOW":
-            show_enabled, default, text = 1, 1, self.trUtf8("Show &answer")
+            show_enabled, default, text = 1, 1, self.trUtf8("Show answer")
             grades_enabled = 0
         elif self.state == "SELECT GRADE":
-            show_enabled, default, text = 0, 1, self.trUtf8("Show &answer")
+            show_enabled, default, text = 0, 1, self.trUtf8("Show answer")
             grades_enabled = 1
         elif self.state == "SELECT AHEAD":
             show_enabled, default, text = 1, 0, \
