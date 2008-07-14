@@ -41,7 +41,7 @@ Creating tmp file.</source>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>נמוסיין</translation>
+        <translation>מנימוסינה</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -140,7 +140,7 @@ Creating tmp file.</source>
     <name>AboutDlg</name>
     <message>
         <source>Mnemosyne</source>
-        <translation>נמוסיין</translation>
+        <translation>מנימוסינה</translation>
     </message>
     <message>
         <source>Main author: Peter Bienstman
@@ -203,7 +203,7 @@ Creating tmp file.</source>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>נמוסיין</translation>
+        <translation>מנימוסינה</translation>
     </message>
     <message>
         <source>Abandon current card?</source>
@@ -430,7 +430,7 @@ Creating tmp file.</source>
     <name>ConfigurationFrm</name>
     <message>
         <source>Mnemosyne configuration</source>
-        <translation>אפשרויות נמוסיין</translation>
+        <translation>אפשרויות מנימוסינה</translation>
     </message>
     <message>
         <source>Hover with the mouse over the buttons to get extra information.</source>
@@ -616,7 +616,7 @@ Creating tmp file.</source>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>נמוסיין</translation>
+        <translation>מנימוסינה</translation>
     </message>
     <message>
         <source>
@@ -848,7 +848,7 @@ so you might want to run </source>
     <name>MainDlg</name>
     <message>
         <source>Mnemosyne databases (*.mem)</source>
-        <translation>בסיס נתונים של נמוסיין (*.mem)</translation>
+        <translation>בסיס נתונים של מנימוסינה (*.mem)</translation>
     </message>
     <message>
         <source>New</source>
@@ -860,7 +860,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>נמוסיין</translation>
+        <translation>מנימוסינה</translation>
     </message>
     <message>
         <source>Delete current card?</source>
@@ -939,7 +939,7 @@ so you might want to run </source>
     <name>MainFrm</name>
     <message>
         <source>Mnemosyne</source>
-        <translation>נמוסיין</translation>
+        <translation>מנימוסינה</translation>
     </message>
     <message>
         <source>Question:</source>
@@ -1123,7 +1123,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>&amp;Configure Mnemosyne</source>
-        <translation>&amp;אפשרויות נמוסיין</translation>
+        <translation>&amp;אפשרויות מנימוסינה</translation>
     </message>
     <message>
         <source>Getting started</source>
@@ -1175,7 +1175,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Main toolbar (Mnemosyne)</source>
-        <translation>סרגל הכלים הראשי (נמוסיין)</translation>
+        <translation>סרגל הכלים הראשי (מנימוסינה)</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -1246,7 +1246,7 @@ For that, I&apos;ll decide when to ask you the questions, and you&apos;ll need t
 Let&apos;s look at the meaning of these ratings now.</source>
         <translation>שלום!
 
-אני נמוסיין, סוג של פרפר הקרוי על שם אלת הזכרון היוונית.
+אני מנימוסינה, סוג של פרפר הקרוי על שם אלת הזכרון היוונית.
 
 אני יכול לייעל עבורכם את תהליך הלמידה והשינון של עובדות ומילים, בכך שאעזור לכם להתמקד בכרטיסיות שסביר להניח שתשכחו ולא לבזבז את זמנכם על דברים שאתם יודעים היטב.
 
@@ -1316,7 +1316,7 @@ Uncheck the following box if you do not want to do this.</source>
     </message>
     <message>
         <source>(You can always change this setting later using the &apos;Configure Mnemosyne&apos; menu option.)</source>
-        <translation>(אתם תמיד יכולים לשנות את ההגדרה הזו מאוחר יותר באמצעות &quot;אפשרויות נמוסיין&quot; בתפריט.)</translation>
+        <translation>(אתם תמיד יכולים לשנות את ההגדרה הזו מאוחר יותר באמצעות &quot;אפשרויות מנימוסינה&quot; בתפריט.)</translation>
     </message>
     <message>
         <source>Statistics</source>
@@ -1490,7 +1490,7 @@ Happy learning!</source>
     </message>
     <message>
         <source>If you have cards in Word or Excel, export them to tab delimited txt files with UTF-8 unicode encoding to be able to import them into Mnemosyne.</source>
-        <translation>אם יש לכם קלפים ב-Word או Excel, ייצאו אותם לקובץ txt המופרד בטאבים עם קידוד unicode UFT-8 כדי שתוכלו לייבא אותם לנמוסיין.</translation>
+        <translation>אם יש לכם קלפים ב-Word או Excel, ייצאו אותם לקובץ txt המופרד בטאבים עם קידוד unicode UFT-8 כדי שתוכלו לייבא אותם למנימוסינה.</translation>
     </message>
     <message>
         <source>If you want to print out your cards, export them to a txt file which you can then print from your favourite Word processor.</source>
@@ -1522,19 +1522,19 @@ Happy learning!</source>
     </message>
     <message>
         <source>Mnemosyne can use LaTeX to render mathematical formulas, e.g. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (For this, you need LaTeX and dvipng installed.)</source>
-        <translation>נמוסיין יכול להשתמש בלטך כדי להציג נוסחאות מתמטיות. לדוגמה, &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (לשם כך, יש להתקין LaTeX ו-dvipng.)</translation>
+        <translation>מנימוסינה יכול להשתמש בלטך כדי להציג נוסחאות מתמטיות. לדוגמה, &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (לשם כך, יש להתקין LaTeX ו-dvipng.)</translation>
     </message>
     <message>
         <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
-        <translation>הדרך הטובה ביותר לגבות את המידע שלכם היא להעתיק את התיקייה mnemosyne. (אם שמרתם את כל הקבצים שלכם שם) ולהעביר אותר לכונן נפרד. נמוסיין שומר אוטומטית גיבויים מבוססי XML ב-mnemosyne/backups., אבל הם לא יעזרו לכם אם הכונן שלכם מת... </translation>
+        <translation>הדרך הטובה ביותר לגבות את המידע שלכם היא להעתיק את התיקייה mnemosyne. (אם שמרתם את כל הקבצים שלכם שם) ולהעביר אותר לכונן נפרד. מנימוסינה שומר אוטומטית גיבויים מבוססי XML ב-mnemosyne/backups., אבל הם לא יעזרו לכם אם הכונן שלכם מת... </translation>
     </message>
     <message>
         <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
-        <translation>ניתן להריץ את נמוסיין מכונן USB. העתיקו את C:\Program Files\Mnemosyne לכונן ה-USB, ואז העתיקו את התיקייה mnemosyne. מתיקיית הבית שלכם לתוך התיקייה Mnemosyne שבכונן ה-USB.</translation>
+        <translation>ניתן להריץ את מנימוסינה מכונן USB. העתיקו את C:\Program Files\Mnemosyne לכונן ה-USB, ואז העתיקו את התיקייה mnemosyne. מתיקיית הבית שלכם לתוך התיקייה Mnemosyne שבכונן ה-USB.</translation>
     </message>
     <message>
         <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
-        <translation>אם אתם משתמשים בנמוסיין במספר מחשבים, ישנו כלי שימושי הנקרא Unison שמטרתו לסייע לכם לסנכרן את המידע שלכם. ראו באתר נמוסיין למידע נוסף.</translation>
+        <translation>אם אתם משתמשים במנימוסינה במספר מחשבים, ישנו כלי שימושי הנקרא Unison שמטרתו לסייע לכם לסנכרן את המידע שלכם. ראו באתר מנימוסינה למידע נוסף.</translation>
     </message>
     <message>
         <source>You can sort the cards in the &apos;Edit Deck&apos; dialog by answer or by category by clicking on the corresponding column title. Clicking again changes the sort order.</source>
@@ -1542,11 +1542,11 @@ Happy learning!</source>
     </message>
     <message>
         <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
-        <translation>אם אתם רוצים שליטה בפרטים הקטנים בהתנהגות של לטך, ראו את ההסבר עבור התגיות &lt;$$&gt;...&lt;/$$&gt; ו-&lt;latex&gt;...&lt;/latex&gt; באתר נמוסיין.</translation>
+        <translation>אם אתם רוצים שליטה בפרטים הקטנים בהתנהגות של לטך, ראו את ההסבר עבור התגיות &lt;$$&gt;...&lt;/$$&gt; ו-&lt;latex&gt;...&lt;/latex&gt; באתר מנימוסינה.</translation>
     </message>
     <message>
         <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
-        <translation>משתמשים מתקדמים יכולים להתאים אישית את נמוסיין בצורה נרחבת יותר באמצעות עריכת הקובץ config.py בתיקייה mnemosyne.. הם גם יכולים להתקין תוספים כדי להתאימו אישית אף יותר.</translation>
+        <translation>משתמשים מתקדמים יכולים להתאים אישית את מנימוסינה בצורה נרחבת יותר באמצעות עריכת הקובץ config.py בתיקייה mnemosyne.. הם גם יכולים להתקין תוספים כדי להתאימו אישית אף יותר.</translation>
     </message>
 </context>
 <context>
