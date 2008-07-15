@@ -39,6 +39,8 @@ Mnemosyne 2.0: Major rewrite
 
 -MVC?
 
+-http://apptools.com/examples/tableheight.php
+
 -instead of QListview, use the model/view framework from Qt4 to get a 
  much faster 'Edit Deck'. Test deleting large number of cards.
 
