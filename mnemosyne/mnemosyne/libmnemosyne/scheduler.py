@@ -40,7 +40,7 @@ def calculate_interval_noise(interval):
         noise = random.randint(-3,3)
     else:
         a = .05 * interval
-        noise = int(random.uniform(-a,a))
+        noise = round(random.uniform(-a,a))
 
     return noise
 
