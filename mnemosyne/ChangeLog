@@ -16,7 +16,8 @@ MNEMOSYNE 1.1 :
  database is loaded, as well as code to intercept and modify question and
  answer strings before they are displayed. There is a plugin directory in
  the source distribution with examples, e.g. to activate all the categories
- on startup, or to add the last grade to the answer text.
+ on startup, or to add the last grade to the answer text, or to add a new
+ import file format (CSV in this case).
 -New cards can either be learned in random order or in the order that they 
  were added (configurable through the GUI).
 -Prioritise cards forgotten during the review over cards which have not yet 
