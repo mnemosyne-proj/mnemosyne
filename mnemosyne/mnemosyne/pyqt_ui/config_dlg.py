@@ -43,6 +43,8 @@ class ConfigurationDlg(ConfigurationFrm):
 
         self.grade_0_items.setValue( \
             get_config("grade_0_items_at_once"))
+        self.randomise.setChecked( \
+            get_config("randomise_new_cards"))
         
         self.connect(self.button_QA_font, SIGNAL("clicked()"),
                      self.QA_font)
@@ -117,6 +119,7 @@ class ConfigurationDlg(ConfigurationFrm):
         set_config("check_duplicates_when_adding",self.checkDuplicates.isOn())
         set_config("allow_duplicates_in_diff_cat",self.duplicatesCats.isOn())
         set_config("grade_0_items_at_once", self.grade_0_items.value())
+        set_config("randomise_new_cards",self.randomise.isOn())
         set_config("non_latin_font_size_increase", self.font_increase.value())
         
         update_logging_status()             

@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>428</width>
-            <height>385</height>
+            <height>411</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -32,7 +32,7 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout12</cstring>
+                <cstring>layout14</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -267,7 +267,7 @@
                         </property>
                         <widget class="QLayoutWidget">
                             <property name="name">
-                                <cstring>layout8</cstring>
+                                <cstring>layout13</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
@@ -299,6 +299,14 @@
                                     </property>
                                 </widget>
                             </hbox>
+                        </widget>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>randomise</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Learn new cards in random order</string>
+                            </property>
                         </widget>
                     </vbox>
                 </widget>

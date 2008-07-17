@@ -285,6 +285,7 @@ def init_config():
     config.setdefault("check_duplicates_when_adding", True)
     config.setdefault("allow_duplicates_in_diff_cat", True)
     config.setdefault("grade_0_cards_at_once", 5)
+	config.setdefault("randomise_new_cards", False)
     config.setdefault("last_add_vice_versa", False)
     config.setdefault("last_add_category", "<default>")
     config.setdefault("3_sided_input", False) # TODO: remove

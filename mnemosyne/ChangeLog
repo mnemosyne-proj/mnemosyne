@@ -10,7 +10,14 @@ old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 	
 MNEMOSYNE 1.1 :
-
+	
+-New cards can either be learned in random order or in the order that they 
+ were added (configurable through the GUI).
+-Prioritise cards forgotten during the review over cards which have not yet 
+ been committed to long-term memory.
+-Improved scheduling of overdue cards, by placing those with a shorter 
+ interval first. Being a day late on an interval of 2 could be much worse 
+ than being a day late on an interval of 50.
 -Hebrew translation by Mical T.
 	
 

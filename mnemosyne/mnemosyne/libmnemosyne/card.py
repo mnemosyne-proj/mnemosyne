@@ -40,6 +40,7 @@ class Card:
         self.subcard = 0
 
         self.date_added = None # TODO
+		self.hidden = False # TODO
         
         self.q   = None
         self.a   = None
@@ -86,6 +87,8 @@ class Card:
         self.lapses               = 0
         self.acq_reps_since_lapse = 0
         self.ret_reps_since_lapse = 0
+
+		# TODO: store as float for minute level scheduling
         
         self.last_rep  = 0 # In days since beginning.
         self.next_rep  = 0 #
@@ -110,6 +113,15 @@ class Card:
 
     def sort_key(self):
         return self.next_rep
+	
+    ##########################################################################
+    #
+    # sort_key_interval
+    #
+    ##########################################################################
+
+    def sort_key_interval(self):
+        return self.next_rep-self.last_rep
     
     ##########################################################################
     #
@@ -149,6 +161,16 @@ class Card:
     def is_due_for_retention_rep(self, days=0):
         return (self.grade >= 2) and (self.cat.active == True) and \
                (days_since_start >= self.next_rep - days)
+	
+    ##########################################################################
+    #
+    # is_overdue
+    #
+    ##########################################################################
+    
+    def is_overdue(self):
+        return (self.grade >= 2) and (self.cat.active == True) and \
+               (days_since_start > self.next_rep)
 
     ##########################################################################
     #

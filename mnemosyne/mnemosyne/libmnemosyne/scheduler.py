@@ -52,70 +52,163 @@ def calculate_interval_noise(interval):
 ##############################################################################
 
 def rebuild_revision_queue(learn_ahead = False):
-            
-    global revision_queue
-    
-    revision_queue = []
 
-    if len(cards) == 0:
-        return
+	print '-----------'
+			
+	global revision_queue
+	
+	revision_queue = []
 
-    time_of_start.update_days_since()
+	if len(items) == 0:
+		return
 
-    # Always add cards that are due for revision.
+	time_of_start.update_days_since()
 
-    revision_queue = [i for i in cards if i.is_due_for_retention_rep()]
-    random.shuffle(revision_queue)
+	# Do the cards that are scheduled for today (or are overdue), but
+	# first do those that have the shortest interval, as being a day
+	# late on an interval of 2 could be much worse than being a day late
+	# on an interval of 50.
 
-    # If the queue is empty, then add cards which are not yet memorised.
-    # Take only a limited number of grade 0 cards from the unlearned cards,
-    # to avoid too long intervals between repetitions.
-    
-    if len(revision_queue) == 0:
-        
-        not_memorised = [i for i in cards if i.is_due_for_acquisition_rep()]
+	revision_queue = [i for i in items if i.is_due_for_retention_rep()]
+	revision_queue.sort(key=Item.sort_key_interval)
 
-        grade_0 = [i for i in not_memorised if i.grade == 0]
-        grade_1 = [i for i in not_memorised if i.grade == 1]
+	print 'due today', len(revision_queue)
+	for i in revision_queue:
+		print i.q
+		
+	if len(revision_queue) != 0:
+		return
 
-        limit = get_config("grade_0_cards_at_once")
+	# Now rememorise the cards that we got wrong during the last stage.
+	# Concentrate on only a limited number of grade 0 cards, in order to
+	# avoid too long intervals between revisions. If there are too few
+	# cards in left in the queue, append more new cards to keep some
+	# spread between these last cards.
 
-        grade_0_selected = []
+	lapsed = [i for i in items if i.is_due_for_acquisition_rep() \
+									  and i.lapses > 0]
 
-        if limit != 0:
-            for i in grade_0:
-                for j in grade_0_selected:
-                    if cards_are_inverses(i, j):
-                        break
-                else:
-                    grade_0_selected.append(i)
+	print 'lapsed', len(lapsed)
+	for i in lapsed:
+		print i.q
+	
+	grade_0 = (i for i in lapsed if i.grade == 0)
+	grade_1 = [i for i in lapsed if i.grade == 1]
 
-                if len(grade_0_selected) == limit:
-                    break
+	limit = get_config("grade_0_items_at_once")
 
-        random.shuffle(grade_0_selected)
-        revision_queue[0:0] = grade_0_selected
+	grade_0_selected = []
 
-        random.shuffle(grade_1)
-        revision_queue[0:0] = grade_1
-        
-        random.shuffle(grade_0_selected)
-        revision_queue[0:0] = grade_0_selected
+	if limit != 0:
+		for i in grade_0:
+			for j in grade_0_selected:
+				if items_are_inverses(i, j):
+					break
+			else:
+				grade_0_selected.append(i)
 
-    # If the queue is still empty, then simply return. The user can signal
-    # that he wants to learn ahead by calling rebuild_revision_queue with
-    # 'learn_ahead' set to True. Don't shuffle this queue, as it's more
-    # useful to review the earliest scheduled cards first.
+			if len(grade_0_selected) == limit:
+				break
 
-    if len(revision_queue) == 0:
-        
-        if learn_ahead == False:
-            return
-        else:
-            revision_queue = [i for i in cards \
-                              if i.qualifies_for_learn_ahead()]
+	random.shuffle(grade_0_selected)
+	revision_queue += grade_0_selected
+	
+	random.shuffle(grade_1)
+	revision_queue += grade_1
+	
+	random.shuffle(grade_0_selected)
+	revision_queue += grade_0_selected
 
-            revision_queue.sort(key=Card.sort_key)
+	if len(revision_queue) >= limit:
+		return
+	
+	# Now do the cards which have never been committed to long-term memory,
+	# but which we have seen before.
+		
+	not_memorised = [i for i in items if i.is_due_for_acquisition_rep() \
+								   and i.lapses == 0 and i.acq_reps > 1]
+
+	print "not memorised", len(not_memorised)
+	for i in not_memorised:
+		print i.q
+
+	grade_0 = (i for i in not_memorised if i.grade == 0)
+	grade_1 = [i for i in not_memorised if i.grade == 1]
+
+	grade_0_in_queue = len(grade_0_selected)
+	grade_0_selected = []
+
+	if limit != 0:
+		for i in grade_0:
+			for j in grade_0_selected:
+				if items_are_inverses(i, j):
+					break
+			else:
+				grade_0_selected.append(i)
+
+			if len(grade_0_selected) + grade_0_in_queue == limit:
+				break
+
+	random.shuffle(grade_0_selected)
+	revision_queue += grade_0_selected
+
+	random.shuffle(grade_1)
+	revision_queue += grade_1
+		
+	random.shuffle(grade_0_selected)
+	revision_queue += grade_0_selected
+		
+	if len(revision_queue) >= limit:
+		return
+
+	# Now add some new cards.
+
+	unseen = [i for i in items if i.is_due_for_acquisition_rep() \
+								   and i.acq_reps <= 1]
+
+	print 'unseen', len(unseen)
+	for i in unseen:
+		print i.q
+	
+	grade_0_in_queue = sum(1 for i in revision_queue if i.grade <= 1)
+	grade_0_selected = []
+
+	if limit == 0:
+		limit = 1 # Doesn't matter anymore.
+	
+	while len(unseen) > 0:
+
+		if get_config("randomise_new_cards") == False:
+			new_card = unseen[0]
+		else:
+			new_card = random.choice(unseen)
+				
+		unseen.remove(new_card)
+			
+		for i in grade_0_selected:
+			if items_are_inverses(new_card, i):
+				break
+		else:
+			grade_0_selected.append(new_card)
+			
+		if len(unseen) == 0 or \
+		   len(grade_0_selected) + grade_0_in_queue == limit:
+			revision_queue += grade_0_selected
+			return		
+	
+	# If we get to here, there are no more scheduled cards or new cards to
+	# learn. The user can signal that he wants to learn ahead by calling
+	# rebuild_revision_queue with 'learn_ahead' set to True. Don't shuffle
+	# this queue, as it's more useful to review the earliest scheduled cards
+	# first.
+		
+	if learn_ahead == False:
+		return
+	else:
+		revision_queue = [i for i in items \
+						  if i.qualifies_for_learn_ahead()]
+
+		revision_queue.sort(key=Item.sort_key)
 
 
 

@@ -1,16 +1,8 @@
 Mnemosyne 1.1
 
--backport Christopher's Qt3 scrollbar patch
+-add hooks to filter strings before display
 
--add hooks to filter strings before display, and get_new_question
-
--prioritise lapsed cards in review
-
--don't randomise very first revision, because of dependencies
-
--prioritise overdue lapsed cards with lower scheduled intervals
-
--example plugins: randomise cards, activate all categories
+-example plugins: activate all categories, show last grade
 
 -polish shortcuts (tab + enter on search, enter same function as F3, 
 preview Alt-p). Reported by spboulet and varkhan1.
@@ -19,6 +11,8 @@ preview Alt-p). Reported by spboulet and varkhan1.
 
 -bug with latex, $ tags and spaces? Cannot reproduce this...
 http://sourceforge.net/forum/message.php?msg_id=4894781
+
+-backport Christopher's Qt3 scrollbar patch?
 
 -add new translations to web
 
@@ -40,6 +34,7 @@ Mnemosyne 2.0: Major rewrite
 -MVC?
 
 -http://apptools.com/examples/tableheight.php
+-http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447
 
 -instead of QListview, use the model/view framework from Qt4 to get a 
  much faster 'Edit Deck'. Test deleting large number of cards.
