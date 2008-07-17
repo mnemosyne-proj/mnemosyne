@@ -17,6 +17,7 @@ http://sourceforge.net/forum/message.php?msg_id=4894781
 -add new translations to web
 
 
+
 Mnemosyne 2.0: Major rewrite
 
 -upgrade from Qt3 to Qt4 for improved speed, and the possibility to get rid 
@@ -28,7 +29,7 @@ Mnemosyne 2.0: Major rewrite
 -get rid of PyXML, pygame
 -xml import tests (wcu, memaid, plconv)
 
--front widget that allows copying, can produce scroll bars. This should
+-front widget that allows copying, can produce scroll bars. This will
  solve issues when a card contains a very large picture
 
 -MVC?
@@ -65,13 +66,11 @@ Mnemosyne 2.0: Major rewrite
 
 -button to go to next card in the list
 
--generators instead of list comprehensions?
-
 -plugin for midi files
 
 -refactor day_start_at (Konrad)
 
--move to sqlite backend (encode card relations and tag hierarchy in name, 
+-move to sqlite backend (encode category hierarchy in name, 
  multiple category fields per card)
 
 -field for date added
@@ -99,36 +98,17 @@ Mnemosyne 2.0: Major rewrite
 
 -consistent editing of vice versa and three-sided cards
 
--option to type right answer
-
 -remove 'check duplicates when adding' option?
-
--three sided export?
 
 -gettext io Qt localisation? Still need it partly for Qt itself, though.
 
 -cntrl enter in add and edit instead of clicking ok
 
--color coding button groups?
+-more advanced plugin mechanism, plugin manager
 
--example plugin: randomise order of new cards
+-custom card types with custom fields, template for cards
 
-
-Mnemosyne 2.1:
-
--GUI support for multiple categories per card (Note: for categories relating
- to direction of card, we probably don't need to specify them explicitly,
- but can read them off the IDs.)
-
-
-
-Mnemosyne 2.2
-
--synonym handling
-
-
-
-Mnemosyne 2.3
+-language specific card types (arabic, japanese, integrated dictionary lookup)
 
 -hierarchical categories
 
@@ -137,23 +117,23 @@ Mnemosyne 2.3
 
 -make 'search' behave as a filter
 
+-mini toolbar for adding pictures and sounds
+
+-make <a> links clickable / animated GIFs
+
+
+
+Mnemosyne 2.x
+
+-three sided export?
+
+-option to type right answer
+
+-synonym handling plugin?
+
 -regular expression search?
 
 -add 'add card' option to deck manager?
-
-
-
-Mnemosyne 2.4
-
--more advanced plugin mechanism, plugin manager
-
--check out python eggs
-
--custom card types with custom fields, template for cards
-
--language specific card types (arabic, japanese, integrated dictionary lookup)
-
--make more publicity
 
 -template expansion (disable add-vice-versa) ( both {../..} and {}..{})
 
@@ -210,8 +190,6 @@ Miscellaneous
 
 -autoupgrade, or at least notify of available upgrade (needs a separate thread)
 
--mini toolbar for adding pictures and sounds
-
 -remember window size set by the user?
 
 -undo last grade + keyboard shortcut
@@ -232,11 +210,7 @@ Miscellaneous
 
 -clean obsolete latex images / autogenerate them
 
--make <a> links clickable
-
 -investigate ridiculously large thinking times
-
--animated GIFs
 
 -DTD for xml format
 
@@ -246,11 +220,7 @@ Miscellaneous
  (i.e. remove file format field)? Probably not possible, as
  file dialogs only return filenames, not the chosen filter type.
 
--separate colors per category?
-
 -unify save and export?
-
--clean duplicates for answers too?
 
 -hints? separate mnemonics?
 
@@ -261,14 +231,14 @@ If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
 
 Far away:
 
--Windows Mobile port (PyQt, venster?, Tkinter?)
+-Windows Mobile port
 
 -foreign language text widget, integrated with online dict,
  easy creation of new cards
 
 
 
-Superkaramba / Plasma
+Plasma widget
 
 -Check Unicode
 
