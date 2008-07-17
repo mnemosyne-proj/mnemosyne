@@ -11,6 +11,7 @@ from the xml file.
 	
 MNEMOSYNE 1.1 :
 
+-Added statistics for the current card to the statistics window.
 -More features for plugin writers. Arbitrary code can now be run after the
  database is loaded, as well as code to intercept and modify question and
  answer strings before they are displayed. There is a plugin directory in
