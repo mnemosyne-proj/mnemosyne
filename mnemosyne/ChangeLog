@@ -25,6 +25,7 @@ MNEMOSYNE 1.1 :
 -Improved scheduling of overdue cards, by placing those with a shorter 
  interval first. Being a day late on an interval of 2 could be much worse 
  than being a day late on an interval of 50.
+-Fix some keyboard shortcut quirks (reported by Stephen Boulet and varkhan1).
 -Hebrew translation by Mical T.
 	
 
