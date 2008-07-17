@@ -110,22 +110,6 @@ config = {}
 
 ##############################################################################
 #
-# Register plugin hooks.
-#
-##############################################################################
-
-plugin_hooks = {}
-
-def register_plugin_hook(name, plugin_function):
-
-    global plugin_hooks
-
-    plugin_hooks[name] = plugin_function
-
-
-
-##############################################################################
-#
 # initialise
 #
 ##############################################################################
@@ -561,8 +545,9 @@ def load_database(path):
     logger.info("Loaded database %d %d %d", scheduled_cards(), \
                 non_memorised_cards(), number_of_cards())
 
-    if "after_load" in plugin_hooks:
-        plugin_hooks["after_load"]()
+    if "after_load" in function_hooks:
+		for f in function_hooks["after_load"]:
+			f()
 
 
 
