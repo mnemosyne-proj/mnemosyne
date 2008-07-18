@@ -1,87 +1,108 @@
 <ui version="4.0" >
- <class>AddCardsDlg</class>
- <widget class="QDialog" name="AddCardsDlg" >
+ <class>ReviewWdgt</class>
+ <widget class="QWidget" name="ReviewWdgt" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>176</height>
+    <width>329</width>
+    <height>362</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Add cards</string>
+   <string/>
   </property>
-  <layout class="QHBoxLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout_5" >
+   <property name="margin" >
+    <number>0</number>
+   </property>
    <item>
-    <layout class="QVBoxLayout" >
+    <layout class="QVBoxLayout" name="verticalLayout_4" >
      <item>
-      <layout class="QGridLayout" >
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_2" >
+      <layout class="QVBoxLayout" name="verticalLayout" >
+       <item>
+        <widget class="QLabel" name="question_label" >
+         <property name="maximumSize" >
+          <size>
+           <width>320</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="text" >
-          <string>Card type:</string>
+          <string>Question:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="QComboBox" name="card_types" >
+       <item>
+        <widget class="QWebView" name="question" >
          <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
-          <string>Category:</string>
+         <property name="minimumSize" >
+          <size>
+           <width>295</width>
+           <height>100</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="1" >
-        <widget class="QComboBox" name="categories" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="editable" >
-          <bool>true</bool>
+         <property name="url" >
+          <url>
+           <string>about:blank</string>
+          </url>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <widget class="QGroupBox" name="grade_buttons" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <item>
+        <widget class="QLabel" name="answer_label" >
+         <property name="text" >
+          <string>Answer:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWebView" name="answer" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize" >
+          <size>
+           <width>295</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="url" >
+          <url>
+           <string>about:blank</string>
+          </url>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="show_button" >
+       <property name="text" >
+        <string>Show &amp;answer</string>
        </property>
-       <property name="minimumSize" >
-        <size>
-         <width>310</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize" >
-        <size>
-         <width>16777215</width>
-         <height>66</height>
-        </size>
-       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="grades" >
        <property name="title" >
-        <string>Select initial grade:</string>
+        <string>Grade your answer:</string>
        </property>
-       <layout class="QVBoxLayout" >
+       <layout class="QVBoxLayout" name="verticalLayout_3" >
         <item>
-         <layout class="QHBoxLayout" >
+         <layout class="QHBoxLayout" name="horizontalLayout" >
           <item>
            <widget class="QPushButton" name="grade_0_button" >
             <property name="sizePolicy" >
@@ -100,10 +121,7 @@
              <string>0</string>
             </property>
             <property name="shortcut" >
-             <string>Ctrl+0</string>
-            </property>
-            <property name="autoDefault" >
-             <bool>false</bool>
+             <string>0</string>
             </property>
            </widget>
           </item>
@@ -125,10 +143,7 @@
              <string>1</string>
             </property>
             <property name="shortcut" >
-             <string>Ctrl+1</string>
-            </property>
-            <property name="autoDefault" >
-             <bool>false</bool>
+             <string>1</string>
             </property>
            </widget>
           </item>
@@ -157,10 +172,7 @@
              <string>2</string>
             </property>
             <property name="shortcut" >
-             <string>Ctrl+2</string>
-            </property>
-            <property name="autoDefault" >
-             <bool>false</bool>
+             <string>2</string>
             </property>
            </widget>
           </item>
@@ -182,10 +194,7 @@
              <string>3</string>
             </property>
             <property name="shortcut" >
-             <string>Ctrl+3</string>
-            </property>
-            <property name="autoDefault" >
-             <bool>false</bool>
+             <string>3</string>
             </property>
            </widget>
           </item>
@@ -207,10 +216,10 @@
              <string>4</string>
             </property>
             <property name="shortcut" >
-             <string>Ctrl+4</string>
+             <string>4</string>
             </property>
-            <property name="autoDefault" >
-             <bool>false</bool>
+            <property name="default" >
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -232,10 +241,7 @@
              <string>5</string>
             </property>
             <property name="shortcut" >
-             <string>Ctrl+5</string>
-            </property>
-            <property name="autoDefault" >
-             <bool>false</bool>
+             <string>5</string>
             </property>
            </widget>
           </item>
@@ -244,80 +250,17 @@
        </layout>
       </widget>
      </item>
-     <item>
-      <layout class="QHBoxLayout" >
-       <item>
-        <widget class="QPushButton" name="preview_button" >
-         <property name="text" >
-          <string>&amp;Preview</string>
-         </property>
-         <property name="autoDefault" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>101</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="exit_button" >
-         <property name="text" >
-          <string>E&amp;xit</string>
-         </property>
-         <property name="autoDefault" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>card_types</sender>
-   <signal>activated(QString)</signal>
-   <receiver>AddCardsDlg</receiver>
-   <slot>update_card_widget()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>196</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>164</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>exit_button</sender>
-   <signal>clicked()</signal>
-   <receiver>AddCardsDlg</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>281</x>
-     <y>151</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>164</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

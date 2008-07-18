@@ -83,9 +83,8 @@ class ThreeSided(CardType):
 
         # Extract and remove data.
 
-        q, a, grade = data['q'], data['a'], data['grade']
-        cat_names = data['cat_names']
-        
+        grade       = data['grade']
+        cat_names   = data['cat_names']
         recognition = data['recognition']
         production  = data['production']
         

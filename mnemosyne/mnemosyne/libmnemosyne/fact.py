@@ -34,8 +34,7 @@ class Fact(object):
         self.data  = data 
         self.added = datetime.datetime.now()
 
-        digest = md5.new(self.data.values()[0].encode("utf-8") + \
-                         self.data.values()[1].encode("utf-8") + \
+        digest = md5.new(str(self.data).encode("utf-8") + \
                          str(self.added)).hexdigest()
         
         self.id = digest[0:8]

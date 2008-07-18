@@ -49,7 +49,7 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
 
         # Get the data from the form.
 
-        f = unicode(self.foreign_word .document().toPlainText())
+        w = unicode(self.foreign_word .document().toPlainText())
         p = unicode(self.pronunciation.document().toPlainText())
         t = unicode(self.translation  .document().toPlainText())
         
@@ -58,18 +58,22 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
 
         # Check if sufficient data is present.
 
-        if recognition:
-            if not f:
+        if recognition and not production:
+            if not w:
                 return
 
-        if production:
+        if production and not recognition:
             if not t:
+                return
+
+        if production and recognition:
+            if not w and not t:
                 return
 
         # Return the data.
         
-        return {'f' : f, 'p' : p, 't' : t,
-                'recognition' : recogniton,
+        return {'w' : w, 'p' : p, 't' : t,
+                'recognition' : recognition,
                 'production'  : production} 
 
 

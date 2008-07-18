@@ -81,8 +81,8 @@ class TwoSided(CardType):
 
         # Extract and remove data.
 
-        q, a, grade = data['q'], data['a'], data['grade']
-        cat_names = data['cat_names']
+        grade          = data['grade']
+        cat_names      = data['cat_names']
         add_vice_versa = data['add_vice_versa']
         
         del data['add_vice_versa']

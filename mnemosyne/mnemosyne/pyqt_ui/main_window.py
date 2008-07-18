@@ -89,8 +89,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
 
+        self.review_widget = None
+
         self.state = "EMPTY"
-        self.item = None
+        self.card = None
         
         self.shrink = True
 
@@ -133,21 +135,41 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.newQuestion()
         self.updateDialog()
 
-        self.timer = QTimer(self)
-        self.connect(self.timer, SIGNAL("timeout()"), soundmanager.update)
-        self.timer.setSingleShot(False)
-        self.timer.start(250)
+        # TODO: add sound.
 
+        #self.timer = QTimer(self)
+        #self.connect(self.timer, SIGNAL("timeout()"), soundmanager.update)
+        #self.timer.setSingleShot(False)
+        #self.timer.start(250)
+        
+    ##########################################################################
+    #
+    # update_review_widget
+    #
+    ##########################################################################
+
+    def update_review_widget(self):
+
+        if self.central_widget:
+            self.central.close()
+            del self.card_widget
+
+        # TODO: remove hard coded widget.
+        
+        self.central_widget = ReviewWdgt()
+
+        #self.adjustSize()
+        
     ##########################################################################
     #
     # resizeEvent
     #
     ##########################################################################
     
-    def resizeEvent(self, e):
-        
-        if e.spontaneous() == True:
-            self.shrink = False
+    #def resizeEvent(self, e):
+    #    
+    #    if e.spontaneous() == True:
+    #        self.shrink = False
         
     ##########################################################################
     #
@@ -176,7 +198,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             unload_database()
             self.state = "EMPTY"
-            self.item = None
+            self.card = None
             new_database(out)
             load_database(get_config("path"))
 
@@ -205,7 +227,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 messagebox_errors(self, e)
 
             self.state = "EMPTY"
-            self.item = None
+            self.card = None
 
             try:
                 load_database(out)
@@ -288,7 +310,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg = ImportDlg(self)
         dlg.exec_loop()
          
-        if self.item == None:
+        if self.card == None:
             self.newQuestion()
 
         self.updateDialog()
@@ -331,11 +353,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         dlg = AddCardsDlg(self)
         dlg.exec_()
-
-        print "done"
         
-        #if self.item == None:
-        #    self.newQuestion()
+        if self.card == None:
+            self.newQuestion()
             
         self.updateDialog()
         unpause_thinking()
@@ -351,13 +371,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         pause_thinking()
         
         dlg = EditCardsDlg(self)
-        dlg.exec_loop()
+        dlg.exec_()
         rebuild_revision_queue()
         
-        if not in_revision_queue(self.item):
+        if not in_revision_queue(self.card):
             self.newQuestion()
         else:
-            remove_from_revision_queue(self.item) # It's already being asked.
+            remove_from_revision_queue(self.card) # It's already being asked.
 
         self.updateDialog()
         unpause_thinking()
@@ -376,7 +396,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         clean_duplicates(self)
         rebuild_revision_queue()
         
-        if not in_revision_queue(self.item):
+        if not in_revision_queue(self.card):
             self.newQuestion()
             
         self.updateDialog()
@@ -392,7 +412,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         pause_thinking()
         dlg = StatisticsDlg(self)
-        dlg.exec_loop()
+        dlg.exec_()
         unpause_thinking()
         
     ##########################################################################
@@ -404,8 +424,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def editCurrentCard(self):
         
         pause_thinking()
-        dlg = EditCardDlg(self.item, self)
-        dlg.exec_loop()
+        dlg = EditCardDlg(self.card, self)
+        dlg.exec_()
         self.updateDialog()
         unpause_thinking()
 
@@ -426,7 +446,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     QString(), 1, -1)
         
         if status == 0:
-            delete_item(self.item)
+            delete_card(self.card)
             self.newQuestion()
             
         self.updateDialog()
@@ -443,13 +463,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         pause_thinking()
         
         dlg = ActivateCategoriesDlg(self)
-        dlg.exec_loop()
+        dlg.exec_()
         
         rebuild_revision_queue()
-        if not in_revision_queue(self.item):
+        if not in_revision_queue(self.card):
             self.newQuestion()
         else:
-            remove_from_revision_queue(self.item) # It's already being asked.
+            remove_from_revision_queue(self.card) # It's already being asked.
             
         self.updateDialog()
         unpause_thinking()
@@ -483,10 +503,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg.exec_loop()
 
         rebuild_revision_queue()
-        if not in_revision_queue(self.item):
+        if not in_revision_queue(self.card):
             self.newQuestion()
         else:
-            remove_from_revision_queue(self.item) # It's already being asked.
+            remove_from_revision_queue(self.card) # It's already being asked.
             
         self.updateDialog()
         unpause_thinking()
@@ -523,7 +543,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         pause_thinking()
         dlg = ProductTourDlg(self)
-        dlg.exec_loop()
+        dlg.exec_()
         unpause_thinking()
         
     ##########################################################################
@@ -540,7 +560,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         pause_thinking()
         dlg = TipDlg(self)
-        dlg.exec_loop()
+        dlg.exec_()
         unpause_thinking()
         
     ##########################################################################
@@ -553,7 +573,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         pause_thinking()
         dlg = AboutDlg(self)
-        dlg.exec_loop()
+        dlg.exec_()
         unpause_thinking()
 
     ##########################################################################
@@ -566,10 +586,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if number_of_cards() == 0:
             self.state = "EMPTY"
-            self.item = None
+            self.card = None
         else:
-            self.item = get_new_question(learn_ahead)
-            if self.item != None:
+            self.card = get_new_question(learn_ahead)
+            if self.card != None:
                 self.state = "SELECT SHOW"
             else:
                 self.state = "SELECT AHEAD"
@@ -602,7 +622,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def gradeAnswer(self, grade):
 
-        interval = process_answer(self.item, grade)
+        interval = process_answer(self.card, grade)
         self.newQuestion()
         self.updateDialog()
 
@@ -644,17 +664,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Update menu bar.
 
         if get_config("only_editable_when_answer_shown") == True:
-            if self.item != None and self.state == "SELECT GRADE":
+            if self.card != None and self.state == "SELECT GRADE":
                 self.actionEditCurrentCard.setEnabled(True)
             else:
                 self.actionEditCurrentCard.setEnabled(False)
         else:
-            if self.item != None:
+            if self.card != None:
                 self.actionEditCurrentCard.setEnabled(True)
             else:
                 self.actionEditCurrentCard.setEnabled(False)            
             
-        self.actionDeleteCurrentCard.setEnabled(self.item != None)
+        self.actionDeleteCurrentCard.setEnabled(self.card != None)
         self.actionEditDeck.setEnabled(number_of_cards() > 0)
 
         # Update toolbar.
@@ -697,16 +717,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Update question label.
         
         question_label_text = self.trUtf8("Question:")
-        if self.item!=None and self.item.cat.name!=self.trUtf8("<default>"):
-            question_label_text += " " + preprocess(self.item.cat.name)
+        if self.card!=None and self.card.cat.name!=self.trUtf8("<default>"):
+            question_label_text += " " + self.card.cat.name
         self.question_label.setText(question_label_text)
 
         # Update question content.
         
-        if self.item == None:
+        if self.card == None:
             self.question.setText("")
         else:
-            text = preprocess(self.item.q)
+            text = self.card.filtered_q()
 
             if self.q_sound_played == False:
                 play_sound(text)
@@ -719,10 +739,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Update answer content.
         
-        if self.item == None or self.state == "SELECT SHOW":
+        if self.card == None or self.state == "SELECT SHOW":
             self.answer.setText("")
         else:
-            text = preprocess(self.item.a)
+            text = self.card.filtered_a()
 
             if self.a_sound_played == False:
                 play_sound(text)
@@ -771,7 +791,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except:
             pass
         
-        if self.item != None and self.item.grade in [0,1]:
+        if self.card != None and self.card.grade in [0,1]:
             i = 0 # Acquisition phase.
             self.grade_0_button.setDefault(grades_enabled)
             self.connect(self.actionDefault,SIGNAL("activated()"),
@@ -796,10 +816,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                get_config("show_intervals") == "tooltips":
                 #QToolTip.add(self.grade_buttons[grade],
                 #      tooltip[i][grade].
-                #      append(self.next_rep_string(process_answer(self.item,
+                #      append(self.next_rep_string(process_answer(self.card,
                 #                                  grade, dry_run=True))))
                 self.grade_buttons[grade].setToolTip(tooltip[i][grade].
-                      append(self.next_rep_string(process_answer(self.item,
+                      append(self.next_rep_string(process_answer(self.card,
                                                   grade, dry_run=True))))
             else:
                 self.grade_buttons[grade].setToolTip(tooltip[i][grade])
@@ -811,7 +831,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.state == "SELECT GRADE" and \
                get_config("show_intervals") == "buttons":
                 self.grade_buttons[grade].setText(\
-                        str(process_answer(self.item, grade, dry_run=True)))
+                        str(process_answer(self.card, grade, dry_run=True)))
                 self.grades.setTitle(\
                     self.trUtf8("Pick days until next repetition:"))
             else:
@@ -840,7 +860,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #
     ##########################################################################
 
-    def replaySound(self):
-        play_sound(preprocess(self.item.q))
-        if self.state == "SELECT GRADE":
-            play_sound(preprocess(self.item.a))
+    #def replaySound(self):
+    #    play_sound(preprocess(self.card.q))
+    #    if self.state == "SELECT GRADE":
+    #        play_sound(preprocess(self.card.a))

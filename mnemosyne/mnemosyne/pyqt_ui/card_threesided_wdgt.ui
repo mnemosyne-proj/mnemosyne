@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>311</width>
-    <height>406</height>
+    <width>293</width>
+    <height>286</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" >
@@ -30,6 +30,12 @@
      </item>
      <item>
       <widget class="QTextEdit" name="foreign_word" >
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>60</height>
+        </size>
+       </property>
        <property name="tabChangesFocus" >
         <bool>true</bool>
        </property>
@@ -50,6 +56,12 @@
      </item>
      <item>
       <widget class="QTextEdit" name="pronunciation" >
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>60</height>
+        </size>
+       </property>
        <property name="baseSize" >
         <size>
          <width>0</width>
@@ -76,6 +88,12 @@
      </item>
      <item>
       <widget class="QTextEdit" name="translation" >
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>60</height>
+        </size>
+       </property>
        <property name="tabChangesFocus" >
         <bool>true</bool>
        </property>

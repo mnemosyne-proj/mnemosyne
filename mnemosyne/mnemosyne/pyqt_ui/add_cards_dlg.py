@@ -52,17 +52,13 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         
         for card_type in get_card_types().values():
             self.card_types.addItem(card_type.name)
-            self.card_type_by_name[card_type.name] = card_type            
-
+            self.card_type_by_name[card_type.name] = card_type
+               
         # TODO: remember last type
 
-        # TODO: update this on change in card type.
+        self.card_widget = None
 
-        card_type_name = unicode(self.card_types.currentText())
-        card_type = self.card_type_by_name[card_type_name]
-        self.card_widget = card_type.widget_class()
-        card_type.set_widget(self.card_widget)
-        self.vboxlayout.insertWidget(1, self.card_widget)        
+        self.update_card_widget()
         
         self.update_combobox(get_config("last_add_category"))
 
@@ -91,8 +87,30 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         #    self.pronunciation.setFont(font)
         #    self.answer.setFont(font)
         #self.categories.setFont(font)
-            
+
         
+            
+    ##########################################################################
+    #
+    # update_card_widget
+    #
+    ##########################################################################       
+
+    def update_card_widget(self):
+
+        if self.card_widget:
+            self.vboxlayout.removeWidget(self.card_widget)
+            self.card_widget.close()
+            del self.card_widget
+
+        card_type_name = unicode(self.card_types.currentText())
+        card_type = self.card_type_by_name[card_type_name]
+        self.card_widget = card_type.widget_class()
+        card_type.set_widget(self.card_widget)
+        self.vboxlayout.insertWidget(1, self.card_widget)
+
+        #self.adjustSize()
+
 
 
     ##########################################################################
@@ -149,7 +167,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
         card_type = self.card_type_by_name[card_type_name]
 
-        card_type.new_card(data)
+        card_type.new_cards(data)
 
         # Update widget. TODO 
                         

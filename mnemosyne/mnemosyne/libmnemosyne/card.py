@@ -169,7 +169,7 @@ class Card(object):
     ##########################################################################
     
     def is_due_for_acquisition_rep(self):
-        return (self.grade < 2) and (self.cat.active == True)
+        return (self.grade < 2) and (self.is_in_active_category())
     
     ##########################################################################
     #
@@ -180,7 +180,7 @@ class Card(object):
     ##########################################################################
     
     def is_due_for_retention_rep(self, days=0):
-        return (self.grade >= 2) and (self.cat.active == True) and \
+        return (self.grade >= 2) and (self.is_in_active_category()) and \
                (get_days_since_start() >= self.next_rep - days)
     
     ##########################################################################
@@ -190,7 +190,7 @@ class Card(object):
     ##########################################################################
     
     def is_overdue(self):
-        return (self.grade >= 2) and (self.cat.active == True) and \
+        return (self.grade >= 2) and (self.is_in_active_category()) and \
                (get_days_since_start() > self.next_rep)
 
     ##########################################################################
@@ -218,7 +218,12 @@ class Card(object):
     ##########################################################################
 
     def is_in_active_category(self):
-        return (self.cat.active == True)
+        
+        for c in self.cat:
+            if c.active == False:
+                return False
+            
+        return True
 
     ##########################################################################
     #
@@ -227,7 +232,7 @@ class Card(object):
     ##########################################################################
     
     def qualifies_for_learn_ahead(self):
-        return (self.grade >= 2) and (self.cat.active == True) and \
+        return (self.grade >= 2) and (self.is_in_active_category()) and \
                (get_days_since_start() < self.next_rep) 
         
     ##########################################################################
