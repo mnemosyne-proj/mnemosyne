@@ -25,7 +25,9 @@ from add_cards_dlg import *
 #from about_dlg import *
 from sound import *
 from message_boxes import *
-from mnemosyne.libmnemosyne import *
+from mnemosyne.libmnemosyne.mnemosyne_core import *
+from mnemosyne.libmnemosyne.config import get_config
+from mnemosyne.libmnemosyne.card import *
 
 prefix = os.path.dirname(__file__)
 

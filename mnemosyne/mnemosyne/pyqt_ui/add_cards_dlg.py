@@ -12,11 +12,18 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
-from mnemosyne.libmnemosyne import *
+#from mnemosyne.libmnemosyne.mnemosyne_core import *
 from mnemosyne.libmnemosyne.category import *
 from ui_add_cards_dlg import *
-from card_twosided_wdgt import *
 #from edit_item_dlg import *
+from mnemosyne.libmnemosyne.card_type import *
+from mnemosyne.libmnemosyne.config import *
+
+# TODO: import them all at once
+import mnemosyne.libmnemosyne.card_types.two_sided
+import mnemosyne.libmnemosyne.card_types.three_sided
+from card_twosided_wdgt import *
+from card_threesided_wdgt import *
 
 
 ##############################################################################
@@ -40,13 +47,22 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
         
         self.setupUi(self)
-        
-        self.card_widget = CardTwoSidedWdgt()
 
-        self.vboxlayout.insertWidget(1, self.card_widget)
+        self.card_type_by_name = {} # TODO: move to lib?
         
-        for card_type in get_card_types():
-            self.card_types.addItem(card_type)
+        for card_type in get_card_types().values():
+            self.card_types.addItem(card_type.name)
+            self.card_type_by_name[card_type.name] = card_type            
+
+        # TODO: remember last type
+
+        # TODO: update this on change in card type.
+
+        card_type_name = unicode(self.card_types.currentText())
+        card_type = self.card_type_by_name[card_type_name]
+        self.card_widget = card_type.widget_class()
+        card_type.set_widget(self.card_widget)
+        self.vboxlayout.insertWidget(1, self.card_widget)        
         
         self.update_combobox(get_config("last_add_category"))
 
@@ -106,27 +122,43 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
     #
     # new_card
     #
+    #   Don't rebuild revision queue afterwards, as this can cause corruption
+    #   for the current card. The new cards will show up after the old queue
+    #   is empty.
+    #
     ##########################################################################
     
     def new_card(self, grade):
+
+        # Get data from the card wiget.
         
         data = self.card_widget.get_data()
         
         if data is None:
             return
 
-        print 'new card', grade
-
-        card_type_name = unicode(self.card_types.currentText())
-
-        card_type = get_card_type_by_name(card_type_name)
+        # Add our own data. The card model can later remove these.
 
         data['grade'] = grade
 
-        data['cat_name'] = unicode(self.categories.currentText())
+        data['cat_names'] = [unicode(self.categories.currentText())]
+
+        # Create the new cards.
+
+        card_type_name = unicode(self.card_types.currentText())
+
+        card_type = self.card_type_by_name[card_type_name]
 
         card_type.new_card(data)
 
+        # Update widget. TODO 
+                        
+        #self.question.setFocus()
+
+        #set_config("last_add_vice_versa", self.addViceVersa.isOn())
+        #set_config("last_add_category",   cat_name)
+
+        #save_database(get_config("path"))
 
 
             
@@ -138,9 +170,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
     
     def reject(self):
 
-        data = self.card_widget.get_data()
-
-        if data is None:
+        if self.card_widget.get_data() is None:
             QDialog.reject(self)
             return
 
@@ -165,6 +195,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
     def preview(self):
 
+        raise NotImplementedError()
+
         if get_config("3_sided_input") == False:
         
             dlg = PreviewItemDlg(unicode(self.question.text()),
@@ -180,147 +212,3 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
                                  self)            
         dlg.exec_loop()
 
-        
-
-    ##########################################################################
-    #
-    # check_duplicates_and_add
-    #
-    ##########################################################################
-
-    def check_duplicates_and_add(self, grade, q, a, cat_name, id=None):
-
-        if get_config("check_duplicates_when_adding") == True:
-
-            # Find duplicate questions and refuse to add if duplicate
-            # answers are found as well.
-            
-            allow_dif_cat = get_config("allow_duplicates_in_diff_cat")
-            
-            same_questions = []
-            
-            for item in get_items():
-                if item.q == q:
-                    if item.a == a:
-                        
-                        if item.cat.name == cat_name or not allow_dif_cat:
-                            QMessageBox.information(None,
-                                self.trUtf8("Mnemosyne"),
-                                self.trUtf8("Card is already in database.\n")\
-                                .append(self.trUtf8("Duplicate not added.")),
-                                self.trUtf8("&OK"))
-                
-                            return None
-                        
-                    elif item.cat.name == cat_name or not allow_dif_cat:
-                        same_questions.append(item)
-
-            # Make a list of already existing answers for this question
-            # and merge if the user wishes so.
-            
-            if len(same_questions) != 0:
-
-                answers = a
-                for i in same_questions:
-                    answers += ' / ' + i.a
-                        
-                status = QMessageBox.question(None,
-                   self.trUtf8("Mnemosyne"),
-                   self.trUtf8("There are different answers for")\
-                     .append(self.trUtf8(" this question:\n\n"))\
-                     .append(answers),
-                   self.trUtf8("&Merge and edit"),
-                   self.trUtf8("&Add as is"),
-                   self.trUtf8("&Do not add"), 0, -1)
-                
-                if status == 0: # Merge and edit.
-                    
-                    new_item = add_new_item(grade, q, a, cat_name, id)
-                    self.update_combobox(cat_name)
-                    
-                    for i in same_questions:
-                        new_item.grade = min(new_item.grade, i.grade)
-                        new_item.a += ' / ' + i.a
-                        delete_item(i)
-                        
-                    dlg = EditItemDlg(new_item, self)
-                    
-                    dlg.exec_loop()
-                    
-                    return new_item
-
-                if status == 2: # Don't add.
-                    return None
-
-        new_item = add_new_item(grade, q, a, cat_name, id)
-        self.update_combobox(cat_name)
-                
-        return new_item
-
-
-
-    ##########################################################################
-    #
-    # new_card
-    #
-    #   Don't rebuild revision queue afterwards, as this can cause corruption
-    #   for the current card. The new cards will show up after the old queue
-    #   is empty.
-    #
-    ##########################################################################
-
-    def new_card_old(self, grade):
-
-        q        = unicode(self.question.text())
-        p        = unicode(self.pronunciation.text())
-        a        = unicode(self.answer.text())
-        cat_name = unicode(self.categories.currentText())
-
-        if self.addViceVersa.isOn():
-            if q == "" or a == "":
-                return
-        else:
-            if q == "":
-                return
-
-        if get_config("3_sided_input") == False:
-
-            orig_added = self.check_duplicates_and_add(grade,q,a,cat_name)
-            rev_added = None
-            if orig_added and self.addViceVersa.isOn():
-                rev_added = self.check_duplicates_and_add(grade,a,q,\
-                                               cat_name,orig_added.id+'.inv')
-
-            if self.addViceVersa.isOn() and orig_added and not rev_added:
-            
-                # Swap question and answer.
-            
-                self.question.setText(a)
-                self.answer.setText(q)
-                self.addViceVersa.setChecked(False)
-            
-            elif orig_added:
-            
-                # Clear the form to make room for new question.
-            
-                self.question.setText("")
-                self.answer.setText("")
-
-        else: # 3-sided input.
-            
-            i = self.check_duplicates_and_add(grade,q,p+'\n'+a,cat_name)
-
-            if i:
-                self.check_duplicates_and_add(grade,a,q+'\n'+p,cat_name,
-                                              i.id+'.tr.1')
-            
-            self.question.setText("")
-            self.pronunciation.setText("")  
-            self.answer.setText("")
-                
-        self.question.setFocus()
-
-        set_config("last_add_vice_versa", self.addViceVersa.isOn())
-        set_config("last_add_category",   cat_name)
-
-        save_database(get_config("path"))

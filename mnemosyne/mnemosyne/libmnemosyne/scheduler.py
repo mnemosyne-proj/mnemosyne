@@ -7,6 +7,9 @@
 # TODO: make into a class?
 # TODO: update from latest 1.x version!!!
 
+
+revision_queue = []
+
 ##############################################################################
 #
 # calculate_initial_interval
@@ -89,12 +92,12 @@ def rebuild_revision_queue(learn_ahead = False):
 
     limit = get_config("grade_0_items_at_once")
 
-	grade_0 = (i for i in items if i.is_due_for_acquisition_rep() \
+    grade_0 = (i for i in items if i.is_due_for_acquisition_rep() \
                                    and i.lapses > 0 and i.grade == 0)
 
     grade_0_selected = []
-	
-	if limit != 0:
+    
+    if limit != 0:
         for i in grade_0:
             for j in grade_0_selected:
                 if items_are_inverses(i, j):
@@ -105,7 +108,7 @@ def rebuild_revision_queue(learn_ahead = False):
             if len(grade_0_selected) == limit:
                 break
 
-	grade_1 = [i for i in items if i.is_due_for_acquisition_rep() \
+    grade_1 = [i for i in items if i.is_due_for_acquisition_rep() \
                                    and i.lapses > 0 and i.grade == 1]
 
     random.shuffle(grade_0_selected)
@@ -119,15 +122,15 @@ def rebuild_revision_queue(learn_ahead = False):
 
     print "lapsed", len(revision_queue)
     for i in revision_queue:
-        print i.q	
+        print i.q   
 
     if len(revision_queue) >= limit:
         return
     
     # Now do the cards which have never been committed to long-term memory,
     # but which we have seen before.
-	
-	grade_0 = (i for i in items if i.is_due_for_acquisition_rep() \
+    
+    grade_0 = (i for i in items if i.is_due_for_acquisition_rep() \
                       and i.lapses == 0 and i.acq_reps > 1 and i.grade == 0)
 
     grade_0_in_queue = len(grade_0_selected)
@@ -144,9 +147,9 @@ def rebuild_revision_queue(learn_ahead = False):
             if len(grade_0_selected) + grade_0_in_queue == limit:
                 break
 
-	grade_1 = [i for i in items if i.is_due_for_acquisition_rep() \
+    grade_1 = [i for i in items if i.is_due_for_acquisition_rep() \
                       and i.lapses == 0 and i.acq_reps > 1 and i.grade == 1]
-	
+    
     random.shuffle(grade_0_selected)
     revision_queue += grade_0_selected
 
@@ -155,7 +158,7 @@ def rebuild_revision_queue(learn_ahead = False):
         
     random.shuffle(grade_0_selected)
     revision_queue += grade_0_selected
-	
+    
     print "memorising", len(revision_queue)
     for i in revision_queue:
         print i.q
@@ -164,9 +167,9 @@ def rebuild_revision_queue(learn_ahead = False):
         return
 
     # Now add some new cards. This is a bit inefficient at the moment as
-	# 'unseen' is wastefully created as opposed to being a generator
-	# expression. However, in order to use random.choice, there doesn't
-	# seem to be another option.
+    # 'unseen' is wastefully created as opposed to being a generator
+    # expression. However, in order to use random.choice, there doesn't
+    # seem to be another option.
 
     unseen = [i for i in items if i.is_due_for_acquisition_rep() \
                                    and i.acq_reps <= 1]
@@ -179,24 +182,24 @@ def rebuild_revision_queue(learn_ahead = False):
     grade_0_selected = []
 
     if limit != 0:    
-		while True:
-			if get_config("randomise_new_cards") == False:
-				new_card = unseen[0]
-			else:
-				new_card = random.choice(unseen)
+        while True:
+            if get_config("randomise_new_cards") == False:
+                new_card = unseen[0]
+            else:
+                new_card = random.choice(unseen)
                 
-			unseen.remove(new_card)
+            unseen.remove(new_card)
             
-			for i in grade_0_selected:
-				if items_are_inverses(new_card, i):
-					break
-			else:
-				grade_0_selected.append(new_card)
+            for i in grade_0_selected:
+                if items_are_inverses(new_card, i):
+                    break
+            else:
+                grade_0_selected.append(new_card)
             
-			if len(unseen) == 0 or \
-				   len(grade_0_selected) + grade_0_in_queue == limit:
-				revision_queue += grade_0_selected
-				return      
+            if len(unseen) == 0 or \
+                   len(grade_0_selected) + grade_0_in_queue == limit:
+                revision_queue += grade_0_selected
+                return      
     
     # If we get to here, there are no more scheduled cards or new cards to
     # learn. The user can signal that he wants to learn ahead by calling

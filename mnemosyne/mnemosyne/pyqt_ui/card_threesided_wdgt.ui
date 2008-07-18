@@ -1,0 +1,120 @@
+<ui version="4.0" >
+ <class>CardThreeSidedWdgt</class>
+ <widget class="QWidget" name="CardThreeSidedWdgt" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>311</width>
+    <height>406</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2" >
+   <property name="margin" >
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout" >
+     <item>
+      <widget class="QLabel" name="foreign_word_label" >
+       <property name="maximumSize" >
+        <size>
+         <width>320</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text" >
+        <string>Foreign word:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="foreign_word" >
+       <property name="tabChangesFocus" >
+        <bool>true</bool>
+       </property>
+       <property name="undoRedoEnabled" >
+        <bool>true</bool>
+       </property>
+       <property name="readOnly" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="pronunciaton_label" >
+       <property name="text" >
+        <string>Pronunciation:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="pronunciation" >
+       <property name="baseSize" >
+        <size>
+         <width>0</width>
+         <height>10</height>
+        </size>
+       </property>
+       <property name="tabChangesFocus" >
+        <bool>true</bool>
+       </property>
+       <property name="undoRedoEnabled" >
+        <bool>true</bool>
+       </property>
+       <property name="readOnly" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="translation_label" >
+       <property name="text" >
+        <string>Translation:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="translation" >
+       <property name="tabChangesFocus" >
+        <bool>true</bool>
+       </property>
+       <property name="undoRedoEnabled" >
+        <bool>true</bool>
+       </property>
+       <property name="readOnly" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout" >
+       <item>
+        <widget class="QCheckBox" name="recognition" >
+         <property name="text" >
+          <string>Add &amp;recognition card</string>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="production" >
+         <property name="text" >
+          <string>Add &amp;production card</string>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

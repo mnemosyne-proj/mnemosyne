@@ -1,2 +1,2 @@
-from mnemosyne_core import *
+#from mnemosyne_core import *
 

@@ -4,6 +4,8 @@
 #
 ##############################################################################
 
+import_time_of_start = None # TODO: move to where it belongs.
+
 ##############################################################################
 #
 # FileFormat
@@ -60,7 +62,7 @@ def register_file_format(name, filter="",
 #
 ##############################################################################
 
-def unregister_file_format(name)
+def unregister_file_format(name):
 
     global file_formats
     

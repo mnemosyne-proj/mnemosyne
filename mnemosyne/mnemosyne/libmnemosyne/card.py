@@ -4,6 +4,15 @@
 #
 ##############################################################################
 
+import md5, time, logging
+
+from mnemosyne.libmnemosyne.category import *
+from mnemosyne.libmnemosyne.card_type import *
+from mnemosyne.libmnemosyne.start_date import get_days_since_start
+from mnemosyne.libmnemosyne.scheduler import *
+
+logger = logging.getLogger("mnemosyne")
+
 
 
 ##############################################################################
@@ -21,7 +30,7 @@
 
 cards = []
 
-class Card:
+class Card(object):
 
     ##########################################################################
     #
@@ -37,10 +46,16 @@ class Card:
 
         self.fact = None
 
-        self.subcard = 0
+        self.subcard = 0 # Integer instead of string to save space.
 
-        self.date_added = None # TODO
-		self.hidden = False # TODO
+        # TODO: do we need a mapping from this integer to a description?
+
+        # If the user deletes a subcard from a fact, we don't delete it, in
+        # case the user later reactivates it. We can either employ a 'hidden'
+        # variable here, or move it to a different container (perhaps more
+        # efficient?)
+
+        self.hidden = False # TODO
         
         self.q   = None
         self.a   = None
@@ -54,10 +69,11 @@ class Card:
     #
     ##########################################################################
 
-    def filtered_q(): # TODO: update
+    def filtered_q(self):
 
-        # q = self.card_type.generate_q(self.fact, self.subcard)
-        # q = preprocess(q)
+        q = self.card_type.generate_q(self.fact, self.subcard)
+
+        #q = preprocess(q) # TODO: update to plugin scheme
 
         return q
 
@@ -67,9 +83,14 @@ class Card:
     #
     ##########################################################################
     
-    def filtered_a(): # TODO: update
+    def filtered_a(self):
+        
+        a = self.card_type.generate_a(self.fact, self.subcard)
+
+        #a = preprocess(a) # TODO: update to plugin scheme
 
         return a
+    
     
     ##########################################################################
     #
@@ -88,7 +109,7 @@ class Card:
         self.acq_reps_since_lapse = 0
         self.ret_reps_since_lapse = 0
 
-		# TODO: store as float for minute level scheduling
+        # TODO: store as float for minute level scheduling
         
         self.last_rep  = 0 # In days since beginning.
         self.next_rep  = 0 #
@@ -113,7 +134,7 @@ class Card:
 
     def sort_key(self):
         return self.next_rep
-	
+    
     ##########################################################################
     #
     # sort_key_interval
@@ -160,8 +181,8 @@ class Card:
     
     def is_due_for_retention_rep(self, days=0):
         return (self.grade >= 2) and (self.cat.active == True) and \
-               (days_since_start >= self.next_rep - days)
-	
+               (get_days_since_start() >= self.next_rep - days)
+    
     ##########################################################################
     #
     # is_overdue
@@ -170,7 +191,7 @@ class Card:
     
     def is_overdue(self):
         return (self.grade >= 2) and (self.cat.active == True) and \
-               (days_since_start > self.next_rep)
+               (get_days_since_start() > self.next_rep)
 
     ##########################################################################
     #
@@ -179,7 +200,7 @@ class Card:
     ##########################################################################
     
     def days_since_last_rep(self):
-        return days_since_start - self.last_rep
+        return get_days_since_start() - self.last_rep
 
     ##########################################################################
     #
@@ -188,7 +209,7 @@ class Card:
     ##########################################################################
     
     def days_until_next_rep(self):
-        return self.next_rep - days_since_start
+        return self.next_rep - get_days_since_start()
     
     ##########################################################################
     #
@@ -207,7 +228,7 @@ class Card:
     
     def qualifies_for_learn_ahead(self):
         return (self.grade >= 2) and (self.cat.active == True) and \
-               (days_since_start < self.next_rep) 
+               (get_days_since_start() < self.next_rep) 
         
     ##########################################################################
     #
@@ -226,6 +247,8 @@ class Card:
 ##############################################################################
 #
 # cards_are_inverses
+#
+# TODO: obsolete?
 #
 ##############################################################################
 
@@ -325,3 +348,84 @@ def average_easiness():
         return cards[0].easiness
     else:
         return sum(i.easiness for i in cards) / len(cards)
+
+
+
+##############################################################################
+#
+# add_new_card
+#
+##############################################################################
+
+def add_new_card(grade, card_type_id, fact, subcard, cat_names, id=None):
+
+    global cards, load_failed
+
+    card = Card()
+    
+    card.card_type = get_card_type_by_id(card_type_id)  
+    card.fact      = fact
+    card.subcard   = subcard   
+    card.q         = card.filtered_q()
+    card.a         = card.filtered_a()
+    card.grade     = grade
+
+    for cat_name in cat_names:
+        card.cat.append(get_category_by_name(cat_name))
+    
+    card.acq_reps = 1
+    card.acq_reps_since_lapse = 1
+
+    card.last_rep = get_days_since_start()
+    
+    card.easiness = average_easiness()
+
+    if id == None:
+        card.new_id()
+    else:
+        card.id = id 
+    
+    new_interval  = calculate_initial_interval(grade)
+    new_interval += calculate_interval_noise(new_interval)
+    card.next_rep = get_days_since_start() + new_interval
+
+    fact.cards.append(card)
+    
+    cards.append(card)    
+
+    logger.info("New card %s %d %d", card.id, card.grade, new_interval)
+
+    load_failed = False # TODO: check?
+
+    print 'new card', card.q, card.a
+    
+    return card
+
+
+
+##############################################################################
+#
+# delete_card
+#
+##############################################################################
+
+def delete_card(e):
+
+    old_cat = e.cat
+    
+    cards.remove(e)
+    rebuild_revision_queue()
+    remove_category_if_unused(old_cat)
+
+    logger.info("Deleted card %s", e.id)
+
+
+
+##############################################################################
+#
+# list_is_loaded
+#
+##############################################################################
+
+def list_is_loaded():
+    return len(cards) != 0   

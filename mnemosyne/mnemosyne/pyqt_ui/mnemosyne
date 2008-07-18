@@ -12,8 +12,9 @@ from PyQt4.QtGui import *
 
 # TODO: improve imports.
 
-from mnemosyne.libmnemosyne import basedir, get_config, set_config, \
-                           initialise, finalise
+from mnemosyne.libmnemosyne.mnemosyne_core import \
+     basedir, initialise, finalise
+from mnemosyne.libmnemosyne.config import get_config, set_config
 from mnemosyne.pyqt_ui.main_window import *
 from mnemosyne.pyqt_ui.message_boxes import *
 from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.

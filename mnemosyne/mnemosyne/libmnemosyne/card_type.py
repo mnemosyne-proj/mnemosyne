@@ -12,16 +12,31 @@
 
 card_types = {}
 
-class CardType:
+class CardType(object):
 
-    def __init__(self, name, widget_class, new_cards_function=None,
-                 update_cards_function=None):
+    def __init__(self, id, name):
+        global card_types
+        card_types[id] = self
 
-        self.name         = name
+        print 'init card type', name
+
+        self.name = name
+        self.id = id
+        
+    def set_widget_class(self, widget_class):
+        print 'set widget class', widget_class
         self.widget_class = widget_class
-        self.new_card     = new_cards_function
-        self.update_card  = update_cards_function
+        
+    def set_widget(self, widget):
+        print 'set widget', widget
+        self.widget = widget        
 
+    def new_cards(self):
+        raise NotImplementedError()
+
+    def update_cards(self):
+        raise NotImplementedError()
+    
 
 
 ##############################################################################
@@ -37,25 +52,9 @@ def get_card_types():
 
 ##############################################################################
 #
-# get_card_type_by_name
+# get_card_type_by_id
 #
 ##############################################################################
 
-def get_card_type_by_name(name):
-    return card_types[name]
-
-
-
-##############################################################################
-#
-# register_card_type
-#
-##############################################################################
-
-def register_card_type(name, widget_class, new_cards_function=None,
-                 update_cards_function=None):
-
-    global card_types
-    
-    card_types[name] = CardType(name, widget_class, new_cards_function,
-                                update_cards_function)
+def get_card_type_by_id(id):
+    return card_types[id]

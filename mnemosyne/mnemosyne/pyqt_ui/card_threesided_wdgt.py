@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Two sided card widget <Peter.Bienstman@UGent.be>
+# Three sided card widget <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
@@ -10,21 +10,21 @@ _ = gettext.gettext
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from ui_card_twosided_wdgt import *
+from ui_card_threesided_wdgt import *
 
 from mnemosyne.libmnemosyne.card_type import *
 
 # TODO: this instantiates the card type, wich should happen elsewhere.
 
-import mnemosyne.libmnemosyne.card_types.two_sided
+import mnemosyne.libmnemosyne.card_types.three_sided
 
 ##############################################################################
 #
-# CardTwoSidedWdgt
+# CardThreeSidedWdgt
 #
 ##############################################################################
 
-class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
+class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
     
     ##########################################################################
     #
@@ -49,23 +49,28 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 
         # Get the data from the form.
 
-        q = unicode(self.question.document().toPlainText())
-        a = unicode(self.answer  .document().toPlainText())
+        f = unicode(self.foreign_word .document().toPlainText())
+        p = unicode(self.pronunciation.document().toPlainText())
+        t = unicode(self.translation  .document().toPlainText())
         
-        add_vice_versa = self.vice_versa.isChecked()
+        recognition = self.recognition.isChecked()        
+        production  = self.production .isChecked()
 
         # Check if sufficient data is present.
 
-        if add_vice_versa:
-            if not q or not a:
+        if recognition:
+            if not f:
                 return
-        else:
-            if not q:
+
+        if production:
+            if not t:
                 return
 
         # Return the data.
         
-        return {'q' : q, 'a' : a, 'add_vice_versa' : add_vice_versa} 
+        return {'f' : f, 'p' : p, 't' : t,
+                'recognition' : recogniton,
+                'production'  : production} 
 
 
 
@@ -79,9 +84,10 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 
         # TODO: save vice versa settings
         
-        self.question.setText("")
-        self.answer.setText("")        
-
+        self.foreign_word.setText("")
+        self.pronunciation.setText("")        
+        self.translation.setText("")
+        
 
 
 ##############################################################################
@@ -93,7 +99,7 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 # TODO: make sure this only runs once.
 # TODO: cleaner way than having to know the correct id.
 
-get_card_type_by_id(1).set_widget_class(CardTwoSidedWdgt)
+get_card_type_by_id(2).set_widget_class(CardThreeSidedWdgt)
 
 
 

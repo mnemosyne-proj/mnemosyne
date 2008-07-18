@@ -7,16 +7,11 @@
 import gettext
 _ = gettext.gettext
 
+# TODO: prune import
+
 import random, time, os, string, sys, cPickle, md5, struct, logging, re
 import shutil, datetime, bz2, gzip, copy, cStringIO 
 
-# TODO: remove global imports
-
-from mnemosyne.libmnemosyne.exceptions import *
-from mnemosyne.libmnemosyne.card_types import *
-from mnemosyne.libmnemosyne.card import *
-from mnemosyne.libmnemosyne.fact import *
-from mnemosyne.libmnemosyne.category import *
 
 import mnemosyne.version
 
@@ -80,10 +75,27 @@ else:
     _old_basedir = None
     basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
 
+
+
+##############################################################################
+#
+# get_basedir
+#
+##############################################################################
+
 def get_basedir():
     return basedir
 
+# TODO: remove global imports
+# Move to a more logical position after get_basedir import issue is resolved.
 
+from mnemosyne.libmnemosyne.exceptions import *
+#from mnemosyne.libmnemosyne.card_types import *
+from mnemosyne.libmnemosyne.card import list_is_loaded
+from mnemosyne.libmnemosyne.start_date import *
+from mnemosyne.libmnemosyne.config import load_config, get_config, set_config
+#from mnemosyne.libmnemosyne.fact import *
+#from mnemosyne.libmnemosyne.category import *
 
 ##############################################################################
 #
@@ -91,20 +103,11 @@ def get_basedir():
 #
 ##############################################################################
 
-time_of_start = None
-import_time_of_start = None
-days_since_start = None
-
 thinking_time = 0
 time_of_last_question = 0
 
 upload_thread = None
 load_failed = False
-
-revision_queue = []
-
-
-config = {}
 
 
 
@@ -235,163 +238,6 @@ day_starts_at = 3"""
 
         
 
-##############################################################################
-#
-# init_config
-#
-# TODO: make sure this does not get called when upgrading
-#
-##############################################################################
-
-def init_config():
-    global config
- 
-    config.setdefault("first_run", True)
-    config.setdefault("path", "default.mem")
-    config.setdefault("import_dir", basedir)
-    config.setdefault("import_format", "XML")
-    config.setdefault("reset_learning_data_import", False)
-    config.setdefault("export_dir", basedir)
-    config.setdefault("export_format", "XML")
-    config.setdefault("reset_learning_data_export", False)    
-    config.setdefault("import_img_dir", basedir)
-    config.setdefault("import_sound_dir", basedir)    
-    config.setdefault("user_id",md5.new(str(random.random())).hexdigest()[0:8])
-    config.setdefault("keep_logs", True)
-    config.setdefault("upload_logs", True)
-    config.setdefault("upload_server", "mnemosyne-proj.dyndns.org:80")    
-    config.setdefault("log_index", 1)
-    config.setdefault("hide_toolbar", False)
-    config.setdefault("QA_font", None)
-    config.setdefault("list_font", None)
-    config.setdefault("left_align", False)
-    config.setdefault("non_latin_font_size_increase", 0)
-    config.setdefault("check_duplicates_when_adding", True)
-    config.setdefault("allow_duplicates_in_diff_cat", True)
-    config.setdefault("grade_0_cards_at_once", 5)
-	config.setdefault("randomise_new_cards", False)
-    config.setdefault("last_add_vice_versa", False)
-    config.setdefault("last_add_category", "<default>")
-    config.setdefault("3_sided_input", False) # TODO: remove
-    config.setdefault("column_0_width", None)
-    config.setdefault("column_1_width", None)
-    config.setdefault("column_2_width", None)    
-    config.setdefault("sort_column", None)
-    config.setdefault("sort_order", None)    
-    config.setdefault("show_intervals", "never")
-    config.setdefault("only_editable_when_answer_shown", False)
-    config.setdefault("locale", None)
-    config.setdefault("show_daily_tips", True)
-    config.setdefault("tip", 0)
-    config.setdefault("backups_to_keep", 5)
-    config.setdefault("day_starts_at", 3)
-	
-    # Update paths if the location has migrated.
-
-    if _old_basedir:
-
-        for key in ['import_dir', 'export_dir', 'import_img_dir',
-                    'import_sound_dir']:
-
-            if config[key] == _old_basedir:
-                config[key] = basedir
-				
-    # Recreate user id and log index from history folder in case the
-    # config file was accidentally deleted.
-
-    if get_config("log_index") == 1:
-    
-        dir = os.listdir(unicode(os.path.join(basedir, "history")))
-        history_files = [x for x in dir if x[-4:] == ".bz2"]
-        history_files.sort()
-        if history_files:
-            last = history_files[-1]
-            user, index = last.split('_')
-            index = int(index.split('.')[0])+1
-
-
-
-##############################################################################
-#
-# get_config
-#
-##############################################################################
-
-def get_config(key):
-    return config[key]
-
-
-
-##############################################################################
-#
-# set_config
-#
-##############################################################################
-
-def set_config(key, value):
-    global config
-    config[key] = value
-
-
-
-##############################################################################
-#
-# load_config
-#
-##############################################################################
-
-def load_config():
-    global config
-
-    # Read pickled config object.
-
-    try:
-        config_file = file(os.path.join(basedir, "config"), 'rb')
-        for k,v in cPickle.load(config_file).itercards():
-            config[k] = v
-    except:
-        pass
-
-    # Set defaults.
-
-    init_config()
-
-    # Load user config file.
-
-    sys.path.insert(0, basedir)
-
-    config_file_c = os.path.join(basedir, "config.pyc")
-    if os.path.exists(config_file_c):
-        os.remove(config_file_c)
-    
-    config_file = os.path.join(basedir, "config.py")
-
-    if os.path.exists(config_file):
-        try:
-            import config as _config
-            for var in dir(_config):
-                if var in config.keys():
-                    set_config(var, getattr(_config, var))
-        except:
-            raise ConfigError(stack_trace=True)
-
-
-
-##############################################################################
-#
-# save_config
-#
-##############################################################################
-
-def save_config():
-
-    try:
-        config_file = file(os.path.join(basedir, "config"), 'wb')
-        cPickle.dump(config, config_file)
-    except:
-        raise SaveError()
-
-
 
 ##############################################################################
 #
@@ -415,53 +261,6 @@ def run_plugins():
 
 
 
-##############################################################################
-#
-# StartTime
-#
-# TODO: remove obsolete code?
-#
-##############################################################################
-
-class StartTime:
-
-    def __init__(self, start_time):
-        
-        h = get_config("day_starts_at")
-
-        # Compatibility code for older versions.
-        
-        t = time.localtime(start_time) # In seconds from Unix epoch in UTC.
-        self.time = time.mktime([t[0],t[1],t[2], h,0,0, t[6],t[7],t[8]])
-
-        # New implementation.
-
-        self.date = datetime.datetime.fromtimestamp(self.time).date()
-
-    # Since this information is frequently needed, we calculate it once
-    # and store it in a global variable, which is updated when the database
-    # loads and in rebuild_revision_queue.
-    
-    def update_days_since(self):
-        
-        global days_since_start
-
-        # If this is a database with the obsolete time stamp, update it
-        # with a date attribute. The adjustment for 'day_starts_at' is not
-        # relevant here, as we only store the date part.
-        
-        if not getattr(self, 'date', None):
-            self.date = datetime.datetime.fromtimestamp(self.time).date()
-        
-        # Now calculate the difference in days.
-        
-        h = get_config("day_starts_at")
-        adjusted_now = datetime.datetime.now() - datetime.timedelta(hours=h)
-        dt = adjusted_now.date() - self.date
-        
-        days_since_start = dt.days
-
-
 
 ##############################################################################
 #
@@ -471,19 +270,20 @@ class StartTime:
 
 def new_database(path):
 
-    global config, time_of_start, load_failed
+    global load_failed
 
-    if len(cards) > 0:
+    if list_is_loaded():
         unload_database()
 
     load_failed = False
 
-    time_of_start = StartTime(time.time())
-    config["path"] = path
+    initialise_time_of_start()
+    set_config("path", path)
 
     logger.info("New database")
 
     save_database(contract_path(path, basedir))
+
 
 
 
@@ -499,7 +299,6 @@ database_header_line \
 
 def load_database(path):
 
-    global config, time_of_start, categories, category_by_name, cards
     global load_failed
   
     path = expand_path(path, basedir)
@@ -540,14 +339,14 @@ def load_database(path):
     for c in categories:
         remove_category_if_unused(c)
 
-    config["path"] = contract_path(path, basedir)
+    set_config("path", contract_path(path, basedir))
 
     logger.info("Loaded database %d %d %d", scheduled_cards(), \
                 non_memorised_cards(), number_of_cards())
 
     if "after_load" in function_hooks:
-		for f in function_hooks["after_load"]:
-			f()
+        for f in function_hooks["after_load"]:
+            f()
 
 
 
@@ -575,6 +374,8 @@ def save_database(path):
         
         print >> outfile, database_header_line
 
+        # TODO: fix storage, as these variables are no longer available here.
+        
         db = [time_of_start, categories, cards]
         cPickle.dump(db, outfile)
 
@@ -583,9 +384,11 @@ def save_database(path):
         shutil.move(path + "~", path) # Should be atomic.
         
     except:
-        raise SaveError()
+        pass
+        #print traceback_string()
+        #raise SaveError()
 
-    config["path"] = contract_path(path, basedir)
+    set_config("path", contract_path(path, basedir))
 
 
 
@@ -655,16 +458,6 @@ def backup_database():
     if len(files) > get_config("backups_to_keep"):
         os.remove(os.path.join(backupdir, files[0]))
 
-    
-
-##############################################################################
-#
-# list_is_loaded
-#
-##############################################################################
-
-def list_is_loaded():
-    return len(cards) != 0
 
 
 
@@ -1094,70 +887,6 @@ def export_file(filename, fformat_name,
                             reset_learning_data)
 
     id_to_anon = {}
-
-
-
-
-
-
-##############################################################################
-#
-# add_new_card
-#
-##############################################################################
-
-def add_new_card(grade, question, answer, cat_name, id=None):
-
-    global cards, load_failed
-
-    card = Card()
-    
-    card.q     = question
-    card.a     = answer
-    card.cat   = get_category_by_name(cat_name)
-    card.grade = grade
-    
-    card.acq_reps = 1
-    card.acq_reps_since_lapse = 1
-
-    card.last_rep = days_since_start
-    
-    card.easiness = average_easiness()
-
-    if id == None:
-        card.new_id()
-    else:
-        card.id = id 
-    
-    new_interval  = calculate_initial_interval(grade)
-    new_interval += calculate_interval_noise(new_interval)
-    card.next_rep = days_since_start + new_interval
-    
-    cards.append(card)    
-
-    logger.info("New card %s %d %d", card.id, card.grade, new_interval)
-
-    load_failed = False
-    
-    return card
-
-
-
-##############################################################################
-#
-# delete_card
-#
-##############################################################################
-
-def delete_card(e):
-
-    old_cat = e.cat
-    
-    cards.remove(e)
-    rebuild_revision_queue()
-    remove_category_if_unused(old_cat)
-
-    logger.info("Deleted card %s", e.id)
 
 
 
