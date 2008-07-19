@@ -91,9 +91,9 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 ##############################################################################
 
 # TODO: make sure this only runs once.
-# TODO: cleaner way than having to know the correct id.
 
-get_card_type_by_id(1).set_widget_class(CardTwoSidedWdgt)
+register_card_type(TwoSided, CardTwoSidedWdgt)
+
 
 
 

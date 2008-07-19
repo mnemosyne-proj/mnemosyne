@@ -49,7 +49,7 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
 
         # Get the data from the form.
 
-        w = unicode(self.foreign_word .document().toPlainText())
+        f = unicode(self.foreign_word .document().toPlainText())
         p = unicode(self.pronunciation.document().toPlainText())
         t = unicode(self.translation  .document().toPlainText())
         
@@ -72,7 +72,7 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
 
         # Return the data.
         
-        return {'w' : w, 'p' : p, 't' : t,
+        return {'f' : f, 'p' : p, 't' : t,
                 'recognition' : recognition,
                 'production'  : production} 
 
@@ -101,9 +101,9 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
 ##############################################################################
 
 # TODO: make sure this only runs once.
-# TODO: cleaner way than having to know the correct id.
 
-get_card_type_by_id(2).set_widget_class(CardThreeSidedWdgt)
+register_card_type(ThreeSided, CardThreeSidedWdgt)
+    
 
 
 

@@ -241,11 +241,11 @@ day_starts_at = 3"""
 
 ##############################################################################
 #
-# run_plugins
+# run_user_plugins
 #
 ##############################################################################
 
-def run_plugins():
+def run_user_plugins():
 
     plugindir = unicode(os.path.join(basedir, "plugins"))
     

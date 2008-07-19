@@ -22,8 +22,6 @@ Mnemosyne 2.0: Major rewrite
 -front widget that allows copying, can produce scroll bars. This will
  solve issues when a card contains a very large picture
 
--MVC?
-
 -http://apptools.com/examples/tableheight.php
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447
 
@@ -31,8 +29,6 @@ Mnemosyne 2.0: Major rewrite
  much faster 'Edit Deck'. Test deleting large number of cards.
 
 -change file suffix when changing export format
-
--add current card statistics to statistics dialog
 
 -basic graphical statistics
 
@@ -63,7 +59,9 @@ Mnemosyne 2.0: Major rewrite
 -move to sqlite backend (encode category hierarchy in name, 
  multiple category fields per card)
 
--field for date added
+-easier function to run all hooks
+
+-easier function to do tag detection in plugin
 
 -rename edit_items, items, product tour at the source level
 
@@ -103,7 +101,7 @@ Mnemosyne 2.0: Major rewrite
 -hierarchical categories
 
 -advanced deck manager, with tree view, drag and drop to change categories, 
- count of cards/facts...
+ count of cards/facts... Option to show only related cards.
 
 -make 'search' behave as a filter
 

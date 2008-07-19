@@ -19,6 +19,7 @@ from mnemosyne.libmnemosyne.config import get_config
 ##############################################################################
 
 time_of_start = None
+days_since_start = None
 
 class StartTime:
 
@@ -77,14 +78,26 @@ def initialise_time_of_start():
 
 ##############################################################################
 #
+# update_days_since_start
+#
+##############################################################################
+
+def update_days_since_start():
+    
+    global time_of_start
+
+    time_of_start.update_days_since()    
+
+
+
+##############################################################################
+#
 # get_days_since_start
 #
 # TODO: profile speed of this function, as it's critical
 # Is an exposed global faster/possible ?
 #
 ##############################################################################
-
-days_since_start = None
 
 def get_days_since_start():
     return days_since_start

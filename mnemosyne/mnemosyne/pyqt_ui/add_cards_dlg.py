@@ -53,6 +53,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         for card_type in get_card_types().values():
             self.card_types.addItem(card_type.name)
             self.card_type_by_name[card_type.name] = card_type
+
+        # TODO: sort card types by id
                
         # TODO: remember last type
 
@@ -94,7 +96,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
     #
     # update_card_widget
     #
-    ##########################################################################       
+    ##########################################################################
 
     def update_card_widget(self):
 

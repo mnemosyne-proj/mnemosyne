@@ -12,6 +12,7 @@ from PyQt4.QtGui import *
 from ui_main_window import *
 
 from add_cards_dlg import *
+from review_wdgt import *
 #from import_dlg import *
 #from export_dlg import *
 #from edit_item_dlg import *
@@ -90,11 +91,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.review_widget = None
-
-        self.state = "EMPTY"
-        self.card = None
+        self.update_review_widget()
         
-        self.shrink = True
+        #self.shrink = True
 
         self.q_sound_played = False
         self.a_sound_played = False
@@ -108,32 +107,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.addPermanentWidget(self.all)
         self.statusbar.setSizeGripEnabled(0)
 
-        self.grade_buttons = []
-
-        self.grade_buttons.append(self.grade_0_button)
-        self.grade_buttons.append(self.grade_1_button)
-        self.grade_buttons.append(self.grade_2_button)
-        self.grade_buttons.append(self.grade_3_button) 
-        self.grade_buttons.append(self.grade_4_button)
-        self.grade_buttons.append(self.grade_5_button)
-
         try:
-            run_plugins()
+            run_user_plugins()
         except MnemosyneError, e:
             messagebox_errors(self, e)
                 
         if filename == None:
             filename = get_config("path")
 
-        try:
-            load_database(filename)
-        except MnemosyneError, e:
-            messagebox_errors(self, LoadErrorCreateTmp())
-            filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
-            new_database(filename)
+        # TODO: enable load/save
+
+        #try:
+        #    load_database(filename)
+        #except MnemosyneError, e:
+        #    messagebox_errors(self, LoadErrorCreateTmp())
+        #    filename =os.path.join(os.path.split(filename)[0],"___TMP___.mem")
+        #    new_database(filename)
         
-        self.newQuestion()
-        self.updateDialog()
 
         # TODO: add sound.
 
@@ -141,6 +131,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.connect(self.timer, SIGNAL("timeout()"), soundmanager.update)
         #self.timer.setSingleShot(False)
         #self.timer.start(250)
+
+
         
     ##########################################################################
     #
@@ -576,283 +568,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg.exec_()
         unpause_thinking()
 
-    ##########################################################################
-    #
-    # newQuestion
-    #
-    ##########################################################################
-
-    def newQuestion(self, learn_ahead = False):
-        
-        if number_of_cards() == 0:
-            self.state = "EMPTY"
-            self.card = None
-        else:
-            self.card = get_new_question(learn_ahead)
-            if self.card != None:
-                self.state = "SELECT SHOW"
-            else:
-                self.state = "SELECT AHEAD"
-
-        self.q_sound_played = False
-        self.a_sound_played = False
-        
-        start_thinking()
-
-    ##########################################################################
-    #
-    # showAnswer
-    #
-    ##########################################################################
-
-    def showAnswer(self):
-
-        if self.state == "SELECT AHEAD":
-            self.newQuestion(learn_ahead = True)
-        else:
-            stop_thinking()
-            self.state = "SELECT GRADE"
-        self.updateDialog()
-        
-    ##########################################################################
-    #
-    # gradeAnswer
-    #
-    ##########################################################################
-
-    def gradeAnswer(self, grade):
-
-        interval = process_answer(self.card, grade)
-        self.newQuestion()
-        self.updateDialog()
-
-        if get_config("show_intervals") == "statusbar":
-            self.statusbar.message(self.trUtf8("Returns in ").append(\
-                str(interval)).append(self.trUtf8(" day(s).")))
-            
-    ##########################################################################
-    #
-    # next_rep_string
-    #
-    ##########################################################################
-
-    def next_rep_string(self, days):
-        
-        if days == 0:
-            return QString('\n') + self.trUtf8("Next repetition: today.")
-        elif days == 1:
-            return QString('\n') + self.trUtf8("Next repetition: tomorrow.")
-        else: 
-            return QString('\n') + self.trUtf8("Next repetition in ").\
-                   append(QString(str(days))).\
-                   append(self.trUtf8(" days."))
-        
-    ##########################################################################
-    #
-    # updateDialog
-    #
-    ##########################################################################
-
-    def updateDialog(self):
-
-        # Update title.
-        
-        database_name = os.path.basename(get_config("path"))[:-4]
-        title = u"Mnemosyne - " + database_name
-        self.setWindowTitle(title)
-
-        # Update menu bar.
-
-        if get_config("only_editable_when_answer_shown") == True:
-            if self.card != None and self.state == "SELECT GRADE":
-                self.actionEditCurrentCard.setEnabled(True)
-            else:
-                self.actionEditCurrentCard.setEnabled(False)
-        else:
-            if self.card != None:
-                self.actionEditCurrentCard.setEnabled(True)
-            else:
-                self.actionEditCurrentCard.setEnabled(False)            
-            
-        self.actionDeleteCurrentCard.setEnabled(self.card != None)
-        self.actionEditDeck.setEnabled(number_of_cards() > 0)
-
-        # Update toolbar.
-        
-        if get_config("hide_toolbar") == True:
-            self.toolBar.hide()
-            self.actionShowToolbar.setChecked(0)
-        else:
-            self.toolBar.show()
-            self.actionShowToolbar.setChecked(1)
-
-        # Update question and answer font.
-        
-        if get_config("QA_font") != None:
-            font = QFont()
-            font.fromString(get_config("QA_font"))
-        else:
-            font = self.show_button.font()
-
-        self.question.setFont(font)
-        self.answer.setFont(font)
-
-        # Size for non-latin characters.
-
-        increase_non_latin = get_config("non_latin_font_size_increase")
-        non_latin_size = font.pointSize() + increase_non_latin
-        
-        # Update question and answer alignment.
-
-        # TODO: move alingment to Qt4
-        
-        #if get_config("left_align") == True:
-        #    alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.TextWordWrap
-        #else:
-        #    alignment = Qt.AlignHCenter | Qt.AlignVCenter | Qt.TextWordWrap
-
-        #self.question.setAlignment(alignment)
-        #self.answer.setAlignment(alignment)
-
-        # Update question label.
-        
-        question_label_text = self.trUtf8("Question:")
-        if self.card!=None and self.card.cat.name!=self.trUtf8("<default>"):
-            question_label_text += " " + self.card.cat.name
-        self.question_label.setText(question_label_text)
-
-        # Update question content.
-        
-        if self.card == None:
-            self.question.setText("")
-        else:
-            text = self.card.filtered_q()
-
-            if self.q_sound_played == False:
-                play_sound(text)
-                self.q_sound_played = True
-                
-            if increase_non_latin:
-                text = set_non_latin_font_size(text, non_latin_size)
-
-            self.question.setText(text)
-
-        # Update answer content.
-        
-        if self.card == None or self.state == "SELECT SHOW":
-            self.answer.setText("")
-        else:
-            text = self.card.filtered_a()
-
-            if self.a_sound_played == False:
-                play_sound(text)
-                self.a_sound_played = True
-                
-            if increase_non_latin:
-                text = set_non_latin_font_size(text, non_latin_size)
-            self.answer.setText(text)
-
-        # Update 'show answer' button.
-        
-        if self.state == "EMPTY":
-            show_enabled, default, text = 0, 1, self.trUtf8("Show answer")
-            grades_enabled = 0
-        elif self.state == "SELECT SHOW":
-            show_enabled, default, text = 1, 1, self.trUtf8("Show answer")
-            grades_enabled = 0
-        elif self.state == "SELECT GRADE":
-            show_enabled, default, text = 0, 1, self.trUtf8("Show answer")
-            grades_enabled = 1
-        elif self.state == "SELECT AHEAD":
-            show_enabled, default, text = 1, 0, \
-                                     self.trUtf8("Learn ahead of schedule")
-            grades_enabled = 0
-
-        self.show_button.setText(text)
-        self.show_button.setDefault(default)
-        self.show_button.setEnabled(show_enabled)
-
-        # Update grade buttons. Make sure that no signals get connected
-        # twice, and put the disconnects inside a try statement to work
-        # around a Windows issue.
-
-        self.grade_0_button.setDefault(False)
-        self.grade_4_button.setDefault(False)
-
-        try:
-            self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                            self.grade_0_button.animateClick)
-        except:
-            pass
-        
-        try:
-            self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                            self.grade_4_button.animateClick)
-        except:
-            pass
-        
-        if self.card != None and self.card.grade in [0,1]:
-            i = 0 # Acquisition phase.
-            self.grade_0_button.setDefault(grades_enabled)
-            self.connect(self.actionDefault,SIGNAL("activated()"),
-                         self.grade_0_button.animateClick)
-        else:
-            i = 1 # Retention phase.
-            self.grade_4_button.setDefault(grades_enabled)
-            self.connect(self.actionDefault,SIGNAL("activated()"),
-                         self.grade_4_button.animateClick)
-                        
-        self.grades.setEnabled(grades_enabled)
-
-        #QToolTip.setWakeUpDelay(0) #TODO?
-
-        for grade in range(0,6):
-
-            # Tooltip.
-            
-            #QToolTip.remove(self.grade_buttons[grade])
-            
-            if self.state == "SELECT GRADE" and \
-               get_config("show_intervals") == "tooltips":
-                #QToolTip.add(self.grade_buttons[grade],
-                #      tooltip[i][grade].
-                #      append(self.next_rep_string(process_answer(self.card,
-                #                                  grade, dry_run=True))))
-                self.grade_buttons[grade].setToolTip(tooltip[i][grade].
-                      append(self.next_rep_string(process_answer(self.card,
-                                                  grade, dry_run=True))))
-            else:
-                self.grade_buttons[grade].setToolTip(tooltip[i][grade])
-                
-                #QToolTip.add(self.grade_buttons[grade], tooltip[i][grade])
-
-            # Button text.
-                    
-            if self.state == "SELECT GRADE" and \
-               get_config("show_intervals") == "buttons":
-                self.grade_buttons[grade].setText(\
-                        str(process_answer(self.card, grade, dry_run=True)))
-                self.grades.setTitle(\
-                    self.trUtf8("Pick days until next repetition:"))
-            else:
-                self.grade_buttons[grade].setText(str(grade))
-                self.grades.setTitle(self.trUtf8("Grade your answer:"))
-
-            # Todo: accelerator update needed?
-            #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
-
-        # Update status bar.
-        
-        self.sched .setText(self.trUtf8("Scheduled: ").append(QString(\
-                            str(scheduled_cards()))))
-        self.notmem.setText(self.trUtf8("Not memorised: ").append(QString(\
-                            str(non_memorised_cards()))))
-        self.all   .setText(self.trUtf8("All: ").append(QString(\
-                            str(active_cards()))))
-
-        # TODO: autoshrinking.
-        #if self.shrink == True:
-        #    self.adjustSize()
 
     ##########################################################################
     #

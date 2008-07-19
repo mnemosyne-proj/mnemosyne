@@ -46,6 +46,7 @@ class CardType(object):
 ##############################################################################
 
 def get_card_types():
+    
     return card_types
 
 
@@ -57,4 +58,37 @@ def get_card_types():
 ##############################################################################
 
 def get_card_type_by_id(id):
+    
     return card_types[id]
+
+
+
+##############################################################################
+#
+# register_card_type
+#
+##############################################################################
+
+register_card_type(card_type_class, card_widget_class):
+    
+    c = card_type_class()
+    c.set_widget_class(card_widget_class)
+
+
+
+##############################################################################
+#
+# unregister_card_type
+#
+##############################################################################
+
+# TODO: test
+
+unregister_card_type(card_type_class):
+
+    global card_types
+
+    for id, c in card_types.iteritems():
+        if isinstance(c. card_type_class):
+            del card_types[id]
+            break

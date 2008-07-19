@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>293</width>
+    <width>325</width>
     <height>286</height>
    </rect>
   </property>
@@ -110,7 +110,7 @@
        <item>
         <widget class="QCheckBox" name="recognition" >
          <property name="text" >
-          <string>Add &amp;recognition card</string>
+          <string>Enable &amp;recognition card</string>
          </property>
          <property name="checked" >
           <bool>true</bool>
@@ -120,7 +120,7 @@
        <item>
         <widget class="QCheckBox" name="production" >
          <property name="text" >
-          <string>Add &amp;production card</string>
+          <string>Enable &amp;production card</string>
          </property>
          <property name="checked" >
           <bool>true</bool>

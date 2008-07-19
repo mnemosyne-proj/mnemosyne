@@ -16,6 +16,8 @@ import datetime, md5
 #   The fields are stored in a dictionary.
 #
 # TODO: make list of common keys for standardisation.
+# TODO: store facts in a separate database? They might not be needed for
+# e.g. mobile clients.
 #
 ##############################################################################
 

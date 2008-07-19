@@ -16,7 +16,7 @@ from mnemosyne.libmnemosyne.fact import *
 #
 # ThreeSided
 #
-#  w: foreign word
+#  f: foreign word
 #  p: pronunciation
 #  t: translation
 #
@@ -46,7 +46,7 @@ class ThreeSided(CardType):
     def generate_q(self, fact, subtype):
 
         if subtype == 0:   # Recognition.
-            return fact['w']
+            return fact['f']
         elif subtype == 1: # Production.
             return fact['t'] 
         else:
@@ -66,7 +66,7 @@ class ThreeSided(CardType):
         if subtype == 0:   # Recognition.
             return fact['p'] + '\n' + fact['t']
         elif subtype == 1: # Production.
-            return fact['w'] + '\n' + fact['p']
+            return fact['f'] + '\n' + fact['p']
         else:
             print 'Invalid subtype.'
             raise NameError()
@@ -119,6 +119,3 @@ class ThreeSided(CardType):
     def update_cards(self, data):
 
         pass
-
-
-c = ThreeSided()
