@@ -26,7 +26,7 @@ class UiController(object):
 
 
 
-    # Calls to widget: update, close, scheduler.process_answer
+    # TODO: list calls make back to widget
 
 
     
