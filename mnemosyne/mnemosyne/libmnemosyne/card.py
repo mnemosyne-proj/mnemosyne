@@ -10,8 +10,11 @@ from mnemosyne.libmnemosyne.category import *
 from mnemosyne.libmnemosyne.card_type import *
 from mnemosyne.libmnemosyne.start_date import get_days_since_start
 from mnemosyne.libmnemosyne.scheduler import *
+from mnemosyne.libmnemosyne.database import *
 
 logger = logging.getLogger("mnemosyne")
+
+db = get_database()
 
 
 
@@ -27,8 +30,6 @@ logger = logging.getLogger("mnemosyne")
 # like reverse cards.
 #
 ##############################################################################
-
-cards = []
 
 class Card(object):
 
@@ -249,112 +250,8 @@ class Card(object):
 
 
 
-##############################################################################
-#
-# cards_are_inverses
-#
-# TODO: obsolete?
-#
-##############################################################################
 
-def cards_are_inverses(card1, card2):
-
-    if card1.q == card2.a and card2.q == card1.a:
-        return True
-    else:
-        return False
-
-
-
-##############################################################################
-#
-# get_cards
-#
-##############################################################################
-
-def get_cards():
-    return cards
-
-
-
-##############################################################################
-#
-# get_card_by_id
-#
-##############################################################################
-
-def get_card_by_id(id):
-    try:
-        return [i for i in cards if i.id == id][0]
-    except:
-        return None
-
-
-
-##############################################################################
-#
-# number_of_cards
-#
-##############################################################################
-
-def number_of_cards():
-    return len(cards)
-
-
-
-##############################################################################
-#
-# non_memorised_cards
-#
-##############################################################################
-
-def non_memorised_cards():
-    return sum(1 for i in cards if i.is_due_for_acquisition_rep())
-
-
-
-##############################################################################
-#
-# scheduled_cards
-#
-#   Number of cards scheduled within 'days' days.
-#
-##############################################################################
-
-def scheduled_cards(days=0):
-    return sum(1 for i in cards if i.is_due_for_retention_rep(days))
-
-
-
-##############################################################################
-#
-# active_cards
-#
-#   Number of cards in an active category.
-#
-##############################################################################
-
-def active_cards():
-    return sum(1 for i in cards if i.is_in_active_category())
-
-
-
-##############################################################################
-#
-# average_easiness
-#
-##############################################################################
-
-def average_easiness():
-
-    if len(cards) == 0:
-        return 2.5
-    if len(cards) == 1:
-        return cards[0].easiness
-    else:
-        return sum(i.easiness for i in cards) / len(cards)
-
-
+# TODO: see how to move this best to the above claas.
 
 ##############################################################################
 #
@@ -394,9 +291,7 @@ def add_new_card(grade, card_type_id, fact, subcard, cat_names, id=None):
     new_interval += calculate_interval_noise(new_interval)
     card.next_rep = get_days_since_start() + new_interval
 
-    fact.cards.append(card)
-    
-    cards.append(card)    
+    db.add_card(card)
 
     logger.info("New card %s %d %d", card.id, card.grade, new_interval)
 
@@ -405,32 +300,3 @@ def add_new_card(grade, card_type_id, fact, subcard, cat_names, id=None):
     print 'new card', card.q, card.a
     
     return card
-
-
-
-##############################################################################
-#
-# delete_card
-#
-##############################################################################
-
-def delete_card(e):
-
-    old_cat = e.cat
-    
-    cards.remove(e)
-    rebuild_revision_queue()
-    remove_category_if_unused(old_cat)
-
-    logger.info("Deleted card %s", e.id)
-
-
-
-##############################################################################
-#
-# list_is_loaded
-#
-##############################################################################
-
-def list_is_loaded():
-    return len(cards) != 0   

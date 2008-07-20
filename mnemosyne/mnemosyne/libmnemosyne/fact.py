@@ -6,6 +6,8 @@
 
 import datetime, md5
 
+from mnemosyne.libmnemosyne.database import *
+
 
 
 ##############################################################################
@@ -20,8 +22,6 @@ import datetime, md5
 # e.g. mobile clients.
 #
 ##############################################################################
-
-facts = []
 
 class Fact(object):
 
@@ -78,11 +78,10 @@ class Fact(object):
 #
 ##############################################################################
 
+# TODO: see how to integrate this best to the class above.
+
 def add_new_fact(data):
 
-    global facts
+    f = fact(data)
 
-    fact = Fact(data)
-    facts.append(fact)
-
-    return fact
+    get_database().add_fact(f)
