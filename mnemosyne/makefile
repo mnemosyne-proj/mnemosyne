@@ -1,5 +1,4 @@
 default:
-	rm -rf /usr/lib/python2.4/site-packages/Mnemosyne-1.0*
 	cd mnemosyne/pyqt_ui ; make clean
 	cd mnemosyne/pyqt_ui ; make
 	#rm -f mnemosyne/pyqt_ui/locale/mnemosyne_XX.ts
@@ -47,6 +46,10 @@ distrib: FORCE
 
 	mkdir distrib/pixmaps
 	cp pixmaps/mnemosyne.png distrib/pixmaps
+	cp pixmaps/mnemosyne.icns distrib/pixmaps
+
+	mkdir distrib/plugins
+	cp plugins/README plugins/*.py distrib/plugins
 
 	V=`python mnemosyne/version.py` && mv distrib mnemosyne-$${V}
 

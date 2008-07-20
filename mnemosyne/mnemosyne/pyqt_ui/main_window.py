@@ -34,42 +34,6 @@ prefix = os.path.dirname(__file__)
 
 
 
-##############################################################################
-#
-# Tooltip texts
-#
-##############################################################################
-
-tooltip = [["","","","","",""],["","","","","",""]]
-
-def install_tooltip_strings(self):
-
-    global tooltip
-    
-    tooltip[0][0] = \
-        self.trUtf8("You don't remember this card yet.")
-    tooltip[0][1] = \
-        self.trUtf8("Like '0', but it's getting more familiar.").append(\
-        self.trUtf8(" Show it less often."))
-    tooltip[0][2] = tooltip[0][3] = tooltip[0][4] = tooltip[0][5] = \
-        self.trUtf8("You've memorised this card now,").append(\
-        self.trUtf8(" and will probably remember it for a few days."))
-
-    tooltip[1][0] = tooltip[1][1] = \
-        self.trUtf8("You have forgotten this card completely.")
-    tooltip[1][2] = \
-        self.trUtf8("Barely correct answer. The interval was way too long.")
-    tooltip[1][3] = \
-        self.trUtf8("Correct answer, but with much effort.").append(\
-        self.trUtf8(" The interval was probably too long."))
-    tooltip[1][4] = \
-        self.trUtf8("Correct answer, with some effort.").append(\
-        self.trUtf8(" The interval was probably just right."))
-    tooltip[1][5] = \
-        self.trUtf8("Correct answer, but without any").append(\
-        self.trUtf8(" difficulties. The interval was probably too short."))
-
-
 
 ##############################################################################
 #

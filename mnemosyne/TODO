@@ -73,6 +73,8 @@ Mnemosyne 2.0: Major rewrite
 
 -autosave
 
+-teacher mode?
+
 -make really sure the same question isn't asked twice in a row
 
 -bug in Qt? : get rid of dummy '.' status tips
