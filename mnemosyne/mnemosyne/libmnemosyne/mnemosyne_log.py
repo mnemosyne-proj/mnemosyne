@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Logging related functionality <Peter.Bienstman@UGent.be>
+# logger.py <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
@@ -8,7 +8,7 @@ import os, logging, bz2, sets, traceback, time, urllib2
 from threading import Thread
 from random import randint
 from string import joinfields
-from mnemosyne.libmnemosyne.mnemosyne_core import get_basedir
+from mnemosyne.libmnemosyne import get_basedir
 from mnemosyne.libmnemosyne.config import get_config, set_config
 
 
