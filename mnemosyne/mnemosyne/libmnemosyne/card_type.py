@@ -14,6 +14,14 @@ _card_types = {}
 
 class CardType(object):
 
+    @staticmethod
+    def by_id(id):
+        return _card_types[id]
+
+    @staticmethod
+    def all():
+        return _card_types
+
     def __init__(self, id, name):
         global card_types
         card_types[id] = self
@@ -22,14 +30,34 @@ class CardType(object):
 
         self.name = name
         self.id = id
+
+
         
     def set_widget_class(self, widget_class):
         print 'set widget class', widget_class
         self.widget_class = widget_class
         
-    def set_widget(self, widget):
+    def _set_widget_class(self, widget_class):
+        print 'set widget class', widget_class
+        self._widget_class = widget_class
+
+    def _get_widget_class(self):
+        return self._widget_class
+
+    widget_class = property(_get_widget_class, _set_widget_class)
+
+
+     
+    def _set_widget(self, widget):
         print 'set widget', widget
-        self.widget = widget        
+        self._widget = widget
+
+    def _get_widget(self):
+        return self._widget
+
+    widget = property(_get_widget, _set_widget)
+
+
 
     def new_cards(self):
         raise NotImplementedError()
@@ -37,30 +65,6 @@ class CardType(object):
     def update_cards(self):
         raise NotImplementedError()
     
-
-
-##############################################################################
-#
-# get_card_types
-#
-##############################################################################
-
-def get_card_types():
-    
-    return card_types
-
-
-
-##############################################################################
-#
-# get_card_type_by_id
-#
-##############################################################################
-
-def get_card_type_by_id(id):
-    
-    return card_types[id]
-
 
 
 ##############################################################################
