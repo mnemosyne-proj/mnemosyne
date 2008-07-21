@@ -49,7 +49,7 @@ class TwoSided(CardType):
             return fact['a']
         else:
             print 'Invalid subtype.'
-            raise NameError()
+            raise NameError
 
 
         
@@ -67,7 +67,7 @@ class TwoSided(CardType):
             return fact['q']
         else:
             print 'Invalid subtype.'
-            raise NameError()
+            raise NameError
 
         
 

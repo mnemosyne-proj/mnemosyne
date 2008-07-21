@@ -35,8 +35,10 @@ class Plugin:
     ##########################################################################
 
     def __init__(self, type, name, description="", can_be_unregistered=True):
-        self.name = name
-        self.description = description
+        
+        self.type                = type
+        self.name                = name
+        self.description         = description
         self.can_be_unregistered = can_be_unregistered
 
 
@@ -50,7 +52,7 @@ class Plugin:
     ##########################################################################
     
     def register(self):
-        plugin_manager.register(self,type, self)
+        plugin_manager.register(self.type, self)
 
 
     

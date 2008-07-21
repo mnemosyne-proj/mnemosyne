@@ -12,6 +12,17 @@ from libmnemosyne.exceptions import *
 
 ##############################################################################
 #
+# The configuration data needs to be accessed by many different parts of
+# the library, so we hold it in a global variable.
+#
+##############################################################################
+
+config = None
+
+
+
+##############################################################################
+#
 # Config
 #
 ##############################################################################
@@ -25,10 +36,10 @@ class Config(Object):
     ##########################################################################
 
     def __init__(self, basedir=None):
-
+            
         self._config = {}
 
-        # Set up basedir.
+        # Determine basedir.
 
         if basedir == None:
 
@@ -52,10 +63,15 @@ class Config(Object):
             
             self.basedir = basedir
 
-        # Load config file from basedir if it exists.
+        # Fill basedir with configuration files. Do this even if basedir
+        # already exists, because we might have added new files since the
+        # last version.
 
-        if os.path.exists(os.path.join(self.basedir, "config")):
-            self.load()
+        self.fill_basedir()
+            
+        # Load config file from basedir.
+
+        self.load()
 
         # Set defaults, even if a previous file exists, because we might
         # have added new keys since the last version.
@@ -133,6 +149,95 @@ class Config(Object):
         self._config[key] = value
 
 
+
+    ##########################################################################
+    #
+    # fill_basedir
+    #
+    ##########################################################################
+
+    def fill_basedir(self)
+
+        join   = os.path.join
+        exists = os.path.exists
+
+        # Create default paths.
+
+        if not exists(self.basedir):
+            os.mkdir(self.basedir)
+
+        if not exists(join(self.basedir, "history")):
+            os.mkdir(join(self.basedir, "history"))
+
+        if not exists(join(self.basedir, "latex")):
+            os.mkdir(join(self.basedir, "latex"))
+
+        if not exists(join(self.basedir, "plugins")):
+            os.mkdir(join(self.basedir, "plugins"))
+
+        if not exists(join(self.basedir, "backups")):
+            os.mkdir(join(self.basedir, "backups"))
+
+        # Create default latex preamble and postamble.
+
+        latexdir  = join(self.basedir,  "latex")
+        preamble  = join(latexdir, "preamble")
+        postamble = join(latexdir, "postamble")
+        dvipng    = join(latexdir, "dvipng")
+
+        if not os.path.exists(preamble):
+            f = file(preamble, 'w')
+            print >> f, "\\documentclass[12pt]{article}"
+            print >> f, "\\pagestyle{empty}" 
+            print >> f, "\\begin{document}"
+            f.close()
+
+        if not os.path.exists(postamble):
+            f = file(postamble, 'w')
+            print >> f, "\\end{document}"
+            f.close()
+
+        if not os.path.exists(dvipng):
+            f = file(dvipng, 'w')
+            print >> f, "dvipng -D 200 -T tight tmp.dvi" 
+            f.close()
+
+        # Create default config.py.
+
+        configfile = os.path.join(self.basedir, "config.py")
+        if not os.path.exists(configfile):
+            f = file(configfile, 'w')
+        print >> f, \
+"""# Mnemosyne configuration file.
+
+# Align question/answers to the left (True/False)
+left_align = False
+
+# Keep detailed logs (True/False).
+keep_logs = True
+
+# Upload server. Only change when prompted by the developers.
+upload_server = "mnemosyne-proj.dyndns.org:80"
+
+# Set to True to prevent you from accidentally revealing the answer
+# when clicking the edit button.
+only_editable_when_answer_shown = False
+
+# The translation to use, e.g. 'de' for German (including quotes).
+# See http://www.mnemosyne-proj.org/help/translations.php for a list
+# of available translations.
+# If locale is set to None, the system's locale will be used.
+locale = None
+
+# The number of daily backups to keep. Set to -1 for no limit.
+backups_to_keep = 5
+
+# The moment the new day starts. Defaults to 3 am. Could be useful to
+# change if you are a night bird.
+day_starts_at = 3"""
+        f.close()
+
+        
 
     ##########################################################################
     #
@@ -253,3 +358,5 @@ class Config(Object):
             os.symlink(new, old)
         except OSError:
             print "Backwards compatibility symlink creation failed."
+
+

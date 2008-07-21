@@ -4,6 +4,9 @@
 #
 ##############################################################################
 
+# TODO: see if this is still needed, now that we will use gettext
+# instead of Qt Linguist
+
 import sys, traceback, string
 
 
