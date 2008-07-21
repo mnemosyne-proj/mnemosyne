@@ -4,6 +4,8 @@
 #
 ##############################################################################
 
+from libmnemosyne.plugin import Plugin
+
 
 
 ##############################################################################
@@ -15,49 +17,32 @@
 #
 ##############################################################################
 
-_filters = []
-
-# TODO: flesh out.
-
-class Filter(object):
-
-    def __init__():
-        pass
-
-    def run(self, text):
-        pass
-
-
-
-##############################################################################
-#
-# register_filter
-#
-##############################################################################
-
-register_card_type(card_type_class, card_widget_class):
+class Filter(Plugin):
     
-    c = card_type_class()
-    c.set_widget_class(card_widget_class)
+    ##########################################################################
+    #
+    # __init__
+    #
+    ##########################################################################
+    
+    def __init__(self, name, description, can_be_unregistered=True):
+
+        self.type                = "filter"
+        self.name                = name
+        self.description         = description
+        self.can_be_unregistered = can_be_unregistered
 
 
 
-##############################################################################
-#
-# unregister_filter
-#
-##############################################################################
+    ##########################################################################
+    #
+    # Function to be implemented by the actual filter.
+    #
+    ##########################################################################
+        
+    def run(self, text):
+        raise NotImplementedError
 
-# TODO: test
-
-unregister_card_type(card_type_class):
-
-    global card_types
-
-    for id, c in card_types.iteritems():
-        if isinstance(c. card_type_class):
-            del card_types[id]
-            break
 
 
 

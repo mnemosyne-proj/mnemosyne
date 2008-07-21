@@ -6,11 +6,11 @@
 
 import md5, time, logging
 
-from mnemosyne.libmnemosyne.category import *
-from mnemosyne.libmnemosyne.card_type import *
-from mnemosyne.libmnemosyne.start_date import get_days_since_start
-from mnemosyne.libmnemosyne.scheduler import *
-from mnemosyne.libmnemosyne.database import *
+#from mnemosyne.libmnemosyne.category import *
+#from mnemosyne.libmnemosyne.card_type import *
+#from mnemosyne.libmnemosyne.start_date import get_days_since_start
+#from mnemosyne.libmnemosyne.scheduler import *
+#from mnemosyne.libmnemosyne.database import *
 
 logger = logging.getLogger("mnemosyne")
 

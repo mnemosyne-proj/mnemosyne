@@ -4,12 +4,6 @@
 #
 ##############################################################################
 
-# global TODO:
-# mixin plugin class?
-# increase size of non latin, sound: make into GUI level filter
-# private variables: prefix_
-
-
 import gettext
 _ = gettext.gettext
 
@@ -18,81 +12,6 @@ import mnemosyne.version
 logger = logging.getLogger("mnemosyne")
 
 
-# TODO: check if basedir code can be improved.
-
-##############################################################################
-#
-# migrate_basedir
-#
-##############################################################################
-
-def migrate_basedir(old, new):
-
-    if os.path.islink(_old_basedir):
-
-        print _("Not migrating %s to %s because ") % (old, new) \
-                + _("it is a symlink.")
-        return
-
-    # Migrate Mnemosyne basedir to new location and create a symlink from 
-    # the old one. The other way around is a bad idea, because a user
-    # might decide to clean up the old obsolete directory, not realising
-    # the new one is a symlink.
-        
-    print _("Migrating %s to %s") % (old, new)
-    try:
-        os.rename(old, new)
-    except OSError:
-        print _("Move failed, manual migration required.")
-        return
-
-    # Now create a symlink for backwards compatibility.
-
-    try:
-        os.symlink(new, old)
-    except OSError:
-        print _("Symlink creation failed (only needed for older versions).")
-
-
-
-##############################################################################
-#
-# Create basedir
-#
-##############################################################################
-
-if sys.platform == 'darwin':
-
-    _old_basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-    basedir = os.path.join(os.path.expanduser("~"), "Library", "Mnemosyne")
-
-    if not os.path.exists(basedir) and os.path.exists(_old_basedir):
-        migrate_basedir(_old_basedir, basedir)
-
-else:
-        
-    _old_basedir = None
-    basedir = os.path.join(os.path.expanduser("~"), ".mnemosyne")
-
-
-
-##############################################################################
-#
-# get_basedir
-#
-##############################################################################
-
-def get_basedir():
-    return basedir
-
-# TODO: remove global imports
-# Move to a more logical position after get_basedir import issue is resolved.
-
-from mnemosyne.libmnemosyne.exceptions import *
-from mnemosyne.libmnemosyne.card import list_is_loaded
-from mnemosyne.libmnemosyne.start_date import *
-from mnemosyne.libmnemosyne.config import load_config, get_config, set_config
-
 
 ##############################################################################
 #
@@ -100,9 +19,8 @@ from mnemosyne.libmnemosyne.config import load_config, get_config, set_config
 #
 ##############################################################################
 
-
 upload_thread = None
-load_failed = False
+load_failed = False # TODO: improve
 
 
 
@@ -114,7 +32,7 @@ load_failed = False
 
 def initialise(basedir_ = None):
 
-    import mnemosyne_log
+    import logger
 
     global upload_thread, load_failed, basedir
 
@@ -253,9 +171,6 @@ def run_user_plugins():
                 __import__(plugin[:-3])
             except:
                 raise PluginError(stack_trace=True)
-
-
-
 
 
 
