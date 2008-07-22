@@ -12,12 +12,12 @@ from PyQt4.QtGui import *
 
 # TODO: improve imports.
 
-from mnemosyne.libmnemosyne.mnemosyne_core import \
-     basedir, initialise, finalise
-from mnemosyne.libmnemosyne.config import get_config, set_config
+from mnemosyne.libmnemosyne import initialise, finalise
+
+#from mnemosyne.libmnemosyne.config import get_config, set_config
 from mnemosyne.pyqt_ui.main_window import *
-from mnemosyne.pyqt_ui.message_boxes import *
-from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
+#from mnemosyne.pyqt_ui.message_boxes import *
+#from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 from optparse import OptionParser
 
 # Parse options.
@@ -114,7 +114,6 @@ except:
     print "Unable to initialise sound."
 
 w = MainWindow(filename)
-install_tooltip_strings(w)
 
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
 QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))
@@ -126,13 +125,12 @@ w.show()
 
 # TODO: check first run wizard.
 
-if get_config("first_run") == True:
+if config["first_run"] == True:
     w.productTour()
-    set_config("first_run", False)
-elif get_config("show_daily_tips") == True:
+    config["first_run"] = False
+elif config["show_daily_tips"] == True:
     w.Tip()
 
 a.exec_()
 
-# TODO: check if finalize runs
 finalise()

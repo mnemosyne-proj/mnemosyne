@@ -1,112 +1,66 @@
 ##############################################################################
 #
-# Mnemosyne core <Peter.Bienstman@UGent.be>, Dirk Hermann
+# file_format.py <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
-TODO: move to new plugin mechanism
+from libmnemosyne.plugin import Plugin
 
-import_time_of_start = None # TODO: move to where it belongs.
+
 
 ##############################################################################
 #
 # FileFormat
 #
-# Each file format that Mnemosyne supports is identified by a name (a string).
-# Additionally, a file format needs a file name filter (a string), a function
-# to import data from a file of the respective type, and a function to export
-# data in the respective format.
-#
-# The file format name will appear in the import and export dialogues.
-# Therefore, they shall be easy to understand by a user, e.g. "Text
-# with tab-separated Q/A".
-#
-# The file name filter has to be given in Qt format, e. g. "XML Files (*.xml
-# *XML)". It will be used in the file selection dialogues.
+#  Code which operates on the Q and A strings and filters it to achieve
+#  extra functionality.
 #
 ##############################################################################
 
-file_formats = []
-
-class FileFormat:
-
-    def __init__(self, name, filter="",
-                 import_function=False, export_function=False):
-
-        self.name = name
-        self.filter = filter
-        self.import_function = import_function
-        self.export_function = export_function
-
-
-
-##############################################################################
-#
-# register_file_format
-#
-##############################################################################
-
-def register_file_format(name, filter="",
-                         import_function=False, export_function=False):
-
-    global file_formats
+class FileFormat(Plugin):
     
-    file_formats.append(FileFormat(name, filter,
-                                   import_function, export_function))
+    ##########################################################################
+    #
+    # __init__
+    #
+    # The filename filter has to be given in Qt format, e. g.
+    #  XML Files (*.xml *XML)".
+    #
+    ##########################################################################
     
-    file_formats.sort(lambda x,y: cmp(x.name, y.name))
+    def __init__(self, name, description,
+                 filename_filer, 
+                 can_be_unregistered=True):
+
+        self.type                = "filter"
+        self.name                = name
+        self.description         = description
+        self.can_be_unregistered = can_be_unregistered
+
+        self.filename_filter     = filename_filer
+        self.import_possible     = import_possible
+        self.export_possible     = export_possible
 
 
 
-##############################################################################
-#
-# unregister_file_format
-#
-##############################################################################
+    ##########################################################################
+    #
+    # Functions to be implemented by the actual file format.
+    #
+    ##########################################################################
+        
+    def do_import(self, filename, default_cat_name,
+               reset_learning_data=False):
+        raise NotImplementedError
 
-def unregister_file_format(name):
+    def do_export(self, filename, default_cat_name,
+               reset_learning_data=False):
+        raise NotImplementedError    
 
-    global file_formats
     
-    file_formats.remove(get_file_format_from_name(name))
-
-	
-
-##############################################################################
-#
-# get_importable_file_formats
-#
-##############################################################################
-
-def get_importable_file_formats():
-     return [f for f in file_formats if f.import_function]
 
 
 
-##############################################################################
-#
-# get_exportable_file_formats
-#
-##############################################################################
-
-def get_exportable_file_formats():
-     return [f for f in file_formats if f.export_function]
-
-
-
-##############################################################################
-#
-# get_file_format_from_name
-#
-##############################################################################
-
-def get_file_format_from_name(name):
-
-    for fformat in file_formats:
-        if name == fformat.name:
-            return fformat
-
-    raise InvalidFormatError()
 
 
 # TODO: integrate code below

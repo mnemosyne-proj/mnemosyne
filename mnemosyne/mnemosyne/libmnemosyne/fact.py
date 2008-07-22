@@ -6,7 +6,7 @@
 
 import datetime, md5
 
-from mnemosyne.libmnemosyne.database import *
+from mnemosyne.libmnemosyne.plugin_manager import *
 
 
 
@@ -71,17 +71,14 @@ class Fact(object):
         self.data[key] = value
 
 
+
+    ##########################################################################
+    #
+    # save
+    #
+    ##########################################################################
+    
+    def save(self):
+
+        get_database().add_fact(self)
         
-##############################################################################
-#
-# add_new_fact
-#
-##############################################################################
-
-# TODO: see how to integrate this best to the class above.
-
-def add_new_fact(data):
-
-    f = fact(data)
-
-    get_database().add_fact(f)

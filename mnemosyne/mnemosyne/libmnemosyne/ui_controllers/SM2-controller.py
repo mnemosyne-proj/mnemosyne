@@ -4,6 +4,8 @@
 #
 ##############################################################################
 
+import gettext
+_ = gettext.gettext
 
 
 
@@ -20,27 +22,27 @@ def install_tooltip_strings(self):
     global tooltip
     
     tooltip[0][0] = \
-        self.trUtf8("You don't remember this card yet.")
+        _("You don't remember this card yet.")
     tooltip[0][1] = \
-        self.trUtf8("Like '0', but it's getting more familiar.").append(\
-        self.trUtf8(" Show it less often."))
+        _("Like '0', but it's getting more familiar.") + " " + \
+        _("Show it less often.")
     tooltip[0][2] = tooltip[0][3] = tooltip[0][4] = tooltip[0][5] = \
-        self.trUtf8("You've memorised this card now,").append(\
-        self.trUtf8(" and will probably remember it for a few days."))
+        _("You've memorised this card now,") + \
+        _(" and will probably remember it for a few days.")
 
     tooltip[1][0] = tooltip[1][1] = \
-        self.trUtf8("You have forgotten this card completely.")
+        _("You have forgotten this card completely.")
     tooltip[1][2] = \
-        self.trUtf8("Barely correct answer. The interval was way too long.")
+        _("Barely correct answer. The interval was way too long.")
     tooltip[1][3] = \
-        self.trUtf8("Correct answer, but with much effort.").append(\
-        self.trUtf8(" The interval was probably too long."))
+        _("Correct answer, but with much effort.") + " " + \
+        _("The interval was probably too long.")
     tooltip[1][4] = \
-        self.trUtf8("Correct answer, with some effort.").append(\
-        self.trUtf8(" The interval was probably just right."))
+        _("Correct answer, with some effort.") + " " + \
+        _("The interval was probably just right.")
     tooltip[1][5] = \
-        self.trUtf8("Correct answer, but without any").append(\
-        self.trUtf8(" difficulties. The interval was probably too short."))
+        _("Correct answer, but without any difficulties.") + " " + \
+        _("The interval was probably too short.")
     
 
 
@@ -104,6 +106,9 @@ class SM2Controller(object):
 
         interval = process_answer(self.card, grade)
 
+        # Possible optimisation: show new question before grading the
+        # answer, but only if the revision queue contains enough cards.
+
         
     ##########################################################################
     #
@@ -115,13 +120,13 @@ class SM2Controller(object):
 
         # Update title.
         
-        database_name = os.path.basename(get_config("path"))[:-4]
+        database_name = os.path.basename(config["path"])[:-4]
         title = _("Mnemosyne") + " - " + database_name
         self.widget.set_window_title(title)
 
         # Update menu bar.
 
-        if get_config("only_editable_when_answer_shown") == True:
+        if config["only_editable_when_answer_shown"] == True:
             if self.card != None and self.state == "SELECT GRADE":
                 self.widget.enable_edit_current_card(True)
             else:
@@ -137,7 +142,7 @@ class SM2Controller(object):
         
         # Size for non-latin characters.
 
-        increase_non_latin = get_config("non_latin_font_size_increase")
+        increase_non_latin = config["non_latin_font_size_increase"]
         non_latin_size = self.widget.get_font_size() + increase_non_latin
 
         # Hide/show the question and answer boxes.
@@ -258,8 +263,8 @@ class SM2Controller(object):
             
             #QToolTip.remove(self.grade_buttons[grade])
             
-            if self.state == "SELECT GRADE" and \ ##
-               get_config("show_intervals") == "tooltips":
+            if self.state == "SELECT GRADE" and \
+               config["show_intervals"] == "tooltips":
                 #QToolTip.add(self.grade_buttons[grade],
                 #      tooltip[i][grade].
                 #      append(self.next_rep_string(process_answer(self.card,
@@ -275,14 +280,14 @@ class SM2Controller(object):
             # Button text.
                     
             if self.state == "SELECT GRADE" and \
-               get_config("show_intervals") == "buttons":
+               config["show_intervals"] == "buttons":
                 self.grade_buttons[grade].setText(\
                         str(process_answer(self.card, grade, dry_run=True)))
                 self.grades.setTitle(\
-                    self.trUtf8("Pick days until next repetition:"))
+                    _("Pick days until next repetition:"))
             else:
                 self.grade_buttons[grade].setText(str(grade))
-                self.grades.setTitle(self.trUtf8("Grade your answer:"))
+                self.grades.setTitle(_("Grade your answer:"))
 
             # Todo: accelerator update needed?
             #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))

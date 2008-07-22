@@ -6,18 +6,8 @@
 
 import md5, random, os, sys, cPickle
 
-from libmnemosyne.exceptions import *
+from mnemosyne.libmnemosyne.exceptions import *
 
-
-
-##############################################################################
-#
-# The configuration data needs to be accessed by many different parts of
-# the library, so we hold it in a global variable.
-#
-##############################################################################
-
-config = None
 
 
 
@@ -27,19 +17,31 @@ config = None
 #
 ##############################################################################
 
-class Config(Object):
-
+class Config(object):
+    
     ##########################################################################
     #
     # __init__
     #
     ##########################################################################
 
-    def __init__(self, basedir=None):
-            
+    def __init__(self):
+
         self._config = {}
 
+
+        
+    ##########################################################################
+    #
+    # initialise
+    #
+    ##########################################################################
+
+    def initialise(self, basedir=None):
+
         # Determine basedir.
+
+        self.old_basedir = None
 
         if basedir == None:
 
@@ -54,13 +56,10 @@ class Config(Object):
                    and os.path.exists(self._old_basedir):
                     self.migrate_basedir(self.old_basedir, self.basedir)
 
-            else:
-
-                self.old_basedir = None
+            else:                
                 self.basedir = os.path.join(home, ".mnemosyne")
 
         else:
-            
             self.basedir = basedir
 
         # Fill basedir with configuration files. Do this even if basedir
@@ -79,7 +78,6 @@ class Config(Object):
         self.set_defaults()        
 
         # Load user config file.
-        # TODO: check if this still works.
 
         sys.path.insert(0, self.basedir)
 
@@ -93,28 +91,28 @@ class Config(Object):
             try:
                 import config as user_config
                 for var in dir(user_config):
-                    if var in config.keys():
-                        self._config[var] = getattr(user_config, var))
+                    if var in self._config.keys():
+                        self._config[var] = getattr(user_config, var)
             except:
                 raise ConfigError(stack_trace=True)
             
         # Update paths if the location has migrated.
 
-        if self._old__basedir:
+        if self.old_basedir:
 
-            for key in ['import_dir', 'export_dir', 'import_img_dir',
-                        'import_sound_dir']:
+            for key in ["import_dir", "export_dir", "import_img_dir",
+                        "import_sound_dir"]:
 
-                if _config[key] == _old_basedir:
+                if _config[key] == old_basedir:
                     _config[key] = self.basedir
 
         # Recreate user id and log index from history folder in case the
         # config file was accidentally deleted.
 
-        if get_config("log_index") == 1:
+        if self._config["log_index"] == 1:
 
-            dir = os.listdir(unicode(os.path.join(self.basedir, "history")))
-            history_files = [x for x in dir if x[-4:] == ".bz2"]
+            _dir = os.listdir(unicode(os.path.join(self.basedir, "history")))
+            history_files = [x for x in _dir if x[-4:] == ".bz2"]
             history_files.sort()
             if history_files:
                 last = history_files[-1]
@@ -156,7 +154,7 @@ class Config(Object):
     #
     ##########################################################################
 
-    def fill_basedir(self)
+    def fill_basedir(self):
 
         join   = os.path.join
         exists = os.path.exists
@@ -207,7 +205,7 @@ class Config(Object):
         configfile = os.path.join(self.basedir, "config.py")
         if not os.path.exists(configfile):
             f = file(configfile, 'w')
-        print >> f, \
+            print >> f, \
 """# Mnemosyne configuration file.
 
 # Align question/answers to the left (True/False)
@@ -235,7 +233,7 @@ backups_to_keep = 5
 # The moment the new day starts. Defaults to 3 am. Could be useful to
 # change if you are a night bird.
 day_starts_at = 3"""
-        f.close()
+            f.close()
 
         
 
@@ -316,7 +314,7 @@ day_starts_at = 3"""
     #
     ##########################################################################
 
-    def save():
+    def save(self):
 
         try:
             config_file = file(os.path.join(self.basedir, "config"), 'wb')
@@ -359,4 +357,14 @@ day_starts_at = 3"""
         except OSError:
             print "Backwards compatibility symlink creation failed."
 
+
+
+##############################################################################
+#
+# The configuration data needs to be accessed by many different parts of
+# the library, so we hold it in a global variable.
+#
+##############################################################################
+
+config = Config()
 

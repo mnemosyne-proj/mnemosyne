@@ -12,11 +12,10 @@ from PyQt4.QtGui import *
 
 from ui_card_twosided_wdgt import *
 
-from mnemosyne.libmnemosyne.card_type import *
+from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
+from mnemosyne.libmnemosyne.card_types.two_sided import TwoSided
 
-# TODO: this instantiates the card type, wich should happen elsewhere.
 
-import mnemosyne.libmnemosyne.card_types.two_sided
 
 ##############################################################################
 #
@@ -90,10 +89,10 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 #
 ##############################################################################
 
-# TODO: make sure this only runs once.
+print "Registering two sided card type."
 
-register_card_type(TwoSided, CardTwoSidedWdgt)
-
-
+c = TwoSided()
+c.widget_class = CardTwoSidedWdgt
+plugin_manager.register_plugin("card_type", c)
 
 

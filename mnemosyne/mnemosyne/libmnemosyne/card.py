@@ -6,15 +6,15 @@
 
 import md5, time, logging
 
-#from mnemosyne.libmnemosyne.category import *
+from mnemosyne.libmnemosyne.plugin_manager import *
+
 #from mnemosyne.libmnemosyne.card_type import *
 #from mnemosyne.libmnemosyne.start_date import get_days_since_start
 #from mnemosyne.libmnemosyne.scheduler import *
 #from mnemosyne.libmnemosyne.database import *
 
-logger = logging.getLogger("mnemosyne")
+log = logging.getLogger("mnemosyne")
 
-db = get_database()
 
 
 
@@ -22,12 +22,18 @@ db = get_database()
 #
 # Card
 #
-# q and a: store strings with basic / cached q and a? In case generating
-# it each time from the data takes to much time, e.g. on a mobile platform.
-# Also useful for searching in sql database
+# We store q and a in strings to cache them, instead of regenerating them
+# each time from its Fact. This could take too much time, e.g. on a mobile
+# platform. Also useful for searching in sql database
 #
 # 'subcard' indicate different cards generated from the same fact data,
-# like reverse cards.
+# like reverse cards. TODO: do we need a mapping from this integer to a
+# description?
+#
+# If the user deletes a subcard from a fact, we don't delete it, in case
+# the user later reactivates it. We can either employ a 'hidden'
+# variable here, or move it to a different container (perhaps more
+# efficient?). TODO: implement and benchmark
 #
 ##############################################################################
 
@@ -38,31 +44,41 @@ class Card(object):
     # __init__
     #
     ##########################################################################
+            
+    def __init__(self, grade, card_type, fact, subcard, cat_names, id=None):
 
-    def __init__(self):
-
-        self.id = 0
-
-        self.card_type = None
-
-        self.fact = None
-
-        self.subcard = 0 # Integer instead of string to save space.
-
-        # TODO: do we need a mapping from this integer to a description?
-
-        # If the user deletes a subcard from a fact, we don't delete it, in
-        # case the user later reactivates it. We can either employ a 'hidden'
-        # variable here, or move it to a different container (perhaps more
-        # efficient?)
-
-        self.hidden = False # TODO
+        self.card_type = card_type
+        self.fact      = fact
+        self.subcard   = subcard
+        self.q         = self.filtered_q()
+        self.a         = self.filtered_a()
+        self.hidden    = False
         
-        self.q   = None
-        self.a   = None
-        self.cat = []
+        for cat_name in cat_names:
+            self.cat.append(get_category_by_name(cat_name))
         
-        self.reset_learning_data()
+        self.reset_learning_data() # TODO: see where this is used and merge.
+
+        # The initial grading is seen as the first repetition.
+        
+        self.grade = grade
+        self.acq_reps = 1
+        self.acq_reps_since_lapse = 1
+
+        self.last_rep = get_days_since_start()
+
+        self.easiness = average_easiness()
+
+        if id == None:
+            self.new_id()
+        else:
+            self.id = id 
+
+        new_interval  = calculate_initial_interval(grade)
+        new_interval += calculate_interval_noise(new_interval)
+        self.next_rep = get_days_since_start() + new_interval
+
+        
 
     ##########################################################################
     #
@@ -115,6 +131,25 @@ class Card(object):
         self.last_rep  = 0 # In days since beginning.
         self.next_rep  = 0 #
 
+        
+    ##########################################################################
+    #
+    # save
+    #
+    ##########################################################################
+    
+    def save(self):
+
+        get_database().add_card(self)
+
+        log.info("New card %s %d %d", self.id, self.grade, new_interval)
+
+        # load_failed = False # TODO: check?
+
+        print 'new card', self.q, self.a
+
+
+        
     ##########################################################################
     #
     # new_id
@@ -153,6 +188,11 @@ class Card(object):
 
     def sort_key_newest(self):
         return self.acq_reps + self.ret_reps
+
+
+# TODO: see which of these we still need
+
+    
     
     ##########################################################################
     #
@@ -247,56 +287,3 @@ class Card(object):
         old_cat = self.cat
         self.cat = get_category_by_name(new_cat_name)
         remove_category_if_unused(old_cat)
-
-
-
-
-# TODO: see how to move this best to the above claas.
-
-##############################################################################
-#
-# add_new_card
-#
-##############################################################################
-
-def add_new_card(grade, card_type_id, fact, subcard, cat_names, id=None):
-
-    global cards, load_failed
-
-    card = Card()
-    
-    card.card_type = get_card_type_by_id(card_type_id)  
-    card.fact      = fact
-    card.subcard   = subcard   
-    card.q         = card.filtered_q()
-    card.a         = card.filtered_a()
-    card.grade     = grade
-
-    for cat_name in cat_names:
-        card.cat.append(get_category_by_name(cat_name))
-    
-    card.acq_reps = 1
-    card.acq_reps_since_lapse = 1
-
-    card.last_rep = get_days_since_start()
-    
-    card.easiness = average_easiness()
-
-    if id == None:
-        card.new_id()
-    else:
-        card.id = id 
-    
-    new_interval  = calculate_initial_interval(grade)
-    new_interval += calculate_interval_noise(new_interval)
-    card.next_rep = get_days_since_start() + new_interval
-
-    db.add_card(card)
-
-    logger.info("New card %s %d %d", card.id, card.grade, new_interval)
-
-    load_failed = False # TODO: check?
-
-    print 'new card', card.q, card.a
-    
-    return card

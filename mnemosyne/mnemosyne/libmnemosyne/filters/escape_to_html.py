@@ -1,3 +1,5 @@
+def f():
+    
     # Escape literal < (unmatched tag) and new line from string.
     
     hanging = []

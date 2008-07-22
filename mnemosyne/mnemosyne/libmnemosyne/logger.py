@@ -8,8 +8,9 @@ import os, logging, bz2, sets, traceback, time, urllib2
 from threading import Thread
 from random import randint
 from string import joinfields
-from mnemosyne.libmnemosyne import get_basedir
-from mnemosyne.libmnemosyne.config import get_config, set_config
+
+from mnemosyne.libmnemosyne.config import config
+
 
 
 
@@ -20,8 +21,8 @@ from mnemosyne.libmnemosyne.config import get_config, set_config
 ##############################################################################
 
 def archive_old_log():
-
-    basedir = get_basedir()
+    
+    basedir = config.basedir
     
     log_name = os.path.join(basedir,"log.txt")
     
@@ -32,8 +33,8 @@ def archive_old_log():
 
     if log_size > 64000:
 
-        user  = get_config("user_id")
-        index = get_config("log_index")
+        user  = config["user_id"]
+        index = config["log_index"]
 
         archive_name = "%s_%05d.bz2" % (user, index)
 
@@ -46,7 +47,7 @@ def archive_old_log():
 
         os.remove(log_name)
               
-        set_config("log_index", index+1)
+        config["log_index"] = index+1
 
 
 
@@ -99,7 +100,7 @@ def upload(filename):
 
 ##############################################################################
 #
-# uploader
+# Uploader
 #
 ##############################################################################
 
@@ -107,7 +108,7 @@ class Uploader(Thread):
     
     def run(self):
 
-        basedir = get_basedir()
+        basedir = config.basedir
         
         join = os.path.join
         
@@ -163,13 +164,13 @@ class Uploader(Thread):
 
 def start_logging():
 
-    basedir = get_basedir()
+    basedir = config.basedir
 
     log_name = os.path.join(basedir, "log.txt")
 
     logger = logging.getLogger("mnemosyne")
 
-    if get_config("keep_logs") == True:
+    if config["keep_logs"]:
         logger.setLevel(logging.INFO)
     else:
         logger.setLevel(logging.ERROR)  
@@ -185,6 +186,7 @@ def start_logging():
     #                    format="%(asctime)s %(message)s",
     #                    datefmt="%Y-%m-%d %H:%M:%S :",
     #                    filename=log_name)
+
 
 
 ##############################################################################

@@ -6,68 +6,39 @@
 
 import time
 
-# TODO: rework into class
-
-_thinking_time = 0
-_time_of_last_question = 0
 
 
 ##############################################################################
 #
-# start_thinking
+# Stopwatch
 #
 ##############################################################################
 
-def start_thinking():
+class Stopwatch(object):
 
-    global _thinking_time, _time_of_last_question
+    def __init__(self):
 
-    _thinking_time = 0
-    _time_of_last_question = time.time()
+        self.start_time = 0
+        self.running_time = 0
 
+    def start(self):
+        
+        self.start_time = time.time()
+        self.running_time = 0
 
+    def pause(self):
 
-##############################################################################
-#
-# pause_thinking
-#
-##############################################################################
+        self.running_time += time.time() - self.start_time
 
-def pause_thinking():
+    def unpause(self):
+        
+        self.start_time = time.time()
 
-    global _thinking_time
+    def stop(self):
+        self.running_time += time.time() - self.start_time
+        self.start_time = 0
 
-    if _time_of_last_question != 0:
-        _thinking_time += time.time() - _time_of_last_question
-
-
-
-##############################################################################
-#
-# unpause_thinking
-#
-##############################################################################
-
-def unpause_thinking():
-
-    global _time_of_last_question
-    
-    if _time_of_last_question != 0:
-        _time_of_last_question = time.time()
+        return self.running_time
 
 
-
-##############################################################################
-#
-# stop_thinking
-#
-##############################################################################
-
-def stop_thinking():
-
-    global _thinking_time, _time_of_last_question
-    
-    _thinking_time += time.time() - _time_of_last_question
-    _time_of_last_question = 0
-
-    return _thinking_time
+stopwatch = Stopwatch()

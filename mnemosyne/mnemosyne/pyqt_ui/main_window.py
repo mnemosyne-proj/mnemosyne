@@ -4,6 +4,9 @@
 #
 ##############################################################################
 
+import gettext
+_ = gettext.gettext
+
 # TODO: show toolbar
 
 import sys, os
@@ -26,9 +29,10 @@ from review_wdgt import *
 #from about_dlg import *
 from sound import *
 from message_boxes import *
-from mnemosyne.libmnemosyne.mnemosyne_core import *
-from mnemosyne.libmnemosyne.config import get_config
+from mnemosyne.libmnemosyne import *
+from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.card import *
+from mnemosyne.libmnemosyne.stopwatch import stopwatch
 
 prefix = os.path.dirname(__file__)
 
@@ -54,7 +58,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
 
-        self.review_widget = None
         self.update_review_widget()
         
         #self.shrink = True
@@ -62,7 +65,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.q_sound_played = False
         self.a_sound_played = False
         
-        self.sched  = QLabel("", self.statusbar)
+        self.sched  = QLabel("", self.statusbar)  
         self.notmem = QLabel("", self.statusbar)        
         self.all    = QLabel("", self.statusbar)
         
@@ -72,12 +75,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.setSizeGripEnabled(0)
 
         try:
-            run_user_plugins()
+            initialise_user_plugins()
         except MnemosyneError, e:
             messagebox_errors(self, e)
                 
         if filename == None:
-            filename = get_config("path")
+            filename = config["path"]
 
         # TODO: enable load/save
 
@@ -106,13 +109,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def update_review_widget(self):
 
-        if self.central_widget:
-            self.central.close()
-            del self.card_widget
+        w = self.centralWidget()
+
+        if w:
+            w.close()
+            del w
 
         # TODO: remove hard coded widget.
         
-        self.central_widget = ReviewWdgt()
+        self.setCentralWidget(ReviewWdgt())
 
         #self.adjustSize()
         
@@ -135,13 +140,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fileNew(self):
 
-        pause_thinking()
+        stopwatch.pause()
 
 		# TODO: improve basedir handling.
 		
         out = unicode(QFileDialog.getSaveFileName(basedir,
-                 self.trUtf8("Mnemosyne databases (*.mem)"), self, None,\
-                 self.trUtf8("New")))
+                 _("Mnemosyne databases (*.mem)"), self, None,\
+                 _("New")))
         if out != "":
             
             if out[-4:] != ".mem":
@@ -149,18 +154,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
             if os.path.exists(out):
                 if not queryOverwriteFile(self, out):
-                    unpause_thinking()
+                    stopwatch.unpause()
                     return
 
             unload_database()
             self.state = "EMPTY"
             self.card = None
             new_database(out)
-            load_database(get_config("path"))
+            load_database(config["path"])
 
         self.updateDialog()
         
-        unpause_thinking()
+        stopwatch.unpause()
             
     ##########################################################################
     #
@@ -170,11 +175,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fileOpen(self):
 
-        pause_thinking()
+        stopwatch.pause()
                 
         oldPath = expand_path(get_config("path"))
         out = unicode(QFileDialog.getOpenFileName(oldPath,\
-                 self.trUtf8("Mnemosyne databases (*.mem)"), self))
+                 _("Mnemosyne databases (*.mem)"), self))
         if out != "":
 
             try:
@@ -189,13 +194,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 load_database(out)
             except MnemosyneError, e:
                 messagebox_errors(self, e)
-                unpause_thinking()
+                stopwatch.unpause()
                 return
 
             self.newQuestion()
 
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
                 
     ##########################################################################
     #
@@ -205,16 +210,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def fileSave(self):
 
-        pause_thinking()
+        stopwatch.pause()
 
-        path = get_config("path")
+        path = config["path"]
         
         try:
             save_database(path)
         except MnemosyneError, e:
             messagebox_errors(self, e)
 
-        unpause_thinking()
+        stopwatch.unpause()
 
     ##########################################################################
     #
@@ -224,31 +229,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fileSaveAs(self):
         
-        pause_thinking()
+        stopwatch.pause()
 
-        oldPath = expand_path(get_config("path"))
+        oldPath = expand_path(config["path"])
         out = unicode(QFileDialog.getSaveFileName(oldPath,\
-                 self.trUtf8("Mnemosyne databases (*.mem)"), self))
+                 _("Mnemosyne databases (*.mem)"), self))
                          
         if out != "":
             
             if out[-4:] != ".mem":
                 out += ".mem"
 
-            if os.path.exists(out) and out != get_config("path"):
+            if os.path.exists(out) and out != config["path"]:
                 if not queryOverwriteFile(self, out):
-                    unpause_thinking()
+                    stopwatch.unpause()
                     return
                 
             try:
                 save_database(out)
             except MnemosyneError, e:
                 messagebox_errors(self, e)
-                unpause_thinking()
+                stopwatch.unpause()
                 return            
 
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
             
     ##########################################################################
     #
@@ -258,7 +263,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def Import(self):
 
-        pause_thinking()
+        stopwatch.pause()
         
         from xml.sax import saxutils, make_parser
         from xml.sax.handler import feature_namespaces
@@ -270,7 +275,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.newQuestion()
 
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
         
     ##########################################################################
     #
@@ -280,12 +285,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def export(self):
         
-        pause_thinking()
+        stopwatch.pause()
 
         dlg = ExportDlg(self)
         dlg.exec_loop()
                 
-        unpause_thinking()
+        stopwatch.unpause()
         
     ##########################################################################
     #
@@ -305,7 +310,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def addCards(self):
         
-        pause_thinking()
+        stopwatch.pause()
         
         dlg = AddCardsDlg(self)
         dlg.exec_()
@@ -314,7 +319,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.newQuestion()
             
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
         
     ##########################################################################
     #
@@ -324,7 +329,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def editCards(self):
         
-        pause_thinking()
+        stopwatch.pause()
         
         dlg = EditCardsDlg(self)
         dlg.exec_()
@@ -336,7 +341,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             remove_from_revision_queue(self.card) # It's already being asked.
 
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
         
     ##########################################################################
     #
@@ -346,9 +351,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def cleanDuplicates(self):
         
-        pause_thinking()
+        stopwatch.pause()
         
-        self.statusbar.message(self.trUtf8("Please wait..."))
+        self.statusbar.message(_("Please wait..."))
         clean_duplicates(self)
         rebuild_revision_queue()
         
@@ -356,7 +361,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.newQuestion()
             
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
 
     ##########################################################################
     #
@@ -366,10 +371,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def showStatistics(self):
         
-        pause_thinking()
+        stopwatch.pause()
         dlg = StatisticsDlg(self)
         dlg.exec_()
-        unpause_thinking()
+        stopwatch.unpause()
         
     ##########################################################################
     #
@@ -379,11 +384,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def editCurrentCard(self):
         
-        pause_thinking()
+        stopwatch.pause()
         dlg = EditCardDlg(self.card, self)
         dlg.exec_()
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
 
     ##########################################################################
     #
@@ -393,12 +398,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def deleteCurrentCard(self):
         
-        pause_thinking()
+        stopwatch.pause()
         
         status = QMessageBox.warning(None,
-                    self.trUtf8("Mnemosyne"),
-                    self.trUtf8("Delete current card?"),
-                    self.trUtf8("&Yes"), self.trUtf8("&No"),
+                    _("Mnemosyne"),
+                    _("Delete current card?"),
+                    _("&Yes"), _("&No"),
                     QString(), 1, -1)
         
         if status == 0:
@@ -406,7 +411,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.newQuestion()
             
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
 
     ##########################################################################
     #
@@ -416,7 +421,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def activateCategories(self):
         
-        pause_thinking()
+        stopwatch.pause()
         
         dlg = ActivateCategoriesDlg(self)
         dlg.exec_()
@@ -428,7 +433,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             remove_from_revision_queue(self.card) # It's already being asked.
             
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
 
     ##########################################################################
     #
@@ -438,13 +443,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def showToolbar(self, active):
         
-        pause_thinking()
+        stopwatch.pause()
         if active:
-            set_config("hide_toolbar", False)
+            config["hide_toolbar"] = False
         else:
-            set_config("hide_toolbar", True)
+            config["hide_toolbar"] = True
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
         
     ##########################################################################
     #
@@ -454,7 +459,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def configuration(self):
         
-        pause_thinking()
+        stopwatch.pause()
         dlg = ConfigurationDlg(self)
         dlg.exec_loop()
 
@@ -465,7 +470,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             remove_from_revision_queue(self.card) # It's already being asked.
             
         self.updateDialog()
-        unpause_thinking()
+        stopwatch.unpause()
             
     ##########################################################################
     #
@@ -474,11 +479,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     ##########################################################################
 
     def closeEvent(self, event):
+
+        # TODO: To implement
         
         try:
-            save_config()
-            backup_database()
-            unload_database()
+            config.save()
+            #backup_database()
+            #unload_database()
         except MnemosyneError, e:
             messagebox_errors(self, e)
             event.ignore()
@@ -493,14 +500,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def productTour(self):
         
-        # ToDO: activate tour.
+        # TODO: activate tour.
 
         return
         
-        pause_thinking()
+        stopwatch.pause()
         dlg = ProductTourDlg(self)
         dlg.exec_()
-        unpause_thinking()
+        stopwatch.unpause()
         
     ##########################################################################
     #
@@ -514,10 +521,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         return
         
-        pause_thinking()
+        stopwatch.pause()
         dlg = TipDlg(self)
         dlg.exec_()
-        unpause_thinking()
+        stopwatch.unpause()
         
     ##########################################################################
     #
@@ -527,10 +534,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def helpAbout(self):
         
-        pause_thinking()
+        stopwatch.pause()
         dlg = AboutDlg(self)
         dlg.exec_()
-        unpause_thinking()
+        stopwatch.unpause()
 
 
     ##########################################################################

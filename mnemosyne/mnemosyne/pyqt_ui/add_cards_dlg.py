@@ -17,11 +17,11 @@ from mnemosyne.libmnemosyne.category import *
 from ui_add_cards_dlg import *
 #from edit_item_dlg import *
 from mnemosyne.libmnemosyne.card_type import *
-from mnemosyne.libmnemosyne.config import *
+from mnemosyne.libmnemosyne.config import config
+from mnemosyne.libmnemosyne.plugin_manager import * 
 
 # TODO: import them all at once
-import mnemosyne.libmnemosyne.card_types.two_sided
-import mnemosyne.libmnemosyne.card_types.three_sided
+
 from card_twosided_wdgt import *
 from card_threesided_wdgt import *
 
@@ -50,19 +50,19 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
         self.card_type_by_name = {} # TODO: move to lib?
         
-        for card_type in get_card_types().values():
+        for card_type in get_card_types():
             self.card_types.addItem(card_type.name)
             self.card_type_by_name[card_type.name] = card_type
 
-        # TODO: sort card types by id
+        # TODO: sort card types by id.
                
-        # TODO: remember last type
+        # TODO: remember last type.
 
         self.card_widget = None
 
         self.update_card_widget()
         
-        self.update_combobox(get_config("last_add_category"))
+        self.update_combobox(config["last_add_category"])
 
         self.grades = QButtonGroup()
 
@@ -103,12 +103,13 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         if self.card_widget:
             self.vboxlayout.removeWidget(self.card_widget)
             self.card_widget.close()
-            del self.card_widget
 
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
-        self.card_widget = card_type.widget_class()
-        card_type.set_widget(self.card_widget)
+
+        card_type.widget = card_type.widget_class()
+            
+        self.card_widget = card_type.widget
         self.vboxlayout.insertWidget(1, self.card_widget)
 
         #self.adjustSize()

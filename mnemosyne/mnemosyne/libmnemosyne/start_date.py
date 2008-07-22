@@ -1,103 +1,70 @@
-
 ##############################################################################
 #
 # start_date.py <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
-import time, datetime
-from mnemosyne.libmnemosyne.config import get_config
+import datetime
+from mnemosyne.libmnemosyne.config import config
 
 
 
 ##############################################################################
 #
-# StartTime
+# StartDate
 #
-# TODO: remove obsolete code?
+#   The days_since_start information is frequently needed, so rather than
+#   calculating it each time, we store it in a class variable, which we
+#   need to update when the database loads and in rebuild_revision_queue. 
 #
 ##############################################################################
 
-time_of_start = None
-days_since_start = None
+class StartDate:
 
-class StartTime:
+    ##########################################################################
+    #
+    # __init__
+    #
+    ##########################################################################
 
-    def __init__(self, start_time):
+    def __init__(self, start=None):
+
+        h = config["day_starts_at"]
+
+        if not start:
+            start = datetime.datetime.now()
         
-        h = get_config("day_starts_at")
-
-        # Compatibility code for older versions.
+        t = time.localtime(start_time)
         
-        t = time.localtime(start_time) # In seconds from Unix epoch in UTC.
-        self.time = time.mktime([t[0],t[1],t[2], h,0,0, t[6],t[7],t[8]])
+        time = time.mktime([t[0],t[1],t[2], h,0,0, t[6],t[7],t[8]])
 
-        # New implementation.
+        self.start = datetime.datetime.fromtimestamp(time)
 
-        self.date = datetime.datetime.fromtimestamp(self.time).date()
+        self.update_days_since_start()
 
-    # Since this information is frequently needed, we calculate it once
-    # and store it in a global variable, which is updated when the database
-    # loads and in rebuild_revision_queue.
+
+            
+    ##########################################################################
+    #
+    # update_days_since_start
+    #
+    ##########################################################################
     
-    def update_days_since(self):
+    def update_days_since_start(self):
         
-        global days_since_start
-
-        # If this is a database with the obsolete time stamp, update it
-        # with a date attribute. The adjustment for 'day_starts_at' is not
-        # relevant here, as we only store the date part.
+        h = config["day_starts_at"]
         
-        if not getattr(self, 'date', None):
-            self.date = datetime.datetime.fromtimestamp(self.time).date()
-        
-        # Now calculate the difference in days.
-        
-        h = get_config("day_starts_at")
         adjusted_now = datetime.datetime.now() - datetime.timedelta(hours=h)
-        dt = adjusted_now.date() - self.date
+        dt = adjusted_now.date() - self.start.date()
         
-        days_since_start = dt.days
+        self.days_since_start = dt.days
 
 
 
-##############################################################################
-#
-# initialise_time_of_start
-#
-##############################################################################
 
-def initialise_time_of_start():
+start_date = None
 
-    global time_of_start
-
-    time_of_start = StartTime(time.time())
-    time_of_start.update_days_since()
-
-
-
-##############################################################################
-#
-# update_days_since_start
-#
-##############################################################################
-
-def update_days_since_start():
+def initialise_start_date(start):
     
-    global time_of_start
-
-    time_of_start.update_days_since()    
-
-
-
-##############################################################################
-#
-# get_days_since_start
-#
-# TODO: profile speed of this function, as it's critical
-# Is an exposed global faster/possible ?
-#
-##############################################################################
-
-def get_days_since_start():
-    return days_since_start
+    global start_date
+    start_date = StartDate()   

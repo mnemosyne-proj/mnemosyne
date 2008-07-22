@@ -15,6 +15,9 @@ from plugin import Plugin
 #  TODO: perhaps we need to break out a FactManager and a CardManager
 #  from this code.
 #
+#  TODO: load_failed mechanism, to prevent overwriting a database which
+#  failed to load.
+#
 ##############################################################################
 
 class Database(Plugin):
@@ -68,19 +71,19 @@ class Database(Plugin):
     def add_fact(self, fact):
         raise NotImplementedError
 
-    def modify_fact(self, id, modified_fact)
+    def modify_fact(self, id, modified_fact):
         raise NotImplementedError
     
-    def delete_fact(self, fact)
+    def delete_fact(self, fact):
         raise NotImplementedError
     
     def add_card(self, card): # should also link fact to new card
         raise NotImplementedError
 
-    def modify_card(self, id, modified_card)
+    def modify_card(self, id, modified_card):
         raise NotImplementedError
     
-    def delete_card(self, id, card)
+    def delete_card(self, id, card):
         raise NotImplementedError
     
     # Queries. TODO: check which ones we need more.

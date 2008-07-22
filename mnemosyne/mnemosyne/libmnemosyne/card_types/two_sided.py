@@ -7,9 +7,10 @@
 import gettext
 _ = gettext.gettext
 
-from mnemosyne.libmnemosyne.card import *
-from mnemosyne.libmnemosyne.card_type import *
-from mnemosyne.libmnemosyne.fact import *
+#from mnemosyne.libmnemosyne.card import *
+from mnemosyne.libmnemosyne.card_type import CardType
+from mnemosyne.libmnemosyne.fact import Fact
+from mnemosyne.libmnemosyne.plugin_manager import *
 
 
 ##############################################################################
@@ -31,7 +32,9 @@ class TwoSided(CardType):
 
     def __init__(self):
         
-        super(TwoSided, self).__init__(id=1, name=_("Regular card"))
+        CardType.__init__(self, id=1,
+                          name=_("Regular card"),
+                          can_be_unregistered=False)
 
 
 
@@ -92,13 +95,14 @@ class TwoSided(CardType):
 
         # TODO: add subtypes as a category?
 
-        fact = add_new_fact(data)
+        fact = Fact(data)
+        fact.save()
         
-        card = add_new_card(grade, card_type_id=self.id, fact=fact,
+        card = add_new_card(grade, card_type=self, fact=fact,
                             subcard=0, cat_names=cat_names)
 
         if add_vice_versa:
-            card = add_new_card(grade, card_type_id=self.id, fact=fact,
+            card = add_new_card(grade, card_type=self, fact=fact,
                                 subcard=1, cat_names=cat_names,
                                 id=card.id+'.inv')
 
@@ -147,12 +151,12 @@ class TwoSided(CardType):
 
     def check_duplicates_and_add(self, grade, q, a, cat_names, id=None):
 
-        if get_config("check_duplicates_when_adding") == True:
+        if config["check_duplicates_when_adding"] == True:
 
             # Find duplicate questions and refuse to add if duplicate
             # answers are found as well.
 
-            allow_dif_cat = get_config("allow_duplicates_in_diff_cat")
+            allow_dif_cat = config["allow_duplicates_in_diff_cat"]
 
             same_questions = []
 
@@ -225,5 +229,3 @@ class TwoSided(CardType):
 
         pass
 
-
-c = TwoSided()

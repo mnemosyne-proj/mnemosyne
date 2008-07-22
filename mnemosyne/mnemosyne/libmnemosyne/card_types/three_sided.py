@@ -31,9 +31,10 @@ class ThreeSided(CardType):
     ##########################################################################
 
     def __init__(self):
-        
-        super(ThreeSided, self).__init__(id=2,
-                                    name=_("Foreign word with pronunciation"))
+
+        CardType.__init__(self, id=2,
+                          name=_("Foreign word with pronunciation"),
+                          can_be_unregistered=False)
 
 
 

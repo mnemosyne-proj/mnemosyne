@@ -12,11 +12,10 @@ from PyQt4.QtGui import *
 
 from ui_card_threesided_wdgt import *
 
-from mnemosyne.libmnemosyne.card_type import *
+from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
+from mnemosyne.libmnemosyne.card_types.three_sided import ThreeSided
 
-# TODO: this instantiates the card type, wich should happen elsewhere.
 
-import mnemosyne.libmnemosyne.card_types.three_sided
 
 ##############################################################################
 #
@@ -38,7 +37,7 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
         self.setupUi(self)
 
 
-        
+
     ##########################################################################
     #
     # get_data
@@ -59,7 +58,7 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
         # Check if sufficient data is present.
 
         if recognition and not production:
-            if not w:
+            if not f:
                 return
 
         if production and not recognition:
@@ -67,7 +66,7 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
                 return
 
         if production and recognition:
-            if not w and not t:
+            if not f and not t:
                 return
 
         # Return the data.
@@ -86,7 +85,7 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
     
     def clear(self):
 
-        # TODO: save vice versa settings
+        # TODO: save vice versa settings.
         
         self.foreign_word.setText("")
         self.pronunciation.setText("")        
@@ -100,9 +99,12 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
 #
 ##############################################################################
 
-# TODO: make sure this only runs once.
+print "Registering three sided card type."
 
-register_card_type(ThreeSided, CardThreeSidedWdgt)
+c = ThreeSided()
+c.widget_class = CardThreeSidedWdgt
+plugin_manager.register_plugin("card_type", c)
+
     
 
 
