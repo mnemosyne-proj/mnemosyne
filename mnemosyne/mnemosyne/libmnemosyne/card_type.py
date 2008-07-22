@@ -33,21 +33,8 @@ class CardType(Plugin):
         self.description         = description
         self.visible             = visible
         self.can_be_unregistered = self.can_be_unregistered
+        self.a_on_top_of_q       = False
 
-
-
-    ##########################################################################
-    #
-    # Plugin related functions.
-    #
-    ##########################################################################
-    
-    def activate(self):
-        self.visible = True
-
-    def deactivate(self):
-        if self.can_be_unregistered:
-            self.visible = False
 
 
 

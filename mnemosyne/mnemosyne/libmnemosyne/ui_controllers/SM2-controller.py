@@ -140,6 +140,26 @@ class SM2Controller(object):
         increase_non_latin = get_config("non_latin_font_size_increase")
         non_latin_size = self.widget.get_font_size() + increase_non_latin
 
+        # Hide/show the question and answer boxes.
+        
+        if self.state == "SELECT SHOW":
+            self.question.show()
+            self.question_label.show()
+            if self.card.type.a_on_top_of_q == True:
+                self.answer.hide()
+                self.answer_label.hide()
+        elif self.state == "SELECT GRADE":
+            self.answer.show()
+            self.answer_label.show()
+            if self.card.type.a_on_top_of_q == True:
+                self.question.hide()
+                self.question_label.hide()
+        else:
+            self.question.show()
+            self.question_label.show()
+            self.answer.show()
+            self.answer_label.show()
+
         # Update question label.
         
         question_label_text = _("Question:")

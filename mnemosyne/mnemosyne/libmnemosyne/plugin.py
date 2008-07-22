@@ -39,6 +39,7 @@ class Plugin:
         self.type                = type
         self.name                = name
         self.description         = description
+        self.active              = False
         self.can_be_unregistered = can_be_unregistered
 
 
@@ -77,7 +78,7 @@ class Plugin:
     ##########################################################################
     
     def activate(self):
-        raise NotImplementedError()
+        self.active = True
 
 
     
@@ -105,4 +106,5 @@ class Plugin:
     ##########################################################################
     
     def deactivate(self):
-        raise NotImplementedError()
+        if self.can_be_unregistered:
+            self.active = False
