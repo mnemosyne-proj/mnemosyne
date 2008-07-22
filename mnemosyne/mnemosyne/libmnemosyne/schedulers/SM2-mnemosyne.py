@@ -71,8 +71,6 @@ class SM2Scheduler(Scheduler):
     
     def rebuild_revision_queue(learn_ahead = False):
 
-        print '-----------'
-
         global revision_queue
 
         revision_queue = []
@@ -90,10 +88,6 @@ class SM2Scheduler(Scheduler):
         revision_queue = [i for i in cards if i.is_due_for_retention_rep()]
         revision_queue.sort(key=Card.sort_key_interval)
 
-        print 'due today', len(revision_queue)
-        for i in revision_queue:
-            print i.q
-
         if len(revision_queue) != 0:
             return
 
@@ -103,7 +97,7 @@ class SM2Scheduler(Scheduler):
         # cards in left in the queue, append more new cards to keep some
         # spread between these last cards.
 
-        limit = get_config("grade_0_items_at_once")
+        limit = config["grade_0_items_at_once"]
 
         grade_0 = (i for i in cards if i.is_due_for_acquisition_rep() \
                                        and i.lapses > 0 and i.grade == 0)
@@ -127,10 +121,6 @@ class SM2Scheduler(Scheduler):
         revision_queue += 2*grade_0_selected + grade_1
 
         random.shuffle(revision_queue)
-
-        print "lapsed", len(revision_queue)
-        for i in revision_queue:
-            print i.q
 
         if len(grade_0_selected) == limit or len(revision_queue) >= 10: 
             return
@@ -162,10 +152,6 @@ class SM2Scheduler(Scheduler):
 
         random.shuffle(revision_queue)
 
-        print "memorising", len(revision_queue)
-        for i in revision_queue:
-            print i.q
-
         if len(grade_0_selected) + grade_0_in_queue == limit or \
            len(revision_queue) >= 10: 
             return
@@ -177,10 +163,6 @@ class SM2Scheduler(Scheduler):
 
         unseen = [i for i in cards if i.is_due_for_acquisition_rep() \
                                        and i.acq_reps <= 1]
-
-        print 'unseen', len(unseen)
-        for i in unseen:
-            print "_", i.q
 
         grade_0_in_queue = sum(1 for i in revision_queue if i.grade == 0)/2
         grade_0_selected = []
@@ -198,7 +180,6 @@ class SM2Scheduler(Scheduler):
                     if cards_are_inverses(new_card, i):
                         break
                 else:
-                    print 'unseen append', new_card.q
                     grade_0_selected.append(new_card)
 
                 if len(unseen) == 0 or \
