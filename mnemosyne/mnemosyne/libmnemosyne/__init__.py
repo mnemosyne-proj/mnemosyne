@@ -133,18 +133,25 @@ def initialise_error_handling():
 
 def initialise_system_plugins():
 
-    # Database
+    # Database.
 
     from mnemosyne.libmnemosyne.databases.pickle import Pickle
 
     plugin_manager.register_plugin("database", Pickle())    
 
-    # UI controllers
+    # UI controllers.
     
     from mnemosyne.libmnemosyne.ui_controllers.SM2_controller \
                                                    import SM2Controller
     
     plugin_manager.register_plugin("ui_controller", SM2Controller())
+
+    # Scheduler.
+
+    from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne \
+                                                   import SM2Mnemosyne
+    
+    plugin_manager.register_plugin("scheduler", SM2Mnemosyne())    
     
     # Card types.
 

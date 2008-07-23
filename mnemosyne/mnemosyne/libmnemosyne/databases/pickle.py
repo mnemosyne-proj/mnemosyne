@@ -7,7 +7,7 @@
 #
 ##############################################################################
 
-import logging, os, cPickle
+import logging, os, cPickle, datetime, gzip
 import mnemosyne.version
 
 from mnemosyne.libmnemosyne.database import Database
@@ -16,6 +16,7 @@ from mnemosyne.libmnemosyne.start_date import start_date
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.exceptions import *
 from mnemosyne.libmnemosyne.category import Category
+from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
 
 log = logging.getLogger("mnemosyne")
 
@@ -101,9 +102,9 @@ class Pickle(Database):
             db = cPickle.load(infile)
 
             time_of_start.start = db[0]
-            self.categories      = db[1]
-            self.facts           = db[2]
-            self.cards           = db[3]
+            self.categories     = db[1]
+            self.facts          = db[2]
+            self.cards          = db[3]
 
             infile.close()
 
@@ -116,9 +117,7 @@ class Pickle(Database):
 
             raise InvalidFormatError(stack_trace=True)
 
-        for c in categories:
-            category_by_name[c.name] = c
-        for c in categories:
+        for c in self.categories:
             remove_category_if_unused(c)
 
         config["path"] = contract_path(path, basedir)
@@ -126,9 +125,9 @@ class Pickle(Database):
         log.info("Loaded database %d %d %d", scheduled_cards(), \
                     non_memorised_cards(), number_of_cards())
 
-        if "after_load" in function_hooks:
-            for f in function_hooks["after_load"]:
-                f()
+        for f in plugin_manager.get_all_plugins("after_load"):
+            if f.active:
+                f.run()
 
 
 
@@ -140,11 +139,12 @@ class Pickle(Database):
 
     def save_database(path):
 
-        global config
-
-        path = expand_path(path, basedir)
-
-        if load_failed == True: # Don't erase a database which failed to load.
+        path = expand_path(path, config.basedir)
+        
+        # Don't erase a database which failed to load.
+        
+        if self.load_failed == True:
+    
             return
 
         try:
@@ -156,9 +156,7 @@ class Pickle(Database):
 
             print >> outfile, database_header_line
 
-            # TODO: fix storage, as these variables are no longer available here.
-
-            db = [time_of_start, categories, cards]
+            db = [time_of_start.start, self.categories, self.facts, self.cards]
             cPickle.dump(db, outfile)
 
             outfile.close()
@@ -166,11 +164,10 @@ class Pickle(Database):
             shutil.move(path + "~", path) # Should be atomic.
 
         except:
-            pass
-            #print traceback_string()
-            #raise SaveError()
+            
+            raise SaveError()
 
-        set_config("path", contract_path(path, basedir))
+        config["path"] = contract_path(path, basedir)
 
 
 
@@ -182,17 +179,16 @@ class Pickle(Database):
 
     def unload_database():
 
-        global cards, revision_queue, categories, category_by_name
+        self.save(config["path"])
 
-        save_database(config["path"])
+        log.info("Saved database %d %d %d", self.scheduled_count(), \
+                    self.non_memorised_count(), self.card_count())
+        
+        self.categories = []
+        self.facts = []
+        self.cards = []
 
-        log.info("Saved database %d %d %d", scheduled_cards(), \
-                    non_memorised_cards(), number_of_cards())        
-        cards = []
-        revision_queue = []
-
-        categories = []
-        category_by_name = {}
+        get_scheduler().clear_queue()
 
         return True
 
@@ -206,10 +202,10 @@ class Pickle(Database):
 
     def backup_database():
 
-        if number_of_cards() == 0:
+        if not self.is_loaded():
             return
 
-        backupdir = unicode(os.path.join(basedir, "backups"))
+        backupdir = unicode(os.path.join(config.basedir, "backups"))
 
         # Export to XML. Create only a single file per day.
 
@@ -232,12 +228,12 @@ class Pickle(Database):
 
         # Only keep the last logs.
 
-        if get_config("backups_to_keep") < 0:
+        if config["backups_to_keep"] < 0:
             return
 
         files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
         files.sort()
-        if len(files) > get_config("backups_to_keep"):
+        if len(files) > config["backups_to_keep"]:
             os.remove(os.path.join(backupdir, files[0]))
 
     ##########################################################################
@@ -299,7 +295,7 @@ class Pickle(Database):
 
     
     def add_fact(self, fact):
-
+        self.load_failed = False
         self.facts.append(fact)
 
     def modify_fact(self, id, modified_fact):
@@ -309,6 +305,7 @@ class Pickle(Database):
         raise NotImplementedError
     
     def add_card(self, card): # should also link fact to new card
+        self.load_failed = False
         self.cards.append(card)
         card.fact.cards.append(card)
 
@@ -324,15 +321,15 @@ class Pickle(Database):
     #
     ##########################################################################
 
-    def delete_card(e):
+    def delete_card(c):
 
-        old_cat = e.cat
+        old_cat = c.cat
 
-        cards.remove(e)
+        cards.remove(c)
         rebuild_revision_queue()
         remove_category_if_unused(old_cat)
 
-        logger.info("Deleted card %s", e.id)
+        log.info("Deleted card %s", c.id)
 
 
     ##########################################################################
@@ -405,11 +402,9 @@ class Pickle(Database):
     #
     ##########################################################################
 
-    def average_easiness():
+    def average_easiness(self):
 
-        if len(cards) == 0:
+        if len(self.cards) == 0:
             return 2.5
-        if len(cards) == 1:
-            return cards[0].easiness
         else:
-            return sum(i.easiness for i in cards) / len(cards)
+            return sum(c.easiness for c in self.cards) / len(self.cards)

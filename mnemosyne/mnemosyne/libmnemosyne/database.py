@@ -5,7 +5,6 @@
 ##############################################################################
 
 from plugin import Plugin
-from category import Category
 
 
 

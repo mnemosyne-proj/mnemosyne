@@ -37,20 +37,23 @@ class Scheduler(Plugin):
     #
     ##########################################################################
         
-    def calculate_initial_interval(grade):
+    def calculate_initial_interval(self, grade):
         raise NotImplementedError
 
-    def rebuild_revision_queue(learn_ahead = False):
+    def rebuild_queue(self, learn_ahead = False):
         raise NotImplementedError
 
-    def in_revision_queue(card):
+    def in_queue(self, card):
         raise NotImplementedError
     
-    def remove_from_revision_queue(card):
+    def remove_from_queue(self, card):
         raise NotImplementedError
     
-    def get_new_question(learn_ahead = False):
+    def get_new_question(self, learn_ahead = False):
         raise NotImplementedError
     
     def process_answer(self, card, new_grade, dry_run=False):
+        raise NotImplementedError
+    
+    def clear_queue(self):
         raise NotImplementedError

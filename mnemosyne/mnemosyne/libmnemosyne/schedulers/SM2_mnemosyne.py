@@ -6,22 +6,38 @@
 
 import logging, random
 
-from mnemosyne.libmnemosyne.start_date import *
-from mnemosyne.libmnemosyne.card import *
+from mnemosyne.libmnemosyne.start_date import start_date
+from mnemosyne.libmnemosyne.card import Card
+from mnemosyne.libmnemosyne.scheduler import Scheduler
+from mnemosyne.libmnemosyne.plugin_manager import get_database
 
-logger = logging.getLogger("mnemosyne")
-
-revision_queue = []
+log = logging.getLogger("mnemosyne")
 
 
 
 ##############################################################################
 #
-# SM2Scheduler
+# SM2Mnemosyne
 #
 ##############################################################################
 
-class SM2Scheduler(Scheduler):
+class SM2Mnemosyne(Scheduler):
+
+    ##########################################################################
+    #
+    # __init__
+    #
+    ##########################################################################
+
+    def __init__(self):
+        
+        Scheduler.__init__(self, name="SM2 Mnemosyne",
+                           description="Default scheduler",
+                           can_be_unregistered=False)
+
+        self.queue = []
+
+
     
     ##########################################################################
     #
@@ -29,7 +45,7 @@ class SM2Scheduler(Scheduler):
     #
     ##########################################################################
 
-    def calculate_initial_interval(grade):
+    def calculate_initial_interval(self, grade):
 
         # If this is the first time we grade this card, allow for slightly
         # longer scheduled intervals, as we might know this card from before.
@@ -45,7 +61,7 @@ class SM2Scheduler(Scheduler):
     #
     ##########################################################################
 
-    def calculate_interval_noise(interval):
+    def calculate_interval_noise(self, interval):
 
         if interval == 0:
             noise = 0
@@ -65,17 +81,17 @@ class SM2Scheduler(Scheduler):
 
     ##########################################################################
     #
-    # rebuild_revision_queue
+    # rebuild_queue
     #
     ##########################################################################
     
-    def rebuild_revision_queue(learn_ahead = False):
+    def rebuild_queue(self, learn_ahead = False):
 
-        global revision_queue
+        self.queue = []
 
-        revision_queue = []
+        db = get_database()
 
-        if not list_is_loadad():
+        if not db.is_loadad():
             return
 
         update_days_since_start()
@@ -85,10 +101,10 @@ class SM2Scheduler(Scheduler):
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 50.
 
-        revision_queue = [i for i in cards if i.is_due_for_retention_rep()]
-        revision_queue.sort(key=Card.sort_key_interval)
+        self.queue = [i for i in cards if i.is_due_for_retention_rep()]
+        self.queue.sort(key=Card.sort_key_interval)
 
-        if len(revision_queue) != 0:
+        if len(self.queue) != 0:
             return
 
         # Now rememorise the cards that we got wrong during the last stage.
@@ -118,11 +134,11 @@ class SM2Scheduler(Scheduler):
         grade_1 = [i for i in cards if i.is_due_for_acquisition_rep() \
                                        and i.lapses > 0 and i.grade == 1]
 
-        revision_queue += 2*grade_0_selected + grade_1
+        self.queue += 2*grade_0_selected + grade_1
 
-        random.shuffle(revision_queue)
+        random.shuffle(self.queue)
 
-        if len(grade_0_selected) == limit or len(revision_queue) >= 10: 
+        if len(grade_0_selected) == limit or len(self.queue) >= 10: 
             return
 
         # Now do the cards which have never been committed to long-term
@@ -148,12 +164,12 @@ class SM2Scheduler(Scheduler):
         grade_1 = [i for i in cards if i.is_due_for_acquisition_rep() \
                       and i.lapses == 0 and i.acq_reps > 1 and i.grade == 1]
 
-        revision_queue += 2*grade_0_selected + grade_1
+        self.queue += 2*grade_0_selected + grade_1
 
-        random.shuffle(revision_queue)
+        random.shuffle(self.queue)
 
         if len(grade_0_selected) + grade_0_in_queue == limit or \
-           len(revision_queue) >= 10: 
+           len(self.queue) >= 10: 
             return
 
         # Now add some new cards. This is a bit inefficient at the moment as
@@ -164,7 +180,7 @@ class SM2Scheduler(Scheduler):
         unseen = [i for i in cards if i.is_due_for_acquisition_rep() \
                                        and i.acq_reps <= 1]
 
-        grade_0_in_queue = sum(1 for i in revision_queue if i.grade == 0)/2
+        grade_0_in_queue = sum(1 for i in self.queue if i.grade == 0)/2
         grade_0_selected = []
 
         if limit != 0 and len(unseen) != 0:    
@@ -184,7 +200,7 @@ class SM2Scheduler(Scheduler):
 
                 if len(unseen) == 0 or \
                        len(grade_0_selected) + grade_0_in_queue == limit:
-                    revision_queue += grade_0_selected
+                    self.queue += grade_0_selected
                     return      
 
         # If we get to here, there are no more scheduled cards or new cards
@@ -196,40 +212,38 @@ class SM2Scheduler(Scheduler):
         if learn_ahead == False:
             return
         else:
-            revision_queue = [i for i in cards \
+            self.queue = [i for i in cards \
                               if i.qualifies_for_learn_ahead()]
 
-        revision_queue.sort(key=Card.sort_key)
+        self.queue.sort(key=Card.sort_key)
 
 
 
     ##########################################################################
     #
-    # in_revision_queue
+    # in_queue
     #
     ##########################################################################
 
-    def in_revision_queue(card):
-        return card in revision_queue
+    def in_queue(self, card):
+        return card in self.queue
 
 
 
     ##########################################################################
     #
-    # remove_from_revision_queue
+    # remove_from_queue
     #
     #   Remove a single instance of an card from the queue. Necessary when
     #   the queue needs to be rebuilt, and there is still a question pending.
     #
     ##########################################################################
 
-    def remove_from_revision_queue(card):
+    def remove_from_queue(self, card):
 
-        global revision_queue
-
-        for i in revision_queue:
+        for i in self.queue:
             if i.id == card.id:
-                revision_queue.remove(i)
+                self.queue.remove(i)
                 return
 
 
@@ -239,19 +253,19 @@ class SM2Scheduler(Scheduler):
     #
     ##########################################################################
 
-    def get_new_question(learn_ahead = False):
+    def get_new_question(self, learn_ahead = False):
 
         # Populate list if it is empty.
 
-        if len(revision_queue) == 0:
-            rebuild_revision_queue(learn_ahead)
-            if len(revision_queue) == 0:
+        if len(self.queue) == 0:
+            rebuild_self.queue(learn_ahead)
+            if len(self.queue) == 0:
                 return None
 
         # Pick the first question and remove it from the queue.
 
-        card = revision_queue[0]
-        revision_queue.remove(card)
+        card = self.queue[0]
+        self.queue.remove(card)
 
         return card
 
@@ -263,9 +277,7 @@ class SM2Scheduler(Scheduler):
     #
     ##########################################################################
 
-    def process_answer(card, new_grade, dry_run=False):
-
-        global revision_queue, cards
+    def process_answer(self, card, new_grade, dry_run=False):
 
         # When doing a dry run, make a copy to operate on. Note that this
         # leaves the original in cards and the reference in the GUI intact.
@@ -295,9 +307,9 @@ class SM2Scheduler(Scheduler):
             # up again.
 
             if not dry_run and card.grade == 0 and new_grade in [2,3,4,5]:
-                for i in revision_queue:
+                for i in self.queue:
                     if i.id == card.id:
-                        revision_queue.remove(i)
+                        self.queue.remove(i)
                         break
 
         elif card.grade in [0,1] and new_grade in [0,1]:
@@ -322,9 +334,9 @@ class SM2Scheduler(Scheduler):
              # up again.
 
              if not dry_run and card.grade == 0:
-                 for i in revision_queue:
+                 for i in self.queue:
                      if i.id == card.id:
-                         revision_queue.remove(i)
+                         self.queue.remove(i)
                          break
 
         elif card.grade in [2,3,4,5] and new_grade in [0,1]:
@@ -386,7 +398,7 @@ class SM2Scheduler(Scheduler):
             # Shouldn't happen, but build in a safeguard.
 
             if new_interval == 0:
-                logger.info("Internal error: new interval was zero.")
+                log.info("Internal error: new interval was zero.")
                 new_interval = scheduled_interval
 
             new_interval = int(new_interval)
@@ -417,7 +429,7 @@ class SM2Scheduler(Scheduler):
 
         # Create log entry.
 
-        logger.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
+        log.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
                     card.id, card.grade, card.easiness,
                     card.acq_reps, card.ret_reps, card.lapses,
                     card.acq_reps_since_lapse, card.ret_reps_since_lapse,
@@ -425,3 +437,14 @@ class SM2Scheduler(Scheduler):
                     new_interval, noise, thinking_time)
 
         return new_interval + noise
+
+
+    ##########################################################################
+    #
+    # clear_queue
+    #
+    ##########################################################################
+
+    def clear_queue(self):
+
+        self.queue = []

@@ -71,7 +71,7 @@ class Card(object):
 
         self.last_rep = start_date.days_since_start()
 
-        self.easiness = db.get_average_easiness()
+        self.easiness = db.average_easiness()
 
         if id == None:
             self.new_id()
@@ -146,9 +146,9 @@ class Card(object):
 
         get_database().add_card(self)
 
-        log.info("New card %s %d %d", self.id, self.grade, new_interval)
+        new_interval = start_date.days_since_start() - self.next_rep
 
-        # load_failed = False # TODO: check?
+        log.info("New card %s %d %d", self.id, self.grade, new_interval)
 
         print 'new card', self.q, self.a
 

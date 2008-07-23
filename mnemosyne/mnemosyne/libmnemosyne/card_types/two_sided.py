@@ -98,13 +98,15 @@ class TwoSided(CardType):
         fact = Fact(data)
         fact.save()
 
-        Card(grade=grade, card_type=self, fact=fact,
-             subcard=0, cat_names=cat_names).save
+        card = Card(grade=grade, card_type=self, fact=fact,
+             subcard=0, cat_names=cat_names)
+        card.save()
 
         if add_vice_versa:
-            Card(grade=grade, card_type=self, fact=fact,
+            card_2 = Card(grade=grade, card_type=self, fact=fact,
                  subcard=1, cat_names=cat_names,
-                 id=card.id+'.inv').save()
+                 id=card.id+'.inv')
+            card_2.save()
 
         # TODO: drop the .inv suffix?
 

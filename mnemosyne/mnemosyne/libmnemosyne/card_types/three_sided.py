@@ -97,15 +97,17 @@ class ThreeSided(CardType):
 
         # TODO: add subtypes as a category?
 
-        fact = add_new_fact(data)
+        fact = Fact(data)
+        fact.save()
 
         if recognition:
-            add_new_card(grade, card_type_id=self.id, fact=fact,
-                                subcard=0, cat_names=cat_names)
+            
+            Card(grade, card_type=self, fact=fact,
+                 subcard=0, cat_names=cat_names).save()
 
         if production:
-            add_new_card(grade, card_type_id=self.id, fact=fact,
-                                subcard=1, cat_names=cat_names)
+            Card(grade, card_type=self, fact=fact,
+                 subcard=1, cat_names=cat_names).save()
             
         self.widget.clear()
 

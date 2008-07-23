@@ -69,8 +69,11 @@ class PluginManager():
     ##########################################################################
     
     def get_all_plugins(self, type):
-        
-        return self.plugins[type]
+
+        try:
+            return self.plugins[type]
+        except:
+            pass # Don't complain, as some function hooks will not be used.
 
 
     

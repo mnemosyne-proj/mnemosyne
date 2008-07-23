@@ -2,6 +2,9 @@
 #
 # logger.py <Peter.Bienstman@UGent.be>
 #
+#  TODO: centralise logging messages so that there is automatic consistency
+#  among plugable components.
+#
 ##############################################################################
 
 import os, logging, bz2, sets, traceback, time, urllib2
