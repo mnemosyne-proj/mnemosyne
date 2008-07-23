@@ -7,7 +7,7 @@
 import md5, time, logging
 
 from mnemosyne.libmnemosyne.plugin_manager import *
-
+from mnemosyne.libmnemosyne.config import config
 #from mnemosyne.libmnemosyne.card_type import *
 from mnemosyne.libmnemosyne.start_date import start_date
 #from mnemosyne.libmnemosyne.scheduler import *
@@ -145,7 +145,7 @@ class Card(object):
     def save(self):
 
         get_database().add_card(self)
-
+        
         new_interval = start_date.days_since_start() - self.next_rep
 
         log.info("New card %s %d %d", self.id, self.grade, new_interval)
@@ -165,28 +165,33 @@ class Card(object):
         digest = md5.new(self.q.encode("utf-8") + self.a.encode("utf-8") + \
                          time.ctime()).hexdigest()
         self.id = digest[0:8]
+
+
+
+    ##########################################################################
+    #
+    # interval
+    #
+    ##########################################################################
+
+    def interval(self):
+        return self.next_rep - self.last_rep
+    
         
     ##########################################################################
     #
-    # sort_key
+    # sort_key: needed?
     #
     ##########################################################################
 
     def sort_key(self):
         return self.next_rep
     
-    ##########################################################################
-    #
-    # sort_key_interval
-    #
-    ##########################################################################
 
-    def sort_key_interval(self):
-        return self.next_rep-self.last_rep
     
     ##########################################################################
     #
-    # sort_key_newest
+    # sort_key_newest: needed?
     #
     ##########################################################################
 

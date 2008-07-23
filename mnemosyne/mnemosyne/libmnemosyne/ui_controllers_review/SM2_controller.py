@@ -4,12 +4,15 @@
 #
 ##############################################################################
 
+import os
+
 import gettext
 _ = gettext.gettext
 
 from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.plugin_manager import get_database, get_scheduler
+from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview 
 
 
 ##############################################################################
@@ -55,9 +58,34 @@ def install_tooltip_strings(self):
 #
 ##############################################################################
 
-class SM2Controller(object):
+class SM2Controller(UiControllerReview):
+    
+    ##########################################################################
+    #
+    # __init__
+    #
+    ##########################################################################
+
+    def __init__(self):
+        
+        UiControllerReview.__init__(self, name="SM2 Controller",
+                                    description="Default review controller",
+                                    can_be_unregistered=False)
+
+        self.card = None
 
 
+    ##########################################################################
+    #
+    # Functions to be implemented by the actual controller.
+    #
+    ##########################################################################
+
+    def current_card(self):
+        return self.card
+    
+
+    
     ##########################################################################
     #
     # new_question
@@ -76,8 +104,7 @@ class SM2Controller(object):
             else:
                 self.state = "SELECT AHEAD"
 
-        #self.q_sound_played = False
-        #self.a_sound_played = False
+        self.update_dialog()
         
         stopwatch.start()
 
@@ -91,12 +118,12 @@ class SM2Controller(object):
     def show_answer(self):
 
         if self.state == "SELECT AHEAD":
-            self.newQuestion(learn_ahead = True)
+            self.new_question(learn_ahead = True)
         else:
-            stop_thinking()
+            stopwatch.stop()
             self.state = "SELECT GRADE"
             
-        self.widget.updateDialog()
+        self.update_dialog()
 
 
     ##########################################################################
@@ -107,8 +134,19 @@ class SM2Controller(object):
 
     def grade_answer(self, grade):
 
-        get_scheduler().process_answer(self.card, grade)
+        # TODO: optimise by displaying new question before grading the
+        # answer, provided the queue contains at least one card.
+        
+        interval = get_scheduler().process_answer(self.card, grade)
+        
+        self.new_question()
 
+        # TODO: implement
+        #if config["show_intervals"] == "statusbar":
+        #    self.statusBar().message(_("Returns in") + " " + \
+        #                             str(interval) + _(" day(s)."))
+
+            
         
     ##########################################################################
     #
@@ -118,52 +156,50 @@ class SM2Controller(object):
 
     def update_dialog(self):
 
+        w = self.widget
+
         # Update title.
         
         database_name = os.path.basename(config["path"])[:-4]
         title = _("Mnemosyne") + " - " + database_name
-        self.widget.set_window_title(title)
+        w.set_window_title(title)
 
         # Update menu bar.
 
         if config["only_editable_when_answer_shown"] == True:
             if self.card != None and self.state == "SELECT GRADE":
-                self.widget.enable_edit_current_card(True)
+                w.enable_edit_current_card(True)
             else:
-                self.widget.enable_edit_current_card(False)
+                w.enable_edit_current_card(False)
         else:
             if self.card != None:
-                self.widget.enable_edit_current_card(True)
+                w.enable_edit_current_card(True)
             else:
-                self.widget.enable_edit_current_card(False)            
+                w.enable_edit_current_card(False)            
             
-        self.widget.enable_delete_current_card(self.card != None)
-        self.widget_enable_edit_deck(number_of_cards() > 0)
+        w.enable_delete_current_card(self.card != None)
+        w.enable_edit_deck(get_database().card_count() > 0)
         
         # Size for non-latin characters.
 
-        increase_non_latin = config["non_latin_font_size_increase"]
-        non_latin_size = self.widget.get_font_size() + increase_non_latin
+        # TODO: investigate.
+        
+        #increase_non_latin = config["non_latin_font_size_increase"]
+        #non_latin_size = w.get_font_size() + increase_non_latin
 
         # Hide/show the question and answer boxes.
         
         if self.state == "SELECT SHOW":
-            self.question.show()
-            self.question_label.show()
-            if self.card.type.a_on_top_of_q == True:
-                self.answer.hide()
-                self.answer_label.hide()
+            w.question_box_visible(True)
+            if self.card.type.a_on_top_of_q:
+                w.answer_box_visible(False)
         elif self.state == "SELECT GRADE":
-            self.answer.show()
-            self.answer_label.show()
-            if self.card.type.a_on_top_of_q == True:
-                self.question.hide()
-                self.question_label.hide()
+            w.answer_box_visible(True)
+            if self.card.type.a_on_top_of_q:
+                w.question_box_visible(False)
         else:
-            self.question.show()
-            self.question_label.show()
-            self.answer.show()
-            self.answer_label.show()
+            w.question_box_visible(True)
+            w.answer_box_visible(True)
 
         # Update question label.
         
@@ -171,89 +207,70 @@ class SM2Controller(object):
         if self.card != None and self.card.cat.name != _("<default>"):
             question_label_text += " " + self.card.cat.name
             
-        self.widget.set_question_label(question_label_text)
+        w.set_question_label(question_label_text)
 
         # Update question content.
         
         if self.card == None:
-            self.widget.set_question("")
+            w.clear_question()
         else:
             text = self.card.filtered_q()
+            
+            #if increase_non_latin:
+            #    text = set_non_latin_font_size(text, non_latin_size)
 
-            #if self.q_sound_played == False:
-            #    play_sound(text)
-            #    self.q_sound_played = True
-                
-            if increase_non_latin:
-                text = set_non_latin_font_size(text, non_latin_size)
-
-            self.widget.set_question(text)
+            w.set_question(text)
 
         # Update answer content.
         
         if self.card == None or self.state == "SELECT SHOW":
-            self.widget.set_answer("")
+            w.clear_answer()
         else:
             text = self.card.filtered_a()
-
-            #if self.a_sound_played == False:
-            #    play_sound(text)
-            #    self.a_sound_played = True
                 
-            if increase_non_latin:
-                text = set_non_latin_font_size(text, non_latin_size)
+            #if increase_non_latin:
+            #    text = set_non_latin_font_size(text, non_latin_size)
 
-            self.widget.set_answer(text)
+            w.set_answer(text)
 
-        # Update 'show answer' button.
+        # Update 'Show answer' button.
         
         if self.state == "EMPTY":
-            show_enabled, default, text = 0, 1, _("Show answer")
-            grades_enabled = 0 
+            show_enabled, default, text = False, True, _("Show answer")
+            grades_enabled = False 
         elif self.state == "SELECT SHOW":
-            show_enabled, default, text = 1, 1, _("Show answer")
-            grades_enabled = 0
+            show_enabled, default, text = True,  True, _("Show answer")
+            grades_enabled = False
         elif self.state == "SELECT GRADE":
-            show_enabled, default, text = 0, 1, _("Show answer")
-            grades_enabled = 1
+            show_enabled, default, text = False, True, _("Show answer")
+            grades_enabled = True
         elif self.state == "SELECT AHEAD":
-            show_enabled, default, text = 1, 0, \
+            show_enabled, default, text = True,  False, \
                                      _("Learn ahead of schedule")
-            grades_enabled = 0
+            grades_enabled = False
 
-        self.widget.update_show_button(text, default, enabled)
+        w.update_show_button(text, default, show_enabled)
 
-        # Update grade buttons. Make sure that no signals get connected
-        # twice, and put the disconnects inside a try statement to work
-        # around a Windows issue.
-
-        self.grade_0_button.setDefault(False)
-        self.grade_4_button.setDefault(False)
-
-        try:
-            self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                            self.grade_0_button.animateClick)
-        except:
-            pass
+        # Update grade buttons. 
         
-        try:
-            self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                            self.grade_4_button.animateClick)
-        except:
-            pass
-        
-        if self.card != None and self.card.grade in [0,1]:  ##
+        if self.card != None and self.card.grade in [0,1]:
             i = 0 # Acquisition phase.
-            self.grade_0_button.setDefault(grades_enabled)
-            self.connect(self.actionDefault,SIGNAL("activated()"),
-                         self.grade_0_button.animateClick)
+            default_4 = False
         else:
             i = 1 # Retention phase.
-            self.grade_4_button.setDefault(grades_enabled)
-            self.connect(self.actionDefault,SIGNAL("activated()"),
-                         self.grade_4_button.animateClick)
-                        
-        self.grades.setEnabled(grades_enabled)
+            default_4 = True
+
+        w.grade_4_default(default_4)
+
+        w.enable_grades(grades_enabled)
+
+        # Run possible update code that independent of the controller state.
+
+        w.update_dialog()
+
+        return
+
+        # Tooltips: TODO
 
         #QToolTip.setWakeUpDelay(0) #TODO?
 
@@ -265,17 +282,12 @@ class SM2Controller(object):
             
             if self.state == "SELECT GRADE" and \
                config["show_intervals"] == "tooltips":
-                #QToolTip.add(self.grade_buttons[grade],
-                #      tooltip[i][grade].
-                #      append(self.next_rep_string(process_answer(self.card,
-                #                                  grade, dry_run=True))))
                 self.grade_buttons[grade].setToolTip(tooltip[i][grade].
                       append(self.next_rep_string(process_answer(self.card,
                                                   grade, dry_run=True))))
             else:
                 self.grade_buttons[grade].setToolTip(tooltip[i][grade])
                 
-                #QToolTip.add(self.grade_buttons[grade], tooltip[i][grade])
 
             # Button text.
                     
@@ -294,5 +306,5 @@ class SM2Controller(object):
 
         # Run possible update code that independent of the controller state.
 
-        self.widget.update_dialog()
+        #w.update_dialog()
         

@@ -141,10 +141,10 @@ def initialise_system_plugins():
 
     # UI controllers.
     
-    from mnemosyne.libmnemosyne.ui_controllers.SM2_controller \
+    from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
                                                    import SM2Controller
     
-    plugin_manager.register_plugin("ui_controller", SM2Controller())
+    plugin_manager.register_plugin("ui_controller_review", SM2Controller())
 
     # Scheduler.
 

@@ -105,10 +105,7 @@ class Database(Plugin):
     def delete_card(self, id, card):
         raise NotImplementedError
     
-    # Queries. TODO: check which ones we need more.
-
-    def category_names(self):
-        raise NotImplementedError       
+    # Queries. TODO: check which ones we need more.  
     
     def fact(self, id):
         raise NotImplementedError
@@ -132,7 +129,17 @@ class Database(Plugin):
         raise NotImplementedError
     
     def average_easiness(self):
-        raise NotImplementedError        
-    
-    def cards_due_for_acq_rep(self):
         raise NotImplementedError
+
+    # TODO: check consequences of return type
+    
+    def cards_due_for_ret_rep(self, sort_key):
+        raise NotImplementedError # returns list
+
+    def cards_due_for_final_review(self, grade):
+        raise NotImplementedError # returns iterator
+    
+    def cards_new_memorising(self, grade):
+        raise NotImplementedError # returns iterator    
+
+

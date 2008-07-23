@@ -12,14 +12,29 @@ from PyQt4.QtGui import *
 
 from ui_review_wdgt import *
 
-from mnemosyne.libmnemosyne.plugin_manager import get_ui_controller
+from mnemosyne.libmnemosyne.plugin_manager import get_ui_controller_review
 from mnemosyne.libmnemosyne.config import config
+
+_empty = """
+<html><head>
+<style type="text/css">
+
+table { height: 100%; }
+
+body {  background-color: white;
+        margin: 0;
+        padding: 0;
+        border: thin solid #8F8F8F; }
+        
+</style></head>
+<body><table><tr><td></td></tr></table></body></html>
+"""
 
 
 
 ##############################################################################
 #
-# ReviewWdgettable {margin-left:auto; margin-right:auto; height:100%;}
+# ReviewWdget
 #
 ##############################################################################
 
@@ -72,7 +87,8 @@ answer
 """)
 
 
-        self.controller = get_ui_controller()
+        self.controller = get_ui_controller_review()
+        self.controller.widget = self
 
         self.card = None # To controller?
 
@@ -86,7 +102,6 @@ answer
         self.grade_buttons.append(self.grade_5_button)
 
         self.controller.new_question()
-        self.updateDialog()
 
 
 
@@ -109,18 +124,8 @@ answer
     ##########################################################################
 
     def gradeAnswer(self, grade):
-
-        # TODO: optimise by displaying new question before grading the
-        # answer, provided the queue contains at least one card.
-
-        interval = self.controller.grade_answer()
-
-        self.newQuestion()
-        self.updateDialog()
-
-        if get_config("show_intervals") == "statusbar":
-            self.statusbar.message(self.trUtf8("Returns in ").append(\
-                str(interval)).append(self.trUtf8(" day(s).")))
+    
+        self.controller.grade_answer(grade)
 
 
 
@@ -145,13 +150,18 @@ answer
     def set_window_title(self, title):
         self.setWindowTitle(title)
 
+    # TODO: pass on to parent
+    
     def enable_edit_current_card(self, enable):
+        return
         self.actionEditCurrentCard.setEnabled(enable)
 
     def enable_delete_current_card(self, enable):
+        return        
         self.actionDeleteCurrentCard.setEnabled(enable)
 
     def enable_edit_deck(self, enable):
+        return        
         self.actionEditDeck.setEnabled(enable)
 
     def get_font_size(self):
@@ -161,17 +171,69 @@ answer
         self.question_label.setText(text)
 
     def set_question(self, text):
-        self.question.setText(text)
+        self.question.setHtml(text)
 
     def set_answer(self, text):
-        self.answer.setText(text)
+        self.answer.setHtml(text)
 
+    def clear_question(self):
+        self.question.setHtml(_empty)
+        
+    def clear_answer(self):
+        self.answer.setHtml(_empty)
+        
     def update_show_button(self, text, default, show_enabled):
         self.show_button.setText(text)
         self.show_button.setDefault(default)
         self.show_button.setEnabled(show_enabled)
 
+    def question_box_visible(self, visible):
+        if visible:
+            self.question.show()
+            self.question_label.show()
+        else:
+            self.question.hide()
+            self.quesion_label.hide()            
 
+    def answer_box_visible(self, visible):
+        if visible:
+            self.answer.show()
+            self.answer_label.show()
+        else:
+            self.answer.hide()
+            self.quesion_label.hide()
+
+    # TODO: implement
+
+    def grade_4_default(self, use_4):
+
+        return
+
+        # Revert to blank slate.
+        
+        self.grade_0_button.setDefault(False)
+        self.grade_4_button.setDefault(False)
+
+        self.disconnect(self.defaultAction,SIGNAL("activated()"),
+                        self.grade_0_button.animateClick)
+        
+        self.disconnect(self.defaultAction,SIGNAL("activated()"),
+                        self.grade_4_button.animateClick)
+
+        if use_4:
+            self.grade_4_button.setDefault(grades_enabled)
+            self.connect(self.actionDefault,SIGNAL("activated()"),
+                         self.grade_4_button.animateClick)
+        else:
+            self.grade_0_button.setDefault(grades_enabled)
+            self.connect(self.actionDefault,SIGNAL("activated()"),
+                         self.grade_0_button.animateClick)
+
+    def enable_grades(self, grades_enabled):
+        self.grades.setEnabled(grades_enabled)
+
+        
+            
     ##########################################################################
     #
     # update_dialog
@@ -181,7 +243,7 @@ answer
     #
     ##########################################################################
 
-    def updateDialog(self):
+    def update_dialog(self):
 
         # TODO: throw this option out?
 
@@ -202,8 +264,8 @@ answer
         else:
             font = self.show_button.font()
 
-        self.question.setFont(font)
-        self.answer.setFont(font)
+        #self.question.setFont(font)
+        #self.answer.setFont(font)
 
         # Update question and answer alignment.
 

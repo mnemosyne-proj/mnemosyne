@@ -11,6 +11,8 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.plugin_manager import get_database
+from mnemosyne.libmnemosyne.config import config
+
 
 
 ##############################################################################
@@ -107,6 +109,8 @@ class TwoSided(CardType):
                  subcard=1, cat_names=cat_names,
                  id=card.id+'.inv')
             card_2.save()
+
+        get_database().save(config['path'])
 
         # TODO: drop the .inv suffix?
 

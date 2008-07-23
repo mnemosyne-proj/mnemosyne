@@ -316,8 +316,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg = AddCardsDlg(self)
         dlg.exec_()
         
-        if self.card == None:
-            self.newQuestion()
+        if self.centralWidget().controller.current_card() == None:
+            self.centralWidget().controller.new_question()
             
         self.updateDialog()
         stopwatch.unpause()

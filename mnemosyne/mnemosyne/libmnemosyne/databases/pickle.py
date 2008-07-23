@@ -7,7 +7,7 @@
 #
 ##############################################################################
 
-import logging, os, cPickle, datetime, gzip
+import logging, os, cPickle, datetime, gzip, shutil
 import mnemosyne.version
 
 from mnemosyne.libmnemosyne.database import Database
@@ -20,7 +20,11 @@ from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
 
 log = logging.getLogger("mnemosyne")
 
+database_header_line \
+        = "--- Mnemosyne Data Base --- Format Version %s ---" \
+          % mnemosyne.version.dbVersion
 
+    
 
 ##############################################################################
 #
@@ -41,8 +45,6 @@ class Pickle(Database):
         self.categories = []
         self.facts = []
         self.cards = []
-
-        self.category_by_name = {} # TODO: needed?
         
         self.load_failed = False
 
@@ -77,9 +79,7 @@ class Pickle(Database):
     #
     ##########################################################################
 
-    database_header_line \
-        = "--- Mnemosyne Data Base --- Format Version %s ---" \
-          % mnemosyne.version.dbVersion
+    # TODO: will we check the version string?
 
     def load(path):
 
@@ -101,14 +101,12 @@ class Pickle(Database):
 
             db = cPickle.load(infile)
 
-            time_of_start.start = db[0]
-            self.categories     = db[1]
-            self.facts          = db[2]
-            self.cards          = db[3]
+            start_date.start = db[0]
+            self.categories  = db[1]
+            self.facts       = db[2]
+            self.cards       = db[3]
 
             infile.close()
-
-            #time_of_start.update_days_since()
 
             self.load_failed = False
 
@@ -133,11 +131,11 @@ class Pickle(Database):
 
     ##########################################################################
     #
-    # save_database
+    # save
     #
     ##########################################################################
 
-    def save_database(path):
+    def save(self, path):
 
         path = expand_path(path, config.basedir)
         
@@ -156,18 +154,19 @@ class Pickle(Database):
 
             print >> outfile, database_header_line
 
-            db = [time_of_start.start, self.categories, self.facts, self.cards]
-            cPickle.dump(db, outfile)
+            # This unfortunately fails.. Bug in sip?
+            db = [start_date.start, self.categories, self.facts, self.cards]
+            #cPickle.dump(db, outfile)
 
             outfile.close()
 
             shutil.move(path + "~", path) # Should be atomic.
 
         except:
-            
+            print traceback_string()
             raise SaveError()
 
-        config["path"] = contract_path(path, basedir)
+        config["path"] = contract_path(path, config.basedir)
 
 
 
@@ -307,7 +306,8 @@ class Pickle(Database):
     def add_card(self, card): # should also link fact to new card
         self.load_failed = False
         self.cards.append(card)
-        card.fact.cards.append(card)
+        # The cylic reference here seems to break the pickle operation..
+        card.fact.cards.append(card) # TODO: fix
 
     def modify_card(self, id, modified_card):
         raise NotImplementedError
@@ -408,3 +408,48 @@ class Pickle(Database):
             return 2.5
         else:
             return sum(c.easiness for c in self.cards) / len(self.cards)
+
+
+
+    ##########################################################################
+    #
+    # cards_due_for_ret_rep
+    #
+    ##########################################################################
+    
+    def cards_due_for_ret_rep(self, sort_key):
+        
+        days_from_start = start_date.days_since_start()
+        
+        c = [c for c in self.cards if (c.grade >= 2) and \
+                            c.is_in_active_category() and \
+                           (days_since_start >= c.next_rep)]
+
+        c.sort(key=sort_key)
+
+        return c
+
+
+
+    ##########################################################################
+    #
+    # cards_due_for_final_review
+    #
+    ##########################################################################
+    
+    def cards_due_for_final_review(self, grade):
+       
+        return (c for c in self.cards if c.grade == grade and c.lapses > 0 \
+                                        and c.is_in_active_category())
+
+
+    ##########################################################################
+    #
+    # cards_new_memorising
+    #
+    ##########################################################################
+    
+    def cards_new_memorising(self, grade):
+       
+        return (c for c in self.cards if c.grade == grade and c.lapses == 0 \
+                     and c.acq_reps > 1 and c.is_in_active_category())

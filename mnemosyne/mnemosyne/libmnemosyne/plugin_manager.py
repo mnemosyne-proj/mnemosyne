@@ -116,8 +116,11 @@ def get_database():
 def get_scheduler():
     return plugin_manager.get_current_plugin("scheduler")
 
-def get_ui_controller():
-    return plugin_manager.get_current_plugin("ui_controller")
+def get_ui_controller_main():
+    return plugin_manager.get_current_plugin("ui_controller_main")
+
+def get_ui_controller_review():
+    return plugin_manager.get_current_plugin("ui_controller_review")
 
 def get_card_types():
     return plugin_manager.get_all_plugins("card_type")

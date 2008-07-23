@@ -10,6 +10,7 @@ from mnemosyne.libmnemosyne.start_date import start_date
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 from mnemosyne.libmnemosyne.plugin_manager import get_database
+from mnemosyne.libmnemosyne.config import config
 
 log = logging.getLogger("mnemosyne")
 
@@ -91,18 +92,15 @@ class SM2Mnemosyne(Scheduler):
 
         db = get_database()
 
-        if not db.is_loadad():
+        if not db.is_loaded():
             return
-
-        update_days_since_start()
     
         # Do the cards that are scheduled for today (or are overdue), but
         # first do those that have the shortest interval, as being a day
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 50.
 
-        self.queue = [i for i in cards if i.is_due_for_retention_rep()]
-        self.queue.sort(key=Card.sort_key_interval)
+        self.queue = db.cards_due_for_ret_rep(sort_key=Card.interval)
 
         if len(self.queue) != 0:
             return
@@ -115,15 +113,14 @@ class SM2Mnemosyne(Scheduler):
 
         limit = config["grade_0_items_at_once"]
 
-        grade_0 = (i for i in cards if i.is_due_for_acquisition_rep() \
-                                       and i.lapses > 0 and i.grade == 0)
+        grade_0 = db.cards_due_for_final_review(grade = 0)
 
         grade_0_selected = []
 
         if limit != 0:
             for i in grade_0:
                 for j in grade_0_selected:
-                    if cards_are_inverses(i, j):
+                    if i.fact == j.fact:
                         break
                 else:
                     grade_0_selected.append(i)
@@ -131,8 +128,8 @@ class SM2Mnemosyne(Scheduler):
                 if len(grade_0_selected) == limit:
                     break
 
-        grade_1 = [i for i in cards if i.is_due_for_acquisition_rep() \
-                                       and i.lapses > 0 and i.grade == 1]
+        
+        grade_1 = [db.cards_due_for_final_review(grade = 1)]
 
         self.queue += 2*grade_0_selected + grade_1
 
@@ -144,8 +141,7 @@ class SM2Mnemosyne(Scheduler):
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
 
-        grade_0 = (i for i in cards if i.is_due_for_acquisition_rep() \
-                      and i.lapses == 0 and i.acq_reps > 1 and i.grade == 0)
+        grade_0 = db.cards_new_memorising(grade = 0)
 
         grade_0_in_queue = len(grade_0_selected)
         grade_0_selected = []
@@ -153,7 +149,7 @@ class SM2Mnemosyne(Scheduler):
         if limit != 0:
             for i in grade_0:
                 for j in grade_0_selected:
-                    if cards_are_inverses(i, j):
+                    if i.fact == j.fact:
                         break
                 else:
                     grade_0_selected.append(i)
@@ -161,8 +157,7 @@ class SM2Mnemosyne(Scheduler):
                 if len(grade_0_selected) + grade_0_in_queue == limit:
                     break
 
-        grade_1 = [i for i in cards if i.is_due_for_acquisition_rep() \
-                      and i.lapses == 0 and i.acq_reps > 1 and i.grade == 1]
+        grade_1 = [db.cards_new_memorising(grade = 1)]
 
         self.queue += 2*grade_0_selected + grade_1
 
@@ -258,7 +253,7 @@ class SM2Mnemosyne(Scheduler):
         # Populate list if it is empty.
 
         if len(self.queue) == 0:
-            rebuild_self.queue(learn_ahead)
+            self.rebuild_queue(learn_ahead)
             if len(self.queue) == 0:
                 return None
 
