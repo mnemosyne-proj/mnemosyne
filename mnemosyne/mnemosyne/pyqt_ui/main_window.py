@@ -119,6 +119,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.setCentralWidget(ReviewWdgt())
 
+
         #self.adjustSize()
         
     ##########################################################################

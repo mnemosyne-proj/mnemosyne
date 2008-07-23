@@ -2,6 +2,9 @@
 #
 # pickle.py <Peter.Bienstman@UGent.be>
 #
+#  TODO: abstract out logging messages so that they are automatically the
+#  same in the other databases?
+#
 ##############################################################################
 
 import logging, os, cPickle
@@ -11,7 +14,8 @@ from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.start_date import start_date
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmemosyne.exceptions import *
+from mnemosyne.libmnemosyne.exceptions import *
+from mnemosyne.libmnemosyne.category import Category
 
 log = logging.getLogger("mnemosyne")
 
@@ -254,6 +258,27 @@ class Pickle(Database):
     def delete_category(self, category):
         raise NotImplementedError
 
+
+    ##########################################################################
+    #
+    # get_or_create_category_with_name
+    #
+    # TODO: benchmark this and see if we need a dictionary category_by_name.
+    #
+    ##########################################################################
+
+    def get_or_create_category_with_name(self, name):
+
+        if name not in (c.name for c in self.categories):    
+            category = Category(name)
+            self.categories.append(category)
+            return category
+        else:
+            for c in self.categories:
+                if c.name == name:
+                    return c
+            
+
     
     ##########################################################################
     #
@@ -274,7 +299,8 @@ class Pickle(Database):
 
     
     def add_fact(self, fact):
-        raise NotImplementedError
+
+        self.facts.append(fact)
 
     def modify_fact(self, id, modified_fact):
         raise NotImplementedError
@@ -283,7 +309,8 @@ class Pickle(Database):
         raise NotImplementedError
     
     def add_card(self, card): # should also link fact to new card
-        raise NotImplementedError
+        self.cards.append(card)
+        card.fact.cards.append(card)
 
     def modify_card(self, id, modified_card):
         raise NotImplementedError
@@ -310,36 +337,52 @@ class Pickle(Database):
 
     ##########################################################################
     #
-    # number_of_cards
+    # category_names
+    #
+    ##########################################################################
+    
+    def category_names(self):
+        return (c.name for c in self.categories)
+
+    
+    ##########################################################################
+    #
+    # card_count
     #
     ##########################################################################
 
-    def number_of_cards():
-        return len(cards)
+    def card_count(self):
+        return len(self.cards)
 
 
 
     ##########################################################################
     #
-    # non_memorised_cards
+    # non_memorised_count
     #
     ##########################################################################
 
-    def non_memorised_cards():
-        return sum(1 for i in cards if i.is_due_for_acquisition_rep())
+    def non_memorised_count(self):
+        return sum(1 for c in self.cards if (c.grade < 2) and \
+                                             c.is_in_active_category())
 
 
 
     ##########################################################################
     #
-    # scheduled_cards
+    # scheduled_count
     #
     #   Number of cards scheduled within 'days' days.
     #
     ##########################################################################
 
-    def scheduled_cards(days=0):
-        return sum(1 for i in cards if i.is_due_for_retention_rep(days))
+    def scheduled_count(self, days=0):
+        
+        days_from_start = start_date.days_since_start()
+        
+        return sum(1 for c in self.cards if (c.grade >= 2) and \
+                            c.is_in_active_category() and \
+                           (days_since_start >= c.next_rep - days))
 
 
 
@@ -351,8 +394,8 @@ class Pickle(Database):
     #
     ##########################################################################
 
-    def active_cards():
-        return sum(1 for i in cards if i.is_in_active_category())
+    def active_count(self):
+        return sum(1 for c in self.cards if c.is_in_active_category())
 
 
 

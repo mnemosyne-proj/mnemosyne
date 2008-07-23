@@ -7,6 +7,9 @@
 import gettext
 _ = gettext.gettext
 
+from mnemosyne.libmnemosyne.config import config
+from mnemosyne.libmnemosyne.stopwatch import stopwatch
+from mnemosyne.libmnemosyne.plugin_manager import get_database, get_scheduler
 
 
 ##############################################################################
@@ -63,11 +66,11 @@ class SM2Controller(object):
 
     def new_question(self, learn_ahead = False):
         
-        if number_of_cards() == 0:
+        if get_database().card_count() == 0:
             self.state = "EMPTY"
             self.card = None
         else:
-            self.card = get_new_question(learn_ahead)
+            self.card = get_scheduler().get_new_question(learn_ahead)
             if self.card != None:
                 self.state = "SELECT SHOW"
             else:
@@ -76,7 +79,7 @@ class SM2Controller(object):
         #self.q_sound_played = False
         #self.a_sound_played = False
         
-        start_thinking()
+        stopwatch.start()
 
 
     ##########################################################################
@@ -104,10 +107,7 @@ class SM2Controller(object):
 
     def grade_answer(self, grade):
 
-        interval = process_answer(self.card, grade)
-
-        # Possible optimisation: show new question before grading the
-        # answer, but only if the revision queue contains enough cards.
+        get_scheduler().process_answer(self.card, grade)
 
         
     ##########################################################################

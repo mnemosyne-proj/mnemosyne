@@ -16,9 +16,6 @@ from mnemosyne.libmnemosyne.plugin_manager import get_database
 #
 ##############################################################################
 
-categories = []
-
-
 class Category:
     
     ##########################################################################
@@ -41,7 +38,7 @@ class Category:
     ##########################################################################
 
     def save(name):
-
+        
         get_database.add_category(self)
 
 
@@ -50,7 +47,7 @@ class Category:
     #
     # in_use
     #
-    #  TODO: better to move to database?
+    #  TODO: move to database
     #
     ##########################################################################
 
@@ -68,7 +65,7 @@ class Category:
 
 
 
-# TODO: see if needed anymore
+# TODO: see if still needed.
 
 ##############################################################################
 #
@@ -85,18 +82,4 @@ def ensure_category_exists(name):
         categories.append(category)
         category_by_name[name] = category
         
-
-##############################################################################
-#
-# get_category_by_name
-#
-##############################################################################
-
-def get_category_by_name(name):
-
-    global category_by_name
-
-    ensure_category_exists(name)
-    return category_by_name[name]
-
 

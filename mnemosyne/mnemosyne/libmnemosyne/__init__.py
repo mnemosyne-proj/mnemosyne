@@ -23,7 +23,7 @@ from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
 # TODO: move these import to initialise, and automatically loop through
 # all the contents of the directories?
 
-from mnemosyne.libmnemosyne.databases.pickle import Pickle
+
 
 log = logging.getLogger("mnemosyne")
 
@@ -42,9 +42,7 @@ def initialise(basedir):
 
     config.initialise(basedir)
     initialise_lockfile()
-
-    # TODO: Create default database if none exists?
-    
+    initialise_new_empty_database()        
     initialise_logging()
     initialise_error_handling()
     initialise_system_plugins()
@@ -66,19 +64,20 @@ def initialise_lockfile():
 
 ##############################################################################
 #
-# initialise_error_handling
+# initialise_new_empty_database
 #
 ##############################################################################
 
-def initialise_error_handling():
+def initialise_new_empty_database():
 
-    # Write errors to a file (otherwise this causes problem on Windows).
+    from mnemosyne.libmnemosyne.plugin_manager import get_database  
 
-    if sys.platform == "win32":
-        error_log = os.path.join(basedir, "error_log.txt")
-        sys.stderr = file(error_log, 'a')    
+    filename = config["path"]
 
+    if not os.path.exists(os.path.join(config.basedir, filename)):
+        get_database().new(os.path.join(config.basedir, filename))
 
+        
 
 ##############################################################################
 #
@@ -109,6 +108,22 @@ def initialise_logging():
 
 ##############################################################################
 #
+# initialise_error_handling
+#
+##############################################################################
+
+def initialise_error_handling():
+
+    # Write errors to a file (otherwise this causes problem on Windows).
+
+    if sys.platform == "win32":
+        error_log = os.path.join(basedir, "error_log.txt")
+        sys.stderr = file(error_log, 'a')    
+
+
+
+##############################################################################
+#
 # initialise_system_plugins
 #
 #  These are now hard coded, but if needed, an application could
@@ -120,10 +135,17 @@ def initialise_system_plugins():
 
     # Database
 
+    from mnemosyne.libmnemosyne.databases.pickle import Pickle
+
     plugin_manager.register_plugin("database", Pickle())    
 
     # UI controllers
-
+    
+    from mnemosyne.libmnemosyne.ui_controllers.SM2_controller \
+                                                   import SM2Controller
+    
+    plugin_manager.register_plugin("ui_controller", SM2Controller())
+    
     # Card types.
 
     # These are registered in the GUI, because it's easier to do so

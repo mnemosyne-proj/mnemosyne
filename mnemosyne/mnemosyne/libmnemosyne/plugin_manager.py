@@ -21,6 +21,7 @@ class PluginManager():
     ##########################################################################
     
     def __init__(self):
+        
         self.plugins = {}
 
 
@@ -68,7 +69,9 @@ class PluginManager():
     ##########################################################################
     
     def get_all_plugins(self, type):
+        
         return self.plugins[type]
+
 
     
     ##########################################################################
@@ -109,6 +112,9 @@ def get_database():
 
 def get_scheduler():
     return plugin_manager.get_current_plugin("scheduler")
+
+def get_ui_controller():
+    return plugin_manager.get_current_plugin("ui_controller")
 
 def get_card_types():
     return plugin_manager.get_all_plugins("card_type")

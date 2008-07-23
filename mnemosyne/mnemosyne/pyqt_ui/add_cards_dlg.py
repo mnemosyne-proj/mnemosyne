@@ -128,9 +128,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         for i in range(no_of_categories-1,-1,-1):
             self.categories.removeItem(i)
 
-        self.categories.addItem(self.trUtf8("<default>"))
-        for name in get_category_names():
-            if name != self.trUtf8("<default>"):
+        self.categories.addItem(_("<default>"))
+        for name in get_database().category_names():
+            if name != _("<default>"):
                 self.categories.addItem(name)
 
         for i in range(self.categories.count()):

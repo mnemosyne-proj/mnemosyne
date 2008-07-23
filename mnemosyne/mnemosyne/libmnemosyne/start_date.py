@@ -48,11 +48,11 @@ class StartDate:
             
     ##########################################################################
     #
-    # update_days_since_start
+    # days_since_start
     #
     ##########################################################################
     
-    def update_days_since_start(self):
+    def days_since_start(self):
         
         h = config["day_starts_at"]
 

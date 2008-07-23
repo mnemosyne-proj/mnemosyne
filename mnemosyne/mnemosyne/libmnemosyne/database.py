@@ -5,6 +5,7 @@
 ##############################################################################
 
 from plugin import Plugin
+from category import Category
 
 
 
@@ -45,7 +46,7 @@ class Database(Plugin):
     
     # Creating, loading and saving the entire database.
 
-    def new(self, name):
+    def new(self, path):
         raise NotImplementedError
 
     def save(self):
@@ -81,6 +82,9 @@ class Database(Plugin):
     def delete_category(self, category):
         raise NotImplementedError
 
+    def get_or_create_category_with_name(self, name):
+        raise NotImplementedError        
+    
     def remove_category_if_unused(self, cat):
         raise NotImplementedError        
     
@@ -103,26 +107,29 @@ class Database(Plugin):
         raise NotImplementedError
     
     # Queries. TODO: check which ones we need more.
+
+    def category_names(self):
+        raise NotImplementedError       
     
-    def get_fact(self, id):
+    def fact(self, id):
         raise NotImplementedError
     
-    def get_card(self, id):
+    def card(self, id):
         raise NotImplementedError        
 
-    def count_facts(self):
+    def fact_count(self):
         raise NotImplementedError
 
-    def count_count(self):
+    def card_count(self):
         raise NotImplementedError
 
-    def count_non_memorised(self):
+    def non_memorised_count(self):
         raise NotImplementedError
     
-    def count_scheduled(self):
+    def scheduled_count(self):
         raise NotImplementedError
 
-    def count_active(self):
+    def active_count(self):
         raise NotImplementedError
     
     def average_easiness(self):

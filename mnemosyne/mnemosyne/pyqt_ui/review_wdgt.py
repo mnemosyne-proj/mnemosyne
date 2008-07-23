@@ -12,10 +12,14 @@ from PyQt4.QtGui import *
 
 from ui_review_wdgt import *
 
+from mnemosyne.libmnemosyne.plugin_manager import get_ui_controller
+from mnemosyne.libmnemosyne.config import config
+
+
 
 ##############################################################################
 #
-# ReviewWdget
+# ReviewWdgettable {margin-left:auto; margin-right:auto; height:100%;}
 #
 ##############################################################################
 
@@ -34,29 +38,29 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
 
 
         self.question.setHtml("""
-<html>
-<head>
+<html><head>
+
 <style type="text/css">
 
-body {
-        color: black;
+table { margin-left: auto;
+        margin-right: auto; /* Centers the table, but not it's contents. */
+        height: 100%; }
+
+body {  color: black;
         background-color: white;
         margin: 0;
         padding: 0;
         border: thin solid #8F8F8F; }
 
 #q { font-weight: bold;
-     text-align: center; }
+     text-align: center; } /* Align contents within the cell. */
         
 #a { color: green;
      text-align: center; }
         
-</style>
-</head>
-<body>
-<table height="100%" align="center">
-<tr>
-<td>
+</style></head>
+<body><table><tr><td>
+
 <p id='q'>
 question
 </p>
@@ -64,15 +68,11 @@ question
 answer
 </p>
 
-</td>
-</tr>
-</table>
-</body>
-</html>
+</td></tr></table></body></html>
 """)
 
 
-        self.controller = controller
+        self.controller = get_ui_controller()
 
         self.card = None # To controller?
 
@@ -183,20 +183,22 @@ answer
 
     def updateDialog(self):
 
+        # TODO: throw this option out?
+
         # Update toolbar.
 
-        if get_config("hide_toolbar") == True:
-            self.toolBar.hide()
-            self.actionShowToolbar.setChecked(0)
-        else:
-            self.toolBar.show()
-            self.actionShowToolbar.setChecked(1)
+        #if config["hide_toolbar"] == True:
+        #    self.parent.toolbar.hide()
+        #    self.actionShowToolbar.setChecked(0)
+        #else:
+        #    self.parent.toolbar.show()
+        #    self.actionShowToolbar.setChecked(1)
 
         # Update question and answer font.
 
-        if get_config("QA_font") != None:
+        if config["QA_font"] != None:
             font = QFont()
-            font.fromString(get_config("QA_font"))
+            font.fromString(config["QA_font"])
         else:
             font = self.show_button.font()
 
@@ -217,12 +219,15 @@ answer
 
         # Update status bar.
 
-        self.sched .setText(self.trUtf8("Scheduled: ").append(QString(\
-                            str(scheduled_cards()))))
-        self.notmem.setText(self.trUtf8("Not memorised: ").append(QString(\
-                            str(non_memorised_cards()))))
-        self.all   .setText(self.trUtf8("All: ").append(QString(\
-                            str(active_cards()))))
+
+        # TODO: move to main window controller
+
+        #self.sched .setText(self.trUtf8("Scheduled: ").append(QString(\
+        #                    str(scheduled_cards()))))
+        #self.notmem.setText(self.trUtf8("Not memorised: ").append(QString(\
+        #                    str(non_memorised_cards()))))
+        #self.all   .setText(self.trUtf8("All: ").append(QString(\
+        #                    str(active_cards()))))
 
         # TODO: autoshrinking?
         #if self.shrink == True:

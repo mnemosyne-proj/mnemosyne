@@ -7,10 +7,10 @@
 import gettext
 _ = gettext.gettext
 
-#from mnemosyne.libmnemosyne.card import *
+from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.plugin_manager import *
+from mnemosyne.libmnemosyne.plugin_manager import get_database
 
 
 ##############################################################################
@@ -97,14 +97,14 @@ class TwoSided(CardType):
 
         fact = Fact(data)
         fact.save()
-        
-        card = add_new_card(grade, card_type=self, fact=fact,
-                            subcard=0, cat_names=cat_names)
+
+        Card(grade=grade, card_type=self, fact=fact,
+             subcard=0, cat_names=cat_names).save
 
         if add_vice_versa:
-            card = add_new_card(grade, card_type=self, fact=fact,
-                                subcard=1, cat_names=cat_names,
-                                id=card.id+'.inv')
+            Card(grade=grade, card_type=self, fact=fact,
+                 subcard=1, cat_names=cat_names,
+                 id=card.id+'.inv').save()
 
         # TODO: drop the .inv suffix?
 

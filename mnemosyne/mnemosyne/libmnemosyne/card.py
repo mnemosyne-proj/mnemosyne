@@ -9,7 +9,7 @@ import md5, time, logging
 from mnemosyne.libmnemosyne.plugin_manager import *
 
 #from mnemosyne.libmnemosyne.card_type import *
-#from mnemosyne.libmnemosyne.start_date import get_days_since_start
+from mnemosyne.libmnemosyne.start_date import start_date
 #from mnemosyne.libmnemosyne.scheduler import *
 #from mnemosyne.libmnemosyne.database import *
 
@@ -47,15 +47,19 @@ class Card(object):
             
     def __init__(self, grade, card_type, fact, subcard, cat_names, id=None):
 
+        db = get_database()
+        sch = get_scheduler()
+
         self.card_type = card_type
         self.fact      = fact
         self.subcard   = subcard
         self.q         = self.filtered_q()
         self.a         = self.filtered_a()
         self.hidden    = False
-        
+
+        self.cat = []
         for cat_name in cat_names:
-            self.cat.append(get_category_by_name(cat_name))
+            self.cat.append(db.get_or_create_category_with_name(cat_name))
         
         self.reset_learning_data() # TODO: see where this is used and merge.
 
@@ -65,18 +69,18 @@ class Card(object):
         self.acq_reps = 1
         self.acq_reps_since_lapse = 1
 
-        self.last_rep = get_days_since_start()
+        self.last_rep = start_date.days_since_start()
 
-        self.easiness = average_easiness()
+        self.easiness = db.get_average_easiness()
 
         if id == None:
             self.new_id()
         else:
             self.id = id 
 
-        new_interval  = calculate_initial_interval(grade)
-        new_interval += calculate_interval_noise(new_interval)
-        self.next_rep = get_days_since_start() + new_interval
+        new_interval  = sch.calculate_initial_interval(grade)
+        new_interval += sch.calculate_interval_noise(new_interval)
+        self.next_rep = start_date.days_since_start() + new_interval
 
         
 
@@ -189,69 +193,6 @@ class Card(object):
     def sort_key_newest(self):
         return self.acq_reps + self.ret_reps
 
-
-# TODO: see which of these we still need
-
-    
-    
-    ##########################################################################
-    #
-    # is_new
-    #
-    ##########################################################################
-    
-    def is_new(self):
-        return (self.acq_reps == 0) and (self.ret_reps == 0)
-    
-    ##########################################################################
-    #
-    # is_due_for_acquisition_rep
-    #
-    ##########################################################################
-    
-    def is_due_for_acquisition_rep(self):
-        return (self.grade < 2) and (self.is_in_active_category())
-    
-    ##########################################################################
-    #
-    # is_due_for_retention_rep
-    #
-    #  Due for a retention repetion within 'days' days?
-    #
-    ##########################################################################
-    
-    def is_due_for_retention_rep(self, days=0):
-        return (self.grade >= 2) and (self.is_in_active_category()) and \
-               (get_days_since_start() >= self.next_rep - days)
-    
-    ##########################################################################
-    #
-    # is_overdue
-    #
-    ##########################################################################
-    
-    def is_overdue(self):
-        return (self.grade >= 2) and (self.is_in_active_category()) and \
-               (get_days_since_start() > self.next_rep)
-
-    ##########################################################################
-    #
-    # days_since_last_rep
-    #
-    ##########################################################################
-    
-    def days_since_last_rep(self):
-        return get_days_since_start() - self.last_rep
-
-    ##########################################################################
-    #
-    # days_until_next_rep
-    #
-    ##########################################################################
-    
-    def days_until_next_rep(self):
-        return self.next_rep - get_days_since_start()
-    
     ##########################################################################
     #
     # is_in_active_category
@@ -265,6 +206,52 @@ class Card(object):
                 return False
             
         return True
+    
+
+# TODO: see which of these we still need and if they could be moved to
+# database
+
+    
+    
+    ##########################################################################
+    #
+    # is_new
+    #
+    ##########################################################################
+    
+    def is_new(self):
+        return (self.acq_reps == 0) and (self.ret_reps == 0)
+    
+    
+    
+    ##########################################################################
+    #
+    # is_overdue
+    #
+    ##########################################################################
+    
+    def is_overdue(self):
+        return (self.grade >= 2) and (self.is_in_active_category()) and \
+               (days_since_start > self.next_rep)
+
+    ##########################################################################
+    #
+    # days_since_last_rep
+    #
+    ##########################################################################
+    
+    def days_since_last_rep(self):
+        return days_since_start - self.last_rep
+
+    ##########################################################################
+    #
+    # days_until_next_rep
+    #
+    ##########################################################################
+    
+    def days_until_next_rep(self):
+        return self.next_rep - days_since_start
+    
 
     ##########################################################################
     #
