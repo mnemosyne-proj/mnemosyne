@@ -5,6 +5,9 @@
 #
 ##############################################################################
 
+from mnemosyne.libmnemosyne.plugin_manager import get_database
+
+
 
 
 ##############################################################################
@@ -14,7 +17,7 @@
 ##############################################################################
 
 categories = []
-category_by_name = {}
+
 
 class Category:
     
@@ -29,9 +32,25 @@ class Category:
         self.name = name
         self.active = active
 
+        
+
+    ##########################################################################
+    #
+    # save
+    #
+    ##########################################################################
+
+    def save(name):
+
+        get_database.add_category(self)
+
+
+    
     ##########################################################################
     #
     # in_use
+    #
+    #  TODO: better to move to database?
     #
     ##########################################################################
 
@@ -39,8 +58,8 @@ class Category:
 
         used = False
 
-        for e in cards:
-            if self.name == e.cat.name:
+        for c in get_database.get_cards():
+            if self.name == c.cat.name:
                 used = True
                 break
 
@@ -48,27 +67,8 @@ class Category:
 
 
 
-##############################################################################
-#
-# get_categories
-#
-##############################################################################
 
-def get_categories():
-    return categories
-
-
-
-##############################################################################
-#
-# get_category_names
-#
-##############################################################################
-
-def get_category_names():
-    return sorted(category_by_name.keys())
-
-
+# TODO: see if needed anymore
 
 ##############################################################################
 #
@@ -84,8 +84,7 @@ def ensure_category_exists(name):
         category = Category(name)
         categories.append(category)
         category_by_name[name] = category
-
-
+        
 
 ##############################################################################
 #
@@ -101,20 +100,3 @@ def get_category_by_name(name):
     return category_by_name[name]
 
 
-
-##############################################################################
-#
-# remove_category_if_unused
-#
-##############################################################################
-
-def remove_category_if_unused(cat):
-
-    global cards, category_by_name, categories
-
-    for card in cards:
-        if cat.name == card.cat.name:
-            break
-    else:
-        del category_by_name[cat.name]
-        categories.remove(cat)

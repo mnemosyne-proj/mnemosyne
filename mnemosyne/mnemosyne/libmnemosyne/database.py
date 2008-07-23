@@ -12,8 +12,7 @@ from plugin import Plugin
 #
 # Database
 #
-#  TODO: perhaps we need to break out a FactManager and a CardManager
-#  from this code.
+#  TODO: see if we need to break up this code
 #
 #  TODO: load_failed mechanism, to prevent overwriting a database which
 #  failed to load.
@@ -58,6 +57,9 @@ class Database(Plugin):
     def load(self):
         raise NotImplementedError
 
+    def is_loaded():
+        raise NotImplementedError        
+
     # Start date.
 
     def save_start_date(self):
@@ -66,8 +68,22 @@ class Database(Plugin):
     def load_start_date(self):
         raise NotImplementedError
 
-    # Adding, modifying and deleting facts and cards.
+    # Adding, modifying and deleting categories, facts and cards.
 
+    # TODO: join add and modify into save?
+    
+    def add_category(self, category):
+        raise NotImplementedError
+
+    def modify_category(self, id, modified_category):
+        raise NotImplementedError
+    
+    def delete_category(self, category):
+        raise NotImplementedError
+
+    def remove_category_if_unused(self, cat):
+        raise NotImplementedError        
+    
     def add_fact(self, fact):
         raise NotImplementedError
 

@@ -4,12 +4,14 @@
 #
 ##############################################################################
 
-import logging
+import logging, os, cPickle
 import mnemosyne.version
 
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.config import config
-from mnemosyne.libmnemosyne.start_date import *
+from mnemosyne.libmnemosyne.start_date import start_date
+from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmemosyne.exceptions import *
 
 log = logging.getLogger("mnemosyne")
 
@@ -30,9 +32,12 @@ class Pickle(Database):
     ##########################################################################
 
     def __init__(self):
-        
-        self.cards = []
+
+        self.categories = []
         self.facts = []
+        self.cards = []
+
+        self.category_by_name = {} # TODO: needed?
         
         self.load_failed = False
 
@@ -46,23 +51,24 @@ class Pickle(Database):
 
     def new(self, path):
 
-        if len(self.facts) != 0:
+        if self.is_loaded != 0:
             self.unload()
 
         self.load_failed = False
 
-        initialise_time_of_start()
+        start_date.init()
+
         config["path"] = path
 
         log.info("New database")
 
-        self.save(contract_path(path, basedir))
+        self.save(contract_path(path, config.basedir))
 
 
 
     ##########################################################################
     #
-    # load_database
+    # load
     #
     ##########################################################################
 
@@ -70,18 +76,16 @@ class Pickle(Database):
         = "--- Mnemosyne Data Base --- Format Version %s ---" \
           % mnemosyne.version.dbVersion
 
-    def load_database(path):
+    def load(path):
 
-        global load_failed
+        path = expand_path(path, config.basedir)
 
-        path = expand_path(path, basedir)
-
-        if list_is_loaded():
+        if self.is_loaded():
             unload_database()
 
         if not os.path.exists(path):
-            load_failed = True
-            raise LoadError()
+            self.load_failed = True
+            raise IOError
 
         try:
             infile = file(path, 'rb')
@@ -92,18 +96,19 @@ class Pickle(Database):
 
             db = cPickle.load(infile)
 
-            time_of_start = db[0]
-            categories    = db[1]
-            cards         = db[2]
+            time_of_start.start = db[0]
+            self.categories      = db[1]
+            self.facts           = db[2]
+            self.cards           = db[3]
 
             infile.close()
 
-            time_of_start.update_days_since()
+            #time_of_start.update_days_since()
 
-            load_failed = False
+            self.load_failed = False
 
         except:
-            load_failed = True
+            self.load_failed = True
 
             raise InvalidFormatError(stack_trace=True)
 
@@ -112,9 +117,9 @@ class Pickle(Database):
         for c in categories:
             remove_category_if_unused(c)
 
-        set_config("path", contract_path(path, basedir))
+        config["path"] = contract_path(path, basedir)
 
-        logger.info("Loaded database %d %d %d", scheduled_cards(), \
+        log.info("Loaded database %d %d %d", scheduled_cards(), \
                     non_memorised_cards(), number_of_cards())
 
         if "after_load" in function_hooks:
@@ -231,7 +236,61 @@ class Pickle(Database):
         if len(files) > get_config("backups_to_keep"):
             os.remove(os.path.join(backupdir, files[0]))
 
+    ##########################################################################
+    #
+    # is_loaded
+    #
+    ##########################################################################
 
+    def is_loaded(self):
+        return len(self.facts) != 0
+    
+    def add_category(self, category):
+        raise NotImplementedError
+
+    def modify_category(self, id, modified_category):
+        raise NotImplementedError
+    
+    def delete_category(self, category):
+        raise NotImplementedError
+
+    
+    ##########################################################################
+    #
+    # remove_category_if_unused
+    #
+    # TODO: implement
+    #
+    ##########################################################################
+
+    def remove_category_if_unused(self, cat):
+
+        for card in self.cards:
+            if cat.name == card.cat.name:
+                break
+        else:
+            del category_by_name[cat.name]
+        categories.remove(cat)
+
+    
+    def add_fact(self, fact):
+        raise NotImplementedError
+
+    def modify_fact(self, id, modified_fact):
+        raise NotImplementedError
+    
+    def delete_fact(self, fact):
+        raise NotImplementedError
+    
+    def add_card(self, card): # should also link fact to new card
+        raise NotImplementedError
+
+    def modify_card(self, id, modified_card):
+        raise NotImplementedError
+    
+    def delete_card(self, id, card):
+        raise NotImplementedError
+    
     ##########################################################################
     #
     # delete_card
@@ -248,16 +307,6 @@ class Pickle(Database):
 
         logger.info("Deleted card %s", e.id)
 
-
-
-    ##########################################################################
-    #
-    # list_is_loaded
-    #
-    ##########################################################################
-
-    def list_is_loaded():
-        return len(cards) != 0   
 
     ##########################################################################
     #

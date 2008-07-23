@@ -13,14 +13,12 @@ from mnemosyne.libmnemosyne.config import config
 #
 # StartDate
 #
-#   The days_since_start information is frequently needed, so rather than
-#   calculating it each time, we store it in a class variable, which we
-#   need to update when the database loads and in rebuild_revision_queue. 
+#   TODO: make sure we cache days_since_start where possible to save time.
 #
 ##############################################################################
 
 class StartDate:
-
+    
     ##########################################################################
     #
     # __init__
@@ -28,19 +26,23 @@ class StartDate:
     ##########################################################################
 
     def __init__(self, start=None):
+        
+        self.init(start)
 
-        h = config["day_starts_at"]
+
+            
+    ##########################################################################
+    #
+    # init
+    #
+    ##########################################################################
+
+    def init(self, start=None):
 
         if not start:
-            start = datetime.datetime.now()
-        
-        t = time.localtime(start_time)
-        
-        time = time.mktime([t[0],t[1],t[2], h,0,0, t[6],t[7],t[8]])
-
-        self.start = datetime.datetime.fromtimestamp(time)
-
-        self.update_days_since_start()
+            self.start = datetime.datetime.now()
+        else:
+            self.start = start
 
 
             
@@ -53,18 +55,20 @@ class StartDate:
     def update_days_since_start(self):
         
         h = config["day_starts_at"]
+
+        adjusted_start = self.start.replace(hour=h, minute=0, second=0)
         
-        adjusted_now = datetime.datetime.now() - datetime.timedelta(hours=h)
-        dt = adjusted_now.date() - self.start.date()
-        
-        self.days_since_start = dt.days
+        dt = datetime.datetime.now() - adjusted_start
+                
+        return dt.days
 
 
 
+##############################################################################
+#
+# The start date needs to be accessed by many different parts of the
+# library, so we hold it in a global variable.
+#
+##############################################################################
 
-start_date = None
-
-def initialise_start_date(start):
-    
-    global start_date
-    start_date = StartDate()   
+start_date = StartDate()

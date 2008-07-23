@@ -6,7 +6,7 @@
 
 import datetime, md5
 
-from mnemosyne.libmnemosyne.plugin_manager import *
+from mnemosyne.libmnemosyne.plugin_manager import get_database
 
 
 
