@@ -156,6 +156,8 @@ class SM2Controller(UiControllerReview):
 
     def update_dialog(self):
 
+        print 'update dialog'
+
         w = self.widget
 
         # Update title.

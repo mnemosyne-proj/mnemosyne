@@ -18,8 +18,10 @@ Mnemosyne 2.0: Major rewrite
  lay the foundation for custom card types and make a port
  to mobile devices (Maemo, Windows Mobile, ...) possible.
 
--get rid of PyXML, pygame
+-get rid of pygame
 -xml import tests (wcu, memaid, plconv)
+
+-plugable Parser
 
 -front widget that allows copying, can produce scroll bars. This will
  solve issues when a card contains a very large picture

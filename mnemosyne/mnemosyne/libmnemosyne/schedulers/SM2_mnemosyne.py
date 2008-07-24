@@ -100,7 +100,12 @@ class SM2Mnemosyne(Scheduler):
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 50.
 
-        self.queue = db.cards_due_for_ret_rep(sort_key=Card.interval)
+        card, sorted = db.cards_due_for_ret_rep(sort_key=Card.interval)
+
+        if not sorted:
+            cards.sort(key=Card.interval)
+
+        self.queue = cards
 
         if len(self.queue) != 0:
             return
@@ -113,7 +118,7 @@ class SM2Mnemosyne(Scheduler):
 
         limit = config["grade_0_items_at_once"]
 
-        grade_0 = db.cards_due_for_final_review(grade = 0)
+        grade_0, sorted = db.cards_due_for_final_review(grade = 0)
 
         grade_0_selected = []
 
@@ -129,7 +134,8 @@ class SM2Mnemosyne(Scheduler):
                     break
 
         
-        grade_1 = [db.cards_due_for_final_review(grade = 1)]
+        grade_1, sorted = db.cards_due_for_final_review(grade = 1)
+        grade_1 = [grade_1]
 
         self.queue += 2*grade_0_selected + grade_1
 
@@ -141,7 +147,7 @@ class SM2Mnemosyne(Scheduler):
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
 
-        grade_0 = db.cards_new_memorising(grade = 0)
+        grade_0, sorted = db.cards_new_memorising(grade = 0)
 
         grade_0_in_queue = len(grade_0_selected)
         grade_0_selected = []
@@ -157,7 +163,8 @@ class SM2Mnemosyne(Scheduler):
                 if len(grade_0_selected) + grade_0_in_queue == limit:
                     break
 
-        grade_1 = [db.cards_new_memorising(grade = 1)]
+        grade_1, sorted = db.cards_new_memorising(grade = 1)
+        grade_1 = [grade_]
 
         self.queue += 2*grade_0_selected + grade_1
 
@@ -172,15 +179,15 @@ class SM2Mnemosyne(Scheduler):
         # expression. However, in order to use random.choice, there doesn't
         # seem to be another option.
 
-        unseen = [i for i in cards if i.is_due_for_acquisition_rep() \
-                                       and i.acq_reps <= 1]
+        unseen, sorted = db.cards_unseen()
+        unseen = [unseen]
 
         grade_0_in_queue = sum(1 for i in self.queue if i.grade == 0)/2
         grade_0_selected = []
 
         if limit != 0 and len(unseen) != 0:    
             while True:
-                if get_config("randomise_new_cards") == False:
+                if config["randomise_new_cards"] == False:
                     new_card = unseen[0]
                 else:
                     new_card = random.choice(unseen)

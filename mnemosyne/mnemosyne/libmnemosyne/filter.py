@@ -15,6 +15,9 @@ from libmnemosyne.plugin import Plugin
 #  Code which operates on the Q and A strings and filters it to achieve
 #  extra functionality.
 #
+#  Filters which have side effects (e.g. opening an external program) should
+#  set run_once to True, as the filters  be run several times
+#
 ##############################################################################
 
 class Filter(Plugin):

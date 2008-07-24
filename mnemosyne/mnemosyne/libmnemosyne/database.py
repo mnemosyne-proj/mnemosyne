@@ -134,15 +134,19 @@ class Database(Plugin):
     def average_easiness(self):
         raise NotImplementedError
 
-    # TODO: check consequences of return type
+    # The following functions return an iterator and a boolean, to indicate
+    # whether the sorting has been successful. We require the use of
+    # iterators to save memory, but for some implementations, this means
+    # they won't be able to sort the returned iterator efficiently.
     
-    def cards_due_for_ret_rep(self, sort_key):
-        raise NotImplementedError # returns list
+    def cards_due_for_ret_rep(self, sort_key=None):
+        raise NotImplementedError
 
-    def cards_due_for_final_review(self, grade):
-        raise NotImplementedError # returns iterator
+    def cards_due_for_final_review(self, grade, sort_key=None):
+        raise NotImplementedError
     
-    def cards_new_memorising(self, grade):
-        raise NotImplementedError # returns iterator    
+    def cards_new_memorising(self, grade, sort_key=None):
+        raise NotImplementedError
 
-
+    def cards_unseen(self, sort_key=None):
+        raise NotImplementedError

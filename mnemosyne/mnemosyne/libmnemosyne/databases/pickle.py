@@ -419,17 +419,13 @@ class Pickle(Database):
     #
     ##########################################################################
     
-    def cards_due_for_ret_rep(self, sort_key):
+    def cards_due_for_ret_rep(self, sort_key=None):
         
         days_from_start = start_date.days_since_start()
         
-        c = [c for c in self.cards if (c.grade >= 2) and \
+        return (c for c in self.cards if (c.grade >= 2) and \
                             c.is_in_active_category() and \
-                           (days_since_start >= c.next_rep)]
-
-        c.sort(key=sort_key)
-
-        return c
+                           (days_since_start >= c.next_rep)), False
 
 
 
@@ -439,10 +435,10 @@ class Pickle(Database):
     #
     ##########################################################################
     
-    def cards_due_for_final_review(self, grade):
+    def cards_due_for_final_review(self, grade, sort_key=None):
        
         return (c for c in self.cards if c.grade == grade and c.lapses > 0 \
-                                        and c.is_in_active_category())
+                                     and c.is_in_active_category()), False
 
 
     ##########################################################################
@@ -451,7 +447,19 @@ class Pickle(Database):
     #
     ##########################################################################
     
-    def cards_new_memorising(self, grade):
+    def cards_new_memorising(self, grade, sort_key=None):
        
         return (c for c in self.cards if c.grade == grade and c.lapses == 0 \
-                     and c.acq_reps > 1 and c.is_in_active_category())
+                   and c.acq_reps > 1 and c.is_in_active_category()), False
+
+
+    ##########################################################################
+    #
+    # cards_unseen
+    #
+    ##########################################################################
+    
+    def cards_unseen(self, sort_key=None):
+       
+        return (c for c in self.cards if (i.acq_reps <= 1) and \
+                                      c.is_in_active_category()), False
