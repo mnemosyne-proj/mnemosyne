@@ -13,7 +13,8 @@ from mnemosyne.libmnemosyne.config import config
 #
 # StartDate
 #
-#   TODO: make sure we cache days_since_start where possible to save time.
+#   Note: make sure we cache days_since_start where possible to save time.
+#   TODO: move this to the database?
 #
 ##############################################################################
 

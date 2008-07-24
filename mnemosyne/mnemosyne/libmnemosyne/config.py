@@ -8,6 +8,13 @@ import md5, random, os, sys, cPickle
 
 from mnemosyne.libmnemosyne.exceptions import *
 
+##############################################################################
+#
+# Note: if it turns out that the webserver version needs a radically
+# different way of dealing with configuration data, we can make the
+# Config object plugpable.
+#
+##############################################################################
 
 
 

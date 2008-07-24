@@ -209,6 +209,10 @@ class SM2Controller(UiControllerReview):
             
         w.set_question_label(question_label_text)
 
+        # TODO: optimisation to make sure that this does not run several
+        # times during card display. People expect there custom filters
+        # to run only once if they have side effects...
+
         # Update question content.
         
         if self.card == None:

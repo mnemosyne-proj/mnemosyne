@@ -171,15 +171,15 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         card_type = self.card_type_by_name[card_type_name]
 
         card_type.new_cards(data)
-
+        
+        get_database().save(config['path'])
+        
         # Update widget. TODO 
                         
         #self.question.setFocus()
 
         #set_config("last_add_vice_versa", self.addViceVersa.isOn())
         #set_config("last_add_category",   cat_name)
-
-        #save_database(get_config("path"))
 
 
             

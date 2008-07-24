@@ -1,5 +1,6 @@
 
-
+from xml.sax import saxutils, make_parser
+from xml.sax.handler import feature_namespaces, ContentHandler
 
 
 
@@ -9,7 +10,7 @@
 #
 ##############################################################################
 
-class memaid_XML_Importer(saxutils.DefaultHandler):
+class memaid_XML_Importer(ContentHandler):
     
     def __init__(self, default_cat=None, reset_learning_data=False):
         self.reading, self.text = {}, {}

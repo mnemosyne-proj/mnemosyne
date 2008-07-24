@@ -10,7 +10,6 @@ _ = gettext.gettext
 from mnemosyne.libmnemosyne.card import *
 from mnemosyne.libmnemosyne.card_type import *
 from mnemosyne.libmnemosyne.fact import *
-from mnemosyne.libmnemosyne.plugin_manager import get_database
 from mnemosyne.libmnemosyne.config import config
 
 
@@ -113,8 +112,6 @@ class ThreeSided(CardType):
                  subcard=1, cat_names=cat_names).save()
             
         self.widget.clear()
-        
-        get_database().save(config['path'])
 
 
 

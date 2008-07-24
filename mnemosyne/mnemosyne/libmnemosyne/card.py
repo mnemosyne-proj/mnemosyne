@@ -24,7 +24,11 @@ log = logging.getLogger("mnemosyne")
 #
 # We store q and a in strings to cache them, instead of regenerating them
 # each time from its Fact. This could take too much time, e.g. on a mobile
-# platform. Also useful for searching in sql database
+# platform. Also useful for searching in an SQL database.
+#
+# Note that we store a card_type_id, as opposed to a card_type, because
+# otherwise we can't use pickled databases, as the card_types themselves are
+# not stored in the database. It is also closer the SQL implementation.
 #
 # 'subcard' indicate different cards generated from the same fact data,
 # like reverse cards. TODO: do we need a mapping from this integer to a
@@ -50,12 +54,12 @@ class Card(object):
         db = get_database()
         sch = get_scheduler()
 
-        self.card_type = card_type
-        self.fact      = fact
-        self.subcard   = subcard
-        self.q         = self.filtered_q()
-        self.a         = self.filtered_a()
-        self.hidden    = False
+        self.card_type_id = card_type.id
+        self.fact         = fact
+        self.subcard      = subcard
+        self.q            = self.filtered_q()
+        self.a            = self.filtered_a()
+        self.hidden       = False
 
         self.cat = []
         for cat_name in cat_names:
