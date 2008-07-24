@@ -96,7 +96,9 @@ class Card(object):
 
     def filtered_q(self):
 
-        q = self.card_type.generate_q(self.fact, self.subcard)
+        card_type = get_card_type_by_id(self.card_type_id)
+
+        q = card_type.generate_q(self.fact, self.subcard)
 
         #q = preprocess(q) # TODO: update to plugin scheme
 
@@ -110,7 +112,9 @@ class Card(object):
     
     def filtered_a(self):
         
-        a = self.card_type.generate_a(self.fact, self.subcard)
+        card_type = get_card_type_by_id(self.card_type_id)
+        
+        a = card_type.generate_a(self.fact, self.subcard)
 
         #a = preprocess(a) # TODO: update to plugin scheme
 

@@ -56,7 +56,10 @@ class Database(Plugin):
     
     def load(self):
         raise NotImplementedError
-
+    
+    def unload(self):
+        raise NotImplementedError
+    
     def is_loaded():
         raise NotImplementedError        
 

@@ -70,10 +70,10 @@ class PluginManager():
     
     def get_all_plugins(self, type):
 
-        try:
+        if type in self.plugins:
             return self.plugins[type]
-        except:
-            pass # Don't complain, as some function hooks will not be used.
+        else:
+            return []
 
 
     
@@ -125,8 +125,8 @@ def get_ui_controller_review():
 def get_card_types():
     return plugin_manager.get_all_plugins("card_type")
 
-def get_card_type(type): # TODO: still needed?
+def get_card_type_by_id(id): # TODO: speed up with dict?
     for t in get_card_types():
-        if isinstance(t, type):
+        if t.id == id:
             return t
     

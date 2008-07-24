@@ -33,6 +33,7 @@ from mnemosyne.libmnemosyne import *
 from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.card import *
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
+from mnemosyne.libmnemosyne.plugin_manager import get_database
 
 prefix = os.path.dirname(__file__)
 
@@ -59,11 +60,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.update_review_widget()
-        
-        #self.shrink = True
 
-        self.q_sound_played = False
-        self.a_sound_played = False
         
         self.sched  = QLabel("", self.statusbar)  
         self.notmem = QLabel("", self.statusbar)        
@@ -84,21 +81,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # TODO: enable load/save
 
-        #try:
-        #    load_database(filename)
-        #except MnemosyneError, e:
-        #    messagebox_errors(self, LoadErrorCreateTmp())
-        #    filename =os.path.join(os.path.split(filename)[0],"___TMP___.mem")
-        #    new_database(filename)
-        
-
-        # TODO: add sound.
-
-        #self.timer = QTimer(self)
-        #self.connect(self.timer, SIGNAL("timeout()"), soundmanager.update)
-        #self.timer.setSingleShot(False)
-        #self.timer.start(250)
-
+        try:
+            get_database().load(filename)
+        except MnemosyneError, e:
+            messagebox_errors(self, LoadErrorCreateTmp())
+            filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
+            get_database().new(filename)
 
         
     ##########################################################################

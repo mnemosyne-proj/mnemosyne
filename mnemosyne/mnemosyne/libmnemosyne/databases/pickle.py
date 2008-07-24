@@ -81,7 +81,7 @@ class Pickle(Database):
 
     # TODO: will we check the version string?
 
-    def load(path):
+    def load(self, path):
 
         path = expand_path(path, config.basedir)
 
@@ -111,17 +111,19 @@ class Pickle(Database):
             self.load_failed = False
 
         except:
+            
             self.load_failed = True
-
             raise InvalidFormatError(stack_trace=True)
 
-        for c in self.categories:
-            remove_category_if_unused(c)
+        # TODO: This was to remove database inconsistencies. Still needed?
+        
+        #for c in self.categories:
+        #    self.remove_category_if_unused(c)
 
-        config["path"] = contract_path(path, basedir)
+        config["path"] = contract_path(path, config.basedir)
 
-        log.info("Loaded database %d %d %d", scheduled_cards(), \
-                    non_memorised_cards(), number_of_cards())
+        log.info("Loaded database %d %d %d", self.scheduled_count(), \
+                    self.non_memorised_count(), self.card_count())
 
         for f in plugin_manager.get_all_plugins("after_load"):
             if f.active:
@@ -154,9 +156,10 @@ class Pickle(Database):
 
             print >> outfile, database_header_line
 
-            # This unfortunately fails.. Bug in sip?
             db = [start_date.start, self.categories, self.facts, self.cards]
-            #cPickle.dump(db, outfile)
+            cPickle.dump(db, outfile)
+
+            print "saved database"
 
             outfile.close()
 
@@ -172,11 +175,11 @@ class Pickle(Database):
 
     ##########################################################################
     #
-    # unload_database
+    # unload
     #
     ##########################################################################
 
-    def unload_database():
+    def unload(self):
 
         self.save(config["path"])
 
@@ -195,11 +198,11 @@ class Pickle(Database):
 
     ##########################################################################
     #
-    # backup_database
+    # backup
     #
     ##########################################################################
 
-    def backup_database():
+    def backup(self):
 
         if not self.is_loaded():
             return
@@ -279,18 +282,18 @@ class Pickle(Database):
     #
     # remove_category_if_unused
     #
-    # TODO: implement
+    # TODO: we used to check on name here. OK to check on instance?
     #
     ##########################################################################
 
     def remove_category_if_unused(self, cat):
 
-        for card in self.cards:
-            if cat.name == card.cat.name:
+        for c in self.cards:
+            if cat == c.cat:
                 break
         else:
-            del category_by_name[cat.name]
-        categories.remove(cat)
+            del cat
+            self.categories.remove(cat)
 
     
     def add_fact(self, fact):
@@ -303,11 +306,10 @@ class Pickle(Database):
     def delete_fact(self, fact):
         raise NotImplementedError
     
-    def add_card(self, card): # should also link fact to new card
+    def add_card(self, card): # Should also link fact to new card!
         self.load_failed = False
         self.cards.append(card)
-        # The cylic reference here seems to break the pickle operation..
-        card.fact.cards.append(card) # TODO: fix
+        card.fact.cards.append(card)
 
     def modify_card(self, id, modified_card):
         raise NotImplementedError

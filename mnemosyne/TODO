@@ -4,6 +4,8 @@ Mnemosyne 1.1
 
 -add new translations to web
 
+-drop pyxml dependency
+
 -upload plugins
 
 
