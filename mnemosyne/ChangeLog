@@ -27,8 +27,8 @@ MNEMOSYNE 1.1 :
  interval first. Being a day late on an interval of 2 could be much worse 
  than being a day late on an interval of 50.
 -Fix some keyboard shortcut quirks (reported by Stephen Boulet and varkhan1).
--Fix for "'module' object has no attribute 'DefaultHandler'" error message
- on Ubuntu (Albert Damen).
+-Removed pyxml dependency. This fixes the "'module' object has no attribute
+ 'DefaultHandler'" error message on Ubuntu (Albert Damen).
 -Hebrew translation by Michal T.
 -Updated Japanese translation by Patrick Kenny.
 	
