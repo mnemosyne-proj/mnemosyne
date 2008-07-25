@@ -21,6 +21,7 @@ Mnemosyne 2.0: Major rewrite
 -get rid of pygame
 -xml import tests (wcu, memaid, plconv)
 
+-config parser object
 -plugable Parser
 
 -front widget that allows copying, can produce scroll bars. This will
