@@ -384,7 +384,7 @@ Creating tmp file.</source>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;תצוגה מקדימה</translation>
+        <translation type="obsolete">&amp;תצוגה מקדימה</translation>
     </message>
     <message>
         <source>Ctrl+P</source>
@@ -397,6 +397,10 @@ Creating tmp file.</source>
     <message>
         <source>Alt+X</source>
         <translation>Alt+X</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>תצוגה מקדימה</translation>
     </message>
 </context>
 <context>
@@ -454,7 +458,7 @@ Creating tmp file.</source>
     </message>
     <message>
         <source>Set the font used when showing the list of all the cards in the deck</source>
-        <translation>קבע את הגופן שיופיע בהצגת רשימת כל הכרטיסיות בערימה</translation>
+        <translation>קבע את הגופן שיופיע בהצגת רשימת כל הכרטיסיות בחפיסה</translation>
     </message>
     <message>
         <source>Increase size of non-latin characters by</source>
@@ -515,6 +519,10 @@ Creating tmp file.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;ביטול</translation>
+    </message>
+    <message>
+        <source>Learn new cards in random order</source>
+        <translation>למד כרטיסיות חדשות בסדר אקראי</translation>
     </message>
 </context>
 <context>
@@ -730,6 +738,10 @@ so you might want to run </source>
         <source>Alt+X</source>
         <translation>Alt+X</translation>
     </message>
+    <message>
+        <source>Alt+F</source>
+        <translation>Alt+F</translation>
+    </message>
 </context>
 <context>
     <name>ExportDlg</name>
@@ -770,7 +782,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Reset learning data on export</source>
-        <translation>מחק מידע למידה בייצוא</translation>
+        <translation>מחק את המידע על הלמידה בעת הייצוא</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -828,7 +840,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Reset learning data on import</source>
-        <translation>מחק מידע למידה בייבוא</translation>
+        <translation>מחק את מידע על הלמידה בעת הייבוא</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -908,7 +920,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Show &amp;answer</source>
-        <translation>הצג &amp;תשובה</translation>
+        <translation type="obsolete">הצג &amp;תשובה</translation>
     </message>
     <message>
         <source>Learn ahead of schedule</source>
@@ -924,15 +936,19 @@ so you might want to run </source>
     </message>
     <message>
         <source>Scheduled: </source>
-        <translation>מתוכננות:</translation>
+        <translation>מתוכננות: </translation>
     </message>
     <message>
         <source>Not memorised: </source>
-        <translation>לא נלמדו:</translation>
+        <translation>לא נלמדו: </translation>
     </message>
     <message>
         <source>All: </source>
         <translation>סך הכל: </translation>
+    </message>
+    <message>
+        <source>Show answer</source>
+        <translation>הצג תשובה</translation>
     </message>
 </context>
 <context>
@@ -1071,11 +1087,11 @@ so you might want to run </source>
     </message>
     <message>
         <source>Edit deck</source>
-        <translation>עריכת ערימה</translation>
+        <translation>עריכת חפיסה</translation>
     </message>
     <message>
         <source>Edit &amp;deck</source>
-        <translation>עריכת &amp;ערימה</translation>
+        <translation>עריכת &amp;חפיסה</translation>
     </message>
     <message>
         <source>Ctrl+D</source>
@@ -1183,7 +1199,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>&amp;Deck</source>
-        <translation>&amp;חבילה</translation>
+        <translation>&amp;חפיסה</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -1396,7 +1412,9 @@ Happy learning!</source>
         <source>Scheduled cards for the next days:
 
 </source>
-        <translation>הכרטיסיות המתוכננות לימים הבאים:</translation>
+        <translation>הכרטיסיות המתוכננות לימים הבאים:
+
+</translation>
     </message>
     <message>
         <source>In</source>
@@ -1417,6 +1435,34 @@ Happy learning!</source>
     <message>
         <source>Grade</source>
         <translation>דירוג</translation>
+    </message>
+    <message>
+        <source>No current card.</source>
+        <translation>אין כרטיסיה נוכחית.</translation>
+    </message>
+    <message>
+        <source>Grade:</source>
+        <translation>ציון:</translation>
+    </message>
+    <message>
+        <source>Easiness:</source>
+        <translation>קלות:</translation>
+    </message>
+    <message>
+        <source>Repetitions:</source>
+        <translation>מספר חזרות:</translation>
+    </message>
+    <message>
+        <source>Lapses:</source>
+        <translation>מספר טעויות:</translation>
+    </message>
+    <message>
+        <source>Days since last repetition:</source>
+        <translation>מספר ימים מאז החזרה האחרונה:</translation>
+    </message>
+    <message>
+        <source>Days until next repetition:</source>
+        <translation>מספר ימים עד החזרה הבאה:</translation>
     </message>
 </context>
 <context>
@@ -1448,6 +1494,10 @@ Happy learning!</source>
     <message>
         <source>&amp;OK</source>
         <translation>&amp;אישור</translation>
+    </message>
+    <message>
+        <source>Current card</source>
+        <translation>כרטיסיה נוכחית</translation>
     </message>
 </context>
 <context>
@@ -1498,7 +1548,7 @@ Happy learning!</source>
     </message>
     <message>
         <source>You can share your cards with someone else by exporting them to XML and choosing the &apos;Reset learning data&apos; option on export.</source>
-        <translation>אתם יכולים לחלוק את הכרטיסיות שלכם: ייצאו אותן לקובץ XML ובחרו באפשרות &apos;מחק מידע למידה&apos;.</translation>
+        <translation>אתם יכולים לחלוק את הכרטיסיות שלכם: ייצאו אותן לקובץ XML ובחרו באפשרות &apos;מחק את המידע על למידה&apos;.</translation>
     </message>
     <message>
         <source>If you study a foreign language with a different script, the default font size is sometimes a bit small. If you want to increase the size of these characters but keep the size of English text, use the &apos;increase size of non-latin characters by X points&apos; option.</source>
