@@ -32,6 +32,9 @@ class ThreeSided(CardType):
     #
     ##########################################################################
 
+    recognition = 0
+    production = 1
+
     def __init__(self):
 
         CardType.__init__(self, id=2,
@@ -46,14 +49,14 @@ class ThreeSided(CardType):
     #
     ##########################################################################
 
-    def generate_q(self, fact, subtype):
+    def generate_q(self, fact, fact_view):
 
-        if subtype == 0:   # Recognition.
+        if fact_view == ThreeSided.recognition:
             return fact['f']
-        elif subtype == 1: # Production.
+        elif fact_view == ThreeSided.production:
             return fact['t'] 
         else:
-            print 'Invalid subtype.'
+            print 'Invalid fact view.'
             raise NameError()
 
 
@@ -64,14 +67,14 @@ class ThreeSided(CardType):
     #
     ##########################################################################
 
-    def generate_a(self, fact, subtype):
+    def generate_a(self, fact, fact_view):
 
-        if subtype == 0:   # Recognition.
+        if fact_view == ThreeSided.recognition:
             return fact['p'] + '\n' + fact['t']
-        elif subtype == 1: # Production.
+        elif fact_view == ThreeSided.production:
             return fact['f'] + '\n' + fact['p']
         else:
-            print 'Invalid subtype.'
+            print 'Invalid fact view.'
             raise NameError()
 
         
@@ -97,7 +100,7 @@ class ThreeSided(CardType):
 
         # Create fact.
 
-        # TODO: add subtypes as a category?
+        # TODO: add fact_views as a category name
 
         fact = Fact(data)
         fact.save()
@@ -105,11 +108,11 @@ class ThreeSided(CardType):
         if recognition:
             
             Card(grade, card_type=self, fact=fact,
-                 subcard=0, cat_names=cat_names).save()
+                 fact_view=ThreeSided.recognition, cat_names=cat_names).save()
 
         if production:
             Card(grade, card_type=self, fact=fact,
-                 subcard=1, cat_names=cat_names).save()
+                 fact_view=ThreeSided.production, cat_names=cat_names).save()
             
         self.widget.clear()
 

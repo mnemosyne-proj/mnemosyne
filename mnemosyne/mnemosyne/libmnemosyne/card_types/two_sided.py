@@ -31,6 +31,9 @@ class TwoSided(CardType):
     #
     ##########################################################################
 
+    front_to_back = 0
+    back_to_front = 1
+
     def __init__(self):
         
         CardType.__init__(self, id=1,
@@ -45,11 +48,11 @@ class TwoSided(CardType):
     #
     ##########################################################################
 
-    def generate_q(self, fact, subtype):
+    def generate_q(self, fact, fact_view):
 
-        if subtype == 0:   # Front to back.
+        if fact_view == TwoSided.front_to_back:
             return fact['q']
-        elif subtype == 1: # Back to front.
+        elif fact_view == TwoSided.back_to_front:
             return fact['a']
         else:
             print 'Invalid subtype.'
@@ -63,14 +66,14 @@ class TwoSided(CardType):
     #
     ##########################################################################
 
-    def generate_a(self, fact, subtype):
+    def generate_a(self, fact, fact_view):
 
-        if subtype == 0:   # Front to back.
+        if fact_view == TwoSided.front_to_back:
             return fact['a']
-        elif subtype == 1: # Back to front
+        elif fact_view == TwoSided.back_to_front:
             return fact['q']
         else:
-            print 'Invalid subtype.'
+            print 'Invalid fact_view.'
             raise NameError
 
         
@@ -100,12 +103,12 @@ class TwoSided(CardType):
         fact.save()
 
         card = Card(grade=grade, card_type=self, fact=fact,
-             subcard=0, cat_names=cat_names)
+                    fact_view=TwoSided.front_to_back, cat_names=cat_names)
         card.save()
 
         if add_vice_versa:
             card_2 = Card(grade=grade, card_type=self, fact=fact,
-                 subcard=1, cat_names=cat_names,
+                 fact_view=TwoSided.back_to_front, cat_names=cat_names,
                  id=card.id+'.inv')
             card_2.save()
 

@@ -100,6 +100,8 @@ class PluginManager():
 #
 ##############################################################################
 
+print "registering plugin manager"
+
 plugin_manager = PluginManager()
 
 

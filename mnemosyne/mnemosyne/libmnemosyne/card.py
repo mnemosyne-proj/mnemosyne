@@ -30,7 +30,7 @@ log = logging.getLogger("mnemosyne")
 # otherwise we can't use pickled databases, as the card_types themselves are
 # not stored in the database. It is also closer the SQL implementation.
 #
-# 'subcard' indicate different cards generated from the same fact data,
+# 'fact_view' indicate different cards generated from the same fact data,
 # like reverse cards. TODO: do we need a mapping from this integer to a
 # description?
 #
@@ -49,14 +49,14 @@ class Card(object):
     #
     ##########################################################################
             
-    def __init__(self, grade, card_type, fact, subcard, cat_names, id=None):
+    def __init__(self, grade, card_type, fact, fact_view, cat_names, id=None):
 
         db = get_database()
         sch = get_scheduler()
 
         self.card_type_id = card_type.id
         self.fact         = fact
-        self.subcard      = subcard
+        self.fact_view    = fact_view
         self.q            = self.filtered_q()
         self.a            = self.filtered_a()
         self.hidden       = False
@@ -98,7 +98,7 @@ class Card(object):
 
         card_type = get_card_type_by_id(self.card_type_id)
 
-        q = card_type.generate_q(self.fact, self.subcard)
+        q = card_type.generate_q(self.fact, self.fact_view)
 
         #q = preprocess(q) # TODO: update to plugin scheme
 
@@ -114,7 +114,7 @@ class Card(object):
         
         card_type = get_card_type_by_id(self.card_type_id)
         
-        a = card_type.generate_a(self.fact, self.subcard)
+        a = card_type.generate_a(self.fact, self.fact_view)
 
         #a = preprocess(a) # TODO: update to plugin scheme
 

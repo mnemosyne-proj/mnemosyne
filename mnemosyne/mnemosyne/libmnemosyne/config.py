@@ -10,9 +10,7 @@ from mnemosyne.libmnemosyne.exceptions import *
 
 ##############################################################################
 #
-# Note: if it turns out that the webserver version needs a radically
-# different way of dealing with configuration data, we can make the
-# Config object plugpable.
+# TODO: make plugable, move to python.configparser
 #
 ##############################################################################
 
