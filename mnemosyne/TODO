@@ -1,15 +1,3 @@
-Mnemosyne 1.1
-
--backport Christopher's Qt3 scrollbar patch?
-
--add new translations to web
-
--drop pyxml dependency
-
--upload plugins
-
-
-
 Mnemosyne 2.0: Major rewrite
 
 -upgrade from Qt3 to Qt4 for improved speed, and the possibility to get rid 
@@ -23,6 +11,7 @@ Mnemosyne 2.0: Major rewrite
 
 -config parser object
 -plugable Parser
+-UI: add related cards
 
 -front widget that allows copying, can produce scroll bars. This will
  solve issues when a card contains a very large picture
@@ -48,6 +37,8 @@ Mnemosyne 2.0: Major rewrite
 
 -Phonon backend instead of PyGame to improve sound playback
 
+-http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
+
 -dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
  seem to work when unicode is present in the path
 
@@ -58,8 +49,6 @@ Mnemosyne 2.0: Major rewrite
 -button to go to next card in the list
 
 -plugin for midi files
-
--refactor day_start_at (Konrad)
 
 -move to sqlite backend (encode category hierarchy in name, 
  multiple category fields per card)
