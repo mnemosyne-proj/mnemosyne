@@ -7,6 +7,7 @@
 from plugin_manager import plugin_manager
 
 
+# rename: 'can be unregistered' to 'managed by'
 
 ##############################################################################
 #
