@@ -1,18 +1,20 @@
 ##############################################################################
 #
-# plugin_manager.py <Peter.Bienstman@UGent.be>
+# component_manager.py <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
 
+#TODO: document, list typical types
+
 
 ##############################################################################
 #
-# PluginManager
+# ComponentManager
 #
 ##############################################################################
 
-class PluginManager():
+class ComponentManager():
 
     ##########################################################################
     #
@@ -22,56 +24,51 @@ class PluginManager():
     
     def __init__(self):
         
-        self.plugins = {}
+        self.components = {} # {type : [component]}
 
 
 
     ##########################################################################
     #
-    # register_plugin
+    # register
     #
     ##########################################################################
 
-    def register_plugin(self, type, plugin):
+    def register(self, type, component):
 
-        if not self.plugins.has_key(type):
-            self.plugins[type] = [plugin]
+        if not self.components.has_key(type):
+            self.components[type] = [component]
         else:
-            if plugin not in self.plugins[type]:
-                self.plugins[type].append(plugin)
+            if component not in self.components[type]:
+                self.components[type].append(component)
 
 
             
     ##########################################################################
     #
-    # unregister_plugin
+    # unregister
     #
     ##########################################################################
 
-    def unregister_plugin(self, type, plugin):
+    def unregister(self, type, component):
 
-        if not plugin.can_be_unregistered:
-            
-            print "Plugin", plugin, "cannot be unregistered."
-            return
-
-        self.plugins[type].remove(plugin)
+        self.components[type].remove(component)
 
 
 
     ##########################################################################
     #
-    # get_all_plugins
+    # get_all_components
     #
-    #   For resources for which there can be many active at the same
+    #   For components for which there can be many active at the same
     #   time, like card types, filters, function hooks, ...
     #
     ##########################################################################
     
-    def get_all_plugins(self, type):
+    def get_all(self, type):
 
-        if type in self.plugins:
-            return self.plugins[type]
+        if type in self.components:
+            return self.components[type]
         else:
             return []
 
@@ -79,53 +76,60 @@ class PluginManager():
     
     ##########################################################################
     #
-    # get_current_plugin
+    # get_current
     #
-    #   For resources for which there can be only on active at the same
+    #   For component for which there can be only on active at the same
     #   time, like schedule, database ... The idea is that the last one
     #   added takes preference. This means that e.g. the default scheduler
-    #   needs to be registered first and best has 'can_be_unregistered'
-    #   set to False.
+    #   needs to be registered first.
     #
     ##########################################################################
 
-    def get_current_plugin(self, type):        
-        return self.plugins[type][-1]
+    def get_current(self, type):
+
+        if type in self.components:
+            return self.components[type][-1]
+        else:
+            return None
+
+
 
 
 ##############################################################################
 #
-# The plugin manager needs to be accessed by many different parts of the
+# The component manager needs to be accessed by many different parts of the
 # library, so we hold it in a global variable.
 #
 ##############################################################################
 
-print "registering plugin manager"
+print "Registering component manager"
 
-plugin_manager = PluginManager()
+component_manager = ComponentManager()
 
 
 
 ##############################################################################
 #
-# Convenience functions, for easier access from the outside.
+# Convenience functions, for easier access from the outside world.
+#
+# Keep these?
 #
 ##############################################################################
 
 def get_database():
-    return plugin_manager.get_current_plugin("database")
+    return component_manager.get_current("database")
 
 def get_scheduler():
-    return plugin_manager.get_current_plugin("scheduler")
+    return component_manager.get_current("scheduler")
 
 def get_ui_controller_main():
-    return plugin_manager.get_current_plugin("ui_controller_main")
+    return component_manager.get_current("ui_controller_main")
 
 def get_ui_controller_review():
-    return plugin_manager.get_current_plugin("ui_controller_review")
+    return component_manager.get_current("ui_controller_review")
 
 def get_card_types():
-    return plugin_manager.get_all_plugins("card_type")
+    return component_manager.get_all("card_type")
 
 def get_card_type_by_id(id): # TODO: speed up with dict?
     for t in get_card_types():
