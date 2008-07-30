@@ -134,6 +134,12 @@ class Database(Plugin):
     def average_easiness(self):
         raise NotImplementedError
 
+    # Needed for the deck manager.
+
+    def set_enabled(self, category, card_type, fact_view, enabled):
+        raise NotImplementedError
+    
+
     # The following functions return an iterator and a boolean, to indicate
     # whether the sorting has been successful. We require the use of
     # iterators to save memory, but for some implementations, this means

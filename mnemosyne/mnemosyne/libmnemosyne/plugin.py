@@ -26,7 +26,7 @@
 #
 ##############################################################################
 
-class Plugin(Component):
+class Plugin(object):
 
     ##########################################################################
     #
@@ -34,13 +34,15 @@ class Plugin(Component):
     #
     ##########################################################################
 
-    def __init__(self, name, description=""):
+    def __init__(self, type, name, description=""):
         
+        self.type         = type        
         self.name         = name
         self.description  = description
         self.active       = False
         
-        plugin_manager.register("plugin", self)
+        plugin_manager.register(self.type, self) # TODO: move out. see
+        # what if a plugin registers several components
 
 
 

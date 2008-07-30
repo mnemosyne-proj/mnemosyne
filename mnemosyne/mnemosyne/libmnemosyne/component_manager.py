@@ -58,7 +58,7 @@ class ComponentManager():
 
     ##########################################################################
     #
-    # get_all_components
+    # get_all
     #
     #   For components for which there can be many active at the same
     #   time, like card types, filters, function hooks, ...
