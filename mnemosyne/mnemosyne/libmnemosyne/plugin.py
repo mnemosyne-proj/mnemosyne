@@ -4,29 +4,24 @@
 #
 ##############################################################################
 
+from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
-# TODO: update comments
 
 ##############################################################################
 #
 # Plugin
 #
-#  Note that a plugin can be registered, but not yet activated. I.e. a
-#  card type for an exotic language will not show up in the drop down box
-#  of available card types unless the card type is activated in the GUI
-#  through the plugin manager widget.
-#
-#  A plugin has a type, name and description, e.g.
-#
-#    type = "card_type"
-#    name = "Foreign word with pronunciation"
-#    description = "Three sided card type for memorising vocabulary in non-
-#                   latin script."
+#   A plugin is a component which can be activated and deactivated by the
+#   user when the program is running. In addition to the standard
+#   implementation of these (de)activation routines below, a plugin
+#   typically (un)register one or more other components (or 'self', if one
+#   uses multiple inheritance).
 #
 ##############################################################################
 
-class Plugin(object):
+class Plugin(Component):
 
     ##########################################################################
     #
@@ -34,25 +29,19 @@ class Plugin(object):
     #
     ##########################################################################
 
-    def __init__(self, type, name, description=""):
+    def __init__(self, name, description):
         
-        self.type         = type        
         self.name         = name
         self.description  = description
         self.active       = False
         
-        plugin_manager.register(self.type, self) # TODO: move out. see
-        # what if a plugin registers several components
-
+        component_manager.register("plugin", self)
 
 
         
     ##########################################################################
     #
     # activate
-    #
-    #  Code that needs to run once on startup goes here, e.g. making sure
-    #  that a card type shows up in 'Add new cards'.
     #
     ##########################################################################
     
@@ -65,9 +54,6 @@ class Plugin(object):
     ##########################################################################
     #
     # deactivate
-    #
-    #  Code that needs to run once on shutdown, e.g. making sure that a card
-    #  type no longer shows up in 'Add new cards'.
     #
     ##########################################################################
     

@@ -5,12 +5,22 @@
 ##############################################################################
 
 
-#TODO: document, list typical types
-
 
 ##############################################################################
 #
 # ComponentManager
+#
+#   Manages the different components. Each component belongs to a type
+#   (database, scheduler, card_type, card_type_widget, ...).
+#
+#   The component manager can also store relationships between components,
+#   e.g. a card_type_widget is used for a certain card_type.
+#
+#   For certain components, many can be active at the same time (card types,
+#   filters, function hooks, ...). For others, there can be only on active
+#   at the same time, like schedule, database ... The idea is that the last
+#   one registered takes preference. This means that e.g. the default
+#   scheduler needs to be registered first.
 #
 ##############################################################################
 
@@ -24,7 +34,7 @@ class ComponentManager():
     
     def __init__(self):
         
-        self.components = {} # {type : [component]}
+        self.components = {} # { used_for : {type : [component]} }
 
 
 
@@ -34,13 +44,16 @@ class ComponentManager():
     #
     ##########################################################################
 
-    def register(self, type, component):
+    def register(self, type, component, used_for=None):
 
-        if not self.components.has_key(type):
-            self.components[type] = [component]
+        if not self.components.has_key(used_for):
+            self.components[used_for] = {}
+
+        if not self.components[used_for].has_key(type):
+            self.components[used_for][type] = [component]
         else:
             if component not in self.components[type]:
-                self.components[type].append(component)
+                self.components[used_for][type].append(component)
 
 
             
@@ -50,9 +63,9 @@ class ComponentManager():
     #
     ##########################################################################
 
-    def unregister(self, type, component):
+    def unregister(self, type, component, used_for=None):
 
-        self.components[type].remove(component)
+        self.components[used_for][type].remove(component)
 
 
 
@@ -60,15 +73,14 @@ class ComponentManager():
     #
     # get_all
     #
-    #   For components for which there can be many active at the same
-    #   time, like card types, filters, function hooks, ...
+    #   For components for which there can be many active at once.
     #
     ##########################################################################
     
-    def get_all(self, type):
+    def get_all(self, type, used_for=None):
 
-        if type in self.components:
-            return self.components[type]
+        if type in self.components[used_for]:
+            return self.components[used_for][type]
         else:
             return []
 
@@ -78,17 +90,14 @@ class ComponentManager():
     #
     # get_current
     #
-    #   For component for which there can be only on active at the same
-    #   time, like schedule, database ... The idea is that the last one
-    #   added takes preference. This means that e.g. the default scheduler
-    #   needs to be registered first.
+    #   For component for which there can be only one active at one time.
     #
     ##########################################################################
 
-    def get_current(self, type):
+    def get_current(self, type, used_for=None):
 
-        if type in self.components:
-            return self.components[type][-1]
+        if type in self.components[used_for]:
+            return self.components[used_for][type][-1]
         else:
             return None
 

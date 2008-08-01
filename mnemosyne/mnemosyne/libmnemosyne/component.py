@@ -5,15 +5,14 @@
 ##############################################################################
 
 
-#TODO: remove this class
-
 
 ##############################################################################
 #
 # Component
 #
-#  A component can optionally describe another object that it provides
-#  services to, e.g. a CardType widget is used in relation to a CardType.
+#   The base class of everything that can be plugged together and swapped
+#   out to realise the core functionality of Mnemosyne.
+#
 #
 ##############################################################################
 
@@ -25,8 +24,7 @@ class Component(object):
     #
     ##########################################################################
 
-    def __init__(self, name, description="", used_for=used_for):
+    def __init__(self, name="", description=""):
         
         self.name        = name
         self.description = description
-        self.used_for    = used_for
