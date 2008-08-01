@@ -4,7 +4,7 @@
 #
 ##############################################################################
 
-from plugin import Plugin
+from component import Component
 
 
 
@@ -12,31 +12,13 @@ from plugin import Plugin
 #
 # Database
 #
-#  TODO: see if we need to break up this code
-#
 #  TODO: load_failed mechanism, to prevent overwriting a database which
 #  failed to load.
 #
 ##############################################################################
 
-class Database(Plugin):
-    
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
-    
-    def __init__(self, widget,
-                 name, description, can_be_unregistered=True):
-
-        self.type                = "batabase"
-        self.name                = name
-        self.description         = description
-        self.can_be_unregistered = can_be_unregistered
-
-
-        
+class Database(Component):
+            
     ##########################################################################
     #
     # Functions to be implemented by the actual database.

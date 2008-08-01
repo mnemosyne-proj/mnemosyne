@@ -4,27 +4,15 @@
 #
 ##############################################################################
 
-import md5, time, logging
+import md5, time
 
-from mnemosyne.libmnemosyne.plugin_manager import *
-from mnemosyne.libmnemosyne.config import config
-#from mnemosyne.libmnemosyne.card_type import *
-from mnemosyne.libmnemosyne.start_date import start_date
-#from mnemosyne.libmnemosyne.scheduler import *
-#from mnemosyne.libmnemosyne.database import *
-
-log = logging.getLogger("mnemosyne")
-
+from mnemosyne.libmnemosyne.plugin_manager import get_database, get_scheduler
 
 
 
 ##############################################################################
 #
 # Card
-#
-# We store q and a in strings to cache them, instead of regenerating them
-# each time from its Fact. This could take too much time, e.g. on a mobile
-# platform. Also useful for searching in an SQL database.
 #
 # Note that we store a card_type_id, as opposed to a card_type, because
 # otherwise we can't use pickled databases, as the card_types themselves are
@@ -34,10 +22,10 @@ log = logging.getLogger("mnemosyne")
 # like reverse cards. TODO: do we need a mapping from this integer to a
 # description?
 #
-# If the user deletes a subcard from a fact, we don't delete it, in case
-# the user later reactivates it. We can either employ a 'hidden'
-# variable here, or move it to a different container (perhaps more
-# efficient?). TODO: implement and benchmark
+# For UI simplicity reasons, the user is not allowed to deleted one of a set
+# of related cards, only to deactivate them. This is a second, orthogonal
+# selection mechanism to see if cards are active, together with not being
+# in a deactivated category.
 #
 ##############################################################################
 
@@ -51,15 +39,12 @@ class Card(object):
             
     def __init__(self, grade, card_type, fact, fact_view, cat_names, id=None):
 
-        db = get_database()
-        sch = get_scheduler()
-
         self.card_type_id = card_type.id
         self.fact         = fact
         self.fact_view    = fact_view
-        self.q            = self.filtered_q()
-        self.a            = self.filtered_a()
-        self.hidden       = False
+        self.active       = True
+
+        db = get_database()
 
         self.cat = []
         for cat_name in cat_names:
@@ -77,11 +62,13 @@ class Card(object):
 
         self.easiness = db.average_easiness()
 
-        if id == None:
+        if id is not None:
             self.new_id()
         else:
-            self.id = id 
+            self.id = id
 
+        sch = get_scheduler()
+        
         new_interval  = sch.calculate_initial_interval(grade)
         new_interval += sch.calculate_interval_noise(new_interval)
         self.next_rep = start_date.days_since_start() + new_interval
@@ -90,11 +77,11 @@ class Card(object):
 
     ##########################################################################
     #
-    # filtered_q
+    # question
     #
     ##########################################################################
 
-    def filtered_q(self):
+    def question(self):
 
         card_type = get_card_type_by_id(self.card_type_id)
 
@@ -104,13 +91,15 @@ class Card(object):
 
         return q
 
+
+
     ##########################################################################
     #
-    # filtered_a
+    # answer
     #
     ##########################################################################
     
-    def filtered_a(self):
+    def answer(self):
         
         card_type = get_card_type_by_id(self.card_type_id)
         
@@ -138,27 +127,10 @@ class Card(object):
         self.acq_reps_since_lapse = 0
         self.ret_reps_since_lapse = 0
 
-        # TODO: store as float for minute level scheduling
+        # TODO: store as float for minute level scheduling.
         
         self.last_rep  = 0 # In days since beginning.
         self.next_rep  = 0 #
-
-        
-    ##########################################################################
-    #
-    # save
-    #
-    ##########################################################################
-    
-    def save(self):
-
-        get_database().add_card(self)
-        
-        new_interval = start_date.days_since_start() - self.next_rep
-
-        log.info("New card %s %d %d", self.id, self.grade, new_interval)
-
-        print 'new card', self.q, self.a
 
 
         
@@ -208,11 +180,14 @@ class Card(object):
 
     ##########################################################################
     #
-    # is_in_active_category
+    # is_active
     #
     ##########################################################################
 
-    def is_in_active_category(self):
+    def is_active(self):
+
+        if self.active == False:
+            return False
         
         for c in self.cat:
             if c.active == False:

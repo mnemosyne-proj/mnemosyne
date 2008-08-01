@@ -306,10 +306,11 @@ class Pickle(Database):
     def delete_fact(self, fact):
         raise NotImplementedError
     
-    def add_card(self, card): # Should also link fact to new card!
+    def add_card(self, card):
         self.load_failed = False
         self.cards.append(card)
-        card.fact.cards.append(card)
+        new_interval = start_date.days_since_start() - card.next_rep
+        log.info("New card %s %d %d", card.id, card.grade, new_interval)
 
     def modify_card(self, id, modified_card):
         raise NotImplementedError
