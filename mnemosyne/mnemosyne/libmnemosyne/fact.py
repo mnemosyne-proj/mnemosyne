@@ -6,8 +6,6 @@
 
 import datetime, md5
 
-from mnemosyne.libmnemosyne.plugin_manager import get_database
-
 
 
 ##############################################################################
@@ -18,8 +16,6 @@ from mnemosyne.libmnemosyne.plugin_manager import get_database
 #   The fields are stored in a dictionary.
 #
 # TODO: make list of common keys for standardisation.
-# TODO: store facts in a separate database? They might not be needed for
-# e.g. mobile clients.
 #
 ##############################################################################
 
@@ -31,17 +27,19 @@ class Fact(object):
     #
     ##########################################################################
 
-    def __init__(self, data):
+    def __init__(self, data, id=None):
         
         self.data  = data 
         self.added = datetime.datetime.now()
 
-        digest = md5.new(str(self.data).encode("utf-8") + \
-                         str(self.added)).hexdigest()
-        
-        self.id = digest[0:8]
+        if id is not None:
 
-        self.cards = []
+            digest = md5.new(str(self.data).encode("utf-8") + \
+                             str(self.added)).hexdigest()
+            
+            id = digest[0:8]
+        
+        self.id = id
 
 
         
@@ -70,15 +68,4 @@ class Fact(object):
         
         self.data[key] = value
 
-
-
-    ##########################################################################
-    #
-    # save
-    #
-    ##########################################################################
-    
-    def save(self):
-
-        get_database().add_fact(self)
         
