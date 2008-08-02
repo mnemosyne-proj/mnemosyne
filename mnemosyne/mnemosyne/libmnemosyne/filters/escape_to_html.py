@@ -1,31 +1,57 @@
-def f():
-    
+##############################################################################
+#
+# escape_to_html.py <Peter.Bienstman@UGent.be>
+#
+##############################################################################
+
+from mnemosyne.libmnemosyne.filter import Filter
+
+
+
+##############################################################################
+#
+# EscapeToHtml
+#
+#   Escape literal < (unmatched tag) and new line from string.
+#
+##############################################################################
+
+class EscapeToHtml(Filter):
+
+    ##########################################################################
+    #
     # Escape literal < (unmatched tag) and new line from string.
+    #
+    ##########################################################################
+        
+    def run(self, text):
     
-    hanging = []
-    open = 0
-    pending = 0
+        hanging = []
+        open = 0
+        pending = 0
 
-    for i in range(len(s)):
-        if s[i] == '<':
-            if open != 0:
-                hanging.append(pending)
+        for i in range(len(text)):
+            if text[i] == '<':
+                if open != 0:
+                    hanging.append(pending)
+                    pending = i
+                    continue
+                open += 1
                 pending = i
-                continue
-            open += 1
-            pending = i
-        elif s[i] == '>':
-            if open > 0:
-                open -= 1
+            elif text[i] == '>':
+                if open > 0:
+                    open -= 1
 
-    if open != 0:
-        hanging.append(pending)
+        if open != 0:
+            hanging.append(pending)
 
-    new_s = ""
-    for i in range(len(s)):
-        if s[i] == '\n':
-            new_s += "<br>"
-        elif i in hanging:
-            new_s += "&lt;"
-        else:
-            new_s += s[i]
+        new_text = ""
+        for i in range(len(text)):
+            if text[i] == '\n':
+                new_text += "<br>"
+            elif i in hanging:
+                new_text += "&lt;"
+            else:
+                new_text += text[i]
+
+        return new_text

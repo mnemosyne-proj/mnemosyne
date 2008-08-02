@@ -145,3 +145,5 @@ def get_card_type_by_id(id): # TODO: speed up with dict?
         if t.id == id:
             return t
     
+def get_fact_filters():
+    return component_manager.get_all("fact_filter")

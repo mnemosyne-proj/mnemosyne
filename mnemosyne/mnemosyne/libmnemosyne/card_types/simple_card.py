@@ -31,33 +31,58 @@ class TwoSided(CardType):
     #
     ##########################################################################
 
+    front_to_back = 0
+    back_to_front = 1
+
     def __init__(self):
 
-        self.name = _("Front-to-back and back-to-front"),
-        self.id   = 2
+        # Front to back
 
-        # Name the keys.
+        v = FactView(_("Front to back"))
 
-        self.fact_key_names['q'] = _("Question")
-        self.fact_key_names['a'] = _("Answer")
+        v.q_fields.append("q", _("Question"), True
+
+        self.fact_views.append
         
-        # Front to back.
+        CardType.__init__(self, id=1,
+                          name=_("Regular card"),
+                          can_be_unregistered=False)
 
-        v = FactView(_("Front-to-back"))
 
-        v.q_fields.append(("q", True))
-        v.a_fields.append(("a", False))       
 
-        self.fact_views.append(v)
-     
-        # Back to fornt.
+    ##########################################################################
+    #
+    # generate_q
+    #
+    ##########################################################################
 
-        v = FactView(_("Back-to-front"))
+    def generate_q(self, fact, fact_view):
 
-        v.q_fields.append(("a", True))
-        v.a_fields.append(("q", False))
+        if fact_view == TwoSided.front_to_back:
+            return fact['q']
+        elif fact_view == TwoSided.back_to_front:
+            return fact['a']
+        else:
+            print 'Invalid subtype.'
+            raise NameError
 
-        self.fact_views.append(v)                          
+
+        
+    ##########################################################################
+    #
+    # generate_a
+    #
+    ##########################################################################
+
+    def generate_a(self, fact, fact_view):
+
+        if fact_view == TwoSided.front_to_back:
+            return fact['a']
+        elif fact_view == TwoSided.back_to_front:
+            return fact['q']
+        else:
+            print 'Invalid fact_view.'
+            raise NameError
 
         
 

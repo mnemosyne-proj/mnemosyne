@@ -1,20 +1,27 @@
 ##############################################################################
 #
-# Card type <Peter.Bienstman@UGent.be>
+# card_type.py <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
-from plugin import Plugin
+from mnemosyne.libmnemosyne.component import Component
 
+# TODO: document
 
 
 ##############################################################################
 #
 # CardType
 #
+#   The keys from the fact are also given more verbose names here. This is
+#   not done in fact.py, on one hand to save space in the database, and
+#   on the other hand to allow the possibilty that different card types
+#   give different names to the same key. (E.g. 'pronunciation' could be
+#   called 'reading' in a Kanji card type).
+#
 ##############################################################################
 
-class CardType(Plugin):
+class CardType(Component):
 
     ##########################################################################
     #
@@ -22,18 +29,18 @@ class CardType(Plugin):
     #
     ##########################################################################
     
-    def __init__(self, id, name, description="",
-                 visible=True, can_be_unregistered=True):
+    def __init__(self, id, name, description=""):
 
-        self.type                = "card_type"
+        self.fact_views = []
+
+        self.fact_key_names = {}
+        
         self.id                  = id
         self.name                = name
         self.description         = description
-        self.widget_class        = None
-        self.widget              = None
+        #self.widget_class        = None
+        #self.widget              = None
         self.css                 = ""
-        self.visible             = visible
-        self.can_be_unregistered = can_be_unregistered
         self.a_on_top_of_q       = False
 
 

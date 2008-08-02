@@ -18,7 +18,7 @@ import logging, os, sys
 
 import mnemosyne.version
 from mnemosyne.libmnemosyne.config import config
-from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
+from mnemosyne.libmnemosyne.component_manager import component_manager
 
 # TODO: move these import to initialise, and automatically loop through
 # all the contents of the directories?
@@ -45,7 +45,7 @@ def initialise(basedir):
     initialise_new_empty_database()        
     initialise_logging()
     initialise_error_handling()
-    initialise_system_plugins()
+    initialise_system_components()
 
 
 
@@ -70,7 +70,7 @@ def initialise_lockfile():
 
 def initialise_new_empty_database():
 
-    from mnemosyne.libmnemosyne.plugin_manager import get_database  
+    from mnemosyne.libmnemosyne.component_manager import get_database  
 
     filename = config["path"]
 
@@ -124,41 +124,48 @@ def initialise_error_handling():
 
 ##############################################################################
 #
-# initialise_system_plugins
+# initialise_system_components
 #
 #  These are now hard coded, but if needed, an application could
 #  override this.
 #
 ##############################################################################
 
-def initialise_system_plugins():
+def initialise_system_components():
 
     # Database.
 
     from mnemosyne.libmnemosyne.databases.pickle import Pickle
 
-    plugin_manager.register_plugin("database", Pickle())    
+    component_manager.register("database", Pickle())    
 
     # UI controllers.
     
     from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
                                                    import SM2Controller
     
-    plugin_manager.register_plugin("ui_controller_review", SM2Controller())
+    component_manager.register("ui_controller_review", SM2Controller())
 
     # Scheduler.
 
     from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne \
                                                    import SM2Mnemosyne
     
-    plugin_manager.register_plugin("scheduler", SM2Mnemosyne())    
+    component_manager.register("scheduler", SM2Mnemosyne())
+    
+    # Fact filters.
+
+    from mnemosyne.libmnemosyne.filters.escape_to_html \
+                                                   import EscapeToHtml
+    
+    component_manager.register("fact_filter", EscapeToHtml())
     
     # Card types.
 
     # These are registered in the GUI, because it's easier to do so
     # once the card widgets are known.
     
-    # Filters.
+    # Card Filters.
 
     # File formats.
 
