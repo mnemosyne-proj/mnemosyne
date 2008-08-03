@@ -37,12 +37,11 @@ class Card(object):
     #
     ##########################################################################
             
-    def __init__(self, grade, card_type, fact, fact_view, cat_names, id=None):
+    def __init__(self, grade, fact, fact_view, cat_names, id=None):
 
-        self.card_type_id = card_type.id
-        self.fact         = fact
-        self.fact_view    = fact_view
-        self.active       = True
+        self.fact       = fact
+        self.fact_view  = fact_view
+        self.active     = True
 
         db = get_database()
 
@@ -187,6 +186,9 @@ class Card(object):
     def is_active(self):
 
         if self.active == False:
+            return False
+
+        if self.fact.is_active() == False:
             return False
         
         for c in self.cat:

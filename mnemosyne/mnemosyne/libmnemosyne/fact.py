@@ -6,6 +6,8 @@
 
 import datetime, md5
 
+from mnemosyne.libmnemosyne.plugin_manager import get_database,
+
 
 
 ##############################################################################
@@ -14,6 +16,10 @@ import datetime, md5
 #
 #   Basic unit of information from which several cards can be derived.
 #   The fields are stored in a dictionary.
+#
+#   categories and card_type_id are stored here, because when resetting the
+#   learning data on export, we only export facts. Of course cards can have
+#   categories of their own as well.
 #
 # TODO: make list of common keys for standardisation.
 #
@@ -27,10 +33,17 @@ class Fact(object):
     #
     ##########################################################################
 
-    def __init__(self, data, id=None):
-        
-        self.data  = data 
+    def __init__(self, data, cat_names, card_type_id, id=None):
+
         self.added = datetime.datetime.now()
+        
+        self.data         = data 
+        self.categories   = categories
+        self.card_type_id = card_type_id
+
+        self.cat = []
+        for cat_name in cat_names:
+            self.cat.append(db.get_or_create_category_with_name(cat_name))
 
         if id is not None:
 
@@ -67,5 +80,20 @@ class Fact(object):
     def __setitem__(self, key, value):
         
         self.data[key] = value
+
+
+    ##########################################################################
+    #
+    # is_active
+    #
+    ##########################################################################
+
+    def is_active(self):
+        
+        for c in self.cat:
+            if c.active == False:
+                return False
+            
+        return True
 
         
