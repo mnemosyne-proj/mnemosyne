@@ -32,16 +32,16 @@ class CardType(Component):
     #
     ##########################################################################
     
-    def __init__(self, id, name, description=""):
+    def __init__(self):
 
         self.fact_key_names = {}
         self.unique_fact_keys = "" # For duplicate checking.
 
         self.fact_views = []
         
-        self.id                  = id
-        self.name                = name
-        self.description         = description
+        self.id                  = -1
+        self.name                = ""
+        self.description         = ""
         #self.widget_class        = None
         #self.widget              = None
         self.css                 = ""

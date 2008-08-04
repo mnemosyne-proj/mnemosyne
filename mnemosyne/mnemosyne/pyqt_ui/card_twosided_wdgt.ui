@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>325</width>
-    <height>286</height>
+    <height>264</height>
    </rect>
   </property>
   <layout class="QHBoxLayout" >
@@ -14,7 +14,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" >
+    <layout class="QVBoxLayout" name="verticalLayout" >
      <item>
       <widget class="QLabel" name="question_label" >
        <property name="maximumSize" >
@@ -58,13 +58,6 @@
        </property>
        <property name="readOnly" >
         <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="vice_versa" >
-       <property name="text" >
-        <string>Enable &amp;vice versa too</string>
        </property>
       </widget>
      </item>

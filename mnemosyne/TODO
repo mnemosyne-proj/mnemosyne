@@ -6,8 +6,10 @@ Mnemosyne 2.0: Major rewrite
  lay the foundation for custom card types and make a port
  to mobile devices (Maemo, Windows Mobile, ...) possible.
 
-
+-import vs new card
 -get rid of get card_type by id?
+-missing information check
+-duplicate check
 
 -get rid of pygame
 -xml import tests (wcu, memaid, plconv)

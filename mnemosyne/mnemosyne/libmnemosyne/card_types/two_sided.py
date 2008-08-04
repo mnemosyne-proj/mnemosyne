@@ -28,6 +28,8 @@ class TwoSided(CardType):
 
     def __init__(self):
 
+        CardType.__init__(self)
+
         self.name = _("Front-to-back and back-to-front")
         self.id   = 2
 

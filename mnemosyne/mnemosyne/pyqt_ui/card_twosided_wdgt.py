@@ -12,7 +12,7 @@ from PyQt4.QtGui import *
 
 from ui_card_twosided_wdgt import *
 
-from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
+from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.card_types.two_sided import TwoSided
 
 
@@ -50,17 +50,9 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 
         q = unicode(self.question.document().toPlainText())
         a = unicode(self.answer  .document().toPlainText())
-        
-        add_vice_versa = self.vice_versa.isChecked()
 
-        # Check if sufficient data is present.
+        # TODO: Check if sufficient data is present.
 
-        if add_vice_versa:
-            if not q or not a:
-                return
-        else:
-            if not q:
-                return
 
         # Return the data.
         
@@ -92,7 +84,9 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 print "Registering two sided card type."
 
 c = TwoSided()
-c.widget_class = CardTwoSidedWdgt
-plugin_manager.register_plugin("card_type", c)
+#c.widget_class = CardTwoSidedWdgt
+component_manager.register("card_type", c)
 
+
+component_manager.register("card_type_widget", CardTwoSidedWdgt, "TwoSided")
 

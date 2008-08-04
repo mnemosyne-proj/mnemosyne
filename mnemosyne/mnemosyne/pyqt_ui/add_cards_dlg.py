@@ -12,13 +12,12 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
-#from mnemosyne.libmnemosyne.mnemosyne_core import *
 from mnemosyne.libmnemosyne.category import *
 from ui_add_cards_dlg import *
-#from edit_item_dlg import *
+
 from mnemosyne.libmnemosyne.card_type import *
 from mnemosyne.libmnemosyne.config import config
-from mnemosyne.libmnemosyne.plugin_manager import * 
+from mnemosyne.libmnemosyne.component_manager import * 
 
 # TODO: import them all at once
 
@@ -107,7 +106,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
 
-        card_type.widget = card_type.widget_class()
+        #card_type.widget = card_type.widget_class()
             
         self.card_widget = card_type.widget
         self.vboxlayout.insertWidget(1, self.card_widget)

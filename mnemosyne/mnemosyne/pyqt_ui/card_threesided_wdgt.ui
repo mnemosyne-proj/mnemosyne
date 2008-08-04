@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>325</width>
-    <height>286</height>
+    <width>359</width>
+    <height>262</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" >
@@ -104,30 +104,6 @@
         <bool>false</bool>
        </property>
       </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" >
-       <item>
-        <widget class="QCheckBox" name="recognition" >
-         <property name="text" >
-          <string>Enable &amp;recognition card</string>
-         </property>
-         <property name="checked" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="production" >
-         <property name="text" >
-          <string>Enable &amp;production card</string>
-         </property>
-         <property name="checked" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </item>
     </layout>
    </item>

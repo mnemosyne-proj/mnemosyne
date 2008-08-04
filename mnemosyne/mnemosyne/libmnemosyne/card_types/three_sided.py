@@ -27,7 +27,9 @@ class ThreeSided(CardType):
     ##########################################################################
 
     def __init__(self):
-
+        
+        CardType.__init__(self)
+        
         self.name = _("Foreign word with pronunciation"),
         self.id   = 3
 

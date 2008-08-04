@@ -5,7 +5,7 @@
 #
 ##############################################################################
 
-from mnemosyne.libmnemosyne.plugin_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import get_database
 
 
 
@@ -28,11 +28,6 @@ class Category:
 
         self.name = name
         self.active = active
-
-        # Store inactive fact views in {card_type_id: [factview]}
-        # By default, every view is active.
-
-        self.inactive_fact_views = {}
 
 
     

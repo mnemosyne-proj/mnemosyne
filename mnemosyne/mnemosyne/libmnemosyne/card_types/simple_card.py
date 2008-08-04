@@ -27,7 +27,9 @@ class Simple(CardType):
     ##########################################################################
 
     def __init__(self):
-
+        
+        CardType.__init__(self)
+        
         self.name = _("Front-to-back only")
         self.id   = 1
 
