@@ -17,7 +17,7 @@ from mnemosyne.libmnemosyne.plugin_manager import get_database,
 #   Basic unit of information from which several cards can be derived.
 #   The fields are stored in a dictionary.
 #
-#   categories and card_type_id are stored here, because when resetting the
+#   Categories and card_type_id are stored here, because when resetting the
 #   learning data on export, we only export facts. Of course cards can have
 #   categories of their own as well.
 #

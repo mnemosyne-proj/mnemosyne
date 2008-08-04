@@ -31,9 +31,9 @@ class CardType(Component):
     
     def __init__(self, id, name, description=""):
 
-        self.fact_views = []
-
         self.fact_key_names = {}
+
+        self.fact_views = []
         
         self.id                  = id
         self.name                = name

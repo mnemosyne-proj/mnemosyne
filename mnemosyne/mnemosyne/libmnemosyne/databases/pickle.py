@@ -24,7 +24,7 @@ database_header_line \
         = "--- Mnemosyne Data Base --- Format Version %s ---" \
           % mnemosyne.version.dbVersion
 
-    
+
 
 ##############################################################################
 #

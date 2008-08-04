@@ -118,7 +118,7 @@ class Database(Component):
 
     # Needed for the deck manager.
 
-    def set_enabled(self, category, card_type, fact_view, enabled):
+    def set_active(self, category, card_type, fact_view, enabled):
         raise NotImplementedError
     
 

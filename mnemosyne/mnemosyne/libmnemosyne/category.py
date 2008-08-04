@@ -29,17 +29,10 @@ class Category:
         self.name = name
         self.active = active
 
-        
+        # Store inactive fact views in {card_type_id: [factview]}
+        # By default, every view is active.
 
-    ##########################################################################
-    #
-    # save
-    #
-    ##########################################################################
-
-    def save(name):
-        
-        get_database.add_category(self)
+        self.inactive_fact_views = {}
 
 
     

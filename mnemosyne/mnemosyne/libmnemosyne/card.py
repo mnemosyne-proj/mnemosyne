@@ -177,6 +177,8 @@ class Card(object):
     def sort_key_newest(self):
         return self.acq_reps + self.ret_reps
 
+
+
     ##########################################################################
     #
     # is_active
@@ -187,13 +189,13 @@ class Card(object):
 
         if self.active == False:
             return False
-
-        if self.fact.is_active() == False:
-            return False
         
         for c in self.cat:
             if c.active == False:
                 return False
+            for fact_view in c.inactive_fact_views[self.fact.card_type_id]:
+                if self.fact_view == fact_viev:
+                    return False
             
         return True
     

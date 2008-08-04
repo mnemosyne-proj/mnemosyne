@@ -7,6 +7,7 @@
 import gettext
 _ = gettext.gettext
 
+from mnemosyne.libmnemosyne.component_manager import get_database
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact import Fact
@@ -69,33 +70,33 @@ class TwoSided(CardType):
 
     def new_cards(self, data):
 
+        db = get_database()
+
         # Extract and remove data.
 
-        grade          = data['grade']
-        cat_names      = data['cat_names']
-        add_vice_versa = data['add_vice_versa']
+        grade     = data['grade']
+        cat_names = data['cat_names']
         
-        del data['add_vice_versa']
         del data['grade']
-
+        del data['cat_names']
+        
         # Create fact.
 
-        # TODO: add subtypes as a category?
-
         fact = Fact(data)
-        fact.save()
+        db.save_fact(fact)
 
-        card = Card(grade=grade, card_type=self, fact=fact,
-                    fact_view=TwoSided.front_to_back, cat_names=cat_names)
-        card.save()
+        card_1 = Card(grade=grade, card_type=self, fact=fact,
+                      fact_view=self.fact_view[0], cat_names=cat_names)
+        
+        db.save_card(card_1)
+        
 
-        if add_vice_versa:
-            card_2 = Card(grade=grade, card_type=self, fact=fact,
-                 fact_view=TwoSided.back_to_front, cat_names=cat_names,
-                 id=card.id+'.inv')
-            card_2.save()
+        card_2 = Card(grade=grade, card_type=self, fact=fact,
+                      fact_view=self.fact_view[0], cat_names=cat_names)
+        
+        db.save_card(card_2)
 
-        # TODO: drop the .inv suffix?
+        # TODO: move out.
 
         self.widget.clear()
 
