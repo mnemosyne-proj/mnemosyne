@@ -9,12 +9,7 @@ Mnemosyne 2.0: Major rewrite
 -get rid of pygame
 -xml import tests (wcu, memaid, plconv)
 
--config parser object
--plugable Parser
--UI: add related cards
-
--front widget that allows copying, can produce scroll bars. This will
- solve issues when a card contains a very large picture
+-UI: related cards
 
 -http://apptools.com/examples/tableheight.php
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447
@@ -28,10 +23,9 @@ Mnemosyne 2.0: Major rewrite
 
 -move latex customisation code to config.py
 
--write some more example plugins? (like customising shortcuts, erasing
- card history)
+-import: duplicate check, ignore duplicates in answers
 
--checkbox to include inactive cards in statistics
+-checkbox to include inactive cards in statistics?
 
 -alt tabbing gives low res icon.
 
@@ -50,13 +44,15 @@ Mnemosyne 2.0: Major rewrite
 
 -plugin for midi files
 
+-'tooltips' during use: deactivate related cards, edit toolbar vs css, change card type
+
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
 
 -move to sqlite backend (encode category hierarchy in name, 
  multiple category fields per card)
 
--easier function to run all hooks
+-easier function to run all hooks?
 
 -easier function to do tag detection in plugin
 
@@ -126,7 +122,7 @@ Mnemosyne 2.x
 
 -template expansion (disable add-vice-versa) ( both {../..} and {}..{})
 
--cloze deletion (disable add-vice-versa and template expansion)
+-cloze deletion card type
 
 -mnemosyne analysis as plugin
 
