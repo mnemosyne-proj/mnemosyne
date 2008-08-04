@@ -6,7 +6,7 @@
 
 import md5, time
 
-from mnemosyne.libmnemosyne.plugin_manager import get_database, get_scheduler
+from mnemosyne.libmnemosyne.plugin_manager import *
 
 
 
@@ -14,18 +14,7 @@ from mnemosyne.libmnemosyne.plugin_manager import get_database, get_scheduler
 #
 # Card
 #
-# Note that we store a card_type_id, as opposed to a card_type, because
-# otherwise we can't use pickled databases, as the card_types themselves are
-# not stored in the database. It is also closer the SQL implementation.
-#
-# 'fact_view' indicate different cards generated from the same fact data,
-# like reverse cards. TODO: do we need a mapping from this integer to a
-# description?
-#
-# For UI simplicity reasons, the user is not allowed to deleted one of a set
-# of related cards, only to deactivate them. This is a second, orthogonal
-# selection mechanism to see if cards are active, together with not being
-# in a deactivated category.
+#   Essentially the coming together of a Fact and a FactView.
 #
 ##############################################################################
 
@@ -37,21 +26,17 @@ class Card(object):
     #
     ##########################################################################
             
-    def __init__(self, grade, fact, fact_view, cat_names, id=None):
+    def __init__(self, grade, fact, fact_view, id=None):
 
-        self.fact       = fact
-        self.fact_view  = fact_view
-        self.active     = True
-
-        db = get_database()
-
-        self.cat = []
-        for cat_name in cat_names:
-            self.cat.append(db.get_or_create_category_with_name(cat_name))
+        self.fact      = fact
+        self.fact_view = fact_view
         
         self.reset_learning_data() # TODO: see where this is used and merge.
 
         # The initial grading is seen as the first repetition.
+
+        # TODO: check if the way we do this now still treats imports
+        # on equal footing.
         
         self.grade = grade
         self.acq_reps = 1
@@ -59,7 +44,7 @@ class Card(object):
 
         self.last_rep = start_date.days_since_start()
 
-        self.easiness = db.average_easiness()
+        self.easiness = get_database.average_easiness()
 
         if id is not None:
             self.new_id()
@@ -149,6 +134,28 @@ class Card(object):
 
     ##########################################################################
     #
+    # is_active
+    #
+    #   TODO: benchmark
+    #
+    ##########################################################################
+
+    def is_active(self):
+        
+        for c in self.cat:
+            if c.active == False:
+                return False
+
+        for view in get_card_type_by_id(self.fact.card_type_id).fact_views:
+            if view.active == False:
+                return False
+            
+        return True
+
+    
+
+    ##########################################################################
+    #
     # interval
     #
     ##########################################################################
@@ -156,7 +163,12 @@ class Card(object):
     def interval(self):
         return self.next_rep - self.last_rep
     
-        
+
+
+# TODO: see which of these we still need and if they could be moved to
+# database
+
+
     ##########################################################################
     #
     # sort_key: needed?
@@ -177,32 +189,6 @@ class Card(object):
     def sort_key_newest(self):
         return self.acq_reps + self.ret_reps
 
-
-
-    ##########################################################################
-    #
-    # is_active
-    #
-    ##########################################################################
-
-    def is_active(self):
-
-        if self.active == False:
-            return False
-        
-        for c in self.cat:
-            if c.active == False:
-                return False
-            for fact_view in c.inactive_fact_views[self.fact.card_type_id]:
-                if self.fact_view == fact_viev:
-                    return False
-            
-        return True
-    
-
-# TODO: see which of these we still need and if they could be moved to
-# database
-
     
     
     ##########################################################################
@@ -214,17 +200,6 @@ class Card(object):
     def is_new(self):
         return (self.acq_reps == 0) and (self.ret_reps == 0)
     
-    
-    
-    ##########################################################################
-    #
-    # is_overdue
-    #
-    ##########################################################################
-    
-    def is_overdue(self):
-        return (self.grade >= 2) and (self.is_in_active_category()) and \
-               (days_since_start > self.next_rep)
 
     ##########################################################################
     #
@@ -244,16 +219,6 @@ class Card(object):
     def days_until_next_rep(self):
         return self.next_rep - days_since_start
     
-
-    ##########################################################################
-    #
-    # qualifies_for_learn_ahead
-    #
-    ##########################################################################
-    
-    def qualifies_for_learn_ahead(self):
-        return (self.grade >= 2) and (self.is_in_active_category()) and \
-               (get_days_since_start() < self.next_rep) 
         
     ##########################################################################
     #

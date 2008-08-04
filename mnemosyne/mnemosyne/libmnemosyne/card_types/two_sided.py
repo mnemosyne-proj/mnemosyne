@@ -1,26 +1,20 @@
 ##############################################################################
 #
-# Two sided card type <Peter.Bienstman@UGent.be>
+# two_sided.py <Peter.Bienstman@UGent.be>
 #
 ##############################################################################
 
 import gettext
 _ = gettext.gettext
 
-from mnemosyne.libmnemosyne.component_manager import get_database
-from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
-from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.config import config
+from mnemosyne.libmnemosyne.fact_view import FactView
 
 
 
 ##############################################################################
 #
 # TwoSided
-#
-#  q: question
-#  a: answer
 #
 ##############################################################################
 
@@ -34,7 +28,7 @@ class TwoSided(CardType):
 
     def __init__(self):
 
-        self.name = _("Front-to-back and back-to-front"),
+        self.name = _("Front-to-back and back-to-front")
         self.id   = 2
 
         # Name the keys.
@@ -47,20 +41,24 @@ class TwoSided(CardType):
         v = FactView(_("Front-to-back"))
 
         v.q_fields.append(("q", True))
+        
         v.a_fields.append(("a", False))       
 
         self.fact_views.append(v)
      
-        # Back to fornt.
+        # Back to front.
 
         v = FactView(_("Back-to-front"))
 
         v.q_fields.append(("a", True))
+        
         v.a_fields.append(("q", False))
 
         self.fact_views.append(v)                          
 
-        
+
+################################ OLD CODE - TO CHECK #########################        
+
 
     ##########################################################################
     #
@@ -69,32 +67,6 @@ class TwoSided(CardType):
     ##########################################################################
 
     def new_cards(self, data):
-
-        db = get_database()
-
-        # Extract and remove data.
-
-        grade     = data['grade']
-        cat_names = data['cat_names']
-        
-        del data['grade']
-        del data['cat_names']
-        
-        # Create fact.
-
-        fact = Fact(data)
-        db.save_fact(fact)
-
-        card_1 = Card(grade=grade, card_type=self, fact=fact,
-                      fact_view=self.fact_view[0], cat_names=cat_names)
-        
-        db.save_card(card_1)
-        
-
-        card_2 = Card(grade=grade, card_type=self, fact=fact,
-                      fact_view=self.fact_view[0], cat_names=cat_names)
-        
-        db.save_card(card_2)
 
         # TODO: move out.
 
@@ -206,16 +178,3 @@ class TwoSided(CardType):
         self.update_combobox(cat_names)
 
         return new_card
-
-
-
-    ##########################################################################
-    #
-    # update_cards
-    #
-    ##########################################################################
-
-    def update_cards(self, data):
-
-        pass
-

@@ -140,7 +140,7 @@ def get_ui_controller_review():
 def get_card_types():
     return component_manager.get_all("card_type")
 
-def get_card_type_by_id(id): # TODO: speed up with dict?
+def get_card_type_by_id(id): # TODO: speed up with dict!
     for t in get_card_types():
         if t.id == id:
             return t

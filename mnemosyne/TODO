@@ -7,8 +7,7 @@ Mnemosyne 2.0: Major rewrite
  to mobile devices (Maemo, Windows Mobile, ...) possible.
 
 
--design: categories in facts and in cards?, how to store activation per
- card type and per category?
+-get rid of get card_type by id?
 
 -get rid of pygame
 -xml import tests (wcu, memaid, plconv)
@@ -36,6 +35,8 @@ Mnemosyne 2.0: Major rewrite
 -Phonon backend instead of PyGame to improve sound playback
 
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
+
+-make all subwindows remember their size
 
 -dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
  seem to work when unicode is present in the path

@@ -18,8 +18,11 @@ from mnemosyne.libmnemosyne.plugin_manager import get_database,
 #   The fields are stored in a dictionary.
 #
 #   Categories and card_type_id are stored here, because when resetting the
-#   learning data on export, we only export facts. Of course cards can have
-#   categories of their own as well.
+#   learning data on export, we only export facts.
+#
+#   Note that we store a card_type_id, as opposed to a card_type, because
+#   otherwise we can't use pickled databases, as the card_types themselves
+#   are not stored in the database. It is also closer the SQL implementation.
 #
 # TODO: make list of common keys for standardisation.
 #
