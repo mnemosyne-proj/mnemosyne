@@ -278,7 +278,7 @@
                                         <cstring>textLabel1</cstring>
                                     </property>
                                     <property name="text">
-                                        <string>Number of grade 0 cards to learn at once:</string>
+                                        <string>Number of grade 0 cards to hold in your hand:</string>
                                     </property>
                                     <property name="toolTip" stdset="0">
                                         <string>Note: this is NOT the number of grade 0 cards you want to memorise *per day*</string>

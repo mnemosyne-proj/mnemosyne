@@ -39,13 +39,14 @@ class CardType(Component):
 
         self.fact_views = []
         
-        self.id                  = -1
-        self.name                = ""
-        self.description         = ""
-        #self.widget_class        = None
-        #self.widget              = None
-        self.css                 = ""
-        self.a_on_top_of_q       = False
+        self.id            = -1
+        self.name          = ""
+        self.description   = ""
+        #self.widget_class  = None
+        #self.widget        = None
+        self.css           = ""
+        self.a_on_top_of_q = False
+        self.is_language   = False
 
 
 

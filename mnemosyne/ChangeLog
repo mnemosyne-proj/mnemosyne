@@ -3,6 +3,9 @@ MNEMOSYNE 2.0
 (Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)
 
+-renamed 'number of grade 0 card to learn at once' to 'number of grade 0
+ cards to hold in your hand' (suggested by Kenneth Murphy).
+
 *** IMPORTANT UPGRADE NOTICE ***
 
 This version uses a different database format. Before upgrading, export your 
