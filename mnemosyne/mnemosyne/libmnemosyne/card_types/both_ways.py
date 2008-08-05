@@ -56,10 +56,10 @@ class BothWays(CardType):
         
         v.a_fields.append(("q", False))
 
-        self.fact_views.append(v)                          
+        self.fact_views.append(v)
 
 
-################################ OLD CODE - TO CHECK #########################        
+################################ OLD CODE - TO CHECK ########################
 
 
     ##########################################################################

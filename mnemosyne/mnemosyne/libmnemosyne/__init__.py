@@ -161,7 +161,7 @@ def initialise_system_components():
 
     from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
     
-    component_manager.register("card_type", FrontToBack())
+    #component_manager.register("card_type", FrontToBack()) # TMP
 
     from mnemosyne.libmnemosyne.card_types.both_ways import BothWays
     

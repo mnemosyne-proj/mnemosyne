@@ -13,7 +13,6 @@ from PyQt4.QtGui import *
 from ui_card_twosided_wdgt import *
 
 from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.card_types.two_sided import TwoSided
 
 
 
@@ -77,16 +76,12 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 
 ##############################################################################
 #
-# Register card type.
+# Register card type widget.
 #
 ##############################################################################
 
-print "Registering two sided card type."
+print "Registering two sided card widget type."
 
-c = TwoSided()
-#c.widget_class = CardTwoSidedWdgt
-component_manager.register("card_type", c)
-
-
-component_manager.register("card_type_widget_class", CardTwoSidedWdgt, c.id)
+component_manager.register("card_type_widget", CardTwoSidedWdgt,
+                           used_for="BothWays")
 

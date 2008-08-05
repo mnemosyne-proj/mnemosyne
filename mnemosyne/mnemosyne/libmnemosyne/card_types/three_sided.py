@@ -30,7 +30,7 @@ class ThreeSided(CardType):
         
         CardType.__init__(self)
         
-        self.name = _("Foreign word with pronunciation"),
+        self.name = _("Foreign word with pronunciation")
         self.id   = 3
 
         # Name the keys.

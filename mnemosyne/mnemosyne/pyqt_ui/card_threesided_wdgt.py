@@ -13,7 +13,6 @@ from PyQt4.QtGui import *
 from ui_card_threesided_wdgt import *
 
 from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.card_types.three_sided import ThreeSided
 
 
 
@@ -90,22 +89,20 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
         self.foreign_word.setText("")
         self.pronunciation.setText("")        
         self.translation.setText("")
+
+
         
-
-
 ##############################################################################
 #
-# Register card type.
+# Register card type widget.
 #
 ##############################################################################
 
-print "Registering three sided card type."
+print "Registering three sided card widget type."
 
-c = ThreeSided()
-#c.widget_class = CardThreeSidedWdgt
-#plugin_manager.register_plugin("card_type", c)
+component_manager.register("card_type_widget", CardThreeSidedWdgt,
+                           used_for="ThreeSided")
 
-    
 
 
 

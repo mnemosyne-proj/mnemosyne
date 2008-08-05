@@ -28,7 +28,8 @@
 #      "scheduler"            : scheduler instance
 #      "fact_filter"          : fact_filter instance
 #      "card_type"            : card_type instance
-#      "card_type_widget"     : card_type_widget class, used_for card_type.id 
+#      "card_type_widget"     : card_type_widget class,
+#                               used_for card_type class name 
 #      "ui_controller_review" : ui_controller_review instance
 #
 ##############################################################################
@@ -61,7 +62,7 @@ class ComponentManager():
         if not self.components[used_for].has_key(type):
             self.components[used_for][type] = [component]
         else:
-            if component not in self.components[type]:
+            if component not in self.components[used_for][type]:
                 self.components[used_for][type].append(component)
 
 
