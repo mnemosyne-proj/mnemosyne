@@ -12,7 +12,7 @@ from PyQt4.QtGui import *
 
 from ui_card_threesided_wdgt import *
 
-from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
+from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.card_types.three_sided import ThreeSided
 
 
@@ -102,8 +102,8 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
 print "Registering three sided card type."
 
 c = ThreeSided()
-c.widget_class = CardThreeSidedWdgt
-plugin_manager.register_plugin("card_type", c)
+#c.widget_class = CardThreeSidedWdgt
+#plugin_manager.register_plugin("card_type", c)
 
     
 

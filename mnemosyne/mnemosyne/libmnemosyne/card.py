@@ -6,7 +6,7 @@
 
 import md5, time
 
-from mnemosyne.libmnemosyne.plugin_manager import *
+from mnemosyne.libmnemosyne.component_manager import *
 
 
 
@@ -129,28 +129,6 @@ class Card(object):
         digest = md5.new(self.q.encode("utf-8") + self.a.encode("utf-8") + \
                          time.ctime()).hexdigest()
         self.id = digest[0:8]
-
-
-
-    ##########################################################################
-    #
-    # is_active
-    #
-    #   TODO: benchmark
-    #
-    ##########################################################################
-
-    def is_active(self):
-        
-        for c in self.cat:
-            if c.active == False:
-                return False
-
-        for view in get_card_type_by_id(self.fact.card_type_id).fact_views:
-            if view.active == False:
-                return False
-            
-        return True
 
     
 

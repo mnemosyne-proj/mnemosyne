@@ -12,7 +12,7 @@ from PyQt4.QtGui import *
 
 from ui_review_wdgt import *
 
-from mnemosyne.libmnemosyne.plugin_manager import get_ui_controller_review
+from mnemosyne.libmnemosyne.component_manager import get_ui_controller_review
 from mnemosyne.libmnemosyne.config import config
 
 _empty = """

@@ -11,7 +11,8 @@ _ = gettext.gettext
 
 from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.plugin_manager import get_database, get_scheduler
+from mnemosyne.libmnemosyne.component_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import get_scheduler
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview 
 
 

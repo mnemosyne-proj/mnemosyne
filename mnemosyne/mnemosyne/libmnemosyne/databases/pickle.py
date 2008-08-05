@@ -16,7 +16,7 @@ from mnemosyne.libmnemosyne.start_date import start_date
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.exceptions import *
 from mnemosyne.libmnemosyne.category import Category
-from mnemosyne.libmnemosyne.plugin_manager import plugin_manager
+from mnemosyne.libmnemosyne.component_manager import *
 
 log = logging.getLogger("mnemosyne")
 
@@ -125,9 +125,8 @@ class Pickle(Database):
         log.info("Loaded database %d %d %d", self.scheduled_count(), \
                     self.non_memorised_count(), self.card_count())
 
-        for f in plugin_manager.get_all_plugins("after_load"):
-            if f.active:
-                f.run()
+        for f in component_manager.get_all("after_load"):
+            f.run()
 
 
 
@@ -464,3 +463,14 @@ class Pickle(Database):
        
         return (c for c in self.cards if (i.acq_reps <= 1) and \
                                       c.is_in_active_category()), False
+
+
+
+    ##########################################################################
+    #
+    # set_filter
+    #
+    ##########################################################################
+    
+    def set_filter(self, filter):
+        print "Filtering not implement for the pickle database"

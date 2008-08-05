@@ -106,9 +106,11 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
 
+        w = component_manager.get_current("card_type_widget_class", used_for=card_type.id)
+
         #card_type.widget = card_type.widget_class()
             
-        self.card_widget = card_type.widget
+        self.card_widget = w()
         self.vboxlayout.insertWidget(1, self.card_widget)
 
         #self.adjustSize()

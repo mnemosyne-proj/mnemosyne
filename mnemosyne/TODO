@@ -6,10 +6,13 @@ Mnemosyne 2.0: Major rewrite
  lay the foundation for custom card types and make a port
  to mobile devices (Maemo, Windows Mobile, ...) possible.
 
+-document dataformat of component registred
 -import vs new card
 -get rid of get card_type by id?
 -missing information check
 -duplicate check
+-generic card widget
+-map card type
 
 -get rid of pygame
 -xml import tests (wcu, memaid, plconv)
@@ -21,6 +24,8 @@ Mnemosyne 2.0: Major rewrite
 
 -instead of QListview, use the model/view framework from Qt4 to get a 
  much faster 'Edit Deck'. Test deleting large number of cards.
+
+-modality of dialogs (mail by Nosai)
 
 -change file suffix when changing export format
 

@@ -33,7 +33,7 @@ from mnemosyne.libmnemosyne import *
 from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.card import *
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.plugin_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import get_database
 
 prefix = os.path.dirname(__file__)
 

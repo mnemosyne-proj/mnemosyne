@@ -9,7 +9,7 @@ import logging, random
 from mnemosyne.libmnemosyne.start_date import start_date
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.scheduler import Scheduler
-from mnemosyne.libmnemosyne.plugin_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import get_database
 from mnemosyne.libmnemosyne.config import config
 
 log = logging.getLogger("mnemosyne")
@@ -33,8 +33,7 @@ class SM2Mnemosyne(Scheduler):
     def __init__(self):
         
         Scheduler.__init__(self, name="SM2 Mnemosyne",
-                           description="Default scheduler",
-                           can_be_unregistered=False)
+                           description="Default scheduler")
 
         self.queue = []
 

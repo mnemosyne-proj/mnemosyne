@@ -116,9 +116,9 @@ class Database(Component):
     def average_easiness(self):
         raise NotImplementedError
 
-    # Needed for the deck manager.
+    # Filter is a SQL filter, used e.g. to filter out inactive categories.
 
-    def set_active(self, category, card_type, fact_view, enabled):
+    def set_filter(self, filter):
         raise NotImplementedError
     
 

@@ -16,8 +16,9 @@ from mnemosyne.libmnemosyne.component import Component
 #   The keys from the fact are also given more verbose names here. This is
 #   not done in fact.py, on one hand to save space in the database, and
 #   on the other hand to allow the possibilty that different card types
-#   give different names to the same key. (E.g. 'pronunciation' could be
-#   called 'reading' in a Kanji card type).
+#   give different names to the same key. (E.g. foreign word' could be
+#   called 'French' in a French card type, or'pronunciation' could be
+#   called 'reading' in a Kanji card type.)
 #
 #   We could use the component manager to track fact views, but this is
 #   probably overkill.
@@ -42,8 +43,6 @@ class CardType(Component):
         self.id            = -1
         self.name          = ""
         self.description   = ""
-        #self.widget_class  = None
-        #self.widget        = None
         self.css           = ""
         self.a_on_top_of_q = False
         self.is_language   = False

@@ -4,7 +4,7 @@
 #
 ##############################################################################
 
-from plugin import Plugin
+from component import Component
 
 
 
@@ -14,22 +14,7 @@ from plugin import Plugin
 #
 ##############################################################################
 
-class Scheduler(Plugin):
-    
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
-    
-    def __init__(self, name, description, can_be_unregistered=True):
-
-        self.type                = "scheduler"
-        self.name                = name
-        self.description         = description
-        self.can_be_unregistered = can_be_unregistered
-
-
+class Scheduler(Component):
 
     ##########################################################################
     #

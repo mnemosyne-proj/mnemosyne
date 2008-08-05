@@ -4,7 +4,7 @@
 #
 ##############################################################################
 
-from libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.component import Component
 
 
 

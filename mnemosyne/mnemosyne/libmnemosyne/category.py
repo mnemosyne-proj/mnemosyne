@@ -14,6 +14,9 @@ from mnemosyne.libmnemosyne.component_manager import get_database
 #
 # Category
 #
+#  The category name is the full name, including all levels of the hierarchy
+#  separated by ::
+#
 ##############################################################################
 
 class Category:
@@ -24,10 +27,9 @@ class Category:
     #
     ##########################################################################
     
-    def __init__(self, name, active=True):
+    def __init__(self, name):
 
         self.name = name
-        self.active = active
 
 
     

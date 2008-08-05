@@ -32,8 +32,6 @@ class FactView(object):
 
         self.name = name
 
-        self.active = True
-
         self.q_fields = []
         self.a_fields = []
 

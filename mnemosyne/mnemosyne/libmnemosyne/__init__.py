@@ -19,6 +19,7 @@ import logging, os, sys
 import mnemosyne.version
 from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.component_manager import component_manager
+from mnemosyne.libmnemosyne.exceptions import *
 
 # TODO: move these import to initialise, and automatically loop through
 # all the contents of the directories?

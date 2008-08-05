@@ -56,7 +56,7 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 
         # Return the data.
         
-        return {'q' : q, 'a' : a, 'add_vice_versa' : add_vice_versa} 
+        return {'q' : q, 'a' : a} 
 
 
 
@@ -88,5 +88,5 @@ c = TwoSided()
 component_manager.register("card_type", c)
 
 
-component_manager.register("card_type_widget", CardTwoSidedWdgt, "TwoSided")
+component_manager.register("card_type_widget_class", CardTwoSidedWdgt, c.id)
 
