@@ -140,12 +140,6 @@ def initialise_system_components():
 
     component_manager.register("database", Pickle())    
 
-    # UI controllers.
-    
-    from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
-                                                   import SM2Controller
-    
-    component_manager.register("ui_controller_review", SM2Controller())
 
     # Scheduler.
 
@@ -153,6 +147,7 @@ def initialise_system_components():
                                                    import SM2Mnemosyne
     
     component_manager.register("scheduler", SM2Mnemosyne())
+
     
     # Fact filters.
 
@@ -161,10 +156,20 @@ def initialise_system_components():
     
     component_manager.register("fact_filter", EscapeToHtml())
     
+
     # Card types.
 
-    # These are registered in the GUI, because it's easier to do so
-    # once the card widgets are known.
+    from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
+    
+    component_manager.register("card_type", FrontToBack())
+
+    from mnemosyne.libmnemosyne.card_types.both_ways import BothWays
+    
+    component_manager.register("card_type", BothWays())
+
+    from mnemosyne.libmnemosyne.card_types.three_sided import ThreeSided
+    
+    component_manager.register("card_type", ThreeSided())
     
     # Card Filters.
 
@@ -172,6 +177,13 @@ def initialise_system_components():
 
     # Function hooks.
 
+    
+    # UI controllers.
+    
+    from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
+                                                   import SM2Controller
+    
+    component_manager.register("ui_controller_review", SM2Controller())
 
 
 ##############################################################################

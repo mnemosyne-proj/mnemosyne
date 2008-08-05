@@ -22,6 +22,15 @@
 #   one registered takes preference. This means that e.g. the default
 #   scheduler needs to be registered first.
 #
+#   Managed components:
+#
+#      "database"             : database instance
+#      "scheduler"            : scheduler instance
+#      "fact_filter"          : fact_filter instance
+#      "card_type"            : card_type instance
+#      "card_type_widget"     : card_type_widget class, used_for card_type.id 
+#      "ui_controller_review" : ui_controller_review instance
+#
 ##############################################################################
 
 class ComponentManager():

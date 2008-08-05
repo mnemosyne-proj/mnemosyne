@@ -24,7 +24,15 @@ from mnemosyne.libmnemosyne.plugin_manager import get_database
 #   otherwise we can't use pickled databases, as the card_types themselves
 #   are not stored in the database. It is also closer the SQL implementation.
 #
-# TODO: make list of common keys for standardisation.
+#   When making new card types, it is best to reuse the keys below as much
+#   as possible, to facilitate conversion between card types:
+#
+#     "q" : question
+#     "a" : answer
+#
+#     "f" : foreign word
+#     "t" : translation
+#     "p" : pronunciation
 #
 ##############################################################################
 

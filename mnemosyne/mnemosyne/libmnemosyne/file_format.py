@@ -4,7 +4,7 @@
 #
 ##############################################################################
 
-from libmnemosyne.plugin import Plugin
+from mnemosyne.libmnemosyne.component import Component
 
 
 
@@ -12,12 +12,9 @@ from libmnemosyne.plugin import Plugin
 #
 # FileFormat
 #
-#  Code which operates on the Q and A strings and filters it to achieve
-#  extra functionality.
-#
 ##############################################################################
 
-class FileFormat(Plugin):
+class FileFormat(Component):
     
     ##########################################################################
     #
@@ -28,18 +25,13 @@ class FileFormat(Plugin):
     #
     ##########################################################################
     
-    def __init__(self, name, description,
-                 filename_filer, 
-                 can_be_unregistered=True):
+    def __init__(self, name, description, filename_filter):
 
-        self.type                = "filter"
-        self.name                = name
-        self.description         = description
-        self.can_be_unregistered = can_be_unregistered
-
-        self.filename_filter     = filename_filer
-        self.import_possible     = import_possible
-        self.export_possible     = export_possible
+        self.name            = name
+        self.description     = description
+        self.filename_filter = filename_filter
+        self.import_possible = import_possible
+        self.export_possible = export_possible
 
 
 
@@ -50,11 +42,11 @@ class FileFormat(Plugin):
     ##########################################################################
         
     def do_import(self, filename, default_cat_name,
-               reset_learning_data=False):
+                  reset_learning_data=False):
         raise NotImplementedError
 
     def do_export(self, filename, default_cat_name,
-               reset_learning_data=False):
+                  reset_learning_data=False):
         raise NotImplementedError    
 
     
