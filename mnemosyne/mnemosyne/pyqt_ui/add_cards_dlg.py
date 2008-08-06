@@ -19,10 +19,7 @@ from mnemosyne.libmnemosyne.card_type import *
 from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.component_manager import * 
 
-# TODO: import them all at once
-
-from card_twosided_wdgt import *
-from card_threesided_wdgt import *
+from mnemosyne.pyqt_ui.generic_card_widget import GenericCardWdgt
 
 
 ##############################################################################
@@ -107,12 +104,15 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         card_type = self.card_type_by_name[card_type_name]
 
         if card_type.widget == None:
-            card_type.widget =  component_manager.\
+            try:
+                card_type.widget =  component_manager.\
                    get_current("card_type_widget",
                                used_for=card_type.__class__.__name__)()
-            # If none, use default.
+            except KeyError:
+                card_type.widget = GenericCardWdgt(card_type)
             
         self.card_widget = card_type.widget
+        self.card_widget.show()
         
         self.vboxlayout.insertWidget(1, self.card_widget)
 

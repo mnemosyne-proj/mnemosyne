@@ -82,6 +82,6 @@ class CardTwoSidedWdgt(QWidget, Ui_CardTwoSidedWdgt):
 
 print "Registering two sided card widget type."
 
-component_manager.register("card_type_widget", CardTwoSidedWdgt,
-                           used_for="BothWays")
+#component_manager.register("card_type_widget", CardTwoSidedWdgt,
+#                           used_for="BothWays")
 

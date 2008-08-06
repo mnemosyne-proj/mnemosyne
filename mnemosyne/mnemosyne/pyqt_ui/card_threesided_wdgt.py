@@ -98,10 +98,10 @@ class CardThreeSidedWdgt(QWidget, Ui_CardThreeSidedWdgt):
 #
 ##############################################################################
 
-print "Registering three sided card widget type."
+#print "Registering three sided card widget type."
 
-component_manager.register("card_type_widget", CardThreeSidedWdgt,
-                           used_for="ThreeSided")
+#component_manager.register("card_type_widget", CardThreeSidedWdgt,
+#                           used_for="ThreeSided")
 
 
 
