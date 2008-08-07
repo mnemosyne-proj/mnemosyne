@@ -9,6 +9,9 @@ default:
 	python setup.py install
 	rm -f -R build
 
+test:
+	nosetests --with-coverage --cover-package=libmnemosyne	
+
 windows:
 	rmdir /S /Q dist
 	rmdir /S /Q build
