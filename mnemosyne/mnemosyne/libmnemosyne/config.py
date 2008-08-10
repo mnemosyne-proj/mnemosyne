@@ -23,7 +23,7 @@ from mnemosyne.libmnemosyne.exceptions import *
 ##############################################################################
 
 class Config(object):
-    
+
     ##########################################################################
     #
     # __init__
@@ -35,7 +35,7 @@ class Config(object):
         self._config = {}
 
 
-        
+
     ##########################################################################
     #
     # initialise
@@ -61,7 +61,7 @@ class Config(object):
                    and os.path.exists(self._old_basedir):
                     self.migrate_basedir(self.old_basedir, self.basedir)
 
-            else:                
+            else:
                 self.basedir = os.path.join(home, ".mnemosyne")
 
         else:
@@ -72,7 +72,11 @@ class Config(object):
         # last version.
 
         self.fill_basedir()
-            
+
+        if not os.path.exists(os.path.join(basedir, "config")):
+            self.set_defaults()
+            self.save()
+
         # Load config file from basedir.
 
         self.load()
@@ -80,7 +84,7 @@ class Config(object):
         # Set defaults, even if a previous file exists, because we might
         # have added new keys since the last version.
 
-        self.set_defaults()        
+        self.set_defaults()
 
         # Load user config file.
 
@@ -100,7 +104,7 @@ class Config(object):
                         self._config[var] = getattr(user_config, var)
             except:
                 raise ConfigError(stack_trace=True)
-            
+
         # Update paths if the location has migrated.
 
         if self.old_basedir:
@@ -122,10 +126,10 @@ class Config(object):
             if history_files:
                 last = history_files[-1]
                 user, index = last.split('_')
-            index = int(index.split('.')[0])+1
+                index = int(index.split('.')[0])+1
 
-            
-        
+
+
     ##########################################################################
     #
     # __getitem__
@@ -133,14 +137,14 @@ class Config(object):
     ##########################################################################
 
     def __getitem__(self, key):
-        
+
         try:
             return self._config[key]
         except IndexError:
             raise KeyError
 
 
-        
+
     ##########################################################################
     #
     # __setitem__
@@ -148,7 +152,7 @@ class Config(object):
     ##########################################################################
 
     def __setitem__(self, key, value):
-        
+
         self._config[key] = value
 
 
@@ -183,7 +187,7 @@ class Config(object):
 
         # Create default latex preamble and postamble.
 
-        latexdir  = join(self.basedir,  "latex")
+        latexdir  = join(self.basedir, "latex")
         preamble  = join(latexdir, "preamble")
         postamble = join(latexdir, "postamble")
         dvipng    = join(latexdir, "dvipng")
@@ -191,7 +195,7 @@ class Config(object):
         if not os.path.exists(preamble):
             f = file(preamble, 'w')
             print >> f, "\\documentclass[12pt]{article}"
-            print >> f, "\\pagestyle{empty}" 
+            print >> f, "\\pagestyle{empty}"
             print >> f, "\\begin{document}"
             f.close()
 
@@ -202,7 +206,7 @@ class Config(object):
 
         if not os.path.exists(dvipng):
             f = file(dvipng, 'w')
-            print >> f, "dvipng -D 200 -T tight tmp.dvi" 
+            print >> f, "dvipng -D 200 -T tight tmp.dvi"
             f.close()
 
         # Create default config.py.
@@ -240,7 +244,7 @@ backups_to_keep = 5
 day_starts_at = 3"""
             f.close()
 
-        
+
 
     ##########################################################################
     #
@@ -261,13 +265,13 @@ day_starts_at = 3"""
         c.setdefault("reset_learning_data_import", False)
         c.setdefault("export_dir", self.basedir)
         c.setdefault("export_format", "XML")
-        c.setdefault("reset_learning_data_export", False)    
+        c.setdefault("reset_learning_data_export", False)
         c.setdefault("import_img_dir", self.basedir)
-        c.setdefault("import_sound_dir", self.basedir)    
+        c.setdefault("import_sound_dir", self.basedir)
         c.setdefault("user_id",md5.new(str(random.random())).hexdigest()[0:8])
         c.setdefault("keep_logs", True)
         c.setdefault("upload_logs", True)
-        c.setdefault("upload_server", "mnemosyne-proj.dyndns.org:80")    
+        c.setdefault("upload_server", "mnemosyne-proj.dyndns.org:80")
         c.setdefault("log_index", 1)
         c.setdefault("hide_toolbar", False)
         c.setdefault("QA_font", None)
@@ -283,9 +287,9 @@ day_starts_at = 3"""
         c.setdefault("3_sided_input", False) # TODO: remove
         c.setdefault("column_0_width", None)
         c.setdefault("column_1_width", None)
-        c.setdefault("column_2_width", None)    
+        c.setdefault("column_2_width", None)
         c.setdefault("sort_column", None)
-        c.setdefault("sort_order", None)    
+        c.setdefault("sort_order", None)
         c.setdefault("show_intervals", "never")
         c.setdefault("only_editable_when_answer_shown", False)
         c.setdefault("locale", None)
@@ -294,7 +298,7 @@ day_starts_at = 3"""
         c.setdefault("backups_to_keep", 5)
         c.setdefault("day_starts_at", 3)
 
-            
+
 
     ##########################################################################
     #
@@ -343,7 +347,7 @@ day_starts_at = 3"""
                     + "it is a symlink."
             return
 
-        # Migrate Mnemosyne basedir to new location and create a symlink from 
+        # Migrate Mnemosyne basedir to new location and create a symlink from
         # the old one. The other way around is a bad idea, because a user
         # might decide to clean up the old obsolete directory, not realising
         # the new one is a symlink.

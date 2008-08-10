@@ -1,9 +1,6 @@
-##############################################################################
 #
-# Widget to add new items <Peter.Bienstman@UGent.be>
-# Duplicate check by Jarno Elonen <elonen@iki.fi>
+# add_cards_dlg.py <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
 import gettext
 _ = gettext.gettext
@@ -11,53 +8,39 @@ _ = gettext.gettext
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-
 from mnemosyne.libmnemosyne.category import *
 from ui_add_cards_dlg import *
 
 from mnemosyne.libmnemosyne.card_type import *
 from mnemosyne.libmnemosyne.config import config
-from mnemosyne.libmnemosyne.component_manager import * 
+from mnemosyne.libmnemosyne.component_manager import *
 
-from mnemosyne.pyqt_ui.generic_card_widget import GenericCardWdgt
+from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 
-
-##############################################################################
-#
-# AddCardsDlg
-#
-##############################################################################
 
 class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
-    
     def __init__(self, filename, parent = None):
-        
         QDialog.__init__(self, parent)
 
         # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
-        
+
         self.setupUi(self)
 
         self.card_type_by_name = {} # TODO: move to lib?
-        
+
         for card_type in get_card_types():
             self.card_types.addItem(card_type.name)
             self.card_type_by_name[card_type.name] = card_type
 
         # TODO: sort card types by id.
-               
+
         # TODO: remember last type.
 
         self.card_widget = None
 
         self.update_card_widget()
-        
+
         self.update_combobox(config["last_add_category"])
 
         self.grades = QButtonGroup()
@@ -68,16 +51,16 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         self.grades.addButton(self.grade_3_button, 3)
         self.grades.addButton(self.grade_4_button, 4)
         self.grades.addButton(self.grade_5_button, 5)
-        
+
         self.connect(self.grades, SIGNAL("buttonClicked(int)"),
-                     self.new_card)
-        
+                     self.new_cards)
+
         #self.connect(self.preview_button, SIGNAL("clicked()"),
         #             self.preview)
 
 
         # TODO: fonts?
-        
+
         #if get_config("QA_font") != None:
         #    font = QFont()
         #    font.fromString(get_config("QA_font"))
@@ -86,16 +69,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         #    self.answer.setFont(font)
         #self.categories.setFont(font)
 
-        
-            
-    ##########################################################################
-    #
-    # update_card_widget
-    #
-    ##########################################################################
-
     def update_card_widget(self):
-
         if self.card_widget:
             self.vboxlayout.removeWidget(self.card_widget)
             self.card_widget.close()
@@ -109,25 +83,16 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
                    get_current("card_type_widget",
                                used_for=card_type.__class__.__name__)()
             except KeyError:
-                card_type.widget = GenericCardWdgt(card_type)
-            
+                card_type.widget = GenericCardTypeWdgt(card_type)
+
         self.card_widget = card_type.widget
         self.card_widget.show()
-        
+
         self.vboxlayout.insertWidget(1, self.card_widget)
 
         #self.adjustSize()
 
-
-
-    ##########################################################################
-    #
-    # update_combobox
-    #
-    ##########################################################################
-
     def update_combobox(self, current_cat_name):
-
         no_of_categories = self.categories.count()
         for i in range(no_of_categories-1,-1,-1):
             self.categories.removeItem(i)
@@ -142,31 +107,18 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
                 self.categories.setCurrentIndex(i)
                 break
 
+    def new_cards(self, grade):
 
-    ##########################################################################
-    #
-    # new_card
-    #
-    #   Don't rebuild revision queue afterwards, as this can cause corruption
-    #   for the current card. The new cards will show up after the old queue
-    #   is empty.
-    #
-    ##########################################################################
-    
-    def new_card(self, grade):
+        """Note that we don't rebuild revision queue afterwards, as this can
+        cause corruption for the current card.  The new cards will show up
+        after the old queue is empty."""
 
-        # Get data from the card wiget.
-        
-        data = self.card_widget.get_data()
-        
-        if data is None:
+        fact_data = self.card_widget.get_data()
+
+        if fact_data is None:
             return
 
-        # Add our own data. The card model can later remove these.
-
-        data['grade'] = grade
-
-        data['cat_names'] = [unicode(self.categories.currentText())]
+        cat_names = [unicode(self.categories.currentText())]
 
         # Create the new cards.
 
@@ -174,27 +126,15 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
         card_type = self.card_type_by_name[card_type_name]
 
-        card_type.new_cards(data)
-        
+        card_type.create_new_cards(fact_data, grade, cat_names)
+
         get_database().save(config['path'])
-        
-        # Update widget. TODO 
-                        
+
+        # Update widget. TODO
+
         #self.question.setFocus()
 
-        #set_config("last_add_vice_versa", self.addViceVersa.isOn())
-        #set_config("last_add_category",   cat_name)
-
-
-            
-    ##########################################################################
-    #
-    # reject
-    #
-    ##########################################################################
-    
     def reject(self):
-
         if self.card_widget.get_data() is None:
             QDialog.reject(self)
             return
@@ -209,21 +149,11 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         else:
             return
 
-
-
-
-    ##########################################################################
-    #
-    # preview
-    #
-    ##########################################################################
-
     def preview(self):
-
         raise NotImplementedError()
 
         if get_config("3_sided_input") == False:
-        
+
             dlg = PreviewItemDlg(unicode(self.question.text()),
                                  unicode(self.answer.text()),
                                  unicode(self.categories.currentText()),
@@ -234,6 +164,6 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
                                          append(QString("\n")).\
                                          append(QString(self.answer.text()))),
                                  unicode(self.categories.currentText()),
-                                 self)            
+                                 self)
         dlg.exec_loop()
 

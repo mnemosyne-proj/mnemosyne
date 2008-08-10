@@ -7,8 +7,25 @@
 ##############################################################################
 
 import sys, os, locale
+from optparse import OptionParser
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+
+# Parse options.
+
+parser = OptionParser()
+parser.usage = "%prog [<database.mem>]"
+parser.add_option("-d", "--datadir", dest="datadir",
+                  help="data directory", default=None)
+parser.add_option("-i", "--run-in-place", action="store_true",
+                  dest="in_place", default=False)
+(options, args) = parser.parse_args()
+
+# Make it easier for developpers to run Mnemosyne without installing it.
+
+if options.in_place == True:
+    sys.path.insert(0,os.path.abspath("."))
 
 # TODO: improve imports.
 
@@ -18,15 +35,7 @@ from mnemosyne.libmnemosyne import initialise, finalise
 from mnemosyne.pyqt_ui.main_window import *
 #from mnemosyne.pyqt_ui.message_boxes import *
 #from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
-from optparse import OptionParser
 
-# Parse options.
-
-parser = OptionParser()
-parser.usage = "%prog [<database.mem>]"
-parser.add_option("-d", "--datadir", dest="datadir",
-                  help="data directory", default=None)
-(options, args) = parser.parse_args()
 
 # Check if we have to override the basedir determined in mnemosyne.core,
 # either because we explicitly specified a datadir on the command line,
@@ -34,7 +43,7 @@ parser.add_option("-d", "--datadir", dest="datadir",
 # The latter is handy when Mnemosyne is run from a USB key, so that there
 # is no need to refer to a drive letter which can change from computer to
 # computer.
-    
+
 if options.datadir != None:
     basedir = os.path.abspath(options.datadir)
 elif os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
@@ -72,7 +81,7 @@ if os.path.exists(config_file_c):
 try:
     import config as _config
     if _config.locale != None:
-        loc = _config.locale      
+        loc = _config.locale
 except:
     pass
 

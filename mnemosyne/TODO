@@ -56,7 +56,8 @@ Mnemosyne 2.0: Major rewrite
 
 -plugin for midi files
 
--'tooltips' during use: deactivate related cards, edit toolbar vs css, change card type
+-'tooltips' during use: deactivate related cards, edit toolbar vs css, change card type,
+ relative path when adding pictures or sound.
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting

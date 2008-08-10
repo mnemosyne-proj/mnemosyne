@@ -1,8 +1,6 @@
-##############################################################################
 #
 # both_ways.py <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
 import gettext
 _ = gettext.gettext
@@ -11,51 +9,32 @@ from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 
 
-
-##############################################################################
-#
-# BothWays
-#
-##############################################################################
-
 class BothWays(CardType):
 
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
-
     def __init__(self):
-
         CardType.__init__(self)
-
+        self.id = 2
         self.name = _("Front-to-back and back-to-front")
-        self.id   = 2
 
         # Name the keys.
 
-        self.fact_key_names['q'] = _("Question")
-        self.fact_key_names['a'] = _("Answer")
-        
+        self.fields["q"] = _("Question")
+        self.fields["a"] = _("Answer")
+
         # Front to back.
 
         v = FactView(_("Front-to-back"))
-
-        v.q_fields.append(("q", True))
-        
-        v.a_fields.append(("a", False))       
-
+        v.q_fields = ["q"]
+        v.a_fields = ["a"]
+        v.required_fields = ["q"]
         self.fact_views.append(v)
-     
+
         # Back to front.
 
         v = FactView(_("Back-to-front"))
-
-        v.q_fields.append(("a", True))
-        
-        v.a_fields.append(("q", False))
-
+        v.q_fields = ["a"]
+        v.a_fields = ["q"]
+        v.required_fields = ["a"]
         self.fact_views.append(v)
 
 
@@ -75,9 +54,9 @@ class BothWays(CardType):
         self.widget.clear()
 
         return
-    
+
         # TODO: add duplicate checking.
-        
+
         ## Old code:
 
         orig_added = self.check_duplicates_and_add(grade,q,a,cat_names)
