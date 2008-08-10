@@ -1,18 +1,15 @@
 Mnemosyne 2.0: Major rewrite
 
--upgrade from Qt3 to Qt4 for improved speed, and the possibility to get rid 
+-upgrade from Qt3 to Qt4 for improved speed, and the possibility to get rid
  of some interface quirks
--SQL backend for better speed and lower memory requirements. This will also 
+-SQL backend for better speed and lower memory requirements. This will also
  lay the foundation for custom card types and make a port
  to mobile devices (Maemo, Windows Mobile, ...) possible.
 
--document dataformat of component registred
 -import vs new card
 -get rid of get card_type by id?
--missing information check
 -duplicate check
--generic card widget
--map card type
+-map card type?
 
 -get rid of pygame
 -xml import tests (wcu, memaid, plconv)
@@ -22,7 +19,7 @@ Mnemosyne 2.0: Major rewrite
 -http://apptools.com/examples/tableheight.php
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447
 
--instead of QListview, use the model/view framework from Qt4 to get a 
+-instead of QListview, use the model/view framework from Qt4 to get a
  much faster 'Edit Deck'. Test deleting large number of cards.
 
 -modality of dialogs (mail by Nosai)
@@ -62,7 +59,7 @@ Mnemosyne 2.0: Major rewrite
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
 
--move to sqlite backend (encode category hierarchy in name, 
+-move to sqlite backend (encode category hierarchy in name,
  multiple category fields per card)
 
 -easier function to run all hooks?
@@ -85,7 +82,7 @@ Mnemosyne 2.0: Major rewrite
 
 -bug in Qt? : get rid of dummy '.' status tips
 
--bug in Qt? : shortcuts don't change back after changing 'show answer' 
+-bug in Qt? : shortcuts don't change back after changing 'show answer'
  button text
 
 -bug in Qt? : spaces around images are not respected.
@@ -108,7 +105,7 @@ Mnemosyne 2.0: Major rewrite
 
 -hierarchical categories
 
--advanced deck manager, with tree view, drag and drop to change categories, 
+-advanced deck manager, with tree view, drag and drop to change categories,
  count of cards/facts... Option to show only related cards.
 
 -make 'search' behave as a filter
@@ -194,14 +191,14 @@ Miscellaneous
 
 -icon handling patch Dirk
 
--'teacher mode' on export, which allows pupils to update previously imported 
+-'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
  T.<fixed card id for all pupils>.<pupil user id>
 
 -better sound replay support, through clicking on an icon
 
--integrate Mnemosyne analysis, advanced statistics, history, 
- forgetting index, histogram of grades and intervals... (look at graphs 
+-integrate Mnemosyne analysis, advanced statistics, history,
+ forgetting index, histogram of grades and intervals... (look at graphs
  in JMemorize)
 
 -importing cards from rss feed
@@ -214,7 +211,7 @@ Miscellaneous
 
 -priorities for categories?
 
--determine import / export file type based on suffix 
+-determine import / export file type based on suffix
  (i.e. remove file format field)? Probably not possible, as
  file dialogs only return filenames, not the chosen filter type.
 

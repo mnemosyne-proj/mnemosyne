@@ -16,11 +16,11 @@ class ThreeSided(CardType):
         self.id = 3
         self.name = _("Foreign word with pronunciation")
 
-        # Name the keys.
+        # List and name the keys.
 
-        self.fields["f"] = _("Foreign word")
-        self.fields["p"] = _("Pronunciation")
-        self.fields["t"] = _("Translation")
+        self.fields.append(("f", _("Foreign word")))
+        self.fields.append(("p", _("Pronunciation")))
+        self.fields.append(("t", _("Translation")))
 
         # Recognition.
 

@@ -16,12 +16,12 @@ class BothWays(CardType):
         self.id = 2
         self.name = _("Front-to-back and back-to-front")
 
-        # Name the keys.
+        # List and name the keys.
 
-        self.fields["q"] = _("Question")
-        self.fields["a"] = _("Answer")
+        self.fields.append(("q", _("Question")))
+        self.fields.append(("a", _("Answer")))
 
-        # Front to back.
+        # Front-to-back.
 
         v = FactView(_("Front-to-back"))
         v.q_fields = ["q"]
@@ -29,7 +29,7 @@ class BothWays(CardType):
         v.required_fields = ["q"]
         self.fact_views.append(v)
 
-        # Back to front.
+        # Back-to-front.
 
         v = FactView(_("Back-to-front"))
         v.q_fields = ["a"]

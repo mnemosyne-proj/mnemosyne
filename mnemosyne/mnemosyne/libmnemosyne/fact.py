@@ -37,7 +37,6 @@ class Fact(object):
 
     def __init__(self, data, cat_names, card_type_id, id=None):
         self.added = datetime.datetime.now()
-
         self.data = data
         self.card_type_id = card_type_id
 

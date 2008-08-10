@@ -22,7 +22,7 @@ class GenericCardTypeWdgt(QWidget):
 
         self.edit_boxes = {}
 
-        for fact_key, fact_key_name in self.card_type.fields.iteritems():
+        for fact_key, fact_key_name in self.card_type.fields:
             self.vboxlayout.addWidget(QLabel(fact_key_name + ":", self))
 
             t = QTextEdit(self)
@@ -44,15 +44,12 @@ class GenericCardTypeWdgt(QWidget):
     def get_data(self):
         fact = {}
         for edit_box, fact_key in self.edit_boxes.iteritems():
-            fact[fact_key] = unicode(edit_box.document().toPlainText())
-
-        print self.card_type
-        print self.card_type.required_fields
-
+            text = unicode(edit_box.document().toPlainText())
+            if text:
+                fact[fact_key] = text
         for required in self.card_type.required_fields():
             if not required in fact.keys():
                 return None
-
         return fact
 
     def clear(self):

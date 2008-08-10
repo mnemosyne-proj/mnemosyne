@@ -2,6 +2,7 @@
 # card_type.py <Peter.Bienstman@UGent.be>
 #
 
+#TODO: move these three imports?
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.component import Component
@@ -31,7 +32,10 @@ class CardType(Component):
         self.name = ""
         self.description = ""
 
-        self.fields = {} # {fact_key: fact_key_name}
+        # It is tempting to use a dictionary here, however we need a list
+        # since the ordering is important.
+
+        self.fields = [] # [(fact_key, fact_key_name)]
         self.fact_views = []
         self.unique_fields = []
 
@@ -50,6 +54,9 @@ class CardType(Component):
             for k in f.required_fields:
                 s.add(k)
         return s
+
+    # TODO: move the following to GUI controller? Or is that abstraction
+    # overkill?
 
     def create_new_cards(self, fact_data, grade, cat_names):
 
