@@ -35,10 +35,10 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, cat_names, card_type_id, id=None):
+    def __init__(self, data, cat_names, card_type, id=None):
         self.added = datetime.datetime.now()
         self.data = data
-        self.card_type_id = card_type_id
+        self.card_type = card_type
 
         db = get_database()
         self.cat = []

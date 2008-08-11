@@ -32,7 +32,7 @@ class InnoScript:
     def chop(self, pathname):
         assert pathname.startswith(self.dist_dir)
         return pathname[len(self.dist_dir):]
-    
+
     def create(self, pathname="dist\\mnemosyne.iss"):
         self.pathname = pathname
         ofi = self.file = open(pathname, "w")
@@ -47,9 +47,9 @@ class InnoScript:
 
         print >> ofi, r"[Files]"
         for path in self.windows_exe_files + self.lib_files + self.qm_files:
-            print >> ofi, r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' % (path, os.path.dirname(path))         
+            print >> ofi, r'Source: "%s"; DestDir: "{app}\%s"; Flags: ignoreversion' % (path, os.path.dirname(path))
         print >> ofi
-        
+
         print >> ofi, r"[Icons]"
         for path in self.windows_exe_files:
             print >> ofi, r'Name: "{group}\%s"; Filename: "{app}\%s"' % (self.name, path),
@@ -91,25 +91,25 @@ if sys.platform == "win32":
 else:
     class py2exe:
         pass
-    
+
 class build_installer(py2exe):
-    
+
     # This first builds the exe file(s), then creates a Windows installer.
     # You need InnoSetup for it.
-    
+
     def run(self):
-        
+
         # First, let py2exe do it's work.
-        
+
         py2exe.run(self)
 
         lib_dir = self.lib_dir
         dist_dir = self.dist_dir
 
         # Prepare to install translations.
-        
+
         join = os.path.join
-        
+
         pyqt_ui_dir = join("mnemosyne", "pyqt_ui")
         locale_dir = join(pyqt_ui_dir, "locale")
 
@@ -121,10 +121,10 @@ class build_installer(py2exe):
                  src = join(os.path.abspath(locale_dir), p)
                  dest = join(join(dist_dir, "locale"), p)
                  shutil.copy(src, dest)
-                 self.qm_files.append(dest)     
-        
+                 self.qm_files.append(dest)
+
         # Create the Installer, using the files py2exe has created.
-        
+
         script = InnoScript("Mnemosyne",
                             lib_dir,
                             dist_dir,
@@ -134,12 +134,12 @@ class build_installer(py2exe):
                             version=mnemosyne.version.version)
         script.create()
         script.compile()
-        
+
         # Note: the final setup.exe will be in an Output subdirectory.
 
 
 
-        
+
 #############################################################################
 
 if sys.platform == "win32": # For py2exe.
@@ -153,7 +153,7 @@ else:
                              "site-packages","mnemosyne")
     data_files = [('/usr/share/applications', ['mnemosyne.desktop']),
                   ('/usr/share/icons', ['pixmaps/mnemosyne.png'])]
-  
+
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path   = os.path.join(base_path, "util")
 doc_path    = os.path.join(base_path, "docs")
@@ -163,7 +163,7 @@ setup_requires = []
 
 # py2app (OS X)
 py2app_options = {
-    'argv_emulation': True, 
+    'argv_emulation': True,
     'includes' : 'sip,qt,cPickle,md5,logging,shutil,xml.sax,xml.sax.drivers2.drv_pyexpat',
     'resources' : 'mnemosyne',
     'iconfile' : 'pixmaps/mnemosyne.icns'
@@ -181,7 +181,7 @@ if 'py2app' in sys.argv:
     if os.path.exists(appscript):
         os.unlink(appscript)
     shutil.copyfile(source, appscript)
-    
+
 package_name = "mnemosyne_devel"
 
 setup (name = "Mnemosyne",
@@ -198,7 +198,8 @@ setup (name = "Mnemosyne",
                    "mnemosyne.libmnemosyne.ui_controllers_review",
                    "mnemosyne.libmnemosyne.ui_controllers_main"
                    ],
-       package_data = {"mnemosyne.pyqt_ui": ['locale/*.qm']},
+       package_data = {"mnemosyne.pyqt_ui": ['locale/*.qm', 'mnemosyne.qrc'],
+                       "mnemosyne": ['mnemosyne.qrc']},
        data_files = data_files,
        scripts = ['mnemosyne/pyqt_ui/mnemosyne'],
        windows = [{'script':'mnemosyne/pyqt_ui/mnemosyne',

@@ -11,10 +11,15 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 
 class ThreeSided(CardType):
 
-    def __init__(self):
+    def __init__(self, language_name=""):
         CardType.__init__(self)
-        self.id = 3
-        self.name = _("Foreign word with pronunciation")
+
+        if not language_name:
+            self.name = _("Foreign word with pronunciation")
+            self.is_language = False
+        else:
+            self.name = language_name
+            self.is_language = True
 
         # List and name the keys.
 

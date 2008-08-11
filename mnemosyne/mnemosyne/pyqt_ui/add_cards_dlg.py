@@ -27,11 +27,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
         self.setupUi(self)
 
-        self.card_type_by_name = {} # TODO: move to lib?
-
         for card_type in get_card_types():
             self.card_types.addItem(card_type.name)
-            self.card_type_by_name[card_type.name] = card_type
 
         # TODO: sort card types by id.
 
@@ -75,7 +72,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             self.card_widget.close()
 
         card_type_name = unicode(self.card_types.currentText())
-        card_type = self.card_type_by_name[card_type_name]
+        card_type = get_card_type_by_name(card_type_name)
 
         if card_type.widget == None:
             try:
@@ -124,7 +121,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
         card_type_name = unicode(self.card_types.currentText())
 
-        card_type = self.card_type_by_name[card_type_name]
+        card_type = get_card_type_by_name(card_type_name)
 
         card_type.create_new_cards(fact_data, grade, cat_names)
 

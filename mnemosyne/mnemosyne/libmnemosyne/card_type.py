@@ -27,8 +27,6 @@ class CardType(Component):
     """
 
     def __init__(self):
-
-        self.id = -1
         self.name = ""
         self.description = ""
 
@@ -65,7 +63,7 @@ class CardType(Component):
 
         db = get_database()
 
-        fact = Fact(fact_data, cat_names, self.id)
+        fact = Fact(fact_data, cat_names, self)
         db.add_fact(fact)
 
         for fact_view in self.fact_views:

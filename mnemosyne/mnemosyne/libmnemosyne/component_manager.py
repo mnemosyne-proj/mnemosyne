@@ -29,7 +29,7 @@
 #      "fact_filter"          : fact_filter instance
 #      "card_type"            : card_type instance
 #      "card_type_widget"     : card_type_widget class,
-#                               used_for card_type class name 
+#                               used_for card_type class name
 #      "ui_controller_review" : ui_controller_review instance
 #
 ##############################################################################
@@ -41,9 +41,9 @@ class ComponentManager():
     # __init__
     #
     ##########################################################################
-    
+
     def __init__(self):
-        
+
         self.components = {} # { used_for : {type : [component]} }
 
 
@@ -66,7 +66,7 @@ class ComponentManager():
                 self.components[used_for][type].append(component)
 
 
-            
+
     ##########################################################################
     #
     # unregister
@@ -86,7 +86,7 @@ class ComponentManager():
     #   For components for which there can be many active at once.
     #
     ##########################################################################
-    
+
     def get_all(self, type, used_for=None):
 
         if type in self.components[used_for]:
@@ -95,7 +95,7 @@ class ComponentManager():
             return []
 
 
-    
+
     ##########################################################################
     #
     # get_current
@@ -150,10 +150,10 @@ def get_ui_controller_review():
 def get_card_types():
     return component_manager.get_all("card_type")
 
-def get_card_type_by_id(id): # TODO: speed up with dict!
+def get_card_type_by_name(name): # TODO: speed up with dict?
     for t in get_card_types():
-        if t.id == id:
+        if t.name == name:
             return t
-    
+
 def get_fact_filters():
     return component_manager.get_all("fact_filter")

@@ -11,10 +11,15 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 
 class BothWays(CardType):
 
-    def __init__(self):
+    def __init__(self, language_name=""):
         CardType.__init__(self)
-        self.id = 2
-        self.name = _("Front-to-back and back-to-front")
+
+        if not language_name:
+            self.name = _("Front-to-back and back-to-front")
+            self.is_language = False
+        else:
+            self.name = language_name
+            self.is_language = True
 
         # List and name the keys.
 

@@ -9,7 +9,6 @@ run-in-place:
 	cd mnemosyne/pyqt_ui ; make clean
 	cd mnemosyne/pyqt_ui ; make
 	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
-	mnemosyne/pyqt_ui/mnemosyne -d ~/.mnemosyne2 -i
 
 test:
 	nosetests --with-coverage --with-doctests --cover-package=libmnemosyne
