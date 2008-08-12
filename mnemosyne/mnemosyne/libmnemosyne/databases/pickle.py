@@ -1,18 +1,16 @@
-##############################################################################
 #
 # pickle.py <Peter.Bienstman@UGent.be>
 #
-#  TODO: abstract out logging messages so that they are automatically the
+
+# TODO: abstract out logging messages so that they are automatically the
 #  same in the other databases?
-#
-##############################################################################
 
 import logging, os, cPickle, datetime, gzip, shutil
 import mnemosyne.version
 
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.config import config
-from mnemosyne.libmnemosyne.start_date import start_date
+from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.exceptions import *
 from mnemosyne.libmnemosyne.category import Category
@@ -25,69 +23,37 @@ database_header_line \
           % mnemosyne.version.dbVersion
 
 
-
-##############################################################################
-#
-# Pickle
-#
-##############################################################################
-
 class Pickle(Database):
-    
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
+
+    """A simple storage backend, mainly for testing purposes. It does not
+    support filtering operations, so it cannot activate and deactivate
+    categories. It also is wasteful in memory during queries.
+
+    """
 
     def __init__(self):
-
+        self.start_date = None
         self.categories = []
         self.facts = []
         self.cards = []
-        
+        self.fact_views = []
         self.load_failed = False
-
-
-
-    ##########################################################################
-    #
-    # new
-    #
-    ##########################################################################
 
     def new(self, path):
-
         if self.is_loaded != 0:
             self.unload()
-
         self.load_failed = False
-
-        start_date.init()
-
+        self.start_date = StartDate()
         config["path"] = path
-
         log.info("New database")
-
         self.save(contract_path(path, config.basedir))
-
-
-
-    ##########################################################################
-    #
-    # load
-    #
-    ##########################################################################
 
     # TODO: will we check the version string?
 
     def load(self, path):
-
         path = expand_path(path, config.basedir)
-
         if self.is_loaded():
             unload_database()
-
         if not os.path.exists(path):
             self.load_failed = True
             raise IOError
@@ -95,114 +61,63 @@ class Pickle(Database):
         try:
             infile = file(path, 'rb')
             header_line = infile.readline().rstrip()
-
             if not header_line.startswith("--- Mnemosyne Data Base"):
                 infile = file(path, 'rb')
-
             db = cPickle.load(infile)
-
             start_date.start = db[0]
             self.categories  = db[1]
             self.facts       = db[2]
             self.cards       = db[3]
-
             infile.close()
-
             self.load_failed = False
-
         except:
-            
             self.load_failed = True
             raise InvalidFormatError(stack_trace=True)
 
         # TODO: This was to remove database inconsistencies. Still needed?
-        
+
         #for c in self.categories:
         #    self.remove_category_if_unused(c)
 
         config["path"] = contract_path(path, config.basedir)
-
         log.info("Loaded database %d %d %d", self.scheduled_count(), \
                     self.non_memorised_count(), self.card_count())
-
         for f in component_manager.get_all("after_load"):
             f.run()
 
-
-
-    ##########################################################################
-    #
-    # save
-    #
-    ##########################################################################
-
     def save(self, path):
-
         path = expand_path(path, config.basedir)
-        
+
         # Don't erase a database which failed to load.
-        
+
         if self.load_failed == True:
-    
             return
-
         try:
-
             # Write to a backup file first, as shutting down Windows can
             # interrupt the dump command and corrupt the database.
-
             outfile = file(path + "~", 'wb')
-
             print >> outfile, database_header_line
-
             db = [start_date.start, self.categories, self.facts, self.cards]
             cPickle.dump(db, outfile)
-
             print "saved database"
-
             outfile.close()
-
             shutil.move(path + "~", path) # Should be atomic.
-
         except:
             print traceback_string()
             raise SaveError()
-
         config["path"] = contract_path(path, config.basedir)
 
-
-
-    ##########################################################################
-    #
-    # unload
-    #
-    ##########################################################################
-
     def unload(self):
-
         self.save(config["path"])
-
         log.info("Saved database %d %d %d", self.scheduled_count(), \
                     self.non_memorised_count(), self.card_count())
-        
         self.categories = []
         self.facts = []
         self.cards = []
-
         get_scheduler().clear_queue()
-
         return True
 
-
-
-    ##########################################################################
-    #
-    # backup
-    #
-    ##########################################################################
-
     def backup(self):
-
         if not self.is_loaded():
             return
 
@@ -237,36 +152,28 @@ class Pickle(Database):
         if len(files) > config["backups_to_keep"]:
             os.remove(os.path.join(backupdir, files[0]))
 
-    ##########################################################################
-    #
-    # is_loaded
-    #
-    ##########################################################################
-
     def is_loaded(self):
         return len(self.facts) != 0
-    
+
+    def set_start_date(self, start_date_obj):
+        self.start_date = start_date_obj
+
+    def days_since_start(self):
+        return self.days_since_start
+
     def add_category(self, category):
         raise NotImplementedError
 
     def modify_category(self, id, modified_category):
         raise NotImplementedError
-    
+
     def delete_category(self, category):
         raise NotImplementedError
 
-
-    ##########################################################################
-    #
-    # get_or_create_category_with_name
-    #
     # TODO: benchmark this and see if we need a dictionary category_by_name.
-    #
-    ##########################################################################
 
     def get_or_create_category_with_name(self, name):
-
-        if name not in (c.name for c in self.categories):    
+        if name not in (c.name for c in self.categories):
             category = Category(name)
             self.categories.append(category)
             return category
@@ -274,19 +181,11 @@ class Pickle(Database):
             for c in self.categories:
                 if c.name == name:
                     return c
-            
 
-    
-    ##########################################################################
-    #
-    # remove_category_if_unused
-    #
+
     # TODO: we used to check on name here. OK to check on instance?
-    #
-    ##########################################################################
 
     def remove_category_if_unused(self, cat):
-
         for c in self.cards:
             if cat == c.cat:
                 break
@@ -294,17 +193,16 @@ class Pickle(Database):
             del cat
             self.categories.remove(cat)
 
-    
     def add_fact(self, fact):
         self.load_failed = False
         self.facts.append(fact)
 
     def modify_fact(self, id, modified_fact):
         raise NotImplementedError
-    
+
     def delete_fact(self, fact):
         raise NotImplementedError
-    
+
     def add_card(self, card):
         self.load_failed = False
         self.cards.append(card)
@@ -313,164 +211,67 @@ class Pickle(Database):
 
     def modify_card(self, id, modified_card):
         raise NotImplementedError
-    
+
     def delete_card(self, id, card):
         raise NotImplementedError
-    
-    ##########################################################################
-    #
-    # delete_card
-    #
-    ##########################################################################
 
     def delete_card(c):
-
         old_cat = c.cat
-
         cards.remove(c)
         rebuild_revision_queue()
         remove_category_if_unused(old_cat)
-
         log.info("Deleted card %s", c.id)
 
-
-    ##########################################################################
-    #
-    # category_names
-    #
-    ##########################################################################
-    
     def category_names(self):
         return (c.name for c in self.categories)
 
-    
-    ##########################################################################
-    #
-    # card_count
-    #
-    ##########################################################################
-
     def card_count(self):
         return len(self.cards)
-
-
-
-    ##########################################################################
-    #
-    # non_memorised_count
-    #
-    ##########################################################################
 
     def non_memorised_count(self):
         return sum(1 for c in self.cards if (c.grade < 2) and \
                                              c.is_in_active_category())
 
-
-
-    ##########################################################################
-    #
-    # scheduled_count
-    #
-    #   Number of cards scheduled within 'days' days.
-    #
-    ##########################################################################
-
     def scheduled_count(self, days=0):
-        
-        days_from_start = start_date.days_since_start()
-        
+
+        """ Number of cards scheduled within 'days' days."""
+
+        days_from_start = self.start_date.days_since_start()
         return sum(1 for c in self.cards if (c.grade >= 2) and \
                             c.is_in_active_category() and \
                            (days_since_start >= c.next_rep - days))
 
-
-
-    ##########################################################################
-    #
-    # active_cards
-    #
-    #   Number of cards in an active category.
-    #
-    ##########################################################################
-
     def active_count(self):
+
+        """Number of cards in an active category."""
+
         return sum(1 for c in self.cards if c.is_in_active_category())
 
-
-
-    ##########################################################################
-    #
-    # average_easiness
-    #
-    ##########################################################################
-
     def average_easiness(self):
-
         if len(self.cards) == 0:
             return 2.5
         else:
             return sum(c.easiness for c in self.cards) / len(self.cards)
 
+    def set_filter(self, filter):
+        print "SQL filtering not implemented in pickle database."
 
+    # Todo: sort inline
 
-    ##########################################################################
-    #
-    # cards_due_for_ret_rep
-    #
-    ##########################################################################
-    
     def cards_due_for_ret_rep(self, sort_key=None):
-        
-        days_from_start = start_date.days_since_start()
-        
+        days_from_start = self.start_date.days_since_start()
         return (c for c in self.cards if (c.grade >= 2) and \
                             c.is_in_active_category() and \
                            (days_since_start >= c.next_rep)), False
 
-
-
-    ##########################################################################
-    #
-    # cards_due_for_final_review
-    #
-    ##########################################################################
-    
     def cards_due_for_final_review(self, grade, sort_key=None):
-       
         return (c for c in self.cards if c.grade == grade and c.lapses > 0 \
                                      and c.is_in_active_category()), False
 
-
-    ##########################################################################
-    #
-    # cards_new_memorising
-    #
-    ##########################################################################
-    
     def cards_new_memorising(self, grade, sort_key=None):
-       
         return (c for c in self.cards if c.grade == grade and c.lapses == 0 \
                    and c.acq_reps > 1 and c.is_in_active_category()), False
 
-
-    ##########################################################################
-    #
-    # cards_unseen
-    #
-    ##########################################################################
-    
     def cards_unseen(self, sort_key=None):
-       
         return (c for c in self.cards if (i.acq_reps <= 1) and \
                                       c.is_in_active_category()), False
-
-
-
-    ##########################################################################
-    #
-    # set_filter
-    #
-    ##########################################################################
-    
-    def set_filter(self, filter):
-        print "Filtering not implement for the pickle database"
