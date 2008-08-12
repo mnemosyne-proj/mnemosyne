@@ -53,9 +53,6 @@ class CardType(Component):
                 s.add(k)
         return s
 
-    # TODO: move the following to GUI controller? Or is that abstraction
-    # overkill?
-
     def create_new_cards(self, fact_data, grade, cat_names):
 
         """Create a new set of related cards, using the kind of information

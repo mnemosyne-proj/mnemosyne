@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>190</width>
+    <width>478</width>
     <height>273</height>
    </rect>
   </property>
@@ -22,23 +22,14 @@
    <iconset resource="mnemosyne.qrc" >
     <normaloff>:/mnemosyne/pixmaps/mnemosyne.png</normaloff>:/mnemosyne/pixmaps/mnemosyne.png</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>67</y>
-     <width>190</width>
-     <height>185</height>
-    </rect>
-   </property>
-  </widget>
+  <widget class="QWidget" name="centralwidget" />
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>190</width>
-     <height>28</height>
+     <width>478</width>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile" >
@@ -90,25 +81,8 @@
    <addaction name="menu_Settings" />
    <addaction name="menu_Help" />
   </widget>
-  <widget class="QStatusBar" name="statusbar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>252</y>
-     <width>190</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
+  <widget class="QStatusBar" name="statusbar" />
   <widget class="QToolBar" name="toolBar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>28</y>
-     <width>190</width>
-     <height>39</height>
-    </rect>
-   </property>
    <property name="windowTitle" >
     <string>toolBar</string>
    </property>

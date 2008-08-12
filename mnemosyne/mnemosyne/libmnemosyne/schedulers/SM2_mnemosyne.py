@@ -6,7 +6,6 @@
 
 import logging, random
 
-from mnemosyne.libmnemosyne.start_date import start_date
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 from mnemosyne.libmnemosyne.component_manager import get_database
@@ -31,14 +30,14 @@ class SM2Mnemosyne(Scheduler):
     ##########################################################################
 
     def __init__(self):
-        
+
         Scheduler.__init__(self, name="SM2 Mnemosyne",
                            description="Default scheduler")
 
         self.queue = []
 
 
-    
+
     ##########################################################################
     #
     # calculate_initial_interval
@@ -84,7 +83,7 @@ class SM2Mnemosyne(Scheduler):
     # rebuild_queue
     #
     ##########################################################################
-    
+
     def rebuild_queue(self, learn_ahead = False):
 
         self.queue = []
@@ -93,18 +92,13 @@ class SM2Mnemosyne(Scheduler):
 
         if not db.is_loaded():
             return
-    
+
         # Do the cards that are scheduled for today (or are overdue), but
         # first do those that have the shortest interval, as being a day
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 50.
 
-        card, sorted = db.cards_due_for_ret_rep(sort_key=Card.interval)
-
-        if not sorted:
-            cards.sort(key=Card.interval)
-
-        self.queue = cards
+        self.queue = [db.cards_due_for_ret_rep(sort_key=Card.interval)]
 
         if len(self.queue) != 0:
             return
@@ -117,7 +111,7 @@ class SM2Mnemosyne(Scheduler):
 
         limit = config["grade_0_items_at_once"]
 
-        grade_0, sorted = db.cards_due_for_final_review(grade = 0)
+        grade_0 = db.cards_due_for_final_review(grade = 0)
 
         grade_0_selected = []
 
@@ -132,21 +126,19 @@ class SM2Mnemosyne(Scheduler):
                 if len(grade_0_selected) == limit:
                     break
 
-        
-        grade_1, sorted = db.cards_due_for_final_review(grade = 1)
-        grade_1 = [grade_1]
+        grade_1 = [db.cards_due_for_final_review(grade=1)]
 
         self.queue += 2*grade_0_selected + grade_1
 
         random.shuffle(self.queue)
 
-        if len(grade_0_selected) == limit or len(self.queue) >= 10: 
+        if len(grade_0_selected) == limit or len(self.queue) >= 10:
             return
 
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
 
-        grade_0, sorted = db.cards_new_memorising(grade = 0)
+        grade_0 = db.cards_new_memorising(grade=0)
 
         grade_0_in_queue = len(grade_0_selected)
         grade_0_selected = []
@@ -162,15 +154,14 @@ class SM2Mnemosyne(Scheduler):
                 if len(grade_0_selected) + grade_0_in_queue == limit:
                     break
 
-        grade_1, sorted = db.cards_new_memorising(grade = 1)
-        grade_1 = [grade_]
+        grade_1 = [db.cards_new_memorising(grade=1)]
 
         self.queue += 2*grade_0_selected + grade_1
 
         random.shuffle(self.queue)
 
         if len(grade_0_selected) + grade_0_in_queue == limit or \
-           len(self.queue) >= 10: 
+           len(self.queue) >= 10:
             return
 
         # Now add some new cards. This is a bit inefficient at the moment as
@@ -178,13 +169,12 @@ class SM2Mnemosyne(Scheduler):
         # expression. However, in order to use random.choice, there doesn't
         # seem to be another option.
 
-        unseen, sorted = db.cards_unseen()
-        unseen = [unseen]
+        unseen = [db.cards_unseen()]
 
         grade_0_in_queue = sum(1 for i in self.queue if i.grade == 0)/2
         grade_0_selected = []
 
-        if limit != 0 and len(unseen) != 0:    
+        if limit != 0 and len(unseen) != 0:
             while True:
                 if config["randomise_new_cards"] == False:
                     new_card = unseen[0]
@@ -202,7 +192,7 @@ class SM2Mnemosyne(Scheduler):
                 if len(unseen) == 0 or \
                        len(grade_0_selected) + grade_0_in_queue == limit:
                     self.queue += grade_0_selected
-                    return      
+                    return
 
         # If we get to here, there are no more scheduled cards or new cards
         # to learn. The user can signal that he wants to learn ahead by

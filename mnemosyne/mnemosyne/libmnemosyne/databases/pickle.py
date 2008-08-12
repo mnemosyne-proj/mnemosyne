@@ -18,16 +18,26 @@ from mnemosyne.libmnemosyne.component_manager import *
 
 log = logging.getLogger("mnemosyne")
 
-database_header_line \
-        = "--- Mnemosyne Data Base --- Format Version %s ---" \
-          % mnemosyne.version.dbVersion
-
 
 class Pickle(Database):
 
-    """A simple storage backend, mainly for testing purposes. It does not
-    support filtering operations, so it cannot activate and deactivate
-    categories. It also is wasteful in memory during queries.
+    """A simple storage backend, mainly for testing purposes and to help
+    flesh out the design. It has several problems:
+
+    * It does not support filtering operations, so it cannot
+    activate and deactivate categories.
+
+    * Due to an obscure bug in SIP, we need to zero out the card type
+    info in fact, otherwise we get::
+
+    File "/usr/lib/python2.5/copy_reg.py", line 70, in _reduce_ex
+    state = base(self)
+    TypeError: the sip.wrapper type cannot be instantiated or sub-classed
+
+    * It is wasteful in memory during queries.
+
+    It would be possible to work around all these limitations, but doing so
+    would taint the design of the rest of the library.
 
     """
 
@@ -40,15 +50,13 @@ class Pickle(Database):
         self.load_failed = False
 
     def new(self, path):
-        if self.is_loaded != 0:
+        if self.is_loaded():
             self.unload()
         self.load_failed = False
         self.start_date = StartDate()
         config["path"] = path
         log.info("New database")
         self.save(contract_path(path, config.basedir))
-
-    # TODO: will we check the version string?
 
     def load(self, path):
         path = expand_path(path, config.basedir)
@@ -60,14 +68,11 @@ class Pickle(Database):
 
         try:
             infile = file(path, 'rb')
-            header_line = infile.readline().rstrip()
-            if not header_line.startswith("--- Mnemosyne Data Base"):
-                infile = file(path, 'rb')
             db = cPickle.load(infile)
-            start_date.start = db[0]
-            self.categories  = db[1]
-            self.facts       = db[2]
-            self.cards       = db[3]
+            self.start_date = db[0]
+            self.categories = db[1]
+            self.facts = db[2]
+            self.cards = db[3]
             infile.close()
             self.load_failed = False
         except:
@@ -88,6 +93,11 @@ class Pickle(Database):
     def save(self, path):
         path = expand_path(path, config.basedir)
 
+        # Work around a sip bug:
+
+        for f in self.facts:
+            f.card_type = None
+
         # Don't erase a database which failed to load.
 
         if self.load_failed == True:
@@ -96,8 +106,7 @@ class Pickle(Database):
             # Write to a backup file first, as shutting down Windows can
             # interrupt the dump command and corrupt the database.
             outfile = file(path + "~", 'wb')
-            print >> outfile, database_header_line
-            db = [start_date.start, self.categories, self.facts, self.cards]
+            db = [self.start_date, self.categories, self.facts, self.cards]
             cPickle.dump(db, outfile)
             print "saved database"
             outfile.close()
@@ -111,6 +120,7 @@ class Pickle(Database):
         self.save(config["path"])
         log.info("Saved database %d %d %d", self.scheduled_count(), \
                     self.non_memorised_count(), self.card_count())
+        self.start_date = None
         self.categories = []
         self.facts = []
         self.cards = []
@@ -159,7 +169,7 @@ class Pickle(Database):
         self.start_date = start_date_obj
 
     def days_since_start(self):
-        return self.days_since_start
+        return self.start_date.days_since_start()
 
     def add_category(self, category):
         raise NotImplementedError
@@ -206,7 +216,7 @@ class Pickle(Database):
     def add_card(self, card):
         self.load_failed = False
         self.cards.append(card)
-        new_interval = start_date.days_since_start() - card.next_rep
+        new_interval = self.days_since_start() - card.next_rep
         log.info("New card %s %d %d", card.id, card.grade, new_interval)
 
     def modify_card(self, id, modified_card):
@@ -229,8 +239,7 @@ class Pickle(Database):
         return len(self.cards)
 
     def non_memorised_count(self):
-        return sum(1 for c in self.cards if (c.grade < 2) and \
-                                             c.is_in_active_category())
+        return sum(1 for c in self.cards if (c.grade < 2))
 
     def scheduled_count(self, days=0):
 
@@ -238,14 +247,16 @@ class Pickle(Database):
 
         days_from_start = self.start_date.days_since_start()
         return sum(1 for c in self.cards if (c.grade >= 2) and \
-                            c.is_in_active_category() and \
                            (days_since_start >= c.next_rep - days))
 
     def active_count(self):
 
-        """Number of cards in an active category."""
+        """Number of cards in an active category.  (Remember we don't
+        support unactive categories in this database.)
 
-        return sum(1 for c in self.cards if c.is_in_active_category())
+        """
+
+        return len(self.cards)
 
     def average_easiness(self):
         if len(self.cards) == 0:
@@ -261,17 +272,14 @@ class Pickle(Database):
     def cards_due_for_ret_rep(self, sort_key=None):
         days_from_start = self.start_date.days_since_start()
         return (c for c in self.cards if (c.grade >= 2) and \
-                            c.is_in_active_category() and \
-                           (days_since_start >= c.next_rep)), False
+                           (days_since_start >= c.next_rep))
 
     def cards_due_for_final_review(self, grade, sort_key=None):
-        return (c for c in self.cards if c.grade == grade and c.lapses > 0 \
-                                     and c.is_in_active_category()), False
+        return (c for c in self.cards if c.grade == grade and c.lapses > 0)
 
     def cards_new_memorising(self, grade, sort_key=None):
         return (c for c in self.cards if c.grade == grade and c.lapses == 0 \
-                   and c.acq_reps > 1 and c.is_in_active_category()), False
+                   and c.acq_reps > 1)
 
     def cards_unseen(self, sort_key=None):
-        return (c for c in self.cards if (i.acq_reps <= 1) and \
-                                      c.is_in_active_category()), False
+        return (c for c in self.cards if (i.acq_reps <= 1))
