@@ -27,8 +27,8 @@ class Pickle(Database):
     * It does not support filtering operations, so it cannot
     activate and deactivate categories.
 
-    * Due to an obscure bug in SIP, we need to zero out the card type
-    info in fact, otherwise we get::
+    * Due to an obscure bug in SIP, we need to replace the card type
+    info in fact by a card type id, otherwise we get::
 
     File "/usr/lib/python2.5/copy_reg.py", line 70, in _reduce_ex
     state = base(self)
@@ -79,6 +79,11 @@ class Pickle(Database):
             self.load_failed = True
             raise InvalidFormatError(stack_trace=True)
 
+         # Work around a sip bug: don't store card types, but their ids.
+
+        for f in self.facts:
+            f.card_type = get_card_type_by_id(f.card_type)
+
         # TODO: This was to remove database inconsistencies. Still needed?
 
         #for c in self.categories:
@@ -93,10 +98,11 @@ class Pickle(Database):
     def save(self, path):
         path = expand_path(path, config.basedir)
 
-        # Work around a sip bug:
+        # Work around a sip bug: don't store card types, but their ids.
 
         for f in self.facts:
-            f.card_type = None
+            if type(f.card_type) != type("string"):
+                f.card_type = f.card_type.id
 
         # Don't erase a database which failed to load.
 

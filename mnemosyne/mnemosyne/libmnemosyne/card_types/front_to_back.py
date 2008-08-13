@@ -13,7 +13,7 @@ class FrontToBack(CardType):
 
     def __init__(self):
         CardType.__init__(self)
-
+        self.id = "1"
         self.name = _("Front-to-back only")
 
         # List and name the keys.

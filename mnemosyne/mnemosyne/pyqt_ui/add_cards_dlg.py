@@ -27,8 +27,13 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
         self.setupUi(self)
 
+        # We calculate card_type_by_name here rather than in the component
+        # manager, because these names can change if the user chooses another
+        # translation. TODO: test.
+
         for card_type in get_card_types():
             self.card_types.addItem(card_type.name)
+            self.card_type_by_name[card_type.name] = card_type
 
         # TODO: sort card types by id.
 
@@ -149,18 +154,4 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
     def preview(self):
         raise NotImplementedError()
 
-        if get_config("3_sided_input") == False:
-
-            dlg = PreviewItemDlg(unicode(self.question.text()),
-                                 unicode(self.answer.text()),
-                                 unicode(self.categories.currentText()),
-                                 self)
-        else:
-            dlg = PreviewItemDlg(unicode(self.question.text()),
-                                 unicode(QString(self.pronunciation.text()).\
-                                         append(QString("\n")).\
-                                         append(QString(self.answer.text()))),
-                                 unicode(self.categories.currentText()),
-                                 self)
-        dlg.exec_loop()
 

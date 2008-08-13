@@ -2,7 +2,6 @@
 # card_type.py <Peter.Bienstman@UGent.be>
 #
 
-#TODO: move these three imports?
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.component import Component
@@ -17,7 +16,7 @@ class CardType(Component):
     The keys from the fact are also given more verbose names here.
     This is not done in fact.py, on one hand to save space in the database,
     and on the other hand to allow the possibilty that different card types
-    give different names to the same key. ( E.g. foreign word' could be
+    give different names to the same key. (E.g. foreign word' could be
     called 'French' in a French card type, or'pronunciation' could be
     called 'reading' in a Kanji card type.)
 
@@ -27,6 +26,14 @@ class CardType(Component):
     """
 
     def __init__(self):
+
+        """A card type needs an id as well as a name, because the name can
+        change for different translations. The description is used when card
+        types are plugins, in order to give more information.
+
+        """
+
+        self.id = "-1"
         self.name = ""
         self.description = ""
 
@@ -56,7 +63,9 @@ class CardType(Component):
     def create_new_cards(self, fact_data, grade, cat_names):
 
         """Create a new set of related cards, using the kind of information
-        that is easily obtainable through a GUI."""
+        that is easily obtainable through a GUI.
+
+        """
 
         db = get_database()
 

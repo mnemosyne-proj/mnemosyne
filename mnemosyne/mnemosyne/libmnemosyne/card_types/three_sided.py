@@ -15,9 +15,11 @@ class ThreeSided(CardType):
         CardType.__init__(self)
 
         if not language_name:
+            self.id = "3"
             self.name = _("Foreign word with pronunciation")
             self.is_language = False
         else:
+            self.id = "3_" + language_name
             self.name = language_name
             self.is_language = True
 

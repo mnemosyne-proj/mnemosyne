@@ -1,26 +1,18 @@
-Mnemosyne 2.0: Major rewrite
-
--upgrade from Qt3 to Qt4 for improved speed, and the possibility to get rid
- of some interface quirks
--SQL backend for better speed and lower memory requirements. This will also
- lay the foundation for custom card types and make a port
- to mobile devices (Maemo, Windows Mobile, ...) possible.
-
 -import vs new card
 -get rid of get card_type by id?
 -duplicate check
 -map card type?
 
--get rid of pygame
+-get rid of pygame, use phonon
 -xml import tests (wcu, memaid, plconv)
+
+-being able to set the category
 
 -UI: related cards
 
 -http://apptools.com/examples/tableheight.php
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447
 
--instead of QListview, use the model/view framework from Qt4 to get a
- much faster 'Edit Deck'. Test deleting large number of cards.
 
 -modality of dialogs (mail by Nosai)
 
@@ -35,8 +27,6 @@ Mnemosyne 2.0: Major rewrite
 -checkbox to include inactive cards in statistics?
 
 -alt tabbing gives low res icon.
-
--Phonon backend instead of PyGame to improve sound playback
 
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
 

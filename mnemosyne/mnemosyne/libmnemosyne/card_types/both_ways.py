@@ -15,9 +15,11 @@ class BothWays(CardType):
         CardType.__init__(self)
 
         if not language_name:
+            self.id = "2"
             self.name = _("Front-to-back and back-to-front")
             self.is_language = False
         else:
+            self.id = "2_" + language_name
             self.name = language_name
             self.is_language = True
 
