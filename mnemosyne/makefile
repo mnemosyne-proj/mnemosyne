@@ -11,7 +11,7 @@ run-in-place:
 	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 
 test:
-	nosetests --with-coverage --with-doctests --cover-package=libmnemosyne
+	nosetests --with-coverage --with-doctest --cover-package=libmnemosyne
 
 windows:
 	rmdir /S /Q dist

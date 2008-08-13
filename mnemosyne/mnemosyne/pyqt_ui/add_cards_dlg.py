@@ -31,6 +31,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         # manager, because these names can change if the user chooses another
         # translation. TODO: test.
 
+        self.card_type_by_name = {}
         for card_type in get_card_types():
             self.card_types.addItem(card_type.name)
             self.card_type_by_name[card_type.name] = card_type
@@ -77,7 +78,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             self.card_widget.close()
 
         card_type_name = unicode(self.card_types.currentText())
-        card_type = get_card_type_by_name(card_type_name)
+        card_type = self.card_type_by_name[card_type_name]
 
         if card_type.widget == None:
             try:
@@ -126,15 +127,15 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
         card_type_name = unicode(self.card_types.currentText())
 
-        card_type = get_card_type_by_name(card_type_name)
+        card_type = self.card_type_by_name[card_type_name]
 
         card_type.create_new_cards(fact_data, grade, cat_names)
 
         get_database().save(config['path'])
 
-        # Update widget. TODO
+        # Update widget.
 
-        #self.question.setFocus()
+        self.card_widget.clear()
 
     def reject(self):
         if self.card_widget.get_data() is None:

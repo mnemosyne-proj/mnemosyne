@@ -21,6 +21,7 @@ class GenericCardTypeWdgt(QWidget):
         self.vboxlayout = QVBoxLayout()
 
         self.edit_boxes = {}
+        self.top_edit_box = None
 
         for fact_key, fact_key_name in self.card_type.fields:
             self.vboxlayout.addWidget(QLabel(fact_key_name + ":", self))
@@ -35,6 +36,9 @@ class GenericCardTypeWdgt(QWidget):
                 t.setMinimumSize(QSize(0,106))
             self.vboxlayout.addWidget(t)
             self.edit_boxes[t] = fact_key
+
+            if not self.top_edit_box:
+                self.top_edit_box = t
 
         self.hboxlayout.addLayout(self.vboxlayout)
 
@@ -55,3 +59,4 @@ class GenericCardTypeWdgt(QWidget):
     def clear(self):
         for edit_box in self.edit_boxes:
             edit_box.setText("")
+        self.top_edit_box.setFocus()
