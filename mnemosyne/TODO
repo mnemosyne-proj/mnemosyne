@@ -48,6 +48,7 @@
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
+-rename option of grade 0 cards in tooltips
 
 -move to sqlite backend (encode category hierarchy in name,
  multiple category fields per card)

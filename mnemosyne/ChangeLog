@@ -3,14 +3,31 @@ MNEMOSYNE 2.0
 (Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)
 
--renamed 'number of grade 0 card to learn at once' to 'number of grade 0
- cards to hold in your hand' (suggested by Kenneth Murphy).
 
 *** IMPORTANT UPGRADE NOTICE ***
 
 This version uses a different database format. Before upgrading, export your 
 old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
+
+
+	
+MNEMOSYNE 1.1.1 :
+
+(Note that for Windows users we recommend uninstalling the previous 
+version before doing an upgrade.)
+
+Databases opened by this version of Mnemosyne will no longer work under
+older versions.
+
+-Fixed 'learn new cards in random order' problem for imported cards (reported
+ by Adam McCough).
+-Fixed detection of relative paths under Windows (reported by E. Grannan).
+-Renamed 'number of grade 0 cards to learn at once' to 'number of grade 0
+ cards to hold in your hand' (suggested by Kenneth Murphy).
+-Updated Czech translation by Jiri Popelka and Petr Tomica.	
+
+	
 	
 MNEMOSYNE 1.1 : 2008-07-26
 
