@@ -285,7 +285,7 @@ class Pickle(Database):
 
     def cards_new_memorising(self, grade, sort_key=None):
         return (c for c in self.cards if c.grade == grade and c.lapses == 0 \
-                   and c.acq_reps > 1)
+                   and c.unseen == False)
 
     def cards_unseen(self, sort_key=None):
-        return (c for c in self.cards if (i.acq_reps <= 1))
+        return (c for c in self.cards if c.unseen == True)

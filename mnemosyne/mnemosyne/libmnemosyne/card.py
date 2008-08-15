@@ -33,6 +33,18 @@ class Card(object):
 
         self.reset_learning_data() # TODO: see where this is used and merge.
 
+        # Note: self.unseen is needed on top of self.acq_reps, because the
+        # initial grading of a manually added card is counted as the first
+        # repetition. An imported card has no such initial grading, and
+        # therefore we do the initial grading the first time we see it
+        # during the interactive learning process. Because of this,
+        # determining if a card has been seen during the interactive
+        # learning process can not be decided on the basis of acq_reps, but
+        # still that information is needed when randomly selecting
+        # unseen cards to learn.
+
+        self.unseen = True
+
         # The initial grading is seen as the first repetition.
 
         # TODO: check if the way we do this now still treats imports
@@ -115,6 +127,8 @@ class Card(object):
 
         self.last_rep  = 0 # In days since beginning.
         self.next_rep  = 0 #
+
+        self.unseen = True
 
 
 

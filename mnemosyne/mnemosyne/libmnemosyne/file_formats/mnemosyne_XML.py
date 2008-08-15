@@ -79,6 +79,16 @@ class Mnemosyne_XML_Importer(ContentHandler):
             self.card.next_rep = 0
             if attrs.get("n_rp"):
                 self.card.next_rep = int(float(attrs.get("n_rp")))
+
+            if attrs.get("u"):
+                self.item.unseen = self.to_bool(attrs.get("u"))
+            else:
+                if self.item.acq_reps <= 1 and \
+                       self.item.ret_reps == 0 and self.item.grade == 0:
+                    self.item.unseen = True
+                else:
+                    self.item.unseen = False
+
                 
         elif name == "category":
             self.active = self.to_bool(attrs.get("active"))
@@ -233,6 +243,7 @@ def write_card_XML(e, outfile, reset_learning_data=False):
 
     if reset_learning_data == False:
         print >> outfile, "<item id=\""+str(e.id) + "\"" \
+                         + " u=\""+bool_to_digit(e.unseen) + "\"" \
                          + " gr=\""+str(e.grade) + "\"" \
                          + " e=\""+ "%.3f" % e.easiness + "\"" \
                          + " ac_rp=\""+str(e.acq_reps) + "\"" \

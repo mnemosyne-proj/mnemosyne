@@ -5,8 +5,6 @@
 -get rid of pygame, use phonon
 -xml import tests (wcu, memaid, plconv)
 
--card.unseen
-
 -UI: related cards
 
 -http://apptools.com/examples/tableheight.php

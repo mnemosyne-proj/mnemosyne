@@ -213,9 +213,11 @@ def import_sm7qa(filename, default_cat, reset_learning_data=False):
                 if repetitions == 0:
                     card.acq_reps = 0
                     card.ret_reps = 0
+                    card.unseen = True
                 else:
                     card.acq_reps = 1
                     card.ret_reps = 1
+                    card.unseen = False
 
                 card.lapses = lapses
 

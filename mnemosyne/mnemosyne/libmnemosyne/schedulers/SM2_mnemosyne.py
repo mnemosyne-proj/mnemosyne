@@ -408,6 +408,7 @@ class SM2Mnemosyne(Scheduler):
         card.grade    = new_grade
         card.last_rep = days_since_start
         card.next_rep = days_since_start + new_interval + noise
+        card.unseen   = False
 
         # Don't schedule inverse or identical questions on the same day.
 
