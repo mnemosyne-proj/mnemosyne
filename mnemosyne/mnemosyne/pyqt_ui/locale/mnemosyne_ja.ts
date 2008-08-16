@@ -177,7 +177,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Select the categories to activate:</source>
-        <translation>選択するカテゴリーを選択してください:</translation>
+        <translation>カテゴリーを選択してください:</translation>
     </message>
     <message>
         <source>Activate none</source>
@@ -185,7 +185,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Activate all</source>
-        <translation>全部を選択する</translation>
+        <translation>すべてを選択</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -245,7 +245,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Duplicate not added.</source>
-        <translation>同じカードは追加しませんでした。</translation>
+        <translation>同じカードを追加しませんでした。</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -272,7 +272,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>&amp;Do not add</source>
-        <translation>&amp;記入しない</translation>
+        <translation>&amp;追加しない</translation>
     </message>
 </context>
 <context>
@@ -299,7 +299,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Add &amp;vice versa too</source>
-        <translation>&amp;逆も追加する</translation>
+        <translation>&amp;逆カード（答え・質問順番）も追加する</translation>
     </message>
     <message>
         <source>Alt+V</source>
@@ -307,7 +307,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Select initial grade:</source>
-        <translation>最初の評価:</translation>
+        <translation>最初のグレード:</translation>
     </message>
     <message>
         <source>&amp;0</source>
@@ -383,11 +383,11 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Type question and answer, then pick initial grade.</source>
-        <translation>質問と答えを記入して、最初の評価を選択する.</translation>
+        <translation>質問と答えを記入して、最初のグレードを選択する.</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;プレービュー</translation>
+        <translation type="obsolete">&amp;プレービュー</translation>
     </message>
     <message>
         <source>Ctrl+P</source>
@@ -400,6 +400,10 @@ TMPファイルを使っています。</translation>
     <message>
         <source>Alt+X</source>
         <translation>Alt+X</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>プレービュー</translation>
     </message>
 </context>
 <context>
@@ -518,6 +522,10 @@ TMPファイルを使っています。</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;キャンセル</translation>
+    </message>
+    <message>
+        <source>Learn new cards in random order</source>
+        <translation>新しいカードを無作為順番で習う</translation>
     </message>
 </context>
 <context>
@@ -732,6 +740,10 @@ so you might want to run </source>
         <source>Alt+X</source>
         <translation>Alt+X</translation>
     </message>
+    <message>
+        <source>Alt+F</source>
+        <translation>Alt+F</translation>
+    </message>
 </context>
 <context>
     <name>ExportDlg</name>
@@ -909,11 +921,11 @@ so you might want to run </source>
     </message>
     <message>
         <source>Show &amp;answer</source>
-        <translation>&amp;答えを表示する</translation>
+        <translation type="obsolete">&amp;答えを表示する</translation>
     </message>
     <message>
         <source>Learn ahead of schedule</source>
-        <translation>カードをスケジュールした日より早く復習する（すすめじゃない）</translation>
+        <translation>カードをスケジュールより早く復習する（おすすめではない）</translation>
     </message>
     <message>
         <source>Pick days until next repetition:</source>
@@ -934,6 +946,10 @@ so you might want to run </source>
     <message>
         <source>All: </source>
         <translation>全部のカード: </translation>
+    </message>
+    <message>
+        <source>Show answer</source>
+        <translation>答えを表示</translation>
     </message>
 </context>
 <context>
@@ -1413,12 +1429,40 @@ Happy learning!</source>
         <source>Number of cards with the following grades:
 
 </source>
-        <translation>下記のグレードのカードの枚数: 
+        <translation>カードのグレードの枚数: 
 </translation>
     </message>
     <message>
         <source>Grade</source>
         <translation>グレード</translation>
+    </message>
+    <message>
+        <source>No current card.</source>
+        <translation>カードが選択されていない.</translation>
+    </message>
+    <message>
+        <source>Grade:</source>
+        <translation>グレード:</translation>
+    </message>
+    <message>
+        <source>Easiness:</source>
+        <translation>やさしさ:</translation>
+    </message>
+    <message>
+        <source>Repetitions:</source>
+        <translation>何回見せた:</translation>
+    </message>
+    <message>
+        <source>Lapses:</source>
+        <translation>何回忘れた:</translation>
+    </message>
+    <message>
+        <source>Days since last repetition:</source>
+        <translation>復習した日から何日:</translation>
+    </message>
+    <message>
+        <source>Days until next repetition:</source>
+        <translation>もう一度復習する日まで何日:</translation>
     </message>
 </context>
 <context>
@@ -1450,6 +1494,10 @@ Happy learning!</source>
     <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Current card</source>
+        <translation>選択されたカード</translation>
     </message>
 </context>
 <context>
