@@ -108,20 +108,20 @@ def upload(filename):
 ##############################################################################
 
 class Uploader(Thread):
-    
+
     def run(self):
 
         basedir = config.basedir
-        
+
         join = os.path.join
-        
+
         logger = logging.getLogger("mnemosyne")
-    
+
         # Find out which files haven't been uploaded yet.
 
         dir = os.listdir(unicode(join(basedir, "history")))
         history_files = [x for x in dir if x[-4:] == ".bz2"]
-    
+
         uploaded = None
         try:
             upload_log = file(join(basedir, "history", "uploaded"))

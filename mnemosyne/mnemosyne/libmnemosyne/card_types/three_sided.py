@@ -13,7 +13,6 @@ class ThreeSided(CardType):
 
     def __init__(self, language_name=""):
         CardType.__init__(self)
-
         if not language_name:
             self.id = "3"
             self.name = _("Foreign word with pronunciation")
@@ -31,7 +30,7 @@ class ThreeSided(CardType):
 
         # Recognition.
 
-        v = FactView(_("Recognition"))
+        v = FactView(1, _("Recognition"))
         v.q_fields = ["f"]
         v.a_fields = ["p", "t"]
         v.required_fields = ["f"]
@@ -39,7 +38,7 @@ class ThreeSided(CardType):
 
         # Production.
 
-        v = FactView(_("Production"))
+        v = FactView(2, _("Production"))
         v.q_fields = ["t"]
         v.a_fields = ["f", "p"]
         v.required_fields = ["t"]

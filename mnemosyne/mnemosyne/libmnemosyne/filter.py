@@ -32,11 +32,11 @@ class Filter(Component):
     # Function to be implemented by the actual filter.
     #
     ##########################################################################
-        
+
     def run(self, text):
         raise NotImplementedError
 
 
 
 
-    
+

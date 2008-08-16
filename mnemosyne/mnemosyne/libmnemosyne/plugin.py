@@ -30,33 +30,33 @@ class Plugin(Component):
     ##########################################################################
 
     def __init__(self, name, description):
-        
+
         self.name         = name
         self.description  = description
         self.active       = False
-        
+
         component_manager.register("plugin", self)
 
 
-        
+
     ##########################################################################
     #
     # activate
     #
     ##########################################################################
-    
+
     def activate(self):
-        
+
         self.active = True
 
 
-    
+
     ##########################################################################
     #
     # deactivate
     #
     ##########################################################################
-    
+
     def deactivate(self):
-        
+
         self.active = False

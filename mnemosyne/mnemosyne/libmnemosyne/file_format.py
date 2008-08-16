@@ -15,7 +15,7 @@ from mnemosyne.libmnemosyne.component import Component
 ##############################################################################
 
 class FileFormat(Component):
-    
+
     ##########################################################################
     #
     # __init__
@@ -24,7 +24,7 @@ class FileFormat(Component):
     #  XML Files (*.xml *XML)".
     #
     ##########################################################################
-    
+
     def __init__(self, name, description, filename_filter):
 
         self.name            = name
@@ -40,7 +40,7 @@ class FileFormat(Component):
     # Functions to be implemented by the actual file format.
     #
     ##########################################################################
-        
+
     def do_import(self, filename, default_cat_name,
                   reset_learning_data=False):
         raise NotImplementedError
@@ -49,7 +49,7 @@ class FileFormat(Component):
                   reset_learning_data=False):
         raise NotImplementedError    
 
-    
+
 
 
 

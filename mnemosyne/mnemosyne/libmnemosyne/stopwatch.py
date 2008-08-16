@@ -22,7 +22,7 @@ class Stopwatch(object):
         self.running_time = 0
 
     def start(self):
-        
+
         self.start_time = time.time()
         self.running_time = 0
 
@@ -31,7 +31,7 @@ class Stopwatch(object):
         self.running_time += time.time() - self.start_time
 
     def unpause(self):
-        
+
         self.start_time = time.time()
 
     def stop(self):

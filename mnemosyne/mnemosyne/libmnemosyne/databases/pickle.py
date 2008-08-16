@@ -65,7 +65,6 @@ class Pickle(Database):
         if not os.path.exists(path):
             self.load_failed = True
             raise IOError
-
         try:
             infile = file(path, 'rb')
             db = cPickle.load(infile)
@@ -78,17 +77,12 @@ class Pickle(Database):
         except:
             self.load_failed = True
             raise InvalidFormatError(stack_trace=True)
-
          # Work around a sip bug: don't store card types, but their ids.
-
         for f in self.facts:
             f.card_type = get_card_type_by_id(f.card_type)
-
         # TODO: This was to remove database inconsistencies. Still needed?
-
         #for c in self.categories:
         #    self.remove_category_if_unused(c)
-
         config["path"] = contract_path(path, config.basedir)
         log.info("Loaded database %d %d %d", self.scheduled_count(), \
                     self.non_memorised_count(), self.card_count())
@@ -97,15 +91,11 @@ class Pickle(Database):
 
     def save(self, path):
         path = expand_path(path, config.basedir)
-
         # Work around a sip bug: don't store card types, but their ids.
-
         for f in self.facts:
             if type(f.card_type) != type("string"):
                 f.card_type = f.card_type.id
-
         # Don't erase a database which failed to load.
-
         if self.load_failed == True:
             return
         try:
@@ -136,34 +126,23 @@ class Pickle(Database):
     def backup(self):
         if not self.is_loaded():
             return
-
         backupdir = unicode(os.path.join(config.basedir, "backups"))
-
         # Export to XML. Create only a single file per day.
-
         db_name = os.path.basename(config["path"])[:-4]
-
         filename = db_name + "-" +\
                    datetime.date.today().strftime("%Y%m%d") + ".xml"
         filename = os.path.join(backupdir, filename)
-
         export_XML(filename, get_category_names(), reset_learning_data=False)
-
         # Compress the file.
-
         f = gzip.GzipFile(filename + ".gz", 'w')
         for l in file(filename):
             f.write(l)
         f.close()
-
         os.remove(filename)
-
         # Only keep the last logs.
-
         if config["backups_to_keep"] < 0:
             return
-
-        files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
+        files = [f for f in os.listdir(backupdir) if f.startswith(db_name+"-")]
         files.sort()
         if len(files) > config["backups_to_keep"]:
             os.remove(os.path.join(backupdir, files[0]))

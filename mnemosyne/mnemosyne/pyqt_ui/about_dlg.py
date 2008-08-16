@@ -16,15 +16,15 @@ import mnemosyne.version
 ##############################################################################
 
 class AboutDlg(AboutFrm):
-    
+
     ##########################################################################
     #
     # __init__
     #
     ##########################################################################
-    
+
     def __init__(self, parent=None, name=None, modal=0, fl=0):
-        
+
         AboutFrm.__init__(self,parent,name,modal,fl)
         self.about_label.setText(
             self.trUtf8("Mnemosyne").append(" " + \

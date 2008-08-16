@@ -22,7 +22,7 @@ class ListItem(QListViewItem):
     def __init__(self, parent, name, number):
         QListViewItem.__init__(self, parent, name, str(number))
         self.setMultiLinesEnabled(1)
-        
+
     def compare(self, item, column, ascending):
         if column == 0:
             return self.key(0,ascending).compare(item.key(0,ascending))
@@ -30,7 +30,7 @@ class ListItem(QListViewItem):
             return int(str(self.text(1))) - int(str(item.text(1)))
 
 
-        
+
 ##############################################################################
 #
 # StatisticsDlg
@@ -44,9 +44,9 @@ class StatisticsDlg(StatisticsFrm):
     # __init__
     #
     ##########################################################################
-    
+
     def __init__(self, parent=None, name=None, modal=0):
-        
+
         StatisticsFrm.__init__(self,parent,name,modal,
                               Qt.WStyle_MinMax | Qt.WStyle_SysMenu)
 
@@ -62,7 +62,7 @@ class StatisticsDlg(StatisticsFrm):
                  append(self.trUtf8("day(s) :")).\
                  append(QString(" " + str(cumulative-old_cumulative) + "\n"))
             old_cumulative = cumulative
-            
+
         self.schedule_info.setText(text)
 
         # Grade information.
@@ -83,7 +83,7 @@ class StatisticsDlg(StatisticsFrm):
                  append(QString(" " + str(grade) + " : " \
                     + str(grades[grade]) + " ("\
                     + ("%.1f" % (100.*grades[grade] / norm)) + " %)\n"))
-        
+
         self.grades_info.setText(text)
 
         # Category information.
@@ -98,4 +98,4 @@ class StatisticsDlg(StatisticsFrm):
 
         for cat in categories.keys():
             ListItem(self.category_info, cat, categories[cat])
-       
+

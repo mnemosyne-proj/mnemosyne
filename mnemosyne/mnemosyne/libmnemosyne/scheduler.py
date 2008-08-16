@@ -21,7 +21,7 @@ class Scheduler(Component):
     # Functions to be implemented by the actual scheduler.
     #
     ##########################################################################
-        
+
     def calculate_initial_interval(self, grade):
         raise NotImplementedError
 
@@ -30,15 +30,15 @@ class Scheduler(Component):
 
     def in_queue(self, card):
         raise NotImplementedError
-    
+
     def remove_from_queue(self, card):
         raise NotImplementedError
-    
+
     def get_new_question(self, learn_ahead = False):
         raise NotImplementedError
-    
+
     def process_answer(self, card, new_grade, dry_run=False):
         raise NotImplementedError
-    
+
     def clear_queue(self):
         raise NotImplementedError

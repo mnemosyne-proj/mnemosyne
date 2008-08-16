@@ -85,6 +85,15 @@ class Database(Component):
     def fact(self, id):
         raise NotImplementedError
 
+    def fact_in_database(self, fact_data):
+        raise NotImplementedError
+
+    def duplicates_for_fact(self, fact_data):
+
+        """Returns a fact with merged fields for the duplicates found."""
+
+         raise NotImplementedError
+
     def card(self, id):
         raise NotImplementedError
 

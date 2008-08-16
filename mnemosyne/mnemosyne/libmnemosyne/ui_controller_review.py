@@ -30,7 +30,7 @@ class UiControllerReview(Plugin):
         self.description         = description
         self.can_be_unregistered = can_be_unregistered
 
-        
+    
 
 
     ##########################################################################
@@ -41,7 +41,7 @@ class UiControllerReview(Plugin):
 
     def current_card(self):
         raise NotImplementedError        
-    
+
     def new_question(self):
         raise NotImplementedError
 

@@ -23,9 +23,9 @@ class PreviewItemDlg(PreviewItemFrm):
     # __init__
     #
     ##########################################################################
-    
+
     def __init__(self, q, a, cat, parent=None, name=None, modal=0, fl=0):
-        
+
         PreviewItemFrm.__init__(self,parent,name,modal,fl)
 
         if cat != self.trUtf8("<default>"):
@@ -44,7 +44,7 @@ class PreviewItemDlg(PreviewItemFrm):
             alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.WordBreak
         else:
             alignment = Qt.AlignHCenter | Qt.AlignVCenter | Qt.WordBreak
-            
+
         self.question.setAlignment(alignment)
         self.answer.setAlignment(alignment)
 

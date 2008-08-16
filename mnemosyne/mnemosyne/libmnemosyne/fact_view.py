@@ -7,9 +7,14 @@ from component_manager import get_fact_filters
 
 class FactView(object):
 
-    """Sequence of fields to from a fact to form a question and an answer."""
+    """Sequence of fields to from a fact to form a question and an answer.
+    A fact view needs an id as well as a name, because the name can
+    change for different translations.
 
-    def __init__(self, name):
+    """
+
+    def __init__(self, id, name):
+        self.id = id
         self.name = name
         self.q_fields = []
         self.a_fields = []
@@ -19,10 +24,8 @@ class FactView(object):
         for field in self.q_fields:
             key = field[0]
             s = fact[key]
-
-            for filter in get_fact_filters():
-                s = filter.run(s)
-
+            for f in get_fact_filters():
+                s = f.run(s)
             q += "<div id=\"%s\">%s</div>" % key, fact[key]
         return q
 
@@ -30,9 +33,7 @@ class FactView(object):
         for field in self.a_fields:
             key = field[0]
             s = fact[key]
-
-            for filter in get_fact_filters():
-                s = filter.run(s)
-
+            for f in get_fact_filters():
+                s = f.run(s)
             a += "<div id=\"%s\">%s</div>" % key, fact[key]
         return a

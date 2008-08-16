@@ -20,7 +20,7 @@ import pygame
 class SoundManager:
 
     def __init__(self):
-        
+
         self.queue = []
 
     def play(self, filename):

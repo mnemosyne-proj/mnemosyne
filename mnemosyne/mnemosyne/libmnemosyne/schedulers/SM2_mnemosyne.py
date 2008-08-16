@@ -289,6 +289,7 @@ class SM2Mnemosyne(Scheduler):
 
             # The card is not graded yet, e.g. because it is imported.
 
+            card.easiness = db.average_easiness()
             card.acq_reps = 1
             card.acq_reps_since_lapse = 1
 

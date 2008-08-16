@@ -24,9 +24,9 @@ class EditItemDlg(EditItemFrm):
     # __init__
     #
     ##########################################################################
-    
+
     def __init__(self, item, parent=None, name=None, modal=0, fl=0):
-        
+
         EditItemFrm.__init__(self,parent,name,modal,fl)
 
         self.item = item
@@ -41,10 +41,10 @@ class EditItemDlg(EditItemFrm):
 
         self.question.setText(self.item.q)
         self.answer.setText(self.item.a)
-        
+
         self.connect(self.ok_button,      SIGNAL("clicked()"), self.apply)
         self.connect(self.preview_button, SIGNAL("clicked()"), self.preview)
-        
+
         self.question.setFocus()
 
         if get_config("QA_font") != None:
@@ -53,7 +53,7 @@ class EditItemDlg(EditItemFrm):
             self.question.setFont(font)
             self.answer.setFont(font)
             #self.categories.setFont(font)
-            
+
         self.question.setTabChangesFocus(1)
         self.answer.setTabChangesFocus(1)
 
@@ -69,7 +69,7 @@ class EditItemDlg(EditItemFrm):
 
         return False
 
-        
+
 
     ##########################################################################
     #
@@ -78,28 +78,28 @@ class EditItemDlg(EditItemFrm):
     ##########################################################################
 
     def preview(self):
-        
+
         dlg = PreviewItemDlg(unicode(self.question.text()),
                              unicode(self.answer.text()),
                              unicode(self.categories.currentText()),
                              self)
         dlg.exec_loop()
 
-        
+
 
     ##########################################################################
     #
     # apply
     #
     ##########################################################################
-    
+
     def apply(self):
 
         new_cat_name = unicode(self.categories.currentText())
 
         if new_cat_name != self.item.cat.name:
             self.item.change_category(new_cat_name)   
-        
+
         self.item.q  = unicode(self.question.text())
         self.item.a  = unicode(self.answer.text())
 

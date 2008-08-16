@@ -39,12 +39,10 @@ class Fact(object):
         self.added = datetime.datetime.now()
         self.data = data
         self.card_type = card_type
-
         db = get_database()
         self.cat = []
         for cat_name in cat_names:
             self.cat.append(db.get_or_create_category_with_name(cat_name))
-
         if id is not None:
             digest = md5.new(str(self.data).encode("utf-8") + \
                              str(self.added)).hexdigest()
