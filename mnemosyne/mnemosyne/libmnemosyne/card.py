@@ -90,9 +90,6 @@ class Card(object):
     def interval(self):
         return self.next_rep - self.last_rep
 
-    def is_new(self):
-        return (self.acq_reps == 0) and (self.ret_reps == 0)
-
     # TODO: see which of these we still need and if they could be moved to
     # database
 

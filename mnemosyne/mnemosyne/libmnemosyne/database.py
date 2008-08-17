@@ -65,36 +65,33 @@ class Database(Component):
     def add_fact(self, fact):
         raise NotImplementedError
 
-    def modify_fact(self, id, modified_fact):
+    def update_fact(self, fact):
         raise NotImplementedError
 
-    def delete_fact(self, fact):
+    def delete_fact_and_its_cards(self, fact):
         raise NotImplementedError
 
-    def add_card(self, card): # should also link fact to new card
+    def add_card(self, card):
         raise NotImplementedError
 
-    def modify_card(self, id, modified_card):
-        raise NotImplementedError
-
-    def delete_card(self, id, card):
+    def update_card(self, card):
         raise NotImplementedError
 
     # Queries. TODO: check which ones we need more.
 
-    def fact(self, id):
+    def fact(self, id): # needed?
         raise NotImplementedError
 
-    def fact_in_database(self, fact_data):
+    def has_fact_with_data(self, fact_data):
         raise NotImplementedError
 
-    def duplicates_for_fact(self, fact_data):
+    def duplicates_for_fact(self, fact):
 
-        """Returns a fact with merged fields for the duplicates found."""
+        """Returns list of facts which have the same unique key."""
 
-         raise NotImplementedError
+        raise NotImplementedError
 
-    def card(self, id):
+    def card(self, id): : needed?
         raise NotImplementedError
 
     def fact_count(self):

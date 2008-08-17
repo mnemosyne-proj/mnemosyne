@@ -53,20 +53,3 @@ class CardType(Component):
                 s.add(k)
         return s
 
-    def create_new_cards(self, fact_data, grade, cat_names):
-
-        """Create a new set of related cards, using the kind of information
-        that is easily obtainable through a GUI.
-
-        """
-
-        db = get_database()
-        fact = Fact(fact_data, cat_names, self)
-        db.add_fact(fact)
-        for fact_view in self.fact_views:
-            card = Card(grade, fact, fact_view)
-            card.set_initial_grade(grade)
-            db.add_card(card)
-
-    def update_cards(self):
-        raise NotImplementedError

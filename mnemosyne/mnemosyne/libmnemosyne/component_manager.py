@@ -71,8 +71,6 @@ class ComponentManager():
 # The component manager needs to be accessed by many different parts of the
 # library, so we hold it in a global variable.
 
-print "Registering component manager"
-
 component_manager = ComponentManager()
 
 

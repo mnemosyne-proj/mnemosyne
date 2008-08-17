@@ -69,10 +69,7 @@ class SM2Controller(UiControllerReview):
 
     def __init__(self):
 
-        UiControllerReview.__init__(self, name="SM2 Controller",
-                                    description="Default review controller",
-                                    can_be_unregistered=False)
-
+        UiControllerReview.__init__(self, name="SM2 Controller")
         self.card = None
 
 

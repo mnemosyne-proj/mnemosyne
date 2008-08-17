@@ -177,7 +177,6 @@ class Pickle(Database):
                 if c.name == name:
                     return c
 
-
     # TODO: we used to check on name here. OK to check on instance?
 
     def remove_category_if_unused(self, cat):
@@ -192,11 +191,18 @@ class Pickle(Database):
         self.load_failed = False
         self.facts.append(fact)
 
-    def modify_fact(self, id, modified_fact):
-        raise NotImplementedError
+    def update_fact(self, fact):
+        return # Should happen automatically.
 
-    def delete_fact(self, fact):
-        raise NotImplementedError
+    def delete_fact_and_its_cards(self, fact):
+        old_cat = fact.cat
+        for c in self.cards:
+            if c.fact == fact:
+                self.cards.remove(c)
+        self.facts.remove(fact)
+        rebuild_revision_queue()
+        remove_category_if_unused(old_cat)
+        log.info("Deleted card %s", c.id)
 
     def add_card(self, card):
         self.load_failed = False
@@ -204,18 +210,24 @@ class Pickle(Database):
         new_interval = self.days_since_start() - card.next_rep
         log.info("New card %s %d %d", card.id, card.grade, new_interval)
 
-    def modify_card(self, id, modified_card):
-        raise NotImplementedError
+    def update_card(self, card):
+        return # Should happen automatically.
 
-    def delete_card(self, id, card):
-        raise NotImplementedError
+    def has_fact_with_data(self, fact_data):
+        for f in self.facts:
+            if f.data == fact_data:
+                return True
+        return False
 
-    def delete_card(c):
-        old_cat = c.cat
-        cards.remove(c)
-        rebuild_revision_queue()
-        remove_category_if_unused(old_cat)
-        log.info("Deleted card %s", c.id)
+    def duplicates_for_fact(self, fact):
+        duplicates = []
+        for f in (f for f in self.facts if f.card_type == fact.card_type \
+                                                 and f != fact):
+            for field in fact.card_type.unique_fields:
+                if f[field] == fact[field]:
+                    duplicates.append(f)
+                    break
+        return duplicates
 
     def category_names(self):
         return (c.name for c in self.categories)

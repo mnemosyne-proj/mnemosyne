@@ -6,15 +6,15 @@ version before doing an upgrade.)
 
 *** IMPORTANT UPGRADE NOTICE ***
 
-This version uses a different database format. Before upgrading, export your 
+This version uses a different database format. Before upgrading, export your
 old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 
 
-	
+
 MNEMOSYNE 1.1.1 :
 
-(Note that for Windows users we recommend uninstalling the previous 
+(Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)
 
 Databases opened by this version of Mnemosyne will no longer work under
@@ -25,10 +25,10 @@ older versions.
 -Fixed detection of relative paths under Windows (reported by E. Grannan).
 -Renamed 'number of grade 0 cards to learn at once' to 'number of grade 0
  cards to hold in your hand' (suggested by Kenneth Murphy).
--Updated Czech translation by Jiri Popelka and Petr Tomica.	
+-Updated Czech translation by Jiri Popelka and Petr Tomica.
+-Updated Japanese translation by Patrick Kenny.
 
-	
-	
+
 MNEMOSYNE 1.1 : 2008-07-26
 
 -Added statistics for the current card to the statistics window.
@@ -39,25 +39,25 @@ MNEMOSYNE 1.1 : 2008-07-26
  on startup, or to add the last grade to the answer text, or to add a new
  import file format (CSV in this case), or to create custom tags and run
  its contents in an external program.
--New cards can either be learned in random order or in the order that they 
+-New cards can either be learned in random order or in the order that they
  were added (configurable through the GUI).
--Prioritise cards forgotten during the review over cards which have not yet 
+-Prioritise cards forgotten during the review over cards which have not yet
  been committed to long-term memory.
--Improved scheduling of overdue cards, by placing those with a shorter 
- interval first. Being a day late on an interval of 2 could be much worse 
+-Improved scheduling of overdue cards, by placing those with a shorter
+ interval first. Being a day late on an interval of 2 could be much worse
  than being a day late on an interval of 50.
 -Fix some keyboard shortcut quirks (reported by Stephen Boulet and varkhan1).
 -Removed pyxml dependency. This fixes the "'module' object has no attribute
  'DefaultHandler'" error message on Ubuntu (Albert Damen).
 -Hebrew translation by Michal T.
 -Updated Japanese translation by Patrick Kenny.
-	
 
-	
+
+
 MNEMOSYNE 1.0.2 : 2008-07-10
 
 -Added import/export support for CueCard wcu files (Chris Aakre).
--Added features to improve display of map cards from svgtoquiz (Timothy 
+-Added features to improve display of map cards from svgtoquiz (Timothy
  Bourke).
 -Added support for Mac installer through py2app (Konrad Wojas).
 -On OSX, Mnemosyne now stores its data in Library/Mnemosyne (Konrad Wojas).
@@ -67,7 +67,7 @@ MNEMOSYNE 1.0.2 : 2008-07-10
  less compression, but a much faster program exit (suggested by Konrad Wojas).
 -Added midi files to "import sound" file dialog (suggested by Johan Forsberg).
 -Polish translation by Tomasz Nazarenko.
--Japanese translation by Patrick Kenny.	
+-Japanese translation by Patrick Kenny.
 -Persian translation by Bahman Eslami.
 -Brazilian Portugese translation by Fabio Kreusch.
 -Make dvipng invocation more robust. Especially helpful for Ubuntu users.
@@ -80,15 +80,15 @@ MNEMOSYNE 1.0.2 : 2008-07-10
 -Make import of Supermemo for Palm databases more robust (Felix Engel).
 -Make XML import from svgtoquiz more robust (bug reported by Mercado1).
 
-	
-	
+
+
 MNEMOSYNE 1.0.1.1 : 2008-03-22
-	
+
 -Disabled making grade 0 the keyboard default for cards with previous
  grades 0 or 1, as a (Py)Qt bug seems to make it unreliable under Windows
  (reported by Bernhard Blum).
-	
-	
+
+
 MNEMOSYNE 1.0.1 : 2008-03-16
 
 -Make grade 0 the keyboard default for cards with previous grades 0 or 1.
@@ -98,10 +98,10 @@ MNEMOSYNE 1.0.1 : 2008-03-16
  by smconv.pl from http://smconvpl.sourceforge.net (code by Felix Engel).
 -Make import of tab delimited files more robust (reported by nairbv).
 -Added new option in config.py (backups_to_keep) to be able to change the
- number of daily backups to keep. Set to -1 for no limit (requested by 
+ number of daily backups to keep. Set to -1 for no limit (requested by
  Patrick Kenny).
 -Added new option in config.py (day_starts_at) to be able to change the
- moment a new day starts (requested by Patrick Kenny).	
+ moment a new day starts (requested by Patrick Kenny).
 -On Windows, log errors to a file in the user's directory, as opposed to a
  file in a system directory (requested by nairbv).
 -Visually distinguish grades 0 and 1 from other grades (based on input
@@ -113,26 +113,26 @@ MNEMOSYNE 1.0.1 : 2008-03-16
 
 MNEMOSYNE 1.0 : 2007-12-27
 
-(Note that for Windows users we recommend uninstalling the previous 
+(Note that for Windows users we recommend uninstalling the previous
 version before doing an upgrade.)
 
 -Mnemosyne can now be run from a USB drive. Copy the Mnemosyne directory
- from C:\Program Files to your USB drive, and then copy the .mnemosyne 
+ from C:\Program Files to your USB drive, and then copy the .mnemosyne
  directory from inside your home directory to inside the Mnemosyne directory
  on the USB drive. Alternatively, you can start mnemosyne with the -d option
- to specify where .mnemosyne directory is located, e.g. 
+ to specify where .mnemosyne directory is located, e.g.
    F:\Mnemosyne\mnemosyne.exe -d F:\.mnemosyne
-	
+
  To run the Linux version from a USB key, untar the source file
- mnemosyne-X.X.tgz (with X.X the version number) to the USB key. Copy your 
- .mnemosyne directory to the USB key as well. Change to the directory where 
+ mnemosyne-X.X.tgz (with X.X the version number) to the USB key. Copy your
+ .mnemosyne directory to the USB key as well. Change to the directory where
  the USB key is mounted and type
 
  PYTHONPATH=mnemosyne-X.X python mnemosyne-X.X/mnemosyne/pyqt_ui/mnemosyne -d .
 
- (This assumes that the system you are working on has Python installed, as 
+ (This assumes that the system you are working on has Python installed, as
  well as all the libraries Mnemosyne requires.)
--new logo, thanks to a contributor whose name sadly got lost in the 
+-new logo, thanks to a contributor whose name sadly got lost in the
  demise of the open-collab site.
 -new icons, based on the Crystal iconset.
 -added tip of the day wizard.
@@ -140,11 +140,11 @@ version before doing an upgrade.)
  can contain Python scripts which will be executed at run time and
  which can be used to customise Mnemosyne or add new features.
 -when importing from tab separated txt files, the presence of 3 columns
- on a line gives results in the import of 3-sided cards (written form / 
+ on a line gives results in the import of 3-sided cards (written form /
  pronunciation / translation).
 -choosing 'reset learning data' on export now preserves the relationship
  between cards (for e.g. inverses and three-sided cards).
--automatically back up the database to XML on exit. The last five backups 
+-automatically back up the database to XML on exit. The last five backups
  are kept in .mnemosyne/backup.
 -support for multiple sound tags per field (requested by compiu).
 -removed a few rarely used options from the configuration dialog and
@@ -158,10 +158,10 @@ version before doing an upgrade.)
 -don't count inactive cards in the grade distribution in the statistics
  window (reported by Joonatan Kaartinen).
 -add support for translations. (German translation provided by Martin Mueller,
- Spanish by Daniel Alvarez Wise and Juan Alonsa, Dutch by Edwin de Jong) 
- The translation will be chosen automatically based on your system's 
- localisation, but can be overridden by editing the 'locale' variable in 
- .mnemosyne/config.py. 
+ Spanish by Daniel Alvarez Wise and Juan Alonsa, Dutch by Edwin de Jong)
+ The translation will be chosen automatically based on your system's
+ localisation, but can be overridden by editing the 'locale' variable in
+ .mnemosyne/config.py.
 -improved tooltips.
 -added desktop file, so that Mnemosyne shows up in the application menu
  under Linux.
@@ -169,7 +169,7 @@ version before doing an upgrade.)
  failed to parse.
 -log uploading now works if a proxy is needed to access the web.
 -added support for Unicode filenames.
--recreate user id from history folder in case the config file was 
+-recreate user id from history folder in case the config file was
  accidentally deleted.
 -don't exit when final save failed (requested by lebowski_404).
 -added more supported sound and picture formats.
@@ -177,13 +177,13 @@ version before doing an upgrade.)
  Guzialek).
 -fixed 'Save as' option.
 
-	
+
 MNEMOSYNE 0.9.10 : 2007-10-28
 
--added 3-sided cards, to make dealing with vocabulary in foreign scripts 
+-added 3-sided cards, to make dealing with vocabulary in foreign scripts
  easier. Right clicking the text field in 'add cards' gives you to option
  to switch to 3-sided card input, which replaces the question and answer
- fields by 3 fields: written form, pronunciation, translation. After 
+ fields by 3 fields: written form, pronunciation, translation. After
  selecting an initial grade, 2 cards will be added:
 
   Q: written form
@@ -194,59 +194,59 @@ MNEMOSYNE 0.9.10 : 2007-10-28
 
   Q: translation
   A: written form
-     pronunciation  
+     pronunciation
 
 -when creating multiple cards from the same data (either through add vice
  versa or the 3-sided input), the relationship between these cards is now
- stored. In a future version, this will make it possible that editing one 
+ stored. In a future version, this will make it possible that editing one
  card of the set automatically updates the other ones.
--added feature to insert an image or a sound tag by using a file selector. 
+-added feature to insert an image or a sound tag by using a file selector.
  Accessed through popup-menu or keyboard shortcuts.
 -remember more settings across invocations: file formats and directories,
  reset learning data, column width and sorting order, ...
 -rationalised keyboard shortcuts and menus. Added list of keyboard shortcuts
  to the website.
 -polished file dialogs.
--when possible, paths in the config file are now saved relative to the 
+-when possible, paths in the config file are now saved relative to the
  .mnemosyne directory rather than as absolute paths. This makes it easier
  to copy the .mnemosyne directory back and forth between a Linux and a
  Windows machine.
--respect duplicate handling configuration options when importing (reported 
+-respect duplicate handling configuration options when importing (reported
  by lebowski_404).
--latex output and error messages are now written to the file 
+-latex output and error messages are now written to the file
  .mnemosyne/latex/latex_out.txt rather than to the screen, so that they
  are not lost for Windows users.
--fixed bug when showing the statistics for an empty database (reported by 
+-fixed bug when showing the statistics for an empty database (reported by
  Gintautas Miliauskas).
 
 
 MNEMOSYNE 0.9.9 : 2007-08-16
 
 -added 'Show statistics' menu option, showing the schedule for the
- next week, the distribution of the items over the grades and the number 
+ next week, the distribution of the items over the grades and the number
  of items for each category.
 -added simple per-item statistics in pop-up menu in 'edit items'.
 -performance improvements.
--new latex tags, based on code by Christopher Gilbreth and bug reports by 
+-new latex tags, based on code by Christopher Gilbreth and bug reports by
  Jamned:
    -<$>...</$>         : for inline equations
    -<$$>...</$$>       : for centered equations on a separate line
    -<latex>...</latex> : for latex code not in a certain environment
  This means that the functionality of the old <latex>...</latex> tags is
- now taken over by <$>...</$>. However, there is no need to update your 
- items, as you can rely on the following new feature: 
+ now taken over by <$>...</$>. However, there is no need to update your
+ items, as you can rely on the following new feature:
 -don't abort on small latex errors which the latex interpreter can fix
  itself (like missing $) (requested by S. Scharrer).
 -the preamble and postamble used when processing the latex tags can now
- be customised by editing the files 'preamble' and 'postamble' in 
+ be customised by editing the files 'preamble' and 'postamble' in
  <home dir>/.mnemosyne/latex.
--the command invoking dvipng to create images from latex can now be 
+-the command invoking dvipng to create images from latex can now be
  customised by editing the file 'dvipng' in <home dir>/.mnemosyne/latex
--remember category and vice-versa settings across invocations when adding 
+-remember category and vice-versa settings across invocations when adding
  items.
 -add maximise button to add and edit items under Windows (thanks to
  pizzasource and S. Scharrer).
--respect setting 'number of grade 0 items to learn at once' to zero 
+-respect setting 'number of grade 0 items to learn at once' to zero
  (reported by pizzasource).
 -fix word wrap when using left alignment (reported by TomC).
 -don't abort when sound initialisation fails.
@@ -254,26 +254,26 @@ MNEMOSYNE 0.9.9 : 2007-08-16
 
 MNEMOSYNE 0.9.8.1: 2007-04-23
 
--fix scheduling bug when importing new grade 0 items (reported by Jim 
+-fix scheduling bug when importing new grade 0 items (reported by Jim
 Slattery).
--remove incorrect statement with respect to grade 2 behaviour from the 
-manual. In 0.9.8, the code was changed to be consistent with the old 
-manual. This has been reverted, so that grade 2 behaviour is again more 
+-remove incorrect statement with respect to grade 2 behaviour from the
+manual. In 0.9.8, the code was changed to be consistent with the old
+manual. This has been reverted, so that grade 2 behaviour is again more
 like 0.9.7.
 
 
 MNEMOSYNE 0.9.8: 2007-04-13
 
 -added sound support through tags like <sound src="a.wav">. The path to
- the sound file is either absolute or relative to the location of your 
- .mem file. To play the sound again, press the 'R' key in the main window. 
+ the sound file is either absolute or relative to the location of your
+ .mem file. To play the sound again, press the 'R' key in the main window.
  Supported file formats are wav, ogg and mp3. On Linux, this requires
  properly installing pygame and its dependencies like SDL.
 -add option to increase size of non-latin characters relative to latin
  characters (together with N. Kriha).
--disable 'edit item' as long as the answer is not shown, to prevent 
+-disable 'edit item' as long as the answer is not shown, to prevent
  accidentally revealing it (patch by D. Herrmann).
--fix handling of < inside latex tags (reported by jgurling, patch by N. 
+-fix handling of < inside latex tags (reported by jgurling, patch by N.
  Kriha).
 -warn when exiting an 'Add items' which contains an item which has not
  been added (requested by Airconditioning).
@@ -282,7 +282,7 @@ MNEMOSYNE 0.9.8: 2007-04-13
 -make button ordering more consistent in add items (reported by N. Kriha).
 -fixed handling of multiple latex tags (reported by M. Boespflug).
 -don't hang on latex errors (reported by M. Boespflug).
--make tab-separated import resistant to the presence of multiple tabs 
+-make tab-separated import resistant to the presence of multiple tabs
  (reported by J. Forrez).
 -fixed hang when end quotes are not present inside a tag.
 -fixed regression where the active flag of categories was not respected on
@@ -300,7 +300,7 @@ MNEMOSYNE 0.9.7: 2006-10-27
  their own line.
 -again respect window size set by user.
 -make delete button work in 'edit items' dialog (reported by J. Forrez).
--worked around oddity (extra first character in text file) when importing 
+-worked around oddity (extra first character in text file) when importing
  Word unicode text files.
 -various small interface cleanups and fixes.
 -updated documentation on the website.
@@ -308,23 +308,23 @@ MNEMOSYNE 0.9.7: 2006-10-27
 
 MNEMOSYNE 0.9.6: 2006-10-07
 
--added LaTeX support for formulas, e.g. <latex>x^2+y^2=z^2</latex>. For 
- this you need latex and dvipng installed. Windows users can download 
+-added LaTeX support for formulas, e.g. <latex>x^2+y^2=z^2</latex>. For
+ this you need latex and dvipng installed. Windows users can download
  MiKTeX. (thanks to input from Henrik Skov Midtiby and J. David Lee.)
 -added possibility to preview an item. Useful if you work with tags.
 -added import from SuperMemo7 text files (code thanks to Dirk Herrmann).
 -either space, enter or return can be used to show the answer. The default
  answer grade is set to 4, which once again can be chosen by either space,
  enter or return (patch by Dirk Herrmann).
--importing of txt files in utf8 unicode encoding now works (patch by Ian 
+-importing of txt files in utf8 unicode encoding now works (patch by Ian
  MacLean).
 -exporting to txt files now uses utf8 encoding.
 -the total number of items in the status bar now only takes into account
  items in active categories (patch by Mike Charlton).
--prevent infinite recursion when searching for an item that was recently 
+-prevent infinite recursion when searching for an item that was recently
  deleted.
 -the titlebar now displays unicode filenames correctly.
--after the window expands to accomodate a large item, it will shrink 
+-after the window expands to accomodate a large item, it will shrink
  back again.
 -fixed incorrect button text when switching databases.
 -new grade 0/1 items will now be scheduled after existing grade 0/1 items.
@@ -339,7 +339,7 @@ old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 
 -databases can now be moved back and forth between Windows and Unix.
--added 'Reset learning data on export' option. This makes it easier to 
+-added 'Reset learning data on export' option. This makes it easier to
  create a file to share with other people.
 -the database is now saved each time a new item is added.
 -fixed a bug where exporting to txt always exported all categories
@@ -353,7 +353,7 @@ MNEMOSYNE 0.9.4: 2006-06-04
 - category names are now sorted alphabetically.
 - relative path names now work for multiple img tags in the same string.
   (patch by J. David Lee).
-- removed leftover debug code which could cause problems with Unicode 
+- removed leftover debug code which could cause problems with Unicode
   items.
 
 MNEMOSYNE 0.9.3: 2006-05-25
@@ -361,7 +361,7 @@ MNEMOSYNE 0.9.3: 2006-05-25
 - relative paths can now be used in img tags, i.e. <img src="foo/bar.png">
   instead of <img src="/home/johndoe/.mnemosyne/foo/bar.png">. Paths are
   relative to the location of the *.mem file.
-- added ability to export to a txt file (only the questions and the 
+- added ability to export to a txt file (only the questions and the
   answers are exported).
 - added locking mechanism which warns you if you start a second
   instance of the program, which could lead to data loss.
@@ -371,10 +371,10 @@ MNEMOSYNE 0.9.2: 2006-03-25
 
 *** IMPORTANT UPGRADE NOTICE ***
 
-This version uses a different database format. Before upgrading, export your 
+This version uses a different database format. Before upgrading, export your
 old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
-	
+
 - only a limited number of grade 0 items is moved to the learning queue
   at a single time. This is 5 by default, but can be set through the
   configuration screen
@@ -390,7 +390,7 @@ MNEMOSYNE 0.9: 2006-02-08
 
 - first release of the new core.
 
-PYQT MEMAID 0.2.5: 2005-10-13 
+PYQT MEMAID 0.2.5: 2005-10-13
 
 - more bug fixes to work with recent versions of PyQt.
 - fix time offset bug when importing XML.
@@ -398,7 +398,7 @@ PYQT MEMAID 0.2.5: 2005-10-13
 PYQT MEMAID 0.2.4: 2005-09-25
 
 - honor the font setting in the input and edit dialogs.
-- update code to work with Superkaramba 0.36. Unicode is still a problem, 
+- update code to work with Superkaramba 0.36. Unicode is still a problem,
   though.
 - improve XML importing and exporting (Jarno Elonen)
 - pressing the 'find' button repeatedly will scroll through all occurences
@@ -409,7 +409,7 @@ PYQT MEMAID 0.2.3: 2005-02-10
 
 - changes to file format to fix occasional saving under Windows problem.
 - fix bug with regard to category corruption when deleting an item.
-  Thanks to Jarno Elonen for tracking this down. 
+  Thanks to Jarno Elonen for tracking this down.
 
 PYQT MEMAID 0.2.2: 2004-10-17
 

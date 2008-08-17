@@ -285,9 +285,10 @@ class SM2Mnemosyne(Scheduler):
         if actual_interval == 0:
             actual_interval = 1 # Otherwise new interval can become zero.
 
-        if card.is_new():
+        if  (card.acq_reps == 0) and (card.ret_reps == 0):
 
-            # The card is not graded yet, e.g. because it is imported.
+            # The card has not yet been given its initial grade, because it
+            @ was imported.
 
             card.easiness = db.average_easiness()
             card.acq_reps = 1
