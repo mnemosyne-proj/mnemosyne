@@ -77,9 +77,11 @@ class Pickle(Database):
         except:
             self.load_failed = True
             raise InvalidFormatError(stack_trace=True)
+            
          # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             f.card_type = get_card_type_by_id(f.card_type)
+            
         # TODO: This was to remove database inconsistencies. Still needed?
         #for c in self.categories:
         #    self.remove_category_if_unused(c)
@@ -91,10 +93,12 @@ class Pickle(Database):
 
     def save(self, path):
         path = expand_path(path, config.basedir)
+        
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             if type(f.card_type) != type("string"):
                 f.card_type = f.card_type.id
+    
         # Don't erase a database which failed to load.
         if self.load_failed == True:
             return
@@ -127,18 +131,21 @@ class Pickle(Database):
         if not self.is_loaded():
             return
         backupdir = unicode(os.path.join(config.basedir, "backups"))
+        
         # Export to XML. Create only a single file per day.
         db_name = os.path.basename(config["path"])[:-4]
         filename = db_name + "-" +\
                    datetime.date.today().strftime("%Y%m%d") + ".xml"
         filename = os.path.join(backupdir, filename)
         export_XML(filename, get_category_names(), reset_learning_data=False)
+        
         # Compress the file.
         f = gzip.GzipFile(filename + ".gz", 'w')
         for l in file(filename):
             f.write(l)
         f.close()
         os.remove(filename)
+        
         # Only keep the last logs.
         if config["backups_to_keep"] < 0:
             return
@@ -221,12 +228,13 @@ class Pickle(Database):
 
     def duplicates_for_fact(self, fact):
         duplicates = []
-        for f in (f for f in self.facts if f.card_type == fact.card_type \
-                                                 and f != fact):
-            for field in fact.card_type.unique_fields:
-                if f[field] == fact[field]:
-                    duplicates.append(f)
-                    break
+        for f in self.facts:
+            # Note that we need to work around the sip bug.
+            if f.card_type == fact.card_type.id and f != fact:
+                for field in fact.card_type.unique_fields:
+                    if f[field] == fact[field]:
+                        duplicates.append(f)
+                        break
         return duplicates
 
     def category_names(self):

@@ -7,10 +7,11 @@ from mnemosyne.libmnemosyne.component import Component
 
 class UiControllerReview(Component):
 
-    def __init__(self, name, description):
+    def __init__(self, name, description=""):
         self.name = name
         self.description = description
         self.widget = None
+        self.card = None
 
     def current_card(self):
         raise NotImplementedError

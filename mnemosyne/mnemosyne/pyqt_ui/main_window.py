@@ -34,38 +34,24 @@ from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.card import *
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import get_ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import get_ui_controller_review
 
-prefix = os.path.dirname(__file__)
+prefix = os.path.dirname(__file__) # TODO: still needed?
 
-
-
-
-##############################################################################
-#
-# MainWindow
-#
-##############################################################################
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
-    
     def __init__(self, filename, parent = None):
-        
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
-
+        get_ui_controller_main().widget = self
         self.update_review_widget()
 
-        
-        self.sched  = QLabel("", self.statusbar)  
-        self.notmem = QLabel("", self.statusbar)        
+        self.sched  = QLabel("", self.statusbar)
+        self.notmem = QLabel("", self.statusbar)
         self.all    = QLabel("", self.statusbar)
-        
+
         self.statusbar.addPermanentWidget(self.sched)
         self.statusbar.addPermanentWidget(self.notmem)
         self.statusbar.addPermanentWidget(self.all)
@@ -75,7 +61,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             initialise_user_plugins()
         except MnemosyneError, e:
             messagebox_errors(self, e)
-                
+
         if filename == None:
             filename = config["path"]
 
@@ -88,39 +74,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             get_database().new(filename)
 
-        
-    ##########################################################################
-    #
-    # update_review_widget
-    #
-    ##########################################################################
+
+    def information_box(self, message, OK_string):
+        QMessageBox.information(None, _("Mnemosyne"), message, OK_string)
+
+    def question_box(self, question, option0, option1, option2):
+        return QMessageBox.question(None, _("Mnemosyne"),
+                                    question, option0, option1, option2, 0, -1)
 
     def update_review_widget(self):
-
         w = self.centralWidget()
-
         if w:
             w.close()
             del w
-
         # TODO: remove hard coded widget.
-        
         self.setCentralWidget(ReviewWdgt())
-
-
         #self.adjustSize()
-        
+
     ##########################################################################
     #
     # resizeEvent
     #
     ##########################################################################
-    
+
     #def resizeEvent(self, e):
-    #    
+    #
     #    if e.spontaneous() == True:
     #        self.shrink = False
-        
+
     ##########################################################################
     #
     # fileNew
@@ -128,19 +109,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     ##########################################################################
 
     def fileNew(self):
-
         stopwatch.pause()
-
-		# TODO: improve basedir handling.
-		
+                # TODO: improve basedir handling.
         out = unicode(QFileDialog.getSaveFileName(basedir,
-                 _("Mnemosyne databases (*.mem)"), self, None,\
-                 _("New")))
+                                                  _("Mnemosyne databases (*.mem)"), self, None,\
+                                                  _("New")))
         if out != "":
-            
             if out[-4:] != ".mem":
                 out += ".mem"
-                
+
             if os.path.exists(out):
                 if not queryOverwriteFile(self, out):
                     stopwatch.unpause()
@@ -153,22 +130,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             load_database(config["path"])
 
         self.updateDialog()
-        
+
         stopwatch.unpause()
-            
-    ##########################################################################
-    #
-    # fileOpen
-    #
-    ##########################################################################
 
     def fileOpen(self):
-
         stopwatch.pause()
-                
+
         oldPath = expand_path(get_config("path"))
         out = unicode(QFileDialog.getOpenFileName(oldPath,\
-                 _("Mnemosyne databases (*.mem)"), self))
+                                                  _("Mnemosyne databases (*.mem)"), self))
         if out != "":
 
             try:
@@ -190,42 +160,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.updateDialog()
         stopwatch.unpause()
-                
-    ##########################################################################
-    #
-    # fileSave
-    #
-    ##########################################################################
-    
+
     def fileSave(self):
-
         stopwatch.pause()
-
         path = config["path"]
-        
         try:
             save_database(path)
         except MnemosyneError, e:
             messagebox_errors(self, e)
-
         stopwatch.unpause()
 
-    ##########################################################################
-    #
-    # fileSaveAs
-    #
-    ##########################################################################
 
     def fileSaveAs(self):
-        
         stopwatch.pause()
-
         oldPath = expand_path(config["path"])
         out = unicode(QFileDialog.getSaveFileName(oldPath,\
-                 _("Mnemosyne databases (*.mem)"), self))
-                         
+                                                  _("Mnemosyne databases (*.mem)"), self))
+
         if out != "":
-            
+
             if out[-4:] != ".mem":
                 out += ".mem"
 
@@ -233,97 +186,64 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if not queryOverwriteFile(self, out):
                     stopwatch.unpause()
                     return
-                
+
             try:
                 save_database(out)
             except MnemosyneError, e:
                 messagebox_errors(self, e)
                 stopwatch.unpause()
-                return            
+                return
 
         self.updateDialog()
         stopwatch.unpause()
-            
-    ##########################################################################
-    #
-    # Import
-    #
-    ##########################################################################
 
     def Import(self):
-
         stopwatch.pause()
-        
+
         from xml.sax import saxutils, make_parser
         from xml.sax.handler import feature_namespaces
 
         dlg = ImportDlg(self)
         dlg.exec_loop()
-         
+
         if self.card == None:
             self.newQuestion()
 
         self.updateDialog()
         stopwatch.unpause()
-        
-    ##########################################################################
-    #
-    # export
-    #
-    ##########################################################################
 
     def export(self):
-        
         stopwatch.pause()
-
         dlg = ExportDlg(self)
         dlg.exec_loop()
-                
         stopwatch.unpause()
-        
-    ##########################################################################
-    #
-    # fileExit
-    #
-    ##########################################################################
 
     def fileExit(self):
-        
         self.close()
-        
-    ##########################################################################
-    #
-    # addCards
-    #
-    ##########################################################################
 
     def addCards(self):
-        
         stopwatch.pause()
-        
         dlg = AddCardsDlg(self)
         dlg.exec_()
-        
-        if self.centralWidget().controller.current_card() == None:
-            self.centralWidget().controller.new_question()
-            
+        if get_ui_controller_review().card == None:
+            get_ui_controll_review().new_question()
         self.updateDialog()
         stopwatch.unpause()
-        
+
     ##########################################################################
     #
     # editCards
     #
     ##########################################################################
-    
+
     def editCards(self):
-        
+
         stopwatch.pause()
-        
+
         dlg = EditCardsDlg(self)
         dlg.exec_()
         rebuild_revision_queue()
-        
+
         if not in_revision_queue(self.card):
             self.newQuestion()
         else:
@@ -331,24 +251,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.updateDialog()
         stopwatch.unpause()
-        
+
     ##########################################################################
     #
     # cleanDuplicates
     #
     ##########################################################################
-    
+
     def cleanDuplicates(self):
-        
+
         stopwatch.pause()
-        
+
         self.statusbar.message(_("Please wait..."))
         clean_duplicates(self)
         rebuild_revision_queue()
-        
+
         if not in_revision_queue(self.card):
             self.newQuestion()
-            
+
         self.updateDialog()
         stopwatch.unpause()
 
@@ -357,22 +277,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # showStatistics
     #
     ##########################################################################
-    
+
     def showStatistics(self):
-        
+
         stopwatch.pause()
         dlg = StatisticsDlg(self)
         dlg.exec_()
         stopwatch.unpause()
-        
+
     ##########################################################################
     #
     # editCurrentCard
     #
     ##########################################################################
-    
+
     def editCurrentCard(self):
-        
+
         stopwatch.pause()
         dlg = EditCardDlg(self.card, self)
         dlg.exec_()
@@ -386,19 +306,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     ##########################################################################
 
     def deleteCurrentCard(self):
-        
+
         stopwatch.pause()
-        
+
         status = QMessageBox.warning(None,
-                    _("Mnemosyne"),
-                    _("Delete current card?"),
-                    _("&Yes"), _("&No"),
-                    QString(), 1, -1)
-        
+                                     _("Mnemosyne"),
+                                     _("Delete current card?"),
+                                     _("&Yes"), _("&No"),
+                                     QString(), 1, -1)
+
         if status == 0:
             delete_card(self.card)
             self.newQuestion()
-            
+
         self.updateDialog()
         stopwatch.unpause()
 
@@ -409,18 +329,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     ##########################################################################
 
     def activateCategories(self):
-        
+
         stopwatch.pause()
-        
+
         dlg = ActivateCategoriesDlg(self)
         dlg.exec_()
-        
+
         rebuild_revision_queue()
         if not in_revision_queue(self.card):
             self.newQuestion()
         else:
             remove_from_revision_queue(self.card) # It's already being asked.
-            
+
         self.updateDialog()
         stopwatch.unpause()
 
@@ -431,7 +351,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     ##########################################################################
 
     def showToolbar(self, active):
-        
+
         stopwatch.pause()
         if active:
             config["hide_toolbar"] = False
@@ -439,7 +359,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config["hide_toolbar"] = True
         self.updateDialog()
         stopwatch.unpause()
-        
+
     ##########################################################################
     #
     # configuration
@@ -447,7 +367,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     ##########################################################################
 
     def configuration(self):
-        
+
         stopwatch.pause()
         dlg = ConfigurationDlg(self)
         dlg.exec_loop()
@@ -457,10 +377,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.newQuestion()
         else:
             remove_from_revision_queue(self.card) # It's already being asked.
-            
+
         self.updateDialog()
         stopwatch.unpause()
-            
+
     ##########################################################################
     #
     # closeEvent
@@ -470,7 +390,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def closeEvent(self, event):
 
         # TODO: To implement
-        
+
         try:
             config.save()
             #backup_database()
@@ -486,43 +406,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # productTour
     #
     ##########################################################################
-    
+
     def productTour(self):
-        
+
         # TODO: activate tour.
 
         return
-        
+
         stopwatch.pause()
         dlg = ProductTourDlg(self)
         dlg.exec_()
         stopwatch.unpause()
-        
+
     ##########################################################################
     #
     # Tip
     #
     ##########################################################################
-    
+
     def Tip(self):
 
         # ToDO: activate tips.
 
         return
-        
+
         stopwatch.pause()
         dlg = TipDlg(self)
         dlg.exec_()
         stopwatch.unpause()
-        
+
     ##########################################################################
     #
     # helpAbout
     #
     ##########################################################################
-    
+
     def helpAbout(self):
-        
+
         stopwatch.pause()
         dlg = AboutDlg(self)
         dlg.exec_()

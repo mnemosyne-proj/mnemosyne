@@ -99,7 +99,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         cat_names = [unicode(self.categories.currentText())]
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
-        card_type.create_new_cards(fact_data, grade, cat_names)
+        c = get_ui_controller_main()
+        c.create_new_cards(fact_data, card_type, grade, cat_names)
         self.update_combobox(cat_names[-1])
         get_database().save(config['path'])
         self.card_widget.clear()

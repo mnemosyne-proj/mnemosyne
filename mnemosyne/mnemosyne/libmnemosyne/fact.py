@@ -3,7 +3,7 @@
 #
 
 import datetime
-import md5
+import hashlib
 
 from mnemosyne.libmnemosyne.component_manager import get_database
 
@@ -43,8 +43,8 @@ class Fact(object):
         self.cat = []
         for cat_name in cat_names:
             self.cat.append(db.get_or_create_category_with_name(cat_name))
-        if id is not None:
-            digest = md5.new(str(self.data).encode("utf-8") + \
+        if id is None:
+            digest = hashlib.md5(str(self.data).encode("utf-8") + \
                              str(self.added)).hexdigest()
             id = digest[0:8]
         self.id = id

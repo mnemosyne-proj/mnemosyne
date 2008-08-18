@@ -1,3 +1,4 @@
+import hashlib
 
 ##############################################################################
 #
@@ -12,7 +13,7 @@ def process_latex(latex_command):
     error_str = _("<b>Problem with latex. Are latex and dvipng installed?</b>")
     
     latexdir  = os.path.join(basedir, "latex")
-    imag_name = md5.new(latex_command.encode("utf-8")).hexdigest() + ".png"
+    imag_name = hashlib.md5(latex_command.encode("utf-8")).hexdigest() + ".png"
     imag_file = os.path.join(latexdir, imag_name)
 
     if not os.path.exists(imag_file):

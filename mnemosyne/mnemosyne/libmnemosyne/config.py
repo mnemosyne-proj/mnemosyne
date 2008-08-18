@@ -4,7 +4,7 @@
 #
 ##############################################################################
 
-import md5, random, os, sys, cPickle
+import hashlib, random, os, sys, cPickle
 
 from mnemosyne.libmnemosyne.exceptions import *
 
@@ -31,7 +31,6 @@ class Config(object):
     ##########################################################################
 
     def __init__(self):
-
         self._config = {}
 
 
@@ -268,7 +267,7 @@ day_starts_at = 3"""
         c.setdefault("reset_learning_data_export", False)
         c.setdefault("import_img_dir", self.basedir)
         c.setdefault("import_sound_dir", self.basedir)
-        c.setdefault("user_id",md5.new(str(random.random())).hexdigest()[0:8])
+        c.setdefault("user_id",hashlib.md5(str(random.random())).hexdigest()[0:8])
         c.setdefault("keep_logs", True)
         c.setdefault("upload_logs", True)
         c.setdefault("upload_server", "mnemosyne-proj.dyndns.org:80")

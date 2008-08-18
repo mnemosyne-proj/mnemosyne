@@ -1,8 +1,6 @@
-##############################################################################
 #
 # SM2-controller.py <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
 import os
 
@@ -52,46 +50,12 @@ def install_tooltip_strings(self):
         _("The interval was probably too short.")
 
 
-
-##############################################################################
-#
-# SM2Controller
-#
-##############################################################################
-
 class SM2Controller(UiControllerReview):
 
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
-
     def __init__(self):
-
         UiControllerReview.__init__(self, name="SM2 Controller")
-        self.card = None
-
-
-    ##########################################################################
-    #
-    # Functions to be implemented by the actual controller.
-    #
-    ##########################################################################
-
-    def current_card(self):
-        return self.card
-
-
-
-    ##########################################################################
-    #
-    # new_question
-    #
-    ##########################################################################
 
     def new_question(self, learn_ahead = False):
-
         if get_database().card_count() == 0:
             self.state = "EMPTY"
             self.card = None
@@ -101,61 +65,29 @@ class SM2Controller(UiControllerReview):
                 self.state = "SELECT SHOW"
             else:
                 self.state = "SELECT AHEAD"
-
         self.update_dialog()
-
         stopwatch.start()
 
-
-    ##########################################################################
-    #
-    # show_answer
-    #
-    ##########################################################################
-
     def show_answer(self):
-
         if self.state == "SELECT AHEAD":
             self.new_question(learn_ahead = True)
         else:
             stopwatch.stop()
             self.state = "SELECT GRADE"
-
         self.update_dialog()
 
-
-    ##########################################################################
-    #
-    # grade_answer
-    #
-    ##########################################################################
-
     def grade_answer(self, grade):
-
         # TODO: optimise by displaying new question before grading the
         # answer, provided the queue contains at least one card.
-
         interval = get_scheduler().process_answer(self.card, grade)
-
         self.new_question()
-
         # TODO: implement
         #if config["show_intervals"] == "statusbar":
         #    self.statusBar().message(_("Returns in") + " " + \
         #                             str(interval) + _(" day(s)."))
 
-
-
-    ##########################################################################
-    #
-    # update_dialog
-    #
-    ##########################################################################
-
     def update_dialog(self):
-
         w = self.widget
-
         # Update title.
 
         database_name = os.path.basename(config["path"])[:-4]

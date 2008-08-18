@@ -288,7 +288,7 @@ class SM2Mnemosyne(Scheduler):
         if  (card.acq_reps == 0) and (card.ret_reps == 0):
 
             # The card has not yet been given its initial grade, because it
-            @ was imported.
+            # was imported.
 
             card.easiness = db.average_easiness()
             card.acq_reps = 1

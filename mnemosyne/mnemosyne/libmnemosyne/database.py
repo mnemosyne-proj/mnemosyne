@@ -79,9 +79,6 @@ class Database(Component):
 
     # Queries. TODO: check which ones we need more.
 
-    def fact(self, id): # needed?
-        raise NotImplementedError
-
     def has_fact_with_data(self, fact_data):
         raise NotImplementedError
 
@@ -89,9 +86,6 @@ class Database(Component):
 
         """Returns list of facts which have the same unique key."""
 
-        raise NotImplementedError
-
-    def card(self, id): : needed?
         raise NotImplementedError
 
     def fact_count(self):

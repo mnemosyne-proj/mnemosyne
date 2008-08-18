@@ -180,10 +180,16 @@ def initialise_system_components():
 
     # UI controllers.
 
+    from mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller \
+                                                   import DefaultMainController
+
+    component_manager.register("ui_controller_main", DefaultMainController())
+
     from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
                                                    import SM2Controller
 
     component_manager.register("ui_controller_review", SM2Controller())
+
 
 
 ##############################################################################
