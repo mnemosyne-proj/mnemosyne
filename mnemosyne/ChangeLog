@@ -21,7 +21,7 @@ Databases opened by this version of Mnemosyne will no longer work under
 older versions.
 
 -Fixed 'learn new cards in random order' problem for imported cards (reported
- by Adam McCough).
+ by Adam McCaughan).
 -Fixed detection of relative paths under Windows (reported by E. Grannan).
 -Renamed 'number of grade 0 cards to learn at once' to 'number of grade 0
  cards to hold in your hand' (suggested by Kenneth Murphy).
