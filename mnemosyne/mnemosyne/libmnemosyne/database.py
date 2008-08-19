@@ -50,7 +50,7 @@ class Database(Component):
     def add_category(self, category):
         raise NotImplementedError
 
-    def modify_category(self, id, modified_category):
+    def modify_category(self, modified_category):
         raise NotImplementedError
 
     def delete_category(self, category):

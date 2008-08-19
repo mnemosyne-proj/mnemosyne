@@ -121,7 +121,7 @@ class SM2Controller(UiControllerReview):
 
         if self.state == "SELECT SHOW":
             w.question_box_visible(True)
-            if self.card.type.a_on_top_of_q:
+            if self.card.fact.card_type.a_on_top_of_q:
                 w.answer_box_visible(False)
         elif self.state == "SELECT GRADE":
             w.answer_box_visible(True)

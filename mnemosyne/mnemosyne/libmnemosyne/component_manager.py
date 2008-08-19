@@ -92,7 +92,7 @@ def get_card_types():
     return component_manager.get_all("card_type")
 
 def get_card_type_by_id(id):
-    return component_manager.get_card_type_by_id(id)
+    return component_manager.card_type_by_id[id]
 
 def get_fact_filters():
     return component_manager.get_all("fact_filter")

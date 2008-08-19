@@ -78,7 +78,7 @@ class Pickle(Database):
             self.load_failed = True
             raise InvalidFormatError(stack_trace=True)
             
-         # Work around a sip bug: don't store card types, but their ids.
+        # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             f.card_type = get_card_type_by_id(f.card_type)
             
@@ -96,8 +96,7 @@ class Pickle(Database):
         
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
-            if type(f.card_type) != type("string"):
-                f.card_type = f.card_type.id
+            f.card_type = f.card_type.id
     
         # Don't erase a database which failed to load.
         if self.load_failed == True:
@@ -108,13 +107,17 @@ class Pickle(Database):
             outfile = file(path + "~", 'wb')
             db = [self.start_date, self.categories, self.facts, self.cards]
             cPickle.dump(db, outfile)
-            print "saved database"
             outfile.close()
             shutil.move(path + "~", path) # Should be atomic.
         except:
             print traceback_string()
             raise SaveError()
         config["path"] = contract_path(path, config.basedir)
+        
+        # Work around sip bug again.
+        for f in self.facts:
+            f.card_type = get_card_type_by_id(f.card_type)
+        
 
     def unload(self):
         self.save(config["path"])
@@ -166,7 +169,7 @@ class Pickle(Database):
     def add_category(self, category):
         raise NotImplementedError
 
-    def modify_category(self, id, modified_category):
+    def modify_category(self, modified_category):
         raise NotImplementedError
 
     def delete_category(self, category):
@@ -175,7 +178,7 @@ class Pickle(Database):
     # TODO: benchmark this and see if we need a dictionary category_by_name.
 
     def get_or_create_category_with_name(self, name):
-        if name not in (c.name for c in self.categories):
+        if all(name != c.name for c in self.categories):
             category = Category(name)
             self.categories.append(category)
             return category
@@ -187,12 +190,12 @@ class Pickle(Database):
     # TODO: we used to check on name here. OK to check on instance?
 
     def remove_category_if_unused(self, cat):
-        for c in self.cards:
-            if cat == c.cat:
+        for f in self.facts:
+            if cat in f.cat:
                 break
         else:
+            self.categories.remove(cat)            
             del cat
-            self.categories.remove(cat)
 
     def add_fact(self, fact):
         self.load_failed = False
@@ -207,8 +210,9 @@ class Pickle(Database):
             if c.fact == fact:
                 self.cards.remove(c)
         self.facts.remove(fact)
-        rebuild_revision_queue()
-        remove_category_if_unused(old_cat)
+        get_scheduler().rebuild_queue()
+        for cat in old_cat:
+            self.remove_category_if_unused(cat)
         log.info("Deleted card %s", c.id)
 
     def add_card(self, card):
@@ -229,8 +233,7 @@ class Pickle(Database):
     def duplicates_for_fact(self, fact):
         duplicates = []
         for f in self.facts:
-            # Note that we need to work around the sip bug.
-            if f.card_type == fact.card_type.id and f != fact:
+            if f.card_type == fact.card_type and f != fact:
                 for field in fact.card_type.unique_fields:
                     if f[field] == fact[field]:
                         duplicates.append(f)

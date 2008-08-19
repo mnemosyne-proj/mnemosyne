@@ -28,3 +28,7 @@ class FrontToBack(CardType):
         v.a_fields = ["a"]
         v.required_fields = ["q"]
         self.fact_views.append(v)
+        
+        # The following field needs to be unique.
+        
+        self.unique_fields = ["q"]

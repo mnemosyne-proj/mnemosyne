@@ -9,8 +9,7 @@
     -toolbar with editing options (bold, latex, picture, ..)
 
 
--debug duplicate check
-
+-get reviewwidget from component manager
 -final bit of scheduler and database
 
 -map card type
