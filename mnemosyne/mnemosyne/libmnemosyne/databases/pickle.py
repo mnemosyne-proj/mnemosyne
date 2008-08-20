@@ -275,10 +275,13 @@ class Pickle(Database):
     def set_filter(self, filter):
         print "SQL filtering not implemented in pickle database."
 
+    # Note that in the SQL version, the following queries should use the
+    # filter from above.
+    
     # Todo: sort inline
 
     def cards_due_for_ret_rep(self, sort_key=None):
-        days_from_start = self.start_date.days_since_start()
+        days_since_start = self.start_date.days_since_start()
         return (c for c in self.cards if (c.grade >= 2) and \
                            (days_since_start >= c.next_rep))
 
@@ -291,3 +294,8 @@ class Pickle(Database):
 
     def cards_unseen(self, sort_key=None):
         return (c for c in self.cards if c.unseen == True)
+        
+    def cards_learn_ahead(self, sort_key=None):          
+        days_since_start = self.start_date.days_since_start()      
+        return (c for c in cards if c.grade >= 2 and \
+                days_since_start < c.next_rep)  

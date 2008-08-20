@@ -9,8 +9,9 @@
     -toolbar with editing options (bold, latex, picture, ..)
 
 
--get reviewwidget from component manager
+-cards are inverses
 -final bit of scheduler and database
+-sort inline in database
 
 -map card type
 
@@ -35,6 +36,8 @@
 -checkbox to include inactive cards in statistics?
 
 -alt tabbing gives low res icon.
+
+-better error reporting if home is not writeable
 
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
 

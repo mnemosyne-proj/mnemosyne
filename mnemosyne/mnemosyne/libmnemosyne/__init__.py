@@ -148,14 +148,12 @@ def initialise_system_components():
 
     component_manager.register("scheduler", SM2Mnemosyne())
 
-
     # Fact filters.
 
     from mnemosyne.libmnemosyne.filters.escape_to_html \
                                                    import EscapeToHtml
 
     component_manager.register("fact_filter", EscapeToHtml())
-
 
     # Card types.
 
@@ -191,23 +189,11 @@ def initialise_system_components():
     component_manager.register("ui_controller_review", SM2Controller())
 
 
-
-##############################################################################
-#
-# initialise_user_plugins
-#
-##############################################################################
-
 def initialise_user_plugins():
-
     basedir = config.basedir
-
     plugindir = unicode(os.path.join(basedir, "plugins"))
-
     sys.path.insert(0, plugindir)
-
     for plugin in os.listdir(plugindir):
-
         if plugin.endswith(".py"):
             try:
                 __import__(plugin[:-3])
@@ -215,24 +201,13 @@ def initialise_user_plugins():
                 raise PluginError(stack_trace=True)
 
 
-
-##############################################################################
-#
-# finalise
-#
-##############################################################################
-
 def finalise():
-
     global upload_thread
-
     if upload_thread:
         print "Waiting for uploader thread to stop..."
         upload_thread.join()
         print "done!"
-
     log.info("Program stopped")
-
     try:
         os.remove(os.path.join(config.basedir,"MNEMOSYNE_LOCK"))
     except OSError:

@@ -1,8 +1,6 @@
-##############################################################################
 #
-# Review widget <Peter.Bienstman@UGent.be>
+# review_wdgt.py <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
 import gettext
 _ = gettext.gettext
@@ -12,6 +10,7 @@ from PyQt4.QtGui import *
 
 from ui_review_wdgt import *
 
+from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import get_ui_controller_review
 from mnemosyne.libmnemosyne.config import config
 
@@ -30,28 +29,11 @@ body {  background-color: white;
 <body><table><tr><td></td></tr></table></body></html>
 """
 
-
-
-##############################################################################
-#
-# ReviewWdget
-#
-##############################################################################
-
 class ReviewWdgt(QWidget, Ui_ReviewWdgt):
     
-    ##########################################################################
-    #
-    # __init__
-    #
-    ##########################################################################
-    
     def __init__(self, parent = None):
-        
         QWidget.__init__(self, parent)
         self.setupUi(self)
-
-
         self.question.setHtml("""
 <html><head>
 
@@ -86,57 +68,24 @@ answer
 </td></tr></table></body></html>
 """)
 
-
         self.controller = get_ui_controller_review()
         self.controller.widget = self
-
-        self.card = None # To controller?
-
         self.grade_buttons = []
-
         self.grade_buttons.append(self.grade_0_button)
         self.grade_buttons.append(self.grade_1_button)
         self.grade_buttons.append(self.grade_2_button)
         self.grade_buttons.append(self.grade_3_button)
         self.grade_buttons.append(self.grade_4_button)
         self.grade_buttons.append(self.grade_5_button)
-
         self.controller.new_question()
 
-
-
-    ##########################################################################
-    #
-    # show_answer
-    #
-    ##########################################################################
-
     def show_answer(self):
-
         self.controller.show_answer() # TODO: update signal/slot
 
-
-
-    ##########################################################################
-    #
-    # gradeAnswer
-    #
-    ##########################################################################
-
     def gradeAnswer(self, grade):
-    
         self.controller.grade_answer(grade)
 
-
-
-    ##########################################################################
-    #
-    # next_rep_string
-    #
-    ##########################################################################
-
     def next_rep_string(self, days):
-
         if days == 0:
             return QString('\n') + self.trUtf8("Next repetition: today.")
         elif days == 1:
@@ -295,3 +244,7 @@ answer
         #if self.shrink == True:
         #    self.adjustSize()
 
+
+# Register widget.
+
+component_manager.register("review_widget",  ReviewWdgt)

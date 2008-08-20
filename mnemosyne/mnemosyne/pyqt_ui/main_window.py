@@ -9,13 +9,14 @@ _ = gettext.gettext
 
 # TODO: show toolbar
 
-import sys, os
+import sys
+import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ui_main_window import *
 
+import review_wdgt
 from add_cards_dlg import *
-from review_wdgt import *
 #from import_dlg import *
 #from export_dlg import *
 #from edit_item_dlg import *
@@ -86,8 +87,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if w:
             w.close()
             del w
-        self.setCentralWidget(get_ui_controller_review())
-
+        get_ui_controller_review().widget = \
+            component_manager.get_current("review_widget")()
+        self.setCentralWidget(get_ui_controller_review().widget)
 
     def fileNew(self):
         stopwatch.pause()
@@ -114,7 +116,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.pause()
         oldPath = expand_path(get_config("path"))
         out = unicode(QFileDialog.getOpenFileName(oldPath,\
-                                                  _("Mnemosyne databases (*.mem)"), self))
+                    _("Mnemosyne databases (*.mem)"), self))
         if out != "":
             try:
                 unload_database()
@@ -147,7 +149,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.pause()
         oldPath = expand_path(config["path"])
         out = unicode(QFileDialog.getSaveFileName(oldPath,\
-                                                  _("Mnemosyne databases (*.mem)"), self))
+                    _("Mnemosyne databases (*.mem)"), self))
         if out != "":
             if out[-4:] != ".mem":
                 out += ".mem"

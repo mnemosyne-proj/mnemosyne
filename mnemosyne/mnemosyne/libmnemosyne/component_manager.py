@@ -27,6 +27,7 @@ class ComponentManager():
        "card_type_widget"       card_type_widget class,
                                 used_for card_type class name
        "ui_controller_review"   ui_controller_review instance
+       "review_widget"          review_widget class
        ======================   ===============================
 
     """
