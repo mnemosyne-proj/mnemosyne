@@ -9,7 +9,7 @@ WIDGETS = ui_main_window.py ui_add_cards_dlg.py ui_review_wdgt.py
 
 default: $(WIDGETS)
 
-$(WIDGETS): ui_%.py: %.ui
+$(WIDGETS): Ui_%.py: %.ui
 	pyuic4 $< > $@
 
 clean:

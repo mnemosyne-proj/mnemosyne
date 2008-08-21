@@ -64,23 +64,23 @@ class Card(object):
         sch = get_scheduler()
         self.grade = grade
         self.easiness = db.average_easiness()
-        self.acq_reps = 1 #
-        self.acq_reps_since_lapse = 1 #
-        self.last_rep = db.days_since_start() #
-        new_interval = sch.calculate_initial_interval(grade) #
-        new_interval += sch.calculate_interval_noise(new_interval) #
-        self.next_rep = db.days_since_start() + new_interval #
+        self.acq_reps = 1
+        self.acq_reps_since_lapse = 1
+        self.last_rep = db.days_since_start()
+        new_interval = sch.calculate_initial_interval(grade)
+        new_interval += sch.calculate_interval_noise(new_interval)
+        self.next_rep = db.days_since_start() + new_interval
 
     def question(self):
         q = self.fact_view.question(self.fact)
         for f in get_card_filters():
-            q = f.run(q)
+            q = f.run(q, self)
         return q
 
     def answer(self):
         a = self.fact_view.answer(self.fact)
         for f in get_card_filters():
-            a = f.run(a)
+            a = f.run(a, self)
         return a
 
     def interval(self):

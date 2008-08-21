@@ -26,7 +26,7 @@ class FactView(object):
             key = field[0]
             s = fact[key]
             for f in get_fact_filters():
-                s = f.run(s)
+                s = f.run(s,  fact)
             q += "<div id=\"%s\">%s</div>" % (key, fact[key])
         return q
 
@@ -36,6 +36,6 @@ class FactView(object):
             key = field[0]
             s = fact[key]
             for f in get_fact_filters():
-                s = f.run(s)
+                s = f.run(s,  fact)
             a += "<div id=\"%s\">%s</div>" % (key, fact[key])
         return a

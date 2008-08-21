@@ -8,7 +8,7 @@ _ = gettext.gettext
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from ui_review_wdgt import *
+from Ui_review_wdgt import *
 
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import get_ui_controller_review
@@ -17,14 +17,11 @@ from mnemosyne.libmnemosyne.config import config
 _empty = """
 <html><head>
 <style type="text/css">
-
 table { height: 100%; }
-
-body {  background-color: white;
+body  { background-color: white;
         margin: 0;
         padding: 0;
         border: thin solid #8F8F8F; }
-        
 </style></head>
 <body><table><tr><td></td></tr></table></body></html>
 """
@@ -34,40 +31,6 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
     def __init__(self, parent = None):
         QWidget.__init__(self, parent)
         self.setupUi(self)
-        self.question.setHtml("""
-<html><head>
-
-<style type="text/css">
-
-table { margin-left: auto;
-        margin-right: auto; /* Centers the table, but not it's contents. */
-        height: 100%; }
-
-body {  color: black;
-        background-color: white;
-        margin: 0;
-        padding: 0;
-        border: thin solid #8F8F8F; }
-
-#q { font-weight: bold;
-     text-align: center; } /* Align contents within the cell. */
-        
-#a { color: green;
-     text-align: center; }
-        
-</style></head>
-<body><table><tr><td>
-
-<p id='q'>
-question
-</p>
-<p id='a'>
-answer
-</p>
-
-</td></tr></table></body></html>
-""")
-
         self.controller = get_ui_controller_review()
         self.controller.widget = self
         self.grade_buttons = []
@@ -80,9 +43,9 @@ answer
         self.controller.new_question()
 
     def show_answer(self):
-        self.controller.show_answer() # TODO: update signal/slot
+        self.controller.show_answer()
 
-    def gradeAnswer(self, grade):
+    def grade_answer(self, grade):
         self.controller.grade_answer(grade)
 
     def next_rep_string(self, days):
@@ -94,7 +57,6 @@ answer
             return QString('\n') + self.trUtf8("Next repetition in ").\
                    append(QString(str(days))).\
                    append(self.trUtf8(" days."))
-
 
     def set_window_title(self, title):
         self.setWindowTitle(title)
@@ -193,18 +155,6 @@ answer
     ##########################################################################
 
     def update_dialog(self):
-
-        # TODO: throw this option out?
-
-        # Update toolbar.
-
-        #if config["hide_toolbar"] == True:
-        #    self.parent.toolbar.hide()
-        #    self.actionShowToolbar.setChecked(0)
-        #else:
-        #    self.parent.toolbar.show()
-        #    self.actionShowToolbar.setChecked(1)
-
         # Update question and answer font.
 
         if config["QA_font"] != None:
@@ -218,7 +168,7 @@ answer
 
         # Update question and answer alignment.
 
-        # TODO: reimplement
+        # TODO: reimplement as a filter, or throw out?
 
         #if get_config("left_align") == True:
         #    alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.TextWordWrap
@@ -247,4 +197,4 @@ answer
 
 # Register widget.
 
-component_manager.register("review_widget",  ReviewWdgt)
+component_manager.register("review_widget", ReviewWdgt)

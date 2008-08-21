@@ -24,7 +24,7 @@ class EscapeToHtml(Filter):
     #
     ##########################################################################
 
-    def run(self, text):
+    def run(self, text, obj):
 
         hanging = []
         open = 0

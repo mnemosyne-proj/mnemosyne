@@ -112,7 +112,7 @@ class EditItemsDlg(EditItemsFrm):
             self.item_list.setSortColumn(get_config("sort_column"))
             self.item_list.setSortOrder(\
                 Qt.SortOrder(get_config("sort_order")))            
-        
+    
         if get_config("list_font") != None:
             font = QFont()
             font.fromString(get_config("list_font"))
@@ -378,7 +378,7 @@ class EditItemsDlg(EditItemsFrm):
                 f = iter.current()
                 break
             iter += 1
-                    
+                
         if f:
             self.find_button.setText(self.trUtf8("&Find again"))
             self.item_list.setFocus()
@@ -391,7 +391,7 @@ class EditItemsDlg(EditItemsFrm):
             self.last_search_str = None
             self.item_list.clearSelection()
             self.find()
-    
+
     ##########################################################################
     #
     # keyPressEvent

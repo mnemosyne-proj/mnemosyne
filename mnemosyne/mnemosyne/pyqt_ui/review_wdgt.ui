@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>329</width>
-    <height>378</height>
+    <height>389</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -265,5 +265,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>show_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewWdgt</receiver>
+   <slot>show_answer()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>164</x>
+     <y>283</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>164</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

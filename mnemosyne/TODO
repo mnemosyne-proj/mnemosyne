@@ -8,8 +8,8 @@
     -preview
     -toolbar with editing options (bold, latex, picture, ..)
 
--sort inline in database
--implement css stuff
+
+-connect grade buttons
 
 -map card type
 
@@ -48,6 +48,8 @@
 
 -reactivate keyboard default 0 for cards with grade 0 or 1.
 
+-remember size of edit card window
+
 -button to go to next card in the list
 
 -plugin for midi files
@@ -57,6 +59,9 @@
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
+
+-move to sqlite backend (encode category hierarchy in name,
+ multiple category fields per card)
 
 -easier function to do tag detection in plugin
 
@@ -84,6 +89,8 @@
 -does <p align="left"> work as advertised? Otherwise table tag.
 
 -consistent editing of vice versa and three-sided cards
+
+-remove 'check duplicates when adding' option?
 
 -gettext io Qt localisation? Still need it partly for Qt itself, though.
 

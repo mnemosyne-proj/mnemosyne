@@ -9,7 +9,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from mnemosyne.libmnemosyne.category import *
-from ui_add_cards_dlg import *
+from Ui_add_cards_dlg import *
 
 from mnemosyne.libmnemosyne.card_type import *
 from mnemosyne.libmnemosyne.config import config

@@ -13,10 +13,10 @@ class UiControllerReview(Component):
         self.widget = None
         self.card = None
 
-    def current_card(self):
-        raise NotImplementedError
-
     def new_question(self):
+        raise NotImplementedError    
+        
+    def show_answer(self):
         raise NotImplementedError
 
     # TODO: add update dialog, etc

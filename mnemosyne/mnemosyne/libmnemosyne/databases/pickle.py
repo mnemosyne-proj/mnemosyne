@@ -272,25 +272,45 @@ class Pickle(Database):
 
     # Note that in the SQL version, the following queries should use the
     # filter from above.
-
-    # Todo: sort inline
+    
+    def list_to_generator(self, list):
+        if list == None:
+            raise StopIteration
+        for x in list:
+            yield x
 
     def cards_due_for_ret_rep(self, sort_key=None):
         days_since_start = self.start_date.days_since_start()
-        return (c for c in self.cards if (c.grade >= 2) and \
-                           (days_since_start >= c.next_rep))
+        cards = [c for c in self.cards if c.grade >= 2 and \
+                    days_since_start >= c.next_rep]        
+        if sort_key:
+            cards.sort(key=sort_key)
+        return self.list_to_generator(cards)
 
     def cards_due_for_final_review(self, grade, sort_key=None):
-        return (c for c in self.cards if c.grade == grade and c.lapses > 0)
-
+        cards = [c for c in self.cards if c.grade == grade and c.lapses > 0]
+        if sort_key:
+            cards.sort(key=sort_key)
+        return self.list_to_generator(cards)
+                                      
     def cards_new_memorising(self, grade, sort_key=None):
-        return (c for c in self.cards if c.grade == grade and c.lapses == 0 \
-                   and c.unseen == False)
-
+        cards = [c for c in self.cards if c.grade == grade and c.lapses == 0 \
+                    and c.unseen == False]        
+        if sort_key:
+            cards.sort(key=sort_key)
+        return self.list_to_generator(cards)
+                                      
     def cards_unseen(self, sort_key=None):
-        return (c for c in self.cards if c.unseen == True)
-
+        cards = [c for c in self.cards if c.unseen == True]
+        if sort_key:
+            cards.sort(key=sort_key)
+        return self.list_to_generator(cards)
+                                      
     def cards_learn_ahead(self, sort_key=None):
         days_since_start = self.start_date.days_since_start()
-        return (c for c in cards if c.grade >= 2 and \
-                days_since_start < c.next_rep)
+        cards = [c for c in cards if c.grade >= 2 and \
+                    days_since_start < c.next_rep]        
+        if sort_key:
+            cards.sort(key=sort_key)
+        return self.list_to_generator(cards)
+                                      

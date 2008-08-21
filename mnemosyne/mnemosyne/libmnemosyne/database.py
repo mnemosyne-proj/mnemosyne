@@ -125,6 +125,6 @@ class Database(Component):
 
     def cards_unseen(self, sort_key=None):
         raise NotImplementedError
-        
+    
     def cards_learn_ahead(self, sort_key=None):
         raise NotImplementedError       
