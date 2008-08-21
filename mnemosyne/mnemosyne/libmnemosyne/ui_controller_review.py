@@ -19,7 +19,7 @@ class UiControllerReview(Component):
     def new_question(self):
         raise NotImplementedError
 
-    # TODO: add
+    # TODO: add update dialog, etc
 
 
 

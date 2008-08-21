@@ -77,11 +77,9 @@ class Pickle(Database):
         except:
             self.load_failed = True
             raise InvalidFormatError(stack_trace=True)
-            
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             f.card_type = get_card_type_by_id(f.card_type)
-            
         # TODO: This was to remove database inconsistencies. Still needed?
         #for c in self.categories:
         #    self.remove_category_if_unused(c)
@@ -93,11 +91,9 @@ class Pickle(Database):
 
     def save(self, path):
         path = expand_path(path, config.basedir)
-        
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             f.card_type = f.card_type.id
-    
         # Don't erase a database which failed to load.
         if self.load_failed == True:
             return
@@ -113,11 +109,10 @@ class Pickle(Database):
             print traceback_string()
             raise SaveError()
         config["path"] = contract_path(path, config.basedir)
-        
         # Work around sip bug again.
         for f in self.facts:
             f.card_type = get_card_type_by_id(f.card_type)
-        
+
 
     def unload(self):
         self.save(config["path"])
@@ -131,24 +126,24 @@ class Pickle(Database):
         return True
 
     def backup(self):
+        # TODO: implement
+        return
+
         if not self.is_loaded():
             return
         backupdir = unicode(os.path.join(config.basedir, "backups"))
-        
         # Export to XML. Create only a single file per day.
         db_name = os.path.basename(config["path"])[:-4]
         filename = db_name + "-" +\
                    datetime.date.today().strftime("%Y%m%d") + ".xml"
         filename = os.path.join(backupdir, filename)
         export_XML(filename, get_category_names(), reset_learning_data=False)
-        
         # Compress the file.
         f = gzip.GzipFile(filename + ".gz", 'w')
         for l in file(filename):
             f.write(l)
         f.close()
         os.remove(filename)
-        
         # Only keep the last logs.
         if config["backups_to_keep"] < 0:
             return
@@ -194,7 +189,7 @@ class Pickle(Database):
             if cat in f.cat:
                 break
         else:
-            self.categories.remove(cat)            
+            self.categories.remove(cat)
             del cat
 
     def add_fact(self, fact):
@@ -277,7 +272,7 @@ class Pickle(Database):
 
     # Note that in the SQL version, the following queries should use the
     # filter from above.
-    
+
     # Todo: sort inline
 
     def cards_due_for_ret_rep(self, sort_key=None):
@@ -294,8 +289,8 @@ class Pickle(Database):
 
     def cards_unseen(self, sort_key=None):
         return (c for c in self.cards if c.unseen == True)
-        
-    def cards_learn_ahead(self, sort_key=None):          
-        days_since_start = self.start_date.days_since_start()      
+
+    def cards_learn_ahead(self, sort_key=None):
+        days_since_start = self.start_date.days_since_start()
         return (c for c in cards if c.grade >= 2 and \
-                days_since_start < c.next_rep)  
+                days_since_start < c.next_rep)

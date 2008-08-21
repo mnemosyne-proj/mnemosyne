@@ -72,15 +72,13 @@ class Card(object):
         self.next_rep = db.days_since_start() + new_interval #
 
     def question(self):
-        card_type = get_card_type_by_id(self.card_type_id)
-        q = card_type.generate_q(self.fact, self.fact_view)
+        q = self.fact_view.question(self.fact)
         for f in get_card_filters():
             q = f.run(q)
         return q
 
     def answer(self):
-        card_type = get_card_type_by_id(self.card_type_id)
-        a = card_type.generate_a(self.fact, self.fact_view)
+        a = self.fact_view.answer(self.fact)
         for f in get_card_filters():
             a = f.run(a)
         return a

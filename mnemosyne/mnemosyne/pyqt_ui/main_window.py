@@ -72,7 +72,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             messagebox_errors(self, LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             get_database().new(filename)
-            
+
         get_ui_controller_review().new_question()
 
     def information_box(self, message, OK_string):
@@ -144,7 +144,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             messagebox_errors(self, e)
         stopwatch.unpause()
 
-
     def fileSaveAs(self):
         stopwatch.pause()
         oldPath = expand_path(config["path"])
@@ -190,9 +189,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.pause()
         dlg = AddCardsDlg(self)
         dlg.exec_()
-        if get_ui_controller_review().card == None:
-            get_ui_controller_review().new_question()
-        self.updateDialog()
+        controller = get_ui_controller_review()
+        if controller.card == None:
+            controller.new_question()
         stopwatch.unpause()
 
     def editCards(self):
@@ -231,9 +230,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.unpause()
 
     def deleteCurrentCard(self):
-        # TODO: ask user if he wants to delete all related cards, or only 
+        # TODO: ask user if he wants to delete all related cards, or only
         # deactivate this cardview?
-        
+
         stopwatch.pause()
         status = QMessageBox.warning(None,
                                      _("Mnemosyne"),
@@ -271,11 +270,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.unpause()
 
     def closeEvent(self, event):
-        # TODO: To implement
         try:
             config.save()
-            backup_database()
-            unload_database()
+            get_database().backup()
+            get_database().unload()
         except MnemosyneError, e:
             messagebox_errors(self, e)
             event.ignore()

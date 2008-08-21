@@ -137,7 +137,7 @@ class SM2Controller(UiControllerReview):
         if self.card == None:
             w.clear_question()
         else:
-            text = self.card.filtered_q()
+            text = self.card.question()
             #if increase_non_latin:
             #    text = set_non_latin_font_size(text, non_latin_size)
             w.set_question(text)
@@ -145,7 +145,7 @@ class SM2Controller(UiControllerReview):
         if self.card == None or self.state == "SELECT SHOW":
             w.clear_answer()
         else:
-            text = self.card.filtered_a()
+            text = self.card.answer()
             #if increase_non_latin:
             #    text = set_non_latin_font_size(text, non_latin_size)
             w.set_answer(text)

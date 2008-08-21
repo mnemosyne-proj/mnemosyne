@@ -21,19 +21,21 @@ class FactView(object):
         self.required_fields = []
 
     def question(self, fact):
+        q = ""
         for field in self.q_fields:
             key = field[0]
             s = fact[key]
             for f in get_fact_filters():
                 s = f.run(s)
-            q += "<div id=\"%s\">%s</div>" % key, fact[key]
+            q += "<div id=\"%s\">%s</div>" % (key, fact[key])
         return q
 
     def answer(self, fact):
+        a = ""
         for field in self.a_fields:
             key = field[0]
             s = fact[key]
             for f in get_fact_filters():
                 s = f.run(s)
-            a += "<div id=\"%s\">%s</div>" % key, fact[key]
+            a += "<div id=\"%s\">%s</div>" % (key, fact[key])
         return a

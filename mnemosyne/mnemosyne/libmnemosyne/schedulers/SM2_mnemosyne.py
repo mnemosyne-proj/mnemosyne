@@ -110,7 +110,7 @@ class SM2Mnemosyne(Scheduler):
                     new_card = random.choice(unseen)
                 unseen.remove(new_card)
                 for i in grade_0_selected:
-                    if cards_are_inverses(new_card, i):
+                    if new_card.fact == i.fact:
                         break
                 else:
                     grade_0_selected.append(new_card)
@@ -134,11 +134,11 @@ class SM2Mnemosyne(Scheduler):
     def in_queue(self, card):
         return card in self.queue
 
-    def remove_from_queue(self, card): 
-        
+    def remove_from_queue(self, card):
+
         """Remove a single instance of an card from the queue. Necessary when
         the queue needs to be rebuilt, and there is still a question pending.
-        
+
         """
 
         for i in self.queue:

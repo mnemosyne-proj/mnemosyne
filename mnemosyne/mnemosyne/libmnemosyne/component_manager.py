@@ -26,6 +26,7 @@ class ComponentManager():
        "card_type"              card_type instance
        "card_type_widget"       card_type_widget class,
                                 used_for card_type class name
+       "card_filter"            card_filter instance
        "ui_controller_review"   ui_controller_review instance
        "review_widget"          review_widget class
        ======================   ===============================
@@ -97,3 +98,6 @@ def get_card_type_by_id(id):
 
 def get_fact_filters():
     return component_manager.get_all("fact_filter")
+
+def get_card_filters():
+    return component_manager.get_all("card_filter")
