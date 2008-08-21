@@ -126,8 +126,9 @@ class SM2Controller(UiControllerReview):
             w.answer_box_visible(True)
         # Update question label.
         question_label_text = _("Question:")
-        if self.card != None and self.card.cat.name != _("<default>"):
-            question_label_text += " " + self.card.cat.name
+        if self.card != None and self.card.fact.cat[0].name != _("<default>"):
+            for c in self.card.fact.cat:
+                question_label_text += " " + c.name
         w.set_question_label(question_label_text)
         # TODO: optimisation to make sure that this does not run several
         # times during card display. People expect there custom filters
