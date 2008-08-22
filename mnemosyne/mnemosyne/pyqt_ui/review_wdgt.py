@@ -33,13 +33,15 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
         self.setupUi(self)
         self.controller = get_ui_controller_review()
         self.controller.widget = self
-        self.grade_buttons = []
-        self.grade_buttons.append(self.grade_0_button)
-        self.grade_buttons.append(self.grade_1_button)
-        self.grade_buttons.append(self.grade_2_button)
-        self.grade_buttons.append(self.grade_3_button)
-        self.grade_buttons.append(self.grade_4_button)
-        self.grade_buttons.append(self.grade_5_button)
+        self.grade_buttons = QButtonGroup()
+        self.grade_buttons.addButton(self.grade_0_button, 0)
+        self.grade_buttons.addButton(self.grade_1_button, 1)
+        self.grade_buttons.addButton(self.grade_2_button, 2)
+        self.grade_buttons.addButton(self.grade_3_button, 3)
+        self.grade_buttons.addButton(self.grade_4_button, 4)
+        self.grade_buttons.addButton(self.grade_5_button, 5)
+        self.connect(self.grade_buttons, SIGNAL("buttonClicked(int)"),\
+                    self.grade_answer)
         self.controller.new_question()
 
     def show_answer(self):

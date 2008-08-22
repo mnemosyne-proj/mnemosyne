@@ -2,7 +2,9 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component_manager import *
+from mnemosyne.libmnemosyne.component_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import get_scheduler
+from mnemosyne.libmnemosyne.component_manager import get_card_filters
 
 
 class Card(object):
@@ -10,7 +12,6 @@ class Card(object):
     """A card is formed when a fact view operates on a fact."""
 
     def __init__(self, fact, fact_view):
-
         self.fact = fact
         self.fact_view = fact_view
         self.id = self.fact.id + "." + str(self.fact_view.id)
@@ -82,26 +83,13 @@ class Card(object):
         for f in get_card_filters():
             a = f.run(a, self)
         return a
+        
+    interval = property(lambda self : self.next_rep - self.last_rep)
+    
+    days_since_last_rep = property(lambda self : \
+                            get_database().days_since_start - self.last_rep)
+                            
+    days_until_next_rep = property(lambda self : \
+                            self.next_rep - get_database().days_since_start)
 
-    def interval(self):
-        return self.next_rep - self.last_rep
 
-    # TODO: see which of these we still need and if they could be moved to
-    # database
-
-    def sort_key(self):
-        return self.next_rep
-
-    def sort_key_newest(self):
-        return self.acq_reps + self.ret_reps
-
-    def days_since_last_rep(self):
-        return days_since_start - self.last_rep
-
-    def days_until_next_rep(self):
-        return self.next_rep - days_since_start
-
-    def change_category(self, new_cat_name):
-        old_cat = self.cat
-        self.cat = get_category_by_name(new_cat_name)
-        remove_category_if_unused(old_cat)

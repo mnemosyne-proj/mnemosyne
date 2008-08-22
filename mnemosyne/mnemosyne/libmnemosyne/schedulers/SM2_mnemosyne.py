@@ -4,11 +4,13 @@
 
 import logging
 import random
+import copy
 
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 from mnemosyne.libmnemosyne.component_manager import get_database
 from mnemosyne.libmnemosyne.config import config
+from mnemosyne.libmnemosyne.stopwatch import stopwatch
 
 log = logging.getLogger("mnemosyne")
 
@@ -49,7 +51,7 @@ class SM2Mnemosyne(Scheduler):
         # first do those that have the shortest interval, as being a day
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 50.
-        self.queue = list(db.cards_due_for_ret_rep(sort_key=Card.interval))
+        self.queue = list(db.cards_due_for_ret_rep(sort_key="interval"))
         if len(self.queue) != 0:
             return
         # Now rememorise the cards that we got wrong during the last stage.
@@ -58,7 +60,7 @@ class SM2Mnemosyne(Scheduler):
         # cards in left in the queue, append more new cards to keep some
         # spread between these last cards.
         limit = config["grade_0_cards_at_once"]
-        grade_0 = db.cards_due_for_final_review(grade = 0)
+        grade_0 = db.cards_due_for_final_review(grade=0)
         grade_0_selected = []
         if limit != 0:
             for i in grade_0:
@@ -67,7 +69,6 @@ class SM2Mnemosyne(Scheduler):
                         break
                 else:
                     grade_0_selected.append(i)
-
                 if len(grade_0_selected) == limit:
                     break
         grade_1 = list(db.cards_due_for_final_review(grade=1))
@@ -122,14 +123,17 @@ class SM2Mnemosyne(Scheduler):
         # to learn. The user can signal that he wants to learn ahead by
         # calling rebuild_revision_queue with 'learn_ahead' set to True.
         # Don't shuffle this queue, as it's more useful to review the
-        # earliest scheduled cards first.
+        # earliest scheduled cards first. We only put 5 cards at the same
+        # time into the queue, in order to save memory.
+        # TODO: this requires the user to click 'learn ahead of schedule'
+        # again after 5 cards. See if we can improve this.
         if learn_ahead == False:
             return
         else:
-            # TODO: get only a limited numbers of cards at the same time.
-            self.queue = list(db.cards_learn_ahead(sort_key=Card.next_rep))
-            [i for i in cards \
-                              if i.qualifies_for_learn_ahead()]
+            for card in db.cards_learn_ahead(sort_key="next_rep"):
+                self.queue.append(card)
+                if len(self.queue) >= 5:
+                    return
 
     def in_queue(self, card):
         return card in self.queue
@@ -158,6 +162,8 @@ class SM2Mnemosyne(Scheduler):
         return card
 
     def process_answer(self, card, new_grade, dry_run=False):
+        db = get_database()
+        days_since_start = db.days_since_start()
         # When doing a dry run, make a copy to operate on. Note that this
         # leaves the original in cards and the reference in the GUI intact.
         if dry_run:
@@ -207,11 +213,6 @@ class SM2Mnemosyne(Scheduler):
              card.acq_reps_since_lapse = 0
              card.ret_reps_since_lapse = 0
              new_interval = 0
-             # Move this card to the front of the list, to have precedence
-             # over cards which are still being learned for the first time.
-             if not dry_run:
-                 cards.remove(card)
-                 cards.insert(0,card)
         elif card.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
             # In the retention phase and staying there.
             card.ret_reps += 1
@@ -250,26 +251,24 @@ class SM2Mnemosyne(Scheduler):
         if dry_run:
             return new_interval
         # Add some randomness to interval.
-        noise = calculate_interval_noise(new_interval)
+        noise = self.calculate_interval_noise(new_interval)
         # Update grade and interval.
         card.grade = new_grade
         card.last_rep = days_since_start
         card.next_rep = days_since_start + new_interval + noise
         card.unseen = False
-        # Don't schedule inverse or identical questions on the same day.
-        for j in cards:
-            if (j.q == card.q and j.a == card.a) or cards_are_inverses(card,j):
-                if j != card and j.next_rep == card.next_rep \
-                  and card.grade >= 2:
-                    card.next_rep += 1
-                    noise += 1
+        # Don't schedule related cards on the same day.
+        for c in db.cards_from_fact(card.fact):
+            if c != card and c.next_rep == card.next_rep and card.grade >= 2:
+                card.next_rep += 1
+                noise += 1
         # Create log entry.
         log.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
                     card.id, card.grade, card.easiness,
                     card.acq_reps, card.ret_reps, card.lapses,
                     card.acq_reps_since_lapse, card.ret_reps_since_lapse,
                     scheduled_interval, actual_interval,
-                    new_interval, noise, thinking_time)
+                    new_interval, noise, stopwatch.time())
         return new_interval + noise
 
     def clear_queue(self):

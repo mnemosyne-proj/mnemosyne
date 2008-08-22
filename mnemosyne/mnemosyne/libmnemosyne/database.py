@@ -45,8 +45,6 @@ class Database(Component):
 
     # Adding, modifying and deleting categories, facts and cards.
 
-    # TODO: join add and modify into save?
-
     def add_category(self, category):
         raise NotImplementedError
 
@@ -76,8 +74,11 @@ class Database(Component):
 
     def update_card(self, card):
         raise NotImplementedError
-
-    # Queries. TODO: check which ones we need more.
+        
+    def cards_from_fact(self, fact):
+        return NotImplementedError
+        
+    # Queries.
 
     def has_fact_with_data(self, fact_data):
         raise NotImplementedError
@@ -112,19 +113,22 @@ class Database(Component):
         raise NotImplementedError
 
     # The following functions should return an iterator, in order to 
-    # save memory.
+    # save memory. sort_key is an attribute of card to be used for sorting.
+    # (Note that this is different from the sort key used to sort lists in
+    # the Python itself, in order to allow easier interfacing with SQL.)
 
-    def cards_due_for_ret_rep(self, sort_key=None):
+    def cards_due_for_ret_rep(self, sort_key=""):
         raise NotImplementedError
 
-    def cards_due_for_final_review(self, grade, sort_key=None):
+    def cards_due_for_final_review(self, grade, sort_key=""):
         raise NotImplementedError
 
-    def cards_new_memorising(self, grade, sort_key=None):
+    def cards_new_memorising(self, grade, sort_key=""):
         raise NotImplementedError
 
-    def cards_unseen(self, sort_key=None):
+    def cards_unseen(self, sort_key=""):
         raise NotImplementedError
     
-    def cards_learn_ahead(self, sort_key=None):
-        raise NotImplementedError       
+    def cards_learn_ahead(self, sort_key=""):
+        raise NotImplementedError
+

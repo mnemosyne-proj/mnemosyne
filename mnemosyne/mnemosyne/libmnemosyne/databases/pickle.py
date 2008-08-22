@@ -3,7 +3,7 @@
 #
 
 # TODO: abstract out logging messages so that they are automatically the
-#  same in the other databases?
+# same in the other databases?
 
 import logging, os, cPickle, datetime, gzip, shutil
 import mnemosyne.version
@@ -218,7 +218,10 @@ class Pickle(Database):
 
     def update_card(self, card):
         return # Should happen automatically.
-
+        
+    def cards_from_fact(self, fact):
+        return [c for c in self.cards if c.fact == fact]
+        
     def has_fact_with_data(self, fact_data):
         for f in self.facts:
             if f.data == fact_data:
@@ -248,7 +251,7 @@ class Pickle(Database):
 
         """ Number of cards scheduled within 'days' days."""
 
-        days_from_start = self.start_date.days_since_start()
+        days_since_start = self.days_since_start()
         return sum(1 for c in self.cards if (c.grade >= 2) and \
                            (days_since_start >= c.next_rep - days))
 
@@ -279,38 +282,38 @@ class Pickle(Database):
         for x in list:
             yield x
 
-    def cards_due_for_ret_rep(self, sort_key=None):
+    def cards_due_for_ret_rep(self, sort_key=""):
         days_since_start = self.start_date.days_since_start()
         cards = [c for c in self.cards if c.grade >= 2 and \
                     days_since_start >= c.next_rep]        
         if sort_key:
-            cards.sort(key=sort_key)
+            cards.sort(key=lambda c : getattr(c, sort_key))
         return self.list_to_generator(cards)
 
-    def cards_due_for_final_review(self, grade, sort_key=None):
+    def cards_due_for_final_review(self, grade, sort_key=""):
         cards = [c for c in self.cards if c.grade == grade and c.lapses > 0]
         if sort_key:
-            cards.sort(key=sort_key)
+            cards.sort(key=lambda c : getattr(c, sort_key))
         return self.list_to_generator(cards)
                                       
-    def cards_new_memorising(self, grade, sort_key=None):
+    def cards_new_memorising(self, grade, sort_key=""):
         cards = [c for c in self.cards if c.grade == grade and c.lapses == 0 \
                     and c.unseen == False]        
         if sort_key:
-            cards.sort(key=sort_key)
+            cards.sort(key=lambda c : getattr(c, sort_key))
         return self.list_to_generator(cards)
                                       
-    def cards_unseen(self, sort_key=None):
+    def cards_unseen(self, sort_key=""):
         cards = [c for c in self.cards if c.unseen == True]
         if sort_key:
-            cards.sort(key=sort_key)
+            cards.sort(key=lambda c : getattr(c, sort_key))
         return self.list_to_generator(cards)
                                       
-    def cards_learn_ahead(self, sort_key=None):
+    def cards_learn_ahead(self, sort_key=""):
         days_since_start = self.start_date.days_since_start()
-        cards = [c for c in cards if c.grade >= 2 and \
+        cards = [c for c in self.cards if c.grade >= 2 and \
                     days_since_start < c.next_rep]        
         if sort_key:
-            cards.sort(key=sort_key)
+            cards.sort(key=lambda c : getattr(c, sort_key))
         return self.list_to_generator(cards)
                                       

@@ -30,6 +30,8 @@ class ComponentManager():
        "ui_controller_review"   ui_controller_review instance
        "review_widget"          review_widget class
        ======================   ===============================
+       
+       TODO: plugin, function hook
 
     """
 

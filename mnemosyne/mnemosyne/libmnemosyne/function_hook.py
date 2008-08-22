@@ -1,3 +1,5 @@
+#TODO: see where we need hook points
+
 ##############################################################################
 #
 # function_hook.py <Peter.Bienstman@UGent.be>

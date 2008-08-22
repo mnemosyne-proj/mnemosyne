@@ -40,7 +40,7 @@ class CardType(Component):
         self.unique_fields = []
         self.is_language = False
         self.widget = None
-        self.css = ""
+        self.css = "" # TODO: read from file if exists.
         self.a_on_top_of_q = False
 
     def required_fields(self):

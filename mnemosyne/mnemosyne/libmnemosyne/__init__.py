@@ -1,20 +1,18 @@
-##############################################################################
 #
 # libmnemosyne <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
-##############################################################################
-#
-# This file contains functionality to initialise initialise and finalise
-# libmnemosyne in a typical scenario.
-#
-# The initialise routine is not called automatically upon importing the
-# library, so that it can be overridden to suit specific requirements.
-#
-##############################################################################
+"""This file contains functionality to initialise initialise and finalise
+libmnemosyne in a typical scenario.
 
-import logging, os, sys
+The initialise routine is not called automatically upon importing the
+library, so that it can be overridden to suit specific requirements.
+
+"""
+
+import logging
+import os
+import sys
 
 import mnemosyne.version
 from mnemosyne.libmnemosyne.config import config
@@ -24,22 +22,13 @@ from mnemosyne.libmnemosyne.exceptions import *
 # TODO: move these import to initialise, and automatically loop through
 # all the contents of the directories?
 
-
-
 log = logging.getLogger("mnemosyne")
 
 
-
-##############################################################################
-#
-# initialise
-#
-#   Note: running user plugins is best done after the GUI has been created,
-#   in order to be able to provide feedback about errors to the user.
-#
-##############################################################################
-
 def initialise(basedir):
+    
+    """Note: running user plugins is best done after the GUI has been created,
+    in order to be able to provide feedback about errors to the user."""
 
     initialise_system_components()
     config.initialise(basedir)
@@ -49,91 +38,49 @@ def initialise(basedir):
     initialise_error_handling()
 
 
-
-##############################################################################
-#
-# initialise_lockfile
-#
-##############################################################################
-
 def initialise_lockfile():
-
     lockfile = file(os.path.join(config.basedir,"MNEMOSYNE_LOCK"),'w')
     lockfile.close()
-
-
-
-##############################################################################
-#
-# initialise_new_empty_database
-#
-##############################################################################
+    
 
 def initialise_new_empty_database():
-
     from mnemosyne.libmnemosyne.component_manager import get_database
-
     filename = config["path"]
-
     if not os.path.exists(os.path.join(config.basedir, filename)):
         get_database().new(os.path.join(config.basedir, filename))
 
 
 
-##############################################################################
-#
-# initialise_logging
-#
-##############################################################################
-
 upload_thread = None
-
 def initialise_logging():
-
     global upload_thread
-
     from mnemosyne.libmnemosyne.logger import archive_old_log, start_logging
     from mnemosyne.libmnemosyne.logger import Uploader
-
     archive_old_log()
-
     start_logging()
-
     if config["upload_logs"]:
         upload_thread = Uploader()
         upload_thread.start()
-
     log.info("Program started : Mnemosyne " + mnemosyne.version.version \
              + " " + os.name + " " + sys.platform)
 
 
-
-##############################################################################
-#
-# initialise_error_handling
-#
-##############################################################################
-
 def initialise_error_handling():
-
-    # Write errors to a file (otherwise this causes problem on Windows).
-
+    
+    """Write errors to a file (otherwise this causes problem on Windows)."""
+    
     if sys.platform == "win32":
         error_log = os.path.join(basedir, "error_log.txt")
         sys.stderr = file(error_log, 'a')
 
 
-
-##############################################################################
-#
-# initialise_system_components
-#
-#  These are now hard coded, but if needed, an application could
-#  override this.
-#
-##############################################################################
-
 def initialise_system_components():
+    
+    """These are now hard coded, but if needed, an application could 
+    override this.
+    
+    """
+    
     # Database.
     from mnemosyne.libmnemosyne.databases.pickle import Pickle
     component_manager.register("database", Pickle())
@@ -193,4 +140,3 @@ def finalise():
     except OSError:
         print "Failed to remove lock file."
         print traceback_string()
-

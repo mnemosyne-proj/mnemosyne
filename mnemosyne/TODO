@@ -9,7 +9,8 @@
     -toolbar with editing options (bold, latex, picture, ..)
 
 
--connect grade buttons
+-remove memory consumption of 'learn ahead of schedule'
+-rework
 
 -map card type
 
