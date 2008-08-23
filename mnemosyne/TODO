@@ -10,7 +10,9 @@
 
 
 -remove memory consumption of 'learn ahead of schedule'
--rework
+-rework config, logger
+
+-long style import or short style import?
 
 -map card type
 
@@ -122,6 +124,10 @@
 
 -create test for adding cards
 -create test for detecting duplication
+-pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
+http://pythoscope.org/
+
+
 
 
 * After 2.0:
@@ -145,6 +151,10 @@
 -remap keys as plugin
 
 -active alert as plugin
+
+-card type with prefilled fields
+
+-zooming picture instead of scrollbars?
 
 
 * Memosyne analysis: Add-on package to do full custom statistical

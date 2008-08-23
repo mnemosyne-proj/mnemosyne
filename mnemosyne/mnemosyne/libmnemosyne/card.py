@@ -4,7 +4,6 @@
 
 from mnemosyne.libmnemosyne.component_manager import get_database
 from mnemosyne.libmnemosyne.component_manager import get_scheduler
-from mnemosyne.libmnemosyne.component_manager import get_card_filters
 
 
 class Card(object):
@@ -73,16 +72,12 @@ class Card(object):
         self.next_rep = db.days_since_start() + new_interval
 
     def question(self):
-        q = self.fact_view.question(self.fact)
-        for f in get_card_filters():
-            q = f.run(q, self)
-        return q
+        return self.fact.card_type.get_renderer().render_card_fields(self, \
+                self.fact_view.q_fields)
 
     def answer(self):
-        a = self.fact_view.answer(self.fact)
-        for f in get_card_filters():
-            a = f.run(a, self)
-        return a
+        return self.fact.card_type.get_renderer().render_card_fields(self, \
+                self.fact_view.a_fields)
         
     interval = property(lambda self : self.next_rep - self.last_rep)
     

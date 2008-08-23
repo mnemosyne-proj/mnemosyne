@@ -19,8 +19,6 @@ class Plugin(Component):
     def __init__(self):
         self.name = ""
         self.description = ""
-        self.version = None
-        self.author = ""
         self.active = False
         component_manager.register("plugin", self)
 

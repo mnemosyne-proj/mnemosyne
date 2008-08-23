@@ -2,10 +2,8 @@
 # card_type.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.component_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 class CardType(Component):
@@ -28,6 +26,10 @@ class CardType(Component):
 
     We could use the component manager to track fact views, but this is
     probably overkill.
+    
+    The renderer is determined only when we need it, as opposed to when we
+    create the card type, because it is not sure that the renderer already
+    exists at that stage.
 
     """
 
@@ -40,7 +42,7 @@ class CardType(Component):
         self.unique_fields = []
         self.is_language = False
         self.widget = None
-        self.css = "" # TODO: read from file if exists.
+        self.renderer = None
         self.a_on_top_of_q = False
 
     def required_fields(self):
@@ -52,4 +54,14 @@ class CardType(Component):
             for k in f.required_fields:
                 s.add(k)
         return s
-
+        
+    def get_renderer(self):
+        if self.renderer:
+            return self.renderer
+        else:
+            try:
+                self.renderer = component_manager.\
+                   get_current("renderer", used_for=self.__class__.__name__)
+            except KeyError:
+                 self.renderer = component_manager.get_current("renderer")
+            return self.renderer

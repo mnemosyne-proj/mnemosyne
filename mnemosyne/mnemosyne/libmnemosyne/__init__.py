@@ -84,14 +84,12 @@ def initialise_system_components():
     # Database.
     from mnemosyne.libmnemosyne.databases.pickle import Pickle
     component_manager.register("database", Pickle())
+    
     # Scheduler.
     from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne \
                                                    import SM2Mnemosyne
     component_manager.register("scheduler", SM2Mnemosyne())
-    # Fact filters.
-    from mnemosyne.libmnemosyne.filters.escape_to_html \
-                                                   import EscapeToHtml
-    component_manager.register("fact_filter", EscapeToHtml())
+    
     # Card types.
     from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
     component_manager.register("card_type", FrontToBack())
@@ -99,9 +97,17 @@ def initialise_system_components():
     component_manager.register("card_type", BothWays())
     from mnemosyne.libmnemosyne.card_types.three_sided import ThreeSided
     component_manager.register("card_type", ThreeSided())
-    # Card Filters.
-    from mnemosyne.libmnemosyne.filters.make_html import MakeHtml
-    component_manager.register("card_filter", MakeHtml())
+    
+    # Renderer.
+    from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
+    component_manager.register("renderer", HtmlCss())
+    print 'renderer'
+    
+    # Filters.
+    from mnemosyne.libmnemosyne.filters.escape_to_html \
+                                                   import EscapeToHtml
+    component_manager.register("filter", EscapeToHtml())
+    
     # File formats.
 
     # Function hooks.

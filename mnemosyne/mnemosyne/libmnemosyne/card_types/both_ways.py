@@ -43,20 +43,3 @@ class BothWays(CardType):
         # The question field needs to be unique. As for duplicates is the answer
         # field, these are better handled through a synonym detection plugin.
         self.unique_fields = ["q"]
-        
-        # CSS. TODO: read from file if exists.
-        self.css = """
-            <style type="text/css">
-            table { margin-left: auto;
-                margin-right: auto; /* Centers table, but not its contents. */
-                height: 100%; }
-            body {  color: black;
-                background-color: white;
-                margin: 0;
-                padding: 0;
-                border: thin solid #8F8F8F; }
-            q { text-align: center; } /* Align contents within the cell. */
-            a { text-align: center; }
-            </style>
-        """
-    

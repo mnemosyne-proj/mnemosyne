@@ -22,16 +22,20 @@ class ComponentManager():
        ======================   ===============================
        "database"               database instance
        "scheduler"              scheduler instance
-       "fact_filter"            fact_filter instance
+       "filter"                 filter instance
        "card_type"              card_type instance
        "card_type_widget"       card_type_widget class,
                                 used_for card_type class name
-       "card_filter"            card_filter instance
+       "renderer"               renderer instance,
+                                used_for card_type class name
        "ui_controller_review"   ui_controller_review instance
        "review_widget"          review_widget class
        ======================   ===============================
        
-       TODO: plugin, function hook
+    Note: for widgets we store the class name as opposed to an instance,
+    since creating widgets can be time consuming.
+       
+    TODO: plugin, function hook
 
     """
 
@@ -98,8 +102,6 @@ def get_card_types():
 def get_card_type_by_id(id):
     return component_manager.card_type_by_id[id]
 
-def get_fact_filters():
-    return component_manager.get_all("fact_filter")
+def get_filters():
+    return component_manager.get_all("filter")
 
-def get_card_filters():
-    return component_manager.get_all("card_filter")
