@@ -3,7 +3,7 @@
 #
 
 import datetime
-from mnemosyne.libmnemosyne.config import config
+from mnemosyne.libmnemosyne.component_manager import config
 
 
 class StartDate:
@@ -29,7 +29,7 @@ class StartDate:
 
         """
 
-        h = config["day_starts_at"]
+        h = config()["day_starts_at"]
         adjusted_start = self.start.replace(hour=h, minute=0, second=0)
         dt = datetime.datetime.now() - adjusted_start
         return dt.days

@@ -15,12 +15,8 @@ import os
 import sys
 
 import mnemosyne.version
-from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.exceptions import *
-
-# TODO: move these import to initialise, and automatically loop through
-# all the contents of the directories?
+from mnemosyne.libmnemosyne.exceptions import * # TODO: remove
 
 log = logging.getLogger("mnemosyne")
 
@@ -31,7 +27,7 @@ def initialise(basedir):
     in order to be able to provide feedback about errors to the user."""
 
     initialise_system_components()
-    config.initialise(basedir)
+    config().initialise(basedir)
     initialise_lockfile()
     initialise_new_empty_database()
     initialise_logging()
@@ -39,16 +35,15 @@ def initialise(basedir):
 
 
 def initialise_lockfile():
-    lockfile = file(os.path.join(config.basedir,"MNEMOSYNE_LOCK"),'w')
+    lockfile = file(os.path.join(config().basedir,"MNEMOSYNE_LOCK"),'w')
     lockfile.close()
     
 
 def initialise_new_empty_database():
-    from mnemosyne.libmnemosyne.component_manager import get_database
-    filename = config["path"]
-    if not os.path.exists(os.path.join(config.basedir, filename)):
-        get_database().new(os.path.join(config.basedir, filename))
-
+    from mnemosyne.libmnemosyne.component_manager import database
+    filename = config()["path"]
+    if not os.path.exists(os.path.join(config().basedir, filename)):
+        database().new(os.path.join(config().basedir, filename))
 
 
 upload_thread = None
@@ -58,7 +53,7 @@ def initialise_logging():
     from mnemosyne.libmnemosyne.logger import Uploader
     archive_old_log()
     start_logging()
-    if config["upload_logs"]:
+    if config()["upload_logs"]:
         upload_thread = Uploader()
         upload_thread.start()
     log.info("Program started : Mnemosyne " + mnemosyne.version.version \
@@ -80,6 +75,10 @@ def initialise_system_components():
     override this.
     
     """
+    
+    # Configuration.
+    from mnemosyne.libmnemosyne.configuration import Configuration
+    component_manager.register("config", Configuration())
     
     # Database.
     from mnemosyne.libmnemosyne.databases.pickle import Pickle
@@ -123,7 +122,7 @@ def initialise_system_components():
 
 
 def initialise_user_plugins():
-    basedir = config.basedir
+    basedir = config().basedir
     plugindir = unicode(os.path.join(basedir, "plugins"))
     sys.path.insert(0, plugindir)
     for plugin in os.listdir(plugindir):
@@ -142,7 +141,7 @@ def finalise():
         print "done!"
     log.info("Program stopped")
     try:
-        os.remove(os.path.join(config.basedir,"MNEMOSYNE_LOCK"))
+        os.remove(os.path.join(config().basedir,"MNEMOSYNE_LOCK"))
     except OSError:
         print "Failed to remove lock file."
         print traceback_string()

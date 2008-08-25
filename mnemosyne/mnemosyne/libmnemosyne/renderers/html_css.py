@@ -3,7 +3,7 @@
 #
 
 from mnemosyne.libmnemosyne.renderer import Renderer
-from mnemosyne.libmnemosyne.component_manager import get_filters
+from mnemosyne.libmnemosyne.component_manager import filters
 
 # TODO: read card type css from $basedir/css/$card_type if it exits.
 # TODO: add convenience functions to modify the css on disk:
@@ -43,7 +43,7 @@ class HtmlCss(Renderer):
         for field in fields:
             key = field[0]
             s = fact[key]
-            for f in get_filters():
+            for f in filters():
                 s = f.run(s, fact)
             html += "<div id=\"%s\">%s</div>" % (key, s)
         html += "</td></tr></table></body></html>"

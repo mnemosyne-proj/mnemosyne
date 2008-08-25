@@ -9,7 +9,7 @@ try:
 except ImportError:
     from md5 import md5
 
-from mnemosyne.libmnemosyne.component_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import database
 
 
 class Fact(object):
@@ -43,7 +43,7 @@ class Fact(object):
         self.added = datetime.datetime.now()
         self.data = data
         self.card_type = card_type
-        db = get_database()
+        db = database()
         self.cat = []
         for cat_name in cat_names:
             self.cat.append(db.get_or_create_category_with_name(cat_name))

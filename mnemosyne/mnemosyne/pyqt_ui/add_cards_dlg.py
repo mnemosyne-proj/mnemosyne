@@ -8,13 +8,10 @@ _ = gettext.gettext
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from mnemosyne.libmnemosyne.category import *
 from Ui_add_cards_dlg import *
 
-from mnemosyne.libmnemosyne.card_type import *
-from mnemosyne.libmnemosyne.config import config
-from mnemosyne.libmnemosyne.component_manager import *
-
+from mnemosyne.libmnemosyne.component_manager import config,  ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import database, card_types
 from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 
 
@@ -28,14 +25,14 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         # manager, because these names can change if the user chooses another
         # translation. TODO: test.
         self.card_type_by_name = {}
-        for card_type in get_card_types():
+        for card_type in card_types():
             self.card_types.addItem(card_type.name)
             self.card_type_by_name[card_type.name] = card_type
         # TODO: sort card types by id.
         # TODO: remember last type.
         self.card_widget = None
         self.update_card_widget()
-        self.update_combobox(config["last_add_category"])
+        self.update_combobox(config()["last_add_category"])
         self.grades = QButtonGroup()
         self.grades.addButton(self.grade_0_button, 0)
         self.grades.addButton(self.grade_1_button, 1)
@@ -48,9 +45,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         #self.connect(self.preview_button, SIGNAL("clicked()"),
         #             self.preview)
         #TODO: fonts?
-        #if get_config("QA_font") != None:
+        #if config()("QA_font") != None:
         #    font = QFont()
-        #    font.fromString(get_config("QA_font"))
+        #    font.fromString(config()("QA_font"))
         #    self.question.setFont(font)
         #    self.pronunciation.setFont(font)
         #    self.answer.setFont(font)
@@ -79,7 +76,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         for i in range(no_of_categories-1,-1,-1):
             self.categories.removeItem(i)
         self.categories.addItem(_("<default>"))
-        for name in get_database().category_names():
+        for name in database().category_names():
             if name != _("<default>"):
                 self.categories.addItem(name)
         for i in range(self.categories.count()):
@@ -99,10 +96,10 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         cat_names = [unicode(self.categories.currentText())]
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
-        c = get_ui_controller_main()
+        c = ui_controller_main()
         c.create_new_cards(fact_data, card_type, grade, cat_names)
         self.update_combobox(cat_names[-1])
-        get_database().save(config['path'])
+        database().save(config()['path'])
         self.card_widget.clear()
 
     def reject(self):

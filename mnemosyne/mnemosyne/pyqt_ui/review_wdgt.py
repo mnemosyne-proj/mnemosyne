@@ -10,9 +10,8 @@ from PyQt4.QtGui import *
 
 from Ui_review_wdgt import *
 
-from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import get_ui_controller_review
-from mnemosyne.libmnemosyne.config import config
+from mnemosyne.libmnemosyne.component_manager import component_manager, config
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 _empty = """
 <html><head>
@@ -31,7 +30,7 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
     def __init__(self, parent = None):
         QWidget.__init__(self, parent)
         self.setupUi(self)
-        self.controller = get_ui_controller_review()
+        self.controller = ui_controller_review()
         self.controller.widget = self
         self.grade_buttons = QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)

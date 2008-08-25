@@ -2,9 +2,6 @@
 # generic_card_type_widget.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -13,19 +10,14 @@ class GenericCardTypeWdgt(QWidget):
 
     def __init__(self, card_type, parent=None):
         QWidget.__init__(self, parent)
-
         self.card_type = card_type
-
         self.hboxlayout = QHBoxLayout(self)
         self.hboxlayout.setMargin(0)
         self.vboxlayout = QVBoxLayout()
-
         self.edit_boxes = {}
         self.top_edit_box = None
-
         for fact_key, fact_key_name in self.card_type.fields:
             self.vboxlayout.addWidget(QLabel(fact_key_name + ":", self))
-
             t = QTextEdit(self)
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
@@ -36,12 +28,9 @@ class GenericCardTypeWdgt(QWidget):
                 t.setMinimumSize(QSize(0,106))
             self.vboxlayout.addWidget(t)
             self.edit_boxes[t] = fact_key
-
             if not self.top_edit_box:
                 self.top_edit_box = t
-
         self.hboxlayout.addLayout(self.vboxlayout)
-
         self.resize(QSize(QRect(0,0,325,264).size()).\
                     expandedTo(self.minimumSizeHint()))
 

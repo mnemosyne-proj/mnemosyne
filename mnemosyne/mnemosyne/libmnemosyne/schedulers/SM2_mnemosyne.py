@@ -8,8 +8,7 @@ import copy
 
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.scheduler import Scheduler
-from mnemosyne.libmnemosyne.component_manager import get_database
-from mnemosyne.libmnemosyne.config import config
+from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 
 log = logging.getLogger("mnemosyne")
@@ -44,7 +43,7 @@ class SM2Mnemosyne(Scheduler):
 
     def rebuild_queue(self, learn_ahead = False):
         self.queue = []
-        db = get_database()
+        db = database()
         if not db.is_loaded():
             return
         # Do the cards that are scheduled for today (or are overdue), but
@@ -59,7 +58,7 @@ class SM2Mnemosyne(Scheduler):
         # avoid too long intervals between revisions. If there are too few
         # cards in left in the queue, append more new cards to keep some
         # spread between these last cards.
-        limit = config["grade_0_cards_at_once"]
+        limit = config()["grade_0_cards_at_once"]
         grade_0 = db.cards_due_for_final_review(grade=0)
         grade_0_selected = []
         if limit != 0:
@@ -105,7 +104,7 @@ class SM2Mnemosyne(Scheduler):
         grade_0_selected = []
         if limit != 0 and len(unseen) != 0:
             while True:
-                if config["randomise_new_cards"] == False:
+                if config()["randomise_new_cards"] == False:
                     new_card = unseen[0]
                 else:
                     new_card = random.choice(unseen)
@@ -162,7 +161,7 @@ class SM2Mnemosyne(Scheduler):
         return card
 
     def process_answer(self, card, new_grade, dry_run=False):
-        db = get_database()
+        db = database()
         days_since_start = db.days_since_start()
         # When doing a dry run, make a copy to operate on. Note that this
         # leaves the original in cards and the reference in the GUI intact.

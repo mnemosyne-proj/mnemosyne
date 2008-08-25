@@ -10,7 +10,7 @@
 
 
 -remove memory consumption of 'learn ahead of schedule'
--rework config, logger
+-rework config datacreation (prefix), logger, exceptions
 
 -long style import or short style import?
 

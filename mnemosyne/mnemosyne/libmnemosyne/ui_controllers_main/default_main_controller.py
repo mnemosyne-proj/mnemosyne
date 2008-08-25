@@ -9,7 +9,7 @@ import copy
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
-from mnemosyne.libmnemosyne.component_manager import get_database
+from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
 
@@ -22,11 +22,10 @@ class DefaultMainController(UiControllerMain):
 
         """Create a new set of related cards"""
 
-        db = get_database()
+        db = database()
         if db.has_fact_with_data(fact_data):
             self.widget.information_box(\
               _("Card is already in database.\nDuplicate not added."), _("OK"))
-
         fact = Fact(fact_data, cat_names, card_type)
         duplicates = db.duplicates_for_fact(fact)
         if len(duplicates) != 0:
@@ -34,7 +33,6 @@ class DefaultMainController(UiControllerMain):
               _("There is already data present for:\n\n") +
               "".join(fact[k] for k in card_type.required_fields()),
               _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
-
             if answer == 0: # Merge and edit.
                 merged_fact_data = copy.copy(fact.data)
                 for duplicate in duplicates:
@@ -47,10 +45,8 @@ class DefaultMainController(UiControllerMain):
                 #dlg = EditItemDlg(new_item, self)
                 #dlg.exec_loop()
                 #get fact from that
-
             if answer == 2: # Don't add.
                 return
-
         db.add_fact(fact)
         for fact_view in card_type.fact_views:
             card = Card(fact, fact_view)

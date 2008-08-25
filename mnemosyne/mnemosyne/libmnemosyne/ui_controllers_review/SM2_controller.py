@@ -7,10 +7,9 @@ import os
 import gettext
 _ = gettext.gettext
 
-from mnemosyne.libmnemosyne.config import config
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.component_manager import get_database
-from mnemosyne.libmnemosyne.component_manager import get_scheduler
+from mnemosyne.libmnemosyne.component_manager import database, config
+from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
 
 
@@ -56,11 +55,11 @@ class SM2Controller(UiControllerReview):
         UiControllerReview.__init__(self, name="SM2 Controller")
 
     def new_question(self, learn_ahead = False):
-        if get_database().card_count() == 0:
+        if database().card_count() == 0:
             self.state = "EMPTY"
             self.card = None
         else:
-            self.card = get_scheduler().get_new_question(learn_ahead)
+            self.card = scheduler().get_new_question(learn_ahead)
             if self.card != None:
                 self.state = "SELECT SHOW"
             else:
@@ -79,21 +78,21 @@ class SM2Controller(UiControllerReview):
     def grade_answer(self, grade):
         # TODO: optimise by displaying new question before grading the
         # answer, provided the queue contains at least one card.
-        interval = get_scheduler().process_answer(self.card, grade)
+        interval = scheduler().process_answer(self.card, grade)
         self.new_question()
         # TODO: implement
-        #if config["show_intervals"] == "statusbar":
+        #if config()["show_intervals"] == "statusbar":
         #    self.statusBar().message(_("Returns in") + " " + \
         #                             str(interval) + _(" day(s)."))
 
     def update_dialog(self):
         w = self.widget
         # Update title.
-        database_name = os.path.basename(config["path"])[:-4]
+        database_name = os.path.basename(config()["path"])[:-4]
         title = _("Mnemosyne") + " - " + database_name
         w.set_window_title(title)
         # Update menu bar.
-        if config["only_editable_when_answer_shown"] == True:
+        if config()["only_editable_when_answer_shown"] == True:
             if self.card != None and self.state == "SELECT GRADE":
                 w.enable_edit_current_card(True)
             else:
@@ -104,12 +103,12 @@ class SM2Controller(UiControllerReview):
             else:
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
-        w.enable_edit_deck(get_database().card_count() > 0)
+        w.enable_edit_deck(database().card_count() > 0)
         # Size for non-latin characters.
 
         # TODO: investigate.
 
-        #increase_non_latin = config["non_latin_font_size_increase"]
+        #increase_non_latin = config()["non_latin_font_size_increase"]
         #non_latin_size = w.get_font_size() + increase_non_latin
 
         # Hide/show the question and answer boxes.
@@ -183,7 +182,7 @@ class SM2Controller(UiControllerReview):
             # Tooltip.
             #QToolTip.remove(self.grade_buttons[grade])
             if self.state == "SELECT GRADE" and \
-               config["show_intervals"] == "tooltips":
+               config()["show_intervals"] == "tooltips":
                 self.grade_buttons[grade].setToolTip(tooltip[i][grade].
                       append(self.next_rep_string(process_answer(self.card,
                                                   grade, dry_run=True))))
@@ -191,7 +190,7 @@ class SM2Controller(UiControllerReview):
                 self.grade_buttons[grade].setToolTip(tooltip[i][grade])
             # Button text.
             if self.state == "SELECT GRADE" and \
-               config["show_intervals"] == "buttons":
+               config()["show_intervals"] == "buttons":
                 self.grade_buttons[grade].setText(\
                         str(process_answer(self.card, grade, dry_run=True)))
                 self.grades.setTitle(\

@@ -3,7 +3,7 @@
 #
 
 import os
-from mnemosyne.libmnemosyne.config import config
+from mnemosyne.libmnemosyne.component_manager import config
 
 
 def expand_path(p, prefix=None):
@@ -12,11 +12,11 @@ def expand_path(p, prefix=None):
     
     # By default, make paths relative to the database location.
     if prefix == None:
-        prefix = os.path.dirname(config["path"])
+        prefix = os.path.dirname(config()["path"])
     # If there was no dirname in the last statement, it was a relative
     # path and we set the prefix to the basedir.
     if prefix == '':
-        prefix = config.basedir
+        prefix = config().basedir
     if (    ( (len(p) > 1) and p[0] == "/") \
          or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
         return os.path.normpath(p)
@@ -30,11 +30,11 @@ def contract_path(p, prefix=None):
 
     # By default, make paths relative to the database location.
     if prefix == None:
-        prefix = os.path.dirname(get_config("path"))
+        prefix = os.path.dirname(config()("path"))
     # If there was no dirname in the last statement, it was a relative
     # path and we set the prefix to the basedir.
     if prefix == '':
-        prefix = get_basedir()
+        prefix = config().basedir
     # Normalise paths and convert everything to lowercase on Windows.
     p = os.path.normpath(p)
     prefix = os.path.normpath(prefix)

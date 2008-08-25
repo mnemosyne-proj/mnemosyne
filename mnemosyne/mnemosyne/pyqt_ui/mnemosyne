@@ -1,12 +1,12 @@
 #!/usr/bin/python
 
-##############################################################################
 #
 # Mnemosyne <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
-import sys, os, locale
+import sys
+import os
+import locale
 from optparse import OptionParser
 
 from PyQt4.QtCore import *
@@ -30,9 +30,10 @@ if options.in_place == True:
 # TODO: improve imports.
 
 from mnemosyne.libmnemosyne import initialise, finalise
-
-#from mnemosyne.libmnemosyne.config import get_config, set_config
-from mnemosyne.pyqt_ui.main_window import *
+from mnemosyne.libmnemosyne.component_manager import config
+from mnemosyne.libmnemosyne.exceptions import * # TODO
+from mnemosyne.pyqt_ui.main_window import MainWindow
+from mnemosyne.pyqt_ui.main_window import prefix # TODO
 #from mnemosyne.pyqt_ui.message_boxes import *
 #from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 
@@ -43,25 +44,21 @@ from mnemosyne.pyqt_ui.main_window import *
 # The latter is handy when Mnemosyne is run from a USB key, so that there
 # is no need to refer to a drive letter which can change from computer to
 # computer.
-
 if options.datadir != None:
     basedir = os.path.abspath(options.datadir)
 elif os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
     basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
 
 # Filename argument.
-
 if len(args) > 0:
     filename = os.path.abspath(args[0])
 else:
     filename = None
 
 # Create main widget.
-
 a = QApplication(sys.argv)
 
 # Under Windows, move out of library.zip to get the true prefix.
-
 if sys.platform == "win32":
     prefix = os.path.split(prefix)[0]
     prefix = os.path.split(prefix)[0]
@@ -69,15 +66,11 @@ if sys.platform == "win32":
 
 # Get the locale from the user's config.py, to install the translator as
 # soon as possible.
-
 loc = str(QLocale().name()) # Default to system locale.
-
 sys.path.insert(0, basedir)
-
 config_file_c = os.path.join(basedir, "config.pyc")
 if os.path.exists(config_file_c):
     os.remove(config_file_c)
-
 try:
     import config as _config
     if _config.locale != None:
@@ -86,7 +79,6 @@ except:
     pass
 
 # Install translator.
-
 translator = QTranslator(a)
 translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
 a.installTranslator(translator)
@@ -96,7 +88,6 @@ translator.load("qt_"+loc+".qm", os.path.join(prefix,'locale'))
 a.installTranslator(translator)
 
 # Check if there is another instance of Mnemosyne running.
-
 if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
     status = QMessageBox.warning(None,
              a.trUtf8("Mnemosyne"),
@@ -108,14 +99,12 @@ if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
              QString(), 0, -1)
     if status == 0 or status == -1:
         sys.exit()
-
 try:
     initialise(basedir)
 except MnemosyneError, e:
     messagebox_errors(a, e)
 
 # Start program.
-
 try:
     import pygame
     pygame.mixer.init()
@@ -128,16 +117,14 @@ QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
 QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))
 
 # Show widget.
-
 #a.setMainWidget(w)
 w.show()
 
 # TODO: check first run wizard.
-
-if config["first_run"] == True:
+if config()["first_run"] == True:
     w.productTour()
-    config["first_run"] = False
-elif config["show_daily_tips"] == True:
+    config()["first_run"] = False
+elif config()["show_daily_tips"] == True:
     w.Tip()
 
 a.exec_()

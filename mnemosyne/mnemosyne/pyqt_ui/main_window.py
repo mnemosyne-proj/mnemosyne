@@ -1,13 +1,10 @@
-##############################################################################
 #
-# Main widget for Mnemosyne <Peter.Bienstman@UGent.be>
+# main_window.py <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
 import gettext
 _ = gettext.gettext
 
-# TODO: show toolbar
 
 import sys
 import os
@@ -28,15 +25,12 @@ from add_cards_dlg import *
 #from product_tour_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
-from sound import *
-from message_boxes import *
-from mnemosyne.libmnemosyne import *
-from mnemosyne.libmnemosyne.config import config
-from mnemosyne.libmnemosyne.card import *
+from sound import * # TODO: remove
+from message_boxes import * # TODO: remove
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.component_manager import get_database
-from mnemosyne.libmnemosyne.component_manager import get_ui_controller_main
-from mnemosyne.libmnemosyne.component_manager import get_ui_controller_review
+from mnemosyne.libmnemosyne.component_manager import database, config
+from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 prefix = os.path.dirname(__file__) # TODO: still needed?
 
@@ -46,34 +40,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, filename, parent = None):
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
-        get_ui_controller_main().widget = self
+        ui_controller_main().widget = self
         self.update_review_widget()
-
         self.sched = QLabel("", self.statusbar)
         self.notmem = QLabel("", self.statusbar)
         self.all = QLabel("", self.statusbar)
-
         self.statusbar.addPermanentWidget(self.sched)
         self.statusbar.addPermanentWidget(self.notmem)
         self.statusbar.addPermanentWidget(self.all)
         self.statusbar.setSizeGripEnabled(0)
-
         try:
             initialise_user_plugins()
         except MnemosyneError, e:
             messagebox_errors(self, e)
-
         if filename == None:
-            filename = config["path"]
-
+            filename = config()["path"]
         try:
-            get_database().load(filename)
+            database().load(filename)
         except MnemosyneError, e:
             messagebox_errors(self, LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
-            get_database().new(filename)
-
-        get_ui_controller_review().new_question()
+            database().new(filename)
+        gui_controller_review().new_question()
 
     def information_box(self, message, OK_string):
         QMessageBox.information(None, _("Mnemosyne"), message, OK_string)
@@ -87,9 +75,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if w:
             w.close()
             del w
-        get_ui_controller_review().widget = \
+        ui_controller_review().widget = \
             component_manager.get_current("review_widget")()
-        self.setCentralWidget(get_ui_controller_review().widget)
+        self.setCentralWidget(ui_controller_review().widget)
 
     def fileNew(self):
         stopwatch.pause()
@@ -108,13 +96,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.state = "EMPTY"
             self.card = None
             new_database(out)
-            load_database(config["path"])
+            load_database(config()["path"])
         self.updateDialog()
         stopwatch.unpause()
 
     def fileOpen(self):
         stopwatch.pause()
-        oldPath = expand_path(get_config("path"))
+        oldPath = expand_path(config()["path"])
         out = unicode(QFileDialog.getOpenFileName(oldPath,\
                     _("Mnemosyne databases (*.mem)"), self))
         if out != "":
@@ -131,13 +119,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 stopwatch.unpause()
                 return
             self.newQuestion()
-
         self.updateDialog()
         stopwatch.unpause()
 
     def fileSave(self):
         stopwatch.pause()
-        path = config["path"]
+        path = config()["path"]
         try:
             save_database(path)
         except MnemosyneError, e:
@@ -146,13 +133,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fileSaveAs(self):
         stopwatch.pause()
-        oldPath = expand_path(config["path"])
+        oldPath = expand_path(config()["path"])
         out = unicode(QFileDialog.getSaveFileName(oldPath,\
                     _("Mnemosyne databases (*.mem)"), self))
         if out != "":
             if out[-4:] != ".mem":
                 out += ".mem"
-            if os.path.exists(out) and out != config["path"]:
+            if os.path.exists(out) and out != config()["path"]:
                 if not queryOverwriteFile(self, out):
                     stopwatch.unpause()
                     return
@@ -189,7 +176,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.pause()
         dlg = AddCardsDlg(self)
         dlg.exec_()
-        controller = get_ui_controller_review()
+        controller = ui_controller_review()
         if controller.card == None:
             controller.new_question()
         stopwatch.unpause()
@@ -271,9 +258,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def closeEvent(self, event):
         try:
-            config.save()
-            get_database().backup()
-            get_database().unload()
+            config().save()
+            database().backup()
+            database().unload()
         except MnemosyneError, e:
             messagebox_errors(self, e)
             event.ignore()
