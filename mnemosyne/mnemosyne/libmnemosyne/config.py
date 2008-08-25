@@ -4,7 +4,15 @@
 #
 ##############################################################################
 
-import hashlib, random, os, sys, cPickle
+import random
+import os
+import sys
+import cPickle
+
+try:
+    from hashlib import md5
+except ImportError:
+    from md5 import md5
 
 from mnemosyne.libmnemosyne.exceptions import *
 
@@ -267,7 +275,7 @@ day_starts_at = 3"""
         c.setdefault("reset_learning_data_export", False)
         c.setdefault("import_img_dir", self.basedir)
         c.setdefault("import_sound_dir", self.basedir)
-        c.setdefault("user_id",hashlib.md5(str(random.random())).hexdigest()[0:8])
+        c.setdefault("user_id",md5(str(random.random())).hexdigest()[0:8])
         c.setdefault("keep_logs", True)
         c.setdefault("upload_logs", True)
         c.setdefault("upload_server", "mnemosyne-proj.dyndns.org:80")

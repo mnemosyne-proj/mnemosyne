@@ -3,7 +3,7 @@
 #
 
 
-class ComponentManager():
+class ComponentManager(object):
 
     """Manages the different components. Each component belongs to a type
     (database, scheduler, card_type, card_type_widget, ...).
