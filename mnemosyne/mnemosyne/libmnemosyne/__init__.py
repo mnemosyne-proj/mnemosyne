@@ -15,7 +15,7 @@ import os
 import sys
 
 import mnemosyne.version
-from mnemosyne.libmnemosyne.component_manager import component_manager
+from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.exceptions import * # TODO: remove
 
 log = logging.getLogger("mnemosyne")
@@ -100,7 +100,6 @@ def initialise_system_components():
     # Renderer.
     from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
     component_manager.register("renderer", HtmlCss())
-    print 'renderer'
     
     # Filters.
     from mnemosyne.libmnemosyne.filters.escape_to_html \

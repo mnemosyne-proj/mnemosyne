@@ -12,8 +12,7 @@ from threading import Thread
 from random import randint
 from string import joinfields
 
-from mnemosyne.libmnemosyne.config import config
-
+from mnemosyne.libmnemosyne.component_manager import config
 
 
 
@@ -25,7 +24,7 @@ from mnemosyne.libmnemosyne.config import config
 
 def archive_old_log():
     
-    basedir = config.basedir
+    basedir = config().basedir
     
     log_name = os.path.join(basedir,"log.txt")
     
@@ -36,8 +35,8 @@ def archive_old_log():
 
     if log_size > 64000:
 
-        user  = config["user_id"]
-        index = config["log_index"]
+        user  = config()["user_id"]
+        index = config()["log_index"]
 
         archive_name = "%s_%05d.bz2" % (user, index)
 
@@ -50,7 +49,7 @@ def archive_old_log():
 
         os.remove(log_name)
               
-        config["log_index"] = index+1
+        config()["log_index"] = index+1
 
 
 
@@ -64,7 +63,7 @@ def archive_old_log():
 
 def upload(filename):
 
-    host, port = get_config("upload_server").split(":")
+    host, port = config()["upload_server"].split(":")
     uri = '/cgi-bin/cgiupload.py'
     
     boundary = '%s%s_%s_%s' % \
@@ -111,7 +110,7 @@ class Uploader(Thread):
 
     def run(self):
 
-        basedir = config.basedir
+        basedir = config().basedir
 
         join = os.path.join
 
@@ -167,13 +166,13 @@ class Uploader(Thread):
 
 def start_logging():
 
-    basedir = config.basedir
+    basedir = config().basedir
 
     log_name = os.path.join(basedir, "log.txt")
 
     logger = logging.getLogger("mnemosyne")
 
-    if config["keep_logs"]:
+    if config()["keep_logs"]:
         logger.setLevel(logging.INFO)
     else:
         logger.setLevel(logging.ERROR)  
@@ -201,7 +200,7 @@ def start_logging():
 def update_logging_status():
     
     logger = logging.getLogger("mnemosyne")
-    if get_config("keep_logs") == True:
+    if config()["keep_logs"] == True:
         logger.setLevel(logging.INFO)
         logger.info("Logging turned on")
     else:

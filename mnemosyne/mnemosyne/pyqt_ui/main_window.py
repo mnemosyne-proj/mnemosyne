@@ -27,7 +27,9 @@ from add_cards_dlg import *
 #from about_dlg import *
 from sound import * # TODO: remove
 from message_boxes import * # TODO: remove
+from mnemosyne.libmnemosyne import initialise_user_plugins
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
+from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
@@ -61,7 +63,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             messagebox_errors(self, LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             database().new(filename)
-        gui_controller_review().new_question()
+        ui_controller_review().new_question()
 
     def information_box(self, message, OK_string):
         QMessageBox.information(None, _("Mnemosyne"), message, OK_string)

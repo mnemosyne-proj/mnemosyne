@@ -10,7 +10,8 @@ from PyQt4.QtGui import *
 
 from Ui_add_cards_dlg import *
 
-from mnemosyne.libmnemosyne.component_manager import config,  ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import component_manager
+from mnemosyne.libmnemosyne.component_manager import config, ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import database, card_types
 from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 

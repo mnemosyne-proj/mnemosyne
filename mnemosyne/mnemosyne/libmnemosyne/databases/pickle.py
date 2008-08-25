@@ -13,6 +13,7 @@ from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.exceptions import * # TODO: remove
 from mnemosyne.libmnemosyne.category import Category
+from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, scheduler
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 

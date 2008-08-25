@@ -158,9 +158,9 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
     def update_dialog(self):
         # Update question and answer font.
 
-        if config["QA_font"] != None:
+        if config()["QA_font"] != None:
             font = QFont()
-            font.fromString(config["QA_font"])
+            font.fromString(config()["QA_font"])
         else:
             font = self.show_button.font()
 
