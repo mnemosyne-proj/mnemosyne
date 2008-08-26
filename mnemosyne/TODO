@@ -10,11 +10,13 @@
 
 
 -remove memory consumption of 'learn ahead of schedule'
--logger, exceptions
+-logger
 
 -long style import or short style import?
 
 -map card type
+
+-easier function to do tag detection in plugin
 
 -get rid of pygame, use phonon
 -xml import tests (wcu, memaid, plconv)
@@ -30,15 +32,11 @@
 
 -basic graphical statistics
 
--move latex customisation code to config.py
-
 -import: duplicate check, ignore duplicates in answers
 
 -checkbox to include inactive cards in statistics?
 
 -alt tabbing gives low res icon.
-
--better error reporting if home is not writeable
 
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
 
@@ -50,8 +48,6 @@
  seem to work when unicode is present in the path
 
 -reactivate keyboard default 0 for cards with grade 0 or 1.
-
--remember size of edit card window
 
 -button to go to next card in the list
 
@@ -65,8 +61,6 @@
 
 -move to sqlite backend (encode category hierarchy in name,
  multiple category fields per card)
-
--easier function to do tag detection in plugin
 
 -rename edit_items, items, product tour at the source level
 
@@ -93,8 +87,6 @@
 
 -consistent editing of vice versa and three-sided cards
 
--remove 'check duplicates when adding' option?
-
 -gettext io Qt localisation? Still need it partly for Qt itself, though.
 
 -cntrl enter in add and edit instead of clicking ok
@@ -119,7 +111,6 @@
 -update old plugins
 
 -save category state
-
 * Create testsuite:
 
 -create test for adding cards

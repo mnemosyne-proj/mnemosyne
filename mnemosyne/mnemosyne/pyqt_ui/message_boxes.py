@@ -25,24 +25,7 @@ def messagebox_errors(self, e):
 
     # Kludgy...
     
-    if isinstance(e, ConfigError):
-        msg = self.trUtf8("Error in config.py:")
-    elif isinstance(e, PluginError):
-        msg = self.trUtf8("Error when running plugin:")
-    elif isinstance(e, LoadError):
-        msg = self.trUtf8("Unable to load file.")       
-    elif isinstance(e, InvalidFormatError):
-        msg = self.trUtf8("Invalid file format.")
-    elif isinstance(e, SaveError):
-        msg = self.trUtf8("Unable to save file.")   
-    elif isinstance(e, XMLError):
-        msg = self.trUtf8("Unable to parse XML:")
-    elif isinstance(e, EncodingError):
-        msg = self.trUtf8("Unrecognised encoding.")
-    elif isinstance(e, MissingAnswerError):
-        msg = self.trUtf8("Missing answer on line:")
-    elif isinstance(e, LoadErrorCreateTmp):               
-        msg = self.trUtf8("Unable to load database.\nCreating tmp file.")
+
          
     if e.info:
         msg = QString(msg).append(QString("\n")).append(e.info)

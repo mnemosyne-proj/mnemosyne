@@ -13,7 +13,38 @@ except ImportError:
     from md5 import md5
 
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.exceptions import * # TODO: remove
+from mnemosyne.libmnemosyne.exceptions import ConfigError, SaveError
+
+config_py = \
+"""# Mnemosyne configuration file.
+
+# Upload server. Only change when prompted by the developers.
+upload_server = "mnemosyne-proj.dyndns.org:80"
+
+# Set to True to prevent you from accidentally revealing the answer
+# when clicking the edit button.
+only_editable_when_answer_shown = False
+
+# The number of daily backups to keep. Set to -1 for no limit.
+backups_to_keep = 5
+
+# The moment the new day starts. Defaults to 3 am. Could be useful to
+# change if you are a night bird.
+day_starts_at = 3
+
+# Latex preamble.
+latex_preamble = \"\"\"
+\\documentclass[12pt]{article}
+\\pagestyle{empty}
+\\begin{document}
+\"\"\"
+
+# Latex postamble.
+latex_postamble = "\\end{document}"
+
+# Latex dvipng command.
+latex_dvipng = "dvipng -D 200 -T tight tmp.dvi"
+"""
 
 
 class Configuration(Component):
@@ -56,6 +87,10 @@ class Configuration(Component):
         c.setdefault("tip", 0)
         c.setdefault("backups_to_keep", 5)
         c.setdefault("day_starts_at", 3)
+        c.setdefault("latex_preamble", "\\documentclass[12pt]{article}\n"+
+                                       "\\pagestyle{empty}\n\\begin{document}")
+        c.setdefault("latex_postamble", "\\end{document}")
+        c.setdefault("latex_dvipng", "dvipng -D 200 -T tight tmp.dvi")
 
     def __getitem__(self, key):
         try:
@@ -119,34 +154,13 @@ class Configuration(Component):
         
         """
         
-        join = os.path.join
-        exists = os.path.exists
         # Create paths.
-        if not exists(self.basedir):
+        if not os.path.exists(self.basedir):
             os.mkdir(self.basedir)
         for directory in ["history", "latex", "css", "plugins", \
                           "backups", "sessions"]:
-            if not exists(join(self.basedir, directory)):
-                os.mkdir(join(self.basedir, directory))
-        # Create latex configuration files.
-        latexdir = join(self.basedir, "latex")
-        preamble = join(latexdir, "preamble")
-        postamble = join(latexdir, "postamble")
-        dvipng = join(latexdir, "dvipng")
-        if not os.path.exists(preamble):
-            f = file(preamble, 'w')
-            print >> f, "\\documentclass[12pt]{article}"
-            print >> f, "\\pagestyle{empty}"
-            print >> f, "\\begin{document}"
-            f.close()
-        if not os.path.exists(postamble):
-            f = file(postamble, 'w')
-            print >> f, "\\end{document}"
-            f.close()
-        if not os.path.exists(dvipng):
-            f = file(dvipng, 'w')
-            print >> f, "dvipng -D 200 -T tight tmp.dvi"
-            f.close()
+            if not os.path.exists(os.path.join(self.basedir, directory)):
+                os.mkdir(os.path.join(self.basedir, directory))
         # Create default configuration.
         if not os.path.exists(os.path.join(self.basedir, "config")):
             self.save()
@@ -154,22 +168,7 @@ class Configuration(Component):
         configfile = os.path.join(self.basedir, "config.py")
         if not os.path.exists(configfile):
             f = file(configfile, 'w')
-            print >> f, \
-"""# Mnemosyne configuration file.
-
-# Upload server. Only change when prompted by the developers.
-upload_server = "mnemosyne-proj.dyndns.org:80"
-
-# Set to True to prevent you from accidentally revealing the answer
-# when clicking the edit button.
-only_editable_when_answer_shown = False
-
-# The number of daily backups to keep. Set to -1 for no limit.
-backups_to_keep = 5
-
-# The moment the new day starts. Defaults to 3 am. Could be useful to
-# change if you are a night bird.
-day_starts_at = 3"""
+            print >> f, config_py
             f.close()
 
     def load_user_config(self):

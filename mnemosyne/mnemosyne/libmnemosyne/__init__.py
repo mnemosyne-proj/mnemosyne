@@ -15,8 +15,8 @@ import os
 import sys
 
 import mnemosyne.version
+from mnemosyne.libmnemosyne.exceptions import PluginError
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
-from mnemosyne.libmnemosyne.exceptions import * # TODO: remove
 
 log = logging.getLogger("mnemosyne")
 

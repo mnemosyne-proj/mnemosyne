@@ -2,17 +2,19 @@
 # pickle.py <Peter.Bienstman@UGent.be>
 #
 
-# TODO: abstract out logging messages so that they are automatically the
-# same in the other databases?
-
-import logging, os, cPickle, datetime, gzip, shutil
+import logging
+import os
+import cPickle
+import datetime
+import gzip
+import shutil
 import mnemosyne.version
 
+from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmnemosyne.exceptions import * # TODO: remove
-from mnemosyne.libmnemosyne.category import Category
+from mnemosyne.libmnemosyne.exceptions import InvalidFormatError, SaveError
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, scheduler
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id

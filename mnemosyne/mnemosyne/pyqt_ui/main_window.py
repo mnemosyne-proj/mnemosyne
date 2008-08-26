@@ -5,7 +5,6 @@
 import gettext
 _ = gettext.gettext
 
-
 import sys
 import os
 from PyQt4.QtCore import *
@@ -25,8 +24,8 @@ from add_cards_dlg import *
 #from product_tour_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
-from sound import * # TODO: remove
-from message_boxes import * # TODO: remove
+from sound import * # TODO
+from message_boxes import * # TODO
 from mnemosyne.libmnemosyne import initialise_user_plugins
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import component_manager

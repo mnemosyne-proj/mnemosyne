@@ -27,13 +27,11 @@ parser.add_option("-i", "--run-in-place", action="store_true",
 if options.in_place == True:
     sys.path.insert(0,os.path.abspath("."))
 
-# TODO: improve imports.
-
 from mnemosyne.libmnemosyne import initialise, finalise
 from mnemosyne.libmnemosyne.component_manager import config
-from mnemosyne.libmnemosyne.exceptions import * # TODO
+from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 from mnemosyne.pyqt_ui.main_window import MainWindow
-from mnemosyne.pyqt_ui.main_window import prefix # TODO
+from mnemosyne.pyqt_ui.main_window import prefix
 #from mnemosyne.pyqt_ui.message_boxes import *
 #from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 
