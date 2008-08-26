@@ -43,8 +43,6 @@ class Configuration(Component):
         c.setdefault("log_index", 1)
         c.setdefault("QA_font", None)
         c.setdefault("list_font", None)
-        c.setdefault("left_align", False) # TODO: Remove?
-        c.setdefault("non_latin_font_size_increase", 0) # TODO: Remove
         c.setdefault("grade_0_items_at_once", 5)
         c.setdefault("randomise_new_cards", False)
         c.setdefault("last_add_vice_versa", False)
@@ -123,64 +121,41 @@ class Configuration(Component):
         
         join = os.path.join
         exists = os.path.exists
-        
-        # Create default paths.
-
+        # Create paths.
         if not exists(self.basedir):
             os.mkdir(self.basedir)
-
-        if not exists(join(self.basedir, "history")):
-            os.mkdir(join(self.basedir, "history"))
-
-        if not exists(join(self.basedir, "latex")):
-            os.mkdir(join(self.basedir, "latex"))
-
-        if not exists(join(self.basedir, "plugins")):
-            os.mkdir(join(self.basedir, "plugins"))
-
-        if not exists(join(self.basedir, "backups")):
-            os.mkdir(join(self.basedir, "backups"))
-
-        # Create default latex preamble and postamble.
-
-        latexdir  = join(self.basedir, "latex")
-        preamble  = join(latexdir, "preamble")
+        for directory in ["history", "latex", "css", "plugins", \
+                          "backups", "sessions"]:
+            if not exists(join(self.basedir, directory)):
+                os.mkdir(join(self.basedir, directory))
+        # Create latex configuration files.
+        latexdir = join(self.basedir, "latex")
+        preamble = join(latexdir, "preamble")
         postamble = join(latexdir, "postamble")
-        dvipng    = join(latexdir, "dvipng")
-
+        dvipng = join(latexdir, "dvipng")
         if not os.path.exists(preamble):
             f = file(preamble, 'w')
             print >> f, "\\documentclass[12pt]{article}"
             print >> f, "\\pagestyle{empty}"
             print >> f, "\\begin{document}"
             f.close()
-
         if not os.path.exists(postamble):
             f = file(postamble, 'w')
             print >> f, "\\end{document}"
             f.close()
-
         if not os.path.exists(dvipng):
             f = file(dvipng, 'w')
             print >> f, "dvipng -D 200 -T tight tmp.dvi"
             f.close()
-
+        # Create default configuration.
         if not os.path.exists(os.path.join(self.basedir, "config")):
             self.save()
-            
         # Create default config.py.
-
         configfile = os.path.join(self.basedir, "config.py")
         if not os.path.exists(configfile):
             f = file(configfile, 'w')
             print >> f, \
 """# Mnemosyne configuration file.
-
-# Align question/answers to the left (True/False)
-left_align = False
-
-# Keep detailed logs (True/False).
-keep_logs = True
 
 # Upload server. Only change when prompted by the developers.
 upload_server = "mnemosyne-proj.dyndns.org:80"
@@ -188,12 +163,6 @@ upload_server = "mnemosyne-proj.dyndns.org:80"
 # Set to True to prevent you from accidentally revealing the answer
 # when clicking the edit button.
 only_editable_when_answer_shown = False
-
-# The translation to use, e.g. 'de' for German (including quotes).
-# See http://www.mnemosyne-proj.org/help/translations.php for a list
-# of available translations.
-# If locale is set to None, the system's locale will be used.
-locale = None
 
 # The number of daily backups to keep. Set to -1 for no limit.
 backups_to_keep = 5
@@ -256,5 +225,3 @@ day_starts_at = 3"""
             os.symlink(new, old)
         except OSError:
             print "Backwards compatibility symlink creation failed."
-
-

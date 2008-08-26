@@ -104,13 +104,6 @@ class SM2Controller(UiControllerReview):
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
         w.enable_edit_deck(database().card_count() > 0)
-        # Size for non-latin characters.
-
-        # TODO: investigate.
-
-        #increase_non_latin = config()["non_latin_font_size_increase"]
-        #non_latin_size = w.get_font_size() + increase_non_latin
-
         # Hide/show the question and answer boxes.
         if self.state == "SELECT SHOW":
             w.question_box_visible(True)
@@ -175,7 +168,6 @@ class SM2Controller(UiControllerReview):
         # Run possible update code that independent of the controller state.
         w.update_dialog()
         return
-
         # Tooltips: TODO
         #QToolTip.setWakeUpDelay(0) #TODO?
         for grade in range(0,6):
@@ -198,9 +190,8 @@ class SM2Controller(UiControllerReview):
             else:
                 self.grade_buttons[grade].setText(str(grade))
                 self.grades.setTitle(_("Grade your answer:"))
-            # Todo: accelerator update needed?
+            # TODO: accelerator update needed?
             #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
-
         # Run possible update code that independent of the controller state.
         #w.update_dialog()
 

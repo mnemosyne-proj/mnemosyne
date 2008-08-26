@@ -34,7 +34,8 @@ from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
-prefix = os.path.dirname(__file__) # TODO: still needed?
+# The folloving is need to determine the location of the translations.
+prefix = os.path.dirname(__file__)
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -83,8 +84,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fileNew(self):
         stopwatch.pause()
-        # TODO: improve basedir handling.
-        out = unicode(QFileDialog.getSaveFileName(basedir,
+        out = unicode(QFileDialog.getSaveFileName(config().basedir,
                         _("Mnemosyne databases (*.mem)"), self, None,\
                         _("New")))
         if out != "":

@@ -10,7 +10,7 @@
 
 
 -remove memory consumption of 'learn ahead of schedule'
--rework config datacreation (prefix), logger, exceptions
+-logger, exceptions
 
 -long style import or short style import?
 
@@ -126,6 +126,7 @@
 -create test for detecting duplication
 -pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
 http://pythoscope.org/
+-pylint, pyflakes
 
 
 
