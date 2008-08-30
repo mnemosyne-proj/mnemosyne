@@ -21,7 +21,7 @@ class ComponentManager(object):
 
        ======================   ===============================
        "config"                 configuration instance
-       "log"                 logger instance
+       "log"                    logger instance
        "database"               database instance
        "scheduler"              scheduler instance
        "filter"                 filter instance
@@ -46,16 +46,12 @@ class ComponentManager(object):
         self.card_type_by_id = {}
 
     def register(self, type, component, used_for=None):
-        """
-        type:      String describing the type.
-                   (XXX: make these registerable to prevent typos)
-        component: Instance of Component.
-        used_for:  Context for which a component is registered.
-                   This is used for example to register certain
-                   UI elements for specific card types.
-        XXX: When handling used_for cases we should make use of class 
-             inheritance, TODO KW
-        """
+        """For type, component and used_for, see the table above."""
+
+        # XXX: make type registerable to prevent typos
+        # XXX: When handling used_for cases we should make use of class 
+        #     inheritance, TODO KW
+
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
         if not self.components[used_for].has_key(type):
