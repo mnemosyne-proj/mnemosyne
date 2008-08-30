@@ -20,7 +20,8 @@ class ComponentManager(object):
     Managed components:
 
        ======================   ===============================
-       "config"                 config instance
+       "config"                 configuration instance
+       "log"                 logger instance
        "database"               database instance
        "scheduler"              scheduler instance
        "filter"                 filter instance
@@ -97,6 +98,9 @@ component_manager = ComponentManager()
 
 def config():
     return component_manager.get_current("config")
+    
+def log():
+    return component_manager.get_current("log")
     
 def database():
     return component_manager.get_current("database")

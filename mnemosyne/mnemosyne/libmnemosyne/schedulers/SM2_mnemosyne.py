@@ -2,16 +2,12 @@
 # SM2_mnemosyne.py <Peter.Bienstman@UGent.be>
 #
 
-import logging
 import random
 import copy
 
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.scheduler import Scheduler
-from mnemosyne.libmnemosyne.component_manager import database, config
-from mnemosyne.libmnemosyne.stopwatch import stopwatch
-
-log = logging.getLogger("mnemosyne")
+from mnemosyne.libmnemosyne.component_manager import database, config,  log
 
 
 class SM2Mnemosyne(Scheduler):
@@ -58,7 +54,7 @@ class SM2Mnemosyne(Scheduler):
         # avoid too long intervals between revisions. If there are too few
         # cards in left in the queue, append more new cards to keep some
         # spread between these last cards.
-        limit = config()["grade_0_cards_at_once"]
+        limit = config()["grade_0_items_at_once"]
         grade_0 = db.cards_due_for_final_review(grade=0)
         grade_0_selected = []
         if limit != 0:
@@ -243,7 +239,7 @@ class SM2Mnemosyne(Scheduler):
                         new_interval = actual_interval * card.easiness
             # Shouldn't happen, but build in a safeguard.
             if new_interval == 0:
-                log.info("Internal error: new interval was zero.")
+                print "Internal error: new interval was zero."
                 new_interval = scheduled_interval
             new_interval = int(new_interval)
         # When doing a dry run, stop here and return the scheduled interval.
@@ -262,12 +258,8 @@ class SM2Mnemosyne(Scheduler):
                 card.next_rep += 1
                 noise += 1
         # Create log entry.
-        log.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
-                    card.id, card.grade, card.easiness,
-                    card.acq_reps, card.ret_reps, card.lapses,
-                    card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-                    scheduled_interval, actual_interval,
-                    new_interval, noise, stopwatch.time())
+        log().revision(card, scheduled_interval, actual_interval,
+                       new_interval, noise)
         return new_interval + noise
 
     def clear_queue(self):

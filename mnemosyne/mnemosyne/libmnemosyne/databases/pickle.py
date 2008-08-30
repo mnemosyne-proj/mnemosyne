@@ -2,7 +2,6 @@
 # pickle.py <Peter.Bienstman@UGent.be>
 #
 
-import logging
 import os
 import cPickle
 import datetime
@@ -14,12 +13,11 @@ from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmnemosyne.exceptions import InvalidFormatError, SaveError
-from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import config, scheduler
+from mnemosyne.libmnemosyne.exceptions import InvalidFormatError
+from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
+from mnemosyne.libmnemosyne.component_manager import component_manager, config
+from mnemosyne.libmnemosyne.component_manager import log, scheduler
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
-
-log = logging.getLogger("mnemosyne")
 
 
 class Pickle(Database):
@@ -58,7 +56,7 @@ class Pickle(Database):
         self.load_failed = False
         self.start_date = StartDate()
         config()["path"] = path
-        log.info("New database")
+        log().new_database()
         self.save(contract_path(path, config().basedir))
 
     def load(self, path):
@@ -67,7 +65,7 @@ class Pickle(Database):
             unload_database()
         if not os.path.exists(path):
             self.load_failed = True
-            raise IOError
+            raise LoadError
         try:
             infile = file(path, 'rb')
             db = cPickle.load(infile)
@@ -87,8 +85,7 @@ class Pickle(Database):
         #for c in self.categories:
         #    self.remove_category_if_unused(c)
         config()["path"] = contract_path(path, config().basedir)
-        log.info("Loaded database %d %d %d", self.scheduled_count(), \
-                    self.non_memorised_count(), self.card_count())
+        log().loaded_database()
         for f in component_manager.get_all("after_load"):
             f.run()
 
@@ -119,8 +116,7 @@ class Pickle(Database):
 
     def unload(self):
         self.save(config()["path"])
-        log.info("Saved database %d %d %d", self.scheduled_count(), \
-                    self.non_memorised_count(), self.card_count())
+        log().saved_database()
         self.start_date = None
         self.categories = []
         self.facts = []
@@ -211,13 +207,12 @@ class Pickle(Database):
         scheduler().rebuild_queue()
         for cat in old_cat:
             self.remove_category_if_unused(cat)
-        log.info("Deleted card %s", c.id)
+        log().deleted_card()
 
     def add_card(self, card):
         self.load_failed = False
         self.cards.append(card)
-        new_interval = self.days_since_start() - card.next_rep
-        log.info("New card %s %d %d", card.id, card.grade, new_interval)
+        log().new_card(card)
 
     def update_card(self, card):
         return # Should happen automatically.

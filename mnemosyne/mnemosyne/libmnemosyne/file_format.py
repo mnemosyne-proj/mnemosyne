@@ -52,9 +52,6 @@ class FileFormat(Component):
 
 
 
-
-
-
 # TODO: integrate code below
 
 
@@ -64,6 +61,8 @@ class FileFormat(Component):
 #
 #   Returns anonymous version of id (_0, _1, ...), but keeps card's
 #   original id intact.
+#
+# TODO: probably not needed anymore
 #
 ##############################################################################
 
@@ -91,22 +90,20 @@ def anonymise_id(card):
 #
 #   Create a new id from an anonymous one, and updates card's id with it.
 #
+# TODO: probably only needed when importing 1.x XML
+#
 ##############################################################################
 
 anon_to_id = {}
 
 def unanonymise_id(card):
-    
     global anon_to_id
-    
     if '.' in card.id:
         old_id, suffix = card.id.split('.', 1)
     else:
         old_id, suffix = card.id, ''
-
     if suffix:
         suffix = '.' + suffix
-
     if old_id.startswith('_'):
         if old_id in anon_to_id:
             card.id = anon_to_id[old_id] + suffix
@@ -114,7 +111,6 @@ def unanonymise_id(card):
             card.new_id()
             anon_to_id[old_id] = card.id
             card.id += suffix
-
     return card.id
 
 
@@ -145,9 +141,7 @@ def import_file(filename, fformat_name, default_cat_name,
     # Add new cards.
     
     for card in imported_cards:
-                    
         # Check for duplicates.
-
         for i in get_cards():
             if i.q == card.q and i.a == card.a:
                 if get_config("check_duplicates_when_adding") == True:
@@ -157,15 +151,9 @@ def import_file(filename, fformat_name, default_cat_name,
                         break
         else:
             cards.append(card)
-            
             if card.is_due_for_retention_rep():
                 revision_queue[0:0] = [card]
-                
-            interval = card.next_rep - days_since_start
-            logger.info("Imported card %s %d %d %d %d %d",
-                        card.id, card.grade, card.ret_reps,
-                        card.last_rep, card.next_rep, interval)
-
+            log().imported_card(card) 
     # Clean up.
 
     remove_category_if_unused(default_cat)

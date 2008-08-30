@@ -10,15 +10,12 @@ library, so that it can be overridden to suit specific requirements.
 
 """
 
-import logging
 import os
 import sys
 
-import mnemosyne.version
-from mnemosyne.libmnemosyne.exceptions import PluginError
-from mnemosyne.libmnemosyne.component_manager import component_manager, config
-
-log = logging.getLogger("mnemosyne")
+from mnemosyne.libmnemosyne.exceptions import PluginError, traceback_string
+from mnemosyne.libmnemosyne.component_manager import config, log
+from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 def initialise(basedir):
@@ -28,9 +25,9 @@ def initialise(basedir):
 
     initialise_system_components()
     config().initialise(basedir)
+    initialise_logging()
     initialise_lockfile()
     initialise_new_empty_database()
-    initialise_logging()
     initialise_error_handling()
 
 
@@ -49,20 +46,18 @@ def initialise_new_empty_database():
 upload_thread = None
 def initialise_logging():
     global upload_thread
-    from mnemosyne.libmnemosyne.logger import archive_old_log, start_logging
-    from mnemosyne.libmnemosyne.logger import Uploader
-    archive_old_log()
-    start_logging()
+    from mnemosyne.libmnemosyne.log_uploader import LogUploader
+    log().archive_old_log()
+    log().start_logging()
+    log().program_started()
     if config()["upload_logs"]:
-        upload_thread = Uploader()
+        upload_thread = LogUploader()
         upload_thread.start()
-    log.info("Program started : Mnemosyne " + mnemosyne.version.version \
-             + " " + os.name + " " + sys.platform)
 
 
 def initialise_error_handling():
     
-    """Write errors to a file (otherwise this causes problem on Windows)."""
+    """Write errors to a file (otherwise this causes problems on Windows)."""
     
     if sys.platform == "win32":
         error_log = os.path.join(basedir, "error_log.txt")
@@ -79,6 +74,10 @@ def initialise_system_components():
     # Configuration.
     from mnemosyne.libmnemosyne.configuration import Configuration
     component_manager.register("config", Configuration())
+    
+     # Logger.
+    from mnemosyne.libmnemosyne.loggers.txt_logger import TxtLogger
+    component_manager.register("log", TxtLogger())   
     
     # Database.
     from mnemosyne.libmnemosyne.databases.pickle import Pickle
@@ -138,7 +137,7 @@ def finalise():
         print "Waiting for uploader thread to stop..."
         upload_thread.join()
         print "done!"
-    log.info("Program stopped")
+    log().program_stopped()
     try:
         os.remove(os.path.join(config().basedir,"MNEMOSYNE_LOCK"))
     except OSError:

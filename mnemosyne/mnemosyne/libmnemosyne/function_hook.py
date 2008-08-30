@@ -15,7 +15,7 @@ from plugin import Plugin
 # FunctionHook
 #
 #  Note that this class actually does not contain any new functionality.
-#  It mainly exists to make the taxonomy of different plugins types visible
+#  It mainly exists to make the taxonomy of different component types visible
 #  and for documentation purposes.
 #
 #  The 'type' from Plugin should be the name of the function hook.
