@@ -60,7 +60,19 @@ class Fact(object):
         self.uid = uid
 
     def __getitem__(self, key):
-        return self.data[key]
+        """Retrieve a data field. A dynamic data field can be defined
+        by defining a data_foo method for a card_type that accepts a
+        datafields dict.
+        """
+        try:
+            return self.data[key]
+        except KeyError:
+            # Check if the card_type defines a dynamic field by this name.
+            dynfield = getattr(self.card_type, 'field_'+key, None)
+            if dynfield is None:
+                raise KeyError("Fact has no field '%s'" % key)
+            else:
+                return dynfield(self.data)
 
     def __setitem__(self, key, value):
         self.data[key] = value
