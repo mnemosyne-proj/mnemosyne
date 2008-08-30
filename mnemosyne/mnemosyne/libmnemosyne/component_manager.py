@@ -45,6 +45,16 @@ class ComponentManager(object):
         self.card_type_by_id = {}
 
     def register(self, type, component, used_for=None):
+        """
+        type:      String describing the type.
+                   (XXX: make these registerable to prevent typos)
+        component: Instance of Component.
+        used_for:  Context for which a component is registered.
+                   This is used for example to register certain
+                   UI elements for specific card types.
+        XXX: When handling used_for cases we should make use of class 
+             inheritance, TODO KW
+        """
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
         if not self.components[used_for].has_key(type):
@@ -104,6 +114,7 @@ def card_types():
     return component_manager.get_all("card_type")
 
 def card_type_by_id(id):
+    # XXX Can be solved by using named components, TODO KW
     return component_manager.card_type_by_id[id]
 
 def filters():
