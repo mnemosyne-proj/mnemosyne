@@ -23,6 +23,8 @@ from mnemosyne.libmnemosyne.component_manager import config
 ##############################################################################
 
 def archive_old_log():
+    # XXX Use the RotatingFileHandler http://docs.python.org/lib/module-logging.html for this
+    #     (if necessary write our own Handler)
     
     basedir = config().basedir
     
@@ -62,6 +64,8 @@ def archive_old_log():
 ##############################################################################
 
 def upload(filename):
+    # XXX If we change the server side script, we can make this a lot cleaner
+    #     (no need to simulate a file upload, just do a HTTP PUT)
 
     host, port = config()["upload_server"].split(":")
     uri = '/cgi-bin/cgiupload.py'

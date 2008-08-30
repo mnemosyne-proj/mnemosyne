@@ -16,14 +16,20 @@ class Plugin(Component):
     
     """
 
-    def __init__(self):
-        self.name = ""
-        self.description = ""
-        self.active = False
-        component_manager.register("plugin", self)
+    name = None
+    description = None
+    active = False
 
+    def __init__(self):
+        assert self.name and self.description, \
+            "A Plugin needs a name and description"
+        # not in init, explicit: component_manager.register("plugin", self)
+
+
+    # XXX KW: remove: let's not rely on plugins actually calling the base class..
     def activate(self):
         self.active = True
 
     def deactivate(self):
         self.active = False
+

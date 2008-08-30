@@ -13,10 +13,12 @@ class UiControllerMain(Component):
 
     """
 
-    def __init__(self, name, description=""):
-        self.name = name
-        self.description = description
-        self.widget = None
+    name = None
+    description = None
+    widget = None
+
+    def __init__(self):
+        pass
 
     def create_new_cards(self, fact_data, card_type, grade, cat_names):
         raise NotImplementedError
