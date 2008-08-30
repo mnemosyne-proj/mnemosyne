@@ -29,5 +29,3 @@ class Stopwatch(object):
     def time(self):
         return self.running_time
 
-
-stopwatch = Stopwatch()
