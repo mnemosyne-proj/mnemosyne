@@ -39,7 +39,13 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, cat_names, card_type, id=None):
+    def __init__(self, data, cat_names, card_type, uid=None):
+        """
+        data : dict of card data
+        cat_names : XXX: use list of Category instances? why in constructor? add later
+        card_type : CardType instance
+        uid : globally unique id for this card
+        """
         self.added = datetime.datetime.now()
         self.data = data
         self.card_type = card_type
@@ -47,17 +53,14 @@ class Fact(object):
         self.cat = []
         for cat_name in cat_names:
             self.cat.append(db.get_or_create_category_with_name(cat_name))
-        if id is None:
-            digest = md5(str(self.data).encode("utf-8") + \
-                             str(self.added)).hexdigest()
-            id = digest[0:8]
-        self.id = id
+        if uid is None:
+            # XXX use guid module?
+            uid = md5(repr(sorted(data.items())) + \
+                str(self.added)).hexdigest()
+        self.uid = uid
 
     def __getitem__(self, key):
-        try:
-            return self.data[key]
-        except IndexError:
-            raise KeyError
+        return self.data[key]
 
     def __setitem__(self, key, value):
         self.data[key] = value
