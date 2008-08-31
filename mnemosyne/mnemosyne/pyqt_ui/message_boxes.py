@@ -22,15 +22,11 @@ from PyQt4.QtGui import *
 ##############################################################################
 
 def messagebox_errors(self, e):
-
-    # Kludgy...
-    
-
          
     if e.info:
-        msg = QString(msg).append(QString("\n")).append(e.info)
+        e.msg = QString(e.msg).append(QString("\n")).append(e.info)
                                    
-    QMessageBox.critical(None, self.trUtf8("Mnemosyne"), msg,
+    QMessageBox.critical(None, self.trUtf8("Mnemosyne"), e.msg,
                          self.trUtf8("&OK"), "", "", 0, -1)
 
 

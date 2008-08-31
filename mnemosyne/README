@@ -6,6 +6,7 @@ First install the following dependencies:
 -PyQt 4.x (http://www.riverbankcomputing.co.uk/software/pyqt/download)
 -If you want to be able to enter formulas using latex syntax, make sure that
  latex is installed.
+-EasyInstall from http://peak.telecommunity.com/DevCenter/EasyInstall
 -Type 'python setup.py install' as root.
 -Run the application by typing 'mnemosyne'.
 

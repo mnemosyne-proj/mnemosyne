@@ -32,7 +32,7 @@ from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 from mnemosyne.pyqt_ui.main_window import MainWindow
 from mnemosyne.pyqt_ui.main_window import prefix
-#from mnemosyne.pyqt_ui.message_boxes import *
+from mnemosyne.pyqt_ui.message_boxes import *
 #from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 
 
