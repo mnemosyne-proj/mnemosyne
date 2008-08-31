@@ -13,7 +13,7 @@ class Card(object):
     def __init__(self, fact, fact_view):
         self.fact = fact
         self.fact_view = fact_view
-        self.id = self.fact.id + "." + str(self.fact_view.id)
+        self.id = self.fact.uid + "." + str(self.fact_view.id)
         self.reset_learning_data()
 
     def reset_learning_data(self):
