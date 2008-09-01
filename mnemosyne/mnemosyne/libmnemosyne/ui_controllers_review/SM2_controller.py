@@ -54,7 +54,7 @@ class SM2Controller(UiControllerReview):
     def __init__(self):
         UiControllerReview.__init__(self, name="SM2 Controller")
 
-    def new_question(self, learn_ahead = False):
+    def new_question(self, learn_ahead=False):
         if database().card_count() == 0:
             self.state = "EMPTY"
             self.card = None
@@ -129,18 +129,12 @@ class SM2Controller(UiControllerReview):
         if self.card == None:
             w.clear_question()
         else:
-            text = self.card.question()
-            #if increase_non_latin:
-            #    text = set_non_latin_font_size(text, non_latin_size)
-            w.set_question(text)
+            w.set_question(self.card.question())
         # Update answer content.
         if self.card == None or self.state == "SELECT SHOW":
             w.clear_answer()
         else:
-            text = self.card.answer()
-            #if increase_non_latin:
-            #    text = set_non_latin_font_size(text, non_latin_size)
-            w.set_answer(text)
+            w.set_answer(self.card.answer())
         # Update 'Show answer' button.
         if self.state == "EMPTY":
             show_enabled, default, text = False, True, _("Show answer")

@@ -37,7 +37,7 @@ class SM2Mnemosyne(Scheduler):
             noise = round(random.uniform(-a,a))
         return noise
 
-    def rebuild_queue(self, learn_ahead = False):
+    def rebuild_queue(self, learn_ahead=False):
         self.queue = []
         db = database()
         if not db.is_loaded():
@@ -121,7 +121,9 @@ class SM2Mnemosyne(Scheduler):
         # earliest scheduled cards first. We only put 5 cards at the same
         # time into the queue, in order to save memory.
         # TODO: this requires the user to click 'learn ahead of schedule'
-        # again after 5 cards. See if we can improve this.
+        # again after 5 cards. If it's possible to make this algorithm
+        # stateless and return 1 card at the time, this will be solved
+        # automatically.
         if learn_ahead == False:
             return
         else:
@@ -135,7 +137,7 @@ class SM2Mnemosyne(Scheduler):
 
     def remove_from_queue(self, card):
 
-        """Remove a single instance of an card from the queue. Necessary when
+        """Remove a single instance of a card from the queue. Necessary when
         the queue needs to be rebuilt, and there is still a question pending.
 
         """

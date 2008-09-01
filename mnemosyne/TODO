@@ -1,17 +1,11 @@
 * Mnemosyne 2.0:
 
-
 -Add cards dialog:
     -multiple categories
     -preview
     -toolbar with editing options (bold, latex, picture, ..)
     -button to switch between tag view and wysisyg view
     -read font, colour, etc, from card type css
-
-
--remove memory consumption of 'learn ahead of schedule'
-
--starting from an empty data dir does not work
 
 -map card type
 
@@ -24,6 +18,8 @@
 -pregenerate q and a on mobile devices?
 
 -test uploading of logs
+
+-buttons in 'add card' are smaller than in the review widget.
 
 -if we change a card id on import, by sure to put a message in the
  log to that effect, so that the statistics can keep track of it.
@@ -63,8 +59,8 @@
 
 -plugin for midi files
 
--'tooltips' during use: deactivate related cards, edit toolbar vs css, change card type,
- relative path when adding pictures or sound.
+-'tooltips' during use: deactivate related cards, edit toolbar vs css, change 
+ card type, relative path when adding pictures or sound.
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
