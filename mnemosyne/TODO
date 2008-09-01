@@ -27,6 +27,9 @@
 
 -if we change a card id on import, by sure to put a message in the
  log to that effect, so that the statistics can keep track of it.
+ 
+-upgrade from 1.x to 2.0 migration code: convert deck,
+  move latex configuration files?
 
 -UI: related cards
 

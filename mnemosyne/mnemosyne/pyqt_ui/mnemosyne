@@ -25,7 +25,7 @@ parser.add_option("-i", "--run-in-place", action="store_true",
 # Make it easier for developpers to run Mnemosyne without installing it.
 
 if options.in_place == True:
-    sys.path.insert(0,os.path.abspath("."))
+    sys.path.insert(0, os.path.abspath("."))
 
 from mnemosyne.libmnemosyne import initialise, finalise
 from mnemosyne.libmnemosyne.component_manager import config
@@ -70,9 +70,10 @@ config_file_c = os.path.join(basedir, "config.pyc")
 if os.path.exists(config_file_c):
     os.remove(config_file_c)
 try:
-    import config as _config
-    if _config.locale != None:
-        loc = _config.locale
+    # TODO: check if this does not interfere with component_manager.config()
+    import config as user_config
+    if user_config.locale != None:
+        loc = user_config.locale
 except:
     pass
 
@@ -86,7 +87,7 @@ translator.load("qt_"+loc+".qm", os.path.join(prefix,'locale'))
 a.installTranslator(translator)
 
 # Check if there is another instance of Mnemosyne running.
-if os.path.exists(os.path.join(basedir,"MNEMOSYNE_LOCK")):
+if os.path.exists(os.path.join(basedir, "MNEMOSYNE_LOCK")):
     status = QMessageBox.warning(None,
              a.trUtf8("Mnemosyne"),
              a.trUtf8("Either Mnemosyne didn't shut down properly,\n" +

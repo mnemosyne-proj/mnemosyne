@@ -184,15 +184,20 @@ class Configuration(Component):
                     if var in self._config.keys():
                         self._config[var] = getattr(user_config, var)
             except:
-                raise ConfigError(stack_trace=True)
+                # Work around the unexplained fact that config.py cannot get 
+                # imported right after it has been created.
+                if self._config["first_run"] == True:
+                    pass
+                else:
+                    raise ConfigError(stack_trace=True)
                 
     def correct_config(self):
         # Update paths if the location has migrated.
         if self.old_basedir:
             for key in ["import_dir", "export_dir", "import_img_dir",
                         "import_sound_dir"]:
-                if _config[key] == old_basedir:
-                    _config[key] = self.basedir
+                if self._config[key] == self.old_basedir:
+                    self._config[key] = self.basedir
         # Recreate user id and log index from history folder in case the
         # config file was accidentally deleted.
         if self._config["log_index"] == 1:
