@@ -27,6 +27,7 @@ class Plugin(Component):
 
 
     # XXX KW: remove: let's not rely on plugins actually calling the base class..
+
     def activate(self):
         self.active = True
 

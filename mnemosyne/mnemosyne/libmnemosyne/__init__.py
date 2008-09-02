@@ -117,6 +117,10 @@ def initialise_system_components():
     from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
                                                    import SM2Controller
     component_manager.register("ui_controller_review", SM2Controller())
+    
+    # Plugins.
+    from mnemosyne.libmnemosyne.card_types.map import Map   
+    component_manager.register("plugin", Map())
 
 
 def initialise_user_plugins():

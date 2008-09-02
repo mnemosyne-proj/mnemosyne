@@ -43,7 +43,6 @@ class CardType(Component):
         self.is_language = False
         self.widget = None
         self.renderer = None
-        self.a_on_top_of_q = False
 
     def required_fields(self):
 

@@ -107,11 +107,11 @@ class SM2Controller(UiControllerReview):
         # Hide/show the question and answer boxes.
         if self.state == "SELECT SHOW":
             w.question_box_visible(True)
-            if self.card.fact.card_type.a_on_top_of_q:
+            if self.card.fact_view.a_on_top_of_q:
                 w.answer_box_visible(False)
         elif self.state == "SELECT GRADE":
             w.answer_box_visible(True)
-            if self.card.fact.card_type.a_on_top_of_q:
+            if self.card.fact_view.a_on_top_of_q:
                 w.question_box_visible(False)
         else:
             w.question_box_visible(True)

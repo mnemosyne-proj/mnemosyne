@@ -7,7 +7,11 @@
     -button to switch between tag view and wysisyg view
     -read font, colour, etc, from card type css
 
--map card type
+-complete UI controller review
+
+-basic documentation of library
+
+-developper preview
 
 -easier function to do tag detection in plugin
 
@@ -26,6 +30,8 @@
  
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?
+
+-test map card type plugin
 
 -UI: related cards
 
@@ -47,6 +53,8 @@
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
 
 -make all subwindows remember their size
+
+-activate necessary card types on plugin
 
 -test Python 3.0 compliance
 

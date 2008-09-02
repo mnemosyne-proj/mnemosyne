@@ -17,4 +17,4 @@ class FactView(object):
         self.q_fields = []
         self.a_fields = []
         self.required_fields = []
-
+        self.a_on_top_of_q = False
