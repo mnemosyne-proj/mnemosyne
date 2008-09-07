@@ -32,26 +32,29 @@ class ComponentManager(object):
                                 used_for card_type class name
        "ui_controller_review"   ui_controller_review instance
        "review_widget"          review_widget class
+       "plugin"                 plugin instance
        ======================   ===============================
        
     Note: for widgets we store the class name as opposed to an instance,
     since creating widgets can be time consuming.
        
-    TODO: plugin, function hook
+    TODO: function hook
 
     """
-
+    
+    # TODO KW: investigate inheritance in the context of used_for.
+        
     def __init__(self):
         self.components = {} # { used_for : {type : [component]} }
         self.card_type_by_id = {}
 
     def register(self, type, component, used_for=None):
         """For type, component and used_for, see the table above."""
-
-        # XXX: make type registerable to prevent typos
-        # XXX: When handling used_for cases we should make use of class 
-        #     inheritance, TODO KW
-
+        
+        if type not in ["config", "log", "database", "scheduler", "filter",
+                        "card_type", "card_type_widget", "renderer",
+                        "ui_controller_review", "review_widget", "plugin"]:
+           raise KeyError, "Invalid component type % s.", type
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
         if not self.components[used_for].has_key(type):
@@ -114,7 +117,7 @@ def card_types():
     return component_manager.get_all("card_type")
 
 def card_type_by_id(id):
-    # XXX Can be solved by using named components, TODO KW
+    # TODO KW: use named components for this.
     return component_manager.card_type_by_id[id]
 
 def filters():
