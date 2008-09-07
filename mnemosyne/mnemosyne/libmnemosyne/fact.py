@@ -9,22 +9,19 @@ try:
 except ImportError:
     from md5 import md5
 
-from mnemosyne.libmnemosyne.component_manager import database
-
 
 class Fact(object):
 
     """Basic unit of information from which several cards can be derived.
 
-    The fields are stored in a dictionary, and can be get and set using the
-    standard dictionary syntax.
+    The fields are stored in a dictionary called 'data', and can be get and 
+    set using the standard dictionary syntax.
+    
+    Note that a dynamic data field can be defined by defining a data_foo method
+    for a card_type that accepts a datafields dictonary.
 
-    Categories and card_type_id are stored here, because when resetting the
+    Card_type and categories are also stored here, because when resetting the
     learning data on export, we only export facts.
-
-    Note that we store a card_type_id, as opposed to a card_type, because
-    otherwise we can't use pickled databases, as the card_types themselves
-    are not stored in the database.  It is also closer the SQL implementation.
 
     When making new card types, it is best to reuse the keys below as much
     as possible, to facilitate conversion between card types:
@@ -39,29 +36,18 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, cat_names, card_type, uid=None):
-        """
-        data : dict of card data
-        cat_names : TODO: use list of Category instances? why in constructor? add later
-        card_type : CardType instance
-        uid : globally unique id for this card
-        """
+    def __init__(self, data, card_type, categories=[], uid=None):
         self.added = datetime.datetime.now()
         self.data = data
         self.card_type = card_type
-        db = database()
-        self.cat = []
-        for cat_name in cat_names:
-            self.cat.append(db.get_or_create_category_with_name(cat_name))
-        if uid is None: # TODO KW: use guid module?
+        self.cat = categories
+        if uid is None: 
+            # TODO KW: use guid module? Make sure not to use too much space for 
+            # the global log analysis of all users, though.
             uid = md5(repr(sorted(data.items())) + str(self.added)).hexdigest()
         self.uid = uid
 
     def __getitem__(self, key):
-        """Retrieve a data field. A dynamic data field can be defined
-        by defining a data_foo method for a card_type that accepts a
-        datafields dict.
-        """
         try:
             return self.data[key]
         except KeyError:

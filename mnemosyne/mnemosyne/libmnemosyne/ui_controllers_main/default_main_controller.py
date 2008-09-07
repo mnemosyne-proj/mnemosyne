@@ -26,7 +26,10 @@ class DefaultMainController(UiControllerMain):
         if db.has_fact_with_data(fact_data):
             self.widget.information_box(\
               _("Card is already in database.\nDuplicate not added."), _("OK"))
-        fact = Fact(fact_data, cat_names, card_type)
+            return
+        fact = Fact(fact_data, card_type)        
+        for cat_name in cat_names:
+            fact.cat.append(db.get_or_create_category_with_name(cat_name))
         duplicates = db.duplicates_for_fact(fact)
         if len(duplicates) != 0:
             answer = self.widget.question_box(\
