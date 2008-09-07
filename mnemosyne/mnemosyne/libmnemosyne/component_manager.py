@@ -54,7 +54,7 @@ class ComponentManager(object):
         if type not in ["config", "log", "database", "scheduler", "filter",
                         "card_type", "card_type_widget", "renderer",
                         "ui_controller_review", "review_widget", "plugin"]:
-           raise KeyError, "Invalid component type % s.", type
+           raise KeyError("Invalid component type % s.", type)
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
         if not self.components[used_for].has_key(type):

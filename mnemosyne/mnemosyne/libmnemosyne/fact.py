@@ -42,7 +42,7 @@ class Fact(object):
     def __init__(self, data, cat_names, card_type, uid=None):
         """
         data : dict of card data
-        cat_names : XXX: use list of Category instances? why in constructor? add later
+        cat_names : TODO: use list of Category instances? why in constructor? add later
         card_type : CardType instance
         uid : globally unique id for this card
         """
@@ -53,10 +53,8 @@ class Fact(object):
         self.cat = []
         for cat_name in cat_names:
             self.cat.append(db.get_or_create_category_with_name(cat_name))
-        if uid is None:
-            # XXX use guid module?
-            uid = md5(repr(sorted(data.items())) + \
-                str(self.added)).hexdigest()
+        if uid is None: # TODO KW: use guid module?
+            uid = md5(repr(sorted(data.items())) + str(self.added)).hexdigest()
         self.uid = uid
 
     def __getitem__(self, key):

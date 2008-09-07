@@ -21,8 +21,9 @@ class LogUploader(Thread):
         
         """
 
-        # XXX If we change the server side script, we can make this a lot cleaner
-        #     (no need to simulate a file upload, just do a HTTP PUT)
+        # Note: we could make the following code a lot cleaner by doing a HTTP
+        # PUT, but then we need to change the server side script which would
+        # cause problems with backwards compatibility.
     
         host, port = config()["upload_server"].split(":")
         uri = '/cgi-bin/cgiupload.py'
