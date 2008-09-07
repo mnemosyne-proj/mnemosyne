@@ -8,10 +8,11 @@ _ = gettext.gettext
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 class Map(CardType, Plugin):
+    
+    provides = "card_type"
 
     def __init__(self):
         CardType.__init__(self)
@@ -41,12 +42,5 @@ class Map(CardType, Plugin):
     
         # The following field needs to be unique.
         self.unique_fields = ["loc"]
-    
-    def activate(self):
-        component_manager.register("card_type", self)
-        self.active = True
 
-    def deactivate(self):
-        component_manager.ungister("card_type", self)
-        self.active = False
    

@@ -9,28 +9,26 @@ from mnemosyne.libmnemosyne.component_manager import component_manager
 class Plugin(Component):
 
     """A plugin is a component which can be activated and deactivated by the
-    user when the program is running. In addition to the standard
-    implementation of these (de)activation routines below, a plugin
-    typically (un)register one or more other components (or 'self', if one
-    uses multiple inheritance).
+    user when the program is running.  Typically, plugins derive from both 
+    Plugin and the Component they implement, and set the 'provides' class 
+    variable to the string describing the component type.
     
     """
 
     name = None
     description = None
     active = False
+    provides = ""
 
     def __init__(self):
-        assert self.name and self.description, \
-            "A Plugin needs a name and description"
-        # not in init, explicit: component_manager.register("plugin", self)
-
-
-    # XXX KW: remove: let's not rely on plugins actually calling the base class..
+        assert Plugin.name and Plugin.description, \
+            "A Plugin needs a name and description."
 
     def activate(self):
+        component_manager.register(Plugin.provides, self)
         self.active = True
 
-    def deactivate(self):
+    def deactivate(self):        
+        component_manager.unregister(Plugin.provides, self)
         self.active = False
 
