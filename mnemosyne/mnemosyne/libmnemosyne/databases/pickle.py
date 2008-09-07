@@ -172,14 +172,12 @@ class Pickle(Database):
     # TODO: benchmark this and see if we need a dictionary category_by_name.
 
     def get_or_create_category_with_name(self, name):
-        if all(name != c.name for c in self.categories):
-            category = Category(name)
-            self.categories.append(category)
-            return category
-        else:
-            for c in self.categories:
-                if c.name == name:
-                    return c
+        for category in self.categories:
+            if category.name == name:
+                return category
+        category = Category(name)
+        self.categories.append(category)
+        return category
 
     # TODO: we used to check on name here. OK to check on instance?
 
