@@ -49,16 +49,6 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
     def grade_answer(self, grade):
         self.controller.grade_answer(grade)
 
-    def next_rep_string(self, days):
-        if days == 0:
-            return QString('\n') + self.trUtf8("Next repetition: today.")
-        elif days == 1:
-            return QString('\n') + self.trUtf8("Next repetition: tomorrow.")
-        else:
-            return QString('\n') + self.trUtf8("Next repetition in ").\
-                   append(QString(str(days))).\
-                   append(self.trUtf8(" days."))
-
     def set_window_title(self, title):
         self.setWindowTitle(title)
 
@@ -143,8 +133,17 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
 
     def enable_grades(self, grades_enabled):
         self.grades.setEnabled(grades_enabled)
-
+ 
+    def set_grades_title(self, text):
+        self.grades.setTitle(text)
         
+    def set_grade_text(self, grade, text):
+        self.grade_buttons.button(grade).setText(text)
+        
+    def set_grade_tooltip(self, grade, text):
+        self.grade_buttons.button(grade).setToolTip(text)
+  
+       
             
     ##########################################################################
     #

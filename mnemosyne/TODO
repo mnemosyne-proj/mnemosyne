@@ -25,6 +25,8 @@
 
 -buttons in 'add card' are smaller than in the review widget.
 
+-show latex errors in GUI?
+
 -if we change a card id on import, by sure to put a message in the
  log to that effect, so that the statistics can keep track of it.
  

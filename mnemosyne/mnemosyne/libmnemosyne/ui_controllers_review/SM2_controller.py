@@ -13,40 +13,31 @@ from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
 
 
-##############################################################################
-#
-# Tooltip texts
-#
-##############################################################################
+# Tooltip texts.  The first index deals with whether we have a card with
+# previous grade 0 or 1 (i.e. unmemorised).  The second index is the grade.
+tooltip = [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]]
+tooltip[0][0] = \
+    _("You don't remember this card yet.")
+tooltip[0][1] = \
+    _("Like '0', but it's getting more familiar.") + " " + \
+    _("Show it less often.")
+tooltip[0][2] = tooltip[0][3] = tooltip[0][4] = tooltip[0][5] = \
+    _("You've memorised this card now,") + \
+    _(" and will probably remember it for a few days.")
 
-tooltip = [["","","","","",""],["","","","","",""]]
-
-def install_tooltip_strings(self):
-
-    global tooltip
-
-    tooltip[0][0] = \
-        _("You don't remember this card yet.")
-    tooltip[0][1] = \
-        _("Like '0', but it's getting more familiar.") + " " + \
-        _("Show it less often.")
-    tooltip[0][2] = tooltip[0][3] = tooltip[0][4] = tooltip[0][5] = \
-        _("You've memorised this card now,") + \
-        _(" and will probably remember it for a few days.")
-
-    tooltip[1][0] = tooltip[1][1] = \
-        _("You have forgotten this card completely.")
-    tooltip[1][2] = \
-        _("Barely correct answer. The interval was way too long.")
-    tooltip[1][3] = \
-        _("Correct answer, but with much effort.") + " " + \
-        _("The interval was probably too long.")
-    tooltip[1][4] = \
-        _("Correct answer, with some effort.") + " " + \
-        _("The interval was probably just right.")
-    tooltip[1][5] = \
-        _("Correct answer, but without any difficulties.") + " " + \
-        _("The interval was probably too short.")
+tooltip[1][0] = tooltip[1][1] = \
+    _("You have forgotten this card completely.")
+tooltip[1][2] = \
+    _("Barely correct answer. The interval was way too long.")
+tooltip[1][3] = \
+    _("Correct answer, but with much effort.") + " " + \
+    _("The interval was probably too long.")
+tooltip[1][4] = \
+    _("Correct answer, with some effort.") + " " + \
+    _("The interval was probably just right.")
+tooltip[1][5] = \
+    _("Correct answer, but without any difficulties.") + " " + \
+    _("The interval was probably too short.")
 
 
 class SM2Controller(UiControllerReview):
@@ -80,11 +71,19 @@ class SM2Controller(UiControllerReview):
         # answer, provided the queue contains at least one card.
         interval = scheduler().process_answer(self.card, grade)
         self.new_question()
-        # TODO: implement
+        # TODO: implement hidden feature?
         #if config()["show_intervals"] == "statusbar":
         #    self.statusBar().message(_("Returns in") + " " + \
-        #                             str(interval) + _(" day(s)."))
-
+        #          str(interval) + _(" day(s)."))
+        
+    def next_rep_string(self, days):
+        if days == 0:
+            return '\n' + _("Next repetition: today.")
+        elif days == 1:
+            return '\n' + _("Next repetition: tomorrow.")
+        else:
+            return '\n' + _("Next repetition in ") + str(days) + _(" days.")
+                   
     def update_dialog(self):
         w = self.widget
         # Update title.
@@ -159,33 +158,27 @@ class SM2Controller(UiControllerReview):
             default_4 = True
         w.grade_4_default(default_4)
         w.enable_grades(grades_enabled)
-        # Run possible update code that independent of the controller state.
-        w.update_dialog()
-        return
-        # Tooltips: TODO
-        #QToolTip.setWakeUpDelay(0) #TODO?
+        # Tooltips and texts for the grade buttons.
         for grade in range(0,6):
             # Tooltip.
-            #QToolTip.remove(self.grade_buttons[grade])
             if self.state == "SELECT GRADE" and \
                config()["show_intervals"] == "tooltips":
-                self.grade_buttons[grade].setToolTip(tooltip[i][grade].
-                      append(self.next_rep_string(process_answer(self.card,
-                                                  grade, dry_run=True))))
+                w.set_grade_tooltip(grade, tooltip[i][grade] +\
+                    self.next_rep_string(scheduler().process_answer(self.card, \
+                                        grade, dry_run=True)))
             else:
-                self.grade_buttons[grade].setToolTip(tooltip[i][grade])
+                w.set_grade_tooltip(grade, tooltip[i][grade])
             # Button text.
             if self.state == "SELECT GRADE" and \
                config()["show_intervals"] == "buttons":
-                self.grade_buttons[grade].setText(\
-                        str(process_answer(self.card, grade, dry_run=True)))
-                self.grades.setTitle(\
-                    _("Pick days until next repetition:"))
+                w.set_grade_text(grade, str(scheduler().process_answer(\
+                                            self.card, grade, dry_run=True)))
+                w.set_grades_title(_("Pick days until next repetition:"))
             else:
-                self.grade_buttons[grade].setText(str(grade))
-                self.grades.setTitle(_("Grade your answer:"))
+                w.set_grade_text(grade, str(grade))
+                w.set_grades_title(_("Grade your answer:"))
             # TODO: accelerator update needed?
             #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
         # Run possible update code that independent of the controller state.
-        #w.update_dialog()
+        w.update_dialog()
 

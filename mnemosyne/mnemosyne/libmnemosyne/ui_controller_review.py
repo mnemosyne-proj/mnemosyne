@@ -37,4 +37,7 @@ class UiControllerReview(Component):
     # clear_question()
     # clear_answer()
     # update_show_button(text,default,enabled)
+    # set_grades_title(text):
+    # set_grade_text(grade, text):
+    # set_grade_tooltip(grade, text)
 

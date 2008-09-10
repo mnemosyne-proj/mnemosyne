@@ -268,9 +268,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             event.accept()
 
-
     def productTour(self):
-        # TODO: activate tour.
         return
         stopwatch.pause()
         dlg = ProductTourDlg(self)
@@ -278,7 +276,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.unpause()
 
     def Tip(self):
-        # TODO: activate tips.
         return
         stopwatch.pause()
         dlg = TipDlg(self)

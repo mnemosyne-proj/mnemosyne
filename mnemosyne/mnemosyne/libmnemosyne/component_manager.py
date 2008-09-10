@@ -30,6 +30,7 @@ class ComponentManager(object):
                                 used_for card_type class name
        "renderer"               renderer instance,
                                 used_for card_type class name
+       "ui_controller_main"     ui_controller_main instance
        "ui_controller_review"   ui_controller_review instance
        "review_widget"          review_widget class
        "plugin"                 plugin instance
@@ -53,7 +54,8 @@ class ComponentManager(object):
         
         if type not in ["config", "log", "database", "scheduler", "filter",
                         "card_type", "card_type_widget", "renderer",
-                        "ui_controller_review", "review_widget", "plugin"]:
+                        "ui_controller_main", "ui_controller_review", 
+                        "review_widget", "plugin"]:
            raise KeyError("Invalid component type % s.", type)
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
