@@ -1,4 +1,4 @@
-#
+ #
 # main_window.py <Peter.Bienstman@UGent.be>
 #
 

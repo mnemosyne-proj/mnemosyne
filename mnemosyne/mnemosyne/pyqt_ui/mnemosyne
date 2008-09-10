@@ -30,9 +30,8 @@ if options.in_place == True:
 from mnemosyne.libmnemosyne import initialise, finalise
 from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
-from mnemosyne.pyqt_ui.main_window import MainWindow
-from mnemosyne.pyqt_ui.main_window import prefix
-from mnemosyne.pyqt_ui.message_boxes import *
+from mnemosyne.pyqt_ui.main_window import MainWindow, prefix
+from mnemosyne.pyqt_ui.message_boxes import messagebox_errors
 #from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 
 
@@ -46,22 +45,18 @@ if options.datadir != None:
     basedir = os.path.abspath(options.datadir)
 elif os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
     basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
-
 # Filename argument.
 if len(args) > 0:
     filename = os.path.abspath(args[0])
 else:
     filename = None
-
-# Create main widget.
+# Create main application.
 a = QApplication(sys.argv)
-
 # Under Windows, move out of library.zip to get the true prefix.
 if sys.platform == "win32":
     prefix = os.path.split(prefix)[0]
     prefix = os.path.split(prefix)[0]
     prefix = os.path.split(prefix)[0]
-
 # Get the locale from the user's config.py, to install the translator as
 # soon as possible.
 loc = str(QLocale().name()) # Default to system locale.
@@ -76,16 +71,10 @@ try:
         loc = user_config.locale
 except:
     pass
-
-# Install translator.
-translator = QTranslator(a)
-translator.load("mnemosyne_"+loc+".qm", os.path.join(prefix,'locale'))
-a.installTranslator(translator)
-
+# Install translator for Qt messages.
 translator = QTranslator(a)
 translator.load("qt_"+loc+".qm", os.path.join(prefix,'locale'))
 a.installTranslator(translator)
-
 # Check if there is another instance of Mnemosyne running.
 if os.path.exists(os.path.join(basedir, "MNEMOSYNE_LOCK")):
     status = QMessageBox.warning(None,
@@ -102,30 +91,22 @@ try:
     initialise(basedir)
 except MnemosyneError, e:
     messagebox_errors(a, e)
-
-# Start program.
+# Pygame sound.
 try:
     import pygame
     pygame.mixer.init()
 except:
     print "Unable to initialise sound."
-
+# Main widget.
 w = MainWindow(filename)
-
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
 QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))
-
-# Show widget.
-#a.setMainWidget(w)
 w.show()
-
 # TODO: check first run wizard.
 if config()["first_run"] == True:
     w.productTour()
     config()["first_run"] = False
 elif config()["show_daily_tips"] == True:
     w.Tip()
-
 a.exec_()
-
 finalise()

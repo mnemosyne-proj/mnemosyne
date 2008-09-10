@@ -1,20 +1,26 @@
 * Mnemosyne 2.0:
 
+-review_widget.py
+
+-basic documentation of library
+
+-developper preview
+
+-default buttons
+
+-statusbar
+
+-complete UI controller review
+
+-easier function to do tag detection in plugin
+
 -Add cards dialog:
     -multiple categories
     -preview
     -toolbar with editing options (bold, latex, picture, ..)
     -button to switch between tag view and wysisyg view
     -read font, colour, etc, from card type css
-
--complete UI controller review
-
--basic documentation of library
-
--developper preview
-
--easier function to do tag detection in plugin
-
+    
 -get rid of pygame, use phonon
 -xml import tests (wcu, memaid, plconv)
 

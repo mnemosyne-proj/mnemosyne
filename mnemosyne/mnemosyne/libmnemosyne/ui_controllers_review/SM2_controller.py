@@ -180,5 +180,6 @@ class SM2Controller(UiControllerReview):
             # TODO: accelerator update needed?
             #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
         # Run possible update code that independent of the controller state.
+        # TODO: needed?
         w.update_dialog()
 

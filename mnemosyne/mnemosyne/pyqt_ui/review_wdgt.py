@@ -12,6 +12,7 @@ from Ui_review_wdgt import *
 
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
+from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 
 _empty = """
 <html><head>
@@ -27,7 +28,7 @@ body  { background-color: white;
 
 class ReviewWdgt(QWidget, Ui_ReviewWdgt):
     
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         self.setupUi(self)
         self.controller = ui_controller_review()
@@ -50,9 +51,7 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
         self.controller.grade_answer(grade)
 
     def set_window_title(self, title):
-        self.setWindowTitle(title)
-
-    # TODO: pass on to parent
+        ui_controller_main().widget.setWindowTitle(title)
     
     def enable_edit_current_card(self, enable):
         return
@@ -65,9 +64,6 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt):
     def enable_edit_deck(self, enable):
         return        
         self.actionEditDeck.setEnabled(enable)
-
-    def get_font_size(self):
-        return font.pointSize()
 
     def set_question_label(self, text):
         self.question_label.setText(text)
