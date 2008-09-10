@@ -6,6 +6,11 @@ from mnemosyne.libmnemosyne.component import Component
 
 
 class UiControllerReview(Component):
+    
+    """Controls the behaviour of a widget which implements the ReviewWidget
+    interface.
+    
+    """
 
     def __init__(self, name, description=""):
         self.name = name
@@ -18,26 +23,8 @@ class UiControllerReview(Component):
         
     def show_answer(self):
         raise NotImplementedError
-
-    # TODO: add update dialog, etc
-
-
-
-    # TODO: list calls made back to widget
-
-    # set_window_title(title)
-    # enable_edit_current_card(bool)
-    # enable_delete_current_card(bool)
-    # enable_edit_deck(bool)
-    # question_box_visible(bool)
-    # answer_box_visible(bool)
-    # set_question_label(text)
-    # set_question(text)
-    # set_answer(text)
-    # clear_question()
-    # clear_answer()
-    # update_show_button(text,default,enabled)
-    # set_grades_title(text):
-    # set_grade_text(grade, text):
-    # set_grade_tooltip(grade, text)
+        
+    def update_dialog(self):
+        raise NotImplementedError
+  
 

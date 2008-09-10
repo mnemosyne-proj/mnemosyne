@@ -10,6 +10,7 @@ from PyQt4.QtGui import *
 
 from Ui_review_wdgt import *
 
+from mnemosyne.libmnemosyne.review_widget import ReviewWidget
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
@@ -26,7 +27,7 @@ body  { background-color: white;
 <body><table><tr><td></td></tr></table></body></html>
 """
 
-class ReviewWdgt(QWidget, Ui_ReviewWdgt):
+class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
     
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
