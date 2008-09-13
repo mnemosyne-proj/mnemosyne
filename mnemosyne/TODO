@@ -1,9 +1,5 @@
 * Mnemosyne 2.0:
 
--basic documentation of library
-
--developper preview
-
 -default buttons
 
 -statusbar
@@ -22,6 +18,8 @@
 -get rid of pygame, use phonon
 -xml import tests (wcu, memaid, plconv)
 
+-improve sphinxdocs: autoclass='both', document module members
+
 -run convert to html after adding/modifying card?
 -pregenerate q and a on mobile devices?
 
@@ -36,6 +34,8 @@
  
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?
+  
+-remove start date?
 
 -test map card type plugin
 

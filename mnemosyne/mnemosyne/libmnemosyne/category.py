@@ -6,7 +6,7 @@
 class Category(object):
     
     """The category name is the full name, including all levels of the hierarchy
-    separated by ::
+    separated by two colons.
     
     """
 

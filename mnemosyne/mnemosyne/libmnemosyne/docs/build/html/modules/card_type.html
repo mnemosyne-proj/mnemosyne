@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CardType &mdash; libmnemosyne v2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+          URL_ROOT:    '../',
+          VERSION:     '2.0',
+          COLLAPSE_MODINDEX: false,
+          FILE_SUFFIX: ''
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/interface.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="contents" title="Global table of contents" href="../contents.html" />
+    <link rel="index" title="Global index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="next" title="Card" href="card.html" />
+    <link rel="prev" title="FactView" href="fact_view.html" />
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="card.html" title="Card"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fact_view.html" title="FactView"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+      </ul>
+    </div>
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="module-mnemosyne.libmnemosyne.card_type">
+<h1 id="module-mnemosyne.libmnemosyne.card_type"><tt class="xref docutils literal"><span class="pre">CardType</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType">
+<!--[mnemosyne.libmnemosyne.card_type.CardType]-->class <tt class="descclassname">mnemosyne.libmnemosyne.card_type.</tt><tt class="descname">CardType</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType" title="Permalink to this definition">¶</a></dt>
+<dd><p>A card type groups a number of fact views on a certain fact, thereby
+forming a set of related cards.</p>
+<p>A card type needs an id as well as a name, because the name can change
+for different translations. The description is used when card types are
+plugins, in order to give more information.</p>
+<p>The keys from the fact are also given more verbose names here.
+This is not done in fact.py, on one hand to save space in the database,
+and on the other hand to allow the possibilty that different card types
+give different names to the same key. (E.g. foreign word&#8217; could be
+called &#8216;French&#8217; in a French card type, or&#8217;pronunciation&#8217; could be
+called &#8216;reading&#8217; in a Kanji card type.) This in done in self.fields,
+which is a list of the form [(fact_key, fact_key_name)]. It is tempting to
+use a dictionary here, but we can&#8217;t do that since ordering is important.</p>
+<p>We could use the component manager to track fact views, but this is
+probably overkill.</p>
+<p>The renderer is determined only when we need it, as opposed to when we
+create the card type, because it is not sure that the renderer already
+exists at that stage.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.get_renderer">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.get_renderer]--><tt class="descname">get_renderer</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.get_renderer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.required_fields">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.required_fields]--><tt class="descname">required_fields</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.required_fields" title="Permalink to this definition">¶</a></dt>
+<dd>Collect required fields from registered views.</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="fact_view.html" title="previous chapter"><tt class="docutils literal"><span class="pre">FactView</span></tt></a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="card.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/modules/card_type.txt">Show Source</a></li>
+            </ul>
+            <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="card.html" title="Card"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fact_view.html" title="FactView"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Sep 13, 2008.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    </div>
+  </body>
+</html>

@@ -6,6 +6,11 @@ import time
 
 
 class Stopwatch(object):
+    
+    """The main use of the stop watch is to measure the time it takes the user
+    to answer a question.
+    
+    """
 
     def __init__(self):
         self.start_time = 0
