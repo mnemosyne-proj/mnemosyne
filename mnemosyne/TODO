@@ -15,6 +15,8 @@
     -button to switch between tag view and wysisyg view
     -read font, colour, etc, from card type css
     
+-buttons in 'add card' are smaller than in the review widget.
+ 
 -get rid of pygame, use phonon
 -xml import tests (wcu, memaid, plconv)
 
@@ -24,8 +26,6 @@
 -pregenerate q and a on mobile devices?
 
 -test uploading of logs
-
--buttons in 'add card' are smaller than in the review widget.
 
 -show latex errors in GUI?
 
@@ -79,9 +79,6 @@
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
 
--move to sqlite backend (encode category hierarchy in name,
- multiple category fields per card)
-
 -rename edit_items, items, product tour at the source level
 
 -detect and mark inverses on import
@@ -105,15 +102,11 @@
 
 -does <p align="left"> work as advertised? Otherwise table tag.
 
--consistent editing of vice versa and three-sided cards
-
--gettext io Qt localisation? Still need it partly for Qt itself, though.
-
 -cntrl enter in add and edit instead of clicking ok
 
 -more advanced plugin mechanism, plugin manager
 
--custom card types with custom fields, template for cards
+-template for cards?
 
 -language specific card types (arabic, japanese, integrated dictionary lookup)
 
@@ -131,6 +124,8 @@
 -update old plugins
 
 -save category state
+
+
 * Create testsuite:
 
 -create test for adding cards

@@ -10,6 +10,10 @@ This version uses a different database format. Before upgrading, export your
 old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 
+-Qt4 (window scroll bar, webkit)
+-sql backend
+-card types, consistend editing or reverse and three sided cards
+
 
 
 MNEMOSYNE 1.1.1 : 2008-08-23
