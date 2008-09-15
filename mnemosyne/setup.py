@@ -121,8 +121,9 @@ elif sys.platform == "darwin": # For py2app.
 else:
     base_path = os.path.join(sys.exec_prefix, "lib", "python"+sys.version[:3],
                              "site-packages","mnemosyne")
-    data_files = [('/usr/share/applications', ['mnemosyne.desktop']),
-                  ('/usr/share/icons', ['pixmaps/mnemosyne.png'])]
+    data_files = [] # For virtual env
+    #data_files = [('/usr/share/applications', ['mnemosyne.desktop']),
+    #              ('/usr/share/icons', ['pixmaps/mnemosyne.png'])]
 
 pixmap_path = os.path.join(base_path, "pixmaps")
 util_path = os.path.join(base_path, "util")
@@ -165,6 +166,8 @@ setup (name = "Mnemosyne",
                    "mnemosyne.libmnemosyne.databases",
                    "mnemosyne.libmnemosyne.file_formats",
                    "mnemosyne.libmnemosyne.filters",
+                   "mnemosyne.libmnemosyne.loggers",
+                   "mnemosyne.libmnemosyne.renderers",
                    "mnemosyne.libmnemosyne.schedulers",
                    "mnemosyne.libmnemosyne.ui_controllers_review",
                    "mnemosyne.libmnemosyne.ui_controllers_main"

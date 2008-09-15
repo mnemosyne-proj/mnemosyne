@@ -4,6 +4,8 @@
 
 -statusbar
 
+-remove -i hack
+
 -complete UI controller review
 
 -easier function to do tag detection in plugin
@@ -78,6 +80,8 @@
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
+
+-reenable datadir in setup.py
 
 -rename edit_items, items, product tour at the source level
 

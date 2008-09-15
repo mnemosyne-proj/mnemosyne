@@ -9,7 +9,7 @@ import sys
 import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from Ui_main_window import *
+from ui_main_window import *
 
 import review_wdgt
 from add_cards_dlg import *

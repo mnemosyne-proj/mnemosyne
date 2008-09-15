@@ -8,7 +8,7 @@ _ = gettext.gettext
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from Ui_review_wdgt import *
+from ui_review_wdgt import *
 
 from mnemosyne.libmnemosyne.review_widget import ReviewWidget
 from mnemosyne.libmnemosyne.component_manager import component_manager, config

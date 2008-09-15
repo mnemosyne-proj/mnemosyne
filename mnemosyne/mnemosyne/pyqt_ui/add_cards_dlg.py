@@ -8,7 +8,7 @@ _ = gettext.gettext
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from Ui_add_cards_dlg import *
+from ui_add_cards_dlg import *
 
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, ui_controller_main
