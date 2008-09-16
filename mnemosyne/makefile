@@ -1,21 +1,19 @@
-virtual-env:
+install-and-run-virtual-env:
 	cd mnemosyne/pyqt_ui ; make clean
 	cd mnemosyne/pyqt_ui ; make
 	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	./bin/python setup.py install
-	rm -f -R build
+	./bin/mnemosyne -d dot_mnemosyne2
 
-install-in-system:
+setup:
+	virtualenv .
+
+install-system:
 	cd mnemosyne/pyqt_ui ; make clean
 	cd mnemosyne/pyqt_ui ; make
 	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	python setup.py install
 	rm -f -R build
-
-run-in-place:
-	cd mnemosyne/pyqt_ui ; make clean
-	cd mnemosyne/pyqt_ui ; make
-	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 
 test:
 	nosetests --with-coverage --with-doctest --cover-package=libmnemosyne
@@ -28,7 +26,7 @@ windows:
 
 clean:
 	rm -f *~ *.pyc *.tgz
-	rm -f -R distrib build
+	rm -f -R distrib build bin lib include dot_mnemosyne2
 	cd mnemosyne/pyqt_ui ; make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/core/*~ mnemosyne/core/*.pyc

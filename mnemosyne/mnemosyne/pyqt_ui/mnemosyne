@@ -12,21 +12,6 @@ from optparse import OptionParser
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-# Parse options.
-
-parser = OptionParser()
-parser.usage = "%prog [<database.mem>]"
-parser.add_option("-d", "--datadir", dest="datadir",
-                  help="data directory", default=None)
-parser.add_option("-i", "--run-in-place", action="store_true",
-                  dest="in_place", default=False)
-(options, args) = parser.parse_args()
-
-# Make it easier for developpers to run Mnemosyne without installing it.
-
-if options.in_place == True:
-    sys.path.insert(0, os.path.abspath("."))
-
 from mnemosyne.libmnemosyne import initialise, finalise
 from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
@@ -34,6 +19,13 @@ from mnemosyne.pyqt_ui.main_window import MainWindow, prefix
 from mnemosyne.pyqt_ui.message_boxes import messagebox_errors
 #from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 
+# Parse options.
+
+parser = OptionParser()
+parser.usage = "%prog [<database.mem>]"
+parser.add_option("-d", "--datadir", dest="datadir",
+                  help="data directory", default=None)
+(options, args) = parser.parse_args()
 
 # Check if we have to override the basedir determined in mnemosyne.core,
 # either because we explicitly specified a datadir on the command line,

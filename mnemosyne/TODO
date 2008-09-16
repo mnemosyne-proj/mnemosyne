@@ -4,8 +4,6 @@
 
 -statusbar
 
--remove -i hack
-
 -complete UI controller review
 
 -easier function to do tag detection in plugin
@@ -39,7 +37,13 @@
   
 -remove start date?
 
+-reenable data files in setup.py
+
 -test map card type plugin
+
+-more beginner tasks:
+    -cramming scheduler
+    -card type for memorising poems, close deletion (does not use FactView)
 
 -UI: related cards
 
