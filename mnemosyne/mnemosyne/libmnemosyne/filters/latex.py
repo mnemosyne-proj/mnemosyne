@@ -27,9 +27,8 @@ def process_latex(latex_command):
         print >> f, latex_command.encode("utf-8")
         print >> f, config()["latex_postamble"]           
         f.close()
-        os.system("latex -interaction=nonstopmode tmp.tex "+\
-                  " 2>&1 1>latex_out.txt")     
-        os.system(config()["latex_dvipng"].rstrip())
+        os.system(config()["latex"] + " tmp.tex 2>&1 1>latex_out.txt")     
+        os.system(config()["dvipng"].rstrip())
         if not os.path.exists("tmp1.png"):
             return error_str
         shutil.copy("tmp1.png", imag_name)

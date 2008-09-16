@@ -32,7 +32,7 @@ def initialise(basedir):
 
 
 def initialise_lockfile():
-    lockfile = file(os.path.join(config().basedir,"MNEMOSYNE_LOCK"),'w')
+    lockfile = file(os.path.join(config().basedir, "MNEMOSYNE_LOCK"), 'w')
     lockfile.close()
     
 

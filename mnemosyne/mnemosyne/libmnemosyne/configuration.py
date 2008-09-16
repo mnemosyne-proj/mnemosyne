@@ -42,8 +42,11 @@ latex_preamble = \"\"\"
 # Latex postamble.
 latex_postamble = "\\end{document}"
 
+# Latex command.
+latex = "latex"
+
 # Latex dvipng command.
-latex_dvipng = "dvipng -D 200 -T tight tmp.dvi"
+dvipng = "dvipng -D 200 -T tight tmp.dvi"
 """
 
 
@@ -90,7 +93,8 @@ class Configuration(Component):
         c.setdefault("latex_preamble", "\\documentclass[12pt]{article}\n"+
                                        "\\pagestyle{empty}\n\\begin{document}")
         c.setdefault("latex_postamble", "\\end{document}")
-        c.setdefault("latex_dvipng", "dvipng -D 200 -T tight tmp.dvi")
+        c.setdefault("latex", "latex -interaction=nonstopmode")       
+        c.setdefault("dvipng", "dvipng -D 200 -T tight tmp.dvi")
 
     def __getitem__(self, key):
         try:
