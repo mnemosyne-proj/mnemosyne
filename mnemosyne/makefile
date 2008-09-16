@@ -2,7 +2,7 @@ install-and-run-virtual-env:
 	cd mnemosyne/pyqt_ui ; make clean
 	cd mnemosyne/pyqt_ui ; make
 	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
-	./bin/python setup.py install
+	./bin/python setup.py develop
 	./bin/mnemosyne -d dot_mnemosyne2
 
 setup:
