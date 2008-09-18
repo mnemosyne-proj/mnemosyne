@@ -29,7 +29,8 @@ only_editable_when_answer_shown = False
 backups_to_keep = 5
 
 # The moment the new day starts. Defaults to 3 am. Could be useful to
-# change if you are a night bird.
+# change if you are a night bird. You can only set the hours, not
+# minutes, and midnight corresponds to 0.
 day_starts_at = 3
 
 # Latex preamble.

@@ -43,6 +43,8 @@
     -cramming scheduler
     -card type for memorising poems, close deletion (does not use FactView)
 
+-renamed default data dir on Windows?
+
 -UI: related cards
 
 -http://apptools.com/examples/tableheight.php
