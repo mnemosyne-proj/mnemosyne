@@ -17,7 +17,8 @@
     
 -buttons in 'add card' are smaller than in the review widget.
  
--get rid of pygame, use phonon
+-move sound.py to filter infrastructure, test
+
 -xml import tests (wcu, memaid, plconv)
 
 -improve sphinxdocs: autoclass='both', document module members
@@ -65,6 +66,9 @@
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
 
 -make all subwindows remember their size
+
+-make file handling more robust, detect all errors (see mail by
+ OldGrantonian)
 
 -activate necessary card types on plugin
 
@@ -132,6 +136,8 @@
 -update old plugins
 
 -save category state
+
+-Contributors: Konrad Wojas, Laurent Mauron
 
 
 * Create testsuite:
