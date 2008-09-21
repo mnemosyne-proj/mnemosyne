@@ -83,12 +83,7 @@ try:
     initialise(basedir)
 except MnemosyneError, e:
     messagebox_errors(a, e)
-# Pygame sound.
-try:
-    import pygame
-    pygame.mixer.init()
-except:
-    print "Unable to initialise sound."
+
 # Main widget.
 w = MainWindow(filename)
 QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
