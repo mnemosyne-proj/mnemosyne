@@ -410,7 +410,7 @@ TMPファイルを使っています。</translation>
     <name>ChangeCategoryFrm</name>
     <message>
         <source>Change category</source>
-        <translation>カテゴリーを変える</translation>
+        <translation>カテゴリーを選択する</translation>
     </message>
     <message>
         <source>Category:</source>
@@ -505,7 +505,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Number of grade 0 cards to learn at once:</source>
-        <translation>グレード０カードの枚数の同時習得:</translation>
+        <translation type="obsolete">グレード０カードの枚数の同時習得:</translation>
     </message>
     <message>
         <source>Note: this is NOT the number of grade 0 cards you want to memorise *per day*</source>
@@ -526,6 +526,10 @@ TMPファイルを使っています。</translation>
     <message>
         <source>Learn new cards in random order</source>
         <translation>新しいカードを無作為順番で習う</translation>
+    </message>
+    <message>
+        <source>Number of grade 0 cards to hold in your hand:</source>
+        <translation>グレード０カードの同時習得枚数:</translation>
     </message>
 </context>
 <context>
@@ -695,7 +699,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>&amp;Find again</source>
-        <translation>&amp;Find again</translation>
+        <translation>&amp;再検索</translation>
     </message>
     <message>
         <source>F</source>
@@ -703,7 +707,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>&amp;Find</source>
-        <translation>&amp;Find</translation>
+        <translation>&amp;検索</translation>
     </message>
 </context>
 <context>
@@ -945,11 +949,11 @@ so you might want to run </source>
     </message>
     <message>
         <source>All: </source>
-        <translation>全部のカード: </translation>
+        <translation>合計:</translation>
     </message>
     <message>
         <source>Show answer</source>
-        <translation>答えを表示</translation>
+        <translation>答え表示</translation>
     </message>
 </context>
 <context>
