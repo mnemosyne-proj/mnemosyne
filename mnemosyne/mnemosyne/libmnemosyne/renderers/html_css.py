@@ -36,8 +36,7 @@ class HtmlCss(Renderer):
             self._css[card_type] += "</style>"
             return self._css[card_type]
             
-    def render_card_fields(self, card, fields):
-        fact = card.fact
+    def render_card_fields(self, fact, fields):
         html = "<html><head>" + self.css(fact.card_type) + \
             "</head><body><table><tr><td>"
         for field in fields:

@@ -71,12 +71,10 @@ class Card(object):
         self.next_rep = db.days_since_start() + new_interval
 
     def question(self):
-        return self.fact.card_type.get_renderer().render_card_fields(self, \
-                self.fact_view.q_fields)
+        return self.fact.card_type.question(self.fact, self.fact_view)
 
-    def answer(self):
-        return self.fact.card_type.get_renderer().render_card_fields(self, \
-                self.fact_view.a_fields)
+    def answer(self):        
+        return self.fact.card_type.answer(self.fact, self.fact_view)
         
     interval = property(lambda self : self.next_rep - self.last_rep)
     

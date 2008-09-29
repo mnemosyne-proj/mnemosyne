@@ -1,6 +1,7 @@
 * Mnemosyne 2.0:
 
--document filters
+-rework design to accomodate cards with variable number of fact views 
+ (e.g. cloze deletion)
 
 -default buttons
 

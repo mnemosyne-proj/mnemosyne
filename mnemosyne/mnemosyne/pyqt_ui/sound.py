@@ -24,7 +24,9 @@ soundmanager = SoundManager()
 def play_sound(text):
     
     """Find <sound> html elements in text and play file specified by src 
-    attribute."""
+    attribute.
+    
+    """
     
     i = text.lower().find("sound src")
     while i != -1:

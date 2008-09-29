@@ -31,6 +31,10 @@ The actual displaying of the data in a Card is handled by a Renderer. The
 default Renderer takes the fields from the Fact, adds them into a html template
 and applies a CSS for formatting.
 
+Before the data is passed to the Renderer, Filters can be applied to it. This
+is an extra level of flexibility, and can be used to generate LaTeX, convert
+relative paths to absolute paths, etc ..
+
 In order to make it easier for other GUI frontends to be written, all the logic
 typically needed for GUIs, but that is independent of the actual GUI toolkit
 used, is abstracted in ui controllers. In order to get more flexibility, there 

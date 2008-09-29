@@ -54,6 +54,12 @@ class CardType(Component):
                 s.add(k)
         return s
         
+    def question(self, fact, fact_view):
+        return self.get_renderer().render_card_fields(fact, fact_view.q_fields)
+
+    def answer(self, fact, fact_view):
+        return self.get_renderer().render_card_fields(fact, fact_view.a_fields)
+        
     def get_renderer(self):
         if self.renderer:
             return self.renderer
