@@ -1,7 +1,10 @@
-from PyQt4.phonon import Phonon
+# TODO: reactivate
+#from PyQt4.phonon import Phonon
 
 class SoundManager:
-    '''Wrapper class to play sound files using phonon library'''
+    
+    """Wrapper class to play sound files using Phonon library."""
+    
     def __init__(self):
         self.music = None 
         pass
@@ -13,13 +16,16 @@ class SoundManager:
         if self.music.state == Phonon.PlayingState:
             self.music.enqueue(filename)
         else:
-            self.music.enqueue(Phonon.MediaSource(fn));
+            self.music.enqueue(Phonon.MediaSource(filename));
             self.music.play()
 
 soundmanager = SoundManager()
 
 def play_sound(text):
-    """find <sound> html elements in text and play file specified by src attribute"""
+    
+    """Find <sound> html elements in text and play file specified by src 
+    attribute."""
+    
     i = text.lower().find("sound src")
     while i != -1:
         start = text.find("\"", i)
