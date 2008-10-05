@@ -1,7 +1,7 @@
 * Mnemosyne 2.0:
 
 -rework design to accomodate cards with variable number of fact views 
- (e.g. cloze deletion)
+ (e.g. cloze deletion) (todo: create cards and store factviews, edit cards)
 
 -default buttons
 
@@ -35,6 +35,8 @@
 
 -if we change a card id on import, by sure to put a message in the
  log to that effect, so that the statistics can keep track of it.
+
+-MVC: http://doc.trolltech.com/qq/qq24-delegates.html
  
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?

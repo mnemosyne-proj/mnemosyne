@@ -17,9 +17,9 @@ class CardType(Component):
 
     The keys from the fact are also given more verbose names here.
     This is not done in fact.py, on one hand to save space in the database,
-    and on the other hand to allow the possibilty that different card types
+    and on the other hand to allow the possibility that different card types
     give different names to the same key. (E.g. foreign word' could be
-    called 'French' in a French card type, or'pronunciation' could be
+    called 'French' in a French card type, or 'pronunciation' could be
     called 'reading' in a Kanji card type.) This in done in self.fields,
     which is a list of the form [(fact_key, fact_key_name)]. It is tempting to
     use a dictionary here, but we can't do that since ordering is important.

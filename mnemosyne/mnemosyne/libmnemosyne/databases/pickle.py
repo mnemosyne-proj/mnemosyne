@@ -46,6 +46,7 @@ class Pickle(Database):
         self.start_date = None
         self.categories = []
         self.facts = []
+        self.fact_views = []
         self.cards = []
         self.fact_views = []
         self.load_failed = False
@@ -72,7 +73,8 @@ class Pickle(Database):
             self.start_date = db[0]
             self.categories = db[1]
             self.facts = db[2]
-            self.cards = db[3]
+            self.fact_views = db[3]           
+            self.cards = db[4]
             infile.close()
             self.load_failed = False
         except:
@@ -101,7 +103,8 @@ class Pickle(Database):
             # Write to a backup file first, as shutting down Windows can
             # interrupt the dump command and corrupt the database.
             outfile = file(path + "~", 'wb')
-            db = [self.start_date, self.categories, self.facts, self.cards]
+            db = [self.start_date, self.categories, self.facts, self.fact_views,
+                  self.cards]
             cPickle.dump(db, outfile)
             outfile.close()
             shutil.move(path + "~", path) # Should be atomic.
@@ -120,6 +123,7 @@ class Pickle(Database):
         self.start_date = None
         self.categories = []
         self.facts = []
+        self.fact_views = []
         self.cards = []
         scheduler().clear_queue()
         return True
@@ -195,8 +199,23 @@ class Pickle(Database):
 
     def update_fact(self, fact):
         return # Should happen automatically.
+        
+    def add_fact_view(self, fact_view):
+        self.load_failed = False
+        self.fact_views.append(fact_view)
 
-    def delete_fact_and_its_cards(self, fact):
+    def update_fact_view(self, fact_view):
+        return # Should happen automatically.
+        
+    def add_card(self, card):
+        self.load_failed = False
+        self.cards.append(card)
+        log().new_card(card)
+
+    def update_card(self, card):
+        return # Should happen automatically.
+        
+    def delete_fact_and_related_data(self, fact):
         old_cat = fact.cat
         for c in self.cards:
             if c.fact == fact:
@@ -205,15 +224,8 @@ class Pickle(Database):
         scheduler().rebuild_queue()
         for cat in old_cat:
             self.remove_category_if_unused(cat)
+        # TODO: deleted fact_views for cloze deletion card type.
         log().deleted_card()
-
-    def add_card(self, card):
-        self.load_failed = False
-        self.cards.append(card)
-        log().new_card(card)
-
-    def update_card(self, card):
-        return # Should happen automatically.
         
     def cards_from_fact(self, fact):
         return [c for c in self.cards if c.fact == fact]

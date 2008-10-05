@@ -65,8 +65,11 @@ class Database(Component):
 
     def update_fact(self, fact):
         raise NotImplementedError
+        
+    def add_fact_view(self, fact_view):
+        raise NotImplementedError
 
-    def delete_fact_and_its_cards(self, fact):
+    def update_fact_view(self, fact_view):
         raise NotImplementedError
 
     def add_card(self, card):
@@ -77,6 +80,9 @@ class Database(Component):
         
     def cards_from_fact(self, fact):
         return NotImplementedError
+        
+    def delete_fact_and_related_data(self, fact):
+        raise NotImplementedError
         
     # Queries.
 

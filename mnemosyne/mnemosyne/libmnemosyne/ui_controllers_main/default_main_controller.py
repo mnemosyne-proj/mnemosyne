@@ -42,7 +42,7 @@ class DefaultMainController(UiControllerMain):
                     for key in fact_data:
                         if key not in card_type.required_fields():
                             merged_fact_data[key] += "/" + duplicate[key]
-                    db.delete_fact_and_its_cards(duplicate)
+                    db.delete_fact_and_related_data(duplicate)
                 print merged_fact_data
                 # TODO: edit merged data.
                 #dlg = EditItemDlg(new_item, self)
