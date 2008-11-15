@@ -1,4 +1,6 @@
 
+* Mnemosyne 1.2
+
 -add new translations to website
 
 -port fixes to 2.x.
@@ -7,6 +9,10 @@
 -unicode basedir /export
 -upgrade skipping version 2
 -ghost out 3.4 and 5 for unlearned cards?
+-switch for randomisation
+-default export location is wrong
+
+-push trunk to launchpad again
 
 
 * Mnemosyne 2.0:
