@@ -1,3 +1,14 @@
+
+-add new translations to website
+
+-port fixes to 2.x.
+
+-number of cards in next week
+-unicode basedir /export
+-upgrade skipping version 2
+-ghost out 3.4 and 5 for unlearned cards?
+
+
 * Mnemosyne 2.0:
 
 -rework design to accomodate cards with variable number of fact views 
