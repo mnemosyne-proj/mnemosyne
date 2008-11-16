@@ -3,7 +3,7 @@
 
 -add new translations to website
 
--port fixes to 2.x.
+-port fixes to 2.x, Changelog
 
 -number of cards in next week
 -unicode basedir /export
@@ -12,7 +12,7 @@
 -switch for randomisation
 -default export location is wrong
 
--push trunk to launchpad again
+-push to launchpad again
 
 
 * Mnemosyne 2.0:

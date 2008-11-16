@@ -132,27 +132,39 @@ class Pickle(Database):
         # TODO: implement
         return
 
-        if not self.is_loaded():
+
+        if number_of_items() == 0 or get_config("backups_to_keep") == 0:
             return
-        backupdir = unicode(os.path.join(config().basedir, "backups"))
+
+        backupdir = os.path.join(basedir, "backups")
+
         # Export to XML. Create only a single file per day.
-        db_name = os.path.basename(config()["path"])[:-4]
+
+        db_name = os.path.basename(config["path"])[:-4]
+
         filename = db_name + "-" +\
                    datetime.date.today().strftime("%Y%m%d") + ".xml"
         filename = os.path.join(backupdir, filename)
+
         export_XML(filename, get_category_names(), reset_learning_data=False)
+
         # Compress the file.
-        f = gzip.GzipFile(filename + ".gz", 'w')
+
+        f = bz2.BZ2File(filename + ".bz2", 'wb', compresslevel=5)
         for l in file(filename):
             f.write(l)
         f.close()
+
         os.remove(filename)
+
         # Only keep the last logs.
-        if config()["backups_to_keep"] < 0:
+
+        if get_config("backups_to_keep") < 0:
             return
-        files = [f for f in os.listdir(backupdir) if f.startswith(db_name+"-")]
+
+        files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
         files.sort()
-        if len(files) > config()["backups_to_keep"]:
+        if len(files) > get_config("backups_to_keep"):
             os.remove(os.path.join(backupdir, files[0]))
 
     def is_loaded(self):
