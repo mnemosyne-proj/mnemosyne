@@ -52,7 +52,7 @@ class StatisticsDlg(StatisticsFrm):
 
         # Schedule information.
 
-        text = self.trUtf8("Scheduled cards for the next days:\n\n")
+        text = self.trUtf8("Scheduled cards for next week:\n\n")
 
         old_cumulative = 0
         for days in range(0,8):
