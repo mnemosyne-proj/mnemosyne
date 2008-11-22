@@ -7,6 +7,7 @@ import sets
 import traceback
 import time
 import urllib2
+import random
 from threading import Thread
 
 from mnemosyne.libmnemosyne.component_manager import config, log
@@ -28,7 +29,8 @@ class LogUploader(Thread):
         host, port = config()["upload_server"].split(":")
         uri = '/cgi-bin/cgiupload.py'
         boundary = '%s%s_%s_%s' % \
-                    ('-----', int(time.time()), os.getpid(), randint(1,10000))
+                    ('-----', int(time.time()), os.getpid(),
+                     random.randint(1,10000))
         f = file(filename, 'rb')
         data = f.read()
         f.close()
@@ -42,7 +44,7 @@ class LogUploader(Thread):
         total.append('--%s\n' % boundary)
         total.append(("\n--%s\n" % boundary).join(part))
         total.append('\n--%s--\n' % boundary)
-        query = joinfields(total, '')
+        query = ''.joinfields(total)
         contentType = 'multipart/form-data; boundary=%s' % boundary
         contentLength = str(len(query))
         headers = {'Accept' : '*/*',
@@ -75,9 +77,9 @@ class LogUploader(Thread):
             for f in to_upload:
                 print "Uploading", f, "...",
                 filename = join(basedir, "history", f)
-                upload(filename)
+                self.upload(filename)
                 print >> upload_log, f
-                log().uploaded()
+                log().uploaded(filename)
                 print "done!"           
         except:
             log().uploading_failed()
