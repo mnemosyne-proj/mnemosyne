@@ -1,13 +1,9 @@
 
-* Mnemosyne 1.2
-
--add new translations to website
--port Changelog to 2.0
-
 * Mnemosyne 2.0:
 
 -rework design to accomodate cards with variable number of fact views 
- (e.g. cloze deletion) (todo: create cards and store factviews, edit cards)
+ (e.g. cloze deletion) (todo: create cards and store factviews, edit cards, 
+ make sure we can't select activate factviews for this card type)
 
 -default buttons
 

@@ -14,12 +14,27 @@ from the xml file.
 -sql backend
 -card types, consistend editing or reverse and three sided cards
 
+	
 
+MNEMOSYNE 1.2 : 2008-11-25
+
+-Improved support for unicode in filenames and directories.
+-Reverted compression of backups from gz to bz2 again, to circumvent a   
+ bug under Windows with unicode directory names.
+-Wrote a plugin to always shuffle the revision queue, for users who want
+ to override the prioritised scheduling introduced in Mnemosyne 1.1.
+ This plugin can also be downloaded from 
+ http://www.mnemosyne-proj.org/node/142
+-Only open the sound system when needed in order to save CPU time 
+ (patch by marmuta).
+-More robust upgrading from old Mnemosyne versions.
+-Fix bug where default export location was incorrectly specified.
+-Reword statistics dialog to make clear that we only show data for 
+ the next week.
+-Norwegian translation by Petter Goksoyr Asen. 
+	
 
 MNEMOSYNE 1.1.1 : 2008-08-23
-
-(Note that for Windows users we recommend uninstalling the previous
-version before doing an upgrade.)
 
 Databases opened by this version of Mnemosyne will no longer work under
 older versions.
