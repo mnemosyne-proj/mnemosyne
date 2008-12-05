@@ -1,3 +1,5 @@
+-encode/decode in expand/contract path
+-starting with -d : new database: default path is in $HOME/.mnemosyne
 
 * Mnemosyne 2.0:
 
@@ -23,6 +25,8 @@
 -buttons in 'add card' are smaller than in the review widget.
  
 -move sound.py to filter infrastructure, test
+
+-detect wrong current date (last review in the future or way past)
 
 -xml import tests (wcu, memaid, plconv)
 

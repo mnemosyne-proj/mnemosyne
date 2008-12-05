@@ -13,7 +13,7 @@ class FactView(object):
     the variable 'extra_data' can be used to store extra information in the 
     database. The approach with the extra variable was chosen as opposed to a 
     conceptually cleaner inheritance of FactView, in order to get easier mapping
-    onto an SQL database.
+    onto an SQL database (in which it could be stored as a pickled object).
 
     """
 

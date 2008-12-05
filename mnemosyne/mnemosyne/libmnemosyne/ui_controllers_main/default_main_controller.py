@@ -8,7 +8,6 @@ _ = gettext.gettext
 import copy
 
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
@@ -51,10 +50,14 @@ class DefaultMainController(UiControllerMain):
             if answer == 2: # Don't add.
                 return
         db.add_fact(fact)
-        for fact_view in card_type.fact_views:
-            card = Card(fact, fact_view)
-            card.set_initial_grade(grade)
+        for card in card_type.create_related_cards(fact, grade):
             db.add_card(card)
 
+
     def update_cards(self):
+        # Use card_type.update_related_cards()
+        raise NotImplementedError
+    
+    def delete_cards(self):
+        # Use card_type.delete_related_cards()
         raise NotImplementedError

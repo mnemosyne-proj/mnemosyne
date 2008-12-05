@@ -2,6 +2,7 @@
 # card_type.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import component_manager
 
@@ -30,6 +31,11 @@ class CardType(Component):
     The renderer is determined only when we need it, as opposed to when we
     create the card type, because it is not sure that the renderer already
     exists at that stage.
+
+    The functions create_related_cards, update_related_cards and
+    delete_related_cards provide an extra layer of abstraction and can be
+    overridden by card types like cloze deletion, which require a varying
+    number of fact views with card specific data.
 
     """
 
@@ -70,3 +76,16 @@ class CardType(Component):
             except KeyError:
                  self.renderer = component_manager.get_current("renderer")
             return self.renderer
+
+    def create_related_cards(self, fact, grade=0):
+        cards = []
+        for fact_view in self.fact_views:
+            card = Card(fact, fact_view)
+            card.set_initial_grade(grade)
+        return cards
+
+    def update_related_cards(self, fact, new_fact_data):
+        fact.data = new_fact_data
+
+    def delete_related_cards(self, fact):
+        raise NotImplementedError

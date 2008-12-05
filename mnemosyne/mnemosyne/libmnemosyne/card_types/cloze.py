@@ -51,7 +51,24 @@ class Cloze(CardType, Plugin):
 
     def answer(self, fact, fact_view):
         return fact_view.extra_data[0]
-        
+ 
+    def create_related_cards(self, fact, grade=0):
+        raise NotImplementedError
+        #cards = []
+        #for each cloze:
+        #    create fact view for cloze
+        #    store it in database
+        #    card = Card(fact, fact_view)
+        #    card.set_initial_grade(grade)
+        #return cards
+
+    def update_related_cards(self, fact, new_fact_data):
+        fact.data = new_fact_data
+
+    def delete_related_cards(self, fact):
+        raise NotImplementedError
+
+    # TODO: where to store fact view
     # TODO: implement deletion of fact_views in 
     # database.delete_fact_and_related_data
 
