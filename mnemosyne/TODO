@@ -1,11 +1,7 @@
--encode/decode in expand/contract path
--starting with -d : new database: default path is in $HOME/.mnemosyne
+-allow non-unicode filenames: encode/decode in expand/contract path?
+
 
 * Mnemosyne 2.0:
-
--rework design to accomodate cards with variable number of fact views 
- (e.g. cloze deletion) (todo: create cards and store factviews, edit cards, 
- make sure we can't select activate factviews for this card type)
 
 -default buttons
 
@@ -51,6 +47,8 @@
   
 -remove start date?
 
+-respect card_type.fact_views_can_be_deactivated
+
 -test map card type plugin
 
 -more beginner tasks:
@@ -58,8 +56,6 @@
     -card type for memorising poems, close deletion (does not use FactView)
 
 -renamed default data dir on Windows?
-
--UI: related cards
 
 -http://apptools.com/examples/tableheight.php
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447

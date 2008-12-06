@@ -227,17 +227,20 @@ class Pickle(Database):
     def update_card(self, card):
         return # Should happen automatically.
         
-    def delete_fact_and_related_data(self, fact):
+    def delete_fact_and_related_cards(self, fact):
         old_cat = fact.cat
         for c in self.cards:
             if c.fact == fact:
                 self.cards.remove(c)
+                try:
+                    self.fact_views.remove(c.fact_view):
+                except:
+                    pass # Its fact view is a card type fact view one.
+                log().deleted_card(c)
         self.facts.remove(fact)
         scheduler().rebuild_queue()
         for cat in old_cat:
             self.remove_category_if_unused(cat)
-        # TODO: deleted fact_views for cloze deletion card type.
-        log().deleted_card()
         
     def cards_from_fact(self, fact):
         return [c for c in self.cards if c.fact == fact]

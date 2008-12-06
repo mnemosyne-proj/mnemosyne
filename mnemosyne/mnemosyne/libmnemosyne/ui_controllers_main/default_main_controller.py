@@ -50,14 +50,5 @@ class DefaultMainController(UiControllerMain):
             if answer == 2: # Don't add.
                 return
         db.add_fact(fact)
-        for card in card_type.create_related_cards(fact, grade):
-            db.add_card(card)
+        card_type.create_related_cards(fact, grade)
 
-
-    def update_cards(self):
-        # Use card_type.update_related_cards()
-        raise NotImplementedError
-    
-    def delete_cards(self):
-        # Use card_type.delete_related_cards()
-        raise NotImplementedError

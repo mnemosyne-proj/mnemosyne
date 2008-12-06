@@ -37,6 +37,7 @@ class Cloze(CardType, Plugin):
            _("A card type blanking out certain fragments in a text.")
         self.fields.append(("text", _("Text")))
         self.unique_fields = ["text"]
+        self.fact_views_can_be_deactivated = False
         
     # Perhaps it's a good idea to store into each FactView.extra_data both the 
     # word to be deleted and its position. E.g., the first cloze FactView stores
@@ -54,22 +55,19 @@ class Cloze(CardType, Plugin):
  
     def create_related_cards(self, fact, grade=0):
         raise NotImplementedError
-        #cards = []
+        #db = database
         #for each cloze:
         #    create fact view for cloze
-        #    store it in database
+        #    db.add_fact_view(fact_view)
         #    card = Card(fact, fact_view)
         #    card.set_initial_grade(grade)
-        #return cards
+        #    db.add_card(card)
 
     def update_related_cards(self, fact, new_fact_data):
-        fact.data = new_fact_data
-
-    def delete_related_cards(self, fact):
         raise NotImplementedError
+        # This is the hard part to implement, as updating the data can
+        # result in the creation and deletion of new clozes, which then
+        # have to get a new fact view, all at the same time making sure
+        # that the previously created cards still correspond to their
+        # earlier cloze.
 
-    # TODO: where to store fact view
-    # TODO: implement deletion of fact_views in 
-    # database.delete_fact_and_related_data
-
-   
