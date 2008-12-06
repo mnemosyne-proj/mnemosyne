@@ -55,7 +55,7 @@ class Cloze(CardType, Plugin):
  
     def create_related_cards(self, fact, grade=0):
         raise NotImplementedError
-        #db = database
+        #db = database()
         #for each cloze:
         #    create fact view for cloze
         #    db.add_fact_view(fact_view)

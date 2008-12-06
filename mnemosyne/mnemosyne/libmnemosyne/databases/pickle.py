@@ -233,7 +233,7 @@ class Pickle(Database):
             if c.fact == fact:
                 self.cards.remove(c)
                 try:
-                    self.fact_views.remove(c.fact_view):
+                    self.fact_views.remove(c.fact_view)
                 except:
                     pass # Its fact view is a card type fact view one.
                 log().deleted_card(c)

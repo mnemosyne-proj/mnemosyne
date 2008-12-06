@@ -49,6 +49,7 @@ class CardType(Component):
         self.is_language = False
         self.widget = None
         self.renderer = None
+        self.fact_views_can_be_deactivated = True
 
     def required_fields(self):
 
@@ -84,7 +85,7 @@ class CardType(Component):
     # reimplementing these functions.
 
     def create_related_cards(self, fact, grade=0):
-        db = database
+        db = database()
         for fact_view in self.fact_views:
             card = Card(fact, fact_view)
             card.set_initial_grade(grade)
@@ -92,6 +93,6 @@ class CardType(Component):
 
     def update_related_cards(self, fact, new_fact_data):
         fact.data = new_fact_data
-        db = database
-        database.update_fact(fact)
+        db = database()
+        db.update_fact(fact)
 
