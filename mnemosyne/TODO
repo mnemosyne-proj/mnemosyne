@@ -2,9 +2,10 @@
 
 -how to best limit total queue size?
 
+
 * Mnemosyne 2.0:
 
--default buttons
+-buttons in 'add card' are smaller than in the review widget.
 
 -statusbar
 
@@ -18,8 +19,6 @@
     -toolbar with editing options (bold, latex, picture, ..)
     -button to switch between tag view and wysisyg view
     -read font, colour, etc, from card type css
-    
--buttons in 'add card' are smaller than in the review widget.
  
 -move sound.py to filter infrastructure, test
 
@@ -35,6 +34,8 @@
 -test uploading of logs
 
 -show latex errors in GUI?
+
+-button group strangely rendered?
 
 -ghost out 3.4 and 5 for unlearned cards?
 

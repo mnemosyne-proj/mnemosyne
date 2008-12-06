@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>478</width>
-    <height>273</height>
+    <width>165</width>
+    <height>248</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -28,8 +28,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>478</width>
-     <height>27</height>
+     <width>165</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile" >
@@ -85,6 +85,12 @@
   <widget class="QToolBar" name="toolBar" >
    <property name="windowTitle" >
     <string>toolBar</string>
+   </property>
+   <property name="iconSize" >
+    <size>
+     <width>22</width>
+     <height>22</height>
+    </size>
    </property>
    <attribute name="toolBarArea" >
     <enum>TopToolBarArea</enum>
