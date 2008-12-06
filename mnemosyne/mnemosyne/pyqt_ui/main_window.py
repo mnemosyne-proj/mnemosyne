@@ -83,7 +83,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fileNew(self):
         stopwatch.pause()
-        out = unicode(QFileDialog.getSaveFileName(config().basedir,
+        out = unicode(QFileDialog.getSaveFileName(config().get_basedir(),
                         _("Mnemosyne databases (*.mem)"), self, None,\
                         _("New")))
         if out != "":

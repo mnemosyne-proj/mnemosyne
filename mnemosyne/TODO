@@ -1,5 +1,6 @@
 -allow non-unicode filenames: encode/decode in expand/contract path?
 
+-how to best limit total queue size?
 
 * Mnemosyne 2.0:
 
