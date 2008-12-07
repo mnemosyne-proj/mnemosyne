@@ -139,6 +139,9 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         
     def set_grade_tooltip(self, grade, text):
         self.grade_buttons.button(grade).setToolTip(text)
+
+    def update_status_bar(self):
+        self.parent().update_statusbar()
   
        
             
@@ -175,22 +178,9 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         #self.question.setAlignment(alignment)
         #self.answer.setAlignment(alignment)
 
-        # Update status bar.
-
-
-        # TODO: move to main window controller
-
-        #self.sched .setText(self.trUtf8("Scheduled: ").append(QString(\
-        #                    str(scheduled_cards()))))
-        #self.notmem.setText(self.trUtf8("Not memorised: ").append(QString(\
-        #                    str(non_memorised_cards()))))
-        #self.all   .setText(self.trUtf8("All: ").append(QString(\
-        #                    str(active_cards()))))
-
         # TODO: autoshrinking?
         #if self.shrink == True:
         #    self.adjustSize()
-
 
 # Register widget.
 

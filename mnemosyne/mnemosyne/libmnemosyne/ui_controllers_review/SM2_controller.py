@@ -179,6 +179,8 @@ class SM2Controller(UiControllerReview):
                 w.set_grades_title(_("Grade your answer:"))
             # TODO: accelerator update needed?
             #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
+        # Update status bar.
+        w.update_status_bar()
         # Run possible update code that independent of the controller state.
         # TODO: needed?
         w.update_dialog()

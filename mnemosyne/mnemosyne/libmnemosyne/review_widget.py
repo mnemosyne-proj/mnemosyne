@@ -52,3 +52,5 @@ class ReviewWidget(object):
     def set_grade_tooltip(self, grade, text): 
         raise NotImplementedError
 
+    def update_statusbar(self): 
+        raise NotImplementedError

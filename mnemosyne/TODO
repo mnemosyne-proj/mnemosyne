@@ -7,9 +7,11 @@
 
 * Mnemosyne 2.0:
 
+-bug with saving start date?
+
 -buttons in 'add card' are smaller than in the review widget.
 
--statusbar
+-button group strangely rendered?
 
 -complete UI controller review
 
@@ -36,8 +38,6 @@
 -test uploading of logs
 
 -show latex errors in GUI?
-
--button group strangely rendered?
 
 -ghost out 3.4 and 5 for unlearned cards?
 

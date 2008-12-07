@@ -43,7 +43,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
         ui_controller_main().widget = self
-        self.update_review_widget()
         self.sched = QLabel("", self.statusbar)
         self.notmem = QLabel("", self.statusbar)
         self.all = QLabel("", self.statusbar)
@@ -51,6 +50,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.addPermanentWidget(self.notmem)
         self.statusbar.addPermanentWidget(self.all)
         self.statusbar.setSizeGripEnabled(0)
+        self.update_review_widget()
         try:
             initialise_user_plugins()
         except MnemosyneError, e:
@@ -78,7 +78,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             w.close()
             del w
         ui_controller_review().widget = \
-            component_manager.get_current("review_widget")()
+            component_manager.get_current("review_widget")(parent=self)
         self.setCentralWidget(ui_controller_review().widget)
 
     def fileNew(self):
@@ -287,3 +287,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg = AboutDlg(self)
         dlg.exec_()
         stopwatch.unpause()
+
+    def update_statusbar(self):
+        db = database()
+        self.sched.setText(_("Scheduled: ") + \
+                           str(db.scheduled_count()) + " ")
+        self.notmem.setText(_("Not memorised: ") + \
+                            str(db.non_memorised_count()) + " ")
+        self.all.setText(_("All: ") \
+                         + str(db.active_count()) + " ")
