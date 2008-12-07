@@ -116,7 +116,6 @@ class Pickle(Database):
         for f in self.facts:
             f.card_type = card_type_by_id(f.card_type)
 
-
     def unload(self):
         self.save(config()["path"])
         log().saved_database()
@@ -131,7 +130,6 @@ class Pickle(Database):
     def backup(self):
         # TODO: implement
         return
-
 
         if number_of_items() == 0 or get_config("backups_to_keep") == 0:
             return

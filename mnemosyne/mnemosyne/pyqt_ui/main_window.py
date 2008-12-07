@@ -50,7 +50,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.addPermanentWidget(self.notmem)
         self.statusbar.addPermanentWidget(self.all)
         self.statusbar.setSizeGripEnabled(0)
-        self.update_review_widget()
         try:
             initialise_user_plugins()
         except MnemosyneError, e:
@@ -63,6 +62,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             messagebox_errors(self, LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             database().new(filename)
+        self.update_review_widget()
         ui_controller_review().new_question()
 
     def information_box(self, message, OK_string):
