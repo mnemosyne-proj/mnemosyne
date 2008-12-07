@@ -1,3 +1,5 @@
+-announce new translations on website
+
 -allow non-unicode filenames: encode/decode in expand/contract path?
 
 -how to best limit total queue size?
