@@ -31,8 +31,10 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             self.card_type_by_name[card_type.name] = card_type
         # TODO: sort card types by id.
         # TODO: remember last type.
+        
         self.card_widget = None
         self.update_card_widget()
+        
         self.update_combobox(config()["last_add_category"])
         self.grades = QButtonGroup()
         self.grades.addButton(self.grade_0_button, 0)
@@ -55,18 +57,14 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         #self.categories.setFont(font)
 
     def update_card_widget(self):
-        if self.card_widget:
-            self.vboxlayout.removeWidget(self.card_widget)
-            self.card_widget.close()
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
-        if card_type.widget == None:
-            try:
-                card_type.widget = component_manager.\
+        try:
+            card_type.widget = component_manager.\
                    get_current("card_type_widget",
                                used_for=card_type.__class__.__name__)()
-            except KeyError:
-                card_type.widget = GenericCardTypeWdgt(card_type)
+        except KeyError:
+            card_type.widget = GenericCardTypeWdgt(card_type)
         self.card_widget = card_type.widget
         self.card_widget.show()
         self.vboxlayout.insertWidget(1, self.card_widget)
