@@ -2,14 +2,10 @@
 
 -allow non-unicode filenames: encode/decode in expand/contract path?
 
--how to best limit total queue size?
-
 
 * Mnemosyne 2.0:
 
--buttons in 'add card' are smaller than in the review widget.
-
--button group strangely rendered?
+-unable to enter 'add cards' widget twice
 
 -complete UI controller review
 
