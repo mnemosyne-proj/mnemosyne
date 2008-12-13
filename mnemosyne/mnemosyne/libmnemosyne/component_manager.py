@@ -37,7 +37,8 @@ class ComponentManager(object):
        ======================   ===============================
        
     Note: for widgets we store the class name as opposed to an instance,
-    since creating widgets can be time consuming.
+    since creating widgets can be time consuming, and we want to create
+    e.g. card type widgets only when they are really needed.
        
     TODO: function hook
 

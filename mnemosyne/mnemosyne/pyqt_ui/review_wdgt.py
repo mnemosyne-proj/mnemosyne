@@ -52,7 +52,7 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.controller.grade_answer(grade)
 
     def set_window_title(self, title):
-        ui_controller_main().widget.setWindowTitle(title)
+        self.parent().setWindowTitle(title)
     
     def enable_edit_current_card(self, enable):
         return

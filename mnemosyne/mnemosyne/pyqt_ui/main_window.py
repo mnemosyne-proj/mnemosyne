@@ -180,6 +180,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         controller = ui_controller_review()
         if controller.card == None:
             controller.new_question()
+        else:
+            controller.update_dialog()
         stopwatch.unpause()
 
     def editCards(self):

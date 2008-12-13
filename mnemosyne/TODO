@@ -5,8 +5,6 @@
 
 * Mnemosyne 2.0:
 
--update widget after adding cards
-
 -complete UI controller review
 
 -easier function to do tag detection in plugin
@@ -87,6 +85,8 @@
 -reactivate keyboard default 0 for cards with grade 0 or 1.
 
 -button to go to next card in the list
+
+-logfile 0.6 at pypi?
 
 -plugin for midi files
 
