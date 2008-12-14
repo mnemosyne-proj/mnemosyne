@@ -84,7 +84,7 @@ class SM2Controller(UiControllerReview):
         else:
             return '\n' + _("Next repetition in ") + str(days) + _(" days.")
                    
-    def update_dialog(self):
+    def update_dialog(self, redraw_all=False):
         w = self.widget
         # Update title.
         database_name = os.path.basename(config()["path"])[:-4]
@@ -121,13 +121,10 @@ class SM2Controller(UiControllerReview):
             for c in self.card.fact.cat:
                 question_label_text += " " + c.name
         w.set_question_label(question_label_text)
-        # TODO: optimisation to make sure that this does not run several
-        # times during card display. People expect there custom filters
-        # to run only once if they have side effects...
         # Update question content.
         if self.card == None:
             w.clear_question()
-        else:
+        elif self.state == "SELECT SHOW" or redraw_all == True:
             w.set_question(self.card.question())
         # Update answer content.
         if self.card == None or self.state == "SELECT SHOW":

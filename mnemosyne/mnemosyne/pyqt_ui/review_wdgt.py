@@ -43,7 +43,6 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.addButton(self.grade_5_button, 5)
         self.connect(self.grade_buttons, SIGNAL("buttonClicked(int)"),\
                     self.grade_answer)
-        self.controller.new_question()
 
     def show_answer(self):
         self.controller.show_answer()

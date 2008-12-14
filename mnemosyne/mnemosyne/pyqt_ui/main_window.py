@@ -181,7 +181,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if controller.card == None:
             controller.new_question()
         else:
-            controller.update_dialog()
+            self.update_statusbar()
         stopwatch.unpause()
 
     def editCards(self):
@@ -193,6 +193,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.newQuestion()
         else:
             remove_from_revision_queue(self.card) # It's already being asked.
+        ui_controller_review().update_dialog(redraw_all=True)
         self.updateDialog()
         stopwatch.unpause()
 
@@ -216,7 +217,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.pause()
         dlg = EditCardDlg(self.card, self)
         dlg.exec_()
-        self.updateDialog()
+        ui_controller_review().update_dialog(redraw_all=True)
         stopwatch.unpause()
 
     def deleteCurrentCard(self):
@@ -232,7 +233,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if status == 0:
             delete_card(self.card)
             self.newQuestion()
-        self.updateDialog()
+        ui_controller_review().update_dialog(redraw_all=True)
         stopwatch.unpause()
 
     def activateCategories(self):
