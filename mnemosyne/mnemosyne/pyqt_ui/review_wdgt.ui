@@ -92,6 +92,16 @@
       </layout>
      </item>
      <item>
+      <widget class="QPushButton" name="show_button" >
+       <property name="text" >
+        <string>Show &amp;answer</string>
+       </property>
+       <property name="default" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QGroupBox" name="grades" >
        <property name="title" >
         <string>Grade your answer:</string>
@@ -175,13 +185,6 @@
          </layout>
         </item>
        </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="show_button" >
-       <property name="text" >
-        <string>Show &amp;answer</string>
-       </property>
       </widget>
      </item>
     </layout>

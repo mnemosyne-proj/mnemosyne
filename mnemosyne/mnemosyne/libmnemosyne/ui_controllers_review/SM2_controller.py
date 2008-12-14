@@ -67,8 +67,6 @@ class SM2Controller(UiControllerReview):
         self.update_dialog()
 
     def grade_answer(self, grade):
-        # TODO: optimise by displaying new question before grading the
-        # answer, provided the queue contains at least one card.
         interval = scheduler().process_answer(self.card, grade)
         self.new_question()
         # TODO: implement hidden feature?
