@@ -81,9 +81,11 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.answer.setHtml(_empty)
         
     def update_show_button(self, text, default, show_enabled):
-        self.show_button.setText(text)
-        self.show_button.setDefault(default)
         self.show_button.setEnabled(show_enabled)
+        self.show_button.setText(text)
+        self.show_button.setEnabled(show_enabled)
+        if default:
+            self.show_button.setFocus()        
 
     def question_box_visible(self, visible):
         if visible:
@@ -91,7 +93,7 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.question_label.show()
         else:
             self.question.hide()
-            self.quesion_label.hide()            
+            self.quesion_label.hide()
 
     def answer_box_visible(self, visible):
         if visible:
@@ -101,31 +103,11 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.answer.hide()
             self.quesion_label.hide()
 
-    # TODO: implement
-
     def grade_4_default(self, use_4):
-
-        return
-
-        # Revert to blank slate.
-        
-        self.grade_0_button.setDefault(False)
-        self.grade_4_button.setDefault(False)
-
-        self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                        self.grade_0_button.animateClick)
-        
-        self.disconnect(self.defaultAction,SIGNAL("activated()"),
-                        self.grade_4_button.animateClick)
-
         if use_4:
-            self.grade_4_button.setDefault(grades_enabled)
-            self.connect(self.actionDefault,SIGNAL("activated()"),
-                         self.grade_4_button.animateClick)
+            self.grade_4_button.setFocus()
         else:
-            self.grade_0_button.setDefault(grades_enabled)
-            self.connect(self.actionDefault,SIGNAL("activated()"),
-                         self.grade_0_button.animateClick)
+            self.grade_0_button.setFocus()            
 
     def enable_grades(self, grades_enabled):
         self.grades.setEnabled(grades_enabled)

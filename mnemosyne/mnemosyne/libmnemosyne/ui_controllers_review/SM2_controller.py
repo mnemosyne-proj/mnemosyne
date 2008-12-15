@@ -151,8 +151,9 @@ class SM2Controller(UiControllerReview):
         else:
             i = 1 # Retention phase.
             default_4 = True
-        w.grade_4_default(default_4)
         w.enable_grades(grades_enabled)
+        if grades_enabled:
+            w.grade_4_default(default_4)            
         # Tooltips and texts for the grade buttons.
         for grade in range(0,6):
             # Tooltip.

@@ -96,7 +96,7 @@
        <property name="text" >
         <string>Show &amp;answer</string>
        </property>
-       <property name="default" >
+       <property name="autoDefault" >
         <bool>true</bool>
        </property>
       </widget>
@@ -119,6 +119,9 @@
             </property>
             <property name="shortcut" >
              <string>0</string>
+            </property>
+            <property name="autoDefault" >
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -167,8 +170,11 @@
             <property name="shortcut" >
              <string>4</string>
             </property>
-            <property name="default" >
+            <property name="autoDefault" >
              <bool>true</bool>
+            </property>
+            <property name="default" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>

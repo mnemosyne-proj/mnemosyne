@@ -80,6 +80,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ui_controller_review().widget = \
             component_manager.get_current("review_widget")(parent=self)
         self.setCentralWidget(ui_controller_review().widget)
+        self.setFocusProxy(ui_controller_review().widget)
 
     def fileNew(self):
         stopwatch.pause()

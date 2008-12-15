@@ -149,7 +149,7 @@ class SM2Mnemosyne(Scheduler):
                 self.queue.remove(i)
                 return
 
-    def get_new_question(self, learn_ahead = False):
+    def get_new_question(self, learn_ahead=False):
         # Populate list if it is empty.
         if len(self.queue) == 0:
             self.rebuild_queue(learn_ahead)

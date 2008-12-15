@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>165</width>
-    <height>248</height>
+    <width>224</width>
+    <height>294</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -28,7 +28,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>165</width>
+     <width>224</width>
      <height>25</height>
     </rect>
    </property>
@@ -138,11 +138,6 @@
     <string>&amp;Configure Mnemosyne</string>
    </property>
   </action>
-  <action name="actionDefault" >
-   <property name="text" >
-    <string>default</string>
-   </property>
-  </action>
   <action name="actionDeleteCurrentCard" >
    <property name="icon" >
     <iconset resource="mnemosyne.qrc" >
@@ -246,38 +241,6 @@
   <action name="actionImport" >
    <property name="text" >
     <string>&amp;Import</string>
-   </property>
-  </action>
-  <action name="actionPressEnter" >
-   <property name="text" >
-    <string>pressEnter</string>
-   </property>
-   <property name="shortcut" >
-    <string>Enter</string>
-   </property>
-  </action>
-  <action name="actionPressR" >
-   <property name="text" >
-    <string>pressR</string>
-   </property>
-   <property name="shortcut" >
-    <string>R</string>
-   </property>
-  </action>
-  <action name="actionPressReturn" >
-   <property name="text" >
-    <string>pressReturn</string>
-   </property>
-   <property name="shortcut" >
-    <string>Return</string>
-   </property>
-  </action>
-  <action name="actionPressSpace" >
-   <property name="text" >
-    <string>pressSpace</string>
-   </property>
-   <property name="shortcut" >
-    <string>Space</string>
    </property>
   </action>
   <action name="actionGettingStarted" >
