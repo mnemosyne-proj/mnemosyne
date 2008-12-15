@@ -6,6 +6,7 @@ import random
 import os
 import sys
 import cPickle
+import locale
 
 try:
     from hashlib import md5
@@ -99,7 +100,7 @@ class Configuration(dict, Component):
     def load(self):
         try:
             config_file = file(os.path.join(self.basedir, "config"), 'rb')
-            for key,value in cPickle.load(config_file).iteritems():
+            for key, value in cPickle.load(config_file).iteritems():
                 self[key] = value
             self.set_defaults()
         except:
@@ -133,7 +134,7 @@ class Configuration(dict, Component):
                 self.old_basedir = os.path.join(home, ".mnemosyne")
                 self.basedir = os.path.join(home, "Library", "Mnemosyne")
                 if not os.path.exists(self.basedir) \
-                   and os.path.exists(self._old_basedir):
+                   and os.path.exists(self.old_basedir):
                     self.migrate_basedir(self.old_basedir, self.basedir)
             else:
                 self.basedir = os.path.join(home, ".mnemosyne")
@@ -204,8 +205,8 @@ class Configuration(dict, Component):
                 user, index = last.split('_')
                 index = int(index.split('.')[0]) + 1
 
-    def migrate_basedir(old, new):
-        if os.path.islink(self, _old_basedir):
+    def migrate_basedir(self, old, new):
+        if os.path.islink(self.old_basedir):
             print "Not migrating %s to %s because " % (old, new) \
                     + "it is a symlink."
             return
