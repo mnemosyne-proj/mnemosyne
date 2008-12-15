@@ -99,8 +99,8 @@ class Configuration(dict, Component):
     def load(self):
         try:
             config_file = file(os.path.join(self.basedir, "config"), 'rb')
-            for k,v in cPickle.load(config_file).iteritems():
-                self[k] = v
+            for key,value in cPickle.load(config_file).iteritems():
+                self[key] = value
             self.set_defaults()
         except:
             raise ConfigError(stack_trace=True)
