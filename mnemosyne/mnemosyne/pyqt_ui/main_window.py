@@ -80,7 +80,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ui_controller_review().widget = \
             component_manager.get_current("review_widget")(parent=self)
         self.setCentralWidget(ui_controller_review().widget)
-        self.setFocusProxy(ui_controller_review().widget)
 
     def fileNew(self):
         stopwatch.pause()
@@ -182,7 +181,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if controller.card == None:
             controller.new_question()
         else:
-            self.update_statusbar()
+            self.update_status_bar()
         stopwatch.unpause()
 
     def editCards(self):
@@ -292,7 +291,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg.exec_()
         stopwatch.unpause()
 
-    def update_statusbar(self):
+    def update_status_bar(self, message=None):
         db = database()
         self.sched.setText(_("Scheduled: ") + \
                            str(db.scheduled_count()) + " ")
@@ -300,3 +299,5 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             str(db.non_memorised_count()) + " ")
         self.all.setText(_("All: ") \
                          + str(db.active_count()) + " ")
+        if message:
+            self.statusBar().showMessage(message)

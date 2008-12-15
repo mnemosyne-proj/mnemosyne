@@ -69,10 +69,9 @@ class SM2Controller(UiControllerReview):
     def grade_answer(self, grade):
         interval = scheduler().process_answer(self.card, grade)
         self.new_question()
-        # TODO: implement hidden feature?
-        #if config()["show_intervals"] == "statusbar":
-        #    self.statusBar().message(_("Returns in") + " " + \
-        #          str(interval) + _(" day(s)."))
+        if config()["show_intervals"] == "statusbar":
+            self.widget.update_sta(_("Returns in") + " " + \
+                  str(interval) + _(" day(s)."))
         
     def next_rep_string(self, days):
         if days == 0:
