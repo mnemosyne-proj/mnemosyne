@@ -133,6 +133,9 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
     #   Contains the updating of the dialog that is not specifically
     #   handled by the UI controller.
     #
+    #   TODO: everything here will either have to be reimplemented in a
+    #   completely different way or will become obsolete.
+    #
     ##########################################################################
 
     def update_dialog(self):
@@ -149,8 +152,6 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
 
         # Update question and answer alignment.
 
-        # TODO: reimplement as a filter, or throw out?
-
         #if get_config("left_align") == True:
         #    alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.TextWordWrap
         #else:
@@ -158,10 +159,6 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
 
         #self.question.setAlignment(alignment)
         #self.answer.setAlignment(alignment)
-
-        # TODO: autoshrinking?
-        #if self.shrink == True:
-        #    self.adjustSize()
 
 # Register widget.
 

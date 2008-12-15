@@ -177,6 +177,6 @@ class SM2Controller(UiControllerReview):
         # Update status bar.
         w.update_status_bar()
         # Run possible update code that independent of the controller state.
-        # TODO: needed?
+        # TODO: remove when migration is complete.
         w.update_dialog()
 

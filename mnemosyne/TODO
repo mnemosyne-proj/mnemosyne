@@ -5,9 +5,7 @@
 
 * Mnemosyne 2.0:
 
--complete UI controller review
-
--easier function to do tag detection in plugin
+-ui controller for main window
 
 -Add cards dialog:
     -multiple categories
@@ -32,6 +30,8 @@
 -show latex errors in GUI?
 
 -ghost out 3.4 and 5 for unlearned cards?
+
+-easier function to do tag detection in plugin
 
 -if we change a card id on import, by sure to put a message in the
  log to that effect, so that the statistics can keep track of it.
@@ -80,11 +80,6 @@
 -activate necessary card types on plugin
 
 -test Python 3.0 compliance
-
--dir = os.listdir(unicode(os.path.join(basedir, "history"))) doesn't
- seem to work when unicode is present in the path
-
--reactivate keyboard default 0 for cards with grade 0 or 1.
 
 -button to go to next card in the list
 
@@ -136,15 +131,13 @@
 
 -make 'search' behave as a filter
 
--make <a> links clickable / animated GIFs
-
--Windows Mobile port
+-test: make <a> links clickable / animated GIFs
 
 -update old plugins
 
 -save category state
 
--Contributors: Konrad Wojas, Laurent Mauron
+-Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh
 
 
 * Create testsuite:
