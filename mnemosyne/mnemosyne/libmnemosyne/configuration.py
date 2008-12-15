@@ -50,67 +50,57 @@ latex = "latex"
 dvipng = "dvipng -D 200 -T tight tmp.dvi"
 """
 
+class Configuration(dict, Component):
 
-class Configuration(Component):
-
-    def __init__(self):
-        self._config = {}
-        
     def set_defaults(self):
         
         """Fill the config with default values.  Is called after every load,
         since a new version of Mnemosyne might have introduced new keys."""
-        
-        c = self._config
-        c.setdefault("first_run", True)
-        c.setdefault("path", "default.mem")
-        c.setdefault("import_dir", self.basedir)
-        c.setdefault("import_format", "XML")
-        c.setdefault("reset_learning_data_import", False)
-        c.setdefault("export_dir", self.basedir)
-        c.setdefault("export_format", "XML")
-        c.setdefault("reset_learning_data_export", False)
-        c.setdefault("import_img_dir", self.basedir)
-        c.setdefault("import_sound_dir", self.basedir)
-        c.setdefault("user_id", md5(str(random.random())).hexdigest()[0:8])
-        c.setdefault("upload_logs", True)
-        c.setdefault("upload_server", "mnemosyne-proj.dyndns.org:80")
-        c.setdefault("log_index", 1)
-        c.setdefault("QA_font", None)
-        c.setdefault("list_font", None)
-        c.setdefault("grade_0_items_at_once", 5)
-        c.setdefault("randomise_new_cards", False)
-        c.setdefault("last_add_vice_versa", False)
-        c.setdefault("last_add_category", "<default>")
-        c.setdefault("sort_column", None)
-        c.setdefault("sort_order", None)
-        c.setdefault("show_intervals", "never")
-        c.setdefault("only_editable_when_answer_shown", False)
-        c.setdefault("locale", None)
-        c.setdefault("show_daily_tips", True)
-        c.setdefault("tip", 0)
-        c.setdefault("backups_to_keep", 5)
-        c.setdefault("day_starts_at", 3)
-        c.setdefault("latex_preamble", "\\documentclass[12pt]{article}\n"+
-                                       "\\pagestyle{empty}\n\\begin{document}")
-        c.setdefault("latex_postamble", "\\end{document}")
-        c.setdefault("latex", "latex -interaction=nonstopmode")       
-        c.setdefault("dvipng", "dvipng -D 200 -T tight tmp.dvi")
 
-    def __getitem__(self, key):
-        try:
-            return self._config[key]
-        except IndexError:
-            raise KeyError
+        for key, value in \
+            {"first_run": True, 
+             "path": "default.mem",
+             "import_dir": self.basedir, 
+             "import_format": "XML",
+             "reset_learning_data_import": False,
+             "export_dir": self.basedir,
+             "export_format": "XML", 
+             "reset_learning_data_export": False,
+             "import_img_dir": self.basedir, 
+             "import_sound_dir": self.basedir,
+             "user_id": md5(str(random.random())).hexdigest()[0:8],
+             "upload_logs": True, 
+             "upload_server": "mnemosyne-proj.dyndns.org:80",
+             "log_index": 1, 
+             "QA_font": None,
+             "list_font": None,
+             "grade_0_items_at_once": 5,
+             "randomise_new_cards": False,
+             "last_add_vice_versa": False,
+             "last_add_category": "<default>",
+             "sort_column": None,
+             "sort_order": None,
+             "show_intervals": "never",
+             "only_editable_when_answer_shown": False,
+             "locale": None,
+             "show_daily_tips": True,
+             "tip": 0,
+             "backups_to_keep": 5,
+             "day_starts_at": 3, 
+             "latex_preamble": "\\documentclass[12pt]{article}\n"+
+                              "\\pagestyle{empty}\n\\begin{document}",
+             "latex_postamble": "\\end{document}", 
+             "latex": "latex -interaction=nonstopmode",
+             "dvipng": "dvipng -D 200 -T tight tmp.dvi",
+            }.items():
+            
+            self.setdefault(key, value)
 
-    def __setitem__(self, key, value):
-        self._config[key] = value
-        
     def load(self):
         try:
             config_file = file(os.path.join(self.basedir, "config"), 'rb')
             for k,v in cPickle.load(config_file).iteritems():
-                self._config[k] = v
+                self[k] = v
             self.set_defaults()
         except:
             raise ConfigError(stack_trace=True)
@@ -118,7 +108,7 @@ class Configuration(Component):
     def save(self):
         try:
             config_file = file(os.path.join(self.basedir, "config"), 'wb')
-            cPickle.dump(self._config, config_file)
+            cPickle.dump(self, config_file)
         except:
             raise SaveError
             
@@ -186,12 +176,12 @@ class Configuration(Component):
             try:
                 import config as user_config
                 for var in dir(user_config):
-                    if var in self._config.keys():
-                        self._config[var] = getattr(user_config, var)
+                    if var in self:
+                        self[var] = getattr(user_config, var)
             except:
                 # Work around the unexplained fact that config.py cannot get 
                 # imported right after it has been created.
-                if self._config["first_run"] == True:
+                if self["first_run"] == True:
                     pass
                 else:
                     raise ConfigError(stack_trace=True)
@@ -201,11 +191,11 @@ class Configuration(Component):
         if self.old_basedir:
             for key in ["import_dir", "export_dir", "import_img_dir",
                         "import_sound_dir"]:
-                if self._config[key] == self.old_basedir:
-                    self._config[key] = self.basedir
+                if self[key] == self.old_basedir:
+                    self[key] = self.basedir
         # Recreate user id and log index from history folder in case the
         # config file was accidentally deleted.
-        if self._config["log_index"] == 1:
+        if self["log_index"] == 1:
             _dir = os.listdir(unicode(os.path.join(self.basedir, "history")))
             history_files = [x for x in _dir if x[-4:] == ".bz2"]
             history_files.sort()
