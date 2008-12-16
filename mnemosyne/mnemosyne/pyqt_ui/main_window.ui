@@ -285,7 +285,7 @@
    <sender>actionAddCards</sender>
    <signal>activated()</signal>
    <receiver>MainWindow</receiver>
-   <slot>addCards</slot>
+   <slot>add_cards</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>-1</x>

@@ -17,6 +17,9 @@ class UiControllerMain(Component):
         self.name = None
         self.description = None
         self.widget = None
+        
+    def add_cards(self):
+        raise NotImplementedError
 
     def create_new_cards(self, fact_data, card_type, grade, cat_names):
         raise NotImplementedError

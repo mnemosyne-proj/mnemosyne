@@ -5,7 +5,8 @@
 
 class ReviewWidget(object):
     
-    """Describes the interface that the review widget needs to implement."""
+    """Describes the interface that the review widget needs to implement
+    in order to be used by the review controller."""
     
     def set_window_title(self, title):
         raise NotImplementedError
@@ -50,7 +51,4 @@ class ReviewWidget(object):
         raise NotImplementedError
             
     def set_grade_tooltip(self, grade, text): 
-        raise NotImplementedError
-
-    def update_status_bar(self, message=None): 
         raise NotImplementedError

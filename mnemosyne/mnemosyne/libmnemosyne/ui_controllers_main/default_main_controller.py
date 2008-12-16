@@ -8,7 +8,9 @@ _ = gettext.gettext
 import copy
 
 from mnemosyne.libmnemosyne.fact import Fact
+from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import database
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
 
@@ -16,6 +18,16 @@ class DefaultMainController(UiControllerMain):
 
     def __init__(self):
         UiControllerMain.__init__(self, name="Default main Controller")
+
+    def add_cards(self):
+        stopwatch.pause()
+        self.widget.run_add_cards_dialog()
+        review_controller = ui_controller_review()
+        if review_controller.card == None:
+            review_controller.new_question()
+        else:
+            self.widget.update_status_bar()
+        stopwatch.unpause()
 
     def create_new_cards(self, fact_data, card_type, grade, cat_names):
 

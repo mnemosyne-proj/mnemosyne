@@ -120,9 +120,6 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         
     def set_grade_tooltip(self, grade, text):
         self.grade_buttons.button(grade).setToolTip(text)
-
-    def update_status_bar(self, message=None):
-        self.parent().update_status_bar(message)
   
        
             

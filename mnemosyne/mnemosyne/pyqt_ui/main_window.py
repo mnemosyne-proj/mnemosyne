@@ -62,6 +62,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             messagebox_errors(self, LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             database().new(filename)
+        ui_controller_main().widget = self
         self.update_review_widget()
         ui_controller_review().new_question()
 
@@ -81,6 +82,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             component_manager.get_current("review_widget")(parent=self)
         self.setCentralWidget(ui_controller_review().widget)
 
+    def add_cards(self):
+        ui_controller_main().add_cards()
+
+    def run_add_cards_dialog(self):
+        dlg = AddCardsDlg(self)
+        dlg.exec_()
+        
     def fileNew(self):
         stopwatch.pause()
         out = unicode(QFileDialog.getSaveFileName(config().get_basedir(),

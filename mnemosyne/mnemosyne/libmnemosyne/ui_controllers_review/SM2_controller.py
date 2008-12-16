@@ -10,6 +10,7 @@ _ = gettext.gettext
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import scheduler
+from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
 
 
@@ -175,7 +176,7 @@ class SM2Controller(UiControllerReview):
             # TODO: accelerator update needed?
             #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
         # Update status bar.
-        w.update_status_bar()
+        ui_controller_main().widget.update_status_bar()
         # Run possible update code that independent of the controller state.
         # TODO: remove when migration is complete.
         w.update_dialog()
