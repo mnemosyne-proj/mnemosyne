@@ -103,14 +103,15 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         self.card_widget.clear()
 
     def reject(self):
-        if self.card_widget.get_data() is None:
-            QDialog.reject(self)
-            return
-        status = QMessageBox.warning(None, _("Mnemosyne"),
-                _("Abandon current card?"),
-                _("&Yes"), _("&No"), "", 1, -1)
-        if status == 0:
-            QDialog.reject(self)
+        for value in self.card_widget.get_data().values():
+            if value:
+                status = QMessageBox.warning(None, _("Mnemosyne"),
+                                             _("Abandon current card?"),
+                                             _("&Yes"), _("&No"), "", 1, -1)
+                if status == 0:
+                    QDialog.reject(self)
+                return
+        QDialog.reject(self)
 
     def preview(self):
         raise NotImplementedError

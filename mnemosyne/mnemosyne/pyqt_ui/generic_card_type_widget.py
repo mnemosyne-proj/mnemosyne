@@ -37,11 +37,9 @@ class GenericCardTypeWdgt(QWidget):
     def get_data(self):
         fact = {}
         for edit_box, fact_key in self.edit_boxes.iteritems():
-            text = unicode(edit_box.document().toPlainText())
-            if text:
-                fact[fact_key] = text
+            fact[fact_key] = unicode(edit_box.document().toPlainText())
         for required in self.card_type.required_fields():
-            if not required in fact.keys():
+            if not fact[required]:
                 return None
         return fact
 
