@@ -129,7 +129,11 @@ class Configuration(dict, Component):
     def determine_basedir(self, basedir):
         self.old_basedir = None
         if basedir == None:
-            home = os.path.expanduser("~").decode(locale.getdefaultlocale()[1])
+            home = os.path.expanduser("~")
+            try:
+                home = home.decode(locale.getdefaultlocale()[1])
+            except:
+                pass
             if sys.platform == "darwin":
                 self.old_basedir = os.path.join(home, ".mnemosyne")
                 self.basedir = os.path.join(home, "Library", "Mnemosyne")
