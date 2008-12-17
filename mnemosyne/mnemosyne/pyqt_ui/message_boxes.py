@@ -2,6 +2,8 @@
 #
 # Message boxes for warnings and errors. <Peter.Bienstman@UGent.be>
 #
+# TODO: fold into main_window.py?
+#
 ##############################################################################
 
 import sys, os
@@ -28,25 +30,3 @@ def messagebox_errors(self, e):
                                    
     QMessageBox.critical(None, self.trUtf8("Mnemosyne"), e.msg,
                          self.trUtf8("&OK"), "", "", 0, -1)
-
-
-
-##############################################################################
-#
-# queryOverwriteFile
-#
-##############################################################################
-
-def queryOverwriteFile(self, fileName):
-    
-    status = QMessageBox.warning(None,
-                                 self.trUtf8("Mnemosyne"),
-                                 self.trUtf8("File exists:")\
-                                 .append(QString("\n" + fileName)),
-                                 self.trUtf8("&Overwrite"),
-                                 self.trUtf8("&Cancel"),
-                                 "", 1, -1)
-    if status == 0:
-        return True
-    else:
-        return False

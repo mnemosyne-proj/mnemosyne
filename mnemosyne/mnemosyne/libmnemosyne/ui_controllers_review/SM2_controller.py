@@ -46,6 +46,10 @@ class SM2Controller(UiControllerReview):
     def __init__(self):
         UiControllerReview.__init__(self, name="SM2 Controller")
 
+    def clear(self):
+        self.state = "EMPTY"
+        self.card = None        
+
     def new_question(self, learn_ahead=False):
         if database().card_count() == 0:
             self.state = "EMPTY"

@@ -73,6 +73,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return QMessageBox.question(None, _("Mnemosyne"),
                                     question, option0, option1, option2, 0, -1)
 
+    def save_file_dialog(self, directory, filter, caption):
+        return unicode(QFileDialog.getSaveFileName(self, caption, directory,
+                        filter))
+
+    def query_overwrite_file(self, filename):
+        # TODO: Qt4 seems to support this natively, remove?
+        status = QMessageBox.warning(None, _("Mnemosyne"),
+                                 _("File exists:") + "\n" + filename,
+                                 _("&Overwrite"), _("&Cancel"),
+                                 "", 1, -1)
+        if status == 0:
+            return True
+        else:
+            return False
+    
     def update_review_widget(self):
         w = self.centralWidget()
         if w:
@@ -89,26 +104,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg = AddCardsDlg(self)
         dlg.exec_()
         
-    def fileNew(self):
-        stopwatch.pause()
-        out = unicode(QFileDialog.getSaveFileName(config().get_basedir(),
-                        _("Mnemosyne databases (*.mem)"), self, None,\
-                        _("New")))
-        if out != "":
-            if out[-4:] != ".mem":
-                out += ".mem"
-            if os.path.exists(out):
-                if not queryOverwriteFile(self, out):
-                    stopwatch.unpause()
-                    return
-            unload_database()
-            self.state = "EMPTY"
-            self.card = None
-            new_database(out)
-            load_database(config()["path"])
-        self.updateDialog()
-        stopwatch.unpause()
-
+    def file_new(self):
+        ui_controller_main().file_new()
+    
     def fileOpen(self):
         stopwatch.pause()
         oldPath = expand_path(config()["path"])

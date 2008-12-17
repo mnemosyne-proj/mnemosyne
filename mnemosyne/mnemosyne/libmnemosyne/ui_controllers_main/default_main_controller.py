@@ -9,7 +9,7 @@ import copy
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.component_manager import database
+from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
@@ -64,3 +64,18 @@ class DefaultMainController(UiControllerMain):
         db.add_fact(fact)
         card_type.create_related_cards(fact, grade)
 
+    def file_new(self):
+        stopwatch.pause()
+        out = self.widget.save_file_dialog(directory=config().basedir,
+                            filter=_("Mnemosyne databases (*.mem)"),
+                            caption=_("New"))
+        if out:
+            if not out.endswith(".mem"):
+                out += ".mem"
+            db = database()
+            db.unload()
+            db.new(out)
+            db.load(config()["path"])
+            ui_controller_review().clear()
+            ui_controller_review().update_dialog()
+        stopwatch.unpause()

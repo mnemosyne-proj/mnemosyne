@@ -18,6 +18,9 @@ class UiControllerReview(Component):
         self.widget = None
         self.card = None
 
+    def clear(self):
+        raise NotImplementedError        
+
     def new_question(self):
         raise NotImplementedError    
         
