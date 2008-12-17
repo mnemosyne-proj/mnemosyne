@@ -16,7 +16,6 @@ from mnemosyne.libmnemosyne import initialise, finalise
 from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 from mnemosyne.pyqt_ui.main_window import MainWindow, prefix
-from mnemosyne.pyqt_ui.message_boxes import messagebox_errors
 #from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 
 # Parse options.
@@ -79,10 +78,12 @@ if os.path.exists(os.path.join(basedir, "MNEMOSYNE_LOCK")):
              QString(), 0, -1)
     if status == 0 or status == -1:
         sys.exit()
+
 try:
     initialise(basedir)
-except MnemosyneError, e:
-    messagebox_errors(a, e)
+except MnemosyneError, event:
+    QMessageBox.critical(None, _("Mnemosyne"), event.msg,
+                                 _("&OK"), "", "", 0, -1)
 
 # Main widget.
 w = MainWindow(filename)

@@ -15,9 +15,15 @@ class MainWidget(object):
     
     def question_box(self, question, option0, option1, option2):
         raise NotImplementedError
-
-    def save_file_dialog(self, directory, filter, caption):
-        raise NotImplementedError     
+    
+    def error_box(self, event)
+        raise NotImplementedError
+    
+    def save_file_dialog(self, path, filter, caption=""):
+        raise NotImplementedError
+    
+    def open_file_dialog(self, path, filter, caption=""):
+        raise NotImplementedError
     
     def run_add_card_dialog(self):
         raise NotImplementedError

@@ -25,7 +25,6 @@ from add_cards_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
 from sound import * # TODO
-from message_boxes import * # TODO
 from mnemosyne.libmnemosyne import initialise_user_plugins
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import component_manager
@@ -53,13 +52,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             initialise_user_plugins()
         except MnemosyneError, e:
-            messagebox_errors(self, e)
+            self.error_box(e)
         if filename == None:
             filename = config()["path"]
         try:
             database().load(filename)
         except MnemosyneError, e:
-            messagebox_errors(self, LoadErrorCreateTmp())
+            self.error_box(e)            
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             database().new(filename)
         ui_controller_main().widget = self
@@ -73,20 +72,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return QMessageBox.question(None, _("Mnemosyne"),
                                     question, option0, option1, option2, 0, -1)
 
-    def save_file_dialog(self, directory, filter, caption):
-        return unicode(QFileDialog.getSaveFileName(self, caption, directory,
-                        filter))
+    def error_box(self, event):
+        if event.info:
+            event.msg += "\n" + event.info        
+            QMessageBox.critical(None, _("Mnemosyne"), event.msg,
+                                 _("&OK"), "", "", 0, -1)
 
-    def query_overwrite_file(self, filename):
-        # TODO: Qt4 seems to support this natively, remove?
-        status = QMessageBox.warning(None, _("Mnemosyne"),
-                                 _("File exists:") + "\n" + filename,
-                                 _("&Overwrite"), _("&Cancel"),
-                                 "", 1, -1)
-        if status == 0:
-            return True
-        else:
-            return False
+    def save_file_dialog(self, path, filter, caption=""):
+        return unicode(QFileDialog.getSaveFileName(self,caption,path,filter))
+    
+    def open_file_dialog(self, path, filter, caption=""):
+        return unicode(QFileDialog.getOpenFileName(self,caption,path,filter))
     
     def update_review_widget(self):
         w = self.centralWidget()
@@ -106,28 +102,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def file_new(self):
         ui_controller_main().file_new()
-    
-    def fileOpen(self):
-        stopwatch.pause()
-        oldPath = expand_path(config()["path"])
-        out = unicode(QFileDialog.getOpenFileName(oldPath,\
-                    _("Mnemosyne databases (*.mem)"), self))
-        if out != "":
-            try:
-                unload_database()
-            except MnemosyneError, e:
-                messagebox_errors(self, e)
-            self.state = "EMPTY"
-            self.card = None
-            try:
-                load_database(out)
-            except MnemosyneError, e:
-                messagebox_errors(self, e)
-                stopwatch.unpause()
-                return
-            self.newQuestion()
-        self.updateDialog()
-        stopwatch.unpause()
+
+    def file_open(self):
+        ui_controller_main().file_open()
 
     def fileSave(self):
         stopwatch.pause()
