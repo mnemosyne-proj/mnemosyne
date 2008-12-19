@@ -12,5 +12,12 @@
         <file>pixmaps/filesaveas.png</file>
         <file>pixmaps/mnemosyne.png</file>
         <file>pixmaps/statistics.png</file>
+        <file>pixmaps/bold.png</file>
+        <file>pixmaps/image.png</file>
+        <file>pixmaps/italic.png</file>
+        <file>pixmaps/latex.png</file>
+        <file>pixmaps/sound.png</file>
+        <file>pixmaps/tags.png</file>
+        <file>pixmaps/underline.png</file>
     </qresource>
 </RCC>

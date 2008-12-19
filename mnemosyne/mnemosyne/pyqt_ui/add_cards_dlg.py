@@ -72,7 +72,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             card_type.widget = GenericCardTypeWdgt(card_type, parent=self)
         self.card_widget = card_type.widget
         self.card_widget.show()
-        self.vboxlayout.insertWidget(1, self.card_widget)
+        self.vboxlayout.insertWidget(5, self.card_widget)
         #self.adjustSize()
 
     def update_combobox(self, current_cat_name):
