@@ -100,7 +100,7 @@ class DefaultMainController(UiControllerMain):
             return            
         ui_controller_review().clear()
         try:
-                database().load(out)
+            database().load(out)
         except MnemosyneError, e:
             self.widget.error_box(e)
             stopwatch.unpause()
@@ -108,3 +108,30 @@ class DefaultMainController(UiControllerMain):
         ui_controller_review().new_question()
         stopwatch.unpause()
 
+    def file_save(self):
+        stopwatch.pause()
+        path = config()["path"]
+        try:
+            database().save(path)
+        except MnemosyneError, e:
+            self.widget.error_box(e)
+        stopwatch.unpause()
+
+    def file_save_as(self):
+        stopwatch.pause()
+        old_path = expand_path(config()["path"])
+        out = self.widget.save_file_dialog(path=old_path,
+                            filter=_("Mnemosyne databases (*.mem)"))
+        if not out:
+            stopwatch.unpause()
+            return
+        if not out.endswith(".mem"):
+            out += ".mem"
+        try:
+            database().save(out)
+        except MnemosyneError, e:
+            self.widget.error_box(e)
+            stopwatch.unpause()
+            return
+        ui_controller_review().update_dialog()
+        stopwatch.unpause()

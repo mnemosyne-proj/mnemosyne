@@ -87,8 +87,6 @@ except MnemosyneError, event:
 
 # Main widget.
 w = MainWindow(filename)
-QObject.connect(a,SIGNAL("lastWindowClosed()"),w.fileExit)
-QObject.connect(a,SIGNAL("lastWindowClosed()"),a,SLOT("quit()"))
 w.show()
 # TODO: check first run wizard.
 if config()["first_run"] == True:

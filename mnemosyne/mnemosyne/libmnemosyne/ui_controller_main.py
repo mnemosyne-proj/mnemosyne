@@ -29,3 +29,9 @@ class UiControllerMain(Component):
     
     def file_open(self):
         raise NotImplementedError
+    
+    def file_save(self):
+        raise NotImplementedError
+    
+    def file_save_as(self):
+        raise NotImplementedError

@@ -105,36 +105,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def file_open(self):
         ui_controller_main().file_open()
-
-    def fileSave(self):
-        stopwatch.pause()
-        path = config()["path"]
-        try:
-            save_database(path)
-        except MnemosyneError, e:
-            messagebox_errors(self, e)
-        stopwatch.unpause()
-
-    def fileSaveAs(self):
-        stopwatch.pause()
-        oldPath = expand_path(config()["path"])
-        out = unicode(QFileDialog.getSaveFileName(oldPath,\
-                    _("Mnemosyne databases (*.mem)"), self))
-        if out != "":
-            if out[-4:] != ".mem":
-                out += ".mem"
-            if os.path.exists(out) and out != config()["path"]:
-                if not queryOverwriteFile(self, out):
-                    stopwatch.unpause()
-                    return
-            try:
-                save_database(out)
-            except MnemosyneError, e:
-                messagebox_errors(self, e)
-                stopwatch.unpause()
-                return
-        self.updateDialog()
-        stopwatch.unpause()
+        
+    def file_save(self):
+        ui_controller_main().file_save()
+        
+    def file_save_as(self):
+        ui_controller_main().file_save_as()
 
     def Import(self):
         stopwatch.pause()
@@ -152,9 +128,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg = ExportDlg(self)
         dlg.exec_loop()
         stopwatch.unpause()
-
-    def fileExit(self):
-        self.close()
 
     def addCards(self):
         stopwatch.pause()
@@ -206,7 +179,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def deleteCurrentCard(self):
         # TODO: ask user if he wants to delete all related cards, or only
         # deactivate this cardview?
-
         stopwatch.pause()
         status = QMessageBox.warning(None,
                                      _("Mnemosyne"),
@@ -249,7 +221,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             database().backup()
             database().unload()
         except MnemosyneError, e:
-            messagebox_errors(self, e)
+            self.error_box(e)
             event.ignore()
         else:
             event.accept()
