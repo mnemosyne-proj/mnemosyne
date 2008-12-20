@@ -4,7 +4,7 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-
+from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
 
 class GenericCardTypeWdgt(QWidget):
 
@@ -18,7 +18,7 @@ class GenericCardTypeWdgt(QWidget):
         self.top_edit_box = None
         for fact_key, fact_key_name in self.card_type.fields:
             self.vboxlayout.addWidget(QLabel(fact_key_name + ":", self))
-            t = QTextEdit(self)
+            t = QTextEdit2(self)
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
             t.setReadOnly(False)

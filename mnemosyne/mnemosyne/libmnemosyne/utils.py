@@ -30,12 +30,13 @@ def contract_path(p, prefix=None):
 
     # By default, make paths relative to the database location.
     if prefix == None:
-        prefix = os.path.dirname(config()("path"))
+        prefix = os.path.dirname(config()["path"])
     # If there was no dirname in the last statement, it was a relative
     # path and we set the prefix to the basedir.
     if prefix == '':
         prefix = config().basedir
     # Normalise paths and convert everything to lowercase on Windows.
+    print p
     p = os.path.normpath(p)
     prefix = os.path.normpath(prefix)
     if ( (len(p) > 2) and p[1] == ":"):

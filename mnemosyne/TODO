@@ -5,10 +5,13 @@
 
 * Mnemosyne 2.0:
 
+-multiple categories
 
--Add cards dialog:
-    -multiple categories
-    -preview
+-preview
+
+-edit
+
+-global font setting
 
 -card type css
  
@@ -47,9 +50,7 @@
 
 -test map card type plugin
 
--more beginner tasks:
-    -cramming scheduler
-    -card type for memorising poems, close deletion (does not use FactView)
+-cramming scheduler
 
 -renamed default data dir on Windows?
 
