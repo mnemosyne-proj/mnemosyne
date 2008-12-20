@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>297</width>
-    <height>212</height>
+    <height>175</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -37,7 +37,7 @@
        <item row="1" column="0" >
         <widget class="QLabel" name="label" >
          <property name="text" >
-          <string>Category:</string>
+          <string>Categories:</string>
          </property>
         </widget>
        </item>
@@ -50,167 +50,6 @@
           </sizepolicy>
          </property>
          <property name="editable" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" >
-       <item>
-        <widget class="QToolButton" name="toolButton" >
-         <property name="text" >
-          <string>Bold</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="mnemosyne.qrc" >
-           <normaloff>:/mnemosyne/pixmaps/bold.png</normaloff>:/mnemosyne/pixmaps/bold.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>22</width>
-           <height>22</height>
-          </size>
-         </property>
-         <property name="checkable" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton_2" >
-         <property name="text" >
-          <string>Italic</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="mnemosyne.qrc" >
-           <normaloff>:/mnemosyne/pixmaps/italic.png</normaloff>:/mnemosyne/pixmaps/italic.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>22</width>
-           <height>22</height>
-          </size>
-         </property>
-         <property name="checkable" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton_3" >
-         <property name="text" >
-          <string>Underline</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="mnemosyne.qrc" >
-           <normaloff>:/mnemosyne/pixmaps/underline.png</normaloff>:/mnemosyne/pixmaps/underline.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>22</width>
-           <height>22</height>
-          </size>
-         </property>
-         <property name="checkable" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer" >
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton_4" >
-         <property name="text" >
-          <string>Insert picture</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="mnemosyne.qrc" >
-           <normaloff>:/mnemosyne/pixmaps/image.png</normaloff>:/mnemosyne/pixmaps/image.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>22</width>
-           <height>22</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton_5" >
-         <property name="text" >
-          <string>Insert sound</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="mnemosyne.qrc" >
-           <normaloff>:/mnemosyne/pixmaps/sound.png</normaloff>:/mnemosyne/pixmaps/sound.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>22</width>
-           <height>22</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton_6" >
-         <property name="text" >
-          <string>Insert LaTeX</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="mnemosyne.qrc" >
-           <normaloff>:/mnemosyne/pixmaps/latex.png</normaloff>:/mnemosyne/pixmaps/latex.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>22</width>
-           <height>22</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2" >
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton_7" >
-         <property name="text" >
-          <string>Show tags</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="mnemosyne.qrc" >
-           <normaloff>:/mnemosyne/pixmaps/tags.png</normaloff>:/mnemosyne/pixmaps/tags.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>22</width>
-           <height>22</height>
-          </size>
-         </property>
-         <property name="checkable" >
           <bool>true</bool>
          </property>
         </widget>

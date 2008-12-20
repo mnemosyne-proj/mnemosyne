@@ -5,14 +5,12 @@
 
 * Mnemosyne 2.0:
 
--ui controller for main window
 
 -Add cards dialog:
     -multiple categories
     -preview
-    -toolbar with editing options (bold, latex, picture, ..)
-    -button to switch between tag view and wysisyg view
-    -read font, colour, etc, from card type css
+
+-card type css
  
 -move sound.py to filter infrastructure, test
 
@@ -218,6 +216,8 @@ Status: initial code written, but clean up needed.
 -autoupgrade, or at least notify of available upgrade (needs a separate thread)
 
 -remember window size set by the user?
+
+-bundle docs
 
 -undo last grade + keyboard shortcut
 
