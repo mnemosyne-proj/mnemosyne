@@ -5,8 +5,6 @@
 
 * Mnemosyne 2.0:
 
--multiple categories
-
 -test sound
 
 -preview
@@ -16,8 +14,6 @@
 -global font setting
 
 -card type css
- 
--move sound.py to filter infrastructure, test
 
 -detect wrong current date (last review in the future or way past)
 
@@ -137,6 +133,9 @@
 -update old plugins
 
 -save category state
+
+-tips: right click to add cards or sound, comma to separate cat names,
+ : to separate hierarchies
 
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh
 

@@ -82,11 +82,13 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         for name in database().category_names():
             if name != _("<default>"):
                 self.categories.addItem(name)
+        if ',' in current_cat_name:
+            self.categories.addItem(current_cat_name)      
         for i in range(self.categories.count()):
             if self.categories.itemText(i) == current_cat_name:
                 self.categories.setCurrentIndex(i)
                 break
-
+            
     def new_cards(self, grade):
 
         """Note that we don't rebuild revision queue afterwards, as this can
@@ -97,12 +99,13 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             fact_data = self.card_widget.get_data()
         except ValueError:
             return # Let the user try again to fill out the missing data.
-        cat_names = [unicode(self.categories.currentText())]
+        cat_names = [c.strip() for c in \
+                        unicode(self.categories.currentText()).split(',')]
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         c = ui_controller_main()
         c.create_new_cards(fact_data, card_type, grade, cat_names)
-        self.update_combobox(cat_names[-1])
+        self.update_combobox(', '.join(cat_names))
         database().save(config()['path'])
         self.card_widget.clear()
 
