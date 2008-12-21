@@ -25,8 +25,9 @@ from add_cards_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
 from sound import * # TODO
-from mnemosyne.libmnemosyne import initialise_user_plugins
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
+from mnemosyne.libmnemosyne import initialise_user_plugins
+from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main

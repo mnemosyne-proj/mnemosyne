@@ -1,31 +1,26 @@
-#TODO: see where we need hook points
-
-##############################################################################
 #
 # function_hook.py <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
 from plugin import Plugin
 
 
-
-##############################################################################
-#
-# FunctionHook
-#
-#  Note that this class actually does not contain any new functionality.
-#  It mainly exists to make the taxonomy of different component types visible
-#  and for documentation purposes.
-#
-#  The 'type' from Plugin should be the name of the function hook.
-#  The 'run' method from plugin is the one that does all the work.
-#
-#  TODO: list possible hook points.
-#
-##############################################################################
-
 class FunctionHook(Plugin):
 
-    pass
+    """Function hooks are used by registering an instance of this class as
+    component of type function_hook, with the used_for argument any of the
+    following hook points:
+    
+       ======================   ===============================
+       "after_load"             in database.load
+       "create_new_cards"       in default_main_controller
+       ======================   ===============================
+
+    It is the 'run' method that will get called at the corresponding point
+    in the program.
+    
+    """
+    
+    def run(self):
+        raise NotImplementedError
 

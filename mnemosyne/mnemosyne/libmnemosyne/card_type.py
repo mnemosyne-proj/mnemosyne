@@ -71,10 +71,9 @@ class CardType(Component):
         if self.renderer:
             return self.renderer
         else:
-            try:
-                self.renderer = component_manager.\
+            self.renderer = component_manager.\
                    get_current("renderer", used_for=self.__class__.__name__)
-            except KeyError:
+            if not self.renderer:
                  self.renderer = component_manager.get_current("renderer")
             return self.renderer
 

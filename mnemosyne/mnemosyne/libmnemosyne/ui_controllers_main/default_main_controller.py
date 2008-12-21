@@ -12,6 +12,7 @@ from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 from mnemosyne.libmnemosyne.component_manager import database, config
+from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
@@ -35,6 +36,11 @@ class DefaultMainController(UiControllerMain):
 
         """Create a new set of related cards"""
 
+        # Allow this function to be overridden by a function hook.
+        f = component_manager.get_current("function_hook", "create_new_cards")
+        if f:
+            return f.run()
+        
         db = database()
         if db.has_fact_with_data(fact_data):
             self.widget.information_box(\

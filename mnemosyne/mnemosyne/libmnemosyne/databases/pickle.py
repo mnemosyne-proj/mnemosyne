@@ -88,7 +88,7 @@ class Pickle(Database):
         #    self.remove_category_if_unused(c)
         config()["path"] = contract_path(path, config().basedir)
         log().loaded_database()
-        for f in component_manager.get_all("after_load"):
+        for f in component_manager.get_all("function_hook", "after_load"):
             f.run()
 
     def save(self, path):

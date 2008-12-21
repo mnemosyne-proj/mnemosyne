@@ -64,11 +64,10 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         try:
-            card_type.widget = component_manager.\
-                   get_current("card_type_widget",
-                               used_for=card_type.__class__.__name__)\
-                                                       (parent=self)
-        except KeyError:
+            card_type.widget = component_manager.get_current\
+                       ("card_type_widget",
+                       used_for=card_type.__class__.__name__)(parent=self)
+        except:
             card_type.widget = GenericCardTypeWdgt(card_type, parent=self)
         self.card_widget = card_type.widget
         self.card_widget.show()

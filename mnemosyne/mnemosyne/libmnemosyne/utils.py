@@ -36,7 +36,6 @@ def contract_path(p, prefix=None):
     if prefix == '':
         prefix = config().basedir
     # Normalise paths and convert everything to lowercase on Windows.
-    print p
     p = os.path.normpath(p)
     prefix = os.path.normpath(prefix)
     if ( (len(p) > 2) and p[1] == ":"):

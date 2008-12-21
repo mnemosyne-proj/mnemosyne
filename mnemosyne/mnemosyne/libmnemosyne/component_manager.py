@@ -34,13 +34,13 @@ class ComponentManager(object):
        "ui_controller_review"   ui_controller_review instance
        "review_widget"          review_widget class
        "plugin"                 plugin instance
+       "function_hook"          function hook instance
+                                used_for hookpoint_name
        ======================   ===============================
        
     Note: for widgets we store the class name as opposed to an instance,
     since creating widgets can be time consuming, and we want to create
     e.g. card type widgets only when they are really needed.
-       
-    TODO: function hook
 
     """
     
@@ -75,18 +75,18 @@ class ComponentManager(object):
 
         """For components for which there can be many active at once."""
 
-        if type in self.components[used_for]:
+        try:
             return self.components[used_for][type]
-        else:
+        except:
             return []
-
+        
     def get_current(self, type, used_for=None):
 
         """For component for which there can be only one active at one time."""
 
-        if type in self.components[used_for]:
+        try:
             return self.components[used_for][type][-1]
-        else:
+        except:
             return None
 
 
