@@ -1,4 +1,4 @@
- #
+#
 # main_window.py <Peter.Bienstman@UGent.be>
 #
 
@@ -9,7 +9,7 @@ import sys
 import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from ui_main_window import *
+from ui_main_window import Ui_MainWindow
 
 import review_wdgt
 from add_cards_dlg import *
@@ -39,7 +39,7 @@ prefix = os.path.dirname(__file__)
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
-    def __init__(self, filename, parent = None):
+    def __init__(self, filename, parent=None):
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
         ui_controller_main().widget = self

@@ -231,5 +231,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>preview_button</sender>
+   <signal>clicked()</signal>
+   <receiver>AddCardsDlg</receiver>
+   <slot>preview</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>45</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>148</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

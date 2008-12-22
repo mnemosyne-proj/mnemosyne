@@ -14,6 +14,7 @@ from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import database, card_types
 from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
+from mnemosyne.pyqt_ui.preview_cards_wdgt import PreviewCardsDlg
 
 
 class AddCardsDlg(QDialog, Ui_AddCardsDlg):
@@ -121,6 +122,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             QDialog.reject(self)
 
     def preview(self):
+        dlg = PreviewCardsDlg(self)
+        dlg.exec_()
         raise NotImplementedError
 
 
