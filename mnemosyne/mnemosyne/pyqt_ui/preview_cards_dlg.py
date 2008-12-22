@@ -7,12 +7,12 @@ _ = gettext.gettext
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from ui_preview_cards_wdgt import Ui_PreviewCardsWdgt
+from ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 
-class PreviewCardsWdgt(QDialog, Ui_PreviewCardsWdgt):
+class PreviewCardsDlg(QDialog, Ui_PreviewCardsDlg):
 
-    def __init__(self, filename, parent=None):
+    def __init__(self, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
 

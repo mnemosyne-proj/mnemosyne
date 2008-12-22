@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>PreviewCardsWdgt</class>
- <widget class="QWidget" name="PreviewCardsWdgt" >
+ <class>PreviewCardsDlg</class>
+ <widget class="QWidget" name="PreviewCardsDlg" >
   <property name="geometry" >
    <rect>
     <x>0</x>
