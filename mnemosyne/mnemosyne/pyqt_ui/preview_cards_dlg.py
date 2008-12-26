@@ -12,9 +12,12 @@ from ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 class PreviewCardsDlg(QDialog, Ui_PreviewCardsDlg):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, cards=[]):
         QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.cards = cards
+        self.index = 0
+        self.update_dialog()
 
         #if cat != self.trUtf8("<default>"):
         #    self.question_label.setText(preprocess(\
@@ -38,3 +41,24 @@ class PreviewCardsDlg(QDialog, Ui_PreviewCardsDlg):
         #self.question.setAlignment(alignment)
         #self.answer.setAlignment(alignment)
 
+
+    def update_dialog(self):
+        if len(self.cards) == 1:
+            self.previous_button.setVisible(False)
+            self.next_button.setVisible(False)
+            self.fact_view_name.setVisible(False)            
+        card = self.cards[self.index]
+        self.question.setHtml(card.question())
+        self.answer.setHtml(card.answer())
+        self.fact_view_name.setText(card.fact_view.name + " (" + \
+                        str(self.index+1) + "/" + str(len(self.cards)) + ")")
+        self.previous_button.setEnabled(self.index != 0)
+        self.next_button.setEnabled(self.index != len(self.cards)-1)
+
+    def previous(self):
+        self.index -= 1
+        self.update_dialog()
+
+    def next(self):
+        self.index += 1
+        self.update_dialog()

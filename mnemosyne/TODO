@@ -5,9 +5,9 @@
 
 * Mnemosyne 2.0:
 
--test sound
+-reuse data when switching card types in add card
 
--preview
+-test sound
 
 -edit
 
@@ -27,6 +27,8 @@
 -test uploading of logs
 
 -show latex errors in GUI?
+
+-gray out grades and previous button if data is incomplete
 
 -ghost out 3.4 and 5 for unlearned cards?
 

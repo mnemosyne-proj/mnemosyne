@@ -70,7 +70,8 @@ class DefaultMainController(UiControllerMain):
             if answer == 2: # Don't add.
                 return
         db.add_fact(fact)
-        card_type.create_related_cards(fact, grade)
+        for card in card_type.create_related_cards(fact, grade):
+            db.add_card(card)
 
     def file_new(self):
         stopwatch.pause()

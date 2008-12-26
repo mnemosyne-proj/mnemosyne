@@ -77,20 +77,20 @@ class CardType(Component):
                  self.renderer = component_manager.get_current("renderer")
             return self.renderer
 
-    # The following two functions require access to the database. One could
-    # argue that this is not very clean design. However, it allows for the
-    # fact that all the logic corresponding to specialty card types (like
-    # cloze deletion) can be contained in a single derived class by
-    # reimplementing these functions.
+    # The following two functions allow for the fact that all the logic
+    # corresponding to specialty card types (like cloze deletion) can be
+    # contained in a single derived class by reimplementing these functions.
 
     def create_related_cards(self, fact, grade=0):
-        db = database()
+        cards = []
         for fact_view in self.fact_views:
             card = Card(fact, fact_view)
             card.set_initial_grade(grade)
-            db.add_card(card)
+            cards.append(card)
+        return cards
 
     def update_related_cards(self, fact, new_fact_data):
+        # TODO: see if we can get rid of database access here.
         fact.data = new_fact_data
         db = database()
         db.update_fact(fact)
