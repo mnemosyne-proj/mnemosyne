@@ -18,6 +18,9 @@ from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 from mnemosyne.pyqt_ui.main_window import MainWindow, prefix
 #from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
 
+#Disable sound until Ubuntu includes Phonon.
+#import mnemosyne.pyqt_ui.sound
+
 # Parse options.
 
 parser = OptionParser()

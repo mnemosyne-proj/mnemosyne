@@ -5,7 +5,7 @@
 
 * Mnemosyne 2.0:
 
--test sound
+-activate latex
 
 -edit
 
@@ -31,6 +31,8 @@
 -ghost out 3.4 and 5 for unlearned cards?
 
 -easier function to do tag detection in plugin
+
+-test sound
 
 -if we change a card id on import, by sure to put a message in the
  log to that effect, so that the statistics can keep track of it.
@@ -91,6 +93,8 @@
  one sitting
 
 -reenable datadir in setup.py
+
+-make filters more efficients by using regex instead of loops.
 
 -rename edit_items, items, product tour at the source level
 
