@@ -9,6 +9,7 @@ import logging
 import mnemosyne.version
 from mnemosyne.libmnemosyne.logger import Logger
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
+from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.component_manager import database, config
 
 
@@ -40,6 +41,7 @@ class TxtLogger(Logger):
         self.logger.info("Program started : Mnemosyne " + \
                          mnemosyne.version.version\
                          + " " + os.name + " " + sys.platform)
+        self.logger.info("Scheduler : " + scheduler().name)
         
     def new_database(self):
         self.logger.info("New database")
