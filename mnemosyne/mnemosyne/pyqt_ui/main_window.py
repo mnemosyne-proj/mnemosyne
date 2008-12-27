@@ -24,7 +24,6 @@ from add_cards_dlg import *
 #from product_tour_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
-from sound import * # TODO
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne import initialise_user_plugins
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError

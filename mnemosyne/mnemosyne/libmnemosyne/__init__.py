@@ -107,10 +107,10 @@ def initialise_system_components():
     from mnemosyne.libmnemosyne.filters.expand_paths \
                                                    import ExpandPaths
     component_manager.register("filter", ExpandPaths())
-        
+    from mnemosyne.libmnemosyne.filters.latex import Latex
+    component_manager.register("filter", Latex())
+    
     # File formats.
-
-    # Function hooks.
 
 
     # UI controllers.
