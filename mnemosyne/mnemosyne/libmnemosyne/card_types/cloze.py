@@ -58,7 +58,7 @@ class Cloze(CardType, Plugin):
         #cards = []
         #for each cloze:
         #    create fact view for cloze
-        #    db.add_fact_view(fact_view)
+        #    db.add_fact_view(fact_view, card)
         #    card = Card(fact, fact_view)
         #    card.set_initial_grade(grade)
         #    card.append(card)

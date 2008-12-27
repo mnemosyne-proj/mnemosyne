@@ -66,7 +66,7 @@ class Database(Component):
     def update_fact(self, fact):
         raise NotImplementedError
         
-    def add_fact_view(self, fact_view):
+    def add_fact_view(self, fact_view, card):
         raise NotImplementedError
 
     def update_fact_view(self, fact_view):

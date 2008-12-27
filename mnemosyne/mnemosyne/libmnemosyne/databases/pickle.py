@@ -210,7 +210,8 @@ class Pickle(Database):
     def update_fact(self, fact):
         return # Should happen automatically.
         
-    def add_fact_view(self, fact_view):
+    def add_fact_view(self, fact_view, card):
+        # TODO: add link with card
         self.load_failed = False
         self.fact_views.append(fact_view)
 
