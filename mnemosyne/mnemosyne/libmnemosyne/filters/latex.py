@@ -29,7 +29,6 @@ re3 = re.compile(r"<\$\$>(.+?)</\$\$>",   re.DOTALL | re.IGNORECASE)
 class Latex(Filter):
 
     def process_latex(self, latex_command):
-        print 'process', latex_command
         latex_command = latex_command.replace("&lt;", "<") 
         error_str = \
            _("<b>Problem with latex. Are latex and dvipng installed?</b>")
@@ -50,7 +49,8 @@ class Latex(Filter):
             if not os.path.exists("tmp1.png"):
                 return error_str
             shutil.copy("tmp1.png", imag_name)
-        return "<img src=\"" + latexdir + "/"+imag_name+"\" align=middle>"
+        return "<img src=\"file:\\\\" + latexdir + "/" + imag_name \
+               + "\" align=middle>"
 
     def run(self, text, fact):
         # Process <latex>...</latex> tags.
@@ -59,16 +59,13 @@ class Latex(Filter):
             text = text.replace(match.group(), imgtag)
         # Process <$>...</$> (equation) tags.
         for match in re2.finditer(text):
-            print 'A'
             imgtag = self.process_latex("$" + match.group(1) + "$")
             text = text.replace(match.group(), imgtag)
-            print 'B', text
         # Process <$$>...</$$> (displaymath) tags.
         for match in re3.finditer(text):
             imgtag = self.process_latex("\\begin{displaymath}" \
                        + match.group(1) + "\\end{displaymath}")
             text = text.replace(match.group(), "<center>" \
                        + imgtag + "</center>")
-        print 'leave', text
         return text
         

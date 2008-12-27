@@ -5,7 +5,9 @@
 
 * Mnemosyne 2.0:
 
--figure out why pictures are not displayed
+-add file:// prefix to local files
+
+-figure out why latex sometimes hangs
 
 -edit
 
