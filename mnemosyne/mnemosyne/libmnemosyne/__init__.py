@@ -104,7 +104,10 @@ def initialise_system_components():
     from mnemosyne.libmnemosyne.filters.escape_to_html \
                                                    import EscapeToHtml
     component_manager.register("filter", EscapeToHtml())
-    
+    from mnemosyne.libmnemosyne.filters.expand_paths \
+                                                   import ExpandPaths
+    component_manager.register("filter", ExpandPaths())
+        
     # File formats.
 
     # Function hooks.
