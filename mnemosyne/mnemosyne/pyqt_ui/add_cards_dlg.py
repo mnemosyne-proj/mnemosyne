@@ -59,7 +59,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         #self.categories.setFont(font)
 
     def update_card_widget(self):
+        prefill_data = None
         if self.card_widget:
+            prefill_data = self.card_widget.get_data(check_for_required=False)
             self.vboxlayout.removeWidget(self.card_widget)
             self.card_widget.close()
             del self.card_widget
@@ -68,9 +70,11 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         try:
             card_type.widget = component_manager.get_current\
                        ("card_type_widget",
-                       used_for=card_type.__class__.__name__)(parent=self)
+                       used_for=card_type.__class__.__name__)\
+                           (parent=self, prefill_data=prefill_data)
         except:
-            card_type.widget = GenericCardTypeWdgt(card_type, parent=self)
+            card_type.widget = GenericCardTypeWdgt\
+                           (card_type, parent=self, prefill_data=prefill_data)
         self.card_widget = card_type.widget
         self.card_widget.show()
         self.verticalLayout.insertWidget(1, self.card_widget)
@@ -123,10 +127,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             QDialog.reject(self)
 
     def preview(self):
-        try:
-            fact_data = self.card_widget.get_data()
-        except ValueError:
-            return
+        fact_data = self.card_widget.get_data(check_for_required=False)
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         cards = card_type.create_related_cards(Fact(fact_data, card_type))

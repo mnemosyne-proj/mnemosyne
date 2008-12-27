@@ -8,7 +8,7 @@ from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
 
 class GenericCardTypeWdgt(QWidget):
 
-    def __init__(self, card_type, parent=None):
+    def __init__(self, card_type, prefill_data=None, parent=None):
         QWidget.__init__(self, parent)
         self.card_type = card_type
         self.hboxlayout = QHBoxLayout(self)
@@ -30,6 +30,18 @@ class GenericCardTypeWdgt(QWidget):
             self.edit_boxes[t] = fact_key
             if not self.top_edit_box:
                 self.top_edit_box = t
+        if prefill_data:
+            for edit_box, fact_key in self.edit_boxes.iteritems():
+                if fact_key in prefill_data.keys():
+                    edit_box.setText(prefill_data[fact_key])
+                elif fact_key == 'f' and 'q' in prefill_data.keys():
+                    edit_box.setText(prefill_data['q'])
+                elif fact_key == 't' and 'a' in prefill_data.keys():
+                    edit_box.setText(prefill_data['a'])
+                elif fact_key == 'q' and 'f' in prefill_data.keys():
+                    edit_box.setText(prefill_data['f'])
+                elif fact_key == 'a' and 't' in prefill_data.keys():
+                    edit_box.setText(prefill_data['t'])
         self.hboxlayout.addLayout(self.vboxlayout)
         self.resize(QSize(QRect(0,0,325,264).size()).\
                     expandedTo(self.minimumSizeHint()))
@@ -40,10 +52,12 @@ class GenericCardTypeWdgt(QWidget):
                 return True
         return False
 
-    def get_data(self):
+    def get_data(self, check_for_required=True):
         fact = {}
         for edit_box, fact_key in self.edit_boxes.iteritems():
             fact[fact_key] = unicode(edit_box.document().toPlainText())
+        if not check_for_required:
+            return fact
         for required in self.card_type.required_fields():
             if not fact[required]:
                 raise ValueError
