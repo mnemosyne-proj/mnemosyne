@@ -20,13 +20,13 @@ class Database(Component):
     def new(self, path):
         raise NotImplementedError
 
-    def save(self):
+    def save(self, path):
         raise NotImplementedError
 
     def backup(self):
         raise NotImplementedError
 
-    def load(self):
+    def load(self, path):
         raise NotImplementedError
 
     def unload(self):
@@ -79,12 +79,15 @@ class Database(Component):
         raise NotImplementedError
         
     def cards_from_fact(self, fact):
-        return NotImplementedError
+        raise NotImplementedError
         
     def delete_fact_and_related_cards(self, fact):
         raise NotImplementedError
         
     # Queries.
+
+    def category_names(self):
+        raise NotImplementedError    
 
     def has_fact_with_data(self, fact_data):
         raise NotImplementedError
@@ -104,7 +107,7 @@ class Database(Component):
     def non_memorised_count(self):
         raise NotImplementedError
 
-    def scheduled_count(self):
+    def scheduled_count(self, days=0):
         raise NotImplementedError
 
     def active_count(self):
