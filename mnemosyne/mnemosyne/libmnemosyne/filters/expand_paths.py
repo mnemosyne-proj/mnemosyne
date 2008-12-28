@@ -20,7 +20,6 @@ class ExpandPaths(Filter):
             old_path = text[start+1:end]
             text = text[:start+1] + "file:\\\\" + expand_path(old_path) \
                    + text[end:]
-            print text
             # Since text is always longer now, we can start searching
             # from the previous end tag.
             i = text.lower().find("src", end+1)

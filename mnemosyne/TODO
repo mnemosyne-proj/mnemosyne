@@ -5,11 +5,9 @@
 
 * Mnemosyne 2.0:
 
--add file:// prefix to local files
+-edit card
 
--figure out why latex sometimes hangs
-
--edit
+-delete card
 
 -global font setting
 
