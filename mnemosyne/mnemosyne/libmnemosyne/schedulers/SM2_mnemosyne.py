@@ -261,6 +261,7 @@ class SM2Mnemosyne(Scheduler):
             if c != card and c.next_rep == card.next_rep and card.grade >= 2:
                 card.next_rep += 1
                 noise += 1
+        db.update_card(card)
         # Create log entry.
         log().revision(card, scheduled_interval, actual_interval,
                        new_interval, noise)

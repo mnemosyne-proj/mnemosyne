@@ -21,7 +21,7 @@ class UiControllerReview(Component):
     def clear(self):
         raise NotImplementedError        
 
-    def new_question(self):
+    def new_question(self, learn_ahead=False):
         raise NotImplementedError    
         
     def show_answer(self):
