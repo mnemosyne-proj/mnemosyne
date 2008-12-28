@@ -226,7 +226,7 @@ class Pickle(Database):
     def update_card(self, card):
         return # Should happen automatically.
         
-    def delete_fact_and_related_cards(self, fact):
+    def delete_fact_and_related_data(self, fact):
         old_cat = fact.cat
         for c in self.cards:
             if c.fact == fact:

@@ -36,8 +36,10 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, card_type, categories=[], uid=None):
-        self.added = datetime.datetime.now()
+    def __init__(self, data, card_type, categories=[], uid=None, added=None):
+        if not added:
+            added = datetime.datetime.now()
+        self.added = added
         self.data = data
         self.card_type = card_type
         self.cat = categories
