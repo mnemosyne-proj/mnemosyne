@@ -89,9 +89,19 @@ class CardType(Component):
             cards.append(card)
         return cards
 
-    def update_related_cards(self, fact, new_fact_data):
-        # TODO: see if we can get rid of database access here.
+    def update_related_cards(self, fact, new_fact_data, new_cat_names):
+
+        """If for the card type this operation results in updated or added
+        card data apart from the updated fact data from which they derive,
+        these should be returned here, so that they can be taken into account
+        in the database storage.
+
+        """
+        
         fact.data = new_fact_data
-        db = database()
-        db.update_fact(fact)
+        fact.cat = []
+        for cat_name in new_cat_names:
+            fact.cat.append(db.get_or_create_category_with_name(cat_name)) 
+        new_cards, updated_cards = None, None
+        return new_cards, updated_cards
 

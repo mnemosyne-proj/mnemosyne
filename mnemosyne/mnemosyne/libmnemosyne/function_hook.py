@@ -14,6 +14,7 @@ class FunctionHook(Plugin):
        ======================   ===============================
        "after_load"             in database.load
        "create_new_cards"       in default_main_controller
+       "update_related_cards"   in default_main_controller
        ======================   ===============================
 
     It is the 'run' method that will get called at the corresponding point

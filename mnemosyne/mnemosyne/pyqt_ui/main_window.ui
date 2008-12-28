@@ -377,5 +377,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionEditCurrentCard</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>edit_current_card</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>83</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

@@ -6,7 +6,7 @@ WIDGETS = ui_main_window.py \
 	statistics_dlg.py about_dlg.py tip_dlg.py
 
 WIDGETS = ui_main_window.py ui_add_cards_dlg.py ui_review_wdgt.py \
-	ui_preview_cards_dlg.py
+	ui_preview_cards_dlg.py ui_edit_fact_dlg.py
 
 default: $(WIDGETS)
 

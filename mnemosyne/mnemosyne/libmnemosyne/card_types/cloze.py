@@ -64,7 +64,7 @@ class Cloze(CardType, Plugin):
         #    card.append(card)
         #    return card
 
-    def update_related_cards(self, fact, new_fact_data):
+    def update_related_cards(self, fact, new_fact_data, new_cat_names):
         raise NotImplementedError
         # This is the hard part to implement, as updating the data can
         # result in the creation and deletion of new clozes, which then

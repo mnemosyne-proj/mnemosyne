@@ -1,5 +1,5 @@
 #
-# add_cards_dlg.py <Peter.Bienstman@UGent.be>
+# edit_fact_dlg.py <Peter.Bienstman@UGent.be>
 #
 
 import gettext
@@ -8,7 +8,7 @@ _ = gettext.gettext
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from ui_add_cards_dlg import Ui_AddCardsDlg
+from ui_edit_fact_dlg import Ui_EditFactDlg
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.component_manager import component_manager
@@ -18,12 +18,13 @@ from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 
 
-class AddCardsDlg(QDialog, Ui_AddCardsDlg):
+class EditFactDlg(QDialog, Ui_EditFactDlg):
 
-    def __init__(self, parent=None):
+    def __init__(self, fact, parent=None):
         QDialog.__init__(self, parent)
         # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
         self.setupUi(self)
+        self.fact = fact
         # We calculate card_type_by_name here rather than in the component
         # manager, because these names can change if the user chooses another
         # translation. TODO: test.
@@ -38,15 +39,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         self.update_card_widget()
         
         self.update_combobox(config()["last_add_category"])
-        self.grades = QButtonGroup()
-        self.grades.addButton(self.grade_0_button, 0)
-        self.grades.addButton(self.grade_1_button, 1)
-        self.grades.addButton(self.grade_2_button, 2)
-        self.grades.addButton(self.grade_3_button, 3)
-        self.grades.addButton(self.grade_4_button, 4)
-        self.grades.addButton(self.grade_5_button, 5)
-        self.connect(self.grades, SIGNAL("buttonClicked(int)"),
-                     self.new_cards)
+
         #TODO: fonts?
         #if config()("QA_font") != None:
         #    font = QFont()
@@ -93,12 +86,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
                 self.categories.setCurrentIndex(i)
                 break
             
-    def new_cards(self, grade):
-
-        """Note that we don't rebuild revision queue afterwards, as this can
-        cause corruption for the current card.  The new cards will show up
-        after the old queue is empty."""
-
+    def accept(self):
         try:
             fact_data = self.card_widget.get_data()
         except ValueError:
@@ -108,10 +96,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         c = ui_controller_main()
-        c.create_new_cards(fact_data, card_type, grade, cat_names)
-        self.update_combobox(', '.join(cat_names))
-        database().save(config()['path'])
-        self.card_widget.clear()
+        c.update_related_cards(self.fact, fact_data, card_type, cat_names)
+
 
     def reject(self):
         if self.card_widget.contains_data():

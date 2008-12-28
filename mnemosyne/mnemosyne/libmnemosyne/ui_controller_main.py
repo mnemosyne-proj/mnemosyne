@@ -20,10 +20,17 @@ class UiControllerMain(Component):
         
     def add_cards(self):
         raise NotImplementedError
-
+    
+    def edit_current_card(self):
+        raise NotImplementedError
+    
     def create_new_cards(self, fact_data, card_type, grade, cat_names):
         raise NotImplementedError
-
+    
+    def update_related_cards(self, fact, new_fact_data, new_card_type, \
+                             new_cat_names):
+        raise NotImplementedError
+    
     def file_new(self):
         raise NotImplementedError
     

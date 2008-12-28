@@ -9,10 +9,12 @@ import sys
 import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from ui_main_window import Ui_MainWindow
 
 import review_wdgt
-from add_cards_dlg import *
+
+from ui_main_window import Ui_MainWindow
+from add_cards_dlg import AddCardsDlg
+from edit_fact_dlg import EditFactDlg
 #from import_dlg import *
 #from export_dlg import *
 #from edit_item_dlg import *
@@ -96,10 +98,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def add_cards(self):
         ui_controller_main().add_cards()
 
-    def run_add_cards_dialog(self):
-        dlg = AddCardsDlg(self)
-        dlg.exec_()
-        
+    def edit_current_card(self):
+        ui_controller_main().edit_current_card()
+
     def file_new(self):
         ui_controller_main().file_new()
 
@@ -112,6 +113,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def file_save_as(self):
         ui_controller_main().file_save_as()
 
+    def run_add_cards_dialog(self):
+        dlg = AddCardsDlg(self)
+        dlg.exec_()
+
+    def run_edit_fact_dialog(self, fact):
+        dlg = EditFactDlg(fact, self)
+        dlg.exec_()       
+        
     def Import(self):
         stopwatch.pause()
         from xml.sax import saxutils, make_parser
@@ -127,17 +136,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.pause()
         dlg = ExportDlg(self)
         dlg.exec_loop()
-        stopwatch.unpause()
-
-    def addCards(self):
-        stopwatch.pause()
-        dlg = AddCardsDlg(self)
-        dlg.exec_()
-        controller = ui_controller_review()
-        if controller.card == None:
-            controller.new_question()
-        else:
-            self.update_status_bar()
         stopwatch.unpause()
 
     def editCards(self):
@@ -167,13 +165,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         stopwatch.pause()
         dlg = StatisticsDlg(self)
         dlg.exec_()
-        stopwatch.unpause()
-
-    def editCurrentCard(self):
-        stopwatch.pause()
-        dlg = EditCardDlg(self.card, self)
-        dlg.exec_()
-        ui_controller_review().update_dialog(redraw_all=True)
         stopwatch.unpause()
 
     def deleteCurrentCard(self):

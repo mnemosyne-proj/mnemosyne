@@ -20,7 +20,7 @@ from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 class DefaultMainController(UiControllerMain):
 
     def __init__(self):
-        UiControllerMain.__init__(self, name="Default main Controller")
+        UiControllerMain.__init__(self, name="Default main controller")
 
     def add_cards(self):
         stopwatch.pause()
@@ -32,9 +32,16 @@ class DefaultMainController(UiControllerMain):
             self.widget.update_status_bar()
         stopwatch.unpause()
 
+    def edit_current_card(self):
+        stopwatch.pause()
+        review_controller = ui_controller_review()
+        self.widget.run_edit_fact_dialog(review_controller.card.fact)
+        review_controller.update_dialog(redraw_all=True)
+        stopwatch.unpause()
+
     def create_new_cards(self, fact_data, card_type, grade, cat_names):
 
-        """Create a new set of related cards"""
+        """Create a new set of related cards."""
 
         # Allow this function to be overridden by a function hook.
         f = component_manager.get_current("function_hook", "create_new_cards")
@@ -46,9 +53,56 @@ class DefaultMainController(UiControllerMain):
             self.widget.information_box(\
               _("Card is already in database.\nDuplicate not added."), _("OK"))
             return
-        fact = Fact(fact_data, card_type)        
+        fact = Fact(fact_data, card_type)
         for cat_name in cat_names:
             fact.cat.append(db.get_or_create_category_with_name(cat_name))
+        duplicates = db.duplicates_for_fact(fact)
+        if len(duplicates) != 0:
+            answer = self.widget.question_box(\
+              _("There is already data present for:\n\n") +
+              "".join(fact[k] for k in card_type.required_fields()),
+              _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
+            if answer == 0: # Merge and edit.
+                merged_fact_data = copy.copy(fact.data)
+                for duplicate in duplicates:
+                    for key in fact_data:
+                        if key not in card_type.required_fields():
+                            merged_fact_data[key] += "/" + duplicate[key]
+                    db.delete_fact_and_related_data(duplicate)
+                print merged_fact_data
+                # TODO: edit merged data.
+                #dlg = EditItemDlg(new_item, self)
+                #dlg.exec_loop()
+                #get fact from that
+            if answer == 2: # Don't add.
+                return
+        db.add_fact(fact)
+        for card in card_type.create_related_cards(fact, grade):
+            db.add_card(card)
+
+    def update_related_cards(self, fact, new_fact_data, new_card_type, \
+                             new_cat_names):
+        # Allow this function to be overridden by a function hook.
+        f = component_manager.get_current("function_hook", "update_related_cards")
+        if f:
+            return f.run()
+
+        # Partial implementation. Still to do: change card type, duplicate checking.     
+        db = database()
+        new_cards, updated_cards = fact.card_type.update_related_cards(\
+                                                new_fact_data, new_cat_names)
+        db.update_fact(fact)
+        for card in new_cards:
+            db.add_card(card)
+        for card in updated_cards:
+            db.update_card(card)
+        return
+        
+        if db.has_fact_with_data(fact_data):
+            self.widget.information_box(\
+              _("Card is already in database.\nDuplicate not added."), _("OK"))
+            return
+        fact = Fact(fact_data, card_type)
         duplicates = db.duplicates_for_fact(fact)
         if len(duplicates) != 0:
             answer = self.widget.question_box(\
