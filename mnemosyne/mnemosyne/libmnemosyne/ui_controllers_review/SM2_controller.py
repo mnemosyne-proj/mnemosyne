@@ -118,10 +118,11 @@ class SM2Controller(UiControllerReview):
             w.question_box_visible(True)
             w.answer_box_visible(True)
         # Update question label.
-        question_label_text = _("Question:")
+        question_label_text = _("Question: ")
         if self.card != None and self.card.fact.cat[0].name != _("<default>"):
             for c in self.card.fact.cat:
-                question_label_text += " " + c.name
+                question_label_text += c.name + ", "
+            question_label_text = question_label_text[:-2]
         w.set_question_label(question_label_text)
         # Update question content.
         if self.card == None:

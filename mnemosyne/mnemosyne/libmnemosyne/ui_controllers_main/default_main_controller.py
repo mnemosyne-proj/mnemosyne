@@ -89,8 +89,11 @@ class DefaultMainController(UiControllerMain):
 
         # Partial implementation. Still to do: change card type, duplicate checking.     
         db = database()
-        new_cards, updated_cards = fact.card_type.update_related_cards(\
-                                                new_fact_data, new_cat_names)
+        fact.cat = []
+        for cat_name in new_cat_names:
+            fact.cat.append(db.get_or_create_category_with_name(cat_name)) 
+        new_cards, updated_cards = fact.card_type.update_related_cards(fact, \
+                                                new_fact_data)
         db.update_fact(fact)
         for card in new_cards:
             db.add_card(card)

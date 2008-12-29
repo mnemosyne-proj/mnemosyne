@@ -89,7 +89,7 @@ class CardType(Component):
             cards.append(card)
         return cards
 
-    def update_related_cards(self, fact, new_fact_data, new_cat_names):
+    def update_related_cards(self, fact, new_fact_data):
 
         """If for the card type this operation results in updated or added
         card data apart from the updated fact data from which they derive,
@@ -99,9 +99,6 @@ class CardType(Component):
         """
         
         fact.data = new_fact_data
-        fact.cat = []
-        for cat_name in new_cat_names:
-            fact.cat.append(db.get_or_create_category_with_name(cat_name)) 
-        new_cards, updated_cards = None, None
+        new_cards, updated_cards = [], []
         return new_cards, updated_cards
 

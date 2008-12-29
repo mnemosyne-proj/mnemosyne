@@ -37,8 +37,11 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         
         self.card_widget = None
         self.update_card_widget()
-        
-        self.update_combobox(config()["last_add_category"])
+        cat_string = ""
+        for cat in self.fact.cat:
+            cat_string += cat.name + ", "
+        cat_string = cat_string[:-2]
+        self.update_combobox(cat_string)
 
         #TODO: fonts?
         #if config()("QA_font") != None:
@@ -50,12 +53,13 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         #self.categories.setFont(font)
 
     def update_card_widget(self):
-        prefill_data = None
         if self.card_widget:
             prefill_data = self.card_widget.get_data(check_for_required=False)
             self.vboxlayout.removeWidget(self.card_widget)
             self.card_widget.close()
             del self.card_widget
+        else:
+            prefill_data = self.fact.data
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         try:
@@ -97,7 +101,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         card_type = self.card_type_by_name[card_type_name]
         c = ui_controller_main()
         c.update_related_cards(self.fact, fact_data, card_type, cat_names)
-
+        QDialog.accept(self)
 
     def reject(self):
         if self.card_widget.contains_data():
@@ -115,7 +119,8 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         cards = card_type.create_related_cards(Fact(fact_data, card_type))
-        dlg = PreviewCardsDlg(self, cards)
+        cat_text = self.categories.currentText()
+        if cat_text == _("<default>"):
+            cat_text = ""
+        dlg = PreviewCardsDlg(cards, cat_text, self)
         dlg.exec_()
-
-

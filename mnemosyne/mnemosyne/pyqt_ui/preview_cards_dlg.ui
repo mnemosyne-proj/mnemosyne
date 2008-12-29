@@ -97,16 +97,9 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout" >
        <item>
-        <widget class="QPushButton" name="previous_button" >
+        <widget class="QPushButton" name="OK_button" >
          <property name="text" >
-          <string>&amp;Previous</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="next_button" >
-         <property name="text" >
-          <string>&amp;Next</string>
+          <string>&amp;OK</string>
          </property>
         </widget>
        </item>
@@ -124,9 +117,16 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="OK_button" >
+        <widget class="QPushButton" name="previous_button" >
          <property name="text" >
-          <string>&amp;OK</string>
+          <string>&amp;Previous</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="next_button" >
+         <property name="text" >
+          <string>&amp;Next</string>
          </property>
         </widget>
        </item>

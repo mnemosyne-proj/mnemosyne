@@ -129,7 +129,10 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         cards = card_type.create_related_cards(Fact(fact_data, card_type))
-        dlg = PreviewCardsDlg(self, cards)
+        cat_text = self.categories.currentText()
+        if cat_text == _("<default>"):
+            cat_text = ""
+        dlg = PreviewCardsDlg(cards, cat_text, self)
         dlg.exec_()
 
 

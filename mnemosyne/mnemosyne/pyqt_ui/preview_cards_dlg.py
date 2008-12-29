@@ -12,11 +12,12 @@ from ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 class PreviewCardsDlg(QDialog, Ui_PreviewCardsDlg):
 
-    def __init__(self, parent=None, cards=[]):
+    def __init__(self, cards, cat_name_string, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
         self.cards = cards
         self.index = 0
+        self.question_label.setText(_("Question: ") + cat_name_string)
         self.update_dialog()
 
         #if cat != self.trUtf8("<default>"):
