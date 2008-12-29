@@ -36,13 +36,13 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, card_type, categories=[], uid=None, added=None):
+    def __init__(self, data, card_type, uid=None, added=None):
         if not added:
             added = datetime.datetime.now()
         self.added = added
         self.data = data
         self.card_type = card_type
-        self.cat = categories
+        self.cat = []
         if uid is None: 
             # TODO KW: use guid module? Make sure not to use too much space for 
             # the global log analysis of all users, though.

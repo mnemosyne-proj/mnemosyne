@@ -179,7 +179,7 @@ class SM2Mnemosyne(Scheduler):
             card.easiness = db.average_easiness()
             card.acq_reps = 1
             card.acq_reps_since_lapse = 1
-            new_interval = calculate_initial_interval(new_grade)
+            new_interval = self.calculate_initial_interval(new_grade)
             # Make sure the second copy of a grade 0 card doesn't show
             # up again.
             if not dry_run and card.grade == 0 and new_grade in [2,3,4,5]:
