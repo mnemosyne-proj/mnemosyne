@@ -16,6 +16,8 @@ from mnemosyne.libmnemosyne.component_manager import config, ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import database, card_types
 from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
+from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
+                                                    ConvertCardTypeFieldsDlg
 
 
 class EditFactDlg(QDialog, Ui_EditFactDlg):
@@ -55,7 +57,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
     def update_card_widget(self):
         if self.card_widget:
             prefill_data = self.card_widget.get_data(check_for_required=False)
-            self.vboxlayout.removeWidget(self.card_widget)
+            self.verticalLayout.removeWidget(self.card_widget)
             self.card_widget.close()
             del self.card_widget
         else:
@@ -92,27 +94,27 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             
     def accept(self):
         try:
-            fact_data = self.card_widget.get_data()
+            new_fact_data = self.card_widget.get_data()
         except ValueError:
             return # Let the user try again to fill out the missing data.
-        cat_names = [c.strip() for c in \
+        new_cat_names = [c.strip() for c in \
                         unicode(self.categories.currentText()).split(',')]
-        card_type_name = unicode(self.card_types.currentText())
-        card_type = self.card_type_by_name[card_type_name]
-        c = ui_controller_main()
-        c.update_related_cards(self.fact, fact_data, card_type, cat_names)
-        QDialog.accept(self)
+        new_card_type_name = unicode(self.card_types.currentText())
+        new_card_type = self.card_type_by_name[new_card_type_name]
+        if new_card_type != self.fact.card_type:
+            if not self.fact.card_type.keys().issubset(new_card_type.keys()):
+                dlg = ConvertCardTypeFieldsDlg(self.fact.card_type,
+                                               new_card_type, self)
+                field_map = dlg.exec_()
+                print field_map
+            else:
+                print 'no conversion needed'
 
-    def reject(self):
-        if self.card_widget.contains_data():
-            status = QMessageBox.warning(None, _("Mnemosyne"),
-                                         _("Abandon current card?"),
-                                         _("&Yes"), _("&No"), "", 1, -1)
-            if status == 0:
-                QDialog.reject(self)
-                return
-        else:
-            QDialog.reject(self)
+        # TODO: run card type convertors
+        c = ui_controller_main()
+        c.update_related_cards(self.fact, new_fact_data, new_card_type, \
+                               new_cat_names)
+        QDialog.accept(self)
 
     def preview(self):
         fact_data = self.card_widget.get_data(check_for_required=False)

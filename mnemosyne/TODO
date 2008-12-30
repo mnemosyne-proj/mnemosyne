@@ -5,7 +5,9 @@
 
 * Mnemosyne 2.0:
 
--edit card
+-convert card types dialog: resizing issues, default combobox entries
+
+-edit card, duplicates
 
 -delete card
 

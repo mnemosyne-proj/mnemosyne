@@ -39,6 +39,8 @@ class CardType(Component):
 
     """
 
+    # TODO: deal with inheritance of card types, by id = "main.derived"
+
     def __init__(self):
         self.id = "-1"
         self.name = ""
@@ -50,6 +52,9 @@ class CardType(Component):
         self.widget = None
         self.renderer = None
         self.fact_views_can_be_deactivated = True
+
+    def keys(self):
+        return set(fact_key for (fact_key, fact_key_name) in self.fields)
 
     def required_fields(self):
 
