@@ -62,6 +62,8 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             del self.card_widget
         else:
             prefill_data = self.fact.data
+        # TODO: mechanism for card types to specify which data they can reuse
+        # from another card type.
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         try:
@@ -101,16 +103,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
                         unicode(self.categories.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
-        if new_card_type != self.fact.card_type:
-            if not self.fact.card_type.keys().issubset(new_card_type.keys()):
-                dlg = ConvertCardTypeFieldsDlg(self.fact.card_type,
-                                               new_card_type, self)
-                field_map = dlg.exec_()
-                print field_map
-            else:
-                print 'no conversion needed'
-
-        # TODO: run card type convertors
+        # TODO: updated cards if needed, by running convertors.
         c = ui_controller_main()
         c.update_related_cards(self.fact, new_fact_data, new_card_type, \
                                new_cat_names)

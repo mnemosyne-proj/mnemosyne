@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>238</width>
-    <height>186</height>
+    <width>260</width>
+    <height>105</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,6 +17,12 @@
     <layout class="QVBoxLayout" name="verticalLayout" >
      <item>
       <widget class="QLabel" name="label_2" >
+       <property name="minimumSize" >
+        <size>
+         <width>250</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="text" >
         <string>Set the correspondence between fields in the old and the new card type:</string>
        </property>
