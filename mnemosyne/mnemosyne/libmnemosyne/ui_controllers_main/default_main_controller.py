@@ -87,7 +87,8 @@ class DefaultMainController(UiControllerMain):
         if f:
             return f.run()
 
-        # Partial implementation. Still to do: change card type, duplicate checking.     
+        # Partial implementation. Still to do: change card type, duplicate checking.
+        # TODO: check division of code between here and UI.
         db = database()
         fact.cat = []
         for cat_name in new_cat_names:

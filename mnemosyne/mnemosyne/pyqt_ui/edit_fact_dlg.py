@@ -62,8 +62,6 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             del self.card_widget
         else:
             prefill_data = self.fact.data
-        # TODO: mechanism for card types to specify which data they can reuse
-        # from another card type.
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         try:
@@ -77,7 +75,6 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         self.card_widget = card_type.widget
         self.card_widget.show()
         self.verticalLayout.insertWidget(1, self.card_widget)
-        #self.adjustSize()
 
     def update_combobox(self, current_cat_name):
         no_of_categories = self.categories.count()
