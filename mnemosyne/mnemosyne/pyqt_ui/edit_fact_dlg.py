@@ -64,11 +64,11 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             prefill_data = self.fact.data
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
-        try:
+        try:                                                                    
             card_type.widget = component_manager.get_current\
-                       ("card_type_widget",
+                       ("card_type_widget",                  
                        used_for=card_type.__class__.__name__)\
-                           (parent=self, prefill_data=prefill_data)
+                          (parent=self, prefill_data=prefill_data)
         except:
             card_type.widget = GenericCardTypeWdgt\
                            (card_type, parent=self, prefill_data=prefill_data)
@@ -100,7 +100,26 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
                         unicode(self.categories.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
-        # TODO: updated cards if needed, by running convertors.
+        old_card_type = self.fact.card_type
+        if old_card_type != new_card_type:
+            converter = component_manager.get_current\
+                  ("card_type_converter", used_for=(old_card_type,
+                                                    new_card_type))
+            if not converter:
+                result = QMessageBox.question(None, _("Mnemosyne"),
+          _("Can't preserve history when converting between these card types.")\
+                  + " " + _("The learning history of the cards will be reset."),
+                  _("&OK"), _("&Cancel"), "", 0, -1)
+                if result == 1: # Cancel
+                    return
+                else:
+                    database().delete_fact_and_related_data(self.fact)
+                    create_new_cards(self, new_fact_data, new_card_type,
+                                     grade=0, cat_names=new_cat_names)
+                    return
+            else:
+                # TODO: determine cards
+                converter.convert(cards)
         c = ui_controller_main()
         c.update_related_cards(self.fact, new_fact_data, new_card_type, \
                                new_cat_names)

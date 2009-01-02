@@ -26,6 +26,8 @@ class ComponentManager(object):
        "scheduler"              scheduler instance
        "filter"                 filter instance
        "card_type"              card_type instance
+       "card_type_converter"    card_type_converter instance
+                                used for (old_type, new_type)
        "card_type_widget"       card_type_widget class,
                                 used_for card_type class name
        "renderer"               renderer instance,

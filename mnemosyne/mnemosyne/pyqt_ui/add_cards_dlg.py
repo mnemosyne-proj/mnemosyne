@@ -65,7 +65,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             del self.card_widget
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
-        try:
+        try:                                                                    
             card_type.widget = component_manager.get_current\
                        ("card_type_widget",
                        used_for=card_type.__class__.__name__)\
