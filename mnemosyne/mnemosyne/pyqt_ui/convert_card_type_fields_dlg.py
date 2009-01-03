@@ -40,17 +40,18 @@ class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
             index += 1
 
     def accept(self):
+        self.correspondence = {}
         for old_fact_key, old_fact_key_name in self.old_card_type.fields:
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):
                 new_fact_key = \
                      self.new_card_type.key_with_name(new_fact_key_name)
-                if new_fact_key in self.correspondence.keys():
+                if new_fact_key in self.correspondence.values():
                     QMessageBox.critical(None, _("Mnemosyne"),
-                                         _("Duplicate in new fields!"),
-                                         _("&OK"), "", "", 0, -1)
+                        _("No duplicate in new fields allowed."),
+                        _("&OK"), "", "", 0, -1)
                     return
-                self.correspondence[new_fact_key] = old_fact_key
+                self.correspondence[old_fact_key] = new_fact_key
         if len(self.correspondence) >= 1:
             QDialog.accept(self)
         

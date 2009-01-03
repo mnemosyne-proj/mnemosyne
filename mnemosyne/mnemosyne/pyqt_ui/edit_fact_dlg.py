@@ -31,12 +31,17 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         # manager, because these names can change if the user chooses another
         # translation. TODO: test.
         self.card_type_by_name = {}
+        self.card_type_index = 0
+        self.correspondence = {}
         for card_type in card_types():
-            self.card_types.addItem(card_type.name)
+            if card_type == fact.card_type:
+                self.card_type_index = self.card_types.count()
             self.card_type_by_name[card_type.name] = card_type
+            self.card_types.addItem(card_type.name)
+        self.card_types.setCurrentIndex(self.card_type_index)
+        self.connect(self.card_types, SIGNAL("currentIndexChanged(QString)"), \
+                     self.card_type_changed)
         # TODO: sort card types by id.
-        # TODO: remember last type.
-        
         self.card_widget = None
         self.update_card_widget()
         cat_string = ""
@@ -62,6 +67,14 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             del self.card_widget
         else:
             prefill_data = self.fact.data
+        #Todo: move to libmnemosyne
+        print 'before', prefill_data
+        for key in prefill_data.keys():
+            if key in self.correspondence:
+                value = prefill_data[key]
+                del prefill_data[key]
+                prefill_data[self.correspondence[key]] = value
+        print 'after', prefill_data
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
@@ -90,6 +103,19 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             if self.categories.itemText(i) == current_cat_name:
                 self.categories.setCurrentIndex(i)
                 break
+
+    def card_type_changed(self, new_card_type_name):
+        new_card_type = self.card_type_by_name[unicode(new_card_type_name)]
+        if self.fact.card_type.keys().issubset(new_card_type.keys()):
+            return
+        dlg = ConvertCardTypeFieldsDlg(self.fact.card_type, new_card_type,
+                                       self.correspondence, self)
+        status = dlg.exec_()
+        if status == 0: # Reject
+            self.card_types.setCurrentIndex(self.card_type_index)
+            return
+        print self.correspondence
+        self.update_card_widget()
             
     def accept(self):
         try:

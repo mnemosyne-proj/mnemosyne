@@ -86,6 +86,13 @@
          </property>
         </spacer>
        </item>
+       <item>
+        <widget class="QPushButton" name="cancel_button" >
+         <property name="text" >
+          <string>&amp;Cancel</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -107,6 +114,22 @@
     <hint type="destinationlabel" >
      <x>199</x>
      <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancel_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ConvertCardTypeFieldsDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>216</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>129</x>
+     <y>52</y>
     </hint>
    </hints>
   </connection>

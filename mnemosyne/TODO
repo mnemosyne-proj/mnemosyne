@@ -5,7 +5,11 @@
 
 * Mnemosyne 2.0:
 
+-debug fact conversion
+
 -card type convertors
+
+-share more code between add and edit card (a.o. change card type)
 
 -edit card: duplicate checking
 

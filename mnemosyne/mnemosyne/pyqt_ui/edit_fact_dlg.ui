@@ -122,22 +122,6 @@
  </resources>
  <connections>
   <connection>
-   <sender>card_types</sender>
-   <signal>activated(QString)</signal>
-   <receiver>EditFactDlg</receiver>
-   <slot>update_card_widget()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>196</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>164</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>exit_button</sender>
    <signal>clicked()</signal>
    <receiver>EditFactDlg</receiver>

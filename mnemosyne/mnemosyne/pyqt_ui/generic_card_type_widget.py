@@ -6,6 +6,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
 
+
 class GenericCardTypeWdgt(QWidget):
 
     def __init__(self, card_type, prefill_data=None, parent=None):
@@ -34,14 +35,6 @@ class GenericCardTypeWdgt(QWidget):
             for edit_box, fact_key in self.edit_boxes.iteritems():
                 if fact_key in prefill_data.keys():
                     edit_box.setText(prefill_data[fact_key])
-                elif fact_key == 'f' and 'q' in prefill_data.keys():
-                    edit_box.setText(prefill_data['q'])
-                elif fact_key == 't' and 'a' in prefill_data.keys():
-                    edit_box.setText(prefill_data['a'])
-                elif fact_key == 'q' and 'f' in prefill_data.keys():
-                    edit_box.setText(prefill_data['f'])
-                elif fact_key == 'a' and 't' in prefill_data.keys():
-                    edit_box.setText(prefill_data['t'])
         self.hboxlayout.addLayout(self.vboxlayout)
         self.resize(QSize(QRect(0,0,325,264).size()).\
                     expandedTo(self.minimumSizeHint()))
