@@ -39,7 +39,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             self.card_type_by_name[card_type.name] = card_type
             self.card_types.addItem(card_type.name)
         self.card_types.setCurrentIndex(self.card_type_index)
-        self.connect(self.card_types, SIGNAL("currentIndexChanged(QString)"), \
+        self.connect(self.card_types, SIGNAL("currentIndexChanged(QString)"),
                      self.card_type_changed)
         # TODO: sort card types by id.
         self.card_widget = None
@@ -48,7 +48,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         for cat in self.fact.cat:
             cat_string += cat.name + ", "
         cat_string = cat_string[:-2]
-        self.update_combobox(cat_string)
+        self.update_categories_combobox(cat_string)
 
         #TODO: fonts?
         #if config()("QA_font") != None:
@@ -60,6 +60,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         #self.categories.setFont(font)
 
     def update_card_widget(self):
+        # Determine data to put into card widget.
         if self.card_widget:
             prefill_data = self.card_widget.get_data(check_for_required=False)
             self.verticalLayout.removeWidget(self.card_widget)
@@ -67,14 +68,14 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             del self.card_widget
         else:
             prefill_data = self.fact.data
-        #Todo: move to libmnemosyne
-        print 'before', prefill_data
-        for key in prefill_data.keys():
+        # Transform keys in dictionary if the card type has changed, but don't
+        # update the fact just yet.
+        for key in prefill_data:
             if key in self.correspondence:
-                value = prefill_data[key]
-                del prefill_data[key]
+                value = prefill_data.pop(key)
                 prefill_data[self.correspondence[key]] = value
-        print 'after', prefill_data
+        self.correspondence = {}
+        # Show new card type widget.
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
@@ -89,7 +90,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         self.card_widget.show()
         self.verticalLayout.insertWidget(1, self.card_widget)
 
-    def update_combobox(self, current_cat_name):
+    def update_categories_combobox(self, current_cat_name):
         no_of_categories = self.categories.count()
         for i in range(no_of_categories-1,-1,-1):
             self.categories.removeItem(i)
@@ -107,15 +108,15 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
     def card_type_changed(self, new_card_type_name):
         new_card_type = self.card_type_by_name[unicode(new_card_type_name)]
         if self.fact.card_type.keys().issubset(new_card_type.keys()):
+            self.update_card_widget()            
             return
         dlg = ConvertCardTypeFieldsDlg(self.fact.card_type, new_card_type,
                                        self.correspondence, self)
-        status = dlg.exec_()
-        if status == 0: # Reject
+        if dlg.exec_() == 0: # Reject.
             self.card_types.setCurrentIndex(self.card_type_index)
             return
-        print self.correspondence
-        self.update_card_widget()
+        else:
+            self.update_card_widget()
             
     def accept(self):
         try:
@@ -126,28 +127,8 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
                         unicode(self.categories.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
-        old_card_type = self.fact.card_type
-        if old_card_type != new_card_type:
-            converter = component_manager.get_current\
-                  ("card_type_converter", used_for=(old_card_type,
-                                                    new_card_type))
-            if not converter:
-                result = QMessageBox.question(None, _("Mnemosyne"),
-          _("Can't preserve history when converting between these card types.")\
-                  + " " + _("The learning history of the cards will be reset."),
-                  _("&OK"), _("&Cancel"), "", 0, -1)
-                if result == 1: # Cancel
-                    return
-                else:
-                    database().delete_fact_and_related_data(self.fact)
-                    create_new_cards(self, new_fact_data, new_card_type,
-                                     grade=0, cat_names=new_cat_names)
-                    return
-            else:
-                # TODO: determine cards
-                converter.convert(cards)
         c = ui_controller_main()
-        c.update_related_cards(self.fact, new_fact_data, new_card_type, \
+        c.update_related_cards(self.fact, new_fact_data, new_card_type,
                                new_cat_names)
         QDialog.accept(self)
 

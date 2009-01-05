@@ -54,16 +54,13 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.parent().setWindowTitle(title)
     
     def enable_edit_current_card(self, enable):
-        return
-        self.actionEditCurrentCard.setEnabled(enable)
+        self.parent().actionEditCurrentCard.setEnabled(enable)
 
-    def enable_delete_current_card(self, enable):
-        return        
-        self.actionDeleteCurrentCard.setEnabled(enable)
+    def enable_delete_current_card(self, enable):      
+        self.parent().actionDeleteCurrentCard.setEnabled(enable)
 
-    def enable_edit_deck(self, enable):
-        return        
-        self.actionEditDeck.setEnabled(enable)
+    def enable_edit_deck(self, enable):      
+        self.parent().actionEditDeck.setEnabled(enable)
 
     def set_question_label(self, text):
         self.question_label.setText(text)

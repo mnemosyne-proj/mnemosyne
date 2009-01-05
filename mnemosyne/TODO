@@ -5,7 +5,7 @@
 
 * Mnemosyne 2.0:
 
--debug fact conversion
+-gray out grades/OK in add and edit if data is incomplete
 
 -card type convertors
 
@@ -32,7 +32,6 @@
 
 -show latex errors in GUI?
 
--gray out grades and previous button if data is incomplete
 
 -ghost out 3.4 and 5 for unlearned cards?
 

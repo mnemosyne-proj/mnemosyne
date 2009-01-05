@@ -87,9 +87,29 @@ class DefaultMainController(UiControllerMain):
         if f:
             return f.run()
 
-        # Partial implementation. Still to do: change card type, duplicate checking.
-        # TODO: check division of code between here and UI.
+        # Change card type.
         db = database()
+        old_card_type = self.fact.card_type
+        if old_card_type != new_card_type:
+            converter = component_manager.get_current\
+                  ("card_type_converter", used_for=(old_card_type,
+                                                    new_card_type))
+            if not converter:
+                answer = self.widget.question_box(\
+          _("Can't preserve history when converting between these card types.")\
+                  + " " + _("The learning history of the cards will be reset."),
+                  _("&OK"), _("&Cancel"), "")
+                if answer == 1: # Cancel.
+                    return
+                else:
+                    db.delete_fact_and_related_data(self.fact)
+                    self.create_new_cards(new_fact_data, new_card_type,
+                                          grade=0, cat_names=new_cat_names)
+                    return # TODO: update card type in fact, jump to update cats, facts and cards.
+            else:
+                # TODO: determine cards.
+                converter.convert(cards)
+        # Update categories, facts and cards.
         fact.cat = []
         for cat_name in new_cat_names:
             fact.cat.append(db.get_or_create_category_with_name(cat_name)) 
@@ -101,7 +121,7 @@ class DefaultMainController(UiControllerMain):
         for card in updated_cards:
             db.update_card(card)
         return
-        
+        # TODO: duplicate checking.
         if db.has_fact_with_data(fact_data):
             self.widget.information_box(\
               _("Card is already in database.\nDuplicate not added."), _("OK"))

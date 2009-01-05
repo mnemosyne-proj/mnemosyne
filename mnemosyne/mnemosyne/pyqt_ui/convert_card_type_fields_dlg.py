@@ -40,7 +40,7 @@ class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
             index += 1
 
     def accept(self):
-        self.correspondence = {}
+        self.correspondence.clear()
         for old_fact_key, old_fact_key_name in self.old_card_type.fields:
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):

@@ -62,3 +62,4 @@ class Fact(object):
 
     def __setitem__(self, key, value):
         self.data[key] = value
+        
