@@ -13,6 +13,7 @@ from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmnemosyne.exceptions import traceback_string
 from mnemosyne.libmnemosyne.exceptions import InvalidFormatError
 from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
@@ -228,14 +229,14 @@ class Pickle(Database):
         
     def delete_fact_and_related_data(self, fact):
         old_cat = fact.cat
-        for c in self.cards:
-            if c.fact == fact:
-                self.cards.remove(c)
-                try:
-                    self.fact_views.remove(c.fact_view)
-                except:
-                    pass # Its fact view is a card type fact view one.
-                log().deleted_card(c)
+        related_cards = [c for c in self.cards if c.fact == fact]
+        for c in related_cards:
+            self.cards.remove(c)
+            try:
+                self.fact_views.remove(c.fact_view)
+            except:
+                pass # Its fact view is a card type fact view one.
+            log().deleted_card(c)
         self.facts.remove(fact)
         scheduler().rebuild_queue()
         for cat in old_cat:

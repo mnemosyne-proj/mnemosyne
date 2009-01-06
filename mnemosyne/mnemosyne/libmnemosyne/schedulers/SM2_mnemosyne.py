@@ -7,7 +7,8 @@ import copy
 
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.scheduler import Scheduler
-from mnemosyne.libmnemosyne.component_manager import database, config,  log
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
+from mnemosyne.libmnemosyne.component_manager import database, config, log
 
 
 class SM2Mnemosyne(Scheduler):
@@ -39,6 +40,7 @@ class SM2Mnemosyne(Scheduler):
 
     def rebuild_queue(self, learn_ahead=False):
         self.queue = []
+        ui_controller_review().clear()
         db = database()
         if not db.is_loaded():
             return

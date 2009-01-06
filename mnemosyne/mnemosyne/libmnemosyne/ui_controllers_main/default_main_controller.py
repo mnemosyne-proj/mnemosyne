@@ -36,6 +36,9 @@ class DefaultMainController(UiControllerMain):
         stopwatch.pause()
         review_controller = ui_controller_review()
         self.widget.run_edit_fact_dialog(review_controller.card.fact)
+        if review_controller.card == None:
+            self.widget.update_status_bar()
+            review_controller.new_question()         
         review_controller.update_dialog(redraw_all=True)
         stopwatch.unpause()
 
@@ -89,7 +92,7 @@ class DefaultMainController(UiControllerMain):
 
         # Change card type.
         db = database()
-        old_card_type = self.fact.card_type
+        old_card_type = fact.card_type
         if old_card_type != new_card_type:
             converter = component_manager.get_current\
                   ("card_type_converter", used_for=(old_card_type,
@@ -102,17 +105,20 @@ class DefaultMainController(UiControllerMain):
                 if answer == 1: # Cancel.
                     return
                 else:
-                    db.delete_fact_and_related_data(self.fact)
+                    db.delete_fact_and_related_data(fact)
                     self.create_new_cards(new_fact_data, new_card_type,
                                           grade=0, cat_names=new_cat_names)
-                    return # TODO: update card type in fact, jump to update cats, facts and cards.
+                    return
             else:
-                # TODO: determine cards.
-                converter.convert(cards)
+                converter.convert(db.cards_from_fact(fact))
+                fact.card_type = new_card_type
         # Update categories, facts and cards.
+        old_cats = fact.cat
         fact.cat = []
         for cat_name in new_cat_names:
-            fact.cat.append(db.get_or_create_category_with_name(cat_name)) 
+            fact.cat.append(db.get_or_create_category_with_name(cat_name))
+        for cat in old_cats:
+            db.remove_category_if_unused(cat)
         new_cards, updated_cards = fact.card_type.update_related_cards(fact, \
                                                 new_fact_data)
         db.update_fact(fact)
