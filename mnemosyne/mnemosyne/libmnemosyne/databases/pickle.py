@@ -241,6 +241,10 @@ class Pickle(Database):
         scheduler().rebuild_queue()
         for cat in old_cat:
             self.remove_category_if_unused(cat)
+            
+    def delete_card(self, card):
+        self.cards.remove(card)
+        log().deleted_card(card)        
         
     def cards_from_fact(self, fact):
         return [c for c in self.cards if c.fact == fact]

@@ -128,9 +128,10 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         new_card_type_name = unicode(self.card_types.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
         c = ui_controller_main()
-        c.update_related_cards(self.fact, new_fact_data, new_card_type,
-                               new_cat_names)
-        QDialog.accept(self)
+        status = c.update_related_cards(self.fact, new_fact_data,
+                        new_card_type, new_cat_names, self.correspondence)
+        if status == 0:
+            QDialog.accept(self)           
 
     def preview(self):
         fact_data = self.card_widget.get_data(check_for_required=False)

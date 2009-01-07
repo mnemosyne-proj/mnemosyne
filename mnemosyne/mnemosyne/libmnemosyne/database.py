@@ -83,6 +83,9 @@ class Database(Component):
         
     def delete_fact_and_related_data(self, fact):
         raise NotImplementedError
+
+    def delete_card(self, card): # TODO: SQL
+        raise NotImplementedError        
         
     # Queries.
 

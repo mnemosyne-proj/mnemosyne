@@ -95,6 +95,17 @@ def initialise_system_components():
     component_manager.register("card_type", BothWays())
     from mnemosyne.libmnemosyne.card_types.three_sided import ThreeSided
     component_manager.register("card_type", ThreeSided())
+
+    # Card type converters.
+    from mnemosyne.libmnemosyne.card_types.both_ways \
+         import FrontToBackToBothWays
+    component_manager.register("card_type_converter", FrontToBackToBothWays(),
+                               used_for=(FrontToBack, BothWays))
+    
+    from mnemosyne.libmnemosyne.card_types.both_ways \
+         import BothWaysToFrontToBack
+    component_manager.register("card_type_converter", BothWaysToFrontToBack(),
+                               used_for=(BothWays, FrontToBack))
     
     # Renderer.
     from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss

@@ -19,7 +19,7 @@ class ComponentManager(object):
 
     Managed components:
 
-       ======================   ===============================
+       ======================   ===========================================
        "config"                 configuration instance
        "log"                    logger instance
        "database"               database instance
@@ -27,7 +27,7 @@ class ComponentManager(object):
        "filter"                 filter instance
        "card_type"              card_type instance
        "card_type_converter"    card_type_converter instance
-                                used for (old_type, new_type)
+                                used for (old_type class, new_type class)
        "card_type_widget"       card_type_widget class,
                                 used_for card_type class name
        "renderer"               renderer instance,
@@ -38,7 +38,7 @@ class ComponentManager(object):
        "plugin"                 plugin instance
        "function_hook"          function hook instance
                                 used_for hookpoint_name
-       ======================   ===============================
+       ======================   ===========================================
        
     Note: for widgets we store the class name as opposed to an instance,
     since creating widgets can be time consuming, and we want to create
@@ -56,9 +56,10 @@ class ComponentManager(object):
         """For type, component and used_for, see the table above."""
         
         if type not in ["config", "log", "database", "scheduler", "filter",
-                        "card_type", "card_type_widget", "renderer",
+                        "card_type", "card_type_converter",
+                        "card_type_widget", "renderer",
                         "ui_controller_main", "ui_controller_review", 
-                        "review_widget", "plugin"]:
+                        "review_widget", "plugin", "function_hook"]:
            raise KeyError("Invalid component type % s.", type)
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
