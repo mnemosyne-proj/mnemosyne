@@ -5,10 +5,9 @@
 
 * Mnemosyne 2.0:
 
+-card type convertors for 3-sided cards
 
 -gray out grades/OK in add and edit if data is incomplete
-
--card type convertors
 
 -share more code between add and edit card (a.o. change card type)
 

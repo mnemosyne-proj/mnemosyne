@@ -80,8 +80,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
             card_type.widget = component_manager.get_current\
-                       ("card_type_widget",                  
-                       used_for=card_type.__class__.__name__)\
+                       ("card_type_widget", used_for=card_type.__class__)\
                           (parent=self, prefill_data=prefill_data)
         except:
             card_type.widget = GenericCardTypeWdgt\

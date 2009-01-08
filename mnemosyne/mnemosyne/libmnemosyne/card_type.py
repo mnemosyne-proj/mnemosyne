@@ -39,8 +39,6 @@ class CardType(Component):
 
     """
 
-    # TODO: deal with inheritance of card types, by id = "main.derived"
-
     def __init__(self):
         self.id = "-1"
         self.name = ""
@@ -82,7 +80,7 @@ class CardType(Component):
             return self.renderer
         else:
             self.renderer = component_manager.\
-                   get_current("renderer", used_for=self.__class__.__name__)
+                   get_current("renderer", used_for=self.__class__)
             if not self.renderer:
                  self.renderer = component_manager.get_current("renderer")
             return self.renderer

@@ -29,9 +29,9 @@ class ComponentManager(object):
        "card_type_converter"    card_type_converter instance
                                 used for (old_type class, new_type class)
        "card_type_widget"       card_type_widget class,
-                                used_for card_type class name
+                                used_for card_type class
        "renderer"               renderer instance,
-                                used_for card_type class name
+                                used_for card_type class
        "ui_controller_main"     ui_controller_main instance
        "ui_controller_review"   ui_controller_review instance
        "review_widget"          review_widget class
@@ -45,14 +45,13 @@ class ComponentManager(object):
     e.g. card type widgets only when they are really needed.
 
     """
-    
-    # TODO KW: investigate inheritance in the context of used_for.
         
     def __init__(self):
         self.components = {} # { used_for : {type : [component]} }
         self.card_type_by_id = {}
 
     def register(self, type, component, used_for=None):
+        
         """For type, component and used_for, see the table above."""
         
         if type not in ["config", "log", "database", "scheduler", "filter",
@@ -61,6 +60,7 @@ class ComponentManager(object):
                         "ui_controller_main", "ui_controller_review", 
                         "review_widget", "plugin", "function_hook"]:
            raise KeyError("Invalid component type % s.", type)
+       
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
         if not self.components[used_for].has_key(type):
@@ -68,29 +68,58 @@ class ComponentManager(object):
         else:
             if component not in self.components[used_for][type]:
                 self.components[used_for][type].append(component)
+                
         if type == "card_type":
             self.card_type_by_id[component.id] = component
 
     def unregister(self, type, component, used_for=None):
         self.components[used_for][type].remove(component)
 
-    def get_all(self, type, used_for=None):
+    # TODO KW: review implementation below of inheritance in the context
+    # of used_for.
+    
+    def parent_of_used_for(self, used_for):
+        
+        """Upcast the elements of 'used_for' one level in the inheritance
+        hierarchy.
 
-        """For components for which there can be many active at once."""
-
+        """
         try:
-            return self.components[used_for][type]
+            if isinstance(used_for, tuple):
+                return (used_for[0].__bases__[0], used_for[1].__bases__[0])
+            else:
+                return used_for.__bases__[0]
         except:
-            return []
+            raise StopIteration
+
+    def get_all(self, type, used_for=None):
+        
+        """For components for which there can be many active at once."""
+        
+        while True:
+            try:
+                return self.components[used_for][type]
+            except:
+                try:
+                    used_for = self.parent_of_used_for(used_for)
+                except StopIteration:
+                    return []
         
     def get_current(self, type, used_for=None):
+        
+        """For components for which there can be only one active at any
+        time.
 
-        """For component for which there can be only one active at one time."""
-
-        try:
-            return self.components[used_for][type][-1]
-        except:
-            return None
+        """
+        
+        while True:
+            try:
+                return self.components[used_for][type][-1]
+            except:
+                try:
+                    used_for = self.parent_of_used_for(used_for)
+                except StopIteration:
+                    return None
 
 
 # The component manager needs to be accessed by many different parts of the
@@ -122,8 +151,7 @@ def ui_controller_review():
 def card_types():
     return component_manager.get_all("card_type")
 
-def card_type_by_id(id):
-    # TODO KW: use named components for this.
+def card_type_by_id(id): # TODO KW: use named components for this.
     return component_manager.card_type_by_id[id]
 
 def filters():
