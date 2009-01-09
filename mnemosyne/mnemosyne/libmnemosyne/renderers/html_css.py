@@ -10,6 +10,7 @@ from mnemosyne.libmnemosyne.component_manager import filters
 #   set_background(card_type, color), set_font(card_type, fact_key, font),
 #   set_alignment(card_type, fact_key, alignment), ...
 
+# Based on info from http://apptools.com/examples/tableheight.php
 
 class HtmlCss(Renderer):
     

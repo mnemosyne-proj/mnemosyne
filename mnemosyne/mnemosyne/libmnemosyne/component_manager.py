@@ -75,35 +75,38 @@ class ComponentManager(object):
     def unregister(self, type, component, used_for=None):
         self.components[used_for][type].remove(component)
 
-    # TODO KW: review implementation below of inheritance in the context
-    # of used_for.
-    
-    def parent_of_used_for(self, used_for):
-        
-        """Upcast the elements of 'used_for' one level in the inheritance
-        hierarchy.
-
-        """
-        try:
-            if isinstance(used_for, tuple):
-                return (used_for[0].__bases__[0], used_for[1].__bases__[0])
-            else:
-                return used_for.__bases__[0]
-        except:
-            raise StopIteration
-
     def get_all(self, type, used_for=None):
         
         """For components for which there can be many active at once."""
-        
-        while True:
+
+        if used_for == None or isinstance(used_for, str):
             try:
                 return self.components[used_for][type]
             except:
-                try:
-                    used_for = self.parent_of_used_for(used_for)
-                except StopIteration:
-                    return []
+                return []
+
+        # See if there is a component registered for the exact type.
+        try:
+            return self.components[used_for][type]
+        except:
+            # See if there is a component registered for the parent class.
+            class_keys = [key for key in self.components.keys() if \
+                          not isinstance(key, str) and not (key == None)]
+            if isinstance(used_for, tuple):
+                for key in class_keys:
+                    if issubclass(used_for[0], key[0]) and \
+                       issubclass(used_for[1], key[1]):
+                        try:
+                            return self.components[key][type]
+                        except:
+                            return []
+            else:
+                for key in class_keys:
+                    if issubclass(used_for, key):
+                        try:
+                            return self.components[key][type]
+                        except:
+                            return []
         
     def get_current(self, type, used_for=None):
         
@@ -111,17 +114,14 @@ class ComponentManager(object):
         time.
 
         """
+
+        all = self.get_all(type, used_for)
+        if all == []:
+            return None
+        else:
+            return all[-1]
+
         
-        while True:
-            try:
-                return self.components[used_for][type][-1]
-            except:
-                try:
-                    used_for = self.parent_of_used_for(used_for)
-                except StopIteration:
-                    return None
-
-
 # The component manager needs to be accessed by many different parts of the
 # library, so we hold it in a global variable.
 

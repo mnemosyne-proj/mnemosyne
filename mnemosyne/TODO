@@ -21,6 +21,9 @@
 
 -card type css
 
+-GUI option to derive from three sided card type to create a new language
+ specific card type. Test inheritance of card type convertors.
+
 -detect wrong current date (last review in the future or way past)
 
 -xml import tests (wcu, memaid, plconv)
@@ -42,8 +45,7 @@
 
 -test sound
 
--if we change a card id on import, by sure to put a message in the
- log to that effect, so that the statistics can keep track of it.
+-don't change card id on import from old files
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
  
@@ -62,8 +64,7 @@
 
 -renamed default data dir on Windows?
 
--http://apptools.com/examples/tableheight.php
--http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447
+-http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447?
 
 -modality of dialogs (mail by Nosai)
 
@@ -94,8 +95,7 @@
 
 -plugin for midi files
 
--'tooltips' during use: deactivate related cards, edit toolbar vs css, change 
- card type, relative path when adding pictures or sound.
+-'tooltips' during use: delete card, relative path when adding pictures or sound.
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
@@ -267,11 +267,6 @@ Status: initial code written, but clean up needed.
 
 -corner case: If M > 0 and k < 0 then (a,b) is a local maximum
 If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
-
-Far away:
-
--foreign language text widget, integrated with online dict,
- easy creation of new cards
 
 
 
