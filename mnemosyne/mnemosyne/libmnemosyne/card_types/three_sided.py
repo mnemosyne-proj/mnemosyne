@@ -45,3 +45,49 @@ class ThreeSided(CardType):
         # answer field, these are better handled through a synonym detection 
         # plugin.
         self.unique_fields = ["f"]
+
+
+class FrontToBackToThreeSided(CardTypeConverter):
+
+    def convert(self, cards, old_card_type, new_card_type, correspondence):
+        # Update front-to-back view to corresponding view in new type.
+        try:
+            if correspondence["q"] == t:
+                print 'old card was production'
+                cards[0].fact_view = new_card_type.fact_views[1]
+        except:
+            cards[0].fact_view = new_card_type.fact_views[0]
+            
+        # Create back-to-front view.
+        try:
+            if correspondence["q"] == t:
+                print 'old card was production'           
+                new_card = Card(cards[0].fact, new_card_type.fact_views[0])
+        except:
+            new_card = Card(cards[0].fact, new_card_type.fact_views[1])
+        new_card.set_initial_grade(0)
+        new_cards, updated_cards, deleted_cards = [new_card], [cards[0]], []
+        return new_cards, updated_cards, deleted_cards
+
+
+class BothWaysToThreeSided(CardTypeConverter):
+
+    def convert(self, cards, old_card_type, new_card_type, correspondence):
+        for card in cards:
+            if card.fact_view == old_card_type.fact_views[0]:
+                try:
+                    if correspondence["q"] == t:
+                        print 'old card was production'
+                        card.fact_view = new_card_type.fact_views[1]
+                except:
+                    card.fact_view == old_card_type.fact_views[0]:
+            if card.fact_view == old_card_type.fact_views[1]:
+                try:
+                    if correspondence["q"] == t:
+                        print 'old card was production'
+                        card.fact_view = new_card_type.fact_views[0]
+                except:
+                    card.fact_view == old_card_type.fact_views[1]:
+        updated_cards = cards
+        new_cards, deleted_cards = [], []
+        return new_cards, updated_cards, deleted_cards
