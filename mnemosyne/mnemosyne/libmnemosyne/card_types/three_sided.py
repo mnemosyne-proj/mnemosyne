@@ -5,8 +5,10 @@
 import gettext
 _ = gettext.gettext
 
+from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
+from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 
 
 class ThreeSided(CardType):
@@ -51,19 +53,17 @@ class FrontToBackToThreeSided(CardTypeConverter):
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         # Update front-to-back view to corresponding view in new type.
-        try:
-            if correspondence["q"] == t:
-                print 'old card was production'
-                cards[0].fact_view = new_card_type.fact_views[1]
-        except:
+        if "q" in correspondence and correspondence["q"] == "t":
+            print 'old card was production'
+            cards[0].fact_view = new_card_type.fact_views[1]
+        else:
             cards[0].fact_view = new_card_type.fact_views[0]
             
         # Create back-to-front view.
-        try:
-            if correspondence["q"] == t:
-                print 'old card was production'           
-                new_card = Card(cards[0].fact, new_card_type.fact_views[0])
-        except:
+        if "q" in correspondence and correspondence["q"] == "t":
+            print 'old card was production'           
+            new_card = Card(cards[0].fact, new_card_type.fact_views[0])
+        else:
             new_card = Card(cards[0].fact, new_card_type.fact_views[1])
         new_card.set_initial_grade(0)
         new_cards, updated_cards, deleted_cards = [new_card], [cards[0]], []
@@ -72,22 +72,19 @@ class FrontToBackToThreeSided(CardTypeConverter):
 
 class BothWaysToThreeSided(CardTypeConverter):
 
-    def convert(self, cards, old_card_type, new_card_type, correspondence):
+    def convert(self, cards, old_card_type, new_card_type, correspondence):  
         for card in cards:
             if card.fact_view == old_card_type.fact_views[0]:
-                try:
-                    if correspondence["q"] == t:
-                        print 'old card was production'
-                        card.fact_view = new_card_type.fact_views[1]
-                except:
-                    card.fact_view == old_card_type.fact_views[0]:
+                if "q" in correspondence and correspondence["q"] == "t":
+                    print 'old card was production'
+                    card.fact_view = new_card_type.fact_views[1]
+                else:
+                    card.fact_view == old_card_type.fact_views[0]
             if card.fact_view == old_card_type.fact_views[1]:
-                try:
-                    if correspondence["q"] == t:
-                        print 'old card was production'
-                        card.fact_view = new_card_type.fact_views[0]
-                except:
-                    card.fact_view == old_card_type.fact_views[1]:
-        updated_cards = cards
-        new_cards, deleted_cards = [], []
+                if "q" in correspondence and correspondence["q"] == "t":
+                    print 'old card was production'
+                    card.fact_view = new_card_type.fact_views[0]
+                else:
+                    card.fact_view == old_card_type.fact_views[1]
+        new_cards, updated_cards, deleted_cards = [], cards, []
         return new_cards, updated_cards, deleted_cards

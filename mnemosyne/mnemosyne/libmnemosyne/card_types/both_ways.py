@@ -63,6 +63,7 @@ class FrontToBackToBothWays(CardTypeConverter):
 class BothWaysToFrontToBack(CardTypeConverter):
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
+        new_cards, updated_cards, deleted_cards = [], [], []
         for card in cards:
             # Update front-to-back view to corresponding view in new type. 
             if card.fact_view == old_card_type.fact_views[0]:
@@ -71,6 +72,5 @@ class BothWaysToFrontToBack(CardTypeConverter):
             # Delete back-to-front view.
             if card.fact_view == old_card_type.fact_views[1]:
                 deleted_cards = [card]
-        new_cards = []
         return new_cards, updated_cards, deleted_cards
         

@@ -135,11 +135,6 @@ class DefaultMainController(UiControllerMain):
                 for card in deleted_cards:
                     db.delete_card(card)
                     
-                print 'after'
-                for c in db.cards_from_fact(fact):
-                    print c
-                    print c.question(), c.answer()
-                    
         # Update categories, facts and cards.
         old_cats = fact.cat
         fact.cat = []
@@ -149,12 +144,19 @@ class DefaultMainController(UiControllerMain):
             db.remove_category_if_unused(cat)
         new_cards, updated_cards = fact.card_type.update_related_cards(fact, \
                                                 new_fact_data)
+        fact.data = new_fact_data
         db.update_fact(fact)
         for card in new_cards:
             db.add_card(card)
         for card in updated_cards:
             db.update_card(card)
+
+        print 'after'
+        for c in db.cards_from_fact(fact):
+            print c
+            print c.question(), c.answer()
         return 0
+    
         # TODO: duplicate checking.
         if db.has_fact_with_data(fact_data):
             self.widget.information_box(\

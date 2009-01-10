@@ -100,16 +100,25 @@ def initialise_system_components():
     from mnemosyne.libmnemosyne.card_types.both_ways \
          import FrontToBackToBothWays
     component_manager.register("card_type_converter", FrontToBackToBothWays(),
-                               used_for=(FrontToBack, BothWays))
-    
+                               used_for=(FrontToBack, BothWays))  
     from mnemosyne.libmnemosyne.card_types.both_ways \
          import BothWaysToFrontToBack
     component_manager.register("card_type_converter", BothWaysToFrontToBack(),
                                used_for=(BothWays, FrontToBack))
+    from mnemosyne.libmnemosyne.card_types.three_sided \
+         import FrontToBackToThreeSided
+    component_manager.register("card_type_converter", FrontToBackToThreeSided(),
+                               used_for=(FrontToBack, ThreeSided))
+    from mnemosyne.libmnemosyne.card_types.three_sided \
+         import BothWaysToThreeSided
+    component_manager.register("card_type_converter", BothWaysToThreeSided(),
+                               used_for=(BothWays, ThreeSided))    
     
     # Renderer.
     from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
     component_manager.register("renderer", HtmlCss())
+    from mnemosyne.libmnemosyne.renderers.plain_text import PlainText
+    component_manager.register("renderer", PlainText())
     
     # Filters.
     from mnemosyne.libmnemosyne.filters.escape_to_html \

@@ -74,7 +74,6 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             if key in self.correspondence:
                 value = prefill_data.pop(key)
                 prefill_data[self.correspondence[key]] = value
-        self.correspondence = {}
         # Show new card type widget.
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
@@ -114,7 +113,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         if dlg.exec_() == 0: # Reject.
             self.card_types.setCurrentIndex(self.card_type_index)
             return
-        else:
+        else:          
             self.update_card_widget()
             
     def accept(self):
