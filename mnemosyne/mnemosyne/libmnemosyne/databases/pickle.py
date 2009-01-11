@@ -17,6 +17,7 @@ from mnemosyne.libmnemosyne.exceptions import traceback_string
 from mnemosyne.libmnemosyne.exceptions import InvalidFormatError
 from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import log, scheduler
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 
@@ -238,12 +239,16 @@ class Pickle(Database):
                 pass # Its fact view is a card type fact view one.
             log().deleted_card(c)
         self.facts.remove(fact)
-        scheduler().rebuild_queue()
+        current_card = ui_controller().card
+        if current_card and current_card.fact == fact:
+            scheduler().rebuild_queue()
         for cat in old_cat:
             self.remove_category_if_unused(cat)
             
     def delete_card(self, card):
         self.cards.remove(card)
+        if ui_controller_review().card == card:
+            scheduler().rebuild_queue()        
         log().deleted_card(card)        
         
     def cards_from_fact(self, fact):

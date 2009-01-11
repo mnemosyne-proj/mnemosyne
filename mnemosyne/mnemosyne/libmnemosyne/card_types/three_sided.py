@@ -54,14 +54,11 @@ class FrontToBackToThreeSided(CardTypeConverter):
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         # Update front-to-back view to corresponding view in new type.
         if "q" in correspondence and correspondence["q"] == "t":
-            print 'old card was production'
             cards[0].fact_view = new_card_type.fact_views[1]
         else:
             cards[0].fact_view = new_card_type.fact_views[0]
-            
         # Create back-to-front view.
         if "q" in correspondence and correspondence["q"] == "t":
-            print 'old card was production'           
             new_card = Card(cards[0].fact, new_card_type.fact_views[0])
         else:
             new_card = Card(cards[0].fact, new_card_type.fact_views[1])
@@ -72,19 +69,57 @@ class FrontToBackToThreeSided(CardTypeConverter):
 
 class BothWaysToThreeSided(CardTypeConverter):
 
-    def convert(self, cards, old_card_type, new_card_type, correspondence):  
+    def convert(self, cards, old_card_type, new_card_type, correspondence):
         for card in cards:
             if card.fact_view == old_card_type.fact_views[0]:
                 if "q" in correspondence and correspondence["q"] == "t":
-                    print 'old card was production'
                     card.fact_view = new_card_type.fact_views[1]
                 else:
-                    card.fact_view == old_card_type.fact_views[0]
-            if card.fact_view == old_card_type.fact_views[1]:
+                    card.fact_view = new_card_type.fact_views[0]
+            elif card.fact_view == old_card_type.fact_views[1]:
                 if "q" in correspondence and correspondence["q"] == "t":
-                    print 'old card was production'
                     card.fact_view = new_card_type.fact_views[0]
                 else:
-                    card.fact_view == old_card_type.fact_views[1]
+                    card.fact_view = new_card_type.fact_views[1]
+            else:
+                raise ArgumentError
+        new_cards, updated_cards, deleted_cards = [], cards, []
+        return new_cards, updated_cards, deleted_cards
+
+
+class ThreeSidedToFrontToBack(CardTypeConverter):
+
+    def convert(self, cards, old_card_type, new_card_type, correspondence):
+        new_cards, updated_cards, deleted_cards = [], [], []
+        for card in cards:
+            if card.fact_view == old_card_type.fact_views[0]:
+                if "f" in correspondence and correspondence["f"] == "q":
+                    card.fact_view = new_card_type.fact_views[0]
+                    updated_cards.append(card)
+                else:
+                    deleted_cards.append(card)
+            if card.fact_view == old_card_type.fact_views[1]:
+                if "f" in correspondence and correspondence["f"] == "q":
+                    deleted_cards.append(card)
+                else:
+                    card.fact_view = new_card_type.fact_views[0]
+                    updated_cards.append(card)
+        return new_cards, updated_cards, deleted_cards
+
+
+class ThreeSidedToBothWays(CardTypeConverter):
+
+    def convert(self, cards, old_card_type, new_card_type, correspondence):
+        for card in cards:
+            if card.fact_view == old_card_type.fact_views[0]:
+                if "f" in correspondence and correspondence["f"] == "q":
+                    card.fact_view = new_card_type.fact_views[0]
+                else:
+                    card.fact_view = new_card_type.fact_views[1]                    
+            if card.fact_view == old_card_type.fact_views[1]:
+                if "f" in correspondence and correspondence["f"] == "q":
+                    card.fact_view = new_card_type.fact_views[1]
+                else:
+                    card.fact_view = new_card_type.fact_views[0]
         new_cards, updated_cards, deleted_cards = [], cards, []
         return new_cards, updated_cards, deleted_cards

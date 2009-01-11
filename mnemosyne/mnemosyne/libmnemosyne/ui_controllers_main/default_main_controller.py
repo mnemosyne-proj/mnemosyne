@@ -144,7 +144,6 @@ class DefaultMainController(UiControllerMain):
             db.remove_category_if_unused(cat)
         new_cards, updated_cards = fact.card_type.update_related_cards(fact, \
                                                 new_fact_data)
-        fact.data = new_fact_data
         db.update_fact(fact)
         for card in new_cards:
             db.add_card(card)

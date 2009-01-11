@@ -5,7 +5,7 @@
 
 * Mnemosyne 2.0:
 
--card type convertors for 3-sided cards
+-retest first 4 card type convertors
 
 -gray out grades/OK in add and edit if data is incomplete
 
@@ -37,7 +37,8 @@
 
 -show latex errors in GUI?
 
--add new functions to SQL database
+-add new functions to SQL database, make sure rebuild queue is called when
+ needed
 
 -ghost out 3.4 and 5 for unlearned cards?
 
