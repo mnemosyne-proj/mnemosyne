@@ -22,10 +22,12 @@ from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
 
 class EditFactDlg(QDialog, Ui_EditFactDlg):
 
-    def __init__(self, fact, parent=None):
+    def __init__(self, fact, allow_cancel=True, parent=None):
         QDialog.__init__(self, parent)
         # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
         self.setupUi(self)
+        if not allow_cancel:
+            self.exit_button.setVisible(False)
         self.fact = fact
         # We calculate card_type_by_name here rather than in the component
         # manager, because these names can change if the user chooses another

@@ -62,21 +62,22 @@ class DefaultMainController(UiControllerMain):
         duplicates = db.duplicates_for_fact(fact)
         if len(duplicates) != 0:
             answer = self.widget.question_box(\
-              _("There is already data present for:\n\n") +
+              _("There is already data present for:\n\N") +
               "".join(fact[k] for k in card_type.required_fields()),
               _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
             if answer == 0: # Merge and edit.
+                db.add_fact(fact)
+                for card in card_type.create_related_cards(fact, grade):
+                    db.add_card(card)  
                 merged_fact_data = copy.copy(fact.data)
                 for duplicate in duplicates:
                     for key in fact_data:
                         if key not in card_type.required_fields():
-                            merged_fact_data[key] += "/" + duplicate[key]
+                            merged_fact_data[key] += " / " + duplicate[key]
                     db.delete_fact_and_related_data(duplicate)
-                print merged_fact_data
-                # TODO: edit merged data.
-                #dlg = EditItemDlg(new_item, self)
-                #dlg.exec_loop()
-                #get fact from that
+                fact.data = merged_fact_data              
+                self.widget.run_edit_fact_dialog(fact, allow_cancel=False)
+                return
             if answer == 2: # Don't add.
                 return
         db.add_fact(fact)
@@ -110,12 +111,6 @@ class DefaultMainController(UiControllerMain):
                                           grade=0, cat_names=new_cat_names)
                     return 0
             else:
-
-                print 'before'
-                for c in db.cards_from_fact(fact):
-                    print c
-                    print c.question(), c.answer()
-                
                 new_cards, updated_cards, deleted_cards = \
                    converter.convert(db.cards_from_fact(fact), old_card_type,
                                      new_card_type, correspondence)
@@ -138,6 +133,8 @@ class DefaultMainController(UiControllerMain):
         # Update categories, facts and cards.
         old_cats = fact.cat
         fact.cat = []
+        print 'current', old_cats
+        print 'new names', new_cat_names
         for cat_name in new_cat_names:
             fact.cat.append(db.get_or_create_category_with_name(cat_name))
         for cat in old_cats:
@@ -150,41 +147,7 @@ class DefaultMainController(UiControllerMain):
         for card in updated_cards:
             db.update_card(card)
 
-        print 'after'
-        for c in db.cards_from_fact(fact):
-            print c
-            print c.question(), c.answer()
         return 0
-    
-        # TODO: duplicate checking.
-        if db.has_fact_with_data(fact_data):
-            self.widget.information_box(\
-              _("Card is already in database.\nDuplicate not added."), _("OK"))
-            return
-        fact = Fact(fact_data, card_type)
-        duplicates = db.duplicates_for_fact(fact)
-        if len(duplicates) != 0:
-            answer = self.widget.question_box(\
-              _("There is already data present for:\n\n") +
-              "".join(fact[k] for k in card_type.required_fields()),
-              _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
-            if answer == 0: # Merge and edit.
-                merged_fact_data = copy.copy(fact.data)
-                for duplicate in duplicates:
-                    for key in fact_data:
-                        if key not in card_type.required_fields():
-                            merged_fact_data[key] += "/" + duplicate[key]
-                    db.delete_fact_and_related_data(duplicate)
-                print merged_fact_data
-                # TODO: edit merged data.
-                #dlg = EditItemDlg(new_item, self)
-                #dlg.exec_loop()
-                #get fact from that
-            if answer == 2: # Don't add.
-                return
-        db.add_fact(fact)
-        for card in card_type.create_related_cards(fact, grade):
-            db.add_card(card)
 
     def file_new(self):
         stopwatch.pause()

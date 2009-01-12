@@ -125,8 +125,6 @@ def initialise_system_components():
     # Renderer.
     from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
     component_manager.register("renderer", HtmlCss())
-    from mnemosyne.libmnemosyne.renderers.plain_text import PlainText
-    component_manager.register("renderer", PlainText())
     
     # Filters.
     from mnemosyne.libmnemosyne.filters.escape_to_html \

@@ -5,15 +5,9 @@
 
 * Mnemosyne 2.0:
 
--retest first 4 card type convertors
-
 -gray out grades/OK in add and edit if data is incomplete
 
 -share more code between add and edit card (a.o. change card type)
-
--edit card: duplicate checking
-
--merge and edit: hook up edit dialog
 
 -delete card
 
@@ -31,6 +25,7 @@
 -improve sphinxdocs: autoclass='both', document module members
 
 -run convert to html after adding/modifying card?
+
 -pregenerate q and a on mobile devices?
 
 -test uploading of logs
@@ -55,6 +50,7 @@
 
 -adding new cards while in 'learn ahead of schedule' should break out of
  learning ahead
+
 -remove start date?
 
 -respect card_type.fact_views_can_be_deactivated
@@ -108,8 +104,6 @@
 -rename edit_items, items, product tour at the source level
 
 -detect and mark inverses on import
-
--what if doing 'add vice versa' when the id is already '.inv'?
 
 -update XML import/export to new database format
 

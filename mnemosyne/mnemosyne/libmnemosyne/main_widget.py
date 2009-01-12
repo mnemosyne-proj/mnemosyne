@@ -28,7 +28,7 @@ class MainWidget(object):
     def run_add_card_dialog(self):
         raise NotImplementedError
 
-    def run_edit_fact_dialog(self, fact):
+    def run_edit_fact_dialog(self, fact, allow_cancel=True):
         raise NotImplementedError
     
     def update_status_bar(self, message=None):

@@ -117,8 +117,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg = AddCardsDlg(self)
         dlg.exec_()
 
-    def run_edit_fact_dialog(self, fact):
-        dlg = EditFactDlg(fact, self)
+    def run_edit_fact_dialog(self, fact, allow_cancel=True):
+        dlg = EditFactDlg(fact, allow_cancel, self)
         dlg.exec_()       
         
     def Import(self):

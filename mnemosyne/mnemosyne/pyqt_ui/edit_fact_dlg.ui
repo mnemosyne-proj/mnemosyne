@@ -57,7 +57,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" >
+      <layout class="QHBoxLayout" name="button_row" >
        <item>
         <widget class="QPushButton" name="OK_button" >
          <property name="text" >

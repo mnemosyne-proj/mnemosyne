@@ -239,7 +239,7 @@ class Pickle(Database):
                 pass # Its fact view is a card type fact view one.
             log().deleted_card(c)
         self.facts.remove(fact)
-        current_card = ui_controller().card
+        current_card = ui_controller_review().card
         if current_card and current_card.fact == fact:
             scheduler().rebuild_queue()
         for cat in old_cat:
