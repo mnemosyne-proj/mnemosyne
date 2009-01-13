@@ -47,6 +47,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         self.grades.addButton(self.grade_5_button, 5)
         self.connect(self.grades, SIGNAL("buttonClicked(int)"),
                      self.new_cards)
+        self.is_complete(False)
+        
         #TODO: fonts?
         #if config()("QA_font") != None:
         #    font = QFont()
@@ -56,6 +58,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         #    self.answer.setFont(font)
         #self.categories.setFont(font)
 
+    def is_complete(self, complete):
+        self.grade_buttons.setEnabled(complete)
+            
     def update_card_widget(self):
         prefill_data = None
         if self.card_widget:
@@ -97,10 +102,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         cause corruption for the current card.  The new cards will show up
         after the old queue is empty."""
 
-        try:
-            fact_data = self.card_widget.get_data()
-        except ValueError:
-            return # Let the user try again to fill out the missing data.
+        fact_data = self.card_widget.get_data()
         cat_names = [c.strip() for c in \
                         unicode(self.categories.currentText()).split(',')]
         card_type_name = unicode(self.card_types.currentText())

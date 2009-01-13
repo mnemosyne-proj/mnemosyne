@@ -5,8 +5,6 @@
 
 * Mnemosyne 2.0:
 
--gray out grades/OK in add and edit if data is incomplete
-
 -share more code between add and edit card (a.o. change card type)
 
 -delete card

@@ -61,6 +61,9 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         #    self.answer.setFont(font)
         #self.categories.setFont(font)
 
+    def is_complete(self, complete):
+        self.OK_button.setEnabled(complete)
+
     def update_card_widget(self):
         # Determine data to put into card widget.
         if self.card_widget:
@@ -119,10 +122,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             self.update_card_widget()
             
     def accept(self):
-        try:
-            new_fact_data = self.card_widget.get_data()
-        except ValueError:
-            return # Let the user try again to fill out the missing data.
+        new_fact_data = self.card_widget.get_data()
         new_cat_names = [c.strip() for c in \
                         unicode(self.categories.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types.currentText())
