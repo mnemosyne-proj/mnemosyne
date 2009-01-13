@@ -16,28 +16,36 @@ from mnemosyne.libmnemosyne.component_manager import config, ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import database, card_types
 from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
-
+from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
+                                                    ConvertCardTypeFieldsDlg
 
 class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
-        # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
         self.setupUi(self)
         # We calculate card_type_by_name here rather than in the component
         # manager, because these names can change if the user chooses another
-        # translation. TODO: test.
+        # translation.
         self.card_type_by_name = {}
+        self.card_type = None
+        self.card_type_index = 0
+        self.correspondence = {}
         for card_type in card_types():
+            if card_type == card_types()[0]: # TODO: last card type
+                self.card_type = card_type
+                self.card_type_index = self.card_types.count()
             self.card_types.addItem(card_type.name)
             self.card_type_by_name[card_type.name] = card_type
-        # TODO: sort card types by id.
-        # TODO: remember last type.
-        
+        self.card_types.setCurrentIndex(self.card_type_index)        
+        self.connect(self.card_types, SIGNAL("currentIndexChanged(QString)"),
+                     self.card_type_changed)               
         self.card_widget = None
         self.update_card_widget()
+
+        # TODO: implement
+        self.update_categories_combobox(config()["last_add_category"])
         
-        self.update_combobox(config()["last_add_category"])
         self.grades = QButtonGroup()
         self.grades.addButton(self.grade_0_button, 0)
         self.grades.addButton(self.grade_1_button, 1)
@@ -65,7 +73,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         prefill_data = None
         if self.card_widget:
             prefill_data = self.card_widget.get_data(check_for_required=False)
-            self.vboxlayout.removeWidget(self.card_widget)
+            self.verticalLayout.removeWidget(self.card_widget)
             self.card_widget.close()
             del self.card_widget
         card_type_name = unicode(self.card_types.currentText())
@@ -73,7 +81,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         try:                                                                    
             card_type.widget = component_manager.get_current\
                        ("card_type_widget", used_for=card_type.__class__)\
-                           (parent=self, prefill_data=prefill_data)
+                          (parent=self, prefill_data=prefill_data)
         except:
             card_type.widget = GenericCardTypeWdgt\
                            (card_type, parent=self, prefill_data=prefill_data)
@@ -81,9 +89,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         self.card_widget.show()
         self.verticalLayout.insertWidget(1, self.card_widget)
 
-    def update_combobox(self, current_cat_name):
+    def update_categories_combobox(self, current_cat_name): # SAME
         no_of_categories = self.categories.count()
-        for i in range(no_of_categories-1,-1,-1):
+        for i in range(no_of_categories-1, -1, -1):
             self.categories.removeItem(i)
         self.categories.addItem(_("<default>"))
         for name in database().category_names():
@@ -95,21 +103,29 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             if self.categories.itemText(i) == current_cat_name:
                 self.categories.setCurrentIndex(i)
                 break
+
+    def card_type_changed(self, new_card_type_name): # SAME
+        new_card_type = self.card_type_by_name[unicode(new_card_type_name)]
+        if self.card_type.keys().issubset(new_card_type.keys()):
+            self.update_card_widget()            
+            return
+        dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
+                                       self.correspondence, self)
+        if dlg.exec_() == 0: # Reject.
+            self.card_types.setCurrentIndex(self.card_type_index)
+            return
+        else:          
+            self.update_card_widget()
             
     def new_cards(self, grade):
-
-        """Note that we don't rebuild revision queue afterwards, as this can
-        cause corruption for the current card.  The new cards will show up
-        after the old queue is empty."""
-
         fact_data = self.card_widget.get_data()
         cat_names = [c.strip() for c in \
-                        unicode(self.categories.currentText()).split(',')]
+                     unicode(self.categories.currentText()).split(',')]
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]
         c = ui_controller_main()
         c.create_new_cards(fact_data, card_type, grade, cat_names)
-        self.update_combobox(', '.join(cat_names))
+        self.update_categories_combobox(', '.join(cat_names))
         database().save(config()['path'])
         self.card_widget.clear()
 
@@ -124,7 +140,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         else:
             QDialog.reject(self)
 
-    def preview(self):
+    def preview(self): # SAME
         fact_data = self.card_widget.get_data(check_for_required=False)
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]

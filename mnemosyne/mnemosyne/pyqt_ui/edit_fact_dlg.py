@@ -24,27 +24,26 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
 
     def __init__(self, fact, allow_cancel=True, parent=None):
         QDialog.__init__(self, parent)
-        # TODO: modal, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
         self.setupUi(self)
         if not allow_cancel:
             self.exit_button.setVisible(False)
         self.fact = fact
         # We calculate card_type_by_name here rather than in the component
         # manager, because these names can change if the user chooses another
-        # translation. TODO: test.
+        # translation.
         self.card_type_by_name = {}
+        self.card_type = None
         self.card_type_index = 0
         self.correspondence = {}
         for card_type in card_types():
             if card_type == fact.card_type:
+                self.card_type = card_type
                 self.card_type_index = self.card_types.count()
             self.card_type_by_name[card_type.name] = card_type
             self.card_types.addItem(card_type.name)
         self.card_types.setCurrentIndex(self.card_type_index)
         self.connect(self.card_types, SIGNAL("currentIndexChanged(QString)"),
                      self.card_type_changed)
-        # TODO: sort card types by id.
-        self.card_widget = None
         self.update_card_widget()
         cat_string = ""
         for cat in self.fact.cat:
@@ -63,14 +62,14 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
 
     def is_complete(self, complete):
         self.OK_button.setEnabled(complete)
-
+        
     def update_card_widget(self):
         # Determine data to put into card widget.
-        if self.card_widget:
-            prefill_data = self.card_widget.get_data(check_for_required=False)
-            self.verticalLayout.removeWidget(self.card_widget)
-            self.card_widget.close()
-            del self.card_widget
+        if self.card_type.widget:
+            prefill_data = self.card_type.widget.get_data(check_for_required=False)
+            self.verticalLayout.removeWidget(self.card_type.widget)
+            self.card_type.widget.close()
+            del self.card_type.widget
         else:
             prefill_data = self.fact.data
         # Transform keys in dictionary if the card type has changed, but don't
@@ -81,21 +80,20 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
                 prefill_data[self.correspondence[key]] = value
         # Show new card type widget.
         card_type_name = unicode(self.card_types.currentText())
-        card_type = self.card_type_by_name[card_type_name]
+        self.card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
-            card_type.widget = component_manager.get_current\
+            self.card_type.widget = component_manager.get_current\
                        ("card_type_widget", used_for=card_type.__class__)\
                           (parent=self, prefill_data=prefill_data)
         except:
-            card_type.widget = GenericCardTypeWdgt\
-                           (card_type, parent=self, prefill_data=prefill_data)
-        self.card_widget = card_type.widget
-        self.card_widget.show()
-        self.verticalLayout.insertWidget(1, self.card_widget)
+            self.card_type.widget = GenericCardTypeWdgt\
+                           (self.card_type, parent=self, prefill_data=prefill_data)
+        self.card_type.widget.show()
+        self.verticalLayout.insertWidget(1, self.card_type.widget)
 
-    def update_categories_combobox(self, current_cat_name):
+    def update_categories_combobox(self, current_cat_name): # SAME
         no_of_categories = self.categories.count()
-        for i in range(no_of_categories-1,-1,-1):
+        for i in range(no_of_categories-1, -1, -1):
             self.categories.removeItem(i)
         self.categories.addItem(_("<default>"))
         for name in database().category_names():
@@ -107,13 +105,13 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
             if self.categories.itemText(i) == current_cat_name:
                 self.categories.setCurrentIndex(i)
                 break
-
-    def card_type_changed(self, new_card_type_name):
+            
+    def card_type_changed(self, new_card_type_name): # SAME
         new_card_type = self.card_type_by_name[unicode(new_card_type_name)]
-        if self.fact.card_type.keys().issubset(new_card_type.keys()):
+        if self.card_type.keys().issubset(new_card_type.keys()):
             self.update_card_widget()            
             return
-        dlg = ConvertCardTypeFieldsDlg(self.fact.card_type, new_card_type,
+        dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
                                        self.correspondence, self)
         if dlg.exec_() == 0: # Reject.
             self.card_types.setCurrentIndex(self.card_type_index)
@@ -133,7 +131,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg):
         if status == 0:
             QDialog.accept(self)           
 
-    def preview(self):
+    def preview(self): # SAME
         fact_data = self.card_widget.get_data(check_for_required=False)
         card_type_name = unicode(self.card_types.currentText())
         card_type = self.card_type_by_name[card_type_name]

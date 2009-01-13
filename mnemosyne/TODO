@@ -5,7 +5,8 @@
 
 * Mnemosyne 2.0:
 
--share more code between add and edit card (a.o. change card type)
+-share more code between add and edit card (a.o. update_card_type, 
+ change card type)
 
 -delete card
 
@@ -61,7 +62,7 @@
 
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447?
 
--modality of dialogs (mail by Nosai)
+-modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 
 -change file suffix when changing export format
 
