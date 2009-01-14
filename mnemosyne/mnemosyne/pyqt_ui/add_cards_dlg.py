@@ -19,77 +19,70 @@ from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
                                                     ConvertCardTypeFieldsDlg
 
-class AddCardsDlg(QDialog, Ui_AddCardsDlg):
+class AddEditCards:
 
-    def __init__(self, parent=None):
-        QDialog.__init__(self, parent)
-        self.setupUi(self)
+    """Code shared between the add and the edit dialogs."""
+
+    def initialise_card_types_combobox(self, current_card_type):
         # We calculate card_type_by_name here rather than in the component
         # manager, because these names can change if the user chooses another
         # translation.
         self.card_type_by_name = {}
         self.card_type = None
         self.card_type_index = 0
-        self.correspondence = {}
+        self.correspondence = {}   
         for card_type in card_types():
-            if card_type == card_types()[0]: # TODO: last card type
+            if card_type == current_card_type:
                 self.card_type = card_type
                 self.card_type_index = self.card_types.count()
-            self.card_types.addItem(card_type.name)
             self.card_type_by_name[card_type.name] = card_type
-        self.card_types.setCurrentIndex(self.card_type_index)        
+            self.card_types.addItem(card_type.name)
+        self.card_types.setCurrentIndex(self.card_type_index)
         self.connect(self.card_types, SIGNAL("currentIndexChanged(QString)"),
-                     self.card_type_changed)               
-        self.card_widget = None
+                     self.card_type_changed)
         self.update_card_widget()
-
-        # TODO: implement
-        self.update_categories_combobox(config()["last_add_category"])
         
-        self.grades = QButtonGroup()
-        self.grades.addButton(self.grade_0_button, 0)
-        self.grades.addButton(self.grade_1_button, 1)
-        self.grades.addButton(self.grade_2_button, 2)
-        self.grades.addButton(self.grade_3_button, 3)
-        self.grades.addButton(self.grade_4_button, 4)
-        self.grades.addButton(self.grade_5_button, 5)
-        self.connect(self.grades, SIGNAL("buttonClicked(int)"),
-                     self.new_cards)
-        self.is_complete(False)
-        
-        #TODO: fonts?
-        #if config()("QA_font") != None:
-        #    font = QFont()
-        #    font.fromString(config()("QA_font"))
-        #    self.question.setFont(font)
-        #    self.pronunciation.setFont(font)
-        #    self.answer.setFont(font)
-        #self.categories.setFont(font)
-
-    def is_complete(self, complete):
-        self.grade_buttons.setEnabled(complete)
-            
     def update_card_widget(self):
-        prefill_data = None
-        if self.card_widget:
-            prefill_data = self.card_widget.get_data(check_for_required=False)
-            self.verticalLayout.removeWidget(self.card_widget)
-            self.card_widget.close()
-            del self.card_widget
+        # Determine data to put into card widget. Since we want to share this
+        # code between the 'add' and the 'edit' dialogs, we put the reference
+        # to self.fact (which only exists in the 'edit' dialog) insid a try
+        # statement.
+        if self.card_type.widget: # Get data from previous card widget.
+            prefill_data = \
+                     self.card_type.widget.get_data(check_for_required=False)
+            self.verticalLayout.removeWidget(self.card_type.widget)
+            self.card_type.widget.close()
+            del self.card_type.widget
+            self.card_type.widget = None
+        else:
+            try: # Get data from fact passed to the 'edit' dialog.
+                prefill_data = self.fact.data
+            except: # Start from scratch in the 'add' dialog.
+                prefill_data = None
+                
+        # Transform keys in dictionary if the card type has changed, but don't
+        # update the fact just yet.
+        if prefill_data:
+            for key in prefill_data:
+                if key in self.correspondence:
+                    value = prefill_data.pop(key)
+                    prefill_data[self.correspondence[key]] = value
+    
+        # Show new card type widget.
         card_type_name = unicode(self.card_types.currentText())
-        card_type = self.card_type_by_name[card_type_name]
+        self.card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
-            card_type.widget = component_manager.get_current\
+            self.card_type.widget = component_manager.get_current\
                        ("card_type_widget", used_for=card_type.__class__)\
                           (parent=self, prefill_data=prefill_data)
         except:
-            card_type.widget = GenericCardTypeWdgt\
-                           (card_type, parent=self, prefill_data=prefill_data)
-        self.card_widget = card_type.widget
-        self.card_widget.show()
-        self.verticalLayout.insertWidget(1, self.card_widget)
+            self.card_type.widget = GenericCardTypeWdgt\
+                      (self.card_type, parent=self, prefill_data=prefill_data)
+        self.card_type.widget.show()
+        self.verticalLayout.insertWidget(1, self.card_type.widget)
 
-    def update_categories_combobox(self, current_cat_name): # SAME
+    def update_categories_combobox(self, current_cat_name):
+        # TODO
         no_of_categories = self.categories.count()
         for i in range(no_of_categories-1, -1, -1):
             self.categories.removeItem(i)
@@ -106,7 +99,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
 
     def card_type_changed(self, new_card_type_name): # SAME
         new_card_type = self.card_type_by_name[unicode(new_card_type_name)]
-        if self.card_type.keys().issubset(new_card_type.keys()):
+        if self.card_type.keys().issubset(new_card_type.keys()) or \
+               not self.card_type.widget.contains_data():
             self.update_card_widget()            
             return
         dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
@@ -116,9 +110,42 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
             return
         else:          
             self.update_card_widget()
-            
+
+    def preview(self):
+        fact_data = self.card_type.widget.get_data(check_for_required=False)
+        fact = Fact(fact_data, self.card_type)
+        cards = self.card_type.create_related_cards(fact)
+        cat_text = self.categories.currentText()
+        if cat_text == _("<default>"):
+            cat_text = ""
+        dlg = PreviewCardsDlg(cards, cat_text, self)
+        dlg.exec_()    
+
+
+class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
+
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        # TODO: remember last card type and last categories.
+        self.initialise_card_types_combobox(card_types()[0])
+        self.update_categories_combobox(config()["last_add_category"])  
+        self.grades = QButtonGroup()
+        self.grades.addButton(self.grade_0_button, 0)
+        self.grades.addButton(self.grade_1_button, 1)
+        self.grades.addButton(self.grade_2_button, 2)
+        self.grades.addButton(self.grade_3_button, 3)
+        self.grades.addButton(self.grade_4_button, 4)
+        self.grades.addButton(self.grade_5_button, 5)
+        self.connect(self.grades, SIGNAL("buttonClicked(int)"),
+                     self.new_cards)
+        self.is_complete(False)
+         
+    def is_complete(self, complete):
+        self.grade_buttons.setEnabled(complete)
+        
     def new_cards(self, grade):
-        fact_data = self.card_widget.get_data()
+        fact_data = self.card_type.widget.get_data()
         cat_names = [c.strip() for c in \
                      unicode(self.categories.currentText()).split(',')]
         card_type_name = unicode(self.card_types.currentText())
@@ -127,10 +154,10 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
         c.create_new_cards(fact_data, card_type, grade, cat_names)
         self.update_categories_combobox(', '.join(cat_names))
         database().save(config()['path'])
-        self.card_widget.clear()
+        self.card_type.widget.clear()
 
     def reject(self):
-        if self.card_widget.contains_data():
+        if self.card_type.widget.contains_data():
             status = QMessageBox.warning(None, _("Mnemosyne"),
                                          _("Abandon current card?"),
                                          _("&Yes"), _("&No"), "", 1, -1)
@@ -139,16 +166,5 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg):
                 return
         else:
             QDialog.reject(self)
-
-    def preview(self): # SAME
-        fact_data = self.card_widget.get_data(check_for_required=False)
-        card_type_name = unicode(self.card_types.currentText())
-        card_type = self.card_type_by_name[card_type_name]
-        cards = card_type.create_related_cards(Fact(fact_data, card_type))
-        cat_text = self.categories.currentText()
-        if cat_text == _("<default>"):
-            cat_text = ""
-        dlg = PreviewCardsDlg(cards, cat_text, self)
-        dlg.exec_()
 
 

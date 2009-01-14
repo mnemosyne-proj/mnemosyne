@@ -6,6 +6,14 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
 
+#TODO: fonts?
+#if config()("QA_font") != None:
+#    font = QFont()
+#    font.fromString(config()("QA_font"))
+#    self.question.setFont(font)
+#    self.pronunciation.setFont(font)
+#    self.answer.setFont(font)
+#self.categories.setFont(font)
 
 class GenericCardTypeWdgt(QWidget):
 

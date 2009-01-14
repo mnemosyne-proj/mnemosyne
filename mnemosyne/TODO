@@ -5,8 +5,11 @@
 
 * Mnemosyne 2.0:
 
--share more code between add and edit card (a.o. update_card_type, 
- change card type)
+-make sure widget deletion is happening ok
+
+-3 sided to 1 sided conversion regression
+
+-remember last card type and categories
 
 -delete card
 

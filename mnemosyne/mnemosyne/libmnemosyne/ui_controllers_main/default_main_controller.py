@@ -133,8 +133,6 @@ class DefaultMainController(UiControllerMain):
         # Update categories, facts and cards.
         old_cats = fact.cat
         fact.cat = []
-        print 'current', old_cats
-        print 'new names', new_cat_names
         for cat_name in new_cat_names:
             fact.cat.append(db.get_or_create_category_with_name(cat_name))
         for cat in old_cats:
@@ -146,7 +144,6 @@ class DefaultMainController(UiControllerMain):
             db.add_card(card)
         for card in updated_cards:
             db.update_card(card)
-
         return 0
 
     def file_new(self):
