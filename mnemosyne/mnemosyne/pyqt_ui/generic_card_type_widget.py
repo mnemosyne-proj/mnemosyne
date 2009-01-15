@@ -39,8 +39,7 @@ class GenericCardTypeWdgt(QWidget):
             self.edit_boxes[t] = fact_key
             if not self.top_edit_box:
                 self.top_edit_box = t
-            self.connect(t, SIGNAL("textChanged()"),
-                         self.text_changed)
+            self.connect(t, SIGNAL("textChanged()"), self.text_changed)
         if prefill_data:
             for edit_box, fact_key in self.edit_boxes.iteritems():
                 if fact_key in prefill_data.keys():

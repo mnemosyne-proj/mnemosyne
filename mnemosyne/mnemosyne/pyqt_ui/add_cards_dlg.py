@@ -50,9 +50,7 @@ class AddEditCards:
         if self.card_type.widget: # Get data from previous card widget.
             prefill_data = \
                      self.card_type.widget.get_data(check_for_required=False)
-            self.verticalLayout.removeWidget(self.card_type.widget)
             self.card_type.widget.close()
-            del self.card_type.widget
             self.card_type.widget = None
         else:
             try: # Get data from fact passed to the 'edit' dialog.
@@ -76,16 +74,14 @@ class AddEditCards:
                        ("card_type_widget", used_for=card_type.__class__)\
                           (parent=self, prefill_data=prefill_data)
         except:
-            self.card_type.widget = GenericCardTypeWdgt\
+            if not self.card_type.widget: 
+                self.card_type.widget = GenericCardTypeWdgt\
                       (self.card_type, parent=self, prefill_data=prefill_data)
         self.card_type.widget.show()
         self.verticalLayout.insertWidget(1, self.card_type.widget)
 
     def update_categories_combobox(self, current_cat_name):
-        # TODO
-        no_of_categories = self.categories.count()
-        for i in range(no_of_categories-1, -1, -1):
-            self.categories.removeItem(i)
+        self.categories.clear()
         self.categories.addItem(_("<default>"))
         for name in database().category_names():
             if name != _("<default>"):
@@ -97,7 +93,7 @@ class AddEditCards:
                 self.categories.setCurrentIndex(i)
                 break
 
-    def card_type_changed(self, new_card_type_name): # SAME
+    def card_type_changed(self, new_card_type_name):
         new_card_type = self.card_type_by_name[unicode(new_card_type_name)]
         if self.card_type.keys().issubset(new_card_type.keys()) or \
                not self.card_type.widget.contains_data():
@@ -119,7 +115,11 @@ class AddEditCards:
         if cat_text == _("<default>"):
             cat_text = ""
         dlg = PreviewCardsDlg(cards, cat_text, self)
-        dlg.exec_()    
+        dlg.exec_()
+
+    def __del__(self):
+        # Make sure that Python knows Qt has deleted this widget.
+        self.card_type.widget = None        
 
 
 class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
