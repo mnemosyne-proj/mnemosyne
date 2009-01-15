@@ -49,6 +49,8 @@ class EditFactDlg(QDialog, Ui_EditFactDlg, AddEditCards):
         status = c.update_related_cards(self.fact, new_fact_data,
                         new_card_type, new_cat_names, self.correspondence)
         if status == 0:
+            cat_text = ', '.join(new_cat_names)
+            config()["categories_of_last_added"] = cat_text
             QDialog.accept(self)
 
     def reject(self): # Override 'add cards' behaviour.

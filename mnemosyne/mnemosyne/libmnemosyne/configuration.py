@@ -2,6 +2,9 @@
 # configuration.py <Peter.Bienstman@UGent.be>
 #
 
+import gettext
+_ = gettext.gettext
+
 import random
 import os
 import sys
@@ -77,8 +80,8 @@ class Configuration(dict, Component):
              "list_font": None,
              "grade_0_items_at_once": 5,
              "randomise_new_cards": False,
-             "last_add_vice_versa": False,
-             "last_add_category": "<default>",
+             "card_type_name_of_last_added": "",
+             "categories_of_last_added": _("<default>"),
              "sort_column": None,
              "sort_order": None,
              "show_intervals": "never",

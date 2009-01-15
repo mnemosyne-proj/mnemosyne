@@ -23,23 +23,26 @@ class AddEditCards:
 
     """Code shared between the add and the edit dialogs."""
 
-    def initialise_card_types_combobox(self, current_card_type):
+    def initialise_card_types_combobox(self, current_card_type_name):
         # We calculate card_type_by_name here rather than in the component
         # manager, because these names can change if the user chooses another
         # translation.
         self.card_type_by_name = {}
         self.card_type = None
-        self.card_type_index = 0
-        self.correspondence = {}   
+        self.card_type_index = 0   
         for card_type in card_types():
-            if card_type == current_card_type:
+            if card_type.name == current_card_type_name:
                 self.card_type = card_type
                 self.card_type_index = self.card_types.count()
             self.card_type_by_name[card_type.name] = card_type
             self.card_types.addItem(card_type.name)
+        if not self.card_type:
+            self.card_type = card_types()[0]
+            self.card_type_index = 0
         self.card_types.setCurrentIndex(self.card_type_index)
         self.connect(self.card_types, SIGNAL("currentIndexChanged(QString)"),
                      self.card_type_changed)
+        self.correspondence = {} # Used when changing card types.
         self.update_card_widget()
         
     def update_card_widget(self):
@@ -94,7 +97,9 @@ class AddEditCards:
                 break
 
     def card_type_changed(self, new_card_type_name):
-        new_card_type = self.card_type_by_name[unicode(new_card_type_name)]
+        new_card_type_name = unicode(new_card_type_name)
+        config()["card_type_name_of_last_added"] = new_card_type_name
+        new_card_type = self.card_type_by_name[new_card_type_name]
         if self.card_type.keys().issubset(new_card_type.keys()) or \
                not self.card_type.widget.contains_data():
             self.update_card_widget()            
@@ -127,9 +132,10 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
-        # TODO: remember last card type and last categories.
-        self.initialise_card_types_combobox(card_types()[0])
-        self.update_categories_combobox(config()["last_add_category"])  
+        self.initialise_card_types_combobox(\
+            config()["card_type_name_of_last_added"])
+        self.update_categories_combobox(\
+            config()["categories_of_last_added"])  
         self.grades = QButtonGroup()
         self.grades.addButton(self.grade_0_button, 0)
         self.grades.addButton(self.grade_1_button, 1)
@@ -152,7 +158,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         card_type = self.card_type_by_name[card_type_name]
         c = ui_controller_main()
         c.create_new_cards(fact_data, card_type, grade, cat_names)
-        self.update_categories_combobox(', '.join(cat_names))
+        cat_text = ', '.join(cat_names)
+        self.update_categories_combobox(cat_text)
+        config()["categories_of_last_added"] = cat_text
         database().save(config()['path'])
         self.card_type.widget.clear()
 
