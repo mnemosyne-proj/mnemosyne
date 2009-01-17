@@ -57,7 +57,7 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.parent().actionEditCurrentCard.setEnabled(enable)
 
     def enable_delete_current_card(self, enable):      
-        self.parent().actionDeleteCurrentCard.setEnabled(enable)
+        self.parent().actionDeleteCurrentFact.setEnabled(enable)
 
     def enable_edit_deck(self, enable):      
         self.parent().actionEditDeck.setEnabled(enable)

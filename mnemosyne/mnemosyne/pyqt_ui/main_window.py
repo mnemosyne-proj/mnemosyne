@@ -100,7 +100,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def edit_current_card(self):
         ui_controller_main().edit_current_card()
-
+        
+    def delete_current_fact(self):
+        ui_controller_main().delete_current_fact()
+        
     def file_new(self):
         ui_controller_main().file_new()
 

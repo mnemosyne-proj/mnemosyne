@@ -5,11 +5,7 @@
 
 * Mnemosyne 2.0:
 
--delete card
-
--global font setting
-
--card type css
+-formatting of cards
 
 -GUI option to derive from three sided card type to create a new language
  specific card type. Test inheritance of card type convertors.

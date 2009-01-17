@@ -146,6 +146,30 @@ class DefaultMainController(UiControllerMain):
             db.update_card(card)
         return 0
 
+    def delete_current_fact(self):
+        stopwatch.pause()
+        db = database()
+        review_controller = ui_controller_review()
+        fact = review_controller.card.fact
+        no_of_cards = len(db.cards_from_fact(fact))
+        if no_of_cards == 1:
+            question = _("Delete this card?")
+        elif no_of_cards == 2:
+            question = _("Delete this card and 1 related card?")
+        else:
+            question = _("Delete this card and") + " " + str(no_of_cards - 1) \
+                       + " " + _("related cards?")
+        answer = self.widget.question_box(question, _("&Delete"),
+                                          _("&Cancel"), "")
+        if answer == 1: # Cancel.
+            return
+        db.delete_fact_and_related_data(fact)
+        if review_controller.card == None:
+            review_controller.new_question()
+        self.widget.update_status_bar()
+        review_controller.update_dialog(redraw_all=True)
+        stopwatch.unpause()
+
     def file_new(self):
         stopwatch.pause()
         out = self.widget.save_file_dialog(path=config().basedir,

@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>168</width>
-    <height>176</height>
+    <width>186</width>
+    <height>237</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -28,7 +28,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>168</width>
+     <width>186</width>
      <height>25</height>
     </rect>
    </property>
@@ -52,7 +52,7 @@
     </property>
     <addaction name="actionAddCards" />
     <addaction name="actionEditCurrentCard" />
-    <addaction name="actionDeleteCurrentCard" />
+    <addaction name="actionDeleteCurrentFact" />
     <addaction name="separator" />
     <addaction name="actionEditDeck" />
     <addaction name="actionActivateCategories" />
@@ -100,7 +100,7 @@
    </attribute>
    <addaction name="actionAddCards" />
    <addaction name="actionEditCurrentCard" />
-   <addaction name="actionDeleteCurrentCard" />
+   <addaction name="actionDeleteCurrentFact" />
    <addaction name="actionEditDeck" />
    <addaction name="actionShowStatistics" />
   </widget>
@@ -138,13 +138,13 @@
     <string>&amp;Configure Mnemosyne</string>
    </property>
   </action>
-  <action name="actionDeleteCurrentCard" >
+  <action name="actionDeleteCurrentFact" >
    <property name="icon" >
     <iconset resource="mnemosyne.qrc" >
      <normaloff>:/mnemosyne/pixmaps/delete.png</normaloff>:/mnemosyne/pixmaps/delete.png</iconset>
    </property>
    <property name="text" >
-    <string>&amp;Delete current card</string>
+    <string>&amp;Delete current card(s)</string>
    </property>
    <property name="shortcut" >
     <string>Backspace</string>
@@ -390,6 +390,22 @@
     <hint type="destinationlabel" >
      <x>83</x>
      <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDeleteCurrentFact</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>delete_current_fact</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>109</x>
+     <y>67</y>
     </hint>
    </hints>
   </connection>

@@ -30,6 +30,9 @@ class UiControllerMain(Component):
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
                              new_cat_names, correspondence):
         raise NotImplementedError
+
+    def delete_current_fact(self):
+        raise NotImplementedError    
     
     def file_new(self):
         raise NotImplementedError
