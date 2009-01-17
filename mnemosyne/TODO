@@ -148,8 +148,6 @@ http://pythoscope.org/
 -pylint, pyflakes
 
 
-
-
 * After 2.0:
 
 -three sided export?
@@ -203,8 +201,6 @@ Status: initial code written, but clean up needed.
 
 -clean up interval when importing from txt
 
--make file format strings translatable
-
 -paste from clipboard
 
 -preselect all in some text fields, so that the users can start typing
@@ -216,13 +212,11 @@ Status: initial code written, but clean up needed.
 
 -autoupgrade, or at least notify of available upgrade (needs a separate thread)
 
--remember window size set by the user?
+-remember window size set by the user
 
 -bundle docs
 
 -undo last grade + keyboard shortcut
-
--icon handling patch Dirk
 
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
