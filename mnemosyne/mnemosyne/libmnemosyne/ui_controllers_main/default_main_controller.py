@@ -239,3 +239,9 @@ class DefaultMainController(UiControllerMain):
             return
         ui_controller_review().update_dialog()
         stopwatch.unpause()
+
+    def card_appearance(self):
+        stopwatch.pause()
+        self.widget.run_card_appearance_dialog()
+        ui_controller_review().update_dialog(redraw_all=True)
+        stopwatch.unpause()

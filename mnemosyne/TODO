@@ -33,6 +33,8 @@
 
 -test sound
 
+-move 'card type by name' to different place?
+
 -don't change card id on import from old files
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html

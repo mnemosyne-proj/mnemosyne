@@ -45,3 +45,6 @@ class UiControllerMain(Component):
     
     def file_save_as(self):
         raise NotImplementedError
+    
+    def card_appearance(self):
+        raise NotImplementedError

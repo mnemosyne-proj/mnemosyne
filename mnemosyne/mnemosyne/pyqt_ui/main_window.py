@@ -15,6 +15,7 @@ import review_wdgt
 from ui_main_window import Ui_MainWindow
 from add_cards_dlg import AddCardsDlg
 from edit_fact_dlg import EditFactDlg
+from card_appearance_dlg import CardAppearanceDlg
 #from import_dlg import *
 #from export_dlg import *
 #from edit_item_dlg import *
@@ -116,13 +117,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def file_save_as(self):
         ui_controller_main().file_save_as()
 
+    def card_appearance(self):
+        ui_controller_main().card_appearance()        
+
     def run_add_cards_dialog(self):
         dlg = AddCardsDlg(self)
         dlg.exec_()
 
     def run_edit_fact_dialog(self, fact, allow_cancel=True):
         dlg = EditFactDlg(fact, allow_cancel, self)
-        dlg.exec_()       
+        dlg.exec_()
+
+    def run_card_appearance_dialog(self):
+        dlg = CardAppearanceDlg(self)
+        dlg.exec_()
+        
         
     def Import(self):
         stopwatch.pause()

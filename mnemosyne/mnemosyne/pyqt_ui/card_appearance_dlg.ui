@@ -1,12 +1,12 @@
 <ui version="4.0" >
- <class>EditFactDlg</class>
- <widget class="QDialog" name="EditFactDlg" >
+ <class>CardAppearanceDlg</class>
+ <widget class="QDialog" name="CardAppearanceDlg" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>162</height>
+    <width>209</width>
+    <height>102</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -32,68 +32,17 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <item>
+          <property name="text" >
+           <string>&lt;all card types></string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout" >
-       <item row="1" column="0" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
-          <string>Field 1:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" >
-        <widget class="QPushButton" name="font_1" >
-         <property name="text" >
-          <string>Font</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" >
-        <widget class="QPushButton" name="pushButton_2" >
-         <property name="text" >
-          <string>Colour</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3" >
-        <widget class="QCheckBox" name="left_align_1" >
-         <property name="text" >
-          <string>Left align</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="field_label_2" >
-         <property name="text" >
-          <string>Field 2:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" >
-        <widget class="QPushButton" name="pushButton_5" >
-         <property name="text" >
-          <string>Font</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2" >
-        <widget class="QPushButton" name="pushButton_4" >
-         <property name="text" >
-          <string>Colour</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3" >
-        <widget class="QCheckBox" name="checkBox_2" >
-         <property name="text" >
-          <string>Left align</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="2" >
         <widget class="QPushButton" name="background_button" >
          <property name="text" >
@@ -107,6 +56,32 @@
           <string>Background:</string>
          </property>
         </widget>
+       </item>
+       <item row="0" column="1" >
+        <spacer name="horizontalSpacer_2" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="3" >
+        <spacer name="horizontalSpacer_3" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
@@ -178,7 +153,7 @@
   <connection>
    <sender>exit_button</sender>
    <signal>clicked()</signal>
-   <receiver>EditFactDlg</receiver>
+   <receiver>CardAppearanceDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -194,7 +169,7 @@
   <connection>
    <sender>OK_button</sender>
    <signal>clicked()</signal>
-   <receiver>EditFactDlg</receiver>
+   <receiver>CardAppearanceDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -210,7 +185,7 @@
   <connection>
    <sender>preview_button</sender>
    <signal>clicked()</signal>
-   <receiver>EditFactDlg</receiver>
+   <receiver>CardAppearanceDlg</receiver>
    <slot>preview</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -220,6 +195,22 @@
     <hint type="destinationlabel" >
      <x>148</x>
      <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>card_types</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>CardAppearanceDlg</receiver>
+   <slot>card_type_changed</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>193</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>159</x>
+     <y>80</y>
     </hint>
    </hints>
   </connection>

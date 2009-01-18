@@ -54,6 +54,9 @@ class CardType(Component):
     def keys(self):
         return set(fact_key for (fact_key, fact_key_name) in self.fields)
 
+    def key_names(self):
+        return [fact_key_name for (fact_key, fact_key_name) in self.fields]
+    
     def key_with_name(self, key_name):
         for fact_key, fact_key_name in self.fields:
             if fact_key_name == key_name:

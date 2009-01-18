@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>186</width>
-    <height>237</height>
+    <width>247</width>
+    <height>207</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -28,7 +28,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>186</width>
+     <width>247</width>
      <height>25</height>
     </rect>
    </property>
@@ -64,7 +64,7 @@
     <property name="title" >
      <string>&amp;Settings</string>
     </property>
-    <addaction name="actionShowToolbar" />
+    <addaction name="actionCardAppearance" />
     <addaction name="actionConfiguration" />
    </widget>
    <widget class="QMenu" name="menu_Help" >
@@ -276,6 +276,11 @@
     <string>&amp;Tip of the day</string>
    </property>
   </action>
+  <action name="actionCardAppearance" >
+   <property name="text" >
+    <string>Card &amp;appearance</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="mnemosyne.qrc" />
@@ -406,6 +411,22 @@
     <hint type="destinationlabel" >
      <x>109</x>
      <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCardAppearance</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>card_appearance</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>123</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
