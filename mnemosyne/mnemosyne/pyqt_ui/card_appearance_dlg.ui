@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>209</width>
+    <width>216</width>
     <height>102</height>
    </rect>
   </property>
@@ -32,11 +32,6 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <item>
-          <property name="text" >
-           <string>&lt;all card types></string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>
@@ -211,6 +206,22 @@
     <hint type="destinationlabel" >
      <x>159</x>
      <y>80</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>background_button</sender>
+   <signal>clicked()</signal>
+   <receiver>CardAppearanceDlg</receiver>
+   <slot>update_background_colour</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>148</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>107</x>
+     <y>50</y>
     </hint>
    </hints>
   </connection>

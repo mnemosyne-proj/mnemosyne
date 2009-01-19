@@ -22,6 +22,8 @@
 
 -test uploading of logs
 
+-remove grade 1 limit
+
 -show latex errors in GUI?
 
 -add new functions to SQL database, make sure rebuild queue is called when
