@@ -11,13 +11,13 @@ from mnemosyne.libmnemosyne.component_manager import filters
 class HtmlCss(Renderer):
     
     def __init__(self):
-        self._css = {} # {card_type: css}
+        self._css = {} # {card_type.id: css}
         
     def css(self, card_type):
-        if card_type in self._css:
-            return self._css[card_type]
+        if card_type.id in self._css:
+            return self._css[card_type.id]
         else:
-            self._css[card_type] = """
+            self._css[card_type.id] = """
             <style type="text/css">
             table { margin-left: auto;
                 margin-right: auto; /* Centers table, but not its contents. */
@@ -28,10 +28,10 @@ class HtmlCss(Renderer):
                 padding: 0;
                 border: thin solid #8F8F8F; }\n"""
             for field in card_type.fields: # Center content in table.
-                self._css[card_type] += "div#"+ field[0] + \
+                self._css[card_type.id] += "div#"+ field[0] + \
                         " {text-align: center;}\n"
-            self._css[card_type] += "</style>"
-            return self._css[card_type]
+            self._css[card_type.id] += "</style>"
+            return self._css[card_type.id]
             
     def render_card_fields(self, fact, fields):
         html = "<html><head>" + self.css(fact.card_type) + \

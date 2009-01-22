@@ -29,7 +29,6 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         for card_type in card_types():
             self.card_type_by_name[card_type.name] = card_type
             self.card_types.addItem(card_type.name)
-        # TODO: Backup old formatting to be able to cancel dialog.
 
     def card_type_changed(self, new_card_type_name):
         if new_card_type_name == _("<all card types>"):
@@ -80,13 +79,17 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
                      self.update_align)
         
     def update_font(self, index):
-        print 'updated font', index
-
+        if len(self.affected_card_types) > 1:
+            affected_key = None # Actually means all the keys.
+        else:
+            affected_key = self.affected_card_types[0].fields[index][0]
+        # TODO: update default name.
         font, ok = QFontDialog.getFont(QFont("Helvetica [Cronyx]", 10), self)
         if ok:
-            print unicode(font.toString())
-        else:
-            print 'cancel'
+            font_string = unicode(font.toString())
+            for card_type in self.affected_card_types:
+                card_type.get_renderer().set_property('font', font_string,
+                                                      card_type, affected_key)
         
     def update_colour(self, index):
         print 'updated colour', index

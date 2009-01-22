@@ -5,6 +5,8 @@
 
 * Mnemosyne 2.0:
 
+-card type hook to do stuff after grading?
+
 -formatting of cards
 
 -GUI option to derive from three sided card type to create a new language
