@@ -77,7 +77,8 @@ class Configuration(dict, Component):
              "upload_server": "mnemosyne-proj.dyndns.org:80",
              "log_index": 1, 
              "font": {}, # [card_type.id][fact_key]
-             "colour": {}, # [card_type.id][fact_key]
+             "background_colour": {}, # [card_type.id]             
+             "font_colour": {}, # [card_type.id][fact_key]
              "alignment": {}, # [card_type.id][fact_key] 
              "list_font": None,
              "grade_0_items_at_once": 5,

@@ -79,12 +79,26 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
                      self.update_align)
         
     def update_font(self, index):
+        # Determine keys affected.
         if len(self.affected_card_types) > 1:
             affected_key = None # Actually means all the keys.
         else:
             affected_key = self.affected_card_types[0].fields[index][0]
-        # TODO: update default name.
-        font, ok = QFontDialog.getFont(QFont("Helvetica [Cronyx]", 10), self)
+            
+        # Determine current font.
+        current_font = QFont(self.font())
+        try:
+            if len(self.affected_card_types) > 1:
+                font_string = config()['font']['1']['q']
+            else:
+                font_string = config()['font'][self.affected_card_types[0].id]\
+                                                             [affected_key]
+            current_font.fromString(font_string)
+        except:
+            pass
+        
+        # Set new font.
+        font, ok = QFontDialog.getFont(current_font, self)
         if ok:
             font_string = unicode(font.toString())
             for card_type in self.affected_card_types:
@@ -92,7 +106,37 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
                                                       card_type, affected_key)
         
     def update_colour(self, index):
-        print 'updated colour', index
+        # Determine keys affected.
+        if len(self.affected_card_types) > 1:
+            affected_key = None # Actually means all the keys.
+        else:
+            affected_key = self.affected_card_types[0].fields[index][0]
+            
+        # Determine current colour.
+        current_colour = Qt.green
+        if 1:
+            if len(self.affected_card_types) > 1:
+                current_rgb = config()['colour']['1']['q']
+            else:
+                current_rgb = config()['colour']\
+                             [self.affected_card_types[0].id][affected_key]
+            print current_rgb
+            current_colour = QColor(current_rgb)
+        else:
+            pass
+        print current_colour
+        
+        # Set new colour.
+        colour = QColorDialog.getColor(Qt.blue, self)
+        if colour.isValid():
+            print "%X" % colour.rgb()
+
+            # Note: convert to CSS colour names:
+            #colour = "%X" % colour.rgb() # FFrrggbb
+            #colour = "#" + colour[2:] # Xrrggbb
+            for card_type in self.affected_card_types:
+                card_type.get_renderer().set_property('colour', colour.rgb(),
+                                                      card_type, affected_key)
         
     def update_align(self, index):
         print 'updated align', index
