@@ -10,7 +10,9 @@ from PyQt4.QtGui import *
 
 from ui_card_appearance_dlg import Ui_CardAppearanceDlg
 
+from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.component_manager import config, card_types
+from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 
 
 class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
@@ -74,7 +76,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         self.connect(self.font_buttons, SIGNAL("buttonClicked(int)"),
                      self.update_font)
         self.connect(self.colour_buttons, SIGNAL("buttonClicked(int)"),
-                     self.update_colour)
+                     self.update_font_colour)
         self.connect(self.align_buttons, SIGNAL("buttonClicked(int)"),
                      self.update_align)
         
@@ -105,7 +107,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
                 card_type.get_renderer().set_property('font', font_string,
                                                       card_type, affected_key)
         
-    def update_colour(self, index):
+    def update_font_colour(self, index):
         # Determine keys affected.
         if len(self.affected_card_types) > 1:
             affected_key = None # Actually means all the keys.
@@ -113,29 +115,22 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
             affected_key = self.affected_card_types[0].fields[index][0]
             
         # Determine current colour.
-        current_colour = Qt.green
-        if 1:
+        current_colour = Qt.black
+        try:
             if len(self.affected_card_types) > 1:
-                current_rgb = config()['colour']['1']['q']
+                current_rgb = config()['font_colour']['1']['q']
             else:
-                current_rgb = config()['colour']\
+                current_rgb = config()['font_colour']\
                              [self.affected_card_types[0].id][affected_key]
-            print current_rgb
             current_colour = QColor(current_rgb)
-        else:
+        except:
             pass
-        print current_colour
         
         # Set new colour.
-        colour = QColorDialog.getColor(Qt.blue, self)
+        colour = QColorDialog.getColor(current_colour, self)
         if colour.isValid():
-            print "%X" % colour.rgb()
-
-            # Note: convert to CSS colour names:
-            #colour = "%X" % colour.rgb() # FFrrggbb
-            #colour = "#" + colour[2:] # Xrrggbb
             for card_type in self.affected_card_types:
-                card_type.get_renderer().set_property('colour', colour.rgb(),
+                card_type.get_renderer().set_property('font_colour', colour.rgb(),
                                                       card_type, affected_key)
         
     def update_align(self, index):
@@ -143,13 +138,20 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         
     def update_background_colour(self):
         print 'updated background colour'
+
+    def accept(self):
+        for card_type in self.affected_card_types:
+            card_type.get_renderer().update(card_type)
+        QDialog.accept(self)
         
     def preview(self):
-        fact_data = self.card_type.widget.get_data(check_for_required=False)
-        fact = Fact(fact_data, self.card_type)
-        cards = self.card_type.create_related_cards(fact)
-        cat_text = self.categories.currentText()
-        if cat_text == _("<default>"):
-            cat_text = ""
+        card_type = self.affected_card_types[0]
+        card_type.get_renderer().update(card_type)
+        fact_data = {}
+        for fact_key, fact_key_name in card_type.fields:
+            fact_data[fact_key] = fact_key_name
+        fact = Fact(fact_data, card_type)
+        cards = card_type.create_related_cards(fact)        
+        cat_text = ""
         dlg = PreviewCardsDlg(cards, cat_text, self)
         dlg.exec_()

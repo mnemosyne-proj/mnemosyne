@@ -124,35 +124,12 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
     #
     # update_dialog
     #
-    #   Contains the updating of the dialog that is not specifically
-    #   handled by the UI controller.
-    #
-    #   TODO: everything here will either have to be reimplemented in a
-    #   completely different way or will become obsolete.
+    #   TODO: remove
     #
     ##########################################################################
 
     def update_dialog(self):
-        # Update question and answer font.
-
-        if config()["QA_font"] != None:
-            font = QFont()
-            font.fromString(config()["QA_font"])
-        else:
-            font = self.show_button.font()
-
-        #self.question.setFont(font)
-        #self.answer.setFont(font)
-
-        # Update question and answer alignment.
-
-        #if get_config("left_align") == True:
-        #    alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.TextWordWrap
-        #else:
-        #    alignment = Qt.AlignHCenter | Qt.AlignVCenter | Qt.TextWordWrap
-
-        #self.question.setAlignment(alignment)
-        #self.answer.setAlignment(alignment)
+        pass
 
 # Register widget.
 

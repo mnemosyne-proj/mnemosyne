@@ -8,6 +8,12 @@ from mnemosyne.libmnemosyne.component_manager import config
 
 class Renderer(Component):
 
+    def update(self, card_type):
+
+        """Update renderer information for given card type."""
+        
+        pass
+
     def set_property(self, property_name, property, card_type, fact_key=None):
 
         """Set a property (like font, colour, ..) for a certain card type.
@@ -15,7 +21,8 @@ class Renderer(Component):
 
         """
 
-        if property_name not in ['font', 'colour', 'alignment']:
+        if property_name not in ['background_colour', 'font', 'font_colour',
+                                 'alignment']:
             raise KeyError
         config()[property_name].setdefault(card_type.id, {})
         for key in card_type.keys():
@@ -26,7 +33,8 @@ class Renderer(Component):
             keys = [fact_key]
         for key in keys:
             config()[property_name][card_type.id][key] = property
-        print config()[property_name]
+        print "Setting property", config()[property_name]
+
         
     def render_card_fields(self, card, fields):
         

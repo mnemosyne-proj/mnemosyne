@@ -7,7 +7,7 @@
 
 -card type hook to do stuff after grading?
 
--formatting of cards
+-formatting of cards (backup/undo, default)
 
 -GUI option to derive from three sided card type to create a new language
  specific card type. Test inheritance of card type convertors.
@@ -34,6 +34,8 @@
 -ghost out 3.4 and 5 for unlearned cards?
 
 -easier function to do tag detection in plugin
+
+-make sure searching for a single unicode character works
 
 -test sound
 
