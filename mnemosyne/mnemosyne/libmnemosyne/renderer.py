@@ -21,9 +21,13 @@ class Renderer(Component):
 
         """
 
-        if property_name not in ['background_colour', 'font', 'font_colour',
-                                 'alignment']:
+        if property_name not in ["background_colour", "font", "font_colour",
+                                 "alignment"]:
             raise KeyError
+        if property_name == "background_colour":
+            config()[property_name][card_type.id] = property
+            print "Setting property", property_name, config()[property_name]           
+            return
         config()[property_name].setdefault(card_type.id, {})
         for key in card_type.keys():
             config()[property_name][card_type.id].setdefault(key, None)
@@ -33,7 +37,7 @@ class Renderer(Component):
             keys = [fact_key]
         for key in keys:
             config()[property_name][card_type.id][key] = property
-        print "Setting property", config()[property_name]
+        print "Setting property", property_name, config()[property_name]
 
         
     def render_card_fields(self, card, fields):

@@ -20,8 +20,15 @@ class HtmlCss(Renderer):
         table { margin-left: auto;
                 margin-right: auto; /* Centers table, but not its contents. */
                 height: 100%; }
-        body { color: black;
-                background-color: white;
+        body { color: black; """
+        # Background colours.
+        try:
+            colour = config()["background_colour"][card_type.id]
+            colour_string = ("%X" % colour)[2:] # Strip alpha.
+            self._css[card_type.id] += "background-color: #%s;" % colour_string
+        except:
+            pass
+        self._css[card_type.id] += """
                 margin: 0;
                 padding: 0;
                 border: thin solid #8F8F8F; }\n"""

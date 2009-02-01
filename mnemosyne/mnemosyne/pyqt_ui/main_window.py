@@ -179,21 +179,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg.exec_()
         stopwatch.unpause()
 
-    def deleteCurrentCard(self):
-        # TODO: ask user if he wants to delete all related cards, or only
-        # deactivate this cardview?
-        stopwatch.pause()
-        status = QMessageBox.warning(None,
-                                     _("Mnemosyne"),
-                                     _("Delete current card?"),
-                                     _("&Yes"), _("&No"),
-                                     QString(), 1, -1)
-        if status == 0:
-            delete_card(self.card)
-            self.newQuestion()
-        ui_controller_review().update_dialog(redraw_all=True)
-        stopwatch.unpause()
-
     def activateCategories(self):
         stopwatch.pause()
         dlg = ActivateCategoriesDlg(self)

@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>216</width>
+    <width>309</width>
     <height>102</height>
    </rect>
   </property>
@@ -87,20 +87,10 @@
          <property name="text" >
           <string>&amp;OK</string>
          </property>
+         <property name="default" >
+          <bool>true</bool>
+         </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer" >
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>70</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item>
         <widget class="QPushButton" name="preview_button" >
@@ -113,22 +103,16 @@
         </widget>
        </item>
        <item>
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
+        <widget class="QPushButton" name="defaults_button" >
+         <property name="text" >
+          <string>&amp;Defaults</string>
          </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>70</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="exit_button" >
+        <widget class="QPushButton" name="cancel_button" >
          <property name="text" >
-          <string>E&amp;xit</string>
+          <string>&amp;Cancel</string>
          </property>
          <property name="autoDefault" >
           <bool>false</bool>
@@ -146,7 +130,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>exit_button</sender>
+   <sender>cancel_button</sender>
    <signal>clicked()</signal>
    <receiver>CardAppearanceDlg</receiver>
    <slot>reject()</slot>
@@ -221,6 +205,22 @@
     </hint>
     <hint type="destinationlabel" >
      <x>107</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>defaults_button</sender>
+   <signal>clicked()</signal>
+   <receiver>CardAppearanceDlg</receiver>
+   <slot>defaults</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>186</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>156</x>
      <y>50</y>
     </hint>
    </hints>

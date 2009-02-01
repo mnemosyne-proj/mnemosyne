@@ -7,7 +7,9 @@
 
 -card type hook to do stuff after grading?
 
--formatting of cards (backup/undo, default)
+-formatting of cards, also in edit widget
+
+-option to read css from file
 
 -GUI option to derive from three sided card type to create a new language
  specific card type. Test inheritance of card type convertors.

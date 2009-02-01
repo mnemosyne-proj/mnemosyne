@@ -5,6 +5,8 @@
 import gettext
 _ = gettext.gettext
 
+from copy import deepcopy
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -23,6 +25,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         self.dynamic_widgets = []
         self.affected_card_types = []
         self.key_names = []
+        
         # We calculate card_type_by_name here rather than in the component
         # manager, because these names can change if the user chooses another
         # translation.
@@ -31,6 +34,13 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         for card_type in card_types():
             self.card_type_by_name[card_type.name] = card_type
             self.card_types.addItem(card_type.name)
+            
+        # Store backups in order to be able to revert our changes.
+        self.old_font = deepcopy(config()["font"])
+        self.old_background_colour = deepcopy(config()["background_colour"])
+        self.old_font_colour = deepcopy(config()["font_colour"])
+        self.old_alignment = deepcopy(config()["alignment"])
+        self.changed = False
 
     def card_type_changed(self, new_card_type_name):
         if new_card_type_name == _("<all card types>"):
@@ -79,6 +89,24 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
                      self.update_font_colour)
         self.connect(self.align_buttons, SIGNAL("buttonClicked(int)"),
                      self.update_align)
+
+    def update_background_colour(self):
+        # Determine current colour.
+        current_colour = Qt.black
+        if 1:
+            current_rgb = config()["background_colour"]\
+                          [self.affected_card_types[0].id]
+            current_colour = QColor(current_rgb)
+        else:
+            pass
+        
+        # Set new colour.
+        colour = QColorDialog.getColor(current_colour, self)
+        if colour.isValid():
+            for card_type in self.affected_card_types:
+                card_type.get_renderer().set_property("background_colour",
+                                                      colour.rgb(), card_type)
+            self.changed = True
         
     def update_font(self, index):
         # Determine keys affected.
@@ -106,6 +134,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
             for card_type in self.affected_card_types:
                 card_type.get_renderer().set_property('font', font_string,
                                                       card_type, affected_key)
+            self.changed = True
         
     def update_font_colour(self, index):
         # Determine keys affected.
@@ -132,17 +161,16 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
             for card_type in self.affected_card_types:
                 card_type.get_renderer().set_property('font_colour', colour.rgb(),
                                                       card_type, affected_key)
+            self.changed = True
         
     def update_align(self, index):
         print 'updated align', index
+        self.changed = True
         
-    def update_background_colour(self):
-        print 'updated background colour'
-
     def accept(self):
         for card_type in self.affected_card_types:
             card_type.get_renderer().update(card_type)
-        QDialog.accept(self)
+        QDialog.accept(self)     
         
     def preview(self):
         card_type = self.affected_card_types[0]
@@ -155,3 +183,21 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         cat_text = ""
         dlg = PreviewCardsDlg(cards, cat_text, self)
         dlg.exec_()
+        
+    def defaults(self):
+        config()["font"] = {}
+        config()["background_colour"] = {}
+        config()["font_colour"] = {}
+        config()["alignment"] = {}
+
+    def reject(self):
+        if self.changed == True:
+            result = QMessageBox.question(None, _("Mnemosyne"), _("Abandon changes?"),
+                                          _("&Yes"), _("&No"), "", 0, -1)
+            if result == 1:
+                return
+        config()["font"] = self.old_font
+        config()["background_colour"] = self.old_background_colour
+        config()["font_colour"] = self.old_font_colour
+        config()["alignment"] = self.old_alignment
+        QDialog.reject(self)   

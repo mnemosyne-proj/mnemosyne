@@ -182,7 +182,3 @@ class SM2Controller(UiControllerReview):
             #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
         # Update status bar.
         ui_controller_main().widget.update_status_bar()
-        # Run possible update code that independent of the controller state.
-        # TODO: remove when migration is complete.
-        w.update_dialog()
-
