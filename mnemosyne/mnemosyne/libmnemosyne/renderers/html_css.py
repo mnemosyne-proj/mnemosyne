@@ -43,6 +43,26 @@ class HtmlCss(Renderer):
                 self._css[card_type.id] += "color: #%s;" % colour_string
             except:
                 pass
+            # Text font.
+            try:
+                font_string = config()["font"][card_type.id][key]
+                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                self._css[card_type.id] += "font-family: %s; " % family
+                self._css[card_type.id] += "font-size: %s; " % size
+                if w == "25":
+                    self._css[card_type.id] += "font-weight: light; "
+                if w == "75":
+                    self._css[card_type.id] += "font-weight: bold; "                    
+                if i == "1":
+                    self._css[card_type.id] += "font-style: italic; "
+                if i == "2":
+                    self._css[card_type.id] += "font-style: oblique; "
+                if u == "1":
+                    self._css[card_type.id] += "text-decoration: underline; "
+                if s == "1":
+                    self._css[card_type.id] += "text-decoration: line-through; "                    
+            except:
+                pass                
             self._css[card_type.id] += "}\n"
         self._css[card_type.id] += "</style>"
 

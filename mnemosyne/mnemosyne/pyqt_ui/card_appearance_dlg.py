@@ -93,11 +93,11 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
     def update_background_colour(self):
         # Determine current colour.
         current_colour = Qt.black
-        if 1:
+        try:
             current_rgb = config()["background_colour"]\
                           [self.affected_card_types[0].id]
             current_colour = QColor(current_rgb)
-        else:
+        except:
             pass
         
         # Set new colour.
