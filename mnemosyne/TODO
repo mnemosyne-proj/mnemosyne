@@ -5,11 +5,17 @@
 
 * Mnemosyne 2.0:
 
--card type hook to do stuff after grading?
-
--formatting of cards, also in edit widget
+-implement alignment in css
 
 -option to read css from file
+
+-card type hook to do stuff after grading?
+
+-GUI plugin manager
+
+-respect card_type.fact_views_can_be_deactivated
+
+-test map card type plugin
 
 -GUI option to derive from three sided card type to create a new language
  specific card type. Test inheritance of card type convertors.
@@ -33,6 +39,10 @@
 -add new functions to SQL database, make sure rebuild queue is called when
  needed
 
+-adding a picture under Windows screws up / and \, and case
+
+-backup file names with unicode seem to fail under Linux? 
+
 -ghost out 3.4 and 5 for unlearned cards?
 
 -easier function to do tag detection in plugin
@@ -54,10 +64,6 @@
  learning ahead
 
 -remove start date?
-
--respect card_type.fact_views_can_be_deactivated
-
--test map card type plugin
 
 -cramming scheduler
 
@@ -123,8 +129,6 @@
 -does <p align="left"> work as advertised? Otherwise table tag.
 
 -cntrl enter in add and edit instead of clicking ok
-
--more advanced plugin mechanism, plugin manager
 
 -template for cards?
 

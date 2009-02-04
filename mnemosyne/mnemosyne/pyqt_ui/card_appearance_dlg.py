@@ -45,7 +45,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
     def card_type_changed(self, new_card_type_name):
         if new_card_type_name == _("<all card types>"):
             self.affected_card_types = card_types()
-            self.key_names = ["Text"]
+            self.key_names = [_("Text")]
         else:
             new_card_type_name = unicode(new_card_type_name)
             new_card_type = self.card_type_by_name[new_card_type_name]
@@ -61,6 +61,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         self.font_buttons = QButtonGroup()
         self.colour_buttons = QButtonGroup()
         self.align_buttons = QButtonGroup()
+        self.align_buttons.setExclusive(False)
         for key_name in self.key_names:
             label = QLabel(key_name + ":", self)
             self.gridLayout.addWidget(label, row, 0, 1, 1)
@@ -77,6 +78,29 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
             self.dynamic_widgets.append(colour)
             
             left_align = QCheckBox(_("Left align"), self)
+            try:
+                if len(self.affected_card_types) > 1:
+                    values = set()
+                    for card_type in config()['alignment'].values():
+                        for alignment in card_type.values():
+                            if not alignment:
+                                values.add("center")
+                            else:
+                                values.add(alignment)
+                    if len(values) > 1:
+                        left_align.setCheckState(Qt.PartiallyChecked)
+                    elif "left" in values:
+                        left_align.setCheckState(Qt.Checked)
+                    else:
+                        left_align.setCheckState(Qt.Unchecked)                        
+                else:
+                    affected_key = self.affected_card_types[0].fields[row-2][0]   
+                    current_alignment = config()['alignment']\
+                             [self.affected_card_types[0].id][affected_key]
+                    if current_alignment == "left":
+                        left_align.setChecked(True)
+            except:
+                pass
             self.align_buttons.addButton(left_align, row-2)
             self.gridLayout.addWidget(left_align, row, 3, 1, 1)
             self.dynamic_widgets.append(left_align)
@@ -88,7 +112,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         self.connect(self.colour_buttons, SIGNAL("buttonClicked(int)"),
                      self.update_font_colour)
         self.connect(self.align_buttons, SIGNAL("buttonClicked(int)"),
-                     self.update_align)
+                     self.update_alignment)
 
     def update_background_colour(self):
         # Determine current colour.
@@ -163,8 +187,23 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
                                                       card_type, affected_key)
             self.changed = True
         
-    def update_align(self, index):
-        print 'updated align', index
+    def update_alignment(self, index):
+        # Determine keys affected.
+        if len(self.affected_card_types) > 1:
+            affected_key = None # Actually means all the keys.
+        else:
+            affected_key = self.affected_card_types[0].fields[index][0]
+        
+        # Set new aligment.
+        checkbox = self.align_buttons.button(index)
+        if checkbox.checkState() == Qt.Checked:
+            alignment = "left"
+        else:
+            alignment = "center"
+        for card_type in self.affected_card_types:
+            card_type.get_renderer().set_property('alignment', alignment,
+                                                  card_type, affected_key)
+        checkbox.setTristate(False)
         self.changed = True
         
     def accept(self):
@@ -189,6 +228,8 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         config()["background_colour"] = {}
         config()["font_colour"] = {}
         config()["alignment"] = {}
+        for button in self.align_buttons.buttons():
+            button.setCheckState(Qt.Unchecked)
 
     def reject(self):
         if self.changed == True:
