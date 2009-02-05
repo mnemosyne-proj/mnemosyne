@@ -15,27 +15,39 @@ class HtmlCss(Renderer):
         self._css = {} # {card_type.id: css}
 
     def update(self, card_type):
-        self._css[card_type.id] = """
-        <style type="text/css">
-        table { margin-left: auto;
-                margin-right: auto; /* Centers table, but not its contents. */
-                height: 100%; }
-        body { color: black; """
+        self._css[card_type.id] = """<style type="text/css">
+        table { height: 100%; border: thin solid; """
+        # Set aligment of the table (but not the contents within the table).
+        try:
+            alignment = config()["alignment"]
+        except:
+            alignment = "center"
+        if alignment == "left":
+            self._css[card_type.id] += "margin-left: 0; margin-right: auto; "
+        elif alignment == "right":
+            self._css[card_type.id] += "margin-left: auto; margin-right: 0; "
+        else:
+            self._css[card_type.id] += "margin-left: auto; margin-right: auto; "                
+        self._css[card_type.id] += " }\n"
         # Background colours.
+        self._css[card_type.id] += "body { "
         try:
             colour = config()["background_colour"][card_type.id]
             colour_string = ("%X" % colour)[2:] # Strip alpha.
             self._css[card_type.id] += "background-color: #%s;" % colour_string
         except:
             pass
-        self._css[card_type.id] += """
-                margin: 0;
-                padding: 0;
-                border: thin solid #8F8F8F; }\n"""
+        self._css[card_type.id] += """margin: 0;
+        padding: 0;
+        border: thin solid #8F8F8F; }\n"""
         for key in card_type.keys():
-            # Center content in table.
-            self._css[card_type.id] += "div#"+ key + \
-                        " {text-align: center; "
+            self._css[card_type.id] += "div#%s { " % key
+            # Set alignment within table cell.
+            try:
+                alignment = config()["alignment"]
+                self._css[card_type.id] += "text-align: %s; " % alignment               
+            except:
+                pass
             # Text colours.
             try:
                 colour = config()["font_colour"][card_type.id][key]
@@ -60,7 +72,7 @@ class HtmlCss(Renderer):
                 if u == "1":
                     self._css[card_type.id] += "text-decoration: underline; "
                 if s == "1":
-                    self._css[card_type.id] += "text-decoration: line-through; "                    
+                    self._css[card_type.id] += "text-decoration: line-through; "
             except:
                 pass                
             self._css[card_type.id] += "}\n"
@@ -75,12 +87,13 @@ class HtmlCss(Renderer):
                 
     def render_card_fields(self, fact, fields):
         html = "<html><head>" + self.css(fact.card_type) + \
-            "</head><body><table><tr><td>"
+            "</head><body><table>"
         for field in fields:
             key = field[0]
             s = fact[key]
             for f in filters():
                 s = f.run(s, fact)
-            html += "<div id=\"%s\">%s</div>" % (key, s)
-        html += "</td></tr></table></body></html>"
+            html += "<tr><td><div id=\"%s\">%s</div></td></tr>" % (key, s)
+        html += "</table></body></html>"
+        print html
         return html

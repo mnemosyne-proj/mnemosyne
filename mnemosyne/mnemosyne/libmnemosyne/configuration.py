@@ -79,7 +79,7 @@ class Configuration(dict, Component):
              "font": {}, # [card_type.id][fact_key]
              "background_colour": {}, # [card_type.id]             
              "font_colour": {}, # [card_type.id][fact_key]
-             "alignment": {}, # [card_type.id][fact_key] 
+             "alignment": {}, # [card_type.id]
              "list_font": None,
              "grade_0_items_at_once": 5,
              "randomise_new_cards": False,

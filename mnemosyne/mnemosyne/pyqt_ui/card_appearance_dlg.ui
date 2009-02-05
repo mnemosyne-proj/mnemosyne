@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>309</width>
-    <height>102</height>
+    <width>343</width>
+    <height>149</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -37,22 +37,15 @@
       </layout>
      </item>
      <item>
+      <widget class="Line" name="line_3" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QGridLayout" name="gridLayout" >
-       <item row="0" column="2" >
-        <widget class="QPushButton" name="background_button" >
-         <property name="text" >
-          <string>Colour</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0" >
-        <widget class="QLabel" name="label_3" >
-         <property name="text" >
-          <string>Background:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1" >
         <spacer name="horizontalSpacer_2" >
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
@@ -65,8 +58,21 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="3" >
+       <item row="0" column="1" >
         <spacer name="horizontalSpacer_3" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="2" >
+        <spacer name="horizontalSpacer_4" >
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
          </property>
@@ -81,7 +87,78 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="button_row" >
+      <widget class="Line" name="line" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontal_layout_bg_colour" >
+       <item>
+        <widget class="QLabel" name="bg_label" >
+         <property name="text" >
+          <string>Background:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="background_button" >
+         <property name="text" >
+          <string>Set colour</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_6" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="align_label" >
+         <property name="text" >
+          <string>Alignment:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="alignment" >
+         <item>
+          <property name="text" >
+           <string>Center</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Left</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Right</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_2" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5" >
        <item>
         <widget class="QPushButton" name="OK_button" >
          <property name="text" >
@@ -101,6 +178,19 @@
           <bool>false</bool>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QPushButton" name="defaults_button" >

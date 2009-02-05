@@ -57,7 +57,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
             widget.close()
         self.dynamic_widgets = []
 
-        row = 2
+        row = 0
         self.font_buttons = QButtonGroup()
         self.colour_buttons = QButtonGroup()
         self.align_buttons = QButtonGroup()
@@ -67,52 +67,25 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
             self.gridLayout.addWidget(label, row, 0, 1, 1)
             self.dynamic_widgets.append(label)
             
-            font = QPushButton(_("Font"), self)
-            self.font_buttons.addButton(font, row-2)
+            font = QPushButton(_("Set font"), self)
+            self.font_buttons.addButton(font, row)
             self.gridLayout.addWidget(font, row, 1, 1, 1)
             self.dynamic_widgets.append(font)
             
-            colour = QPushButton(_("Colour"),self)
-            self.colour_buttons.addButton(colour, row-2)
+            colour = QPushButton(_("Set colour"),self)
+            self.colour_buttons.addButton(colour, row)
             self.gridLayout.addWidget(colour, row, 2, 1, 1)
             self.dynamic_widgets.append(colour)
             
-            left_align = QCheckBox(_("Left align"), self)
-            try:
-                if len(self.affected_card_types) > 1:
-                    values = set()
-                    for card_type in config()['alignment'].values():
-                        for alignment in card_type.values():
-                            if not alignment:
-                                values.add("center")
-                            else:
-                                values.add(alignment)
-                    if len(values) > 1:
-                        left_align.setCheckState(Qt.PartiallyChecked)
-                    elif "left" in values:
-                        left_align.setCheckState(Qt.Checked)
-                    else:
-                        left_align.setCheckState(Qt.Unchecked)                        
-                else:
-                    affected_key = self.affected_card_types[0].fields[row-2][0]   
-                    current_alignment = config()['alignment']\
-                             [self.affected_card_types[0].id][affected_key]
-                    if current_alignment == "left":
-                        left_align.setChecked(True)
-            except:
-                pass
-            self.align_buttons.addButton(left_align, row-2)
-            self.gridLayout.addWidget(left_align, row, 3, 1, 1)
-            self.dynamic_widgets.append(left_align)
-            
             row += 1
-            
+        self.gridLayout.setColumnStretch(1, 10)
+        self.gridLayout.setColumnStretch(2, 10)
+        
         self.connect(self.font_buttons, SIGNAL("buttonClicked(int)"),
                      self.update_font)
         self.connect(self.colour_buttons, SIGNAL("buttonClicked(int)"),
                      self.update_font_colour)
-        self.connect(self.align_buttons, SIGNAL("buttonClicked(int)"),
-                     self.update_alignment)
+        self.adjustSize()
 
     def update_background_colour(self):
         # Determine current colour.
@@ -203,7 +176,6 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         for card_type in self.affected_card_types:
             card_type.get_renderer().set_property('alignment', alignment,
                                                   card_type, affected_key)
-        checkbox.setTristate(False)
         self.changed = True
         
     def accept(self):
