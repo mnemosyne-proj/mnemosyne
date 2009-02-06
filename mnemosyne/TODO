@@ -5,7 +5,7 @@
 
 * Mnemosyne 2.0:
 
--implement alignment in css
+-gray out alignment for all card types if they are different in card-types
 
 -option to read css from file
 
@@ -40,8 +40,6 @@
  needed
 
 -adding a picture under Windows screws up / and \, and case
-
--backup file names with unicode seem to fail under Linux? 
 
 -ghost out 3.4 and 5 for unlearned cards?
 
@@ -100,7 +98,7 @@
 
 -plugin for midi files
 
--'tooltips' during use: delete card, relative path when adding pictures or sound.
+-'tooltips' during use: relative path when adding pictures or sound.
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
@@ -216,6 +214,8 @@ Status: initial code written, but clean up needed.
 -clean up interval when importing from txt
 
 -paste from clipboard
+
+-font and color comboboxes instead of dialogs in card appearance?
 
 -preselect all in some text fields, so that the users can start typing
  immediately

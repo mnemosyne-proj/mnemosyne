@@ -155,10 +155,14 @@ class DefaultMainController(UiControllerMain):
         if no_of_cards == 1:
             question = _("Delete this card?")
         elif no_of_cards == 2:
-            question = _("Delete this card and 1 related card?")
+            question = _("Delete this card and 1 related card?") + " "  +\
+                      _("Are you sure you want to do this,") + " " +\
+          _("and not just deactivate cards in the 'Activate cards' dialog?")
         else:
             question = _("Delete this card and") + " " + str(no_of_cards - 1) \
-                       + " " + _("related cards?")
+                       + " " + _("related cards?") + " " +\
+                       _("Are you sure you want to do this,") + " " +\
+          _("and not just deactivate cards in the 'Activate cards' dialog?")
         answer = self.widget.question_box(question, _("&Delete"),
                                           _("&Cancel"), "")
         if answer == 1: # Cancel.

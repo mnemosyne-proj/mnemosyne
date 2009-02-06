@@ -131,14 +131,19 @@
        </item>
        <item>
         <widget class="QComboBox" name="alignment" >
+         <property name="font" >
+          <font>
+           <italic>false</italic>
+          </font>
+         </property>
          <item>
           <property name="text" >
-           <string>Center</string>
+           <string>Left</string>
           </property>
          </item>
          <item>
           <property name="text" >
-           <string>Left</string>
+           <string>Center</string>
           </property>
          </item>
          <item>
@@ -312,6 +317,22 @@
     <hint type="destinationlabel" >
      <x>156</x>
      <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>alignment</sender>
+   <signal>activated(int)</signal>
+   <receiver>CardAppearanceDlg</receiver>
+   <slot>update_alignment</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>299</x>
+     <y>90</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>171</x>
+     <y>74</y>
     </hint>
    </hints>
   </connection>

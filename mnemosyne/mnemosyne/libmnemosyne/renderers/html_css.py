@@ -16,10 +16,10 @@ class HtmlCss(Renderer):
 
     def update(self, card_type):
         self._css[card_type.id] = """<style type="text/css">
-        table { height: 100%; border: thin solid; """
+        table { height: 100%; """
         # Set aligment of the table (but not the contents within the table).
         try:
-            alignment = config()["alignment"]
+            alignment = config()["alignment"][card_type.id]
         except:
             alignment = "center"
         if alignment == "left":
@@ -44,7 +44,7 @@ class HtmlCss(Renderer):
             self._css[card_type.id] += "div#%s { " % key
             # Set alignment within table cell.
             try:
-                alignment = config()["alignment"]
+                alignment = config()["alignment"][card_type.id]
                 self._css[card_type.id] += "text-align: %s; " % alignment               
             except:
                 pass
@@ -77,8 +77,6 @@ class HtmlCss(Renderer):
                 pass                
             self._css[card_type.id] += "}\n"
         self._css[card_type.id] += "</style>"
-
-        print self._css[card_type.id]
         
     def css(self, card_type):
         if not card_type.id in self._css:
@@ -87,13 +85,12 @@ class HtmlCss(Renderer):
                 
     def render_card_fields(self, fact, fields):
         html = "<html><head>" + self.css(fact.card_type) + \
-            "</head><body><table>"
+            "</head><body><table><tr><td>"
         for field in fields:
             key = field[0]
             s = fact[key]
             for f in filters():
                 s = f.run(s, fact)
-            html += "<tr><td><div id=\"%s\">%s</div></td></tr>" % (key, s)
-        html += "</table></body></html>"
-        print html
+            html += "<div id=\"%s\">%s</div>" % (key, s)
+        html += "</td></tr></table></body></html>"
         return html

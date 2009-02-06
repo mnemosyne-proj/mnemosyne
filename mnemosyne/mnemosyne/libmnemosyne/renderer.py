@@ -24,7 +24,8 @@ class Renderer(Component):
         if property_name not in ["background_colour", "font", "font_colour",
                                  "alignment"]:
             raise KeyError
-        if property_name == "background_colour":
+        if property_name == "background_colour" or \
+               property_name == "alignment":
             config()[property_name][card_type.id] = property
             print "Setting property", property_name, config()[property_name]           
             return

@@ -79,12 +79,24 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
             
             row += 1
         self.gridLayout.setColumnStretch(1, 10)
-        self.gridLayout.setColumnStretch(2, 10)
-        
+        self.gridLayout.setColumnStretch(2, 10)     
         self.connect(self.font_buttons, SIGNAL("buttonClicked(int)"),
                      self.update_font)
         self.connect(self.colour_buttons, SIGNAL("buttonClicked(int)"),
                      self.update_font_colour)
+
+        try:
+            current_alignment = config()["alignment"]\
+                                [self.affected_card_types[0].id]
+        except:
+            current_alignment = "center"
+        if current_alignment == "left":
+            self.alignment.setCurrentIndex(0)
+        elif current_alignment == "center":
+            self.alignment.setCurrentIndex(1)
+        elif current_alignment == "right":
+            self.alignment.setCurrentIndex(2)
+                        
         self.adjustSize()
 
     def update_background_colour(self):
@@ -156,26 +168,20 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         colour = QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
-                card_type.get_renderer().set_property('font_colour', colour.rgb(),
-                                                      card_type, affected_key)
+                card_type.get_renderer().set_property('font_colour',
+                                 colour.rgb(), card_type, affected_key)
             self.changed = True
         
     def update_alignment(self, index):
-        # Determine keys affected.
-        if len(self.affected_card_types) > 1:
-            affected_key = None # Actually means all the keys.
-        else:
-            affected_key = self.affected_card_types[0].fields[index][0]
-        
-        # Set new aligment.
-        checkbox = self.align_buttons.button(index)
-        if checkbox.checkState() == Qt.Checked:
-            alignment = "left"
-        else:
-            alignment = "center"
+        if index == 0:
+            new_alignment = "left"
+        elif index == 1:
+            new_alignment = "center"
+        elif index == 2:
+            new_alignment = "right"                
         for card_type in self.affected_card_types:
-            card_type.get_renderer().set_property('alignment', alignment,
-                                                  card_type, affected_key)
+            card_type.get_renderer().set_property('alignment', new_alignment,
+                                                  card_type)
         self.changed = True
         
     def accept(self):
@@ -205,7 +211,8 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
 
     def reject(self):
         if self.changed == True:
-            result = QMessageBox.question(None, _("Mnemosyne"), _("Abandon changes?"),
+            result = QMessageBox.question(None, _("Mnemosyne"),
+                                          _("Abandon changes?"),
                                           _("&Yes"), _("&No"), "", 0, -1)
             if result == 1:
                 return
