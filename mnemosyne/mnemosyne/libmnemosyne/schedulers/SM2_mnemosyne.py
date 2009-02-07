@@ -55,8 +55,7 @@ class SM2Mnemosyne(Scheduler):
         # Concentrate on only a limited number of grade 0 cards, in order to
         # avoid too long intervals between revisions. If there are too few
         # cards in left in the queue, append more new cards to keep some
-        # spread between these last cards. Also limit the queue size to 10
-        # in order not to have too large a spread.
+        # spread between these last cards.
         limit = config()["grade_0_items_at_once"]
         grade_0 = db.cards_due_for_final_review(grade=0)
         grade_0_selected = []
@@ -72,11 +71,10 @@ class SM2Mnemosyne(Scheduler):
         grade_1 = list(db.cards_due_for_final_review(grade=1))
         self.queue += 2*grade_0_selected + grade_1
         random.shuffle(self.queue)
-        if len(grade_0_selected) == limit or len(self.queue) >= 10:
+        if len(grade_0_selected) == limit:
             return
         # Now do the cards which have never been committed to long-term
-        # memory, but which we have seen before. Also limit the queue size
-        # to 10 in order not to have too large a spread.
+        # memory, but which we have seen before.
         grade_0 = db.cards_new_memorising(grade=0)
         grade_0_in_queue = len(grade_0_selected)
         grade_0_selected = []
@@ -92,8 +90,7 @@ class SM2Mnemosyne(Scheduler):
         grade_1 = list(db.cards_new_memorising(grade=1))
         self.queue += 2*grade_0_selected + grade_1
         random.shuffle(self.queue)
-        if len(grade_0_selected) + grade_0_in_queue == limit or \
-           len(self.queue) >= 10:
+        if len(grade_0_selected) + grade_0_in_queue == limit:
             return
         # Now add some new cards. This is a bit inefficient at the moment as
         # 'unseen' is wastefully created as opposed to being a generator
