@@ -96,7 +96,20 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
             self.alignment.setCurrentIndex(1)
         elif current_alignment == "right":
             self.alignment.setCurrentIndex(2)
-                        
+
+        # Make font light if different alignments are active.
+        self.alignment.setFont(self.font())
+        values = set()
+        for card_type in self.affected_card_types:
+            if not card_type.id in config()['alignment']:
+                values.add("center")
+            else:
+                values.add(config()['alignment'][card_type.id])
+        if len(values) > 1:
+            self.alignment.font().setWeight(25)
+        else:
+            self.alignment.font().setWeight(50)
+            
         self.adjustSize()
 
     def update_background_colour(self):
@@ -182,6 +195,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         for card_type in self.affected_card_types:
             card_type.get_renderer().set_property('alignment', new_alignment,
                                                   card_type)
+        self.alignment.font().setWeight(50)
         self.changed = True
         
     def accept(self):
@@ -206,8 +220,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         config()["background_colour"] = {}
         config()["font_colour"] = {}
         config()["alignment"] = {}
-        for button in self.align_buttons.buttons():
-            button.setCheckState(Qt.Unchecked)
+        self.alignment.setCurrentIndex(1)
 
     def reject(self):
         if self.changed == True:

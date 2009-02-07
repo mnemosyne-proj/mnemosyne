@@ -5,8 +5,6 @@
 
 * Mnemosyne 2.0:
 
--gray out alignment for all card types if they are different in card-types
-
 -option to read css from file
 
 -card type hook to do stuff after grading?
@@ -198,6 +196,8 @@ Status: initial code written, but clean up needed.
 
 
 * Miscellaneous:
+
+-sound recorder
 
 -smarter sorting. See suggestios by larryrenslow
 
