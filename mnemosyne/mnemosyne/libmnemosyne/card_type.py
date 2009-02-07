@@ -88,7 +88,7 @@ class CardType(Component):
                  self.renderer = component_manager.get_current("renderer")
             return self.renderer
 
-    # The following two functions allow for the fact that all the logic
+    # The following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be
     # contained in a single derived class by reimplementing these functions.
 
@@ -113,3 +113,5 @@ class CardType(Component):
         new_cards, updated_cards = [], []
         return new_cards, updated_cards
 
+    def after_review(self, card):
+        return

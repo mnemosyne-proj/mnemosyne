@@ -5,8 +5,6 @@
 
 * Mnemosyne 2.0:
 
--card type hook to do stuff after grading?
-
 -GUI plugin manager
 
 -respect card_type.fact_views_can_be_deactivated

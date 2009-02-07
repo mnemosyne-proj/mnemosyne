@@ -261,6 +261,8 @@ class SM2Mnemosyne(Scheduler):
                 card.next_rep += 1
                 noise += 1
         db.update_card(card)
+        # Run post review hooks.
+        card.fact.card_type.after_review(card)
         # Create log entry.
         log().revision(card, scheduled_interval, actual_interval,
                        new_interval, noise)
