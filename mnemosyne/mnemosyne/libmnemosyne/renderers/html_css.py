@@ -2,6 +2,8 @@
 # html_css.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+
 from mnemosyne.libmnemosyne.renderer import Renderer
 from mnemosyne.libmnemosyne.component_manager import config, filters
 
@@ -15,8 +17,16 @@ class HtmlCss(Renderer):
         self._css = {} # {card_type.id: css}
 
     def update(self, card_type):
+        # Load from external file if exists.
+        css_path = os.path.join(config().basedir, "css")
+        css_path = os.path.join(css_path, card_type.id)
+        if os.path.exists(css_path):
+            f = file(css_path)
+            self._css[card_type.id] = file(css_path).read()
+            return       
+        # Else, construct from configuration data.
         self._css[card_type.id] = """<style type="text/css">
-        table { height: 100%; """
+        table { height: 100%; """       
         # Set aligment of the table (but not the contents within the table).
         try:
             alignment = config()["alignment"][card_type.id]
@@ -27,8 +37,8 @@ class HtmlCss(Renderer):
         elif alignment == "right":
             self._css[card_type.id] += "margin-left: auto; margin-right: 0; "
         else:
-            self._css[card_type.id] += "margin-left: auto; margin-right: auto; "                
-        self._css[card_type.id] += " }\n"
+            self._css[card_type.id] += "margin-left: auto; margin-right: auto; "
+        self._css[card_type.id] += " }\n"      
         # Background colours.
         self._css[card_type.id] += "body { "
         try:

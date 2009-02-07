@@ -5,8 +5,6 @@
 
 * Mnemosyne 2.0:
 
--option to read css from file
-
 -card type hook to do stuff after grading?
 
 -GUI plugin manager
@@ -17,6 +15,8 @@
 
 -GUI option to derive from three sided card type to create a new language
  specific card type. Test inheritance of card type convertors.
+
+-necessity of 'is_language'?
 
 -detect wrong current date (last review in the future or way past)
 
