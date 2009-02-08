@@ -16,6 +16,7 @@ from ui_main_window import Ui_MainWindow
 from add_cards_dlg import AddCardsDlg
 from edit_fact_dlg import EditFactDlg
 from card_appearance_dlg import CardAppearanceDlg
+from activate_plugins_dlg import ActivatePluginsDlg
 #from import_dlg import *
 #from export_dlg import *
 #from edit_item_dlg import *
@@ -118,8 +119,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ui_controller_main().file_save_as()
 
     def card_appearance(self):
-        ui_controller_main().card_appearance()        
-
+        ui_controller_main().card_appearance()
+        
+    def activate_plugins(self):
+        ui_controller_main().activate_plugins()
+        
     def run_add_cards_dialog(self):
         dlg = AddCardsDlg(self)
         dlg.exec_()
@@ -131,7 +135,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def run_card_appearance_dialog(self):
         dlg = CardAppearanceDlg(self)
         dlg.exec_()
-        
+
+    def run_activate_plugins_dialog(self):
+        dlg = ActivatePluginsDlg(self)
+        dlg.exec_()
         
     def Import(self):
         stopwatch.pause()

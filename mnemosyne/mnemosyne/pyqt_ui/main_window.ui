@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>247</width>
-    <height>207</height>
+    <width>228</width>
+    <height>171</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -28,7 +28,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>247</width>
+     <width>228</width>
      <height>25</height>
     </rect>
    </property>
@@ -65,6 +65,7 @@
      <string>&amp;Settings</string>
     </property>
     <addaction name="actionCardAppearance" />
+    <addaction name="actionActivatePlugins" />
     <addaction name="actionConfiguration" />
    </widget>
    <widget class="QMenu" name="menu_Help" >
@@ -130,10 +131,6 @@
    </property>
   </action>
   <action name="actionConfiguration" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
-     <normaloff>:/mnemosyne/pixmaps/configure.png</normaloff>:/mnemosyne/pixmaps/configure.png</iconset>
-   </property>
    <property name="text" >
     <string>&amp;Configure Mnemosyne</string>
    </property>
@@ -279,6 +276,11 @@
   <action name="actionCardAppearance" >
    <property name="text" >
     <string>Card &amp;appearance</string>
+   </property>
+  </action>
+  <action name="actionActivatePlugins" >
+   <property name="text" >
+    <string>&amp;Activate plugins</string>
    </property>
   </action>
  </widget>
@@ -427,6 +429,22 @@
     <hint type="destinationlabel" >
      <x>123</x>
      <y>103</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionActivatePlugins</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>activate_plugins</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>113</x>
+     <y>85</y>
     </hint>
    </hints>
   </connection>

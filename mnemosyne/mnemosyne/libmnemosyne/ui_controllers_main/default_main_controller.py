@@ -249,3 +249,9 @@ class DefaultMainController(UiControllerMain):
         self.widget.run_card_appearance_dialog()
         ui_controller_review().update_dialog(redraw_all=True)
         stopwatch.unpause()
+        
+    def activate_plugins(self):
+        stopwatch.pause()
+        self.widget.run_activate_plugins_dialog()
+        ui_controller_review().update_dialog(redraw_all=True)
+        stopwatch.unpause()

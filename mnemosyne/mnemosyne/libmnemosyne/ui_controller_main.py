@@ -48,3 +48,6 @@ class UiControllerMain(Component):
     
     def card_appearance(self):
         raise NotImplementedError
+    
+    def activate_plugins(self):
+        raise NotImplementedError

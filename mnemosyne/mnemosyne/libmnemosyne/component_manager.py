@@ -159,3 +159,5 @@ def card_type_by_id(id): # TODO KW: use named components for this.
 def filters():
     return component_manager.get_all("filter")
 
+def plugins():
+    return component_manager.get_all("plugin")
