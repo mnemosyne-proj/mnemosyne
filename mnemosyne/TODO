@@ -7,6 +7,8 @@
 
 -GUI plugin manager
 
+-don't deactivate plugin which contains a card type that is in use
+
 -respect card_type.fact_views_can_be_deactivated
 
 -test map card type plugin
@@ -15,6 +17,8 @@
  specific card type. Test inheritance of card type convertors.
 
 -necessity of 'is_language'?
+
+-add version number to database format
 
 -detect wrong current date (last review in the future or way past)
 

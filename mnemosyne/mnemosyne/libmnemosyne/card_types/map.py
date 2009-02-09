@@ -17,7 +17,7 @@ class Map(CardType, Plugin):
     def __init__(self):
         CardType.__init__(self)
         self.id = "4"
-        self.name = _("Map")
+        self.name = _("Map card type")
         self.description = _("A card type for learning locations on a map")
 
         # List and name the keys.
