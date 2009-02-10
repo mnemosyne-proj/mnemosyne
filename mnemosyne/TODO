@@ -47,6 +47,8 @@
 
 -test sound
 
+-qsortfilter proxy
+
 -move 'card type by name' to different place?
 
 -don't change card id on import from old files

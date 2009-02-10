@@ -8,6 +8,8 @@ _ = gettext.gettext
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from copy import deepcopy
+
 from ui_activate_plugins_dlg import Ui_ActivatePluginsDlg
 
 from mnemosyne.libmnemosyne.component_manager import config, plugins
@@ -19,16 +21,19 @@ class PluginListModel(QAbstractTableModel):
         return len(plugins())
     
     def columnCount(self, parent=QModelIndex()):
-        return 3
+        return 2
     
     def data(self, index, role=Qt.DisplayRole):
+        if not index.isValid() or not (0 <= index.row() < len(plugins())):
+            return QVariant()
         if role == Qt.DisplayRole:
-            if index.column() == 1:
+            if index.column() == 0:
                 return QVariant(plugins()[index.row()].name)
-            elif index.column() == 2:
+            elif index.column() == 1:
                 return QVariant(plugins()[index.row()].description)
         if role == Qt.CheckStateRole:
             if index.column() == 0:
+                # TODO
                 return QVariant(Qt.Checked)
         return QVariant()
 
@@ -39,9 +44,9 @@ class PluginListModel(QAbstractTableModel):
             return Qt.ItemIsEnabled|Qt.ItemIsSelectable
 
     def setData(self, index, value, role):
-        print index.column(), value, role
         if index.isValid() and index.column() == 0:
             if role == Qt.CheckStateRole:
+                # TODO
                 if value == Qt.Checked:
                     print 'checked'
                 else:
@@ -54,12 +59,11 @@ class PluginListModel(QAbstractTableModel):
     def headerData(self, index, orientation, role):
         if role == Qt.DisplayRole and orientation == Qt.Horizontal:
             if index == 0:
-                return QVariant(_("Active"))
-            elif index == 1:
                 return QVariant(_("Name"))
-            elif index == 2:
+            elif index == 1:
                 return QVariant(_("Description"))
         return QVariant()
+
 
 class ActivatePluginsDlg(QDialog, Ui_ActivatePluginsDlg):
 
@@ -68,7 +72,11 @@ class ActivatePluginsDlg(QDialog, Ui_ActivatePluginsDlg):
         self.setupUi(self)
         
         self.model = PluginListModel()
-        self.plugins_table.setModel(self.model)
-        self.plugins_table.setWordWrap(True) 
-        self.plugins_table.resizeColumnsToContents()
+        self.plugins_table.setModel(self.model)     
+        self.plugins_table.resizeColumnToContents(0)
+        #self.plugins_table.resizeColumnsToContents()        
+        self.plugins_table.setWordWrap(True)
+        self.plugins_table.setTextElideMode(Qt.ElideNone)
+        self.plugins_table.resizeRowsToContents()
+        #self.plugins_table.reset()        
        
