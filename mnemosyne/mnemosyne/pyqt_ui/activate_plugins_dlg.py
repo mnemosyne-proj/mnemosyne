@@ -39,9 +39,9 @@ class PluginListModel(QAbstractTableModel):
 
     def flags(self, index):
         if index.column() == 0:
-            return Qt.ItemIsEnabled|Qt.ItemIsUserCheckable|Qt.ItemIsSelectable
+            return Qt.ItemIsEnabled|Qt.ItemIsUserCheckable
         else:
-            return Qt.ItemIsEnabled|Qt.ItemIsSelectable
+            return Qt.ItemIsEnabled
 
     def setData(self, index, value, role):
         if index.isValid() and index.column() == 0:
@@ -64,19 +64,17 @@ class PluginListModel(QAbstractTableModel):
                 return QVariant(_("Description"))
         return QVariant()
 
-
+        
 class ActivatePluginsDlg(QDialog, Ui_ActivatePluginsDlg):
 
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
-        
+
         self.model = PluginListModel()
-        self.plugins_table.setModel(self.model)     
-        self.plugins_table.resizeColumnToContents(0)
-        #self.plugins_table.resizeColumnsToContents()        
-        self.plugins_table.setWordWrap(True)
-        self.plugins_table.setTextElideMode(Qt.ElideNone)
-        self.plugins_table.resizeRowsToContents()
-        #self.plugins_table.reset()        
-       
+        self.plugins.setModel(self.model)
+        self.plugins.resizeColumnToContents(0)    
+        self.plugins.resizeColumnToContents(1)
+        self.plugins.setTextElideMode(Qt.ElideNone)
+        self.plugins.setRootIsDecorated(False)
+        self.plugins.setItemsExpandable(False)

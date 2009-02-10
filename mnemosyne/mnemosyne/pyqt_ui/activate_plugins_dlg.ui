@@ -5,13 +5,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
+    <width>500</width>
     <height>250</height>
    </rect>
   </property>
   <property name="minimumSize" >
    <size>
-    <width>330</width>
+    <width>500</width>
     <height>250</height>
    </size>
   </property>
@@ -22,7 +22,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout" >
      <item>
-      <widget class="QTableView" name="plugins_table" />
+      <widget class="QTreeView" name="plugins" />
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout" >
