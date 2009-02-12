@@ -90,7 +90,7 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.question_label.show()
         else:
             self.question.hide()
-            self.quesion_label.hide()
+            self.question_label.hide()
 
     def answer_box_visible(self, visible):
         if visible:
@@ -98,7 +98,7 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.answer_label.show()
         else:
             self.answer.hide()
-            self.quesion_label.hide()
+            self.question_label.hide()
 
     def grade_4_default(self, use_4):
         if use_4:

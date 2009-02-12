@@ -14,21 +14,19 @@ class Plugin(Component):
     variable to the string describing the component type.
     
     """
-
-    name = None
-    description = None
+    
     active = False
     provides = ""
-
+        
     def __init__(self):
-        assert Plugin.name and Plugin.description, \
+        assert self.name and self.description, \
             "A Plugin needs a name and description."
-
+            
     def activate(self):
-        component_manager.register(Plugin.provides, self)
+        component_manager.register(self.provides, self)
         self.active = True
 
     def deactivate(self):        
-        component_manager.unregister(Plugin.provides, self)
+        component_manager.unregister(self.provides, self)
         self.active = False
 

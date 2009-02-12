@@ -11,14 +11,14 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 
 
 class Map(CardType, Plugin):
-    
-    provides = "card_type"
 
+    name = _("Map")
+    description = _("A card type for learning locations on a map")
+    provides = "card_type"
+        
     def __init__(self):
         CardType.__init__(self)
         self.id = "4"
-        self.name = _("Map card type")
-        self.description = _("A card type for learning locations on a map")
 
         # List and name the keys.
         self.fields.append(("loc", _("Location")))
@@ -34,7 +34,7 @@ class Map(CardType, Plugin):
 
         # Production.
         v = FactView(2, _("Production"))
-        v.q_fields = ["loc","blank"]
+        v.q_fields = ["loc", "blank"]
         v.a_fields = ["marked"]
         v.required_fields = ["loc", "blank", "marked"]
         v.a_on_top_of_q = True

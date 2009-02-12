@@ -32,17 +32,15 @@ class CardType(Component):
     create the card type, because it is not sure that the renderer already
     exists at that stage.
 
-    The functions create_related_cards and update_related_cards and provide
-    an extra layer of abstraction and can be overridden by card types like
-    cloze deletion, which require a varying number of fact views with card
-    specific data.
+    The functions create_related_cards and update_related_cards and
+    after_review provide an extra layer of abstraction and can be overridden
+    by card types like cloze deletion, which require a varying number of fact
+    views with card specific data.
 
     """
 
     def __init__(self):
         self.id = "-1"
-        self.name = ""
-        self.description = ""
         self.fields = []
         self.fact_views = []
         self.unique_fields = []

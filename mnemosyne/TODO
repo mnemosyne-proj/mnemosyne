@@ -5,18 +5,32 @@
 
 * Mnemosyne 2.0:
 
+-filter: card as context argument instead of fact
+
+-get rid of Component class (update docs)
+
+-move id to class variable? Document why (inheritance traversal)
+
+
+
 -GUI plugin manager
+
+-replace plugin.active with a persistent thing in config to autoload
 
 -don't deactivate plugin which contains a card type that is in use
 
--respect card_type.fact_views_can_be_deactivated
 
--test map card type plugin
 
--GUI option to derive from three sided card type to create a new language
- specific card type. Test inheritance of card type convertors.
+-GUI option to derive from existyng card types to create a new language
+ specific card type.
 
--necessity of 'is_language'?
+-Test inheritance of card type convertors.
+
+-necessity of 'is_language' and if statements in constructor?
+
+
+
+-activate necessary card types plugins on import / load
 
 -add version number to database format
 
@@ -25,6 +39,10 @@
 -xml import tests (wcu, memaid, plconv)
 
 -improve sphinxdocs: autoclass='both', document module members
+
+-migrate 1.x hack to map card type
+
+-activate cards: respect card_type.fact_views_can_be_deactivated
 
 -run convert to html after adding/modifying card?
 
@@ -88,8 +106,6 @@
 -make file handling more robust, detect all errors (see mail by
  OldGrantonian)
 
--activate necessary card types on plugin
-
 -test Python 3.0 compliance
 
 -button to go to next card in the list
@@ -107,8 +123,6 @@
 
 -make filters more efficients by using regex instead of loops.
 
--rename edit_items, items, product tour at the source level
-
 -detect and mark inverses on import
 
 -update XML import/export to new database format
@@ -123,8 +137,6 @@
  button text
 
 -bug in Qt? : spaces around images are not respected.
-
--does <p align="left"> work as advertised? Otherwise table tag.
 
 -cntrl enter in add and edit instead of clicking ok
 

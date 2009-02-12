@@ -134,7 +134,7 @@ def initialise_system_components():
                                                    import ExpandPaths
     component_manager.register("filter", ExpandPaths())
     from mnemosyne.libmnemosyne.filters.latex import Latex
-    component_manager.register("filter", ThreeSided())
+    component_manager.register("filter", Latex())
     
     # File formats.
 
@@ -150,7 +150,6 @@ def initialise_system_components():
     # Plugins.
     from mnemosyne.libmnemosyne.card_types.map import Map   
     component_manager.register("plugin", Map())
-    component_manager.register("plugin", SM2Controller() ) #TMP
 
 def initialise_user_plugins():
     basedir = config().basedir

@@ -55,9 +55,9 @@ class HtmlCss(Renderer):
             # Set alignment within table cell.
             try:
                 alignment = config()["alignment"][card_type.id]
-                self._css[card_type.id] += "text-align: %s; " % alignment               
             except:
-                pass
+                alignment = "center"
+            self._css[card_type.id] += "text-align: %s; " % alignment  
             # Text colours.
             try:
                 colour = config()["font_colour"][card_type.id][key]
@@ -97,10 +97,9 @@ class HtmlCss(Renderer):
         html = "<html><head>" + self.css(fact.card_type) + \
             "</head><body><table><tr><td>"
         for field in fields:
-            key = field[0]
-            s = fact[key]
+            s = fact[field]
             for f in filters():
                 s = f.run(s, fact)
-            html += "<div id=\"%s\">%s</div>" % (key, s)
+            html += "<div id=\"%s\">%s</div>" % (field, s)
         html += "</td></tr></table></body></html>"
         return html
