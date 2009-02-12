@@ -2,17 +2,15 @@
 # filter.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component import Component
 
+class Filter(object):
 
-class Filter(Component):
-
-    """Code which operates on the fact data and filters it to achieve extra 
-    functionality.
+    """Code which operates on a string and filters it to achieve extra 
+    functionality.  The 'card' argument provides extra context if needed.
     
     """
 
-    def run(self, text, fact):
+    def run(self, text, card):
         raise NotImplementedError
 
 

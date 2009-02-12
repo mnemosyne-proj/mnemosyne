@@ -52,7 +52,7 @@ class Latex(Filter):
         return "<img src=\"file:\\\\" + latexdir + "/" + imag_name \
                + "\" align=middle>"
 
-    def run(self, text, fact):
+    def run(self, text, card):
         # Process <latex>...</latex> tags.
         for match in re1.finditer(text):   
             imgtag = self.process_latex(match.group(1))

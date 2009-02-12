@@ -5,8 +5,8 @@
 Libmnemosyne overview
 ==============================
 
-Libmnemosyne consists of a number of Components, which can be swapped in and
-out. This is handled by the ComponentManager. Examples of Components are the
+Libmnemosyne consists of a number of components, which can be swapped in and
+out. This is handled by the ComponentManager. Examples of components are the
 scheduler, the storage layer, card types, plugins, ...
 
 The basic unit of information from which Cards are derived is called a Fact,
@@ -47,7 +47,6 @@ Modules
 .. toctree::
     :maxdepth: 2
     
-    modules/component
     modules/component_manager
     modules/fact
     modules/fact_view

@@ -5,11 +5,10 @@
 import os
 import bz2
 
-from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import config
 
 
-class Logger(Component):
+class Logger(object):
     
     def start_logging(self):
         raise NotImplementedError

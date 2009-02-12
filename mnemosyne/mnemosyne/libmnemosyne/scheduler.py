@@ -2,10 +2,10 @@
 # scheduler.py <Peter.Bienstman@UGent.be>
 #
 
-from component import Component
 
+class Scheduler(object):
 
-class Scheduler(Component):
+    name = ""
 
     def calculate_initial_interval(self, grade):
         raise NotImplementedError

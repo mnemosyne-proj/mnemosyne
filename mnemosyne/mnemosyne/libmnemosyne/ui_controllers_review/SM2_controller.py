@@ -44,7 +44,7 @@ tooltip[1][5] = \
 class SM2Controller(UiControllerReview):
 
     def __init__(self):
-        UiControllerReview.__init__(self, name="SM2 Controller")
+        UiControllerReview.__init__(self)
 
     def clear(self):
         self.state = "EMPTY"

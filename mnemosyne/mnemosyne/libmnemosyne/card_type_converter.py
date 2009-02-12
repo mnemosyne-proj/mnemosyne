@@ -2,10 +2,8 @@
 # card_type_converter.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component import Component
 
-
-class CardTypeConverter(Component):
+class CardTypeConverter(object):
 
     """Converts a set of related cards to a new card type.  Note that the
     function of this class is not to update the fact data behind the cards,

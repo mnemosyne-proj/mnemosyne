@@ -3,11 +3,10 @@
 #
 
 from mnemosyne.libmnemosyne.card import Card
-from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 
-class CardType(Component):
+class CardType(object):
 
     """A card type groups a number of fact views on a certain fact, thereby
     forming a set of related cards.
@@ -39,8 +38,11 @@ class CardType(Component):
 
     """
 
+    #Class variable to allow extra way of determining inheritance hierarchy.
+
+    id = "-1"
+
     def __init__(self):
-        self.id = "-1"
         self.fields = []
         self.fact_views = []
         self.unique_fields = []

@@ -20,7 +20,7 @@ from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 class DefaultMainController(UiControllerMain):
 
     def __init__(self):
-        UiControllerMain.__init__(self, name="Default main controller")
+        UiControllerMain.__init__(self)
 
     def add_cards(self):
         stopwatch.pause()

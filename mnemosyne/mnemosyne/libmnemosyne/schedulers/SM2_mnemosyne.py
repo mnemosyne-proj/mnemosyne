@@ -12,10 +12,10 @@ from mnemosyne.libmnemosyne.component_manager import database, config, log
 
 
 class SM2Mnemosyne(Scheduler):
-
+    
+    name="SM2 Mnemosyne"
+    
     def __init__(self):
-        Scheduler.__init__(self, name="SM2 Mnemosyne",
-                           description="Default scheduler")
         self.queue = []
 
     def calculate_initial_interval(self, grade):

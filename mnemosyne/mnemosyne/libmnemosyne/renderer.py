@@ -2,11 +2,10 @@
 # renderer.py <Peter.Bienstman@UGent.be>
 #
 
-from component import Component
 from mnemosyne.libmnemosyne.component_manager import config
 
 
-class Renderer(Component):
+class Renderer(object):
 
     def update(self, card_type):
 

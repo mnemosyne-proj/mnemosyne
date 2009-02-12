@@ -2,19 +2,20 @@
 # plugin.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
-class Plugin(Component):
+class Plugin(object):
 
     """A plugin is a component which can be activated and deactivated by the
     user when the program is running.  Typically, plugins derive from both 
-    Plugin and the Component they implement, and set the 'provides' class 
+    Plugin and the component they implement, and set the 'provides' class 
     variable to the string describing the component type.
     
     """
-    
+
+    name = ""
+    description = ""
     active = False
     provides = ""
         

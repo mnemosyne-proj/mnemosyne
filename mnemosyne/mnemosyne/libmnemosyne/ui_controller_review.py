@@ -2,19 +2,15 @@
 # ui_controller_review.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component import Component
 
-
-class UiControllerReview(Component):
+class UiControllerReview(object):
     
     """Controls the behaviour of a widget which implements the ReviewWidget
     interface.
     
     """
 
-    def __init__(self, name, description=""):
-        self.name = name
-        self.description = description
+    def __init__(self):
         self.widget = None
         self.card = None
 

@@ -2,10 +2,8 @@
 # ui_controller_main.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component import Component
 
-
-class UiControllerMain(Component):
+class UiControllerMain(object):
 
     """A collection of logic used by the main Mnemosyne window and some related
     widgets.  The logic related to the review process is split out in a
@@ -13,9 +11,7 @@ class UiControllerMain(Component):
 
     """
 
-    def __init__(self, name="", description=""):    
-        self.name = None
-        self.description = None
+    def __init__(self):
         self.widget = None
         
     def add_cards(self):

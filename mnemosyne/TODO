@@ -5,14 +5,6 @@
 
 * Mnemosyne 2.0:
 
--filter: card as context argument instead of fact
-
--get rid of Component class (update docs)
-
--move id to class variable? Document why (inheritance traversal)
-
-
-
 -GUI plugin manager
 
 -replace plugin.active with a persistent thing in config to autoload
