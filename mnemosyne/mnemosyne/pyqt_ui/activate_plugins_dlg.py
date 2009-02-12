@@ -33,7 +33,8 @@ class PluginListModel(QAbstractTableModel):
                 return QVariant(plugins()[index.row()].description)
         if role == Qt.CheckStateRole:
             if index.column() == 0:
-                if plugins()[index.row()].active == True:
+                if plugins()[index.row()].__class__ in \
+                       config()["active_plugins"]:
                     return QVariant(Qt.Checked)
                 else:
                     return QVariant(Qt.Unchecked)                   
@@ -51,10 +52,8 @@ class PluginListModel(QAbstractTableModel):
                 plugin = plugins()[index.row()]
                 if value == QVariant(Qt.Checked):
                     plugin.activate()
-                    plugin.active = True
                 else:
                     plugin.deactivate()                    
-                    plugin.active = False
             self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
                       index, index)
             return True

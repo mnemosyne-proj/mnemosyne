@@ -11,6 +11,7 @@
 
 -don't deactivate plugin which contains a card type that is in use
 
+-activate necessary card types plugins on import / load
 
 
 -GUI option to derive from existyng card types to create a new language
@@ -22,7 +23,7 @@
 
 
 
--activate necessary card types plugins on import / load
+
 
 -add version number to database format
 

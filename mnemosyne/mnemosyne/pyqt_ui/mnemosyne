@@ -4,6 +4,9 @@
 # Mnemosyne <Peter.Bienstman@UGent.be>
 #
 
+import gettext
+_ = gettext.gettext
+
 import sys
 import os
 import locale

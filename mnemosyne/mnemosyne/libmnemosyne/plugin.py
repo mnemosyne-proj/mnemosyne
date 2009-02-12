@@ -2,6 +2,7 @@
 # plugin.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
@@ -16,18 +17,16 @@ class Plugin(object):
 
     name = ""
     description = ""
-    active = False
     provides = ""
         
     def __init__(self):
         assert self.name and self.description, \
             "A Plugin needs a name and description."
-            
+        
     def activate(self):
         component_manager.register(self.provides, self)
-        self.active = True
+        config()["active_plugins"].add(self.__class__)
 
-    def deactivate(self):        
+    def deactivate(self):
         component_manager.unregister(self.provides, self)
-        self.active = False
-
+        config()["active_plugins"].remove(self.__class__)

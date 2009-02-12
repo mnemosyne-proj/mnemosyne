@@ -15,10 +15,10 @@ class Map(CardType, Plugin):
     name = _("Map")
     description = _("A card type for learning locations on a map")
     provides = "card_type"
+    id = "4"
         
     def __init__(self):
         CardType.__init__(self)
-        self.id = "4"
 
         # List and name the keys.
         self.fields.append(("loc", _("Location")))

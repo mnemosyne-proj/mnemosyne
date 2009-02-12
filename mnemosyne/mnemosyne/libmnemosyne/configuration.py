@@ -98,6 +98,7 @@ class Configuration(dict):
              "latex_postamble": "\\end{document}", 
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
+             "active_plugins": set() # plugin class
             }.items():
             
             self.setdefault(key, value)
@@ -110,7 +111,7 @@ class Configuration(dict):
             self.set_defaults()
         except:
             raise ConfigError(stack_trace=True)
-
+        
     def save(self):
         try:
             config_file = file(os.path.join(self.basedir, "config"), 'wb')

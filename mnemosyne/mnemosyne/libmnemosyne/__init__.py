@@ -29,6 +29,8 @@ def initialise(basedir):
     initialise_lockfile()
     initialise_new_empty_database()
     initialise_error_handling()
+    initialise_user_plugins()
+    activate_saved_plugins()
 
 
 def initialise_lockfile():
@@ -151,6 +153,7 @@ def initialise_system_components():
     from mnemosyne.libmnemosyne.card_types.map import Map   
     component_manager.register("plugin", Map())
 
+
 def initialise_user_plugins():
     basedir = config().basedir
     plugindir = unicode(os.path.join(basedir, "plugins"))
@@ -161,6 +164,17 @@ def initialise_user_plugins():
                 __import__(plugin[:-3])
             except:
                 raise PluginError(stack_trace=True)
+
+
+def activate_saved_plugins():
+    for plugin in config()["active_plugins"]:
+        try:
+            p = plugin()
+            component_manager.register("plugin", p)
+            print plugins()
+            p.activate()
+        except:
+            raise PluginError(stack_trace=True)
 
 
 def finalise():
