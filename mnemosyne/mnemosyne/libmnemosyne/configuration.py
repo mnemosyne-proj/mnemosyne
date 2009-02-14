@@ -163,8 +163,7 @@ class Configuration(dict):
         # Create paths.
         if not os.path.exists(self.basedir):
             os.mkdir(self.basedir)
-        for directory in ["history", "latex", "css", "plugins", \
-                          "backups", "sessions"]:
+        for directory in ["history", "latex", "css", "plugins", "backups"]:
             if not os.path.exists(os.path.join(self.basedir, directory)):
                 os.mkdir(os.path.join(self.basedir, directory))
         # Create default configuration.

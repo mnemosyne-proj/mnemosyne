@@ -23,7 +23,7 @@ class Database(object):
     def backup(self):
         raise NotImplementedError
 
-    def load(self, path):
+    def load(self, path): # TODO: SQL plugin logic
         raise NotImplementedError
 
     def unload(self):
@@ -115,6 +115,9 @@ class Database(object):
 
     def average_easiness(self):
         raise NotImplementedError
+
+    def card_type_ids_in_use(self): # TODO: SQL
+        raise NotImplementedError        
 
     # Filter is a SQL filter, used e.g. to filter out inactive categories.
 

@@ -12,6 +12,7 @@ from copy import deepcopy
 
 from ui_activate_plugins_dlg import Ui_ActivatePluginsDlg
 
+from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import config, plugins
 
 
@@ -53,9 +54,14 @@ class PluginListModel(QAbstractTableModel):
                 if value == QVariant(Qt.Checked):
                     plugin.activate()
                 else:
+                    if plugin.provides == "card_type" and \
+                       plugin.id in database().card_type_ids_in_use():
+                        QMessageBox.critical(None, _("Mnemosyne"),
+                           _("Cannot deactivate, this card type is in use."))
+                        return False  
                     plugin.deactivate()                    
-            self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
-                      index, index)
+                    self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
+                              index, index)
             return True
         return False
                     

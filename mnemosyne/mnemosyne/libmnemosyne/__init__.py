@@ -14,7 +14,7 @@ import os
 import sys
 
 from mnemosyne.libmnemosyne.exceptions import PluginError, traceback_string
-from mnemosyne.libmnemosyne.component_manager import config, log
+from mnemosyne.libmnemosyne.component_manager import config, log, plugins
 from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
@@ -169,10 +169,10 @@ def initialise_user_plugins():
 def activate_saved_plugins():
     for plugin in config()["active_plugins"]:
         try:
-            p = plugin()
-            component_manager.register("plugin", p)
-            print plugins()
-            p.activate()
+            for p in plugins():
+                if plugin == p.__class__:
+                    p.activate()
+                    break
         except:
             raise PluginError(stack_trace=True)
 

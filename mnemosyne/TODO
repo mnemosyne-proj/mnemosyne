@@ -5,24 +5,27 @@
 
 * Mnemosyne 2.0:
 
--GUI plugin manager
-
--replace plugin.active with a persistent thing in config to autoload
-
--don't deactivate plugin which contains a card type that is in use
-
--activate necessary card types plugins on import / load
-
 
 -GUI option to derive from existyng card types to create a new language
  specific card type.
 
--Test inheritance of card type convertors.
+-create these types on load if necessary
+
+-test inheritance of card type convertors
 
 -necessity of 'is_language' and if statements in constructor?
 
 
+-import
 
+-on import, activate plugins, created inherited types necessary
+
+-on import don't add cards for which card type is not present
+
+-migrate 1.x hack to map card type
+
+
+-activate cards: respect card_type.fact_views_can_be_deactivated
 
 
 -add version number to database format
@@ -33,15 +36,15 @@
 
 -improve sphinxdocs: autoclass='both', document module members
 
--migrate 1.x hack to map card type
 
--activate cards: respect card_type.fact_views_can_be_deactivated
 
 -run convert to html after adding/modifying card?
 
 -pregenerate q and a on mobile devices?
 
 -test uploading of logs
+
+-make sure card type ids are unique?
 
 -show latex errors in GUI?
 
@@ -266,6 +269,8 @@ Status: initial code written, but clean up needed.
 -unify save and export?
 
 -hints? separate mnemonics?
+
+-swac plugin
 
 -corner case: If M > 0 and k < 0 then (a,b) is a local maximum
 If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >

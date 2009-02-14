@@ -16,9 +16,12 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.exceptions import traceback_string
 from mnemosyne.libmnemosyne.exceptions import InvalidFormatError
 from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
+from mnemosyne.libmnemosyne.exceptions import PluginError, MissingPluginError
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
-from mnemosyne.libmnemosyne.component_manager import log, scheduler
+from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import log, scheduler, plugins
+from mnemosyne.libmnemosyne.component_manager import card_types, database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 
 
@@ -82,9 +85,28 @@ class Pickle(Database):
         except:
             self.load_failed = True
             raise InvalidFormatError(stack_trace=True)
+        # Activate plugins if needed. Because of the sip bugs, card types here
+        # are actually still card type ids.
+        in_use_id = set(card.fact.card_type for card in self.cards)
+        active_id = set(card_type for card_type in card_types())
+        for card_type_id in in_use_id - active_id:
+            try:
+                for plugin in plugins():
+                    if plugin.provides == "card_type" and \
+                       plugin.id == card_type_id:
+                        plugin.activate()
+                        break
+                else:
+                    self.__init__()
+                    self.load_failed = True
+                    raise MissingPluginError(info='id')
+            except:
+                self.__init__()
+                self.load_failed = True
+                raise PluginError(stack_trace=True)
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
-            f.card_type = card_type_by_id(f.card_type)
+            f.card_type = card_type_by_id(f.card_type)    
         # TODO: This was to remove database inconsistencies. Still needed?
         #for c in self.categories:
         #    self.remove_category_if_unused(c)
@@ -119,6 +141,8 @@ class Pickle(Database):
             f.card_type = card_type_by_id(f.card_type)
 
     def unload(self):
+        if len(self.facts) == 0:
+            return True
         self.save(config()["path"])
         log().saved_database()
         self.start_date = None
@@ -301,6 +325,9 @@ class Pickle(Database):
             return 2.5
         else:
             return sum(c.easiness for c in self.cards) / len(self.cards)
+
+    def card_type_ids_in_use(self):
+        return set(card.fact.card_type.id for card in self.cards)
 
     def set_filter(self, filter):
         print "SQL filtering not implemented in pickle database."
