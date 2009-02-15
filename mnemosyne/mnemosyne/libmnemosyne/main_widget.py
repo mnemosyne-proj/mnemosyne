@@ -33,6 +33,9 @@ class MainWidget(object):
     
     def run_card_appearance_dialog(self):
         raise NotImplementedError
+
+    def run_manage_card_types_dialog(self):
+        raise NotImplementedError
     
     def update_status_bar(self, message=None):
         raise NotImplementedError 

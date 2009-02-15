@@ -88,7 +88,7 @@ class Pickle(Database):
         # Activate plugins if needed. Because of the sip bugs, card types here
         # are actually still card type ids.
         in_use_id = set(card.fact.card_type for card in self.cards)
-        active_id = set(card_type for card_type in card_types())
+        active_id = set(card_type.id for card_type in card_types())
         for card_type_id in in_use_id - active_id:
             try:
                 for plugin in plugins():

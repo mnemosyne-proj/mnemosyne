@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>228</width>
-    <height>171</height>
+    <width>199</width>
+    <height>182</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -28,7 +28,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>228</width>
+     <width>199</width>
      <height>25</height>
     </rect>
    </property>
@@ -55,6 +55,7 @@
     <addaction name="actionDeleteCurrentFact" />
     <addaction name="separator" />
     <addaction name="actionEditDeck" />
+    <addaction name="actionManageCardTypes" />
     <addaction name="actionActivateCategories" />
     <addaction name="actionCleanDuplicates" />
     <addaction name="separator" />
@@ -283,6 +284,11 @@
     <string>&amp;Activate plugins</string>
    </property>
   </action>
+  <action name="actionManageCardTypes" >
+   <property name="text" >
+    <string>Manage card &amp;types</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="mnemosyne.qrc" />
@@ -444,6 +450,22 @@
     </hint>
     <hint type="destinationlabel" >
      <x>113</x>
+     <y>85</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionManageCardTypes</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>manage_card_types</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>277</x>
      <y>85</y>
     </hint>
    </hints>

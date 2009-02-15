@@ -15,6 +15,7 @@ import review_wdgt
 from ui_main_window import Ui_MainWindow
 from add_cards_dlg import AddCardsDlg
 from edit_fact_dlg import EditFactDlg
+from manage_card_types_dlg import ManageCardTypesDlg
 from card_appearance_dlg import CardAppearanceDlg
 from activate_plugins_dlg import ActivatePluginsDlg
 #from import_dlg import *
@@ -117,7 +118,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def file_save_as(self):
         ui_controller_main().file_save_as()
-
+        
+    def manage_card_types(self):
+        ui_controller_main().manage_card_types()
+        
     def card_appearance(self):
         ui_controller_main().card_appearance()
         
@@ -131,7 +135,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def run_edit_fact_dialog(self, fact, allow_cancel=True):
         dlg = EditFactDlg(fact, allow_cancel, self)
         dlg.exec_()
-
+        
+    def run_manage_card_types_dialog(self):
+        dlg = ManageCardTypesDlg(self)
+        dlg.exec_()
+        
     def run_card_appearance_dialog(self):
         dlg = CardAppearanceDlg(self)
         dlg.exec_()
