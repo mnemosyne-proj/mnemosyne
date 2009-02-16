@@ -38,15 +38,18 @@ class CardType(object):
 
     """
 
-    #Class variable to allow extra way of determining inheritance hierarchy.
+    # Id is a class variable to allow extra way of determining inheritance
+    # hierarchy.
 
     id = "-1"
+    name = ""
+    can_be_subclassed = True
+    defined_through_gui = False
 
     def __init__(self):
         self.fields = []
         self.fact_views = []
         self.unique_fields = []
-        self.is_language = False
         self.widget = None
         self.renderer = None
         self.fact_views_can_be_deactivated = True

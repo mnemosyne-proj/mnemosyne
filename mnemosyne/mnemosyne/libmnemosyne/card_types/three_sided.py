@@ -12,17 +12,12 @@ from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 
 
 class ThreeSided(CardType):
-
+    
+    id = "3"
+    name = _("Foreign word with pronunciation")
+            
     def __init__(self, language_name=""):
         CardType.__init__(self)
-        if not language_name:
-            self.id = "3"
-            self.name = _("Foreign word with pronunciation")
-            self.is_language = False
-        else:
-            self.id = "3_" + language_name
-            self.name = language_name
-            self.is_language = True
 
         # List and name the keys.
         self.fields.append(("f", _("Foreign word")))

@@ -11,6 +11,9 @@
 
 -create these types on load if necessary
 
+-activate parent plugins too on load or import
+-don't allow deactivating plugins if card types derive from it
+
 -test inheritance of card type convertors
 
 -necessity of 'is_language' and if statements in constructor?

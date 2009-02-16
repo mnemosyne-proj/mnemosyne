@@ -5,13 +5,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
+    <width>400</width>
     <height>100</height>
    </rect>
   </property>
   <property name="minimumSize" >
    <size>
-    <width>300</width>
+    <width>400</width>
     <height>100</height>
    </size>
   </property>
@@ -31,7 +31,7 @@
         </widget>
        </item>
        <item row="0" column="1" >
-        <widget class="QComboBox" name="comboBox" />
+        <widget class="QComboBox" name="parent_type" />
        </item>
        <item row="1" column="0" >
         <widget class="QLabel" name="label_2" >
@@ -41,7 +41,7 @@
         </widget>
        </item>
        <item row="1" column="1" >
-        <widget class="QLineEdit" name="lineEdit" />
+        <widget class="QLineEdit" name="name" />
        </item>
       </layout>
      </item>
@@ -49,6 +49,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3" >
        <item>
         <widget class="QPushButton" name="OK_button" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
          <property name="text" >
           <string>&amp;OK</string>
          </property>
@@ -111,6 +114,22 @@
     <hint type="destinationlabel" >
      <x>199</x>
      <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>name</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>AddCardTypeDlg</receiver>
+   <slot>name_changed</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>253</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>199</x>
+     <y>49</y>
     </hint>
    </hints>
   </connection>

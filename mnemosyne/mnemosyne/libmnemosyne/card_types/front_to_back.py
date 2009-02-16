@@ -10,11 +10,12 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 
 
 class FrontToBack(CardType):
-
+    
+    id = "1"
+    name = _("Front-to-back only")
+        
     def __init__(self):
         CardType.__init__(self)
-        self.id = "1"
-        self.name = _("Front-to-back only")
 
         # List and name the keys.
         self.fields.append(("q", _("Question")))

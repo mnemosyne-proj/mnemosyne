@@ -12,10 +12,10 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 
 class Map(CardType, Plugin):
 
+    id = "4"
     name = _("Map")
     description = _("A card type for learning locations on a map")
     provides = "card_type"
-    id = "4"
         
     def __init__(self):
         CardType.__init__(self)

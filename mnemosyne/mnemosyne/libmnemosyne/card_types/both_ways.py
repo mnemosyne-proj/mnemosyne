@@ -13,16 +13,11 @@ from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 
 class BothWays(CardType):
 
+    id = "2"
+    name = _("Front-to-back and back-to-front")
+
     def __init__(self, language_name=""):
         CardType.__init__(self)
-        if not language_name:
-            self.id = "2"
-            self.name = _("Front-to-back and back-to-front")
-            self.is_language = False
-        else:
-            self.id = "2_" + language_name
-            self.name = language_name
-            self.is_language = True
             
         # List and name the keys.
         self.fields.append(("q", _("Question")))
