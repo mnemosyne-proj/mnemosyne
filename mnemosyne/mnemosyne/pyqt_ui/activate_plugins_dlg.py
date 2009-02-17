@@ -54,11 +54,13 @@ class PluginListModel(QAbstractTableModel):
                 if value == QVariant(Qt.Checked):
                     plugin.activate()
                 else:
-                    if plugin.provides == "card_type" and \
-                       plugin.id in database().card_type_ids_in_use():
-                        QMessageBox.critical(None, _("Mnemosyne"),
-                           _("Cannot deactivate, this card type is in use."))
-                        return False  
+                    if plugin.provides == "card_type":
+                        for card_type in database().card_types_in_use():
+                            if issubclass(card_type.__class__,
+                                          plugin.__class__):
+                                QMessageBox.critical(None, _("Mnemosyne"),
+   _("Cannot deactivate, this card type or a custom version of it is in use."))
+                                return False  
                     plugin.deactivate()                    
                     self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
                               index, index)

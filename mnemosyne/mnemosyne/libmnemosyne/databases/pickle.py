@@ -326,8 +326,8 @@ class Pickle(Database):
         else:
             return sum(c.easiness for c in self.cards) / len(self.cards)
 
-    def card_type_ids_in_use(self):
-        return set(card.fact.card_type.id for card in self.cards)
+    def card_types_in_use(self):
+        return set(card.fact.card_type for card in self.cards)
 
     def set_filter(self, filter):
         print "SQL filtering not implemented in pickle database."

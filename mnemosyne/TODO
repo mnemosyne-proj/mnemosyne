@@ -6,17 +6,14 @@
 * Mnemosyne 2.0:
 
 
--GUI option to derive from existyng card types to create a new language
- specific card type.
+-GUI option to derive from existing card types to create a new card type.
 
 -create these types on load if necessary
 
 -activate parent plugins too on load or import
--don't allow deactivating plugins if card types derive from it
 
 -test inheritance of card type convertors
 
--necessity of 'is_language' and if statements in constructor?
 
 
 -import
@@ -156,8 +153,8 @@
 
 -save category state
 
--tips: right click to add cards or sound, comma to separate cat names,
- : to separate hierarchies
+-tips (both on startup and on use): right click to add cards or sound, comma to 
+ separate cat names, : to separate hierarchies
 
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh
 

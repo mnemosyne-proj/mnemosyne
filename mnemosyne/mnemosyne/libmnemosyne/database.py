@@ -116,7 +116,7 @@ class Database(object):
     def average_easiness(self):
         raise NotImplementedError
 
-    def card_type_ids_in_use(self): # TODO: SQL
+    def card_types_in_use(self): # TODO: SQL
         raise NotImplementedError        
 
     # Filter is a SQL filter, used e.g. to filter out inactive categories.

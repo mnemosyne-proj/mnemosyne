@@ -15,6 +15,9 @@ class CardType(object):
     for different translations. The description is used when card types are
     plugins, in order to give more information.
 
+    Derived card types have ids where dots separate the different levels of
+    the hierarchy, e.g. 3.my_language_type.
+
     The keys from the fact are also given more verbose names here.
     This is not done in fact.py, on one hand to save space in the database,
     and on the other hand to allow the possibility that different card types

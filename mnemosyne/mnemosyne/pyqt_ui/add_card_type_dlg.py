@@ -29,16 +29,23 @@ class AddCardTypeDlg(QDialog, Ui_AddCardTypeDlg):
         if not self.name.text():
             self.OK_button.setEnabled(False)
         else:
-            self.OK_button.setEnabled(True)            
+            self.OK_button.setEnabled(True)
 
     def accept(self):
         parent_instance = self.card_types[self.parent_type.currentIndex()] 
         card_type_name = unicode(self.name.text())
-        card_type_name_safe = card_type_name.encode('utf8')
+        # Create a safe version of the name to be used as class name.
+        # TODO: not fool proof yet, but captures the most obvious cases.
+        card_type_name_safe = card_type_name.encode('utf8').replace(" ", "_")
+        id = parent_instance.id + "." + card_type_name
+        if id in [card_type.id for card_type in card_types()]:
+            QMessageBox.critical(None, _("Mnemosyne"),
+                                 _("This name is already in use."))
+            return                    
         C = type(card_type_name_safe, (parent_instance.__class__, ),
-                 {'name': card_type_name,
-                  'defined_through_gui': True,
-                  'can_be_subclassed': False,
-                  'id': parent_instance.id + "." + card_type_name})
+                 {"name": card_type_name,
+                  "defined_through_gui": True,
+                  "can_be_subclassed": False,
+                  "id": id})
         component_manager.register("card_type", C())       
         QDialog.accept(self)
