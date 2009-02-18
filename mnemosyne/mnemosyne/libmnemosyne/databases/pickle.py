@@ -84,12 +84,28 @@ class Pickle(Database):
             self.load_failed = False
         except:
             self.load_failed = True
-            raise InvalidFormatError(stack_trace=True)
+            raise InvalidFormatError(stack_trace=True)        
         # Activate plugins if needed. Because of the sip bugs, card types here
         # are actually still card type ids.
         in_use_id = set(card.fact.card_type for card in self.cards)
         active_id = set(card_type.id for card_type in card_types())
-        for card_type_id in in_use_id - active_id:
+        # Add also the parent classes.
+        parent_id = set()
+        for id in in_use_id:
+            while "." in id: # Move up one level of the hierarchy.
+                id = id.rsplit(".", 1)[0]
+                parent_id.add(id)
+        print 'parent', parent_id
+        
+        plugin_needed = []
+        alias_needed = []
+        for card_type_id in parent_id | in_use_id - active_id:
+            if card_type_id.startswith("ALIAS_"):
+                alias_needed.append(card_type_id)
+            else:
+                plugin_needed.append(card_type_id)
+        # Activate necessary plugins.
+        for card_type_id in plugin_needed:
             try:
                 for plugin in plugins():
                     if plugin.provides == "card_type" and \
@@ -104,6 +120,21 @@ class Pickle(Database):
                 self.__init__()
                 self.load_failed = True
                 raise PluginError(stack_trace=True)
+        # Create necessary aliases.
+        # TODO: move part of this to card type.
+        for card_type_id in alias_needed:
+            card_type_name = card_type_id.rsplit(".", 1)[1]
+            card_type_name.replace("ALIAS_", "")
+            # Create a safe version of the name to be used as class name.
+            # TODO: not fool proof yet, but captures the most obvious cases.
+            card_type_name_safe = card_type_name.encode('utf8').replace(" ", "_")                    
+            C = type(card_type_name_safe, (parent_instance.__class__, ),
+                     {"name": card_type_name,
+                      "alias": True,
+                      "can_be_subclassed": False,
+                      "id": card_type_id})
+            component_manager.register("card_type", C())   
+            
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             f.card_type = card_type_by_id(f.card_type)    

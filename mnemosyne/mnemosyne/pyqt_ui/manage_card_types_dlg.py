@@ -25,7 +25,7 @@ class ManageCardTypesDlg(QDialog, Ui_ManageCardTypesDlg):
     def update(self):
         self.custom_card_types.clear()
         for card_type in card_types():
-            if card_type.defined_through_gui:
+            if card_type.alias:
                 name = "%s (%s)" % (card_type.name,
                                     card_type.__class__.__bases__[0].name)
                 self.custom_card_types.addItem(QListWidgetItem(name))

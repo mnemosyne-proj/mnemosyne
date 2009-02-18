@@ -15,8 +15,11 @@ class CardType(object):
     for different translations. The description is used when card types are
     plugins, in order to give more information.
 
-    Derived card types have ids where dots separate the different levels of
-    the hierarchy, e.g. 3.my_language_type.
+    Inherited card types should have ids where dots separate the different
+    levels of the hierarchy, e.g. parent_id.child_id. For card types which
+    don't have code of their own, but are only an alias of an existing card
+    type, the child id should be prefixed by ALIAS_, e.g.
+    3.ALIAS_Japanese
 
     The keys from the fact are also given more verbose names here.
     This is not done in fact.py, on one hand to save space in the database,
@@ -47,7 +50,7 @@ class CardType(object):
     id = "-1"
     name = ""
     can_be_subclassed = True
-    defined_through_gui = False
+    alias = False
 
     def __init__(self):
         self.fields = []

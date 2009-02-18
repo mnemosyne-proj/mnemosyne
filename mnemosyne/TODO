@@ -14,6 +14,7 @@
 
 -test inheritance of card type convertors
 
+-'missing plugin error' hides 'creating tmp database' error
 
 
 -import
@@ -138,7 +139,8 @@
 
 -template for cards?
 
--language specific card types (arabic, japanese, integrated dictionary lookup)
+-language specific card types (arabic, japanese, integrated dictionary lookup,
+ http://lost-theory.org/ocrat/)
 
 -hierarchical categories
 
