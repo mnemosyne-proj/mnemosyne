@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>199</width>
-    <height>182</height>
+    <width>196</width>
+    <height>211</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -28,7 +28,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>199</width>
+     <width>196</width>
      <height>25</height>
     </rect>
    </property>
@@ -55,7 +55,7 @@
     <addaction name="actionDeleteCurrentFact" />
     <addaction name="separator" />
     <addaction name="actionEditDeck" />
-    <addaction name="actionManageCardTypes" />
+    <addaction name="actionCloneCardTypes" />
     <addaction name="actionActivateCategories" />
     <addaction name="actionCleanDuplicates" />
     <addaction name="separator" />
@@ -284,9 +284,9 @@
     <string>&amp;Activate plugins</string>
    </property>
   </action>
-  <action name="actionManageCardTypes" >
+  <action name="actionCloneCardTypes" >
    <property name="text" >
-    <string>Manage card &amp;types</string>
+    <string>Clone card &amp;types</string>
    </property>
   </action>
  </widget>
@@ -455,7 +455,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionManageCardTypes</sender>
+   <sender>actionCloneCardTypes</sender>
    <signal>activated()</signal>
    <receiver>MainWindow</receiver>
    <slot>manage_card_types</slot>

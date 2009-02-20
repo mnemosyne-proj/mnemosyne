@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>ManageCardTypesDlg</class>
- <widget class="QDialog" name="ManageCardTypesDlg" >
+ <class>ClonedCardTypesListDlg</class>
+ <widget class="QDialog" name="ClonedCardTypesListDlg" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
    </size>
   </property>
   <property name="windowTitle" >
-   <string>Manage card types</string>
+   <string>Cloned card types</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" >
    <item>
@@ -24,19 +24,19 @@
      <item>
       <widget class="QLabel" name="label_2" >
        <property name="text" >
-        <string>Custom card types in use:</string>
+        <string>Cloned card types in use in this deck:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QListWidget" name="custom_card_types" />
+      <widget class="QListWidget" name="cloned_card_types" />
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout" >
        <item>
         <widget class="QPushButton" name="add_button" >
          <property name="text" >
-          <string>&amp;Add card type</string>
+          <string>&amp;Add clone</string>
          </property>
         </widget>
        </item>
@@ -91,7 +91,7 @@
   <connection>
    <sender>exit_button</sender>
    <signal>clicked()</signal>
-   <receiver>ManageCardTypesDlg</receiver>
+   <receiver>ClonedCardTypesListDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -107,7 +107,7 @@
   <connection>
    <sender>help_button</sender>
    <signal>clicked()</signal>
-   <receiver>ManageCardTypesDlg</receiver>
+   <receiver>ClonedCardTypesListDlg</receiver>
    <slot>help</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -123,8 +123,8 @@
   <connection>
    <sender>add_button</sender>
    <signal>clicked()</signal>
-   <receiver>ManageCardTypesDlg</receiver>
-   <slot>add_card_type</slot>
+   <receiver>ClonedCardTypesListDlg</receiver>
+   <slot>clone_card_type</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>65</x>

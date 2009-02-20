@@ -15,7 +15,7 @@ import review_wdgt
 from ui_main_window import Ui_MainWindow
 from add_cards_dlg import AddCardsDlg
 from edit_fact_dlg import EditFactDlg
-from manage_card_types_dlg import ManageCardTypesDlg
+from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 from card_appearance_dlg import CardAppearanceDlg
 from activate_plugins_dlg import ActivatePluginsDlg
 #from import_dlg import *
@@ -137,7 +137,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dlg.exec_()
         
     def run_manage_card_types_dialog(self):
-        dlg = ManageCardTypesDlg(self)
+        dlg = ClonedCardTypesListDlg(self)
         dlg.exec_()
         
     def run_card_appearance_dialog(self):

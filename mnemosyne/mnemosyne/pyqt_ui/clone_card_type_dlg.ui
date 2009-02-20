@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>AddCardTypeDlg</class>
- <widget class="QDialog" name="AddCardTypeDlg" >
+ <class>CloneCardTypeDlg</class>
+ <widget class="QDialog" name="CloneCardTypeDlg" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
    </size>
   </property>
   <property name="windowTitle" >
-   <string>Add card type</string>
+   <string>Clone card type</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" >
    <item>
@@ -26,7 +26,7 @@
        <item row="0" column="0" >
         <widget class="QLabel" name="label" >
          <property name="text" >
-          <string>Copied from:</string>
+          <string>Cloned from:</string>
          </property>
         </widget>
        </item>
@@ -36,7 +36,7 @@
        <item row="1" column="0" >
         <widget class="QLabel" name="label_2" >
          <property name="text" >
-          <string>Card type name:</string>
+          <string>Clone name:</string>
          </property>
         </widget>
        </item>
@@ -88,7 +88,7 @@
   <connection>
    <sender>OK_button</sender>
    <signal>clicked()</signal>
-   <receiver>AddCardTypeDlg</receiver>
+   <receiver>CloneCardTypeDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -104,7 +104,7 @@
   <connection>
    <sender>cancel_button</sender>
    <signal>clicked()</signal>
-   <receiver>AddCardTypeDlg</receiver>
+   <receiver>CloneCardTypeDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -120,7 +120,7 @@
   <connection>
    <sender>name</sender>
    <signal>textChanged(QString)</signal>
-   <receiver>AddCardTypeDlg</receiver>
+   <receiver>CloneCardTypeDlg</receiver>
    <slot>name_changed</slot>
    <hints>
     <hint type="sourcelabel" >

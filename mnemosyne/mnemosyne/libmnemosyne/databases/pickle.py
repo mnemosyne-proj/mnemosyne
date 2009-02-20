@@ -91,21 +91,18 @@ class Pickle(Database):
         active_id = set(card_type.id for card_type in card_types())
         # Add also the parent classes.
         parent_id = set()
+        clone_needed = []
         for id in in_use_id:
             while "." in id: # Move up one level of the hierarchy.
-                id = id.rsplit(".", 1)[0]
-                parent_id.add(id)
+                parent_type_id, child_name = id.rsplit(".", 1)
+                if parent_type_id.endswith("_CLONED"):
+                    parent_type_id.replace("_CLONED", "")                    
+                    clone_needed.append((parent_type_id, child_name))
+                parent_id.add(parent_type_id)
         print 'parent', parent_id
-        
-        plugin_needed = []
-        alias_needed = []
+
+        # Try and activate plugins for parent types.
         for card_type_id in parent_id | in_use_id - active_id:
-            if card_type_id.startswith("ALIAS_"):
-                alias_needed.append(card_type_id)
-            else:
-                plugin_needed.append(card_type_id)
-        # Activate necessary plugins.
-        for card_type_id in plugin_needed:
             try:
                 for plugin in plugins():
                     if plugin.provides == "card_type" and \
@@ -120,20 +117,11 @@ class Pickle(Database):
                 self.__init__()
                 self.load_failed = True
                 raise PluginError(stack_trace=True)
-        # Create necessary aliases.
-        # TODO: move part of this to card type.
-        for card_type_id in alias_needed:
-            card_type_name = card_type_id.rsplit(".", 1)[1]
-            card_type_name.replace("ALIAS_", "")
-            # Create a safe version of the name to be used as class name.
-            # TODO: not fool proof yet, but captures the most obvious cases.
-            card_type_name_safe = card_type_name.encode('utf8').replace(" ", "_")                    
-            C = type(card_type_name_safe, (parent_instance.__class__, ),
-                     {"name": card_type_name,
-                      "alias": True,
-                      "can_be_subclassed": False,
-                      "id": card_type_id})
-            component_manager.register("card_type", C())   
+            
+        # Create necessary clones.
+        for parent_type_id, clone_name in clone_needed:
+            parent_instance = card_type_by_id(parent_type_id)
+            parent_instance.clone(child_name)
             
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
