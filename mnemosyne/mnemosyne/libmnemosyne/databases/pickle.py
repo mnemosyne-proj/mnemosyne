@@ -84,25 +84,29 @@ class Pickle(Database):
             self.load_failed = False
         except:
             self.load_failed = True
-            raise InvalidFormatError(stack_trace=True)        
-        # Activate plugins if needed. Because of the sip bugs, card types here
-        # are actually still card type ids.
-        in_use_id = set(card.fact.card_type for card in self.cards)
-        active_id = set(card_type.id for card_type in card_types())
-        # Add also the parent classes.
-        parent_id = set()
+            raise InvalidFormatError(stack_trace=True)
+        
+        # Deal with clones and plugins, also plugins for parent classe.
+        # Because of the sip bugs, card types here are actually still card
+        # type ids.
+        plugin_needed = []
         clone_needed = []
-        for id in in_use_id:
+        active_id = set(card_type.id for card_type in card_types())
+        for id in set(card.fact.card_type for card in self.cards):
             while "." in id: # Move up one level of the hierarchy.
-                parent_type_id, child_name = id.rsplit(".", 1)
-                if parent_type_id.endswith("_CLONED"):
-                    parent_type_id.replace("_CLONED", "")                    
-                    clone_needed.append((parent_type_id, child_name))
-                parent_id.add(parent_type_id)
-        print 'parent', parent_id
-
-        # Try and activate plugins for parent types.
-        for card_type_id in parent_id | in_use_id - active_id:
+                id, child_name = id.rsplit(".", 1)          
+                if id.endswith("_CLONED"):
+                    id = id.replace("_CLONED", "")
+                    clone_needed.append((id, child_name))
+                if id not in active_id:
+                    plugin_needed.add(id)
+            if id not in active_id:
+                plugin_needed.add(id)            
+        print 'plugin needed', plugin_needed
+        print 'clone needed', clone_needed
+        
+        # Activate necessary plugins.
+        for card_type_id in plugin_needed:
             try:
                 for plugin in plugins():
                     if plugin.provides == "card_type" and \

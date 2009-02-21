@@ -37,4 +37,4 @@ class ClonedCardTypesListDlg(QDialog, Ui_ClonedCardTypesListDlg):
 
     def help(self):
         message = _("Here, you can make clones of existing card types. This allows you to format the cards in this type independently from the original type. E.g. you could make a clone of 'Foreign word with pronunciation', call it 'Thai' and set a Thai fonts specifically for this card type without disturbing the other cards.")
-        QMessageBox.information(self, _("Managing card types"), message, _("&OK"))
+        QMessageBox.information(self, _("Cloning card types"), message, _("&OK"))

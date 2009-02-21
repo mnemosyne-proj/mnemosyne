@@ -8,8 +8,6 @@
 
 -GUI option to derive from existing card types to create a new card type.
 
--create these types on load if necessary
-
 -activate parent plugins too on load or import
 
 -test inheritance of card type convertors

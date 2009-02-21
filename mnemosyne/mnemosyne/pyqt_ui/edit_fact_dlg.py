@@ -29,7 +29,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg, AddEditCards):
         if not allow_cancel:
             self.exit_button.setVisible(False)  
         self.fact = fact 
-        self.initialise_card_types_combobox(self.fact.card_type)     
+        self.initialise_card_types_combobox(self.fact.card_type.name)     
         cat_string = ""
         for cat in self.fact.cat:
             cat_string += cat.name + ", "

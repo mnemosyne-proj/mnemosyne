@@ -97,7 +97,7 @@ class CardType(object):
                  self.renderer = component_manager.get_current("renderer")
             return self.renderer
 
-    def clone(self, clone_name):      
+    def clone(self, clone_name):
         clone_id = self.id + "_CLONED." + clone_name
         if clone_id in [card_type.id for card_type in card_types()]:
             raise NameError
