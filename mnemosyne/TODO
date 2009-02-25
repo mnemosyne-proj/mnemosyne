@@ -6,11 +6,7 @@
 * Mnemosyne 2.0:
 
 
--GUI option to derive from existing card types to create a new card type.
-
--activate parent plugins too on load or import
-
--test inheritance of card type convertors
+-conversion from type to clone should not do anything
 
 -'missing plugin error' hides 'creating tmp database' error
 
