@@ -23,6 +23,8 @@
 
 -migrate 1.x hack to map card type
 
+-warn when not importing a duplicate card
+
 
 -activate cards: respect card_type.fact_views_can_be_deactivated
 
@@ -113,6 +115,8 @@
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
+
+-download media files when giving URL?
 
 -reenable datadir in setup.py
 
