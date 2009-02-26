@@ -89,7 +89,7 @@ class Pickle(Database):
         # Deal with clones and plugins, also plugins for parent classe.
         # Because of the sip bugs, card types here are actually still card
         # type ids.
-        plugin_needed = []
+        plugin_needed = set()
         clone_needed = []
         active_id = set(card_type.id for card_type in card_types())
         for id in set(card.fact.card_type for card in self.cards):
@@ -101,9 +101,7 @@ class Pickle(Database):
                 if id not in active_id:
                     plugin_needed.add(id)
             if id not in active_id:
-                plugin_needed.add(id)            
-        print 'plugin needed', plugin_needed
-        print 'clone needed', clone_needed
+                plugin_needed.add(id)
         
         # Activate necessary plugins.
         for card_type_id in plugin_needed:
@@ -125,7 +123,7 @@ class Pickle(Database):
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
             parent_instance = card_type_by_id(parent_type_id)
-            parent_instance.clone(child_name)
+            parent_instance.clone(clone_name)
             
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:

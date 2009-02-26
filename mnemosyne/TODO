@@ -6,11 +6,7 @@
 * Mnemosyne 2.0:
 
 
--GUI option to derive from existing card types to create a new card type.
-
--activate parent plugins too on load or import
-
--test inheritance of card type convertors
+-conversion from type to clone should not do anything
 
 -'missing plugin error' hides 'creating tmp database' error
 
@@ -22,6 +18,8 @@
 -on import don't add cards for which card type is not present
 
 -migrate 1.x hack to map card type
+
+-warn when not importing a duplicate card
 
 
 -activate cards: respect card_type.fact_views_can_be_deactivated
@@ -113,6 +111,8 @@
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
+
+-download media files when giving URL?
 
 -reenable datadir in setup.py
 
