@@ -185,7 +185,7 @@ def finalise():
         print "done!"
     log().program_stopped()
     try:
-        os.remove(os.path.join(config().basedir,"MNEMOSYNE_LOCK"))
+        os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
     except OSError:
         print "Failed to remove lock file."
         print traceback_string()

@@ -155,7 +155,7 @@ class Pickle(Database):
             shutil.move(path + "~", path) # Should be atomic.
         except:
             print traceback_string()
-            raise SaveError()
+            raise SaveError
         config()["path"] = contract_path(path, config().basedir)
         # Work around sip bug again.
         for f in self.facts:

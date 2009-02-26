@@ -5,12 +5,6 @@
 
 * Mnemosyne 2.0:
 
-
--conversion from type to clone should not do anything
-
--'missing plugin error' hides 'creating tmp database' error
-
-
 -import
 
 -on import, activate plugins, created inherited types necessary

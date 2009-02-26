@@ -93,12 +93,17 @@ class DefaultMainController(UiControllerMain):
 
         # Change card type.
         db = database()
-        old_card_type = fact.card_type
+        old_card_type = fact.card_type       
         if old_card_type != new_card_type:
+            old_card_type_id_uncloned = old_card_type.id.split("_CLONED", 1)[0]
+            new_card_type_id_uncloned = new_card_type.id.split("_CLONED", 1)[0] 
             converter = component_manager.get_current\
                   ("card_type_converter", used_for=(old_card_type.__class__,
                                                     new_card_type.__class__))
-            if not converter:
+            if old_card_type_id_uncloned == new_card_type_id_uncloned:
+                fact.card_type = new_card_type
+                updated_cards = db.cards_from_fact(fact)      
+            elif not converter:
                 answer = self.widget.question_box(\
           _("Can't preserve history when converting between these card types.")\
                   + " " + _("The learning history of the cards will be reset."),
