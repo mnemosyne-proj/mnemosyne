@@ -32,6 +32,7 @@ from activate_plugins_dlg import ActivatePluginsDlg
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne import initialise_user_plugins
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
+from mnemosyne.libmnemosyne.exceptions import LoadErrorCreateTmp
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
@@ -63,7 +64,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             database().load(filename)
         except MnemosyneError, e:
-            self.error_box(e)            
+            self.error_box(e)
+            self.error_box(LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
             database().new(filename)
         ui_controller_main().widget = self
@@ -77,11 +79,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return QMessageBox.question(None, _("Mnemosyne"),
                                     question, option0, option1, option2, 0, -1)
 
-    def error_box(self, event):
-        if event.info:
-            event.msg += "\n" + event.info        
-            QMessageBox.critical(None, _("Mnemosyne"), event.msg,
-                                 _("&OK"), "", "", 0, -1)
+    def error_box(self, exception):
+        if exception.info:
+            exception.msg += "\n" + exception.info        
+        QMessageBox.critical(None, _("Mnemosyne"), exception.msg,
+                             _("&OK"), "", "", 0, -1)
 
     def save_file_dialog(self, path, filter, caption=""):
         return unicode(QFileDialog.getSaveFileName(self,caption,path,filter))
