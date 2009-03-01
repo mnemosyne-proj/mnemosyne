@@ -7,6 +7,8 @@ install-and-run-virtual-env:
 
 setup:
 	virtualenv .
+	./bin/easy_install nose
+	./bin/easy_install coverage
 
 install-system:
 	cd mnemosyne/pyqt_ui ; make clean
@@ -16,7 +18,7 @@ install-system:
 	rm -f -R build
 
 test:
-	nosetests --with-coverage --with-doctest --cover-package=libmnemosyne
+	./bin/nosetests --with-coverage --cover-package=libmnemosyne
 
 windows:
 	rmdir /S /Q dist
