@@ -18,7 +18,10 @@ install-system:
 	rm -f -R build
 
 test:
-	./bin/nosetests --with-coverage --cover-package=libmnemosyne
+	./bin/nosetests
+
+cover:
+	./bin/nosetests --with-coverage --cover-package=mnemosyne.libmnemosyne
 
 windows:
 	rmdir /S /Q dist

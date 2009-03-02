@@ -13,6 +13,7 @@ library, so that it can be overridden to suit specific requirements.
 import os
 import sys
 
+from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.exceptions import PluginError, traceback_string
 from mnemosyne.libmnemosyne.component_manager import config, log, plugins
 from mnemosyne.libmnemosyne.component_manager import component_manager
@@ -40,9 +41,9 @@ def initialise_lockfile():
 
 def initialise_new_empty_database():
     from mnemosyne.libmnemosyne.component_manager import database
-    filename = config()["path"]
-    if not os.path.exists(os.path.join(config().basedir, filename)):
-        database().new(os.path.join(config().basedir, filename))
+    filename = expand_path(config()["path"], config().basedir)
+    if not os.path.exists(filename):
+        database().new(filename)
 
 
 upload_thread = None
