@@ -3,6 +3,7 @@
 #
 
 import os
+import re
 from mnemosyne.libmnemosyne.component_manager import config
 
 
@@ -50,3 +51,10 @@ def contract_path(p, prefix=None):
             return p            
     else:
         return p
+
+
+def numeric_string_cmp(s1, s2):
+    """Compare two strings using numeric ordering"""
+    atoi = lambda s: int(s) if s.isdigit() else s
+    scan = lambda s: tuple(atoi(c) for c in re.split('(\d+)', s))
+    return cmp(scan(s1), scan(s2))

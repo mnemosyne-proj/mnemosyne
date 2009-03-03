@@ -11,6 +11,7 @@ from PyQt4.QtGui import *
 from ui_add_cards_dlg import Ui_AddCardsDlg
 
 from mnemosyne.libmnemosyne.fact import Fact
+from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import database, card_types
@@ -86,7 +87,8 @@ class AddEditCards:
     def update_categories_combobox(self, current_cat_name):
         self.categories.clear()
         self.categories.addItem(_("<default>"))
-        for name in database().category_names():
+        sorted_categories = sorted(database().category_names(), cmp=numeric_string_cmp)
+        for name in sorted_categories:
             if name != _("<default>"):
                 self.categories.addItem(name)
         if ',' in current_cat_name:
