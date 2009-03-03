@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="1.1" language="ja">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -11,15 +13,15 @@
     </message>
     <message>
         <source>Unable to load file.</source>
-        <translation>ファイルはロードできません.</translation>
+        <translation>ファイルをロードできません。</translation>
     </message>
     <message>
         <source>Invalid file format.</source>
-        <translation>ファイルのフォーマットは読めません.</translation>
+        <translation>ファイルの種類は認めらてりません。</translation>
     </message>
     <message>
         <source>Unable to save file.</source>
-        <translation>ファイルがセーブできません.</translation>
+        <translation>ファイルを保存できません。</translation>
     </message>
     <message>
         <source>Unable to parse XML:</source>
@@ -27,7 +29,7 @@
     </message>
     <message>
         <source>Unrecognised encoding.</source>
-        <translation>エンコーディングが読めません。</translation>
+        <translation>文字エンコーディングが不明です。</translation>
     </message>
     <message>
         <source>Missing answer on line:</source>
@@ -37,11 +39,11 @@
         <source>Unable to load database.
 Creating tmp file.</source>
         <translation>データベースをロードすることができません。
-TMPファイルを使っています。</translation>
+TMPファイルを作成しています。</translation>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>メモジーン</translation>
+        <translation>覚エテチョウ</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -49,7 +51,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>File exists:</source>
-        <translation>ファイルがある:</translation>
+        <translation>既に同じ名前のファイルが存在している:</translation>
     </message>
     <message>
         <source>&amp;Overwrite</source>
@@ -88,43 +90,43 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Like &apos;0&apos;, but it&apos;s getting more familiar.</source>
-        <translation>「０」みたく、だけどどんどんと慣れ親しんでいきます。.</translation>
+        <translation>「０」に似ているが、どんどんと慣れ親しんでいきます。</translation>
     </message>
     <message>
         <source> Show it less often.</source>
-        <translation>　 今からあまり見せない方がいい。</translation>
+        <translation> 今からあまり見せないようにします。</translation>
     </message>
     <message>
         <source>You&apos;ve memorised this card now,</source>
-        <translation>あなたは今このカードのことを記憶しました。,</translation>
+        <translation>今このカードのことを記憶しましたから</translation>
     </message>
     <message>
         <source> and will probably remember it for a few days.</source>
-        <translation>そしておそらく数日は覚えているでしょう。.</translation>
+        <translation>おそらく数日は覚えているでしょう。</translation>
     </message>
     <message>
         <source>You have forgotten this card completely.</source>
-        <translation>あなたはこのカードのことを完全に忘れてしまいました。</translation>
+        <translation>このカードのことを完全に忘れてしまいました。</translation>
     </message>
     <message>
         <source>Barely correct answer. The interval was way too long.</source>
-        <translation>かろうじて、正解。休止期間はあまりにも長すぎます。.</translation>
+        <translation>かろうじて、正解。休止期間はあまりにも長すぎます。</translation>
     </message>
     <message>
         <source>Correct answer, but with much effort.</source>
-        <translation>かなりの努力をして正解。（とても困難）.</translation>
+        <translation>かなりの努力をして正解。</translation>
     </message>
     <message>
         <source> The interval was probably too long.</source>
-        <translation>　休止期間はおそらく長すぎます。</translation>
+        <translation>休止期間はおそらく長すぎます。</translation>
     </message>
     <message>
         <source>Correct answer, with some effort.</source>
-        <translation>いくつかの努力をしての正解。（そのとうり）.</translation>
+        <translation>いくつかの努力をしての正解。</translation>
     </message>
     <message>
         <source> The interval was probably just right.</source>
-        <translation>　休止期間はおそらく正しい。</translation>
+        <translation>休止期間はおそらく正しい。</translation>
     </message>
     <message>
         <source>Correct answer, but without any</source>
@@ -132,14 +134,14 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source> difficulties. The interval was probably too short.</source>
-        <translation>おそらくとても短い。(簡単すぎます）.</translation>
+        <translation>おそらく短すぎます。</translation>
     </message>
 </context>
 <context>
     <name>AboutDlg</name>
     <message>
         <source>Mnemosyne</source>
-        <translation>メモジーン</translation>
+        <translation>覚エテチョウ (Mnemosyne)</translation>
     </message>
     <message>
         <source>Main author: Peter Bienstman
@@ -159,6 +161,7 @@ TMPファイルを使っています。</translation>
         <source>More info: http://mnemosyne-proj.org
 </source>
         <translation>ウェブサイト：　http://mnemosyne-proj.org
+日本語：http://www.ushigaeru.com/oboetechou
 </translation>
     </message>
 </context>
@@ -166,7 +169,7 @@ TMPファイルを使っています。</translation>
     <name>AboutFrm</name>
     <message>
         <source>About</source>
-        <translation>メモジーンについて</translation>
+        <translation>覚エテチョウについて</translation>
     </message>
 </context>
 <context>
@@ -208,7 +211,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>メモジーン</translation>
+        <translation>覚エテチョウ</translation>
     </message>
     <message>
         <source>Abandon current card?</source>
@@ -232,16 +235,16 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Written form:</source>
-        <translation>書形:</translation>
+        <translation>スペル:</translation>
     </message>
     <message>
         <source>Translation:</source>
-        <translation>訳す:</translation>
+        <translation>意味:</translation>
     </message>
     <message>
         <source>Card is already in database.
 </source>
-        <translation>このカードはもうデータベースに入っています.</translation>
+        <translation>このカードは既にデータベースに記録しています。</translation>
     </message>
     <message>
         <source>Duplicate not added.</source>
@@ -259,7 +262,7 @@ TMPファイルを使っています。</translation>
         <source> this question:
 
 </source>
-        <translation>　二つい以上答えがあります:
+        <translation>二つ以上答えがあります:
 </translation>
     </message>
     <message>
@@ -268,7 +271,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>&amp;Add as is</source>
-        <translation>&amp;このままで追加</translation>
+        <translation>&amp;このままで追加する</translation>
     </message>
     <message>
         <source>&amp;Do not add</source>
@@ -331,7 +334,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Like &apos;0&apos;, but the item is getting more familiar.</source>
-        <translation>「０」みたく、だけどどんどんと慣れ親しんでいきます。.</translation>
+        <translation>「０」に似ているが、どんどんと慣れ親しんでいきます。</translation>
     </message>
     <message>
         <source>&amp;2</source>
@@ -343,7 +346,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>You&apos;ve memorised this item now, and will probably remember it for a few days.</source>
-        <translation>覚えっています。たぶん2、3日覚えられるでしょう.</translation>
+        <translation>今このカードのことを記憶しましたから、おそらく数日は覚えているでしょう。</translation>
     </message>
     <message>
         <source>&amp;3</source>
@@ -355,7 +358,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Correct answer, but with much effort. The interval was probably too long</source>
-        <translation>かなりの努力をして正解。（とても困難）</translation>
+        <translation>かなりの努力をかけて正解。休止期間はおそらく長すぎます</translation>
     </message>
     <message>
         <source>&amp;4</source>
@@ -367,7 +370,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Correct answer, with some effort. The interval was probably just right.</source>
-        <translation>いくつかの努力をしての正解。（そのとうり）.</translation>
+        <translation>適当な努力をかけての正解。休止期間はおそらく正しい。</translation>
     </message>
     <message>
         <source>&amp;5</source>
@@ -379,11 +382,11 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Correct answer, but without any difficulties. The interval was probably too short.</source>
-        <translation>何の困難も無く正解。(簡単すぎます）.</translation>
+        <translation>何の困難も無く正解。休止期間はおそらく短すぎます。</translation>
     </message>
     <message>
         <source>Type question and answer, then pick initial grade.</source>
-        <translation>質問と答えを記入して、最初のグレードを選択する.</translation>
+        <translation>質問と答えを記入し、最初のグレードを選択する.</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
@@ -437,11 +440,11 @@ TMPファイルを使っています。</translation>
     <name>ConfigurationFrm</name>
     <message>
         <source>Mnemosyne configuration</source>
-        <translation>メモジーンの設定</translation>
+        <translation>覚エテチョウの設定</translation>
     </message>
     <message>
         <source>Hover with the mouse over the buttons to get extra information.</source>
-        <translation>更なる情報を得るためには、マウスをボタンの上にとどめてください。</translation>
+        <translation>マウスをボタンの上にとどめると、もっと詳しい説明が表示されます。</translation>
     </message>
     <message>
         <source>Appearance</source>
@@ -465,11 +468,11 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Increase size of non-latin characters by</source>
-        <translation>ラテン語ではない文字の容量を</translation>
+        <translation>ラテン系言語ではない文字の容量を</translation>
     </message>
     <message>
         <source>Sometimes complex glyphs are hard to read at the default latin font size</source>
-        <translation>時々英語意外の言葉は読みにくいので、ここで英語意外の文字を調整するのができる</translation>
+        <translation>時々ラテン系言語以外の言葉は読みにくいので、ここでラテン系言語以外の文字を調整するのができる</translation>
     </message>
     <message>
         <source>point(s)</source>
@@ -599,7 +602,7 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>&amp;Add vice versa</source>
-        <translation>&amp;逆も追加する</translation>
+        <translation>&amp;逆カードも追加する</translation>
     </message>
     <message>
         <source>S&amp;tatistics</source>
@@ -619,35 +622,36 @@ TMPファイルを使っています。</translation>
     </message>
     <message>
         <source>Add &amp;vice versa</source>
-        <translation>&amp;逆も追加する</translation>
+        <translation>&amp;逆カードも追加する</translation>
     </message>
     <message>
         <source>Add vice versa of these cards?</source>
-        <translation>逆もこれらのカードに追加しますか?</translation>
+        <translation>これらのカードの逆カードも追加してもよろしいですか?</translation>
     </message>
     <message>
         <source>Add vice versa of this card?</source>
-        <translation>逆もこのカードに追加しますか?</translation>
+        <translation>このカードの逆カードも追加してもよろしいですか?</translation>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>メモジーン</translation>
+        <translation>覚エテチョウ</translation>
     </message>
     <message>
         <source>
 
 This could create duplicates if the vice </source>
         <translation>
-逆すがでに存在している場合は、ここで同じカードを作成することがあるので、直後に「同じカードを削除する」 を実行します　</translation>
+逆カードが既に存在している場合には、</translation>
     </message>
     <message>
         <source>versas are already present, 
 so you might want to run </source>
-        <translation></translation>
+        <translation>同じカードを作成することがあるので、
+</translation>
     </message>
     <message>
         <source>clean duplicates&apos; afterwards.</source>
-        <translation>.</translation>
+        <translation>直後に「まったく同じカードを削除する」 を実行するのを勧めします。</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
@@ -659,27 +663,27 @@ so you might want to run </source>
     </message>
     <message>
         <source>Grade:</source>
-        <translation>評価:</translation>
+        <translation>グレード:</translation>
     </message>
     <message>
         <source>Easiness:</source>
-        <translation>やさしさ:</translation>
+        <translation>難易度:</translation>
     </message>
     <message>
         <source>Repetitions:</source>
-        <translation>何回見せた:</translation>
+        <translation>復習した回数:</translation>
     </message>
     <message>
         <source>Lapses:</source>
-        <translation>何回忘れた:</translation>
+        <translation>忘れた回数:</translation>
     </message>
     <message>
         <source>Days since last repetition:</source>
-        <translation>復習した日から何日:</translation>
+        <translation>復習した日から日数:</translation>
     </message>
     <message>
         <source>Days until next repetition:</source>
-        <translation>もう一度復習する日まで何日:</translation>
+        <translation>もう一度復習する日まで日数:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -695,7 +699,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>The text you entered was not found.</source>
-        <translation>入力された文は見つかりません。</translation>
+        <translation>入力されたテキストは見つかりませんでした。</translation>
     </message>
     <message>
         <source>&amp;Find again</source>
@@ -726,11 +730,11 @@ so you might want to run </source>
     </message>
     <message>
         <source>Edit deck</source>
-        <translation>全部のカードを編集</translation>
+        <translation>カードのデータベース</translation>
     </message>
     <message>
         <source>&amp;Find</source>
-        <translation>&amp;探す</translation>
+        <translation>&amp;検索</translation>
     </message>
     <message>
         <source>To edit a card, right-click on it.</source>
@@ -753,7 +757,7 @@ so you might want to run </source>
     <name>ExportDlg</name>
     <message>
         <source>All Files (*);;</source>
-        <translation>全部のファイル　(*);;</translation>
+        <translation>全ファイル　(*);;</translation>
     </message>
     <message>
         <source>Export</source>
@@ -768,19 +772,19 @@ so you might want to run </source>
     </message>
     <message>
         <source>File format:</source>
-        <translation>ファイルのフォーマット:</translation>
+        <translation>ファイルの種類:</translation>
     </message>
     <message>
         <source>File to export to:</source>
-        <translation>エクスポートのファイル:</translation>
+        <translation>エクスポート先のファイル:</translation>
     </message>
     <message>
         <source>&amp;Browse</source>
-        <translation>&amp;見る</translation>
+        <translation>&amp;選ぶ</translation>
     </message>
     <message>
         <source>Categories to export:</source>
-        <translation>エクスポートをするカテゴリー:</translation>
+        <translation>エクスポートするカテゴリー:</translation>
     </message>
     <message>
         <source>&amp;Select all</source>
@@ -788,7 +792,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Reset learning data on export</source>
-        <translation>学習したデータをリセットする</translation>
+        <translation>復習データをリセットする</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -811,7 +815,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>All Files (*);;</source>
-        <translation>全部のファイル　(*);;</translation>
+        <translation>全ファイル　(*);;</translation>
     </message>
     <message>
         <source>Import</source>
@@ -826,19 +830,19 @@ so you might want to run </source>
     </message>
     <message>
         <source>File format:</source>
-        <translation>ファイルのフォーマット:</translation>
+        <translation>ファイルの種類:</translation>
     </message>
     <message>
         <source>File to import from:</source>
-        <translation>ファイルからインポート:</translation>
+        <translation>インポート元のファイル:</translation>
     </message>
     <message>
         <source>&amp;Browse</source>
-        <translation>&amp;見る</translation>
+        <translation>&amp;選ぶ</translation>
     </message>
     <message>
         <source>Put cards without category into this category:</source>
-        <translation>カテゴリーがないカードをこのカテゴリーに入れる:</translation>
+        <translation>カテゴリーが設定されていないカードをこのカテゴリーに入れる:</translation>
     </message>
     <message>
         <source>Note: all cards will be added to the current database.</source>
@@ -846,7 +850,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Reset learning data on import</source>
-        <translation>学習したデータをリセットする</translation>
+        <translation>復習データをリセットする</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -865,7 +869,7 @@ so you might want to run </source>
     <name>MainDlg</name>
     <message>
         <source>Mnemosyne databases (*.mem)</source>
-        <translation>メモジーンデータベース(*.mem)</translation>
+        <translation>覚エテチョウデータベース(*.mem)</translation>
     </message>
     <message>
         <source>New</source>
@@ -877,7 +881,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Mnemosyne</source>
-        <translation>メモジーン</translation>
+        <translation>覚エテチョウ</translation>
     </message>
     <message>
         <source>Delete current card?</source>
@@ -909,11 +913,11 @@ so you might want to run </source>
     </message>
     <message>
         <source>Next repetition in </source>
-        <translation>次は　</translation>
+        <translation>次は後</translation>
     </message>
     <message>
         <source> days.</source>
-        <translation>　日の後。</translation>
+        <translation>　日。</translation>
     </message>
     <message>
         <source>Question:</source>
@@ -933,7 +937,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Pick days until next repetition:</source>
-        <translation>次の復讐のため何日間を選びなさい:</translation>
+        <translation>次の復習のため何日間を選びなさい:</translation>
     </message>
     <message>
         <source>Grade your answer:</source>
@@ -960,7 +964,7 @@ so you might want to run </source>
     <name>MainFrm</name>
     <message>
         <source>Mnemosyne</source>
-        <translation>メモジーン</translation>
+        <translation>覚エテチョウ</translation>
     </message>
     <message>
         <source>Question:</source>
@@ -1048,7 +1052,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;セーブ</translation>
+        <translation>&amp;保存</translation>
     </message>
     <message>
         <source>Ctrl+S</source>
@@ -1064,11 +1068,11 @@ so you might want to run </source>
     </message>
     <message>
         <source>About</source>
-        <translation>について</translation>
+        <translation>覚エテチョウについて</translation>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation>&amp;について</translation>
+        <translation>&amp;覚エテチョウについて</translation>
     </message>
     <message>
         <source>Add cards</source>
@@ -1092,11 +1096,11 @@ so you might want to run </source>
     </message>
     <message>
         <source>Edit deck</source>
-        <translation>カードのデータベースを編集する</translation>
+        <translation>カードリストを表示する</translation>
     </message>
     <message>
         <source>Edit &amp;deck</source>
-        <translation>&amp;カードのデータベースを編集する</translation>
+        <translation>&amp;カードリストを表示する</translation>
     </message>
     <message>
         <source>Ctrl+D</source>
@@ -1144,7 +1148,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>&amp;Configure Mnemosyne</source>
-        <translation>&amp;メモジーンの設定</translation>
+        <translation>&amp;覚エテチョウの設定</translation>
     </message>
     <message>
         <source>Getting started</source>
@@ -1196,7 +1200,7 @@ so you might want to run </source>
     </message>
     <message>
         <source>Main toolbar (Mnemosyne)</source>
-        <translation>メーンツールバー(メモジーン)</translation>
+        <translation>メーンツールバー(覚エテチョウ)</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -1230,7 +1234,7 @@ so you might want to run </source>
     <name>PreviewItemFrm</name>
     <message>
         <source>Preview card</source>
-        <translation>カードをプレービュー</translation>
+        <translation>カードをプレービューする</translation>
     </message>
     <message>
         <source>Question:</source>
@@ -1265,15 +1269,13 @@ I can make it more efficient for you to memorise and remember answers to questio
 For that, I&apos;ll decide when to ask you the questions, and you&apos;ll need to rate how well you remember the answers.
 
 Let&apos;s look at the meaning of these ratings now.</source>
-        <translation>ようこそ！
+        <translation>あたしの名前はムネモシュネ、記憶の女神よ。
 
-わたしの名前はMnemosyne、ギリシャ神話の記憶の女神の名前からとった名前です。
+あなたの暗記を一生懸命お手伝いします！よろしくね(敬語・タメ語をバランスよくまぜる。)
 
-私はあなたが簡単におぼえることができて、すぐに思い出せるようにしてあげることができます。あなたが、もう良く知っているカードばかりに時間を取られないようにして、あなたが一番忘れがちなカードに集中できるお手伝いをします。
+あなたがいろんな事を簡単に覚えて、すぐに思い出せるようにしてあげる★
 
-私がどんな質問をいつするかを決めるので、あなたはどれだけ答えを覚えていたかを採点してグレードを付けてください。
-
-では、それらのグレードの意味を見てみましょう。.</translation>
+よく知っているカードには時間をかけず、苦手なカードに集中できるように、あたしが質問を選びます。あなたは、どれだけ答えを覚えていたか、グレードを答えてね。 </translation>
     </message>
     <message>
         <source>Introduction</source>
@@ -1287,17 +1289,18 @@ Grades 0 and 1 are used if you don&apos;t know the answer yet, or if you have fo
 I will keep on asking you these questions until you give them a grade 2 or higher (the exact grade doesn&apos;t matter). Grade 2 basically means that you think you&apos;ll be able to remember the card for at least one or two days. It signals the transition between short and long term memory.
 
 I will schedule this card at some future date, when I think you&apos;ll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</source>
-        <translation>グレードは0から5の範囲です。
+        <translation>グレードは0～5まであります。グレードが上がるにつれ出題頻度が下がります。
 
-あなたがまだ答えを知っていないか、またはあなたがそれを忘れたなら、グレード0と1は使用されています。 グレード1があるカードは、グレード0で1よりなじみ深くなり始めていて、よりしばしば繰り返されるでしょう。
-
-私は、あなたがグレード2以上をそれらに与えるまであなたにこれらの質問をし続けるつもりです。 グレード2は、あなたが、少なくとも1日間か2日間カードを覚えていることができると思うのを意味します。 それは短くて長い用語メモリの間の変遷に合図します。
-
-私はいつかの将来の期日にこのカードの計画をするつもりです、完全にそれを忘れるというわけではなくて。(その時、私は、あなたが何らかの努力でまだそれを覚えていることができると思います)。 学習過程に、これは最も効率的です。 </translation>
+0…完全に忘れていた
+1…ほとんど忘れていた
+2…数日なら覚えていられそう
+3…なんとか覚えた
+4…ほぼ完璧
+5…簡単だった</translation>
     </message>
     <message>
         <source>Grades 0-2</source>
-        <translation>グレード０ー２</translation>
+        <translation>グレードについて</translation>
     </message>
     <message>
         <source>If in the future I ask you the question too soon, and you&apos;re able to remember it without any effort, you rate the card a 5. I&apos;ll take this into account by waiting a lot longer before asking you this question again.
@@ -1307,17 +1310,20 @@ If I get it just right, so that you remember it, albeit with some effort, you us
 If on the other hand it takes you significant effort to remember the answer, and you think I&apos;ve waited too long to ask you this question, then rate the card 3.
 
 If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep on asking you this question until you think you&apos;ll be able to remember it again for a few days.</source>
-        <translation>もし私が同じ質問をすぐに出しすぎて、あなたが即座に回答できちゃった場合は「５」を付けてください。その場合には、私は同じ質問は当分しないことにします。
+        <translation>グレード0、1は、あなたがグレード2を付けるまで何回も復習します。紙の単語カードと同じです。(フラッシュカードという言葉は一般的ではない)
+グレード2以上は「覚えているから今日はおしまい」ということになり、翌日以降の適切な時に、あたしが出題します。
 
-もし、私がいま出した質問を、あなたが覚えていたけど、ちょっと回答に苦労した場合は「４」を付けてください。
+グレード3は2よりも間隔を開けて出題します。
 
-でも、私がだした質問に答えるのに、とっても苦労して、前回同じ質問をしてから時間がたちすぎているとおもったらそのカードは「３」にしてください。
+グレード４は努力の結果覚えられたということ。あたしのお手伝いが良かったとも言えるわね。(あたしの日という言葉が意味不明だったので、超訳してみました)
 
-もしそのカードの質問にこたえられなかったら、評価は０か１です。その場合は、私はあなたがその質問の答えをしばらく覚えていることができるようになるまでなんども質問を続けます。.</translation>
+グレード5はあなたには簡単すぎるから、ごくたまに出題するわ。
+
+科学者の研究によると、これが一番効率的なやり方なんですって!</translation>
     </message>
     <message>
         <source>Grades 3-5</source>
-        <translation>グレード３ー５</translation>
+        <translation>グレードのリスト</translation>
     </message>
     <message>
         <source>If you&apos;re into statistics, I can keep detailed logs of your revisions.
@@ -1325,20 +1331,21 @@ If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
 
 Uncheck the following box if you do not want to do this.</source>
-        <translation>あなたのレビューの統計は詳細に記録しています。
+        <translation>あなたの復習についての統計は詳細に記録しています。
 
 お望みなら、その記録を、匿名で、ホスト側にアップロードして、分析していかがでしょうか。
-そうしますと、あなたのレビューが、長期記憶に関する科学的研究に資することにもなります。
 
-もしあなたのレビューを匿名でアップロードすることをお望みでないなら、下記のボックスのチェックマークをオフにしてください。</translation>
+そうしますと、あなたの復習データが、長期記憶に関する科学的研究に資することにもなります。
+
+もしあなたの復習データを匿名でアップロードすることをお望みでないなら、下記のボックスのチェックマークをオフにしてください。</translation>
     </message>
     <message>
         <source>Upload anonymous logs</source>
-        <translation>匿名データをアップロード</translation>
+        <translation>匿名データをアップロードする</translation>
     </message>
     <message>
         <source>(You can always change this setting later using the &apos;Configure Mnemosyne&apos; menu option.)</source>
-        <translation>(いつでも「メモジーンの設定」で変えることができます.)</translation>
+        <translation>(いつでも「覚エテチョウの設定」で変えることができます.)</translation>
     </message>
     <message>
         <source>Statistics</source>
@@ -1358,13 +1365,15 @@ For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
 Happy learning!</source>
         <translation>では、始めましょう！
 &lt;p&gt;
-新しいカードを追加するには、左上にある「プラス」サインがついたアイコンをクリックしてください。
+新しいカードを追加するには、左上にある「+」ボタンをクリックしてください。
 &lt;p&gt;
-保存する心配はありません。私が自動的にします。
+保存する心配はありません。あたしが自動的にします。
 &lt;p&gt;
-良い結果のために、毎日復習することをお勧めましす。
+良い結果のために、毎日復習することをお勧めいたします。
 &lt;p&gt;
-さらなる資料についてはこちらをご覧ください：http://www.mnemosyne-proj.org
+ウェブサイトもご覧ください！
+英語：http://www.mnemosyne-proj.org
+日本語：http://www.ushigaeru.com/oboetechou
 &lt;p&gt;
 勉強楽しんでくださいね!</translation>
     </message>
@@ -1385,7 +1394,7 @@ Happy learning!</source>
     </message>
     <message>
         <source>Insert &amp;sound</source>
-        <translation>&amp;音を挿入する</translation>
+        <translation>&amp;音声ファイルを挿入する</translation>
     </message>
     <message>
         <source>Ctrl+S</source>
@@ -1397,7 +1406,7 @@ Happy learning!</source>
     </message>
     <message>
         <source>Image files</source>
-        <translation>写真のファイル</translation>
+        <translation>写真ファイル</translation>
     </message>
     <message>
         <source>Insert image</source>
@@ -1405,11 +1414,11 @@ Happy learning!</source>
     </message>
     <message>
         <source>Sound files</source>
-        <translation>音のファイル</translation>
+        <translation>音声ファイル</translation>
     </message>
     <message>
         <source>Insert sound</source>
-        <translation>音を挿入する</translation>
+        <translation>音声ファイルを挿入する</translation>
     </message>
 </context>
 <context>
@@ -1418,22 +1427,23 @@ Happy learning!</source>
         <source>Scheduled cards for the next days:
 
 </source>
-        <translation>今度復習する予定のカード:
+        <translation type="obsolete">今度復習する予定のカード:
 </translation>
     </message>
     <message>
         <source>In</source>
-        <translation></translation>
+        <translation>今日から</translation>
     </message>
     <message>
         <source>day(s) :</source>
-        <translation>日:</translation>
+        <translation>日後:</translation>
     </message>
     <message>
         <source>Number of cards with the following grades:
 
 </source>
-        <translation>カードのグレードの枚数: 
+        <translation>グレード順でカードの枚数: 
+
 </translation>
     </message>
     <message>
@@ -1442,7 +1452,7 @@ Happy learning!</source>
     </message>
     <message>
         <source>No current card.</source>
-        <translation>カードが選択されていない.</translation>
+        <translation>カードが選択されていない。</translation>
     </message>
     <message>
         <source>Grade:</source>
@@ -1450,23 +1460,32 @@ Happy learning!</source>
     </message>
     <message>
         <source>Easiness:</source>
-        <translation>やさしさ:</translation>
+        <translation>難易度:</translation>
     </message>
     <message>
         <source>Repetitions:</source>
-        <translation>何回見せた:</translation>
+        <translation>復習した回数:</translation>
     </message>
     <message>
         <source>Lapses:</source>
-        <translation>何回忘れた:</translation>
+        <translation>忘れた回数:</translation>
     </message>
     <message>
         <source>Days since last repetition:</source>
-        <translation>復習した日から何日:</translation>
+        <translation>最後に復習した日からの日数:</translation>
     </message>
     <message>
         <source>Days until next repetition:</source>
-        <translation>もう一度復習する日まで何日:</translation>
+        <translation>もう一度復習する日までの日数:
+</translation>
+    </message>
+    <message>
+        <source>Scheduled cards for next week:
+
+</source>
+        <translation>今度復習する予定のカード:
+
+</translation>
     </message>
 </context>
 <context>
@@ -1508,107 +1527,106 @@ Happy learning!</source>
     <name>TipDlg</name>
     <message>
         <source>For optimal results, it&apos;s best to do your repetitions every day.</source>
-        <translation>毎日カードの復習をしたほうがおすすめです.</translation>
+        <translation>毎日カードの復習をしたほうがお勧めです.</translation>
     </message>
     <message>
         <source>If you&apos;ve been away for a few days, don&apos;t worry about your backlog. Do as many cards as you feel like to catch up, the rest will be automatically rescheduled to the future.</source>
-        <translation>もし、二三日復習しなかったら、無理しないでください。できるだけカードを復習して、その後自動的にメモジーンが残っているカードを延期する。</translation>
+        <translation>もし、二三日復習しなかったら、無理しないでください。できるだけカードを復習して、その後自動的に覚エテチョウが残っているカードを延期するので、ご安心してください。</translation>
     </message>
     <message>
         <source>The &apos;number of grade 0 cards to learn at once&apos; setting determines how many new cards you are trying to learn at the same time. It does &lt;b&gt;not&lt;/b&gt; tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel.</source>
-        <translation>毎日何枚カードを習うのは自分で決めることです.</translation>
+        <translation>毎日何枚カードを記憶するのは自分自身で決めることです。</translation>
     </message>
     <message>
         <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
-        <translation>つまり、毎日復習を頑張ってください。しかし、それができなかったら、心配しないでください。</translation>
+        <translation>毎日復習ができるように頑張ってください。しかし、それができなかったら、心配しないでください。</translation>
     </message>
     <message>
         <source>Grade 1 cards are different from grade 0 cards in the sense that they show up less often and are not subject to the &apos;number of grade 0 cards to learn at once&apos; setting.</source>
         <translation>グレード１のカードはグレード０のカードとは異なります。現れる頻度がグレード０のものより少ないのです。
-また、グレード１のカードには、「グレード０カードの枚数の同時習得」設定用外です。</translation>
+また、グレード１のカードには、「グレード０のカードの同時習得枚数」設定用外です。</translation>
     </message>
     <message>
         <source>You can use keyboard shortcuts to do your repetitions. Enter, Return or Space stand for the default action (&apos;Show answer&apos; or &apos;grade 4&apos;). The number keys can be used for grading.</source>
         <translation>キーボードのショートカットを使って復習ができます。
-Enter、Return, Spaceはデフォルト動作（初期設定値への動作）を示しています（答えを示す または グレード４）
+Enter、Return, Spaceはデフォルト動作（答えを示す または グレード４）を示しています。
 数字キーは成績をつけることに使用できます。</translation>
     </message>
     <message>
         <source>You can select the categories you wish to study in the &apos;Activate categories&apos; menu option.</source>
-        <translation>「カードのデータベースース」の「カテゴリーを選択する」で、勉強したいカテゴリーを選ぶことができます。」.</translation>
+        <translation>「カードのデータベース」の「カテゴリーを選択する」で、復習したいカテゴリーを選ぶことができます。</translation>
     </message>
     <message>
         <source>It is recommended to put all your cards in a single database and use categories to organise them. Using &apos;Activate categories&apos; is much more convenient than have to load and unload several databases.</source>
-        <translation>全部のカードをひとつのデータベースに入れ、カテゴリーで分けることをお勧めいたします。</translation>
+        <translation>全カードをひとつのデータベースに入れ、カテゴリーで分けることをお勧めいたします。</translation>
     </message>
     <message>
         <source>You can import cards in a wide variety of formats: tab delimited txt files, Supermemo files, ... .</source>
-        <translation>いろんなフォーマットからカードをインポートすることができます。
-タブ区切りのテキストファイル（.txt)や、スーパーメモファイルなど、その他いろいろ。</translation>
+        <translation>いろんなファイルの種類からカードをインポートすることができます。
+タブ区切りのテキストファイル（.txt)や、スーパーメモファイルなど、その他いろいろインポートすることができます。</translation>
     </message>
     <message>
         <source>If you have cards in Word or Excel, export them to tab delimited txt files with UTF-8 unicode encoding to be able to import them into Mnemosyne.</source>
-        <translation>お持ちのワード又はエクセルのフォーマットのカードをメモジーンにインポートしたい場合は、いったん、ユニコード(UTF-8)キャラクターでカンマ区切りのテキストファイルにエクスポートするのがお勧めです.</translation>
+        <translation>お持ちのワード又はエクセルのファイルの種類のカードを覚エテチョウにインポートしたい場合は、いったん、ユニコード(UTF-8)文字エンコーディングでカンマ区切りのテキストファイルにエクスポートするのがお勧めです。</translation>
     </message>
     <message>
         <source>If you want to print out your cards, export them to a txt file which you can then print from your favourite Word processor.</source>
-        <translation>カードをプリントアウトする場合には、txt ファイルにエキスポートしてください。txtファイルは、好きなワープロでプリントすることができます。</translation>
+        <translation>カードを印刷する場合には、txt ファイルにエキスポートしてください。txtファイルは、好きなワープロで印刷することができます。</translation>
     </message>
     <message>
         <source>You can share your cards with someone else by exporting them to XML and choosing the &apos;Reset learning data&apos; option on export.</source>
-        <translation>自分のカードを他の人にシェアためには、XMLにエクスポートし、オプションで「学習したデータをリセットする」を選んでください。</translation>
+        <translation>自分のカードを他の人に共有するためには、XMLにエクスポートし、オプションで「復習データをリセットする」を選んでください。</translation>
     </message>
     <message>
         <source>If you study a foreign language with a different script, the default font size is sometimes a bit small. If you want to increase the size of these characters but keep the size of English text, use the &apos;increase size of non-latin characters by X points&apos; option.</source>
-        <translation>「ラテン語ではない文字」の設定で英語と日本語の文字を違う大きさで表示することができます。</translation>
+        <translation>「ラテン系言語ではない文字」の設定で英語と日本語の文字を違う大きさで表示することができます。</translation>
     </message>
     <message>
         <source>You can add images and sounds to your cards. Right-click on the question or answer field when editing a card to bring up a pop-up menu to do so.</source>
-        <translation>カードにイメージや音を入れることができます。 カード編集画面の質問・答え上で右クリックするとメニューが出ますのでご利用下さい。.</translation>
+        <translation>カードにイメージや音声ファイルを入れることができます。 カード編集画面の質問・答え上で右クリックするとメニューが出ますのでご利用下さい。</translation>
     </message>
     <message>
         <source>It is recommended to keep your sound and image files inside your .mnemosyne directory. That way, it&apos;s easier to transfer your data between different computers.</source>
-        <translation>音声、映像ファイルを媒体ディレクトリに保存されることをお勧めいたします。そうすれば、データを他のコンピュータで移送することが容易になります。.</translation>
+        <translation>音声、映像ファイルを覚エテチョウの媒体ディレクトリに保存されることをお勧めいたします。そうすれば、データを他のコンピュータで移送することが容易になります。</translation>
     </message>
     <message>
         <source>When adding a three-sided card, two regular cards will be created. One with as question the written form and as answer the pronunciation and the translation, and one with as question the translation and as answer the written form and the pronunciation.</source>
-        <translation>three-sidedカード（単語or熟語のつづり、発音、意味をワンセットにしたカード）を追加すると、2つの通常カードが生成されます。
-ひとつは問題として（単語or熟語の）つづりを、解答として発音と意味を収録したもの、もうひとつは問題として意味を、解答としてつづりと発音を収録したものです。</translation>
+        <translation>3面カード（単語または熟語のつづり、発音、意味をワンセットにしたカード）を追加すると、2つの通常カードが生成されます。
+ひとつは問題として（単語または熟語の）つづりを、解答として発音と意味を収録したもの、もうひとつは問題として意味を、解答としてつづりと発音を収録したものです。</translation>
     </message>
     <message>
         <source>You can use basic HTML tags in your cards to control their appearance.</source>
-        <translation>簡単なHTMLのタグを使って好みのカード表示に変えることができます。</translation>
+        <translation>簡単なHTMLタグを使って好みのカード表示に変えることができます。</translation>
     </message>
     <message>
         <source>Mnemosyne can use LaTeX to render mathematical formulas, e.g. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (For this, you need LaTeX and dvipng installed.)</source>
-        <translation>
-Mnemosyneならば，LaTeXを使って，&lt;$&gt;x^2+y^2=z^2&lt;/$&gt;のような数学公式をレンダリングできます。(これには，LaTeXとdvipngをインストールしておく必要があります)</translation>
+        <translation>覚エテチョウならば、LaTeXを使って，&lt;$&gt;x^2+y^2=z^2&lt;/$&gt;のような数学公式をレンダリングできます。(これには，LaTeXとdvipngをインストールしておく必要があります)</translation>
     </message>
     <message>
         <source>The best way to backup your data is to copy your .mnemosyne directory (if you follow the recommended procedure to keep all your files there) and move it to a different drive. Mnemosyne keeps automatic XML-based backups in .mnemosyne/backups, but that won&apos;t help you if that drive dies... </source>
-        <translation>データのバックアップを取る最高の方法は、.mnemosyneディレクトリをコピーして、それを異なるドライブの方へ動かすことです。...</translation>
+        <translation>データのバックアップを取るお勧めの方法は、.mnemosyneディレクトリをコピーして、それを異なるドライブの方へ動かすことです。...</translation>
     </message>
     <message>
         <source>You can run Mnemosyne from a USB key. Copy C:\Program Files\Mnemosyne to your USB key, and then copy the .mnemosyne directory from your home directory to inside the Mnemosyne directory on the USB key.</source>
-        <translation>USBキーからメモジーンを実行することができます。
+        <translation>USBキーから覚エテチョウを実行することができます。
 USBキーに「C:\Program Files\Mnemosyne」をコピーしてください。
-次に、USBキーの中で、ホームディレクトリからMnemosyneキーまでをmnemosyneディレクトリーにコピーしてください。</translation>
+次に、ホームディレクトリから.mnemosyneディレクトリーをUSBキーの中のmnemosyneディレクトリーにコピーしてください。</translation>
     </message>
     <message>
         <source>If you use Mnemosyne on multiple computers, there is a handy tool called Unison to help you synchronise your data. See the Mnemosyne website for more information.</source>
-        <translation>複数のコンピューターからメモジーンを利用される方には、Unisonという、個人データをシンクロさせる便利なツールがあります。 詳しくはメモジーンのウェブサイトをご覧ください。</translation>
+        <translation>複数のコンピューターから覚エテチョウを利用される方には、Unisonという、個人データをシンクロさせる便利なツールがあります。 詳しくは覚エテチョウのウェブサイトをご覧ください。</translation>
     </message>
     <message>
         <source>You can sort the cards in the &apos;Edit Deck&apos; dialog by answer or by category by clicking on the corresponding column title. Clicking again changes the sort order.</source>
-        <translation> 「カードのデータベースを編集する」で、カラムのタイトルをクリックしてカテゴリーを出すことで、カードをソートすることができます。２回クリックすると、ソートの順番を変えることができます。</translation>
+        <translation> 「カードリストを表示する」で、欄の名前をクリックしてカテゴリーを出すことで、カードを並び替えることができます。２回クリックすると、並び替える順番を逆にすることができます。</translation>
     </message>
     <message>
         <source>If you want more fine-grained control over LaTeX&apos;s behaviour, see the explanation of the &lt;$$&gt;...&lt;/$$&gt; and &lt;latex&gt;...&lt;/latex&gt; tags on Mnemosyne&apos;s website.</source>
-        <translation>LaTeXを上手に使うため、メモジーンのウェブサイトにある&lt;$$&gt;...&lt;/$$&gt;タグと&lt;latex&gt;...&lt;/latex&gt;タグの説明をご覧ください。</translation>
+        <translation>LaTeXを上手に使うため、覚エテチョウのウェブサイトにある&lt;$$&gt;...&lt;/$$&gt;タグと&lt;latex&gt;...&lt;/latex&gt;タグの説明をご覧ください。</translation>
     </message>
     <message>
         <source>Advanced users can customise more of Mnemosyne by editing the config.py file in their .mnemosyne directory. They can also install plugins to customise Mnemosyne even further.</source>
-        <translation>config.ｐｙファイルでメモジーン設定よりカスタマイズすることができます。そして、pluginで他の機能を追加することができます.</translation>
+        <translation>config.pyファイルで覚エテチョウ設定よりカスタマイズすることができます。そして、pluginで他の機能を追加することができます。</translation>
     </message>
 </context>
 <context>
@@ -1623,7 +1641,7 @@ USBキーに「C:\Program Files\Mnemosyne」をコピーしてください。
     </message>
     <message>
         <source>&amp;Show tips on startup</source>
-        <translation>&amp;初めに「今日のヒント」を表示する</translation>
+        <translation>&amp;始めに「今日のヒント」を表示する</translation>
     </message>
     <message>
         <source>Alt+S</source>
@@ -1631,7 +1649,7 @@ USBキーに「C:\Program Files\Mnemosyne」をコピーしてください。
     </message>
     <message>
         <source>&amp;Previous</source>
-        <translation>&amp;前の</translation>
+        <translation>&amp;前のヒント</translation>
     </message>
     <message>
         <source>Alt+P</source>
@@ -1639,7 +1657,7 @@ USBキーに「C:\Program Files\Mnemosyne」をコピーしてください。
     </message>
     <message>
         <source>&amp;Next</source>
-        <translation>&amp;次の</translation>
+        <translation>&amp;次のヒント</translation>
     </message>
     <message>
         <source>Alt+N</source>
