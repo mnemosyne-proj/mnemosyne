@@ -32,7 +32,7 @@ windows:
 
 clean:
 	rm -f *~ *.pyc *.tgz
-	rm -f -R distrib build bin lib include dot_mnemosyne2
+	rm -f -R distrib build bin lib include dot_mnemosyne2 dist
 	cd mnemosyne/pyqt_ui ; make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/core/*~ mnemosyne/core/*.pyc
