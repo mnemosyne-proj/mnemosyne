@@ -57,6 +57,7 @@ class Pickle(Database):
         self.load_failed = False
 
     def new(self, path):
+        path = expand_path(path, config().basedir)
         if self.is_loaded():
             self.unload()
         self.load_failed = False
@@ -317,7 +318,10 @@ class Pickle(Database):
 
     def category_names(self):
         return (c.name for c in self.categories)
-
+    
+    def fact_count(self):
+        return len(self.facts)
+    
     def card_count(self):
         return len(self.cards)
 

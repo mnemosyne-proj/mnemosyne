@@ -1,9 +1,11 @@
--announce new translations on website
+--announce new translations on website
 
 -allow non-unicode filenames: encode/decode in expand/contract path?
 
 
 * Mnemosyne 2.0:
+
+-write more tests
 
 -import
 

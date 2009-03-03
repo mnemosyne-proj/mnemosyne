@@ -1,12 +1,15 @@
-install-and-run-virtual-env:
-	cd mnemosyne/pyqt_ui ; make clean
+install-and-run-virtual-env: install-virtual-env
+	./bin/mnemosyne -d dot_mnemosyne2
+
+install-virtual-env:
 	cd mnemosyne/pyqt_ui ; make
 	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	./bin/python setup.py develop
-	./bin/mnemosyne -d dot_mnemosyne2
 
 setup:
 	virtualenv .
+	./bin/easy_install nose
+	./bin/easy_install coverage
 
 install-system:
 	cd mnemosyne/pyqt_ui ; make clean
@@ -15,8 +18,11 @@ install-system:
 	python setup.py install
 	rm -f -R build
 
-test:
-	nosetests --with-coverage --with-doctest --cover-package=libmnemosyne
+test: install-virtual-env
+	./bin/nosetests
+
+cover:
+	./bin/nosetests --with-coverage --cover-package=mnemosyne.libmnemosyne
 
 windows:
 	rmdir /S /Q dist
