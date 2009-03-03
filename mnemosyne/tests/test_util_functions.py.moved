@@ -14,12 +14,12 @@ class TestUtilFunctions:
 
     def test_numeric_string_cmp_3(self):
         s1 = "3 blind mice"
-        s2 = "3 blind pigs"
+        s1 = "3 blind pigs"
         assert(numeric_string_cmp(s1, s2) < 0)
 
     def test_numeric_string_cmp_3(self):
         s1 = "3 blind mice"
-        s2 = "13 blind mice"
+        s1 = "13 blind mice"
         assert(numeric_string_cmp(s1, s2) < 0)
 
     def test_numeric_string_cmp_4(self):

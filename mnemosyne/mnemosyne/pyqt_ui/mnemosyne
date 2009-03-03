@@ -102,6 +102,6 @@ if config()["first_run"] == True:
     config()["first_run"] = False
 elif config()["show_daily_tips"] == True:
     w.Tip()
-w.raise_()
+w.raise_() # Needed for OSX.
 a.exec_()
 finalise()
