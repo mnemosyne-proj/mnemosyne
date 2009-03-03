@@ -26,3 +26,13 @@ class TestUtilFunctions:
         s1 = "a"
         s2 = "b"
         assert(numeric_string_cmp(s1, s2) < 0)
+
+    def test_numeric_string_cmp_5(self):
+        s1 = "a123"
+        s2 = "a123"
+        assert(numeric_string_cmp(s1, s2) == 0)
+
+    def test_numeric_string_cmp_6(self):
+        s1 = "xyz 77"
+        s2 = "xyz 42"
+        assert(numeric_string_cmp(s1, s2) > 0)
