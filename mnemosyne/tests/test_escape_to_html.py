@@ -2,17 +2,7 @@
 # test_escape_to_html.py <Peter.Bienstman@UGent.be>
 #
 
-from nose.tools import raises
-
-from mnemosyne.libmnemosyne.filter import Filter
 from mnemosyne.libmnemosyne.filters.escape_to_html import EscapeToHtml
-
-class TestFilter:
-    
-    @raises(NotImplementedError)
-    def test(self):
-        f = Filter()
-        f.run("", None)
 
 
 class TestEscapeToHtml:

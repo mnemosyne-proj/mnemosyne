@@ -76,8 +76,6 @@ class BothWaysToThreeSided(CardTypeConverter):
                     card.fact_view = new_card_type.fact_views[0]
                 else:
                     card.fact_view = new_card_type.fact_views[1]
-            else:
-                raise ArgumentError
         new_cards, updated_cards, deleted_cards = [], cards, []
         return new_cards, updated_cards, deleted_cards
 

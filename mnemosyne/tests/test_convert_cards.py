@@ -35,6 +35,8 @@ class TestConvertCards:
         ui_controller_main().file_save()
 
         fact = list(database().cards_unseen())[0].fact
+        old_card = database().cards_from_fact(fact)[0] 
+        
         new_fact_data = {"q": "question2",                    
                          "a": "answer2"}
         new_card_type = card_type_by_id("2")     
@@ -43,6 +45,15 @@ class TestConvertCards:
         
         assert database().fact_count() == 1
         assert database().card_count() == 2
+        
+        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        assert new_card_1.fact.card_type.id == "2"
+        assert new_card_2.fact.card_type.id == "2"
+
+        if new_card_1.fact_view.id == 1:
+            assert new_card_1 == old_card
+        else:
+            assert new_card_2 == old_card            
         
     def test_2_to_1(self):
         fact_data = {"q": "question",
@@ -53,6 +64,8 @@ class TestConvertCards:
         ui_controller_main().file_save()
 
         fact = list(database().cards_unseen())[0].fact
+        old_card_1, old_card_2 = database().cards_from_fact(fact)
+        
         new_fact_data = {"q": "question2",                    
                          "a": "answer2"}
         new_card_type = card_type_by_id("1")
@@ -63,7 +76,15 @@ class TestConvertCards:
         assert database().fact_count() == 1
         assert database().card_count() == 1
 
-    def test_1_to_3(self):
+        new_card = database().cards_from_fact(fact)[0]
+        assert new_card.fact.card_type.id == "1"
+        
+        if old_card_1.fact_view.id == 1:
+            assert new_card == old_card_1
+        else:
+            assert new_card == old_card_2
+
+    def test_1_to_3_a(self):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
@@ -72,6 +93,8 @@ class TestConvertCards:
         ui_controller_main().file_save()
 
         fact = list(database().cards_unseen())[0].fact
+        old_card = database().cards_from_fact(fact)[0]
+                
         new_fact_data = {"f": "foreign word",
                          "p": "pronunciation",
                          "t": "translation"}
@@ -83,8 +106,49 @@ class TestConvertCards:
         
         assert database().fact_count() == 1
         assert database().card_count() == 2
+
+        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        assert new_card_1.fact.card_type.id == "3"
+        assert new_card_2.fact.card_type.id == "3"
+
+        if new_card_1.fact_view.id == 1:
+            assert new_card_1 == old_card
+        else:
+            assert new_card_2 == old_card
+
+    def test_1_to_3_b(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = card_type_by_id("1")
+        ui_controller_main().create_new_cards(fact_data, card_type,
+                                              grade=0, cat_names=["default"])
+        ui_controller_main().file_save()
+
+        fact = list(database().cards_unseen())[0].fact
+        old_card = database().cards_from_fact(fact)[0]
+                
+        new_fact_data = {"f": "foreign word",
+                         "p": "pronunciation",
+                         "t": "translation"}
+        correspondence = {"q": "t", "a": "f"}
+        new_card_type = card_type_by_id("3")     
+        ui_controller_main().update_related_cards(fact, fact_data,
+               new_card_type, new_cat_names=["default2"],
+               correspondence=correspondence)
         
-    def test_3_to_1(self):
+        assert database().fact_count() == 1
+        assert database().card_count() == 2
+
+        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        assert new_card_1.fact.card_type.id == "3"
+        assert new_card_2.fact.card_type.id == "3"
+
+        if new_card_1.fact_view.id == 2:
+            assert new_card_1 == old_card
+        else:
+            assert new_card_2 == old_card
+            
+    def test_3_to_1_a(self):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
@@ -94,9 +158,10 @@ class TestConvertCards:
         ui_controller_main().file_save()
 
         fact = list(database().cards_unseen())[0].fact
+        old_card_1, old_card_2 = database().cards_from_fact(fact)
         new_fact_data = {"q": "question",
                          "a": "answer"}
-        correspondence = {"f": "a", "p": "q"}
+        correspondence = {"f": "q", "t": "a"}
         new_card_type = card_type_by_id("1")     
         ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"],
@@ -104,8 +169,46 @@ class TestConvertCards:
         
         assert database().fact_count() == 1
         assert database().card_count() == 1
+        
+        new_card = database().cards_from_fact(fact)[0]
+        assert new_card.fact.card_type.id == "1"
+        
+        if old_card_1.fact_view.id == 1:
+            assert new_card == old_card_1
+        else:
+            assert new_card == old_card_2
 
-    def test_2_to_3(self):
+    def test_3_to_1_b(self):
+        fact_data = {"f": "foreign word",
+                     "p": "pronunciation",
+                     "t": "translation"}
+        card_type = card_type_by_id("3")
+        ui_controller_main().create_new_cards(fact_data, card_type,
+                                              grade=0, cat_names=["default"])
+        ui_controller_main().file_save()
+
+        fact = list(database().cards_unseen())[0].fact
+        old_card_1, old_card_2 = database().cards_from_fact(fact)
+        new_fact_data = {"q": "question",
+                         "a": "answer"}
+        correspondence = {"f": "a", "t": ";"}
+        new_card_type = card_type_by_id("1")     
+        ui_controller_main().update_related_cards(fact, fact_data,
+               new_card_type, new_cat_names=["default2"],
+               correspondence=correspondence, warn=False)
+        
+        assert database().fact_count() == 1
+        assert database().card_count() == 1
+        
+        new_card = database().cards_from_fact(fact)[0]
+        assert new_card.fact.card_type.id == "1"
+        
+        if old_card_1.fact_view.id == 2:
+            assert new_card == old_card_1
+        else:
+            assert new_card == old_card_2
+            
+    def test_2_to_3_a(self):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("2")
@@ -114,10 +217,11 @@ class TestConvertCards:
         ui_controller_main().file_save()
 
         fact = list(database().cards_unseen())[0].fact
+        old_card_1, old_card_2 = database().cards_from_fact(fact)
         new_fact_data = {"f": "foreign word",
                          "p": "pronunciation",
                          "t": "translation"}
-        correspondence = {"q": "f", "a": "p"}
+        correspondence = {"q": "f", "a": "t"}
         new_card_type = card_type_by_id("3")     
         ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"],
@@ -125,8 +229,52 @@ class TestConvertCards:
         
         assert database().fact_count() == 1
         assert database().card_count() == 2
+
+        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        assert new_card_1.fact.card_type.id == "3"
+        assert new_card_2.fact.card_type.id == "3"
+
+        if new_card_1.fact_view.id == 1 and old_card_1.fact_view.id:
+            assert new_card_1 == old_card_1
+            assert new_card_2 == old_card_2            
+        else:
+            assert new_card_2 == old_card_1
+            assert new_card_1 == old_card_2             
+
+    def test_2_to_3_b(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = card_type_by_id("2")
+        ui_controller_main().create_new_cards(fact_data, card_type,
+                                              grade=0, cat_names=["default"])
+        ui_controller_main().file_save()
+
+        fact = list(database().cards_unseen())[0].fact
+        old_card_1, old_card_2 = database().cards_from_fact(fact)
+        new_fact_data = {"f": "foreign word",
+                         "p": "pronunciation",
+                         "t": "translation"}
+        correspondence = {"q": "t", "a": "f"}
+        new_card_type = card_type_by_id("3")     
+        ui_controller_main().update_related_cards(fact, fact_data,
+               new_card_type, new_cat_names=["default2"],
+               correspondence=correspondence)
         
-    def test_3_to_2(self):
+        assert database().fact_count() == 1
+        assert database().card_count() == 2
+
+        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        assert new_card_1.fact.card_type.id == "3"
+        assert new_card_2.fact.card_type.id == "3"
+
+        if new_card_1.fact_view.id == 1 and old_card_1.fact_view.id:
+            assert new_card_1 == old_card_2
+            assert new_card_2 == old_card_1            
+        else:
+            assert new_card_1 == old_card_1
+            assert new_card_2 == old_card_2
+            
+    def test_3_to_2_a(self):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
@@ -136,9 +284,10 @@ class TestConvertCards:
         ui_controller_main().file_save()
 
         fact = list(database().cards_unseen())[0].fact
+        old_card_1, old_card_2 = database().cards_from_fact(fact)
         new_fact_data = {"q": "question",
                          "a": "answer"}
-        correspondence = {"f": "a", "p": "q"}
+        correspondence = {"f": "q", "t": "a"}
         new_card_type = card_type_by_id("2")     
         ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"],
@@ -147,5 +296,51 @@ class TestConvertCards:
         assert database().fact_count() == 1
         assert database().card_count() == 2
         
+        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        
+        assert new_card_1.fact.card_type.id == "2"
+        assert new_card_2.fact.card_type.id == "2"
+
+        if new_card_1.fact_view.id == 1 and old_card_1.fact_view.id:
+            assert new_card_1 == old_card_1
+            assert new_card_2 == old_card_2            
+        else:
+            assert new_card_1 == old_card_2
+            assert new_card_2 == old_card_1
+
+    def test_3_to_2_b(self):
+        fact_data = {"f": "foreign word",
+                     "p": "pronunciation",
+                     "t": "translation"}
+        card_type = card_type_by_id("3")
+        ui_controller_main().create_new_cards(fact_data, card_type,
+                                              grade=0, cat_names=["default"])
+        ui_controller_main().file_save()
+
+        fact = list(database().cards_unseen())[0].fact
+        old_card_1, old_card_2 = database().cards_from_fact(fact)
+        new_fact_data = {"q": "question",
+                         "a": "answer"}
+        correspondence = {"f": "a", "t": "q"}
+        new_card_type = card_type_by_id("2")     
+        ui_controller_main().update_related_cards(fact, fact_data,
+               new_card_type, new_cat_names=["default2"],
+               correspondence=correspondence, warn=False)
+        
+        assert database().fact_count() == 1
+        assert database().card_count() == 2
+        
+        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        
+        assert new_card_1.fact.card_type.id == "2"
+        assert new_card_2.fact.card_type.id == "2"
+
+        if new_card_1.fact_view.id == 1 and old_card_1.fact_view.id:
+            assert new_card_1 == old_card_2
+            assert new_card_2 == old_card_1            
+        else:
+            assert new_card_1 == old_card_1
+            assert new_card_2 == old_card_2
+            
     def teardown(self):
         finalise()
