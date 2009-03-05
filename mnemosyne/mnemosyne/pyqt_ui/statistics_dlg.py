@@ -41,26 +41,27 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
 
         self.schedule_info.setText(text)
 
-#        # Grade information.
+        # Grade information.
 
-#        text = self.trUtf8("Number of cards with the following grades:\n\n")
-
-#        grades = [0, 0, 0, 0, 0, 0]
-#        for item in get_items():
-#            if item.is_in_active_category():
-#                grades[item.grade] += 1
-
-#        norm = sum(grades)
-#        if norm == 0:
-#            norm = 1 # Avoid division by zero.
-
-#        for grade in range(0,6):
-#            text.append(self.trUtf8("Grade")).\
-#                 append(QString(" " + str(grade) + " : " \
-#                    + str(grades[grade]) + " ("\
-#                    + ("%.1f" % (100.*grades[grade] / norm)) + " %)\n"))
-
-#        self.grades_info.setText(text)
+        text = self.trUtf8("Number of cards with the following grades:\n\n")
+ 
+        grades = [0, 0, 0, 0, 0, 0]
+        for card in database().cards:
+            # TODO: Only include stats from cards with active categories.
+            #if card.fact.cat[0].active:
+                grades[card.grade] += 1
+ 
+        norm = sum(grades)
+        if norm == 0:
+            norm = 1 # Avoid division by zero.
+ 
+        for grade in range(0,6):
+            text.append(self.trUtf8("Grade")).\
+                 append(QString(" " + str(grade) + " : " \
+                    + str(grades[grade]) + " ("\
+                    + ("%.1f" % (100.*grades[grade] / norm)) + " %)\n"))
+ 
+        self.grades_info.setText(text)
 
 #        # Category information.
 
