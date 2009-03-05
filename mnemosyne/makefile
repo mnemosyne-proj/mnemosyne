@@ -21,7 +21,7 @@ install-system:
 test: install-virtual-env
 	./bin/nosetests
 
-cover:
+coverage:
 	./bin/nosetests --with-coverage --cover-package=mnemosyne.libmnemosyne
 
 windows:

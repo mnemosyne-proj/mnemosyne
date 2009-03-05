@@ -1,3 +1,7 @@
+#
+# test_add_cards.py <Peter.Bienstman@UGent.be>
+#
+
 import os
 
 from mnemosyne.libmnemosyne import initialise, finalise
@@ -21,6 +25,19 @@ class TestAddCards:
         ui_controller_main().file_save()
         assert database().fact_count() == 1
         assert database().card_count() == 1       
+
+    def test_1_duplicates(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = card_type_by_id("1")
+        ui_controller_main().create_new_cards(fact_data, card_type,
+                                              grade=0, cat_names=["default"])
+        ui_controller_main().file_save()
+        ui_controller_main().create_new_cards(fact_data, card_type,
+                                              grade=0, cat_names=["default"],
+                                              warn=False)
+        assert database().fact_count() == 1
+        assert database().card_count() == 1
         
     def test_2(self):
         fact_data = {"q": "question",
