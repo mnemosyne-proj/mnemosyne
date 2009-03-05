@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>196</width>
+    <width>502</width>
     <height>211</height>
    </rect>
   </property>
@@ -28,8 +28,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>196</width>
-     <height>25</height>
+     <width>502</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile" >
@@ -306,7 +306,7 @@
     </hint>
     <hint type="destinationlabel" >
      <x>164</x>
-     <y>226</y>
+     <y>210</y>
     </hint>
    </hints>
   </connection>
@@ -467,6 +467,22 @@
     <hint type="destinationlabel" >
      <x>277</x>
      <y>85</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShowStatistics</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>show_statistics</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>250</x>
+     <y>105</y>
     </hint>
    </hints>
   </connection>

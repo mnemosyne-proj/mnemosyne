@@ -22,7 +22,7 @@ from activate_plugins_dlg import ActivatePluginsDlg
 #from export_dlg import *
 #from edit_item_dlg import *
 #from clean_duplicates import *
-#from statistics_dlg import *
+from statistics_dlg import *
 #from edit_items_dlg import *
 #from activate_categories_dlg import *
 #from config_dlg import *
@@ -129,6 +129,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def activate_plugins(self):
         ui_controller_main().activate_plugins()
+
+    def show_statistics(self):
+        ui_controller_main().show_statistics()
         
     def run_add_cards_dialog(self):
         dlg = AddCardsDlg(self)
@@ -148,6 +151,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def run_activate_plugins_dialog(self):
         dlg = ActivatePluginsDlg(self)
+        dlg.exec_()
+
+    def run_show_statistics_dialog(self):
+        dlg = StatisticsDlg(self)
         dlg.exec_()
         
     def Import(self):

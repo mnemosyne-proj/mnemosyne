@@ -273,3 +273,8 @@ class DefaultMainController(UiControllerMain):
         stopwatch.pause()
         self.widget.run_manage_card_types_dialog()
         stopwatch.unpause()
+
+    def show_statistics(self):
+        stopwatch.pause()
+        self.widget.run_show_statistics_dialog()
+        stopwatch.unpause()
