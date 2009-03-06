@@ -1,5 +1,5 @@
 #
-# test_html_css.py <Peter.Bienstman@UGent.be>
+# test_plugin.py <Peter.Bienstman@UGent.be>
 #
 
 from nose.tools import raises
@@ -29,11 +29,11 @@ class TestPlugin:
             id = "666"
         p = MyPlugin()
 
+        old_length = len(card_types())
         p.activate()
-
-        #print card_types()
-
+        assert len(card_types()) == old_length + 1
         p.deactivate()              
+        assert len(card_types()) == old_length
         
     def teardown(self):
          finalise()
