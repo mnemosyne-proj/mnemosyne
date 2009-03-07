@@ -190,3 +190,5 @@ def finalise():
     except OSError:
         print "Failed to remove lock file."
         print traceback_string()
+    component_manager.components = {}
+    component_manager.card_type_by_id = {}
