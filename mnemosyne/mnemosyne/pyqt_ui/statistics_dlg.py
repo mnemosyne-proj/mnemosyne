@@ -1,5 +1,5 @@
 #
-# statistics_dlg.py <Peter.Bienstman@UGent.be>
+# statistics_dlg.py <mike@peacecorps.org.cv>
 #
 
 from PyQt4.QtCore import *
@@ -15,7 +15,7 @@ from ui_statistics_dlg import Ui_StatisticsDlg
 
 class MplCanvas(FigureCanvas):
 
-    """Base canvas class for creating graphs with Matplotlib"""
+    """Base canvas class for creating graphs with Matplotlib."""
     
     def __init__(self, parent=None, width=4, height=4, dpi=100, color='white'):
         fig = Figure(figsize=(width, height), dpi=dpi, facecolor=color, 
@@ -33,11 +33,11 @@ class MplCanvas(FigureCanvas):
 
 class ScheduleGraph(MplCanvas):
 
-    """Graph of card scheduling statistics"""
+    """Graph of card scheduling statistics."""
 
     def generate_figure(self):
 
-        """Create a bar graph of card scheduling statistics"""
+        """Create a bar graph of card scheduling statistics."""
 
         NDAYS = 7
         BAR_WIDTH = 1.0
@@ -52,6 +52,12 @@ class ScheduleGraph(MplCanvas):
             cumulative = database().scheduled_count(days)
             cards_per_day.append(cumulative - old_cumulative)
             old_cumulative = cumulative
+
+        # TODO (ma): print a message stating there are no stats rather than
+        # displaying an empty graph.
+        if len(cards_per_day) == 0:
+            return
+
         xticks = arange(NDAYS) + HALF_WIDTH
         bar_colors = ('r', 'g', 'b', 'c', 'm', 'y', 'k')
         self.axes.bar(xticks, cards_per_day, BAR_WIDTH, align='center', 
@@ -92,28 +98,31 @@ class ScheduleGraph(MplCanvas):
 
 class GradesGraph(MplCanvas):
 
-    """Graph of card grade statistics"""
+    """Graph of card grade statistics."""
 
     def __init__(self, parent=None, width=4, height=4, dpi=100, color='white'):
-        # Pie charts look better on a square canvas
+        # Pie charts look better on a square canvas.
         MplCanvas.__init__(self, parent, width, height, dpi, color)
 
     def generate_figure(self):
 
-        """Create a pie chart of card grade statistics"""
-
-        NGRADES = 6
+        """Create a pie chart of card grade statistics."""
 
         self.axes.set_title('Number of cards per grade level')
-        grades = [0, 0, 0, 0, 0, 0]
+        grades = [0] * 6 # There are six grade levels
         for card in database().cards:
             grades[card.grade] += 1
 
-        # Only print percentage on wedges > 5%
+        # TODO (ma): print a message stating there are no stats rather than
+        # displaying an empty graph.
+        if sum(grades) == 0:
+            return
+
+        # Only print percentage on wedges > 5%.
         autopctfn = lambda x: '%1.1f%%' % x if x > 5 else ''
         self.axes.pie(grades, explode=(0.05, 0, 0, 0, 0, 0), autopct=autopctfn, 
                       labels=['Grade %d' % g if grades[g] > 0 else '' 
-                              for g in range(0, NGRADES)],
+                              for g in range(0, len(grades))],
                       colors=('r', 'm', 'y', 'g', 'c', 'b'), shadow=True)
  
 
@@ -125,7 +134,7 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         self.setupUi(self)
 
         # Attempt to match the graph background color to the window. Sadly,
-        # this won't work on OS X, XP, or Vista, since they native theme
+        # this won't work on OS X, XP, or Vista, since they use native theme
         # engines for drawing, rather than the palette. See:
         # http://doc.trolltech.com/4.4/qapplication.html#setPalette
         if self.style().objectName() == 'macintosh (Aqua)':
@@ -134,26 +143,8 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             r, g, b, _ = self.palette().color(self.backgroundRole()).getRgb()
             graph_bg_color = map(lambda x: x / 255.0, (r, g, b))
 
-        # Schedule graph
         self.sched_canvas = ScheduleGraph(self.sched_tab, color=graph_bg_color)
         self.sched_layout.addWidget(self.sched_canvas)
 
-
-        # Grades graph
         self.grades_canvas = GradesGraph(self.grades_tab, color=graph_bg_color)
         self.grades_layout.addWidget(self.grades_canvas)
-
-
-#        # Category information.
-
-#        categories = {}
-#        for item in get_items():
-#            name = item.cat.name
-#            if name not in categories.keys():
-#                categories[name] = 1
-#            else:
-#                categories[name] += 1
-
-#        for cat in categories.keys():
-#            ListItem(self.category_info, cat, categories[cat])
-
