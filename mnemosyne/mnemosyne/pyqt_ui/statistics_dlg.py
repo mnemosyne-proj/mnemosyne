@@ -53,11 +53,6 @@ class ScheduleGraph(MplCanvas):
             cards_per_day.append(cumulative - old_cumulative)
             old_cumulative = cumulative
 
-        # TODO (ma): print a message stating there are no stats rather than
-        # displaying an empty graph.
-        if len(cards_per_day) == 0:
-            return
-
         xticks = arange(NDAYS) + HALF_WIDTH
         bar_colors = ('r', 'g', 'b', 'c', 'm', 'y', 'k')
         self.axes.bar(xticks, cards_per_day, BAR_WIDTH, align='center', 
@@ -87,7 +82,12 @@ class ScheduleGraph(MplCanvas):
         # since bool(0) == False.
         from operator import add
         avg = lambda s: reduce(add, s) / len(s)
-        avg_height = avg(filter(bool, cards_per_day))
+        if max(cards_per_day) == 0:
+            # TODO (ma): print a message stating there are no stats rather than
+            # displaying an empty graph.
+            avg_height = 0
+        else:
+            avg_height = avg(filter(bool, cards_per_day))
         pad = avg_height * 1.05 - avg_height
         for i in range(0, NDAYS):
             height = cards_per_day[i]
