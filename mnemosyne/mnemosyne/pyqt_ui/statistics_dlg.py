@@ -13,29 +13,31 @@ from mnemosyne.libmnemosyne.component_manager import database
 from ui_statistics_dlg import Ui_StatisticsDlg
 
 
-class MplCanvas(FigureCanvas):
+class StatGraph(FigureCanvas):
 
     """Base canvas class for creating graphs with Matplotlib."""
     
-    def __init__(self, parent=None, width=4, height=4, dpi=100, color='white'):
+    def __init__(self, parent=None, width=5, height=4, dpi=100, color='white', 
+                 scope=None):
         fig = Figure(figsize=(width, height), dpi=dpi, facecolor=color, 
                      edgecolor=color)
         FigureCanvas.__init__(self, fig)
-        FigureCanvas.setSizePolicy(self, QSizePolicy.MinimumExpanding, 
-                                   QSizePolicy.MinimumExpanding)
+        #FigureCanvas.setSizePolicy(self, QSizePolicy.MinimumExpanding, 
+                                   #QSizePolicy.MinimumExpanding)
         self.setParent(parent)
         self.axes = fig.add_subplot(111)
-        self.generate_figure()
+        self.generate_figure(scope)
+        #FigureCanvas.updateGeometry(self)
 
-    def generate_figure(self):
+    def generate_figure(self, scope):
         pass
 
 
-class ScheduleGraph(MplCanvas):
+class ScheduleGraph(StatGraph):
 
     """Graph of card scheduling statistics."""
 
-    def generate_figure(self):
+    def generate_figure(self, scope):
 
         """Create a bar graph of card scheduling statistics."""
 
@@ -43,7 +45,7 @@ class ScheduleGraph(MplCanvas):
         BAR_WIDTH = 1.0
         HALF_WIDTH = BAR_WIDTH / 2.0
 
-        self.axes.set_title('Scheduled cards for next week')
+        #self.axes.set_title('Scheduled cards for next week')
         self.axes.set_ylabel('Number of Cards Scheduled')
         self.axes.set_xlabel('Days')
         cards_per_day = []
@@ -96,15 +98,16 @@ class ScheduleGraph(MplCanvas):
                            va='bottom', fontsize='small')
 
 
-class GradesGraph(MplCanvas):
+class GradesGraph(StatGraph):
 
     """Graph of card grade statistics."""
 
-    def __init__(self, parent=None, width=4, height=4, dpi=100, color='white'):
+    def __init__(self, parent=None, width=4, height=4, dpi=100, color='white', 
+                 scope=None):
         # Pie charts look better on a square canvas.
-        MplCanvas.__init__(self, parent, width, height, dpi, color)
+        StatGraph.__init__(self, parent, width, height, dpi, color, scope)
 
-    def generate_figure(self):
+    def generate_figure(self, scope):
 
         """Create a pie chart of card grade statistics."""
 
@@ -132,19 +135,37 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
     def __init__(self, parent=None, name=None, modal=0):
         QDialog.__init__(self,parent)
         self.setupUi(self)
+        self.add_schedule_stats()
 
+    def add_schedule_stats(self):
+        bg_color = self.get_background_color()
+        for scope in ('next_week', 'next_month', 'next_year', 'all_time'):
+            parent = getattr(self, scope)
+            layout_name = scope + '_layout'
+            setattr(self, layout_name, QVBoxLayout(parent))
+            layout = getattr(self, layout_name)
+            layout.setObjectName(layout_name)
+            graph_name = scope + '_graph'
+            setattr(self, graph_name, ScheduleGraph(parent, scope=scope, 
+                                                    color=bg_color))
+            graph = getattr(self, graph_name)
+            graph.setObjectName(graph_name)
+            layout.addWidget(graph)
+
+    def add_grades_stats(self):
+        #self.all_categories = GradesGraph(self.grades_stack, color=graph_bg_color)
+        #self.grades_stack_layout = QVBoxLayout(self.all_categories)
+        #self.grades_stack_layout.addWidget(self.all_categories)
+        pass
+
+    def get_background_color(self):
         # Attempt to match the graph background color to the window. Sadly,
         # this won't work on OS X, XP, or Vista, since they use native theme
         # engines for drawing, rather than the palette. See:
         # http://doc.trolltech.com/4.4/qapplication.html#setPalette
         if self.style().objectName() == 'macintosh (Aqua)':
-            graph_bg_color = '0.91'
+            bg_color = '0.91'
         else:
             r, g, b, _ = self.palette().color(self.backgroundRole()).getRgb()
-            graph_bg_color = map(lambda x: x / 255.0, (r, g, b))
-
-        self.next_week = ScheduleGraph(self.sched_tab, color=graph_bg_color)
-        #self.verticalLayout_2.addWidget(self.sched_canvas)
-
-        self.grades_canvas = GradesGraph(self.grades_tab, color=graph_bg_color)
-        self.grades_layout.addWidget(self.grades_canvas)
+            bg_color = map(lambda x: x / 255.0, (r, g, b))
+        return bg_color
