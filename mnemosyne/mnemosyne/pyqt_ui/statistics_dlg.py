@@ -115,7 +115,7 @@ class GradesGraph(MplCanvas):
 
         # TODO (ma): print a message stating there are no stats rather than
         # displaying an empty graph.
-        if sum(grades) == 0:
+        if max(grades) == 0:
             return
 
         # Only print percentage on wedges > 5%.
