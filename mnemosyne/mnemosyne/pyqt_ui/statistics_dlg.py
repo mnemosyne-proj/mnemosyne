@@ -143,8 +143,8 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             r, g, b, _ = self.palette().color(self.backgroundRole()).getRgb()
             graph_bg_color = map(lambda x: x / 255.0, (r, g, b))
 
-        self.sched_canvas = ScheduleGraph(self.sched_tab, color=graph_bg_color)
-        self.sched_layout.addWidget(self.sched_canvas)
+        self.next_week = ScheduleGraph(self.sched_tab, color=graph_bg_color)
+        #self.verticalLayout_2.addWidget(self.sched_canvas)
 
         self.grades_canvas = GradesGraph(self.grades_tab, color=graph_bg_color)
         self.grades_layout.addWidget(self.grades_canvas)

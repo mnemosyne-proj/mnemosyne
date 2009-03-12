@@ -28,9 +28,9 @@
    <item>
     <widget class="QTabWidget" name="tabWidget" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+      <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
        <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
+       <verstretch>1</verstretch>
       </sizepolicy>
      </property>
      <property name="currentIndex" >
@@ -40,7 +40,57 @@
       <attribute name="title" >
        <string>Schedule</string>
       </attribute>
-      <layout class="QVBoxLayout" name="sched_layout" />
+      <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <item>
+        <layout class="QFormLayout" name="formLayout" >
+         <property name="fieldGrowthPolicy" >
+          <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+         </property>
+         <item row="0" column="0" >
+          <widget class="QLabel" name="label_2" >
+           <property name="text" >
+            <string>Show stats for: </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" >
+          <widget class="QComboBox" name="comboBox" >
+           <item>
+            <property name="text" >
+             <string>Next week</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>Next month</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>Next year</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>All-time</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="stackedWidget" >
+         <property name="currentIndex" >
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="next_week" />
+         <widget class="QWidget" name="next_month" />
+         <widget class="QWidget" name="next_year" />
+         <widget class="QWidget" name="all_time" />
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="grades_tab" >
       <attribute name="title" >
@@ -73,7 +123,7 @@
    <item>
     <layout class="QHBoxLayout" >
      <item>
-      <spacer name="Horizontal Spacing2" >
+      <spacer name="horizontalSpacer_2" >
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
