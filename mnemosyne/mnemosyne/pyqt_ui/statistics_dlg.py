@@ -38,38 +38,54 @@ class ScheduleGraph(StatGraph):
     """Graph of card scheduling statistics."""
 
     def generate_figure(self, scope):
+        if scope == 'all_time':
+            self.generate_histograph()
+        else:
+            self.generate_bar_graph(scope)
+
+    def generate_bar_graph(self, scope):
 
         """Create a bar graph of card scheduling statistics."""
 
-        NDAYS = 7
         BAR_WIDTH = 1.0
         HALF_WIDTH = BAR_WIDTH / 2.0
-
-        #self.axes.set_title('Scheduled cards for next week')
+        xticklabels = lambda i, j: map(lambda x: "+%d" % x, range(i, j))
+        scope_vars_map = {'next_week': {'range': range(0, 7, 1), 
+                                        'xlabel': 'Days', 
+                                        'xticklabels': ['Today'] + 
+                                                       xticklabels(1, 7)},
+                          'next_month': {'range': range(6, 28, 7),
+                                         'xlabel': 'Weeks',
+                                         'xticklabels': ['This week'] + 
+                                                        xticklabels(1, 4)},
+                          'next_year':  {'range': range(30, 365, 30),
+                                         'xlabel': 'Months',
+                                         'xticklabels': xticklabels(0, 12)}}
+        scope_vars = scope_vars_map[scope]
+        range_ = scope_vars['range']
         self.axes.set_ylabel('Number of Cards Scheduled')
-        self.axes.set_xlabel('Days')
-        cards_per_day = []
+        self.axes.set_xlabel(scope_vars['xlabel'])
+        values = []
         old_cumulative = 0
-        for days in range(0, NDAYS):
+        for days in range_:
             cumulative = database().scheduled_count(days)
-            cards_per_day.append(cumulative - old_cumulative)
+            values.append(cumulative - old_cumulative)
             old_cumulative = cumulative
 
-        xticks = arange(NDAYS) + HALF_WIDTH
+        xticks = arange(len(values)) + HALF_WIDTH
         bar_colors = ('r', 'g', 'b', 'c', 'm', 'y', 'k')
-        self.axes.bar(xticks, cards_per_day, BAR_WIDTH, align='center', 
+        self.axes.bar(xticks, values, BAR_WIDTH, align='center', 
                       color=bar_colors, alpha=0.7, linewidth=0)
         self.axes.set_xticks(xticks)
-        self.axes.set_xticklabels(('Today', '+1', '+2', '+3', '+4', '+5', '+6'), 
-                                  fontsize='small')
+        self.axes.set_xticklabels(scope_vars['xticklabels'], fontsize='small')
 
         # Pad the right side of the graph if the last value is zero. Otheriwse,
         # the graph ends at the final xtick label, which looks ugly.
-        if cards_per_day[-1] == 0:
+        if values[-1] == 0:
             _, xmax = self.axes.set_xlim()
             self.axes.set_xlim(xmax=xmax+HALF_WIDTH)
 
-        max_value = max(cards_per_day)
+        max_value = max(values)
         tick_interval = round((max_value / 4.0) + 1)
         self.axes.set_yticks(arange(tick_interval, max_value + tick_interval, 
                                     tick_interval))
@@ -84,18 +100,21 @@ class ScheduleGraph(StatGraph):
         # since bool(0) == False.
         from operator import add
         avg = lambda s: reduce(add, s) / len(s)
-        if max(cards_per_day) == 0:
+        if max(values) == 0:
             # TODO (ma): print a message stating there are no stats rather than
             # displaying an empty graph.
             avg_height = 0
         else:
-            avg_height = avg(filter(bool, cards_per_day))
+            avg_height = avg(filter(bool, values))
         pad = avg_height * 1.05 - avg_height
-        for i in range(0, NDAYS):
-            height = cards_per_day[i]
+        for i in range(len(values)):
+            height = values[i]
             if height == 0: continue
             self.axes.text(xticks[i], height + pad, '%d' % height, ha='center', 
                            va='bottom', fontsize='small')
+
+    def generate_histograph(self):
+        pass
 
 
 class GradesGraph(StatGraph):
