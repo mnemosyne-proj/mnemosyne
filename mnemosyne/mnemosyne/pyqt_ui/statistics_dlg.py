@@ -51,14 +51,18 @@ class ScheduleGraph(StatGraph):
         HALF_WIDTH = BAR_WIDTH / 2.0
         xticklabels = lambda i, j: map(lambda x: "+%d" % x, range(i, j))
         scope_vars_map = {'next_week': {'range': range(0, 7, 1), 
+                                        'bar_colors': ('r', 'g', 'b', 'c', 'm', 
+                                                       'y', 'k'),
                                         'xlabel': 'Days', 
                                         'xticklabels': ['Today'] + 
                                                        xticklabels(1, 7)},
                           'next_month': {'range': range(6, 28, 7),
+                                         'bar_colors': ('r', 'g', 'b', 'c'),
                                          'xlabel': 'Weeks',
                                          'xticklabels': ['This week'] + 
                                                         xticklabels(1, 4)},
                           'next_year':  {'range': range(30, 365, 30),
+                                         'bar_colors': 'red',
                                          'xlabel': 'Months',
                                          'xticklabels': xticklabels(0, 12)}}
         scope_vars = scope_vars_map[scope]
@@ -117,12 +121,12 @@ class ScheduleGraph(StatGraph):
         """Create a histogram of card scheduling statistics."""
 
         self.axes.set_ylabel('Number of Cards Scheduled')
-        self.axes.set_xlabel('Time')
+        self.axes.set_xlabel('Days')
         xs = [c.next_rep for c in database().cards]
         if len(xs) == 0:
             self.display_message('No stats available.')
             return
-        self.axes.hist(xs)
+        self.axes.hist(xs, facecolor='red', alpha=0.7)
         self.axes.grid(True)
 
     def display_message(self, msg):
