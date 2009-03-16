@@ -19,13 +19,13 @@ class StatGraph(FigureCanvas):
     
     def __init__(self, parent=None, width=5, height=4, dpi=100, color='white', 
                  scope=None):
-        fig = Figure(figsize=(width, height), dpi=dpi, facecolor=color, 
-                     edgecolor=color)
-        FigureCanvas.__init__(self, fig)
+        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor=color, 
+                          edgecolor=color)
+        FigureCanvas.__init__(self, self.fig)
         #FigureCanvas.setSizePolicy(self, QSizePolicy.MinimumExpanding, 
                                    #QSizePolicy.MinimumExpanding)
         self.setParent(parent)
-        self.axes = fig.add_subplot(111)
+        self.axes = self.fig.add_subplot(111)
         self.generate_figure(scope)
         #FigureCanvas.updateGeometry(self)
 
@@ -72,6 +72,11 @@ class ScheduleGraph(StatGraph):
             values.append(cumulative - old_cumulative)
             old_cumulative = cumulative
 
+        # No cards scheduled for this time frame.
+        if max(values) == 0:
+            self.display_message('No stats available.')
+            return
+
         xticks = arange(len(values)) + HALF_WIDTH
         bar_colors = ('r', 'g', 'b', 'c', 'm', 'y', 'k')
         self.axes.bar(xticks, values, BAR_WIDTH, align='center', 
@@ -99,12 +104,7 @@ class ScheduleGraph(StatGraph):
         # than the others. Note that bool() can be used as the filter function
         # since bool(0) == False.
         avg = lambda s: sum(s) / len(s)
-        if max(values) == 0:
-            # TODO (ma): print a message stating there are no stats rather than
-            # displaying an empty graph.
-            avg_height = 0
-        else:
-            avg_height = avg(filter(bool, values))
+        avg_height = avg(filter(bool, values))
         pad = avg_height * 1.05 - avg_height
         for i in range(len(values)):
             height = values[i]
@@ -119,8 +119,20 @@ class ScheduleGraph(StatGraph):
         self.axes.set_ylabel('Number of Cards Scheduled')
         self.axes.set_xlabel('Time')
         xs = [c.next_rep for c in database().cards]
+        if len(xs) == 0:
+            self.display_message('No stats available.')
+            return
         self.axes.hist(xs)
         self.axes.grid(True)
+
+    def display_message(self, msg):
+        self.axes.clear()
+        self.axes.set_xticklabels('')
+        self.axes.set_yticklabels('')
+        self.axes.set_xticks((0.0,))
+        self.axes.set_yticks((0.0,))
+        self.axes.text(0.5, 0.5, msg, transform=self.axes.transAxes,
+                       horizontalalignment='center', verticalalignment='center')
 
 
 class GradesGraph(StatGraph):
