@@ -39,7 +39,7 @@ class ScheduleGraph(StatGraph):
 
     def generate_figure(self, scope):
         if scope == 'all_time':
-            self.generate_histograph()
+            self.generate_histogram()
         else:
             self.generate_bar_graph(scope)
 
@@ -98,8 +98,7 @@ class ScheduleGraph(StatGraph):
         # padding for most data, but looks ugly when one bar is *much* larger
         # than the others. Note that bool() can be used as the filter function
         # since bool(0) == False.
-        from operator import add
-        avg = lambda s: reduce(add, s) / len(s)
+        avg = lambda s: sum(s) / len(s)
         if max(values) == 0:
             # TODO (ma): print a message stating there are no stats rather than
             # displaying an empty graph.
@@ -113,8 +112,15 @@ class ScheduleGraph(StatGraph):
             self.axes.text(xticks[i], height + pad, '%d' % height, ha='center', 
                            va='bottom', fontsize='small')
 
-    def generate_histograph(self):
-        pass
+    def generate_histogram(self):
+
+        """Create a histogram of card scheduling statistics."""
+
+        self.axes.set_ylabel('Number of Cards Scheduled')
+        self.axes.set_xlabel('Time')
+        xs = [c.next_rep for c in database().cards]
+        self.axes.hist(xs)
+        self.axes.grid(True)
 
 
 class GradesGraph(StatGraph):
