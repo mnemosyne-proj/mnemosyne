@@ -157,7 +157,7 @@ class GradesGraph(StatGraph):
         grades = [0] * 6 # There are six grade levels
         for card in database().cards:
             # TODO: what happens when there exists a category with the name
-            # "all_categories"? Perhaps add a matching prefix (e.g. 'xxx')
+            # "all_categories"? Perhaps add a prefix (e.g. 'xxx')
             cat_names = [c.name for c in card.fact.cat]
             if scope == 'all_categories' or scope in cat_names:
                 grades[card.grade] += 1
@@ -185,22 +185,13 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
 
     def add_schedule_stats(self):
         bg_color = self.get_background_color()
-        # TODO: get scopes from combo box, rather than hard-coding
-        for scope in ('next_week', 'next_month', 'next_year', 'all_time'):
-            parent = getattr(self, scope)
-            layout_name = scope + '_layout'
-            setattr(self, layout_name, QVBoxLayout(parent))
-            layout = getattr(self, layout_name)
-            layout.setObjectName(layout_name)
-            graph_name = scope + '_graph'
-            setattr(self, graph_name, ScheduleGraph(parent, scope=scope, 
-                                                    color=bg_color))
-            graph = getattr(self, graph_name)
-            graph.setObjectName(graph_name)
-            layout.addWidget(graph)
+        #scopes = []
+        #for i in range(0, self.sched_stack.count()):
+            #scopes.append(self.sched_stack.widget(i).objectName().__str__())
+        scopes = self.page_names_for_stacked_widget(self.sched_stack)
+        self.add_graphs_for_scopes(ScheduleGraph, scopes, bg_color)
 
     def add_grades_stats(self):
-        bg_color = self.get_background_color()
         # TODO: get rid of duplicate code (see the update_categories_combobox
         # method in add_cards_dlg.py) by overriding QComboBox's sorting method.
         sorted_categories = sorted(database().category_names(), 
@@ -211,23 +202,32 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             parent = getattr(self, cat_name)
             parent.setObjectName(cat_name)
             self.grades_stack.addWidget(parent)
-        # TODO: abstract for loop to method and call from both add_grades_stats
-        # and add_schedule_stats
-        for cat_name in ['all_categories'] + sorted_categories:
-            parent = getattr(self, cat_name)
-            layout_name = cat_name + '_layout'
+        bg_color = self.get_background_color()
+        scopes = self.page_names_for_stacked_widget(self.grades_stack)
+        self.add_graphs_for_scopes(GradesGraph, scopes, bg_color)
+
+    def add_graphs_for_scopes(self, graph_type, scopes, bg='white'):
+        
+        """
+        Add a graph of type <graph_type> for each scope.
+        
+        graph_type -- the type of graph to add. Must be an actual classname.
+        scopes -- a list of keywords on which the graph specializes it's output,
+                  e.g. ('daily', 'weekly', 'monthly', 'all_time').
+        bg -- the background color for the graph.
+        """
+
+        for scope in scopes:
+            parent = getattr(self, scope)
+            layout_name = scope + '_layout'
             setattr(self, layout_name, QVBoxLayout(parent))
             layout = getattr(self, layout_name)
             layout.setObjectName(layout_name)
-            graph_name = cat_name + '_graph'
-            setattr(self, graph_name, GradesGraph(parent, scope=cat_name,
-                                                  color=bg_color))
-            graph = getattr(self, graph_name)
+            graph_name = scope + '_graph'
+            graph = graph_type(parent, scope=scope, color=bg)
+            setattr(self, graph_name, graph)
             graph.setObjectName(graph_name)
             layout.addWidget(graph)
-        #self.all_categories = GradesGraph(self.grades_stack, color=graph_bg_color)
-        #self.grades_stack_layout = QVBoxLayout(self.all_categories)
-        #self.grades_stack_layout.addWidget(self.all_categories)
 
     def get_background_color(self):
         # Attempt to match the graph background color to the window. Sadly,
@@ -240,3 +240,15 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             r, g, b, _ = self.palette().color(self.backgroundRole()).getRgb()
             bg_color = map(lambda x: x / 255.0, (r, g, b))
         return bg_color
+
+    def page_names_for_stacked_widget(self, stack):
+        """
+        Return a list of page names for the given stacked widget.
+        
+        stack -- a QStackWidget
+        """
+        # TODO: move this function into utils.py
+        names = []
+        for i in range(0, stack.count()):
+            names.append(stack.widget(i).objectName().__str__())
+        return names
