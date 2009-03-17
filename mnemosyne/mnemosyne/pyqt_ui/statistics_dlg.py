@@ -178,20 +178,25 @@ class GradesGraph(StatGraph):
 class StatisticsDlg(QDialog, Ui_StatisticsDlg):
 
     def __init__(self, parent=None, name=None, modal=0):
-        QDialog.__init__(self,parent)
+        QDialog.__init__(self, parent)
         self.setupUi(self)
         self.add_schedule_stats()
         self.add_grades_stats()
 
     def add_schedule_stats(self):
+        """Add graphs for schedule statistics to the sched tab."""
         bg_color = self.get_background_color()
-        #scopes = []
-        #for i in range(0, self.sched_stack.count()):
-            #scopes.append(self.sched_stack.widget(i).objectName().__str__())
         scopes = self.page_names_for_stacked_widget(self.sched_stack)
         self.add_graphs_for_scopes(ScheduleGraph, scopes, bg_color)
 
     def add_grades_stats(self):
+        """
+        Add graphs for grade statistics to the grade tab.
+
+        Fist, add items to the QComboBox and corresponding pages to the 
+        QStackedWidget for each category in the database. Then, add the graph
+        for each category to the pages of the stacked widget.
+        """
         # TODO: get rid of duplicate code (see the update_categories_combobox
         # method in add_cards_dlg.py) by overriding QComboBox's sorting method.
         sorted_categories = sorted(database().category_names(), 
@@ -207,16 +212,16 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         self.add_graphs_for_scopes(GradesGraph, scopes, bg_color)
 
     def add_graphs_for_scopes(self, graph_type, scopes, bg='white'):
-        
         """
         Add a graph of type <graph_type> for each scope.
         
         graph_type -- the type of graph to add. Must be an actual classname.
         scopes -- a list of keywords on which the graph specializes it's output,
                   e.g. ('daily', 'weekly', 'monthly', 'all_time').
-        bg -- the background color for the graph.
-        """
 
+        Keyword Arguments:
+        bg -- the background color for the graph (default 'white').
+        """
         for scope in scopes:
             parent = getattr(self, scope)
             layout_name = scope + '_layout'
@@ -230,10 +235,13 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             layout.addWidget(graph)
 
     def get_background_color(self):
-        # Attempt to match the graph background color to the window. Sadly,
-        # this won't work on OS X, XP, or Vista, since they use native theme
-        # engines for drawing, rather than the palette. See:
-        # http://doc.trolltech.com/4.4/qapplication.html#setPalette
+        """
+        Return this window's background color.
+        
+        Sadly, this won't work on OS X, XP, or Vista since they use native
+        theme engines for drawing, rather than the palette. See:
+        http://doc.trolltech.com/4.4/qapplication.html#setPalette
+        """
         if self.style().objectName() == 'macintosh (Aqua)':
             bg_color = '0.91'
         else:
