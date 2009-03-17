@@ -10,6 +10,7 @@ from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 from mnemosyne.libmnemosyne.component_manager import database
+from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from ui_statistics_dlg import Ui_StatisticsDlg
 
 
@@ -31,6 +32,15 @@ class StatGraph(FigureCanvas):
 
     def generate_figure(self, scope):
         pass
+
+    def display_message(self, msg):
+        self.axes.clear()
+        self.axes.set_xticklabels('')
+        self.axes.set_yticklabels('')
+        self.axes.set_xticks((0.0,))
+        self.axes.set_yticks((0.0,))
+        self.axes.text(0.5, 0.5, msg, transform=self.axes.transAxes,
+                       horizontalalignment='center', verticalalignment='center')
 
 
 class ScheduleGraph(StatGraph):
@@ -129,15 +139,6 @@ class ScheduleGraph(StatGraph):
         self.axes.hist(xs, facecolor='red', alpha=0.7)
         self.axes.grid(True)
 
-    def display_message(self, msg):
-        self.axes.clear()
-        self.axes.set_xticklabels('')
-        self.axes.set_yticklabels('')
-        self.axes.set_xticks((0.0,))
-        self.axes.set_yticks((0.0,))
-        self.axes.text(0.5, 0.5, msg, transform=self.axes.transAxes,
-                       horizontalalignment='center', verticalalignment='center')
-
 
 class GradesGraph(StatGraph):
 
@@ -155,11 +156,14 @@ class GradesGraph(StatGraph):
         self.axes.set_title('Number of cards per grade level')
         grades = [0] * 6 # There are six grade levels
         for card in database().cards:
-            grades[card.grade] += 1
+            # TODO: what happens when there exists a category with the name
+            # "all_categories"? Perhaps add a matching prefix (e.g. 'xxx')
+            cat_names = [c.name for c in card.fact.cat]
+            if scope == 'all_categories' or scope in cat_names:
+                grades[card.grade] += 1
 
-        # TODO (ma): print a message stating there are no stats rather than
-        # displaying an empty graph.
         if max(grades) == 0:
+            self.display_message('No stats available.')
             return
 
         # Only print percentage on wedges > 5%.
@@ -177,9 +181,11 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         QDialog.__init__(self,parent)
         self.setupUi(self)
         self.add_schedule_stats()
+        self.add_grades_stats()
 
     def add_schedule_stats(self):
         bg_color = self.get_background_color()
+        # TODO: get scopes from combo box, rather than hard-coding
         for scope in ('next_week', 'next_month', 'next_year', 'all_time'):
             parent = getattr(self, scope)
             layout_name = scope + '_layout'
@@ -194,10 +200,34 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             layout.addWidget(graph)
 
     def add_grades_stats(self):
+        bg_color = self.get_background_color()
+        # TODO: get rid of duplicate code (see the update_categories_combobox
+        # method in add_cards_dlg.py) by overriding QComboBox's sorting method.
+        sorted_categories = sorted(database().category_names(), 
+                                   cmp=numeric_string_cmp)
+        for cat_name in sorted_categories:
+            self.grades_combo.addItem(QString(cat_name))
+            setattr(self, cat_name, QWidget())
+            parent = getattr(self, cat_name)
+            parent.setObjectName(cat_name)
+            self.grades_stack.addWidget(parent)
+        # TODO: abstract for loop to method and call from both add_grades_stats
+        # and add_schedule_stats
+        for cat_name in ['all_categories'] + sorted_categories:
+            parent = getattr(self, cat_name)
+            layout_name = cat_name + '_layout'
+            setattr(self, layout_name, QVBoxLayout(parent))
+            layout = getattr(self, layout_name)
+            layout.setObjectName(layout_name)
+            graph_name = cat_name + '_graph'
+            setattr(self, graph_name, GradesGraph(parent, scope=cat_name,
+                                                  color=bg_color))
+            graph = getattr(self, graph_name)
+            graph.setObjectName(graph_name)
+            layout.addWidget(graph)
         #self.all_categories = GradesGraph(self.grades_stack, color=graph_bg_color)
         #self.grades_stack_layout = QVBoxLayout(self.all_categories)
         #self.grades_stack_layout.addWidget(self.all_categories)
-        pass
 
     def get_background_color(self):
         # Attempt to match the graph background color to the window. Sadly,
