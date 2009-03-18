@@ -1,6 +1,9 @@
 #
 # statistics_dlg.py <mike@peacecorps.org.cv>
 #
+# TODO: Refactor graph classes into BarGraph, PieChart, and Histogram, rather
+# than ScheduleGraph, GradesGraph, and EasinessGraph
+#
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -23,8 +26,8 @@ class StatGraph(FigureCanvas):
         self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor=color, 
                           edgecolor=color)
         FigureCanvas.__init__(self, self.fig)
-        #FigureCanvas.setSizePolicy(self, QSizePolicy.MinimumExpanding, 
-                                   #QSizePolicy.MinimumExpanding)
+        FigureCanvas.setSizePolicy(self, QSizePolicy.MinimumExpanding, 
+                                   QSizePolicy.MinimumExpanding)
         self.setParent(parent)
         self.axes = self.fig.add_subplot(111)
         self.generate_figure(scope)
@@ -156,10 +159,8 @@ class GradesGraph(StatGraph):
         self.axes.set_title('Number of cards per grade level')
         grades = [0] * 6 # There are six grade levels
         for card in database().cards:
-            # TODO: what happens when there exists a category with the name
-            # "all_categories"? Perhaps add a prefix (e.g. 'xxx')
             cat_names = [c.name for c in card.fact.cat]
-            if scope == 'all_categories' or scope in cat_names:
+            if scope == 'all_categories__' or scope in cat_names:
                 grades[card.grade] += 1
 
         if max(grades) == 0:
@@ -174,18 +175,45 @@ class GradesGraph(StatGraph):
                       colors=('r', 'm', 'y', 'g', 'c', 'b'), shadow=True)
  
 
+class EasinessGraph(StatGraph):
+
+    """Graph of card easiness statistics."""
+
+    def generate_figure(self, scope):
+        """
+        Create a histogram of easiness values for every card.
+        
+        scope -- a category name or the string 'all_categories__'
+
+        """
+        self.axes.set_ylabel('Number of cards')
+        self.axes.set_xlabel('Easiness')
+        xs = []
+        for card in database().cards:
+            cat_names = [c.name for c in card.fact.cat]
+            if scope == 'easiness_all_categories' or scope in cat_names:
+                xs.append(card.easiness)
+        if len(xs) == 0:
+            self.display_message('No stats available.')
+            return
+        self.axes.hist(xs, facecolor='red', alpha=0.7)
+        self.axes.grid(True)
+        
 
 class StatisticsDlg(QDialog, Ui_StatisticsDlg):
+
+    # TODO: Factor out duplicated code from add_*_stats() methods.
 
     def __init__(self, parent=None, name=None, modal=0):
         QDialog.__init__(self, parent)
         self.setupUi(self)
         self.add_schedule_stats()
         self.add_grades_stats()
+        self.add_easiness_stats()
 
     def add_schedule_stats(self):
         """Add graphs for schedule statistics to the sched tab."""
-        bg_color = self.get_background_color()
+        bg_color = self.background_color()
         scopes = self.page_names_for_stacked_widget(self.sched_stack)
         self.add_graphs_for_scopes(ScheduleGraph, scopes, bg_color)
 
@@ -196,20 +224,49 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         Fist, add items to the QComboBox and corresponding pages to the 
         QStackedWidget for each category in the database. Then, add the graph
         for each category to the pages of the stacked widget.
+
         """
         # TODO: get rid of duplicate code (see the update_categories_combobox
         # method in add_cards_dlg.py) by overriding QComboBox's sorting method.
         sorted_categories = sorted(database().category_names(), 
                                    cmp=numeric_string_cmp)
-        for cat_name in sorted_categories:
-            self.grades_combo.addItem(QString(cat_name))
-            setattr(self, cat_name, QWidget())
-            parent = getattr(self, cat_name)
-            parent.setObjectName(cat_name)
-            self.grades_stack.addWidget(parent)
-        bg_color = self.get_background_color()
+        self.add_items_to_combo_box_and_stacked_widget(sorted_categories, 
+                                                       self.grades_combo,
+                                                       self.grades_stack)
+        bg_color = self.background_color()
         scopes = self.page_names_for_stacked_widget(self.grades_stack)
         self.add_graphs_for_scopes(GradesGraph, scopes, bg_color)
+
+    def add_easiness_stats(self):
+        """
+        Add graphs for easiness statistics to the easiness tab.
+
+        """
+        sorted_categories = sorted(database().category_names(), 
+                                   cmp=numeric_string_cmp)
+        self.add_items_to_combo_box_and_stacked_widget(sorted_categories, 
+                                                       self.easiness_combo,
+                                                       self.easiness_stack)
+        bg_color = self.background_color()
+        scopes = self.page_names_for_stacked_widget(self.easiness_stack)
+        self.add_graphs_for_scopes(EasinessGraph, scopes, bg_color)
+        
+    def add_items_to_combo_box_and_stacked_widget(self, items, combo, stack):
+        """
+        Add each item in list to the specified combo box and stack widget.
+        
+        items -- a list of strings that will be used as both the combo box
+                 text and the new stack widget page name.
+        combo -- the QComboBox to which the items will be added.
+        stack -- the QStackWidget to which the pages will be added.
+
+        """
+        for name in items:
+            combo.addItem(QString(name))
+            widget = QWidget()
+            widget.setObjectName(name)
+            stack.addWidget(widget)
+            setattr(self, name, widget)
 
     def add_graphs_for_scopes(self, graph_type, scopes, bg='white'):
         """
@@ -221,6 +278,7 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
 
         Keyword Arguments:
         bg -- the background color for the graph (default 'white').
+
         """
         for scope in scopes:
             parent = getattr(self, scope)
@@ -234,13 +292,14 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             graph.setObjectName(graph_name)
             layout.addWidget(graph)
 
-    def get_background_color(self):
+    def background_color(self):
         """
         Return this window's background color.
         
         Sadly, this won't work on OS X, XP, or Vista since they use native
         theme engines for drawing, rather than the palette. See:
         http://doc.trolltech.com/4.4/qapplication.html#setPalette
+
         """
         if self.style().objectName() == 'macintosh (Aqua)':
             bg_color = '0.91'
@@ -254,6 +313,7 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         Return a list of page names for the given stacked widget.
         
         stack -- a QStackWidget
+
         """
         # TODO: move this function into utils.py
         names = []

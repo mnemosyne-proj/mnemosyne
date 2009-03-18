@@ -94,7 +94,7 @@
        </item>
        <item>
         <widget class="QStackedWidget" name="grades_stack" >
-         <widget class="QWidget" name="all_categories" />
+         <widget class="QWidget" name="all_categories__" />
         </widget>
        </item>
       </layout>
@@ -103,18 +103,22 @@
       <attribute name="title" >
        <string>Easiness</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout_2" >
        <item>
-        <widget class="QLabel" name="label" >
-         <property name="layoutDirection" >
-          <enum>Qt::LeftToRight</enum>
+        <widget class="QComboBox" name="easiness_combo" >
+         <item>
+          <property name="text" >
+           <string>All Categories</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="easiness_stack" >
+         <property name="currentIndex" >
+          <number>0</number>
          </property>
-         <property name="text" >
-          <string>Coming soon! :P</string>
-         </property>
-         <property name="alignment" >
-          <set>Qt::AlignCenter</set>
-         </property>
+         <widget class="QWidget" name="easiness_all_categories" />
         </widget>
        </item>
       </layout>
