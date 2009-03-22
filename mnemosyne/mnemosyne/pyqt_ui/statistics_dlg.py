@@ -188,6 +188,7 @@ class EasinessGraph(StatGraph):
         """
         self.axes.set_ylabel('Number of cards')
         self.axes.set_xlabel('Easiness')
+        self.axes.set_title(scope)
         xs = []
         for card in database().cards:
             cat_names = [c.name for c in card.fact.cat]
@@ -215,7 +216,8 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         """Add graphs for schedule statistics to the sched tab."""
         bg_color = self.background_color()
         scopes = self.page_names_for_stacked_widget(self.sched_stack)
-        self.add_graphs_for_scopes(ScheduleGraph, scopes, bg_color)
+        widgets = self.pages_for_stacked_widget(self.sched_stack)
+        self.add_graphs_for_scopes(ScheduleGraph, scopes, widgets, bg_color)
 
     def add_grades_stats(self):
         """
@@ -230,12 +232,12 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         # method in add_cards_dlg.py) by overriding QComboBox's sorting method.
         sorted_categories = sorted(database().category_names(), 
                                    cmp=numeric_string_cmp)
-        self.add_items_to_combo_box_and_stacked_widget(sorted_categories, 
-                                                       self.grades_combo,
-                                                       self.grades_stack)
+        self.add_items_to_combo_box(sorted_categories, self.grades_combo)
+        self.add_pages_to_stacked_widget(sorted_categories, self.grades_stack)
         bg_color = self.background_color()
         scopes = self.page_names_for_stacked_widget(self.grades_stack)
-        self.add_graphs_for_scopes(GradesGraph, scopes, bg_color)
+        widgets = self.pages_for_stacked_widget(self.grades_stack)
+        self.add_graphs_for_scopes(GradesGraph, scopes, widgets, bg_color)
 
     def add_easiness_stats(self):
         """
@@ -244,52 +246,72 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         """
         sorted_categories = sorted(database().category_names(), 
                                    cmp=numeric_string_cmp)
-        self.add_items_to_combo_box_and_stacked_widget(sorted_categories, 
-                                                       self.easiness_combo,
-                                                       self.easiness_stack)
+        self.add_items_to_combo_box(sorted_categories, self.easiness_combo)
+        self.add_pages_to_stacked_widget(sorted_categories, self.grades_stack)
         bg_color = self.background_color()
         scopes = self.page_names_for_stacked_widget(self.easiness_stack)
-        self.add_graphs_for_scopes(EasinessGraph, scopes, bg_color)
+        widgets = self.pages_for_stacked_widget(self.easiness_stack)
+        self.add_graphs_for_scopes(EasinessGraph, scopes, widgets, bg_color)
         
-    def add_items_to_combo_box_and_stacked_widget(self, items, combo, stack):
+    def add_items_to_combo_box(self, items, combo):
         """
         Add each item in list to the specified combo box and stack widget.
         
         items -- a list of strings that will be used as both the combo box
                  text and the new stack widget page name.
         combo -- the QComboBox to which the items will be added.
-        stack -- the QStackWidget to which the pages will be added.
 
         """
         for name in items:
             combo.addItem(QString(name))
+
+    def add_pages_to_stacked_widget(self, names, stack):
+        """
+        Create and add a list of widgets with specified objectNames to the 
+        specified stacked widget. Return a list of the created widgets.
+        
+        names -- the list of strings to use as objectNames for the widgets
+                 that will be added to add to the stack.
+        stack -- a QStackedWidget.
+
+        """
+        widgets = []
+        for name in names:
             widget = QWidget()
             widget.setObjectName(name)
+            setattr(self, str(id(widget)) + '_' + name, widget)
             stack.addWidget(widget)
-            setattr(self, name, widget)
-
-    def add_graphs_for_scopes(self, graph_type, scopes, bg='white'):
+            widgets.append(widget)
+        return widgets
+        
+    def add_graphs_for_scopes(self, graph_type, scopes, widgets, bg='white'):
         """
         Add a graph of type <graph_type> for each scope.
         
         graph_type -- the type of graph to add. Must be an actual classname.
         scopes -- a list of keywords on which the graph specializes it's output,
                   e.g. ('daily', 'weekly', 'monthly', 'all_time').
+        widgets -- a list of widgets that will be used as parent widgets for
+                   the graphs.
 
         Keyword Arguments:
         bg -- the background color for the graph (default 'white').
 
+        Raises:
+        ArgumentError if len(scopes) != len(widgets)
         """
-        for scope in scopes:
-            parent = getattr(self, scope)
-            layout_name = scope + '_layout'
+        if len(scopes) != len(widgets):
+            raise ArgumentError, "Widgets and scopes lists must be same length."
+        for i, name in enumerate(scopes):
+            parent = widgets[i]
+            layout_name = name + '_layout'
             setattr(self, layout_name, QVBoxLayout(parent))
             layout = getattr(self, layout_name)
             layout.setObjectName(layout_name)
-            graph_name = scope + '_graph'
-            graph = graph_type(parent, scope=scope, color=bg)
-            setattr(self, graph_name, graph)
+            graph_name = name + '_graph'
+            graph = graph_type(parent, scope=name, color=bg)
             graph.setObjectName(graph_name)
+            setattr(self, str(id(graph)) + '_' + graph_name, graph)
             layout.addWidget(graph)
 
     def background_color(self):
@@ -320,3 +342,15 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         for i in range(0, stack.count()):
             names.append(stack.widget(i).objectName().__str__())
         return names
+
+    def pages_for_stacked_widget(self, stack):
+        """
+        Return widget objects that make up the pages for the specified stack.
+        
+        stack -- a QStackWidget.
+        """
+        widgets = []
+        for i in range(0, stack.count()):
+            widgets.append(stack.widget(i))
+        return widgets
+        
