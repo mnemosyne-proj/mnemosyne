@@ -94,7 +94,7 @@
        </item>
        <item>
         <widget class="QStackedWidget" name="grades_stack" >
-         <widget class="QWidget" name="all_categories__" />
+         <widget class="QWidget" name="grades_all_categories" />
         </widget>
        </item>
       </layout>
@@ -174,8 +174,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>406</x>
-     <y>366</y>
+     <x>588</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel" >
      <x>238</x>
@@ -243,6 +243,38 @@
     </hint>
     <hint type="destinationlabel" >
      <x>321</x>
+     <y>60</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>easiness_combo</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>easiness_stack</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>158</x>
+     <y>55</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>158</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>easiness_stack</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>easiness_combo</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>366</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>362</x>
      <y>60</y>
     </hint>
    </hints>

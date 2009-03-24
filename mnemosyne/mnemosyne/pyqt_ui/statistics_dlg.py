@@ -160,7 +160,7 @@ class GradesGraph(StatGraph):
         grades = [0] * 6 # There are six grade levels
         for card in database().cards:
             cat_names = [c.name for c in card.fact.cat]
-            if scope == 'all_categories__' or scope in cat_names:
+            if scope == 'grades_all_categories' or scope in cat_names:
                 grades[card.grade] += 1
 
         if max(grades) == 0:
@@ -183,12 +183,11 @@ class EasinessGraph(StatGraph):
         """
         Create a histogram of easiness values for every card.
         
-        scope -- a category name or the string 'all_categories__'
+        scope -- a category name or the string 'easiness_all_categories'
 
         """
         self.axes.set_ylabel('Number of cards')
         self.axes.set_xlabel('Easiness')
-        self.axes.set_title(scope)
         xs = []
         for card in database().cards:
             cat_names = [c.name for c in card.fact.cat]
@@ -247,7 +246,7 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         sorted_categories = sorted(database().category_names(), 
                                    cmp=numeric_string_cmp)
         self.add_items_to_combo_box(sorted_categories, self.easiness_combo)
-        self.add_pages_to_stacked_widget(sorted_categories, self.grades_stack)
+        self.add_pages_to_stacked_widget(sorted_categories, self.easiness_stack)
         bg_color = self.background_color()
         scopes = self.page_names_for_stacked_widget(self.easiness_stack)
         widgets = self.pages_for_stacked_widget(self.easiness_stack)
@@ -279,7 +278,7 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         for name in names:
             widget = QWidget()
             widget.setObjectName(name)
-            setattr(self, str(id(widget)) + '_' + name, widget)
+            #setattr(self, str(id(widget)) + '_' + name, widget)
             stack.addWidget(widget)
             widgets.append(widget)
         return widgets
@@ -304,14 +303,14 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             raise ArgumentError, "Widgets and scopes lists must be same length."
         for i, name in enumerate(scopes):
             parent = widgets[i]
-            layout_name = name + '_layout'
-            setattr(self, layout_name, QVBoxLayout(parent))
-            layout = getattr(self, layout_name)
-            layout.setObjectName(layout_name)
-            graph_name = name + '_graph'
+            layout = QVBoxLayout(parent)
+            #layout_name = str(id(parent)) + '_' + name + '_layout'
+            #layout.setObjectName(layout_name)
+            #setattr(self, layout_name, layout)
             graph = graph_type(parent, scope=name, color=bg)
-            graph.setObjectName(graph_name)
-            setattr(self, str(id(graph)) + '_' + graph_name, graph)
+            #graph_name = str(id(parent)) + '_' + name + '_graph'
+            #graph.setObjectName(graph_name)
+            #setattr(self, str(id(graph)) + '_' + graph_name, graph)
             layout.addWidget(graph)
 
     def background_color(self):
