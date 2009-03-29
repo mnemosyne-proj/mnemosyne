@@ -239,10 +239,7 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         self.add_graphs_for_scopes(GradesGraph, scopes, widgets, bg_color)
 
     def add_easiness_stats(self):
-        """
-        Add graphs for easiness statistics to the easiness tab.
-
-        """
+        """ Add graphs for easiness statistics to the easiness tab."""
         sorted_categories = sorted(database().category_names(), 
                                    cmp=numeric_string_cmp)
         self.add_items_to_combo_box(sorted_categories, self.easiness_combo)
