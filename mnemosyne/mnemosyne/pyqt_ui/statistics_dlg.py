@@ -21,8 +21,7 @@ class StatGraph(FigureCanvas):
 
     """Base canvas class for creating graphs with Matplotlib."""
     
-    def __init__(self, parent, width=5, height=4, dpi=100, color='white', 
-                 scope=None):
+    def __init__(self, parent, width=5, height=4, dpi=100, color=None):
         self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor=color, 
                           edgecolor=color)
         FigureCanvas.__init__(self, self.fig)
@@ -41,6 +40,9 @@ class StatGraph(FigureCanvas):
         self.axes.text(0.5, 0.5, msg, transform=self.axes.transAxes,
                        horizontalalignment='center', verticalalignment='center')
 
+    def plot(self, values, **kwargs):
+        pass
+
 
 class Histogram(StatGraph):
 
@@ -56,7 +58,7 @@ class Histogram(StatGraph):
 
 class PieChart(StatGraph):
 
-    def __init__(self, parent=None, width=4, height=4, dpi=100, color='white'):
+    def __init__(self, parent=None, width=4, height=4, dpi=100, color=None):
         # Pie charts look better on a square canvas.
         StatGraph.__init__(self, parent, width, height, dpi, color)
 
@@ -109,22 +111,52 @@ class BarGraph(StatGraph):
                            va='bottom', fontsize='small')
 
 
-class ScheduleGraph(object):
+class BlahBlahBlah(object):
+
+    def __init__(self, parent, color='white'):
+        self.graph = StatGraph(parent, color=color)
+        self.title = ''
+        self.xlabel = ''
+        self.ylabel = ''
+
+    def make_graph(self, scope):
+        self.graph.axes.set_title(self.title)
+        self.graph.axes.set_xlabel(self.xlabel)
+        self.graph.axes.set_ylabel(self.ylabel)
+        values = self.values_for(scope)
+        kwargs = self.kwargs_for(scope, values)
+        self.graph.plot(values, **kwargs)
+        return self.graph
+
+    def values_for(self, scope):
+        return []
+
+    def kwargs_for(self, scope, values):
+        return {}
+
+
+class ScheduleGraph(BlahBlahBlah):
 
     """Graph of card scheduling statistics."""
 
-    def make_graph(cls, parent, scope=None, color='white'):
-        if scope == 'all_time':
-            return cls.make_histogram(parent, scope, color)
-        else:
-            return cls.make_bargraph(parent, scope, color)
-    make_graph = classmethod(make_graph)
+    def __init__(self, parent, color=None):
+        BlahBlahBlah.__init__(self, parent, color)
 
-    def make_bargraph(self, parent, scope, color):
+    def make_graph(self, scope):
+        parent = self.graph.parent()
+        color = self.graph.fig.get_facecolor()
+        if scope == 'all_time':
+            self.graph = Histogram(parent, color=color)
+            self.make_histogram(scope)
+        else:
+            self.graph = BarGraph(parent, color=color)
+            self.make_bargraph(scope)
+        return self.graph
+
+    def make_bargraph(self, scope):
 
         """Create a bar graph of card scheduling statistics."""
 
-        graph = BarGraph(parent, color=color)
         kwargs = dict(width=1.0, align='center', alpha=0.7, linewidth=0)
         xticklabels = lambda i, j: map(lambda x: "+%d" % x, range(i, j))
         if scope == 'next_week':
@@ -145,9 +177,9 @@ class ScheduleGraph(object):
         else:
             raise ArgumentError, "scope must be one of ('next_week', 'next_month', 'next_year')"
 
-        graph.axes.set_ylabel('Number of Cards Scheduled')
-        graph.axes.set_xlabel(xlabel)
-        graph.axes.set_xticklabels(xticklabels, fontsize='small')
+        self.graph.axes.set_ylabel('Number of Cards Scheduled')
+        self.graph.axes.set_xlabel(xlabel)
+        self.graph.axes.set_xticklabels(xticklabels, fontsize='small')
 
         values = []
         old_cumulative = 0
@@ -156,72 +188,66 @@ class ScheduleGraph(object):
             values.append(cumulative - old_cumulative)
             old_cumulative = cumulative
 
-        graph.plot(values, **kwargs)
-        return graph
-    make_bargraph = classmethod(make_bargraph)
+        self.graph.plot(values, **kwargs)
 
-    def make_histogram(cls, parent, scope, color):
+    def make_histogram(self, scope):
 
         """Create a histogram of card scheduling statistics."""
 
-        graph = Histogram(parent, color=color)
-        graph.axes.set_ylabel('Number of Cards Scheduled')
-        graph.axes.set_xlabel('Days')
-        days_since_start = database().days_since_start()
+        self.graph.axes.set_ylabel('Number of Cards Scheduled')
+        self.graph.axes.set_xlabel('Days')
         iton = lambda i: (i + abs(i)) / 2 # i < 0 ? 0 : i
-        values = [iton(c.next_rep - days_since_start) for c in database().cards]
+        values = [iton(c.days_until_next_rep) for c in database().cards]
         kwargs = dict()
         if len(values) != 0:
             kwargs['range'] = (min(values) - 0.5, max(values) + 0.5)
             kwargs['bins'] = max(values) - min(values) + 1
-            graph.axes.set_xticks(arange(max(values) + 1))
-        graph.plot(values, **kwargs)
-        return graph
-    make_histogram = classmethod(make_histogram)
+            self.graph.axes.set_xticks(arange(max(values) + 1))
+        self.graph.plot(values, **kwargs)
 
 
-class GradesGraph(object):
+class GradesGraph(BlahBlahBlah):
 
     """Graph of card grade statistics."""
 
-    def make_graph(cls, parent, scope, color=None):
+    def __init__(self, parent, color=None):
+        BlahBlahBlah.__init__(self, parent, color)
+        self.graph = PieChart(parent, color=color)
+        self.title = 'Number of cards per grade level'
 
-        """Create a pie chart of card grade statistics."""
-
-        graph = PieChart(parent, color=color)
-        graph.axes.set_title('Number of cards per grade level')
+    def values_for(self, scope):
         grades = [0] * 6 # There are six grade levels
         for card in database().cards:
             cat_names = [c.name for c in card.fact.cat]
             if scope == 'grades_all_categories' or scope in cat_names:
                 grades[card.grade] += 1
+        return grades
 
-        kwargs = dict(explode=(0.05, 0, 0, 0, 0, 0),
-                      labels=['Grade %d' % g if grades[g] > 0 else '' 
-                              for g in range(0, len(grades))],
-                      colors=('r', 'm', 'y', 'g', 'c', 'b'), shadow=True)
-
-        graph.plot(grades, **kwargs)
-        return graph
-    make_graph = classmethod(make_graph)
+    def kwargs_for(self, scope, values):
+        return dict(explode=(0.05, 0, 0, 0, 0, 0),
+                    labels=['Grade %d' % g if values[g] > 0 else '' 
+                              for g in range(0, len(values))],
+                    colors=('r', 'm', 'y', 'g', 'c', 'b'), 
+                    shadow=True)
 
 
-class EasinessGraph(object):
+class EasinessGraph(BlahBlahBlah):
 
     """Graph of card easiness statistics."""
 
-    def make_graph(cls, parent, scope=None, color='white'):
-        graph = Histogram(parent, color=color)
-        graph.axes.set_ylabel('Number of cards')
-        graph.axes.set_xlabel('Easiness')
+    def __init__(self, parent, color=None):
+        BlahBlahBlah.__init__(self, parent, color)
+        self.graph = Histogram(parent, color=color)
+        self.xlabel = 'Easiness'
+        self.ylabel = 'Number of Cards'
+
+    def values_for(self, scope):
         values = []
         for card in database().cards:
             cat_names = [c.name for c in card.fact.cat]
             if scope == 'easiness_all_categories' or scope in cat_names:
                 values.append(card.easiness)
-        graph.plot(values)
-        return graph
-    make_graph = classmethod(make_graph)
+        return values
 
 
 class StatisticsDlg(QDialog, Ui_StatisticsDlg):
@@ -265,22 +291,24 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
             widget.setObjectName(name)
             stack.addWidget(widget)
         
-    def add_graphs_to_pages(self, graph_type, pages, bg='white'):
+    def add_graphs_to_pages(self, graph_factory, pages, bg_color=None):
         """
-        Add a graph of type <graph_type> to each stackedWidget page.
         
-        graph_type -- the type of graph to add. Must be an actual classname.
-        pages -- a list of widgets that will be used as parent widgets for
-                 the graphs.
+        graph_factory -- a factory object with method 'make_graph' that will
+                         return a graph of the appropriate type for the given
+                         scope.
+        pages -- a list of pages of a QStackedWidget to which the graphs will
+                 be added.
 
         Keyword Arguments:
-        bg -- the background color for the graph (default 'white').
+        bg_color -- the background color for the graph (default None).
 
         """
-        names = [str(page.objectName()) for page in pages]
-        for parent, name in zip(pages, names):
+        scopes = [str(page.objectName()) for page in pages]
+        for parent, scope in zip(pages, scopes):
             layout = QVBoxLayout(parent)
-            graph = graph_type.make_graph(parent, scope=name, color=bg)
+            factory = graph_factory(parent, color=bg_color)
+            graph = factory.make_graph(scope)
             layout.addWidget(graph)
 
     def background_color(self):
