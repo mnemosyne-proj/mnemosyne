@@ -21,7 +21,7 @@ class StatGraph(FigureCanvas):
 
     """Base canvas class for creating graphs with Matplotlib."""
     
-    def __init__(self, parent=None, width=5, height=4, dpi=100, color='white', 
+    def __init__(self, parent, width=5, height=4, dpi=100, color='white', 
                  scope=None):
         self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor=color, 
                           edgecolor=color)
@@ -30,11 +30,7 @@ class StatGraph(FigureCanvas):
                                    QSizePolicy.MinimumExpanding)
         self.setParent(parent)
         self.axes = self.fig.add_subplot(111)
-        self.generate_figure(scope)
         #FigureCanvas.updateGeometry(self)
-
-    def generate_figure(self, scope):
-        pass
 
     def display_message(self, msg):
         self.axes.clear()
@@ -46,66 +42,49 @@ class StatGraph(FigureCanvas):
                        horizontalalignment='center', verticalalignment='center')
 
 
-class ScheduleGraph(StatGraph):
+class Histogram(StatGraph):
 
-    """Graph of card scheduling statistics."""
+    def plot(self, values, **kwargs):
+        if len(values) == 0:
+            self.display_message('No stats available.')
+            return
+        kwargs['facecolor'] = 'red'
+        kwargs['alpha'] = 0.7
+        self.axes.grid(True)
+        self.axes.hist(values, **kwargs)
 
-    def generate_figure(self, scope):
-        if scope == 'all_time':
-            self.generate_histogram()
-        else:
-            self.generate_bar_graph(scope)
 
-    def generate_bar_graph(self, scope):
+class PieChart(StatGraph):
 
-        """Create a bar graph of card scheduling statistics."""
+    def __init__(self, parent=None, width=4, height=4, dpi=100, color='white'):
+        # Pie charts look better on a square canvas.
+        StatGraph.__init__(self, parent, width, height, dpi, color)
 
-        BAR_WIDTH = 1.0
-        HALF_WIDTH = BAR_WIDTH / 2.0
-        xticklabels = lambda i, j: map(lambda x: "+%d" % x, range(i, j))
-        scope_vars_map = {'next_week': {'range': range(0, 7, 1), 
-                                        'bar_colors': ('r', 'g', 'b', 'c', 'm', 
-                                                       'y', 'k'),
-                                        'xlabel': 'Days', 
-                                        'xticklabels': ['Today'] + 
-                                                       xticklabels(1, 7)},
-                          'next_month': {'range': range(6, 28, 7),
-                                         'bar_colors': ('r', 'g', 'b', 'c'),
-                                         'xlabel': 'Weeks',
-                                         'xticklabels': ['This week'] + 
-                                                        xticklabels(1, 4)},
-                          'next_year':  {'range': range(30, 365, 30),
-                                         'bar_colors': 'red',
-                                         'xlabel': 'Months',
-                                         'xticklabels': xticklabels(0, 12)}}
-        scope_vars = scope_vars_map[scope]
-        range_ = scope_vars['range']
-        self.axes.set_ylabel('Number of Cards Scheduled')
-        self.axes.set_xlabel(scope_vars['xlabel'])
-        values = []
-        old_cumulative = 0
-        for days in range_:
-            cumulative = database().scheduled_count(days)
-            values.append(cumulative - old_cumulative)
-            old_cumulative = cumulative
-
-        # No cards scheduled for this time frame.
+    def plot(self, values, **kwargs):
         if max(values) == 0:
             self.display_message('No stats available.')
             return
 
-        xticks = arange(len(values)) + HALF_WIDTH
-        bar_colors = ('r', 'g', 'b', 'c', 'm', 'y', 'k')
-        self.axes.bar(xticks, values, BAR_WIDTH, align='center', 
-                      color=bar_colors, alpha=0.7, linewidth=0)
+        # Only print percentage on wedges > 5%.
+        autopctfn = lambda x: '%1.1f%%' % x if x > 5 else ''
+        self.axes.pie(values, autopct=autopctfn, **kwargs)
+
+
+class BarGraph(StatGraph):
+
+    def plot(self, values, **kwargs):
+        if max(values) == 0:
+            self.display_message('No stats available.')
+            return
+        xticks = arange(len(values)) + kwargs['width'] / 2.0
+        self.axes.bar(xticks, values, **kwargs)
         self.axes.set_xticks(xticks)
-        self.axes.set_xticklabels(scope_vars['xticklabels'], fontsize='small')
 
         # Pad the right side of the graph if the last value is zero. Otheriwse,
         # the graph ends at the final xtick label, which looks ugly.
         if values[-1] == 0:
             _, xmax = self.axes.set_xlim()
-            self.axes.set_xlim(xmax=xmax+HALF_WIDTH)
+            self.axes.set_xlim(xmax=xmax+kwargs['width']/2.0)
 
         max_value = max(values)
         tick_interval = round((max_value / 4.0) + 1)
@@ -129,80 +108,123 @@ class ScheduleGraph(StatGraph):
             self.axes.text(xticks[i], height + pad, '%d' % height, ha='center', 
                            va='bottom', fontsize='small')
 
-    def generate_histogram(self):
+
+class ScheduleGraph(object):
+
+    """Graph of card scheduling statistics."""
+
+    def make_graph(cls, parent, scope=None, color='white'):
+        if scope == 'all_time':
+            return cls.make_histogram(parent, scope, color)
+        else:
+            return cls.make_bargraph(parent, scope, color)
+    make_graph = classmethod(make_graph)
+
+    def make_bargraph(self, parent, scope, color):
+
+        """Create a bar graph of card scheduling statistics."""
+
+        graph = BarGraph(parent, color=color)
+        kwargs = dict(width=1.0, align='center', alpha=0.7, linewidth=0)
+        xticklabels = lambda i, j: map(lambda x: "+%d" % x, range(i, j))
+        if scope == 'next_week':
+            range_ = range(0, 7, 1)
+            xlabel = 'Days' 
+            xticklabels = ['Today'] + xticklabels(1, 7)
+            kwargs['color'] = ('r', 'g', 'b', 'c', 'm', 'y', 'k')
+        elif scope == 'next_month': 
+            range_ = range(6, 28, 7)
+            xlabel = 'Weeks'
+            xticklabels = ['This week'] + xticklabels(1, 4)
+            kwargs['color'] = ('r', 'g', 'b', 'c')
+        elif scope == 'next_year':  
+            range_ = range(30, 365, 30)
+            xlabel = 'Months'
+            xticklabels = xticklabels(0, 12)
+            kwargs['color'] = 'red'
+        else:
+            raise ArgumentError, "scope must be one of ('next_week', 'next_month', 'next_year')"
+
+        graph.axes.set_ylabel('Number of Cards Scheduled')
+        graph.axes.set_xlabel(xlabel)
+        graph.axes.set_xticklabels(xticklabels, fontsize='small')
+
+        values = []
+        old_cumulative = 0
+        for days in range_:
+            cumulative = database().scheduled_count(days)
+            values.append(cumulative - old_cumulative)
+            old_cumulative = cumulative
+
+        graph.plot(values, **kwargs)
+        return graph
+    make_bargraph = classmethod(make_bargraph)
+
+    def make_histogram(cls, parent, scope, color):
 
         """Create a histogram of card scheduling statistics."""
 
-        self.axes.set_ylabel('Number of Cards Scheduled')
-        self.axes.set_xlabel('Days')
-        xs = [c.next_rep for c in database().cards]
-        if len(xs) == 0:
-            self.display_message('No stats available.')
-            return
-        self.axes.hist(xs, facecolor='red', alpha=0.7)
-        self.axes.grid(True)
+        graph = Histogram(parent, color=color)
+        graph.axes.set_ylabel('Number of Cards Scheduled')
+        graph.axes.set_xlabel('Days')
+        days_since_start = database().days_since_start()
+        iton = lambda i: (i + abs(i)) / 2 # i < 0 ? 0 : i
+        values = [iton(c.next_rep - days_since_start) for c in database().cards]
+        kwargs = dict()
+        if len(values) != 0:
+            kwargs['range'] = (min(values) - 0.5, max(values) + 0.5)
+            kwargs['bins'] = max(values) - min(values) + 1
+            graph.axes.set_xticks(arange(max(values) + 1))
+        graph.plot(values, **kwargs)
+        return graph
+    make_histogram = classmethod(make_histogram)
 
 
-class GradesGraph(StatGraph):
+class GradesGraph(object):
 
     """Graph of card grade statistics."""
 
-    def __init__(self, parent=None, width=4, height=4, dpi=100, color='white', 
-                 scope=None):
-        # Pie charts look better on a square canvas.
-        StatGraph.__init__(self, parent, width, height, dpi, color, scope)
-
-    def generate_figure(self, scope):
+    def make_graph(cls, parent, scope, color=None):
 
         """Create a pie chart of card grade statistics."""
 
-        self.axes.set_title('Number of cards per grade level')
+        graph = PieChart(parent, color=color)
+        graph.axes.set_title('Number of cards per grade level')
         grades = [0] * 6 # There are six grade levels
         for card in database().cards:
             cat_names = [c.name for c in card.fact.cat]
             if scope == 'grades_all_categories' or scope in cat_names:
                 grades[card.grade] += 1
 
-        if max(grades) == 0:
-            self.display_message('No stats available.')
-            return
-
-        # Only print percentage on wedges > 5%.
-        autopctfn = lambda x: '%1.1f%%' % x if x > 5 else ''
-        self.axes.pie(grades, explode=(0.05, 0, 0, 0, 0, 0), autopct=autopctfn, 
+        kwargs = dict(explode=(0.05, 0, 0, 0, 0, 0),
                       labels=['Grade %d' % g if grades[g] > 0 else '' 
                               for g in range(0, len(grades))],
                       colors=('r', 'm', 'y', 'g', 'c', 'b'), shadow=True)
- 
 
-class EasinessGraph(StatGraph):
+        graph.plot(grades, **kwargs)
+        return graph
+    make_graph = classmethod(make_graph)
+
+
+class EasinessGraph(object):
 
     """Graph of card easiness statistics."""
 
-    def generate_figure(self, scope):
-        """
-        Create a histogram of easiness values for every card.
-        
-        scope -- a category name or the string 'easiness_all_categories'
-
-        """
-        self.axes.set_ylabel('Number of cards')
-        self.axes.set_xlabel('Easiness')
-        xs = []
+    def make_graph(cls, parent, scope=None, color='white'):
+        graph = Histogram(parent, color=color)
+        graph.axes.set_ylabel('Number of cards')
+        graph.axes.set_xlabel('Easiness')
+        values = []
         for card in database().cards:
             cat_names = [c.name for c in card.fact.cat]
             if scope == 'easiness_all_categories' or scope in cat_names:
-                xs.append(card.easiness)
-        if len(xs) == 0:
-            self.display_message('No stats available.')
-            return
-        self.axes.hist(xs, facecolor='red', alpha=0.7)
-        self.axes.grid(True)
-        
+                values.append(card.easiness)
+        graph.plot(values)
+        return graph
+    make_graph = classmethod(make_graph)
+
 
 class StatisticsDlg(QDialog, Ui_StatisticsDlg):
-
-    # TODO: Factor out duplicated code from add_*_stats() methods.
 
     def __init__(self, parent=None, name=None, modal=0):
         QDialog.__init__(self, parent)
@@ -258,7 +280,7 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         names = [str(page.objectName()) for page in pages]
         for parent, name in zip(pages, names):
             layout = QVBoxLayout(parent)
-            graph = graph_type(parent, scope=name, color=bg)
+            graph = graph_type.make_graph(parent, scope=name, color=bg)
             layout.addWidget(graph)
 
     def background_color(self):
