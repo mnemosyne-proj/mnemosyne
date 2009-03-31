@@ -17,7 +17,7 @@ from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from ui_statistics_dlg import Ui_StatisticsDlg
 
 
-class StatGraph(FigureCanvas):
+class MplCanvas(FigureCanvas):
 
     """Base canvas class for creating graphs with Matplotlib."""
     
@@ -44,7 +44,7 @@ class StatGraph(FigureCanvas):
         pass
 
 
-class Histogram(StatGraph):
+class Histogram(MplCanvas):
 
     def plot(self, values, **kwargs):
         if len(values) == 0:
@@ -56,11 +56,11 @@ class Histogram(StatGraph):
         self.axes.hist(values, **kwargs)
 
 
-class PieChart(StatGraph):
+class PieChart(MplCanvas):
 
     def __init__(self, parent=None, width=4, height=4, dpi=100, color=None):
         # Pie charts look better on a square canvas.
-        StatGraph.__init__(self, parent, width, height, dpi, color)
+        MplCanvas.__init__(self, parent, width, height, dpi, color)
 
     def plot(self, values, **kwargs):
         if max(values) == 0:
@@ -72,7 +72,7 @@ class PieChart(StatGraph):
         self.axes.pie(values, autopct=autopctfn, **kwargs)
 
 
-class BarGraph(StatGraph):
+class BarGraph(MplCanvas):
 
     def plot(self, values, **kwargs):
         if max(values) == 0:
@@ -111,10 +111,10 @@ class BarGraph(StatGraph):
                            va='bottom', fontsize='small')
 
 
-class BlahBlahBlah(object):
+class StatGraphBase(object):
 
     def __init__(self, parent, color='white'):
-        self.graph = StatGraph(parent, color=color)
+        self.graph = MplCanvas(parent, color=color)
         self.title = ''
         self.xlabel = ''
         self.ylabel = ''
@@ -135,12 +135,12 @@ class BlahBlahBlah(object):
         return {}
 
 
-class ScheduleGraph(BlahBlahBlah):
+class ScheduleGraph(StatGraphBase):
 
     """Graph of card scheduling statistics."""
 
     def __init__(self, parent, color=None):
-        BlahBlahBlah.__init__(self, parent, color)
+        StatGraphBase.__init__(self, parent, color)
 
     def make_graph(self, scope):
         parent = self.graph.parent()
@@ -206,12 +206,12 @@ class ScheduleGraph(BlahBlahBlah):
         self.graph.plot(values, **kwargs)
 
 
-class GradesGraph(BlahBlahBlah):
+class GradesGraph(StatGraphBase):
 
     """Graph of card grade statistics."""
 
     def __init__(self, parent, color=None):
-        BlahBlahBlah.__init__(self, parent, color)
+        StatGraphBase.__init__(self, parent, color)
         self.graph = PieChart(parent, color=color)
         self.title = 'Number of cards per grade level'
 
@@ -231,12 +231,12 @@ class GradesGraph(BlahBlahBlah):
                     shadow=True)
 
 
-class EasinessGraph(BlahBlahBlah):
+class EasinessGraph(StatGraphBase):
 
     """Graph of card easiness statistics."""
 
     def __init__(self, parent, color=None):
-        BlahBlahBlah.__init__(self, parent, color)
+        StatGraphBase.__init__(self, parent, color)
         self.graph = Histogram(parent, color=color)
         self.xlabel = 'Easiness'
         self.ylabel = 'Number of Cards'
