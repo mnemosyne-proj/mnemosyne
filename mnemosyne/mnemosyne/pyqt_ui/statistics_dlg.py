@@ -107,6 +107,19 @@ class BarGraph(MplCanvas):
 
 class StatGraphBase(object):
 
+    """Base class for statistics graphs.
+
+    Specifies a "Factory" interface for creating graphs. Subclasses will only
+    need to override make_graph if the type of graph returned depends on the 
+    scope argument or if the class needs to do special formatting of the graph
+    (e.g. ScheduleGraph below). In most cases, subclasses only need to override 
+    __init__ to assign the appropriate graph type to self.graph, and values_for
+    to generate the values to be plotted. Subclasses can also specify a dict of
+    keyword args that will be passed to the graph's plot method by overriding
+    the kwargs_for method.
+
+    """
+
     def __init__(self, parent, color='white'):
         self.graph = MplCanvas(parent, color=color)
         self.title = ''
