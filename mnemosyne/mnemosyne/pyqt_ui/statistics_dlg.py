@@ -1,9 +1,6 @@
 #
 # statistics_dlg.py <mike@peacecorps.org.cv>
 #
-# TODO: Refactor graph classes into BarGraph, PieChart, and Histogram, rather
-# than ScheduleGraph, GradesGraph, and EasinessGraph
-#
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -50,10 +47,8 @@ class Histogram(MplCanvas):
         if len(values) == 0:
             self.display_message('No stats available.')
             return
-        kwargs['facecolor'] = 'red'
-        kwargs['alpha'] = 0.7
         self.axes.grid(True)
-        self.axes.hist(values, **kwargs)
+        self.axes.hist(values, facecolor='red', alpha=0.7, **kwargs)
 
 
 class PieChart(MplCanvas):
@@ -66,7 +61,6 @@ class PieChart(MplCanvas):
         if max(values) == 0:
             self.display_message('No stats available.')
             return
-
         # Only print percentage on wedges > 5%.
         autopctfn = lambda x: '%1.1f%%' % x if x > 5 else ''
         self.axes.pie(values, autopct=autopctfn, **kwargs)
