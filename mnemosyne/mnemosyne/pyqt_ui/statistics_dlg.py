@@ -146,9 +146,6 @@ class ScheduleGraph(StatGraphBase):
 
     """Graph of card scheduling statistics."""
 
-    def __init__(self, parent, color=None):
-        StatGraphBase.__init__(self, parent, color)
-
     def make_graph(self, scope):
         parent = self.graph.parent()
         color = self.graph.fig.get_facecolor()
