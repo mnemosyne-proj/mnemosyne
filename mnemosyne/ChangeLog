@@ -10,6 +10,10 @@ This version uses a different database format. Before upgrading, export your
 old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 
+This is essentially a complete rewrite of the old 1.x codebase, with a new,
+clean design, consisting of components that can be swapped in and out very
+easily, which allows plugin writers maximum flexibility.
+
 -Support for what is called card types. The main user visible changes are that
  editing a vice versa card or three sided card will automatically update the
  related card. There is also support for N-sided cards.
