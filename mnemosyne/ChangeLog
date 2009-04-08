@@ -10,9 +10,27 @@ This version uses a different database format. Before upgrading, export your
 old data as xml. After upgrade, create a new database and import the old data
 from the xml file.
 
--Qt4 (window scroll bar, webkit)
--sql backend
--card types, consistend editing or reverse and three sided cards
+-Support for what is called card types. The main user visible changes are that
+ editing a vice versa card or three sided card will automatically update the
+ related card. There is also support for N-sided cards.
+-Each individual field in a card can now have its own font, colour, ... which
+ can be set through the GUI. No more need for hacks like 'increase size of 
+ non-latin characters'. Background colour is also configurable per card type.
+-Cards can belong to more than one category.
+-Added card type for maps, and for cloze deletion.
+-Plugins can now be turned on and off through the GUI.
+-Move from Qt3 to Qt4 as GUI toolkit, which has better performance and 
+ eliminates many interface quirks.
+-Windows use scroll bar when the data does not fit.
+-The widget that displays the cards is now a full webbrowser, with e.g. 
+ support for Javascript, animated gifs, ...	
+-Move to SQL as the storage backend, resulting in improved speed and memory
+ usage, as well as better scalability for large decks. Majority of work done
+ by Ed Bartosh.
+-Intelligent sorting of categories containing numbers, so that you no longer
+ have to call a category 'Lesson 01' instead of 'Lesson '1 to get the correct
+ ordering (Mike Appleby).
+-Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
 
 
 -Danish translation by Randi H.
