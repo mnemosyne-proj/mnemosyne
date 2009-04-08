@@ -2,9 +2,6 @@
 # database.py <Peter.Bienstman@UGent.be>
 #
 
-#  TODO: load_failed mechanism, to prevent overwriting a database which
-#  failed to load.
-
 class Database(object):
 
     """Interface class describing the functions to be implemented by the
@@ -12,24 +9,26 @@ class Database(object):
 
     """
 
+    version = ""
+
     # Creating, loading and saving the entire database.
 
     def new(self, path):
         raise NotImplementedError
 
-    def save(self, path):
+    def save(self, path=None):
         raise NotImplementedError
 
     def backup(self):
         raise NotImplementedError
 
-    def load(self, path): # TODO: SQL plugin logic
+    def load(self, path):
         raise NotImplementedError
 
     def unload(self):
         raise NotImplementedError
 
-    def is_loaded():
+    def is_loaded(self):
         raise NotImplementedError
 
     # Start date.
@@ -45,7 +44,7 @@ class Database(object):
     def add_category(self, category):
         raise NotImplementedError
 
-    def modify_category(self, modified_category):
+    def update_category(self, category):
         raise NotImplementedError
 
     def delete_category(self, category):
@@ -54,19 +53,13 @@ class Database(object):
     def get_or_create_category_with_name(self, name):
         raise NotImplementedError
 
-    def remove_category_if_unused(self, cat):
+    def remove_category_if_unused(self, category):
         raise NotImplementedError
 
     def add_fact(self, fact):
         raise NotImplementedError
 
     def update_fact(self, fact):
-        raise NotImplementedError
-        
-    def add_fact_view(self, fact_view, card):
-        raise NotImplementedError
-
-    def update_fact_view(self, fact_view):
         raise NotImplementedError
 
     def add_card(self, card):
@@ -75,27 +68,64 @@ class Database(object):
     def update_card(self, card):
         raise NotImplementedError
         
-    def cards_from_fact(self, fact):
-        raise NotImplementedError
-        
     def delete_fact_and_related_data(self, fact):
         raise NotImplementedError
 
-    def delete_card(self, card): # TODO: SQL
-        raise NotImplementedError        
+    def delete_card(self, card):
+        raise NotImplementedError
+
+    # Retrieving categories, facts, cards.
+
+    def get_category(self, id):
+        raise NotImplementedError
+    
+    def get_fact(self, id):
+        raise NotImplementedError
+
+    def get_card(self, id):
+        raise NotImplementedError
+
+    # Activate or put cards in view.
+
+    def set_cards_active(self, card_types_fact_views, categories):
+
+        """ card_types_fact_views is a list of tuples containing (card_type,
+        fact_view).
+
+        """
         
+        raise NotImplementedError
+
+    def set_cards_in_view(self, card_types_fact_views, categories):
+
+        """ card_types_fact_views is a list of tuples containing (card_type,
+        fact_view).
+
+        """
+        
+        raise NotImplementedError    
+    
     # Queries.
 
     def category_names(self):
-        raise NotImplementedError    
+        raise NotImplementedError
 
-    def has_fact_with_data(self, fact_data):
+    def cards_from_fact(self, fact):
+        
+        """ Returns a list of the cards deriving from a fact. """
+        
+        raise NotImplementedError
+
+    def has_fact_with_data(self, fact_data, card_type):
         raise NotImplementedError
 
     def duplicates_for_fact(self, fact):
 
         """Returns list of facts which have the same unique key."""
 
+        raise NotImplementedError
+
+    def card_types_in_use(self):
         raise NotImplementedError
 
     def fact_count(self):
@@ -116,31 +146,25 @@ class Database(object):
     def average_easiness(self):
         raise NotImplementedError
 
-    def card_types_in_use(self): # TODO: SQL
-        raise NotImplementedError        
-
-    # Filter is a SQL filter, used e.g. to filter out inactive categories.
-
-    def set_filter(self, filter):
-        raise NotImplementedError
-
     # The following functions should return an iterator, in order to 
-    # save memory. sort_key is an attribute of card to be used for sorting.
-    # (Note that this is different from the sort key used to sort lists in
-    # the Python itself, in order to allow easier interfacing with SQL.)
-
-    def cards_due_for_ret_rep(self, sort_key=""):
+    # save memory. "sort_key" is a string of on attribute of card to be used
+    # for sorting, with "" standing for the order in which the cards where
+    # added (no sorting), and "random" is used to shuffle the cards.
+    # "limit" is used to limit the number of cards returned by the iterator,
+    # with -1 meaning no limit.
+    
+    def cards_due_for_ret_rep(self, sort_key="", limit=-1):
         raise NotImplementedError
 
-    def cards_due_for_final_review(self, grade, sort_key=""):
+    def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
         raise NotImplementedError
 
-    def cards_new_memorising(self, grade, sort_key=""):
+    def cards_new_memorising(self, grade, sort_key="", limit=-1):
         raise NotImplementedError
 
-    def cards_unseen(self, sort_key=""):
+    def cards_unseen(self, sort_key="", limit=-1):
         raise NotImplementedError
     
-    def cards_learn_ahead(self, sort_key=""):
+    def cards_learn_ahead(self, sort_key="", limit=-1):
         raise NotImplementedError
 

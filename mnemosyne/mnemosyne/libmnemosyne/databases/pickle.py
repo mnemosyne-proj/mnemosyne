@@ -1,12 +1,14 @@
+
 #
 # pickle.py <Peter.Bienstman@UGent.be>
 #
 
 import os
+import gzip
 import cPickle
 import datetime
-import gzip
 import shutil
+import random
 import mnemosyne.version
 
 from mnemosyne.libmnemosyne.category import Category
@@ -28,13 +30,10 @@ from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 class Pickle(Database):
 
     """A simple storage backend, mainly for testing purposes and to help
-    flesh out the design. It has several problems:
-
-    * It does not support filtering operations, so it cannot
-    activate and deactivate categories.
+    flesh out the design. It has some issues
 
     * Due to an obscure bug in SIP, we need to replace the card type
-    info in fact by a card type id, otherwise we get::
+    info in fact by a card type id, otherwise we get:
 
     File "/usr/lib/python2.5/copy_reg.py", line 70, in _reduce_ex
     state = base(self)
@@ -42,34 +41,33 @@ class Pickle(Database):
 
     * It is wasteful in memory during queries.
 
-    It would be possible to work around all these limitations, but doing so
-    would taint the design of the rest of the library.
-
     """
+
+    version = "4"
+    suffix = ".p"
 
     def __init__(self):
         self.start_date = None
         self.categories = []
         self.facts = []
-        self.fact_views = []
         self.cards = []
-        self.fact_views = []
+        self.global_variables = {"version": self.version}
         self.load_failed = False
 
     def new(self, path):
-        path = expand_path(path, config().basedir)
         if self.is_loaded():
             self.unload()
+        path = expand_path(path, config().basedir)
         self.load_failed = False
         self.start_date = StartDate()
+        self.save(contract_path(path, config().basedir))
         config()["path"] = path
         log().new_database()
-        self.save(contract_path(path, config().basedir))
 
     def load(self, path):
-        path = expand_path(path, config().basedir)
         if self.is_loaded():
-            unload_database()
+            self.unload()
+        path = expand_path(path, config().basedir)
         if not os.path.exists(path):
             self.load_failed = True
             raise LoadError
@@ -79,15 +77,21 @@ class Pickle(Database):
             self.start_date = db[0]
             self.categories = db[1]
             self.facts = db[2]
-            self.fact_views = db[3]           
-            self.cards = db[4]
+            self.cards = db[3]
+            self.global_variables = db[4]
             infile.close()
             self.load_failed = False
         except:
             self.load_failed = True
             raise InvalidFormatError(stack_trace=True)
+
+        # Check database version.
+        if self.global_variables["version"] != self.version:
+            print "Warning: database version mismatch."
+            self.load_failed = True
+            raise LoadError
         
-        # Deal with clones and plugins, also plugins for parent classe.
+        # Deal with clones and plugins, also plugins for parent classes.
         # Because of the sip bugs, card types here are actually still card
         # type ids.
         plugin_needed = set()
@@ -116,6 +120,8 @@ class Pickle(Database):
                     self.__init__()
                     self.load_failed = True
                     raise MissingPluginError(info='id')
+            except MissingPluginError:
+                raise MissingPluginError(info=card_type_id)
             except:
                 self.__init__()
                 self.load_failed = True
@@ -137,20 +143,24 @@ class Pickle(Database):
         for f in component_manager.get_all("function_hook", "after_load"):
             f.run()
 
-    def save(self, path):
+    def save(self, path=None):
+        if not path:
+            path = config()["path"]
         path = expand_path(path, config().basedir)
+        # Update version.
+        self.global_variables["version"] = self.version
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             f.card_type = f.card_type.id
         # Don't erase a database which failed to load.
         if self.load_failed == True:
-            return
+            return -1
         try:
             # Write to a backup file first, as shutting down Windows can
             # interrupt the dump command and corrupt the database.
             outfile = file(path + "~", 'wb')
-            db = [self.start_date, self.categories, self.facts, self.fact_views,
-                  self.cards]
+            db = [self.start_date, self.categories, self.facts, self.cards,
+                  self.global_variables]
             cPickle.dump(db, outfile)
             outfile.close()
             shutil.move(path + "~", path) # Should be atomic.
@@ -170,8 +180,8 @@ class Pickle(Database):
         self.start_date = None
         self.categories = []
         self.facts = []
-        self.fact_views = []
         self.cards = []
+        self.global_variables = {"version": self.version}
         scheduler().clear_queue()
         return True
 
@@ -221,16 +231,22 @@ class Pickle(Database):
 
     def days_since_start(self):
         return self.start_date.days_since_start()
-
+    
+    # Adding, modifying and deleting categories, facts and cards.
+    
     def add_category(self, category):
-        raise NotImplementedError
+        self.categories.append(category)
 
-    def modify_category(self, modified_category):
-        raise NotImplementedError
+    def update_category(self, category):
+        return # Happens automatically.
 
     def delete_category(self, category):
-        raise NotImplementedError
-
+        for category_i in self.categories:
+            if category_i.id == category.id:
+                self.categories.remove(category_i)
+                del category_i
+                return
+            
     # TODO: benchmark this and see if we need a dictionary category_by_name.
 
     def get_or_create_category_with_name(self, name):
@@ -241,30 +257,20 @@ class Pickle(Database):
         self.categories.append(category)
         return category
 
-    # TODO: we used to check on name here. OK to check on instance?
-
-    def remove_category_if_unused(self, cat):
-        for f in self.facts:
-            if cat in f.cat:
+    def remove_category_if_unused(self, category):
+        for c in self.cards:
+            if category in c.categories:
                 break
         else:
-            self.categories.remove(cat)
-            del cat
+            self.categories.remove(category)
+            del category
 
     def add_fact(self, fact):
         self.load_failed = False
         self.facts.append(fact)
 
     def update_fact(self, fact):
-        return # Should happen automatically.
-        
-    def add_fact_view(self, fact_view, card):
-        # TODO: add link with card
-        self.load_failed = False
-        self.fact_views.append(fact_view)
-
-    def update_fact_view(self, fact_view):
-        return # Should happen automatically.
+        return # Happens automatically.
         
     def add_card(self, card):
         self.load_failed = False
@@ -272,37 +278,75 @@ class Pickle(Database):
         log().new_card(card)
 
     def update_card(self, card):
-        return # Should happen automatically.
-        
+        return # Happens automatically.
+    
     def delete_fact_and_related_data(self, fact):
-        old_cat = fact.cat
         related_cards = [c for c in self.cards if c.fact == fact]
         for c in related_cards:
-            self.cards.remove(c)
-            try:
-                self.fact_views.remove(c.fact_view)
-            except:
-                pass # Its fact view is a card type fact view one.
-            log().deleted_card(c)
+            self.delete_card(c)
         self.facts.remove(fact)
         current_card = ui_controller_review().card
         if current_card and current_card.fact == fact:
             scheduler().rebuild_queue()
-        for cat in old_cat:
-            self.remove_category_if_unused(cat)
+        del fact
             
     def delete_card(self, card):
+        old_cat = card.categories
         self.cards.remove(card)
+        for cat in old_cat:
+            self.remove_category_if_unused(cat)  
         if ui_controller_review().card == card:
-            scheduler().rebuild_queue()        
-        log().deleted_card(card)        
+            scheduler().rebuild_queue()     
+        log().deleted_card(card)
+        del card
+
+    # Retrieving categories, facts, cards.
+
+    def get_category(self, id):
+        return [c for c in self.categories if c.id == id][0]
+    
+    def get_fact(self, id):
+        return [f for f in self.facts if f.id == id][0]
+
+    def get_card(self, id):
+        return [c for c in self.cards if c.id == id][0]
+    
+    # Activate and set cards in view.
+
+    def set_cards_active(self, card_types_fact_views, categories):
+        return self._turn_on_cards("active", card_types_fact_views,
+                                   categories)
+    
+    def set_cards_in_view(self, card_types_fact_views, categories):
+        return self._turn_on_cards("in_view", card_types_fact_views,
+                                   categories)    
+    
+    def _turn_on_cards(self, attr, card_types_fact_views, categories):
+        # Turn off everything.
+        for card in self.cards:
+            setattr(card, attr, False)
+        # Turn on active categories.                    
+        for card in self.cards:        
+            if set(card.categories).intersection(set(categories)):
+                card.active = True
+                setattr(card, attr, True)
+        # Turn off inactive card types and views.
+        for card in self.cards:
+            if (card.fact.card_type, card.fact_view) not in \
+              card_types_fact_views:
+                setattr(card, attr, False)
         
+    # Queries.
+
+    def category_names(self):
+        return [c.name for c in self.categories]
+
     def cards_from_fact(self, fact):
         return [c for c in self.cards if c.fact == fact]
-        
-    def has_fact_with_data(self, fact_data):
+          
+    def has_fact_with_data(self, fact_data, card_type):
         for f in self.facts:
-            if f.data == fact_data:
+            if f.data == fact_data and f.card_type == card_type:
                 return True
         return False
 
@@ -316,8 +360,8 @@ class Pickle(Database):
                         break
         return duplicates
 
-    def category_names(self):
-        return (c.name for c in self.categories)
+    def card_types_in_use(self):
+        return set(card.fact.card_type for card in self.cards)
     
     def fact_count(self):
         return len(self.facts)
@@ -326,78 +370,62 @@ class Pickle(Database):
         return len(self.cards)
 
     def non_memorised_count(self):
-        return sum(1 for c in self.cards if (c.grade < 2))
+        return sum(1 for c in self.cards if c.active and (c.grade < 2))
 
     def scheduled_count(self, days=0):
 
-        """ Number of cards scheduled within 'days' days."""
+        """Number of cards scheduled within 'days' days."""
 
         days_since_start = self.days_since_start()
-        return sum(1 for c in self.cards if (c.grade >= 2) and \
+        return sum(1 for c in self.cards if c.active and (c.grade >= 2) and \
                            (days_since_start >= c.next_rep - days))
 
     def active_count(self):
-
-        """Number of cards in an active category.  (Remember we don't
-        support unactive categories in this database.)
-
-        """
-
-        return len(self.cards)
+        return len([c for c in self.cards if c.active])
 
     def average_easiness(self):
         if len(self.cards) == 0:
             return 2.5
         else:
-            return sum(c.easiness for c in self.cards) / len(self.cards)
-
-    def card_types_in_use(self):
-        return set(card.fact.card_type for card in self.cards)
-
-    def set_filter(self, filter):
-        print "SQL filtering not implemented in pickle database."
-
-    # Note that in the SQL version, the following queries should use the
-    # filter from above.
+            return sum(c.easiness for c in self.cards if c.active) \
+                   / len(self.cards)
     
-    def list_to_generator(self, list):
+    def list_to_generator(self, list, sort_key, limit):
         if list == None:
             raise StopIteration
+        if sort_key != "random" and sort_key != "":
+            list.sort(key=lambda c : getattr(c, sort_key))
+        elif sort_key == "random":
+            random.shuffle(list)
+        if limit >= 0 and len(list) > limit:
+            list = list[:limit]
         for x in list:
             yield x
 
-    def cards_due_for_ret_rep(self, sort_key=""):
+    def cards_due_for_ret_rep(self, sort_key="", limit=-1):
         days_since_start = self.start_date.days_since_start()
-        cards = [c for c in self.cards if c.grade >= 2 and \
+        cards = [c for c in self.cards if c.active and c.grade >= 2 and \
                     days_since_start >= c.next_rep]        
-        if sort_key:
-            cards.sort(key=lambda c : getattr(c, sort_key))
-        return self.list_to_generator(cards)
+        return self.list_to_generator(cards, sort_key, limit)
 
-    def cards_due_for_final_review(self, grade, sort_key=""):
-        cards = [c for c in self.cards if c.grade == grade and c.lapses > 0]
-        if sort_key:
-            cards.sort(key=lambda c : getattr(c, sort_key))
-        return self.list_to_generator(cards)
+    def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
+        cards = [c for c in self.cards if c.active and c.grade == grade \
+                 and c.lapses > 0]
+        return self.list_to_generator(cards, sort_key, limit)
                                       
-    def cards_new_memorising(self, grade, sort_key=""):
-        cards = [c for c in self.cards if c.grade == grade and c.lapses == 0 \
-                    and c.unseen == False]        
-        if sort_key:
-            cards.sort(key=lambda c : getattr(c, sort_key))
-        return self.list_to_generator(cards)
+    def cards_new_memorising(self, grade, sort_key="", limit=-1):
+        cards = [c for c in self.cards if c.active and c.grade == grade \
+                 and c.lapses == 0 \
+                    and c.unseen == False]
+        return self.list_to_generator(cards, sort_key, limit)
                                       
-    def cards_unseen(self, sort_key=""):
-        cards = [c for c in self.cards if c.unseen == True]
-        if sort_key:
-            cards.sort(key=lambda c : getattr(c, sort_key))
-        return self.list_to_generator(cards)
+    def cards_unseen(self, sort_key="", limit=-1):
+        cards = [c for c in self.cards if c.active and c.unseen == True]
+        return self.list_to_generator(cards, sort_key, limit)
                                       
-    def cards_learn_ahead(self, sort_key=""):
+    def cards_learn_ahead(self, sort_key="", limit=-1):
         days_since_start = self.start_date.days_since_start()
-        cards = [c for c in self.cards if c.grade >= 2 and \
-                    days_since_start < c.next_rep]        
-        if sort_key:
-            cards.sort(key=lambda c : getattr(c, sort_key))
-        return self.list_to_generator(cards)
+        cards = [c for c in self.cards if c.active and c.grade >= 2 and \
+                    days_since_start < c.next_rep]
+        return self.list_to_generator(cards, sort_key, limit)
                                       

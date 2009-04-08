@@ -1,19 +1,54 @@
---announce new translations on website
+-update changelog
+
+-announce new translations on website (Esperanto, Danish)
 
 -allow non-unicode filenames: encode/decode in expand/contract path?
 
 
 * Mnemosyne 2.0:
 
--asserts for plugin test
+-opmised scheduler
+
+-review, document, test set_inial_grade, also in context of card type
+ convertors, create_related_cards in card_type and cloze
+
+-use grade -1 for unseen?
+
+-don't review same card twice in a row
+
+-get rid of start date (save it in global variables)
+
+-rebuild queue automatically after roll-over time?
+
+-move option to always randomise queue to config screen
+
+-adding new cards while in 'learn ahead of schedule' should break out of
+ learning ahead
+
+-don't click learn ahead of schedule everytime
+
+-update card docstrings
+
+-add 'update_card_active' (or something like that) to be called when
+ adding cards or editing a card, so that 'active' is set correctly.
+ Make the mechanism customisible with hooks, and document this in 
+ card.py.
+
+-sql query for statistics
+
+
+-cramming scheduler
+
+-warn when importing card type with duplicate id
 
 -write more tests
 
+-don't import * for Qt
 
 
--merge SQL
+-after creating new cards, update active status
 
-
+-make categories a set?
 
 -import
 
@@ -21,15 +56,27 @@
 
 -on import don't add cards for which card type is not present
 
+-don't change card id on import from old files
+
 -migrate 1.x hack to map card type
 
 -warn when not importing a duplicate card
 
+-save after import
 
--activate cards: respect card_type.fact_views_can_be_deactivated
+-backup after unloading, not after exiting
 
 
--add version number to database format
+-'teacher mode' on export, which allows pupils to update previously imported
+ cards, as opposed to adding new cards. Implemented through id's of the form
+ T.<fixed card id for all pupils>.<pupil user id>?
+
+
+-hang on spanish/german Qt translation?
+
+
+-need to store parent of category?
+
 
 -detect wrong current date (last review in the future or way past)
 
@@ -49,11 +96,11 @@
 
 -show latex errors in GUI?
 
--add new functions to SQL database, make sure rebuild queue is called when
- needed
 
--download media files when giving URL? Store media inside database? Copy it to .mnemosyne by
- default?
+
+
+-download media files when giving URL? Store media inside database? Copy 
+ it to .mnemosyne by default?
 
 -adding a picture under Windows screws up / and \, and case
 
@@ -69,19 +116,12 @@
 
 -move 'card type by name' to different place?
 
--don't change card id on import from old files
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
  
 -upgrade from 1.x to 2.0 migration code: convert deck,
-  move latex configuration files?
+  move latex configuration files?, import user id and config, ...
 
--adding new cards while in 'learn ahead of schedule' should break out of
- learning ahead
-
--remove start date?
-
--cramming scheduler
 
 -renamed default data dir on Windows?
 
@@ -161,13 +201,11 @@
 -tips (both on startup and on use): right click to add cards or sound, comma to 
  separate cat names, : to separate hierarchies
 
+-http://labs.trolltech.com/blogs/2009/03/12/wysiwyg-html-editor/
+
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby
 
 
-* Create testsuite:
-
--create test for adding cards
--create test for detecting duplication
 -pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
 http://pythoscope.org/
 -pylint, pyflakes
@@ -186,8 +224,6 @@ http://pythoscope.org/
 -add 'add card' option to deck manager?
 
 -template expansion (disable add-vice-versa) ( both {../..} and {}..{})
-
--cloze deletion card type
 
 -mnemosyne analysis as plugin
 
@@ -216,8 +252,6 @@ Status: initial code written, but clean up needed.
 
 -smarter sorting. See suggestios by larryrenslow
 
--natural sort order of categories which contain numbers (1 vs 01)
-
 -auto identifying similar cards
 
 -unify number shortcuts (with and without Ctrl)
@@ -241,15 +275,9 @@ Status: initial code written, but clean up needed.
 
 -autoupgrade, or at least notify of available upgrade (needs a separate thread)
 
--remember window size set by the user
-
 -bundle docs
 
 -undo last grade + keyboard shortcut
-
--'teacher mode' on export, which allows pupils to update previously imported
- cards, as opposed to adding new cards. Implemented through id's of the form
- T.<fixed card id for all pupils>.<pupil user id>
 
 -better sound replay support, through clicking on an icon
 

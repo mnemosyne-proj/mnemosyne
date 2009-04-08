@@ -49,4 +49,15 @@ class Renderer(object):
         """
         
         raise NotImplementedError
+
+    def render_text(self, text, field_name, card_type):
+
+        """A lower lever renderer, rendering 'text' from a field with name
+        'field_name' from 'card_type'.
+
+        """
+
+        raise NotImplementedError
+
+
         

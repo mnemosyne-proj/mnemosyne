@@ -19,6 +19,7 @@ class Plugin(object):
     description = ""
     provides = ""
     show_in_first_run_wizard = False
+    activation_message = ""
         
     def __init__(self):
         assert self.name and self.description, \

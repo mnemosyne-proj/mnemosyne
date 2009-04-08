@@ -6,18 +6,7 @@ First install the following dependencies:
 -PyQt 4.x (http://www.riverbankcomputing.co.uk/software/pyqt/download)
 -If you want to be able to enter formulas using latex syntax, make sure that
  latex is installed.
+-Matplotlib (http://matplotlib.sourceforge.net/)
 -EasyInstall from http://peak.telecommunity.com/DevCenter/EasyInstall
 -Type 'python setup.py install' as root.
 -Run the application by typing 'mnemosyne'.
-
-
-HACKING ON MNEMOSYNE:
-
-If you want to contribute to mnemosyne or want to make any local changes, you
-will additionally need the following tools:
-
--Qt-Designer: Useful to modify the .ui xml-files.
--pyuic: required to convert the .ui files to python code.
-
-If you check out the source from CVS, you have to install it by typing 
-'make' rather than 'python setup.py install'

@@ -5,17 +5,13 @@
 import gettext
 _ = gettext.gettext
 
-import random
 import os
 import sys
-import cPickle
+import uuid
 import locale
+import cPickle
 
-try:
-    from hashlib import md5
-except ImportError:
-    from md5 import md5
-
+from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.exceptions import ConfigError, SaveError
 
 config_py = \
@@ -62,7 +58,7 @@ class Configuration(dict):
 
         for key, value in \
             {"first_run": True, 
-             "path": "default.mem",
+             "path": _("default") + database().suffix,
              "import_dir": self.basedir, 
              "import_format": "XML",
              "reset_learning_data_import": False,
@@ -71,7 +67,7 @@ class Configuration(dict):
              "reset_learning_data_export": False,
              "import_img_dir": self.basedir, 
              "import_sound_dir": self.basedir,
-             "user_id": md5(str(random.random())).hexdigest()[0:8],
+             "user_id": str(uuid.uuid4()),
              "upload_logs": True, 
              "upload_server": "mnemosyne-proj.dyndns.org:80",
              "log_index": 1, 
@@ -98,7 +94,8 @@ class Configuration(dict):
              "latex_postamble": "\\end{document}", 
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
-             "active_plugins": set() # plugin class
+             "active_plugins": set(), # plugin class
+             "times_loaded": 0
             }.items():
             
             self.setdefault(key, value)

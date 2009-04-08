@@ -3,7 +3,6 @@
 #
 
 from mnemosyne.libmnemosyne.card import Card
-from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_types
 from mnemosyne.libmnemosyne.component_manager import component_manager
 
@@ -59,7 +58,13 @@ class CardType(object):
         self.widget = None
         self.renderer = None
         self.fact_views_can_be_deactivated = True
-
+        
+    def __eq__(self, other):
+        try:
+            return self.id == other.id
+        except:
+            return False
+        
     def keys(self):
         return set(fact_key for (fact_key, fact_key_name) in self.fields)
 
@@ -80,12 +85,23 @@ class CardType(object):
             for k in f.required_fields:
                 s.add(k)
         return s
-        
-    def question(self, fact, fact_view):
-        return self.get_renderer().render_card_fields(fact, fact_view.q_fields)
 
-    def answer(self, fact, fact_view):
-        return self.get_renderer().render_card_fields(fact, fact_view.a_fields)
+    def validate_data(self, fact_data):
+
+        """If a card type needs to validate its data apart from asking that
+        all the required fields are there, this can be done here.
+
+        """
+        
+        return True
+        
+    def question(self, card):
+        return self.get_renderer().render_card_fields(card.fact,
+                                                      card.fact_view.q_fields)
+
+    def answer(self, card):
+        return self.get_renderer().render_card_fields(card.fact,
+                                                      card.fact_view.a_fields)
         
     def get_renderer(self):
         if self.renderer:
@@ -124,16 +140,15 @@ class CardType(object):
 
     def update_related_cards(self, fact, new_fact_data):
 
-        """If for the card type this operation results in updated or added
-        card data apart from the updated fact data from which they derive,
-        these should be returned here, so that they can be taken into account
-        in the database storage.
+        """If for the card type this operation results in updated, added or
+        deleted card data apart from the updated fact data from which they
+        derive, these should be returned here, so that they can be taken into
+        account in the database storage.
 
         """
-        
-        fact.data = new_fact_data
-        new_cards, updated_cards = [], []
-        return new_cards, updated_cards
+
+        new_cards, updated_cards, deleted_cards = [], [], []
+        return new_cards, updated_cards, deleted_cards
 
     def after_review(self, card):
         return

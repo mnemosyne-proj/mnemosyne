@@ -6,6 +6,7 @@ import gettext
 _ = gettext.gettext
 
 import copy
+import datetime
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import expand_path
@@ -53,16 +54,17 @@ class DefaultMainController(UiControllerMain):
             return f.run()
         
         db = database()
-        if db.has_fact_with_data(fact_data):
+        if db.has_fact_with_data(fact_data, card_type):
             if warn:
                 self.widget.information_box(\
               _("Card is already in database.\nDuplicate not added."), _("OK"))
             return
         fact = Fact(fact_data, card_type)
+        categories = []
         for cat_name in cat_names:
-            fact.cat.append(db.get_or_create_category_with_name(cat_name))
+            categories.append(db.get_or_create_category_with_name(cat_name))
         duplicates = db.duplicates_for_fact(fact)
-        if len(duplicates) != 0:
+        if warn and len(duplicates) != 0:
             answer = self.widget.question_box(\
               _("There is already data present for:\n\N") +
               "".join(fact[k] for k in card_type.required_fields()),
@@ -84,7 +86,9 @@ class DefaultMainController(UiControllerMain):
                 return
         db.add_fact(fact)
         for card in card_type.create_related_cards(fact, grade):
+            card.categories = categories
             db.add_card(card)
+        db.save()
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
                              new_cat_names, correspondence, warn=True):
@@ -121,8 +125,16 @@ class DefaultMainController(UiControllerMain):
                                           grade=0, cat_names=new_cat_names)
                     return 0
             else:
+                # Make sure the converter operates on card objects which
+                # already know their new type, otherwise we could get
+                # conflicting id's.
+                fact.card_type = new_card_type
+                cards_to_be_updated = db.cards_from_fact(fact)
+                for card in cards_to_be_updated:
+                    card.fact = fact
+                # Do the conversion.
                 new_cards, updated_cards, deleted_cards = \
-                   converter.convert(db.cards_from_fact(fact), old_card_type,
+                   converter.convert(cards_to_be_updated, old_card_type,
                                      new_card_type, correspondence)
                 if len(deleted_cards) != 0:
                     if warn:
@@ -134,8 +146,7 @@ class DefaultMainController(UiControllerMain):
                     else:
                         answer = 0
                     if answer == 1: # Cancel.
-                        return -1   
-                fact.card_type = new_card_type
+                        return -1
                 for card in new_cards:
                     db.add_card(card)
                 for card in updated_cards:
@@ -143,20 +154,38 @@ class DefaultMainController(UiControllerMain):
                 for card in deleted_cards:
                     db.delete_card(card)
                     
-        # Update categories, facts and cards.
-        old_cats = fact.cat
-        fact.cat = []
-        for cat_name in new_cat_names:
-            fact.cat.append(db.get_or_create_category_with_name(cat_name))
-        for cat in old_cats:
-            db.remove_category_if_unused(cat)
-        new_cards, updated_cards = fact.card_type.update_related_cards(fact, \
-                                                new_fact_data)
+        # Update facts and cards.
+        new_cards, updated_cards, deleted_cards = \
+            fact.card_type.update_related_cards(fact, new_fact_data)
+        fact.modification_date = datetime.datetime.now()
+        fact.data = new_fact_data
         db.update_fact(fact)
         for card in new_cards:
             db.add_card(card)
         for card in updated_cards:
             db.update_card(card)
+        for card in deleted_cards:
+            db.delete_card(card)
+            
+        # Update categories.
+        old_cats = set()
+        categories = []
+        for cat_name in new_cat_names:
+            categories.append(db.get_or_create_category_with_name(cat_name))
+        for card in database().cards_from_fact(fact):
+            old_cats = old_cats.union(set(card.categories))
+            card.categories = categories
+            db.update_card(card)
+        for cat in old_cats:
+            db.remove_category_if_unused(cat)
+        db.save()
+
+        # Update card present in UI.
+        review_controller = ui_controller_review()
+        if review_controller.card:
+            review_controller.card = \
+                database().get_card(review_controller.card.id)
+            review_controller.update_dialog(redraw_all=True)
         return 0
 
     def delete_current_fact(self):
@@ -181,23 +210,24 @@ class DefaultMainController(UiControllerMain):
         if answer == 1: # Cancel.
             return
         db.delete_fact_and_related_data(fact)
-        if review_controller.card == None:
-            review_controller.new_question()
+        db.save()
+        review_controller.new_question()
         self.widget.update_status_bar()
         review_controller.update_dialog(redraw_all=True)
         stopwatch.unpause()
 
     def file_new(self):
         stopwatch.pause()
+        db = database()
+        suffix = db.suffix
         out = self.widget.save_file_dialog(path=config().basedir,
-                            filter=_("Mnemosyne databases (*.mem)"),
+                            filter=_("Mnemosyne databases (*%s)" % suffix),
                             caption=_("New"))
         if not out:
             stopwatch.unpause()
             return
-        if not out.endswith(".mem"):
-            out += ".mem"
-        db = database()
+        if not out.endswith(suffix):
+            out += suffix
         db.unload()
         db.new(out)
         db.load(config()["path"])
@@ -209,7 +239,7 @@ class DefaultMainController(UiControllerMain):
         stopwatch.pause()
         old_path = expand_path(config()["path"])
         out = self.widget.open_file_dialog(path=old_path,
-                            filter=_("Mnemosyne databases (*.mem)"))
+            filter=_("Mnemosyne databases (*%s)" % database().suffix))
         if not out:
             stopwatch.unpause()
             return
@@ -240,14 +270,15 @@ class DefaultMainController(UiControllerMain):
 
     def file_save_as(self):
         stopwatch.pause()
+        suffix = database().suffix
         old_path = expand_path(config()["path"])
         out = self.widget.save_file_dialog(path=old_path,
-                            filter=_("Mnemosyne databases (*.mem)"))
+            filter=_("Mnemosyne databases (*%s)" % suffix))
         if not out:
             stopwatch.unpause()
             return
-        if not out.endswith(".mem"):
-            out += ".mem"
+        if not out.endswith(suffix):
+            out += suffix
         try:
             database().save(out)
         except MnemosyneError, e:

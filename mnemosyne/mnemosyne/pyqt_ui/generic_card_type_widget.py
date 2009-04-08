@@ -79,11 +79,12 @@ class GenericCardTypeWdgt(QWidget):
         return fact
 
     def text_changed(self):
-        complete = True
+        data = None
         try:
-            self.get_data()
+            data = self.get_data()
         except ValueError:
             complete = False
+        complete = self.card_type.validate_data(data)
         self.parent().is_complete(complete)
 
     def clear(self):

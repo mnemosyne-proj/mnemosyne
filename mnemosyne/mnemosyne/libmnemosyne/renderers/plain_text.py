@@ -16,3 +16,7 @@ class PlainText(Renderer):
                 s = f.run(s, fact)
             text += s + "\n"
         return text
+    
+    def render_text(self, text, field_name, card_type):
+        return text
+    

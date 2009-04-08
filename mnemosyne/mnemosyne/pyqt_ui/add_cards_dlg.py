@@ -151,6 +151,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
          
     def is_complete(self, complete):
         self.grade_buttons.setEnabled(complete)
+        self.preview_button.setEnabled(complete)
         
     def new_cards(self, grade):
         fact_data = self.card_type.widget.get_data()

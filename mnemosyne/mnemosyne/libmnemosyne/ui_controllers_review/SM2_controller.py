@@ -1,5 +1,5 @@
 #
-# SM2-controller.py <Peter.Bienstman@UGent.be>
+# SM2_controller.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -89,8 +89,11 @@ class SM2Controller(UiControllerReview):
     def update_dialog(self, redraw_all=False):
         w = self.widget
         # Update title.
-        database_name = os.path.basename(config()["path"])[:-4]
-        title = _("Mnemosyne") + " - " + database_name
+        database_name = os.path.basename(config()["path"]).\
+            split(database().suffix)[0]
+        title = _("Mnemosyne")
+        if database_name != _("default"):
+            title += " - " + database_name
         w.set_window_title(title)
         # Update menu bar.
         if config()["only_editable_when_answer_shown"] == True:
@@ -119,8 +122,9 @@ class SM2Controller(UiControllerReview):
             w.answer_box_visible(True)
         # Update question label.
         question_label_text = _("Question: ")
-        if self.card != None and self.card.fact.cat[0].name != _("<default>"):
-            for c in self.card.fact.cat:
+        if self.card != None and self.card.categories[0].name \
+               != _("<default>"):
+            for c in self.card.categories:
                 question_label_text += c.name + ", "
             question_label_text = question_label_text[:-2]
         w.set_question_label(question_label_text)

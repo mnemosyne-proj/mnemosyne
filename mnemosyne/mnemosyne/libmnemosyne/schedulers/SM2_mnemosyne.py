@@ -11,9 +11,11 @@ from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import database, config, log
 
 
+# Scheduler based on http://www.supermemo.com/english/ol/sm2.htm.
+
 class SM2Mnemosyne(Scheduler):
     
-    name="SM2 Mnemosyne"
+    name = "SM2 Mnemosyne"
     
     def __init__(self):
         self.queue = []
@@ -48,19 +50,24 @@ class SM2Mnemosyne(Scheduler):
         # first do those that have the shortest interval, as being a day
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 50.
-        self.queue = list(db.cards_due_for_ret_rep(sort_key="interval"))
-        if len(self.queue) != 0:
+        # Get only one card at the time, and let repeated calls to
+        # 'rebuild_queue' do the rest.
+        try:
+            self.queue = [db.cards_due_for_ret_rep(sort_key="interval").next()]
             return
+        except:
+            pass
         # Now rememorise the cards that we got wrong during the last stage.
         # Concentrate on only a limited number of grade 0 cards, in order to
         # avoid too long intervals between revisions. If there are too few
         # cards in left in the queue, append more new cards to keep some
         # spread between these last cards.
         limit = config()["grade_0_items_at_once"]
-        grade_0 = db.cards_due_for_final_review(grade=0)
+        grade_0 = db.cards_due_for_final_review(grade=0, sort_key="random")
         grade_0_selected = []
         if limit != 0:
             for i in grade_0:
+                # TODO: won't these show up later the same day?
                 for j in grade_0_selected:
                     if i.fact == j.fact:
                         break
@@ -68,14 +75,15 @@ class SM2Mnemosyne(Scheduler):
                     grade_0_selected.append(i)
                 if len(grade_0_selected) == limit:
                     break
-        grade_1 = list(db.cards_due_for_final_review(grade=1))
+        grade_1 = list(db.cards_due_for_final_review(grade=1,
+                                                     sort_key="random"))
         self.queue += 2*grade_0_selected + grade_1
         random.shuffle(self.queue)
         if len(grade_0_selected) == limit:
             return
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
-        grade_0 = db.cards_new_memorising(grade=0)
+        grade_0 = db.cards_new_memorising(grade=0, sort_key="random")
         grade_0_in_queue = len(grade_0_selected)
         grade_0_selected = []
         if limit != 0:
@@ -87,34 +95,33 @@ class SM2Mnemosyne(Scheduler):
                     grade_0_selected.append(i)
                 if len(grade_0_selected) + grade_0_in_queue == limit:
                     break
-        grade_1 = list(db.cards_new_memorising(grade=1))
+        grade_1 = list(db.cards_new_memorising(grade=1, sort_key="random"))
         self.queue += 2*grade_0_selected + grade_1
         random.shuffle(self.queue)
         if len(grade_0_selected) + grade_0_in_queue == limit:
             return
-        # Now add some new cards. This is a bit inefficient at the moment as
-        # 'unseen' is wastefully created as opposed to being a generator
-        # expression. However, in order to use random.choice, there doesn't
-        # seem to be another option.
-        unseen = list(db.cards_unseen())
+        # Now add some unseen cards.
+        if config()["randomise_new_cards"]:
+            sort_key = "random"
+        else:
+            sort_key = ""
+        unseen = db.cards_unseen(sort_key=sort_key)
         grade_0_in_queue = sum(1 for i in self.queue if i.grade == 0)/2
         grade_0_selected = []
-        if limit != 0 and len(unseen) != 0:
+        try:
             while True:
-                if config()["randomise_new_cards"] == False:
-                    new_card = unseen[0]
-                else:
-                    new_card = random.choice(unseen)
-                unseen.remove(new_card)
+                new_card = unseen.next()
                 for i in grade_0_selected:
                     if new_card.fact == i.fact:
                         break
                 else:
                     grade_0_selected.append(new_card)
-                if len(unseen) == 0 or \
-                       len(grade_0_selected) + grade_0_in_queue == limit:
-                    self.queue += grade_0_selected
-                    return
+                if limit and len(grade_0_selected) + grade_0_in_queue == limit:
+                    raise StopIteration
+        except StopIteration:
+            self.queue += grade_0_selected
+        if len(self.queue):
+            return
         # If we get to here, there are no more scheduled cards or new cards
         # to learn. The user can signal that he wants to learn ahead by
         # calling rebuild_revision_queue with 'learn_ahead' set to True.
@@ -125,6 +132,7 @@ class SM2Mnemosyne(Scheduler):
         # again after 5 cards. If it's possible to make this algorithm
         # stateless and return 1 card at the time, this will be solved
         # automatically.
+        # Note: this will not revisit failed cards when learning ahead.
         if learn_ahead == False:
             return
         else:

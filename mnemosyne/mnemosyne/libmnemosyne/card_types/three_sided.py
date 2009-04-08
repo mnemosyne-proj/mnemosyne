@@ -57,7 +57,6 @@ class FrontToBackToThreeSided(CardTypeConverter):
             new_card = Card(cards[0].fact, new_card_type.fact_views[0])
         else:
             new_card = Card(cards[0].fact, new_card_type.fact_views[1])
-        new_card.set_initial_grade(0)
         new_cards, updated_cards, deleted_cards = [new_card], [cards[0]], []
         return new_cards, updated_cards, deleted_cards
 

@@ -66,7 +66,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except MnemosyneError, e:
             self.error_box(e)
             self.error_box(LoadErrorCreateTmp())
-            filename = os.path.join(os.path.split(filename)[0],"___TMP___.mem")
+            filename = os.path.join(os.path.split(filename)[0],"___TMP___" \
+                                    + database().suffix)
             database().new(filename)
         ui_controller_main().widget = self
         self.update_review_widget()
