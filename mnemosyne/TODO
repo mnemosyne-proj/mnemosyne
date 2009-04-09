@@ -7,6 +7,10 @@
 
 * Mnemosyne 2.0:
 
+-warn when deleting cards in cloze del
+
+-move more plugin activation and deactivation logic to libmnemosyne.
+
 -opmised scheduler
 
 -review, document, test set_inial_grade, also in context of card type
@@ -35,6 +39,8 @@
  card.py.
 
 -sql query for statistics
+
+-are keybindings sufficiently accesible?
 
 
 -cramming scheduler
