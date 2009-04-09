@@ -21,8 +21,18 @@ install-system:
 test: install-virtual-env
 	./bin/nosetests
 
-coverage:
+coverage: install-virtual-env
 	./bin/nosetests --with-coverage --cover-package=mnemosyne.libmnemosyne
+
+profile: install-virtual-env
+	echo "from hotshot import stats" > process_profile.py
+	echo "s = stats.load(\"stats.dat\")" >> process_profile.py
+	echo "s.sort_stats(\"time\").print_stats()" >> process_profile.py
+	./bin/nosetests --with-profile --profile-stats-file=stats.dat
+	python process_profile.py
+
+benchmark: install-virtual-env
+	./bin/python tests/benchmark.py
 
 windows:
 	rmdir /S /Q dist
@@ -31,8 +41,9 @@ windows:
 	python setup.py py2exe --packages=xml.sax --includes=sip
 
 clean:
-	rm -f *~ *.pyc *.tgz
-	rm -f -R distrib build bin lib include dot_mnemosyne2 dist
+	rm -f *~ *.pyc *.tgz process_profile.py
+	rm -f -R distrib build bin lib include dot_mnemosyne2 dot_test 
+	rm -f -R dot_benchmark dist
 	cd mnemosyne/pyqt_ui ; make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/core/*~ mnemosyne/core/*.pyc

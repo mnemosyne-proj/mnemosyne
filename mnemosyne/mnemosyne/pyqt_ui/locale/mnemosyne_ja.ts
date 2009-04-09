@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="ja">
+<!DOCTYPE TS><TS version="1.1" language="ja_JP">
 <defaultcodec></defaultcodec>
 <context>
     <name></name>
@@ -1271,9 +1271,9 @@ For that, I&apos;ll decide when to ask you the questions, and you&apos;ll need t
 Let&apos;s look at the meaning of these ratings now.</source>
         <translation>あたしの名前はムネモシュネ、記憶の女神よ。
 
-あなたの暗記を一生懸命お手伝いします！よろしくね(敬語・タメ語をバランスよくまぜる。)
+あなたの暗記を一生懸命お手伝いします！よろしくね。
 
-あなたがいろんな事を簡単に覚えて、すぐに思い出せるようにしてあげる★
+あなたがいろんな事を簡単に覚えて、すぐに思い出せるようにしてあげる。
 
 よく知っているカードには時間をかけず、苦手なカードに集中できるように、あたしが質問を選びます。あなたは、どれだけ答えを覚えていたか、グレードを答えてね。 </translation>
     </message>
@@ -1296,7 +1296,7 @@ I will schedule this card at some future date, when I think you&apos;ll still be
 2…数日なら覚えていられそう
 3…なんとか覚えた
 4…ほぼ完璧
-5…簡単だった</translation>
+5…簡単すぎた</translation>
     </message>
     <message>
         <source>Grades 0-2</source>
@@ -1310,12 +1310,12 @@ If I get it just right, so that you remember it, albeit with some effort, you us
 If on the other hand it takes you significant effort to remember the answer, and you think I&apos;ve waited too long to ask you this question, then rate the card 3.
 
 If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep on asking you this question until you think you&apos;ll be able to remember it again for a few days.</source>
-        <translation>グレード0、1は、あなたがグレード2を付けるまで何回も復習します。紙の単語カードと同じです。(フラッシュカードという言葉は一般的ではない)
+        <translation>グレード0、1は、あなたがグレード2を付けるまで何回も復習します。紙の単語カードと同じです。
 グレード2以上は「覚えているから今日はおしまい」ということになり、翌日以降の適切な時に、あたしが出題します。
 
 グレード3は2よりも間隔を開けて出題します。
 
-グレード４は努力の結果覚えられたということ。あたしのお手伝いが良かったとも言えるわね。(あたしの日という言葉が意味不明だったので、超訳してみました)
+グレード４は努力の結果覚えられたということ。あたしのお手伝いが良かったとも言えるわね。
 
 グレード5はあなたには簡単すぎるから、ごくたまに出題するわ。
 

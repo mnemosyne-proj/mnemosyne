@@ -2,9 +2,6 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 

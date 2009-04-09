@@ -20,29 +20,6 @@ class PreviewCardsDlg(QDialog, Ui_PreviewCardsDlg):
         self.question_label.setText(_("Question: ") + cat_name_string)
         self.update_dialog()
 
-        #if cat != self.trUtf8("<default>"):
-        #    self.question_label.setText(preprocess(\
-        #        unicode(self.trUtf8("Question:")) + " " + cat))
-
-
-        # TODO: obsolete?
-        #if get_config("QA_font") != None:
-        #    font = QFont()
-        #    font.fromString(get_config("QA_font"))
-        #    self.question.setFont(font)
-        #    self.answer.setFont(font)
-        #else:
-        #    font = self.question_label.font()
-
-        #if get_config("left_align") == True:
-        #    alignment = Qt.AlignAuto    | Qt.AlignVCenter | Qt.WordBreak
-        #else:
-        #    alignment = Qt.AlignHCenter | Qt.AlignVCenter | Qt.WordBreak
-
-        #self.question.setAlignment(alignment)
-        #self.answer.setAlignment(alignment)
-
-
     def update_dialog(self):
         if len(self.cards) == 1:
             self.previous_button.setVisible(False)

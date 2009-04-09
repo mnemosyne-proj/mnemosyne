@@ -2,12 +2,8 @@
 # fact.py <Peter.Bienstman@UGent.be>
 #
 
+import uuid
 import datetime
-
-try:
-    from hashlib import md5
-except ImportError:
-    from md5 import md5
 
 
 class Fact(object):
@@ -36,19 +32,24 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, card_type, uid=None, added=None):
-        if not added:
-            added = datetime.datetime.now()
-        self.added = added
+    def __init__(self, data, card_type, id=None, creation_date=None):
+        if not creation_date:
+            creation_date = datetime.datetime.now()
+        self.creation_date = creation_date
+        self.modification_date = self.creation_date
         self.data = data
         self.card_type = card_type
-        self.cat = []
-        if uid is None: 
-            # TODO KW: use guid module? Make sure not to use too much space for 
-            # the global log analysis of all users, though.
-            uid = md5(repr(sorted(data.items())) + str(self.added)).hexdigest()
-        self.uid = uid
+        if id is None: 
+            id = str(uuid.uuid4())
+        self.id = id
+        self.needs_sync = True
 
+    def __eq__(self, other):
+        try:
+            return self.id == other.id
+        except:
+            return False
+    
     def __getitem__(self, key):
         try:
             return self.data[key]

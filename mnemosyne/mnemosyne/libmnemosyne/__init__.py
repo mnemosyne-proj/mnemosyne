@@ -73,6 +73,12 @@ def initialise_system_components():
     override this.
     
     """
+
+    # Database.
+    #from mnemosyne.libmnemosyne.databases.pickle import Pickle
+    #component_manager.register("database", Pickle())
+    from mnemosyne.libmnemosyne.databases.SQLite import SQLite
+    component_manager.register("database", SQLite())
     
     # Configuration.
     from mnemosyne.libmnemosyne.configuration import Configuration
@@ -81,11 +87,7 @@ def initialise_system_components():
      # Logger.
     from mnemosyne.libmnemosyne.loggers.txt_logger import TxtLogger
     component_manager.register("log", TxtLogger())   
-    
-    # Database.
-    from mnemosyne.libmnemosyne.databases.pickle import Pickle
-    component_manager.register("database", Pickle())
-    
+       
     # Scheduler.
     from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne \
                                                    import SM2Mnemosyne
@@ -153,6 +155,8 @@ def initialise_system_components():
     # Plugins.
     from mnemosyne.libmnemosyne.card_types.map import Map   
     component_manager.register("plugin", Map())
+    from mnemosyne.libmnemosyne.card_types.cloze import Cloze   
+    component_manager.register("plugin", Cloze())
 
 
 def initialise_user_plugins():

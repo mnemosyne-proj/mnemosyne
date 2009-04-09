@@ -31,7 +31,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg, AddEditCards):
         self.fact = fact 
         self.initialise_card_types_combobox(self.fact.card_type.name)     
         cat_string = ""
-        for cat in self.fact.cat:
+        for cat in database().cards_from_fact(fact)[0].categories:
             cat_string += cat.name + ", "
         cat_string = cat_string[:-2]
         self.update_categories_combobox(cat_string)
