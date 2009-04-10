@@ -183,6 +183,7 @@ def activate_saved_plugins():
 
 
 def finalise():
+    config().save()
     global upload_thread
     if upload_thread:
         print "Waiting for uploader thread to stop..."

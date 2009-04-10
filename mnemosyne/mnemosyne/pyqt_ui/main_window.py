@@ -223,7 +223,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def closeEvent(self, event):
         try:
-            config().save()
             database().backup()
             database().unload()
         except MnemosyneError, e:

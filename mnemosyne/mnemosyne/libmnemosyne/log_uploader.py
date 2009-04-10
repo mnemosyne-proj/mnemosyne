@@ -44,7 +44,7 @@ class LogUploader(Thread):
         total.append('--%s\n' % boundary)
         total.append(("\n--%s\n" % boundary).join(part))
         total.append('\n--%s--\n' % boundary)
-        query = ''.joinfields(total)
+        query = ''.join(total)
         contentType = 'multipart/form-data; boundary=%s' % boundary
         contentLength = str(len(query))
         headers = {'Accept' : '*/*',
@@ -68,7 +68,7 @@ class LogUploader(Thread):
             upload_log.close()
         except:
             uploaded = []
-        to_upload = sets.Set(history_files) - sets.Set(uploaded)
+        to_upload = set(history_files) - set(uploaded)
         if len(to_upload) == 0:
             return
         # Upload them to our server.

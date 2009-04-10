@@ -7,10 +7,6 @@
 
 * Mnemosyne 2.0:
 
--warn when deleting cards in cloze del, empty cloze does not work
-
--card types in use not purged?
-
 -opmised scheduler
 
 -review, document, test set_inial_grade, also in context of card type
@@ -33,6 +29,9 @@
 
 -update card docstrings
 
+-first show next card, then process answer
+
+
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
  Make the mechanism customisible with hooks, and document this in 
@@ -51,8 +50,6 @@
 
 -don't import * for Qt
 
-
--after creating new cards, update active status
 
 -make categories a set?
 
