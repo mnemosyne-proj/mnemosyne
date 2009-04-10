@@ -7,6 +7,8 @@
 
 * Mnemosyne 2.0:
 
+-fix plugin test suite failures
+
 -opmised scheduler
 
 -review, document, test set_inial_grade, also in context of card type
@@ -27,7 +29,7 @@
 
 -don't click learn ahead of schedule everytime
 
--update card docstrings
+-update card docstrings, add stuff on all variables
 
 -first show next card, then process answer
 

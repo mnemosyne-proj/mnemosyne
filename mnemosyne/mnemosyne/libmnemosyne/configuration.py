@@ -109,7 +109,7 @@ class Configuration(dict):
         except:
             raise ConfigError(stack_trace=True)
         
-    def save(self):
+    def save(self):      
         try:
             config_file = file(os.path.join(self.basedir, "config"), 'wb')
             cPickle.dump(self, config_file)

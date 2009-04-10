@@ -20,6 +20,15 @@ class Widget:
         raise NotImplementedError
 
 
+class MyPlugin(Plugin, FrontToBack):
+    name = "myplugin"
+    description = "MyPlugn"
+    provides = "card_type"
+    id = "666"
+
+    def __init__(self):
+        FrontToBack.__init__(self)
+
 class TestPlugin:
 
     def setup(self):
@@ -33,16 +42,7 @@ class TestPlugin:
         
     @raises(NotImplementedError)
     def test_2(self):
-
-        class MyPlugin(Plugin, FrontToBack):
-            name = "myplugin"
-            description = "MyPlugn"
-            provides = "card_type"
-            id = "666"
-
-            def __init__(self):
-                FrontToBack.__init__(self)
-                
+             
         p = MyPlugin()
 
         old_length = len(card_types())
@@ -62,29 +62,11 @@ class TestPlugin:
 
     @raises(NotImplementedError)
     def test_3(self):
-
-        class MyPlugin(Plugin):
-            name = "myplugin"
-            description = "MyPlugn"
-            provides = "card_type"
-            id = "666"
-            activation_message = "Hi"
-                
         p = MyPlugin()
+        p.activation_message = "Hi"
         p.activate() # Should print activation message.
-
-        
+       
     def test_4(self):
-
-        class MyPlugin(Plugin, FrontToBack):
-            name = "myplugin"
-            description = "MyPlugn"
-            provides = "card_type"
-            id = "666"
-
-            def __init__(self):
-                FrontToBack.__init__(self)
-                
         p = MyPlugin()
 
         old_length = len(card_types())

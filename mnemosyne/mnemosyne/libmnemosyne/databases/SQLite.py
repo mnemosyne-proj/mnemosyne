@@ -15,6 +15,7 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
 from mnemosyne.libmnemosyne.exceptions import PluginError, MissingPluginError
+from mnemosyne.libmnemosyne.utils import adjusted_now
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.component_manager import card_types, scheduler
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
