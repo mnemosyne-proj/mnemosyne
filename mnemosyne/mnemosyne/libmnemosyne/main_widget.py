@@ -2,6 +2,9 @@
 # main_widget.py <Peter.Bienstman@UGent.be>
 #
 
+import gettext
+_ = gettext.gettext
+
 
 class MainWidget(object):
     
@@ -10,7 +13,7 @@ class MainWidget(object):
 
     """
 
-    def information_box(self, message, OK_string):
+    def information_box(self, message, OK_string=_("&OK")):
         raise NotImplementedError
     
     def question_box(self, question, option0, option1, option2):

@@ -73,17 +73,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_review_widget()
         ui_controller_review().new_question()
 
-    def information_box(self, message, OK_string):
-        QMessageBox.information(None, _("Mnemosyne"), message, OK_string)
+    def information_box(self, message, OK_string=_("&OK")):
+        QMessageBox.information(None, _("Information"), message, OK_string)
 
     def question_box(self, question, option0, option1, option2):
-        return QMessageBox.question(None, _("Mnemosyne"),
+        return QMessageBox.question(None, _("Question"),
                                     question, option0, option1, option2, 0, -1)
 
     def error_box(self, exception):
         if exception.info:
             exception.msg += "\n" + exception.info        
-        QMessageBox.critical(None, _("Mnemosyne"), exception.msg,
+        QMessageBox.critical(None, _("Error"), exception.msg,
                              _("&OK"), "", "", 0, -1)
 
     def save_file_dialog(self, path, filter, caption=""):

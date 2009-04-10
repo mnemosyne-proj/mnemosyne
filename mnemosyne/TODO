@@ -7,9 +7,9 @@
 
 * Mnemosyne 2.0:
 
--warn when deleting cards in cloze del
+-warn when deleting cards in cloze del, empty cloze does not work
 
--move more plugin activation and deactivation logic to libmnemosyne.
+-card types in use not purged?
 
 -opmised scheduler
 
