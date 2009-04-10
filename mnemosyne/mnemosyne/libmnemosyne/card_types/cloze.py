@@ -12,6 +12,7 @@ from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.component_manager import database
+from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 
 cloze_re = re.compile(r"\[(.+?)\]", re.DOTALL)
 
@@ -57,18 +58,18 @@ class Cloze(CardType, Plugin):
         self.activation_message = manual
 
     def validate_data(self, fact_data):
-        return "[" in fact_data["text"] and "]" in fact_data["text"]
+        return bool(cloze_re.search(fact_data["text"]))
         
     def question(self, card):
-        extra_data = eval(card.extra_data)
+        cloze = eval(card.extra_data)[0]
         question = card.fact["text"].replace("[", "").replace("]", "")
-        question = question.replace(extra_data[0], "[...]",  1)
+        question = question.replace(cloze, "[...]",  1)
         return self.get_renderer().render_text(question, "text",
                                                card.fact.card_type)
 
     def answer(self, card):
-        answer = eval(card.extra_data)[0]
-        return self.get_renderer().render_text(answer, "text",
+        cloze = eval(card.extra_data)[0]        
+        return self.get_renderer().render_text(cloze, "text",
                                                card.fact.card_type)
 
     def create_related_cards(self, fact, grade=0):
@@ -81,28 +82,47 @@ class Cloze(CardType, Plugin):
             cards.append(card)         
         return cards
 
-    def update_related_cards(self, fact, new_fact_data):
-
-        """Now learning data is only preserved in case the number of clozes
-        stays the same. This could in theory be made more sophisticated, but it's
-        probably a corner case anyhow.
-
-        """
-        
+    def update_related_cards(self, fact, new_fact_data):        
         new_cards, updated_cards, deleted_cards = [], [], []
-        if new_fact_data["text"].count("[") == fact["text"].count("["):
-            new_clozes = []
-            for match in cloze_re.finditer(new_fact_data["text"]):
-                new_clozes.append(match.group(1))
+
+        old_clozes = cloze_re.findall(fact["text"])
+        new_clozes = cloze_re.findall(new_fact_data["text"])
+
+        # If the number of clozes is equal, just update the existing cards.
+        if len(old_clozes) == len(new_clozes):
             for card in database().cards_from_fact(fact):
                 index = eval(card.extra_data)[1]
                 card.extra_data = repr((new_clozes[index], index))
                 updated_cards.append(card)
+        # If not, things are a little more complicated.
         else:
+            new_clozes_processed = set()
             for card in database().cards_from_fact(fact):
-                database().delete_card(card)
-            fact.data = new_fact_data
-            new_cards = self.create_related_cards(fact)
+                old_cloze, index = eval(card.extra_data)
+                if old_cloze in new_clozes:
+                    new_index = new_clozes.index(old_cloze)
+                    card.extra_data = repr((new_clozes[new_index], new_index))
+                    new_clozes_processed.add(new_clozes[new_index])
+                    updated_cards.append(card)
+                else:
+                    deleted_cards.append(card)
+            # For the new cards that we are about to create, we need to have
+            # a unique suffix first.
+            id_suffix = 0
+            for card in database().cards_from_fact(fact):
+                suffix = int(card.id.rsplit(".", 1)[1])
+                if suffix > id_suffix:
+                    id_suffix == suffix
+            id_suffix += 1
+            for new_cloze in set(new_clozes).difference(new_clozes_processed):
+                new_index = new_clozes.index(new_cloze)
+                card = Card(fact, self.fact_views[0])
+                card.set_initial_grade(0)
+                card.extra_data = repr((new_cloze, new_index))
+                card.id += "." + str(id_suffix)
+                id_suffix += 1
+                new_cards.append(card)
+                     
         return new_cards, updated_cards, deleted_cards
 
 

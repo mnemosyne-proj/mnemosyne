@@ -32,6 +32,9 @@ class TestCloze:
         fact_data = {"text": "incomplete]"}
         assert card_type.validate_data(fact_data) == False
         
+        fact_data = {"text": "[]"}
+        assert card_type.validate_data(fact_data) == False
+        
         fact_data = {"text": "[complete]"}
         assert card_type.validate_data(fact_data) == True
 
@@ -93,7 +96,14 @@ div#text { text-align: center; }
                card_type, new_cat_names=["default2"], correspondence=[])
         
         assert database().fact_count() == 1
-        assert database().card_count() == 1        
+        assert database().card_count() == 1
+        
+        fact_data = {"text": "a_ [b_] [d] [e]"}
+        ui_controller_main().update_related_cards(fact, fact_data,
+               card_type, new_cat_names=["default2"], correspondence=[])
+        
+        assert database().fact_count() == 1
+        assert database().card_count() == 3
         
     def teardown(self):
         finalise()

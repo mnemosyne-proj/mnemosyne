@@ -147,12 +147,12 @@ class DefaultMainController(UiControllerMain):
                         answer = 0
                     if answer == 1: # Cancel.
                         return -1
+                for card in deleted_cards:
+                    db.delete_card(card)
                 for card in new_cards:
                     db.add_card(card)
                 for card in updated_cards:
                     db.update_card(card)
-                for card in deleted_cards:
-                    db.delete_card(card)
                     
         # Update facts and cards.
         new_cards, updated_cards, deleted_cards = \
@@ -160,12 +160,12 @@ class DefaultMainController(UiControllerMain):
         fact.modification_date = datetime.datetime.now()
         fact.data = new_fact_data
         db.update_fact(fact)
+        for card in deleted_cards:
+            db.delete_card(card)
         for card in new_cards:
             db.add_card(card)
         for card in updated_cards:
             db.update_card(card)
-        for card in deleted_cards:
-            db.delete_card(card)
             
         # Update categories.
         old_cats = set()
