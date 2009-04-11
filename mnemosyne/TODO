@@ -7,8 +7,6 @@
 
 * Mnemosyne 2.0:
 
--fix plugin test suite failures
-
 -opmised scheduler
 
 -review, document, test set_inial_grade, also in context of card type
@@ -26,6 +24,8 @@
 
 -adding new cards while in 'learn ahead of schedule' should break out of
  learning ahead
+
+-more robust avoiding of related cards on same day
 
 -don't click learn ahead of schedule everytime
 

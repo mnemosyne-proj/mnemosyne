@@ -239,12 +239,11 @@ class TestDatabase:
         # Artificially remove plugin.
         for plugin in plugins():
             if plugin.id == "4":
-                print 'unregistering'
+                plugin.deactivate()
                 component_manager.unregister("plugin", plugin)
-                break
-                    
+                break                    
         database().load(config()["path"])
-
+        
     def infinity(self):
         return 1/0
         
@@ -277,6 +276,7 @@ class TestDatabase:
         # Artificially mutilate plugin.
         for plugin in plugins():
             if plugin.id == "4":
+                plugin.deactivate()
                 plugin.activate = self.infinity
                 break
                     

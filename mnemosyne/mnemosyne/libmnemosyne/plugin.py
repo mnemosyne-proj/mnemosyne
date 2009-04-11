@@ -38,12 +38,12 @@ class Plugin(object):
         config()["active_plugins"].add(self.__class__)
 
     def deactivate(self):
-        if self.provides == "card_type":
+        if self.provides == "card_type" and database().is_loaded():
             for card_type in database().card_types_in_use():
                 if issubclass(card_type.__class__, self.__class__):
                     ui_controller_main().widget.information_box(\
         _("Cannot deactivate, this card type or a clone of it is in use."))
-                    return False  
+                    return False
         component_manager.unregister(self.provides, self)
         config()["active_plugins"].remove(self.__class__)
         return True
