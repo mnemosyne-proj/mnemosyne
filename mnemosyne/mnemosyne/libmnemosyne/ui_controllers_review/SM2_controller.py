@@ -88,6 +88,8 @@ class SM2Controller(UiControllerReview):
                    
     def update_dialog(self, redraw_all=False):
         w = self.widget
+        if not w:
+            return
         # Update title.
         database_name = os.path.basename(config()["path"]).\
             split(database().suffix)[0]

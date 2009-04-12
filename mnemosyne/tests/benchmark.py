@@ -6,9 +6,10 @@ from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 number_of_facts = 6000
-create_from_scratch = False  
+create_from_scratch = False
 
 def initialise_program():
     # 0.085 from scratch
@@ -26,7 +27,7 @@ def create_database():
         else:
             card_type = card_type_by_id("2")            
         ui_controller_main().create_new_cards(fact_data, card_type,
-                               grade=0, cat_names=["default" + str(i)])
+                               grade=4, cat_names=["default" + str(i)])
     database().save(config()["path"])
 
 def load_database():
@@ -38,6 +39,14 @@ def activate():
     database().set_cards_active([(card_type_by_id("1"),
                                  card_type_by_id("1").fact_views[0])],
         [database().get_or_create_category_with_name("default1")])
+
+def get_new_card():
+    # 0.017 sec for 6000 on home pc
+    ui_controller_review().new_question()
+    
+def get_question():
+    # 0.00018 sec home pc
+    ui_controller_review().card.question()
     
 def finalise_program():
     # 0.005 sec
@@ -51,13 +60,11 @@ t = timeit.Timer("initialise_program()",
 t2 = t.timeit(1)
 print "init time:", t2
 
-
 if create_from_scratch:
     t = timeit.Timer("create_database()",
                      "from __main__ import create_database")
     t2 = t.timeit(1)
     print "creation time:", t2
-
 
 t = timeit.Timer("load_database()",
                  "from __main__ import load_database")
@@ -69,6 +76,16 @@ t = timeit.Timer("activate()",
                  "from __main__ import activate")
 t2 = t.timeit(1)
 print "activation time:", t2
+
+t = timeit.Timer("get_new_card()",
+                 "from __main__ import get_new_card")
+t2 = t.timeit(1)
+print "queue time:", t2
+
+t = timeit.Timer("get_question()",
+                 "from __main__ import get_question")
+t2 = t.timeit(1)
+print "question time:", t2
 
 t = timeit.Timer("finalise_program()",
                  "from __main__ import finalise_program")

@@ -27,6 +27,8 @@
 
 -more robust avoiding of related cards on same day
 
+-get new question : get new card
+
 -don't click learn ahead of schedule everytime
 
 -update card docstrings, add stuff on all variables
