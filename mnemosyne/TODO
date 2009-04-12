@@ -14,9 +14,9 @@
 
 -use grade -1 for unseen?
 
--don't review same card twice in a row
+-remove card.set_initial_grade, move entirely to scheduler
 
--get rid of start date (save it in global variables)
+-don't review same card twice in a row
 
 -rebuild queue automatically after roll-over time?
 
@@ -35,6 +35,9 @@
 
 -first show next card, then process answer
 
+-standardize how card.extra_data is used: as a dictionary
+-time sql when storing dates as int. Move to int? update start_date.py
+-minute level scheduling in extra data?
 
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.

@@ -55,7 +55,7 @@ class SM2Controller(UiControllerReview):
             self.state = "EMPTY"
             self.card = None
         else:
-            self.card = scheduler().get_new_question(learn_ahead)         
+            self.card = scheduler().get_new_card(learn_ahead)         
             if self.card != None:
                 self.state = "SELECT SHOW"
             else:

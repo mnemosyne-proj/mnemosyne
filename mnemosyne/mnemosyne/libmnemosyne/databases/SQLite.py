@@ -15,7 +15,6 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
 from mnemosyne.libmnemosyne.exceptions import PluginError, MissingPluginError
-from mnemosyne.libmnemosyne.utils import adjusted_now
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.component_manager import card_types, scheduler
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
@@ -34,8 +33,8 @@ SCHEMA = """
         _id integer primary key,
         id text unique,
         card_type_id text,
-        creation_date timestamp,
-        modification_date timestamp,
+        creation_date float,
+        modification_date float,
         needs_sync boolean default 1
     );
 

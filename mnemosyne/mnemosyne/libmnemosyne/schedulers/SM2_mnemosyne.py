@@ -19,6 +19,17 @@ class SM2Mnemosyne(Scheduler):
     
     def __init__(self):
         self.queue = []
+        
+    def set_initial_grade(self, card, grade):
+        db = database()
+        card.grade = grade
+        card.easiness = db.average_easiness()
+        card.acq_reps = 1
+        card.acq_reps_since_lapse = 1
+        card.last_rep = db.days_since_start()
+        new_interval = self.calculate_initial_interval(grade)
+        new_interval += self.calculate_interval_noise(new_interval)
+        card.next_rep = card.last_rep + new_interval
 
     def calculate_initial_interval(self, grade):
         # If this is the first time we grade this card, allow for slightly
@@ -60,7 +71,7 @@ class SM2Mnemosyne(Scheduler):
         # Now rememorise the cards that we got wrong during the last stage.
         # Concentrate on only a limited number of grade 0 cards, in order to
         # avoid too long intervals between revisions. If there are too few
-        # cards in left in the queue, append more new cards to keep some
+        # cards left in the queue, append more new cards to keep some
         # spread between these last cards.
         limit = config()["grade_0_items_at_once"]
         grade_0 = db.cards_due_for_final_review(grade=0, sort_key="random")
@@ -156,13 +167,13 @@ class SM2Mnemosyne(Scheduler):
                 self.queue.remove(i)
                 return
 
-    def get_new_question(self, learn_ahead=False):
-        # Populate list if it is empty.
+    def get_new_card(self, learn_ahead=False):
+        # Populate queue if it is empty.
         if len(self.queue) == 0:
             self.rebuild_queue(learn_ahead)
             if len(self.queue) == 0:
                 return None
-        # Pick the first question and remove it from the queue.
+        # Pick the first card and remove it from the queue.
         card = self.queue[0]
         self.queue.remove(card)
         return card

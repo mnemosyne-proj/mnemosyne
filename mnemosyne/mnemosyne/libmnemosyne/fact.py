@@ -3,7 +3,7 @@
 #
 
 import uuid
-import datetime
+from mnemosyne.libmnemosyne.component_manager import database
 
 
 class Fact(object):
@@ -18,6 +18,9 @@ class Fact(object):
 
     Card_type and categories are also stored here, because when resetting the
     learning data on export, we only export facts.
+
+    Creating and modification dates are stored as days since the creation of the
+    database (see start_date.py for rationale).
 
     When making new card types, it is best to reuse the keys below as much
     as possible, to facilitate conversion between card types:
@@ -34,7 +37,7 @@ class Fact(object):
 
     def __init__(self, data, card_type, id=None, creation_date=None):
         if not creation_date:
-            creation_date = datetime.datetime.now()
+            creation_date = database().days_since_start()
         self.creation_date = creation_date
         self.modification_date = self.creation_date
         self.data = data

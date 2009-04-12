@@ -7,15 +7,6 @@ import re
 import datetime
 from mnemosyne.libmnemosyne.component_manager import config
 
-
-def adjusted_now():
-
-    """Now, but taking into account day_starts_at."""
-
-    hours = config()["day_starts_at"]
-    return datetime.datetime.now() - datetime.timedelta(hours=hours)
-
-
 def expand_path(p, prefix=None):
 
     """Make relative path absolute and normalise slashes."""
