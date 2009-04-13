@@ -105,5 +105,7 @@ div#text { text-align: center; }
         assert database().fact_count() == 1
         assert database().card_count() == 3
         
+        assert database().average_easiness() == 2.5
+        
     def teardown(self):
         finalise()

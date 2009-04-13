@@ -24,7 +24,9 @@ class TestAddCards:
                                               grade=0, cat_names=["default"])
         ui_controller_main().file_save()
         assert database().fact_count() == 1
-        assert database().card_count() == 1       
+        assert database().card_count() == 1
+
+        assert database().average_easiness() == 2.5
 
     def test_1_duplicates(self):
         fact_data = {"q": "question",

@@ -559,7 +559,7 @@ class SQLite(Database):
 
     def average_easiness(self):
         average = self.con.execute("""select sum(easiness)/count()
-            from cards where active=1""").fetchone()[0]
+            from cards where active=1 and easiness > 0""").fetchone()[0]
         if average:
             return average
         else:

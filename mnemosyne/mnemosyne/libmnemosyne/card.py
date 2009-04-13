@@ -2,7 +2,6 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import scheduler
 
 
@@ -42,7 +41,6 @@ class Card(object):
         self.id = self.fact.id + "." + str(self.fact.card_type.id) + "." + \
                   str(self.fact_view.id)
         self.categories = []
-        self.unseen = True
         self.extra_data = ""
         self.seen_in_this_session = False
         self.needs_sync = True
@@ -66,15 +64,23 @@ class Card(object):
         order to accomodate plugins doing minute-level scheduling.
 
         'unseen' means that the card has not been seen during the interactive
-        review process. TODO: replace this by grade = -1, or
-        grade = 1/0 and acq_reps = 1
+        review process. This variable is needed to determine which new cards to
+        pull in after current cards have been memorised. These unseen cards have
+        two distinct origins: cards that were created interactively by the user
+        and given an intial grade 0 or 1 in the 'Add cards' dialog, or cards
+        which were created on import or when converting cards types, and which
+        yet have to get their initial grade. The first category initially has
+        'grade'=0 or 1, and 'ack_reps'=1, and the second category 'grade'=-1
+        and 'ack_reps'=0. However, after a subsequent review of a card from the
+        second category, its 'grade' and 'ack_reps' could become identical to
+        an unseen card in the first category, even though the card is no longer
+        unseen. Therefore, just relying on 'grade' and 'ack_reps' to track
+        unseen cards does not work.
 
         """
 
         self.grade = -1
-        # We need to set this to a sensible value, so as not to upset      
-        # future calss to average_easiness. 
-        self.easiness = database().average_easiness()
+        self.easiness = -1
         self.acq_reps = 0
         self.ret_reps = 0
         self.lapses = 0
@@ -82,6 +88,7 @@ class Card(object):
         self.ret_reps_since_lapse = 0
         self.last_rep = -1
         self.next_rep = -1
+        self.unseen = True
 
     def do_first_rep(self, grade):
 

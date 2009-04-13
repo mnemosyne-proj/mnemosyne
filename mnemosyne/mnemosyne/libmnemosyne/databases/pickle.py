@@ -387,8 +387,8 @@ class Pickle(Database):
         if len(self.cards) == 0:
             return 2.5
         else:
-            return sum(c.easiness for c in self.cards if c.active) \
-                   / len(self.cards)
+            return sum(c.easiness for c in self.cards if c.active and \
+                       c.easiness > 0) / len(self.cards)
     
     def list_to_generator(self, list, sort_key, limit):
         if list == None:
