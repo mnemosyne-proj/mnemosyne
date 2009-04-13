@@ -130,11 +130,11 @@ class CardType(object):
     # corresponding to specialty card types (like cloze deletion) can be
     # contained in a single derived class by reimplementing these functions.
 
-    def create_related_cards(self, fact, grade=0):
+    def create_related_cards(self, fact, grade):
         cards = []
         for fact_view in self.fact_views:
             card = Card(fact, fact_view)
-            card.set_initial_grade(grade)
+            card.do_first_rep(grade)
             cards.append(card)
         return cards
 

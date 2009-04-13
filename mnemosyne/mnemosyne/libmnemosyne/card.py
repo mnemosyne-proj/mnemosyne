@@ -61,53 +61,41 @@ class Card(object):
         """Used when creating a card for the first time, or when choosing
         'reset learning data' on import.
 
-        Last_rep and next_rep are measured in days since the creation of
+        'last_rep' and 'next_rep' are measured in days since the creation of
         the database. Note that these values should be stored as float in
-        SQL to accomodate plugins doing minute-level scheduling.
+        order to accomodate plugins doing minute-level scheduling.
 
-        Note: 'unseen' is needed on top of 'acq_reps', because the
-        initial grading of a manually added card is counted as the first
-        repetition. An imported card has no such initial grading, and
-        therefore we do the initial grading the first time we see it during
-        the interactive learning process. Because of this, determining if a
-        card has been seen during the interactive learning process can not
-        be decided on the basis of acq_reps, but still that information is
-        needed when randomly selecting unseen cards to learn.
+        'unseen' means that the card has not been seen during the interactive
+        review process. TODO: replace this by grade = -1, or
+        grade = 1/0 and acq_reps = 1
 
         """
 
-        self.grade = 0
+        self.grade = -1
+        # We need to set this to a sensible value, so as not to upset      
+        # future calss to average_easiness. 
         self.easiness = database().average_easiness()
         self.acq_reps = 0
         self.ret_reps = 0
         self.lapses = 0
         self.acq_reps_since_lapse = 0
         self.ret_reps_since_lapse = 0
-        self.last_rep = 0
-        self.next_rep = 0
+        self.last_rep = -1
+        self.next_rep = -1
 
-    def set_initial_grade(self, grade):
+    def do_first_rep(self, grade):
 
-        """This is called after manually adding cards. This code is separated
-        out from the constructor, as for imported for imported cards, there is
-        no grading information available when there are created, and the
-        initial grading is done the first time they are are seen in
-        the interactive review process (by similar code in the scheduler).
-
-        This initial grading is seen as the first repetition.
+        """The first repetition is treated differently, and gives longer
+        intervals, to allow for the fact that the user may have seen this
+        card before. It is called either directly after adding cards manually
+        using the grade specified there, or, for cards which have been created
+        during import or from conversion from different card types, during the
+        active revies process when they are encountered for the first time.
+        In both cases, this initial grading is seen as the first repetition.
 
         """
 
-        db = database()
-        sch = scheduler()
-        self.grade = grade
-        self.easiness = db.average_easiness()
-        self.acq_reps = 1
-        self.acq_reps_since_lapse = 1
-        self.last_rep = db.days_since_start()
-        new_interval = sch.calculate_initial_interval(grade)
-        new_interval += sch.calculate_interval_noise(new_interval)
-        self.next_rep = db.days_since_start() + new_interval
+        scheduler().do_first_rep(self, grade)
 
     def question(self):
         return self.fact.card_type.question(self)

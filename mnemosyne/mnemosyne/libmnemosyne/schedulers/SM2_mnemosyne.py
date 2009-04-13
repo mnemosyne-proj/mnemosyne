@@ -20,7 +20,7 @@ class SM2Mnemosyne(Scheduler):
     def __init__(self):
         self.queue = []
         
-    def set_initial_grade(self, card, grade):
+    def do_first_rep(self, card, grade):
         db = database()
         card.grade = grade
         card.easiness = db.average_easiness()
@@ -70,7 +70,7 @@ class SM2Mnemosyne(Scheduler):
             pass
         # Now rememorise the cards that we got wrong during the last stage.
         # Concentrate on only a limited number of grade 0 cards, in order to
-        # avoid too long intervals between revisions. If there are too few
+        # avoid too long intervals between repetitions. If there are too few
         # cards left in the queue, append more new cards to keep some
         # spread between these last cards.
         limit = config()["grade_0_items_at_once"]
@@ -135,7 +135,7 @@ class SM2Mnemosyne(Scheduler):
             return
         # If we get to here, there are no more scheduled cards or new cards
         # to learn. The user can signal that he wants to learn ahead by
-        # calling rebuild_revision_queue with 'learn_ahead' set to True.
+        # calling rebuild_queue with 'learn_ahead' set to True.
         # Don't shuffle this queue, as it's more useful to review the
         # earliest scheduled cards first. We only put 5 cards at the same
         # time into the queue, in order to save memory.

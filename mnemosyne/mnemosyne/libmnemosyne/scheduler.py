@@ -7,7 +7,7 @@ class Scheduler(object):
 
     name = ""
 
-    def set_initial_grade(self, card, grade):
+    def do_first_rep(self, card, grade):
         raise NotImplementedError
 
     def rebuild_queue(self, learn_ahead=False):
