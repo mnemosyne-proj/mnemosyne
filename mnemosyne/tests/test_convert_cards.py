@@ -54,10 +54,12 @@ class TestConvertCards:
 
         if new_card_1.fact_view.id == 1:
             assert new_card_1 == old_card
-            assert new_card_2 != old_card            
+            assert new_card_2 != old_card
+            assert new_card_2.grade == -1
         else:
             assert new_card_2 == old_card
             assert new_card_1 != old_card
+            assert new_card_1.grade == -1
             
         new_card_1.question()
         new_card_1.answer()        

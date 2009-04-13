@@ -7,24 +7,13 @@
 
 * Mnemosyne 2.0:
 
--test suite
+-standardize how card.extra_data is used: as a dictionary
 
--eliminate card type initial review
-
--review, document, test set_inial_grade, also in context of card type
- convertors, create_related_cards in card_type and cloze
-
--use grade -1 for unseen?
-
--remove easiness calculation from card.py
-
--remove card.set_initial_grade, move entirely to scheduler
+-limit queue size to N cards
 
 -replace 'seen in this session' by 'seen in this hand?'
 
 -don't review same card twice in a row
-
--limit queue size to N cards
 
 -keep track of stage, so that we can skip some queries.
 
@@ -41,7 +30,6 @@
 
 -first show next card, then process answer
 
--standardize how card.extra_data is used: as a dictionary
 -time sql when storing dates as int. Move to int? update start_date.py
 -minute level scheduling in extra data?
 
@@ -49,7 +37,6 @@
  'repetition' for individual repetition, or 'review' for whole process.
 
 -clean up scheduler interface
-
 
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
@@ -65,7 +52,7 @@
 
 -option to reset scheduler
 
--add docs to always include first_review in custom scheduler
+-add docs to always include do_first_rep in custom scheduler
 
 -warn when importing card type with duplicate id
 

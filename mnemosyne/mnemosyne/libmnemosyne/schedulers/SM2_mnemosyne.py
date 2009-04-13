@@ -21,6 +21,25 @@ class SM2Mnemosyne(Scheduler):
         self.queue = []
         
     def do_first_rep(self, card, grade):
+
+        """The first repetition is treated specially, and gives longer
+        intervals, to allow for the fact that the user may have seen this
+        card before. This happens at different times depending on whether the
+        card was created interactively and given an initial grade there (in
+        which case this function is called) or whether the card was created
+        during import or from conversion from different card types, in which
+        case they are given their initial grade when they are encountered in
+        the interactive review process for the first time (by 'process_answer'
+        calling 'calculate_initial_interval').
+        
+        In both cases, this initial grading is seen as the first repetition.
+
+        In this way, both types of cards are treated in the same way. (There
+        is an ineffectual asymmetry left in the log messages they generate,
+        but all the relevant information can still be parsed from them.)
+
+        """
+                
         db = database()
         card.grade = grade
         card.easiness = db.average_easiness()
@@ -32,8 +51,6 @@ class SM2Mnemosyne(Scheduler):
         card.next_rep = card.last_rep + new_interval
 
     def calculate_initial_interval(self, grade):
-        # If this is the first time we grade this card, allow for slightly
-        # longer scheduled intervals, as we might know this card from before.
         interval = (0, 0, 1, 3, 4, 5) [grade]
         return interval
 

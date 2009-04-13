@@ -72,11 +72,10 @@ class Cloze(CardType, Plugin):
         return self.get_renderer().render_text(cloze, "text",
                                                card.fact.card_type)
 
-    def create_related_cards(self, fact, grade):
+    def create_related_cards(self, fact):
         cards = []
         for match in cloze_re.finditer(fact["text"]):
             card = Card(fact, self.fact_views[0])
-            card.do_first_rep(grade)
             card.extra_data = repr((match.group(1), len(cards)))
             card.id += "." + str(len(cards)) # Make id unique.
             cards.append(card)         

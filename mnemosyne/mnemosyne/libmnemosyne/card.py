@@ -2,12 +2,11 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component_manager import scheduler
-
 
 class Card(object):
 
-    """A card is formed when a fact view operates on a fact.
+    """A card has a question and an answer, based on a fact view operating on
+    a fact. It also stores repetition data.
 
     For card types which need extra information per card to build their views,
     (e.g. cloze deletion), the variable 'extra_data' can be used to store
@@ -89,20 +88,6 @@ class Card(object):
         self.last_rep = -1
         self.next_rep = -1
         self.unseen = True
-
-    def do_first_rep(self, grade):
-
-        """The first repetition is treated differently, and gives longer
-        intervals, to allow for the fact that the user may have seen this
-        card before. It is called either directly after adding cards manually
-        using the grade specified there, or, for cards which have been created
-        during import or from conversion from different card types, during the
-        active revies process when they are encountered for the first time.
-        In both cases, this initial grading is seen as the first repetition.
-
-        """
-
-        scheduler().do_first_rep(self, grade)
 
     def question(self):
         return self.fact.card_type.question(self)

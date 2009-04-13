@@ -12,6 +12,7 @@ from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
+from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
@@ -71,7 +72,9 @@ class DefaultMainController(UiControllerMain):
               _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
             if answer == 0: # Merge and edit.
                 db.add_fact(fact)
-                for card in card_type.create_related_cards(fact, grade):
+                for card in card_type.create_related_cards(fact):
+                    if grade != -1:
+                        scheduler().do_first_rep(card, grade)
                     db.add_card(card)  
                 merged_fact_data = copy.copy(fact.data)
                 for duplicate in duplicates:
@@ -85,7 +88,9 @@ class DefaultMainController(UiControllerMain):
             if answer == 2: # Don't add.
                 return
         db.add_fact(fact)
-        for card in card_type.create_related_cards(fact, grade):
+        for card in card_type.create_related_cards(fact):
+            if grade != -1:
+                scheduler().do_first_rep(card, grade)
             card.categories = categories
             db.add_card(card)
         db.save()
@@ -122,7 +127,7 @@ class DefaultMainController(UiControllerMain):
                 else:
                     db.delete_fact_and_related_data(fact)
                     self.create_new_cards(new_fact_data, new_card_type,
-                                          grade=0, cat_names=new_cat_names)
+                                          grade=-1, cat_names=new_cat_names)
                     return 0
             else:
                 # Make sure the converter operates on card objects which

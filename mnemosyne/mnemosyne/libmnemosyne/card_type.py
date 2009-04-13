@@ -129,14 +129,12 @@ class CardType(object):
     # The following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be
     # contained in a single derived class by reimplementing these functions.
+    # These functions should only deal with creating, deleting, ... Card
+    # objects. Initial grading and storing in the database is done in the
+    # main controller.
 
-    def create_related_cards(self, fact, grade):
-        cards = []
-        for fact_view in self.fact_views:
-            card = Card(fact, fact_view)
-            card.do_first_rep(grade)
-            cards.append(card)
-        return cards
+    def create_related_cards(self, fact):
+        return [Card(fact, fact_view) for fact_view in self.fact_views]
 
     def update_related_cards(self, fact, new_fact_data):
 
