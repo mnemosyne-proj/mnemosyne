@@ -9,7 +9,7 @@ from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 number_of_facts = 6000
-create_from_scratch = True
+create_from_scratch = False
 
 def initialise_program():
     # 0.085 from scratch
@@ -41,11 +41,11 @@ def activate():
         [database().get_or_create_category_with_name("default1")])
 
 def get_new_card():
-    # 0.017 sec for 6000 on home pc
+    # 0.022 sec for 6000
     ui_controller_review().new_question()
     
 def get_question():
-    # 0.00018 sec home pc
+    # 0.00018 sec
     ui_controller_review().card.question()
     
 def finalise_program():

@@ -312,7 +312,7 @@ class SQLite(Database):
         _fact_id = self.con.execute("select _id from facts where id=?",
             (card.fact.id, )).fetchone()[0]
         if card.extra_data == {}:
-            extra_data = ""
+            extra_data = "" # Save space.
         else:
             extra_data = repr(card.extra_data)
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
@@ -342,7 +342,7 @@ class SQLite(Database):
         _card_id = self.con.execute("select _id from cards where id=?",
             (card.id, )).fetchone()[0]
         if card.extra_data == {}:
-            extra_data = ""
+            extra_data = "" # Save space.
         else:
             extra_data = repr(card.extra_data)
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
@@ -589,30 +589,31 @@ class SQLite(Database):
         sort_key = self._parse_sort_key(sort_key)
         return (self._get_card(cursor) for cursor in self.con.execute( \
             """select * from cards where active=1 and grade>=2 and
-            ? >= next_rep order by %s limit ?""" % sort_key,
-            (self.start_date.days_since_start(), limit )))
+            ? >= next_rep order by ? limit ?""",
+            (self.start_date.days_since_start(), sort_key, limit)))
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return (self._get_card(cursor) for cursor in self.con.execute( \
             """select * from cards where grade=? and lapses>0
-            order by %s limit ?""" % sort_key, (grade, limit )))
+            order by ? limit ?""", (grade, sort_key, limit)))
 
     def cards_new_memorising(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return (self._get_card(cursor) for cursor in self.con.execute( \
             """select * from cards where active=1 and grade=? and
-            lapses=0 and unseen=0 order by %s limit ?""" % sort_key, (grade, limit )))
+            lapses=0 and unseen=0 order by ? limit ?""",
+            (grade, sort_key, limit)))
     
     def cards_unseen(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)      
         return (self._get_card(cursor) for cursor in self.con.execute( \
             """select * from cards where active=1 and unseen=1
-            order by %s limit ?""" % sort_key, (limit,)))
+            order by ? limit ?""", (sort_key, limit)))
     
     def cards_learn_ahead(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return (self._get_card(cursor) for cursor in self.con.execute( \
             """select * from cards where active=1 and grade>=2 and
-            ? < next_rep order by %s limit ?""" % sort_key,
-            (self.start_date.days_since_start(), limit)))
+            ? < next_rep order by ? limit ?""",
+            (self.start_date.days_since_start(), sort_key, limit)))
