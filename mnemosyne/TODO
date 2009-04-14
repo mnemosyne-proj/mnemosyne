@@ -7,8 +7,6 @@
 
 * Mnemosyne 2.0:
 
--standardize how card.extra_data is used: as a dictionary
-
 -limit queue size to N cards
 
 -replace 'seen in this session' by 'seen in this hand?'
@@ -36,7 +34,7 @@
 -get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
  'repetition' for individual repetition, or 'review' for whole process.
 
--clean up scheduler interface
+-clean up scheduler interface (add 'cards_added' slot)
 
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
@@ -79,6 +77,8 @@
 
 -backup after unloading, not after exiting
 
+-reset directory permissions under windows
+
 
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
@@ -98,17 +98,13 @@
 -improve sphinxdocs: autoclass='both', document module members
 
 
-
--run convert to html after adding/modifying card?
-
--pregenerate q and a on mobile devices?
-
 -test uploading of logs
 
--make sure card type ids are unique?
 
 -show latex errors in GUI?
 
+
+-update tooltips, inform Patrick
 
 
 

@@ -107,8 +107,7 @@ class SQLite(Database):
         """Connection to the database, lazily created."""
 
         if not self._connection:
-            self._connection = sqlite3.connect(self._path,
-                detect_types = sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
+            self._connection = sqlite3.connect(self._path)
             self._connection.row_factory = sqlite3.Row
         return self._connection
 
@@ -312,6 +311,10 @@ class SQLite(Database):
         self.load_failed = False
         _fact_id = self.con.execute("select _id from facts where id=?",
             (card.fact.id, )).fetchone()[0]
+        if card.extra_data == {}:
+            extra_data = ""
+        else:
+            extra_data = repr(card.extra_data)
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
@@ -320,7 +323,7 @@ class SQLite(Database):
             (card.id, _fact_id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep, card.unseen, card.extra_data,
+            card.last_rep, card.next_rep, card.unseen, extra_data,
             card.seen_in_this_session, card.needs_sync, card.active,
             card.in_view)).lastrowid
         # Link card to its categories.
@@ -338,6 +341,10 @@ class SQLite(Database):
             (card.fact.id, )).fetchone()[0]
         _card_id = self.con.execute("select _id from cards where id=?",
             (card.id, )).fetchone()[0]
+        if card.extra_data == {}:
+            extra_data = ""
+        else:
+            extra_data = repr(card.extra_data)
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
@@ -346,7 +353,7 @@ class SQLite(Database):
             (_fact_id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep, card.unseen, card.extra_data,
+            card.last_rep, card.next_rep, card.unseen, extra_data,
             card.seen_in_this_session, card.needs_sync, card.active,
             card.in_view, _card_id))
         # Link card to its categories.
@@ -423,9 +430,13 @@ class SQLite(Database):
                 break
         for attr in ("id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
-            "last_rep", "next_rep", "unseen", "extra_data",
-            "seen_in_this_session", "needs_sync", "active", "in_view"):
+            "last_rep", "next_rep", "unseen", "seen_in_this_session",
+            "needs_sync", "active", "in_view"):
             setattr(card, attr, sql_res[attr])
+        if sql_res["extra_data"] == "":
+            card.extra_data = {}
+        else:
+            card.extra_data = eval(sql_res["extra_data"])
         card.categories = [Category(cursor["name"], cursor["id"]) for cursor in
             self.con.execute("""select cat.name, cat.id from categories as cat,
             categories_for_card as cat_c where cat_c._category_id=cat._id and

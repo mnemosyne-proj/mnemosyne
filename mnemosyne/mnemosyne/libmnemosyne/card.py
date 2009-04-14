@@ -8,11 +8,10 @@ class Card(object):
     """A card has a question and an answer, based on a fact view operating on
     a fact. It also stores repetition data.
 
-    For card types which need extra information per card to build their views,
-    (e.g. cloze deletion), the variable 'extra_data' can be used to store
-    extra information in the database. The approach with the extra variable
-    was chosen as opposed to a conceptually cleaner inheritance of FactView,
-    in order to get easier mapping onto a database.
+    For card types which need extra information (e.g. cloze deletion), the
+    variable 'extra_data' can be used to store extra information in the
+    database. It's dictionary which should contain only standard Python
+    objects.
 
     'seen_in_this_session' is a variable used by the scheduler to save state.
     ('session' is not the time the user has the program open, but is rather
@@ -40,7 +39,7 @@ class Card(object):
         self.id = self.fact.id + "." + str(self.fact.card_type.id) + "." + \
                   str(self.fact_view.id)
         self.categories = []
-        self.extra_data = ""
+        self.extra_data = {}
         self.seen_in_this_session = False
         self.needs_sync = True
         self.active = True

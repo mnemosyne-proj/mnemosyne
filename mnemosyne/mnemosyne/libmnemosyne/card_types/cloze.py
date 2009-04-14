@@ -37,10 +37,10 @@ class Cloze(CardType, Plugin):
     Illustration of a CardType which does not use the traditional FactView
     mechanism.
 
-    This is implemented by creating cards which contain extra_data fields
-    ("democrats", 0) and ("republicans", 1) respectively (or more precisely,
-    their representation as a string, as that is the type that is stored in
-    the database.
+    This is implemented by creating cards which contain extra_data entries
+    "cloze" and "index", containing e.g. "democrats" and 0. Storing both the
+    cloze and its index allows us to have enough data to support all possible
+    editing operations.
     
     """
     
@@ -61,14 +61,14 @@ class Cloze(CardType, Plugin):
         return bool(cloze_re.search(fact_data["text"]))
         
     def question(self, card):
-        cloze = eval(card.extra_data)[0]
+        cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
         question = question.replace(cloze, "[...]",  1)
         return self.get_renderer().render_text(question, "text",
                                                card.fact.card_type)
 
     def answer(self, card):
-        cloze = eval(card.extra_data)[0]        
+        cloze = card.extra_data["cloze"]
         return self.get_renderer().render_text(cloze, "text",
                                                card.fact.card_type)
 
@@ -76,7 +76,8 @@ class Cloze(CardType, Plugin):
         cards = []
         for match in cloze_re.finditer(fact["text"]):
             card = Card(fact, self.fact_views[0])
-            card.extra_data = repr((match.group(1), len(cards)))
+            card.extra_data["cloze"] = match.group(1)
+            card.extra_data["index"] = len(cards)
             card.id += "." + str(len(cards)) # Make id unique.
             cards.append(card)         
         return cards
@@ -90,17 +91,19 @@ class Cloze(CardType, Plugin):
         # If the number of clozes is equal, just update the existing cards.
         if len(old_clozes) == len(new_clozes):
             for card in database().cards_from_fact(fact):
-                index = eval(card.extra_data)[1]
-                card.extra_data = repr((new_clozes[index], index))
+                index = card.extra_data["index"]
+                card.extra_data["cloze"]= new_clozes[index]
                 updated_cards.append(card)
         # If not, things are a little more complicated.
         else:
             new_clozes_processed = set()
             for card in database().cards_from_fact(fact):
-                old_cloze, index = eval(card.extra_data)
+                old_cloze  = card.extra_data["cloze"]
+                index = card.extra_data["index"]
                 if old_cloze in new_clozes:
                     new_index = new_clozes.index(old_cloze)
-                    card.extra_data = repr((new_clozes[new_index], new_index))
+                    card.extra_data["cloze"] = new_clozes[new_index]
+                    card.extra_data["index"] = new_index
                     new_clozes_processed.add(new_clozes[new_index])
                     updated_cards.append(card)
                 else:
@@ -116,7 +119,8 @@ class Cloze(CardType, Plugin):
             for new_cloze in set(new_clozes).difference(new_clozes_processed):
                 new_index = new_clozes.index(new_cloze)
                 card = Card(fact, self.fact_views[0])
-                card.extra_data = repr((new_cloze, new_index))
+                card.extra_data["cloze"] = new_cloze
+                card.extra_data["index"] = new_index
                 card.id += "." + str(id_suffix)
                 id_suffix += 1
                 new_cards.append(card)
