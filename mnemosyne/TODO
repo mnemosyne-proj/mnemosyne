@@ -7,6 +7,8 @@
 
 * Mnemosyne 2.0:
 
+-make fact view id a string for consistency reasons
+
 -limit queue size to N cards
 
 -replace 'seen in this session' by 'seen in this hand?'
