@@ -36,8 +36,8 @@ class Card(object):
     def __init__(self, fact, fact_view):
         self.fact = fact
         self.fact_view = fact_view
-        self.id = self.fact.id + "." + str(self.fact.card_type.id) + "." + \
-                  str(self.fact_view.id)
+        self.id = self.fact.id + "." + self.fact.card_type.id + "." + \
+                  self.fact_view.id
         self.categories = []
         self.extra_data = {}
         self.seen_in_this_session = False

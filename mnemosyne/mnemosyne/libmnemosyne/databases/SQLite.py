@@ -49,7 +49,7 @@ SCHEMA = """
         _id integer primary key,
         id text unique,
         _fact_id int,
-        fact_view_id int,
+        fact_view_id text,
         grade int,
         easiness real,
         acq_reps int,
@@ -570,7 +570,7 @@ class SQLite(Database):
 
     def average_easiness(self):
         average = self.con.execute("""select sum(easiness)/count()
-            from cards where active=1 and easiness > 0""").fetchone()[0]
+            from cards where easiness > 0""").fetchone()[0]
         if average:
             return average
         else:

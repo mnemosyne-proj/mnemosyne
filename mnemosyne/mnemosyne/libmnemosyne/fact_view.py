@@ -6,7 +6,7 @@
 class FactView(object):
 
     """Sequence of fields from a fact to form a question and an answer.
-    A fact view needs an id as well as a name, because the name can
+    A fact view needs an id string as well as a name, because the name can
     change for different translations. 
     
     """

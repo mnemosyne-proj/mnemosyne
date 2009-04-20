@@ -24,14 +24,14 @@ class BothWays(CardType):
         self.fields.append(("a", _("Answer")))
         
         # Front-to-back.
-        v = FactView(1, _("Front-to-back"))
+        v = FactView("1", _("Front-to-back"))
         v.q_fields = ["q"]
         v.a_fields = ["a"]
         v.required_fields = ["q"]
         self.fact_views.append(v)
         
         # Back-to-front.
-        v = FactView(2, _("Back-to-front"))
+        v = FactView("2", _("Back-to-front"))
         v.q_fields = ["a"]
         v.a_fields = ["q"]
         v.required_fields = ["a"]

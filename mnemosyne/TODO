@@ -7,7 +7,13 @@
 
 * Mnemosyne 2.0:
 
--limit queue size to N cards
+-make fact view id a string for consistency reasons
+
+-return fact id as well
+
+-keep fact ids in list
+
+-only create one card at the time
 
 -replace 'seen in this session' by 'seen in this hand?'
 

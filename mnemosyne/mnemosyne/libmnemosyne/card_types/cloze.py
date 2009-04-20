@@ -54,7 +54,7 @@ class Cloze(CardType, Plugin):
            _("A card type blanking out certain fragments in a text.")
         self.fields.append(("text", _("Text")))
         self.unique_fields = ["text"]
-        self.fact_views = [FactView(1, _("Cloze"))]
+        self.fact_views = [FactView("1", _("Cloze"))]
         self.activation_message = manual
 
     def validate_data(self, fact_data):

@@ -52,7 +52,7 @@ class TestConvertCards:
         assert new_card_1.fact.card_type.id == "2"
         assert new_card_2.fact.card_type.id == "2"
 
-        if new_card_1.fact_view.id == 1:
+        if new_card_1.fact_view.id == "1":
             assert new_card_1 == old_card
             assert new_card_2 != old_card
             assert new_card_2.grade == -1
@@ -92,7 +92,7 @@ class TestConvertCards:
         new_card = database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1"
         
-        if old_card_1.fact_view.id == 1:
+        if old_card_1.fact_view.id == "1":
             assert new_card == old_card_1
             assert new_card != old_card_2            
         else:
@@ -129,7 +129,7 @@ class TestConvertCards:
         assert new_card_1.fact.card_type.id == "3"
         assert new_card_2.fact.card_type.id == "3"
 
-        if new_card_1.fact_view.id == 1:
+        if new_card_1.fact_view.id == "1":
             assert new_card_1 == old_card
             assert new_card_2 != old_card            
         else:
@@ -168,7 +168,7 @@ class TestConvertCards:
         assert new_card_1.fact.card_type.id == "3"
         assert new_card_2.fact.card_type.id == "3"
 
-        if new_card_1.fact_view.id == 2:
+        if new_card_1.fact_view.id == "2":
             assert new_card_1 == old_card
             assert new_card_2 != old_card
         else:
@@ -208,7 +208,7 @@ class TestConvertCards:
         new_card = database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1"
         
-        if old_card_1.fact_view.id == 1:
+        if old_card_1.fact_view.id == "1":
             assert new_card == old_card_1
             assert new_card != old_card_2            
         else:
@@ -246,7 +246,7 @@ class TestConvertCards:
         new_card = database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1"
         
-        if old_card_1.fact_view.id == 2:
+        if old_card_1.fact_view.id == "2":
             assert new_card == old_card_1
             assert new_card != old_card_2            
         else:
@@ -445,7 +445,7 @@ class TestConvertCards:
         new_card = database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1"
         
-        if old_card_1.fact_view.id == 1:
+        if old_card_1.fact_view.id == "1":
             assert new_card == old_card_1
             assert new_card != old_card_2            
         else:
@@ -488,7 +488,7 @@ class TestConvertCards:
         assert new_card.fact.data["q"] == "question"
         assert new_card.fact.data["a"] == "answer"
         
-        if old_card_1.fact_view.id == 1:
+        if old_card_1.fact_view.id == "1":
             assert new_card == old_card_1
             assert new_card != old_card_2 
         else:
@@ -532,7 +532,7 @@ class TestConvertCards:
         new_card = database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1_CLONED.my_1"
         
-        if old_card_1.fact_view.id == 1:
+        if old_card_1.fact_view.id == "1":
             assert new_card == old_card_1
             assert new_card != old_card_2
         else:

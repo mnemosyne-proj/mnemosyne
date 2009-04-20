@@ -22,7 +22,7 @@ class FrontToBack(CardType):
         self.fields.append(("a", _("Answer")))
 
         # Front-to-back.
-        v = FactView(1, _("Front-to-back"))
+        v = FactView("1", _("Front-to-back"))
         v.q_fields = ["q"]
         v.a_fields = ["a"]
         v.required_fields = ["q"]

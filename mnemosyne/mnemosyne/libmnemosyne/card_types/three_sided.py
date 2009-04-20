@@ -25,14 +25,14 @@ class ThreeSided(CardType):
         self.fields.append(("t", _("Translation")))
 
         # Recognition.
-        v = FactView(1, _("Recognition"))
+        v = FactView("1", _("Recognition"))
         v.q_fields = ["f"]
         v.a_fields = ["p", "t"]
         v.required_fields = ["f"]
         self.fact_views.append(v)
 
         # Production.
-        v = FactView(2, _("Production"))
+        v = FactView("2", _("Production"))
         v.q_fields = ["t"]
         v.a_fields = ["f", "p"]
         v.required_fields = ["t"]

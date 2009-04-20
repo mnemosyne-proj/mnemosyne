@@ -26,14 +26,14 @@ class Map(CardType, Plugin):
         self.fields.append(("marked", _("Marked map")))
         
         # Recognition.
-        v = FactView(1, _("Recognition"))
+        v = FactView("1", _("Recognition"))
         v.q_fields = ["marked"]
         v.a_fields = ["loc"]
         v.required_fields = ["marked", "loc"]
         self.fact_views.append(v)
 
         # Production.
-        v = FactView(2, _("Production"))
+        v = FactView("2", _("Production"))
         v.q_fields = ["loc", "blank"]
         v.a_fields = ["marked"]
         v.required_fields = ["loc", "blank", "marked"]
