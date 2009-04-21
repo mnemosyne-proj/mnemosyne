@@ -19,7 +19,7 @@ class Scheduler(object):
     def remove_from_queue(self, card):
         raise NotImplementedError
 
-    def get_new_card(self, learn_ahead=False):
+    def get_next_card(self, learn_ahead=False):
         raise NotImplementedError
 
     def process_answer(self, card, new_grade, dry_run=False):

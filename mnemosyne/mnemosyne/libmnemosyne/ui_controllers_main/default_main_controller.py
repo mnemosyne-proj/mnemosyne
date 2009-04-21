@@ -88,12 +88,15 @@ class DefaultMainController(UiControllerMain):
             if answer == 2: # Don't add.
                 return
         db.add_fact(fact)
+        cards = []
         for card in card_type.create_related_cards(fact):
             if grade != -1:
                 scheduler().do_first_rep(card, grade)
             card.categories = categories
             db.add_card(card)
+            cards.append(card)
         db.save()
+        return cards # For testability.
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
                              new_cat_names, correspondence, warn=True):

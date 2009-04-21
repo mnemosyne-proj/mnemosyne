@@ -31,16 +31,24 @@ easily, which allows plugin writers maximum flexibility.
 -Move to SQL as the storage backend, resulting in improved speed and memory
  usage, as well as better scalability for large decks. Majority of work done
  by Ed Bartosh.
+-Mnemosyne now saves after each reviewed card.
 -Intelligent sorting of categories containing numbers, so that you no longer
  have to call a category 'Lesson 01' instead of 'Lesson '1 to get the correct
  ordering (Mike Appleby).
 -Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
 
 
--Danish translation by Randi H.
--Esperanto translation by jchthys.	
-	
 
+MNEMOSYNE 1.2.1 : 2009-04-11
+
+-Fix bug so that vice versa cards now always start with grade 0.
+-Fix problems with missing locale under some unix systems.
+-Fix hang under Spanish translation.
+-Danish translation by Randi H.
+-Esperanto translation by jchthys.
+-updated Japanese translation by Patrick Kenny.
+
+	
 MNEMOSYNE 1.2 : 2008-11-25
 
 -Improved support for unicode in filenames and directories.

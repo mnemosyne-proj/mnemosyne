@@ -421,7 +421,8 @@ class Pickle(Database):
         return self.list_to_generator(cards, sort_key, limit)
                                       
     def cards_unseen(self, sort_key="", limit=-1):
-        cards = [c for c in self.cards if c.active and c.unseen == True]
+        cards = [c for c in self.cards if c.active and c.grade < 2 \
+                 and c.unseen == True]
         return self.list_to_generator(cards, sort_key, limit)
                                       
     def cards_learn_ahead(self, sort_key="", limit=-1):

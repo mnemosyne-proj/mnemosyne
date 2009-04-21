@@ -2,6 +2,8 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.component_manager import database
+
 
 class Card(object):
 
@@ -95,11 +97,13 @@ class Card(object):
         return self.fact.card_type.answer(self)
         
     interval = property(lambda self : self.next_rep - self.last_rep)
+
+    # TODO: needed?
     
     days_since_last_rep = property(lambda self : \
-                            database().days_since_start - self.last_rep)
+                            database().days_since_start() - self.last_rep)
                             
     days_until_next_rep = property(lambda self : \
-                            self.next_rep - database().days_since_start)
+                            self.next_rep - database().days_since_start())
 
 

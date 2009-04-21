@@ -608,7 +608,7 @@ class SQLite(Database):
     def cards_unseen(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)      
         return (self._get_card(cursor) for cursor in self.con.execute( \
-            """select * from cards where active=1 and unseen=1
+            """select * from cards where active=1 and unseen=1 and grade<2
             order by ? limit ?""", (sort_key, limit)))
     
     def cards_learn_ahead(self, sort_key="", limit=-1):

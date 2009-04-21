@@ -1,13 +1,6 @@
--update changelog
+-rename do first rep again to give initial grade
 
--announce new translations on website (Esperanto, Danish)
-
--allow non-unicode filenames: encode/decode in expand/contract path?
-
-
-* Mnemosyne 2.0:
-
--make fact view id a string for consistency reasons
+-write tests
 
 -return fact id as well
 
@@ -73,13 +66,15 @@
 
 -on import don't add cards for which card type is not present
 
+-import: duplicate check, ignore duplicates in answers
+
 -don't change card id on import from old files
 
 -migrate 1.x hack to map card type
 
 -warn when not importing a duplicate card
 
--save after import
+-save after import, close blueprint
 
 -backup after unloading, not after exiting
 
@@ -91,7 +86,7 @@
  T.<fixed card id for all pupils>.<pupil user id>?
 
 
--hang on spanish/german Qt translation?
+-allow non-unicode filenames: encode/decode in expand/contract path?
 
 
 -need to store parent of category?
@@ -118,8 +113,6 @@
  it to .mnemosyne by default?
 
 -adding a picture under Windows screws up / and \, and case
-
--ghost out 3.4 and 5 for unlearned cards?
 
 -easier function to do tag detection in plugin
 
@@ -148,7 +141,7 @@
 
 -basic graphical statistics
 
--import: duplicate check, ignore duplicates in answers
+
 
 -checkbox to include inactive cards in statistics?
 
@@ -182,11 +175,8 @@
 
 -update XML import/export to new database format
 
--autosave
 
 -teacher mode?
-
--make really sure the same question isn't asked twice in a row
 
 -bug in Qt? : shortcuts don't change back after changing 'show answer'
  button text
@@ -194,8 +184,6 @@
 -bug in Qt? : spaces around images are not respected.
 
 -cntrl enter in add and edit instead of clicking ok
-
--template for cards?
 
 -language specific card types (arabic, japanese, integrated dictionary lookup,
  http://lost-theory.org/ocrat/)
@@ -238,11 +226,7 @@ http://pythoscope.org/
 
 -add 'add card' option to deck manager?
 
--template expansion (disable add-vice-versa) ( both {../..} and {}..{})
-
 -mnemosyne analysis as plugin
-
--remap keys as plugin
 
 -active alert as plugin
 
@@ -265,13 +249,9 @@ Status: initial code written, but clean up needed.
 
 -sound recorder
 
--smarter sorting. See suggestios by larryrenslow
-
 -auto identifying similar cards
 
 -unify number shortcuts (with and without Ctrl)
-
--pop-up of context info
 
 -forward / backward when previewing cards in the database
 
@@ -294,7 +274,6 @@ Status: initial code written, but clean up needed.
 
 -undo last grade + keyboard shortcut
 
--better sound replay support, through clicking on an icon
 
 -integrate Mnemosyne analysis, advanced statistics, history,
  forgetting index, histogram of grades and intervals... (look at graphs
@@ -318,22 +297,8 @@ Status: initial code written, but clean up needed.
 
 -hints? separate mnemonics?
 
--swac plugin
+-swac plugin, smart.fm
 
 -corner case: If M > 0 and k < 0 then (a,b) is a local maximum
 If M > 0 and k > 0 then (a,b) is a local minimum: eats < ... >
-
-
-
-* Plasma widget:
-
--Check Unicode
-
--set fonts, left align
-
--Allow clicking anywhere in the status window, rather than just on the
- text.
-
--Automatic detection of PyQt executable exit (bug in Superkaramba).
-
 

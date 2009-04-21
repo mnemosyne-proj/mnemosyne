@@ -107,7 +107,7 @@ class SM2Mnemosyne(Scheduler):
                                                      sort_key="random"))
         self.queue += 2*grade_0_selected + grade_1
         random.shuffle(self.queue)
-        if len(grade_0_selected) == limit:
+        if limit and len(grade_0_selected) == limit:
             return
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
@@ -126,7 +126,7 @@ class SM2Mnemosyne(Scheduler):
         grade_1 = list(db.cards_new_memorising(grade=1, sort_key="random"))
         self.queue += 2*grade_0_selected + grade_1
         random.shuffle(self.queue)
-        if len(grade_0_selected) + grade_0_in_queue == limit:
+        if limit and len(grade_0_selected) + grade_0_in_queue == limit:
             return
         # Now add some unseen cards.
         if config()["randomise_new_cards"]:
@@ -184,7 +184,7 @@ class SM2Mnemosyne(Scheduler):
                 self.queue.remove(i)
                 return
 
-    def get_new_card(self, learn_ahead=False):
+    def get_next_card(self, learn_ahead=False):
         # Populate queue if it is empty.
         if len(self.queue) == 0:
             self.rebuild_queue(learn_ahead)
