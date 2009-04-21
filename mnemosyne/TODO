@@ -1,7 +1,5 @@
 -rename do first rep again to give initial grade
 
--write tests
-
 -return fact id as well
 
 -keep fact ids in list

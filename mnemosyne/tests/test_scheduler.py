@@ -81,7 +81,22 @@ class TestScheduler:
                      grade=1, cat_names=["default"], warn=False)[0]
         config()["grade_0_items_at_once"] = 0
         
-        assert scheduler().get_next_card() != None        
+        assert scheduler().get_next_card() != None
+        
+    def test_grade_0_lime(self):
+        card_type = card_type_by_id("1")
+        for i in range(20):
+            fact_data = {"q": str(i), "a": "a"}
+            ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]    
+        config()["grade_0_items_at_once"] = 3
+        cards = set()
+        for i in range(10):
+            card = scheduler().get_next_card()
+            scheduler().process_answer(card, 0)
+            cards.add(card.id)
+        print cards
+        assert len(cards) == 3
         
     def teardown(self):
         finalise()
