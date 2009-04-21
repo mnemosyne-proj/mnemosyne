@@ -74,7 +74,7 @@ class DefaultMainController(UiControllerMain):
                 db.add_fact(fact)
                 for card in card_type.create_related_cards(fact):
                     if grade != -1:
-                        scheduler().do_first_rep(card, grade)
+                        scheduler().set_initial_grade(card, grade)
                     db.add_card(card)  
                 merged_fact_data = copy.copy(fact.data)
                 for duplicate in duplicates:
@@ -91,7 +91,7 @@ class DefaultMainController(UiControllerMain):
         cards = []
         for card in card_type.create_related_cards(fact):
             if grade != -1:
-                scheduler().do_first_rep(card, grade)
+                scheduler().set_initial_grade(card, grade)
             card.categories = categories
             db.add_card(card)
             cards.append(card)

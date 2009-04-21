@@ -20,17 +20,18 @@ class SM2Mnemosyne(Scheduler):
     def __init__(self):
         self.queue = []
         
-    def do_first_rep(self, card, grade):
+    def set_initial_grade(self, card, grade):
 
-        """The first repetition is treated specially, and gives longer
-        intervals, to allow for the fact that the user may have seen this
-        card before. This happens at different times depending on whether the
-        card was created interactively and given an initial grade there (in
-        which case this function is called) or whether the card was created
-        during import or from conversion from different card types, in which
-        case they are given their initial grade when they are encountered in
-        the interactive review process for the first time (by 'process_answer'
-        calling 'calculate_initial_interval').
+        """Called when cards are given their initial grade outside of the
+        review process, e.g. when the user gives an initial grade when
+        adding a new card in the GUI. Therefore, 'unseen' is still left to
+        True, as this card has not yet been seen in the interactive review
+        process.
+
+        Cards which don't have initial grade information available (e.g. for
+        cards created during import or conversion from different card type),
+        get their initial grade when they are encountered in the interactive
+        review process for the first time.
         
         In both cases, this initial grading is seen as the first repetition.
 
@@ -51,6 +52,13 @@ class SM2Mnemosyne(Scheduler):
         card.next_rep = card.last_rep + new_interval
 
     def calculate_initial_interval(self, grade):
+        
+        """The first repetition is treated specially, and gives longer
+        intervals, to allow for the fact that the user may have seen this
+        card before.
+
+        """
+        
         interval = (0, 0, 1, 3, 4, 5) [grade]
         return interval
 
@@ -208,9 +216,9 @@ class SM2Mnemosyne(Scheduler):
         actual_interval = days_since_start - card.last_rep
         if actual_interval == 0:
             actual_interval = 1 # Otherwise new interval can become zero.
-        if  (card.acq_reps == 0) and (card.ret_reps == 0):
+        if (card.acq_reps == 0) and (card.ret_reps == 0):
             # The card has not yet been given its initial grade, because it
-            # was imported.
+            # was imported or created during card type conversion.
             card.easiness = db.average_easiness()
             card.acq_reps = 1
             card.acq_reps_since_lapse = 1

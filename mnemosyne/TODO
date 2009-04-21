@@ -1,5 +1,3 @@
--rename do first rep again to give initial grade
-
 -return fact id as well
 
 -keep fact ids in list
@@ -47,7 +45,7 @@
 
 -option to reset scheduler
 
--add docs to always include do_first_rep in custom scheduler
+-add docs to always include set_initial_grade in custom scheduler
 
 -warn when importing card type with duplicate id
 
