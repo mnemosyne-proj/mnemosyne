@@ -80,9 +80,9 @@ class TestPlugin:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("666")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
-        fact = list(database().cards_unseen())[0].fact
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
+        fact = card.fact
         database().delete_fact_and_related_data(fact)
         
         p.deactivate() # Should work without problems.

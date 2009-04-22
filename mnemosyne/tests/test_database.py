@@ -33,16 +33,15 @@ class TestDatabase:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        old_card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                 grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
-        old_card = list(database().cards_unseen())[0]
         old_fact = old_card.fact
         database().unload()
 
         database().load(config()["path"])
         assert database().fact_count() == 1
-        card = list(database().cards_unseen())[0]
+        card = database().get_card(old_card._id)
         fact = card.fact
         
         assert fact.data["q"] == "question"
@@ -110,13 +109,13 @@ class TestDatabase:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         ui_controller_main().update_related_cards(fact, fact_data, card_type,
             new_cat_names=["default1"], correspondence=[])
-        new_card = list(database().cards_from_fact(fact))[0]
+        new_card = database().get_card(card._id)
         assert new_card.categories[0].name == "default1"     
         
     @raises(LoadError)
@@ -127,10 +126,10 @@ class TestDatabase:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         fact.card_type.clone("my_1")
         
         new_card_type = card_type_by_id("1_CLONED.my_1")
@@ -144,7 +143,8 @@ class TestDatabase:
         initialise(os.path.abspath("dot_test"))
         database().load(config()["path"])
         assert database().fact_count() == 1
-        fact = list(database().cards_unseen())[0].fact
+        _card_id, _fact_id = list(database().cards_unseen())[0]
+        fact = database().get_fact(_fact_id)
         card_type = card_type_by_id("1_CLONED.my_1")        
         assert fact.card_type.id == "1_CLONED.my_1"
         assert fact.card_type == card_type
@@ -158,10 +158,10 @@ class TestDatabase:
                      "blank": "blank",
                      "marked": "marked"}
         card_type = card_type_by_id("4")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         fact.card_type.clone("my_4")
         
         new_card_type = card_type_by_id("4_CLONED.my_4")
@@ -175,7 +175,8 @@ class TestDatabase:
         initialise(os.path.abspath("dot_test"))
         database().load(config()["path"])
         assert database().fact_count() == 1
-        fact = list(database().cards_unseen())[0].fact
+        _card_id, _fact_id = list(database().cards_unseen())[0]
+        fact = database().get_fact(_fact_id)
         card_type = card_type_by_id("4")           
         card_type = card_type_by_id("4_CLONED.my_4")        
         assert fact.card_type.id == "4_CLONED.my_4"
@@ -200,11 +201,11 @@ class TestDatabase:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         database().delete_fact_and_related_data(fact)
         
         assert database().fact_count() == 0
@@ -220,10 +221,10 @@ class TestDatabase:
                      "blank": "blank",
                      "marked": "marked"}
         card_type = card_type_by_id("4")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         fact.card_type.clone("my_4")
         
         new_card_type = card_type_by_id("4_CLONED.my_4")
@@ -257,10 +258,10 @@ class TestDatabase:
                      "blank": "blank",
                      "marked": "marked"}
         card_type = card_type_by_id("4")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         fact.card_type.clone("my_4")
         
         new_card_type = card_type_by_id("4_CLONED.my_4")
@@ -326,9 +327,9 @@ class TestDatabase:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
-        fact = list(database().cards_unseen())[0].fact
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
+        fact = card.fact
 
         fact_data = {"q": "question_",
                      "a": "answer_"}

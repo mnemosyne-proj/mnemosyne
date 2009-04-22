@@ -31,11 +31,11 @@ class TestConvertCards:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
         
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         old_card = copy.deepcopy(database().cards_from_fact(fact)[0])
         
         new_fact_data = {"q": "question2",                    
@@ -70,11 +70,11 @@ class TestConvertCards:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("2")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -106,11 +106,11 @@ class TestConvertCards:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         old_card = copy.deepcopy(database().cards_from_fact(fact)[0])
                 
         new_fact_data = {"f": "foreign word",
@@ -145,11 +145,11 @@ class TestConvertCards:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         old_card = copy.deepcopy(database().cards_from_fact(fact)[0])
                 
         new_fact_data = {"f": "foreign word",
@@ -185,11 +185,11 @@ class TestConvertCards:
                      "p": "pronunciation",
                      "t": "translation"}
         card_type = card_type_by_id("3")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -223,11 +223,11 @@ class TestConvertCards:
                      "p": "pronunciation",
                      "t": "translation"}
         card_type = card_type_by_id("3")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -260,11 +260,11 @@ class TestConvertCards:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("2")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -299,11 +299,11 @@ class TestConvertCards:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("2")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -339,11 +339,11 @@ class TestConvertCards:
                      "p": "pronunciation",
                      "t": "translation"}
         card_type = card_type_by_id("3")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -379,11 +379,11 @@ class TestConvertCards:
                      "p": "pronunciation",
                      "t": "translation"}
         card_type = card_type_by_id("3")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -422,11 +422,11 @@ class TestConvertCards:
         card_type.clone("my_3")
         card_type = card_type_by_id("3_CLONED.my_3")
         
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -460,11 +460,11 @@ class TestConvertCards:
                      "p": "pronunciation",
                      "t": "translation"}
         card_type = card_type_by_id("3")        
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)
@@ -506,11 +506,11 @@ class TestConvertCards:
         card_type.clone("my_3")
         card_type = card_type_by_id("3_CLONED.my_3")
         
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
 
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card_1, card_2 = database().cards_from_fact(fact)
         old_card_1 = copy.deepcopy(card_1)
         old_card_2 = copy.deepcopy(card_2)

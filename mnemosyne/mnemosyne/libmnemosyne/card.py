@@ -33,6 +33,10 @@ class Card(object):
     serve double duty to store this info, but having a separate flag for this
     is safer.
 
+    'id' is used to identify this object to the external world (logs, xml
+    files, ...), whereas '_id' is an internal id that could be different and
+    that can be used by the database for efficiency reasons.
+
     """
 
     def __init__(self, fact, fact_view):
@@ -40,6 +44,7 @@ class Card(object):
         self.fact_view = fact_view
         self.id = self.fact.id + "." + self.fact.card_type.id + "." + \
                   self.fact_view.id
+        self.id_ = None
         self.categories = []
         self.extra_data = {}
         self.seen_in_this_session = False

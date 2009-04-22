@@ -20,11 +20,11 @@ class TestHtmlCss:
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=0, cat_names=["default"])[0]
         ui_controller_main().file_save()
         
-        fact = list(database().cards_unseen())[0].fact
+        fact = card.fact
         card = database().cards_from_fact(fact)[0]
 
         assert card.question() == """<html><head><style type="text/css">

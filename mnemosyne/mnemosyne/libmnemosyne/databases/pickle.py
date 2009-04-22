@@ -235,6 +235,7 @@ class Pickle(Database):
     # Adding, modifying and deleting categories, facts and cards.
     
     def add_category(self, category):
+        category._id = category.id
         self.categories.append(category)
 
     def update_category(self, category):
@@ -266,6 +267,7 @@ class Pickle(Database):
             del category
 
     def add_fact(self, fact):
+        fact._id = fact.id
         self.load_failed = False
         self.facts.append(fact)
 
@@ -273,6 +275,7 @@ class Pickle(Database):
         return # Happens automatically.
         
     def add_card(self, card):
+        card._id = card.id
         self.load_failed = False
         self.cards.append(card)
         log().new_card(card)
@@ -299,17 +302,17 @@ class Pickle(Database):
             scheduler().rebuild_queue()     
         log().deleted_card(card)
         del card
-
-    # Retrieving categories, facts, cards.
-
-    def get_category(self, id):
-        return [c for c in self.categories if c.id == id][0]
     
-    def get_fact(self, id):
-        return [f for f in self.facts if f.id == id][0]
+    # Retrieving categories, facts, cards based on their internal id.
 
-    def get_card(self, id):
-        return [c for c in self.cards if c.id == id][0]
+    def get_category(self, _id):
+        return [c for c in self.categories if c._id == _id][0]
+    
+    def get_fact(self, _id):
+        return [f for f in self.facts if f._id == _id][0]
+
+    def get_card(self, _id):
+        return [c for c in self.cards if c._id == _id][0]
     
     # Activate and set cards in view.
 
@@ -390,8 +393,10 @@ class Pickle(Database):
             cards = (c.easiness for c in self.cards if \
                      c.easiness > 0)
             return sum(cards) / len([cards])
+
+    # Card queries used by the scheduler.
             
-    def list_to_generator(self, list, sort_key, limit):
+    def _list_to_generator(self, list, sort_key, limit):
         if list == None:
             raise StopIteration
         if sort_key != "random" and sort_key != "":
@@ -405,29 +410,27 @@ class Pickle(Database):
 
     def cards_due_for_ret_rep(self, sort_key="", limit=-1):
         days_since_start = self.start_date.days_since_start()
-        cards = [c for c in self.cards if c.active and c.grade >= 2 and \
-                    days_since_start >= c.next_rep]        
-        return self.list_to_generator(cards, sort_key, limit)
+        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+                 c.grade >= 2 and days_since_start >= c.next_rep]        
+        return self._list_to_generator(cards, sort_key, limit)
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
-        cards = [c for c in self.cards if c.active and c.grade == grade \
-                 and c.lapses > 0]
-        return self.list_to_generator(cards, sort_key, limit)
+        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+                 c.grade == grade and c.lapses > 0]
+        return self._list_to_generator(cards, sort_key, limit)
                                       
     def cards_new_memorising(self, grade, sort_key="", limit=-1):
-        cards = [c for c in self.cards if c.active and c.grade == grade \
-                 and c.lapses == 0 \
-                    and c.unseen == False]
-        return self.list_to_generator(cards, sort_key, limit)
+        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+                 c.grade == grade and c.lapses == 0 and c.unseen == False]
+        return self._list_to_generator(cards, sort_key, limit)
                                       
     def cards_unseen(self, sort_key="", limit=-1):
-        cards = [c for c in self.cards if c.active and c.grade < 2 \
-                 and c.unseen == True]
-        return self.list_to_generator(cards, sort_key, limit)
+        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+                 c.grade < 2 and c.unseen == True]
+        return self._list_to_generator(cards, sort_key, limit)
                                       
     def cards_learn_ahead(self, sort_key="", limit=-1):
         days_since_start = self.start_date.days_since_start()
-        cards = [c for c in self.cards if c.active and c.grade >= 2 and \
-                    days_since_start < c.next_rep]
-        return self.list_to_generator(cards, sort_key, limit)
-                                      
+        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+                 c.grade >= 2 and days_since_start < c.next_rep]
+        return self._list_to_generator(cards, sort_key, limit)

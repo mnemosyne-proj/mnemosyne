@@ -253,8 +253,10 @@ class SQLite(Database):
     # control over transaction granularity.
 
     def add_category(self, category):
-        self.con.execute("""insert into categories(name, id, needs_sync)
-            values(?,?,?)""", (category.name, category.id, category.needs_sync))
+        _id = self.con.execute("""insert into categories(name, id, needs_sync)
+            values(?,?,?)""", (category.name, category.id,
+                               category.needs_sync)).lastrowid
+        category._id = _id
         
     def delete_category(self, category):
         self.con.execute("delete from categories where id=?",
@@ -287,6 +289,7 @@ class SQLite(Database):
             creation_date, modification_date) values(?,?,?,?)""",
             (fact.id, fact.card_type.id, fact.creation_date,
              fact.modification_date)).lastrowid
+        fact._id = _fact_id
         # Create data_for_fact.        
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((_fact_id, key, value)
@@ -326,6 +329,7 @@ class SQLite(Database):
             card.last_rep, card.next_rep, card.unseen, extra_data,
             card.seen_in_this_session, card.needs_sync, card.active,
             card.in_view)).lastrowid
+        card._id = _card_id
         # Link card to its categories.
         # The categories themselves have already been created by
         # default_main_controller calling get_or_create_category_with_name.
@@ -337,10 +341,6 @@ class SQLite(Database):
         log().new_card(card)
 
     def update_card(self, card):
-        _fact_id = self.con.execute("select _id from facts where id=?",
-            (card.fact.id, )).fetchone()[0]
-        _card_id = self.con.execute("select _id from cards where id=?",
-            (card.id, )).fetchone()[0]
         if card.extra_data == {}:
             extra_data = "" # Save space.
         else:
@@ -350,57 +350,55 @@ class SQLite(Database):
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
             next_rep=?, unseen=?, extra_data=?, seen_in_this_session=?,
             needs_sync=?, active=?, in_view=? where _id=?""",
-            (_fact_id, card.fact_view.id, card.grade, card.easiness,
+            (card.fact._id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep, card.unseen, extra_data,
             card.seen_in_this_session, card.needs_sync, card.active,
-            card.in_view, _card_id))
+            card.in_view, card._id))
         # Link card to its categories.
         # The categories themselves have already been created by
         # default_main_controller calling get_or_create_category_with_name.
         self.con.execute("delete from categories_for_card where _card_id=?",
-                         (_card_id, ))
+                         (card._id, ))
         for cat in card.categories:
             _category_id = self.con.execute("""select _id from categories
                 where id=?""", (cat.id, )).fetchone()[0]
             self.con.execute("""insert into categories_for_card(_category_id,
-                _card_id) values(?,?)""", (_category_id, _card_id))            
+                _card_id) values(?,?)""", (_category_id, card._id))            
 
     def delete_fact_and_related_data(self, fact):
         for card in self.cards_from_fact(fact):
             self.delete_card(card)
-        _fact_id = self.con.execute("select _id from facts where id=?",
-            (fact.id, )).fetchone()[0]
-        self.con.execute("delete from facts where _id=?", (_fact_id, ))
+        self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
-                         (_fact_id, ))
+                         (fact._id, ))
         current_card = ui_controller_review().card
         if current_card and current_card.fact == fact:
             scheduler().rebuild_queue()
         del fact
         
     def delete_card(self, card):
-        _card_id = self.con.execute("select _id from cards where id=?",
-            (card.id, )).fetchone()[0]
-        self.con.execute("delete from cards where _id=?", (_card_id, ))
+        self.con.execute("delete from cards where _id=?", (card._id, ))
         self.con.execute("delete from categories_for_card where _card_id=?",
-                         (_card_id, ))
-        for cat in card.categories:
-            self.remove_category_if_unused(cat)
+                         (card._id, ))
+        for category in card.categories:
+            self.remove_category_if_unused(category)
         if ui_controller_review().card == card:
             scheduler().rebuild_queue()        
         log().deleted_card(card)
         del card
-        
-    # Retrieve categories, facts and cards.
 
-    def get_category(self, id):
+    # Retrieve categories, facts and cards using their internal id.
+
+    def get_category(self, _id):
         sql_res = self.con.execute("""select *
-            from categories where id=?""", (id, )).fetchone()
-        return Category(sql_res["name"], sql_res["id"])
-        
-    def _get_fact(self, _id):        
+            from categories where _id=?""", (_id, )).fetchone()
+        category = Category(sql_res["name"], sql_res["id"])
+        category._id = sql_res["_id"]
+        return category
+    
+    def get_fact(self, _id):        
         sql_res = self.con.execute("select * from facts where _id=?",
                                    (_id, )).fetchone()
         if not sql_res:
@@ -413,22 +411,20 @@ class SQLite(Database):
         fact = Fact(data, card_type_by_id(sql_res["card_type_id"]),
                     id=sql_res["id"],
                     creation_date=sql_res["creation_date"])
+        fact._id = sql_res["_id"]
         fact.modification_date = sql_res["modification_date"]
         fact.needs_sync = sql_res["needs_sync"]
         return fact
 
-    def get_fact(self, id):
-        _fact_id = self.con.execute("select _id from facts where id=?",
-                                   (id, )).fetchone()[0]
-        return self.get_fact(_fact_id)
-    
-    def _get_card(self, sql_res):
-        fact = self._get_fact(sql_res["_fact_id"])
+    def get_card(self, _id):
+        sql_res = self.con.execute("select * from cards where _id=?",
+                                   (_id, )).fetchone()
+        fact = self.get_fact(sql_res["_fact_id"])
         for view in fact.card_type.fact_views:
             if view.id == sql_res["fact_view_id"]:
                 card = Card(fact, view)
                 break
-        for attr in ("id", "grade", "easiness", "acq_reps", "ret_reps",
+        for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
             "last_rep", "next_rep", "unseen", "seen_in_this_session",
             "needs_sync", "active", "in_view"):
@@ -442,11 +438,6 @@ class SQLite(Database):
             categories_for_card as cat_c where cat_c._category_id=cat._id and
             cat_c._card_id=?""", (sql_res["_id"], ))]        
         return card
-
-    def get_card(self, id):
-        sql_res = self.con.execute("select * from cards where id=?",
-            (id, )).fetchone()
-        return self._get_card(sql_res)
 
     # Activate cards.
     
@@ -491,11 +482,9 @@ class SQLite(Database):
             self.con.execute("select name from categories"))
 
     def cards_from_fact(self, fact):
-        _fact_id = self.con.execute("select _id from facts where id=?",
-            (fact.id, )).fetchone()[0]
-        return list(self._get_card(cursor) for cursor in
-            self.con.execute("select * from cards where _fact_id=?",
-                             (_fact_id, )))
+        return list(self.get_card(cursor[0]) for cursor in
+            self.con.execute("select _id from cards where _fact_id=?",
+                             (fact._id, )))
 
     def has_fact_with_data(self, fact_data, card_type):
         fact_ids = set()
@@ -524,25 +513,20 @@ class SQLite(Database):
 
     def duplicates_for_fact(self, fact):
         duplicates = []
-        sql_res = self.con.execute("select _id from facts where id=?",
-            (fact.id, )).fetchone()
-        if not sql_res:
-            return duplicates
-        _fact_id = sql_res[0]
         for cursor in self.con.execute("""select _id from facts
             where card_type_id=? and not _id=?""",
-            (fact.card_type.id, _fact_id)):
+            (fact.card_type.id, fact._id)):
             data = dict([(cursor2["key"], cursor2["value"]) for cursor2 in \
                 self.con.execute("""select * from data_for_fact where
                 _fact_id=?""", (cursor[0], ))])
             for field in fact.card_type.unique_fields:
                 if data[field] == fact[field]:
-                    duplicates.append(self._get_fact(cursor[0]))
+                    duplicates.append(self.get_fact(cursor[0]))
                     break
         return duplicates
 
     def card_types_in_use(self):
-        return [card_type_by_id(cursor[0]) for cursor in self.con.execute\
+        return [card_type_by_id(cursor[0]) for cursor in self.con.execute \
             ("select distinct card_type_id from facts")]
 
     def fact_count(self):
@@ -576,6 +560,8 @@ class SQLite(Database):
         else:
             return 2.5
 
+    # Card queries used by the scheduler.
+    
     def _parse_sort_key(self, sort_key):
         if sort_key == "":
             return "_id"
@@ -587,33 +573,35 @@ class SQLite(Database):
 
     def cards_due_for_ret_rep(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
-        return (self._get_card(cursor) for cursor in self.con.execute( \
-            """select * from cards where active=1 and grade>=2 and
-            ? >= next_rep order by ? limit ?""",
+        return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
+            select _id, _fact_id from cards where
+            active=1 and grade>=2 and ?>=next_rep order by ? limit ?""",
             (self.start_date.days_since_start(), sort_key, limit)))
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
-        return (self._get_card(cursor) for cursor in self.con.execute( \
-            """select * from cards where grade=? and lapses>0
-            order by ? limit ?""", (grade, sort_key, limit)))
+        return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
+            select _id, _fact_id from cards where
+            active=1 and grade=? and lapses>0 order by ? limit ?""",
+            (grade, sort_key, limit)))
 
     def cards_new_memorising(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
-        return (self._get_card(cursor) for cursor in self.con.execute( \
-            """select * from cards where active=1 and grade=? and
-            lapses=0 and unseen=0 order by ? limit ?""",
-            (grade, sort_key, limit)))
+        return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
+            select _id, _fact_id from cards where
+            active=1 and grade=? and lapses=0 and unseen=0
+            order by ? limit ?""", (grade, sort_key, limit)))
     
     def cards_unseen(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)      
-        return (self._get_card(cursor) for cursor in self.con.execute( \
-            """select * from cards where active=1 and unseen=1 and grade<2
-            order by ? limit ?""", (sort_key, limit)))
+        return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
+            select _id, _fact_id from cards where
+            active=1 and unseen=1 and grade<2 order by ? limit ?""",
+            (sort_key, limit)))
     
     def cards_learn_ahead(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
-        return (self._get_card(cursor) for cursor in self.con.execute( \
-            """select * from cards where active=1 and grade>=2 and
-            ? < next_rep order by ? limit ?""",
+        return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
+            select _id, _fact_id from cards where
+            active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
             (self.start_date.days_since_start(), sort_key, limit)))

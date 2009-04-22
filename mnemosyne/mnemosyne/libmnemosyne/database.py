@@ -73,18 +73,18 @@ class Database(object):
 
     def delete_card(self, card):
         raise NotImplementedError
-
-    # Retrieving categories, facts, cards.
-
-    def get_category(self, id):
+    
+    # Retrieving categories, facts, cards using their internal id.
+    
+    def get_category(self, _id):
         raise NotImplementedError
     
-    def get_fact(self, id):
+    def get_fact(self, _id):
         raise NotImplementedError
 
-    def get_card(self, id):
+    def get_card(self, _id):
         raise NotImplementedError
-
+    
     # Activate or put cards in view.
 
     def set_cards_active(self, card_types_fact_views, categories):
@@ -146,12 +146,13 @@ class Database(object):
     def average_easiness(self):
         raise NotImplementedError
 
-    # The following functions should return an iterator, in order to 
-    # save memory. "sort_key" is a string of on attribute of card to be used
-    # for sorting, with "" standing for the order in which the cards where
-    # added (no sorting), and "random" is used to shuffle the cards.
-    # "limit" is used to limit the number of cards returned by the iterator,
-    # with -1 meaning no limit.
+    # Card queries used by the scheduler. Returns tuples of internal ids
+    # (_card_id, _fact_id) Should function as an iterator in order to save
+    # memory. "sort_key" is a string of an attribute of Card to be used for
+    # sorting, with "" standing for the order in which the cards where added
+    # (no sorting), and "random" is used to shuffle the cards. "limit" is
+    # used to limit the number of cards returned by the iterator, with -1
+    # meaning no limit.
     
     def cards_due_for_ret_rep(self, sort_key="", limit=-1):
         raise NotImplementedError

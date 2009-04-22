@@ -19,6 +19,7 @@ class SM2Mnemosyne(Scheduler):
     
     def __init__(self):
         self.queue = []
+        self.facts = [] # To make sure no related cards are shown together.
         
     def set_initial_grade(self, card, grade):
 
@@ -78,6 +79,7 @@ class SM2Mnemosyne(Scheduler):
 
     def rebuild_queue(self, learn_ahead=False):
         self.queue = []
+        self.facts = []
         ui_controller_review().clear()
         db = database()
         if not db.is_loaded():
@@ -86,76 +88,72 @@ class SM2Mnemosyne(Scheduler):
         # first do those that have the shortest interval, as being a day
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 50.
-        # Get only one card at the time, and let repeated calls to
-        # 'rebuild_queue' do the rest.
-        try:
-            self.queue = [db.cards_due_for_ret_rep(sort_key="interval").next()]
+        for _card_id, _fact_id in \
+                db.cards_due_for_ret_rep(sort_key="interval"):
+            self.queue.append(_card_id)
+            self.facts.append(_fact_id)
+            # Do a trade-off between memory usage and redoing the query.
+            if len(self.queue) > 50:
+                break
+        if len(self.queue):
             return
-        except:
-            pass
         # Now rememorise the cards that we got wrong during the last stage.
         # Concentrate on only a limited number of grade 0 cards, in order to
-        # avoid too long intervals between repetitions. If there are too few
-        # cards left in the queue, append more new cards to keep some
-        # spread between these last cards.
+        # avoid too long intervals between repetitions.
         limit = config()["grade_0_items_at_once"]
-        grade_0 = db.cards_due_for_final_review(grade=0, sort_key="random")
-        grade_0_selected = []
-        if limit != 0:
-            for i in grade_0:
-                # TODO: won't these show up later the same day?
-                for j in grade_0_selected:
-                    if i.fact == j.fact:
-                        break
-                else:
-                    grade_0_selected.append(i)
-                if len(grade_0_selected) == limit:
-                    break
-        grade_1 = list(db.cards_due_for_final_review(grade=1,
-                                                     sort_key="random"))
-        self.queue += 2*grade_0_selected + grade_1
+        grade_0_in_queue = 0
+        for _card_id, _fact_id in db.cards_due_for_final_review(grade=0):
+            if _fact_id not in self.facts:
+                if limit and grade_0_in_queue < limit:
+                    self.queue.append(_card_id)
+                    self.queue.append(_card_id)
+                    self.facts.append(_fact_id)
+                    grade_0_in_queue += 1
+                if limit and grade_0_in_queue == limit:
+                    break       
+        for _card_id, _fact_id in db.cards_due_for_final_review(grade=1):
+            if _fact_id not in self.facts:
+                self.queue.append(_card_id)
+                self.facts.append(_fact_id)
         random.shuffle(self.queue)
-        if limit and len(grade_0_selected) == limit:
+        # Only stop when we reach the grade 0 limit. Otherwise, keep going
+        # to add some extra cards to get more spread.
+        if limit and grade_0_in_queue == limit:
             return
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
-        grade_0 = db.cards_new_memorising(grade=0, sort_key="random")
-        grade_0_in_queue = len(grade_0_selected)
-        grade_0_selected = []
-        if limit != 0:
-            for i in grade_0:
-                for j in grade_0_selected:
-                    if i.fact == j.fact:
-                        break
-                else:
-                    grade_0_selected.append(i)
-                if len(grade_0_selected) + grade_0_in_queue == limit:
-                    break
-        grade_1 = list(db.cards_new_memorising(grade=1, sort_key="random"))
-        self.queue += 2*grade_0_selected + grade_1
+        for _card_id, _fact_id in db.cards_new_memorising(grade=0):
+            if _fact_id not in self.facts:
+                if limit and grade_0_in_queue < limit:
+                    self.queue.append(_card_id)
+                    self.queue.append(_card_id)
+                    self.facts.append(_fact_id)
+                    grade_0_in_queue += 1
+                if limit and grade_0_in_queue == limit:
+                    break       
+        for _card_id, _fact_id in db.cards_new_memorising(grade=1):
+            if _fact_id not in self.facts:
+                self.queue.append(_card_id)
+                self.facts.append(_fact_id)
         random.shuffle(self.queue)
-        if limit and len(grade_0_selected) + grade_0_in_queue == limit:
+        # Only stop when we reach the grade 0 limit. Otherwise, keep going
+        # to add some extra cards to get more spread.
+        if limit and grade_0_in_queue == limit:
             return
-        # Now add some unseen cards.
+        # Now add some unseen cards. Unseen cards (with grade -1) are treated
+        # as grade 0 cards here in terms of limiting the queue size.
         if config()["randomise_new_cards"]:
             sort_key = "random"
         else:
             sort_key = ""
-        unseen = db.cards_unseen(sort_key=sort_key)
-        grade_0_in_queue = sum(1 for i in self.queue if i.grade == 0)/2
-        grade_0_selected = []
-        try:
-            while True:
-                new_card = unseen.next()
-                for i in grade_0_selected:
-                    if new_card.fact == i.fact:
-                        break
-                else:
-                    grade_0_selected.append(new_card)
-                if limit and len(grade_0_selected) + grade_0_in_queue == limit:
-                    raise StopIteration
-        except StopIteration:
-            self.queue += grade_0_selected
+        for _card_id, _fact_id in db.cards_unseen():
+            if _fact_id not in self.facts:
+                if limit and grade_0_in_queue < limit:
+                    self.queue.append(_card_id)
+                    self.facts.append(_fact_id)
+                    grade_0_in_queue += 1
+                if limit and grade_0_in_queue == limit:
+                    break 
         if len(self.queue):
             return
         # If we get to here, there are no more scheduled cards or new cards
@@ -171,25 +169,9 @@ class SM2Mnemosyne(Scheduler):
         # Note: this will not revisit failed cards when learning ahead.
         if learn_ahead == False:
             return
-        else:
-            for card in db.cards_learn_ahead(sort_key="next_rep"):
-                self.queue.append(card)
-                if len(self.queue) >= 5:
-                    return
-
-    def in_queue(self, card):
-        return card in self.queue
-
-    def remove_from_queue(self, card):
-
-        """Remove a single instance of a card from the queue. Necessary when
-        the queue needs to be rebuilt, and there is still a question pending.
-
-        """
-
-        for i in self.queue:
-            if i.id == card.id:
-                self.queue.remove(i)
+        for _card_id, _fact_id in db.cards_learn_ahead(sort_key="next_rep"):
+            self.queue.append(_card_id)
+            if len(self.queue) >= 5:
                 return
 
     def get_next_card(self, learn_ahead=False):
@@ -199,9 +181,8 @@ class SM2Mnemosyne(Scheduler):
             if len(self.queue) == 0:
                 return None
         # Pick the first card and remove it from the queue.
-        card = self.queue[0]
-        self.queue.remove(card)
-        return card
+        _card_id = self.queue.pop(0)
+        return database().get_card(_card_id)
 
     def process_answer(self, card, new_grade, dry_run=False):
         db = database()
@@ -226,10 +207,8 @@ class SM2Mnemosyne(Scheduler):
             # Make sure the second copy of a grade 0 card doesn't show
             # up again.
             if not dry_run and card.grade == 0 and new_grade in [2,3,4,5]:
-                for i in self.queue:
-                    if i.id == card.id:
-                        self.queue.remove(i)
-                        break
+                if card._id in self.queue:
+                    self.queue.remove(card._id)    
         elif card.grade in [0,1] and new_grade in [0,1]:
             # In the acquisition phase and staying there.
             card.acq_reps += 1
@@ -243,10 +222,8 @@ class SM2Mnemosyne(Scheduler):
              # Make sure the second copy of a grade 0 card doesn't show
              # up again.
              if not dry_run and card.grade == 0:
-                 for i in self.queue:
-                     if i.id == card.id:
-                         self.queue.remove(i)
-                         break
+                if card._id in self.queue:
+                    self.queue.remove(card._id)
         elif card.grade in [2,3,4,5] and new_grade in [0,1]:
              # In the retention phase and dropping back to the
              # acquisition phase.

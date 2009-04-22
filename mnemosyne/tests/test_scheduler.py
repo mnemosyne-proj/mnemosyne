@@ -83,7 +83,7 @@ class TestScheduler:
         
         assert scheduler().get_next_card() != None
         
-    def test_grade_0_lime(self):
+    def test_grade_0_limit(self):
         card_type = card_type_by_id("1")
         for i in range(20):
             fact_data = {"q": str(i), "a": "a"}

@@ -1,8 +1,6 @@
 -return fact id as well
 
--keep fact ids in list
-
--only create one card at the time
+-make use of fact that we store _id too.
 
 -replace 'seen in this session' by 'seen in this hand?'
 

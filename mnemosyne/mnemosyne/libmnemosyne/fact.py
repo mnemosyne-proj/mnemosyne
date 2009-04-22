@@ -22,6 +22,10 @@ class Fact(object):
     Creating and modification dates are stored as days since the creation of the
     database (see start_date.py for rationale).
 
+    'id' is used to identify this object to the external world (logs, xml
+    files, ...), whereas '_id' is an internal id that could be different and
+    that can be used by the database for efficiency reasons.
+
     When making new card types, it is best to reuse the keys below as much
     as possible, to facilitate conversion between card types:
 
@@ -45,6 +49,7 @@ class Fact(object):
         if id is None: 
             id = str(uuid.uuid4())
         self.id = id
+        self._id = None
         self.needs_sync = True
 
     def __eq__(self, other):
