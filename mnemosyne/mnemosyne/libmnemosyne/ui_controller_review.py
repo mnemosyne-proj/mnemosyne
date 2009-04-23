@@ -13,9 +13,16 @@ class UiControllerReview(object):
     def __init__(self):
         self.widget = None
         self.card = None
+        self.learning_ahead = False
 
-    def clear(self):
-        raise NotImplementedError        
+    def reset(self):
+        raise NotImplementedError
+
+    def rollover(self):
+
+        """To be called when a new day starts."""
+        
+        pass
 
     def new_question(self, learn_ahead=False):
         raise NotImplementedError    

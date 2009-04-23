@@ -72,6 +72,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ui_controller_main().widget = self
         self.update_review_widget()
         ui_controller_review().new_question()
+        self.timer = QTimer()
+        self.connect(self.timer, SIGNAL("timeout()"), ui_controller_review().rollover)
+        self.timer.start(1000 * 60 * 5)
 
     def information_box(self, message, OK_string=_("&OK")):
         QMessageBox.information(None,  _("Mnemosyne"), message, OK_string)

@@ -32,6 +32,9 @@ easily, which allows plugin writers maximum flexibility.
  usage, as well as better scalability for large decks. Majority of work done
  by Ed Bartosh.
 -Mnemosyne now saves after each reviewed card.
+-Avoid showing the same card twice in a row.
+-Cards which are failed during learning ahead are now periodically brought
+ back in the learning process.
 -Intelligent sorting of categories containing numbers, so that you no longer
  have to call a category 'Lesson 01' instead of 'Lesson '1 to get the correct
  ordering (Mike Appleby).

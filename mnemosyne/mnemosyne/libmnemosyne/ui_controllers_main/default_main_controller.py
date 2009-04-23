@@ -96,6 +96,8 @@ class DefaultMainController(UiControllerMain):
             db.add_card(card)
             cards.append(card)
         db.save()
+        if ui_controller_review().learning_ahead == True:
+            ui_controller_review().reset()
         return cards # For testability.
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
@@ -161,6 +163,8 @@ class DefaultMainController(UiControllerMain):
                     db.add_card(card)
                 for card in updated_cards:
                     db.update_card(card)
+                if new_cards and ui_controller_review().learning_ahead == True:
+                    ui_controller_review().reset()
                     
         # Update facts and cards.
         new_cards, updated_cards, deleted_cards = \
@@ -174,6 +178,8 @@ class DefaultMainController(UiControllerMain):
             db.add_card(card)
         for card in updated_cards:
             db.update_card(card)
+        if new_cards and ui_controller_review().learning_ahead == True:
+            ui_controller_review().reset()
             
         # Update categories.
         old_cats = set()

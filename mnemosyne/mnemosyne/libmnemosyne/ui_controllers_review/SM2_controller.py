@@ -45,17 +45,29 @@ class SM2Controller(UiControllerReview):
 
     def __init__(self):
         UiControllerReview.__init__(self)
-
-    def clear(self):
+        self.reset()
+        
+    def reset(self):
+        self.card = None
         self.state = "EMPTY"
-        self.card = None        
+        self.learning_ahead = False
+        scheduler().reset()
 
-    def new_question(self, learn_ahead=False):
+    def rollover(self):
+
+        """To be called when a new day starts."""
+
+        ui_controller_main().widget.update_status_bar()
+        if not self.card or self.learning_ahead:
+            self.reset()
+            self.new_question()
+
+    def new_question(self):
         if database().card_count() == 0:
             self.state = "EMPTY"
             self.card = None
         else:
-            self.card = scheduler().get_next_card(learn_ahead)         
+            self.card = scheduler().get_next_card(self.learning_ahead)         
             if self.card != None:
                 self.state = "SELECT SHOW"
             else:
@@ -65,7 +77,8 @@ class SM2Controller(UiControllerReview):
 
     def show_answer(self):
         if self.state == "SELECT AHEAD":
-            self.new_question(learn_ahead=True)
+            self.learning_ahead = True
+            self.new_question()
         else:
             stopwatch.stop()
             self.state = "SELECT GRADE"

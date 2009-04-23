@@ -10,6 +10,7 @@ from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 
 class TestScheduler:
@@ -98,7 +99,7 @@ class TestScheduler:
         
     def test_grade_0_limit(self):
         card_type = card_type_by_id("1")
-        for i in range(20):
+        for i in range(10):
             fact_data = {"q": str(i), "a": "a"}
             ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=0, cat_names=["default"], warn=False)[0]    
@@ -109,6 +110,31 @@ class TestScheduler:
             scheduler().process_answer(card, 0)
             cards.add(card._id)
         assert len(cards) == 3
+
+    def test_learn_ahead(self):
+        card_type = card_type_by_id("1")
+        for i in range(5):
+            fact_data = {"q": str(i), "a": "a"}
+            ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=5, cat_names=["default"], warn=False)[0]
+        ui_controller_review().learning_ahead = True
+        for i in range(30):
+            card = scheduler().get_next_card(learn_ahead=True)
+            scheduler().process_answer(card, 5)
+            
+    def test_learn_ahead_2(self):
+        card_type = card_type_by_id("1")
+        fact_data = {"q": "1", "a": "a"}
+        old_card = ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=5, cat_names=["default"], warn=False)[0]
+        ui_controller_review().learning_ahead = True      
+        for i in range(3):
+            card = scheduler().get_next_card(learn_ahead=True)
+            scheduler().process_answer(card, 5)
+        fact_data = {"q": "2", "a": "a"}
+        new_card = ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]
+        assert scheduler().get_next_card() == new_card
         
     def teardown(self):
         finalise()
