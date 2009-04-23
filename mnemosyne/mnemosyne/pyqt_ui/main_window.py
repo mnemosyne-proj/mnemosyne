@@ -69,7 +69,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             filename = os.path.join(os.path.split(filename)[0],"___TMP___" \
                                     + database().suffix)
             database().new(filename)
-        ui_controller_main().widget = self
         self.update_review_widget()
         ui_controller_review().new_question()
         self.timer = QTimer()

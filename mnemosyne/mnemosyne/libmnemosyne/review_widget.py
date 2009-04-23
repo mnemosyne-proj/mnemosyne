@@ -9,22 +9,22 @@ class ReviewWidget(object):
     in order to be used by the review controller."""
     
     def set_window_title(self, title):
-        raise NotImplementedError
+        pass
         
     def enable_edit_current_card(self, bool):
-        raise NotImplementedError
+        pass
         
     def enable_delete_current_card(self, bool):
-        raise NotImplementedError
+        pass
         
     def enable_edit_deck(self, bool): 
-        raise NotImplementedError
+        pass
         
     def question_box_visible(self, bool):
-        raise NotImplementedError
+        pass
         
     def answer_box_visible(self, bool):
-        raise NotImplementedError
+        pass
         
     def set_question_label(self, text):
         raise NotImplementedError
@@ -42,13 +42,13 @@ class ReviewWidget(object):
         raise NotImplementedError
         
     def update_show_button(self, text, default, enabled): 
-        raise NotImplementedError
+        pass
         
     def set_grades_title(self, text): 
-        raise NotImplementedError
+        pass
             
     def set_grade_text(self, grade, text): 
-        raise NotImplementedError
+        pass
             
     def set_grade_tooltip(self, grade, text): 
-        raise NotImplementedError
+        pass

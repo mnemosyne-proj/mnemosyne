@@ -1,19 +1,22 @@
 #!/usr/bin/env python
 
-##############################################################################
 #
 # Mnemosyne <Peter.Bienstman@UGent.be>
 #
-##############################################################################
 
-import sys, os, locale
-import mnemosyne.ppygui_ui.simulator.api as gui
+import gettext
+_ = gettext.gettext
 
-#from mnemosyne.core import basedir, get_config, set_config, \
-#                           initialise, finalise
-#from mnemosyne.core import *
-from mnemosyne.ppygui_ui.main_dlg import *
+import sys
+import os
+import locale
 from optparse import OptionParser
+
+import simulator.api as gui
+
+from mnemosyne.libmnemosyne import initialise, finalise
+from mnemosyne.libmnemosyne.component_manager import config
+from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 
 # Parse options.
 
@@ -40,26 +43,10 @@ elif os.path.exists(os.path.join(os.getcwdu(), "_mnemosyne")):
 
 
 # Filename argument.
-
 if len(args) > 0:
     filename = os.path.abspath(args[0])
 else:
     filename = None
-
-# Create main widget.
-#a = QApplication(sys.argv)
-
-# Under Windows, move out of library.zip to get the true prefix.
-
-if sys.platform == "win32":
-    prefix = os.path.split(prefix)[0]
-    prefix = os.path.split(prefix)[0]
-    prefix = os.path.split(prefix)[0]
-    print ("prefix: " + prefix)
-
-
-# Get the locale from the user's config.py, to install the translator as
-# soon as possible.
 
 sys.path.insert(0, basedir)
 
@@ -78,27 +65,14 @@ except:
 
 # Check if there is another instance of Mnemosyne running.
 
-
-
-#        sys.exit()
-#initialise(basedir)
+initialise(basedir)
 
 # Start program.
 
-#w = MainDlg(filename)
-
-#if get_config("first_run") == True:
-#    set_config("first_run", False)
-#
-#if filename == None:
-#    filename = get_config("path")
-#
-#load_database(filename)
+from main_dlg import MainFrame
 
 app = gui.Application()
 app.mainframe = MainFrame()
 app.run()
-
-# Execute loop here
 
 finalise()

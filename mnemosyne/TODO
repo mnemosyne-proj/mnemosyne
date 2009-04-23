@@ -1,3 +1,5 @@
+-review widget bind controller slots directly
+
 -cramming scheduler
 
 -add docs to always include set_initial_grade in custom scheduler

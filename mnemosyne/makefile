@@ -34,6 +34,9 @@ profile: install-virtual-env
 benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
+wm: install-virtual-env
+	./bin/python mnemosyne/ppygui_ui/ppyui.py -d dot_mnemosyne2
+
 windows:
 	rmdir /S /Q dist
 	rmdir /S /Q build
