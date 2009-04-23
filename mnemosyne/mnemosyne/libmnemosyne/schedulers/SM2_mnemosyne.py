@@ -233,6 +233,12 @@ class SM2Mnemosyne(Scheduler):
         return database().get_card(_card_id)
 
     def allow_prefetch(self):
+
+        """Can we display a new card before having processed the grading of
+        the previous one?.
+
+        """
+                
         # Make sure there are enough cards left to find one which is not a
         # duplicate.
         return len(self.queue) >= 3

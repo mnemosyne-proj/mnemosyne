@@ -65,7 +65,7 @@ class TestDatabase:
         assert card.next_rep == old_card.next_rep
         assert card.unseen == old_card.unseen
         assert card.extra_data == old_card.extra_data
-        assert card.seen_in_this_session == old_card.seen_in_this_session
+        assert card.seen_in_this_hand == old_card.seen_in_this_hand
         assert card.needs_sync == old_card.needs_sync
         assert card.active == old_card.active
         assert card.in_view == old_card.in_view
@@ -82,7 +82,7 @@ class TestDatabase:
         card.next_rep = -8
         card.unseen = False
         card.extra_data = "extra"
-        card.seen_in_this_session = True
+        card.seen_in_this_hand = True
         card.needs_sync = True
         card.active = False
         card.in_view = False
@@ -100,7 +100,7 @@ class TestDatabase:
         assert card.next_rep == -8
         assert card.unseen == False
         assert card.extra_data == "extra"
-        assert card.seen_in_this_session == True
+        assert card.seen_in_this_hand == True
         assert card.needs_sync == True
         assert card.active == False
         assert card.in_view == False

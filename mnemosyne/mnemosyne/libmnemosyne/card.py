@@ -15,9 +15,8 @@ class Card(object):
     database. It's dictionary which should contain only standard Python
     objects.
 
-    'seen_in_this_session' is a variable used by the scheduler to save state.
-    ('session' is not the time the user has the program open, but is rather
-    one pass through the entire scheduler algorithmn.)
+    'seen_in_this_hand' is a variable used by the scheduler to save state.
+    ('hand' is typically one pass through the entire scheduler algorithmn.)
 
     'active' is used to determine whether a card is included in the review
     process. Currently, the UI allows setting cards active when then belong to
@@ -47,7 +46,7 @@ class Card(object):
         self.id_ = None
         self.categories = []
         self.extra_data = {}
-        self.seen_in_this_session = False
+        self.seen_in_this_hand = False
         self.needs_sync = True
         self.active = True
         self.in_view = True
@@ -63,6 +62,13 @@ class Card(object):
 
         """Used when creating a card for the first time, or when choosing
         'reset learning data' on import.
+
+        'acq_reps' and 'ret_reps' are the number of repetitions this card has
+        seen in the acquisition phase (grade 0 and 1) and the retention phase
+        (grades 3 through 5) respectively.
+
+        'lapses' is the number of times a card with grade 2 or higher was
+        forgotten, i.e. graded 0 or 1.
 
         'last_rep' and 'next_rep' are measured in days since the creation of
         the database. Note that these values should be stored as float in
@@ -102,8 +108,6 @@ class Card(object):
         return self.fact.card_type.answer(self)
         
     interval = property(lambda self : self.next_rep - self.last_rep)
-
-    # TODO: needed?
     
     days_since_last_rep = property(lambda self : \
                             database().days_since_start() - self.last_rep)

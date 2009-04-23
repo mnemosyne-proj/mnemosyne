@@ -74,6 +74,8 @@ class ComponentManager(object):
 
     def unregister(self, type, component, used_for=None):
         self.components[used_for][type].remove(component)
+        if type == "scheduler":
+            self.get_current("scheduler").reset()
 
     def get_all(self, type, used_for=None):
         

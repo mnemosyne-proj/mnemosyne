@@ -1,10 +1,4 @@
--update card docstrings, add stuff on all variables
-
 -cramming scheduler
-
--replace 'seen in this session' by 'seen in this hand?'
-
--call reset scheduler automatically after unloading old scheduler
 
 -add docs to always include set_initial_grade in custom scheduler
 
