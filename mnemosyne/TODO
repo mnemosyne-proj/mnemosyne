@@ -1,5 +1,3 @@
--keep track of stage, so that we can skip some queries.
-
 -adding new cards while in 'learn ahead of schedule' should break out of
  learning ahead (add 'cards added' slot to scheduler?)
 

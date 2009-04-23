@@ -107,8 +107,7 @@ class TestScheduler:
         for i in range(10):
             card = scheduler().get_next_card()
             scheduler().process_answer(card, 0)
-            cards.add(card.id)
-        print cards
+            cards.add(card._id)
         assert len(cards) == 3
         
     def teardown(self):

@@ -7,6 +7,9 @@ class Scheduler(object):
 
     name = ""
 
+    def reset(self):
+        raise NotImplementedError
+
     def set_initial_grade(self, card, grade):
         raise NotImplementedError
 
@@ -28,5 +31,3 @@ class Scheduler(object):
     def process_answer(self, card, new_grade, dry_run=False):
         raise NotImplementedError
 
-    def reset(self):
-        raise NotImplementedError

@@ -18,10 +18,14 @@ class SM2Mnemosyne(Scheduler):
     name = "SM2 Mnemosyne"
     
     def __init__(self):
+        self.reset()
+
+    def reset(self):
         self.queue = []
-        self.facts = [] # To make sure no related cards are shown together.
-        self.last_card = None
-        
+        self.facts = []
+        self.last_card = None # To avoid showing the same card twice in a row.
+        self.stage = 1 # Allow skipping unnecessary queries.
+                
     def set_initial_grade(self, card, grade):
 
         """Called when cards are given their initial grade outside of the
@@ -85,94 +89,117 @@ class SM2Mnemosyne(Scheduler):
         db = database()
         if not db.is_loaded():
             return
+        
+        # Stage 1
+        #
         # Do the cards that are scheduled for today (or are overdue), but
         # first do those that have the shortest interval, as being a day
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 50.
-        for _card_id, _fact_id in \
-                db.cards_due_for_ret_rep(sort_key="interval"):
-            self.queue.append(_card_id)
-            self.facts.append(_fact_id)
-            # Do a trade-off between memory usage and redoing the query.
-            if len(self.queue) > 50:
+        if self.stage == 1:
+            for _card_id, _fact_id in \
+                    db.cards_due_for_ret_rep(sort_key="interval"):
+                self.queue.append(_card_id)
+                self.facts.append(_fact_id)
+                # Do a trade-off between memory usage and redoing the query.
+                if len(self.queue) > 50:
+                    return
+            if len(self.queue):
                 return
-        if len(self.queue):
-            return
+            self.stage = 2
+
+        # Stage 2
+        #
         # Now rememorise the cards that we got wrong during the last stage.
         # Concentrate on only a limited number of grade 0 cards, in order to
         # avoid too long intervals between repetitions.
         limit = config()["grade_0_items_at_once"]
         grade_0_in_queue = 0
-        if limit:
-            for _card_id, _fact_id in db.cards_due_for_final_review(grade=0):
+        if self.stage == 2:
+            if limit:
+                for _card_id, _fact_id in \
+                        db.cards_due_for_final_review(grade=0):
+                    if _fact_id not in self.facts:
+                        if grade_0_in_queue < limit:
+                            self.queue.append(_card_id)
+                            self.queue.append(_card_id)
+                            self.facts.append(_fact_id)
+                            grade_0_in_queue += 1
+                        if grade_0_in_queue == limit:
+                            break       
+            for _card_id, _fact_id in db.cards_due_for_final_review(grade=1):
                 if _fact_id not in self.facts:
-                    if grade_0_in_queue < limit:
-                        self.queue.append(_card_id)
-                        self.queue.append(_card_id)
-                        self.facts.append(_fact_id)
-                        grade_0_in_queue += 1
-                    if grade_0_in_queue == limit:
-                        break       
-        for _card_id, _fact_id in db.cards_due_for_final_review(grade=1):
-            if _fact_id not in self.facts:
-                self.queue.append(_card_id)
-                self.facts.append(_fact_id)
-        random.shuffle(self.queue)
-        # Only stop when we reach the grade 0 limit. Otherwise, keep going
-        # to add some extra cards to get more spread.
-        if limit and grade_0_in_queue == limit:
-            return
-        # Now do the cards which have never been committed to long-term
-        # memory, but which we have seen before.
-        if limit:
-            for _card_id, _fact_id in db.cards_new_memorising(grade=0):
+                    self.queue.append(_card_id)
+                    self.facts.append(_fact_id)
+            random.shuffle(self.queue)
+            # Only stop when we reach the grade 0 limit. Otherwise, keep
+            # going to add some extra cards to get more spread.
+            if limit and grade_0_in_queue == limit:
+                return
+            # Now do the cards which have never been committed to long-term
+            # memory, but which we have seen before.
+            if limit:
+                for _card_id, _fact_id in db.cards_new_memorising(grade=0):
+                    if _fact_id not in self.facts:
+                        if grade_0_in_queue < limit:
+                            self.queue.append(_card_id)
+                            self.queue.append(_card_id)
+                            self.facts.append(_fact_id)
+                            grade_0_in_queue += 1
+                        if grade_0_in_queue == limit:
+                            break       
+            for _card_id, _fact_id in db.cards_new_memorising(grade=1):
                 if _fact_id not in self.facts:
-                    if grade_0_in_queue < limit:
-                        self.queue.append(_card_id)
-                        self.queue.append(_card_id)
-                        self.facts.append(_fact_id)
-                        grade_0_in_queue += 1
-                    if grade_0_in_queue == limit:
-                        break       
-        for _card_id, _fact_id in db.cards_new_memorising(grade=1):
-            if _fact_id not in self.facts:
-                self.queue.append(_card_id)
-                self.facts.append(_fact_id)
-        random.shuffle(self.queue)
-        # Only stop when we reach the grade 0 limit. Otherwise, keep going
-        # to add some extra cards to get more spread.
-        if limit and grade_0_in_queue == limit:
-            return
+                    self.queue.append(_card_id)
+                    self.facts.append(_fact_id)
+            random.shuffle(self.queue)
+            # Only stop when we reach the grade 0 limit. Otherwise, keep
+            # going to add some extra cards to get more spread.
+            if limit and grade_0_in_queue == limit:
+                return
+            if len(self.queue) == 0:
+                self.stage = 3
+
+        # Stage 3
+        #
         # Now add some unseen cards.
-        if config()["randomise_new_cards"]:
-            sort_key = "random"
-        else:
-            sort_key = ""
-        for _card_id, _fact_id in db.cards_unseen(grade=1, sort_key=sort_key,
-                                                  limit=50):
-            if _fact_id not in self.facts:
-                self.queue.append(_card_id)
-                self.facts.append(_fact_id)        
-        if limit:
-            for _card_id, _fact_id in db.cards_unseen(grade=0, sort_key=sort_key,
-                                                      limit=limit):
+        if self.stage <= 3:
+            if config()["randomise_new_cards"]:
+                sort_key = "random"
+            else:
+                sort_key = ""
+            for _card_id, _fact_id in db.cards_unseen(grade=1, sort_key=sort_key,
+                                                      limit=50):
                 if _fact_id not in self.facts:
                     self.queue.append(_card_id)
-                    self.facts.append(_fact_id)
-                    grade_0_in_queue += 1
-                    if grade_0_in_queue == limit:
-                        return
-        # Ungraded cards (with grade -1) are treated as grade 0 cards here in
-        # terms of limiting the queue size.
-        if limit:
-            for _card_id, _fact_id in db.cards_unseen(grade=-1, sort_key=sort_key,
-                                                      limit=limit):
-                if _fact_id not in self.facts:
-                    self.queue.append(_card_id)
-                    self.facts.append(_fact_id)
-                    grade_0_in_queue += 1
-                    if grade_0_in_queue == limit:
-                        return
+                    self.facts.append(_fact_id)        
+            if limit:
+                for _card_id, _fact_id in db.cards_unseen(grade=0, sort_key=sort_key,
+                                                          limit=limit):
+                    if _fact_id not in self.facts:
+                        self.queue.append(_card_id)
+                        self.facts.append(_fact_id)
+                        grade_0_in_queue += 1
+                        if grade_0_in_queue == limit:
+                            self.stage = 2
+                            return
+            # Ungraded cards (with grade -1) are treated as grade 0 cards here in
+            # terms of limiting the queue size.
+            if limit:
+                for _card_id, _fact_id in db.cards_unseen(grade=-1, sort_key=sort_key,
+                                                          limit=limit):
+                    if _fact_id not in self.facts:
+                        self.queue.append(_card_id)
+                        self.facts.append(_fact_id)
+                        grade_0_in_queue += 1
+                        if grade_0_in_queue == limit:
+                            self.stage = 2
+                            return
+            if len(self.queue) == 0:
+                self.stage = 4
+            
+        # Stage 4
+        #
         # If we get to here, there are no more scheduled cards or new cards
         # to learn. The user can signal that he wants to learn ahead by
         # calling rebuild_queue with 'learn_ahead' set to True.
@@ -317,7 +344,3 @@ class SM2Mnemosyne(Scheduler):
                        new_interval, noise)
         return new_interval + noise
 
-    def reset(self):
-        self.queue = []
-        self.facts = []
-        self.last_card = None
