@@ -207,6 +207,11 @@ class SM2Mnemosyne(Scheduler):
         self.last_card = _card_id
         return database().get_card(_card_id)
 
+    def allow_prefetch(self):
+        # Make sure there are enough cards left to find one which is not a
+        # duplicate.
+        return len(self.queue) >= 3
+
     def process_answer(self, card, new_grade, dry_run=False):
         db = database()
         days_since_start = db.days_since_start()
@@ -312,5 +317,7 @@ class SM2Mnemosyne(Scheduler):
                        new_interval, noise)
         return new_interval + noise
 
-    def clear_queue(self):
+    def reset(self):
         self.queue = []
+        self.facts = []
+        self.last_card = None

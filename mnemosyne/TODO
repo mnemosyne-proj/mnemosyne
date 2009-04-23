@@ -1,11 +1,7 @@
--don't review same card twice in a row
-
--first show next card, then process answer (allow_prefetch)
-
 -keep track of stage, so that we can skip some queries.
 
 -adding new cards while in 'learn ahead of schedule' should break out of
- learning ahead
+ learning ahead (add 'cards added' slot to scheduler?)
 
 -don't click learn ahead of schedule everytime
 
@@ -15,14 +11,11 @@
 
 -update card docstrings, add stuff on all variables
 
--clean up scheduler interface (add 'cards_added' slot)
-
 -cramming scheduler
 
 -replace 'seen in this session' by 'seen in this hand?'
 
--option to reset scheduler, called automatically after unloading
- old scheduler
+-call reset scheduler automatically after unloading old scheduler
 
 -add docs to always include set_initial_grade in custom scheduler
 

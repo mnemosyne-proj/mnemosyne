@@ -233,6 +233,8 @@ class SQLite(Database):
             self._connection.close()
             self._connection = None
             self.load_failed = False
+        scheduler().reset()
+        return True
         
     def is_loaded(self):
         return bool(self._connection)
@@ -389,8 +391,8 @@ class SQLite(Database):
     # Retrieve categories, facts and cards using their internal id.
 
     def get_category(self, _id):
-        sql_res = self.con.execute("""select *
-            from categories where _id=?""", (_id, )).fetchone()
+        sql_res = self.con.execute("""select * from categories where _id=?""",
+                                   (_id, )).fetchone()
         category = Category(sql_res["name"], sql_res["id"])
         category._id = sql_res["_id"]
         return category
@@ -543,7 +545,7 @@ class SQLite(Database):
         """Get number of cards scheduled within 'days' days."""
 
         count = self.con.execute("""select count() from cards
-            where active=1 and grade>=2 and ? >= next_rep - ?""",
+            where active=1 and grade>=2 and ?>=next_rep-?""",
             (self.days_since_start(), days)).fetchone()[0]
         return count
 
@@ -553,7 +555,7 @@ class SQLite(Database):
 
     def average_easiness(self):
         average = self.con.execute("""select sum(easiness)/count()
-            from cards where easiness > 0""").fetchone()[0]
+            from cards where easiness>0""").fetchone()[0]
         if average:
             return average
         else:

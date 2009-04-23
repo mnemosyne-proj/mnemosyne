@@ -182,7 +182,7 @@ class Pickle(Database):
         self.facts = []
         self.cards = []
         self.global_variables = {"version": self.version}
-        scheduler().clear_queue()
+        scheduler().reset()
         return True
 
     def backup(self):

@@ -16,8 +16,17 @@ class Scheduler(object):
     def get_next_card(self, learn_ahead=False):
         raise NotImplementedError
 
+    def allow_prefetch(self):
+
+        """Can we display a new card before having processed the grading of
+        the previous one?.
+
+        """
+        
+        raise NotImplementedError    
+
     def process_answer(self, card, new_grade, dry_run=False):
         raise NotImplementedError
 
-    def clear_queue(self):
+    def reset(self):
         raise NotImplementedError

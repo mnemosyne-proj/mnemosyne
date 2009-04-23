@@ -8,8 +8,8 @@ import gettext
 _ = gettext.gettext
 
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import scheduler
+from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
 
@@ -72,8 +72,12 @@ class SM2Controller(UiControllerReview):
         self.update_dialog()
 
     def grade_answer(self, grade):
-        interval = scheduler().process_answer(self.card, grade)
-        self.new_question()
+        if scheduler().allow_prefetch():
+            self.new_question()
+            interval = scheduler().process_answer(self.card, grade)
+        else:
+            interval = scheduler().process_answer(self.card, grade)
+            self.new_question()
         if config()["show_intervals"] == "statusbar":
             self.widget.update_sta(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
