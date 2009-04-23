@@ -78,6 +78,7 @@ class Configuration(dict):
              "list_font": None,
              "grade_0_items_at_once": 5,
              "randomise_new_cards": False,
+             "randomise_scheduled_cards": False,
              "card_type_name_of_last_added": "",
              "categories_of_last_added": _("<default>"),
              "sort_column": None,

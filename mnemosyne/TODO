@@ -1,5 +1,3 @@
--move option to always randomise queue to config screen
-
 -update card docstrings, add stuff on all variables
 
 -cramming scheduler
@@ -60,8 +58,10 @@
 
 -backup after unloading, not after exiting
 
--reset directory permissions under windows
+-reset directory permissions under windows?
 
+
+-move option to always randomise queue to config screen
 
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form

@@ -91,14 +91,17 @@ class SM2Mnemosyne(Scheduler):
         # first do those that have the shortest interval, as being a day
         # late on an interval of 2 could be much worse than being a day late
         # on an interval of 25.
+        # Fetch maximum 25 cards at the same time, as a trade-off between
+        # memory usage and redoing the query.
         if self.stage == 1:
+            if config()["randomise_scheduled_cards"] == True:
+                sort_key = "random"
+            else:
+                sort_key = "interval"
             for _card_id, _fact_id in \
-                    db.cards_due_for_ret_rep(sort_key="interval"):
+                    db.cards_due_for_ret_rep(sort_key=sort_key, limit=25):
                 self.queue.append(_card_id)
                 self.facts.append(_fact_id)
-                # Do a trade-off between memory usage and redoing the query.
-                if len(self.queue) > 25:
-                    return
             if len(self.queue):
                 return
             self.stage = 2
