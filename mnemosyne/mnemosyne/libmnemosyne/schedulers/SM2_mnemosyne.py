@@ -20,6 +20,7 @@ class SM2Mnemosyne(Scheduler):
     def __init__(self):
         self.queue = []
         self.facts = [] # To make sure no related cards are shown together.
+        self.last_card = None
         
     def set_initial_grade(self, card, grade):
 
@@ -94,7 +95,7 @@ class SM2Mnemosyne(Scheduler):
             self.facts.append(_fact_id)
             # Do a trade-off between memory usage and redoing the query.
             if len(self.queue) > 50:
-                break
+                return
         if len(self.queue):
             return
         # Now rememorise the cards that we got wrong during the last stage.
@@ -102,15 +103,16 @@ class SM2Mnemosyne(Scheduler):
         # avoid too long intervals between repetitions.
         limit = config()["grade_0_items_at_once"]
         grade_0_in_queue = 0
-        for _card_id, _fact_id in db.cards_due_for_final_review(grade=0):
-            if _fact_id not in self.facts:
-                if limit and grade_0_in_queue < limit:
-                    self.queue.append(_card_id)
-                    self.queue.append(_card_id)
-                    self.facts.append(_fact_id)
-                    grade_0_in_queue += 1
-                if limit and grade_0_in_queue == limit:
-                    break       
+        if limit:
+            for _card_id, _fact_id in db.cards_due_for_final_review(grade=0):
+                if _fact_id not in self.facts:
+                    if grade_0_in_queue < limit:
+                        self.queue.append(_card_id)
+                        self.queue.append(_card_id)
+                        self.facts.append(_fact_id)
+                        grade_0_in_queue += 1
+                    if grade_0_in_queue == limit:
+                        break       
         for _card_id, _fact_id in db.cards_due_for_final_review(grade=1):
             if _fact_id not in self.facts:
                 self.queue.append(_card_id)
@@ -122,15 +124,16 @@ class SM2Mnemosyne(Scheduler):
             return
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
-        for _card_id, _fact_id in db.cards_new_memorising(grade=0):
-            if _fact_id not in self.facts:
-                if limit and grade_0_in_queue < limit:
-                    self.queue.append(_card_id)
-                    self.queue.append(_card_id)
-                    self.facts.append(_fact_id)
-                    grade_0_in_queue += 1
-                if limit and grade_0_in_queue == limit:
-                    break       
+        if limit:
+            for _card_id, _fact_id in db.cards_new_memorising(grade=0):
+                if _fact_id not in self.facts:
+                    if grade_0_in_queue < limit:
+                        self.queue.append(_card_id)
+                        self.queue.append(_card_id)
+                        self.facts.append(_fact_id)
+                        grade_0_in_queue += 1
+                    if grade_0_in_queue == limit:
+                        break       
         for _card_id, _fact_id in db.cards_new_memorising(grade=1):
             if _fact_id not in self.facts:
                 self.queue.append(_card_id)
@@ -149,33 +152,27 @@ class SM2Mnemosyne(Scheduler):
                                                   limit=50):
             if _fact_id not in self.facts:
                 self.queue.append(_card_id)
-                self.facts.append(_fact_id)
-        if len(self.queue):
-            return        
-        # Ungraded cards (with grade -1) are treated as grade 0 cards here in
-        # terms of limiting the queue size. 
+                self.facts.append(_fact_id)        
         if limit:
             for _card_id, _fact_id in db.cards_unseen(grade=0, sort_key=sort_key,
-                                                      limit=50):
+                                                      limit=limit):
                 if _fact_id not in self.facts:
                     self.queue.append(_card_id)
                     self.facts.append(_fact_id)
                     grade_0_in_queue += 1
                     if grade_0_in_queue == limit:
-                        break
-        if len(self.queue):
-            return
+                        return
+        # Ungraded cards (with grade -1) are treated as grade 0 cards here in
+        # terms of limiting the queue size.
         if limit:
             for _card_id, _fact_id in db.cards_unseen(grade=-1, sort_key=sort_key,
-                                                      limit=50):
+                                                      limit=limit):
                 if _fact_id not in self.facts:
                     self.queue.append(_card_id)
                     self.facts.append(_fact_id)
                     grade_0_in_queue += 1
                     if grade_0_in_queue == limit:
-                        break
-        if len(self.queue):
-            return        
+                        return
         # If we get to here, there are no more scheduled cards or new cards
         # to learn. The user can signal that he wants to learn ahead by
         # calling rebuild_queue with 'learn_ahead' set to True.
@@ -200,8 +197,14 @@ class SM2Mnemosyne(Scheduler):
             self.rebuild_queue(learn_ahead)
             if len(self.queue) == 0:
                 return None
-        # Pick the first card and remove it from the queue.
+        # Pick the first card and remove it from the queue. Make sure we don't
+        # show the same card twice in succession, unless the queue becomes too
+        # small and we risk running out of cards.
         _card_id = self.queue.pop(0)
+        if self.last_card:
+            while len(self.queue) >= 3 and self.last_card == _card_id:
+                _card_id = self.queue.pop(0)
+        self.last_card = _card_id
         return database().get_card(_card_id)
 
     def process_answer(self, card, new_grade, dry_run=False):
