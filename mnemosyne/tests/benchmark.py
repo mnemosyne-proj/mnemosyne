@@ -9,7 +9,7 @@ from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 number_of_facts = 6000
-create_from_scratch = False
+create_from_scratch = True
 
 def initialise_program():
     # 0.085 from scratch

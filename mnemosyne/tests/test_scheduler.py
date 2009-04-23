@@ -81,7 +81,20 @@ class TestScheduler:
                      grade=1, cat_names=["default"], warn=False)[0]
         config()["grade_0_items_at_once"] = 0
         
-        assert scheduler().get_next_card() != None
+        assert scheduler().get_next_card() == card_2
+        
+    def test_3(self):
+        card_type = card_type_by_id("1")
+        
+        fact_data = {"q": "1", "a": "a"}
+        card_1 = ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]
+        fact_data = {"q": "2", "a": "a"}        
+        card_2 = ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]
+        config()["grade_0_items_at_once"] = 0
+        
+        assert scheduler().get_next_card() == None
         
     def test_grade_0_limit(self):
         card_type = card_type_by_id("1")

@@ -405,32 +405,32 @@ class Pickle(Database):
             random.shuffle(list)
         if limit >= 0 and len(list) > limit:
             list = list[:limit]
-        for x in list:
-            yield x
+        for c in list:
+            yield (c.id, c.fact.id)
 
     def cards_due_for_ret_rep(self, sort_key="", limit=-1):
         days_since_start = self.start_date.days_since_start()
-        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+        cards = [c for c in self.cards if c.active and \
                  c.grade >= 2 and days_since_start >= c.next_rep]        
         return self._list_to_generator(cards, sort_key, limit)
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
-        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+        cards = [c for c in self.cards if c.active and \
                  c.grade == grade and c.lapses > 0]
         return self._list_to_generator(cards, sort_key, limit)
                                       
     def cards_new_memorising(self, grade, sort_key="", limit=-1):
-        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+        cards = [c for c in self.cards if c.active and \
                  c.grade == grade and c.lapses == 0 and c.unseen == False]
         return self._list_to_generator(cards, sort_key, limit)
                                       
-    def cards_unseen(self, sort_key="", limit=-1):
-        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
-                 c.grade < 2 and c.unseen == True]
+    def cards_unseen(self, grade, sort_key="", limit=-1):
+        cards = [c for c in self.cards if c.active and \
+                 c.grade == grade and c.unseen == True]
         return self._list_to_generator(cards, sort_key, limit)
                                       
     def cards_learn_ahead(self, sort_key="", limit=-1):
         days_since_start = self.start_date.days_since_start()
-        cards = [(c.id, c.fact.id) for c in self.cards if c.active and \
+        cards = [c for c in self.cards if c.active and \
                  c.grade >= 2 and days_since_start < c.next_rep]
         return self._list_to_generator(cards, sort_key, limit)

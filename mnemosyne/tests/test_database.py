@@ -143,7 +143,7 @@ class TestDatabase:
         initialise(os.path.abspath("dot_test"))
         database().load(config()["path"])
         assert database().fact_count() == 1
-        _card_id, _fact_id = list(database().cards_unseen())[0]
+        _card_id, _fact_id = list(database().cards_unseen(0))[0]
         fact = database().get_fact(_fact_id)
         card_type = card_type_by_id("1_CLONED.my_1")        
         assert fact.card_type.id == "1_CLONED.my_1"
@@ -175,7 +175,7 @@ class TestDatabase:
         initialise(os.path.abspath("dot_test"))
         database().load(config()["path"])
         assert database().fact_count() == 1
-        _card_id, _fact_id = list(database().cards_unseen())[0]
+        _card_id, _fact_id = list(database().cards_unseen(0))[0]
         fact = database().get_fact(_fact_id)
         card_type = card_type_by_id("4")           
         card_type = card_type_by_id("4_CLONED.my_4")        

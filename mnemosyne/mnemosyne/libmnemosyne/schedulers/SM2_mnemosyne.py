@@ -140,22 +140,42 @@ class SM2Mnemosyne(Scheduler):
         # to add some extra cards to get more spread.
         if limit and grade_0_in_queue == limit:
             return
-        # Now add some unseen cards. Unseen cards (with grade -1) are treated
-        # as grade 0 cards here in terms of limiting the queue size.
+        # Now add some unseen cards.
         if config()["randomise_new_cards"]:
             sort_key = "random"
         else:
             sort_key = ""
-        for _card_id, _fact_id in db.cards_unseen():
+        for _card_id, _fact_id in db.cards_unseen(grade=1, sort_key=sort_key,
+                                                  limit=50):
             if _fact_id not in self.facts:
-                if limit and grade_0_in_queue < limit:
+                self.queue.append(_card_id)
+                self.facts.append(_fact_id)
+        if len(self.queue):
+            return        
+        # Ungraded cards (with grade -1) are treated as grade 0 cards here in
+        # terms of limiting the queue size. 
+        if limit:
+            for _card_id, _fact_id in db.cards_unseen(grade=0, sort_key=sort_key,
+                                                      limit=50):
+                if _fact_id not in self.facts:
                     self.queue.append(_card_id)
                     self.facts.append(_fact_id)
                     grade_0_in_queue += 1
-                if limit and grade_0_in_queue == limit:
-                    break 
+                    if grade_0_in_queue == limit:
+                        break
         if len(self.queue):
             return
+        if limit:
+            for _card_id, _fact_id in db.cards_unseen(grade=-1, sort_key=sort_key,
+                                                      limit=50):
+                if _fact_id not in self.facts:
+                    self.queue.append(_card_id)
+                    self.facts.append(_fact_id)
+                    grade_0_in_queue += 1
+                    if grade_0_in_queue == limit:
+                        break
+        if len(self.queue):
+            return        
         # If we get to here, there are no more scheduled cards or new cards
         # to learn. The user can signal that he wants to learn ahead by
         # calling rebuild_queue with 'learn_ahead' set to True.
@@ -187,8 +207,8 @@ class SM2Mnemosyne(Scheduler):
     def process_answer(self, card, new_grade, dry_run=False):
         db = database()
         days_since_start = db.days_since_start()
-        # When doing a dry run, make a copy to operate on. Note that this
-        # leaves the original in cards and the reference in the GUI intact.
+        # When doing a dry run, make a copy to operate on. This leaves the
+        # original in the GUI intact.
         if dry_run:
             card = copy.copy(card)
         # Calculate scheduled and actual interval, taking care of corner
@@ -197,7 +217,7 @@ class SM2Mnemosyne(Scheduler):
         actual_interval = days_since_start - card.last_rep
         if actual_interval == 0:
             actual_interval = 1 # Otherwise new interval can become zero.
-        if (card.acq_reps == 0) and (card.ret_reps == 0):
+        if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
             # was imported or created during card type conversion.
             card.easiness = db.average_easiness()
@@ -206,15 +226,15 @@ class SM2Mnemosyne(Scheduler):
             new_interval = self.calculate_initial_interval(new_grade)
             # Make sure the second copy of a grade 0 card doesn't show
             # up again.
-            if not dry_run and card.grade == 0 and new_grade in [2,3,4,5]:
+            if not dry_run and card.grade == 0 and new_grade in [2, 3, 4, 5]:
                 if card._id in self.queue:
                     self.queue.remove(card._id)    
-        elif card.grade in [0,1] and new_grade in [0,1]:
+        elif card.grade in [0, 1] and new_grade in [0, 1]:
             # In the acquisition phase and staying there.
             card.acq_reps += 1
             card.acq_reps_since_lapse += 1
             new_interval = 0
-        elif card.grade in [0,1] and new_grade in [2,3,4,5]:
+        elif card.grade in [0, 1] and new_grade in [2, 3, 4, 5]:
              # In the acquisition phase and moving to the retention phase.
              card.acq_reps += 1
              card.acq_reps_since_lapse += 1
@@ -224,7 +244,7 @@ class SM2Mnemosyne(Scheduler):
              if not dry_run and card.grade == 0:
                 if card._id in self.queue:
                     self.queue.remove(card._id)
-        elif card.grade in [2,3,4,5] and new_grade in [0,1]:
+        elif card.grade in [2, 3, 4, 5] and new_grade in [0, 1]:
              # In the retention phase and dropping back to the
              # acquisition phase.
              card.ret_reps += 1
@@ -232,7 +252,7 @@ class SM2Mnemosyne(Scheduler):
              card.acq_reps_since_lapse = 0
              card.ret_reps_since_lapse = 0
              new_interval = 0
-        elif card.grade in [2,3,4,5] and new_grade in [2,3,4,5]:
+        elif card.grade in [2, 3, 4, 5] and new_grade in [2, 3, 4, 5]:
             # In the retention phase and staying there.
             card.ret_reps += 1
             card.ret_reps_since_lapse += 1

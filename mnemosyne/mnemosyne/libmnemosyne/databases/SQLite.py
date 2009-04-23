@@ -592,12 +592,12 @@ class SQLite(Database):
             active=1 and grade=? and lapses=0 and unseen=0
             order by ? limit ?""", (grade, sort_key, limit)))
     
-    def cards_unseen(self, sort_key="", limit=-1):
+    def cards_unseen(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)      
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and unseen=1 and grade<2 order by ? limit ?""",
-            (sort_key, limit)))
+            active=1 and unseen=1 and grade=? order by ? limit ?""",
+            (grade, sort_key, limit)))
     
     def cards_learn_ahead(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)

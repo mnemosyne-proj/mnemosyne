@@ -163,7 +163,7 @@ class Database(object):
     def cards_new_memorising(self, grade, sort_key="", limit=-1):
         raise NotImplementedError
 
-    def cards_unseen(self, sort_key="", limit=-1):
+    def cards_unseen(self, grade, sort_key="", limit=-1):
         raise NotImplementedError
     
     def cards_learn_ahead(self, sort_key="", limit=-1):

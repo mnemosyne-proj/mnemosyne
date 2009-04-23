@@ -164,7 +164,7 @@ class TestDatabaseStub:
 
     @raises(NotImplementedError)
     def test_cards_unseen(self):
-        self.database.cards_unseen()
+        self.database.cards_unseen(2)
         
     @raises(NotImplementedError)   
     def test_cards_learn_ahead(self):
