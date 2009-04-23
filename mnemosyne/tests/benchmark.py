@@ -26,8 +26,10 @@ def create_database():
             card_type = card_type_by_id("1")
         else:
             card_type = card_type_by_id("2")            
-        ui_controller_main().create_new_cards(fact_data, card_type,
-                               grade=4, cat_names=["default" + str(i)])
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                           grade=4, cat_names=["default" + str(i)])[0]
+        #card.next_rep -= 1000
+        #database().update_card(card)
     database().save(config()["path"])
 
 def load_database():
@@ -41,7 +43,7 @@ def activate():
         [database().get_or_create_category_with_name("default1")])
 
 def get_new_card():
-    # 0.022 sec for 6000
+    # 0.022 sec for 6000 (worst case, best case 0.008)
     ui_controller_review().new_question()
     
 def get_question():

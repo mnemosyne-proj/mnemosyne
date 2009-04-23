@@ -1,25 +1,38 @@
--return fact id as well
-
--make use of fact that we store _id too.
-
--replace 'seen in this session' by 'seen in this hand?'
-
 -don't review same card twice in a row
 
+-first show next card, then process answer (allow_prefetch)
+
 -keep track of stage, so that we can skip some queries.
-
--rebuild queue automatically after roll-over time?
-
--move option to always randomise queue to config screen
 
 -adding new cards while in 'learn ahead of schedule' should break out of
  learning ahead
 
 -don't click learn ahead of schedule everytime
 
+-rebuild queue automatically after roll-over time?
+
+-move option to always randomise queue to config screen
+
 -update card docstrings, add stuff on all variables
 
--first show next card, then process answer
+-clean up scheduler interface (add 'cards_added' slot)
+
+-cramming scheduler
+
+-replace 'seen in this session' by 'seen in this hand?'
+
+-option to reset scheduler, called automatically after unloading
+ old scheduler
+
+-add docs to always include set_initial_grade in custom scheduler
+
+
+
+-add 'update_card_active' (or something like that) to be called when
+ adding cards or editing a card, so that 'active' is set correctly.
+ Make the mechanism customisible with hooks, and document this in 
+ card.py.
+
 
 -time sql when storing dates as int. Move to int? update start_date.py
 -minute level scheduling in extra data?
@@ -27,23 +40,12 @@
 -get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
  'repetition' for individual repetition, or 'review' for whole process.
 
--clean up scheduler interface (add 'cards_added' slot)
-
--add 'update_card_active' (or something like that) to be called when
- adding cards or editing a card, so that 'active' is set correctly.
- Make the mechanism customisible with hooks, and document this in 
- card.py.
 
 -sql query for statistics
 
 -are keybindings sufficiently accesible?
 
 
--cramming scheduler
-
--option to reset scheduler
-
--add docs to always include set_initial_grade in custom scheduler
 
 -warn when importing card type with duplicate id
 

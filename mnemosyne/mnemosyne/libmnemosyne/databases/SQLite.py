@@ -259,19 +259,20 @@ class SQLite(Database):
         category._id = _id
         
     def delete_category(self, category):
-        self.con.execute("delete from categories where id=?",
-            (category.id, ))
+        self.con.execute("delete from categories where _id=?", (category._id,))
         del category
         
     def update_category(self, category):
         self.con.execute("""update categories set name=?, needs_sync=?
-            where id=?""", (category.name, category.needs_sync, category.id))
+            where _id=?""", (category.name, category.needs_sync, category._id))
         
     def get_or_create_category_with_name(self, name):
-        sql_res = self.con.execute("""select *
-            from categories where name=?""", (name, )).fetchone()
+        sql_res = self.con.execute("""select * from categories where name=?""",
+                                   (name, )).fetchone()
         if sql_res:
-            return Category(sql_res["name"], sql_res["id"])
+            category = Category(sql_res["name"], sql_res["id"])
+            category._id = sql_res["_id"]
+            return category
         category = Category(name)
         self.add_category(category)
         return category
@@ -279,7 +280,7 @@ class SQLite(Database):
     def remove_category_if_unused(self, category):
         if self.con.execute("""select count() from categories as cat,
             categories_for_card as cat_c where cat_c._category_id=cat._id and
-            cat.id=?""", (category.id, )).fetchone()[0] == 0:
+            cat._id=?""", (category._id, )).fetchone()[0] == 0:
             self.delete_category(category)
     
     def add_fact(self, fact):
@@ -297,23 +298,19 @@ class SQLite(Database):
 
     def update_fact(self, fact):
         # Update fact.
-        _fact_id = self.con.execute("select _id from facts where id=?",
-            (fact.id, )).fetchone()[0]
         self.con.execute("""update facts set id=?, card_type_id=?,
             creation_date=?, modification_date=? where _id=?""",
             (fact.id, fact.card_type.id, fact.creation_date,
-             fact.modification_date, _fact_id))
+             fact.modification_date, fact._id))
         # Delete data_for_fact and recreate it.
         self.con.execute("delete from data_for_fact where _fact_id=?",
-                (_fact_id, ))
+                (fact._id, ))
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
-            values(?,?,?)""", ((_fact_id, key, value)
+            values(?,?,?)""", ((fact._id, key, value)
                 for key, value in fact.data.items()))
 
     def add_card(self, card):
         self.load_failed = False
-        _fact_id = self.con.execute("select _id from facts where id=?",
-            (card.fact.id, )).fetchone()[0]
         if card.extra_data == {}:
             extra_data = "" # Save space.
         else:
@@ -323,8 +320,8 @@ class SQLite(Database):
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
             unseen, extra_data, seen_in_this_session, needs_sync, active,
             in_view) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            (card.id, _fact_id, card.fact_view.id, card.grade, card.easiness,
-            card.acq_reps, card.ret_reps, card.lapses,
+            (card.id, card.fact._id, card.fact_view.id, card.grade,
+            card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep, card.unseen, extra_data,
             card.seen_in_this_session, card.needs_sync, card.active,
@@ -433,10 +430,12 @@ class SQLite(Database):
             card.extra_data = {}
         else:
             card.extra_data = eval(sql_res["extra_data"])
-        card.categories = [Category(cursor["name"], cursor["id"]) for cursor in
-            self.con.execute("""select cat.name, cat.id from categories as cat,
-            categories_for_card as cat_c where cat_c._category_id=cat._id and
-            cat_c._card_id=?""", (sql_res["_id"], ))]        
+        for cursor in self.con.execute("""select cat.* from categories as cat,
+            categories_for_card as cat_c where cat_c._category_id=cat._id
+            and cat_c._card_id=?""", (sql_res["_id"],)):
+            category = Category(cursor["name"], cursor["id"])
+            category._id = cursor["_id"]
+            card.categories.append(category)              
         return card
 
     # Activate cards.
