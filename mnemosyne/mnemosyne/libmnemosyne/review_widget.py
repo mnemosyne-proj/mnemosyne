@@ -6,24 +6,26 @@
 class ReviewWidget(object):
     
     """Describes the interface that the review widget needs to implement
-    in order to be used by the review controller."""
+    in order to be used by the review controller.
+
+    """
     
     def set_window_title(self, title):
         pass
         
-    def enable_edit_current_card(self, bool):
+    def enable_edit_current_card(self, enabled):
         pass
         
-    def enable_delete_current_card(self, bool):
+    def enable_delete_current_card(self, enabled):
         pass
         
-    def enable_edit_deck(self, bool): 
+    def enable_edit_deck(self, enable): 
         pass
         
-    def question_box_visible(self, bool):
+    def question_box_visible(self, visible):
         pass
         
-    def answer_box_visible(self, bool):
+    def answer_box_visible(self, visible):
         pass
         
     def set_question_label(self, text):
@@ -42,6 +44,12 @@ class ReviewWidget(object):
         raise NotImplementedError
         
     def update_show_button(self, text, default, enabled): 
+        raise NotImplementedError
+
+    def set_enable_grades(self, enabled): 
+        raise NotImplementedError
+    
+    def grade_4_default(self, use_4):
         pass
         
     def set_grades_title(self, text): 

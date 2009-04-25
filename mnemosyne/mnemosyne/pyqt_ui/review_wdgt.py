@@ -59,6 +59,22 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
     def enable_edit_deck(self, enable):      
         self.parent().actionEditDeck.setEnabled(enable)
 
+    def question_box_visible(self, visible):
+        if visible:
+            self.question.show()
+            self.question_label.show()
+        else:
+            self.question.hide()
+            self.question_label.hide()
+
+    def answer_box_visible(self, visible):
+        if visible:
+            self.answer.show()
+            self.answer_label.show()
+        else:
+            self.answer.hide()
+            self.question_label.hide()
+
     def set_question_label(self, text):
         self.question_label.setText(text)
 
@@ -79,32 +95,16 @@ class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.show_button.setText(text)
         self.show_button.setEnabled(show_enabled)
         if default:
-            self.show_button.setFocus()        
+            self.show_button.setFocus()
 
-    def question_box_visible(self, visible):
-        if visible:
-            self.question.show()
-            self.question_label.show()
-        else:
-            self.question.hide()
-            self.question_label.hide()
-
-    def answer_box_visible(self, visible):
-        if visible:
-            self.answer.show()
-            self.answer_label.show()
-        else:
-            self.answer.hide()
-            self.question_label.hide()
+    def enable_grades(self, enabled):
+        self.grades.setEnabled(enabled)
 
     def grade_4_default(self, use_4):
         if use_4:
             self.grade_4_button.setFocus()
         else:
-            self.grade_0_button.setFocus()            
-
-    def enable_grades(self, grades_enabled):
-        self.grades.setEnabled(grades_enabled)
+            self.grade_0_button.setFocus()
  
     def set_grades_title(self, text):
         self.grades.setTitle(text)

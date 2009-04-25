@@ -3,7 +3,6 @@
 #
 
 import os
-import sets
 import traceback
 import time
 import urllib2

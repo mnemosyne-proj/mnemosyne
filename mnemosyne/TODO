@@ -1,4 +1,14 @@
+-bzr WM
+
 -review widget bind controller slots directly
+
+-latex plugin
+
+-move more initialisation logic to libmnemosyne
+
+-unify error box?
+
+-question_box/yes no cancel
 
 -cramming scheduler
 
@@ -51,6 +61,9 @@
 -warn when not importing a duplicate card
 
 -save after import, close blueprint
+
+-reset learning ahead queue after import
+
 
 -backup after unloading, not after exiting
 

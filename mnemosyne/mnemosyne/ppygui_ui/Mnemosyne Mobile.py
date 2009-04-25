@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# Mnemosyne <Peter.Bienstman@UGent.be>
+# Mnemosyne Mobile.py <Peter.Bienstman@UGent.be>
 #
 
 import gettext
@@ -12,11 +12,16 @@ import os
 import locale
 from optparse import OptionParser
 
-import simulator.api as gui
-
 from mnemosyne.libmnemosyne import initialise, finalise
 from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
+
+if os.name == "ce":
+	import ppygui.api as gui
+else:
+	import emulator.api as gui
+    
+from main_window import MainFrame
 
 # Parse options.
 
@@ -33,7 +38,7 @@ parser.add_option("-d", "--datadir", dest="datadir",
 # is no need to refer to a drive letter which can change from computer to
 # computer.
    
-basedir = '' 
+basedir = ""
 if options.datadir != None:
     basedir = os.path.abspath(options.datadir)
 elif os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
@@ -61,15 +66,13 @@ try:
 except:
     pass
 
-# Install translator.
+# TODO: Install translator.
 
-# Check if there is another instance of Mnemosyne running.
-
-initialise(basedir)
+# TODO: Check if there is another instance of Mnemosyne running.
 
 # Start program.
 
-from main_dlg import MainFrame
+initialise(basedir)
 
 app = gui.Application()
 app.mainframe = MainFrame()

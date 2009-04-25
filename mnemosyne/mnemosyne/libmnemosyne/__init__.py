@@ -22,7 +22,9 @@ from mnemosyne.libmnemosyne.component_manager import component_manager
 def initialise(basedir):
     
     """Note: running user plugins is best done after the GUI has been created,
-    in order to be able to provide feedback about errors to the user."""
+    in order to be able to provide feedback about errors to the user.
+
+    """
 
     initialise_system_components()
     config().initialise(basedir)
@@ -30,7 +32,6 @@ def initialise(basedir):
     initialise_lockfile()
     initialise_new_empty_database()
     initialise_error_handling()
-    initialise_user_plugins()
     activate_saved_plugins()
 
 
@@ -63,7 +64,7 @@ def initialise_error_handling():
     """Write errors to a file (otherwise this causes problems on Windows)."""
     
     if sys.platform == "win32":
-        error_log = os.path.join(basedir, "error_log.txt")
+        error_log = os.path.join(config().basedir, "error_log.txt")
         sys.stderr = file(error_log, 'a')
 
 
