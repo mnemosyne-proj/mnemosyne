@@ -22,7 +22,7 @@ class MainFrame(gui.CeFrame):
     
     def __init__(self, filename=None):
         gui.CeFrame.__init__(self, title="Mnemosyne")
-        self.review_widget = ReviewWdgt(self)
+        self.review_widget = ReviewWdgt(parent=self)
         sizer = gui.VBox()
         sizer.add(self.review_widget)
         self.sizer = sizer
@@ -40,7 +40,7 @@ class MainFrame(gui.CeFrame):
         except MnemosyneError, e:
             self.error_box(e)
             self.error_box(LoadErrorCreateTmp())
-            filename = os.path.join(os.path.split(filename)[0],"___TMP___" \
+            filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + database().suffix)
             database().new(filename)
             
@@ -52,6 +52,7 @@ class MainFrame(gui.CeFrame):
         ui_controller_review().widget = self.review_widget
 
     def update_status_bar(self):
+        # TODO: move here.
         self.review_widget.update_status_bar()
 
     def error_box(self, exception):

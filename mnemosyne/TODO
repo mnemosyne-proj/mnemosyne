@@ -1,6 +1,10 @@
--bzr WM
+-bz WM
+
+-how to exit program
 
 -review widget bind controller slots directly
+
+-installer
 
 -latex plugin
 
@@ -11,6 +15,10 @@
 -question_box/yes no cancel
 
 -cramming scheduler
+
+-cramming widget and WM?
+
+-need for update_review_widget in main_window?
 
 -add docs to always include set_initial_grade in custom scheduler
 

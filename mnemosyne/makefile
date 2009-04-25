@@ -35,7 +35,7 @@ benchmark: install-virtual-env
 	./bin/python tests/benchmark.py
 
 wm: install-virtual-env
-	./bin/python mnemosyne/ppygui_ui/mnemosyne -d dot_mnemosyne2
+	./bin/python mnemosyne/ppygui_ui/Mnemosyne\ Mobile.py -d dot_mnemosyne2
 
 windows:
 	rmdir /S /Q dist
