@@ -2,11 +2,19 @@
 
 -how to exit program
 
+-install only pyc files
+
+-remove unique requirement?
+
+-basedir
+
 -review widget bind controller slots directly
 
 -installer
 
 -latex plugin
+
+-config.is_resource_limited
 
 -move more initialisation logic to libmnemosyne
 
