@@ -31,7 +31,7 @@ SCHEMA = """
     
     create table facts(
         _id integer primary key,
-        id text unique,
+        id text,
         card_type_id text,
         creation_date float,
         modification_date float,
@@ -47,7 +47,7 @@ SCHEMA = """
     
     create table cards(
         _id integer primary key,
-        id text unique,
+        id text,
         _fact_id int,
         fact_view_id text,
         grade int,
@@ -70,7 +70,7 @@ SCHEMA = """
     create table categories(
         _id integer primary key,
         _parent_key int default 0,
-        id text unique,
+        id text,
         name text,
         needs_sync boolean default 1
     );
