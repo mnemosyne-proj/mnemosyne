@@ -22,7 +22,7 @@ basedir = "\\SDMMC"
 
 app = gui.Application()
 app.mainframe = MainFrame()
-mnemosyne = Mnemosyne()
+mnemosyne = Mnemosyne(resource_limited=True)
 mnemosyne.initialise(basedir=basedir, main_widget=app.mainframe)
 app.run()
 mnemosyne.finalise()

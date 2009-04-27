@@ -63,7 +63,7 @@ class SM2Controller(UiControllerReview):
             self.new_question()
 
     def new_question(self):
-        if database().card_count() == 0:
+        if not database().is_loaded() or database().card_count() == 0:
             self.state = "EMPTY"
             self.card = None
         else:
@@ -126,7 +126,7 @@ class SM2Controller(UiControllerReview):
             else:
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
-        w.enable_edit_deck(database().card_count() > 0)
+        w.enable_edit_deck(database().is_loaded())
         # Hide/show the question and answer boxes.
         if self.state == "SELECT SHOW":
             w.question_box_visible(True)

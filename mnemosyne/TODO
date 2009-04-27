@@ -1,8 +1,6 @@
--config.is_resource_limited
+-testsuite failures
 
--get rid of __TMP__ deck: allow Mnemosyne to work without deck loaded.
-
--bz WM
+-test delayed compression of logs
 
 -how to exit program
 

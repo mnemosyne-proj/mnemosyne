@@ -10,6 +10,7 @@ import sys
 
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.exceptions import MnemosyneError
+from mnemosyne.libmnemosyne.exceptions import LoadErrorCreateTmp
 from mnemosyne.libmnemosyne.exceptions import PluginError, traceback_string
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, log, plugins
@@ -22,7 +23,8 @@ class Mnemosyne(object):
 
     """
 
-    def __init__(self):
+    def __init__(self, resource_limited=False):
+        self.resource_limited = resource_limited
         self.upload_thread = None
 
     def initialise(self, basedir, filename=None, main_widget=None):
@@ -31,6 +33,7 @@ class Mnemosyne(object):
         self.initialise_main_widget(main_widget)  
         self.check_lockfile(basedir)
         config().initialise(basedir)
+        config().resource_limited = self.resource_limited
         self.initialise_lockfile(basedir)
         self.initialise_logging()   
         self.load_database(filename)
@@ -157,16 +160,17 @@ class Mnemosyne(object):
         lockfile.close()
 
     def initialise_logging(self):
-        from mnemosyne.libmnemosyne.log_uploader import LogUploader
         log().archive_old_log()
         log().start_logging()
         log().program_started()
-        if config()["upload_logs"]:
+        if config()["upload_logs"] and not self.resource_limited:
+            from mnemosyne.libmnemosyne.log_uploader import LogUploader
             self.upload_thread = LogUploader()
             self.upload_thread.start()
 
     def load_database(self, filename):
         from mnemosyne.libmnemosyne.component_manager import database
+        from mnemosyne.libmnemosyne.component_manager import ui_controller_main
         if not filename:
             filename = config()["path"]
         filename = expand_path(filename, config().basedir)
@@ -176,7 +180,11 @@ class Mnemosyne(object):
             else:
                 database().load(filename)
         except MnemosyneError, e:
-            self.error_box(e) 
+            ui_controller_main().widget.error_box(e)
+            ui_controller_main().widget.error_box(LoadErrorCreateTmp())
+            filename = os.path.join(os.path.split(filename)[0],"___TMP___" \
+                                    + database().suffix)
+            database().new(filename)
 
     def initialise_user_plugins(self):
         from mnemosyne.libmnemosyne.component_manager import ui_controller_main

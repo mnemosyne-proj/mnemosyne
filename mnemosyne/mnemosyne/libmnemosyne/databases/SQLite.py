@@ -152,10 +152,9 @@ class SQLite(Database):
             raise LoadError
 
         # Vacuum database from time to time.
-        # TODO: skip this on a mobile machine?
 
         config()["times_loaded"] = config()["times_loaded"] + 1
-        if config()["times_loaded"] % 5 == 0:
+        if config()["times_loaded"] >= 5 and not config().resource_limited:
             config()["times_loaded"] = 0
             self.con.execute("vacuum")
 
@@ -229,6 +228,7 @@ class SQLite(Database):
 
     def backup(self):
         # TODO: wait for XML export format.
+        # TODO: skip for resource limited?
         pass
 
     def unload(self):
@@ -241,7 +241,7 @@ class SQLite(Database):
         return True
         
     def is_loaded(self):
-        return bool(self._connection)
+        return not self.load_failed
 
     # Start date.
 

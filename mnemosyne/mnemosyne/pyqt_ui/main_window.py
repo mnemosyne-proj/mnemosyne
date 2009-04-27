@@ -240,7 +240,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         stopwatch.unpause()
 
     def update_status_bar(self, message=None):
-        db = database()
+        db = database()            
         self.sched.setText(_("Scheduled: ") + \
                            str(db.scheduled_count()) + " ")
         self.notmem.setText(_("Not memorised: ") + \

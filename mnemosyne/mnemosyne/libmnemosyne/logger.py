@@ -3,7 +3,6 @@
 #
 
 import os
-import bz2
 
 from mnemosyne.libmnemosyne.component_manager import config
 
@@ -62,7 +61,11 @@ class Logger(object):
             user = config()["user_id"]
             index = config()["log_index"]
             archive_name = "%s_%05d.bz2" % (user, index)
-            f = bz2.BZ2File(os.path.join(basedir, "history", archive_name), 'w')
+            if not config().resource_limited:
+                import bz2
+                f = bz2.BZ2File(os.path.join(basedir, "history", archive_name), 'w')
+            else:
+                f = file(os.path.join(basedir, "history", archive_name), 'w')
             for l in file(log_name):
                 f.write(l)
             f.close()

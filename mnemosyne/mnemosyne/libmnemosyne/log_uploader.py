@@ -2,7 +2,11 @@
 # log_uploader.py <Peter.Bienstman@UGent.be>
 #
 
+import gettext
+_ = gettext.gettext
+
 import os
+import bz2
 import traceback
 import time
 import urllib2
@@ -57,9 +61,18 @@ class LogUploader(Thread):
     def run(self):
         basedir = config().basedir
         join = os.path.join
-        # Find out which files haven't been uploaded yet.
         dir = os.listdir(unicode(join(basedir, "history")))
-        history_files = [x for x in dir if x[-4:] == ".bz2"]
+        # Compress files which haven't been compressed yet (e.g. because they
+        # come from a mobile device).
+        for filename in [x for x in dir if x.endswith(".txt")]:
+            archive_name = filename.replace(".txt", ".bz2")
+            f = bz2.BZ2File(os.path.join(basedir, "history", archive_name), 'w')
+            for l in file(filename):
+                f.write(l)
+            f.close()
+            os.remove(filename)
+        # Find out which files haven't been uploaded yet.
+        history_files = [x for x in dir if x.endswith(".bz2")]
         uploaded = None
         try:
             upload_log = file(join(basedir, "history", "uploaded"))
@@ -74,12 +87,12 @@ class LogUploader(Thread):
         upload_log = file(join(basedir, "history", "uploaded"), 'a')
         try:
             for f in to_upload:
-                print "Uploading", f, "...",
+                print _("Uploading"), f, "...",
                 filename = join(basedir, "history", f)
                 self.upload(filename)
                 print >> upload_log, f
                 log().uploaded(filename)
-                print "done!"           
+                print _("done!")           
         except:
             log().uploading_failed()
             traceback.print_exc()
