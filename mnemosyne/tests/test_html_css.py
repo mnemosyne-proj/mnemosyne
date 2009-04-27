@@ -4,18 +4,14 @@
 
 import os
 
-from mnemosyne.libmnemosyne import initialise, finalise
+from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 
 
-class TestHtmlCss:
-
-    def setup(self):
-        os.system("rm -fr dot_test")
-        initialise(os.path.abspath("dot_test"))        
-
+class TestHtmlCss(MnemosyneTest):
+     
     def test_1(self):
         fact_data = {"q": "question",
                      "a": "answer"}
@@ -45,5 +41,3 @@ div#q { text-align: center; }
 div#a { text-align: center; }
 </style></head><body><table><tr><td><div id="a">answer</div></td></tr></table></body></html>"""
         
-    def teardown(self):
-         finalise()

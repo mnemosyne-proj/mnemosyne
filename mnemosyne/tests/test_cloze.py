@@ -4,18 +4,17 @@
 
 import os
 
-from mnemosyne.libmnemosyne import initialise, finalise
+from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.card_types.cloze import Cloze
 from mnemosyne.libmnemosyne.component_manager import database 
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 
-class TestCloze:
+class TestCloze(MnemosyneTest):
 
     def setup(self):
-        os.system("rm -fr dot_test")
-        initialise(os.path.abspath("dot_test"))
+        MnemosyneTest.setup(self)
         p = Cloze()
         component_manager.register("plugin", p)
         p.activate()
@@ -106,6 +105,3 @@ div#text { text-align: center; }
         assert database().card_count() == 3
         
         assert database().average_easiness() == 2.5
-        
-    def teardown(self):
-        finalise()

@@ -7,17 +7,17 @@ _ = gettext.gettext
 
 import sys
 import os
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+
+from PyQt4 import QtCore, QtGui
 
 import review_wdgt
 
 from ui_main_window import Ui_MainWindow
 from add_cards_dlg import AddCardsDlg
 from edit_fact_dlg import EditFactDlg
-from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 from card_appearance_dlg import CardAppearanceDlg
 from activate_plugins_dlg import ActivatePluginsDlg
+from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 #from import_dlg import *
 #from export_dlg import *
 #from edit_item_dlg import *
@@ -29,72 +29,37 @@ from activate_plugins_dlg import ActivatePluginsDlg
 #from product_tour_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
-from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne import initialise_user_plugins
-from mnemosyne.libmnemosyne.exceptions import MnemosyneError
-from mnemosyne.libmnemosyne.exceptions import LoadErrorCreateTmp
+from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 # The folloving is need to determine the location of the translations.
+# TODO: needed?
 prefix = os.path.dirname(__file__)
 
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def __init__(self, filename, parent=None):
-        QMainWindow.__init__(self, parent)
+        QtGui.QMainWindow.__init__(self, parent)
         self.setupUi(self)
-        ui_controller_main().widget = self
-        self.sched = QLabel("", self.statusbar)
-        self.notmem = QLabel("", self.statusbar)
-        self.all = QLabel("", self.statusbar)
+         
+        self.sched = QtGui.QLabel("", self.statusbar)
+        self.notmem = QtGui.QLabel("", self.statusbar)
+        self.all = QtGui.QLabel("", self.statusbar)
         self.statusbar.addPermanentWidget(self.sched)
         self.statusbar.addPermanentWidget(self.notmem)
         self.statusbar.addPermanentWidget(self.all)
         self.statusbar.setSizeGripEnabled(0)
-        try:
-            initialise_user_plugins()
-        except MnemosyneError, e:
-            self.error_box(e)
-        if filename == None:
-            filename = config()["path"]
-        try:
-            database().load(filename)
-        except MnemosyneError, e:
-            self.error_box(e)
-            self.error_box(LoadErrorCreateTmp())
-            filename = os.path.join(os.path.split(filename)[0],"___TMP___" \
-                                    + database().suffix)
-            database().new(filename)
-        self.update_review_widget()
-        ui_controller_review().new_question()
-        self.timer = QTimer()
-        self.connect(self.timer, SIGNAL("timeout()"), ui_controller_review().rollover)
+
+    def after_mnemosyne_init(self):
+        self.timer = QtCore.QTimer()
+        self.connect(self.timer, QtCore.SIGNAL("timeout()"),
+                     ui_controller_review().rollover)
         self.timer.start(1000 * 60 * 5)
 
-    def information_box(self, message, OK_string=_("&OK")):
-        QMessageBox.information(None,  _("Mnemosyne"), message, OK_string)
-
-    def question_box(self, question, option0, option1, option2):
-        return QMessageBox.question(None,  _("Mnemosyne"),
-                                    question, option0, option1, option2, 0, -1)
-
-    def error_box(self, exception):
-        if exception.info:
-            exception.msg += "\n" + exception.info        
-        QMessageBox.critical(None, _("Mnemosyne"), exception.msg,
-                             _("&OK"), "", "", 0, -1)
-
-    def save_file_dialog(self, path, filter, caption=""):
-        return unicode(QFileDialog.getSaveFileName(self,caption,path,filter))
-    
-    def open_file_dialog(self, path, filter, caption=""):
-        return unicode(QFileDialog.getOpenFileName(self,caption,path,filter))
-    
-    def update_review_widget(self):
+    def init_review_widget(self):
         w = self.centralWidget()
         if w:
             w.close()
@@ -102,6 +67,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ui_controller_review().widget = \
             component_manager.get_current("review_widget")(parent=self)
         self.setCentralWidget(ui_controller_review().widget)
+
+    def information_box(self, message, OK_string=_("&OK")):
+        QtGui.QMessageBox.information(None, _("Mnemosyne"), message, OK_string)
+
+    def question_box(self, question, option0, option1, option2):
+        return QtGui.QMessageBox.question(None,  _("Mnemosyne"),
+            question, option0, option1, option2, 0, -1)
+
+    def error_box(self, exception):
+        if exception.info:
+            exception.msg += "\n" + exception.info        
+        QtGui.QMessageBox.critical(None, _("Mnemosyne"), exception.msg,
+            _("&OK"), "", "", 0, -1)
+
+    def save_file_dialog(self, path, filter, caption=""):
+        return unicode(QtGui.QFileDialog.getSaveFileName(self, caption, path,
+                                                         filter))
+    
+    def open_file_dialog(self, path, filter, caption=""):
+        return unicode(QtGui.QFileDialog.getOpenFileName(self, caption, path,
+                                                         filter))
 
     def add_cards(self):
         ui_controller_main().add_cards()

@@ -5,7 +5,7 @@
 import os
 import copy
 
-from mnemosyne.libmnemosyne import initialise, finalise
+from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
@@ -21,11 +21,7 @@ class TestConverter:
         assert updated_cards == []
         assert deleted_cards == []
 
-class TestConvertCards:
-
-    def setup(self):
-        os.system("rm -fr dot_test")
-        initialise(os.path.abspath("dot_test"))        
+class TestConvertCards(MnemosyneTest):
 
     def test_1_to_2(self):
         fact_data = {"q": "question",
@@ -541,6 +537,3 @@ class TestConvertCards:
             
         new_card.question()
         new_card.answer()
-        
-    def teardown(self):
-        finalise()

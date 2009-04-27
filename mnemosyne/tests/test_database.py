@@ -5,8 +5,10 @@
 import os
 from nose.tools import raises
 
-from mnemosyne.libmnemosyne import initialise, finalise, config
+from mnemosyne_test import MnemosyneTest
+from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.category import Category
+from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import database, plugins
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
@@ -15,11 +17,7 @@ from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
 from mnemosyne.libmnemosyne.exceptions import MissingPluginError, PluginError
 
 
-class TestDatabase:
-
-    def setup(self):
-        os.system("rm -fr dot_test")
-        initialise(os.path.abspath("dot_test"))
+class TestDatabase(MnemosyneTest):
 
     def test_categories(self):
         cat = Category("test")
@@ -138,10 +136,9 @@ class TestDatabase:
         
         ui_controller_main().file_save()       
         database().unload()
-        finalise()
+        Mnemosyne().finalise()
         
-        initialise(os.path.abspath("dot_test"))
-        database().load(config()["path"])
+        Mnemosyne().initialise(os.path.abspath("dot_test"))
         assert database().fact_count() == 1
         _card_id, _fact_id = list(database().cards_unseen(0))[0]
         fact = database().get_fact(_fact_id)
@@ -170,10 +167,9 @@ class TestDatabase:
         
         ui_controller_main().file_save()       
         database().unload()
-        finalise()
+        Mnemosyne().finalise()
         
-        initialise(os.path.abspath("dot_test"))
-        database().load(config()["path"])
+        Mnemosyne().initialise(os.path.abspath("dot_test"))
         assert database().fact_count() == 1
         _card_id, _fact_id = list(database().cards_unseen(0))[0]
         fact = database().get_fact(_fact_id)
@@ -233,10 +229,11 @@ class TestDatabase:
         
         ui_controller_main().file_save()       
         database().unload()
-        finalise()
+        Mnemosyne().finalise()
         
-        initialise(os.path.abspath("dot_test"))
-
+        Mnemosyne().initialise(os.path.abspath("dot_test"))
+        database().unload()
+        
         # Artificially remove plugin.
         for plugin in plugins():
             if plugin.id == "4":
@@ -270,10 +267,11 @@ class TestDatabase:
         
         ui_controller_main().file_save()       
         database().unload()
-        finalise()
+        Mnemosyne().finalise()
         
-        initialise(os.path.abspath("dot_test"))
-
+        Mnemosyne().initialise(os.path.abspath("dot_test"))
+        database().unload()
+        
         # Artificially mutilate plugin.
         for plugin in plugins():
             if plugin.id == "4":
@@ -457,5 +455,3 @@ class TestDatabase:
             [database().get_or_create_category_with_name("default3")])
         assert database().active_count() == 0        
         
-    def teardown(self):
-        finalise()

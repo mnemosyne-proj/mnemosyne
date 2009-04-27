@@ -6,8 +6,8 @@ from nose.tools import raises
 
 import os
 
+from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.plugin import Plugin
-from mnemosyne.libmnemosyne import initialise, finalise
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_types
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
@@ -29,11 +29,10 @@ class MyPlugin(Plugin, FrontToBack):
     def __init__(self):
         FrontToBack.__init__(self)
 
-class TestPlugin:
+class TestPlugin(MnemosyneTest):
 
     def setup(self):
-        os.system("rm -fr dot_test")
-        initialise(os.path.abspath("dot_test"))
+        MnemosyneTest.setup(self)
         ui_controller_main().widget = Widget()
         
     @raises(AssertionError)
@@ -86,6 +85,3 @@ class TestPlugin:
         database().delete_fact_and_related_data(fact)
         
         p.deactivate() # Should work without problems.
-        
-    def teardown(self):
-         finalise()

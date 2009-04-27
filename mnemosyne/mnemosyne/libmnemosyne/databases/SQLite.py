@@ -199,8 +199,12 @@ class SQLite(Database):
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
             parent_instance = card_type_by_id(parent_type_id)
-            parent_instance.clone(clone_name)
-        
+            try:
+                parent_instance.clone(clone_name)
+            except NameError:
+                # In this case the clone was already created by loading the
+                # database earlier.
+                pass
         config()["path"] = contract_path(path, config().basedir)
         log().loaded_database()
         for f in component_manager.get_all("function_hook", "after_load"):

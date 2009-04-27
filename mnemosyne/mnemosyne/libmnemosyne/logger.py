@@ -59,7 +59,7 @@ class Logger(object):
         except:
             log_size = 0
         if log_size > 64000:
-            user  = config()["user_id"]
+            user = config()["user_id"]
             index = config()["log_index"]
             archive_name = "%s_%05d.bz2" % (user, index)
             f = bz2.BZ2File(os.path.join(basedir, "history", archive_name), 'w')

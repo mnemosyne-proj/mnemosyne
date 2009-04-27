@@ -130,7 +130,12 @@ class Pickle(Database):
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
             parent_instance = card_type_by_id(parent_type_id)
-            parent_instance.clone(clone_name)
+            try:
+                parent_instance.clone(clone_name)
+            except NameError:
+                # In this case the clone was already created by loading the
+                # database earlier.
+                pass
             
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:

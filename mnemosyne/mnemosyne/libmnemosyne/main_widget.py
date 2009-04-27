@@ -12,33 +12,51 @@ class MainWidget(object):
     in order to be used by the main controller.
 
     """
+    
+    def after_mnemosyne_init(self):
 
+        """If the widget needs to do some initialisation which requires
+        libmnemosyne to be already initialised, this can go here.
+
+        """
+        
+        pass
+    
+    def init_review_widget(self):
+
+        """At the very least, this function has to inform the controller
+        about its review widget.
+
+        """
+        
+        pass
+    
     def information_box(self, message, OK_string=_("&OK")):
-        raise NotImplementedError
-    
+        pass
+            
     def question_box(self, question, option0, option1, option2):
-        raise NotImplementedError
+        pass
     
-    def error_box(self, event)
-        raise NotImplementedError
+    def error_box(self, event):
+        pass
     
     def save_file_dialog(self, path, filter, caption=""):
-        raise NotImplementedError
+        pass
     
     def open_file_dialog(self, path, filter, caption=""):
-        raise NotImplementedError
+        pass
     
     def run_add_card_dialog(self):
-        raise NotImplementedError
+        pass
 
     def run_edit_fact_dialog(self, fact, allow_cancel=True):
-        raise NotImplementedError
+        pass
     
     def run_card_appearance_dialog(self):
-        raise NotImplementedError
+        pass
 
     def run_manage_card_types_dialog(self):
-        raise NotImplementedError
+        pass
     
     def update_status_bar(self, message=None):
-        raise NotImplementedError 
+        pass 

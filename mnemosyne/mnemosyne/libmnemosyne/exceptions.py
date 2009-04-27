@@ -43,9 +43,6 @@ class LoadError(MnemosyneError):
 
 class MissingPluginError(MnemosyneError):
     msg = _("Missing plugin for card type with id:")
-    
-class LoadErrorCreateTmp(MnemosyneError):
-    msg = _("Unable to load database.\nCreating tmp file.")
 
 class InvalidFormatError(MnemosyneError):
     msg = _("Invalid file format.")

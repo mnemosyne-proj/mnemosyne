@@ -2,8 +2,7 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4 import QtGui
 
 from ui_review_wdgt import *
 
@@ -24,22 +23,22 @@ body  { background-color: white;
 <body><table><tr><td></td></tr></table></body></html>
 """
 
-class ReviewWdgt(QWidget, Ui_ReviewWdgt, ReviewWidget):
+class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     
     def __init__(self, parent=None):
-        QWidget.__init__(self, parent)
+        QtGui.QWidget.__init__(self, parent)
         self.setupUi(self)
         self.controller = ui_controller_review()
         self.controller.widget = self
-        self.grade_buttons = QButtonGroup()
+        self.grade_buttons = QtGui.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
         self.grade_buttons.addButton(self.grade_1_button, 1)
         self.grade_buttons.addButton(self.grade_2_button, 2)
         self.grade_buttons.addButton(self.grade_3_button, 3)
         self.grade_buttons.addButton(self.grade_4_button, 4)
         self.grade_buttons.addButton(self.grade_5_button, 5)
-        self.connect(self.grade_buttons, SIGNAL("buttonClicked(int)"),\
-                    self.grade_answer)
+        self.connect(self.grade_buttons, QtCore.SIGNAL("buttonClicked(int)"),\
+                     self.grade_answer)
 
     def show_answer(self):
         self.controller.show_answer()

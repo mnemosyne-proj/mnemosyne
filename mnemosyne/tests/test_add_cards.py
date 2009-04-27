@@ -4,17 +4,13 @@
 
 import os
 
-from mnemosyne.libmnemosyne import initialise, finalise
+from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 
 
-class TestAddCards:
-
-    def setup(self):
-        os.system("rm -fr dot_test")
-        initialise(os.path.abspath("dot_test"))        
+class TestAddCards(MnemosyneTest):
 
     def test_1(self):
         fact_data = {"q": "question",
@@ -61,6 +57,3 @@ class TestAddCards:
         ui_controller_main().file_save()
         assert database().fact_count() == 1
         assert database().card_count() == 2
-        
-    def teardown(self):
-        finalise()

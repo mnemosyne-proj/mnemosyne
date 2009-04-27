@@ -4,7 +4,7 @@
 
 import os
 
-from mnemosyne.libmnemosyne import initialise, finalise
+from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import scheduler
@@ -13,11 +13,7 @@ from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 
-class TestScheduler:
-
-    def setup(self):
-        os.system("rm -fr dot_test")
-        initialise(os.path.abspath("dot_test"))        
+class TestScheduler(MnemosyneTest):
 
     def test_1(self):
         card_type = card_type_by_id("1")
@@ -135,6 +131,3 @@ class TestScheduler:
         new_card = ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=0, cat_names=["default"], warn=False)[0]
         assert scheduler().get_next_card() == new_card
-        
-    def teardown(self):
-        finalise()

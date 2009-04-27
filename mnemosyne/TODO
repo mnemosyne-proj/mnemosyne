@@ -1,3 +1,7 @@
+-config.is_resource_limited
+
+-get rid of __TMP__ deck: allow Mnemosyne to work without deck loaded.
+
 -bz WM
 
 -how to exit program
@@ -6,23 +10,27 @@
 
 -pyw extension
 
--basedir
-
--review widget bind controller slots directly
-
 -installer
+-ask which translations to install
 
--latex plugin
+-improve layout borders
+-new html renderer needed
+-enable buttons, grades, default actions
 
--config.is_resource_limited
+-create interval column, create index
 
--move more initialisation logic to libmnemosyne
 
--unify error box?
+-unify error box? better error handling
 
 -question_box/yes no cancel
 
+
+-review widget bind controller slots directly
+
+
 -cramming scheduler
+
+-better way of handling different review widgets
 
 -cramming widget and WM?
 
@@ -56,6 +64,7 @@
 -write more tests
 
 -don't import * for Qt
+-import full path for ui components
 
 -test rollover
 
