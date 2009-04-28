@@ -28,13 +28,13 @@ class Mnemosyne(object):
         self.upload_thread = None
 
     def initialise(self, basedir, filename=None, main_widget=None):
-        self.initialise_error_handling()
         self.initialise_system_components()
         self.initialise_main_widget(main_widget)  
         self.check_lockfile(basedir)
         config().initialise(basedir)
         config().resource_limited = self.resource_limited
-        self.initialise_lockfile(basedir)
+        self.initialise_error_handling()
+        self.initialise_lockfile()
         self.initialise_logging()   
         self.load_database(filename)
         self.initialise_user_plugins()
@@ -155,8 +155,8 @@ class Mnemosyne(object):
             if status == 0:
                 sys.exit()
 
-    def initialise_lockfile(self, basedir):
-        lockfile = file(os.path.join(basedir, "MNEMOSYNE_LOCK"), 'w')
+    def initialise_lockfile(self):
+        lockfile = file(os.path.join(config().basedir, "MNEMOSYNE_LOCK"), 'w')
         lockfile.close()
 
     def initialise_logging(self):

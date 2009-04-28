@@ -1,0 +1,29 @@
+* Download and install PythonCE or PythonCE smartphone:
+
+  http://sourceforge.net/project/showfiles.php?group_id=104228
+
+* Copy the directories ppygui and mnemosyne (containing libmnemosyne
+  and ppygui_ui to \My Device\Program Files\Python25\Lib\site-packages
+
+* Copy the updated version of the sqlite library sqlite3.dll
+  (provided by tdhite) to \My Device\Program Files\Python25\
+  You might need to activate 'Show All Files' in the filemanager menu
+  for this
+
+* Copy your .mnemosyne directory to your storage card, e.g. to
+  \SDMMC\.mnemosyne
+
+* Edit the basedir variable inside Mnemosyne Mobile.py to give 
+  the location where your .mnemosyne directory will be stored. 
+  In our example, this is \SDMMC\.mnemosyne
+
+* Optionally, copy Mnemosyne Mobile.py to 
+  \My Device\Windows\Start Menu\Programs for easier access. 
+
+* The very first startup will be slower since all the code needs to be
+  byte-compiled. This will only happen once.
+
+* To synchronise your data with a desktop machine, it's best to
+  synchronise the *entire* .mnemosyne directory, and not just your
+  database (otherwise you will lose statistics information). There
+  are external tools to make this easier (like Unison).

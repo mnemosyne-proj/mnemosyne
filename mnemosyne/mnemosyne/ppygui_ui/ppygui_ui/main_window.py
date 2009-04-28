@@ -11,7 +11,7 @@ if os.name == "ce":
 else:
 	import emulator.api as gui
 
-from review_wdgt import ReviewWdgt
+from mnemosyne.ppygui_ui.review_wdgt import ReviewWdgt
 from mnemosyne.libmnemosyne.main_widget import MainWidget
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
@@ -26,10 +26,12 @@ class MainFrame(gui.CeFrame, MainWidget):
 
         self.review_widget = ReviewWdgt(parent=self)
 
+        # The layouting of the statusbar is only done once, so we need to
+        # provide enough space for the digits here.
         self.status_sizer = gui.HBox(spacing=10)
-        self.scheduled_label = gui.Label(self)
-        self.not_memorised_label = gui.Label(self)
-        self.all_label = gui.Label(self)
+        self.scheduled_label = gui.Label(self, _("Sch.:") + 5*" ")
+        self.not_memorised_label = gui.Label(self, _("Not mem.:") + 5*" ")
+        self.all_label = gui.Label(self, _("All.:") + 5*" ")
         self.status_sizer.add(self.scheduled_label)
         self.status_sizer.add(self.not_memorised_label)
         self.status_sizer.add(self.all_label)
@@ -52,6 +54,7 @@ class MainFrame(gui.CeFrame, MainWidget):
             self.all_cards = db.active_count()
         self.all_label.text = \
             _("All:") + " " + str(self.all_cards)
+        self.Layout()
         
     def information_box(self, message):
         gui.Message.ok(_("Mnemosyne"), message, icon="info")            

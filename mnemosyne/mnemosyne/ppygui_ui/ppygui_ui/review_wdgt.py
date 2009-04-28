@@ -12,6 +12,7 @@ else:
 	import emulator.api as gui
 
 from mnemosyne.libmnemosyne.review_widget import ReviewWidget
+from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 
@@ -24,7 +25,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         # Note: ppygui makes heavy use of properties, so we can't use e.g.
         # self.question, as the presence of self.get_question would then
         # require a function self.set_question too.
-        
+
         self._question_label = gui.Label(self, _("Question:"))
         self._question = gui.Html(self)
         
@@ -34,17 +35,17 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         self.show_button = gui.Button(self, _("Show answer"))
         self.show_button.bind(clicked=self.show_answer)
 
-        self.grade_sizer = gui.HBox(border=(5, 5, 5, 5), spacing=20)
+        self.grade_sizer = gui.HBox(border=(0, 2, 0, 2), spacing=2)
         self.grade_buttons = []
         self.id_for_grade = {}
         for i in range(6):
-            button = gui.Button(self, title=" " + str(i) + " ", border=True,
+            button = gui.Button(self, title=4*" " + str(i) + 4*" ",
                                 action=self.grade_answer)
             self.grade_buttons.append(button)
             self.id_for_grade[button._id] = i        
             self.grade_sizer.add(button)            
 
-        sizer = gui.VBox()
+        sizer = gui.VBox(border=(2, 2, 2, 2))
         sizer.add(self._question_label)
         sizer.add(self._question)
         sizer.add(self._answer_label)
@@ -90,7 +91,8 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
 
     def enable_grades(self, enabled):
         for button in self.grade_buttons:
-
+            button.enable = enabled
+            
     def show_answer(self, event):
         self.controller.show_answer()
             

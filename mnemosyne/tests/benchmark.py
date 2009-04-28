@@ -1,7 +1,7 @@
 import os
 import timeit
 
-from mnemosyne.libmnemosyne import initialise, finalise, config
+from mnemosyne.libmnemosyne import Mnemosyne, config
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
@@ -13,7 +13,7 @@ create_from_scratch = True
 
 def initialise_program():
     # 0.085 from scratch
-    initialise(os.path.abspath("dot_benchmark"))
+    Mnemosyne().initialise(os.path.abspath("dot_benchmark"))
 
 def create_database():
     # 106 sec for 6000
@@ -28,8 +28,8 @@ def create_database():
             card_type = card_type_by_id("2")            
         card = ui_controller_main().create_new_cards(fact_data, card_type,
                            grade=4, cat_names=["default" + str(i)])[0]
-        #card.next_rep -= 1000
-        #database().update_card(card)
+        card.next_rep -= 1000
+        database().update_card(card)
     database().save(config()["path"])
 
 def load_database():
@@ -53,7 +53,7 @@ def get_question():
 def finalise_program():
     # 0.005 sec
     config()["upload_logs"] = False
-    finalise()
+    Mnemosyne().finalise()
     
 # Run these functions and time them.
 

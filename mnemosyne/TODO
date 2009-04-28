@@ -4,10 +4,9 @@ Windows Mobile client:
 -check if exit button works ok
 -check if enable works ok
 -check statusbar
--pyw extension
+-show answer?
 -improve layout borders
 -new html renderer needed
--merge depencies to repo, update instructions
 
 
 -move rebuild_queue from database to ui_controller. Make more robust.
@@ -225,6 +224,10 @@ http://pythoscope.org/
 * After 2.0:
 
 Windows Mobile client:
+
+-icon
+
+-implement question box for lockfile detection
 
 -installer
 
