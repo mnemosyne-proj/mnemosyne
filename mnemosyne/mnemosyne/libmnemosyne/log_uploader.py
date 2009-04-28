@@ -65,13 +65,17 @@ class LogUploader(Thread):
         # Compress files which haven't been compressed yet (e.g. because they
         # come from a mobile device).
         for filename in [x for x in dir if x.endswith(".txt")]:
-            archive_name = filename.replace(".txt", ".bz2")
-            f = bz2.BZ2File(os.path.join(basedir, "history", archive_name), 'w')
+            filename = os.path.join(basedir, "history", filename)
+            print 'to compress', filename
+            compressed_filename = filename.replace(".txt", ".bz2")
+            print 'compressed name', compressed_filename 
+            compressed_file = bz2.BZ2File(compressed_filename, "w")
             for l in file(filename):
-                f.write(l)
-            f.close()
+                compressed_file.write(l)
+            compressed_file.close()
             os.remove(filename)
         # Find out which files haven't been uploaded yet.
+        dir = os.listdir(unicode(join(basedir, "history")))
         history_files = [x for x in dir if x.endswith(".bz2")]
         uploaded = None
         try:

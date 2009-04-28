@@ -27,9 +27,9 @@ class MainFrame(gui.CeFrame, MainWidget):
         self.review_widget = ReviewWdgt(parent=self)
 
         self.status_sizer = gui.HBox(spacing=10)
-        self.scheduled_label = gui.Label(self, _("S:"))
-        self.not_memorised_label = gui.Label(self, _("NM:"))
-        self.all_label = gui.Label(self, _("A:"))
+        self.scheduled_label = gui.Label(self)
+        self.not_memorised_label = gui.Label(self)
+        self.all_label = gui.Label(self)
         self.status_sizer.add(self.scheduled_label)
         self.status_sizer.add(self.not_memorised_label)
         self.status_sizer.add(self.all_label)
@@ -45,13 +45,13 @@ class MainFrame(gui.CeFrame, MainWidget):
     def update_status_bar(self):
         db = database()
         self.scheduled_label.text = \
-            _("S:") + " " + str(db.scheduled_count())
+            _("Sch.:") + " " + str(db.scheduled_count())
         self.not_memorised_label.text = \
-            _("NM:") + " " + str(db.non_memorised_count())
+            _("Not mem.:") + " " + str(db.non_memorised_count())
         if not self.all_cards:
             self.all_cards = db.active_count()
         self.all_label.text = \
-            _("A:") + " " + str(self.all_cards)
+            _("All:") + " " + str(self.all_cards)
 
     def error_box(self, exception):
         if exception.info:
