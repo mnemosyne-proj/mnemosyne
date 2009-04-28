@@ -180,8 +180,8 @@ class Mnemosyne(object):
             else:
                 database().load(filename)
         except MnemosyneError, e:
-            ui_controller_main().widget.error_box(e)
-            ui_controller_main().widget.error_box(LoadErrorCreateTmp())
+            ui_controller_main().widget.show_exception(e)
+            ui_controller_main().widget.show_exception(LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0],"___TMP___" \
                                     + database().suffix)
             database().new(filename)
@@ -197,7 +197,7 @@ class Mnemosyne(object):
                     __import__(plugin[:-3])
                 except:
                     ui_controller_main().widget.\
-                                    error_box(PluginError(stack_trace=True))
+                                    show_exception(PluginError(stack_trace=True))
 
     def activate_saved_plugins(self):
         from mnemosyne.libmnemosyne.component_manager import ui_controller_main
@@ -209,7 +209,7 @@ class Mnemosyne(object):
                         break
             except:
                 ui_controller_main().widget.\
-                                    error_box(PluginError(stack_trace=True))
+                                    show_exception(PluginError(stack_trace=True))
 
     def finalise(self):
         config().save()

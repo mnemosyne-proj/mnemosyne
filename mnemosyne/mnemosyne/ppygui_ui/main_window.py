@@ -52,8 +52,19 @@ class MainFrame(gui.CeFrame, MainWidget):
             self.all_cards = db.active_count()
         self.all_label.text = \
             _("All:") + " " + str(self.all_cards)
+        
+    def information_box(self, message):
+        gui.Message.ok(_("Mnemosyne"), message, icon="info")            
+        
+    def error_box(self, message):
+        gui.Message.ok(_("Mnemosyne"), message, icon="error")
 
-    def error_box(self, exception):
-        if exception.info:
-            exception.msg += "\n" + exception.info
-        gui.Message.ok(_("Mnemosyne"), exception.msg)
+    def question_box(self, question, option0, option1, option2):
+
+        """ppygui has no convenience functions for this, so this should be
+        created as a custom dialog. However, it is not needed for just
+        the review functionality.
+
+        """
+
+        raise NotImplementedError

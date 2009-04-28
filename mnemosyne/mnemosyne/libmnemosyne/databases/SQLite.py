@@ -152,8 +152,7 @@ class SQLite(Database):
             raise LoadError
 
         # Vacuum database from time to time.
-
-        config()["times_loaded"] = config()["times_loaded"] + 1
+        config()["times_loaded"] += 1
         if config()["times_loaded"] >= 5 and not config().resource_limited:
             config()["times_loaded"] = 0
             self.con.execute("vacuum")
@@ -173,7 +172,7 @@ class SQLite(Database):
                     plugin_needed.add(id)
             if id not in active_id:
                 plugin_needed.add(id)
-        
+                        
         # Activate necessary plugins.
         for card_type_id in plugin_needed:
             try:
@@ -236,7 +235,7 @@ class SQLite(Database):
             self._connection.commit()
             self._connection.close()
             self._connection = None
-            self.load_failed = False
+        self.load_failed = True
         scheduler().reset()
         return True
         

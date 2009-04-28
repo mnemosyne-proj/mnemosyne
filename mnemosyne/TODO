@@ -1,27 +1,18 @@
--testsuite failures
 
--how to exit program
+Windows Mobile client:
 
--install only pyc files
-
+-check if exit button works ok
+-check if enable works ok
+-check statusbar
 -pyw extension
-
--installer
--ask which translations to install
-
 -improve layout borders
 -new html renderer needed
--enable buttons, grades, default actions
-
--create interval column, create index
-
-
--unify error box? better error handling
-
--question_box/yes no cancel
-
-
--review widget bind controller slots directly
+-make distrib
+-installer
+-install only pyc files
+-default actions
+-mark card
+-hook up scheduler rollover
 
 
 -cramming scheduler
@@ -29,8 +20,6 @@
 -better way of handling different review widgets
 
 -cramming widget and WM?
-
--need for update_review_widget in main_window?
 
 -add docs to always include set_initial_grade in custom scheduler
 

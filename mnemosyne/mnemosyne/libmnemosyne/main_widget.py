@@ -37,8 +37,13 @@ class MainWidget(object):
     def question_box(self, question, option0, option1, option2):
         pass
     
-    def error_box(self, event):
+    def error_box(self, message):
         pass
+
+    def show_exception(self, exception):
+        if exception.info:
+            exception.msg += "\n" + exception.info
+        self.error_box(exception.msg)
     
     def save_file_dialog(self, path, filter, caption=""):
         pass

@@ -260,14 +260,14 @@ class DefaultMainController(UiControllerMain):
         try:
             database().unload()
         except MnemosyneError, e:
-            self.widget.error_box(e)
+            self.widget.show_exception(e)
             stopwatch.unpause()
             return            
         ui_controller_review().clear()
         try:
             database().load(out)
         except MnemosyneError, e:
-            self.widget.error_box(e)
+            self.widget.show_exception(e)
             stopwatch.unpause()
             return
         ui_controller_review().new_question()
@@ -279,7 +279,7 @@ class DefaultMainController(UiControllerMain):
         try:
             database().save(path)
         except MnemosyneError, e:
-            self.widget.error_box(e)
+            self.widget.show_exception(e)
         stopwatch.unpause()
 
     def file_save_as(self):
@@ -296,7 +296,7 @@ class DefaultMainController(UiControllerMain):
         try:
             database().save(out)
         except MnemosyneError, e:
-            self.widget.error_box(e)
+            self.widget.show_exception(e)
             stopwatch.unpause()
             return
         ui_controller_review().update_dialog()

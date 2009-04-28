@@ -86,21 +86,10 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
 
     def update_show_button(self, text, default, enabled):
         self.show_button.text = text
-        # TODO:
-        #if enabled:
-        #    self.show_button.show()
-        #else:
-        #    self.show_button.hide()
+        self.show_button.enable = enabled
 
     def enable_grades(self, enabled):
-        return
-        # TODO
-        if enabled:
-            for button in self.grade_buttons:
-                button.show()
-        else:
-            for button in self.grade_buttons:
-                button.hide()
+        for button in self.grade_buttons:
 
     def show_answer(self, event):
         self.controller.show_answer()

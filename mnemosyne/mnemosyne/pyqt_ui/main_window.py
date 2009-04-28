@@ -75,10 +75,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         return QtGui.QMessageBox.question(None,  _("Mnemosyne"),
             question, option0, option1, option2, 0, -1)
 
-    def error_box(self, exception):
-        if exception.info:
-            exception.msg += "\n" + exception.info        
-        QtGui.QMessageBox.critical(None, _("Mnemosyne"), exception.msg,
+    def error_box(self, message):  
+        QtGui.QMessageBox.critical(None, _("Mnemosyne"), message,
             _("&OK"), "", "", 0, -1)
 
     def save_file_dialog(self, path, filter, caption=""):
@@ -214,7 +212,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             database().backup()
             database().unload()
         except MnemosyneError, e:
-            self.error_box(e)
+            self.show_exception(e)
             event.ignore()
         else:
             event.accept()
