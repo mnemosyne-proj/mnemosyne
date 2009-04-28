@@ -7,22 +7,28 @@ Windows Mobile client:
 -pyw extension
 -improve layout borders
 -new html renderer needed
--make distrib
--installer
--install only pyc files
--default actions
--mark card
--hook up scheduler rollover
+-merge depencies to repo, update instructions
 
+
+-move rebuild_queue from database to ui_controller. Make more robust.
+ Add test case.
+
+        rebuild_revision_queue()
+        if not in_revision_queue(self.item):
+            self.newQuestion()
+        else:
+            remove_from_revision_queue(self.item) # It's already being asked.
+
+Do this fo edit, clean duplicates, activate categories, configuration 
+(scheduler changes) comment to say we don't do this for add and import
 
 -cramming scheduler
+
+-status bar with cramming scheduler
 
 -better way of handling different review widgets
 
 -cramming widget and WM?
-
--add docs to always include set_initial_grade in custom scheduler
-
 
 
 -add 'update_card_active' (or something like that) to be called when
@@ -42,6 +48,7 @@ Windows Mobile client:
 
 -are keybindings sufficiently accesible?
 
+-make distrib
 
 
 -warn when importing card type with duplicate id
@@ -216,6 +223,20 @@ http://pythoscope.org/
 
 
 * After 2.0:
+
+Windows Mobile client:
+
+-installer
+
+-install only pyc files
+
+-default actions
+
+-mark card
+
+-hook up scheduler rollover
+
+
 
 -three sided export?
 

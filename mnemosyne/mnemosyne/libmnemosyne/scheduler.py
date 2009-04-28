@@ -8,6 +8,9 @@ class Scheduler(object):
     name = ""
 
     def reset(self):
+
+        """Called when starting the scheduler for the first time."""
+        
         raise NotImplementedError
 
     def set_initial_grade(self, card, grade):
@@ -34,6 +37,13 @@ class Scheduler(object):
         raise NotImplementedError
 
     def rebuild_queue(self, learn_ahead=False):
+
+        """Called by the rest of the library when an existing queue risks
+        becoming invalid, e.g. when cards have been deleted in the GUI.
+        'get_next_card' also makes use of this in certain implementations.
+
+        """
+        
         raise NotImplementedError
 
     def get_next_card(self, learn_ahead=False):

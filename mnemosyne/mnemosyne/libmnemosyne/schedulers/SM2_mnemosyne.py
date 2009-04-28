@@ -5,12 +5,12 @@
 import random
 import copy
 
-from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 from mnemosyne.libmnemosyne.component_manager import database, config, log
 
 
-# Scheduler based on http://www.supermemo.com/english/ol/sm2.htm.
+"""Scheduler based on http://www.supermemo.com/english/ol/sm2.htm."""
+
 
 class SM2Mnemosyne(Scheduler):
     
@@ -204,10 +204,6 @@ class SM2Mnemosyne(Scheduler):
         # Don't shuffle this queue, as it's more useful to review the
         # earliest scheduled cards first. We only put 25 cards at the same
         # time into the queue, in order to save memory.
-        # TODO: this requires the user to click 'learn ahead of schedule'
-        # again after 5 cards. If it's possible to make this algorithm
-        # stateless and return 1 card at the time, this will be solved
-        # automatically.
         if learn_ahead == False:
             return
         for _card_id, _fact_id in db.cards_learn_ahead(sort_key="next_rep",

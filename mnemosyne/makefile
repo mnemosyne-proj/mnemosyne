@@ -53,6 +53,9 @@ clean:
 
 distrib: FORCE
 	make clean
+
+	# Unix.
+
 	cd mnemosyne/pyqt_ui ; make
 
 	mkdir distrib
@@ -61,7 +64,7 @@ distrib: FORCE
 	mkdir distrib/mnemosyne
 	cp mnemosyne/*.py distrib/mnemosyne
 
-	mkdir distrib/mnemosyne/core
+	mkdir distrib/mnemosyne/libmnemosyne
 	cp mnemosyne/core/*.py distrib/mnemosyne/core
 
 	mkdir distrib/mnemosyne/pyqt_ui
@@ -86,5 +89,21 @@ distrib: FORCE
 		mnemosyne-$${V}/*
 
 	V=`python mnemosyne/version.py` && rm -R mnemosyne-$${V}
+
+	# Windows Mobile.
+
+	mkdir distrib
+
+	cp mnemosyne/ppygui_ui/INSTALL Mnemosyne\ Mobile.py distrib
+	mkdir distrib/ppygui_ui
+	cp -r mnemosyne/ppygui_ui/*.py distrib/ppygui_ui
+
+	V=`python mnemosyne/version.py` && mv distrib mnemosyne-WM-$${V}
+
+	V=`python mnemosyne/version.py` && tar cvfz mnemosyne-WM-$${V}.tgz \
+		mnemosyne-WM-$${V}/*
+
+	V=`python mnemosyne/version.py` && rm -R mnemosyne-WM-$${V}	
+
 
 FORCE:
