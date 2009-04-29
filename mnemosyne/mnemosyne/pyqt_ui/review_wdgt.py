@@ -2,11 +2,15 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
+import gettext
+_ = gettext.gettext
+
 from PyQt4 import QtGui
 
 from ui_review_wdgt import *
 
 from mnemosyne.libmnemosyne.review_widget import ReviewWidget
+from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
@@ -39,15 +43,19 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.addButton(self.grade_5_button, 5)
         self.connect(self.grade_buttons, QtCore.SIGNAL("buttonClicked(int)"),\
                      self.grade_answer)
+        self.sched = QtGui.QLabel("", self.parent().statusbar)
+        self.notmem = QtGui.QLabel("", self.parent().statusbar)
+        self.all = QtGui.QLabel("", self.parent().statusbar)
+        self.parent().statusbar.addPermanentWidget(self.sched)
+        self.parent().statusbar.addPermanentWidget(self.notmem)
+        self.parent().statusbar.addPermanentWidget(self.all)
+        self.parent().statusbar.setSizeGripEnabled(0)
 
     def show_answer(self):
         self.controller.show_answer()
 
     def grade_answer(self, grade):
         self.controller.grade_answer(grade)
-
-    def set_window_title(self, title):
-        self.parent().setWindowTitle(title)
     
     def enable_edit_current_card(self, enable):
         self.parent().actionEditCurrentCard.setEnabled(enable)
@@ -113,6 +121,17 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         
     def set_grade_tooltip(self, grade, text):
         self.grade_buttons.button(grade).setToolTip(text)
+
+    def update_status_bar(self, message=None):
+        db = database()            
+        self.sched.setText(_("Scheduled: ") + \
+                           str(db.scheduled_count()) + " ")
+        self.notmem.setText(_("Not memorised: ") + \
+                            str(db.non_memorised_count()) + " ")
+        self.all.setText(_("All: ") \
+                         + str(db.active_count()) + " ")
+        if message:
+            self.parent().statusBar().showMessage(message)
         
 
 # Register widget.

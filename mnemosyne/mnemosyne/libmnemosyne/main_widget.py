@@ -39,7 +39,7 @@ class MainWidget(object):
     
     def error_box(self, message):
         pass
-
+        
     def show_exception(self, exception):
         if exception.info:
             exception.msg += "\n" + exception.info
@@ -49,6 +49,9 @@ class MainWidget(object):
         pass
     
     def open_file_dialog(self, path, filter, caption=""):
+        pass
+
+    def set_window_title(self, title):
         pass
     
     def run_add_card_dialog(self):
@@ -62,6 +65,4 @@ class MainWidget(object):
 
     def run_manage_card_types_dialog(self):
         pass
-    
-    def update_status_bar(self, message=None):
-        pass 
+

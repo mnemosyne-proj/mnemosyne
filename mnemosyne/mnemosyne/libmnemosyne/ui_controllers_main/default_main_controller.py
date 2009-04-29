@@ -5,6 +5,7 @@
 import gettext
 _ = gettext.gettext
 
+import os
 import copy
 import datetime
 
@@ -23,6 +24,14 @@ class DefaultMainController(UiControllerMain):
 
     def __init__(self):
         UiControllerMain.__init__(self)
+
+    def update_title(self):
+        database_name = os.path.basename(config()["path"]).\
+            split(database().suffix)[0]
+        title = _("Mnemosyne")
+        if database_name != _("default"):
+            title += " - " + database_name
+        self.widget.set_window_title(title)
 
     def add_cards(self):
         stopwatch.pause()
@@ -248,6 +257,7 @@ class DefaultMainController(UiControllerMain):
         db.load(config()["path"])
         ui_controller_review().reset()
         ui_controller_review().update_dialog()
+        self.update_title()
         stopwatch.unpause()
 
     def file_open(self):
@@ -272,6 +282,7 @@ class DefaultMainController(UiControllerMain):
             stopwatch.unpause()
             return
         ui_controller_review().new_question()
+        self.update_title()
         stopwatch.unpause()
 
     def file_save(self):

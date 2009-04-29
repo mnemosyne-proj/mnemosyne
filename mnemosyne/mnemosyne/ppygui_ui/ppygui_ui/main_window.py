@@ -26,9 +26,6 @@ class MainFrame(gui.CeFrame, MainWidget):
    
     def init_review_widget(self):
         ui_controller_review().widget = self.review_widget
-        
-    def update_status_bar(self):
-        self.review_widget.update_status_bar()
     
     def information_box(self, message):
         gui.Message.ok(_("Mnemosyne"), message, icon="info")            

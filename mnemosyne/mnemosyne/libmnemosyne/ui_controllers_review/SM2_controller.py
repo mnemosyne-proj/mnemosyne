@@ -2,8 +2,6 @@
 # SM2_controller.py <Peter.Bienstman@UGent.be>
 #
 
-import os
-
 import gettext
 _ = gettext.gettext
 
@@ -90,7 +88,7 @@ class SM2Controller(UiControllerReview):
             interval = scheduler().grade_answer(self.card, grade)
             database().update_card(self.card)
             database().save()
-            ui_controller_main().widget.update_status_bar()
+            self.widget.update_status_bar()
         else:
             interval = scheduler().grade_answer(self.card, grade)
             database().update_card(self.card)
@@ -112,13 +110,6 @@ class SM2Controller(UiControllerReview):
         w = self.widget
         if not w:
             return
-        # Update title.
-        database_name = os.path.basename(config()["path"]).\
-            split(database().suffix)[0]
-        title = _("Mnemosyne")
-        if database_name != _("default"):
-            title += " - " + database_name
-        w.set_window_title(title)
         # Update menu bar.
         if config()["only_editable_when_answer_shown"] == True:
             if self.card != None and self.state == "SELECT GRADE":
@@ -209,4 +200,4 @@ class SM2Controller(UiControllerReview):
             # TODO: accelerator update needed?
             #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
         # Update status bar.
-        ui_controller_main().widget.update_status_bar()
+        w.update_status_bar()

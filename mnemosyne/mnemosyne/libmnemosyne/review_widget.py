@@ -10,9 +10,6 @@ class ReviewWidget(object):
 
     """
     
-    def set_window_title(self, title):
-        pass
-        
     def enable_edit_current_card(self, enabled):
         pass
         
@@ -60,3 +57,6 @@ class ReviewWidget(object):
             
     def set_grade_tooltip(self, grade, text): 
         pass
+
+    def update_status_bar(self, message=None):
+        pass 

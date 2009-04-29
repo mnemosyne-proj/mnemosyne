@@ -29,7 +29,6 @@ from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 #from product_tour_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
-from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
@@ -44,14 +43,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self, filename, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
         self.setupUi(self)
-         
-        self.sched = QtGui.QLabel("", self.statusbar)
-        self.notmem = QtGui.QLabel("", self.statusbar)
-        self.all = QtGui.QLabel("", self.statusbar)
-        self.statusbar.addPermanentWidget(self.sched)
-        self.statusbar.addPermanentWidget(self.notmem)
-        self.statusbar.addPermanentWidget(self.all)
-        self.statusbar.setSizeGripEnabled(0)
 
     def after_mnemosyne_init(self):
         self.timer = QtCore.QTimer()
@@ -86,6 +77,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def open_file_dialog(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.getOpenFileName(self, caption, path,
                                                          filter))
+
+    def set_window_title(self, title):
+        self.setWindowTitle(title)
 
     def add_cards(self):
         ui_controller_main().add_cards()
@@ -237,13 +231,3 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         dlg.exec_()
         stopwatch.unpause()
 
-    def update_status_bar(self, message=None):
-        db = database()            
-        self.sched.setText(_("Scheduled: ") + \
-                           str(db.scheduled_count()) + " ")
-        self.notmem.setText(_("Not memorised: ") + \
-                            str(db.non_memorised_count()) + " ")
-        self.all.setText(_("All: ") \
-                         + str(db.active_count()) + " ")
-        if message:
-            self.statusBar().showMessage(message)
