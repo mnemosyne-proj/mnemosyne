@@ -31,10 +31,24 @@ class Cramming(SM2Mnemosyne, Plugin):
     def reset(self):
         self.queue = []
 
-    def card_in_queue(self, card):
+    def rebuild_queue(self, learn_ahead=False):
+        self.queue = []
+        self.facts = []
+        db = database()
+        if not db.is_loaded():
+            return
+
+    def in_queue(self, card): # same
         return card._id in self.queue
-                
-    def get_next_card(self, learn_ahead=False):
+    
+    def remove_from_queue(self, card): # same
+        try:
+            self.queue.remove(card._id)
+            self.queue.remove(card._id)
+        except:
+            pass
+    
+    def get_next_card(self, learn_ahead=False): # same
         # Populate queue if it is empty.
         if len(self.queue) == 0:
             self.rebuild_queue(learn_ahead)
@@ -50,4 +64,17 @@ class Cramming(SM2Mnemosyne, Plugin):
         self.last_card = _card_id
         return database().get_card(_card_id)
 
-    
+    def allow_prefetch(self): # same
+
+        """Can we display a new card before having processed the grading of
+        the previous one?.
+
+        """
+                
+        # Make sure there are enough cards left to find one which is not a
+        # duplicate.
+        return len(self.queue) >= 3
+
+    def grade_answer(self, card, new_grade, dry_run=False):
+        db = database()
+        
