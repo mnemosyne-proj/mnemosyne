@@ -245,7 +245,7 @@ class DefaultMainController(UiControllerMain):
         db.unload()
         db.new(out)
         db.load(config()["path"])
-        ui_controller_review().clear()
+        ui_controller_review().reset()
         ui_controller_review().update_dialog()
         stopwatch.unpause()
 
@@ -263,7 +263,7 @@ class DefaultMainController(UiControllerMain):
             self.widget.show_exception(e)
             stopwatch.unpause()
             return            
-        ui_controller_review().clear()
+        ui_controller_review().reset()
         try:
             database().load(out)
         except MnemosyneError, e:
