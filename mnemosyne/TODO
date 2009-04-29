@@ -1,12 +1,15 @@
 
+-check statusbar in more detail (prefetch) + testcase
+
 Windows Mobile client:
 
--check if exit button works ok
--check if enable works ok
--check statusbar
--show answer?
--improve layout borders
+-exit button / starting / stopping / not saved?
 -new html renderer needed
+-implement question box for lockfile detection
+
+-activate statusbar fix
+
+-autosave
 
 
 -move rebuild_queue from database to ui_controller. Make more robust.
@@ -227,7 +230,9 @@ Windows Mobile client:
 
 -icon
 
--implement question box for lockfile detection
+-more complete question box implementation
+
+-implement hide question
 
 -installer
 

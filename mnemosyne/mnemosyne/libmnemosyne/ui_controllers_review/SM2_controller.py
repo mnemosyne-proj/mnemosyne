@@ -88,6 +88,7 @@ class SM2Controller(UiControllerReview):
         if scheduler().allow_prefetch():
             self.new_question()
             interval = scheduler().process_answer(self.card, grade)
+            #ui_controller_main().widget.update_status_bar()
         else:
             interval = scheduler().process_answer(self.card, grade)
             self.new_question()

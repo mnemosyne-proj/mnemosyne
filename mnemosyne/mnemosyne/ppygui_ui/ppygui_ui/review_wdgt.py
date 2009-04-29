@@ -12,6 +12,7 @@ else:
 	import emulator.api as gui
 
 from mnemosyne.libmnemosyne.review_widget import ReviewWidget
+from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
@@ -20,12 +21,13 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     
     def __init__(self, parent):
         gui.Frame.__init__(self, parent)
-        self.controller = ui_controller_review()
+       
+        # Total number of cards for statusbar, to be cached.
+        self.all_cards = None
 
         # Note: ppygui makes heavy use of properties, so we can't use e.g.
         # self.question, as the presence of self.get_question would then
         # require a function self.set_question too.
-
         self._question_label = gui.Label(self, _("Question:"))
         self._question = gui.Html(self)
         
@@ -34,16 +36,26 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         
         self.show_button = gui.Button(self, _("Show answer"))
         self.show_button.bind(clicked=self.show_answer)
+        self.show_button_enabled = True
 
-        self.grade_sizer = gui.HBox(border=(0, 2, 0, 2), spacing=2)
+        self.grade_sizer = gui.HBox(border=(2, 2, 2, 2), spacing=5)
         self.grade_buttons = []
         self.id_for_grade = {}
         for i in range(6):
-            button = gui.Button(self, title=4*" " + str(i) + 4*" ",
+            button = gui.Button(self, title=3*" " + str(i) + 3*" ",
                                 action=self.grade_answer)
             self.grade_buttons.append(button)
             self.id_for_grade[button._id] = i        
-            self.grade_sizer.add(button)            
+            self.grade_sizer.add(button)
+        self.grade_buttons_enabled = False
+
+        self.status_sizer = gui.HBox(spacing=10)
+        self.scheduled_label = gui.Label(self)
+        self.not_memorised_label = gui.Label(self)
+        self.all_label = gui.Label(self)
+        self.status_sizer.add(self.scheduled_label)
+        self.status_sizer.add(self.not_memorised_label)
+        self.status_sizer.add(self.all_label)
 
         sizer = gui.VBox(border=(2, 2, 2, 2))
         sizer.add(self._question_label)
@@ -52,6 +64,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         sizer.add(self._answer)
         sizer.add(self.show_button)
         sizer.add(self.grade_sizer)
+        sizer.add(self.status_sizer)        
         self.sizer = sizer
         
     def question_box_visible(self, visible):
@@ -77,7 +90,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         self._question.value = text
 
     def set_answer(self, text):
-		self._answer.value = text
+        self._answer.value = text
 
     def clear_question(self):
 		self._question.value = ""
@@ -87,18 +100,32 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
 
     def update_show_button(self, text, default, enabled):
         self.show_button.text = text
-        self.show_button.enable = enabled
+        self.show_button_enabled = enabled
 
     def enable_grades(self, enabled):
-        for button in self.grade_buttons:
-            button.enable = enabled
+        self.grade_buttons_enabled = enabled
             
     def show_answer(self, event):
-        self.controller.show_answer()
-            
+        if not self.show_button_enabled:
+            return
+        ui_controller_review().show_answer()
+           
     def grade_answer(self, event):
+        if not self.grade_buttons_enabled:
+            return
         grade = self.id_for_grade[event.id]
-        self.controller.grade_answer(grade)
+        ui_controller_review().grade_answer(grade)
+
+    def update_status_bar(self):
+        db = database()
+        self.scheduled_label.text = \
+            _("Sch.:") + " " + str(db.scheduled_count())
+        self.not_memorised_label.text = \
+            _("Not mem.:") + " " + str(db.non_memorised_count())
+        if not self.all_cards:
+            self.all_cards = db.active_count()
+        self.all_label.text = \
+            _("All:") + " " + str(self.all_cards)
       
 
 # Register widget.
