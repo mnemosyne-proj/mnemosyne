@@ -47,6 +47,10 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
             self.grade_buttons.append(button)
             self.id_for_grade[button._id] = i        
             self.grade_sizer.add(button)
+            if i == 0:
+                self.grade_0_button = button
+            elif i == 4:
+                self.grade_4_button = button                
         self.grade_buttons_enabled = False
 
         self.status_sizer = gui.HBox(spacing=10)
@@ -99,11 +103,19 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
 		self._answer.value = ""
 
     def update_show_button(self, text, default, enabled):
+        if default:
+            self.show_button.focus()
         self.show_button.text = text
         self.show_button_enabled = enabled
 
     def enable_grades(self, enabled):
         self.grade_buttons_enabled = enabled
+        
+    def grade_4_default(self, use_4):
+        if use_4:
+            self.grade_4_button.focus()
+        else:
+            self.grade_0_button.focus()
             
     def show_answer(self, event):
         if not self.show_button_enabled:
@@ -126,6 +138,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
             self.all_cards = db.active_count()
         self.all_label.text = \
             _("All:") + " " + str(self.all_cards)
+        self.layout()
       
 
 # Register widget.

@@ -27,3 +27,18 @@
   synchronise the *entire* .mnemosyne directory, and not just your
   database (otherwise you will lose statistics information). There
   are external tools to make this easier (like Unison).
+
+* If you click the close button on the top right of the screen,
+  Mnemosyne and Python will still keep running in the background. The
+  only way to really close them is to go to 
+  Settings / System / Memory / Running Programs
+
+* If you've 'lost' your Mnemosyne window, e.g. by having looked at the
+  Today screen, you cannot reactivate it by clicking on the Mnemosyne
+  program icon again, but you need to reactivate it in
+  Settings / System / Memory / Running Programs
+
+* Although this not marked visually by a border, the focus is on the 
+  button that makes most sense to press at each stage (show answer, or grade
+  0 for an unlearned card, and grade 4 for a learned card). This facilitates
+  one-handed operation.

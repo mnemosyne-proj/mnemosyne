@@ -29,7 +29,7 @@ class MainFrame(gui.CeFrame, MainWidget):
         
     def update_status_bar(self):
         self.review_widget.update_status_bar()
-                
+    
     def information_box(self, message):
         gui.Message.ok(_("Mnemosyne"), message, icon="info")            
         
@@ -39,9 +39,11 @@ class MainFrame(gui.CeFrame, MainWidget):
     def question_box(self, question, option0, option1, option2):
 
         """ppygui has no convenience functions for this, so this should be
-        created as a custom dialog. However, it is not needed for just
-        the review functionality.
+        created as a custom dialog. However, for just the review client, its
+        main use is displaying the dialog that another instance is running,
+        so we solve it in a different way.
 
         """
 
-        raise NotImplementedError
+        raise Exception(question)
+    

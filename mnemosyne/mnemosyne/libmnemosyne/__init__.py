@@ -27,8 +27,10 @@ class Mnemosyne(object):
         self.resource_limited = resource_limited
         self.upload_thread = None
 
-    def initialise(self, basedir, filename=None, main_widget=None):
+    def initialise(self, basedir, filename=None, main_widget=None,
+                   extra_components=None):
         self.initialise_system_components()
+        self.initialise_extra_components(extra_components)       
         self.initialise_main_widget(main_widget)  
         self.check_lockfile(basedir)
         config().initialise(basedir)
@@ -41,14 +43,6 @@ class Mnemosyne(object):
         self.activate_saved_plugins()
         from mnemosyne.libmnemosyne.component_manager import ui_controller_review
         ui_controller_review().new_question()
-
-    def initialise_error_handling(self):
-
-        """Write errors to a file (otherwise this causes problems on Windows)."""
-
-        if sys.platform == "win32":
-            error_log = os.path.join(config().basedir, "error_log.txt")
-            sys.stderr = file(error_log, "a")
 
     def initialise_system_components(self):
         # Database.
@@ -135,6 +129,14 @@ class Mnemosyne(object):
         from mnemosyne.libmnemosyne.card_types.cloze import Cloze   
         component_manager.register("plugin", Cloze())
 
+    def initialise_extra_components(self, extra_components=None):
+        if not extra_components:
+            return
+        for type_name, class_name, module_name in extra_components:
+            exec("from %s import %s" % (module_name, class_name))
+            exec("component_manager.register(\"%s\", %s())" \
+                 % (type_name, class_name))
+
     def initialise_main_widget(self, main_widget):
         if not main_widget:
             from mnemosyne.libmnemosyne.main_widget import MainWidget       
@@ -154,7 +156,15 @@ class Mnemosyne(object):
                 _("&Exit"), _("&Continue"), "")
             if status == 0:
                 sys.exit()
+                
+    def initialise_error_handling(self):
 
+        """Write errors to a file (otherwise this causes problems on Windows)."""
+
+        if sys.platform == "win32":
+            error_log = os.path.join(config().basedir, "error_log.txt")
+            sys.stderr = file(error_log, "a")
+            
     def initialise_lockfile(self):
         lockfile = file(os.path.join(config().basedir, "MNEMOSYNE_LOCK"), 'w')
         lockfile.close()

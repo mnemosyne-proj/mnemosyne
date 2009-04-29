@@ -92,8 +92,10 @@ class SM2Controller(UiControllerReview):
         else:
             interval = scheduler().process_answer(self.card, grade)
             self.new_question()
+        database().update_card(self.card)
+        database().save()
         if config()["show_intervals"] == "statusbar":
-            self.widget.update_sta(_("Returns in") + " " + \
+            self.widget.update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
         
     def next_rep_string(self, days):

@@ -22,6 +22,8 @@ basedir = "\SDMMC\.mnemosyne"
 app = gui.Application()
 app.mainframe = MainFrame()
 mnemosyne = Mnemosyne(resource_limited=True)
-mnemosyne.initialise(basedir=basedir, main_widget=app.mainframe)
+mnemosyne.initialise(basedir=basedir, main_widget=app.mainframe,
+    extra_components=[("renderer", "HtmlCssOld",
+    "mnemosyne.libmnemosyne.renderers.html_css_old")])
 app.run()
 mnemosyne.finalise()

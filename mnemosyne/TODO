@@ -1,13 +1,3 @@
-Windows Mobile client:
-
--exit button / starting / stopping / not saved?
--new html renderer needed
--implement question box for lockfile detection
-
-
--autosave
-
-
 -move rebuild_queue from database to ui_controller. Make more robust.
  Add test case.
 
@@ -224,21 +214,21 @@ http://pythoscope.org/
 
 Windows Mobile client:
 
+-hook up scheduler rollover
+
+-implement hide question
+
 -icon
 
 -more complete question box implementation
-
--implement hide question
 
 -installer
 
 -install only pyc files
 
--default actions
+-better way of makinf default actions visible?
 
 -mark card
-
--hook up scheduler rollover
 
 
 
