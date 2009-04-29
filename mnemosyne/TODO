@@ -1,20 +1,10 @@
--move rebuild_queue from database to ui_controller. Make more robust.
- Add test case.
-
-        rebuild_revision_queue()
-        if not in_revision_queue(self.item):
-            self.newQuestion()
-        else:
-            remove_from_revision_queue(self.item) # It's already being asked.
-
-Do this fo edit, clean duplicates, activate categories, configuration 
-(scheduler changes) comment to say we don't do this for add and import
-
 -cramming scheduler
 
 -status bar with cramming scheduler
 
 -better way of handling different review widgets
+
+-factor out common code between the schedulers
 
 -cramming widget and WM?
 
@@ -69,6 +59,8 @@ Do this fo edit, clean duplicates, activate categories, configuration
 
 -reset learning ahead queue after import
 
+-do review_controller.rebuild_queue after edit deck, clean duplicates, activate cards, 
+ configuration 
 
 -backup after unloading, not after exiting
 

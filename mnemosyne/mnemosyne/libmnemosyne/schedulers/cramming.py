@@ -30,6 +30,9 @@ class Cramming(SM2Mnemosyne, Plugin):
 
     def reset(self):
         self.queue = []
+
+    def card_in_queue(self, card):
+        return card._id in self.queue
                 
     def get_next_card(self, learn_ahead=False):
         # Populate queue if it is empty.

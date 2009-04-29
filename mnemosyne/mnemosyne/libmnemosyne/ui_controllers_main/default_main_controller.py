@@ -225,6 +225,7 @@ class DefaultMainController(UiControllerMain):
             return
         db.delete_fact_and_related_data(fact)
         db.save()
+        review_controller.rebuild_queue()
         review_controller.new_question()
         self.widget.update_status_bar()
         review_controller.update_dialog(redraw_all=True)

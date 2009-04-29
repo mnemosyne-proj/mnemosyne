@@ -134,8 +134,14 @@ class SM2Mnemosyne(Scheduler):
             # going to add some extra cards to get more spread.
             if limit and grade_0_in_queue == limit:
                 return
-            # Now do the cards which have never been committed to long-term
-            # memory, but which we have seen before.
+            if len(self.queue) == 0:
+                self.stage = 3
+
+        # Stage 3
+        #
+        # Now do the cards which have never been committed to long-term
+        # memory, but which we have seen before.
+        if self.stage == 3:
             if limit:
                 for _card_id, _fact_id in db.cards_new_memorising(grade=0):
                     if _fact_id not in self.facts:
@@ -156,12 +162,12 @@ class SM2Mnemosyne(Scheduler):
             if limit and grade_0_in_queue == limit:
                 return
             if len(self.queue) == 0:
-                self.stage = 3
+                self.stage = 4
 
-        # Stage 3
+        # Stage 4
         #
         # Now add some unseen cards.
-        if self.stage <= 3:
+        if self.stage <= 4:
             if config()["randomise_new_cards"]:
                 sort_key = "random"
             else:
@@ -194,9 +200,9 @@ class SM2Mnemosyne(Scheduler):
                             self.stage = 2
                             return
             if len(self.queue) == 0:
-                self.stage = 4
+                self.stage = 5
             
-        # Stage 4
+        # Stage 5
         #
         # If we get to here, there are no more scheduled cards or new cards
         # to learn. The user can signal that he wants to learn ahead by
@@ -212,6 +218,16 @@ class SM2Mnemosyne(Scheduler):
         # Relearn cards which we got wrong during learn ahead.
         self.stage = 2
 
+    def in_queue(self, card):
+        return card._id in self.queue
+    
+    def remove_from_queue(self, card):
+        try:
+            self.queue.remove(card._id)
+            self.queue.remove(card._id)
+        except:
+            pass
+    
     def get_next_card(self, learn_ahead=False):
         # Populate queue if it is empty.
         if len(self.queue) == 0:
@@ -239,7 +255,7 @@ class SM2Mnemosyne(Scheduler):
         # duplicate.
         return len(self.queue) >= 3
 
-    def process_answer(self, card, new_grade, dry_run=False):
+    def grade_answer(self, card, new_grade, dry_run=False):
         db = database()
         days_since_start = db.days_since_start()
         # When doing a dry run, make a copy to operate on. This leaves the
@@ -336,7 +352,6 @@ class SM2Mnemosyne(Scheduler):
             if c != card and c.next_rep == card.next_rep and card.grade >= 2:
                 card.next_rep += 1
                 noise += 1
-        db.update_card(card)
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.

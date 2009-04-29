@@ -46,6 +46,18 @@ class Scheduler(object):
         
         raise NotImplementedError
 
+    def in_queue(self, card):
+
+        """To check whether the queue needs to be rebuilt, e.g. if it contains
+        a card that was deleted in the GUI.
+
+        """
+        
+        raise NotImplementedError
+
+    def remove_from_queue(self, card):
+        raise NotImplementedError        
+
     def get_next_card(self, learn_ahead=False):
         raise NotImplementedError
 
@@ -58,6 +70,6 @@ class Scheduler(object):
         
         raise NotImplementedError    
 
-    def process_answer(self, card, new_grade, dry_run=False):
+    def grade_answer(self, card, new_grade, dry_run=False):
         raise NotImplementedError
 

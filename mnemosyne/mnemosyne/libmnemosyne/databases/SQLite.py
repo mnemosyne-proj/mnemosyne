@@ -16,7 +16,7 @@ from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
 from mnemosyne.libmnemosyne.exceptions import PluginError, MissingPluginError
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmnemosyne.component_manager import card_types, scheduler
+from mnemosyne.libmnemosyne.component_manager import card_types
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, log, plugins
@@ -236,7 +236,6 @@ class SQLite(Database):
             self._connection.close()
             self._connection = None
         self.load_failed = True
-        scheduler().reset()
         return True
         
     def is_loaded(self):
@@ -375,9 +374,6 @@ class SQLite(Database):
         self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
                          (fact._id, ))
-        current_card = ui_controller_review().card
-        if current_card and current_card.fact == fact:
-            scheduler().rebuild_queue()
         del fact
         
     def delete_card(self, card):
@@ -385,9 +381,7 @@ class SQLite(Database):
         self.con.execute("delete from categories_for_card where _card_id=?",
                          (card._id, ))
         for category in card.categories:
-            self.remove_category_if_unused(category)
-        if ui_controller_review().card == card:
-            scheduler().rebuild_queue()        
+            self.remove_category_if_unused(category)      
         log().deleted_card(card)
         del card
 

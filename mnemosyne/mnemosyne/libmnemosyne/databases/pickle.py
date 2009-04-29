@@ -22,7 +22,7 @@ from mnemosyne.libmnemosyne.exceptions import PluginError, MissingPluginError
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-from mnemosyne.libmnemosyne.component_manager import log, scheduler, plugins
+from mnemosyne.libmnemosyne.component_manager import log, plugins
 from mnemosyne.libmnemosyne.component_manager import card_types, database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 
@@ -187,7 +187,6 @@ class Pickle(Database):
         self.facts = []
         self.cards = []
         self.global_variables = {"version": self.version}
-        scheduler().reset()
         return True
 
     def backup(self):
@@ -293,18 +292,13 @@ class Pickle(Database):
         for c in related_cards:
             self.delete_card(c)
         self.facts.remove(fact)
-        current_card = ui_controller_review().card
-        if current_card and current_card.fact == fact:
-            scheduler().rebuild_queue()
         del fact
             
     def delete_card(self, card):
         old_cat = card.categories
         self.cards.remove(card)
         for cat in old_cat:
-            self.remove_category_if_unused(cat)  
-        if ui_controller_review().card == card:
-            scheduler().rebuild_queue()     
+            self.remove_category_if_unused(cat)    
         log().deleted_card(card)
         del card
     

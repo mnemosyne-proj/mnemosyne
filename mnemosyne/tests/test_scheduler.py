@@ -35,29 +35,35 @@ class TestScheduler(MnemosyneTest):
 
         # Due cards.
         assert scheduler().get_next_card() == card_4
-        scheduler().process_answer(card_4, 0)
+        scheduler().grade_answer(card_4, 0)
+        database().update_card(card_4)
     
         # Failed scheduled cards.
         assert scheduler().get_next_card() == card_4
-        scheduler().process_answer(card_4, 2)
-
+        scheduler().grade_answer(card_4, 2)
+        database().update_card(card_4)
+        
         # Unseen cards.
         card = scheduler().get_next_card()
         assert card == card_1 or card == card_2
-        scheduler().process_answer(card, 0)
-
+        scheduler().grade_answer(card, 0)
+        database().update_card(card)
+            
         # Cards currently being memorised.
         card = scheduler().get_next_card()
         assert card == card_1 or card == card_2
-        scheduler().process_answer(card, 1)
-
+        scheduler().grade_answer(card, 1)
+        database().update_card(card)
+        
         card = scheduler().get_next_card()
-        scheduler().process_answer(card, 2)
+        scheduler().grade_answer(card, 2)
+        database().update_card(card)
         learned_cards = [card]
         
         card = scheduler().get_next_card()
         assert card not in learned_cards
-        scheduler().process_answer(card, 2)
+        scheduler().grade_answer(card, 2)
+        database().update_card(card)
         learned_cards.append(card)
         
         assert scheduler().get_next_card() == None
@@ -103,7 +109,8 @@ class TestScheduler(MnemosyneTest):
         cards = set()
         for i in range(10):
             card = scheduler().get_next_card()
-            scheduler().process_answer(card, 0)
+            scheduler().grade_answer(card, 0)
+            database().update_card(card)
             cards.add(card._id)
         assert len(cards) == 3
 
@@ -116,7 +123,8 @@ class TestScheduler(MnemosyneTest):
         ui_controller_review().learning_ahead = True
         for i in range(30):
             card = scheduler().get_next_card(learn_ahead=True)
-            scheduler().process_answer(card, 5)
+            scheduler().grade_answer(card, 5)
+            database().update_card(card)
             
     def test_learn_ahead_2(self):
         card_type = card_type_by_id("1")
@@ -126,7 +134,8 @@ class TestScheduler(MnemosyneTest):
         ui_controller_review().learning_ahead = True      
         for i in range(3):
             card = scheduler().get_next_card(learn_ahead=True)
-            scheduler().process_answer(card, 5)
+            scheduler().grade_answer(card, 5)
+            database().update_card(card)
         fact_data = {"q": "2", "a": "a"}
         new_card = ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=0, cat_names=["default"], warn=False)[0]

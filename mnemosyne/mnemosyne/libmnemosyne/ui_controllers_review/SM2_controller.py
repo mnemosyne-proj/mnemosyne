@@ -67,7 +67,7 @@ class SM2Controller(UiControllerReview):
             self.state = "EMPTY"
             self.card = None
         else:
-            self.card = scheduler().get_next_card(self.learning_ahead)         
+            self.card = scheduler().get_next_card(self.learning_ahead)
             if self.card != None:
                 self.state = "SELECT SHOW"
             else:
@@ -87,13 +87,15 @@ class SM2Controller(UiControllerReview):
     def grade_answer(self, grade):
         if scheduler().allow_prefetch():
             self.new_question()
-            interval = scheduler().process_answer(self.card, grade)
+            interval = scheduler().grade_answer(self.card, grade)
+            database().update_card(self.card)
+            database().save()
             ui_controller_main().widget.update_status_bar()
         else:
-            interval = scheduler().process_answer(self.card, grade)
+            interval = scheduler().grade_answer(self.card, grade)
+            database().update_card(self.card)
+            database().save()
             self.new_question()
-        database().update_card(self.card)
-        database().save()
         if config()["show_intervals"] == "statusbar":
             self.widget.update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
