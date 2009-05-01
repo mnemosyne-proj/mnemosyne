@@ -129,13 +129,20 @@ class Mnemosyne(object):
         from mnemosyne.libmnemosyne.card_types.cloze import Cloze   
         component_manager.register("plugin", Cloze())
 
-    def initialise_extra_components(self, extra_components=None):
-        if not extra_components:
+    def initialise_extra_components(self, components=None):
+        if not components:
             return
-        for type_name, class_name, module_name in extra_components:
-            exec("from %s import %s" % (module_name, class_name))
-            exec("component_manager.register(\"%s\", %s())" \
-                 % (type_name, class_name))
+        for type_name, class_name, module_name in components:
+            if len(component) == 3:
+                type_name, class_name, module_name = component
+                exec("from %s import %s" % (module_name, class_name))
+                exec("component_manager.register(\"%s\", %s())" \
+                     % (type_name, class_name))
+            else:
+                type_name, class_name, module_name, index = component
+                exec("from %s import %s" % (module_name, class_name))
+                exec("component_manager.register(\"%s\", %s()), index=%d" \
+                     % (type_name, class_name, index))                
 
     def initialise_main_widget(self, main_widget):
         if not main_widget:

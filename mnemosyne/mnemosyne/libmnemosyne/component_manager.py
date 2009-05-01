@@ -50,7 +50,7 @@ class ComponentManager(object):
         self.components = {} # { used_for : {type : [component]} }
         self.card_type_by_id = {}
 
-    def register(self, type, component, used_for=None):
+    def register(self, type, component, used_for=None, index=None):
         
         """For type, component and used_for, see the table above."""
         
@@ -67,7 +67,9 @@ class ComponentManager(object):
             self.components[used_for][type] = [component]
         else:
             if component not in self.components[used_for][type]:
-                self.components[used_for][type].append(component)
+                if not index:
+                    index = len(self.components[used_for][type])
+                self.components[used_for][type].insert(index, component)
                 
         if type == "card_type":
             self.card_type_by_id[component.id] = component
