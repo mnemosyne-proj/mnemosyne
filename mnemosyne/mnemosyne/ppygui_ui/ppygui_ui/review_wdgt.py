@@ -137,7 +137,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         if not self.all_cards:
             self.all_cards = db.active_count()
         self.all_label.text = \
-            _("All:") + " " + str(self.all_cards)
+            _("Act.:") + " " + str(self.all_cards)
         self.layout()
       
 

@@ -28,6 +28,9 @@
   database (otherwise you will lose statistics information). There
   are external tools to make this easier (like Unison).
 
+* Note that to save resources, no backups are made on the mobile version,
+  so it is recommended to sync with a desktop from time to time.
+
 * If you click the close button on the top right of the screen,
   Mnemosyne and Python will still keep running in the background. The
   only way to really close them is to go to 
@@ -42,3 +45,4 @@
   button that makes most sense to press at each stage (show answer, or grade
   0 for an unlearned card, and grade 4 for a learned card). This facilitates
   one-handed operation.
+

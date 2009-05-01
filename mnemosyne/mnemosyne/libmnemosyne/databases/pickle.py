@@ -190,6 +190,9 @@ class Pickle(Database):
         return True
 
     def backup(self):
+        if config().resource_limited:
+            return
+        
         # TODO: implement
         return
 

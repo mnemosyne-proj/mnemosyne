@@ -128,7 +128,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
                            str(db.scheduled_count()) + " ")
         self.notmem.setText(_("Not memorised: ") + \
                             str(db.non_memorised_count()) + " ")
-        self.all.setText(_("All: ") \
+        self.all.setText(_("Active: ") \
                          + str(db.active_count()) + " ")
         if message:
             self.parent().statusBar().showMessage(message)

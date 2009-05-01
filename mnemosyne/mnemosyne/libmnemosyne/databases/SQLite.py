@@ -125,6 +125,8 @@ class SQLite(Database):
                          "%Y-%m-%d %H:%M:%S")))
         self.con.execute("insert into global_variables(key,value) values(?,?)",
                         ("version", self.version))
+        self.con.execute("insert into global_variables(key,value) values(?,?)",
+                        ("times_loaded", "0"))
         self.con.commit()
         config()["path"] = self._path
         log().new_database()
@@ -152,10 +154,14 @@ class SQLite(Database):
             raise LoadError
 
         # Vacuum database from time to time.
-        config()["times_loaded"] += 1
-        if config()["times_loaded"] >= 5 and not config().resource_limited:
-            config()["times_loaded"] = 0
+        sql_res = self.con.execute("""select value from global_variables
+            where key=?""", ("times_loaded", )).fetchone()
+        times_loaded = int(sql_res["value"]) + 1
+        if times_loaded >= 5 and not config().resource_limited:
             self.con.execute("vacuum")
+            times_loaded = 0
+        self.con.execute("""update global_variables set value=? where
+            key=?""", (str(times_loaded), "times_loaded"))
 
         # Deal with clones and plugins, also plugins for parent classes.
         plugin_needed = set()
@@ -226,6 +232,9 @@ class SQLite(Database):
         config()["path"] = contract_path(path, config().basedir)
 
     def backup(self):
+        if config().resource_limited:
+            return
+        
         # TODO: wait for XML export format.
         # TODO: skip for resource limited?
         pass

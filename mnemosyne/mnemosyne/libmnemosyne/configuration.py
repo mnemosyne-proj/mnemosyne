@@ -101,8 +101,7 @@ class Configuration(dict):
              "latex_postamble": "\\end{document}", 
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
-             "active_plugins": set(), # plugin class
-             "times_loaded": 0
+             "active_plugins": set() # plugin class
             }.items():
             
             self.setdefault(key, value)

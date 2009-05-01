@@ -19,7 +19,7 @@ install-system:
 	rm -f -R build
 
 test: install-virtual-env
-	./bin/nosetests
+	./bin/nosetests tests
 
 coverage: install-virtual-env
 	./bin/nosetests --with-coverage --cover-package=mnemosyne.libmnemosyne

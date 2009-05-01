@@ -29,6 +29,9 @@ from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 #from product_tour_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
+from mnemosyne.libmnemosyne.main_widget import MainWidget
+from mnemosyne.libmnemosyne.exceptions import MnemosyneError
+from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
@@ -38,7 +41,7 @@ from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 prefix = os.path.dirname(__file__)
 
 
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
+class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
 
     def __init__(self, filename, parent=None):
         QtGui.QMainWindow.__init__(self, parent)

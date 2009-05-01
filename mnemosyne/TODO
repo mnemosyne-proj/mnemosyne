@@ -1,3 +1,5 @@
+-option to insert plugin at given position
+
 -cramming scheduler
 
 -status bar with cramming scheduler
@@ -206,6 +208,8 @@ http://pythoscope.org/
 
 Windows Mobile client:
 
+-better way of making default actions visible? Call layout()?
+
 -hook up scheduler rollover
 
 -implement hide question
@@ -218,11 +222,10 @@ Windows Mobile client:
 
 -install only pyc files
 
--better way of makinf default actions visible?
-
 -mark card
 
 
+-also allow import compressed backup files from within Mnemosyne
 
 -three sided export?
 

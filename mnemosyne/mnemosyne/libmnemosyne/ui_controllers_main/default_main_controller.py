@@ -40,7 +40,7 @@ class DefaultMainController(UiControllerMain):
         if review_controller.card == None:
             review_controller.new_question()
         else:
-            self.widget.update_status_bar()
+            review_controller.widget.update_status_bar()
         stopwatch.unpause()
 
     def edit_current_card(self):
