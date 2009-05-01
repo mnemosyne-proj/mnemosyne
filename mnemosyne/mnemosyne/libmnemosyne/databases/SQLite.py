@@ -61,7 +61,7 @@ SCHEMA = """
         next_rep real,
         unseen boolean default 1,
         extra_data text default "",
-        seen_in_this_hand int default 0,
+        scheduler_data int default 0,
         needs_sync boolean default 1,
         active boolean default 1,
         in_view boolean default 1
@@ -331,13 +331,13 @@ class SQLite(Database):
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
-            unseen, extra_data, seen_in_this_hand, needs_sync, active,
+            unseen, extra_data, scheduler_data, needs_sync, active,
             in_view) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (card.id, card.fact._id, card.fact_view.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep, card.unseen, extra_data,
-            card.seen_in_this_hand, card.needs_sync, card.active,
+            card.scheduler_data, card.needs_sync, card.active,
             card.in_view)).lastrowid
         card._id = _card_id
         # Link card to its categories.
@@ -358,13 +358,13 @@ class SQLite(Database):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
-            next_rep=?, unseen=?, extra_data=?, seen_in_this_hand=?,
+            next_rep=?, unseen=?, extra_data=?, scheduler_data=?,
             needs_sync=?, active=?, in_view=? where _id=?""",
             (card.fact._id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep, card.unseen, extra_data,
-            card.seen_in_this_hand, card.needs_sync, card.active,
+            card.scheduler_data, card.needs_sync, card.active,
             card.in_view, card._id))
         # Link card to its categories.
         # The categories themselves have already been created by
@@ -431,7 +431,7 @@ class SQLite(Database):
                 break
         for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
-            "last_rep", "next_rep", "unseen", "seen_in_this_hand",
+            "last_rep", "next_rep", "unseen", "scheduler_data",
             "needs_sync", "active", "in_view"):
             setattr(card, attr, sql_res[attr])
         if sql_res["extra_data"] == "":

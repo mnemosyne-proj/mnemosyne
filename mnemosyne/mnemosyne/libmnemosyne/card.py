@@ -15,8 +15,8 @@ class Card(object):
     database. It's dictionary which should contain only standard Python
     objects.
 
-    'seen_in_this_hand' is a variable used by the scheduler to save state.
-    ('hand' is typically one pass through the entire scheduler algorithmn.)
+    'scheduler_data' is a variable that can be used by a scheduler to save
+    state.
 
     'active' is used to determine whether a card is included in the review
     process. Currently, the UI allows setting cards active when then belong to
@@ -46,7 +46,7 @@ class Card(object):
         self.id_ = None
         self.categories = []
         self.extra_data = {}
-        self.seen_in_this_hand = False
+        self.scheduler_data = 0
         self.needs_sync = True
         self.active = True
         self.in_view = True
