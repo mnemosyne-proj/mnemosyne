@@ -35,6 +35,7 @@ class ComponentManager(object):
        "ui_controller_main"     ui_controller_main instance
        "ui_controller_review"   ui_controller_review instance
        "review_widget"          review_widget class
+                                used_for scheduler class 
        "plugin"                 plugin instance
        "function_hook"          function hook instance
                                 used_for hookpoint_name
@@ -50,16 +51,9 @@ class ComponentManager(object):
         self.components = {} # { used_for : {type : [component]} }
         self.card_type_by_id = {}
 
-    def register(self, type, component, used_for=None, index=None):
+    def register(self, type, component, used_for=None):
         
         """For type, component and used_for, see the table above."""
-        
-        if type not in ["config", "log", "database", "scheduler", "filter",
-                        "card_type", "card_type_converter",
-                        "card_type_widget", "renderer",
-                        "ui_controller_main", "ui_controller_review", 
-                        "review_widget", "plugin", "function_hook"]:
-           raise KeyError("Invalid component type % s.", type)
        
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
@@ -67,17 +61,12 @@ class ComponentManager(object):
             self.components[used_for][type] = [component]
         else:
             if component not in self.components[used_for][type]:
-                if not index:
-                    index = len(self.components[used_for][type])
-                self.components[used_for][type].insert(index, component)
-                
+                self.components[used_for][type].append(component)         
         if type == "card_type":
             self.card_type_by_id[component.id] = component
-
+            
     def unregister(self, type, component, used_for=None):
         self.components[used_for][type].remove(component)
-        if type == "scheduler":
-            self.get_current("scheduler").reset()
 
     def get_all(self, type, used_for=None):
         

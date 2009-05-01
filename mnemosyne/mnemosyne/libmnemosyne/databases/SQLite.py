@@ -612,3 +612,21 @@ class SQLite(Database):
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
             (self.start_date.days_since_start(), sort_key, limit)))
+
+    # Extra commands for custom schedulers.
+
+    def set_scheduler_data(self, scheduler_data):
+        self.con.execute("update cards set scheduler_data=?",
+            (scheduler_data, ))
+
+    def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1):
+        sort_key = self._parse_sort_key(sort_key)
+        return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
+            select _id, _fact_id from cards where
+            active=1 and scheduler_data=? order by ? limit ?""",
+            (scheduler_data, sort_key, limit)))
+
+    def scheduler_data_count(self, scheduler_data)
+        return self.con.execute("""select count() from cards
+            where active=1 and scheduler_data=?""",
+            (scheduler_data, )).fetchone()[0]        

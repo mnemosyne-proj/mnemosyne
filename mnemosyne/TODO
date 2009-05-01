@@ -1,13 +1,19 @@
--cramming scheduler
+-register_first
+
+
+-more tests
+
+-empty ok
 
 -status bar with cramming scheduler
 
+-better place for combiplugin?
+
+-easier activation if plugin only contains a scheduler / register vs activate
+
 -better way of handling different review widgets
 
--factor out common code between the schedulers
-
--cramming widget and WM?
-
+-move option to always randomise queue to config screen
 
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
@@ -59,6 +65,9 @@
 
 -reset learning ahead queue after import
 
+
+-xml import tests (wcu, memaid, plconv)
+
 -do review_controller.rebuild_queue after edit deck, clean duplicates, activate cards, 
  configuration 
 
@@ -66,35 +75,18 @@
 
 -reset directory permissions under windows?
 
-
--move option to always randomise queue to config screen
-
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
  T.<fixed card id for all pupils>.<pupil user id>?
-
 
 -allow non-unicode filenames: encode/decode in expand/contract path?
 
 
 -need to store parent of category?
 
-
--detect wrong current date (last review in the future or way past)
-
--xml import tests (wcu, memaid, plconv)
-
--improve sphinxdocs: autoclass='both', document module members
-
-
 -test uploading of logs
 
-
--show latex errors in GUI?
-
-
 -update tooltips, inform Patrick
-
 
 
 -download media files when giving URL? Store media inside database? Copy 
@@ -130,7 +122,6 @@
 -basic graphical statistics
 
 
-
 -checkbox to include inactive cards in statistics?
 
 -alt tabbing gives low res icon.
@@ -142,8 +133,6 @@
 -make file handling more robust, detect all errors (see mail by
  OldGrantonian)
 
--test Python 3.0 compliance
-
 -button to go to next card in the list
 
 -logfile 0.6 at pypi?
@@ -151,6 +140,10 @@
 -plugin for midi files
 
 -'tooltips' during use: relative path when adding pictures or sound.
+
+
+-tips (both on startup and on use): right click to add cards or sound, comma to 
+ separate cat names, : to separate hierarchies
 
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
@@ -178,9 +171,6 @@
 
 -hierarchical categories
 
--advanced deck manager, with tree view, drag and drop to change categories,
- count of cards/facts... Option to show only related cards.
-
 -make 'search' behave as a filter
 
 -test: make <a> links clickable / animated GIFs
@@ -189,12 +179,21 @@
 
 -save category state
 
--tips (both on startup and on use): right click to add cards or sound, comma to 
- separate cat names, : to separate hierarchies
-
 -http://labs.trolltech.com/blogs/2009/03/12/wysiwyg-html-editor/
 
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby
+
+
+
+* After 2.0:
+
+
+
+-detect wrong current date (last review in the future or way past)
+
+-improve sphinxdocs: autoclass='both', document module members
+
+-show latex errors in GUI?
 
 
 -pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
@@ -202,13 +201,14 @@ http://pythoscope.org/
 -pylint, pyflakes
 
 
-* After 2.0:
 
 Windows Mobile client:
 
 -better way of making default actions visible? Call layout()?
 
 -hook up scheduler rollover
+
+-cramming widget
 
 -implement hide question
 

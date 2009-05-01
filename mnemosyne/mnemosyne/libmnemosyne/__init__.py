@@ -39,7 +39,7 @@ class Mnemosyne(object):
         self.initialise_lockfile()
         self.initialise_logging()   
         self.load_database(filename)
-        self.initialise_user_plugins()
+        self.initialise_user_components()
         self.activate_saved_plugins()
         from mnemosyne.libmnemosyne.component_manager import ui_controller_review
         ui_controller_review().new_question()
@@ -128,21 +128,23 @@ class Mnemosyne(object):
         component_manager.register("plugin", Map())
         from mnemosyne.libmnemosyne.card_types.cloze import Cloze   
         component_manager.register("plugin", Cloze())
-
+        from mnemosyne.libmnemosyne.plugins.cramming import Cramming   
+        component_manager.register("plugin", Cramming())
+        
     def initialise_extra_components(self, components=None):
         if not components:
             return
-        for type_name, class_name, module_name in components:
+        for component in components:
             if len(component) == 3:
                 type_name, class_name, module_name = component
                 exec("from %s import %s" % (module_name, class_name))
                 exec("component_manager.register(\"%s\", %s())" \
                      % (type_name, class_name))
             else:
-                type_name, class_name, module_name, index = component
+                type_name, class_name, module_name, used_for = component
                 exec("from %s import %s" % (module_name, class_name))
-                exec("component_manager.register(\"%s\", %s()), index=%d" \
-                     % (type_name, class_name, index))                
+                exec("component_manager.register(\"%s\", %s, used_for=%s)" \
+                     % (type_name, class_name, used_for))                
 
     def initialise_main_widget(self, main_widget):
         if not main_widget:
@@ -187,7 +189,6 @@ class Mnemosyne(object):
 
     def load_database(self, filename):
         from mnemosyne.libmnemosyne.component_manager import database
-        from mnemosyne.libmnemosyne.component_manager import ui_controller_main
         if not filename:
             filename = config()["path"]
         filename = expand_path(filename, config().basedir)
@@ -197,27 +198,32 @@ class Mnemosyne(object):
             else:
                 database().load(filename)
         except MnemosyneError, e:
+            from mnemosyne.libmnemosyne.component_manager import \
+                 ui_controller_main
             ui_controller_main().widget.show_exception(e)
             ui_controller_main().widget.show_exception(LoadErrorCreateTmp())
-            filename = os.path.join(os.path.split(filename)[0],"___TMP___" \
+            filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + database().suffix)
             database().new(filename)
 
-    def initialise_user_plugins(self):
-        from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+    def initialise_user_components(self):
         basedir = config().basedir
-        plugindir = unicode(os.path.join(basedir, "plugins"))
-        sys.path.insert(0, plugindir)
-        for plugin in os.listdir(plugindir):
-            if plugin.endswith(".py"):
+        # The contents of the 'plugin' dir could contain both plugins and
+        # as well as other components, but we needn't expose this subtlety to
+        # the user.
+        componentdir = unicode(os.path.join(basedir, "plugins"))
+        sys.path.insert(0, componentdir)
+        for component in os.listdir(componentdir):
+            if component.endswith(".py"):
                 try:
-                    __import__(plugin[:-3])
+                    __import__(component[:-3])
                 except:
+                    from mnemosyne.libmnemosyne.component_manager import \
+                         ui_controller_main
                     ui_controller_main().widget.\
                                     show_exception(PluginError(stack_trace=True))
 
     def activate_saved_plugins(self):
-        from mnemosyne.libmnemosyne.component_manager import ui_controller_main
         for plugin in config()["active_plugins"]:
             try:
                 for p in plugins():
@@ -225,6 +231,8 @@ class Mnemosyne(object):
                         p.activate()
                         break
             except:
+                from mnemosyne.libmnemosyne.component_manager import \
+                     ui_controller_main
                 ui_controller_main().widget.\
                                     show_exception(PluginError(stack_trace=True))
 

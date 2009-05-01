@@ -169,3 +169,13 @@ class Database(object):
     def cards_learn_ahead(self, sort_key="", limit=-1):
         raise NotImplementedError
 
+    # Extra commands for custom schedulers.
+    
+    def set_scheduler_data(self, scheduler_data):
+        raise NotImplementedError
+
+    def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1):
+        raise NotImplementedError
+
+    def scheduler_data_count(self, scheduler_data):        
+        raise NotImplementedError

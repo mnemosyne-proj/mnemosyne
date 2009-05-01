@@ -148,7 +148,7 @@ class TestDatabase(MnemosyneTest):
 
     def test_plugin_and_clones(self):
         for plugin in plugins():
-            if plugin.id == "4":
+            if plugin.provides == "card_type" and plugin.id == "4":
                 plugin.activate()
         
         fact_data = {"loc": "location",
@@ -210,7 +210,7 @@ class TestDatabase(MnemosyneTest):
     @raises(MissingPluginError)
     def test_missing_plugin(self):
         for plugin in plugins():
-            if plugin.id == "4":
+            if plugin.provides == "card_type" and plugin.id == "4":
                 plugin.activate()
         
         fact_data = {"loc": "location",
@@ -236,7 +236,7 @@ class TestDatabase(MnemosyneTest):
         
         # Artificially remove plugin.
         for plugin in plugins():
-            if plugin.id == "4":
+            if plugin.provides == "card_type" and plugin.id == "4":
                 plugin.deactivate()
                 component_manager.unregister("plugin", plugin)
                 break                    
@@ -248,7 +248,7 @@ class TestDatabase(MnemosyneTest):
     @raises(PluginError)
     def test_corrupt_plugin(self):
         for plugin in plugins():
-            if plugin.id == "4":
+            if plugin.provides == "card_type" and plugin.id == "4":
                 plugin.activate()
         
         fact_data = {"loc": "location",
@@ -274,7 +274,7 @@ class TestDatabase(MnemosyneTest):
         
         # Artificially mutilate plugin.
         for plugin in plugins():
-            if plugin.id == "4":
+            if plugin.provides == "card_type" and plugin.id == "4":
                 plugin.deactivate()
                 plugin.activate = self.infinity
                 break

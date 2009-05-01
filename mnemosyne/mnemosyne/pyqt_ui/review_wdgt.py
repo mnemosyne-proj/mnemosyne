@@ -125,11 +125,11 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     def update_status_bar(self, message=None):
         db = database()            
         self.sched.setText(_("Scheduled: ") + \
-                           str(db.scheduled_count()) + " ")
+            str(db.scheduled_count()) + " ")
         self.notmem.setText(_("Not memorised: ") + \
-                            str(db.non_memorised_count()) + " ")
-        self.all.setText(_("Active: ") \
-                         + str(db.active_count()) + " ")
+            str(db.non_memorised_count()) + " ")
+        self.all.setText(_("Active: ") + \
+             str(db.active_count()) + " ")
         if message:
             self.parent().statusBar().showMessage(message)
         

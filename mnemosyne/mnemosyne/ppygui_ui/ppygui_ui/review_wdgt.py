@@ -105,8 +105,14 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     def update_show_button(self, text, default, enabled):
         if default:
             self.show_button.focus()
+            self.show_button.border = True
+        else:
+            self.show_button.border = False        
         self.show_button.text = text
         self.show_button_enabled = enabled
+        # TODO: test if this works.
+        self.show_button.enabled = enabled
+        self.layout()
 
     def enable_grades(self, enabled):
         self.grade_buttons_enabled = enabled
@@ -114,9 +120,12 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     def grade_4_default(self, use_4):
         if use_4:
             self.grade_4_button.focus()
+            self.grade_4_button.border = True
         else:
             self.grade_0_button.focus()
-            
+            self.grade_0_button.border = True
+        self.layout()
+        
     def show_answer(self, event):
         if not self.show_button_enabled:
             return
