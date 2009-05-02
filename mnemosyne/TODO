@@ -1,5 +1,3 @@
--register_first
-
 -used for in class too? Converter? Need to register classes
 
 -plugin as component or not?
@@ -10,9 +8,9 @@ get from comp mananger,
 
 -each component, activate function?
 
--init orig: 15.59, after remove check: 15.45
 
--1 file ui components
+
+-init orig: 15.59, after remove check: 15.45
 
 
 
@@ -29,8 +27,11 @@ get from comp mananger,
 
 -better way of handling different review widgets
 
--move option to always randomise queue to config screen
 
+
+
+
+-move option to always randomise queue to config screen
 
 -hook up config screen
 

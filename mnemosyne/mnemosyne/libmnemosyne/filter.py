@@ -10,9 +10,7 @@ class Filter(object):
 
     The filters are executed in the order they are listed in the component
     manager. If you really need to make sure that your filter runs before the
-    rest, use 'component_manager.register_first', instead of the usual
-    'component_manager.register'.
-
+    rest, set 'in_front=True' as argument in 'component_manager.register'.
     
     """
 

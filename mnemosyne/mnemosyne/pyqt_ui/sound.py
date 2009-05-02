@@ -47,5 +47,5 @@ class SoundPlayer(Filter):
         return text
 
 
-component_manager.register("filter", SoundPlayer())
+component_manager.register(SoundPlayer())
 

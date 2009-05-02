@@ -28,18 +28,13 @@ class ComponentManager(object):
        "filter"                 filter instance
        "card_type"              card_type instance
        "card_type_converter"    card_type_converter instance
-                                used for (old_type class, new_type class)
-
-       TODO:
-       
-       "card_type_widget"       card_type_widget class,
-                                used_for card_type class
+                                used for (old_type class, new_type class)       
+       "ui_component"           component class,
+                                used_for class
        "renderer"               renderer instance,
                                 used_for card_type class
        "ui_controller_main"     ui_controller_main instance
        "ui_controller_review"   ui_controller_review instance
-       "review_widget"          review_widget class
-                                used_for scheduler class 
        "plugin"                 plugin instance
        "function_hook"          function hook instance
                                 used_for hookpoint_name
@@ -55,7 +50,7 @@ class ComponentManager(object):
         self.components = {} # { used_for : {type : [component]} }
         self.card_type_by_id = {}
 
-    def register(self, component, used_for=None):
+    def register(self, component, used_for=None, in_front=False):
         
         """For type, component and used_for, see the table above."""
 
@@ -66,7 +61,10 @@ class ComponentManager(object):
             self.components[used_for][type] = [component]
         else:
             if component not in self.components[used_for][type]:
-                self.components[used_for][type].append(component)
+                if not in_front:
+                    self.components[used_for][type].append(component)
+                else:
+                    self.components[used_for][type].insert(0, component)                    
         if type == "card_type":
             self.card_type_by_id[component.id] = component
             

@@ -11,7 +11,7 @@ if os.name == "ce":
 else:
 	import emulator.api as gui
 
-from mnemosyne.libmnemosyne.review_widget import ReviewWidget
+from mnemosyne.libmnemosyne.ui_components import ReviewWidget
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
