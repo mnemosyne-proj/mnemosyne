@@ -44,9 +44,9 @@ class MplCanvas(FigureCanvas):
 class Histogram(MplCanvas):
 
     def plot(self, values, **kwargs):
-        if len(values) == 0:
-            self.display_message('No stats available.')
-            return
+        #if len(values) == 0:
+            #self.display_message('No stats available.')
+            #return
         self.axes.grid(True)
         self.axes.hist(values, facecolor='red', alpha=0.7, **kwargs)
 
@@ -58,9 +58,9 @@ class PieChart(MplCanvas):
         MplCanvas.__init__(self, parent, width, height, dpi, color)
 
     def plot(self, values, **kwargs):
-        if max(values) == 0:
-            self.display_message('No stats available.')
-            return
+        #if max(values) == 0:
+            #self.display_message('No stats available.')
+            #return
         # Only print percentage on wedges > 5%.
         autopctfn = lambda x: '%1.1f%%' % x if x > 5 else ''
         self.axes.pie(values, autopct=autopctfn, **kwargs)
@@ -69,9 +69,9 @@ class PieChart(MplCanvas):
 class BarGraph(MplCanvas):
 
     def plot(self, values, **kwargs):
-        if max(values) == 0:
-            self.display_message('No stats available.')
-            return
+        #if max(values) == 0:
+            #self.display_message('No stats available.')
+            #return
         xticks = arange(len(values)) + kwargs['width'] / 2.0
         self.axes.bar(xticks, values, **kwargs)
         self.axes.set_xticks(xticks)
@@ -125,6 +125,8 @@ class StatGraphBase(object):
         self.title = ''
         self.xlabel = ''
         self.ylabel = ''
+        self.errmsg = 'No stats available.'
+        self.testfn = max
 
     def make_graph(self, scope):
         self.graph.axes.set_title(self.title)
@@ -132,7 +134,10 @@ class StatGraphBase(object):
         self.graph.axes.set_ylabel(self.ylabel)
         values = self.values_for(scope)
         kwargs = self.kwargs_for(scope, values)
-        self.graph.plot(values, **kwargs)
+        if self.validate(values):
+            self.graph.plot(values, **kwargs)
+        else:
+            self.graph.display_message(self.errmsg)
         return self.graph
 
     def values_for(self, scope):
@@ -140,6 +145,9 @@ class StatGraphBase(object):
 
     def kwargs_for(self, scope, values):
         return {}
+
+    def validate(self, values):
+        return self.testfn(values) > 0
 
 
 class ScheduleGraph(StatGraphBase):
@@ -151,6 +159,7 @@ class ScheduleGraph(StatGraphBase):
         color = self.graph.fig.get_facecolor()
         if scope == 'all_time':
             self.graph = Histogram(parent, color=color)
+            self.testfn = len
             self.make_histogram(scope)
         else:
             self.graph = BarGraph(parent, color=color)
@@ -192,7 +201,10 @@ class ScheduleGraph(StatGraphBase):
             values.append(cumulative - old_cumulative)
             old_cumulative = cumulative
 
-        self.graph.plot(values, **kwargs)
+        if self.validate(values):
+            self.graph.plot(values, **kwargs)
+        else:
+            self.graph.display_message(self.errmsg)
 
     def make_histogram(self, scope):
 
@@ -207,7 +219,10 @@ class ScheduleGraph(StatGraphBase):
             kwargs['range'] = (min(values) - 0.5, max(values) + 0.5)
             kwargs['bins'] = max(values) - min(values) + 1
             self.graph.axes.set_xticks(arange(max(values) + 1))
-        self.graph.plot(values, **kwargs)
+        if self.validate(values):
+            self.graph.plot(values, **kwargs)
+        else:
+            self.graph.display_message(self.errmsg)
 
 
 class GradesGraph(StatGraphBase):
@@ -245,6 +260,7 @@ class EasinessGraph(StatGraphBase):
         self.graph = Histogram(parent, color=color)
         self.xlabel = 'Easiness'
         self.ylabel = 'Number of Cards'
+        self.testfn = len
 
     def values_for(self, scope):
         values = []
