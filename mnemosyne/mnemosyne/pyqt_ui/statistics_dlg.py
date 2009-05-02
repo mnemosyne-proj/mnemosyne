@@ -216,7 +216,8 @@ class GradesGraph(StatGraphBase):
 
     def __init__(self, parent, color=None):
         StatGraphBase.__init__(self, parent, color)
-        self.graph = PieChart(parent, color=color)
+        #self.graph = PieChart(parent, color=color)
+        self.graph = Histogram(parent, color=color)
         self.title = 'Number of cards per grade level'
 
     def values_for(self, scope):
@@ -227,12 +228,12 @@ class GradesGraph(StatGraphBase):
                 grades[card.grade] += 1
         return grades
 
-    def kwargs_for(self, scope, values):
-        return dict(explode=(0.05, 0, 0, 0, 0, 0),
-                    labels=['Grade %d' % g if values[g] > 0 else '' 
-                              for g in range(0, len(values))],
-                    colors=('r', 'm', 'y', 'g', 'c', 'b'), 
-                    shadow=True)
+    #def kwargs_for(self, scope, values):
+        #return dict(explode=(0.05, 0, 0, 0, 0, 0),
+                    #labels=['Grade %d' % g if values[g] > 0 else '' 
+                              #for g in range(0, len(values))],
+                    #colors=('r', 'm', 'y', 'g', 'c', 'b'), 
+                    #shadow=True)
 
 
 class EasinessGraph(StatGraphBase):
