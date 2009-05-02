@@ -44,14 +44,10 @@ class Cloze(CardType, Plugin):
     
     """
     
-    provides = "card_type"
+    id = "5"
 
     def __init__(self):
         CardType.__init__(self)
-        self.id = "5"
-        self.name = _("Cloze deletion")
-        self.description = \
-           _("A card type blanking out certain fragments in a text.")
         self.fields.append(("text", _("Text")))
         self.unique_fields = ["text"]
         self.fact_views = [FactView("1", _("Cloze"))]
@@ -126,5 +122,14 @@ class Cloze(CardType, Plugin):
                 new_cards.append(card)
                      
         return new_cards, updated_cards, deleted_cards
+
+
+class ClozePlugin(Plugin):
+
+    name = _("Cloze deletion")
+    description = _("A card type blanking out certain fragments in a text.")
+
+    def __init__(self):
+        Plugin.__init__(self, [Cloze()])
 
 

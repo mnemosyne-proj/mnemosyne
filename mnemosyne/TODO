@@ -1,5 +1,21 @@
 -register_first
 
+-used for in class too? Converter? Need to register classes
+
+-plugin as component or not?
+
+-register review widget for review controller, main widget for main controller
+-general ui_component component, get rid of funny initialisation code, if none,
+get from comp mananger,
+
+-each component, activate function?
+
+-init orig: 15.59, after remove check: 15.45
+
+-1 file ui components
+
+
+
 
 -more tests
 
@@ -15,37 +31,46 @@
 
 -move option to always randomise queue to config screen
 
+
+-hook up config screen
+
+
+-time sql when storing dates as int. Move to int? update start_date.py
+
+-get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
+ 'repetition' for individual repetition, or 'review' for whole process.
+
+
+-basic graphical statistics
+
+-sql query for statistics
+
+
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
  Make the mechanism customisible with hooks, and document this in 
  card.py.
 
 
--time sql when storing dates as int. Move to int? update start_date.py
--minute level scheduling in extra data?
-
--get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
- 'repetition' for individual repetition, or 'review' for whole process.
-
-
--sql query for statistics
-
 -are keybindings sufficiently accesible?
 
--make distrib
+-cntrl enter in add and edit instead of clicking ok
 
+
+-make distrib
 
 -warn when importing card type with duplicate id
 
 -write more tests
 
 -don't import * for Qt
+
 -import full path for ui components
 
 -test rollover
 
-
 -make categories a set?
+
 
 -import
 
@@ -65,42 +90,46 @@
 
 -reset learning ahead queue after import
 
-
 -xml import tests (wcu, memaid, plconv)
+
+-detect and mark inverses on import
+
+-update XML import/export to new database format
+
+-'teacher mode' on export, which allows pupils to update previously imported
+ cards, as opposed to adding new cards. Implemented through id's of the form
+ T.<fixed card id for all pupils>.<pupil user id>?
+
+
 
 -do review_controller.rebuild_queue after edit deck, clean duplicates, activate cards, 
  configuration 
 
 -backup after unloading, not after exiting
 
--reset directory permissions under windows?
-
--'teacher mode' on export, which allows pupils to update previously imported
- cards, as opposed to adding new cards. Implemented through id's of the form
- T.<fixed card id for all pupils>.<pupil user id>?
-
--allow non-unicode filenames: encode/decode in expand/contract path?
-
-
--need to store parent of category?
-
--test uploading of logs
-
--update tooltips, inform Patrick
-
-
--download media files when giving URL? Store media inside database? Copy 
- it to .mnemosyne by default?
-
--adding a picture under Windows screws up / and \, and case
-
--easier function to do tag detection in plugin
-
--make sure searching for a single unicode character works
 
 -test sound
 
+
+-allow non-unicode filenames: encode/decode in expand/contract path?
+
+-adding a picture under Windows screws up / and \, and case
+
+-need to store parent of category?
+
+
+-test uploading of logs
+
+
+-activate categories
+
+
+-deck editor
+
+-make sure searching for a single unicode character works
+
 -qsortfilter proxy
+
 
 -move 'card type by name' to different place?
 
@@ -117,12 +146,7 @@
 
 -modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 
--change file suffix when changing export format
 
--basic graphical statistics
-
-
--checkbox to include inactive cards in statistics?
 
 -alt tabbing gives low res icon.
 
@@ -133,14 +157,15 @@
 -make file handling more robust, detect all errors (see mail by
  OldGrantonian)
 
--button to go to next card in the list
+-reenable datadir in setup.py
 
--logfile 0.6 at pypi?
+-make filters more efficients by using regex instead of loops.
 
--plugin for midi files
+-easier function to do tag detection in plugin
+
+
 
 -'tooltips' during use: relative path when adding pictures or sound.
-
 
 -tips (both on startup and on use): right click to add cards or sound, comma to 
  separate cat names, : to separate hierarchies
@@ -148,38 +173,20 @@
 -comment/tip about not having to do all your scheduled revisions in
  one sitting
 
--reenable datadir in setup.py
-
--make filters more efficients by using regex instead of loops.
-
--detect and mark inverses on import
-
--update XML import/export to new database format
+-update tooltips, inform Patrick
 
 
--teacher mode?
 
 -bug in Qt? : shortcuts don't change back after changing 'show answer'
  button text
 
 -bug in Qt? : spaces around images are not respected.
 
--cntrl enter in add and edit instead of clicking ok
-
--language specific card types (arabic, japanese, integrated dictionary lookup,
- http://lost-theory.org/ocrat/)
-
--hierarchical categories
-
--make 'search' behave as a filter
-
 -test: make <a> links clickable / animated GIFs
+
 
 -update old plugins
 
--save category state
-
--http://labs.trolltech.com/blogs/2009/03/12/wysiwyg-html-editor/
 
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby
 
@@ -187,7 +194,7 @@
 
 * After 2.0:
 
-
+-respect font in fact editor
 
 -detect wrong current date (last review in the future or way past)
 
@@ -195,32 +202,34 @@
 
 -show latex errors in GUI?
 
+-checkbox to include inactive cards in statistics?
 
 -pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
 http://pythoscope.org/
 -pylint, pyflakes
 
 
+-plugin for midi files
+
 
 Windows Mobile client:
 
 -better way of making default actions visible? Call layout()?
-
 -hook up scheduler rollover
-
 -cramming widget
-
 -implement hide question
-
 -icon
-
 -more complete question box implementation
-
 -installer
-
+-set basedir in registry key
 -install only pyc files
-
 -mark card
+-play around with MW5torage for easier sync and document this if it works.
+
+
+
+-download media files when giving URL? Store media inside database? Copy 
+ it to .mnemosyne by default?
 
 
 -also allow import compressed backup files from within Mnemosyne
@@ -242,19 +251,16 @@ Windows Mobile client:
 -card type with prefilled fields
 
 -zooming picture instead of scrollbars?
+ 
+-animated strokes: http://lost-theory.org/ocrat/
 
-
-* Memosyne analysis: Add-on package to do full custom statistical
-analysis on the entire history of your learning process.
-Status: initial code written, but clean up needed.
-
--add to svn
--document
--release
--research section on web site
 
 
 * Miscellaneous:
+
+-change file suffix when changing export format
+
+-button after opening fact editor in edit deck to go to next card in the list
 
 -sound recorder
 
@@ -283,6 +289,7 @@ Status: initial code written, but clean up needed.
 
 -undo last grade + keyboard shortcut
 
+-http://labs.trolltech.com/blogs/2009/03/12/wysiwyg-html-editor/
 
 -integrate Mnemosyne analysis, advanced statistics, history,
  forgetting index, histogram of grades and intervals... (look at graphs

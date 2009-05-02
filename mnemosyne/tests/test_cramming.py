@@ -21,8 +21,8 @@ class TestScheduler(MnemosyneTest):
         os.system("rm -fr dot_test")
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.initialise(os.path.abspath("dot_test"),
-             extra_components=[("scheduler", "Cramming",
-             "mnemosyne.libmnemosyne.schedulers.cramming")])
+             extra_components=[("Cramming",
+                   "mnemosyne.libmnemosyne.schedulers.cramming")])
 
     def test_1(self):
         card_type = card_type_by_id("1")

@@ -16,7 +16,7 @@ class ThreeSided(CardType):
     id = "3"
     name = _("Foreign word with pronunciation")
             
-    def __init__(self, language_name=""):
+    def __init__(self):
         CardType.__init__(self)
 
         # List and name the keys.
@@ -38,7 +38,7 @@ class ThreeSided(CardType):
         v.required_fields = ["t"]
         self.fact_views.append(v)
     
-        # The foreign word field needs to be unique. As for duplicates is the
+        # The foreign word field needs to be unique. As for duplicates in the
         # answer field, these are better handled through a synonym detection 
         # plugin.
         self.unique_fields = ["f"]

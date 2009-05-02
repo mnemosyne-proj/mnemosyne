@@ -178,27 +178,27 @@ class SQLite(Database):
                     plugin_needed.add(id)
             if id not in active_id:
                 plugin_needed.add(id)
-                        
+
         # Activate necessary plugins.
         for card_type_id in plugin_needed:
-            try:
-                for plugin in plugins():
-                    if plugin.provides == "card_type" and \
-                       plugin.id == card_type_id:
-                        plugin.activate()
-                        break
-                else:
-                    self._connection.close()
-                    self._connection = None
-                    self.load_failed = True
-                    raise MissingPluginError(info=card_type_id)
-            except MissingPluginError:
-                raise MissingPluginError(info=card_type_id)
-            except:
+            found = False
+            for plugin in plugins():
+                for component in plugin.components:
+                    if component.component_type == "card_type" and \
+                           component.id == card_type_id:
+                        found = True
+                        try:
+                            plugin.activate()
+                        except:
+                            self._connection.close()
+                            self._connection = None
+                            self.load_failed = True
+                            raise PluginError(stack_trace=True)
+            if not found:
                 self._connection.close()
                 self._connection = None
                 self.load_failed = True
-                raise PluginError(stack_trace=True)
+                raise MissingPluginError(info=card_type_id)
             
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
@@ -626,7 +626,7 @@ class SQLite(Database):
             active=1 and scheduler_data=? order by ? limit ?""",
             (scheduler_data, sort_key, limit)))
 
-    def scheduler_data_count(self, scheduler_data)
+    def scheduler_data_count(self, scheduler_data):
         return self.con.execute("""select count() from cards
             where active=1 and scheduler_data=?""",
             (scheduler_data, )).fetchone()[0]        

@@ -6,7 +6,8 @@
 class ComponentManager(object):
 
     """Manages the different components. Each component belongs to a type
-    (database, scheduler, card_type, card_type_widget, ...).
+    (database, scheduler, card_type, card_type_widget, ...), which is stored
+    in the class variable 'component_type' of each component.
 
     The component manager can also store relationships between components,
     e.g. a card_type_widget is used for a certain card_type.
@@ -28,6 +29,9 @@ class ComponentManager(object):
        "card_type"              card_type instance
        "card_type_converter"    card_type_converter instance
                                 used for (old_type class, new_type class)
+
+       TODO:
+       
        "card_type_widget"       card_type_widget class,
                                 used_for card_type class
        "renderer"               renderer instance,
@@ -51,22 +55,23 @@ class ComponentManager(object):
         self.components = {} # { used_for : {type : [component]} }
         self.card_type_by_id = {}
 
-    def register(self, type, component, used_for=None):
+    def register(self, component, used_for=None):
         
         """For type, component and used_for, see the table above."""
-       
+
+        type = component.component_type
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
         if not self.components[used_for].has_key(type):
             self.components[used_for][type] = [component]
         else:
             if component not in self.components[used_for][type]:
-                self.components[used_for][type].append(component)         
+                self.components[used_for][type].append(component)
         if type == "card_type":
             self.card_type_by_id[component.id] = component
             
-    def unregister(self, type, component, used_for=None):
-        self.components[used_for][type].remove(component)
+    def unregister(self, component, used_for=None):
+        self.components[used_for][component.component_type].remove(component)
 
     def get_all(self, type, used_for=None):
         

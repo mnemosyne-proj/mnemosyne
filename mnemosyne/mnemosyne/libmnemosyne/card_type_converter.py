@@ -19,6 +19,8 @@ class CardTypeConverter(object):
 
     """
 
+    component_type = "card_type_converter"
+
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         new_cards, updated_cards, deleted_cards = [], [], []
         return new_cards, updated_cards, deleted_cards

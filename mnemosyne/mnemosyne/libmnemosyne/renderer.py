@@ -7,6 +7,8 @@ from mnemosyne.libmnemosyne.component_manager import config
 
 class Renderer(object):
 
+    component_type = "renderer"
+
     def update(self, card_type):
 
         """Update renderer information for given card type."""

@@ -5,7 +5,7 @@
 import os
 
 from mnemosyne_test import MnemosyneTest
-from mnemosyne.libmnemosyne.card_types.cloze import Cloze
+from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
 from mnemosyne.libmnemosyne.component_manager import database 
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import component_manager
@@ -15,8 +15,8 @@ class TestCloze(MnemosyneTest):
 
     def setup(self):
         MnemosyneTest.setup(self)
-        p = Cloze()
-        component_manager.register("plugin", p)
+        p = ClozePlugin()
+        component_manager.register(p)
         p.activate()
 
     def test_validate(self):

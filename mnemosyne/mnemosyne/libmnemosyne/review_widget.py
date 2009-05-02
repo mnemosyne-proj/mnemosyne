@@ -9,6 +9,8 @@ class ReviewWidget(object):
     in order to be used by the review controller.
 
     """
+
+    component_type = "review_widget"
     
     def enable_edit_current_card(self, enabled):
         pass

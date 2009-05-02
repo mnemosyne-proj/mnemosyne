@@ -12,6 +12,8 @@ class UiControllerReview(object):
     
     """
 
+    component_type = "ui_controller_review"
+
     def __init__(self):
         self.widget = None
         self.card = None

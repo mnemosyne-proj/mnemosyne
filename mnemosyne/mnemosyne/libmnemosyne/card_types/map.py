@@ -10,13 +10,10 @@ from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.fact_view import FactView
 
 
-class Map(CardType, Plugin):
+class Map(CardType):
 
     id = "4"
-    name = _("Map")
-    description = _("A card type for learning locations on a map")
-    provides = "card_type"
-        
+    
     def __init__(self):
         CardType.__init__(self)
 
@@ -43,4 +40,11 @@ class Map(CardType, Plugin):
         # The following field needs to be unique.
         self.unique_fields = ["loc"]
 
-   
+
+class MapPlugin(Plugin):
+
+    name = _("Map")
+    description = _("A card type for learning locations on a map")
+
+    def __init__(self):
+        Plugin.__init__(self, [Map()])

@@ -148,7 +148,8 @@ class TestDatabase(MnemosyneTest):
 
     def test_plugin_and_clones(self):
         for plugin in plugins():
-            if plugin.provides == "card_type" and plugin.id == "4":
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "4":
                 plugin.activate()
         
         fact_data = {"loc": "location",
@@ -157,6 +158,8 @@ class TestDatabase(MnemosyneTest):
         card_type = card_type_by_id("4")
         card = ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
+        assert database().fact_count() == 1
+        
         ui_controller_main().file_save()
         fact = card.fact
         fact.card_type.clone("my_4")
@@ -164,12 +167,13 @@ class TestDatabase(MnemosyneTest):
         new_card_type = card_type_by_id("4_CLONED.my_4")
         ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
-        
+        assert database().fact_count() == 1        
         ui_controller_main().file_save()       
         database().unload()
         Mnemosyne().finalise()
         
         Mnemosyne().initialise(os.path.abspath("dot_test"))
+
         assert database().fact_count() == 1
         _card_id, _fact_id = list(database().cards_unseen(0))[0]
         fact = database().get_fact(_fact_id)
@@ -210,7 +214,8 @@ class TestDatabase(MnemosyneTest):
     @raises(MissingPluginError)
     def test_missing_plugin(self):
         for plugin in plugins():
-            if plugin.provides == "card_type" and plugin.id == "4":
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "4":
                 plugin.activate()
         
         fact_data = {"loc": "location",
@@ -227,19 +232,21 @@ class TestDatabase(MnemosyneTest):
         ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
-        ui_controller_main().file_save()       
+        ui_controller_main().file_save()
+
         database().unload()
         Mnemosyne().finalise()
         
         Mnemosyne().initialise(os.path.abspath("dot_test"))
         database().unload()
-        
+
         # Artificially remove plugin.
         for plugin in plugins():
-            if plugin.provides == "card_type" and plugin.id == "4":
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "4":
                 plugin.deactivate()
-                component_manager.unregister("plugin", plugin)
-                break                    
+                component_manager.unregister(plugin)
+                break
         database().load(config()["path"])
         
     def infinity(self):
@@ -248,7 +255,8 @@ class TestDatabase(MnemosyneTest):
     @raises(PluginError)
     def test_corrupt_plugin(self):
         for plugin in plugins():
-            if plugin.provides == "card_type" and plugin.id == "4":
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "4":
                 plugin.activate()
         
         fact_data = {"loc": "location",
@@ -274,7 +282,8 @@ class TestDatabase(MnemosyneTest):
         
         # Artificially mutilate plugin.
         for plugin in plugins():
-            if plugin.provides == "card_type" and plugin.id == "4":
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "4":
                 plugin.deactivate()
                 plugin.activate = self.infinity
                 break

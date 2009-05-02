@@ -5,6 +5,7 @@
 import gettext
 _ = gettext.gettext
 
+from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne import SM2Mnemosyne
 
@@ -15,12 +16,7 @@ class Cramming(SM2Mnemosyne):
     WRONG = 1
     RIGHT = 2
 
-    provides = "scheduler"
-    
-    def __init__(self):
-        self.name = _("Cramming scheduler")
-        self.description = \
-  _("Goes through cards in random order without saving scheduling information.")
+    name = "cramming"
 
     def reset(self):
         SM2Mnemosyne.reset(self)
@@ -64,4 +60,13 @@ class Cramming(SM2Mnemosyne):
         else:
             card.scheduler_data = self.RIGHT
         return 0
-        
+
+
+class CrammingPlugin(Plugin):
+
+    name = _("Cramming scheduler")
+    description = \
+  _("Goes through cards in random order without saving scheduling information.")
+
+    def __init__(self):
+        Plugin.__init__(self, [Cramming()])

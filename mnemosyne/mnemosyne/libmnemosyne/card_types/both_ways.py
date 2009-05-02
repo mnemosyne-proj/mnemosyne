@@ -16,7 +16,7 @@ class BothWays(CardType):
     id = "2"
     name = _("Front-to-back and back-to-front")
 
-    def __init__(self, language_name=""):
+    def __init__(self):
         CardType.__init__(self)
             
         # List and name the keys.

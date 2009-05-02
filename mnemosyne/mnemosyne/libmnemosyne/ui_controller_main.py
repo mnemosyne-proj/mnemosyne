@@ -11,6 +11,8 @@ class UiControllerMain(object):
 
     """
 
+    component_type = "ui_controller_main"
+
     def __init__(self):
         self.widget = None
         

@@ -6,6 +6,7 @@
 class Scheduler(object):
 
     name = ""
+    component_type = "scheduler"
 
     def reset(self):
 

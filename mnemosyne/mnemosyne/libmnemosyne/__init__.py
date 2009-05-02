@@ -29,8 +29,11 @@ class Mnemosyne(object):
 
     def initialise(self, basedir, filename=None, main_widget=None,
                    extra_components=None):
+        import datetime
+        t = datetime.datetime.now()
         self.initialise_system_components()
-        self.initialise_extra_components(extra_components)       
+        self.initialise_extra_components(extra_components)
+        print (datetime.datetime.now()-t).microseconds/1000.
         self.initialise_main_widget(main_widget)  
         self.check_lockfile(basedir)
         config().initialise(basedir)
@@ -47,70 +50,70 @@ class Mnemosyne(object):
     def initialise_system_components(self):
         # Database.
         #from mnemosyne.libmnemosyne.databases.pickle import Pickle
-        #component_manager.register("database", Pickle())
+        #component_manager.register(Pickle())
         from mnemosyne.libmnemosyne.databases.SQLite import SQLite
-        component_manager.register("database", SQLite())
+        component_manager.register(SQLite())
 
         # Configuration.
         from mnemosyne.libmnemosyne.configuration import Configuration
-        component_manager.register("config", Configuration())
+        component_manager.register(Configuration())
 
          # Logger.
         from mnemosyne.libmnemosyne.loggers.txt_logger import TxtLogger
-        component_manager.register("log", TxtLogger())   
+        component_manager.register(TxtLogger())   
 
         # Scheduler.
         from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne \
                                                        import SM2Mnemosyne
-        component_manager.register("scheduler", SM2Mnemosyne())
+        component_manager.register(SM2Mnemosyne())
 
         # Card types.
         from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
-        component_manager.register("card_type", FrontToBack())
+        component_manager.register(FrontToBack())
         from mnemosyne.libmnemosyne.card_types.both_ways import BothWays
-        component_manager.register("card_type", BothWays())
+        component_manager.register(BothWays())
         from mnemosyne.libmnemosyne.card_types.three_sided import ThreeSided
-        component_manager.register("card_type", ThreeSided())
+        component_manager.register(ThreeSided())
 
         # Card type converters.
         from mnemosyne.libmnemosyne.card_types.both_ways \
              import FrontToBackToBothWays
-        component_manager.register("card_type_converter", FrontToBackToBothWays(),
+        component_manager.register(FrontToBackToBothWays(),
                                    used_for=(FrontToBack, BothWays))  
         from mnemosyne.libmnemosyne.card_types.both_ways \
              import BothWaysToFrontToBack
-        component_manager.register("card_type_converter", BothWaysToFrontToBack(),
+        component_manager.register(BothWaysToFrontToBack(),
                                    used_for=(BothWays, FrontToBack))
         from mnemosyne.libmnemosyne.card_types.three_sided \
              import FrontToBackToThreeSided
-        component_manager.register("card_type_converter", FrontToBackToThreeSided(),
+        component_manager.register(FrontToBackToThreeSided(),
                                    used_for=(FrontToBack, ThreeSided))
         from mnemosyne.libmnemosyne.card_types.three_sided \
              import BothWaysToThreeSided
-        component_manager.register("card_type_converter", BothWaysToThreeSided(),
+        component_manager.register(BothWaysToThreeSided(),
                                    used_for=(BothWays, ThreeSided))
         from mnemosyne.libmnemosyne.card_types.three_sided \
              import ThreeSidedToFrontToBack
-        component_manager.register("card_type_converter", ThreeSidedToFrontToBack(),
+        component_manager.register(ThreeSidedToFrontToBack(),
                                    used_for=(ThreeSided, FrontToBack))
         from mnemosyne.libmnemosyne.card_types.three_sided \
              import ThreeSidedToBothWays    
-        component_manager.register("card_type_converter", ThreeSidedToBothWays(),
+        component_manager.register(ThreeSidedToBothWays(),
                                    used_for=(ThreeSided, BothWays))
 
         # Renderer.
         from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
-        component_manager.register("renderer", HtmlCss())
+        component_manager.register(HtmlCss())
 
         # Filters.
         from mnemosyne.libmnemosyne.filters.escape_to_html \
                                                        import EscapeToHtml
-        component_manager.register("filter", EscapeToHtml())
+        component_manager.register(EscapeToHtml())
         from mnemosyne.libmnemosyne.filters.expand_paths \
                                                        import ExpandPaths
-        component_manager.register("filter", ExpandPaths())
+        component_manager.register(ExpandPaths())
         from mnemosyne.libmnemosyne.filters.latex import Latex
-        component_manager.register("filter", Latex())
+        component_manager.register(Latex())
 
         # File formats.
 
@@ -118,33 +121,33 @@ class Mnemosyne(object):
         # UI controllers.
         from mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller \
                                                        import DefaultMainController
-        component_manager.register("ui_controller_main", DefaultMainController())
+        component_manager.register(DefaultMainController())
         from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
                                                        import SM2Controller
-        component_manager.register("ui_controller_review", SM2Controller())
+        component_manager.register(SM2Controller())
 
         # Plugins.
-        from mnemosyne.libmnemosyne.card_types.map import Map   
-        component_manager.register("plugin", Map())
-        from mnemosyne.libmnemosyne.card_types.cloze import Cloze   
-        component_manager.register("plugin", Cloze())
-        from mnemosyne.libmnemosyne.plugins.cramming import Cramming   
-        component_manager.register("plugin", Cramming())
+        from mnemosyne.libmnemosyne.card_types.map import MapPlugin   
+        component_manager.register(MapPlugin())
+        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin   
+        component_manager.register(ClozePlugin())
+        from mnemosyne.libmnemosyne.schedulers.cramming import CrammingPlugin   
+        component_manager.register(CrammingPlugin())
         
     def initialise_extra_components(self, components=None):
         if not components:
             return
         for component in components:
-            if len(component) == 3:
-                type_name, class_name, module_name = component
+            if len(component) == 2:
+                class_name, module_name = component
                 exec("from %s import %s" % (module_name, class_name))
-                exec("component_manager.register(\"%s\", %s())" \
-                     % (type_name, class_name))
+                exec("component_manager.register(%s())" \
+                     % (class_name))
             else:
-                type_name, class_name, module_name, used_for = component
+                class_name, module_name, used_for = component
                 exec("from %s import %s" % (module_name, class_name))
-                exec("component_manager.register(\"%s\", %s, used_for=%s)" \
-                     % (type_name, class_name, used_for))                
+                exec("component_manager.register(%s, used_for=%s)" \
+                     % (class_name, used_for))                
 
     def initialise_main_widget(self, main_widget):
         if not main_widget:
@@ -198,6 +201,10 @@ class Mnemosyne(object):
             else:
                 database().load(filename)
         except MnemosyneError, e:
+            # Making sure the GUI is in a correct state when no database is
+            # loaded would require a lot of extra code, and this is only a
+            # corner case anyhow. So, as workaround, we create a temporary
+            # database.
             from mnemosyne.libmnemosyne.component_manager import \
                  ui_controller_main
             ui_controller_main().widget.show_exception(e)

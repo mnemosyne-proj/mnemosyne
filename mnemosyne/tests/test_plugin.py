@@ -19,15 +19,16 @@ class Widget:
     def information_box(self, s1, s2=None):
         raise NotImplementedError
 
-
-class MyPlugin(Plugin, FrontToBack):
-    name = "myplugin"
-    description = "MyPlugn"
-    provides = "card_type"
+class MyCardType(FrontToBack):
     id = "666"
 
+class MyPlugin(Plugin):
+    name = "myplugin"
+    description = "MyPlugin"
+
     def __init__(self):
-        FrontToBack.__init__(self)
+        components = [MyCardType()]
+        Plugin.__init__(self, components)
 
 class TestPlugin(MnemosyneTest):
 
@@ -37,7 +38,7 @@ class TestPlugin(MnemosyneTest):
         
     @raises(AssertionError)
     def test_1(self):
-        p = Plugin()
+        p = Plugin([])
         
     @raises(NotImplementedError)
     def test_2(self):
@@ -58,6 +59,7 @@ class TestPlugin(MnemosyneTest):
         ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
         p.deactivate() # Pops up an information box that this is not possible.
+        1/0
 
     @raises(NotImplementedError)
     def test_3(self):

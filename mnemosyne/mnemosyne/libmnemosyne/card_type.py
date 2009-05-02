@@ -50,7 +50,8 @@ class CardType(object):
     id = "-1"
     name = ""
     is_clone = False
-
+    component_type = "card_type"
+    
     def __init__(self):
         self.fields = []
         self.fact_views = []
@@ -124,7 +125,7 @@ class CardType(object):
                  {"name": clone_name,
                   "is_clone": True,
                   "id": clone_id})
-        component_manager.register("card_type", C())
+        component_manager.register(C())
 
     # The following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be

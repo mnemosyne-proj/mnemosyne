@@ -21,6 +21,8 @@ class FunctionHook(Plugin):
     in the program.
     
     """
+
+    component_type = "function_hook"
     
     def run(self):
         raise NotImplementedError
