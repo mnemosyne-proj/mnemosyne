@@ -52,6 +52,7 @@ dvipng = "dvipng -D 200 -T tight tmp.dvi"
 class Configuration(dict):
 
     component_type = "config"
+    used_for = None
 
     def __init__(self):
 

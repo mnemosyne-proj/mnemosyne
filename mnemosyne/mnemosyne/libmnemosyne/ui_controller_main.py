@@ -12,6 +12,7 @@ class UiControllerMain(object):
     """
 
     component_type = "ui_controller_main"
+    used_for = None
 
     def __init__(self):
         self.widget = None

@@ -10,6 +10,7 @@ from mnemosyne.libmnemosyne.component_manager import config
 class Logger(object):
 
     component_type = "log"
+    used_for = None
     
     def start_logging(self):
         raise NotImplementedError

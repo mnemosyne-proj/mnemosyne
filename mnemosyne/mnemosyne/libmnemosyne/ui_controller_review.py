@@ -13,6 +13,7 @@ class UiControllerReview(object):
     """
 
     component_type = "ui_controller_review"
+    used_for = None
 
     def __init__(self):
         self.widget = None

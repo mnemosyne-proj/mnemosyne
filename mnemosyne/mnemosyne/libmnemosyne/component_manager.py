@@ -50,11 +50,12 @@ class ComponentManager(object):
         self.components = {} # { used_for : {type : [component]} }
         self.card_type_by_id = {}
 
-    def register(self, component, used_for=None, in_front=False):
+    def register(self, component, in_front=False):
         
         """For type, component and used_for, see the table above."""
 
         type = component.component_type
+        used_for = component.used_for
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
         if not self.components[used_for].has_key(type):
@@ -68,8 +69,10 @@ class ComponentManager(object):
         if type == "card_type":
             self.card_type_by_id[component.id] = component
             
-    def unregister(self, component, used_for=None):
-        self.components[used_for][component.component_type].remove(component)
+    def unregister(self, component):
+        type = component.component_type
+        used_for = component.used_for
+        self.components[used_for][type].remove(component)
 
     def get_all(self, type, used_for=None):
         

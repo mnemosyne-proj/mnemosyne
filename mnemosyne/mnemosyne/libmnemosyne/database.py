@@ -11,6 +11,7 @@ class Database(object):
 
     version = ""
     component_type = "database"
+    used_for = None
 
     # Creating, loading and saving the entire database.
 

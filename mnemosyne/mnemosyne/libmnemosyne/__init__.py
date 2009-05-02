@@ -78,28 +78,22 @@ class Mnemosyne(object):
         # Card type converters.
         from mnemosyne.libmnemosyne.card_types.both_ways \
              import FrontToBackToBothWays
-        component_manager.register(FrontToBackToBothWays(),
-                                   used_for=(FrontToBack, BothWays))  
+        component_manager.register(FrontToBackToBothWays())
         from mnemosyne.libmnemosyne.card_types.both_ways \
              import BothWaysToFrontToBack
-        component_manager.register(BothWaysToFrontToBack(),
-                                   used_for=(BothWays, FrontToBack))
+        component_manager.register(BothWaysToFrontToBack())
         from mnemosyne.libmnemosyne.card_types.three_sided \
              import FrontToBackToThreeSided
-        component_manager.register(FrontToBackToThreeSided(),
-                                   used_for=(FrontToBack, ThreeSided))
+        component_manager.register(FrontToBackToThreeSided())
         from mnemosyne.libmnemosyne.card_types.three_sided \
              import BothWaysToThreeSided
-        component_manager.register(BothWaysToThreeSided(),
-                                   used_for=(BothWays, ThreeSided))
+        component_manager.register(BothWaysToThreeSided())
         from mnemosyne.libmnemosyne.card_types.three_sided \
              import ThreeSidedToFrontToBack
-        component_manager.register(ThreeSidedToFrontToBack(),
-                                   used_for=(ThreeSided, FrontToBack))
+        component_manager.register(ThreeSidedToFrontToBack())
         from mnemosyne.libmnemosyne.card_types.three_sided \
              import ThreeSidedToBothWays    
-        component_manager.register(ThreeSidedToBothWays(),
-                                   used_for=(ThreeSided, BothWays))
+        component_manager.register(ThreeSidedToBothWays())
 
         # Renderer.
         from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
@@ -138,16 +132,9 @@ class Mnemosyne(object):
         if not components:
             return
         for component in components:
-            if len(component) == 2:
-                class_name, module_name = component
-                exec("from %s import %s" % (module_name, class_name))
-                exec("component_manager.register(%s())" \
-                     % (class_name))
-            else:
-                class_name, module_name, used_for = component
-                exec("from %s import %s" % (module_name, class_name))
-                exec("component_manager.register(%s, used_for=%s)" \
-                     % (class_name, used_for))                
+            class_name, module_name = component
+            exec("from %s import %s" % (module_name, class_name))
+            exec("component_manager.register(%s())" % (class_name))
 
     def initialise_main_widget(self, main_widget):
         if not main_widget:

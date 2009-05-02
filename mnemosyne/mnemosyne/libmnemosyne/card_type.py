@@ -51,6 +51,7 @@ class CardType(object):
     name = ""
     is_clone = False
     component_type = "card_type"
+    used_for = None
     
     def __init__(self):
         self.fields = []

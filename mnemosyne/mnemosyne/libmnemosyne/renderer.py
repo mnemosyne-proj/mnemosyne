@@ -8,6 +8,7 @@ from mnemosyne.libmnemosyne.component_manager import config
 class Renderer(object):
 
     component_type = "renderer"
+    used_for = None
 
     def update(self, card_type):
 

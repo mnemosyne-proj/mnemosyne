@@ -23,6 +23,7 @@ class FunctionHook(Plugin):
     """
 
     component_type = "function_hook"
+    used_for = None
     
     def run(self):
         raise NotImplementedError

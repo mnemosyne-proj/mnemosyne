@@ -25,6 +25,7 @@ class Plugin(object):
     description = ""
     activation_message = ""
     component_type = "plugin" # TODO?
+    used_for = None # TODO?
     show_in_first_run_wizard = False
         
     def __init__(self, components):
