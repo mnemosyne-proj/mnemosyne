@@ -201,7 +201,7 @@ class ScheduleGraph(StatGraphBase):
         self.graph.axes.set_ylabel('Number of Cards Scheduled')
         self.graph.axes.set_xlabel('Days')
         iton = lambda i: (i + abs(i)) / 2 # i < 0 ? 0 : i
-        values = [iton(c.days_until_next_rep) for c in database().cards]
+        values = [iton(c.days_until_next_rep) for c in database().get_all_cards()]
         kwargs = dict()
         if len(values) != 0:
             kwargs['range'] = (min(values) - 0.5, max(values) + 0.5)
@@ -221,8 +221,8 @@ class GradesGraph(StatGraphBase):
 
     def values_for(self, scope):
         grades = [0] * 6 # There are six grade levels
-        for card in database().cards:
-            cat_names = [c.name for c in card.fact.cat]
+        for card in database().get_all_cards():
+            cat_names = [c.name for c in card.categories]
             if scope == 'grades_all_categories' or scope in cat_names:
                 grades[card.grade] += 1
         return grades
@@ -247,8 +247,8 @@ class EasinessGraph(StatGraphBase):
 
     def values_for(self, scope):
         values = []
-        for card in database().cards:
-            cat_names = [c.name for c in card.fact.cat]
+        for card in database().get_all_cards():
+            cat_names = [c.name for c in card.categories]
             if scope == 'easiness_all_categories' or scope in cat_names:
                 values.append(card.easiness)
         return values

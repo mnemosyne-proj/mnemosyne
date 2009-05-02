@@ -437,6 +437,10 @@ class SQLite(Database):
             (id, )).fetchone()
         return self._get_card(sql_res)
 
+    def get_all_cards(self):
+        sql_res = self.con.execute("select * from cards")
+        return [self._get_card(row) for row in sql_res]
+
     # Activate cards.
     
     def set_cards_active(self, card_types_fact_views, categories):
