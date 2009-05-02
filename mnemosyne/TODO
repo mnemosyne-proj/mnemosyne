@@ -1,17 +1,19 @@
--used for in class too? Converter? Need to register classes
-
--plugin as component or not?
-
 -register review widget for review controller, main widget for main controller
 -general ui_component component, get rid of funny initialisation code, if none,
-get from comp mananger,
+get from comp mananger?
 
--each component, activate function?
+-each component, activate function? Or do it in plugin.activate?
 
+-initialise based on list of strings
 
 
 -init orig: 15.59, after remove check: 15.45
+-after rework with used_for and type in baseclass: 16.28
 
+
+-register classes, not instances
+
+-plugin as component or not?
 
 
 

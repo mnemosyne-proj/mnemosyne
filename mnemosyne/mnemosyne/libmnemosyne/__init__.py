@@ -22,10 +22,13 @@ class Mnemosyne(object):
     Mnemosyne in a typical scenario.
 
     """
-
+    
     def __init__(self, resource_limited=False):
         self.resource_limited = resource_limited
         self.upload_thread = None
+
+    # Note: the main widget should already exist, otherwise we can't give
+    # feedback to the user if errors occur.
 
     def initialise(self, basedir, filename=None, main_widget=None,
                    extra_components=None):

@@ -6,6 +6,7 @@ import os
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.schedulers.cramming import CrammingPlugin
 from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import scheduler
@@ -20,9 +21,9 @@ class TestScheduler(MnemosyneTest):
 
         os.system("rm -fr dot_test")
         self.mnemosyne = Mnemosyne()
-        self.mnemosyne.initialise(os.path.abspath("dot_test"),
-             extra_components=[("Cramming",
-                   "mnemosyne.libmnemosyne.schedulers.cramming")])
+        self.mnemosyne.initialise(os.path.abspath("dot_test"))
+        p = CrammingPlugin()
+        p.activate()
 
     def test_1(self):
         card_type = card_type_by_id("1")

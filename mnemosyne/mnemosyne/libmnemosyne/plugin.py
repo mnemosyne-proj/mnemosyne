@@ -39,6 +39,9 @@ class Plugin(object):
                 self.activation_message)
         for component in self.components:
             component_manager.register(component)
+            # TODO: move to base class?
+            if component.component_type == "scheduler":
+                component.reset()
         config()["active_plugins"].add(self.__class__)
 
     def deactivate(self):
@@ -51,5 +54,9 @@ class Plugin(object):
         _("Cannot deactivate, this card type or a clone of it is in use."))
                         return False
             component_manager.unregister(component)
+            # TODO: move to base class.
+            from mnemosyne.libmnemosyne.component_manager import scheduler
+            if component.component_type == "scheduler":
+                scheduler().reset()            
         config()["active_plugins"].remove(self.__class__)
         return True
