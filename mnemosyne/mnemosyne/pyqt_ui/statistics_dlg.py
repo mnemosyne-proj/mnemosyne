@@ -104,38 +104,39 @@ class StatGraphBase(object):
     need to override make_graph if the type of graph returned depends on the 
     scope argument or if the class needs to do special formatting of the graph
     (e.g. ScheduleGraph below). In most cases, subclasses only need to override 
-    __init__ to assign the appropriate graph type to self.graph, and values_for
+    __init__ to assign the appropriate graph type to self.graph, and values
     to generate the values to be plotted. Subclasses can also specify a dict of
     keyword args that will be passed to the graph's plot method by overriding
-    the kwargs_for method.
+    the kwargs method.
 
     """
 
-    def __init__(self, parent, color='white'):
+    def __init__(self, parent, scope, color='white'):
         self.graph = MplCanvas(parent, color=color)
+        self.scope = scope
         self.title = ''
         self.xlabel = ''
         self.ylabel = ''
         self.errmsg = 'No stats available.'
         self.testfn = max
 
-    def make_graph(self, scope):
-        values = self.values_for(scope)
-        kwargs = self.kwargs_for(scope, values)
-        self.prepare_axes(scope, values, **kwargs)
+    def make_graph(self):
+        values = self.values()
+        kwargs = self.kwargs(values)
+        self.prepare_axes(values, **kwargs)
         if self.validate(values):
             self.graph.plot(values, **kwargs)
         else:
             self.graph.display_message(self.errmsg)
         return self.graph
 
-    def values_for(self, scope):
+    def values(self):
         return []
 
-    def kwargs_for(self, scope, values):
+    def kwargs(self, values):
         return {}
 
-    def prepare_axes(self, scope, values, **kwargs):
+    def prepare_axes(self, values, **kwargs):
         self.graph.axes.set_title(self.title)
         self.graph.axes.set_xlabel(self.xlabel)
         self.graph.axes.set_ylabel(self.ylabel)
@@ -148,24 +149,24 @@ class ScheduleGraph(StatGraphBase):
 
     """Graph of card scheduling statistics."""
 
-    def make_graph(self, scope):
+    def make_graph(self):
         parent = self.graph.parent()
         color = self.graph.fig.get_facecolor()
-        if scope == 'all_time':
+        if self.scope == 'all_time':
             self.graph = Histogram(parent, color=color)
             self.testfn = len
         else:
             self.graph = BarGraph(parent, color=color)
-        return StatGraphBase.make_graph(self, scope)
+        return StatGraphBase.make_graph(self)
 
-    def values_for(self, scope):
+    def values(self):
         values = []
         if isinstance(self.graph, BarGraph):
-            if scope == 'next_week':
+            if self.scope == 'next_week':
                 range_ = range(0, 7, 1)
-            elif scope == 'next_month': 
+            elif self.scope == 'next_month': 
                 range_ = range(6, 28, 7)
-            elif scope == 'next_year':  
+            elif self.scope == 'next_year':  
                 range_ = range(30, 365, 30)
             else:
                 raise ArgumentError, "scope must be one of ('next_week', 'next_month', 'next_year')"
@@ -179,7 +180,7 @@ class ScheduleGraph(StatGraphBase):
             values = [iton(c.days_until_next_rep) for c in database().get_all_cards()]
         return values
 
-    def kwargs_for(self, scope, values):
+    def kwargs(self, values):
         kwargs = dict()
         if isinstance(self.graph, BarGraph):
             kwargs['width'] = 1.0
@@ -195,19 +196,19 @@ class ScheduleGraph(StatGraphBase):
             raise ArgumentError, "invalid graph type"
         return kwargs
 
-    def prepare_axes(self, scope, values, **kwargs):
-        StatGraphBase.prepare_axes(self, scope, values, **kwargs)
+    def prepare_axes(self, values, **kwargs):
+        StatGraphBase.prepare_axes(self, values, **kwargs)
         if isinstance(self.graph, BarGraph):
             xticklabels = lambda i, j: map(lambda x: "+%d" % x, range(i, j))
-            if scope == 'next_week':
+            if self.scope == 'next_week':
                 range_ = range(0, 7, 1)
                 xlabel = 'Days' 
                 xticklabels = ['Today'] + xticklabels(1, 7)
-            elif scope == 'next_month': 
+            elif self.scope == 'next_month': 
                 range_ = range(6, 28, 7)
                 xlabel = 'Weeks'
                 xticklabels = ['This week'] + xticklabels(1, 4)
-            elif scope == 'next_year':  
+            elif self.scope == 'next_year':  
                 range_ = range(30, 365, 30)
                 xlabel = 'Months'
                 xticklabels = xticklabels(0, 12)
@@ -228,21 +229,21 @@ class GradesGraph(StatGraphBase):
 
     """Graph of card grade statistics."""
 
-    def __init__(self, parent, color=None):
-        StatGraphBase.__init__(self, parent, color)
+    def __init__(self, parent, scope, color=None):
+        StatGraphBase.__init__(self, parent, scope, color)
         #self.graph = PieChart(parent, color=color)
         self.graph = Histogram(parent, color=color)
         self.title = 'Number of cards per grade level'
 
-    def values_for(self, scope):
+    def values(self):
         grades = [0] * 6 # There are six grade levels
         for card in database().get_all_cards():
             cat_names = [c.name for c in card.categories]
-            if scope == 'grades_all_categories' or scope in cat_names:
+            if self.scope == 'grades_all_categories' or self.scope in cat_names:
                 grades[card.grade] += 1
         return grades
 
-    #def kwargs_for(self, scope, values):
+    #def kwargs(self, values):
         #return dict(explode=(0.05, 0, 0, 0, 0, 0),
                     #labels=['Grade %d' % g if values[g] > 0 else '' 
                               #for g in range(0, len(values))],
@@ -254,18 +255,18 @@ class EasinessGraph(StatGraphBase):
 
     """Graph of card easiness statistics."""
 
-    def __init__(self, parent, color=None):
-        StatGraphBase.__init__(self, parent, color)
+    def __init__(self, parent, scope, color=None):
+        StatGraphBase.__init__(self, parent, scope, color)
         self.graph = Histogram(parent, color=color)
         self.xlabel = 'Easiness'
         self.ylabel = 'Number of Cards'
         self.testfn = len
 
-    def values_for(self, scope):
+    def values(self):
         values = []
         for card in database().get_all_cards():
             cat_names = [c.name for c in card.categories]
-            if scope == 'easiness_all_categories' or scope in cat_names:
+            if self.scope == 'easiness_all_categories' or self.scope in cat_names:
                 values.append(card.easiness)
         return values
 
@@ -327,8 +328,8 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         scopes = [str(page.objectName()) for page in pages]
         for parent, scope in zip(pages, scopes):
             layout = QVBoxLayout(parent)
-            factory = graph_factory(parent, color=bg_color)
-            graph = factory.make_graph(scope)
+            factory = graph_factory(parent, scope, color=bg_color)
+            graph = factory.make_graph()
             layout.addWidget(graph)
 
     def background_color(self):
