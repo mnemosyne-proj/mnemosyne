@@ -149,15 +149,13 @@ class ScheduleGraph(StatGraphBase):
 
     """Graph of card scheduling statistics."""
 
-    def make_graph(self):
-        parent = self.graph.parent()
-        color = self.graph.fig.get_facecolor()
+    def __init__(self, parent, scope, color=None):
+        StatGraphBase.__init__(self, parent, scope, color)
         if self.scope == 'all_time':
             self.graph = Histogram(parent, color=color)
             self.testfn = len
         else:
             self.graph = BarGraph(parent, color=color)
-        return StatGraphBase.make_graph(self)
 
     def values(self):
         values = []
