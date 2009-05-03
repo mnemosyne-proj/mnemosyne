@@ -7,7 +7,6 @@ _ = gettext.gettext
 
 import os
 import sys
-import uuid
 import locale
 import cPickle
 
@@ -76,7 +75,7 @@ class Configuration(dict):
              "reset_learning_data_export": False,
              "import_img_dir": self.basedir, 
              "import_sound_dir": self.basedir,
-             "user_id": str(uuid.uuid4()),
+             "user_id": None,
              "upload_logs": True, 
              "upload_server": "mnemosyne-proj.dyndns.org:80",
              "log_index": 1, 
@@ -108,6 +107,10 @@ class Configuration(dict):
             }.items():
             
             self.setdefault(key, value)
+
+            if not self["user_id"]:
+                import uuid
+                self["user_id"] = str(uuid.uuid4())
 
     def load(self):
         try:

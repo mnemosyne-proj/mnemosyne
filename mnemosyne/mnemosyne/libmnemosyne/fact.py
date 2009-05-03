@@ -2,7 +2,6 @@
 # fact.py <Peter.Bienstman@UGent.be>
 #
 
-import uuid
 from mnemosyne.libmnemosyne.component_manager import database
 
 
@@ -46,7 +45,8 @@ class Fact(object):
         self.modification_date = self.creation_date
         self.data = data
         self.card_type = card_type
-        if id is None: 
+        if id is None:
+            import uuid
             id = str(uuid.uuid4())
         self.id = id
         self._id = None

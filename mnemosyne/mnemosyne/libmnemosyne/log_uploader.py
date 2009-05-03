@@ -66,9 +66,7 @@ class LogUploader(Thread):
         # come from a mobile device).
         for filename in [x for x in dir if x.endswith(".txt")]:
             filename = os.path.join(basedir, "history", filename)
-            print 'to compress', filename
             compressed_filename = filename.replace(".txt", ".bz2")
-            print 'compressed name', compressed_filename 
             compressed_file = bz2.BZ2File(compressed_filename, "w")
             for l in file(filename):
                 compressed_file.write(l)
