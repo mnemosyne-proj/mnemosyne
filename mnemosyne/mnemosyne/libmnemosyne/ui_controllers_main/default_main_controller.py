@@ -2,9 +2,6 @@
 # default_main_controller.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import os
 import copy
 import datetime
@@ -18,6 +15,7 @@ from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
+_ = component_manager.translator
 
 
 class DefaultMainController(UiControllerMain):

@@ -2,9 +2,6 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import os
 if os.name == "ce":
 	import ppygui.api as gui
@@ -14,7 +11,6 @@ else:
 from mnemosyne.libmnemosyne.ui_components import ReviewWidget
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 
 class ReviewWdgt(gui.Frame, ReviewWidget):
@@ -28,13 +24,13 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         # Note: ppygui makes heavy use of properties, so we can't use e.g.
         # self.question, as the presence of self.get_question would then
         # require a function self.set_question too.
-        self._question_label = gui.Label(self, _("Question:"))
+        self._question_label = gui.Label(self, "Question:")
         self._question = gui.Html(self)
         
-        self._answer_label = gui.Label(self, _("Answer:"))
+        self._answer_label = gui.Label(self, "Answer:")
         self._answer = gui.Html(self)
         
-        self.show_button = gui.Button(self, _("Show answer"))
+        self.show_button = gui.Button(self, "Show answer")
         self.show_button.bind(clicked=self.show_answer)
         self.show_button_enabled = True
 
@@ -152,4 +148,4 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
 
 # Register widget.
 
-component_manager.register("review_widget", ReviewWdgt)
+component_manager.register(ReviewWdgt)

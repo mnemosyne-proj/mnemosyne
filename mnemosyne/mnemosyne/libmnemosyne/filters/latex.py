@@ -2,9 +2,6 @@
 # latex.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import os
 import re
 import shutil
@@ -15,6 +12,9 @@ except ImportError:
     
 from mnemosyne.libmnemosyne.filter import Filter
 from mnemosyne.libmnemosyne.component_manager import config
+from mnemosyne.libmnemosyne.component_manager import component_manager
+_ = component_manager.translator
+
 
 # The regular expressions to find the latex tags are global so they don't
 # get recompiled all the time. match.group(1) identifies the text between

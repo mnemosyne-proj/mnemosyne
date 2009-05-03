@@ -45,6 +45,8 @@ class ComponentManager(object):
     e.g. card type widgets only when they are really needed.
 
     """
+
+    translator = None
         
     def __init__(self):
         self.components = {} # { used_for : {type : [component]} }

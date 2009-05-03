@@ -2,14 +2,11 @@
 # plugin.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-
+_ = component_manager.translator
 
 class Plugin(object):
 
@@ -24,8 +21,8 @@ class Plugin(object):
     name = ""
     description = ""
     activation_message = ""
-    component_type = "plugin" # TODO?
-    used_for = None # TODO?
+    component_type = "plugin"
+    used_for = None
     show_in_first_run_wizard = False
         
     def __init__(self, components):

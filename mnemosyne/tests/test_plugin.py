@@ -16,7 +16,7 @@ from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
 
 class Widget:
 
-    def information_box(self, s1, s2=None):
+    def information_box(self, s1):
         raise NotImplementedError
 
 class MyCardType(FrontToBack):

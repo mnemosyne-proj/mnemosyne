@@ -2,9 +2,6 @@
 # configuration.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import os
 import sys
 import locale
@@ -12,6 +9,8 @@ import cPickle
 
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.exceptions import ConfigError, SaveError
+from mnemosyne.libmnemosyne.component_manager import component_manager
+_ = component_manager.translator
 
 config_py = \
 """# Mnemosyne configuration file.
@@ -136,7 +135,7 @@ class Configuration(dict):
         as needed.
         
         """
-        
+
         self.determine_basedir(basedir)
         self.fill_basedir()
         self.load()

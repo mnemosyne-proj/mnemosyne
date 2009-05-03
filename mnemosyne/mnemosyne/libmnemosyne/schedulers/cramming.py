@@ -2,12 +2,11 @@
 # cramming.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne import SM2Mnemosyne
+from mnemosyne.libmnemosyne.component_manager import component_manager
+_ = component_manager.translator
 
 
 class Cramming(SM2Mnemosyne):

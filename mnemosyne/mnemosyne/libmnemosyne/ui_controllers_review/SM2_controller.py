@@ -2,14 +2,13 @@
 # SM2_controller.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
+from mnemosyne.libmnemosyne.component_manager import component_manager
+_ = component_manager.translator
 
 
 # Tooltip texts.  The first index deals with whether we have a card with

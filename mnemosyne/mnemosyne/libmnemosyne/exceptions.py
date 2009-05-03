@@ -2,12 +2,12 @@
 # exceptions.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import sys
 import traceback
 import string
+
+from mnemosyne.libmnemosyne.component_manager import component_manager
+_ = component_manager.translator
 
 
 def traceback_string():

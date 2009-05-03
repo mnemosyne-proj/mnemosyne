@@ -2,11 +2,12 @@
 # main_window.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import sys
 import os
+
+
+import gettext
+_ = gettext.gettext
 
 from PyQt4 import QtCore, QtGui
 
@@ -30,11 +31,9 @@ from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 #from tip_dlg import *
 #from about_dlg import *
 from mnemosyne.libmnemosyne.ui_components import MainWidget
-from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 # The folloving is need to determine the location of the translations.
 # TODO: needed?
@@ -62,8 +61,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
             component_manager.get_current("review_widget")(parent=self)
         self.setCentralWidget(ui_controller_review().widget)
 
-    def information_box(self, message, OK_string=_("&OK")):
-        QtGui.QMessageBox.information(None, _("Mnemosyne"), message, OK_string)
+    def information_box(self, message):
+        QtGui.QMessageBox.information(None, _("Mnemosyne"), message, _("&OK"))
 
     def question_box(self, question, option0, option1, option2):
         return QtGui.QMessageBox.question(None,  _("Mnemosyne"),
@@ -205,6 +204,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         stopwatch.unpause()
 
     def closeEvent(self, event):
+        from mnemosyne.libmnemosyne.exceptions import MnemosyneError
         try:
             database().backup()
             database().unload()

@@ -2,9 +2,6 @@
 # log_uploader.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import os
 import bz2
 import traceback
@@ -14,6 +11,8 @@ import random
 from threading import Thread
 
 from mnemosyne.libmnemosyne.component_manager import config, log
+from mnemosyne.libmnemosyne.component_manager import component_manager
+_ = component_manager.translator
 
 
 class LogUploader(Thread):

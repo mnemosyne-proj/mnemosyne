@@ -2,16 +2,10 @@
 # libmnemosyne <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import os
 import sys
 
 from mnemosyne.libmnemosyne.utils import expand_path
-from mnemosyne.libmnemosyne.exceptions import MnemosyneError
-from mnemosyne.libmnemosyne.exceptions import LoadErrorCreateTmp
-from mnemosyne.libmnemosyne.exceptions import PluginError, traceback_string
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, log, plugins
 
@@ -32,11 +26,9 @@ class Mnemosyne(object):
 
     def initialise(self, basedir, filename=None, main_widget=None,
                    extra_components=None):
-        import datetime
-        t = datetime.datetime.now()
+        self.initialise_translator()
         self.initialise_system_components()
         self.initialise_extra_components(extra_components)
-        print (datetime.datetime.now()-t).microseconds/1000.
         self.initialise_main_widget(main_widget)  
         self.check_lockfile(basedir)
         config().initialise(basedir)
@@ -49,6 +41,13 @@ class Mnemosyne(object):
         self.activate_saved_plugins()
         from mnemosyne.libmnemosyne.component_manager import ui_controller_review
         ui_controller_review().new_question()
+
+    def initialise_translator(self):
+        if not self.resource_limited:
+            import gettext
+            component_manager.translator = gettext.gettext
+        else:
+            component_manager.translator = lambda x : x
 
     def initialise_system_components(self):
         # Database.
@@ -150,7 +149,9 @@ class Mnemosyne(object):
 
     def check_lockfile(self, basedir):
         if os.path.exists(os.path.join(basedir, "MNEMOSYNE_LOCK")):
-            from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+            from mnemosyne.libmnemosyne.component_manager import \
+                 ui_controller_main
+            _ = component_manager.translator
             status = ui_controller_main().widget.question_box(
                 _("Either Mnemosyne didn't shut down properly,") + "\n" +
                 _("or another copy of Mnemosyne is still running.") + "\n" +
@@ -181,6 +182,7 @@ class Mnemosyne(object):
             self.upload_thread.start()
 
     def load_database(self, filename):
+        from mnemosyne.libmnemosyne.exceptions import MnemosyneError
         from mnemosyne.libmnemosyne.component_manager import database
         if not filename:
             filename = config()["path"]
@@ -197,6 +199,7 @@ class Mnemosyne(object):
             # database.
             from mnemosyne.libmnemosyne.component_manager import \
                  ui_controller_main
+            from mnemosyne.libmnemosyne.exceptions import LoadErrorCreateTmp
             ui_controller_main().widget.show_exception(e)
             ui_controller_main().widget.show_exception(LoadErrorCreateTmp())
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
@@ -215,10 +218,11 @@ class Mnemosyne(object):
                 try:
                     __import__(component[:-3])
                 except:
+                    from mnemosyne.libmnemosyne.exceptions import PluginError
                     from mnemosyne.libmnemosyne.component_manager import \
                          ui_controller_main
                     ui_controller_main().widget.\
-                                    show_exception(PluginError(stack_trace=True))
+                                show_exception(PluginError(stack_trace=True))
 
     def activate_saved_plugins(self):
         for plugin in config()["active_plugins"]:
@@ -228,12 +232,14 @@ class Mnemosyne(object):
                         p.activate()
                         break
             except:
+                from mnemosyne.libmnemosyne.exceptions import PluginError
                 from mnemosyne.libmnemosyne.component_manager import \
                      ui_controller_main
                 ui_controller_main().widget.\
-                                    show_exception(PluginError(stack_trace=True))
+                                show_exception(PluginError(stack_trace=True))
 
     def finalise(self):
+        _ = component_manager.translator
         config().save()
         if self.upload_thread:
             print _("Waiting for uploader thread to stop...")
@@ -243,6 +249,7 @@ class Mnemosyne(object):
         try:
             os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
         except OSError:
+            from mnemosyne.libmnemosyne.exceptions import traceback_string
             print _("Failed to remove lock file.")
             print traceback_string()
         component_manager.components = {}

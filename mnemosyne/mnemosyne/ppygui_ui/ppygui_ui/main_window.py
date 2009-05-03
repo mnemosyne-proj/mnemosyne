@@ -2,9 +2,6 @@
 # main_window.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 import os
 if os.name == "ce":
 	import ppygui.api as gui
@@ -15,10 +12,11 @@ from mnemosyne.ppygui_ui.review_wdgt import ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components import MainWidget
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
+
 class MainFrame(gui.CeFrame, MainWidget):
     
     def __init__(self):
-        gui.CeFrame.__init__(self, title=_("Mnemosyne"))
+        gui.CeFrame.__init__(self, title="Mnemosyne")
         self.review_widget = ReviewWdgt(parent=self)
         sizer = gui.VBox()
         sizer.add(self.review_widget)
@@ -28,10 +26,10 @@ class MainFrame(gui.CeFrame, MainWidget):
         ui_controller_review().widget = self.review_widget
     
     def information_box(self, message):
-        gui.Message.ok(_("Mnemosyne"), message, icon="info")            
+        gui.Message.ok("Mnemosyne", message, icon="info")            
         
     def error_box(self, message):
-        gui.Message.ok(_("Mnemosyne"), message, icon="error")
+        gui.Message.ok("Mnemosyne", message, icon="error")
 
     def question_box(self, question, option0, option1, option2):
 
