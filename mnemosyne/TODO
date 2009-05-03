@@ -30,8 +30,7 @@ get from comp mananger?
 -better way of handling different review widgets
 
 
--why is set_defaults called so often?
--optimise startuptime further
+-optimise startuptime further (getting rid of gettext?)
 
 
 -move option to always randomise queue to config screen

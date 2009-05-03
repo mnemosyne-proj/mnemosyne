@@ -23,7 +23,7 @@ app = gui.Application()
 app.mainframe = MainFrame()
 mnemosyne = Mnemosyne(resource_limited=True)
 mnemosyne.initialise(basedir=basedir, main_widget=app.mainframe,
-    extra_components=[("renderer", "HtmlCssOld()",
+    extra_components=[("HtmlCssOld",
     "mnemosyne.libmnemosyne.renderers.html_css_old")])
 app.run()
 mnemosyne.finalise()

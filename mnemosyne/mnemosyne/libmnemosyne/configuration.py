@@ -62,8 +62,10 @@ class Configuration(dict):
     def set_defaults(self):
         
         """Fill the config with default values.  Is called after every load,
-        since a new version of Mnemosyne might have introduced new keys."""
+        since a new version of Mnemosyne might have introduced new keys.
 
+        """
+        
         for key, value in \
             {"first_run": True, 
              "path": _("default") + database().suffix,
