@@ -447,10 +447,10 @@ class Pickle(Database):
 
     def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1):
         cards = [c for c in self.cards if c.active and \
-                 c.scheduler_data = scheduler_data]
+                 c.scheduler_data == scheduler_data]
         return self._list_to_generator(cards, sort_key, limit)
 
-    def scheduler_data_count(self, scheduler_data)
+    def scheduler_data_count(self, scheduler_data):
         return len([c for c in self.cards if c.active
                     and c.scheduler_data == scheduler_data])    
         

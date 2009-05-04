@@ -25,7 +25,6 @@ re1 = re.compile(r"<latex>(.+?)</latex>", re.DOTALL | re.IGNORECASE)
 re2 = re.compile(r"<\$>(.+?)</\$>",       re.DOTALL | re.IGNORECASE)
 re3 = re.compile(r"<\$\$>(.+?)</\$\$>",   re.DOTALL | re.IGNORECASE)
 
-
 class Latex(Filter):
 
     def process_latex(self, latex_command):

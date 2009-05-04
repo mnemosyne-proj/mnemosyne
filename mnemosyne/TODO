@@ -1,6 +1,8 @@
--exceptions
+-initialise based on list of strings
 
--optimise startuptime further (multiple calls to re.compile?)
+-do timings on WM (no uuid?, correct basedir!) (whole startup including gui)
+
+-exceptions
 
 
 -ui components in directory
@@ -12,7 +14,6 @@ get from comp mananger?
 
 -each component, activate function? Or do it in plugin.activate?
 
--initialise based on list of strings
 
 
 
@@ -100,6 +101,8 @@ get from comp mananger?
 
 -update XML import/export to new database format
 
+-routines to do mass adding, don't save everytime, cache average easiness
+
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
  T.<fixed card id for all pupils>.<pupil user id>?
@@ -136,6 +139,9 @@ get from comp mananger?
 
 
 -move 'card type by name' to different place?
+
+
+-possible to optimise ui controller further?
 
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html

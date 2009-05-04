@@ -34,6 +34,7 @@ from mnemosyne.libmnemosyne.ui_components import MainWidget
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 # The folloving is need to determine the location of the translations.
 # TODO: needed?

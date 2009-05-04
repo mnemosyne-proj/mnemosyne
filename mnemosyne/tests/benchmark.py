@@ -1,22 +1,25 @@
-import os
-import timeit
+#!/usr/bin/env python
 
-from mnemosyne.libmnemosyne import Mnemosyne, config
-from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import database
+import os
+import cProfile
+import pstats
+
+from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
+number_of_calls = 15
 number_of_facts = 6000
-create_from_scratch = True
 
-def initialise_program():
-    # 0.085 from scratch
-    Mnemosyne().initialise(os.path.abspath("dot_benchmark"))
+def init():
+    mnemosyne = Mnemosyne(resource_limited=True)
+    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"), main_widget=None,
+                         extra_components=[("HtmlCssOld",
+                        "mnemosyne.libmnemosyne.renderers.html_css_old")])
 
 def create_database():
-    # 106 sec for 6000
     config()["upload_logs"] = False
 
     for i in range(number_of_facts):
@@ -31,65 +34,35 @@ def create_database():
         card.next_rep -= 1000
         database().update_card(card)
     database().save(config()["path"])
-
-def load_database():
-    # 0.054 sec for 6000
-    database().load(config()["path"])
+    
+def question():
+    ui_controller_review().new_question()
+    
+def display():
+    ui_controller_review().card.question()
+    
+def grade():
+    ui_controller_review().grade_answer(0)
 
 def activate():
-    # 0.128 sec for 6000
     database().set_cards_active([(card_type_by_id("1"),
                                  card_type_by_id("1").fact_views[0])],
         [database().get_or_create_category_with_name("default1")])
 
-def get_new_card():
-    # 0.022 sec for 6000 (worst case, best case 0.008)
-    ui_controller_review().new_question()
-    
-def get_question():
-    # 0.00018 sec
-    ui_controller_review().card.question()
-    
-def finalise_program():
-    # 0.005 sec
+def finalise():
     config()["upload_logs"] = False
     Mnemosyne().finalise()
-    
-# Run these functions and time them.
 
-t = timeit.Timer("initialise_program()",
-                 "from __main__ import initialise_program")
-t2 = t.timeit(1)
-print "init time:", t2
+tests = ["init()", "question()", "display()", "grade()"]
+tests = ["init()", "question()", "display()", "grade()", "activate()", "finalise()"]
+tests = ["init()", "create_database()", "question()", "display()", "grade()",
+         "activate()", "finalise()"]
+tests = ["init()"]
 
-if create_from_scratch:
-    t = timeit.Timer("create_database()",
-                     "from __main__ import create_database")
-    t2 = t.timeit(1)
-    print "creation time:", t2
-
-t = timeit.Timer("load_database()",
-                 "from __main__ import load_database")
-t2 = t.timeit(1)
-print "loading time:", t2
-
-
-t = timeit.Timer("activate()",
-                 "from __main__ import activate")
-t2 = t.timeit(1)
-print "activation time:", t2
-
-t = timeit.Timer("get_new_card()",
-                 "from __main__ import get_new_card")
-t2 = t.timeit(1)
-print "queue time:", t2
-
-t = timeit.Timer("get_question()",
-                 "from __main__ import get_question")
-t2 = t.timeit(1)
-print "question time:", t2
-
-t = timeit.Timer("finalise_program()",
-                 "from __main__ import finalise_program")
-t2 = t.timeit(1)
-print "finalise time:", t2
+for test in tests:  
+    cProfile.run(test, "mnemosyne_profile")
+    print
+    print "*** ", test, " ***"
+    print
+    p = pstats.Stats('mnemosyne_profile')
+    p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
