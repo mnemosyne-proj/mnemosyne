@@ -1,7 +1,5 @@
 -exceptions
 
--fix make benchmark
-
 -optimise startuptime further (multiple calls to re.compile?)
 
 

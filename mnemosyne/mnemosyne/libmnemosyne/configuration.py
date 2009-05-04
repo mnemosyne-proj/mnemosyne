@@ -106,12 +106,12 @@ class Configuration(dict):
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
              "active_plugins": set() # plugin class
             }.items():
-            
+
             self.setdefault(key, value)
 
-            if not self["user_id"]:
-                import uuid
-                self["user_id"] = str(uuid.uuid4())
+        if not self["user_id"]:
+            import uuid
+            self["user_id"] = str(uuid.uuid4())
 
     def load(self):
         try:

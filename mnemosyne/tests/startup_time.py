@@ -3,11 +3,21 @@
 import os
 from mnemosyne.libmnemosyne import Mnemosyne
 
-mnemosyne = Mnemosyne()
-mnemosyne = Mnemosyne(resource_limited=True)
-mnemosyne.initialise(basedir=os.path.abspath("dot_mnemosyne2"), main_widget=None,
-    extra_components=[("HtmlCssOld",
-    "mnemosyne.libmnemosyne.renderers.html_css_old")])
+def init():
+    mnemosyne = Mnemosyne()
+    mnemosyne = Mnemosyne(resource_limited=True)
+    mnemosyne.initialise(basedir=os.path.abspath("dot_mnemosyne2"), main_widget=None,
+                         extra_components=[("HtmlCssOld",
+                        "mnemosyne.libmnemosyne.renderers.html_css_old")])
+
+import cProfile
+cProfile.run('init()', 'mnemosyne_profile')
+import pstats
+p = pstats.Stats('mnemosyne_profile')
+p.strip_dirs().sort_stats('cumulative').print_stats(15)
+
+
+
 
 #amar-sin pc timings
 #begin: .161 sec
@@ -44,3 +54,5 @@ mnemosyne.initialise(basedir=os.path.abspath("dot_mnemosyne2"), main_widget=None
 #        1    0.000    0.000    0.004    0.004 {built-in method strptime}
 #       15    0.000    0.000    0.003    0.000 re.py:188(compile)
 #       15    0.000    0.000    0.003    0.000 re.py:229(_compile)
+
+# WM: 3 + 4 seconds

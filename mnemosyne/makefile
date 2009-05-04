@@ -38,7 +38,7 @@ wm: install-virtual-env
 	./bin/python mnemosyne/ppygui_ui/ppygui_ui/Mnemosyne\ Mobile.py -d dot_mnemosyne2
 
 startup_time: install-virtual-env
-	./bin/python -m cProfile -s cumulative tests/startup_time.py | more
+	./bin/python tests/startup_time.py
 
 windows:
 	rmdir /S /Q dist

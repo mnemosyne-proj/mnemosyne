@@ -136,13 +136,13 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     def update_status_bar(self):
         db = database()
         self.scheduled_label.text = \
-            _("Sch.:") + " " + str(db.scheduled_count())
+            "Sch.: " + str(db.scheduled_count())
         self.not_memorised_label.text = \
-            _("Not mem.:") + " " + str(db.non_memorised_count())
+            "Not mem.: " + str(db.non_memorised_count())
         if not self.all_cards:
             self.all_cards = db.active_count()
         self.all_label.text = \
-            _("Act.:") + " " + str(self.all_cards)
+            "Act.: " + str(self.all_cards)
         self.layout()
       
 
