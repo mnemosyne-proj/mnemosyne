@@ -14,10 +14,44 @@ number_of_calls = 15
 number_of_facts = 6000
 
 def init():
+
     mnemosyne = Mnemosyne(resource_limited=True)
-    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"), main_widget=None,
-                         extra_components=[("HtmlCssOld",
-                        "mnemosyne.libmnemosyne.renderers.html_css_old")])
+    mnemosyne.components = [ #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
+        ("mnemosyne.libmnemosyne.databases.SQLite",
+         "SQLite"),               
+        ("mnemosyne.libmnemosyne.configuration",
+         "Configuration"),          
+        ("mnemosyne.libmnemosyne.loggers.txt_logger",
+         "TxtLogger"),          
+        ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
+         "SM2Mnemosyne"),                   
+        ("mnemosyne.libmnemosyne.card_types.front_to_back",
+         "FrontToBack"),
+        ("mnemosyne.libmnemosyne.card_types.both_ways",
+         "BothWays"),
+        ("mnemosyne.libmnemosyne.card_types.three_sided",
+         "ThreeSided"),
+        ("mnemosyne.libmnemosyne.renderers.html_css_old",
+         "HtmlCssOld"),
+        ("mnemosyne.libmnemosyne.filters.escape_to_html",
+         "EscapeToHtml"),
+        ("mnemosyne.libmnemosyne.filters.expand_paths",
+         "ExpandPaths"),
+        ("mnemosyne.libmnemosyne.filters.latex",
+         "Latex"),
+        ("mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller",
+         "DefaultMainController"),
+        ("mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller",
+         "SM2Controller"),
+        ("mnemosyne.libmnemosyne.card_types.map",
+         "MapPlugin"),
+        ("mnemosyne.libmnemosyne.card_types.cloze",
+         "ClozePlugin"),
+        ("mnemosyne.libmnemosyne.schedulers.cramming",
+         "CrammingPlugin") ]    
+
+    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"),
+                         main_widget=None)
 
 def create_database():
     config()["upload_logs"] = False

@@ -1,9 +1,6 @@
--initialise based on list of strings
-
 -do timings on WM (no uuid?, correct basedir!) (whole startup including gui)
 
 -exceptions
-
 
 -ui components in directory
 

@@ -16,6 +16,52 @@ class Mnemosyne(object):
     Mnemosyne in a typical scenario.
 
     """
+
+    components = [ #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
+        ("mnemosyne.libmnemosyne.databases.SQLite",
+         "SQLite"),               
+        ("mnemosyne.libmnemosyne.configuration",
+         "Configuration"),          
+        ("mnemosyne.libmnemosyne.loggers.txt_logger",
+         "TxtLogger"),          
+        ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
+         "SM2Mnemosyne"),                   
+        ("mnemosyne.libmnemosyne.card_types.front_to_back",
+         "FrontToBack"),
+        ("mnemosyne.libmnemosyne.card_types.both_ways",
+         "BothWays"),
+        ("mnemosyne.libmnemosyne.card_types.three_sided",
+         "ThreeSided"),
+        ("mnemosyne.libmnemosyne.card_types.both_ways",
+         "FrontToBackToBothWays"),
+        ("mnemosyne.libmnemosyne.card_types.both_ways",
+         "BothWaysToFrontToBack"),
+        ("mnemosyne.libmnemosyne.card_types.three_sided",
+         "FrontToBackToThreeSided"),
+        ("mnemosyne.libmnemosyne.card_types.three_sided",
+         "BothWaysToThreeSided"),
+        ("mnemosyne.libmnemosyne.card_types.three_sided",
+         "ThreeSidedToFrontToBack"),
+        ("mnemosyne.libmnemosyne.card_types.three_sided",
+         "ThreeSidedToBothWays"),
+        ("mnemosyne.libmnemosyne.renderers.html_css",
+         "HtmlCss"),
+        ("mnemosyne.libmnemosyne.filters.escape_to_html",
+         "EscapeToHtml"),
+        ("mnemosyne.libmnemosyne.filters.expand_paths",
+         "ExpandPaths"),
+        ("mnemosyne.libmnemosyne.filters.latex",
+         "Latex"),
+        ("mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller",
+         "DefaultMainController"),
+        ("mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller",
+         "SM2Controller"),
+        ("mnemosyne.libmnemosyne.card_types.map",
+         "MapPlugin"),
+        ("mnemosyne.libmnemosyne.card_types.cloze",
+         "ClozePlugin"),
+        ("mnemosyne.libmnemosyne.schedulers.cramming",
+         "CrammingPlugin") ]
     
     def __init__(self, resource_limited=False):
         self.resource_limited = resource_limited
@@ -24,11 +70,9 @@ class Mnemosyne(object):
     # Note: the main widget should already exist, otherwise we can't give
     # feedback to the user if errors occur.
 
-    def initialise(self, basedir, filename=None, main_widget=None,
-                   extra_components=None):
+    def initialise(self, basedir, filename=None, main_widget=None):
         self.initialise_translator()
-        self.initialise_system_components()
-        self.initialise_extra_components(extra_components)
+        self.initialise_components(self.components)
         self.initialise_main_widget(main_widget)  
         self.check_lockfile(basedir)
         config().initialise(basedir)
@@ -49,7 +93,10 @@ class Mnemosyne(object):
         else:
             component_manager.translator = lambda x : x
 
-    def initialise_system_components(self):
+    # We still need this while we are doing the conversion from instances
+    # to classes.
+    
+    def initialise_system_components_old(self):
         # Database.
         #from mnemosyne.libmnemosyne.databases.pickle import Pickle
         #component_manager.register(Pickle())
@@ -130,11 +177,8 @@ class Mnemosyne(object):
         from mnemosyne.libmnemosyne.schedulers.cramming import CrammingPlugin   
         component_manager.register(CrammingPlugin())
         
-    def initialise_extra_components(self, components=None):
-        if not components:
-            return
-        for component in components:
-            class_name, module_name = component
+    def initialise_components(self, components):
+        for module_name, class_name in components:
             exec("from %s import %s" % (module_name, class_name))
             exec("component_manager.register(%s())" % (class_name))
 
