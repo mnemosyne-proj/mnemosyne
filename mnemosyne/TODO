@@ -1,4 +1,9 @@
--do timings on WM (no uuid?, correct basedir!) (whole startup including gui)
+-fix bug
+-interval column + index (gain 0.5 sec)
+-merge review widget (gain 0.4 sec)
+-test feel without save, test if autocommit works, implement save interval
+-time full program
+
 
 -exceptions
 

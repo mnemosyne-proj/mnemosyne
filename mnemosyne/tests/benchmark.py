@@ -88,10 +88,10 @@ def finalise():
     Mnemosyne().finalise()
 
 tests = ["init()", "question()", "display()", "grade()"]
-tests = ["init()", "question()", "display()", "grade()", "activate()", "finalise()"]
-tests = ["init()", "create_database()", "question()", "display()", "grade()",
-         "activate()", "finalise()"]
-tests = ["init()"]
+#tests = ["init()", "question()", "display()", "grade()", "activate()", "finalise()"]
+#tests = ["init()", "create_database()", "question()", "display()", "grade()",
+#         "activate()", "finalise()"]
+#tests = ["init()"]
 
 for test in tests:  
     cProfile.run(test, "mnemosyne_profile")
