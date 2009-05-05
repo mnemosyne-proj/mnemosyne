@@ -45,7 +45,9 @@ class Histogram(MplCanvas):
 
     def plot(self, values, **kwargs):
         self.axes.grid(True)
-        self.axes.hist(values, facecolor='red', alpha=0.7, **kwargs)
+        kwargs.setdefault('facecolor', 'red')
+        kwargs.setdefault('alpha', 0.7)
+        self.axes.hist(values, **kwargs)
 
 
 class PieChart(MplCanvas):
@@ -56,8 +58,8 @@ class PieChart(MplCanvas):
 
     def plot(self, values, **kwargs):
         # Only print percentage on wedges > 5%.
-        autopctfn = lambda x: '%1.1f%%' % x if x > 5 else ''
-        self.axes.pie(values, autopct=autopctfn, **kwargs)
+        kwargs.setdefault('autopct', lambda x: '%1.1f%%' % x if x > 5 else '')
+        self.axes.pie(values, **kwargs)
 
 
 class BarGraph(MplCanvas):
@@ -100,14 +102,11 @@ class StatGraphBase(object):
 
     """Base class for statistics graphs.
 
-    Specifies a "Factory" interface for creating graphs. Subclasses will only
-    need to override make_graph if the type of graph returned depends on the 
-    scope argument or if the class needs to do special formatting of the graph
-    (e.g. ScheduleGraph below). In most cases, subclasses only need to override 
-    __init__ to assign the appropriate graph type to self.graph, and values
-    to generate the values to be plotted. Subclasses can also specify a dict of
-    keyword args that will be passed to the graph's plot method by overriding
-    the kwargs method.
+    Specifies a "Factory" interface for creating graphs. In most cases,
+    subclasses only need to override __init__ to assign the appropriate graph
+    type to self.graph and values(...) to generate the values to be plotted.
+    Subclasses can also specify a dict of keyword args that will be passed to
+    the graph's plot method by overriding the kwargs method.
 
     """
 
@@ -121,6 +120,9 @@ class StatGraphBase(object):
         self.testfn = max
 
     def make_graph(self):
+
+        """Generate the plot and return an instance of MplCanvas."""
+        
         values = self.values()
         kwargs = self.kwargs(values)
         self.prepare_axes(values, **kwargs)
@@ -131,17 +133,24 @@ class StatGraphBase(object):
         return self.graph
 
     def values(self):
+        """Return the values to be plotted."""
         return []
 
     def kwargs(self, values):
+        """Return keyword args for the plotting method."""
         return {}
 
     def prepare_axes(self, values, **kwargs):
+        
+        """Set the graph title, x- and y-labels, and any other special
+        formatting required."""
+
         self.graph.axes.set_title(self.title)
         self.graph.axes.set_xlabel(self.xlabel)
         self.graph.axes.set_ylabel(self.ylabel)
 
     def validate(self, values):
+        """Return True if values are valid, otherwise, False."""
         return self.testfn(values) > 0
 
 
@@ -149,78 +158,83 @@ class ScheduleGraph(StatGraphBase):
 
     """Graph of card scheduling statistics."""
 
+    scope_err_msg = "scope must be one of ('next_week', 'next_month', " +\
+                    "'next_year')"
+
     def __init__(self, parent, scope, color=None):
         StatGraphBase.__init__(self, parent, scope, color)
+        self.ylabel = 'Number of Cards Scheduled'
         if self.scope == 'all_time':
             self.graph = Histogram(parent, color=color)
             self.testfn = len
+            self.values = self.values_for_histogram
+            self.kwargs = self.kwargs_for_histogram
+            self.prepare_axes = self.prepare_axes_for_histogram
+            self.xlabel = 'Days'
         else:
             self.graph = BarGraph(parent, color=color)
+            self.values = self.values_for_bargraph
+            self.kwargs = self.kwargs_for_bargraph
+            self.prepare_axes = self.prepare_axes_for_bargraph
 
-    def values(self):
+    def values_for_bargraph(self):
         values = []
-        if isinstance(self.graph, BarGraph):
-            if self.scope == 'next_week':
-                range_ = range(0, 7, 1)
-            elif self.scope == 'next_month': 
-                range_ = range(6, 28, 7)
-            elif self.scope == 'next_year':  
-                range_ = range(30, 365, 30)
-            else:
-                raise ArgumentError, "scope must be one of ('next_week', 'next_month', 'next_year')"
-            old_cumulative = 0
-            for days in range_:
-                cumulative = database().scheduled_count(days)
-                values.append(cumulative - old_cumulative)
-                old_cumulative = cumulative
+        if self.scope == 'next_week':
+            range_ = range(0, 7, 1)
+        elif self.scope == 'next_month': 
+            range_ = range(6, 28, 7)
+        elif self.scope == 'next_year':  
+            range_ = range(30, 365, 30)
         else:
-            iton = lambda i: (i + abs(i)) / 2 # i < 0 ? 0 : i
-            values = [iton(c.days_until_next_rep) for c in database().get_all_cards()]
+            raise ArgumentError, ScheduleGraph.scope_err_msg
+        old_cumulative = 0
+        for days in range_:
+            cumulative = database().scheduled_count(days)
+            values.append(cumulative - old_cumulative)
+            old_cumulative = cumulative
         return values
 
-    def kwargs(self, values):
+    def values_for_histogram(self):
+        iton = lambda i: (i + abs(i)) / 2 # i < 0 ? 0 : i
+        values = [iton(c.days_until_next_rep) 
+                  for c in database().get_all_cards()]
+        return values
+
+    def kwargs_for_bargraph(self, values):
+        return dict(width=1.0, align='center', alpha=0.7, linewidth=0, 
+                    color='red')
+
+    def kwargs_for_histogram(self, values):
         kwargs = dict()
-        if isinstance(self.graph, BarGraph):
-            kwargs['width'] = 1.0
-            kwargs['align'] = 'center'
-            kwargs['alpha'] = 0.7
-            kwargs['linewidth'] = 0
-            kwargs['color'] = 'red'
-        elif isinstance(self.graph, Histogram):
-            if len(values) != 0:
-                kwargs['range'] = (min(values) - 0.5, max(values) + 0.5)
-                kwargs['bins'] = max(values) - min(values) + 1
-        else:
-            raise ArgumentError, "invalid graph type"
+        if len(values) != 0:
+            kwargs['range'] = (min(values) - 0.5, max(values) + 0.5)
+            kwargs['bins'] = max(values) - min(values) + 1
         return kwargs
 
-    def prepare_axes(self, values, **kwargs):
+    def prepare_axes_for_bargraph(self, values, **kwargs):
         StatGraphBase.prepare_axes(self, values, **kwargs)
-        if isinstance(self.graph, BarGraph):
-            xticklabels = lambda i, j: map(lambda x: "+%d" % x, range(i, j))
-            if self.scope == 'next_week':
-                range_ = range(0, 7, 1)
-                xlabel = 'Days' 
-                xticklabels = ['Today'] + xticklabels(1, 7)
-            elif self.scope == 'next_month': 
-                range_ = range(6, 28, 7)
-                xlabel = 'Weeks'
-                xticklabels = ['This week'] + xticklabels(1, 4)
-            elif self.scope == 'next_year':  
-                range_ = range(30, 365, 30)
-                xlabel = 'Months'
-                xticklabels = xticklabels(0, 12)
-            else:
-                raise ArgumentError, "scope must be one of ('next_week', 'next_month', 'next_year')"
-
-            self.graph.axes.set_ylabel('Number of Cards Scheduled')
-            self.graph.axes.set_xlabel(xlabel)
-            self.graph.axes.set_xticklabels(xticklabels, fontsize='small')
+        xticklabels = lambda i, j: map(lambda x: "+%d" % x, range(i, j))
+        if self.scope == 'next_week':
+            range_ = range(0, 7, 1)
+            xlabel = 'Days' 
+            xticklabels = ['Today'] + xticklabels(1, 7)
+        elif self.scope == 'next_month': 
+            range_ = range(6, 28, 7)
+            xlabel = 'Weeks'
+            xticklabels = ['This week'] + xticklabels(1, 4)
+        elif self.scope == 'next_year':  
+            range_ = range(30, 365, 30)
+            xlabel = 'Months'
+            xticklabels = xticklabels(0, 12)
         else:
-            self.graph.axes.set_ylabel('Number of Cards Scheduled')
-            self.graph.axes.set_xlabel('Days')
-            if len(values) != 0:
-                self.graph.axes.set_xticks(arange(max(values) + 1))
+            raise ArgumentError, ScheduleGraph.scope_err_msg
+        self.graph.axes.set_xlabel(xlabel)
+        self.graph.axes.set_xticklabels(xticklabels, fontsize='small')
+
+    def prepare_axes_for_histogram(self, values, **kwargs):
+        StatGraphBase.prepare_axes(self, values, **kwargs)
+        if len(values) != 0:
+            self.graph.axes.set_xticks(arange(max(values) + 1))
 
 
 class GradesGraph(StatGraphBase):
@@ -242,11 +256,11 @@ class GradesGraph(StatGraphBase):
         return grades
 
     #def kwargs(self, values):
-        #return dict(explode=(0.05, 0, 0, 0, 0, 0),
-                    #labels=['Grade %d' % g if values[g] > 0 else '' 
-                              #for g in range(0, len(values))],
-                    #colors=('r', 'm', 'y', 'g', 'c', 'b'), 
-                    #shadow=True)
+    #    return dict(explode=(0.05, 0, 0, 0, 0, 0),
+    #                labels=['Grade %d' % g if values[g] > 0 else '' 
+    #                          for g in range(0, len(values))],
+    #                colors=('r', 'm', 'y', 'g', 'c', 'b'), 
+    #                shadow=True)
 
 
 class EasinessGraph(StatGraphBase):
@@ -312,6 +326,8 @@ class StatisticsDlg(QDialog, Ui_StatisticsDlg):
         
     def add_graphs_to_pages(self, graph_factory, pages, bg_color=None):
         """
+        Add the graphs created by the graph_factory to the specified stacked
+        widget pages.
         
         graph_factory -- a factory object with method 'make_graph' that will
                          return a graph of the appropriate type for the given
