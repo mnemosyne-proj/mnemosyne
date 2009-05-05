@@ -8,7 +8,6 @@ import locale
 import cPickle
 
 from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.exceptions import ConfigError, SaveError
 from mnemosyne.libmnemosyne.component_manager import component_manager
 _ = component_manager.translator
 
@@ -120,14 +119,18 @@ class Configuration(dict):
                 self[key] = value
             self.set_defaults()
         except:
-            raise ConfigError(stack_trace=True)
+            from mnemosyne.libmnemosyne.utils import traceback_string
+            raise RuntimeError, _("Error in config:") \
+                  + "\n" + traceback_string()
         
     def save(self):      
         try:
             config_file = file(os.path.join(self.basedir, "config"), 'wb')
             cPickle.dump(self, config_file)
         except:
-            raise SaveError
+            from mnemosyne.libmnemosyne.utils import traceback_string
+            raise RuntimeError, _("Unable to save config file:") \
+                  + "\n" + traceback_string()
             
     def initialise(self, basedir=None):
         

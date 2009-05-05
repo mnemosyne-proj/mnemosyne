@@ -94,9 +94,9 @@ tests = ["init()", "question()", "display()", "grade()"]
 #tests = ["init()"]
 
 for test in tests:  
-    cProfile.run(test, "mnemosyne_profile")
+    cProfile.run(test, "mnemosyne_profile." + test[0:4])
     print
     print "*** ", test, " ***"
     print
-    p = pstats.Stats('mnemosyne_profile')
+    p = pstats.Stats('mnemosyne_profile.'+ test[0:4])
     p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)

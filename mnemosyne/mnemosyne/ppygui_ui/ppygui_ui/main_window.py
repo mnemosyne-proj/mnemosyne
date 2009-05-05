@@ -40,5 +40,5 @@ class MainFrame(gui.CeFrame, MainWidget):
 
         """
 
-        raise Exception(question)
+        raise RuntimeError, question
     

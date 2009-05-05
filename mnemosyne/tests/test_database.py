@@ -13,8 +13,6 @@ from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import database, plugins
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
-from mnemosyne.libmnemosyne.exceptions import MissingPluginError, PluginError
 
 
 class TestDatabase(MnemosyneTest):
@@ -116,7 +114,7 @@ class TestDatabase(MnemosyneTest):
         new_card = database().get_card(card._id)
         assert new_card.categories[0].name == "default1"     
         
-    @raises(LoadError)
+    @raises(RuntimeError)
     def test_load_unexisting_file(self):        
         database().load("unexisting")
         
@@ -211,7 +209,7 @@ class TestDatabase(MnemosyneTest):
         assert database().fact_count() == 0
         assert len(database().category_names()) == 0
         
-    @raises(MissingPluginError)
+    @raises(RuntimeError)
     def test_missing_plugin(self):
         for plugin in plugins():
             component = plugin.components[0]
@@ -252,7 +250,7 @@ class TestDatabase(MnemosyneTest):
     def infinity(self):
         return 1/0
         
-    @raises(PluginError)
+    @raises(RuntimeError)
     def test_corrupt_plugin(self):
         for plugin in plugins():
             component = plugin.components[0]
@@ -379,7 +377,7 @@ class TestDatabase(MnemosyneTest):
                                               grade=0, cat_names=["default"])        
         assert len(database().card_types_in_use()) == 2
 
-    @raises(LoadError)
+    @raises(RuntimeError)
     def test_format_mismatch(self):
         fact_data = {"q": "question",
                      "a": "answer"}

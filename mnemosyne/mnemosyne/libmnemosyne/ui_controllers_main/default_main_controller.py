@@ -9,7 +9,6 @@ import datetime
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.exceptions import MnemosyneError
 from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import component_manager
@@ -268,8 +267,8 @@ class DefaultMainController(UiControllerMain):
             return
         try:
             database().unload()
-        except MnemosyneError, e:
-            self.widget.show_exception(e)
+        except RuntimeError, error:
+            self.widget.error_box(str(error))
             stopwatch.unpause()
             return            
         ui_controller_review().reset()
@@ -288,8 +287,8 @@ class DefaultMainController(UiControllerMain):
         path = config()["path"]
         try:
             database().save(path)
-        except MnemosyneError, e:
-            self.widget.show_exception(e)
+        except RuntimeError, error:
+            self.widget.error_box(str(error))
         stopwatch.unpause()
 
     def file_save_as(self):
@@ -305,8 +304,8 @@ class DefaultMainController(UiControllerMain):
             out += suffix
         try:
             database().save(out)
-        except MnemosyneError, e:
-            self.widget.show_exception(e)
+        except RuntimeError, error:
+            self.widget.error_box(str(error))
             stopwatch.unpause()
             return
         ui_controller_review().update_dialog()

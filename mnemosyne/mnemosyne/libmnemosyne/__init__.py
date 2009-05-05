@@ -5,11 +5,11 @@
 import os
 import sys
 
-from mnemosyne.libmnemosyne.utils import expand_path
+from mnemosyne.libmnemosyne.utils import expand_path, traceback_string
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, log, plugins
 
-    
+
 class Mnemosyne(object):
 
     """This class groups the functionality needed to initialise and finalise
@@ -226,8 +226,8 @@ class Mnemosyne(object):
             self.upload_thread.start()
 
     def load_database(self, filename):
-        from mnemosyne.libmnemosyne.exceptions import MnemosyneError
         from mnemosyne.libmnemosyne.component_manager import database
+        from mnemosyne.libmnemosyne.component_manager import ui_controller_main
         if not filename:
             filename = config()["path"]
         filename = expand_path(filename, config().basedir)
@@ -236,19 +236,20 @@ class Mnemosyne(object):
                 database().new(filename)
             else:
                 database().load(filename)
-        except MnemosyneError, e:
+        except RuntimeError, e:
             # Making sure the GUI is in a correct state when no database is
             # loaded would require a lot of extra code, and this is only a
             # corner case anyhow. So, as workaround, we create a temporary
             # database.
-            from mnemosyne.libmnemosyne.component_manager import \
-                 ui_controller_main
-            from mnemosyne.libmnemosyne.exceptions import LoadErrorCreateTmp
-            ui_controller_main().widget.show_exception(e)
-            ui_controller_main().widget.show_exception(LoadErrorCreateTmp())
+            
+            _ = component_manager.translator
+            ui_controller_main().widget.error_box(str(e))
+            ui_controller_main().widget.error_box\
+                                          (_("Creating temporary deck."))
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + database().suffix)
             database().new(filename)
+        ui_controller_main().update_title()
 
     def initialise_user_components(self):
         basedir = config().basedir
@@ -262,11 +263,12 @@ class Mnemosyne(object):
                 try:
                     __import__(component[:-3])
                 except:
-                    from mnemosyne.libmnemosyne.exceptions import PluginError
+                    _ = component_manager.translator
                     from mnemosyne.libmnemosyne.component_manager import \
                          ui_controller_main
-                    ui_controller_main().widget.\
-                                show_exception(PluginError(stack_trace=True))
+                    msg = _("Error when running plugin:") \
+                          + "\n" + traceback_string()
+                    ui_controller_main().widget.error_box(msg)
 
     def activate_saved_plugins(self):
         for plugin in config()["active_plugins"]:
@@ -276,11 +278,12 @@ class Mnemosyne(object):
                         p.activate()
                         break
             except:
-                from mnemosyne.libmnemosyne.exceptions import PluginError
+                _ = component_manager.translator
                 from mnemosyne.libmnemosyne.component_manager import \
                      ui_controller_main
-                ui_controller_main().widget.\
-                                show_exception(PluginError(stack_trace=True))
+                msg = _("Error when running plugin:") \
+                      + "\n" + traceback_string()
+                ui_controller_main().widget.error_box(msg)
 
     def finalise(self):
         _ = component_manager.translator
@@ -293,8 +296,6 @@ class Mnemosyne(object):
         try:
             os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
         except OSError:
-            from mnemosyne.libmnemosyne.exceptions import traceback_string
-            print _("Failed to remove lock file.")
-            print traceback_string()
+            print _("Failed to remove lock file.") + "\n" + traceback_string()
         component_manager.components = {}
         component_manager.card_type_by_id = {}

@@ -13,14 +13,14 @@ from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.start_date import StartDate
-from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
-from mnemosyne.libmnemosyne.exceptions import PluginError, MissingPluginError
+from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.component_manager import card_types
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import config, log, plugins
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
+_ = component_manager.translator
 
 # Note: all id's beginning with an underscore refer to primary keys in the
 # SQL database. All other id's correspond to the id's used in libmnemosyne.
@@ -143,15 +143,15 @@ class SQLite(Database):
             self.load_failed = False
         except:
             self.load_failed = True
-            raise LoadError
+            raise RuntimeError, _("Unable to load file.")
 
         # Check database version.
         sql_res = self.con.execute("""select value from global_variables
             where key=?""", ("version", )).fetchone()
         if sql_res["value"] != self.version:
-            print "Warning: database version mismatch."
             self.load_failed = True
-            raise LoadError
+            raise RuntimeError, \
+                _("Unable to load file: database version mismatch.")
 
         # Vacuum database from time to time.
         sql_res = self.con.execute("""select value from global_variables
@@ -193,12 +193,16 @@ class SQLite(Database):
                             self._connection.close()
                             self._connection = None
                             self.load_failed = True
-                            raise PluginError(stack_trace=True)
+                            raise RuntimeError, \
+                                  _("Error when running plugin:") \
+                                  + "\n" + traceback_string()
             if not found:
                 self._connection.close()
                 self._connection = None
                 self.load_failed = True
-                raise MissingPluginError(info=card_type_id)
+                raise RuntimeError, \
+                      _("Missing plugin for card type with id:") \
+                      + " " + card_type_id
             
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
@@ -407,7 +411,8 @@ class SQLite(Database):
         sql_res = self.con.execute("select * from facts where _id=?",
                                    (_id, )).fetchone()
         if not sql_res:
-            raise RuntimeError("Fact _id=%d not found in the database." % _id) 
+            raise RuntimeError, \
+                _("Fact _id=%d not found in the database.") % _id 
         # Create dictionary with fact.data.
         data = dict([(cursor["key"], cursor["value"]) for cursor in
             self.con.execute("select * from data_for_fact where _fact_id=?",

@@ -205,12 +205,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         stopwatch.unpause()
 
     def closeEvent(self, event):
-        from mnemosyne.libmnemosyne.exceptions import MnemosyneError
         try:
             database().backup()
             database().unload()
-        except MnemosyneError, e:
-            self.show_exception(e)
+        except RuntimeError, error:
+            self.error_box(str(error))
             event.ignore()
         else:
             event.accept()

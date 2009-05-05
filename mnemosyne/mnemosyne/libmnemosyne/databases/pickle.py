@@ -14,17 +14,15 @@ import mnemosyne.version
 from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.start_date import StartDate
+from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmnemosyne.exceptions import traceback_string
-from mnemosyne.libmnemosyne.exceptions import InvalidFormatError
-from mnemosyne.libmnemosyne.exceptions import SaveError, LoadError
-from mnemosyne.libmnemosyne.exceptions import PluginError, MissingPluginError
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import log, plugins
 from mnemosyne.libmnemosyne.component_manager import card_types, database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
+_ = component_manager.translator
 
 
 class Pickle(Database):
@@ -70,7 +68,7 @@ class Pickle(Database):
         path = expand_path(path, config().basedir)
         if not os.path.exists(path):
             self.load_failed = True
-            raise LoadError
+            raise RuntimeError, _("File does not exist.")
         try:
             infile = file(path, 'rb')
             db = cPickle.load(infile)
@@ -83,13 +81,14 @@ class Pickle(Database):
             self.load_failed = False
         except:
             self.load_failed = True
-            raise InvalidFormatError(stack_trace=True)
+            raise RuntimeError, _("Invalid file format.") \
+                  + "\n" + traceback_string()
 
         # Check database version.
         if self.global_variables["version"] != self.version:
             print "Warning: database version mismatch."
             self.load_failed = True
-            raise LoadError
+            raise RuntimeError, _("Unable to load file.")
         
         # Deal with clones and plugins, also plugins for parent classes.
         # Because of the sip bugs, card types here are actually still card
@@ -119,15 +118,15 @@ class Pickle(Database):
                         try:
                             plugin.activate()
                         except:
-                            self._connection.close()
-                            self._connection = None
                             self.load_failed = True
-                            raise PluginError(stack_trace=True)
+                            raise RuntimeError, \
+                                  _("Error when running plugin:") \
+                                  + "\n" + traceback_string()
             if not found:
-                self._connection.close()
-                self._connection = None
                 self.load_failed = True
-                raise MissingPluginError(info=card_type_id)
+                raise RuntimeError, \
+                      _("Missing plugin for card type with id:") \
+                      + " " + card_type_id
             
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
@@ -173,7 +172,8 @@ class Pickle(Database):
             shutil.move(path + "~", path) # Should be atomic.
         except:
             print traceback_string()
-            raise SaveError
+            raise RuntimeError, _("Unable to save file.") \
+                  + "\n" + traceback_string()
         config()["path"] = contract_path(path, config().basedir)
         # Work around sip bug again.
         for f in self.facts:

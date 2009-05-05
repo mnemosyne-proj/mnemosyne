@@ -4,7 +4,9 @@
 
 import os
 import re
+import sys
 import datetime
+import traceback
 from mnemosyne.libmnemosyne.component_manager import config
 
 def expand_path(p, prefix=None):
@@ -73,3 +75,17 @@ def numeric_string_cmp(s1, s2):
     atoi = lambda s: int(s) if s.isdigit() else s
     scan = lambda s: tuple(atoi(str) for str in re.split('(\d+)', s))
     return cmp(scan(s1), scan(s2))
+
+
+def traceback_string():
+    
+    """Like traceback.print_exc(), but returns a string."""
+
+    type, value, tb = sys.exc_info()
+    body = "\nTraceback (innermost last):\n"
+    list = traceback.format_tb(tb, limit=None) + \
+           traceback.format_exception_only(type, value)
+    body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
+    return body
+
+

@@ -5,8 +5,6 @@
 -time full program
 
 
--exceptions
-
 -ui components in directory
 
 -register review widget for review controller, main widget for main controller
