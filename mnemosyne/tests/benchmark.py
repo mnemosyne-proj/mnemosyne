@@ -7,6 +7,7 @@ import pstats
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
+from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
@@ -70,14 +71,19 @@ def create_database():
     database().save(config()["path"])
     
 def question():
+    # Note that this actually also happened in init().
     ui_controller_review().new_question()
     
 def display():
     ui_controller_review().card.question()
     
 def grade():
+    # Note that this will also pull in a new question.
     ui_controller_review().grade_answer(0)
 
+def grade_only():
+    scheduler().grade_answer(ui_controller_review().card, 0)
+    
 def activate():
     database().set_cards_active([(card_type_by_id("1"),
                                  card_type_by_id("1").fact_views[0])],
@@ -87,16 +93,16 @@ def finalise():
     config()["upload_logs"] = False
     Mnemosyne().finalise()
 
-tests = ["init()", "question()", "display()", "grade()"]
+tests = ["init()", "question()", "display()", "grade_only()", "grade()"]
 #tests = ["init()", "question()", "display()", "grade()", "activate()", "finalise()"]
 #tests = ["init()", "create_database()", "question()", "display()", "grade()",
 #         "activate()", "finalise()"]
 #tests = ["init()"]
 
 for test in tests:  
-    cProfile.run(test, "mnemosyne_profile." + test[0:4])
+    cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
     print
     print "*** ", test, " ***"
     print
-    p = pstats.Stats('mnemosyne_profile.'+ test[0:4])
+    p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
     p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
