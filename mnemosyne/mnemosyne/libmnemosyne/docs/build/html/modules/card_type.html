@@ -2,26 +2,24 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>CardType &mdash; libmnemosyne v2.0 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-          URL_ROOT:    '../',
-          VERSION:     '2.0',
-          COLLAPSE_MODINDEX: false,
-          FILE_SUFFIX: ''
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/interface.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="contents" title="Global table of contents" href="../contents.html" />
-    <link rel="index" title="Global index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Card" href="card.html" />
-    <link rel="prev" title="FactView" href="fact_view.html" />
+    <link rel="prev" title="FactView" href="fact_view.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,9 +37,9 @@
         <li class="right" >
           <a href="fact_view.html" title="FactView"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>
+    </div>  
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -49,7 +47,7 @@
             
   
   <div class="section" id="module-mnemosyne.libmnemosyne.card_type">
-<h1 id="module-mnemosyne.libmnemosyne.card_type"><tt class="xref docutils literal"><span class="pre">CardType</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type" title="Permalink to this headline">¶</a></h1>
+<h1><tt class="xref docutils literal"><span class="pre">CardType</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType">
 <!--[mnemosyne.libmnemosyne.card_type.CardType]-->class <tt class="descclassname">mnemosyne.libmnemosyne.card_type.</tt><tt class="descname">CardType</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType" title="Permalink to this definition">¶</a></dt>
@@ -58,11 +56,16 @@ forming a set of related cards.</p>
 <p>A card type needs an id as well as a name, because the name can change
 for different translations. The description is used when card types are
 plugins, in order to give more information.</p>
+<p>Inherited card types should have ids where dots separate the different
+levels of the hierarchy, e.g. parent_id.child_id. For card types which
+don&#8217;t have code of their own, but are only a clone of an existing card
+type, the parent id should be followed by _CLONED, e.g.
+3_CLONED.Japanese</p>
 <p>The keys from the fact are also given more verbose names here.
 This is not done in fact.py, on one hand to save space in the database,
-and on the other hand to allow the possibilty that different card types
+and on the other hand to allow the possibility that different card types
 give different names to the same key. (E.g. foreign word&#8217; could be
-called &#8216;French&#8217; in a French card type, or&#8217;pronunciation&#8217; could be
+called &#8216;French&#8217; in a French card type, or &#8216;pronunciation&#8217; could be
 called &#8216;reading&#8217; in a Kanji card type.) This in done in self.fields,
 which is a list of the form [(fact_key, fact_key_name)]. It is tempting to
 use a dictionary here, but we can&#8217;t do that since ordering is important.</p>
@@ -71,15 +74,73 @@ probably overkill.</p>
 <p>The renderer is determined only when we need it, as opposed to when we
 create the card type, because it is not sure that the renderer already
 exists at that stage.</p>
+<p>The functions create_related_cards and update_related_cards and
+after_review provide an extra layer of abstraction and can be overridden
+by card types like cloze deletion, which require a varying number of fact
+views with card specific data.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.after_review">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.after_review]--><tt class="descname">after_review</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.after_review" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.answer">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.answer]--><tt class="descname">answer</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.answer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.clone">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.clone]--><tt class="descname">clone</tt><big>(</big><em>clone_name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.create_related_cards">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.create_related_cards]--><tt class="descname">create_related_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_related_cards" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.get_renderer">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.get_renderer]--><tt class="descname">get_renderer</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.get_renderer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.key_names">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.key_names]--><tt class="descname">key_names</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.key_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.key_with_name">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.key_with_name]--><tt class="descname">key_with_name</tt><big>(</big><em>key_name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.key_with_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.keys">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.keys]--><tt class="descname">keys</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.question">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.question]--><tt class="descname">question</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.question" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.required_fields">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.required_fields]--><tt class="descname">required_fields</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.required_fields" title="Permalink to this definition">¶</a></dt>
 <dd>Collect required fields from registered views.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.update_related_cards">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.update_related_cards]--><tt class="descname">update_related_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.update_related_cards" title="Permalink to this definition">¶</a></dt>
+<dd>If for the card type this operation results in updated, added or
+deleted card data apart from the updated fact data from which they
+derive, these should be returned here, so that they can be taken into
+account in the database storage.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.validate_data">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.validate_data]--><tt class="descname">validate_data</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.validate_data" title="Permalink to this definition">¶</a></dt>
+<dd>If a card type needs to validate its data apart from asking that
+all the required fields are there, this can be done here.</dd></dl>
 
 </dd></dl>
 
@@ -99,7 +160,7 @@ exists at that stage.</p>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/card_type.txt">Show Source</a></li>
             </ul>
-            <h3>Quick search</h3>
+          <h3>Quick search</h3>
             <form class="search" action="../search.html" method="get">
               <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
               <input type="hidden" name="check_keywords" value="yes" />
@@ -124,13 +185,13 @@ exists at that stage.</p>
         <li class="right" >
           <a href="fact_view.html" title="FactView"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 13, 2008.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      Last updated on May 05, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
 </html>

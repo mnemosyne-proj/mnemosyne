@@ -2,26 +2,24 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>Scheduler &mdash; libmnemosyne v2.0 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-          URL_ROOT:    '../',
-          VERSION:     '2.0',
-          COLLAPSE_MODINDEX: false,
-          FILE_SUFFIX: ''
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/interface.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="contents" title="Global table of contents" href="../contents.html" />
-    <link rel="index" title="Global index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Stopwatch" href="stopwatch.html" />
-    <link rel="prev" title="Plugin" href="plugin.html" />
+    <link rel="prev" title="Plugin" href="plugin.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,9 +37,9 @@
         <li class="right" >
           <a href="plugin.html" title="Plugin"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>
+    </div>  
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -49,44 +47,66 @@
             
   
   <div class="section" id="module-mnemosyne.libmnemosyne.scheduler">
-<h1 id="module-mnemosyne.libmnemosyne.scheduler"><tt class="xref docutils literal"><span class="pre">Scheduler</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.scheduler" title="Permalink to this headline">¶</a></h1>
+<h1><tt class="xref docutils literal"><span class="pre">Scheduler</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.scheduler" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler]-->class <tt class="descclassname">mnemosyne.libmnemosyne.scheduler.</tt><tt class="descname">Scheduler</tt><big>(</big><em>name=''</em>, <em>description=''</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler]-->class <tt class="descclassname">mnemosyne.libmnemosyne.scheduler.</tt><tt class="descname">Scheduler</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.calculate_initial_interval">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.calculate_initial_interval]--><tt class="descname">calculate_initial_interval</tt><big>(</big><em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.calculate_initial_interval" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch]--><tt class="descname">allow_prefetch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch" title="Permalink to this definition">¶</a></dt>
+<dd>Can we display a new card before having processed the grading of
+the previous one?.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card]--><tt class="descname">get_next_card</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.clear_queue">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.clear_queue]--><tt class="descname">clear_queue</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.clear_queue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.get_new_question">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.get_new_question]--><tt class="descname">get_new_question</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.get_new_question" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer]--><tt class="descname">grade_answer</tt><big>(</big><em>card</em>, <em>new_grade</em>, <em>dry_run=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.in_queue">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.in_queue]--><tt class="descname">in_queue</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.in_queue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.process_answer">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.process_answer]--><tt class="descname">process_answer</tt><big>(</big><em>card</em>, <em>new_grade</em>, <em>dry_run=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.process_answer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd>To check whether the queue needs to be rebuilt, e.g. if it contains
+a card that was deleted in the GUI.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue]--><tt class="descname">rebuild_queue</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd>Called by the rest of the library when an existing queue risks
+becoming invalid, e.g. when cards have been deleted in the GUI.
+&#8216;get_next_card&#8217; also makes use of this in certain implementations.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue]--><tt class="descname">remove_from_queue</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.reset">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.reset]--><tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.reset" title="Permalink to this definition">¶</a></dt>
+<dd>Called when starting the scheduler for the first time.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade]--><tt class="descname">set_initial_grade</tt><big>(</big><em>card</em>, <em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when cards are given their initial grade outside of the
+review process, e.g. when the user gives an initial grade when
+adding a new card in the GUI. Therefore, &#8216;unseen&#8217; is still left to
+True, as this card has not yet been seen in the interactive review
+process.</p>
+<p>Cards which don&#8217;t have initial grade information available (e.g. for
+cards created during import or conversion from different card type),
+get their initial grade when they are encountered in the interactive
+review process for the first time.</p>
+<p>In both cases, this initial grading is seen as the first repetition.</p>
+<p>In this way, both types of cards are treated in the same way. (There
+is an ineffectual asymmetry left in the log messages they generate,
+but all the relevant information can still be parsed from them.)</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -106,7 +126,7 @@
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/scheduler.txt">Show Source</a></li>
             </ul>
-            <h3>Quick search</h3>
+          <h3>Quick search</h3>
             <form class="search" action="../search.html" method="get">
               <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
               <input type="hidden" name="check_keywords" value="yes" />
@@ -131,13 +151,13 @@
         <li class="right" >
           <a href="plugin.html" title="Plugin"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 13, 2008.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      Last updated on May 05, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
 </html>

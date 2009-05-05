@@ -2,26 +2,24 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>Renderer &mdash; libmnemosyne v2.0 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-          URL_ROOT:    '../',
-          VERSION:     '2.0',
-          COLLAPSE_MODINDEX: false,
-          FILE_SUFFIX: ''
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/interface.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="contents" title="Global table of contents" href="../contents.html" />
-    <link rel="index" title="Global index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="UiControllerMain" href="ui_controller_main.html" />
-    <link rel="prev" title="Card" href="card.html" />
+    <link rel="prev" title="Card" href="card.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,9 +37,9 @@
         <li class="right" >
           <a href="card.html" title="Card"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>
+    </div>  
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -49,16 +47,33 @@
             
   
   <div class="section" id="module-mnemosyne.libmnemosyne.renderer">
-<h1 id="module-mnemosyne.libmnemosyne.renderer"><tt class="xref docutils literal"><span class="pre">Renderer</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.renderer" title="Permalink to this headline">¶</a></h1>
+<h1><tt class="xref docutils literal"><span class="pre">Renderer</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.renderer" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer]-->class <tt class="descclassname">mnemosyne.libmnemosyne.renderer.</tt><tt class="descname">Renderer</tt><big>(</big><em>name=''</em>, <em>description=''</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.renderer.Renderer]-->class <tt class="descclassname">mnemosyne.libmnemosyne.renderer.</tt><tt class="descname">Renderer</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields">
 <!--[mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields]--><tt class="descname">render_card_fields</tt><big>(</big><em>card</em>, <em>fields</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields" title="Permalink to this definition">¶</a></dt>
-<dd>Renders a sequence of fields from a card, e.g. by generating html
-from them.  &#8216;fields&#8217; is typically either fact_view.q_fields or 
+<dd>Renders a sequence of fields from a card, e.g. by generating html 
+for them.  &#8216;fields&#8217; is typically either fact_view.q_fields or 
 fact_view.a_fields.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.renderer.Renderer.render_text">
+<!--[mnemosyne.libmnemosyne.renderer.Renderer.render_text]--><tt class="descname">render_text</tt><big>(</big><em>text</em>, <em>field_name</em>, <em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_text" title="Permalink to this definition">¶</a></dt>
+<dd>A lower lever renderer, rendering &#8216;text&#8217; from a field with name
+&#8216;field_name&#8217; from &#8216;card_type&#8217;.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.renderer.Renderer.set_property">
+<!--[mnemosyne.libmnemosyne.renderer.Renderer.set_property]--><tt class="descname">set_property</tt><big>(</big><em>property_name</em>, <em>property</em>, <em>card_type</em>, <em>fact_key=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.set_property" title="Permalink to this definition">¶</a></dt>
+<dd>Set a property (like font, colour, ..) for a certain card type.
+If fact_key is None, then this will be applied to all fact keys.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.renderer.Renderer.update">
+<!--[mnemosyne.libmnemosyne.renderer.Renderer.update]--><tt class="descname">update</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.update" title="Permalink to this definition">¶</a></dt>
+<dd>Update renderer information for given card type.</dd></dl>
 
 </dd></dl>
 
@@ -78,7 +93,7 @@ fact_view.a_fields.</dd></dl>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/renderer.txt">Show Source</a></li>
             </ul>
-            <h3>Quick search</h3>
+          <h3>Quick search</h3>
             <form class="search" action="../search.html" method="get">
               <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
               <input type="hidden" name="check_keywords" value="yes" />
@@ -103,13 +118,13 @@ fact_view.a_fields.</dd></dl>
         <li class="right" >
           <a href="card.html" title="Card"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 13, 2008.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      Last updated on May 05, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
 </html>

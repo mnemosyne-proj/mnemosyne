@@ -2,26 +2,24 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>UiControllerReview &mdash; libmnemosyne v2.0 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-          URL_ROOT:    '../',
-          VERSION:     '2.0',
-          COLLAPSE_MODINDEX: false,
-          FILE_SUFFIX: ''
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/interface.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="contents" title="Global table of contents" href="../contents.html" />
-    <link rel="index" title="Global index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="ReviewWidget" href="review_widget.html" />
-    <link rel="prev" title="UiControllerMain" href="ui_controller_main.html" />
+    <link rel="prev" title="UiControllerMain" href="ui_controller_main.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,9 +37,9 @@
         <li class="right" >
           <a href="ui_controller_main.html" title="UiControllerMain"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>
+    </div>  
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -49,16 +47,37 @@
             
   
   <div class="section" id="module-mnemosyne.libmnemosyne.ui_controller_review">
-<h1 id="module-mnemosyne.libmnemosyne.ui_controller_review"><tt class="xref docutils literal"><span class="pre">UiControllerReview</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.ui_controller_review" title="Permalink to this headline">¶</a></h1>
+<h1><tt class="xref docutils literal"><span class="pre">UiControllerReview</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.ui_controller_review" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview">
-<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview]-->class <tt class="descclassname">mnemosyne.libmnemosyne.ui_controller_review.</tt><tt class="descname">UiControllerReview</tt><big>(</big><em>name</em>, <em>description=''</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview]-->class <tt class="descclassname">mnemosyne.libmnemosyne.ui_controller_review.</tt><tt class="descname">UiControllerReview</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls the behaviour of a widget which implements the ReviewWidget
 interface.</p>
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question">
-<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question]--><tt class="descname">new_question</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.grade_answer">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.grade_answer]--><tt class="descname">grade_answer</tt><big>(</big><em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.grade_answer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question]--><tt class="descname">new_question</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.rebuild_queue">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.rebuild_queue]--><tt class="descname">rebuild_queue</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.rebuild_queue" title="Permalink to this definition">¶</a></dt>
+<dd>Called when something in the GUI could have invalidated the queue.
+(e.g. card deletion).</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reset">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reset]--><tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.rollover">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.rollover]--><tt class="descname">rollover</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.rollover" title="Permalink to this definition">¶</a></dt>
+<dd>To be called when a new day starts.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.show_answer">
@@ -88,7 +107,7 @@ interface.</p>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/ui_controller_review.txt">Show Source</a></li>
             </ul>
-            <h3>Quick search</h3>
+          <h3>Quick search</h3>
             <form class="search" action="../search.html" method="get">
               <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
               <input type="hidden" name="check_keywords" value="yes" />
@@ -113,13 +132,13 @@ interface.</p>
         <li class="right" >
           <a href="ui_controller_main.html" title="UiControllerMain"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 13, 2008.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      Last updated on May 05, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
 </html>

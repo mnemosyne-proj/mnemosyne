@@ -2,26 +2,24 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>Card &mdash; libmnemosyne v2.0 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-          URL_ROOT:    '../',
-          VERSION:     '2.0',
-          COLLAPSE_MODINDEX: false,
-          FILE_SUFFIX: ''
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/interface.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="contents" title="Global table of contents" href="../contents.html" />
-    <link rel="index" title="Global index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Renderer" href="renderer.html" />
-    <link rel="prev" title="CardType" href="card_type.html" />
+    <link rel="prev" title="CardType" href="card_type.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,9 +37,9 @@
         <li class="right" >
           <a href="card_type.html" title="CardType"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>
+    </div>  
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -49,11 +47,33 @@
             
   
   <div class="section" id="module-mnemosyne.libmnemosyne.card">
-<h1 id="module-mnemosyne.libmnemosyne.card"><tt class="xref docutils literal"><span class="pre">Card</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card" title="Permalink to this headline">¶</a></h1>
+<h1><tt class="xref docutils literal"><span class="pre">Card</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.card.Card">
 <!--[mnemosyne.libmnemosyne.card.Card]-->class <tt class="descclassname">mnemosyne.libmnemosyne.card.</tt><tt class="descname">Card</tt><big>(</big><em>fact</em>, <em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card" title="Permalink to this definition">¶</a></dt>
-<dd><p>A card is formed when a fact view operates on a fact.</p>
+<dd><p>A card has a question and an answer, based on a fact view operating on
+a fact. It also stores repetition data.</p>
+<p>For card types which need extra information (e.g. cloze deletion), the
+variable &#8216;extra_data&#8217; can be used to store extra information in the
+database. It&#8217;s dictionary which should contain only standard Python
+objects.</p>
+<p>&#8216;scheduler_data&#8217; is a variable that can be used by a scheduler to save
+state.</p>
+<p>&#8216;active&#8217; is used to determine whether a card is included in the review
+process. Currently, the UI allows setting cards active when then belong to
+certain card type/fact view combos, and when any of their categories are
+considered active. We choose to store this information on card level and
+not as a flag in fact view or category, so that plugins have the
+possibility to offer more flexibility, e.g. by having different active
+categories per card type/fact view combo.</p>
+<p>&#8216;in_view&#8217; offers similar functionality as &#8216;active&#8217;, but is not used by the
+scheduler, but e.g. by GUI elements which need to operate only on a subset
+of the cards (displaying search results, e.g.). The &#8216;active&#8217; flag could
+serve double duty to store this info, but having a separate flag for this
+is safer.</p>
+<p>&#8216;id&#8217; is used to identify this object to the external world (logs, xml
+files, ...), whereas &#8216;_id&#8217; is an internal id that could be different and
+that can be used by the database for efficiency reasons.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card.Card.answer">
 <!--[mnemosyne.libmnemosyne.card.Card.answer]--><tt class="descname">answer</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.answer" title="Permalink to this definition">¶</a></dt>
@@ -84,28 +104,27 @@
 <!--[mnemosyne.libmnemosyne.card.Card.reset_learning_data]--><tt class="descname">reset_learning_data</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.reset_learning_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used when creating a card for the first time, or when choosing
 &#8216;reset learning data&#8217; on import.</p>
-<p>Last_rep and next_rep are measured in days since the creation of
+<p>&#8216;acq_reps&#8217; and &#8216;ret_reps&#8217; are the number of repetitions this card has
+seen in the acquisition phase (grade 0 and 1) and the retention phase
+(grades 3 through 5) respectively.</p>
+<p>&#8216;lapses&#8217; is the number of times a card with grade 2 or higher was
+forgotten, i.e. graded 0 or 1.</p>
+<p>&#8216;last_rep&#8217; and &#8216;next_rep&#8217; are measured in days since the creation of
 the database. Note that these values should be stored as float in
-SQL to accomodate plugins doing minute-level scheduling.</p>
-<p>Note: self.unseen is needed on top of self.acq_reps, because the
-initial grading of a manually added card is counted as the first
-repetition. An imported card has no such initial grading, and
-therefore we do the initial grading the first time we see it during
-the interactive learning process. Because of this, determining if a
-card has been seen during the interactive learning process can not
-be decided on the basis of acq_reps, but still that information is
-needed when randomly selecting unseen cards to learn.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card.Card.set_initial_grade">
-<!--[mnemosyne.libmnemosyne.card.Card.set_initial_grade]--><tt class="descname">set_initial_grade</tt><big>(</big><em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.set_initial_grade" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is called after manually adding cards. This code is separated
-out from the constructor, as for imported for imported cards, there is
-no grading information available when there are created, and the
-initial grading is done the first time they are are seen in
-the interactive review process (by similar code in the scheduler).</p>
-<p>This initial grading is seen as the first repetition.</p>
+order to accomodate plugins doing minute-level scheduling.</p>
+<p>&#8216;unseen&#8217; means that the card has not been seen during the interactive
+review process. This variable is needed to determine which new cards to
+pull in after current cards have been memorised. These unseen cards have
+two distinct origins: cards that were created interactively by the user
+and given an intial grade 0 or 1 in the &#8216;Add cards&#8217; dialog, or cards
+which were created on import or when converting cards types, and which
+yet have to get their initial grade. The first category initially has
+&#8216;grade&#8217;=0 or 1, and &#8216;ack_reps&#8217;=1, and the second category &#8216;grade&#8217;=-1
+and &#8216;ack_reps&#8217;=0. However, after a subsequent review of a card from the
+second category, its &#8216;grade&#8217; and &#8216;ack_reps&#8217; could become identical to
+an unseen card in the first category, even though the card is no longer
+unseen. Therefore, just relying on &#8216;grade&#8217; and &#8216;ack_reps&#8217; to track
+unseen cards does not work.</p>
 </dd></dl>
 
 </dd></dl>
@@ -126,7 +145,7 @@ the interactive review process (by similar code in the scheduler).</p>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/card.txt">Show Source</a></li>
             </ul>
-            <h3>Quick search</h3>
+          <h3>Quick search</h3>
             <form class="search" action="../search.html" method="get">
               <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
               <input type="hidden" name="check_keywords" value="yes" />
@@ -151,13 +170,13 @@ the interactive review process (by similar code in the scheduler).</p>
         <li class="right" >
           <a href="card_type.html" title="CardType"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 13, 2008.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      Last updated on May 05, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
 </html>

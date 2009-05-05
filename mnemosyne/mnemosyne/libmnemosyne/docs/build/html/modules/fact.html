@@ -2,26 +2,24 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>Fact &mdash; libmnemosyne v2.0 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-          URL_ROOT:    '../',
-          VERSION:     '2.0',
-          COLLAPSE_MODINDEX: false,
-          FILE_SUFFIX: ''
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/interface.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="contents" title="Global table of contents" href="../contents.html" />
-    <link rel="index" title="Global index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="FactView" href="fact_view.html" />
-    <link rel="prev" title="ComponentManager" href="component_manager.html" />
+    <link rel="prev" title="ComponentManager" href="component_manager.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,9 +37,9 @@
         <li class="right" >
           <a href="component_manager.html" title="ComponentManager"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>
+    </div>  
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -49,10 +47,10 @@
             
   
   <div class="section" id="module-mnemosyne.libmnemosyne.fact">
-<h1 id="module-mnemosyne.libmnemosyne.fact"><tt class="xref docutils literal"><span class="pre">Fact</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.fact" title="Permalink to this headline">¶</a></h1>
+<h1><tt class="xref docutils literal"><span class="pre">Fact</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.fact" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.fact.Fact">
-<!--[mnemosyne.libmnemosyne.fact.Fact]-->class <tt class="descclassname">mnemosyne.libmnemosyne.fact.</tt><tt class="descname">Fact</tt><big>(</big><em>data</em>, <em>card_type</em>, <em>categories=</em><span class="optional">[</span><span class="optional">]</span>, <em>uid=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.fact.Fact" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.fact.Fact]-->class <tt class="descclassname">mnemosyne.libmnemosyne.fact.</tt><tt class="descname">Fact</tt><big>(</big><em>data</em>, <em>card_type</em>, <em>id=None</em>, <em>creation_date=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.fact.Fact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Basic unit of information from which several cards can be derived.</p>
 <p>The fields are stored in a dictionary called &#8216;data&#8217;, and can be get and 
 set using the standard dictionary syntax.</p>
@@ -60,6 +58,11 @@ set using the standard dictionary syntax.</p>
 for a card_type that accepts a datafields dictonary.</p>
 <p>Card_type and categories are also stored here, because when resetting the
 learning data on export, we only export facts.</p>
+<p>Creating and modification dates are stored as days since the creation of the
+database (see start_date.py for rationale).</p>
+<p>&#8216;id&#8217; is used to identify this object to the external world (logs, xml
+files, ...), whereas &#8216;_id&#8217; is an internal id that could be different and
+that can be used by the database for efficiency reasons.</p>
 <p>When making new card types, it is best to reuse the keys below as much
 as possible, to facilitate conversion between card types:</p>
 <table border="1" class="docutils">
@@ -103,7 +106,7 @@ as possible, to facilitate conversion between card types:</p>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/fact.txt">Show Source</a></li>
             </ul>
-            <h3>Quick search</h3>
+          <h3>Quick search</h3>
             <form class="search" action="../search.html" method="get">
               <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
               <input type="hidden" name="check_keywords" value="yes" />
@@ -128,13 +131,13 @@ as possible, to facilitate conversion between card types:</p>
         <li class="right" >
           <a href="component_manager.html" title="ComponentManager"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 13, 2008.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      Last updated on May 05, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
 </html>
