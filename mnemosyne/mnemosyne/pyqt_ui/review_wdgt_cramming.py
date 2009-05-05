@@ -13,6 +13,8 @@ from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 class ReviewWdgtCramming(ReviewWdgt):
+
+    used_for = "Cramming"
     
     def __init__(self, parent=None):
         ReviewWdgt.__init__(self.parent)
@@ -45,5 +47,5 @@ class ReviewWdgtCramming(ReviewWdgt):
 
 # Register widget.
 
-component_manager.register("review_widget", ReviewWdgtCramming,
-                           used_for=Cramming)
+component_manager.register(ReviewWdgtCramming)
+

@@ -9,7 +9,7 @@ from PyQt4 import QtGui
 
 from ui_review_wdgt import *
 
-from mnemosyne.libmnemosyne.ui_components import ReviewWidget
+from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review

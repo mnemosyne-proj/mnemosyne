@@ -9,7 +9,7 @@ else:
 	import emulator.api as gui
 
 from mnemosyne.ppygui_ui.review_wdgt import ReviewWdgt
-from mnemosyne.libmnemosyne.ui_components import MainWidget
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 

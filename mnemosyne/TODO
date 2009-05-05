@@ -5,8 +5,6 @@
 -time full program
 
 
--ui components in directory
-
 -register review widget for review controller, main widget for main controller
 -general ui_component component, get rid of funny initialisation code, if none,
 get from comp mananger?
