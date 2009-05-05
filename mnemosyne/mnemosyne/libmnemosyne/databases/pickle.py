@@ -289,7 +289,7 @@ class Pickle(Database):
         self.cards.append(card)
         log().new_card(card)
 
-    def update_card(self, card):
+    def update_card(self, card, update_categories=True):
         return # Happens automatically.
     
     def delete_fact_and_related_data(self, fact):

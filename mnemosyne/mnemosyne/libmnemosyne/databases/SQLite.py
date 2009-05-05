@@ -354,7 +354,7 @@ class SQLite(Database):
                 _card_id) values(?,?)""", (_category_id, _card_id))
         log().new_card(card)
 
-    def update_card(self, card):
+    def update_card(self, card, update_categories=True):
         if card.extra_data == {}:
             extra_data = "" # Save space.
         else:
@@ -370,16 +370,16 @@ class SQLite(Database):
             card.last_rep, card.next_rep, card.unseen, extra_data,
             card.scheduler_data, card.needs_sync, card.active,
             card.in_view, card._id))
+        if not update_categories:
+            return
         # Link card to its categories.
         # The categories themselves have already been created by
         # default_main_controller calling get_or_create_category_with_name.
         self.con.execute("delete from categories_for_card where _card_id=?",
                          (card._id, ))
         for cat in card.categories:
-            _category_id = self.con.execute("""select _id from categories
-                where id=?""", (cat.id, )).fetchone()[0]
             self.con.execute("""insert into categories_for_card(_category_id,
-                _card_id) values(?,?)""", (_category_id, card._id))            
+                _card_id) values(?,?)""", (cat._id, card._id))            
 
     def delete_fact_and_related_data(self, fact):
         for card in self.cards_from_fact(fact):

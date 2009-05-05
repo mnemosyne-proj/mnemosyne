@@ -82,3 +82,15 @@ class TestAddCards(MnemosyneTest):
         for i in range(6):
             assert ui_controller_review().card != card_3
             ui_controller_review().grade_answer(0)        
+
+    def test_change_category(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = card_type_by_id("1")
+        card = ui_controller_main().create_new_cards(fact_data, card_type,
+                                              grade=0, cat_names=["default"])[0]
+        ui_controller_review().new_question()
+        ui_controller_main().update_related_cards(card.fact, fact_data, \
+            card_type, ["new"], correspondence={}, warn=False)     
+        new_card = database().get_card(card._id)
+        assert new_card.categories[0].name == "new"

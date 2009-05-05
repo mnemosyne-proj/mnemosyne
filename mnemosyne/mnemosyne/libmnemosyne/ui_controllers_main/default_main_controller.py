@@ -204,7 +204,7 @@ class DefaultMainController(UiControllerMain):
         review_controller = ui_controller_review()
         if review_controller.card:
             review_controller.card = \
-                database().get_card(review_controller.card.id)
+                database().get_card(review_controller.card._id)
             review_controller.update_dialog(redraw_all=True)
         return 0
 

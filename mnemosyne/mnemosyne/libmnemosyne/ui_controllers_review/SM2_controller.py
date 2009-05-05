@@ -86,13 +86,13 @@ class SM2Controller(UiControllerReview):
             previous_card = self.card
             self.new_question()
             interval = scheduler().grade_answer(previous_card, grade)
-            database().update_card(previous_card)
+            database().update_card(previous_card, update_categories=False)
             database().save()
             if self.widget:
                 self.widget.update_status_bar()
         else:
             interval = scheduler().grade_answer(self.card, grade)
-            database().update_card(self.card)
+            database().update_card(self.card, update_categories=False)
             database().save()
             self.new_question()
         if config()["show_intervals"] == "statusbar":

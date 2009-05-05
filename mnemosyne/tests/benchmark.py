@@ -14,7 +14,7 @@ from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 number_of_calls = 15
 number_of_facts = 6000
 
-def init():
+def startup():
 
     # Note that this also includes building the queue and getting the first card.
 
@@ -55,7 +55,7 @@ def init():
 
     #mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"),
     #                     main_widget=None)
-    mnemosyne.initialise(basedir="\SDMMC\.mnemosyne"), \
+    mnemosyne.initialise(basedir="\SDMMC\.mnemosyne",
                          main_widget=None)
     
 def create_database():
@@ -79,7 +79,7 @@ def queue():
     ui_controller_review().new_question()
     
 def new_question():
-    # Note that this actually also happened in init().
+    # Note that this actually also happened in startup().
     ui_controller_review().new_question()
     
 def display():
@@ -101,13 +101,13 @@ def finalise():
     config()["upload_logs"] = False
     Mnemosyne().finalise()
 
-tests = ["init()", "queue()", "new_question()", "display()", "grade_only()",
+tests = ["startup()", "queue()", "new_question()", "display()", "grade_only()",
          "grade()"]
-#tests = ["init()", "new_question()", "display()", "grade()", "activate()",
+#tests = ["startup()", "new_question()", "display()", "grade()", "activate()",
 #    "finalise()"]
-#tests = ["init()", "create_database()", "new_question()", "display()",
+#tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
-#tests = ["init()"]
+#tests = ["startup()"]
 
 for test in tests:  
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))

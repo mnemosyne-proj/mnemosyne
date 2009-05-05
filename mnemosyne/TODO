@@ -1,12 +1,13 @@
--more benchmarks
+-optimise away cards_from_fact in scheduler
+-interval column + index (gain 0.5 sec)
+-indices on foreign keys
+-no primary keys on linkage
 -merge review widget (gain 0.4 sec)
 -test default / enabled / border
--interval column + index (gain 0.5 sec)
 -test feel without save, test if autocommit works, implement save interval
 -review controller
--possibel to optimise away cards_from_fact in scheduler?
--indices on foreign keys
--simpeler update card for grading only
+
+
 -have schedulers return id's only
 -time full program
 

@@ -184,7 +184,8 @@ class Mnemosyne(object):
 
     def initialise_main_widget(self, main_widget):
         if not main_widget:
-            from mnemosyne.libmnemosyne.main_widget import MainWidget       
+            from mnemosyne.libmnemosyne.ui_components.main_widget import \
+                 MainWidget       
             main_widget = MainWidget()
         from mnemosyne.libmnemosyne.component_manager import ui_controller_main
         ui_controller_main().widget = main_widget
