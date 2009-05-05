@@ -140,3 +140,39 @@ class TestScheduler(MnemosyneTest):
         new_card = ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=0, cat_names=["default"], warn=False)[0]
         assert scheduler().get_next_card() == new_card
+
+
+    def test_4(self):
+        card_type = card_type_by_id("1")
+        
+        fact_data = {"q": "1", "a": "a"}
+        card_1 = ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]
+        fact_data = {"q": "2", "a": "a"}        
+        card_2 = ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]
+
+        card = scheduler().get_next_card()
+        scheduler().grade_answer(card, 0)
+        card = scheduler().get_next_card()
+        scheduler().grade_answer(card, 0)        
+        database().update_card(card)
+
+        assert scheduler().get_next_card() != None
+        
+    def test_5(self):
+        card_type = card_type_by_id("1")
+        
+        fact_data = {"q": "1", "a": "a"}
+        card_1 = ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]
+        fact_data = {"q": "2", "a": "a"}        
+        card_2 = ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]
+
+        ui_controller_review().new_question()
+        ui_controller_review().grade_answer(0)
+        ui_controller_review().grade_answer(0)
+
+        assert ui_controller_review().card != None
+        

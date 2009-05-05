@@ -211,6 +211,7 @@ class SM2Mnemosyne(Scheduler):
         # earliest scheduled cards first. We only put 25 cards at the same
         # time into the queue, in order to save memory.
         if learn_ahead == False:
+            self.stage = 3
             return
         for _card_id, _fact_id in db.cards_learn_ahead(sort_key="next_rep",
                                                        limit=25):

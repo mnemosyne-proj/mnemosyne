@@ -5,7 +5,7 @@
 from mnemosyne.libmnemosyne.ui_component import UIComponent
 
 
-class MainWidget(UIComponent):
+class MainWidget(UiComponent):
     
     """Describes the interface that the main widget needs to implement
     in order to be used by the main controller.

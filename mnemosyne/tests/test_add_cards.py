@@ -78,7 +78,7 @@ class TestAddCards(MnemosyneTest):
         ui_controller_review().grade_answer(0)
         database().delete_fact_and_related_data(card_3.fact)
         ui_controller_review().rebuild_queue()
+        ui_controller_review().new_question() 
         for i in range(6):
-            ui_controller_review().new_question() 
             assert ui_controller_review().card != card_3
             ui_controller_review().grade_answer(0)        

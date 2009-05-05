@@ -5,7 +5,7 @@
 from mnemosyne.libmnemosyne.ui_component import UIComponent
 
 
-class ReviewWidget(UIComponent):
+class ReviewWidget(UiComponent):
     
     """Describes the interface that the review widget needs to implement
     in order to be used by the review controller.

@@ -2,6 +2,11 @@
 -interval column + index (gain 0.5 sec)
 -merge review widget (gain 0.4 sec)
 -test feel without save, test if autocommit works, implement save interval
+-review controller
+-possibel to optimise away cards_from_fact in scheduler?
+-indices on foreign keys
+-simpeler update card for grading only
+-have schedulers return id's only
 -time full program
 
 
@@ -152,7 +157,6 @@ get from comp mananger?
 
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447?
 
--modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 
 
 
@@ -161,6 +165,10 @@ get from comp mananger?
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
 
 -make all subwindows remember their size
+
+-modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
+
+-allow edit current card and add card to be open at the same time?
 
 -make file handling more robust, detect all errors (see mail by
  OldGrantonian)
