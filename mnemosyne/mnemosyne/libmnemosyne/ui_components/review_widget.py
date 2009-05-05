@@ -2,7 +2,7 @@
 # review_widget.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.ui_component import UIComponent
+from mnemosyne.libmnemosyne.ui_component import UiComponent
 
 
 class ReviewWidget(UiComponent):

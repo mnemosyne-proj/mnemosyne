@@ -83,9 +83,10 @@ class SM2Controller(UiControllerReview):
 
     def grade_answer(self, grade):
         if scheduler().allow_prefetch():
+            previous_card = self.card
             self.new_question()
-            interval = scheduler().grade_answer(self.card, grade)
-            database().update_card(self.card)
+            interval = scheduler().grade_answer(previous_card, grade)
+            database().update_card(previous_card)
             database().save()
             if self.widget:
                 self.widget.update_status_bar()

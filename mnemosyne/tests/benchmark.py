@@ -16,6 +16,8 @@ number_of_facts = 6000
 
 def init():
 
+    # Note that this also includes building the queue and getting the first card.
+
     mnemosyne = Mnemosyne(resource_limited=True)
     mnemosyne.components = [ #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
         ("mnemosyne.libmnemosyne.databases.SQLite",
@@ -51,15 +53,17 @@ def init():
         ("mnemosyne.libmnemosyne.schedulers.cramming",
          "CrammingPlugin") ]    
 
-    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"),
+    #mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"),
+    #                     main_widget=None)
+    mnemosyne.initialise(basedir="\SDMMC\.mnemosyne"), \
                          main_widget=None)
-
+    
 def create_database():
     config()["upload_logs"] = False
 
     for i in range(number_of_facts):
         fact_data = {"q": "question" + str(i),
-                     "a": "answer" + str(1)}
+                     "a": "answer" + str(i)}
         if i % 2:
             card_type = card_type_by_id("1")
         else:
@@ -70,7 +74,11 @@ def create_database():
         database().update_card(card)
     database().save(config()["path"])
     
-def question():
+def queue():
+    ui_controller_review().reset()
+    ui_controller_review().new_question()
+    
+def new_question():
     # Note that this actually also happened in init().
     ui_controller_review().new_question()
     
@@ -93,10 +101,12 @@ def finalise():
     config()["upload_logs"] = False
     Mnemosyne().finalise()
 
-tests = ["init()", "question()", "display()", "grade_only()", "grade()"]
-#tests = ["init()", "question()", "display()", "grade()", "activate()", "finalise()"]
-#tests = ["init()", "create_database()", "question()", "display()", "grade()",
-#         "activate()", "finalise()"]
+tests = ["init()", "queue()", "new_question()", "display()", "grade_only()",
+         "grade()"]
+#tests = ["init()", "new_question()", "display()", "grade()", "activate()",
+#    "finalise()"]
+#tests = ["init()", "create_database()", "new_question()", "display()",
+#    "grade()", "activate()", "finalise()"]
 #tests = ["init()"]
 
 for test in tests:  

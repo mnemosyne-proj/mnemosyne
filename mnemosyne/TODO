@@ -1,6 +1,7 @@
+-more benchmarks
+-merge review widget (gain 0.4 sec)
 -test default / enabled / border
 -interval column + index (gain 0.5 sec)
--merge review widget (gain 0.4 sec)
 -test feel without save, test if autocommit works, implement save interval
 -review controller
 -possibel to optimise away cards_from_fact in scheduler?
@@ -18,6 +19,7 @@ get from comp mananger?
 -each component, activate function? Or do it in plugin.activate?
 
 
+-get rid of svn
 
 
 -register classes, not instances
