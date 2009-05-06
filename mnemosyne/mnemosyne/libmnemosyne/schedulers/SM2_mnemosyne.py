@@ -333,10 +333,7 @@ class SM2Mnemosyne(Scheduler):
                         new_interval = scheduled_interval # Avoid spacing.
                     else:
                         new_interval = actual_interval * card.easiness
-            # Shouldn't happen, but build in a safeguard.
-            if new_interval == 0:
-                print "Internal error: new interval was zero."
-                new_interval = scheduled_interval
+            assert new_interval != 0
             new_interval = int(new_interval)
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:

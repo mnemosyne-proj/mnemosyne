@@ -1,6 +1,3 @@
--basedir
-
-
 -optimise away cards_from_fact in scheduler
 -interval column + index (gain 0.5 sec)
 -indices on foreign keys
@@ -15,7 +12,6 @@
 -.029    0.029 __init__.py:180(initialise_components)
 
 
-
 -have schedulers return id's only
 -time full program
 
@@ -23,16 +19,14 @@
 -register review widget for review controller, main widget for main controller
 -general ui_component component, get rid of funny initialisation code, if none,
 get from comp mananger?
-
-
--each component, activate function? Or do it in plugin.activate?
-
+-move all components to new init scheme (scheduler?)
 
 -get rid of svn
 
 
--register classes, not instances
-
+-register classes, not instances + document in code
+-remove set_basedir, set_resource_limited
+-remove try, fail in on_unregister (for ui components)
 
 
 -more tests

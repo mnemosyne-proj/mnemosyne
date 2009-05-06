@@ -76,19 +76,14 @@ class Mnemosyne(object):
             exec("from %s import %s" % (module_name, class_name))
             exec("component_manager.register(%s())" % class_name)
         config().set_basedir(basedir)
-        print 'set basedir 1', config().basedir
         config().set_resource_limited(self.resource_limited)
-        print 'set basedir 2', config().basedir
         for module_name, class_name in self.components:
             exec("%s().initialise()" % class_name)
             
         self.initialise_main_widget(main_widget)  
         self.check_lockfile(basedir)
-        #config().initialise(basedir)
-        #config().resource_limited = self.resource_limited
         self.initialise_error_handling()
-        self.initialise_lockfile()
-        #self.initialise_logging()   
+        self.initialise_lockfile()  
         self.load_database(filename)
         self.initialise_user_components()
         self.activate_saved_plugins()
@@ -101,97 +96,6 @@ class Mnemosyne(object):
             component_manager.translator = gettext.gettext
         else:
             component_manager.translator = lambda x : x
-
-    # We still need this while we are doing the conversion from instances
-    # to classes.
-    
-    def initialise_system_components_old(self):
-        # Database.
-        #from mnemosyne.libmnemosyne.databases.pickle import Pickle
-        #component_manager.register(Pickle())
-        from mnemosyne.libmnemosyne.databases.SQLite import SQLite
-        component_manager.register(SQLite())
-
-        # Configuration.
-        from mnemosyne.libmnemosyne.configuration import Configuration
-        component_manager.register(Configuration())
-
-         # Logger.
-        from mnemosyne.libmnemosyne.loggers.txt_logger import TxtLogger
-        component_manager.register(TxtLogger())   
-
-        # Scheduler.
-        from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne \
-                                                       import SM2Mnemosyne
-        component_manager.register(SM2Mnemosyne())
-
-        # Card types.
-        from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
-        component_manager.register(FrontToBack())
-        from mnemosyne.libmnemosyne.card_types.both_ways import BothWays
-        component_manager.register(BothWays())
-        from mnemosyne.libmnemosyne.card_types.three_sided import ThreeSided
-        component_manager.register(ThreeSided())
-
-        # Card type converters.
-        from mnemosyne.libmnemosyne.card_types.both_ways \
-             import FrontToBackToBothWays
-        component_manager.register(FrontToBackToBothWays())
-        from mnemosyne.libmnemosyne.card_types.both_ways \
-             import BothWaysToFrontToBack
-        component_manager.register(BothWaysToFrontToBack())
-        from mnemosyne.libmnemosyne.card_types.three_sided \
-             import FrontToBackToThreeSided
-        component_manager.register(FrontToBackToThreeSided())
-        from mnemosyne.libmnemosyne.card_types.three_sided \
-             import BothWaysToThreeSided
-        component_manager.register(BothWaysToThreeSided())
-        from mnemosyne.libmnemosyne.card_types.three_sided \
-             import ThreeSidedToFrontToBack
-        component_manager.register(ThreeSidedToFrontToBack())
-        from mnemosyne.libmnemosyne.card_types.three_sided \
-             import ThreeSidedToBothWays    
-        component_manager.register(ThreeSidedToBothWays())
-
-        # Renderer.
-        from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
-        component_manager.register(HtmlCss())
-
-        # Filters.
-        from mnemosyne.libmnemosyne.filters.escape_to_html \
-                                                       import EscapeToHtml
-        component_manager.register(EscapeToHtml())
-        from mnemosyne.libmnemosyne.filters.expand_paths \
-                                                       import ExpandPaths
-        component_manager.register(ExpandPaths())
-        from mnemosyne.libmnemosyne.filters.latex import Latex
-        component_manager.register(Latex())
-
-        # File formats.
-
-
-        # UI controllers.
-        from mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller \
-                                                       import DefaultMainController
-        component_manager.register(DefaultMainController())
-        from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
-                                                       import SM2Controller
-        component_manager.register(SM2Controller())
-
-        # Plugins.
-        from mnemosyne.libmnemosyne.card_types.map import MapPlugin   
-        component_manager.register(MapPlugin())
-        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin   
-        component_manager.register(ClozePlugin())
-        from mnemosyne.libmnemosyne.schedulers.cramming import CrammingPlugin   
-        component_manager.register(CrammingPlugin())
-        
-    def initialise_components(self, components):
-        for module_name, class_name in components:
-            exec("from %s import %s" % (module_name, class_name))
-            exec("component_manager.register(%s())" % class_name)
-        for module_name, class_name in components:
-            exec("%s().initialise()" % class_name)
 
     def initialise_main_widget(self, main_widget):
         if not main_widget:
@@ -228,14 +132,12 @@ class Mnemosyne(object):
         lockfile = file(os.path.join(config().basedir, "MNEMOSYNE_LOCK"), 'w')
         lockfile.close()
 
-    def initialise_logging(self):
-        log().archive_old_log()
-        log().start_logging()
-        log().program_started()
-        if config()["upload_logs"] and not self.resource_limited:
-            from mnemosyne.libmnemosyne.log_uploader import LogUploader
-            self.upload_thread = LogUploader()
-            self.upload_thread.start()
+    def remove_lockfile(self):
+        _ = component_manager.translator
+        try:
+            os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
+        except OSError:
+            print _("Failed to remove lock file.") + "\n" + traceback_string()
 
     def load_database(self, filename):
         from mnemosyne.libmnemosyne.component_manager import database
@@ -298,17 +200,7 @@ class Mnemosyne(object):
                 ui_controller_main().widget.error_box(msg)
 
     def finalise(self):
-        _ = component_manager.translator
-        config().save()
+        self.remove_lockfile()
         component_manager.unregister_all()
-        #if self.upload_thread:
-        #    print _("Waiting for uploader thread to stop...")
-        #    self.upload_thread.join()
-        #    print _("done!")
-        #log().program_stopped()
-        try:
-            os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
-        except OSError:
-            print _("Failed to remove lock file.") + "\n" + traceback_string()
-        component_manager.components = {}
-        component_manager.card_type_by_id = {}
+        
+

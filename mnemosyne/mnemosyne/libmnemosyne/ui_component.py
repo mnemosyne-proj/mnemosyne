@@ -2,8 +2,11 @@
 # ui_component.py <Peter.Bienstman@UGent.be>
 #
 
-class UiComponent(object):
+from mnemosyne.libmnemosyne.component import Component
+
+
+class UiComponent(Component):
 
     component_type = "ui_component"
-    used_for = None
+    
 

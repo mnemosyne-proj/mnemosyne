@@ -135,9 +135,16 @@ class ComponentManager(object):
             return all[-1]
 
     def unregister_all(self):
-        for sub_dict in self.components:
-            for component in sub_dict:
-                print component
+        for used_for in self.components:
+            for type in self.components[used_for]:
+                for component in self.components[used_for][type]:
+                    # TODO: tmp
+                    try:
+                        component.on_unregister()
+                    except:
+                        pass
+        self.components = {}
+        self.card_type_by_id = {}
         
 # The component manager needs to be accessed by many different parts of the
 # library, so we hold it in a global variable.

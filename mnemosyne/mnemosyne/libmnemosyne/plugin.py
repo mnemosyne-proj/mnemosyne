@@ -24,7 +24,6 @@ class Plugin(Component):
     description = ""
     activation_message = ""
     component_type = "plugin"
-    used_for = None
     show_in_first_run_wizard = False
         
     def __init__(self, components):
