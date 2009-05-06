@@ -2,12 +2,13 @@
 # scheduler.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.component import Component
 
-class Scheduler(object):
+
+class Scheduler(Component):
 
     name = ""
     component_type = "scheduler"
-    used_for = None
 
     def reset(self):
 

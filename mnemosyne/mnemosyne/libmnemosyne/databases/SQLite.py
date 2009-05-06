@@ -132,6 +132,8 @@ class SQLite(Database):
         log().new_database()
 
     def load(self, path):
+        import time
+        t1 = time.time()
         if self.is_loaded():        
             self.unload()
         self._path = expand_path(path, config().basedir)
@@ -167,7 +169,8 @@ class SQLite(Database):
         plugin_needed = set()
         clone_needed = []
         active_id = set(card_type.id for card_type in card_types())
-        for cursor in self.con.execute("select distinct card_type_id from facts"):
+        for cursor in self.con.execute("""select distinct card_type_id
+            from facts"""):
             id = cursor[0]
             while "." in id: # Move up one level of the hierarchy.
                 id, child_name = id.rsplit(".", 1)          
@@ -212,12 +215,12 @@ class SQLite(Database):
             except NameError:
                 # In this case the clone was already created by loading the
                 # database earlier.
-                pass
+                pass        
         config()["path"] = contract_path(path, config().basedir)
-        log().loaded_database()
+        #log().loaded_database()
         for f in component_manager.get_all("function_hook", "after_load"):
             f.run()
-
+        
     def save(self, path=None):
         # Don't erase a database which failed to load.
         if self.load_failed == True:

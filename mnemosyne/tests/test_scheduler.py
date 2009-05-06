@@ -176,7 +176,7 @@ class TestScheduler(MnemosyneTest):
 
         assert ui_controller_review().card != None
         
-    def test_1(self):
+    def test_6(self):
         card_1 = None
         for i in range(10):
             fact_data = {"q": "question" + str(i),

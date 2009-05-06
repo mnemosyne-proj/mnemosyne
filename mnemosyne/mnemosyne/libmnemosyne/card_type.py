@@ -3,10 +3,12 @@
 #
 
 from mnemosyne.libmnemosyne.card import Card
+from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import card_types
 from mnemosyne.libmnemosyne.component_manager import component_manager
 
-class CardType(object):
+
+class CardType(Component):
 
     """A card type groups a number of fact views on a certain fact, thereby
     forming a set of related cards.
@@ -51,7 +53,6 @@ class CardType(object):
     name = ""
     is_clone = False
     component_type = "card_type"
-    used_for = None
     
     def __init__(self):
         self.fields = []

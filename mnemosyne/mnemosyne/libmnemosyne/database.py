@@ -2,7 +2,10 @@
 # database.py <Peter.Bienstman@UGent.be>
 #
 
-class Database(object):
+from mnemosyne.libmnemosyne.component import Component
+
+
+class Database(Component):
 
     """Interface class describing the functions to be implemented by the
     actual database classes.
@@ -11,7 +14,6 @@ class Database(object):
 
     version = ""
     component_type = "database"
-    used_for = None
 
     # Creating, loading and saving the entire database.
 

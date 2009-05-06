@@ -2,8 +2,10 @@
 # filter.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.component import Component
 
-class Filter(object):
+
+class Filter(Component):
 
     """Code which operates on a string and filters it to achieve extra 
     functionality.  The 'card' argument provides extra context if needed.
@@ -15,7 +17,6 @@ class Filter(object):
     """
 
     component_type = "filter"
-    used_for = None
 
     def run(self, text, card):
         raise NotImplementedError

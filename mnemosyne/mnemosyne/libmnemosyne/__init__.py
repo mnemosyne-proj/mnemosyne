@@ -65,21 +65,30 @@ class Mnemosyne(object):
     
     def __init__(self, resource_limited=False):
         self.resource_limited = resource_limited
-        self.upload_thread = None
 
     # Note: the main widget should already exist, otherwise we can't give
     # feedback to the user if errors occur.
 
     def initialise(self, basedir, filename=None, main_widget=None):
         self.initialise_translator()
-        self.initialise_components(self.components)
+        #self.initialise_components(self.components)
+        for module_name, class_name in self.components:
+            exec("from %s import %s" % (module_name, class_name))
+            exec("component_manager.register(%s())" % class_name)
+        config().set_basedir(basedir)
+        print 'set basedir 1', config().basedir
+        config().set_resource_limited(self.resource_limited)
+        print 'set basedir 2', config().basedir
+        for module_name, class_name in self.components:
+            exec("%s().initialise()" % class_name)
+            
         self.initialise_main_widget(main_widget)  
         self.check_lockfile(basedir)
-        config().initialise(basedir)
-        config().resource_limited = self.resource_limited
+        #config().initialise(basedir)
+        #config().resource_limited = self.resource_limited
         self.initialise_error_handling()
         self.initialise_lockfile()
-        self.initialise_logging()   
+        #self.initialise_logging()   
         self.load_database(filename)
         self.initialise_user_components()
         self.activate_saved_plugins()
@@ -180,7 +189,9 @@ class Mnemosyne(object):
     def initialise_components(self, components):
         for module_name, class_name in components:
             exec("from %s import %s" % (module_name, class_name))
-            exec("component_manager.register(%s())" % (class_name))
+            exec("component_manager.register(%s())" % class_name)
+        for module_name, class_name in components:
+            exec("%s().initialise()" % class_name)
 
     def initialise_main_widget(self, main_widget):
         if not main_widget:
@@ -289,11 +300,12 @@ class Mnemosyne(object):
     def finalise(self):
         _ = component_manager.translator
         config().save()
-        if self.upload_thread:
-            print _("Waiting for uploader thread to stop...")
-            self.upload_thread.join()
-            print _("done!")
-        log().program_stopped()
+        component_manager.unregister_all()
+        #if self.upload_thread:
+        #    print _("Waiting for uploader thread to stop...")
+        #    self.upload_thread.join()
+        #    print _("done!")
+        #log().program_stopped()
         try:
             os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
         except OSError:

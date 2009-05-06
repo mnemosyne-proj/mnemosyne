@@ -2,10 +2,11 @@
 # ui_controller_review.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import scheduler
 
 
-class UiControllerReview(object):
+class UiControllerReview(Component):
     
     """Controls the behaviour of a widget which implements the ReviewWidget
     interface.

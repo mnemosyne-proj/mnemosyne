@@ -1,3 +1,6 @@
+-basedir
+
+
 -optimise away cards_from_fact in scheduler
 -interval column + index (gain 0.5 sec)
 -indices on foreign keys
@@ -6,6 +9,11 @@
 -test default / enabled / border
 -test feel without save, test if autocommit works, implement save interval
 -review controller
+
+-wrap configuration.py
+
+-.029    0.029 __init__.py:180(initialise_components)
+
 
 
 -have schedulers return id's only
@@ -206,6 +214,7 @@ get from comp mananger?
 
 -update old plugins
 
+-hang on Spanish translation?
 
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby
 

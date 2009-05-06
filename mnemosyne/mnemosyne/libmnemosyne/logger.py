@@ -4,17 +4,27 @@
 
 import os
 
+from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import config
 
 
-class Logger(object):
+class Logger(Component):
 
     component_type = "log"
-    used_for = None
+    upload_thread = None
+
+    def initialise(self):
+        self.archive_old_log()
+        self.start_logging()
+        self.program_started()
+        if config()["upload_logs"] and not config().resource_limited:
+            from mnemosyne.libmnemosyne.log_uploader import LogUploader
+            self.upload_thread = LogUploader()
+            self.upload_thread.start()
     
     def start_logging(self):
         raise NotImplementedError
-        
+    
     def program_started(self):
         raise NotImplementedError  
         
@@ -30,7 +40,6 @@ class Logger(object):
     def new_card(self, card):
         raise NotImplementedError  
     
-    # TODO: do we need imported_fact as well?    
     def imported_card(self, card):
         raise NotImplementedError
     
@@ -74,3 +83,11 @@ class Logger(object):
             f.close()
             os.remove(log_name)
             config()["log_index"] = index + 1
+
+    def on_unregister(self):
+        if self.upload_thread:
+            _ = component_manager.translator
+            print _("Waiting for uploader thread to stop...")
+            self.upload_thread.join()
+            print _("Done!")
+        log().program_stopped()

@@ -6,11 +6,11 @@
 class ComponentManager(object):
 
     """Manages the different components. Each component belongs to a type
-    (database, scheduler, card_type, card_type_widget, ...), which is stored
-    in the class variable 'component_type' of each component.
+    ('database', 'scheduler', 'card_type', ...), which is stored in the class
+    variable 'component_type' of each component.
 
     The component manager can also store relationships between components,
-    e.g. a card_type_widget is used for a certain card_type.
+    e.g. a card type widget is used for a certain card type.
 
     For certain components, many can be active at the same time (card types,
     filters, function hooks, ...). For others, there can be only on active
@@ -70,11 +70,21 @@ class ComponentManager(object):
                     self.components[used_for][type].insert(0, component)                    
         if type == "card_type":
             self.card_type_by_id[component.id] = component
+        # TODO: rewrite this once we move to class registering instead of
+        # instance registering.
+        try:
+            component.on_register()
+        except:
+            pass
             
     def unregister(self, component):
         type = component.component_type
         used_for = component.used_for
         self.components[used_for][type].remove(component)
+        try:
+            component.on_unregister()
+        except:
+            pass        
 
     def get_all(self, type, used_for=None):
         
@@ -124,6 +134,10 @@ class ComponentManager(object):
         else:
             return all[-1]
 
+    def unregister_all(self):
+        for sub_dict in self.components:
+            for component in sub_dict:
+                print component
         
 # The component manager needs to be accessed by many different parts of the
 # library, so we hold it in a global variable.
