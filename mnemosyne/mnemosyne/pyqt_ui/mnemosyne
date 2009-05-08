@@ -9,20 +9,12 @@ _ = gettext.gettext
 
 import os
 import sys
-from optparse import OptionParser
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
-import mnemosyne.pyqt_ui.sound
-from mnemosyne.pyqt_ui.main_window import MainWindow
-
-from mnemosyne.libmnemosyne import Mnemosyne
-
-#from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
+from PyQt4.QtGui import QApplication
 
 # Parse options.
 
+from optparse import OptionParser
 parser = OptionParser()
 parser.usage = "%prog [<database_file>]"
 parser.add_option("-d", "--datadir", dest="datadir",
@@ -47,8 +39,13 @@ if len(args) > 0:
     filename = os.path.abspath(args[0])
 else:
     filename = None
-    
-# Create main application.
+
+# Load the Mnemosyne library (Make sure you haven't imported parts of the
+# Mnemosyne library previously, e.g. by importing a GUI class).
+from mnemosyne.libmnemosyne import Mnemosyne
+mnemosyne = Mnemosyne()
+
+# Start Mnemosyne.
 a = QApplication(sys.argv)
 
 # TODO: install translator for Qt messages.
@@ -62,10 +59,9 @@ a = QApplication(sys.argv)
 #translator.load("qt_" + loc + ".qm", os.path.join(prefix, 'locale'))
 #a.installTranslator(translator)
 
-# Start program.
-
-w = MainWindow(filename)
-mnemosyne = Mnemosyne()
+from mnemosyne.pyqt_ui.main_window import MainWindow
+from mnemosyne.pyqt_ui.sound import SoundPlayer
+w = MainWindow()
 mnemosyne.initialise(basedir=basedir, filename=filename, main_widget=w)
 w.show()
 w.raise_() # Needed for OSX.

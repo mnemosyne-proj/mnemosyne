@@ -5,21 +5,26 @@
 -merge review widget (gain 0.4 sec)
 -test default / enabled / border
 -test feel without save, test if autocommit works, implement save interval
--review controller
+-review controller (option: review_client_only?)
 
--wrap configuration.py
+-order
+-translator component, make sure everything can be translated
+-no handlers found for logger
+-move all components to new init scheme (scheduler doing get new question?)
+
+
+-test have already called get_next question
+
+-fact modification date
 
 -.029    0.029 __init__.py:180(initialise_components)
 
 
--have schedulers return id's only
+-have schedulers return id's only, make sure each scheduler has its own globals
 -time full program
 
 
--register review widget for review controller, main widget for main controller
--general ui_component component, get rid of funny initialisation code, if none,
-get from comp mananger?
--move all components to new init scheme (scheduler?)
+
 
 -get rid of svn
 
@@ -27,6 +32,10 @@ get from comp mananger?
 -register classes, not instances + document in code
 -remove set_basedir, set_resource_limited
 -remove try, fail in on_unregister (for ui components)
+-unregister_all only should do main components
+-on register needed? (currently not used, but perhaps for factviews?)
+
+-counting tests in cramming scheduler
 
 
 -more tests

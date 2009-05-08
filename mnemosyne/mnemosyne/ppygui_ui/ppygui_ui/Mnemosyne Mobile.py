@@ -10,23 +10,19 @@ if os.name == "ce":
 else:
 	import emulator.api as gui
 
-from mnemosyne.libmnemosyne import Mnemosyne
-from mnemosyne.ppygui_ui.main_window import MainFrame
-
 # TODO: create mechanism which will make it easier to change the basedir,
 # e.g. by a first run wizard, of from an option in the program. Perhaps a
 # text file in the location of libmnemosyne?
-   
-basedir = "\SDMMC\.mnemosyne"
+   basedir = "\SDMMC\.mnemosyne"
 
-app = gui.Application()
-app.mainframe = MainFrame()
-mnemosyne = Mnemosyne(resource_limited=True)
-mnemosyne.components = [
-    ("mnemosyne.libmnemosyne.databases.SQLite",
-     "SQLite"),               
+# Load the Mnemosyne library (Make sure you haven't imported parts of the
+# Mnemosyne library previously, e.g. by importing a GUI class).
+from mnemosyne.libmnemosyne import Mnemosyne
+Mnemosyne.components = [             
     ("mnemosyne.libmnemosyne.configuration",
-     "Configuration"),          
+     "Configuration"),
+    ("mnemosyne.libmnemosyne.databases.SQLite",
+     "SQLite"),  
     ("mnemosyne.libmnemosyne.loggers.txt_logger",
      "TxtLogger"),          
     ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
@@ -55,6 +51,12 @@ mnemosyne.components = [
      "ClozePlugin"),
     ("mnemosyne.libmnemosyne.schedulers.cramming",
      "CrammingPlugin") ]
+mnemosyne = Mnemosyne(resource_limited=True)
+
+# Start Mnemosyne.
+app = gui.Application()
+from mnemosyne.ppygui_ui.main_window import MainFrame
+app.mainframe = MainFrame()
 mnemosyne.initialise(basedir=basedir, main_widget=app.mainframe)
 app.run()
 mnemosyne.finalise()

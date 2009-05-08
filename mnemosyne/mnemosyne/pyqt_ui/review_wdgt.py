@@ -14,6 +14,8 @@ from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
+     import SM2Controller
 
 _empty = """
 <html><head>
@@ -28,8 +30,11 @@ body  { background-color: white;
 """
 
 class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
+
+    used_for = SM2Controller
     
-    def __init__(self, parent=None):
+    def __init__(self):
+        parent = ui_controller_main().widget
         QtGui.QWidget.__init__(self, parent)
         self.setupUi(self)
         self.controller = ui_controller_review()
@@ -50,6 +55,12 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.parent().statusbar.addPermanentWidget(self.notmem)
         self.parent().statusbar.addPermanentWidget(self.all)
         self.parent().statusbar.setSizeGripEnabled(0)
+
+    def initialise(self):
+        self.parent().setCentralWidget(self)
+
+    def finalise(self):
+        self.close()
 
     def show_answer(self):
         self.controller.show_answer()

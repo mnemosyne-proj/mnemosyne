@@ -43,6 +43,13 @@ class SM2Controller(UiControllerReview):
     def __init__(self):
         UiControllerReview.__init__(self)
         self.reset()
+
+    def initialise(self):
+        if self.widget:
+            self.widget.finalise()
+        self.widget = component_manager.get_current("review_widget",
+                                                    used_for=self.__class__)()
+        self.widget.initialise()
         
     def reset(self):
         self.card = None
@@ -54,7 +61,7 @@ class SM2Controller(UiControllerReview):
 
         """To be called when a new day starts."""
 
-        ui_controller_main().widget.update_status_bar()
+        self.widget.update_status_bar()
         if not self.card or self.learning_ahead:
             self.reset()
             self.new_question()

@@ -133,7 +133,23 @@ class ComponentManager(object):
             return None
         else:
             return all[-1]
+        
+    def initialise_all(self):
 
+        """Initialise the main components. Secondary components (which are
+        'used_for' another component) are not initialised here, as that is
+        more naturally done in the main component for which there are used.
+
+        """
+     
+        for type in self.components[None]:
+            for component in self.components[None][type]:
+                # TODO: tmp
+                try:
+                    component.initialise()
+                except:
+                    pass
+        
     def unregister_all(self):
         for used_for in self.components:
             for type in self.components[used_for]:

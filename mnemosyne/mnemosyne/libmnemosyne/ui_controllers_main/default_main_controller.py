@@ -4,7 +4,6 @@
 
 import os
 import copy
-import datetime
 
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import expand_path
@@ -21,6 +20,13 @@ class DefaultMainController(UiControllerMain):
 
     def __init__(self):
         UiControllerMain.__init__(self)
+
+    def initialise(self):
+        if not self.widget:
+            from mnemosyne.libmnemosyne.ui_components.main_widget \
+                 import MainWidget
+            self.widget = MainWidget()
+        self.widget.initialise()
 
     def update_title(self):
         database_name = os.path.basename(config()["path"]).\

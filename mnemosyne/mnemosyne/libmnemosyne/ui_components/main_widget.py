@@ -11,6 +11,8 @@ class MainWidget(UiComponent):
     in order to be used by the main controller.
 
     """
+
+    component_type = "main_widget"
     
     def after_mnemosyne_init(self):
 

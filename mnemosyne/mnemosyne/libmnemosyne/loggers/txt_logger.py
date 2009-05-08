@@ -19,6 +19,7 @@ class TxtLogger(Logger):
         self.logger = logging.getLogger("mnemosyne")
 
     def start_logging(self):
+        import pdb; pdb.set_trace()
         basedir = config().basedir
         log_name = os.path.join(basedir, "log.txt")
         self.logger.setLevel(logging.INFO)

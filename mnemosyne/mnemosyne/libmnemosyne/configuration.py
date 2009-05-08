@@ -64,6 +64,7 @@ class Configuration(Component):
     def initialise(self):
         self.determine_basedir()
         self.fill_basedir()
+        2/0
         self.load()
         self.load_user_config()
         self.correct_config()
