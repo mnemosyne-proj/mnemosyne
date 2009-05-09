@@ -55,14 +55,14 @@ class Configuration(Component, dict):
         basedir = None
         resource_limited = False
 
-    def initialise(self):
+    def activate(self):
         self.determine_basedir()
         self.fill_basedir()
         self.load()
         self.load_user_config()
         self.correct_config()
 
-    def on_unregister(self):
+    def deactivate(self):
         self.save()
         self = {}
         

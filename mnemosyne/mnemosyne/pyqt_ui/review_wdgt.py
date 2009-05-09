@@ -49,7 +49,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.parent().statusbar.addPermanentWidget(self.all)
         self.parent().statusbar.setSizeGripEnabled(0)
 
-    def finalise(self):
+    def deactivate(self):
         self.close()
 
     def show_answer(self):

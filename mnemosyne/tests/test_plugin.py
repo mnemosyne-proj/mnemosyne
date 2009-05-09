@@ -7,14 +7,16 @@ from nose.tools import raises
 import os
 
 from mnemosyne_test import MnemosyneTest
+from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_types
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
 
-class Widget:
+class Widget(MainWidget):
 
     def information_box(self, s1):
         raise NotImplementedError
@@ -33,8 +35,16 @@ class MyPlugin(Plugin):
 class TestPlugin(MnemosyneTest):
 
     def setup(self):
-        MnemosyneTest.setup(self)
-        ui_controller_main().widget = Widget()
+        os.system("rm -fr dot_test")
+        
+        self.mnemosyne = Mnemosyne()
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_plugin", "Widget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"))
         
     @raises(AssertionError)
     def test_1(self):
@@ -59,7 +69,6 @@ class TestPlugin(MnemosyneTest):
         ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
         p.deactivate() # Pops up an information box that this is not possible.
-        1/0
 
     @raises(NotImplementedError)
     def test_3(self):

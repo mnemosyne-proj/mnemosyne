@@ -8,7 +8,7 @@ from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-
+from mnemosyne.libmnemosyne.component_manager import main_widget
 
 class Plugin(Component):
 
@@ -32,9 +32,8 @@ class Plugin(Component):
         self.components = components
         
     def activate(self):
-        if self.activation_message and ui_controller_main().widget:
-            ui_controller_main().widget.information_box(\
-                self.activation_message)
+        if self.activation_message:
+            main_widget().information_box(self.activation_message)
         for component in self.components:
             component_manager.register(component)
             # TODO: move to base class?
@@ -50,13 +49,19 @@ class Plugin(Component):
             if component.component_type == "card_type" and database().is_loaded():
                 for card_type in database().card_types_in_use():
                     if issubclass(card_type.__class__, component.__class__):
-                        ui_controller_main().widget.information_box(\
+                        main_widget().information_box(\
         _("Cannot deactivate, this card type or a clone of it is in use."))
                         return False
-            component_manager.unregister(component)
+            try:
+                component_manager.unregister(component)
+            except ValueError:
+                pass
             # TODO: move to base class.
             from mnemosyne.libmnemosyne.component_manager import scheduler
             if component.component_type == "scheduler":
-                scheduler().reset()            
-        config()["active_plugins"].remove(self.__class__)
+                scheduler().reset()
+        try:
+            config()["active_plugins"].remove(self.__class__)
+        except KeyError:
+            pass        
         return True

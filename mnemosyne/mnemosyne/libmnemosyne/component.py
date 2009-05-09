@@ -16,18 +16,15 @@ class Component(object):
     component_type = ""
     used_for = None
 
-    def initialise(self):
+    def activate(self):
 
-        """Initialisation code called at a much later stage, when the component
-        is about to do actual work, and which can't happen in 'on_register',
-        e.g. because components on which it relies have not yet been registered.
+        """Initialisation code called when the component is about to do actual
+        work, and which can't happen in the constructor, e.g. because
+        components on which it relies have not yet been registered.
 
         """
 
         pass
 
-    def finalise(self):        
-        pass
-
-    def on_unregister(self):        
+    def deactivate(self):        
         pass

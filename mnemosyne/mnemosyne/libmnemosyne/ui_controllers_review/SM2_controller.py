@@ -40,7 +40,7 @@ tooltip[1][5] = \
 
 class SM2Controller(UiControllerReview):
 
-    def initialise(self):
+    def activate(self):
         self.reset()
         
     def reset(self):

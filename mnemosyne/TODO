@@ -9,14 +9,12 @@
 -time full program
 
 
--move component_manager unregister to __init__?
--on unregister naar finalise?
--initialise: activate?
--add documentation on how to access context in filter
--remove try, fail in on_unregister (for ui components)
+-store classes in plugin instead of instances?
+-check deactivating order (twice in plugins)
 -update list of component types.
 -convert card types to read only class variables
 -store component_manager as session context in each component
+-add documentation on how to access context in filter
 -card.widget?
 
 

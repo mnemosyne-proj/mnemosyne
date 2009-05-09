@@ -11,7 +11,6 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.component_manager import _
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-from mnemosyne.libmnemosyne.component_manager import component_manager
 
 cloze_re = re.compile(r"\[(.+?)\]", re.DOTALL)
 
@@ -21,7 +20,7 @@ manual += " " + _("will give a card with question") + "\n"
 manual += _("\"The capital of France is [...]\"")
 
 
-class Cloze(CardType, Plugin):
+class Cloze(CardType):
     
     """CardType to do cloze deletion on a string, e.g. "The political parties in
     the US are the [democrats] and the [republicans]." would give the following

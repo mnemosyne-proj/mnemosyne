@@ -12,7 +12,7 @@ class Logger(Component):
 
     component_type = "log"
 
-    def initialise(self):
+    def activate(self):
         self.upload_thread = None
         self.archive_old_log()
         self.start_logging()
@@ -84,7 +84,7 @@ class Logger(Component):
             os.remove(log_name)
             config()["log_index"] = index + 1
 
-    def on_unregister(self):
+    def deactivate(self):
         if self.upload_thread:
             from mnemosyne.libmnemosyne.component_manager import _
             print _("Waiting for uploader thread to stop...")

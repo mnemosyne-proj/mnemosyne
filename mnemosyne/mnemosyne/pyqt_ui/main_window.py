@@ -43,7 +43,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         QtGui.QMainWindow.__init__(self, parent)
         self.setupUi(self)
 
-    def initialise(self):
+    def activate(self):
         self.timer = QtCore.QTimer()
         self.connect(self.timer, QtCore.SIGNAL("timeout()"),
                      ui_controller_review().rollover)

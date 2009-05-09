@@ -70,13 +70,13 @@ class ComponentManager(object):
             self.card_type_by_id[component.id] = component
             
     def unregister(self, component):
+        component.deactivate()
         type = component.component_type
         used_for = component.used_for
-        self.components[used_for][type].remove(component)
         try:
-            component.on_unregister()
-        except:
-            pass        
+            self.components[used_for][type].remove(component)
+        except ValueError:
+            pass # Components registered by plugins can end up twice here.
 
     def get_all(self, type, used_for=None):
         
@@ -126,15 +126,11 @@ class ComponentManager(object):
         else:
             return all[-1]
         
-    def unregister_all(self):
+    def deactivate(self):
         for used_for in self.components:
             for type in self.components[used_for]:
                 for component in self.components[used_for][type]:
-                    # TODO: tmp
-                    try:
-                        component.on_unregister()
-                    except:
-                        pass
+                    component.deactivate()
         self.components = {}
         self.card_type_by_id = {}
         

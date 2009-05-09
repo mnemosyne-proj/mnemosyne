@@ -7,7 +7,6 @@ from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 from mnemosyne.libmnemosyne.component_manager import _
-from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 class BothWays(CardType):

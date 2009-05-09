@@ -16,13 +16,13 @@ from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+from mnemosyne.libmnemosyne.component_manager import _
 from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import log, plugins
 from mnemosyne.libmnemosyne.component_manager import card_types, database
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
-_ = component_manager.translator
 
 
 class Pickle(Database):

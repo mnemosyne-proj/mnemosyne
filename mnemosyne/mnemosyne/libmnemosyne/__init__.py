@@ -112,7 +112,7 @@ class Mnemosyne(object):
         for module in ["config", "log", "database", "scheduler",
                        "ui_controller_main", "ui_controller_review",
                        "main_widget", "review_widget"]:
-            component_manager.get_current(module).initialise()
+            component_manager.get_current(module).activate()
 
     def execute_user_plugin_dir(self):
         basedir = config().basedir
@@ -195,6 +195,6 @@ class Mnemosyne(object):
 
     def finalise(self):
         self.remove_lockfile()
-        component_manager.unregister_all()
+        component_manager.deactivate()
         
 
