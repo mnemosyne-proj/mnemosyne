@@ -66,38 +66,27 @@ class Mnemosyne(object):
     
     def __init__(self, resource_limited=False):
         self.resource_limited = resource_limited
-        self.initialise_error_handling()
-
-    def initialise(self, basedir, filename=None, main_widget=None):
-
-        """Note: the main widget is treated differently than e.g. the review
-        widget. It should already exist when the program starts, otherwise we
-        can't give feedback to the user if errors occur. Trying to work around
-        this by start the main widget here leads to chicken and egg issues.
-
-        """
-
-        self.register_components()
-
-        config().basedir = basedir
-        config().resource_limited = self.resource_limited
-        
-        self.activate_components()
-
-        self.check_lockfile()
-        self.initialise_user_components()
-        self.activate_saved_plugins()
-        self.load_database(filename)
-        from mnemosyne.libmnemosyne.component_manager import ui_controller_review
-        ui_controller_review().new_question()
-
-    def initialise_error_handling(self):
-
-        """Write errors to a file (otherwise this causes problems on Windows)."""
-
         if sys.platform == "win32":
             error_log = os.path.join(config().basedir, "error_log.txt")
             sys.stderr = file(error_log, "a")
+
+    def initialise(self, basedir, filename=None):
+        self.register_components()
+        config().basedir = basedir
+        config().resource_limited = self.resource_limited 
+        self.activate_components()
+        self.execute_user_plugin_dir()
+        self.activate_saved_plugins()
+        
+        # Loading the database should come after all user plugins have been
+        # loaded, since these could be needed e.g. for a card type in the
+        # database.
+        self.check_lockfile()
+        self.load_database(filename)
+
+        # Finally, everything is in place to start the review process.
+        from mnemosyne.libmnemosyne.component_manager import ui_controller_review
+        ui_controller_review().new_question()
 
     def register_components(self):
 
@@ -116,7 +105,7 @@ class Mnemosyne(object):
     def activate_components(self):
         
         """Now that everynthing is registered, we can activate the components
-        in the correct order.
+        in the correct order: first config, followed by log.
         
         """
 
@@ -124,6 +113,35 @@ class Mnemosyne(object):
                        "ui_controller_main", "ui_controller_review",
                        "main_widget", "review_widget"]:
             component_manager.get_current(module).initialise()
+
+    def execute_user_plugin_dir(self):
+        basedir = config().basedir
+        plugindir = unicode(os.path.join(basedir, "plugins"))
+        sys.path.insert(0, plugindir)
+        for component in os.listdir(plugindir):
+            if component.endswith(".py"):
+                try:
+                    __import__(component[:-3])
+                except:
+                    from mnemosyne.libmnemosyne.component_manager import \
+                         ui_controller_main, _
+                    msg = _("Error when running plugin:") \
+                          + "\n" + traceback_string()
+                    ui_controller_main().widget.error_box(msg)
+
+    def activate_saved_plugins(self):
+        for plugin in config()["active_plugins"]:
+            try:
+                for p in plugins():
+                    if plugin == p.__class__:
+                        p.activate()
+                        break
+            except:
+                from mnemosyne.libmnemosyne.component_manager import \
+                     main_widget, _
+                msg = _("Error when running plugin:") \
+                      + "\n" + traceback_string()
+                main_widget().error_box(msg)
                 
     def check_lockfile(self):
         if os.path.exists(os.path.join(config().basedir, "MNEMOSYNE_LOCK")):
@@ -163,38 +181,6 @@ class Mnemosyne(object):
                                     + database().suffix)
             database().new(filename)
         ui_controller_main().update_title()
-
-    def initialise_user_components(self):
-        basedir = config().basedir
-        # The contents of the 'plugin' dir could contain both plugins and
-        # as well as other components, but we needn't expose this subtlety to
-        # the user.
-        componentdir = unicode(os.path.join(basedir, "plugins"))
-        sys.path.insert(0, componentdir)
-        for component in os.listdir(componentdir):
-            if component.endswith(".py"):
-                try:
-                    __import__(component[:-3])
-                except:
-                    from mnemosyne.libmnemosyne.component_manager import \
-                         ui_controller_main, _
-                    msg = _("Error when running plugin:") \
-                          + "\n" + traceback_string()
-                    ui_controller_main().widget.error_box(msg)
-
-    def activate_saved_plugins(self):
-        for plugin in config()["active_plugins"]:
-            try:
-                for p in plugins():
-                    if plugin == p.__class__:
-                        p.activate()
-                        break
-            except:
-                from mnemosyne.libmnemosyne.component_manager import \
-                     main_widget, _
-                msg = _("Error when running plugin:") \
-                      + "\n" + traceback_string()
-                main_widget().error_box(msg)
 
     def remove_lockfile(self):
         try:

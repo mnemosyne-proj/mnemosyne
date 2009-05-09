@@ -9,15 +9,14 @@
 -time full program
 
 
--move all components to new init scheme (scheduler doing get new question?)
 -move component_manager unregister to __init__?
 -on unregister naar finalise?
 -initialise: activate?
 -add documentation on how to access context in filter
--remove set_basedir, set_resource_limited, main controller set: arguments to activate
 -remove try, fail in on_unregister (for ui components)
 -update list of component types.
 -convert card types to read only class variables
+-store component_manager as session context in each component
 -card.widget?
 
 
