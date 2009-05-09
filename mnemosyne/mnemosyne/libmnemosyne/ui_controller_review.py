@@ -14,12 +14,6 @@ class UiControllerReview(Component):
     """
 
     component_type = "ui_controller_review"
-    used_for = None
-
-    def __init__(self):
-        self.widget = None
-        self.card = None
-        self.learning_ahead = False
 
     def reset(self):
         raise NotImplementedError

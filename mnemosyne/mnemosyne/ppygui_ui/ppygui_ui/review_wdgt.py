@@ -16,11 +16,13 @@ from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 class ReviewWdgt(gui.Frame, ReviewWidget):
     
-    def __init__(self, parent):
+    def __init__(self):
+        parent = main_widget()
         gui.Frame.__init__(self, parent)
+        parent.set_central_widget(self)
        
         # Total number of cards for statusbar, to be cached.
-        self.all_cards = None
+        self.active_cards = None
 
         # Note: ppygui makes heavy use of properties, so we can't use e.g.
         # self.question, as the presence of self.get_question would then
@@ -50,13 +52,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
                 self.grade_4_button = button                
         self.grade_buttons_enabled = False
 
-        self.status_sizer = gui.HBox(spacing=10)
-        self.scheduled_label = gui.Label(self)
-        self.not_memorised_label = gui.Label(self)
-        self.all_label = gui.Label(self)
-        self.status_sizer.add(self.scheduled_label)
-        self.status_sizer.add(self.not_memorised_label)
-        self.status_sizer.add(self.all_label)
+        self.status_bar = gui.Label(self)
 
         sizer = gui.VBox(border=(2, 2, 2, 2))
         sizer.add(self._question_label)
@@ -65,7 +61,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         sizer.add(self._answer)
         sizer.add(self.show_button)
         sizer.add(self.grade_sizer)
-        sizer.add(self.status_sizer)        
+        sizer.add(self.status_bar)        
         self.sizer = sizer
         
     def question_box_visible(self, visible):
@@ -102,14 +98,8 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     def update_show_button(self, text, default, enabled):
         if default:
             self.show_button.focus()
-            self.show_button.border = True
-        else:
-            self.show_button.border = False        
         self.show_button.text = text
         self.show_button_enabled = enabled
-        # TODO: test if this works.
-        self.show_button.enabled = enabled
-        self.layout()
 
     def enable_grades(self, enabled):
         self.grade_buttons_enabled = enabled
@@ -117,11 +107,8 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     def grade_4_default(self, use_4):
         if use_4:
             self.grade_4_button.focus()
-            self.grade_4_button.border = True
         else:
             self.grade_0_button.focus()
-            self.grade_0_button.border = True
-        self.layout()
         
     def show_answer(self, event):
         if not self.show_button_enabled:
@@ -136,17 +123,12 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
 
     def update_status_bar(self):
         db = database()
-        self.scheduled_label.text = \
-            "Sch.: " + str(db.scheduled_count())
-        self.not_memorised_label.text = \
-            "Not mem.: " + str(db.non_memorised_count())
-        if not self.all_cards:
-            self.all_cards = db.active_count()
-        self.all_label.text = \
-            "Act.: " + str(self.all_cards)
-        self.layout()
+        if not self.active_cards:
+            self.active_cards = db.active_count()
+        self.status_bar.text = "Sch.:%d  Not mem.:%d  Act.: %d" % \
+            (db.scheduled_count(), db.non_memorised_count(), self.active_cards)
       
 
 # Register widget.
 
-component_manager.register(ReviewWdgt)
+component_manager.register(ReviewWdgt())

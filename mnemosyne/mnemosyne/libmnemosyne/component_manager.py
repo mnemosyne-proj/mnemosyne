@@ -133,7 +133,7 @@ class ComponentManager(object):
             return None
         else:
             return all[-1]
-
+        
     def unregister_all(self):
         for used_for in self.components:
             for type in self.components[used_for]:
@@ -165,6 +165,12 @@ def database():
 
 def scheduler():
     return component_manager.get_current("scheduler")
+
+def main_widget():
+    return component_manager.get_current("main_widget")
+
+def review_widget():
+    return component_manager.get_current("review_widget")
 
 def ui_controller_main():
     return component_manager.get_current("ui_controller_main")

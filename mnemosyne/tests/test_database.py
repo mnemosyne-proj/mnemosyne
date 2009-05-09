@@ -13,6 +13,8 @@ from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import database, plugins
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
 class TestDatabase(MnemosyneTest):
@@ -136,6 +138,8 @@ class TestDatabase(MnemosyneTest):
         database().unload()
         Mnemosyne().finalise()
         
+        component_manager.register(MainWidget())
+        component_manager.register(ReviewWidget())        
         Mnemosyne().initialise(os.path.abspath("dot_test"))
         assert database().fact_count() == 1
         _card_id, _fact_id = list(database().cards_unseen(0))[0]
@@ -170,6 +174,8 @@ class TestDatabase(MnemosyneTest):
         database().unload()
         Mnemosyne().finalise()
         
+        component_manager.register(MainWidget())
+        component_manager.register(ReviewWidget())        
         Mnemosyne().initialise(os.path.abspath("dot_test"))
 
         assert database().fact_count() == 1
@@ -235,6 +241,8 @@ class TestDatabase(MnemosyneTest):
         database().unload()
         Mnemosyne().finalise()
         
+        component_manager.register(MainWidget())
+        component_manager.register(ReviewWidget())        
         Mnemosyne().initialise(os.path.abspath("dot_test"))
         database().unload()
 
@@ -274,7 +282,9 @@ class TestDatabase(MnemosyneTest):
         ui_controller_main().file_save()       
         database().unload()
         Mnemosyne().finalise()
-        
+
+        component_manager.register(MainWidget())
+        component_manager.register(ReviewWidget())
         Mnemosyne().initialise(os.path.abspath("dot_test"))
         database().unload()
         

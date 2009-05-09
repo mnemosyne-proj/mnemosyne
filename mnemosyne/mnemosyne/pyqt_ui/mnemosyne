@@ -9,20 +9,12 @@ _ = gettext.gettext
 
 import os
 import sys
-from optparse import OptionParser
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
-import mnemosyne.pyqt_ui.sound
-from mnemosyne.pyqt_ui.main_window import MainWindow
-
-from mnemosyne.libmnemosyne import Mnemosyne
-
-#from mnemosyne.pyqt_ui.plugin import * # To be picked up by py2exe.
+from PyQt4.QtGui import QApplication
 
 # Parse options.
 
+from optparse import OptionParser
 parser = OptionParser()
 parser.usage = "%prog [<database_file>]"
 parser.add_option("-d", "--datadir", dest="datadir",
@@ -47,10 +39,14 @@ if len(args) > 0:
     filename = os.path.abspath(args[0])
 else:
     filename = None
-    
-# Create main application.
-a = QApplication(sys.argv)
 
+# Load the Mnemosyne library (Make sure you haven't imported parts of the
+# Mnemosyne library previously, e.g. by importing a GUI class).
+from mnemosyne.libmnemosyne import Mnemosyne
+mnemosyne = Mnemosyne()
+
+# Initialise GUI toolkit.
+a = QApplication(sys.argv)
 # TODO: install translator for Qt messages.
 # Under Windows, move out of library.zip to get the true prefix.
 # from mnemosyne.pyqt_ui.main_window import prefix
@@ -62,20 +58,21 @@ a = QApplication(sys.argv)
 #translator.load("qt_" + loc + ".qm", os.path.join(prefix, 'locale'))
 #a.installTranslator(translator)
 
-# Start program.
+# Import all UI components, registering them with the component manager.
+from mnemosyne.pyqt_ui.main_window import MainWindow
+from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
+from mnemosyne.pyqt_ui.sound import SoundPlayer
 
-w = MainWindow(filename)
-mnemosyne = Mnemosyne()
-mnemosyne.initialise(basedir=basedir, filename=filename, main_widget=w)
-w.show()
-w.raise_() # Needed for OSX.
-
+# Run Mnemosyne.
+mnemosyne.initialise(basedir=basedir, filename=filename)
+from mnemosyne.libmnemosyne.component_manager import main_widget
+main_widget().show()
+main_widget().raise_() # Needed for OSX.
 # TODO: check first run wizard.
 #if config()["first_run"] == True:
 #    w.productTour()
 #    config()["first_run"] = False
 #elif config()["show_daily_tips"] == True:
 #    w.Tip()
-
 a.exec_()
 mnemosyne.finalise()

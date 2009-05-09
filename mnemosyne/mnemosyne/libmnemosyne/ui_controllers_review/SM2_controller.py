@@ -4,6 +4,7 @@
 
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import scheduler
+from mnemosyne.libmnemosyne.component_manager import review_widget
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
@@ -40,8 +41,7 @@ tooltip[1][5] = \
 
 class SM2Controller(UiControllerReview):
 
-    def __init__(self):
-        UiControllerReview.__init__(self)
+    def initialise(self):
         self.reset()
         
     def reset(self):
@@ -54,7 +54,8 @@ class SM2Controller(UiControllerReview):
 
         """To be called when a new day starts."""
 
-        ui_controller_main().widget.update_status_bar()
+        from mnemosyne.libmnemosyne.component_manager import main_widget
+        main_widget().update_status_bar()
         if not self.card or self.learning_ahead:
             self.reset()
             self.new_question()
@@ -88,16 +89,16 @@ class SM2Controller(UiControllerReview):
             interval = scheduler().grade_answer(previous_card, grade)
             database().update_card(previous_card, update_categories=False)
             database().save()
-            if self.widget:
-                self.widget.update_status_bar()
+            if review_widget():
+                review_widget().update_status_bar()
         else:
             interval = scheduler().grade_answer(self.card, grade)
             database().update_card(self.card, update_categories=False)
             database().save()
             self.new_question()
         if config()["show_intervals"] == "statusbar":
-            if self.widget:
-                self.widget.update_status_bar(_("Returns in") + " " + \
+            if review_widget():
+                review_widget().update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
         
     def next_rep_string(self, days):
@@ -109,7 +110,7 @@ class SM2Controller(UiControllerReview):
             return '\n' + _("Next repetition in ") + str(days) + _(" days.")
                    
     def update_dialog(self, redraw_all=False):
-        w = self.widget
+        w = review_widget()
         if not w:
             return
         # Update menu bar.

@@ -17,15 +17,16 @@ class Mnemosyne(object):
 
     """
 
-    components = [ #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
+    components = [
+       #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
         ("mnemosyne.libmnemosyne.databases.SQLite",
-         "SQLite"),               
+         "SQLite"),
         ("mnemosyne.libmnemosyne.configuration",
-         "Configuration"),          
+         "Configuration"),
         ("mnemosyne.libmnemosyne.loggers.txt_logger",
-         "TxtLogger"),          
+         "TxtLogger"), 
         ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
-         "SM2Mnemosyne"),                   
+         "SM2Mnemosyne"),
         ("mnemosyne.libmnemosyne.card_types.front_to_back",
          "FrontToBack"),
         ("mnemosyne.libmnemosyne.card_types.both_ways",
@@ -65,61 +66,32 @@ class Mnemosyne(object):
     
     def __init__(self, resource_limited=False):
         self.resource_limited = resource_limited
-
-    # Note: the main widget should already exist, otherwise we can't give
-    # feedback to the user if errors occur.
+        self.initialise_error_handling()
+        self.initialise_translator() 
 
     def initialise(self, basedir, filename=None, main_widget=None):
-        self.initialise_translator()
-        #self.initialise_components(self.components)
-        for module_name, class_name in self.components:
-            exec("from %s import %s" % (module_name, class_name))
-            exec("component_manager.register(%s())" % class_name)
+
+        """Note: the main widget is treated differently than e.g. the review
+        widget. It should already exist when the program starts, otherwise we
+        can't give feedback to the user if errors occur. Trying to work around
+        this by start the main widget here leads to chicken and egg issues.
+
+        """
+
+        self.register_components()
+
         config().set_basedir(basedir)
         config().set_resource_limited(self.resource_limited)
-        for module_name, class_name in self.components:
-            exec("%s().initialise()" % class_name)
-            
-        self.initialise_main_widget(main_widget)  
-        self.check_lockfile(basedir)
-        self.initialise_error_handling()
-        self.initialise_lockfile()  
-        self.load_database(filename)
+        
+        self.activate_components()
+
+        self.check_lockfile()
         self.initialise_user_components()
         self.activate_saved_plugins()
+        self.load_database(filename)
         from mnemosyne.libmnemosyne.component_manager import ui_controller_review
         ui_controller_review().new_question()
 
-    def initialise_translator(self):
-        if not self.resource_limited:
-            import gettext
-            component_manager.translator = gettext.gettext
-        else:
-            component_manager.translator = lambda x : x
-
-    def initialise_main_widget(self, main_widget):
-        if not main_widget:
-            from mnemosyne.libmnemosyne.ui_components.main_widget import \
-                 MainWidget       
-            main_widget = MainWidget()
-        from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-        ui_controller_main().widget = main_widget
-        main_widget.init_review_widget()
-        main_widget.after_mnemosyne_init()
-
-    def check_lockfile(self, basedir):
-        if os.path.exists(os.path.join(basedir, "MNEMOSYNE_LOCK")):
-            from mnemosyne.libmnemosyne.component_manager import \
-                 ui_controller_main
-            _ = component_manager.translator
-            status = ui_controller_main().widget.question_box(
-                _("Either Mnemosyne didn't shut down properly,") + "\n" +
-                _("or another copy of Mnemosyne is still running.") + "\n" +
-                _("Continuing in the latter case could lead to data loss!"),      
-                _("&Exit"), _("&Continue"), "")
-            if status == 0:
-                sys.exit()
-                
     def initialise_error_handling(self):
 
         """Write errors to a file (otherwise this causes problems on Windows)."""
@@ -128,20 +100,57 @@ class Mnemosyne(object):
             error_log = os.path.join(config().basedir, "error_log.txt")
             sys.stderr = file(error_log, "a")
             
-    def initialise_lockfile(self):
-        lockfile = file(os.path.join(config().basedir, "MNEMOSYNE_LOCK"), 'w')
-        lockfile.close()
+    def initialise_translator(self):
+        if not self.resource_limited:
+            import gettext
+            component_manager.translator = gettext.gettext
+        else:
+            component_manager.translator = lambda x : x
 
-    def remove_lockfile(self):
-        _ = component_manager.translator
-        try:
-            os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
-        except OSError:
-            print _("Failed to remove lock file.") + "\n" + traceback_string()
+    def register_components(self):
+
+        """We register all components, but don't activate them yet, because in
+        order to activate certain components, certain other components already
+        need to be registered. Also, the activation needs to happen in a
+        predefined order, and we don't want to burden UI writers with listing
+        the components in the correct order.
+
+        """
+        
+        for module_name, class_name in Mnemosyne.components:
+            exec("from %s import %s" % (module_name, class_name))
+            exec("component_manager.register(%s())" % class_name)
+            
+    def activate_components(self):
+        
+        """Now that everynthing is registered, we can activate the components
+        in the correct order.
+        
+        """
+
+        for module in ["config", "log", "database", "scheduler",
+                       "ui_controller_main", "ui_controller_review"]:
+            component_manager.get_current(module).initialise()
+                
+    def check_lockfile(self):
+        if os.path.exists(os.path.join(config().basedir, "MNEMOSYNE_LOCK")):
+            from mnemosyne.libmnemosyne.component_manager import \
+                 main_widget
+            _ = component_manager.translator
+            status = main_widget().question_box(
+                _("Either Mnemosyne didn't shut down properly,") + "\n" +
+                _("or another copy of Mnemosyne is still running.") + "\n" +
+                _("Continuing in the latter case could lead to data loss!"),      
+                _("&Exit"), _("&Continue"), "")
+            if status == 0:
+                sys.exit()
+        lockfile = file(os.path.join(config().basedir, "MNEMOSYNE_LOCK"), 'w')
+        lockfile.close()          
 
     def load_database(self, filename):
         from mnemosyne.libmnemosyne.component_manager import database
         from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+        
         if not filename:
             filename = config()["path"]
         filename = expand_path(filename, config().basedir)
@@ -155,11 +164,10 @@ class Mnemosyne(object):
             # loaded would require a lot of extra code, and this is only a
             # corner case anyhow. So, as workaround, we create a temporary
             # database.
-            
+            from mnemosyne.libmnemosyne.component_manager import main_widget
             _ = component_manager.translator
-            ui_controller_main().widget.error_box(str(e))
-            ui_controller_main().widget.error_box\
-                                          (_("Creating temporary deck."))
+            main_widget().error_box(str(e))
+            main_widget().error_box(_("Creating temporary deck."))
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + database().suffix)
             database().new(filename)
@@ -194,10 +202,21 @@ class Mnemosyne(object):
             except:
                 _ = component_manager.translator
                 from mnemosyne.libmnemosyne.component_manager import \
-                     ui_controller_main
+                     main_widget
                 msg = _("Error when running plugin:") \
                       + "\n" + traceback_string()
-                ui_controller_main().widget.error_box(msg)
+                main_widget().error_box(msg)
+
+    def remove_lockfile(self):
+        try:
+            os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
+        except OSError:
+            _ = component_manager.translator
+            from mnemosyne.libmnemosyne.component_manager import \
+                 main_widget
+            msg = _("Failed to remove lock file.") \
+                  + "\n" + traceback_string()
+            main_widget().error_box(msg)
 
     def finalise(self):
         self.remove_lockfile()

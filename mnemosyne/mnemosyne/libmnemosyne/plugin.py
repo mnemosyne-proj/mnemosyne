@@ -39,7 +39,9 @@ class Plugin(Component):
             component_manager.register(component)
             # TODO: move to base class?
             if component.component_type == "scheduler":
-                component.reset()
+                from mnemosyne.libmnemosyne.component_manager \
+                     import ui_controller_review
+                ui_controller_review().reset()
         config()["active_plugins"].add(self.__class__)
 
     def deactivate(self):

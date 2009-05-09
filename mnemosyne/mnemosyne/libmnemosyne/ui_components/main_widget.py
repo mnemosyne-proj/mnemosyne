@@ -11,24 +11,8 @@ class MainWidget(UiComponent):
     in order to be used by the main controller.
 
     """
-    
-    def after_mnemosyne_init(self):
 
-        """If the widget needs to do some initialisation which requires
-        libmnemosyne to be already initialised, this can go here.
-
-        """
-        
-        pass
-    
-    def init_review_widget(self):
-
-        """At the very least, this function has to inform the controller
-        about its review widget.
-
-        """
-        
-        pass
+    component_type = "main_widget"
     
     def information_box(self, message):
         pass

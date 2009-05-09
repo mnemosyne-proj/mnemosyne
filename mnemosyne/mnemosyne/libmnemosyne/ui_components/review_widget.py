@@ -30,25 +30,25 @@ class ReviewWidget(UiComponent):
         pass
         
     def set_question_label(self, text):
-        raise NotImplementedError
+        pass
         
     def set_question(self, text):
-        raise NotImplementedError
+        pass
         
     def set_answer(self, text):
-        raise NotImplementedError
+        pass
         
     def clear_question(self): 
-        raise NotImplementedError
+        pass
         
     def clear_answer(self): 
-        raise NotImplementedError
+        pass
         
     def update_show_button(self, text, default, enabled): 
-        raise NotImplementedError
+        pass
 
-    def set_enable_grades(self, enabled): 
-        raise NotImplementedError
+    def enable_grades(self, enabled): 
+        pass
     
     def grade_4_default(self, use_4):
         pass

@@ -5,13 +5,10 @@
 import sys
 import os
 
-
 import gettext
 _ = gettext.gettext
 
 from PyQt4 import QtCore, QtGui
-
-import review_wdgt
 
 from ui_main_window import Ui_MainWindow
 from add_cards_dlg import AddCardsDlg
@@ -43,24 +40,15 @@ prefix = os.path.dirname(__file__)
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
 
-    def __init__(self, filename, parent=None):
+    def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
         self.setupUi(self)
 
-    def after_mnemosyne_init(self):
+    def initialise(self):
         self.timer = QtCore.QTimer()
         self.connect(self.timer, QtCore.SIGNAL("timeout()"),
                      ui_controller_review().rollover)
         self.timer.start(1000 * 60 * 5)
-        
-    def init_review_widget(self):
-        w = self.centralWidget()
-        if w:
-            w.close()
-            del w
-        ui_controller_review().widget = \
-            component_manager.get_current("review_widget")(parent=self)
-        self.setCentralWidget(ui_controller_review().widget)
 
     def information_box(self, message):
         QtGui.QMessageBox.information(None, _("Mnemosyne"), message, _("&OK"))
@@ -234,3 +222,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         dlg.exec_()
         stopwatch.unpause()
 
+
+# Register widget.
+
+component_manager.register(MainWindow())

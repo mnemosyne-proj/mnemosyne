@@ -32,5 +32,8 @@ class Component(object):
 
         pass
 
+    def finalise(self):        
+        pass
+
     def on_unregister(self):        
         pass

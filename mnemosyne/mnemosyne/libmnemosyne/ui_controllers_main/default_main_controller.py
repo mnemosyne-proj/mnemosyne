@@ -10,42 +10,41 @@ from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import scheduler
+from mnemosyne.libmnemosyne.component_manager import main_widget
+from mnemosyne.libmnemosyne.component_manager import review_widget
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
-_ = component_manager.translator
+_ = component_manager.translator 
 
 
 class DefaultMainController(UiControllerMain):
-
-    def __init__(self):
-        UiControllerMain.__init__(self)
-
+        
     def update_title(self):
         database_name = os.path.basename(config()["path"]).\
             split(database().suffix)[0]
         title = _("Mnemosyne")
         if database_name != _("default"):
             title += " - " + database_name
-        self.widget.set_window_title(title)
+        main_widget().set_window_title(title)
 
     def add_cards(self):
         stopwatch.pause()
-        self.widget.run_add_cards_dialog()
+        main_widget().run_add_cards_dialog()
         review_controller = ui_controller_review()
         if review_controller.card == None:
             review_controller.new_question()
         else:
-            review_controller.widget.update_status_bar()
+            review_widget().update_status_bar()
         stopwatch.unpause()
 
     def edit_current_card(self):
         stopwatch.pause()
         review_controller = ui_controller_review()
-        self.widget.run_edit_fact_dialog(review_controller.card.fact)
+        main_widget().run_edit_fact_dialog(review_controller.card.fact)
         if review_controller.card == None:
-            self.widget.update_status_bar()
+            main_widget().update_status_bar()
             review_controller.new_question()         
         review_controller.update_dialog(redraw_all=True)
         stopwatch.unpause()
@@ -63,7 +62,7 @@ class DefaultMainController(UiControllerMain):
         db = database()
         if db.has_fact_with_data(fact_data, card_type):
             if warn:
-                self.widget.information_box(\
+                main_widget().information_box(\
               _("Card is already in database.\nDuplicate not added."), _("OK"))
             return
         fact = Fact(fact_data, card_type)
@@ -72,7 +71,7 @@ class DefaultMainController(UiControllerMain):
             categories.append(db.get_or_create_category_with_name(cat_name))
         duplicates = db.duplicates_for_fact(fact)
         if warn and len(duplicates) != 0:
-            answer = self.widget.question_box(\
+            answer = main_widget().question_box(\
               _("There is already data present for:\n\N") +
               "".join(fact[k] for k in card_type.required_fields()),
               _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
@@ -89,7 +88,7 @@ class DefaultMainController(UiControllerMain):
                             merged_fact_data[key] += " / " + duplicate[key]
                     db.delete_fact_and_related_data(duplicate)
                 fact.data = merged_fact_data              
-                self.widget.run_edit_fact_dialog(fact, allow_cancel=False)
+                main_widget().run_edit_fact_dialog(fact, allow_cancel=False)
                 return
             if answer == 2: # Don't add.
                 return
@@ -127,7 +126,7 @@ class DefaultMainController(UiControllerMain):
                 updated_cards = db.cards_from_fact(fact)      
             elif not converter:
                 if warn:
-                    answer = self.widget.question_box(\
+                    answer = main_widget().question_box(\
           _("Can't preserve history when converting between these card types.")\
                   + " " + _("The learning history of the cards will be reset."),
                   _("&OK"), _("&Cancel"), "")
@@ -154,7 +153,7 @@ class DefaultMainController(UiControllerMain):
                                      new_card_type, correspondence)
                 if len(deleted_cards) != 0:
                     if warn:
-                        answer = self.widget.question_box(\
+                        answer = main_widget().question_box(\
           _("This will delete cards and their history.") + " " +\
           _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?"),
@@ -225,7 +224,7 @@ class DefaultMainController(UiControllerMain):
                        + " " + _("related cards?") + " " +\
                        _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?")
-        answer = self.widget.question_box(question, _("&Delete"),
+        answer = main_widget().question_box(question, _("&Delete"),
                                           _("&Cancel"), "")
         if answer == 1: # Cancel.
             return
@@ -233,7 +232,7 @@ class DefaultMainController(UiControllerMain):
         db.save()
         review_controller.rebuild_queue()
         review_controller.new_question()
-        self.widget.update_status_bar()
+        main_widget().update_status_bar()
         review_controller.update_dialog(redraw_all=True)
         stopwatch.unpause()
 
@@ -241,7 +240,7 @@ class DefaultMainController(UiControllerMain):
         stopwatch.pause()
         db = database()
         suffix = db.suffix
-        out = self.widget.save_file_dialog(path=config().basedir,
+        out = main_widget().save_file_dialog(path=config().basedir,
                             filter=_("Mnemosyne databases (*%s)" % suffix),
                             caption=_("New"))
         if not out:
@@ -260,7 +259,7 @@ class DefaultMainController(UiControllerMain):
     def file_open(self):
         stopwatch.pause()
         old_path = expand_path(config()["path"])
-        out = self.widget.open_file_dialog(path=old_path,
+        out = main_widget().open_file_dialog(path=old_path,
             filter=_("Mnemosyne databases (*%s)" % database().suffix))
         if not out:
             stopwatch.unpause()
@@ -268,14 +267,14 @@ class DefaultMainController(UiControllerMain):
         try:
             database().unload()
         except RuntimeError, error:
-            self.widget.error_box(str(error))
+            main_widget().error_box(str(error))
             stopwatch.unpause()
             return            
         ui_controller_review().reset()
         try:
             database().load(out)
         except MnemosyneError, e:
-            self.widget.show_exception(e)
+            main_widget().show_exception(e)
             stopwatch.unpause()
             return
         ui_controller_review().new_question()
@@ -288,14 +287,14 @@ class DefaultMainController(UiControllerMain):
         try:
             database().save(path)
         except RuntimeError, error:
-            self.widget.error_box(str(error))
+            main_widget().error_box(str(error))
         stopwatch.unpause()
 
     def file_save_as(self):
         stopwatch.pause()
         suffix = database().suffix
         old_path = expand_path(config()["path"])
-        out = self.widget.save_file_dialog(path=old_path,
+        out = main_widget().save_file_dialog(path=old_path,
             filter=_("Mnemosyne databases (*%s)" % suffix))
         if not out:
             stopwatch.unpause()
@@ -305,7 +304,7 @@ class DefaultMainController(UiControllerMain):
         try:
             database().save(out)
         except RuntimeError, error:
-            self.widget.error_box(str(error))
+            main_widget().error_box(str(error))
             stopwatch.unpause()
             return
         ui_controller_review().update_dialog()
@@ -313,17 +312,17 @@ class DefaultMainController(UiControllerMain):
 
     def card_appearance(self):
         stopwatch.pause()
-        self.widget.run_card_appearance_dialog()
+        main_widget().run_card_appearance_dialog()
         ui_controller_review().update_dialog(redraw_all=True)
         stopwatch.unpause()
         
     def activate_plugins(self):
         stopwatch.pause()
-        self.widget.run_activate_plugins_dialog()
+        main_widget().run_activate_plugins_dialog()
         ui_controller_review().update_dialog(redraw_all=True)
         stopwatch.unpause()
 
     def manage_card_types(self):
         stopwatch.pause()
-        self.widget.run_manage_card_types_dialog()
+        main_widget().run_manage_card_types_dialog()
         stopwatch.unpause()

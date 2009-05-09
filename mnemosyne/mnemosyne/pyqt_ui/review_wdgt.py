@@ -11,9 +11,9 @@ from ui_review_wdgt import *
 
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import component_manager, config
+from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
+from mnemosyne.libmnemosyne.component_manager import main_widget
 
 _empty = """
 <html><head>
@@ -29,11 +29,11 @@ body  { background-color: white;
 
 class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     
-    def __init__(self, parent=None):
+    def __init__(self):
+        parent = main_widget()
         QtGui.QWidget.__init__(self, parent)
+        parent.setCentralWidget(self)
         self.setupUi(self)
-        self.controller = ui_controller_review()
-        self.controller.widget = self
         self.grade_buttons = QtGui.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
         self.grade_buttons.addButton(self.grade_1_button, 1)
@@ -51,11 +51,14 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.parent().statusbar.addPermanentWidget(self.all)
         self.parent().statusbar.setSizeGripEnabled(0)
 
+    def finalise(self):
+        self.close()
+
     def show_answer(self):
-        self.controller.show_answer()
+        ui_controller_review().show_answer()
 
     def grade_answer(self, grade):
-        self.controller.grade_answer(grade)
+        ui_controller_review().grade_answer(grade)
     
     def enable_edit_current_card(self, enable):
         self.parent().actionEditCurrentCard.setEnabled(enable)
@@ -136,4 +139,4 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
 # Register widget.
 
-component_manager.register(ReviewWdgt)
+component_manager.register(ReviewWdgt())

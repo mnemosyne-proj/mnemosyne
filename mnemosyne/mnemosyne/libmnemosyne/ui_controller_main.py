@@ -14,9 +14,6 @@ class UiControllerMain(Component):
     """
 
     component_type = "ui_controller_main"
-
-    def __init__(self):
-        self.widget = None
         
     def add_cards(self):
         raise NotImplementedError

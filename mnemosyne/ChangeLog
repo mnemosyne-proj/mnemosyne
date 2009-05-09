@@ -42,6 +42,7 @@ easily, which allows plugin writers maximum flexibility.
  ordering (Mike Appleby).
 -Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
 
+-Updated French translation by Christophe Méalarès and Yannick Voglaire.
 
 
 MNEMOSYNE 1.2.1 : 2009-04-11
@@ -51,7 +52,7 @@ MNEMOSYNE 1.2.1 : 2009-04-11
 -Fix hang under Spanish translation.
 -Danish translation by Randi H.
 -Esperanto translation by jchthys.
--updated Japanese translation by Patrick Kenny.
+-Updated Japanese translation by Patrick Kenny.
 
 	
 MNEMOSYNE 1.2 : 2008-11-25

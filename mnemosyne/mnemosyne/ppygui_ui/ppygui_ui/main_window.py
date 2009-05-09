@@ -8,22 +8,18 @@ if os.name == "ce":
 else:
 	import emulator.api as gui
 
-from mnemosyne.ppygui_ui.review_wdgt import ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 
 class MainFrame(gui.CeFrame, MainWidget):
     
     def __init__(self):
         gui.CeFrame.__init__(self, title="Mnemosyne")
-        self.review_widget = ReviewWdgt(parent=self)
+
+    def set_central_widget(self, widget)
         sizer = gui.VBox()
-        sizer.add(self.review_widget)
+        sizer.add(widget)
         self.sizer = sizer
-   
-    def init_review_widget(self):
-        ui_controller_review().widget = self.review_widget
     
     def information_box(self, message):
         gui.Message.ok("Mnemosyne", message, icon="info")            
@@ -41,4 +37,8 @@ class MainFrame(gui.CeFrame, MainWidget):
         """
 
         raise RuntimeError, question
-    
+
+
+# Register widget.
+
+component_manager.register(MainWindow())

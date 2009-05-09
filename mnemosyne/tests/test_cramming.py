@@ -18,10 +18,7 @@ from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 class TestScheduler(MnemosyneTest):
 
     def setup(self):
-
-        os.system("rm -fr dot_test")
-        self.mnemosyne = Mnemosyne()
-        self.mnemosyne.initialise(os.path.abspath("dot_test"))
+        MnemosyneTest.setup(self)
         p = CrammingPlugin()
         p.activate()
 
