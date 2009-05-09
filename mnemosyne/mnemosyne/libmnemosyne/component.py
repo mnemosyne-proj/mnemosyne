@@ -16,12 +16,6 @@ class Component(object):
     component_type = ""
     used_for = None
 
-    def on_register(self):
-        
-        """Code called after registering a component."""
-
-        pass
-
     def initialise(self):
 
         """Initialisation code called at a much later stage, when the component

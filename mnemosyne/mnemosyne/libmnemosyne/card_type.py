@@ -60,7 +60,6 @@ class CardType(Component):
         self.unique_fields = []
         self.widget = None
         self.renderer = None
-        self.fact_views_can_be_deactivated = True
         
     def __eq__(self, other):
         try:

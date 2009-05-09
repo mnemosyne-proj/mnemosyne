@@ -5,8 +5,7 @@
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne import SM2Mnemosyne
-from mnemosyne.libmnemosyne.component_manager import component_manager
-_ = component_manager.translator
+from mnemosyne.libmnemosyne.component_manager import _
 
 
 class Cramming(SM2Mnemosyne):

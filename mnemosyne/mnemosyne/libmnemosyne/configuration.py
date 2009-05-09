@@ -8,9 +8,9 @@ import locale
 import cPickle
 
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.component_manager import _
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
-_ = component_manager.translator
 
 config_py = \
 """# Mnemosyne configuration file.

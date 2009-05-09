@@ -6,16 +6,22 @@
 -test default / enabled / border
 -test feel without save, test if autocommit works, implement save interval
 -review controller (option: review_client_only?)
+-time full program
 
 
--revert to class in config, logge.
+-revert to class in config, logger
 -order
--translator component, make sure everything can be translated
 -move all components to new init scheme (scheduler doing get new question?)
 -move component_manager unregister to __init__?
-
 -on unregister naar finalise?
 -initialise: activate?
+-add documentation on how to access context in filter
+-remove set_basedir, set_resource_limited, main controller set: arguments to activate
+-remove try, fail in on_unregister (for ui components)
+-update list of component types.
+-convert card types to read only class variables
+-card.widget?
+
 
 -fact modification date
 
@@ -23,21 +29,10 @@
 
 
 -have schedulers return id's only, make sure each scheduler has its own globals
--time full program
-
-
-
 
 -get rid of svn
 
-
--add documentation on how to access context in filter
--remove set_basedir, set_resource_limited, main controller set: arguments to activate
--remove try, fail in on_unregister (for ui components)
--on register needed? (currently not used, but perhaps for factviews?)
-
 -counting tests in cramming scheduler
-
 
 -more tests
 

@@ -9,6 +9,7 @@ import datetime
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
+from mnemosyne.libmnemosyne.component_manager import _
 from mnemosyne.libmnemosyne.component_manager import scheduler
 from mnemosyne.libmnemosyne.component_manager import main_widget
 from mnemosyne.libmnemosyne.component_manager import review_widget
@@ -16,7 +17,6 @@ from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
-_ = component_manager.translator 
 
 
 class DefaultMainController(UiControllerMain):

@@ -8,8 +8,7 @@ from mnemosyne.libmnemosyne.component_manager import review_widget
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
-from mnemosyne.libmnemosyne.component_manager import component_manager
-_ = component_manager.translator
+from mnemosyne.libmnemosyne.component_manager import _
 
 
 # Tooltip texts.  The first index deals with whether we have a card with

@@ -16,6 +16,8 @@ class MnemosyneTest:
         os.system("rm -fr dot_test")
         
         self.mnemosyne = Mnemosyne()
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
         self.mnemosyne.components.append(\

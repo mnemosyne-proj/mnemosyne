@@ -67,7 +67,6 @@ class Mnemosyne(object):
     def __init__(self, resource_limited=False):
         self.resource_limited = resource_limited
         self.initialise_error_handling()
-        self.initialise_translator() 
 
     def initialise(self, basedir, filename=None, main_widget=None):
 
@@ -99,13 +98,6 @@ class Mnemosyne(object):
         if sys.platform == "win32":
             error_log = os.path.join(config().basedir, "error_log.txt")
             sys.stderr = file(error_log, "a")
-            
-    def initialise_translator(self):
-        if not self.resource_limited:
-            import gettext
-            component_manager.translator = gettext.gettext
-        else:
-            component_manager.translator = lambda x : x
 
     def register_components(self):
 
@@ -129,7 +121,8 @@ class Mnemosyne(object):
         """
 
         for module in ["config", "log", "database", "scheduler",
-                       "ui_controller_main", "ui_controller_review"]:
+                       "ui_controller_main", "ui_controller_review",
+                       "main_widget", "review_widget"]:
             component_manager.get_current(module).initialise()
                 
     def check_lockfile(self):

@@ -4,8 +4,7 @@
 
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.component_manager import component_manager
-_ = component_manager.translator
+from mnemosyne.libmnemosyne.component_manager import _
 
 
 class FrontToBack(CardType):

@@ -45,8 +45,6 @@ class ComponentManager(object):
     e.g. card type widgets only when they are really needed.
 
     """
-
-    translator = None
         
     def __init__(self):
         self.components = {} # { used_for : {type : [component]} }
@@ -70,12 +68,6 @@ class ComponentManager(object):
                     self.components[used_for][type].insert(0, component)                    
         if type == "card_type":
             self.card_type_by_id[component.id] = component
-        # TODO: rewrite this once we move to class registering instead of
-        # instance registering.
-        try:
-            component.on_register()
-        except:
-            pass
             
     def unregister(self, component):
         type = component.component_type
@@ -189,3 +181,6 @@ def filters():
 
 def plugins():
     return component_manager.get_all("plugin")
+
+def _(text):
+    return component_manager.get_current("translator").translate(text)

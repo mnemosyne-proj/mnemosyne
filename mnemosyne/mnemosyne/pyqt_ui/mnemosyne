@@ -59,10 +59,17 @@ a = QApplication(sys.argv)
 #translator.load("qt_" + loc + ".qm", os.path.join(prefix, 'locale'))
 #a.installTranslator(translator)
 
-# Add all the UI components in the order they should be instantiated.
-mnemosyne.components.append(("mnemosyne.pyqt_ui.main_window", "MainWindow"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt", "ReviewWdgt"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.sound", "SoundPlayer"))
+# Add other components we need. The translator should obviously come first,
+# and the UI components should come in the order they should be instantiated,
+# but apart from that, the order does not matter.
+mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.main_window",
+                             "MainWindow"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
+                             "ReviewWdgt"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.sound",
+                             "SoundPlayer"))
 
 # Run Mnemosyne.
 mnemosyne.initialise(basedir=basedir, filename=filename)

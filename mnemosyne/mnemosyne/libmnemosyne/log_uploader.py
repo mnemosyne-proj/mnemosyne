@@ -10,9 +10,8 @@ import urllib2
 import random
 from threading import Thread
 
+from mnemosyne.libmnemosyne.component_manager import _
 from mnemosyne.libmnemosyne.component_manager import config, log
-from mnemosyne.libmnemosyne.component_manager import component_manager
-_ = component_manager.translator
 
 
 class LogUploader(Thread):

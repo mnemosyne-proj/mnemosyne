@@ -23,10 +23,12 @@ mnemosyne = Mnemosyne(resource_limited=True)
 # Initialise GUI toolkit.
 app = gui.Application()
 
-# List the components we use. UI components should be added in the order they
-# should be instantiated.
-
+# List the components we use. The translator should obviously come first, and
+# the UI components should come in the order they should be instantiated, but
+# apart from that, the order does not matter.
 Mnemosyne.components = [
+    ("mnemosyne.libmnemosyne.translators",
+     "NoTranslation"),    
     ("mnemosyne.ppygui.main_window",
      "MainFrame"),
     ("mnemosyne.ppygui.review_wdgt",

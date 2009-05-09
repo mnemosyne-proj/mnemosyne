@@ -11,9 +11,8 @@ except ImportError:
     from md5 import md5
     
 from mnemosyne.libmnemosyne.filter import Filter
+from mnemosyne.libmnemosyne.component_manager import _
 from mnemosyne.libmnemosyne.component_manager import config
-from mnemosyne.libmnemosyne.component_manager import component_manager
-_ = component_manager.translator
 
 
 # The regular expressions to find the latex tags are global so they don't

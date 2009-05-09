@@ -3,11 +3,11 @@
 #
 
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.component_manager import _
 from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-_ = component_manager.translator
 
 
 class Plugin(Component):
