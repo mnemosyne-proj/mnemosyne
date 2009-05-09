@@ -29,7 +29,6 @@ from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 #from about_dlg import *
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
@@ -221,8 +220,3 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         dlg = AboutDlg(self)
         dlg.exec_()
         stopwatch.unpause()
-
-
-# Register widget.
-
-component_manager.register(MainWindow())

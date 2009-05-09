@@ -16,8 +16,10 @@ class MnemosyneTest:
         os.system("rm -fr dot_test")
         
         self.mnemosyne = Mnemosyne()
-        component_manager.register(MainWidget())
-        component_manager.register(ReviewWidget())
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
 
     def teardown(self):

@@ -9,7 +9,6 @@ else:
 	import emulator.api as gui
 
 from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
@@ -127,8 +126,3 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
             self.active_cards = db.active_count()
         self.status_bar.text = "Sch.:%d  Not mem.:%d  Act.: %d" % \
             (db.scheduled_count(), db.non_memorised_count(), self.active_cards)
-      
-
-# Register widget.
-
-component_manager.register(ReviewWdgt())

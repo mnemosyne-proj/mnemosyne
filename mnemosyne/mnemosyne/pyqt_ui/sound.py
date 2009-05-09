@@ -5,7 +5,6 @@
 from PyQt4.phonon import Phonon
 
 from mnemosyne.libmnemosyne.filter import Filter
-from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 class SoundManager:
@@ -46,6 +45,4 @@ class SoundPlayer(Filter):
                 i = text.lower().find("sound src", i+1)
         return text
 
-
-component_manager.register(SoundPlayer())
 

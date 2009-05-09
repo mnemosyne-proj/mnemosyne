@@ -11,23 +11,21 @@ from ui_review_wdgt import *
 
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import main_widget
 
-_empty = """
-<html><head>
-<style type="text/css">
-table { height: 100%; }
-body  { background-color: white;
-        margin: 0;
-        padding: 0;
-        border: thin solid #8F8F8F; }
-</style></head>
-<body><table><tr><td></td></tr></table></body></html>
-"""
-
 class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
+
+    _empty = """
+        <html><head>
+        <style type="text/css">
+        table { height: 100%; }
+        body  { background-color: white;
+                margin: 0;
+                padding: 0;
+                border: thin solid #8F8F8F; }
+        </style></head>
+        <body><table><tr><td></td></tr></table></body></html>"""
     
     def __init__(self):
         parent = main_widget()
@@ -95,10 +93,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.answer.setHtml(text)
 
     def clear_question(self):
-        self.question.setHtml(_empty)
+        self.question.setHtml(self._empty)
         
     def clear_answer(self):
-        self.answer.setHtml(_empty)
+        self.answer.setHtml(self._empty)
         
     def update_show_button(self, text, default, show_enabled):
         self.show_button.setEnabled(show_enabled)
@@ -135,8 +133,3 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
              str(db.active_count()) + " ")
         if message:
             self.parent().statusBar().showMessage(message)
-        
-
-# Register widget.
-
-component_manager.register(ReviewWdgt())

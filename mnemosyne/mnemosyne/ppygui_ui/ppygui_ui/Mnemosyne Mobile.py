@@ -10,15 +10,27 @@ if os.name == "ce":
 else:
 	import emulator.api as gui
 
+from mnemosyne.libmnemosyne import Mnemosyne
+
 # TODO: create mechanism which will make it easier to change the basedir,
 # e.g. by a first run wizard, of from an option in the program. Perhaps a
 # text file in the location of libmnemosyne?
    basedir = "\SDMMC\.mnemosyne"
 
-# Load the Mnemosyne library (Make sure you haven't imported parts of the
-# Mnemosyne library previously, e.g. by importing a GUI class).
-from mnemosyne.libmnemosyne import Mnemosyne
+# Load the Mnemosyne library.
+mnemosyne = Mnemosyne(resource_limited=True)
+
+# Initialise GUI toolkit.
+app = gui.Application()
+
+# List the components we use. UI components should be added in the order they
+# should be instantiated.
+
 Mnemosyne.components = [
+    ("mnemosyne.ppygui.main_window",
+     "MainFrame"),
+    ("mnemosyne.ppygui.review_wdgt",
+     "ReviewWdget"),
     ("mnemosyne.libmnemosyne.databases.SQLite",
      "SQLite"), 
     ("mnemosyne.libmnemosyne.configuration",
@@ -51,14 +63,6 @@ Mnemosyne.components = [
      "ClozePlugin"),
     ("mnemosyne.libmnemosyne.schedulers.cramming",
      "CrammingPlugin") ]
-mnemosyne = Mnemosyne(resource_limited=True)
-
-# Initialise GUI toolkit.
-app = gui.Application()
-
-# Import all UI components, registering them with the component manager.
-from mnemosyne.ppygui_ui.main_window import MainFrame
-from mnemosyne.ppygui_ui.review_wdgt import ReviewWdgt
 
 # Run Mnemosyne.
 from mnemosyne.libmnemosyne.component_manager import main_widget

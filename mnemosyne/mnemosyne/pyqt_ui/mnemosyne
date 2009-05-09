@@ -10,11 +10,14 @@ _ = gettext.gettext
 import os
 import sys
 
+from optparse import OptionParser
+
 from PyQt4.QtGui import QApplication
+
+from mnemosyne.libmnemosyne import Mnemosyne
 
 # Parse options.
 
-from optparse import OptionParser
 parser = OptionParser()
 parser.usage = "%prog [<database_file>]"
 parser.add_option("-d", "--datadir", dest="datadir",
@@ -40,9 +43,7 @@ if len(args) > 0:
 else:
     filename = None
 
-# Load the Mnemosyne library (Make sure you haven't imported parts of the
-# Mnemosyne library previously, e.g. by importing a GUI class).
-from mnemosyne.libmnemosyne import Mnemosyne
+# Load the Mnemosyne library.
 mnemosyne = Mnemosyne()
 
 # Initialise GUI toolkit.
@@ -58,10 +59,10 @@ a = QApplication(sys.argv)
 #translator.load("qt_" + loc + ".qm", os.path.join(prefix, 'locale'))
 #a.installTranslator(translator)
 
-# Import all UI components, registering them with the component manager.
-from mnemosyne.pyqt_ui.main_window import MainWindow
-from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
-from mnemosyne.pyqt_ui.sound import SoundPlayer
+# Add all the UI components in the order they should be instantiated.
+mnemosyne.components.append(("mnemosyne.pyqt_ui.main_window", "MainWindow"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt", "ReviewWdgt"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.sound", "SoundPlayer"))
 
 # Run Mnemosyne.
 mnemosyne.initialise(basedir=basedir, filename=filename)

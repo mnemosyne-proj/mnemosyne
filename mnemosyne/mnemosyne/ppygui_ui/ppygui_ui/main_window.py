@@ -38,7 +38,3 @@ class MainFrame(gui.CeFrame, MainWidget):
 
         raise RuntimeError, question
 
-
-# Register widget.
-
-component_manager.register(MainWindow())
