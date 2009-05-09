@@ -47,19 +47,13 @@ latex = "latex -interaction=nonstopmode"
 dvipng = "dvipng -D 200 -T tight tmp.dvi"
 """
 
-class Configuration(Component):
+class Configuration(Component, dict):
 
     component_type = "config"
 
-    _dict = {}
-    basedir = None
-    resource_limited = False
-
-    def __setitem__(self, key, value):
-        Configuration._dict[key] = value
-
-    def __getitem__(self, key):
-        return Configuration._dict[key]
+    def __init__(self):
+        basedir = None
+        resource_limited = False
 
     def initialise(self):
         self.determine_basedir()
@@ -70,15 +64,7 @@ class Configuration(Component):
 
     def on_unregister(self):
         self.save()
-        Configuration._dict = {}
-
-    # TODO: TMP until we fully move to an class registration.
-    
-    def set_basedir(self, basedir):
-        Configuration.basedir = basedir
-        
-    def set_resource_limited(self, resource_limited):
-        Configuration.resource_limited = resource_limited
+        self = {}
         
     def set_defaults(self):
         
@@ -90,14 +76,14 @@ class Configuration(Component):
         for key, value in \
             {"first_run": True, 
              "path": _("default") + database().suffix,
-             "import_dir": Configuration.basedir, 
+             "import_dir": self.basedir, 
              "import_format": "XML",
              "reset_learning_data_import": False,
-             "export_dir": Configuration.basedir,
+             "export_dir": self.basedir,
              "export_format": "XML", 
              "reset_learning_data_export": False,
-             "import_img_dir": Configuration.basedir, 
-             "import_sound_dir": Configuration.basedir,
+             "import_img_dir": self.basedir, 
+             "import_sound_dir": self.basedir,
              "user_id": None,
              "upload_logs": True, 
              "upload_server": "mnemosyne-proj.dyndns.org:80",
@@ -129,7 +115,7 @@ class Configuration(Component):
              "active_plugins": set() # plugin class
             }.items():
 
-            Configuration._dict.setdefault(key, value)
+            self.setdefault(key, value)
 
         if not self["user_id"]:
             import uuid
@@ -137,7 +123,7 @@ class Configuration(Component):
 
     def load(self):
         try:
-            config_file = file(os.path.join(Configuration.basedir,
+            config_file = file(os.path.join(self.basedir,
                                             "config"), 'rb')
             for key, value in cPickle.load(config_file).iteritems():
                 self[key] = value
@@ -149,9 +135,9 @@ class Configuration(Component):
         
     def save(self):
         try:
-            config_file = file(os.path.join(Configuration.basedir,
+            config_file = file(os.path.join(self.basedir,
                                             "config"), 'wb')
-            cPickle.dump(Configuration._dict, config_file)
+            cPickle.dump(self, config_file)
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Unable to save config file:") \
@@ -161,22 +147,22 @@ class Configuration(Component):
         exists = os.path.exists
         join = os.path.join
         
-        Configuration.old_basedir = None
-        if Configuration.basedir == None:
+        self.old_basedir = None
+        if self.basedir == None:
             home = os.path.expanduser("~")
             try:
                 home = home.decode(locale.getdefaultlocale()[1])
             except:
                 pass
             if sys.platform == "darwin":
-                Configuration.old_basedir = join(home, ".mnemosyne")
-                Configuration.basedir = join(home, "Library", "Mnemosyne")
-                if not exists(Configuration.basedir) and \
-                       exists(Configuration.old_basedir):
-                    self.migrate_basedir(Configuration.old_basedir,
-                                         Configuration.basedir)
+                self.old_basedir = join(home, ".mnemosyne")
+                self.basedir = join(home, "Library", "Mnemosyne")
+                if not exists(self.basedir) and \
+                       exists(self.old_basedir):
+                    self.migrate_basedir(self.old_basedir,
+                                         self.basedir)
             else:
-                Configuration.basedir = join(home, ".mnemosyne")
+                self.basedir = join(home, ".mnemosyne")
 
     def fill_basedir(self):
         
@@ -190,32 +176,32 @@ class Configuration(Component):
         join = os.path.join
         
         # Create paths.
-        if not exists(Configuration.basedir):
-            os.mkdir(Configuration.basedir)
+        if not exists(self.basedir):
+            os.mkdir(self.basedir)
         for directory in ["history", "latex", "css", "plugins", "backups"]:
-            if not exists(join(Configuration.basedir, directory)):
-                os.mkdir(join(Configuration.basedir, directory))
+            if not exists(join(self.basedir, directory)):
+                os.mkdir(join(self.basedir, directory))
         # Create default configuration.
-        if not exists(join(Configuration.basedir, "config")):
+        if not exists(join(self.basedir, "config")):
             self.save()
         # Create default config.py.
-        configfile = join(Configuration.basedir, "config.py")
+        configfile = join(self.basedir, "config.py")
         if not exists(configfile):
-            f = file(configfile, 'w')
+            f = file(configfile, "w")
             print >> f, config_py
             f.close()
 
     def load_user_config(self):
-        sys.path.insert(0, Configuration.basedir)
-        config_file_c = os.path.join(Configuration.basedir, "config.pyc")
+        sys.path.insert(0, self.basedir)
+        config_file_c = os.path.join(self.basedir, "config.pyc")
         if os.path.exists(config_file_c):
             os.remove(config_file_c)
-        config_file = os.path.join(Configuration.basedir, "config.py")
+        config_file = os.path.join(self.basedir, "config.py")
         if os.path.exists(config_file):
             try:
                 import config as user_config
                 for var in dir(user_config):
-                    if var in Configuration._dict:
+                    if var in self:
                         self[var] = getattr(user_config, var)
             except:
                 # Work around the unexplained fact that config.py cannot get 
@@ -227,16 +213,16 @@ class Configuration(Component):
                 
     def correct_config(self):
         # Update paths if the location has migrated.
-        if Configuration.old_basedir:
+        if self.old_basedir:
             for key in ["import_dir", "export_dir", "import_img_dir",
                         "import_sound_dir"]:
-                if self[key] == Configuration.old_basedir:
-                    self[key] = Configuration.basedir
+                if self[key] == self.old_basedir:
+                    self[key] = self.basedir
         # Recreate user id and log index from history folder in case the
         # config file was accidentally deleted.
         if self["log_index"] == 1:
             join = os.path.join
-            _dir = os.listdir(unicode(join(Configuration.basedir, "history")))
+            _dir = os.listdir(unicode(join(self.basedir, "history")))
             history_files = [x for x in _dir if x[-4:] == ".bz2"]
             history_files.sort()
             if history_files:
@@ -245,7 +231,7 @@ class Configuration(Component):
                 index = int(index.split('.')[0]) + 1
 
     def migrate_basedir(self, old, new):
-        if os.path.islink(Configuration.old_basedir):
+        if os.path.islink(self.old_basedir):
             print "Not migrating %s to %s because " % (old, new) \
                     + "it is a symlink."
             return

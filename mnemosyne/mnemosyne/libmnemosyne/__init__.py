@@ -79,8 +79,8 @@ class Mnemosyne(object):
 
         self.register_components()
 
-        config().set_basedir(basedir)
-        config().set_resource_limited(self.resource_limited)
+        config().basedir = basedir
+        config().resource_limited = self.resource_limited
         
         self.activate_components()
 
@@ -128,8 +128,7 @@ class Mnemosyne(object):
     def check_lockfile(self):
         if os.path.exists(os.path.join(config().basedir, "MNEMOSYNE_LOCK")):
             from mnemosyne.libmnemosyne.component_manager import \
-                 main_widget
-            _ = component_manager.translator
+                 main_widget, _
             status = main_widget().question_box(
                 _("Either Mnemosyne didn't shut down properly,") + "\n" +
                 _("or another copy of Mnemosyne is still running.") + "\n" +
@@ -157,8 +156,7 @@ class Mnemosyne(object):
             # loaded would require a lot of extra code, and this is only a
             # corner case anyhow. So, as workaround, we create a temporary
             # database.
-            from mnemosyne.libmnemosyne.component_manager import main_widget
-            _ = component_manager.translator
+            from mnemosyne.libmnemosyne.component_manager import main_widget, _
             main_widget().error_box(str(e))
             main_widget().error_box(_("Creating temporary deck."))
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
@@ -178,9 +176,8 @@ class Mnemosyne(object):
                 try:
                     __import__(component[:-3])
                 except:
-                    _ = component_manager.translator
                     from mnemosyne.libmnemosyne.component_manager import \
-                         ui_controller_main
+                         ui_controller_main, _
                     msg = _("Error when running plugin:") \
                           + "\n" + traceback_string()
                     ui_controller_main().widget.error_box(msg)
@@ -193,9 +190,8 @@ class Mnemosyne(object):
                         p.activate()
                         break
             except:
-                _ = component_manager.translator
                 from mnemosyne.libmnemosyne.component_manager import \
-                     main_widget
+                     main_widget, _
                 msg = _("Error when running plugin:") \
                       + "\n" + traceback_string()
                 main_widget().error_box(msg)
@@ -206,7 +202,7 @@ class Mnemosyne(object):
         except OSError:
             _ = component_manager.translator
             from mnemosyne.libmnemosyne.component_manager import \
-                 main_widget
+                 main_widget, _
             msg = _("Failed to remove lock file.") \
                   + "\n" + traceback_string()
             main_widget().error_box(msg)

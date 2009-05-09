@@ -6,22 +6,21 @@ import os
 
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import config
-from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 class Logger(Component):
 
     component_type = "log"
-    upload_thread = None
 
     def initialise(self):
+        self.upload_thread = None
         self.archive_old_log()
         self.start_logging()
         self.program_started()
         if config()["upload_logs"] and not config().resource_limited:
             from mnemosyne.libmnemosyne.log_uploader import LogUploader
-            Logger.upload_thread = LogUploader()
-            Logger.upload_thread.start()
+            self.upload_thread = LogUploader()
+            self.upload_thread.start()
     
     def start_logging(self):
         raise NotImplementedError
@@ -86,9 +85,9 @@ class Logger(Component):
             config()["log_index"] = index + 1
 
     def on_unregister(self):
-        if Logger.upload_thread:
-            _ = component_manager.translator
+        if self.upload_thread:
+            from mnemosyne.libmnemosyne.component_manager import _
             print _("Waiting for uploader thread to stop...")
-            Logger.upload_thread.join()
+            self.upload_thread.join()
             print _("Done!")
         self.program_stopped()

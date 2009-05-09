@@ -9,8 +9,6 @@
 -time full program
 
 
--revert to class in config, logger
--order
 -move all components to new init scheme (scheduler doing get new question?)
 -move component_manager unregister to __init__?
 -on unregister naar finalise?
