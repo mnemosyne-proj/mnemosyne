@@ -3,12 +3,20 @@
 #
 
 from mnemosyne.libmnemosyne.component import Component
-
+from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 class Scheduler(Component):
 
     name = ""
     component_type = "scheduler"
+
+    def activate(self):
+        if ui_controller_review():
+            ui_controller_review().reset()
+
+    def deactivate(self):
+        if ui_controller_review():
+            ui_controller_review().reset()
 
     def reset(self):
 

@@ -9,9 +9,9 @@ import os
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.plugin import Plugin
-from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.component_manager import card_types
 from mnemosyne.libmnemosyne.component_manager import card_type_by_id
+from mnemosyne.libmnemosyne.component_manager import database, plugins
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
@@ -27,11 +27,8 @@ class MyCardType(FrontToBack):
 class MyPlugin(Plugin):
     name = "myplugin"
     description = "MyPlugin"
-
-    def __init__(self):
-        components = [MyCardType()]
-        Plugin.__init__(self, components)
-
+    components = [MyCardType]
+    
 class TestPlugin(MnemosyneTest):
 
     def setup(self):
@@ -48,7 +45,7 @@ class TestPlugin(MnemosyneTest):
         
     @raises(AssertionError)
     def test_1(self):
-        p = Plugin([])
+        p = Plugin()
         
     @raises(NotImplementedError)
     def test_2(self):

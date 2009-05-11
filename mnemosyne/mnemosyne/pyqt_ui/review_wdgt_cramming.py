@@ -15,6 +15,7 @@ from mnemosyne.libmnemosyne.component_manager import component_manager
 class ReviewWdgtCramming(ReviewWdgt):
 
     used_for = "Cramming"
+    delayed_instantiation = True
     
     def __init__(self, parent=None):
         ReviewWdgt.__init__(self.parent)
@@ -43,9 +44,4 @@ class ReviewWdgtCramming(ReviewWdgt):
             str(db.active_count()) + " ")
         if message:
             self.parent().statusBar().showMessage(message)
-        
-
-# Register widget.
-
-component_manager.register(ReviewWdgtCramming)
 

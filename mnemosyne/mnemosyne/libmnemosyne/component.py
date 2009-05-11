@@ -11,10 +11,15 @@ class Component(object):
     'used_for' can store certain relationships between components, e.g.
     a card type widget is used for a certain card type.
 
+    'delayed_instantion' is usually set to True for GUI widgets which are
+    'used_for' a certain plugin, and for which it is better for efficiency
+    reasons to delay their instantiation to when the plugin is activated.
+
     """
     
     component_type = ""
     used_for = None
+    delayed_instantiation = False
 
     def activate(self):
 

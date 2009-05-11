@@ -11,6 +11,7 @@ from mnemosyne.libmnemosyne.component_manager import _
 class Map(CardType):
 
     id = "4"
+    name = _("Map")
     
     def __init__(self):
         CardType.__init__(self)
@@ -40,9 +41,8 @@ class Map(CardType):
 
 
 class MapPlugin(Plugin):
-
+    
     name = _("Map")
     description = _("A card type for learning locations on a map")
+    components = [Map]
 
-    def __init__(self):
-        Plugin.__init__(self, [Map()])

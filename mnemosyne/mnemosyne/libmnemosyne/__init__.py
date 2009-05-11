@@ -97,10 +97,14 @@ class Mnemosyne(object):
         the components in the correct order.
 
         """
-        
+
         for module_name, class_name in Mnemosyne.components:
             exec("from %s import %s" % (module_name, class_name))
-            exec("component_manager.register(%s())" % class_name)
+            exec("component = %s" % class_name)
+            if component.delayed_instantiation:
+                component_manager.register(component)
+            else:
+                component_manager.register(component())
             
     def activate_components(self):
         
@@ -195,6 +199,6 @@ class Mnemosyne(object):
 
     def finalise(self):
         self.remove_lockfile()
-        component_manager.deactivate()
+        component_manager.deactivate_all()
         
 

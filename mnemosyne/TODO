@@ -8,15 +8,14 @@
 -review controller (option: review_client_only?)
 -time full program
 
+-cramming scheduler widget
 
--store classes in plugin instead of instances?
--check deactivating order (twice in plugins)
 -update list of component types.
 -convert card types to read only class variables
 -store component_manager as session context in each component
 -add documentation on how to access context in filter
--card.widget?
-
+-card_type.widget?
+-get rid of card_type init
 
 -fact modification date
 

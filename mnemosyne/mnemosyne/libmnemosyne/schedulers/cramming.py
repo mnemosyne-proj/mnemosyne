@@ -65,6 +65,5 @@ class CrammingPlugin(Plugin):
     name = _("Cramming scheduler")
     description = \
   _("Goes through cards in random order without saving scheduling information.")
-
-    def __init__(self):
-        Plugin.__init__(self, [Cramming()])
+    components = [Cramming]
+    

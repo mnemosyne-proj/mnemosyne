@@ -54,29 +54,27 @@ class ComponentManager(object):
         
         """For type, component and used_for, see the table above."""
 
-        type = component.component_type
+        comp_type = component.component_type
         used_for = component.used_for
         if not self.components.has_key(used_for):
             self.components[used_for] = {}
-        if not self.components[used_for].has_key(type):
-            self.components[used_for][type] = [component]
+        if not self.components[used_for].has_key(comp_type):
+            self.components[used_for][comp_type] = [component]
         else:
-            if component not in self.components[used_for][type]:
+            if component not in self.components[used_for][comp_type]:
                 if not in_front:
-                    self.components[used_for][type].append(component)
+                    self.components[used_for][comp_type].append(component)
                 else:
-                    self.components[used_for][type].insert(0, component)                    
-        if type == "card_type":
+                    self.components[used_for][comp_type].insert(0, component)
+        if comp_type == "card_type":
             self.card_type_by_id[component.id] = component
             
     def unregister(self, component):
-        component.deactivate()
-        type = component.component_type
+        comp_type = component.component_type
         used_for = component.used_for
-        try:
-            self.components[used_for][type].remove(component)
-        except ValueError:
-            pass # Components registered by plugins can end up twice here.
+        self.components[used_for][comp_type].remove(component)
+        if component.component_type == "card_type":
+            del self.card_type_by_id[component.id]
 
     def get_all(self, type, used_for=None):
         
@@ -126,11 +124,18 @@ class ComponentManager(object):
         else:
             return all[-1]
         
-    def deactivate(self):
+    def deactivate_all(self):
+        # First let plugins deactivate their subcomponents.
         for used_for in self.components:
-            for type in self.components[used_for]:
-                for component in self.components[used_for][type]:
+            if "plugin" in self.components[used_for]:
+                for component in self.components[used_for]["plugin"]:
                     component.deactivate()
+        # Then do the other components.
+        for used_for in self.components:
+            for comp_type in self.components[used_for]:
+                for component in self.components[used_for][comp_type]:
+                    if not isinstance(component, type):
+                        component.deactivate()
         self.components = {}
         self.card_type_by_id = {}
         

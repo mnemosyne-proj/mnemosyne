@@ -43,7 +43,8 @@ class Cloze(CardType):
     """
     
     id = "5"
-
+    name = _("Cloze deletion")
+    
     def __init__(self):
         CardType.__init__(self)
         self.fields.append(("text", _("Text")))
@@ -126,8 +127,7 @@ class ClozePlugin(Plugin):
 
     name = _("Cloze deletion")
     description = _("A card type blanking out certain fragments in a text.")
-
-    def __init__(self):
-        Plugin.__init__(self, [Cloze()])
+    components = [Cloze]
+    
 
 
