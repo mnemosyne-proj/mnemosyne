@@ -82,7 +82,7 @@ class SM2Mnemosyne(Scheduler):
         self.queue = []
         self.facts = []
         db = database()
-        if not db.is_loaded():
+        if not db.is_loaded() or not db.active_count():
             return
         
         # Stage 1

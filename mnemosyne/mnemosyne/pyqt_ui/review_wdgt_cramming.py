@@ -5,6 +5,8 @@
 import gettext
 _ = gettext.gettext
 
+from PyQt4 import QtGui
+
 from review_wdgt import ReviewWdgt
 
 from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
@@ -19,29 +21,30 @@ class ReviewWdgtCramming(ReviewWdgt):
     
     def __init__(self):
         ReviewWdgt.__init__(self)
-        self.grade_0_button.setText(_("Wrong"))       
+        self.grade_0_button.setText(_("&Wrong"))       
         self.grade_1_button.hide()
         self.line.hide()
         self.grade_2_button.hide()
         self.grade_3_button.hide()
         self.grade_4_button.hide()
-        self.grade_5_button.setText(_("Right"))
-
-    def grade_4_default(self, use_4):
-        # Rather than writing a new controller, we just hijack this function
-        # to set grade 5 always as the default.
+        self.grade_5_button.setText(_("&Right"))
         self.grade_5_button.setFocus()
-  
-    def set_grade_tooltip(self, grade, text):
-        self.grade_buttons.button(grade).setToolTip("")
+        parent = self.parent()
+        self.wrong = QtGui.QLabel("", parent.statusbar)
+        self.unseen = QtGui.QLabel("", parent.statusbar)
+        self.active = QtGui.QLabel("", parent.statusbar)
+        parent.clear_statusbar()
+        parent.add_to_statusbar(self.wrong)
+        parent.add_to_statusbar(self.unseen)
+        parent.add_to_statusbar(self.active)
 
     def update_status_bar(self, message=None):
         db = database()            
-        self.sched.setText(_("Wrong: ") + \
+        self.wrong.setText(_("Wrong: ") + \
             str(db.scheduler_data_count(Cramming.WRONG)) + " ")
-        self.notmem.setText(_("Unseen: ") + \
+        self.unseen.setText(_("Unseen: ") + \
             str(db.scheduler_data_count(Cramming.UNSEEN)) + " ")
-        self.all.setText(_("Active: ") + \
+        self.active.setText(_("Active: ") + \
             str(db.active_count()) + " ")
         if message:
             self.parent().statusBar().showMessage(message)

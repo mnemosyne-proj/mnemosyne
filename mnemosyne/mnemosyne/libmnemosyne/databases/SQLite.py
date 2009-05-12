@@ -98,7 +98,7 @@ class SQLite(Database):
     def __init__(self):
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
-        self.load_failed = False
+        self.load_failed = True
         self.start_date = None
 
     @property
@@ -132,8 +132,6 @@ class SQLite(Database):
         log().new_database()
 
     def load(self, path):
-        import time
-        t1 = time.time()
         if self.is_loaded():        
             self.unload()
         self._path = expand_path(path, config().basedir)
@@ -251,7 +249,9 @@ class SQLite(Database):
             self._connection.commit()
             self._connection.close()
             self._connection = None
+        self._path = None
         self.load_failed = True
+        self.start_date = None
         return True
         
     def is_loaded(self):

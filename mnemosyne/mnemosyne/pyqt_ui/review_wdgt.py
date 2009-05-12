@@ -26,6 +26,8 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
                 border: thin solid #8F8F8F; }
         </style></head>
         <body><table><tr><td></td></tr></table></body></html>"""
+
+    auto_focus_grades = True
     
     def __init__(self):
         parent = main_widget()
@@ -41,13 +43,14 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.addButton(self.grade_5_button, 5)
         self.connect(self.grade_buttons, QtCore.SIGNAL("buttonClicked(int)"),\
                      self.grade_answer)
-        self.sched = QtGui.QLabel("", self.parent().statusbar)
-        self.notmem = QtGui.QLabel("", self.parent().statusbar)
-        self.all = QtGui.QLabel("", self.parent().statusbar)
-        self.parent().statusbar.addPermanentWidget(self.sched)
-        self.parent().statusbar.addPermanentWidget(self.notmem)
-        self.parent().statusbar.addPermanentWidget(self.all)
-        self.parent().statusbar.setSizeGripEnabled(0)
+        self.sched = QtGui.QLabel("", parent.statusbar)
+        self.notmem = QtGui.QLabel("", parent.statusbar)
+        self.act = QtGui.QLabel("", parent.statusbar)
+        parent.clear_statusbar()
+        parent.add_to_statusbar(self.sched)
+        parent.add_to_statusbar(self.notmem)
+        parent.add_to_statusbar(self.act)
+        parent.statusbar.setSizeGripEnabled(0)
 
     def show_answer(self):
         ui_controller_review().show_answer()
@@ -100,16 +103,15 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.show_button.setText(text)
         self.show_button.setEnabled(show_enabled)
         if default:
+            self.show_button.setDefault(True)
             self.show_button.setFocus()
 
     def enable_grades(self, enabled):
         self.grades.setEnabled(enabled)
 
-    def grade_4_default(self, use_4):
-        if use_4:
-            self.grade_4_button.setFocus()
-        else:
-            self.grade_0_button.setFocus()
+    def set_default_grade(self, grade):
+        if self.auto_focus_grades:
+            self.grade_buttons.button(grade).setFocus()
  
     def set_grades_title(self, text):
         self.grades.setTitle(text)
@@ -126,7 +128,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             str(db.scheduled_count()) + " ")
         self.notmem.setText(_("Not memorised: ") + \
             str(db.non_memorised_count()) + " ")
-        self.all.setText(_("Active: ") + \
+        self.act.setText(_("Active: ") + \
              str(db.active_count()) + " ")
         if message:
             self.parent().statusBar().showMessage(message)

@@ -50,7 +50,7 @@ class ReviewWidget(UiComponent):
     def enable_grades(self, enabled): 
         pass
     
-    def grade_4_default(self, use_4):
+    def set_default_grade(self, grade):
         pass
         
     def set_grades_title(self, text): 

@@ -4,6 +4,7 @@
 
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.component_manager import scheduler
+from mnemosyne.libmnemosyne.component_manager import main_widget
 from mnemosyne.libmnemosyne.component_manager import review_widget
 from mnemosyne.libmnemosyne.component_manager import database, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
@@ -88,16 +89,14 @@ class SM2Controller(UiControllerReview):
             interval = scheduler().grade_answer(previous_card, grade)
             database().update_card(previous_card, update_categories=False)
             database().save()
-            if review_widget():
-                review_widget().update_status_bar()
+            review_widget().update_status_bar()
         else:
             interval = scheduler().grade_answer(self.card, grade)
             database().update_card(self.card, update_categories=False)
             database().save()
             self.new_question()
         if config()["show_intervals"] == "statusbar":
-            if review_widget():
-                review_widget().update_status_bar(_("Returns in") + " " + \
+            review_widget().update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
         
     def next_rep_string(self, days):
@@ -107,24 +106,14 @@ class SM2Controller(UiControllerReview):
             return '\n' + _("Next repetition: tomorrow.")
         else:
             return '\n' + _("Next repetition in ") + str(days) + _(" days.")
-                   
+
     def update_dialog(self, redraw_all=False):
+        self.update_qa_area(redraw_all)
+        self.update_grades_area()
+        self.update_menu_bar()
+                   
+    def update_qa_area(self, redraw_all=False):
         w = review_widget()
-        if not w:
-            return
-        # Update menu bar.
-        if config()["only_editable_when_answer_shown"] == True:
-            if self.card != None and self.state == "SELECT GRADE":
-                w.enable_edit_current_card(True)
-            else:
-                w.enable_edit_current_card(False)
-        else:
-            if self.card != None:
-                w.enable_edit_current_card(True)
-            else:
-                w.enable_edit_current_card(False)
-        w.enable_delete_current_card(self.card != None)
-        w.enable_edit_deck(database().is_loaded())
         # Hide/show the question and answer boxes.
         if self.state == "SELECT SHOW":
             w.question_box_visible(True)
@@ -158,28 +147,33 @@ class SM2Controller(UiControllerReview):
         # Update 'Show answer' button.
         if self.state == "EMPTY":
             show_enabled, default, text = False, True, _("Show answer")
-            grades_enabled = False
+            self.grades_enabled = False
         elif self.state == "SELECT SHOW":
             show_enabled, default, text = True,  True, _("Show answer")
-            grades_enabled = False
+            self.grades_enabled = False
         elif self.state == "SELECT GRADE":
             show_enabled, default, text = False, True, _("Show answer")
-            grades_enabled = True
+            self.grades_enabled = True
         elif self.state == "SELECT AHEAD":
             show_enabled, default, text = True,  False, \
                                      _("Learn ahead of schedule")
-            grades_enabled = False
+            self.grades_enabled = False
         w.update_show_button(text, default, show_enabled)
+        # Update status bar.
+        w.update_status_bar()
+
+    def update_grades_area(self):
+        w = review_widget()
         # Update grade buttons.
         if self.card != None and self.card.grade in [0,1]:
             i = 0 # Acquisition phase.
-            default_4 = False
+            default_grade = 0
         else:
             i = 1 # Retention phase.
-            default_4 = True
-        w.enable_grades(grades_enabled)
-        if grades_enabled:
-            w.grade_4_default(default_4)            
+            default_grade = 4
+        w.enable_grades(self.grades_enabled)
+        if self.grades_enabled:
+            w.set_default_grade(default_grade)            
         # Tooltips and texts for the grade buttons.
         for grade in range(0,6):
             # Tooltip.
@@ -199,7 +193,18 @@ class SM2Controller(UiControllerReview):
             else:
                 w.set_grade_text(grade, str(grade))
                 w.set_grades_title(_("Grade your answer:"))
-            # TODO: accelerator update needed?
-            #self.grade_buttons[grade].setAccel(QKeySequence(str(grade)))
-        # Update status bar.
-        w.update_status_bar()
+
+    def update_menu_bar(self):
+        w = review_widget()
+        if config()["only_editable_when_answer_shown"] == True:
+            if self.card != None and self.state == "SELECT GRADE":
+                w.enable_edit_current_card(True)
+            else:
+                w.enable_edit_current_card(False)
+        else:
+            if self.card != None:
+                w.enable_edit_current_card(True)
+            else:
+                w.enable_edit_current_card(False)
+        w.enable_delete_current_card(self.card != None)
+        w.enable_edit_deck(database().is_loaded())

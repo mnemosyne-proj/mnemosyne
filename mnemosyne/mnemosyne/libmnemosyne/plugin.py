@@ -66,7 +66,8 @@ class Plugin(Component):
             self.instantiated_components.append(component)
         # Make necessary side effects happen.
         for component in self.instantiated_components:
-            if component.component_type == "scheduler":
+            if component.component_type == "scheduler" \
+                   and database().is_loaded():
                 from mnemosyne.libmnemosyne.component_manager \
                      import ui_controller_review
                 ui_controller_review().reset()
@@ -78,8 +79,8 @@ class Plugin(Component):
         if not self.instantiated_components:
             return True
         for component in self.instantiated_components:
-            if component.component_type == "card_type" and \
-                   database().is_loaded():
+            if component.component_type == "card_type" \
+                   and database().is_loaded():
                 for card_type in database().card_types_in_use():
                     if issubclass(card_type.__class__, component.__class__):
                         main_widget().information_box(\
@@ -99,7 +100,8 @@ class Plugin(Component):
                 new_widget = old_widget.__class__()
                 component_manager.unregister(old_widget)
                 component_manager.register(new_widget)
-            if component.component_type == "scheduler":
+            if component.component_type == "scheduler" and \
+                   database().is_loaded():
                 from mnemosyne.libmnemosyne.component_manager \
                      import ui_controller_review
                 ui_controller_review().reset()

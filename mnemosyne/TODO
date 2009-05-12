@@ -5,25 +5,18 @@
 -merge review widget (gain 0.4 sec)
 -test default / enabled / border
 -test feel without save, test if autocommit works, implement save interval
--review controller (option: review_client_only?)
+-review controller (lean controller)
 -time full program
 
--status bar
--button text
--default keys
--deleting the only card in the cramming queue gives infinite recursion
--cramming scheduler is not restored upon reload
-
 -test custom card type
-
--counting tests in cramming scheduler
+-card_type.widget?
 
 -document 'then_used_for'
 -update list of component types.
 -convert card types to read only class variables
 -store component_manager as session context in each component
 -add documentation on how to access context in filter
--card_type.widget?
+
 -get rid of card_type init
 
 -fact modification date
@@ -61,8 +54,6 @@
  card.py.
 
 
--are keybindings sufficiently accesible?
-
 -cntrl enter in add and edit instead of clicking ok
 
 
@@ -79,6 +70,7 @@
 -test rollover
 
 -make categories a set?
+
 
 
 -import
@@ -142,10 +134,10 @@
 -qsortfilter proxy
 
 
+-partial implementation of type answer (uses special category)
+
+
 -move 'card type by name' to different place?
-
-
--possible to optimise ui controller further?
 
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
@@ -211,6 +203,8 @@
 
 
 * After 2.0:
+
+-don't activate plugins until after clicking ok
 
 -respect font in fact editor
 

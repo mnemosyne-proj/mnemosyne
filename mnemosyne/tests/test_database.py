@@ -252,7 +252,6 @@ class TestDatabase(MnemosyneTest):
             if component.component_type == "card_type" and component.id == "4":
                 plugin.deactivate()
                 component_manager.unregister(plugin)
-                break
         database().load(config()["path"])
         
     def infinity(self):

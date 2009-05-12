@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ReviewWdgt</class>
- <widget class="QWidget" name="ReviewWdgt" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ReviewWdgt">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,48 +10,48 @@
     <height>373</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5" >
-   <property name="margin" >
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_4" >
-     <property name="margin" >
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <property name="margin">
       <number>9</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="question_label" >
-         <property name="maximumSize" >
+        <widget class="QLabel" name="question_label">
+         <property name="maximumSize">
           <size>
            <width>320</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Question:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="question" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <widget class="QWebView" name="question">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize" >
+         <property name="minimumSize">
           <size>
            <width>295</width>
            <height>100</height>
           </size>
          </property>
-         <property name="url" >
+         <property name="url">
           <url>
            <string>about:blank</string>
           </url>
@@ -60,29 +61,29 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2" >
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="answer_label" >
-         <property name="text" >
+        <widget class="QLabel" name="answer_label">
+         <property name="text">
           <string>Answer:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="answer" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <widget class="QWebView" name="answer">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize" >
+         <property name="minimumSize">
           <size>
            <width>295</width>
            <height>100</height>
           </size>
          </property>
-         <property name="url" >
+         <property name="url">
           <url>
            <string>about:blank</string>
           </url>
@@ -92,99 +93,108 @@
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="show_button" >
-       <property name="text" >
+      <widget class="QPushButton" name="show_button">
+       <property name="text">
         <string>Show &amp;answer</string>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="grades" >
-       <property name="title" >
+      <widget class="QGroupBox" name="grades">
+       <property name="title">
         <string>Grade your answer:</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
-       <layout class="QVBoxLayout" name="_2" >
+       <layout class="QVBoxLayout" name="_2">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout" >
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QPushButton" name="grade_0_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_0_button">
+            <property name="text">
              <string>0</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>0</string>
             </property>
-            <property name="autoDefault" >
+            <property name="autoDefault">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_1_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_1_button">
+            <property name="text">
              <string>1</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>1</string>
+            </property>
+            <property name="autoDefault">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="Line" name="line" >
-            <property name="orientation" >
+           <widget class="Line" name="line">
+            <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_2_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_2_button">
+            <property name="text">
              <string>2</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>2</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="grade_3_button" >
-            <property name="text" >
-             <string>3</string>
-            </property>
-            <property name="shortcut" >
-             <string>3</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="grade_4_button" >
-            <property name="text" >
-             <string>4</string>
-            </property>
-            <property name="shortcut" >
-             <string>4</string>
-            </property>
-            <property name="autoDefault" >
+            <property name="autoDefault">
              <bool>true</bool>
             </property>
-            <property name="default" >
-             <bool>false</bool>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="grade_3_button">
+            <property name="text">
+             <string>3</string>
+            </property>
+            <property name="shortcut">
+             <string>3</string>
+            </property>
+            <property name="autoDefault">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_5_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_4_button">
+            <property name="text">
+             <string>4</string>
+            </property>
+            <property name="shortcut">
+             <string>4</string>
+            </property>
+            <property name="autoDefault">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="grade_5_button">
+            <property name="text">
              <string>5</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>5</string>
+            </property>
+            <property name="autoDefault">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -212,11 +222,11 @@
    <receiver>ReviewWdgt</receiver>
    <slot>show_answer()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>164</x>
      <y>283</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>164</x>
      <y>194</y>
     </hint>

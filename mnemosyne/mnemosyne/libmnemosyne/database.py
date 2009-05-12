@@ -15,6 +15,9 @@ class Database(Component):
     version = ""
     component_type = "database"
 
+    def deactivate(self):
+        self.unload()
+
     # Creating, loading and saving the entire database.
 
     def new(self, path):

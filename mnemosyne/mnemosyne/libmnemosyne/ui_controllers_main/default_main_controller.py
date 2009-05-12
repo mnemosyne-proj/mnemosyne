@@ -44,7 +44,7 @@ class DefaultMainController(UiControllerMain):
         review_controller = ui_controller_review()
         main_widget().run_edit_fact_dialog(review_controller.card.fact)
         if review_controller.card == None:
-            main_widget().update_status_bar()
+            review_widget().update_status_bar()
             review_controller.new_question()         
         review_controller.update_dialog(redraw_all=True)
         stopwatch.unpause()
@@ -232,7 +232,7 @@ class DefaultMainController(UiControllerMain):
         db.save()
         review_controller.rebuild_queue()
         review_controller.new_question()
-        main_widget().update_status_bar()
+        review_widget().update_status_bar()
         review_controller.update_dialog(redraw_all=True)
         stopwatch.unpause()
 

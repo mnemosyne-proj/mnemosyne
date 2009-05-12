@@ -61,7 +61,7 @@ class Mnemosyne(object):
          "MapPlugin"),
         ("mnemosyne.libmnemosyne.card_types.cloze",
          "ClozePlugin"),
-        ("mnemosyne.libmnemosyne.schedulers.cramming",
+        ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
          "CrammingPlugin") ]
     
     def __init__(self, resource_limited=False):
@@ -134,6 +134,7 @@ class Mnemosyne(object):
                     ui_controller_main().widget.error_box(msg)
 
     def activate_saved_plugins(self):
+        from mnemosyne.libmnemosyne.component_manager import plugins
         for plugin in config()["active_plugins"]:
             try:
                 for p in plugins():
@@ -199,6 +200,9 @@ class Mnemosyne(object):
 
     def finalise(self):
         self.remove_lockfile()
+        # Saving the config shoulh happen before we deactivate the plugins,
+        # otherwise they are not restored upon reload.
+        config().save()
         component_manager.deactivate_all()
         
 

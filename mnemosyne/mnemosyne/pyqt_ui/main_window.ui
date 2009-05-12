@@ -1,297 +1,298 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>196</width>
-    <height>211</height>
+    <width>245</width>
+    <height>300</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Mnemosyne</string>
   </property>
-  <property name="windowIcon" >
-   <iconset resource="mnemosyne.qrc" >
+  <property name="windowIcon">
+   <iconset resource="mnemosyne.qrc">
     <normaloff>:/mnemosyne/pixmaps/mnemosyne.png</normaloff>:/mnemosyne/pixmaps/mnemosyne.png</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget" />
-  <widget class="QMenuBar" name="menubar" >
-   <property name="geometry" >
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>196</width>
-     <height>25</height>
+     <width>245</width>
+     <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile" >
-    <property name="title" >
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionFileNew" />
-    <addaction name="actionFileOpen" />
-    <addaction name="actionFileSave" />
-    <addaction name="actionFileSaveAs" />
-    <addaction name="separator" />
-    <addaction name="actionImport" />
-    <addaction name="actionExport" />
-    <addaction name="separator" />
-    <addaction name="actionFileExit" />
+    <addaction name="actionFileNew"/>
+    <addaction name="actionFileOpen"/>
+    <addaction name="actionFileSave"/>
+    <addaction name="actionFileSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport"/>
+    <addaction name="actionExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionFileExit"/>
    </widget>
-   <widget class="QMenu" name="menu_Deck" >
-    <property name="title" >
+   <widget class="QMenu" name="menu_Deck">
+    <property name="title">
      <string>&amp;Deck</string>
     </property>
-    <addaction name="actionAddCards" />
-    <addaction name="actionEditCurrentCard" />
-    <addaction name="actionDeleteCurrentFact" />
-    <addaction name="separator" />
-    <addaction name="actionEditDeck" />
-    <addaction name="actionCloneCardTypes" />
-    <addaction name="actionActivateCategories" />
-    <addaction name="actionCleanDuplicates" />
-    <addaction name="separator" />
-    <addaction name="actionShowStatistics" />
+    <addaction name="actionAddCards"/>
+    <addaction name="actionEditCurrentCard"/>
+    <addaction name="actionDeleteCurrentFact"/>
+    <addaction name="separator"/>
+    <addaction name="actionEditDeck"/>
+    <addaction name="actionCloneCardTypes"/>
+    <addaction name="actionActivateCategories"/>
+    <addaction name="actionCleanDuplicates"/>
+    <addaction name="separator"/>
+    <addaction name="actionShowStatistics"/>
    </widget>
-   <widget class="QMenu" name="menu_Settings" >
-    <property name="title" >
+   <widget class="QMenu" name="menu_Settings">
+    <property name="title">
      <string>&amp;Settings</string>
     </property>
-    <addaction name="actionCardAppearance" />
-    <addaction name="actionActivatePlugins" />
-    <addaction name="actionConfiguration" />
+    <addaction name="actionCardAppearance"/>
+    <addaction name="actionActivatePlugins"/>
+    <addaction name="actionConfiguration"/>
    </widget>
-   <widget class="QMenu" name="menu_Help" >
-    <property name="title" >
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="actionGettingStarted" />
-    <addaction name="actionTip" />
-    <addaction name="separator" />
-    <addaction name="actionHelpAbout" />
+    <addaction name="actionGettingStarted"/>
+    <addaction name="actionTip"/>
+    <addaction name="separator"/>
+    <addaction name="actionHelpAbout"/>
    </widget>
-   <addaction name="menuFile" />
-   <addaction name="menu_Deck" />
-   <addaction name="menu_Settings" />
-   <addaction name="menu_Help" />
+   <addaction name="menuFile"/>
+   <addaction name="menu_Deck"/>
+   <addaction name="menu_Settings"/>
+   <addaction name="menu_Help"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar" />
-  <widget class="QToolBar" name="toolBar" >
-   <property name="windowTitle" >
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
     <string>toolBar</string>
    </property>
-   <property name="iconSize" >
+   <property name="iconSize">
     <size>
      <width>22</width>
      <height>22</height>
     </size>
    </property>
-   <attribute name="toolBarArea" >
+   <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
-   <attribute name="toolBarBreak" >
+   <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionAddCards" />
-   <addaction name="actionEditCurrentCard" />
-   <addaction name="actionDeleteCurrentFact" />
-   <addaction name="actionEditDeck" />
-   <addaction name="actionShowStatistics" />
+   <addaction name="actionAddCards"/>
+   <addaction name="actionEditCurrentCard"/>
+   <addaction name="actionDeleteCurrentFact"/>
+   <addaction name="actionEditDeck"/>
+   <addaction name="actionShowStatistics"/>
   </widget>
-  <action name="actionActivateCategories" >
-   <property name="text" >
+  <action name="actionActivateCategories">
+   <property name="text">
     <string>Activate cate&amp;gories</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+G</string>
    </property>
   </action>
-  <action name="actionAddCards" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionAddCards">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/add.png</normaloff>:/mnemosyne/pixmaps/add.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>&amp;Add cards</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+A</string>
    </property>
   </action>
-  <action name="actionCleanDuplicates" >
-   <property name="text" >
+  <action name="actionCleanDuplicates">
+   <property name="text">
     <string>&amp;Clean duplicates</string>
    </property>
   </action>
-  <action name="actionConfiguration" >
-   <property name="text" >
+  <action name="actionConfiguration">
+   <property name="text">
     <string>&amp;Configure Mnemosyne</string>
    </property>
   </action>
-  <action name="actionDeleteCurrentFact" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionDeleteCurrentFact">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/delete.png</normaloff>:/mnemosyne/pixmaps/delete.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>&amp;Delete current card(s)</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Backspace</string>
    </property>
   </action>
-  <action name="actionEditCurrentCard" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionEditCurrentCard">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/edit.png</normaloff>:/mnemosyne/pixmaps/edit.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>&amp;Edit current card</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+E</string>
    </property>
   </action>
-  <action name="actionEditDeck" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionEditDeck">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/deck.png</normaloff>:/mnemosyne/pixmaps/deck.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Edit &amp;deck</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+D</string>
    </property>
   </action>
-  <action name="actionExport" >
-   <property name="text" >
+  <action name="actionExport">
+   <property name="text">
     <string>&amp;Export</string>
    </property>
   </action>
-  <action name="actionFileExit" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionFileExit">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/exit.png</normaloff>:/mnemosyne/pixmaps/exit.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>E&amp;xit</string>
    </property>
   </action>
-  <action name="actionFileNew" >
-   <property name="icon" >
+  <action name="actionFileNew">
+   <property name="icon">
     <iconset>
      <normaloff>../../pixmaps/filenew.png</normaloff>../../pixmaps/filenew.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>&amp;New</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionFileOpen" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionFileOpen">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/fileopen.png</normaloff>:/mnemosyne/pixmaps/fileopen.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>&amp;Open...</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="actionFileSave" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionFileSave">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/filesave.png</normaloff>:/mnemosyne/pixmaps/filesave.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>&amp;Save</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionFileSaveAs" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionFileSaveAs">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/filesaveas.png</normaloff>:/mnemosyne/pixmaps/filesaveas.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Save &amp;as...</string>
    </property>
   </action>
-  <action name="actionHelpAbout" >
-   <property name="text" >
+  <action name="actionHelpAbout">
+   <property name="text">
     <string>&amp;About</string>
    </property>
   </action>
-  <action name="actionImport" >
-   <property name="text" >
+  <action name="actionImport">
+   <property name="text">
     <string>&amp;Import</string>
    </property>
   </action>
-  <action name="actionGettingStarted" >
-   <property name="text" >
+  <action name="actionGettingStarted">
+   <property name="text">
     <string>&amp;Getting started</string>
    </property>
   </action>
-  <action name="actionShowStatistics" >
-   <property name="icon" >
-    <iconset resource="mnemosyne.qrc" >
+  <action name="actionShowStatistics">
+   <property name="icon">
+    <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/statistics.png</normaloff>:/mnemosyne/pixmaps/statistics.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Show s&amp;tatistics</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+T</string>
    </property>
   </action>
-  <action name="actionShowToolbar" >
-   <property name="checkable" >
+  <action name="actionShowToolbar">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>true</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Show &amp;toolbar</string>
    </property>
   </action>
-  <action name="actionTip" >
-   <property name="text" >
+  <action name="actionTip">
+   <property name="text">
     <string>&amp;Tip of the day</string>
    </property>
   </action>
-  <action name="actionCardAppearance" >
-   <property name="text" >
+  <action name="actionCardAppearance">
+   <property name="text">
     <string>Card &amp;appearance</string>
    </property>
   </action>
-  <action name="actionActivatePlugins" >
-   <property name="text" >
+  <action name="actionActivatePlugins">
+   <property name="text">
     <string>&amp;Activate plugins</string>
    </property>
   </action>
-  <action name="actionCloneCardTypes" >
-   <property name="text" >
+  <action name="actionCloneCardTypes">
+   <property name="text">
     <string>Clone card &amp;types</string>
    </property>
   </action>
  </widget>
  <resources>
-  <include location="mnemosyne.qrc" />
+  <include location="mnemosyne.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -300,11 +301,11 @@
    <receiver>MainWindow</receiver>
    <slot>add_cards</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>164</x>
      <y>226</y>
     </hint>
@@ -316,11 +317,11 @@
    <receiver>MainWindow</receiver>
    <slot>file_new</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>269</x>
      <y>146</y>
     </hint>
@@ -332,11 +333,11 @@
    <receiver>MainWindow</receiver>
    <slot>file_open</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>269</x>
      <y>179</y>
     </hint>
@@ -348,11 +349,11 @@
    <receiver>MainWindow</receiver>
    <slot>file_save</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>93</x>
      <y>124</y>
     </hint>
@@ -364,11 +365,11 @@
    <receiver>MainWindow</receiver>
    <slot>file_save_as</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>93</x>
      <y>124</y>
     </hint>
@@ -380,11 +381,11 @@
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>269</x>
      <y>124</y>
     </hint>
@@ -396,11 +397,11 @@
    <receiver>MainWindow</receiver>
    <slot>edit_current_card</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>83</x>
      <y>87</y>
     </hint>
@@ -412,11 +413,11 @@
    <receiver>MainWindow</receiver>
    <slot>delete_current_fact</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>109</x>
      <y>67</y>
     </hint>
@@ -428,11 +429,11 @@
    <receiver>MainWindow</receiver>
    <slot>card_appearance</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>123</x>
      <y>103</y>
     </hint>
@@ -444,11 +445,11 @@
    <receiver>MainWindow</receiver>
    <slot>activate_plugins</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>113</x>
      <y>85</y>
     </hint>
@@ -460,11 +461,11 @@
    <receiver>MainWindow</receiver>
    <slot>manage_card_types</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>277</x>
      <y>85</y>
     </hint>

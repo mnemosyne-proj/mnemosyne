@@ -42,12 +42,22 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
         self.setupUi(self)
+        self.statusbar_widgets = []
 
     def activate(self):
         self.timer = QtCore.QTimer()
         self.connect(self.timer, QtCore.SIGNAL("timeout()"),
                      ui_controller_review().rollover)
         self.timer.start(1000 * 60 * 5)
+
+    def add_to_statusbar(self, widget):
+        self.statusbar_widgets.append(widget)
+        self.statusbar.addPermanentWidget(widget)
+
+    def clear_statusbar(self):
+        for widget in self.statusbar_widgets:
+            self.statusbar.removeWidget(widget)
+        self.statusbar_widgets = []
 
     def information_box(self, message):
         QtGui.QMessageBox.information(None, _("Mnemosyne"), message, _("&OK"))

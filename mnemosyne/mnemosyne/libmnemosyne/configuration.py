@@ -61,10 +61,6 @@ class Configuration(Component, dict):
         self.load()
         self.load_user_config()
         self.correct_config()
-
-    def deactivate(self):
-        self.save()
-        self = {}
         
     def set_defaults(self):
         

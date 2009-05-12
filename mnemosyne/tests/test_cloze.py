@@ -17,8 +17,9 @@ class TestCloze(MnemosyneTest):
     def setup(self):
         MnemosyneTest.setup(self)
         for plugin in plugins():
-            if plugin.components == [Cloze]:
+            if isinstance(plugin, ClozePlugin):
                 plugin.activate()
+                break
 
     def test_validate(self):
         card_type = card_type_by_id("5")

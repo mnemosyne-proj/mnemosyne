@@ -2,10 +2,8 @@
 # cramming.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne import SM2Mnemosyne
-from mnemosyne.libmnemosyne.component_manager import _
 
 
 class Cramming(SM2Mnemosyne):
@@ -18,13 +16,14 @@ class Cramming(SM2Mnemosyne):
 
     def reset(self):
         SM2Mnemosyne.reset(self)
-        database().set_scheduler_data(self.UNSEEN)
+        if database().is_loaded():
+            database().set_scheduler_data(self.UNSEEN)
 
     def rebuild_queue(self, learn_ahead=False):
         self.queue = []
         self.facts = []
         db = database()
-        if not db.is_loaded():
+        if not db.is_loaded() or not db.active_count():
             return
          
         # Stage 1 : do all the unseen cards.     
@@ -58,12 +57,3 @@ class Cramming(SM2Mnemosyne):
         else:
             card.scheduler_data = self.RIGHT
         return 0
-
-
-class CrammingPlugin(Plugin):
-
-    name = _("Cramming scheduler")
-    description = \
-  _("Goes through cards in random order without saving scheduling information.")
-    components = [Cramming]
-    
