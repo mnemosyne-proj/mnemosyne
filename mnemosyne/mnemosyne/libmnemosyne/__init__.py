@@ -108,7 +108,7 @@ class Mnemosyne(object):
             
     def activate_components(self):
         
-        """Now that everynthing is registered, we can activate the components
+        """Now that everything is registered, we can activate the components
         in the correct order: first config, followed by log.
         
         """

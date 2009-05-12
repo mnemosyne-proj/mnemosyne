@@ -54,7 +54,7 @@ class SM2Controller(UiControllerReview):
         """To be called when a new day starts."""
 
         from mnemosyne.libmnemosyne.component_manager import main_widget
-        main_widget().update_status_bar()
+        review_widget().update_status_bar()
         if not self.card or self.learning_ahead:
             self.reset()
             self.new_question()

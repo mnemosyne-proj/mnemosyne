@@ -8,8 +8,17 @@
 -review controller (option: review_client_only?)
 -time full program
 
--cramming scheduler widget
+-status bar
+-button text
+-default keys
+-deleting the only card in the cramming queue gives infinite recursion
+-cramming scheduler is not restored upon reload
 
+-test custom card type
+
+-counting tests in cramming scheduler
+
+-document 'then_used_for'
 -update list of component types.
 -convert card types to read only class variables
 -store component_manager as session context in each component
@@ -21,25 +30,13 @@
 
 -.029    0.029 __init__.py:180(initialise_components)
 
-
 -have schedulers return id's only, make sure each scheduler has its own globals
+
+
 
 -get rid of svn
 
--counting tests in cramming scheduler
-
 -more tests
-
--empty ok
-
--status bar with cramming scheduler
-
--better place for combiplugin?
-
--easier activation if plugin only contains a scheduler / register vs activate
-
--better way of handling different review widgets
-
 
 
 -move option to always randomise queue to config screen

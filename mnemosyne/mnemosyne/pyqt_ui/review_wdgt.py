@@ -49,9 +49,6 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.parent().statusbar.addPermanentWidget(self.all)
         self.parent().statusbar.setSizeGripEnabled(0)
 
-    def deactivate(self):
-        self.close()
-
     def show_answer(self):
         ui_controller_review().show_answer()
 

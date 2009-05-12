@@ -9,22 +9,23 @@ from review_wdgt import ReviewWdgt
 
 from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
 from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 class ReviewWdgtCramming(ReviewWdgt):
 
-    used_for = "Cramming"
+    used_for = Cramming
+    then_used_for = None
     delayed_instantiation = True
     
-    def __init__(self, parent=None):
-        ReviewWdgt.__init__(self.parent)
-        self.grade_0_button.setText(_("Right"))       
+    def __init__(self):
+        ReviewWdgt.__init__(self)
+        self.grade_0_button.setText(_("Wrong"))       
         self.grade_1_button.hide()
+        self.line.hide()
         self.grade_2_button.hide()
         self.grade_3_button.hide()
         self.grade_4_button.hide()
-        self.grade_5_button.setText(_("Wrong"))
+        self.grade_5_button.setText(_("Right"))
 
     def grade_4_default(self, use_4):
         # Rather than writing a new controller, we just hijack this function
