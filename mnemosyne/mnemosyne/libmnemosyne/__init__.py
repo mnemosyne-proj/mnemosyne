@@ -101,10 +101,10 @@ class Mnemosyne(object):
         for module_name, class_name in Mnemosyne.components:
             exec("from %s import %s" % (module_name, class_name))
             exec("component = %s" % class_name)
-            if component.delayed_instantiation:
-                component_manager.register(component)
-            else:
+            if component.instantiate == component.IMMEDIATELY:
                 component_manager.register(component())
+            else:
+                component_manager.register(component)
             
     def activate_components(self):
         
@@ -116,7 +116,12 @@ class Mnemosyne(object):
         for module in ["config", "log", "database", "scheduler",
                        "ui_controller_main", "ui_controller_review",
                        "main_widget", "review_widget"]:
-            component_manager.get_current(module).activate()
+            try:
+                component_manager.get_current(module).activate()
+            except RuntimeError, e:
+                from mnemosyne.libmnemosyne.component_manager import \
+                     main_widget
+                main_widget().error_box(str(e))            
 
     def execute_user_plugin_dir(self):
         basedir = config().basedir
@@ -128,10 +133,10 @@ class Mnemosyne(object):
                     __import__(component[:-3])
                 except:
                     from mnemosyne.libmnemosyne.component_manager import \
-                         ui_controller_main, _
+                         main_widget, _
                     msg = _("Error when running plugin:") \
                           + "\n" + traceback_string()
-                    ui_controller_main().widget.error_box(msg)
+                    main_widget().error_box(msg)
 
     def activate_saved_plugins(self):
         from mnemosyne.libmnemosyne.component_manager import plugins

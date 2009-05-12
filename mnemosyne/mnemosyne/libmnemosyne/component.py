@@ -11,15 +11,23 @@ class Component(object):
     'used_for' can store certain relationships between components, e.g.
     a card type widget is used for a certain card type.
 
-    'delayed_instantion' is usually set to True for GUI widgets which are
-    'used_for' a certain plugin, and for which it is better for efficiency
-    reasons to delay their instantiation to when the plugin is activated.
-
+    For efficiency reasons, not all components are instantiated immediately,
+    e.g. instantiating a complex widget can take some time on a mobile device.
+    Some components like review widgets need to be instantiated when their
+    corresponding plugin (for which they are 'used_for') becomes active.
+    Others, like card type widgets, are instantiated even later, e.g. when the
+    add or edit dialog is shown.
+    
     """
     
     component_type = ""
     used_for = None
-    delayed_instantiation = False
+
+    IMMEDIATELY = 0
+    WHEN_PLUGIN_ACTIVE = 1
+    LATER = 2
+    
+    instantiate = IMMEDIATELY
 
     def activate(self):
 

@@ -30,7 +30,8 @@ class AddEditCards:
         # translation.
         self.card_type_by_name = {}
         self.card_type = None
-        self.card_type_index = 0   
+        self.card_type_index = 0
+        self.card_type_widget = None
         for card_type in card_types():
             if card_type.name == current_card_type_name:
                 self.card_type = card_type
@@ -51,11 +52,11 @@ class AddEditCards:
         # code between the 'add' and the 'edit' dialogs, we put the reference
         # to self.fact (which only exists in the 'edit' dialog) insid a try
         # statement.
-        if self.card_type.widget: # Get data from previous card widget.
+        if self.card_type_widget: # Get data from previous card widget.
             prefill_data = \
-                     self.card_type.widget.get_data(check_for_required=False)
-            self.card_type.widget.close()
-            self.card_type.widget = None
+                     self.card_type_widget.get_data(check_for_required=False)
+            self.card_type_widget.close()
+            self.card_type_widget = None
         else:
             try: # Get data from fact passed to the 'edit' dialog.
                 prefill_data = self.fact.data
@@ -74,15 +75,15 @@ class AddEditCards:
         card_type_name = unicode(self.card_types.currentText())
         self.card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
-            self.card_type.widget = component_manager.get_current\
-                       ("card_type_widget", used_for=card_type.__class__)\
+            self.card_type_widget = component_manager.get_current\
+                    ("card_type_widget", used_for=self.card_type.__class__)\
                           (parent=self, prefill_data=prefill_data)
         except:
-            if not self.card_type.widget: 
-                self.card_type.widget = GenericCardTypeWdgt\
+            if not self.card_type_widget: 
+                self.card_type_widget = GenericCardTypeWdgt\
                       (self.card_type, parent=self, prefill_data=prefill_data)
-        self.card_type.widget.show()
-        self.verticalLayout.insertWidget(1, self.card_type.widget)
+        self.card_type_widget.show()
+        self.verticalLayout.insertWidget(1, self.card_type_widget)
 
     def update_categories_combobox(self, current_cat_name):
         self.categories.clear()
@@ -103,7 +104,7 @@ class AddEditCards:
         config()["card_type_name_of_last_added"] = new_card_type_name
         new_card_type = self.card_type_by_name[new_card_type_name]
         if self.card_type.keys().issubset(new_card_type.keys()) or \
-               not self.card_type.widget.contains_data():
+               not self.card_type_widget.contains_data():
             self.update_card_widget()            
             return
         dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
@@ -115,7 +116,7 @@ class AddEditCards:
             self.update_card_widget()
 
     def preview(self):
-        fact_data = self.card_type.widget.get_data(check_for_required=False)
+        fact_data = self.card_type_widget.get_data(check_for_required=False)
         fact = Fact(fact_data, self.card_type)
         cards = self.card_type.create_related_cards(fact)
         cat_text = self.categories.currentText()
@@ -126,7 +127,7 @@ class AddEditCards:
 
     def __del__(self):
         # Make sure that Python knows Qt has deleted this widget.
-        self.card_type.widget = None        
+        self.card_type_widget = None        
 
 
 class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
@@ -154,7 +155,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         self.preview_button.setEnabled(complete)
         
     def new_cards(self, grade):
-        fact_data = self.card_type.widget.get_data()
+        fact_data = self.card_type_widget.get_data()
         cat_names = [c.strip() for c in \
                      unicode(self.categories.currentText()).split(',')]
         card_type_name = unicode(self.card_types.currentText())
@@ -165,10 +166,10 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         self.update_categories_combobox(cat_text)
         config()["categories_of_last_added"] = cat_text
         database().save(config()['path'])
-        self.card_type.widget.clear()
+        self.card_type_widget.clear()
 
     def reject(self):
-        if self.card_type.widget.contains_data():
+        if self.card_type_widget.contains_data():
             status = QMessageBox.warning(None, _("Mnemosyne"),
                                          _("Abandon current card?"),
                                          _("&Yes"), _("&No"), "", 1, -1)

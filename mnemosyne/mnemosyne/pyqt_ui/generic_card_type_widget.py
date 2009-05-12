@@ -7,9 +7,10 @@ from PyQt4.QtGui import *
 
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
 from mnemosyne.libmnemosyne.component_manager import config
+from mnemosyne.libmnemosyne.ui_components.card_type_widget \
+     import CardTypeWidget
 
-
-class GenericCardTypeWdgt(QWidget):
+class GenericCardTypeWdgt(QWidget, CardTypeWidget):
 
     def __init__(self, card_type, prefill_data=None, parent=None):
         QWidget.__init__(self, parent)

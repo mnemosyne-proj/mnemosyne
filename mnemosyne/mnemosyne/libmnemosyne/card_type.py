@@ -58,7 +58,6 @@ class CardType(Component):
         self.fields = []
         self.fact_views = []
         self.unique_fields = []
-        self.widget = None
         self.renderer = None
         
     def __eq__(self, other):

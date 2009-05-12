@@ -9,6 +9,7 @@ from PyQt4 import QtGui
 
 from review_wdgt import ReviewWdgt
 
+from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
 from mnemosyne.libmnemosyne.component_manager import database
 
@@ -17,7 +18,7 @@ class ReviewWdgtCramming(ReviewWdgt):
 
     used_for = Cramming
     then_used_for = None
-    delayed_instantiation = True
+    instantiate = Component.WHEN_PLUGIN_ACTIVE
     
     def __init__(self):
         ReviewWdgt.__init__(self)

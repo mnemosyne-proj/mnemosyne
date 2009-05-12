@@ -8,16 +8,21 @@
 -review controller (lean controller)
 -time full program
 
--test custom card type
--card_type.widget?
+-can't find user module on config load (+add test)
+-add two tests for custom card type?
+
+-make decision of when to instantiate in register, so as to be more forgiving
+ to the plugin writer.
+
+-is complete check on changing card type
 
 -document 'then_used_for'
--update list of component types.
+-update list of component types. (card_type_widget)
 -convert card types to read only class variables
+-get rid of card_type init
 -store component_manager as session context in each component
 -add documentation on how to access context in filter
 
--get rid of card_type init
 
 -fact modification date
 

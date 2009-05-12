@@ -36,8 +36,8 @@ class Plugin(Component):
     show_in_first_run_wizard = False
         
     def __init__(self):
-        assert self.name and self.description and self.components, \
-            "A plugin needs a name, description and components."
+        assert self.name and self.description, \
+            "A plugin needs a name and a description."
         self.instantiated_components = []
         
     def activate(self):
@@ -49,21 +49,29 @@ class Plugin(Component):
         # registered (with the instance having precendence), and the instance
         # component will be unregistered again when the plugin is deactivated.
         to_register = []
-        for component in self.components + [self.__class__]:
+        to_be_used_for = [self.__class__]
+        if self.components:
+            to_be_used_for += self.components           
+        for component in to_be_used_for:
             if component in component_manager.components: # as 'used_for' key.
                 for comp_type in component_manager.components[component]:
                     to_register += \
                             component_manager.components[component][comp_type]
-        # Add own components and register them. If they were originally
-        # 'used_for' the plugin, now make them 'used_for' their true purpose.
-        to_register += self.components
+        # Add plugin's own components.
+        if self.components:        
+            to_register += self.components
+        # Register all these componentls. If they were originally 'used_for'
+        # the plugin, now make them 'used_for' their true purpose.
         for component in to_register:
-            component = component()
-            if hasattr(component, "then_used_for"):
-                component.used_for = component.then_used_for
-            component_manager.register(component)
-            component.activate()           
-            self.instantiated_components.append(component)
+            if component.instantiate != Component.LATER:
+                component = component()
+                if hasattr(component, "then_used_for"):
+                    component.used_for = component.then_used_for
+                component_manager.register(component)
+                component.activate()           
+                self.instantiated_components.append(component)
+            else:
+                component_manager.register(component)                
         # Make necessary side effects happen.
         for component in self.instantiated_components:
             if component.component_type == "scheduler" \
