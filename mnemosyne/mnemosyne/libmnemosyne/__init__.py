@@ -143,7 +143,7 @@ class Mnemosyne(object):
         for plugin in config()["active_plugins"]:
             try:
                 for p in plugins():
-                    if plugin == p.__class__:
+                    if plugin == p.__class__.__name__:
                         p.activate()
                         break
             except:

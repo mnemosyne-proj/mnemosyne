@@ -8,8 +8,20 @@
 -review controller (lean controller)
 -time full program
 
+-card attribute: type answer
+-card attribute: sync status, move to int?, needed?
+
+
 -can't find user module on config load (+add test)
 -add two tests for custom card type?
+-specify interface of card type widget in ui_components, get data
+
+-hello world plugin
+-hook before and after review controller (for card typing checking)
+
+
+
+-don't reset cramming scheduler
 
 -make decision of when to instantiate in register, so as to be more forgiving
  to the plugin writer.
@@ -28,13 +40,22 @@
 
 -.029    0.029 __init__.py:180(initialise_components)
 
--have schedulers return id's only, make sure each scheduler has its own globals
+-moving starting easiness to scheduler
+-have schedulers return id's only
 
 
 
 -get rid of svn
+-update ohloh
+
+-sync protocol
+-log message for updated cards (to enable syncing)
+
+
 
 -more tests
+
+
 
 
 -move option to always randomise queue to config screen
@@ -115,6 +136,8 @@
 
 -backup after unloading, not after exiting
 
+-have hierarchy in plugin names
+
 
 -test sound
 
@@ -189,6 +212,8 @@
 
 -update tooltips, inform Patrick
 
+
+-chinese pod plugin
 
 
 -bug in Qt? : shortcuts don't change back after changing 'show answer'

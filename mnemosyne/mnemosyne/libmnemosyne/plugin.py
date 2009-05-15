@@ -44,14 +44,11 @@ class Plugin(Component):
         if self.activation_message:
             main_widget().information_box(self.activation_message)
         # Identify components which are 'used_for' the component in this
-        # plugin or this plugin itself (typically UI widgets). After this
-        # call, both the class component and the instance component will be
-        # registered (with the instance having precendence), and the instance
-        # component will be unregistered again when the plugin is deactivated.
-        to_register = []
+        # plugin or this plugin itself (typically UI widgets).
         to_be_used_for = [self.__class__]
         if self.components:
-            to_be_used_for += self.components           
+            to_be_used_for += self.components
+        to_register = []
         for component in to_be_used_for:
             if component in component_manager.components: # as 'used_for' key.
                 for comp_type in component_manager.components[component]:
@@ -60,10 +57,14 @@ class Plugin(Component):
         # Add plugin's own components.
         if self.components:        
             to_register += self.components
-        # Register all these componentls. If they were originally 'used_for'
+        # Register all these components. If they were originally 'used_for'
         # the plugin, now make them 'used_for' their true purpose.
         for component in to_register:
             if component.instantiate != Component.LATER:
+                # After this call, both the class component and the instance
+                # component will be registered (with the instance having
+                # precendence), and the instance component will be unregistered
+                # again when the plugin is deactivated
                 component = component()
                 if hasattr(component, "then_used_for"):
                     component.used_for = component.then_used_for
@@ -81,11 +82,9 @@ class Plugin(Component):
                 ui_controller_review().reset()
                 ui_controller_review().new_question()
         # Uses classes instead of instances here in order to survive pickling.  
-        config()["active_plugins"].add(self.__class__)
+        config()["active_plugins"].add(self.__class__.__name__)
 
     def deactivate(self):
-        if not self.instantiated_components:
-            return True
         for component in self.instantiated_components:
             if component.component_type == "card_type" \
                    and database().is_loaded():
@@ -114,7 +113,8 @@ class Plugin(Component):
                      import ui_controller_review
                 ui_controller_review().reset()
                 ui_controller_review().new_question()
-        # Uses classes instead of instances here in order to survive pickling.           
-        config()["active_plugins"].remove(self.__class__)
+        # Uses names instead of instances here in order to survive pickling.
+        if self.__class__.__name__ in config()["active_plugins"]:
+            config()["active_plugins"].remove(self.__class__.__name__)
         self.instantiated_components = []
         return True

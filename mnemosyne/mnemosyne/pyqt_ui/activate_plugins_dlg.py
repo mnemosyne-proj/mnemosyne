@@ -33,7 +33,7 @@ class PluginListModel(QAbstractTableModel):
                 return QVariant(plugins()[index.row()].description)
         if role == Qt.CheckStateRole:
             if index.column() == 0:
-                if plugins()[index.row()].__class__ in \
+                if plugins()[index.row()].__class__.__name__ in \
                        config()["active_plugins"]:
                     return QVariant(Qt.Checked)
                 else:
