@@ -17,54 +17,54 @@ class Mnemosyne(object):
 
     """
 
-    components = [
-       #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
-        ("mnemosyne.libmnemosyne.databases.SQLite",
-         "SQLite"),
-        ("mnemosyne.libmnemosyne.configuration",
-         "Configuration"),
-        ("mnemosyne.libmnemosyne.loggers.txt_logger",
-         "TxtLogger"), 
-        ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
-         "SM2Mnemosyne"),
-        ("mnemosyne.libmnemosyne.card_types.front_to_back",
-         "FrontToBack"),
-        ("mnemosyne.libmnemosyne.card_types.both_ways",
-         "BothWays"),
-        ("mnemosyne.libmnemosyne.card_types.three_sided",
-         "ThreeSided"),
-        ("mnemosyne.libmnemosyne.card_types.both_ways",
-         "FrontToBackToBothWays"),
-        ("mnemosyne.libmnemosyne.card_types.both_ways",
-         "BothWaysToFrontToBack"),
-        ("mnemosyne.libmnemosyne.card_types.three_sided",
-         "FrontToBackToThreeSided"),
-        ("mnemosyne.libmnemosyne.card_types.three_sided",
-         "BothWaysToThreeSided"),
-        ("mnemosyne.libmnemosyne.card_types.three_sided",
-         "ThreeSidedToFrontToBack"),
-        ("mnemosyne.libmnemosyne.card_types.three_sided",
-         "ThreeSidedToBothWays"),
-        ("mnemosyne.libmnemosyne.renderers.html_css",
-         "HtmlCss"),
-        ("mnemosyne.libmnemosyne.filters.escape_to_html",
-         "EscapeToHtml"),
-        ("mnemosyne.libmnemosyne.filters.expand_paths",
-         "ExpandPaths"),
-        ("mnemosyne.libmnemosyne.filters.latex",
-         "Latex"),
-        ("mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller",
-         "DefaultMainController"),
-        ("mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller",
-         "SM2Controller"),
-        ("mnemosyne.libmnemosyne.card_types.map",
-         "MapPlugin"),
-        ("mnemosyne.libmnemosyne.card_types.cloze",
-         "ClozePlugin"),
-        ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
-         "CrammingPlugin") ]
-    
     def __init__(self, resource_limited=False):
+        self.components = [
+        #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
+         ("mnemosyne.libmnemosyne.databases.SQLite",
+          "SQLite"),
+         ("mnemosyne.libmnemosyne.configuration",
+          "Configuration"),
+         ("mnemosyne.libmnemosyne.loggers.txt_logger",
+          "TxtLogger"), 
+         ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
+          "SM2Mnemosyne"),
+         ("mnemosyne.libmnemosyne.card_types.front_to_back",
+          "FrontToBack"),
+         ("mnemosyne.libmnemosyne.card_types.both_ways",
+          "BothWays"),
+         ("mnemosyne.libmnemosyne.card_types.three_sided",
+          "ThreeSided"),
+         ("mnemosyne.libmnemosyne.card_types.both_ways",
+          "FrontToBackToBothWays"),
+         ("mnemosyne.libmnemosyne.card_types.both_ways",
+          "BothWaysToFrontToBack"),
+         ("mnemosyne.libmnemosyne.card_types.three_sided",
+          "FrontToBackToThreeSided"),
+         ("mnemosyne.libmnemosyne.card_types.three_sided",
+          "BothWaysToThreeSided"),
+         ("mnemosyne.libmnemosyne.card_types.three_sided",
+          "ThreeSidedToFrontToBack"),
+         ("mnemosyne.libmnemosyne.card_types.three_sided",
+          "ThreeSidedToBothWays"),
+         ("mnemosyne.libmnemosyne.renderers.html_css",
+          "HtmlCss"),
+         ("mnemosyne.libmnemosyne.filters.escape_to_html",
+          "EscapeToHtml"),
+         ("mnemosyne.libmnemosyne.filters.expand_paths",
+          "ExpandPaths"),
+         ("mnemosyne.libmnemosyne.filters.latex",
+          "Latex"),
+         ("mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller",
+          "DefaultMainController"),
+         ("mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller",
+          "SM2Controller"),
+         ("mnemosyne.libmnemosyne.card_types.map",
+          "MapPlugin"),
+         ("mnemosyne.libmnemosyne.card_types.cloze",
+          "ClozePlugin"),
+         ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
+          "CrammingPlugin") ]
+        self.extra_components_for_plugin = {}
         self.resource_limited = resource_limited
         if sys.platform == "win32":
             error_log = os.path.join(config().basedir, "error_log.txt")
@@ -76,14 +76,12 @@ class Mnemosyne(object):
         config().resource_limited = self.resource_limited 
         self.activate_components()
         self.execute_user_plugin_dir()
-        self.activate_saved_plugins()
-        
+        self.activate_saved_plugins()       
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.
         self.check_lockfile()
         self.load_database(filename)
-
         # Finally, everything is in place to start the review process.
         from mnemosyne.libmnemosyne.component_manager import ui_controller_review
         ui_controller_review().new_question()
@@ -98,13 +96,20 @@ class Mnemosyne(object):
 
         """
 
-        for module_name, class_name in Mnemosyne.components:
+        for module_name, class_name in self.components:
             exec("from %s import %s" % (module_name, class_name))
             exec("component = %s" % class_name)
             if component.instantiate == component.IMMEDIATELY:
                 component_manager.register(component())
             else:
                 component_manager.register(component)
+        for plugin_name in self.extra_components_for_plugin:
+            for module_name, class_name in \
+                    self.extra_components_for_plugin[plugin_name]:
+                exec("from %s import %s" % (module_name, class_name))
+                exec("component = %s" % class_name)           
+                component_manager.add_component_to_plugin(plugin_name, \
+                                                            component)
             
     def activate_components(self):
         

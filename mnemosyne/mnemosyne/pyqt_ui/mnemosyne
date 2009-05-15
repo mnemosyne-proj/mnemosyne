@@ -72,6 +72,9 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt_cramming",
                              "ReviewWdgtCramming"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.sound",
                              "SoundPlayer"))
+mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
+                            [("mnemosyne.pyqt_ui.review_wdgt_cramming",
+                             "ReviewWdgtCramming")]
 
 # Run Mnemosyne.
 mnemosyne.initialise(basedir=basedir, filename=filename)

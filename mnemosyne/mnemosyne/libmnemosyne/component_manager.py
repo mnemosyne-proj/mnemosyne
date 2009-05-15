@@ -76,6 +76,18 @@ class ComponentManager(object):
         if component.component_type == "card_type":
             del self.card_type_by_id[component.id]
 
+    def add_component_to_plugin(self, plugin_class_name, component_class):
+
+        """Typical use case for this is when a plugin has a GUI
+        component which obviously does not live inside libmnemosyne, and which
+        needs to be added at a later stage.
+        
+        """
+        
+        for plugin in component_manager.get_all("plugin"):
+            if plugin.__class__.__name__ == plugin_class_name:
+                plugin.components.append(component_class)
+
     def get_all(self, type, used_for=None):
         
         """For components for which there can be many active at once."""

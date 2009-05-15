@@ -1,9 +1,32 @@
+-component_manager.add_component_to_plugin
+
+-specify interface of card type widget in ui_components, get data
+
+-hello world plugin
+
+
+-if we don't register an instance, make decision of when to 
+ instantiate in register, so as to be more forgiving
+ to the plugin writer. 
+
+-update list of component types. (card_type_widget)
+-convert card types to read only class variables
+-get rid of card_type init
+-update new_card_card_type widget example
+-store component_manager as session context in each component
+-add documentation on how to access context in filter
+
+-hook before and after review controller (for card typing checking)
+
+-don't reset cramming scheduler
+
+-have schedulers return id's only
+
 -optimise away cards_from_fact in scheduler
 -interval column + index (gain 0.5 sec)
 -indices on foreign keys
 -no primary keys on linkage
--merge review widget (gain 0.4 sec)
--test default / enabled / border
+-merge review widget? (gain 0.4 sec)
 -test feel without save, test if autocommit works, implement save interval
 -review controller (lean controller)
 -time full program
@@ -12,46 +35,15 @@
 -card attribute: sync status, move to int?, needed?
 
 
--can't find user module on config load (+add test)
--add two tests for custom card type?
--specify interface of card type widget in ui_components, get data
-
--hello world plugin
--hook before and after review controller (for card typing checking)
-
-
-
--don't reset cramming scheduler
-
--make decision of when to instantiate in register, so as to be more forgiving
- to the plugin writer.
-
--is complete check on changing card type
-
--document 'then_used_for'
--update list of component types. (card_type_widget)
--convert card types to read only class variables
--get rid of card_type init
--store component_manager as session context in each component
--add documentation on how to access context in filter
-
-
--fact modification date
-
--.029    0.029 __init__.py:180(initialise_components)
-
--moving starting easiness to scheduler
--have schedulers return id's only
-
-
-
 -get rid of svn
--update ohloh
+
 
 -sync protocol
 -log message for updated cards (to enable syncing)
 
+-is complete check on changing card type does not fire
 
+-fact modification date is not set?
 
 -more tests
 
@@ -172,6 +164,9 @@
  
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?, import user id and config, ...
+
+
+-update ohloh?
 
 
 -renamed default data dir on Windows?

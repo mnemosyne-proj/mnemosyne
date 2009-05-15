@@ -13,10 +13,9 @@ class Component(object):
 
     For efficiency reasons, not all components are instantiated immediately,
     e.g. instantiating a complex widget can take some time on a mobile device.
-    Some components like review widgets need to be instantiated when their
-    corresponding plugin (for which they are 'used_for') becomes active.
-    Others, like card type widgets, are instantiated even later, e.g. when the
-    add or edit dialog is shown.
+    Some components like review widgets need to be instantiated when the plugin
+    in which they are contained becomes active. Others, like card type widgets,
+    are instantiated even later, e.g. when the add or edit dialog is shown.
     
     """
     
