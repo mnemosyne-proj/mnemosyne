@@ -8,6 +8,12 @@ from mnemosyne.libmnemosyne.component_manager import config
 
 class Renderer(Component):
 
+    """Renders the contents of the Fact behind a Card to a suitable format.
+
+    "used_for" = card_type class
+
+    """
+
     component_type = "renderer"
 
     def update(self, card_type):

@@ -54,6 +54,13 @@
 <dd><p>Interface class describing the functions to be implemented by the
 actual database classes.</p>
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.activate">
+<!--[mnemosyne.libmnemosyne.database.Database.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.activate" title="Permalink to this definition">¶</a></dt>
+<dd>Initialisation code called when the component is about to do actual
+work, and which can&#8217;t happen in the constructor, e.g. because
+components on which it relies have not yet been registered.</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.active_count">
 <!--[mnemosyne.libmnemosyne.database.Database.active_count]--><tt class="descname">active_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.active_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -136,6 +143,11 @@ actual database classes.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.days_since_start">
 <!--[mnemosyne.libmnemosyne.database.Database.days_since_start]--><tt class="descname">days_since_start</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.days_since_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.deactivate">
+<!--[mnemosyne.libmnemosyne.database.Database.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.deactivate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -257,7 +269,7 @@ fact_view).</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_card">
-<!--[mnemosyne.libmnemosyne.database.Database.update_card]--><tt class="descname">update_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.database.Database.update_card]--><tt class="descname">update_card</tt><big>(</big><em>card</em>, <em>update_categories=True</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -281,7 +293,7 @@ fact_view).</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="configuration.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+            <p class="topless"><a href="configuration.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="file_format.html" title="next chapter"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></p>
             <h3>This Page</h3>
@@ -318,7 +330,7 @@ fact_view).</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on May 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -2,13 +2,13 @@
 # function_hook.py <Peter.Bienstman@UGent.be>
 #
 
-from plugin import Plugin
+from mnemosyne.libmnemosyne.component import Component
 
 
-class FunctionHook(Plugin):
+class FunctionHook(Component):
 
     """Function hooks are used by registering an instance of this class as
-    component of type function_hook, with the used_for argument any of the
+    component of type function_hook, with the "used_for" argument any of the
     following hook points:
     
        ======================   ===============================
@@ -23,7 +23,6 @@ class FunctionHook(Plugin):
     """
 
     component_type = "function_hook"
-    used_for = None
     
     def run(self):
         raise NotImplementedError

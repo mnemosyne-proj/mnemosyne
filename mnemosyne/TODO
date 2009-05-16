@@ -1,12 +1,9 @@
--if we don't register an instance, make decision of when to 
- instantiate in register, so as to be more forgiving
- to the plugin writer. 
-
--update list of component types. (card_type_widget)
 -convert card types to read only class variables
 -get rid of card_type init
 -update new_card_card_type widget example
+
 -store component_manager as session context in each component
+
 -add documentation on how to access context in filter
 
 -hook before and after review controller (for card typing checking)
@@ -35,7 +32,7 @@
 -log message for updated cards (to enable syncing)?
 Partership / sync status per partnership / user id / machine id
 Revision history per partnership
-Partnershis status stored per deck
+Partnership status stored per deck
 What about card attributes used in different systems
 Backup
 Store fact modif/cat modif
@@ -44,7 +41,10 @@ Import
 What if interrupted
 Media dir / can refuse large files
 XML over JSON
+http://effbot.org/zone/element-iterparse.htm
 Streaming compression
+http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
+
 API is element per element
 Negotiate when to use compression
 Unit tests

@@ -55,6 +55,13 @@
 widgets.  The logic related to the review process is split out in a
 separated controller class, to allow that to be swapped out easily.</p>
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.activate">
+<!--[mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.activate" title="Permalink to this definition">¶</a></dt>
+<dd>Initialisation code called when the component is about to do actual
+work, and which can&#8217;t happen in the constructor, e.g. because
+components on which it relies have not yet been registered.</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.activate_plugins">
 <!--[mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.activate_plugins]--><tt class="descname">activate_plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.activate_plugins" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -72,6 +79,11 @@ separated controller class, to allow that to be swapped out easily.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.create_new_cards">
 <!--[mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.create_new_cards]--><tt class="descname">create_new_cards</tt><big>(</big><em>fact_data</em>, <em>card_type</em>, <em>grade</em>, <em>cat_names</em>, <em>warn=True</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.create_new_cards" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.deactivate">
+<!--[mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_main.UiControllerMain.deactivate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -162,7 +174,7 @@ separated controller class, to allow that to be swapped out easily.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on May 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -50,9 +50,9 @@
 <h1><tt class="xref docutils literal"><span class="pre">FunctionHook</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.function_hook" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook">
-<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook]-->class <tt class="descclassname">mnemosyne.libmnemosyne.function_hook.</tt><tt class="descname">FunctionHook</tt><big>(</big><em>components</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook]-->class <tt class="descclassname">mnemosyne.libmnemosyne.function_hook.</tt><tt class="descname">FunctionHook</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function hooks are used by registering an instance of this class as
-component of type function_hook, with the used_for argument any of the
+component of type function_hook, with the &#8220;used_for&#8221; argument any of the
 following hook points:</p>
 <blockquote>
 <table border="1" class="docutils">
@@ -78,7 +78,9 @@ in the program.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.activate">
 <!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.activate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd>Initialisation code called when the component is about to do actual
+work, and which can&#8217;t happen in the constructor, e.g. because
+components on which it relies have not yet been registered.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.deactivate">
@@ -101,7 +103,7 @@ in the program.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="filter.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Filter</span></tt></a></p>
+            <p class="topless"><a href="filter.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Filter</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="log_uploader.html" title="next chapter"><tt class="docutils literal"><span class="pre">LogUploader</span></tt></a></p>
             <h3>This Page</h3>
@@ -138,7 +140,7 @@ in the program.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on May 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

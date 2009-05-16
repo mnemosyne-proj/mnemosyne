@@ -50,11 +50,18 @@
 <h1><tt class="xref docutils literal"><span class="pre">Plugin</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.plugin" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.plugin.Plugin">
-<!--[mnemosyne.libmnemosyne.plugin.Plugin]-->class <tt class="descclassname">mnemosyne.libmnemosyne.plugin.</tt><tt class="descname">Plugin</tt><big>(</big><em>components</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.plugin.Plugin]-->class <tt class="descclassname">mnemosyne.libmnemosyne.plugin.</tt><tt class="descname">Plugin</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Plugin is a group of components which can be activated and
 deactivated by the user when the program is running.</p>
 <p>Plugins are used as a separate class, and not as mixins, in order to
 allow for the fact that a Plugin can group multiple components.</p>
+<p>&#8216;components&#8217; is a list of component classes (not instances) that will
+be registered and/or instantiated when the Plugin becomes active.</p>
+<p>Activating and deactivating certain components needs to give rise to
+certain side effects. It&#8217;s cumbersone to implement those in the
+&#8216;activate&#8217; and &#8216;deactivate&#8217; methods of the components, as these also
+are called when the program is still starting up and the context can
+be completely different.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.plugin.Plugin.activate">
 <!--[mnemosyne.libmnemosyne.plugin.Plugin.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.activate" title="Permalink to this definition">¶</a></dt>
@@ -113,7 +120,7 @@ allow for the fact that a Plugin can group multiple components.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on May 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

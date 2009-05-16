@@ -19,7 +19,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Fact" href="fact.html" />
-    <link rel="prev" title="Libmnemosyne overview" href="../index.html" /> 
+    <link rel="prev" title="Component" href="component.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,7 +35,7 @@
           <a href="fact.html" title="Fact"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="Libmnemosyne overview"
+          <a href="component.html" title="Component"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -51,73 +51,26 @@
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager">
 <!--[mnemosyne.libmnemosyne.component_manager.ComponentManager]-->class <tt class="descclassname">mnemosyne.libmnemosyne.component_manager.</tt><tt class="descname">ComponentManager</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Manages the different components. Each component belongs to a type
-(database, scheduler, card_type, card_type_widget, ...), which is stored
-in the class variable &#8216;component_type&#8217; of each component.</p>
-<p>The component manager can also store relationships between components,
-e.g. a card_type_widget is used for a certain card_type.</p>
+<dd><p>Manages the different components. Apart from some UI widgets, instances
+of the different components are stored (as opposed to classes). In such a
+way, the component manager stores all the state of the user.</p>
 <p>For certain components, many can be active at the same time (card types,
 filters, function hooks, ...). For others, there can be only on active
 at the same time, like schedule, database ... The idea is that the last
 one registered takes preference. This means that e.g. the default
 scheduler needs to be registered first.</p>
-<p>Managed components:</p>
-<blockquote>
-<table border="1" class="docutils">
-<colgroup>
-<col width="34%" />
-<col width="66%" />
-</colgroup>
-<tbody valign="top">
-<tr><td>&#8220;config&#8221;</td>
-<td>configuration instance</td>
-</tr>
-<tr><td>&#8220;log&#8221;</td>
-<td>logger instance</td>
-</tr>
-<tr><td>&#8220;database&#8221;</td>
-<td>database instance</td>
-</tr>
-<tr><td>&#8220;scheduler&#8221;</td>
-<td>scheduler instance</td>
-</tr>
-<tr><td>&#8220;filter&#8221;</td>
-<td>filter instance</td>
-</tr>
-<tr><td>&#8220;card_type&#8221;</td>
-<td>card_type instance</td>
-</tr>
-<tr><td>&#8220;card_type_converter&#8221;</td>
-<td>card_type_converter instance
-used for (old_type class, new_type class)</td>
-</tr>
-<tr><td>&#8220;ui_component&#8221;</td>
-<td>component class,
-used_for class</td>
-</tr>
-<tr><td>&#8220;renderer&#8221;</td>
-<td>renderer instance,
-used_for card_type class</td>
-</tr>
-<tr><td>&#8220;ui_controller_main&#8221;</td>
-<td>ui_controller_main instance</td>
-</tr>
-<tr><td>&#8220;ui_controller_review&#8221;</td>
-<td>ui_controller_review instance</td>
-</tr>
-<tr><td>&#8220;plugin&#8221;</td>
-<td>plugin instance</td>
-</tr>
-<tr><td>&#8220;function_hook&#8221;</td>
-<td>function hook instance
-used_for hookpoint_name</td>
-</tr>
-</tbody>
-</table>
-</blockquote>
-<p>Note: for widgets we store the class name as opposed to an instance,
-since creating widgets can be time consuming, and we want to create
-e.g. card type widgets only when they are really needed.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin">
+<!--[mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin]--><tt class="descname">add_component_to_plugin</tt><big>(</big><em>plugin_class_name</em>, <em>component_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin" title="Permalink to this definition">¶</a></dt>
+<dd>Typical use case for this is when a plugin has a GUI
+component which obviously does not live inside libmnemosyne, and which
+needs to be added at a later stage.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all">
+<!--[mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all]--><tt class="descname">deactivate_all</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.get_all">
 <!--[mnemosyne.libmnemosyne.component_manager.ComponentManager.get_all]--><tt class="descname">get_all</tt><big>(</big><em>type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.get_all" title="Permalink to this definition">¶</a></dt>
@@ -150,7 +103,7 @@ time.</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="../index.html" title="previous chapter">Libmnemosyne overview</a></p>
+            <p class="topless"><a href="component.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Component</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="fact.html" title="next chapter"><tt class="docutils literal"><span class="pre">Fact</span></tt></a></p>
             <h3>This Page</h3>
@@ -180,14 +133,14 @@ time.</dd></dl>
           <a href="fact.html" title="Fact"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="Libmnemosyne overview"
+          <a href="component.html" title="Component"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on May 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -5,44 +5,15 @@
 
 class ComponentManager(object):
 
-    """Manages the different components. Each component belongs to a type
-    ('database', 'scheduler', 'card_type', ...), which is stored in the class
-    variable 'component_type' of each component.
-
-    The component manager can also store relationships between components,
-    e.g. a card type widget is used for a certain card type.
+    """Manages the different components. Apart from some UI widgets, instances
+    of the different components are stored (as opposed to classes). In such a
+    way, the component manager stores all the state of the user.
 
     For certain components, many can be active at the same time (card types,
     filters, function hooks, ...). For others, there can be only on active
     at the same time, like schedule, database ... The idea is that the last
     one registered takes preference. This means that e.g. the default
     scheduler needs to be registered first.
-
-    Managed components:
-
-       ======================   ===========================================
-       "config"                 configuration instance
-       "log"                    logger instance
-       "database"               database instance
-       "scheduler"              scheduler instance
-       "filter"                 filter instance
-       "card_type"              card_type instance
-       "card_type_converter"    card_type_converter instance
-                                used for (old_type class, new_type class)       
-       "ui_component"           component class,
-                                used_for class
-       "renderer"               renderer instance,
-                                used_for card_type class
-       "ui_controller_main"     ui_controller_main instance
-       "ui_controller_review"   ui_controller_review instance
-       "plugin"                 plugin instance
-       "function_hook"          function hook instance
-                                used_for hookpoint_name
-       ======================   ===========================================
-       
-    Note: for widgets we store the class name as opposed to an instance,
-    since creating widgets can be time consuming, and we want to create
-    e.g. card type widgets only when they are really needed.
 
     """
         
@@ -54,6 +25,9 @@ class ComponentManager(object):
         
         """For type, component and used_for, see the table above."""
 
+        if isinstance(component, type) and \
+           component.instantiate == component.IMMEDIATELY:
+            component = component()
         comp_type = component.component_type
         used_for = component.used_for
         if not self.components.has_key(used_for):

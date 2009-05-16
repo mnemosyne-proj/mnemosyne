@@ -19,7 +19,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Card" href="card.html" />
-    <link rel="prev" title="FactView" href="fact_view.html" /> 
+    <link rel="prev" title="Category" href="category.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,7 +35,7 @@
           <a href="card.html" title="Card"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="fact_view.html" title="FactView"
+          <a href="category.html" title="Category"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -79,6 +79,13 @@ after_review provide an extra layer of abstraction and can be overridden
 by card types like cloze deletion, which require a varying number of fact
 views with card specific data.</p>
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.activate">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.activate" title="Permalink to this definition">¶</a></dt>
+<dd>Initialisation code called when the component is about to do actual
+work, and which can&#8217;t happen in the constructor, e.g. because
+components on which it relies have not yet been registered.</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.after_review">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.after_review]--><tt class="descname">after_review</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.after_review" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -96,6 +103,11 @@ views with card specific data.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.create_related_cards">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.create_related_cards]--><tt class="descname">create_related_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_related_cards" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.deactivate">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.deactivate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -153,9 +165,9 @@ all the required fields are there, this can be done here.</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="fact_view.html" title="previous chapter"><tt class="docutils literal"><span class="pre">FactView</span></tt></a></p>
+            <p class="topless"><a href="category.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Category</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="card.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
+            <p class="topless"><a href="card.html" title="next chapter"><tt class="docutils literal"><span class="pre">Card</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/card_type.txt">Show Source</a></li>
@@ -183,14 +195,14 @@ all the required fields are there, this can be done here.</dd></dl>
           <a href="card.html" title="Card"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="fact_view.html" title="FactView"
+          <a href="category.html" title="Category"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on May 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

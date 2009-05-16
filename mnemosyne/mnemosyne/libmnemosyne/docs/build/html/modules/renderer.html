@@ -19,7 +19,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="UiControllerMain" href="ui_controller_main.html" />
-    <link rel="prev" title="Card" href="card.html" /> 
+    <link rel="prev" title="CardTypeConverter" href="card_type_converter.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,7 +35,7 @@
           <a href="ui_controller_main.html" title="UiControllerMain"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="card.html" title="Card"
+          <a href="card_type_converter.html" title="CardTypeConverter"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -51,7 +51,21 @@
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer">
 <!--[mnemosyne.libmnemosyne.renderer.Renderer]-->class <tt class="descclassname">mnemosyne.libmnemosyne.renderer.</tt><tt class="descname">Renderer</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Renders the contents of the Fact behind a Card to a suitable format.</p>
+<p>&#8220;used_for&#8221; = card_type class</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.renderer.Renderer.activate">
+<!--[mnemosyne.libmnemosyne.renderer.Renderer.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.activate" title="Permalink to this definition">¶</a></dt>
+<dd>Initialisation code called when the component is about to do actual
+work, and which can&#8217;t happen in the constructor, e.g. because
+components on which it relies have not yet been registered.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.renderer.Renderer.deactivate">
+<!--[mnemosyne.libmnemosyne.renderer.Renderer.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.deactivate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields">
 <!--[mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields]--><tt class="descname">render_card_fields</tt><big>(</big><em>card</em>, <em>fields</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields" title="Permalink to this definition">¶</a></dt>
 <dd>Renders a sequence of fields from a card, e.g. by generating html 
@@ -86,7 +100,7 @@ If fact_key is None, then this will be applied to all fact keys.</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="card.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
+            <p class="topless"><a href="card_type_converter.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">CardTypeConverter</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="ui_controller_main.html" title="next chapter"><tt class="docutils literal"><span class="pre">UiControllerMain</span></tt></a></p>
             <h3>This Page</h3>
@@ -116,14 +130,14 @@ If fact_key is None, then this will be applied to all fact keys.</dd></dl>
           <a href="ui_controller_main.html" title="UiControllerMain"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="card.html" title="Card"
+          <a href="card_type_converter.html" title="CardTypeConverter"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on May 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

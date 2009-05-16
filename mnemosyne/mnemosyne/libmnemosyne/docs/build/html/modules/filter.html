@@ -57,6 +57,18 @@ functionality.  The &#8216;card&#8217; argument provides extra context if needed
 manager. If you really need to make sure that your filter runs before the
 rest, set &#8216;in_front=True&#8217; as argument in &#8216;component_manager.register&#8217;.</p>
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.filter.Filter.activate">
+<!--[mnemosyne.libmnemosyne.filter.Filter.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.activate" title="Permalink to this definition">¶</a></dt>
+<dd>Initialisation code called when the component is about to do actual
+work, and which can&#8217;t happen in the constructor, e.g. because
+components on which it relies have not yet been registered.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.filter.Filter.deactivate">
+<!--[mnemosyne.libmnemosyne.filter.Filter.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.deactivate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.filter.Filter.run">
 <!--[mnemosyne.libmnemosyne.filter.Filter.run]--><tt class="descname">run</tt><big>(</big><em>text</em>, <em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -72,7 +84,7 @@ rest, set &#8216;in_front=True&#8217; as argument in &#8216;component_manager.re
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="file_format.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">FileFormat</span></tt></a></p>
+            <p class="topless"><a href="file_format.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">FileFormat</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="function_hook.html" title="next chapter"><tt class="docutils literal"><span class="pre">FunctionHook</span></tt></a></p>
             <h3>This Page</h3>
@@ -109,7 +121,7 @@ rest, set &#8216;in_front=True&#8217; as argument in &#8216;component_manager.re
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on May 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

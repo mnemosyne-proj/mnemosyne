@@ -46,17 +46,18 @@ Modules
 
 .. toctree::
     :maxdepth: 2
-    
+
+    modules/component    
     modules/component_manager
     modules/fact
     modules/fact_view
+    modules/category    
     modules/card_type
-    modules/card  
+    modules/card
+    modules/card_type_converter
     modules/renderer
     modules/ui_controller_main
     modules/ui_controller_review
-    modules/review_widget
-    modules/category
     modules/configuration
     modules/database
     modules/file_format
