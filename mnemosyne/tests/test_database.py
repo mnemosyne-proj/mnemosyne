@@ -136,11 +136,8 @@ class TestDatabase(MnemosyneTest):
         
         ui_controller_main().file_save()       
         database().unload()
-        Mnemosyne().finalise()
-        
-        component_manager.register(MainWidget())
-        component_manager.register(ReviewWidget())        
-        Mnemosyne().initialise(os.path.abspath("dot_test"))
+        self.mnemosyne.finalise()
+        self.restart()
         assert database().fact_count() == 1
         _card_id, _fact_id = list(database().cards_unseen(0))[0]
         fact = database().get_fact(_fact_id)
@@ -172,12 +169,10 @@ class TestDatabase(MnemosyneTest):
         assert database().fact_count() == 1        
         ui_controller_main().file_save()       
         database().unload()
-        Mnemosyne().finalise()
-        
-        component_manager.register(MainWidget())
-        component_manager.register(ReviewWidget())        
-        Mnemosyne().initialise(os.path.abspath("dot_test"))
+        self.mnemosyne.finalise()
 
+        self.restart()
+        
         assert database().fact_count() == 1
         _card_id, _fact_id = list(database().cards_unseen(0))[0]
         fact = database().get_fact(_fact_id)
@@ -239,11 +234,8 @@ class TestDatabase(MnemosyneTest):
         ui_controller_main().file_save()
 
         database().unload()
-        Mnemosyne().finalise()
-        
-        component_manager.register(MainWidget())
-        component_manager.register(ReviewWidget())        
-        Mnemosyne().initialise(os.path.abspath("dot_test"))
+        self.mnemosyne.finalise()
+        self.restart()
         database().unload()
 
         # Artificially remove plugin.
@@ -280,11 +272,8 @@ class TestDatabase(MnemosyneTest):
         
         ui_controller_main().file_save()       
         database().unload()
-        Mnemosyne().finalise()
-
-        component_manager.register(MainWidget())
-        component_manager.register(ReviewWidget())
-        Mnemosyne().initialise(os.path.abspath("dot_test"))
+        self.mnemosyne.finalise()
+        self.restart()
         database().unload()
         
         # Artificially mutilate plugin.

@@ -11,7 +11,8 @@ from review_wdgt import ReviewWdgt
 
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.component_manager import database
-
+from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
+   
 
 class ReviewWdgtCramming(ReviewWdgt):
 
