@@ -14,30 +14,27 @@ class BothWays(CardType):
     id = "2"
     name = _("Front-to-back and back-to-front")
 
-    def __init__(self):
-        CardType.__init__(self)
-            
-        # List and name the keys.
-        self.fields.append(("q", _("Question")))
-        self.fields.append(("a", _("Answer")))
-        
-        # Front-to-back.
-        v = FactView("1", _("Front-to-back"))
-        v.q_fields = ["q"]
-        v.a_fields = ["a"]
-        v.required_fields = ["q"]
-        self.fact_views.append(v)
-        
-        # Back-to-front.
-        v = FactView("2", _("Back-to-front"))
-        v.q_fields = ["a"]
-        v.a_fields = ["q"]
-        v.required_fields = ["a"]
-        self.fact_views.append(v)
-        
-        # The question field needs to be unique. As for duplicates is the answer
-        # field, these are better handled through a synonym detection plugin.
-        self.unique_fields = ["q"]
+    # List and name the keys.
+    fields = [("q", _("Question")),
+              ("a", _("Answer"))]
+    
+    # Front-to-back.
+    v1 = FactView("1", _("Front-to-back"))
+    v1.q_fields = ["q"]
+    v1.a_fields = ["a"]
+    v1.required_fields = ["q"]
+
+    # Back-to-front.
+    v2 = FactView("2", _("Back-to-front"))
+    v2.q_fields = ["a"]
+    v2.a_fields = ["q"]
+    v2.required_fields = ["q"]
+    
+    fact_views = [v1, v2]
+    
+    # The question field needs to be unique. As for duplicates is the answer
+    # field, these are better handled through a synonym detection plugin.
+    unique_fields = ["q"]
 
 
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack

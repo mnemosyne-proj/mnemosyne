@@ -53,12 +53,7 @@ class CardType(Component):
     name = ""
     is_clone = False
     component_type = "card_type"
-    
-    def __init__(self):
-        self.fields = []
-        self.fact_views = []
-        self.unique_fields = []
-        self.renderer = None
+    renderer = None
         
     def __eq__(self, other):
         try:

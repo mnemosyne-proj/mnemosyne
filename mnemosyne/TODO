@@ -1,14 +1,8 @@
--convert card types to read only class variables
--get rid of card_type init
--update new_card_card_type widget example
-
 -store component_manager as session context in each component
 
 -add documentation on how to access context in filter
 
 -hook before and after review controller (for card typing checking)
-
--don't reset cramming scheduler
 
 -have schedulers return id's only
 
@@ -51,6 +45,8 @@ Unit tests
 Licence
 other languages in repo
 
+
+-don't reset cramming scheduler
 
 -is complete check on changing card type does not fire
 

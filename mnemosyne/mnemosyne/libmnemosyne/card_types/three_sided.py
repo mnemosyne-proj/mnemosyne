@@ -13,33 +13,30 @@ class ThreeSided(CardType):
     
     id = "3"
     name = _("Foreign word with pronunciation")
-            
-    def __init__(self):
-        CardType.__init__(self)
 
-        # List and name the keys.
-        self.fields.append(("f", _("Foreign word")))
-        self.fields.append(("p", _("Pronunciation")))
-        self.fields.append(("t", _("Translation")))
+    # List and name the keys.
+    fields = [("f", _("Foreign word")),
+              ("p", _("Pronunciation")),
+              ("t", _("Translation"))]
 
-        # Recognition.
-        v = FactView("1", _("Recognition"))
-        v.q_fields = ["f"]
-        v.a_fields = ["p", "t"]
-        v.required_fields = ["f"]
-        self.fact_views.append(v)
+    # Recognition.
+    v1 = FactView("1", _("Recognition"))
+    v1.q_fields = ["f"]
+    v1.a_fields = ["p", "t"]
+    v1.required_fields = ["f"]
 
-        # Production.
-        v = FactView("2", _("Production"))
-        v.q_fields = ["t"]
-        v.a_fields = ["f", "p"]
-        v.required_fields = ["t"]
-        self.fact_views.append(v)
+    # Production.
+    v2 = FactView("2", _("Production"))
+    v2.q_fields = ["t"]
+    v2.a_fields = ["f", "p"]
+    v2.required_fields = ["t"]
     
-        # The foreign word field needs to be unique. As for duplicates in the
-        # answer field, these are better handled through a synonym detection 
-        # plugin.
-        self.unique_fields = ["f"]
+    fact_views = [v1, v2]
+
+    # The foreign word field needs to be unique. As for duplicates in the
+    # answer field, these are better handled through a synonym detection 
+    # plugin.
+    unique_fields = ["f"]
 
 
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack

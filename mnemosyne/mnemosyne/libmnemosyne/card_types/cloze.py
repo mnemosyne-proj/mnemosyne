@@ -44,13 +44,11 @@ class Cloze(CardType):
     
     id = "5"
     name = _("Cloze deletion")
-    
-    def __init__(self):
-        CardType.__init__(self)
-        self.fields.append(("text", _("Text")))
-        self.unique_fields = ["text"]
-        self.fact_views = [FactView("1", _("Cloze"))]
-        self.activation_message = manual
+
+    fields = [("text", _("Text"))]
+    unique_fields = ["text"]
+    fact_views = [FactView("1", _("Cloze"))]
+    activation_message = manual
 
     def validate_data(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))

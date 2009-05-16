@@ -17,12 +17,12 @@ from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 # (Here this is already fullfilled because GenericCardTypeWdgt itself inherits
 # from CardTypeWidget)
 
-class RedGenericCardTypeWdgt(GenericCardTypeWdgt, CardTypeWidget):
+class RedGenericCardTypeWdgt(GenericCardTypeWdgt):
 
     used_for = FrontToBack
 
     def __init__(self, prefill_data=None, parent=None):
-        GenericCardTypeWdgt.__init__(self, FrontToBack(), prefill_data, parent)
+        GenericCardTypeWdgt.__init__(self, FrontToBack, parent)
         for edit_box in self.edit_boxes:
             p = QtGui.QPalette()
             p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base, \
@@ -32,10 +32,6 @@ class RedGenericCardTypeWdgt(GenericCardTypeWdgt, CardTypeWidget):
 # Register the widget.
 
 component_manager.register(RedGenericCardTypeWdgt)
-
-
-
-    
 
 
 
