@@ -79,7 +79,8 @@ class Plugin(Component):
                         return False
             component.deactivate()
             component_manager.unregister(component)
-        # Make necessary side effects happen.
+        # Make necessary side effects happen. We don't put all side effects in
+        # a single loop, as the order is important.
         for component in self.instantiated_components:
             if component.component_type == "review_widget":
                 # Some toolkits (e.g. Qt) destroy the old review widget after
@@ -91,6 +92,7 @@ class Plugin(Component):
                 new_widget = old_widget.__class__()
                 component_manager.unregister(old_widget)
                 component_manager.register(new_widget)
+        for component in self.instantiated_components:            
             if component.component_type == "scheduler" and \
                    database().is_loaded():
                 from mnemosyne.libmnemosyne.component_manager \
