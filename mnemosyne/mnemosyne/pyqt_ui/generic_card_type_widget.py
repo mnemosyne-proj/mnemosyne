@@ -12,7 +12,7 @@ from mnemosyne.libmnemosyne.ui_components.card_type_widget \
 
 class GenericCardTypeWdgt(QWidget, CardTypeWidget):
 
-    def __init__(self, card_type, prefill_data=None, parent=None):
+    def __init__(self, card_type, parent=None):
         QWidget.__init__(self, parent)
         self.card_type = card_type
         self.hboxlayout = QHBoxLayout(self)
@@ -54,10 +54,6 @@ class GenericCardTypeWdgt(QWidget, CardTypeWidget):
             if not self.top_edit_box:
                 self.top_edit_box = t
             self.connect(t, SIGNAL("textChanged()"), self.text_changed)
-        if prefill_data:
-            for edit_box, fact_key in self.edit_boxes.iteritems():
-                if fact_key in prefill_data.keys():
-                    edit_box.setText(prefill_data[fact_key])
         self.hboxlayout.addLayout(self.vboxlayout)
         self.resize(QSize(QRect(0,0,325,264).size()).\
                     expandedTo(self.minimumSizeHint()))
@@ -69,16 +65,27 @@ class GenericCardTypeWdgt(QWidget, CardTypeWidget):
         return False
 
     def get_data(self, check_for_required=True):
-        fact = {}
+        fact_data = {}
         for edit_box, fact_key in self.edit_boxes.iteritems():
-            fact[fact_key] = unicode(edit_box.document().toPlainText())
+            fact_data[fact_key] = unicode(edit_box.document().toPlainText())
         if not check_for_required:
-            return fact
+            return fact_data
         for required in self.card_type.required_fields():
-            if not fact[required]:
+            if not fact_data[required]:
                 raise ValueError
-        return fact
+        return fact_data
 
+    def set_data(self, data):
+        if data:
+            for edit_box, fact_key in self.edit_boxes.iteritems():
+                if fact_key in data.keys():
+                    edit_box.setText(data[fact_key])
+
+    def clear(self):
+        for edit_box in self.edit_boxes:
+            edit_box.setText("")
+        self.top_edit_box.setFocus()
+    
     def text_changed(self):
         data = None
         try:
@@ -87,8 +94,3 @@ class GenericCardTypeWdgt(QWidget, CardTypeWidget):
             complete = False
         complete = self.card_type.validate_data(data)
         self.parent().is_complete(complete)
-
-    def clear(self):
-        for edit_box in self.edit_boxes:
-            edit_box.setText("")
-        self.top_edit_box.setFocus()

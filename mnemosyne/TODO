@@ -1,6 +1,4 @@
--component_manager.add_component_to_plugin
-
--specify interface of card type widget in ui_components, get data
+-can no longer deactivate cramming plugin
 
 -hello world plugin
 
@@ -39,7 +37,25 @@
 
 
 -sync protocol
--log message for updated cards (to enable syncing)
+-log message for updated cards (to enable syncing)?
+Partership / sync status per partnership / user id / machine id
+Revision history per partnership
+Partnershis status stored per deck
+What about card attributes used in different systems
+Backup
+Store fact modif/cat modif
+Deck name
+Import
+What if interrupted
+Media dir / can refuse large files
+XML over JSON
+Streaming compression
+API is element per element
+Negotiate when to use compression
+Unit tests
+Licence
+other languages in repo
+
 
 -is complete check on changing card type does not fire
 

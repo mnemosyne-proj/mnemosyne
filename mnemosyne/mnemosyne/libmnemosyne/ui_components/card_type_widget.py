@@ -16,4 +16,34 @@ class CardTypeWidget(UiComponent):
 
     component_type = "card_type_widget"
     instantiate = Component.LATER
+
+    def contains_data(self):
+        raise NotImplementedError
+
+    def get_data(self, check_for_required=True):
+
+        """Get fact data from widget, optionally check for required fields.
+        Should raise a ValueError if required fields are missing.
+
+        """
+
+        raise NotImplementedError
+    
+    def set_data(self, data):
+
+        """Put fact data in the widget. Used e.g. when converting facts to
+        different card types.
+
+
+        """
+
+        raise NotImplementedError
+
+    def clear(self):
+
+        """Empty the widget and prepare it for entry of the next card."""
+        
+        raise NotImplementedError
+    
+
     

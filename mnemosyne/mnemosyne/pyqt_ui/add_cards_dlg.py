@@ -77,11 +77,12 @@ class AddEditCards:
         try:                                                                    
             self.card_type_widget = component_manager.get_current\
                     ("card_type_widget", used_for=self.card_type.__class__)\
-                          (parent=self, prefill_data=prefill_data)
+                          (parent=self)
         except:
             if not self.card_type_widget: 
                 self.card_type_widget = GenericCardTypeWdgt\
-                      (self.card_type, parent=self, prefill_data=prefill_data)
+                      (self.card_type, parent=self)
+        self.card_type_widget.set_data(prefill_data)
         self.card_type_widget.show()
         self.verticalLayout.insertWidget(1, self.card_type_widget)
 
