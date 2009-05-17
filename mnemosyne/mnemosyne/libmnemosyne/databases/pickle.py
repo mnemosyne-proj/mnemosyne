@@ -17,7 +17,6 @@ from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.component_manager import _
-from mnemosyne.libmnemosyne.component_manager import component_manager, config
 from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.component_manager import log, plugins
@@ -55,17 +54,17 @@ class Pickle(Database):
     def new(self, path):
         if self.is_loaded():
             self.unload()
-        path = expand_path(path, config().basedir)
+        path = expand_path(path, self.config().basedir)
         self.load_failed = False
         self.start_date = StartDate()
-        self.save(contract_path(path, config().basedir))
-        config()["path"] = path
+        self.save(contract_path(path, self.config().basedir))
+        self.config()["path"] = path
         log().new_database()
 
     def load(self, path):
         if self.is_loaded():
             self.unload()
-        path = expand_path(path, config().basedir)
+        path = expand_path(path, self.config().basedir)
         if not os.path.exists(path):
             self.load_failed = True
             raise RuntimeError, _("File does not exist.")
@@ -141,18 +140,15 @@ class Pickle(Database):
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             f.card_type = card_type_by_id(f.card_type)    
-        # TODO: This was to remove database inconsistencies. Still needed?
-        #for c in self.categories:
-        #    self.remove_category_if_unused(c)
-        config()["path"] = contract_path(path, config().basedir)
+        self.config()["path"] = contract_path(path, self.config().basedir)
         log().loaded_database()
-        for f in component_manager.get_all("function_hook", "after_load"):
+        for f in self.component_manager.get_all("function_hook", "after_load"):
             f.run()
 
     def save(self, path=None):
         if not path:
-            path = config()["path"]
-        path = expand_path(path, config().basedir)
+            path = self.config()["path"]
+        path = expand_path(path, self.config().basedir)
         # Update version.
         self.global_variables["version"] = self.version
         # Work around a sip bug: don't store card types, but their ids.
@@ -174,7 +170,7 @@ class Pickle(Database):
             print traceback_string()
             raise RuntimeError, _("Unable to save file.") \
                   + "\n" + traceback_string()
-        config()["path"] = contract_path(path, config().basedir)
+        self.config()["path"] = contract_path(path, self.config().basedir)
         # Work around sip bug again.
         for f in self.facts:
             f.card_type = card_type_by_id(f.card_type)
@@ -182,7 +178,7 @@ class Pickle(Database):
     def unload(self):
         if len(self.facts) == 0:
             return True
-        self.save(config()["path"])
+        self.save(self.config()["path"])
         log().saved_database()
         self.start_date = None
         self.categories = []
@@ -192,7 +188,7 @@ class Pickle(Database):
         return True
 
     def backup(self):
-        if config().resource_limited:
+        if self.config().resource_limited:
             return
         
         # TODO: implement
@@ -239,7 +235,7 @@ class Pickle(Database):
         self.start_date = start_date_obj
 
     def days_since_start(self):
-        return self.start_date.days_since_start()
+        return self.start_date.days_since_start(self.config()["day_starts_at"])
     
     # Adding, modifying and deleting categories, facts and cards.
     

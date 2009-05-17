@@ -25,9 +25,6 @@ class ComponentManager(object):
         
         """For type, component and used_for, see the table above."""
 
-        if isinstance(component, type) and \
-           component.instantiate == component.IMMEDIATELY:
-            component = component()
         comp_type = component.component_type
         used_for = component.used_for
         if not self.components.has_key(used_for):
@@ -124,50 +121,22 @@ class ComponentManager(object):
                         component.deactivate()
         self.components = {}
         self.card_type_by_id = {}
-        
-# The component manager needs to be accessed by many different parts of the
-# library, so we hold it in a global variable.
-
-component_manager = ComponentManager()
 
 
-# Convenience functions, for easier access from the outside world.
+# A component manager stores the entire session state of a user through the
+# different components it registers. To enable multiple users to use
+# libmnemosyne simultaneously, we store a component manager instance for each
+# user.
 
-def config():
-    return component_manager.get_current("config")
+_component_managers = {}
+
+def new_component_manager():
+    return ComponentManager()
+
+def register_component_manager(component_manager, user_id):
+    global _component_managers
+    _component_managers[user_id] = component_manager
     
-def log():
-    return component_manager.get_current("log")
-    
-def database():
-    return component_manager.get_current("database")
-
-def scheduler():
-    return component_manager.get_current("scheduler")
-
-def main_widget():
-    return component_manager.get_current("main_widget")
-
-def review_widget():
-    return component_manager.get_current("review_widget")
-
-def ui_controller_main():
-    return component_manager.get_current("ui_controller_main")
-
-def ui_controller_review():
-    return component_manager.get_current("ui_controller_review")
-
-def card_types():
-    return component_manager.get_all("card_type")
-
-def card_type_by_id(id): # TODO KW: use named components for this.
-    return component_manager.card_type_by_id[id]
-
-def filters():
-    return component_manager.get_all("filter")
-
-def plugins():
-    return component_manager.get_all("plugin")
-
-def _(text):
-    return component_manager.get_current("translator").translate(text)
+def unregister_component_manager(user_id):
+    global _component_managers
+    del _component_managers[user_id]

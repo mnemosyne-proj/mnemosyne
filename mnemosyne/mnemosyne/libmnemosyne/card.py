@@ -2,9 +2,6 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component_manager import database
-
-
 class Card(object):
 
     """A card has a question and an answer, based on a fact view operating on
@@ -110,9 +107,9 @@ class Card(object):
     interval = property(lambda self : self.next_rep - self.last_rep)
     
     days_since_last_rep = property(lambda self : \
-                            database().days_since_start() - self.last_rep)
+        self.database().days_since_start() - self.last_rep)
                             
     days_until_next_rep = property(lambda self : \
-                            self.next_rep - database().days_since_start())
+        self.next_rep - self.database().days_since_start())
 
 

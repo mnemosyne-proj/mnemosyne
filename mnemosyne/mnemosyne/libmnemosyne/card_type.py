@@ -4,8 +4,6 @@
 
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.component_manager import card_types
-from mnemosyne.libmnemosyne.component_manager import component_manager
 
 
 class CardType(Component):
@@ -103,15 +101,15 @@ class CardType(Component):
         if self.renderer:
             return self.renderer
         else:
-            self.renderer = component_manager.\
+            self.renderer = self.component_manager.\
                    get_current("renderer", used_for=self.__class__)
             if not self.renderer:
-                 self.renderer = component_manager.get_current("renderer")
+                 self.renderer = self.component_manager.get_current("renderer")
             return self.renderer
 
     def clone(self, clone_name):
         clone_id = self.id + "_CLONED." + clone_name
-        if clone_id in [card_type.id for card_type in card_types()]:
+        if clone_id in [card_type.id for card_type in self.card_types()]:
             raise NameError
         # Create a safe version of the name to be used as class name.
         # TODO: not fool proof yet, but captures the most obvious cases.   
@@ -120,7 +118,7 @@ class CardType(Component):
                  {"name": clone_name,
                   "is_clone": True,
                   "id": clone_id})
-        component_manager.register(C())
+        self.component_manager.register(C())
 
     # The following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be

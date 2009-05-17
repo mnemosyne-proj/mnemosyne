@@ -2,7 +2,6 @@
 # cramming.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne import SM2Mnemosyne
 
 
@@ -16,13 +15,13 @@ class Cramming(SM2Mnemosyne):
 
     def reset(self):
         SM2Mnemosyne.reset(self)
-        if database().is_loaded():
-            database().set_scheduler_data(self.UNSEEN)
+        if self.database().is_loaded():
+            self.database().set_scheduler_data(self.UNSEEN)
 
     def rebuild_queue(self, learn_ahead=False):
         self.queue = []
         self.facts = []
-        db = database()
+        db = self.database()
         if not db.is_loaded() or not db.active_count():
             return
          

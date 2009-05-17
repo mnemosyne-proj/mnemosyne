@@ -15,12 +15,6 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmnemosyne.component_manager import _
-from mnemosyne.libmnemosyne.component_manager import card_types
-from mnemosyne.libmnemosyne.component_manager import card_type_by_id
-from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import config, log, plugins
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 # Note: all id's beginning with an underscore refer to primary keys in the
 # SQL database. All other id's correspond to the id's used in libmnemosyne.
@@ -114,7 +108,7 @@ class SQLite(Database):
     def new(self, path):
         if self.is_loaded():
             self.unload()
-        self._path = expand_path(path, config().basedir)
+        self._path = expand_path(path, self.config().basedir)
         if os.path.exists(self._path):
             os.remove(self._path)
         self.load_failed = False      
@@ -128,13 +122,13 @@ class SQLite(Database):
         self.con.execute("insert into global_variables(key,value) values(?,?)",
                         ("times_loaded", "0"))
         self.con.commit()
-        config()["path"] = self._path
-        log().new_database()
+        self.config()["path"] = self._path
+        self.log().new_database()
 
     def load(self, path):
         if self.is_loaded():        
             self.unload()
-        self._path = expand_path(path, config().basedir)
+        self._path = expand_path(path, self.config().basedir)
         try:
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("start_date", )).fetchone()
@@ -157,7 +151,7 @@ class SQLite(Database):
         sql_res = self.con.execute("""select value from global_variables
             where key=?""", ("times_loaded", )).fetchone()
         times_loaded = int(sql_res["value"]) + 1
-        if times_loaded >= 5 and not config().resource_limited:
+        if times_loaded >= 5 and not self.config().resource_limited:
             self.con.execute("vacuum")
             times_loaded = 0
         self.con.execute("""update global_variables set value=? where
@@ -166,7 +160,7 @@ class SQLite(Database):
         # Deal with clones and plugins, also plugins for parent classes.
         plugin_needed = set()
         clone_needed = []
-        active_id = set(card_type.id for card_type in card_types())
+        active_id = set(card_type.id for card_type in self.card_types())
         for cursor in self.con.execute("""select distinct card_type_id
             from facts"""):
             id = cursor[0]
@@ -183,7 +177,7 @@ class SQLite(Database):
         # Activate necessary plugins.
         for card_type_id in plugin_needed:
             found = False
-            for plugin in plugins():
+            for plugin in self.plugins():
                 for component in plugin.components:
                     if component.component_type == "card_type" and \
                            component.id == card_type_id:
@@ -207,16 +201,16 @@ class SQLite(Database):
             
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
-            parent_instance = card_type_by_id(parent_type_id)
+            parent_instance = self.card_type_by_id(parent_type_id)
             try:
                 parent_instance.clone(clone_name)
             except NameError:
                 # In this case the clone was already created by loading the
                 # database earlier.
                 pass        
-        config()["path"] = contract_path(path, config().basedir)
-        #log().loaded_database()
-        for f in component_manager.get_all("function_hook", "after_load"):
+        self.config()["path"] = contract_path(path, self.config().basedir)
+        self.log().loaded_database()
+        for f in self.component_manager.get_all("function_hook", "after_load"):
             f.run()
         
     def save(self, path=None):
@@ -230,14 +224,14 @@ class SQLite(Database):
         self.con.commit()
         if not path:
             return
-        dest_path = expand_path(path, config().basedir)
+        dest_path = expand_path(path, self.config().basedir)
         if dest_path != self._path:
             shutil.copy(self._path, dest_path)
             self._path = dest_path
-        config()["path"] = contract_path(path, config().basedir)
+        self.config()["path"] = contract_path(path, self.config().basedir)
 
     def backup(self):
-        if config().resource_limited:
+        if self.config().resource_limited:
             return
         
         # TODO: wait for XML export format.
@@ -266,7 +260,7 @@ class SQLite(Database):
                          "%Y-%m-%d %H:%M:%S")))
 
     def days_since_start(self):
-        return self.start_date.days_since_start()
+        return self.start_date.days_since_start(self.config()["day_starts_at"])
 
     # Adding, modifying and deleting categories, facts and cards. Commiting is
     # done by calling save in the main controller, in order to have a better
@@ -355,7 +349,7 @@ class SQLite(Database):
                 where id=?""", (cat.id, )).fetchone()[0]
             self.con.execute("""insert into categories_for_card(_category_id,
                 _card_id) values(?,?)""", (_category_id, _card_id))
-        log().new_card(card)
+        self.log().new_card(card)
 
     def update_card(self, card, update_categories=True):
         if card.extra_data == {}:
@@ -398,7 +392,7 @@ class SQLite(Database):
                          (card._id, ))
         for category in card.categories:
             self.remove_category_if_unused(category)      
-        log().deleted_card(card)
+        self.log().deleted_card(card)
         del card
 
     # Retrieve categories, facts and cards using their internal id.
@@ -421,7 +415,7 @@ class SQLite(Database):
             self.con.execute("select * from data_for_fact where _fact_id=?",
             (_id, ))])
         # Create fact.
-        fact = Fact(data, card_type_by_id(sql_res["card_type_id"]),
+        fact = Fact(data, self.card_type_by_id(sql_res["card_type_id"]),
                     id=sql_res["id"],
                     creation_date=sql_res["creation_date"])
         fact._id = sql_res["_id"]
@@ -541,8 +535,8 @@ class SQLite(Database):
         return duplicates
 
     def card_types_in_use(self):
-        return [card_type_by_id(cursor[0]) for cursor in self.con.execute \
-            ("select distinct card_type_id from facts")]
+        return [self.card_type_by_id(cursor[0]) for cursor in \
+            self.con.execute ("select distinct card_type_id from facts")]
 
     def fact_count(self):
         return self.con.execute("select count() from facts").fetchone()[0]

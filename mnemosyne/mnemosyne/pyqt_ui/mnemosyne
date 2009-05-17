@@ -77,13 +77,14 @@ mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
 # Run Mnemosyne.
 mnemosyne.initialise(basedir=basedir, filename=filename)
 from mnemosyne.libmnemosyne.component_manager import main_widget
-main_widget().show()
-main_widget().raise_() # Needed for OSX.
+mnemosyne.main_widget().show()
+mnemosyne.main_widget().raise_() # Needed for OSX.
 # TODO: check first run wizard.
 #if config()["first_run"] == True:
 #    w.productTour()
 #    config()["first_run"] = False
 #elif config()["show_daily_tips"] == True:
 #    w.Tip()
+
 a.exec_()
 mnemosyne.finalise()

@@ -8,9 +8,6 @@ import locale
 import cPickle
 
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.component_manager import _
-from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import component_manager
 
 config_py = \
 """# Mnemosyne configuration file.
@@ -71,7 +68,7 @@ class Configuration(Component, dict):
         
         for key, value in \
             {"first_run": True, 
-             "path": _("default") + database().suffix,
+             "path": _("default") + self.database().suffix,
              "import_dir": self.basedir, 
              "import_format": "XML",
              "reset_learning_data_import": False,

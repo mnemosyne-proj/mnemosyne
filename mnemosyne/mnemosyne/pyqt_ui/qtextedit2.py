@@ -2,15 +2,13 @@
 # QTextEdit with extra options in popup menu <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
+import os
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from mnemosyne.libmnemosyne.component_manager import config
-from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
-import os
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 
 class QTextEdit2(QTextEdit):
@@ -36,24 +34,26 @@ class QTextEdit2(QTextEdit):
             QTextEdit.keyPressEvent(self, e)
 
     def insert_img(self):
-        path = expand_path(config()["import_img_dir"])
+        path = expand_path(self.config()["import_img_dir"],
+                           self.config()["path"])
         fname = unicode(QFileDialog.getOpenFileName(self, _("Insert image"),
                         path, _("Image files") + \
                         " (*.png *.gif *.jpg *.bmp *.jpeg" + \
                         " *.PNG *.GIF *.jpg *.BMP *.JPEG)"))
         if fname:
             self.insertPlainText("<img src=\""+contract_path(fname)+"\">")
-            config()["import_img_dir"] = \
+            self.config()["import_img_dir"] = \
                        contract_path(os.path.dirname(fname))
     
     def insert_sound(self):
-        path = expand_path(config()["import_sound_dir"])
+        path = expand_path(self.config()["import_sound_dir"],
+                           self.config()["path"])
         fname = unicode(QFileDialog.getOpenFileName(self, _("Insert sound"),
                         path, _("Sound files") + \
                         " (*.wav *.mp3 *.ogg *.WAV *.MP3 *.OGG)"))
         if fname:
             self.insertPlainText("<sound src=\""+contract_path(fname)+"\">")
-            config()["import_sound_dir"] = \
+            self.config()["import_sound_dir"] = \
                        contract_path(os.path.dirname(fname))
 
 

@@ -2,9 +2,6 @@
 # card_appearance_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from copy import deepcopy
 
 from PyQt4.QtCore import *
@@ -12,8 +9,8 @@ from PyQt4.QtGui import *
 
 from ui_card_appearance_dlg import Ui_CardAppearanceDlg
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.component_manager import config, card_types
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 
 
@@ -29,17 +26,18 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         # We calculate card_type_by_name here rather than in the component
         # manager, because these names can change if the user chooses another
         # translation.
-        self.card_types.addItem(_("<all card types>"))
+        self.card_types_widget.addItem(_("<all card types>"))
         self.card_type_by_name = {}
         for card_type in card_types():
             self.card_type_by_name[card_type.name] = card_type
-            self.card_types.addItem(card_type.name)
+            self.card_types_widget.addItem(card_type.name)
             
         # Store backups in order to be able to revert our changes.
-        self.old_font = deepcopy(config()["font"])
-        self.old_background_colour = deepcopy(config()["background_colour"])
-        self.old_font_colour = deepcopy(config()["font_colour"])
-        self.old_alignment = deepcopy(config()["alignment"])
+        self.old_font = deepcopy(self.config()["font"])
+        self.old_background_colour = \
+            deepcopy(self.config()["background_colour"])
+        self.old_font_colour = deepcopy(self.config()["font_colour"])
+        self.old_alignment = deepcopy(self.config()["alignment"])
         self.changed = False
 
     def card_type_changed(self, new_card_type_name):
@@ -86,7 +84,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
                      self.update_font_colour)
 
         try:
-            current_alignment = config()["alignment"]\
+            current_alignment = self.config()["alignment"]\
                                 [self.affected_card_types[0].id]
         except:
             current_alignment = "center"
@@ -101,10 +99,10 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         self.alignment.setFont(self.font())
         values = set()
         for card_type in self.affected_card_types:
-            if not card_type.id in config()['alignment']:
+            if not card_type.id in self.config()['alignment']:
                 values.add("center")
             else:
-                values.add(config()['alignment'][card_type.id])
+                values.add(self.config()['alignment'][card_type.id])
         if len(values) > 1:
             self.alignment.font().setWeight(25)
         else:
@@ -116,7 +114,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         # Determine current colour.
         current_colour = Qt.black
         try:
-            current_rgb = config()["background_colour"]\
+            current_rgb = self.config()["background_colour"]\
                           [self.affected_card_types[0].id]
             current_colour = QColor(current_rgb)
         except:
@@ -141,9 +139,9 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         current_font = QFont(self.font())
         try:
             if len(self.affected_card_types) > 1:
-                font_string = config()['font']['1']['q']
+                font_string = self.config()['font']['1']['q']
             else:
-                font_string = config()['font'][self.affected_card_types[0].id]\
+                font_string = self.config()['font'][self.affected_card_types[0].id]\
                                                              [affected_key]
             current_font.fromString(font_string)
         except:
@@ -169,9 +167,9 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         current_colour = Qt.black
         try:
             if len(self.affected_card_types) > 1:
-                current_rgb = config()['font_colour']['1']['q']
+                current_rgb = self.config()['font_colour']['1']['q']
             else:
-                current_rgb = config()['font_colour']\
+                current_rgb = self.config()['font_colour']\
                              [self.affected_card_types[0].id][affected_key]
             current_colour = QColor(current_rgb)
         except:
@@ -216,10 +214,10 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         dlg.exec_()
         
     def defaults(self):
-        config()["font"] = {}
-        config()["background_colour"] = {}
-        config()["font_colour"] = {}
-        config()["alignment"] = {}
+        self.config()["font"] = {}
+        self.config()["background_colour"] = {}
+        self.config()["font_colour"] = {}
+        self.config()["alignment"] = {}
         self.alignment.setCurrentIndex(1)
 
     def reject(self):
@@ -229,8 +227,8 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
                                           _("&Yes"), _("&No"), "", 0, -1)
             if result == 1:
                 return
-        config()["font"] = self.old_font
-        config()["background_colour"] = self.old_background_colour
-        config()["font_colour"] = self.old_font_colour
-        config()["alignment"] = self.old_alignment
+        self.config()["font"] = self.old_font
+        self.config()["background_colour"] = self.old_background_colour
+        self.config()["font_colour"] = self.old_font_colour
+        self.config()["alignment"] = self.old_alignment
         QDialog.reject(self)   

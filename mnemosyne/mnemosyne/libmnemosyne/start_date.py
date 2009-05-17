@@ -3,7 +3,6 @@
 #
 
 import datetime
-from mnemosyne.libmnemosyne.component_manager import config
 
 
 class StartDate:
@@ -27,8 +26,8 @@ class StartDate:
     Using days since the start of the Unix epoch results in bigger numbers
     (although this is less relevant if the date is stored as a float).
 
-    Using Python datetime objects throughout the code results in more verbose
-    code and more conversions.
+    Using Python datetime objects throughout the code would result in more
+    verbose code and more conversions.
 
     """
 
@@ -41,15 +40,15 @@ class StartDate:
         else:
             self.start = start
 
-    def days_since_start(self):
+    def days_since_start(self, day_starts_at):
 
         """Note that this should be cached as much as possible for
         efficiency reasons.
 
         """
 
-        h = config()["day_starts_at"]
-        adjusted_start = self.start.replace(hour=h, minute=0, second=0)
+        adjusted_start = self.start.replace(hour=day_starts_at,
+                                            minute=0, second=0)
         dt = datetime.datetime.now() - adjusted_start
         return dt.days
 

@@ -18,7 +18,7 @@ class Filter(Component):
 
     component_type = "filter"
 
-    def run(self, text, card):
+    def run(self, text):
         raise NotImplementedError
 
 

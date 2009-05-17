@@ -5,7 +5,6 @@
 import os
 
 from mnemosyne.libmnemosyne.renderer import Renderer
-from mnemosyne.libmnemosyne.component_manager import config, filters
 
 # Css table wizardry based on info from
 # http://apptools.com/examples/tableheight.php
@@ -18,7 +17,7 @@ class HtmlCss(Renderer):
 
     def update(self, card_type):
         # Load from external file if exists.
-        css_path = os.path.join(config().basedir, "css")
+        css_path = os.path.join(self.config().basedir, "css")
         css_path = os.path.join(css_path, card_type.id)
         if os.path.exists(css_path):
             f = file(css_path)
@@ -29,7 +28,7 @@ class HtmlCss(Renderer):
         table { height: 100%; """       
         # Set aligment of the table (but not the contents within the table).
         try:
-            alignment = config()["alignment"][card_type.id]
+            alignment = self.config()["alignment"][card_type.id]
         except:
             alignment = "center"
         if alignment == "left":
@@ -42,7 +41,7 @@ class HtmlCss(Renderer):
         # Background colours.
         self._css[card_type.id] += "body { "
         try:
-            colour = config()["background_colour"][card_type.id]
+            colour = self.config()["background_colour"][card_type.id]
             colour_string = ("%X" % colour)[2:] # Strip alpha.
             self._css[card_type.id] += "background-color: #%s;" % colour_string
         except:
@@ -54,20 +53,20 @@ class HtmlCss(Renderer):
             self._css[card_type.id] += "div#%s { " % key
             # Set alignment within table cell.
             try:
-                alignment = config()["alignment"][card_type.id]
+                alignment = self.config()["alignment"][card_type.id]
             except:
                 alignment = "center"
             self._css[card_type.id] += "text-align: %s; " % alignment  
             # Text colours.
             try:
-                colour = config()["font_colour"][card_type.id][key]
+                colour = self.config()["font_colour"][card_type.id][key]
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 self._css[card_type.id] += "color: #%s;" % colour_string
             except:
                 pass
             # Text font.
             try:
-                font_string = config()["font"][card_type.id][key]
+                font_string = self.config()["font"][card_type.id][key]
                 family,size,x,x,w,i,u,s,x,x = font_string.split(",")
                 self._css[card_type.id] += "font-family: %s; " % family
                 self._css[card_type.id] += "font-size: %s; " % size
@@ -98,7 +97,7 @@ class HtmlCss(Renderer):
             "</head><body><table><tr><td>"
         for field in fields:
             s = fact[field]
-            for f in filters():
+            for f in self.filters():
                 s = f.run(s, fact)
             html += "<div id=\"%s\">%s</div>" % (field, s)
         html += "</td></tr></table></body></html>"

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>AddCardsDlg</class>
- <widget class="QDialog" name="AddCardsDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="AddCardsDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,47 +10,47 @@
     <height>175</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Add cards</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2" >
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" >
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QGridLayout" >
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_2" >
-         <property name="text" >
+      <layout class="QGridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
           <string>Card type:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="QComboBox" name="card_types" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+       <item row="0" column="1">
+        <widget class="QComboBox" name="card_types_widget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
           <string>Categories:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1" >
-        <widget class="QComboBox" name="categories" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+       <item row="1" column="1">
+        <widget class="QComboBox" name="categories">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="editable" >
+         <property name="editable">
           <bool>true</bool>
          </property>
         </widget>
@@ -57,94 +58,94 @@
       </layout>
      </item>
      <item>
-      <widget class="QGroupBox" name="grade_buttons" >
-       <property name="title" >
+      <widget class="QGroupBox" name="grade_buttons">
+       <property name="title">
         <string>Select initial grade:</string>
        </property>
-       <layout class="QVBoxLayout" >
+       <layout class="QVBoxLayout">
         <item>
-         <layout class="QHBoxLayout" >
+         <layout class="QHBoxLayout">
           <item>
-           <widget class="QPushButton" name="grade_0_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_0_button">
+            <property name="text">
              <string>0</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>Ctrl+0</string>
             </property>
-            <property name="autoDefault" >
+            <property name="autoDefault">
              <bool>false</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_1_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_1_button">
+            <property name="text">
              <string>1</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>Ctrl+1</string>
             </property>
-            <property name="autoDefault" >
+            <property name="autoDefault">
              <bool>false</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="Line" name="line" >
-            <property name="orientation" >
+           <widget class="Line" name="line">
+            <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_2_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_2_button">
+            <property name="text">
              <string>2</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>Ctrl+2</string>
             </property>
-            <property name="autoDefault" >
+            <property name="autoDefault">
              <bool>false</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_3_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_3_button">
+            <property name="text">
              <string>3</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>Ctrl+3</string>
             </property>
-            <property name="autoDefault" >
+            <property name="autoDefault">
              <bool>false</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_4_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_4_button">
+            <property name="text">
              <string>4</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>Ctrl+4</string>
             </property>
-            <property name="autoDefault" >
+            <property name="autoDefault">
              <bool>false</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="grade_5_button" >
-            <property name="text" >
+           <widget class="QPushButton" name="grade_5_button">
+            <property name="text">
              <string>5</string>
             </property>
-            <property name="shortcut" >
+            <property name="shortcut">
              <string>Ctrl+5</string>
             </property>
-            <property name="autoDefault" >
+            <property name="autoDefault">
              <bool>false</bool>
             </property>
            </widget>
@@ -155,23 +156,23 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" >
+      <layout class="QHBoxLayout">
        <item>
-        <widget class="QPushButton" name="preview_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="preview_button">
+         <property name="text">
           <string>&amp;Preview</string>
          </property>
-         <property name="autoDefault" >
+         <property name="autoDefault">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>101</width>
            <height>20</height>
@@ -180,11 +181,11 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="exit_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="exit_button">
+         <property name="text">
           <string>E&amp;xit</string>
          </property>
-         <property name="autoDefault" >
+         <property name="autoDefault">
           <bool>false</bool>
          </property>
         </widget>
@@ -196,20 +197,20 @@
   </layout>
  </widget>
  <resources>
-  <include location="mnemosyne.qrc" />
+  <include location="mnemosyne.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>card_types</sender>
+   <sender>card_types_widget</sender>
    <signal>activated(QString)</signal>
    <receiver>AddCardsDlg</receiver>
    <slot>update_card_widget()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>196</x>
      <y>21</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>164</x>
      <y>87</y>
     </hint>
@@ -221,11 +222,11 @@
    <receiver>AddCardsDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>281</x>
      <y>151</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>164</x>
      <y>87</y>
     </hint>
@@ -237,11 +238,11 @@
    <receiver>AddCardsDlg</receiver>
    <slot>preview</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>45</x>
      <y>155</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>148</x>
      <y>87</y>
     </hint>

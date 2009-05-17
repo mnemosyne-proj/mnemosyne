@@ -9,8 +9,6 @@ import logging
 import mnemosyne.version
 from mnemosyne.libmnemosyne.logger import Logger
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.component_manager import scheduler
-from mnemosyne.libmnemosyne.component_manager import database, config
 
 
 class TxtLogger(Logger):
@@ -19,7 +17,7 @@ class TxtLogger(Logger):
         self.logger = logging.getLogger("mnemosyne")
 
     def start_logging(self):
-        basedir = config().basedir
+        basedir = self.config().basedir
         log_name = os.path.join(basedir, "log.txt")
         self.logger.setLevel(logging.INFO)
         fh = logging.FileHandler(log_name)
@@ -41,26 +39,27 @@ class TxtLogger(Logger):
         self.logger.info("Program started : Mnemosyne " + \
                          mnemosyne.version.version\
                          + " " + os.name + " " + sys.platform)
-        self.logger.info("Scheduler : " + scheduler().name)
+        self.logger.info("Scheduler : " + self.scheduler().name)
         
     def new_database(self):
         self.logger.info("New database")
     
     def loaded_database(self):
         self.logger.info("Loaded database %d %d %d", \
-                         database().scheduled_count(), \
-                         database().non_memorised_count(), \
-                         database().card_count())
+                         self.database().scheduled_count(), \
+                         self.database().non_memorised_count(), \
+                         self.database().card_count())
         
     def saved_database(self):
         self.logger.info("Saved database %d %d %d", \
-                         database().scheduled_count(), \
-                         database().non_memorised_count(), \
-                         database().card_count())
+                         self.database().scheduled_count(), \
+                         self.database().non_memorised_count(), \
+                         self.database().card_count())
         
     def new_card(self, card):
-        new_interval = database().days_since_start() - card.next_rep
-        self.logger.info("New item %s %d %d", card.id, card.grade, new_interval)
+        new_interval = self.database().days_since_start() - card.next_rep
+        self.logger.info("New item %s %d %d", card.id, card.grade,
+                         new_interval)
         
     def imported_card(self, card):
         self.logger.info("Imported item %s %d %d %d %d %d",

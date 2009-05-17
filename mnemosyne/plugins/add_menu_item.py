@@ -4,16 +4,39 @@
 
 from PyQt4 import QtCore, QtGui
 
+from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.component_manager import main_widget
 
-# Quick and dirty version, does not use a plugin and therefore not be
-# deactivated once the program is running.
 
-def hello_world():
-        main_widget().information_box("Hi there!") 
+class HelloWorldPlugin(Plugin):
+    
+    name = "Hello world"
+    description = "Add a menu item to the help menu"
 
-action_hello = QtGui.QAction(main_widget())
-action_hello.setText("Hello world")
-main_widget().menu_Help.addAction(action_hello)
-QtCore.QObject.connect(action_hello, QtCore.SIGNAL("activated()"),
-                       hello_world)
+    def __init__(self):
+        Plugin.__init__(self)        
+        self.action_hello = None
+
+    def activate(self):
+        Plugin.activate(self)
+        self.action_hello = QtGui.QAction(main_widget())
+        self.action_hello.setText("Hello world")
+        main_widget().menu_Help.addAction(self.action_hello)
+        QtCore.QObject.connect(self.action_hello, QtCore.SIGNAL("activated()"),
+                               self.hello_world)
+
+    def deactivate(self):
+        Plugin.deactivate(self)
+        if self.action_hello:
+            main_widget().menu_Help.removeAction(self.action_hello)
+            self.actionHello = None
+
+    def hello_world(self):
+        main_widget().information_box("Hi there!")        
+
+# Register plugin.
+
+from mnemosyne.libmnemosyne.plugin import register_user_plugin
+register_user_plugin(HelloWorldPlugin)
+
+

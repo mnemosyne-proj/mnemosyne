@@ -2,9 +2,6 @@
 # fact.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.component_manager import database
-
-
 class Fact(object):
 
     """Basic unit of information from which several cards can be derived.
@@ -40,7 +37,7 @@ class Fact(object):
 
     def __init__(self, data, card_type, id=None, creation_date=None):
         if not creation_date:
-            creation_date = database().days_since_start()
+            creation_date = self.database().days_since_start()
         self.creation_date = creation_date
         self.modification_date = self.creation_date
         self.data = data

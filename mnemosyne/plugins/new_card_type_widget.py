@@ -1,13 +1,13 @@
 #
-# new_card_type_widget.py <Peter.Bienstman@UGent.be>
+# new_card_type_widget_plugin.py <Peter.Bienstman@UGent.be>
 #
 
-# Colour the widget for the front to back card type red. Version
-# which does not go through the trouble of making a Plugin, i.e.
-# it will always be active as soon as the program starts.
+# Colour the widget for the front to back card type red.
+# Plugin version.
 
 from PyQt4 import QtGui
 
+from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
 from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
@@ -29,9 +29,14 @@ class RedGenericCardTypeWdgt(GenericCardTypeWdgt):
                        QtGui.QColor("red"))
             edit_box.setPalette(p)
 
-# Register the widget.
+# Wrap it into a Plugin and then register the Plugin.
 
-component_manager.register(RedGenericCardTypeWdgt)
+class RedPlugin(Plugin):
+    name = "Red"
+    description = "Red widget for front-to-back cards"
+    components = [RedGenericCardTypeWdgt]
+
+component_manager.register(RedPlugin())
 
 
 

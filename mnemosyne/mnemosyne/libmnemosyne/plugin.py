@@ -2,12 +2,9 @@
 # plugin.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.component_manager import _
-from mnemosyne.libmnemosyne.component_manager import config
-from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import main_widget
+
 
 class Plugin(Component):
 
@@ -42,12 +39,13 @@ class Plugin(Component):
         
     def activate(self):
         if self.activation_message:
-            main_widget().information_box(self.activation_message)
+            self.main_widget().information_box(self.activation_message)
         # Register all our components. Instantiate them if needed.
         for component in self.components:
             if component.instantiate != Component.LATER:
                 component = component()
-                component_manager.register(component)
+                self.component_manager.register(component)
+                component.component_manager = self.component_manager
                 # Now, both the class component and the instance component
                 # will be registered (with the instance having precendence),
                 # and the instance component will be unregistered again when
@@ -55,30 +53,30 @@ class Plugin(Component):
                 component.activate()           
                 self.instantiated_components.append(component)
             else:
-                component_manager.register(component)                
+                self.component_manager.register(component)                
         # Make necessary side effects happen.
         for component in self.instantiated_components:
             if component.component_type == "scheduler" \
-                   and database().is_loaded():
+                   and self.database().is_loaded():
                 from mnemosyne.libmnemosyne.component_manager \
                      import ui_controller_review
                 ui_controller_review().reset()
                 ui_controller_review().new_question()
         # Use names instead of instances here in order to survive pickling.  
-        config()["active_plugins"].add(self.__class__.__name__)
+        self.config()["active_plugins"].add(self.__class__.__name__)
 
     def deactivate(self):
         # Check if we are allowed to deactivate a card type.
         for component in self.instantiated_components:
             if component.component_type == "card_type" \
-                   and database().is_loaded():
-                for card_type in database().card_types_in_use():
+                   and self.database().is_loaded():
+                for card_type in self.database().card_types_in_use():
                     if issubclass(card_type.__class__, component.__class__):
-                        main_widget().information_box(\
+                        self.main_widget().information_box(\
         _("Cannot deactivate, this card type or a clone of it is in use."))
                         return False
             component.deactivate()
-            component_manager.unregister(component)
+            self.component_manager.unregister(component)
         # Make necessary side effects happen. We don't put all side effects in
         # a single loop, as the order is important.
         for component in self.instantiated_components:
@@ -94,13 +92,28 @@ class Plugin(Component):
                 component_manager.register(new_widget)
         for component in self.instantiated_components:            
             if component.component_type == "scheduler" and \
-                   database().is_loaded():
-                from mnemosyne.libmnemosyne.component_manager \
-                     import ui_controller_review
-                ui_controller_review().reset()
-                ui_controller_review().new_question()
+                   self.database().is_loaded():
+                self.ui_controller_review().reset()
+                self.ui_controller_review().new_question()
         # Use names instead of instances here in order to survive pickling.
-        if self.__class__.__name__ in config()["active_plugins"]:
-            config()["active_plugins"].remove(self.__class__.__name__)
+        if self.__class__.__name__ in self.config()["active_plugins"]:
+            self.self.config()["active_plugins"].remove(self.__class__.__name__)
         self.instantiated_components = []
         return True
+
+def register_user_plugin(plugin_class):
+
+    """Plugins defined in the user's plugin directory don't have an easy
+    access to the current component manager, which is why this convenience
+    function is provided. User defined plugins only make sense in a single
+    user context (a.o. because of security reasons), so we can just take the
+    first registered component manager as being the correct one.
+
+    """
+    
+    plugin = plugin_class()
+    from component_manager import _component_managers
+    key = _component_managers.keys()[0]
+    component_manager = _component_managers[key]
+    component_manager.register(plugin)
+    plugin.component_manager = component_manager

@@ -2,19 +2,14 @@
 # add_cards_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from ui_add_cards_dlg import Ui_AddCardsDlg
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
-from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import config, ui_controller_main
-from mnemosyne.libmnemosyne.component_manager import database, card_types
 from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
@@ -32,17 +27,17 @@ class AddEditCards:
         self.card_type = None
         self.card_type_index = 0
         self.card_type_widget = None
-        for card_type in card_types():
+        for card_type in self.card_types():
             if card_type.name == current_card_type_name:
                 self.card_type = card_type
-                self.card_type_index = self.card_types.count()
+                self.card_type_index = self.card_types_widget.count()
             self.card_type_by_name[card_type.name] = card_type
-            self.card_types.addItem(card_type.name)
+            self.card_types_widget.addItem(card_type.name)
         if not self.card_type:
-            self.card_type = card_types()[0]
+            self.card_type = self.card_types()[0]
             self.card_type_index = 0
-        self.card_types.setCurrentIndex(self.card_type_index)
-        self.connect(self.card_types, SIGNAL("currentIndexChanged(QString)"),
+        self.card_types_widget.setCurrentIndex(self.card_type_index)
+        self.connect(self.card_types_widget, SIGNAL("currentIndexChanged(QString)"),
                      self.card_type_changed)
         self.correspondence = {} # Used when changing card types.
         self.update_card_widget()
@@ -72,10 +67,10 @@ class AddEditCards:
                     prefill_data[self.correspondence[key]] = value
     
         # Show new card type widget.
-        card_type_name = unicode(self.card_types.currentText())
+        card_type_name = unicode(self.card_types_widget.currentText())
         self.card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
-            self.card_type_widget = component_manager.get_current\
+            self.card_type_widget = self.component_manager.get_current\
                     ("card_type_widget", used_for=self.card_type.__class__)\
                           (parent=self)
         except:
@@ -89,7 +84,8 @@ class AddEditCards:
     def update_categories_combobox(self, current_cat_name):
         self.categories.clear()
         self.categories.addItem(_("<default>"))
-        sorted_categories = sorted(database().category_names(), cmp=numeric_string_cmp)
+        sorted_categories = sorted(self.database().category_names(),
+                                   cmp=numeric_string_cmp)
         for name in sorted_categories:
             if name != _("<default>"):
                 self.categories.addItem(name)
@@ -102,7 +98,7 @@ class AddEditCards:
 
     def card_type_changed(self, new_card_type_name):
         new_card_type_name = unicode(new_card_type_name)
-        config()["card_type_name_of_last_added"] = new_card_type_name
+        self.config()["card_type_name_of_last_added"] = new_card_type_name
         new_card_type = self.card_type_by_name[new_card_type_name]
         if self.card_type.keys().issubset(new_card_type.keys()) or \
                not self.card_type_widget.contains_data():
@@ -111,7 +107,7 @@ class AddEditCards:
         dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
                                        self.correspondence, self)
         if dlg.exec_() == 0: # Reject.
-            self.card_types.setCurrentIndex(self.card_type_index)
+            self.card_types_widget.setCurrentIndex(self.card_type_index)
             return
         else:          
             self.update_card_widget()
@@ -137,9 +133,9 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         QDialog.__init__(self, parent)
         self.setupUi(self)
         self.initialise_card_types_combobox(\
-            config()["card_type_name_of_last_added"])
+            self.config()["card_type_name_of_last_added"])
         self.update_categories_combobox(\
-            config()["categories_of_last_added"])  
+            self.config()["categories_of_last_added"])  
         self.grades = QButtonGroup()
         self.grades.addButton(self.grade_0_button, 0)
         self.grades.addButton(self.grade_1_button, 1)
@@ -159,14 +155,14 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         fact_data = self.card_type_widget.get_data()
         cat_names = [c.strip() for c in \
                      unicode(self.categories.currentText()).split(',')]
-        card_type_name = unicode(self.card_types.currentText())
+        card_type_name = unicode(self.card_types_widget.currentText())
         card_type = self.card_type_by_name[card_type_name]
-        c = ui_controller_main()
+        c = self.ui_controller_main()
         c.create_new_cards(fact_data, card_type, grade, cat_names)
-        cat_text = ', '.join(cat_names)
+        cat_text = ", ".join(cat_names)
         self.update_categories_combobox(cat_text)
-        config()["categories_of_last_added"] = cat_text
-        database().save(config()['path'])
+        self.config()["categories_of_last_added"] = cat_text
+        self.database().save(self.config()["path"])
         self.card_type_widget.clear()
 
     def reject(self):

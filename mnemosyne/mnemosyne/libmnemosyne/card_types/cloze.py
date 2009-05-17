@@ -4,13 +4,11 @@
 
 import re
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.component_manager import _
-from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 
 cloze_re = re.compile(r"\[(.+?)\]", re.DOTALL)
 
@@ -83,14 +81,14 @@ class Cloze(CardType):
 
         # If the number of clozes is equal, just update the existing cards.
         if len(old_clozes) == len(new_clozes):
-            for card in database().cards_from_fact(fact):
+            for card in self.database().cards_from_fact(fact):
                 index = card.extra_data["index"]
                 card.extra_data["cloze"]= new_clozes[index]
                 updated_cards.append(card)
         # If not, things are a little more complicated.
         else:
             new_clozes_processed = set()
-            for card in database().cards_from_fact(fact):
+            for card in self.database().cards_from_fact(fact):
                 old_cloze  = card.extra_data["cloze"]
                 index = card.extra_data["index"]
                 if old_cloze in new_clozes:
@@ -104,7 +102,7 @@ class Cloze(CardType):
             # For the new cards that we are about to create, we need to have
             # a unique suffix first.
             id_suffix = 0
-            for card in database().cards_from_fact(fact):
+            for card in self.database().cards_from_fact(fact):
                 suffix = int(card.id.rsplit(".", 1)[1])
                 if suffix > id_suffix:
                     id_suffix == suffix

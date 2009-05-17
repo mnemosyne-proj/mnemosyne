@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CardAppearanceDlg</class>
- <widget class="QDialog" name="CardAppearanceDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="CardAppearanceDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,25 +10,25 @@
     <height>149</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Card appearance</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" >
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" >
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="label_2" >
-         <property name="text" >
+        <widget class="QLabel" name="label_2">
+         <property name="text">
           <string>Card type:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="card_types" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+        <widget class="QComboBox" name="card_types_widget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -37,20 +38,20 @@
       </layout>
      </item>
      <item>
-      <widget class="Line" name="line_3" >
-       <property name="orientation" >
+      <widget class="Line" name="line_3">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout" >
-       <item row="0" column="0" >
-        <spacer name="horizontalSpacer_2" >
-         <property name="orientation" >
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
@@ -58,12 +59,12 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="1" >
-        <spacer name="horizontalSpacer_3" >
-         <property name="orientation" >
+       <item row="0" column="1">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
@@ -71,12 +72,12 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="2" >
-        <spacer name="horizontalSpacer_4" >
-         <property name="orientation" >
+       <item row="0" column="2">
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
@@ -87,34 +88,34 @@
       </layout>
      </item>
      <item>
-      <widget class="Line" name="line" >
-       <property name="orientation" >
+      <widget class="Line" name="line">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontal_layout_bg_colour" >
+      <layout class="QHBoxLayout" name="horizontal_layout_bg_colour">
        <item>
-        <widget class="QLabel" name="bg_label" >
-         <property name="text" >
+        <widget class="QLabel" name="bg_label">
+         <property name="text">
           <string>Background:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="background_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="background_button">
+         <property name="text">
           <string>Set colour</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_6" >
-         <property name="orientation" >
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
@@ -123,31 +124,31 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="align_label" >
-         <property name="text" >
+        <widget class="QLabel" name="align_label">
+         <property name="text">
           <string>Alignment:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="alignment" >
-         <property name="font" >
+        <widget class="QComboBox" name="alignment">
+         <property name="font">
           <font>
            <italic>false</italic>
           </font>
          </property>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Left</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Center</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Right</string>
           </property>
          </item>
@@ -156,40 +157,40 @@
       </layout>
      </item>
      <item>
-      <widget class="Line" name="line_2" >
-       <property name="orientation" >
+      <widget class="Line" name="line_2">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5" >
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QPushButton" name="OK_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="OK_button">
+         <property name="text">
           <string>&amp;OK</string>
          </property>
-         <property name="default" >
+         <property name="default">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="preview_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="preview_button">
+         <property name="text">
           <string>&amp;Preview</string>
          </property>
-         <property name="autoDefault" >
+         <property name="autoDefault">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer" >
-         <property name="orientation" >
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
@@ -198,18 +199,18 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="defaults_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="defaults_button">
+         <property name="text">
           <string>&amp;Defaults</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="cancel_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="cancel_button">
+         <property name="text">
           <string>&amp;Cancel</string>
          </property>
-         <property name="autoDefault" >
+         <property name="autoDefault">
           <bool>false</bool>
          </property>
         </widget>
@@ -221,7 +222,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="mnemosyne.qrc" />
+  <include location="mnemosyne.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -230,11 +231,11 @@
    <receiver>CardAppearanceDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>281</x>
      <y>151</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>164</x>
      <y>87</y>
     </hint>
@@ -246,11 +247,11 @@
    <receiver>CardAppearanceDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>29</x>
      <y>80</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>148</x>
      <y>49</y>
     </hint>
@@ -262,27 +263,27 @@
    <receiver>CardAppearanceDlg</receiver>
    <slot>preview</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>45</x>
      <y>155</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>148</x>
      <y>87</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>card_types</sender>
+   <sender>card_types_widget</sender>
    <signal>currentIndexChanged(QString)</signal>
    <receiver>CardAppearanceDlg</receiver>
    <slot>card_type_changed</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>193</x>
      <y>18</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>159</x>
      <y>80</y>
     </hint>
@@ -294,11 +295,11 @@
    <receiver>CardAppearanceDlg</receiver>
    <slot>update_background_colour</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>148</x>
      <y>50</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>107</x>
      <y>50</y>
     </hint>
@@ -310,11 +311,11 @@
    <receiver>CardAppearanceDlg</receiver>
    <slot>defaults</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>186</x>
      <y>82</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>156</x>
      <y>50</y>
     </hint>
@@ -326,11 +327,11 @@
    <receiver>CardAppearanceDlg</receiver>
    <slot>update_alignment</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>299</x>
      <y>90</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>171</x>
      <y>74</y>
     </hint>

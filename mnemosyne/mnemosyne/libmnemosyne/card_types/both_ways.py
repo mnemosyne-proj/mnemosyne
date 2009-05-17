@@ -2,11 +2,11 @@
 # both_ways.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
-from mnemosyne.libmnemosyne.component_manager import _
 
 
 class BothWays(CardType):

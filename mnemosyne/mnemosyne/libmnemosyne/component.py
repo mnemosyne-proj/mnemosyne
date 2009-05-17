@@ -19,6 +19,9 @@ class Component(object):
     the plugin in which they are contained becomes active. Others, like card
     type widgets, are instantiated even later, e.g. when the add or edit
     dialog is shown.
+
+    Each component has access to all of the context of the other components
+    because it hold a reference to the user's component manager.
     
     """
     
@@ -30,6 +33,9 @@ class Component(object):
     LATER = 2
     
     instantiate = IMMEDIATELY
+
+    def __init__(self):
+        self.component_manager = None
 
     def activate(self):
 
@@ -43,3 +49,42 @@ class Component(object):
 
     def deactivate(self):        
         pass
+
+    # Convenience functions, for easier access to all of the context of
+    # libmnemosyne from within a component.
+
+    def config(self):
+        return self.component_manager.get_current("config")
+
+    def log(self):
+        return self.component_manager.get_current("log")
+
+    def database(self):
+        return self.component_manager.get_current("database")
+
+    def scheduler(self):
+        return self.component_manager.get_current("scheduler")
+
+    def main_widget(self):
+        return self.component_manager.get_current("main_widget")
+
+    def review_widget(self):
+        return self.component_manager.get_current("review_widget")
+
+    def ui_controller_main(self):
+        return self.component_manager.get_current("ui_controller_main")
+
+    def ui_controller_review(self):
+        return self.component_manager.get_current("ui_controller_review")
+
+    def card_types(self):
+        return self.component_manager.get_all("card_type")
+
+    def filters(self):
+        return self.component_manager.get_all("filter")
+
+    def plugins(self):
+        return self.component_manager.get_all("plugin")
+
+    def card_type_by_id(id): 
+        return self.component_manager.card_type_by_id[id]

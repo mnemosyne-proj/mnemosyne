@@ -3,7 +3,6 @@
 #
 
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.component_manager import scheduler
 
 
 class UiControllerReview(Component):
@@ -40,7 +39,7 @@ class UiControllerReview(Component):
 
         """
 
-        sch = scheduler()
+        sch = self.scheduler()
         sch.reset()
         sch.rebuild_queue()
         if not sch.in_queue(self.card):

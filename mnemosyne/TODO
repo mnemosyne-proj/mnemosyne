@@ -1,5 +1,10 @@
 -store component_manager as session context in each component
 
+-translator
+-pickle
+
+-update plugins
+
 -add documentation on how to access context in filter
 
 -hook before and after review controller (for card typing checking)
@@ -24,6 +29,7 @@
 
 -sync protocol
 -log message for updated cards (to enable syncing)?
+history per deck in sql, globally in log.txt
 Partership / sync status per partnership / user id / machine id
 Revision history per partnership
 Partnership status stored per deck
@@ -33,11 +39,14 @@ Store fact modif/cat modif
 Deck name
 Import
 What if interrupted
-Media dir / can refuse large files
+Media dir per deck / can refuse large files
 XML over JSON
 http://effbot.org/zone/element-iterparse.htm
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
+
+-make card types instantiatable from sync data
+
 
 API is element per element
 Negotiate when to use compression

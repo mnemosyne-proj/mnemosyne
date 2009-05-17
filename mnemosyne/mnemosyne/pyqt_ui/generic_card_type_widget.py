@@ -6,7 +6,6 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from mnemosyne.pyqt_ui.qtextedit2 import QTextEdit2
-from mnemosyne.libmnemosyne.component_manager import config
 from mnemosyne.libmnemosyne.ui_components.card_type_widget \
      import CardTypeWidget
 
@@ -27,19 +26,19 @@ class GenericCardTypeWdgt(QWidget, CardTypeWidget):
             t.setUndoRedoEnabled(True)
             t.setReadOnly(False)
             try:
-                colour = config()["font_colour"][card_type.id][fact_key]
+                colour = self.config()["font_colour"][card_type.id][fact_key]
                 t.setTextColor(QColor(colour))
             except:
                 pass
             try:
-                colour = config()["background_colour"][card_type.id]
+                colour = self.config()["background_colour"][card_type.id]
                 p = QPalette()
                 p.setColor(QPalette.Active, QPalette.Base, QColor(colour))
                 t.setPalette(p)
             except:
                 pass
             try:
-                font_string = config()["font"][card_type.id][fact_key]
+                font_string = self.config()["font"][card_type.id][fact_key]
                 font = QFont()
                 font.fromString(font_string)
                 t.setCurrentFont(font)

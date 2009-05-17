@@ -2,14 +2,9 @@
 # SM2_controller.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.stopwatch import stopwatch
-from mnemosyne.libmnemosyne.component_manager import scheduler
-from mnemosyne.libmnemosyne.component_manager import main_widget
-from mnemosyne.libmnemosyne.component_manager import review_widget
-from mnemosyne.libmnemosyne.component_manager import database, config
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
-from mnemosyne.libmnemosyne.component_manager import _
 
 
 # Tooltip texts.  The first index deals with whether we have a card with
@@ -48,24 +43,24 @@ class SM2Controller(UiControllerReview):
         self.card = None
         self.state = "EMPTY"
         self.learning_ahead = False
-        scheduler().reset()
+        self.scheduler().reset()
 
     def rollover(self):
 
         """To be called when a new day starts."""
 
-        from mnemosyne.libmnemosyne.component_manager import main_widget
-        review_widget().update_status_bar()
+        self.review_widget().update_status_bar()
         if not self.card or self.learning_ahead:
             self.reset()
             self.new_question()
 
     def new_question(self):
-        if not database().is_loaded() or database().card_count() == 0:
+        if not self.database().is_loaded() or \
+               self.database().card_count() == 0:
             self.state = "EMPTY"
             self.card = None
         else:
-            self.card = scheduler().get_next_card(self.learning_ahead)
+            self.card = self.scheduler().get_next_card(self.learning_ahead)
             if self.card != None:
                 self.state = "SELECT SHOW"
             else:
@@ -83,20 +78,20 @@ class SM2Controller(UiControllerReview):
         self.update_dialog()
 
     def grade_answer(self, grade):
-        if scheduler().allow_prefetch():
+        if self.scheduler().allow_prefetch():
             previous_card = self.card
             self.new_question()
-            interval = scheduler().grade_answer(previous_card, grade)
-            database().update_card(previous_card, update_categories=False)
-            database().save()
-            review_widget().update_status_bar()
+            interval = self.scheduler().grade_answer(previous_card, grade)
+            self.database().update_card(previous_card, update_categories=False)
+            self.database().save()
+            self.review_widget().update_status_bar()
         else:
-            interval = scheduler().grade_answer(self.card, grade)
-            database().update_card(self.card, update_categories=False)
-            database().save()
+            interval = self.scheduler().grade_answer(self.card, grade)
+            self.database().update_card(self.card, update_categories=False)
+            self.database().save()
             self.new_question()
-        if config()["show_intervals"] == "statusbar":
-            review_widget().update_status_bar(_("Returns in") + " " + \
+        if self.config()["show_intervals"] == "statusbar":
+            self.review_widget().update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
         
     def next_rep_string(self, days):
@@ -113,7 +108,7 @@ class SM2Controller(UiControllerReview):
         self.update_menu_bar()
                    
     def update_qa_area(self, redraw_all=False):
-        w = review_widget()
+        w = self.review_widget()
         # Hide/show the question and answer boxes.
         if self.state == "SELECT SHOW":
             w.question_box_visible(True)
@@ -163,7 +158,7 @@ class SM2Controller(UiControllerReview):
         w.update_status_bar()
 
     def update_grades_area(self):
-        w = review_widget()
+        w = self.review_widget()
         # Update grade buttons.
         if self.card != None and self.card.grade in [0,1]:
             i = 0 # Acquisition phase.
@@ -178,16 +173,16 @@ class SM2Controller(UiControllerReview):
         for grade in range(0,6):
             # Tooltip.
             if self.state == "SELECT GRADE" and \
-               config()["show_intervals"] == "tooltips":
+               self.config()["show_intervals"] == "tooltips":
                 w.set_grade_tooltip(grade, tooltip[i][grade] +\
-                    self.next_rep_string(scheduler().process_answer(self.card, \
-                                        grade, dry_run=True)))
+                    self.next_rep_string(self.scheduler().\
+                        process_answer(self.card, grade, dry_run=True)))
             else:
                 w.set_grade_tooltip(grade, tooltip[i][grade])
             # Button text.
             if self.state == "SELECT GRADE" and \
-               config()["show_intervals"] == "buttons":
-                w.set_grade_text(grade, str(scheduler().process_answer(\
+               self.config()["show_intervals"] == "buttons":
+                w.set_grade_text(grade, str(self.scheduler().process_answer(\
                                             self.card, grade, dry_run=True)))
                 w.set_grades_title(_("Pick days until next repetition:"))
             else:
@@ -195,8 +190,8 @@ class SM2Controller(UiControllerReview):
                 w.set_grades_title(_("Grade your answer:"))
 
     def update_menu_bar(self):
-        w = review_widget()
-        if config()["only_editable_when_answer_shown"] == True:
+        w = self.review_widget()
+        if self.config()["only_editable_when_answer_shown"] == True:
             if self.card != None and self.state == "SELECT GRADE":
                 w.enable_edit_current_card(True)
             else:
@@ -207,4 +202,4 @@ class SM2Controller(UiControllerReview):
             else:
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
-        w.enable_edit_deck(database().is_loaded())
+        w.enable_edit_deck(self.database().is_loaded())

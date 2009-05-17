@@ -5,12 +5,13 @@
 import os
 import sys
 
+from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import expand_path, traceback_string
-from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import config, log, plugins
+from mnemosyne.libmnemosyne.component_manager import new_component_manager, \
+    register_component_manager, unregister_component_manager
 
 
-class Mnemosyne(object):
+class Mnemosyne(Component):
 
     """This class groups the functionality needed to initialise and finalise
     Mnemosyne in a typical scenario.
@@ -71,9 +72,12 @@ class Mnemosyne(object):
             sys.stderr = file(error_log, "a")
 
     def initialise(self, basedir, filename=None):
+        self.component_manager = new_component_manager()
         self.register_components()
-        config().basedir = basedir
-        config().resource_limited = self.resource_limited 
+        register_component_manager(self.component_manager,
+                                   self.config()["user_id"])
+        self.config().basedir = basedir
+        self.config().resource_limited = self.resource_limited 
         self.activate_components()
         self.execute_user_plugin_dir()
         self.activate_saved_plugins()       
@@ -83,8 +87,7 @@ class Mnemosyne(object):
         self.check_lockfile()
         self.load_database(filename)
         # Finally, everything is in place to start the review process.
-        from mnemosyne.libmnemosyne.component_manager import ui_controller_review
-        ui_controller_review().new_question()
+        self.ui_controller_review().new_question()
 
     def register_components(self):
 
@@ -100,16 +103,16 @@ class Mnemosyne(object):
             exec("from %s import %s" % (module_name, class_name))
             exec("component = %s" % class_name)
             if component.instantiate == component.IMMEDIATELY:
-                component_manager.register(component())
-            else:
-                component_manager.register(component)
+                component = component()
+                component.component_manager = self.component_manager
+            self.component_manager.register(component)
         for plugin_name in self.extra_components_for_plugin:
             for module_name, class_name in \
                     self.extra_components_for_plugin[plugin_name]:
                 exec("from %s import %s" % (module_name, class_name))
                 exec("component = %s" % class_name)           
-                component_manager.add_component_to_plugin(plugin_name, \
-                                                            component)
+                self.component_manager.add_component_to_plugin(\
+                    plugin_name, component)
             
     def activate_components(self):
         
@@ -122,14 +125,12 @@ class Mnemosyne(object):
                        "ui_controller_main", "ui_controller_review",
                        "main_widget", "review_widget"]:
             try:
-                component_manager.get_current(module).activate()
+                self.component_manager.get_current(module).activate()
             except RuntimeError, e:
-                from mnemosyne.libmnemosyne.component_manager import \
-                     main_widget
-                main_widget().error_box(str(e))            
+                self.main_widget().error_box(str(e))            
 
     def execute_user_plugin_dir(self):
-        basedir = config().basedir
+        basedir = self.config().basedir
         plugindir = unicode(os.path.join(basedir, "plugins"))
         sys.path.insert(0, plugindir)
         for component in os.listdir(plugindir):
@@ -137,82 +138,75 @@ class Mnemosyne(object):
                 try:
                     __import__(component[:-3])
                 except:
-                    from mnemosyne.libmnemosyne.component_manager import \
-                         main_widget, _
+                    from mnemosyne.libmnemosyne.translator import _
                     msg = _("Error when running plugin:") \
                           + "\n" + traceback_string()
-                    main_widget().error_box(msg)
+                    self.main_widget().error_box(msg)
 
     def activate_saved_plugins(self):
         from mnemosyne.libmnemosyne.component_manager import plugins
-        for plugin in config()["active_plugins"]:
+        for plugin in self.config()["active_plugins"]:
             try:
-                for p in plugins():
+                for p in self.plugins():
                     if plugin == p.__class__.__name__:
                         p.activate()
                         break
             except:
-                from mnemosyne.libmnemosyne.component_manager import \
-                     main_widget, _
+                from mnemosyne.libmnemosyne.translator import _
                 msg = _("Error when running plugin:") \
                       + "\n" + traceback_string()
-                main_widget().error_box(msg)
+                self.main_widget().error_box(msg)
                 
     def check_lockfile(self):
         if os.path.exists(os.path.join(config().basedir, "MNEMOSYNE_LOCK")):
-            from mnemosyne.libmnemosyne.component_manager import \
-                 main_widget, _
-            status = main_widget().question_box(
+            from mnemosyne.libmnemosyne.translator import _
+            status = self.main_widget().question_box(
                 _("Either Mnemosyne didn't shut down properly,") + "\n" +
                 _("or another copy of Mnemosyne is still running.") + "\n" +
                 _("Continuing in the latter case could lead to data loss!"),      
                 _("&Exit"), _("&Continue"), "")
             if status == 0:
                 sys.exit()
-        lockfile = file(os.path.join(config().basedir, "MNEMOSYNE_LOCK"), 'w')
+        lockfile = file(os.path.join(self.config().basedir, "MNEMOSYNE_LOCK"), 'w')
         lockfile.close()          
 
-    def load_database(self, filename):
-        from mnemosyne.libmnemosyne.component_manager import database
-        from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-        
+    def load_database(self, filename):        
         if not filename:
             filename = config()["path"]
         filename = expand_path(filename, config().basedir)
         try:
             if not os.path.exists(filename):
-                database().new(filename)
+                self.database().new(filename)
             else:
-                database().load(filename)
+                self.database().load(filename)
         except RuntimeError, e:
             # Making sure the GUI is in a correct state when no database is
             # loaded would require a lot of extra code, and this is only a
             # corner case anyhow. So, as workaround, we create a temporary
             # database.
-            from mnemosyne.libmnemosyne.component_manager import main_widget, _
-            main_widget().error_box(str(e))
-            main_widget().error_box(_("Creating temporary deck."))
+            from mnemosyne.libmnemosyne.translator import _
+            self.main_widget().error_box(str(e))
+            self.main_widget().error_box(_("Creating temporary deck."))
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + database().suffix)
-            database().new(filename)
-        ui_controller_main().update_title()
+            self.database().new(filename)
+        self.ui_controller_main().update_title()
 
     def remove_lockfile(self):
         try:
             os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
         except OSError:
-            _ = component_manager.translator
-            from mnemosyne.libmnemosyne.component_manager import \
-                 main_widget, _
+            from mnemosyne.libmnemosyne.translator import _
             msg = _("Failed to remove lock file.") \
                   + "\n" + traceback_string()
-            main_widget().error_box(msg)
+            self.main_widget().error_box(msg)
 
     def finalise(self):
         self.remove_lockfile()
         # Saving the config shoulh happen before we deactivate the plugins,
         # otherwise they are not restored upon reload.
-        config().save()
-        component_manager.deactivate_all()
+        self.config().save()
+        self.component_manager.deactivate_all()
+        unregister_component_manager(self.component_manager)
         
 

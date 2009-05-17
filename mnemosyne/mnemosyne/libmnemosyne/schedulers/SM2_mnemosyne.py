@@ -6,13 +6,11 @@ import random
 import copy
 
 from mnemosyne.libmnemosyne.scheduler import Scheduler
-from mnemosyne.libmnemosyne.component_manager import database, config, log
-
-
-"""Scheduler based on http://www.supermemo.com/english/ol/sm2.htm."""
 
 
 class SM2Mnemosyne(Scheduler):
+
+    """Scheduler based on http://www.supermemo.com/english/ol/sm2.htm."""
     
     name = "SM2 Mnemosyne"
 
@@ -43,7 +41,7 @@ class SM2Mnemosyne(Scheduler):
 
         """
                 
-        db = database()
+        db = self.database()
         card.grade = grade
         card.easiness = db.average_easiness()
         card.acq_reps = 1
@@ -81,7 +79,7 @@ class SM2Mnemosyne(Scheduler):
     def rebuild_queue(self, learn_ahead=False):
         self.queue = []
         self.facts = []
-        db = database()
+        db = self.database()
         if not db.is_loaded() or not db.active_count():
             return
         
@@ -94,7 +92,7 @@ class SM2Mnemosyne(Scheduler):
         # Fetch maximum 25 cards at the same time, as a trade-off between
         # memory usage and redoing the query.
         if self.stage == 1:
-            if config()["randomise_scheduled_cards"] == True:
+            if self.config()["randomise_scheduled_cards"] == True:
                 sort_key = "random"
             else:
                 sort_key = "interval"
@@ -111,7 +109,7 @@ class SM2Mnemosyne(Scheduler):
         # Now rememorise the cards that we got wrong during the last stage.
         # Concentrate on only a limited number of grade 0 cards, in order to
         # avoid too long intervals between repetitions.
-        limit = config()["grade_0_items_at_once"]
+        limit = self.config()["grade_0_items_at_once"]
         grade_0_in_queue = 0
         if self.stage == 2:
             if limit:
@@ -168,7 +166,7 @@ class SM2Mnemosyne(Scheduler):
         #
         # Now add some unseen cards.
         if self.stage <= 4:
-            if config()["randomise_new_cards"]:
+            if self.config()["randomise_new_cards"]:
                 sort_key = "random"
             else:
                 sort_key = ""
@@ -243,7 +241,7 @@ class SM2Mnemosyne(Scheduler):
             while len(self.queue) >= 3 and self.last_card == _card_id:
                 _card_id = self.queue.pop(0)
         self.last_card = _card_id
-        return database().get_card(_card_id)
+        return self.database().get_card(_card_id)
 
     def allow_prefetch(self):
 
@@ -257,7 +255,7 @@ class SM2Mnemosyne(Scheduler):
         return len(self.queue) >= 3
 
     def grade_answer(self, card, new_grade, dry_run=False):
-        db = database()
+        db = self.database()
         days_since_start = db.days_since_start()
         # When doing a dry run, make a copy to operate on. This leaves the
         # original in the GUI intact.
@@ -353,7 +351,7 @@ class SM2Mnemosyne(Scheduler):
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.
-        log().revision(card, scheduled_interval, actual_interval,
+        self.log().revision(card, scheduled_interval, actual_interval,
                        new_interval, noise)
         return new_interval + noise
 
