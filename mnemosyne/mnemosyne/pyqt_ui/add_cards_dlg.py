@@ -7,6 +7,7 @@ from PyQt4.QtGui import *
 
 from ui_add_cards_dlg import Ui_AddCardsDlg
 
+from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
@@ -15,7 +16,7 @@ from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
                                                     ConvertCardTypeFieldsDlg
 
-class AddEditCards:
+class AddEditCards(Component):
 
     """Code shared between the add and the edit dialogs."""
 
@@ -72,11 +73,11 @@ class AddEditCards:
         try:                                                                    
             self.card_type_widget = self.component_manager.get_current\
                     ("card_type_widget", used_for=self.card_type.__class__)\
-                          (parent=self)
+                          (self, self.component_manager)
         except:
             if not self.card_type_widget: 
                 self.card_type_widget = GenericCardTypeWdgt\
-                      (self.card_type, parent=self)
+                      (self.card_type, self, self.component_manager)
         self.card_type_widget.set_data(prefill_data)
         self.card_type_widget.show()
         self.verticalLayout.insertWidget(1, self.card_type_widget)
@@ -114,7 +115,7 @@ class AddEditCards:
 
     def preview(self):
         fact_data = self.card_type_widget.get_data(check_for_required=False)
-        fact = Fact(fact_data, self.card_type)
+        fact = Fact(fact_data, self.card_type, creation_date=None)
         cards = self.card_type.create_related_cards(fact)
         cat_text = self.categories.currentText()
         if cat_text == _("<default>"):
@@ -129,7 +130,8 @@ class AddEditCards:
 
 class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent, component_manager):
+        AddEditCards.__init__(self, component_manager)
         QDialog.__init__(self, parent)
         self.setupUi(self)
         self.initialise_card_types_combobox(\

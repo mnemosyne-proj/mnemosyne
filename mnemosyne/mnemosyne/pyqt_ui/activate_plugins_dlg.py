@@ -2,39 +2,41 @@
 # activate_plugins_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from copy import deepcopy
 
 from ui_activate_plugins_dlg import Ui_ActivatePluginsDlg
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.component import Component
 
-from mnemosyne.libmnemosyne.component_manager import config, plugins
 
+class PluginListModel(QAbstractTableModel, Component):
 
-class PluginListModel(QAbstractTableModel):
+    def __init__(self, component_manager):
+        QAbstractTableModel.__init__(self)
+        Component.__init__(self, component_manager)
 
     def rowCount(self, parent=QModelIndex()):
-        return len(plugins())
+        return len(self.plugins())
     
     def columnCount(self, parent=QModelIndex()):
         return 2
     
     def data(self, index, role=Qt.DisplayRole):
-        if not index.isValid() or not (0 <= index.row() < len(plugins())):
+        if not index.isValid() or \
+               not (0 <= index.row() < len(self.plugins())):
             return QVariant()
         if role == Qt.DisplayRole:
             if index.column() == 0:
-                return QVariant(plugins()[index.row()].name)
+                return QVariant(self.plugins()[index.row()].name)
             elif index.column() == 1:
-                return QVariant(plugins()[index.row()].description)
+                return QVariant(self.plugins()[index.row()].description)
         if role == Qt.CheckStateRole:
             if index.column() == 0:
-                if plugins()[index.row()].__class__.__name__ in \
-                       config()["active_plugins"]:
+                if self.plugins()[index.row()].__class__.__name__ in \
+                       self.config()["active_plugins"]:
                     return QVariant(Qt.Checked)
                 else:
                     return QVariant(Qt.Unchecked)                   
@@ -49,9 +51,12 @@ class PluginListModel(QAbstractTableModel):
     def setData(self, index, value, role):
         if index.isValid() and index.column() == 0:
             if role == Qt.CheckStateRole:
-                plugin = plugins()[index.row()]
+                plugin = self.plugins()[index.row()]
                 if value == QVariant(Qt.Checked):
                     plugin.activate()
+                    if plugin.activation_message:
+                        self.main_widget().information_box(\
+                            plugin.activation_message)
                 else:
                     if plugin.deactivate() == False:
                         return False
@@ -69,13 +74,14 @@ class PluginListModel(QAbstractTableModel):
         return QVariant()
 
         
-class ActivatePluginsDlg(QDialog, Ui_ActivatePluginsDlg):
+class ActivatePluginsDlg(QDialog, Ui_ActivatePluginsDlg, Component):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent, component_manager):
+        Component.__init__(self, component_manager)
         QDialog.__init__(self, parent)
         self.setupUi(self)
 
-        self.model = PluginListModel()
+        self.model = PluginListModel(self.component_manager)
         self.plugins.setModel(self.model)
         self.plugins.resizeColumnToContents(0)    
         self.plugins.resizeColumnToContents(1)

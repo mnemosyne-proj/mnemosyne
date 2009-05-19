@@ -2,12 +2,7 @@
 # test_html_css.py <Peter.Bienstman@UGent.be>
 #
 
-import os
-
 from mnemosyne_test import MnemosyneTest
-from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import card_type_by_id
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 
 
 class TestHtmlCss(MnemosyneTest):
@@ -15,13 +10,13 @@ class TestHtmlCss(MnemosyneTest):
     def test_1(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         
         fact = card.fact
-        card = database().cards_from_fact(fact)[0]
+        card = self.database().cards_from_fact(fact)[0]
 
         assert card.question() == """<html><head><style type="text/css">
         table { height: 100%; margin-left: auto; margin-right: auto;  }

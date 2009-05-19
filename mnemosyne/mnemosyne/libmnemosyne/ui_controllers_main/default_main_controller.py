@@ -60,7 +60,7 @@ class DefaultMainController(UiControllerMain):
                 self.main_widget().information_box(\
               _("Card is already in database.\nDuplicate not added."), _("OK"))
             return
-        fact = Fact(fact_data, card_type)
+        fact = Fact(fact_data, card_type, self.database().days_since_start())
         categories = []
         for cat_name in cat_names:
             categories.append(db.get_or_create_category_with_name(cat_name))

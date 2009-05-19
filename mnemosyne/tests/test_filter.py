@@ -10,5 +10,5 @@ class TestFilter:
     
     @raises(NotImplementedError)
     def test(self):
-        f = Filter()
-        f.run("", None)
+        f = Filter(None)
+        f.run("")

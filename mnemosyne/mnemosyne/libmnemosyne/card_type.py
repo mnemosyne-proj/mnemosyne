@@ -118,7 +118,7 @@ class CardType(Component):
                  {"name": clone_name,
                   "is_clone": True,
                   "id": clone_id})
-        self.component_manager.register(C())
+        self.component_manager.register(C(self.component_manager))
 
     # The following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be

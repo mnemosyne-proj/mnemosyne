@@ -10,8 +10,8 @@ class Translator(Component):
 
     component_type = "translator"
 
-    def __init__(self):
-        Component.__init__(self)
+    def __init__(self, component_manager):
+        Component.__init__(self, component_manager)
         global _
         _ = self
 

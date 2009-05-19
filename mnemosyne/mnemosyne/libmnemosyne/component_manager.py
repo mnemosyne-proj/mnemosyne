@@ -55,7 +55,7 @@ class ComponentManager(object):
         
         """
         
-        for plugin in component_manager.get_all("plugin"):
+        for plugin in self.get_all("plugin"):
             if plugin.__class__.__name__ == plugin_class_name:
                 plugin.components.append(component_class)
 

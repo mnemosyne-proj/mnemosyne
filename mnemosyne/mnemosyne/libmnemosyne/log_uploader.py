@@ -10,11 +10,15 @@ import urllib2
 import random
 from threading import Thread
 
-from mnemosyne.libmnemosyne.component_manager import _
-from mnemosyne.libmnemosyne.component_manager import config, log
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.component import Component
 
 
-class LogUploader(Thread):
+class LogUploader(Thread, Component):
+
+    def __init__(self, component_manager):
+        Thread.__init__(self)
+        Component.__init__(self, component_manager)
     
     def upload(self, filename):
         
@@ -27,7 +31,7 @@ class LogUploader(Thread):
         # PUT, but then we need to change the server side script which would
         # cause problems with backwards compatibility.
     
-        host, port = config()["upload_server"].split(":")
+        host, port = self.config()["upload_server"].split(":")
         uri = '/cgi-bin/cgiupload.py'
         boundary = '%s%s_%s_%s' % \
                     ('-----', int(time.time()), os.getpid(),
@@ -57,7 +61,7 @@ class LogUploader(Thread):
         html = response.read()
 
     def run(self):
-        basedir = config().basedir
+        basedir = self.config().basedir
         join = os.path.join
         dir = os.listdir(unicode(join(basedir, "history")))
         # Compress files which haven't been compressed yet (e.g. because they
@@ -91,9 +95,9 @@ class LogUploader(Thread):
                 filename = join(basedir, "history", f)
                 self.upload(filename)
                 print >> upload_log, f
-                log().uploaded(filename)
+                self.log().uploaded(filename)
                 print _("done!")           
         except:
-            log().uploading_failed()
+            self.log().uploading_failed()
             traceback.print_exc()
         upload_log.close()

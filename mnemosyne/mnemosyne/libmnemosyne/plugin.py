@@ -32,20 +32,18 @@ class Plugin(Component):
     components = []
     show_in_first_run_wizard = False
         
-    def __init__(self):
+    def __init__(self, component_manager):
+        Component.__init__(self, component_manager)
         assert self.name and self.description, \
             "A plugin needs a name and a description."
         self.instantiated_components = []
         
     def activate(self):
-        if self.activation_message:
-            self.main_widget().information_box(self.activation_message)
         # Register all our components. Instantiate them if needed.
         for component in self.components:
             if component.instantiate != Component.LATER:
-                component = component()
+                component = component(self.component_manager)
                 self.component_manager.register(component)
-                component.component_manager = self.component_manager
                 # Now, both the class component and the instance component
                 # will be registered (with the instance having precendence),
                 # and the instance component will be unregistered again when
@@ -58,10 +56,8 @@ class Plugin(Component):
         for component in self.instantiated_components:
             if component.component_type == "scheduler" \
                    and self.database().is_loaded():
-                from mnemosyne.libmnemosyne.component_manager \
-                     import ui_controller_review
-                ui_controller_review().reset()
-                ui_controller_review().new_question()
+                self.ui_controller_review().reset()
+                self.ui_controller_review().new_question()
         # Use names instead of instances here in order to survive pickling.  
         self.config()["active_plugins"].add(self.__class__.__name__)
 
@@ -83,13 +79,11 @@ class Plugin(Component):
             if component.component_type == "review_widget":
                 # Some toolkits (e.g. Qt) destroy the old review widget after
                 # it has been replaced by a new one, so we need to recreate
-                # the old one.
-                from mnemosyne.libmnemosyne.component_manager \
-                     import review_widget             
-                old_widget = review_widget()
-                new_widget = old_widget.__class__()
-                component_manager.unregister(old_widget)
-                component_manager.register(new_widget)
+                # the old one.           
+                old_widget = self.review_widget()
+                new_widget = old_widget.__class__(self.component_manager)
+                self.component_manager.unregister(old_widget)
+                self.component_manager.register(new_widget)
         for component in self.instantiated_components:            
             if component.component_type == "scheduler" and \
                    self.database().is_loaded():
@@ -97,7 +91,7 @@ class Plugin(Component):
                 self.ui_controller_review().new_question()
         # Use names instead of instances here in order to survive pickling.
         if self.__class__.__name__ in self.config()["active_plugins"]:
-            self.self.config()["active_plugins"].remove(self.__class__.__name__)
+            self.config()["active_plugins"].remove(self.__class__.__name__)
         self.instantiated_components = []
         return True
 
@@ -111,9 +105,8 @@ def register_user_plugin(plugin_class):
 
     """
     
-    plugin = plugin_class()
     from component_manager import _component_managers
     key = _component_managers.keys()[0]
     component_manager = _component_managers[key]
+    plugin = plugin_class(component_manager)
     component_manager.register(plugin)
-    plugin.component_manager = component_manager

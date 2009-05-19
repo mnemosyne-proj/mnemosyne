@@ -14,5 +14,4 @@ class CrammingPlugin(Plugin):
     name = _("Cramming scheduler")
     description = \
   _("Goes through cards in random order without saving scheduling information.")
-    components = [Cramming, SM2ControllerCramming]
-    
+    components = [Cramming, SM2ControllerCramming]    

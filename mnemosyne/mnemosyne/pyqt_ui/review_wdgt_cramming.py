@@ -10,7 +10,6 @@ from PyQt4 import QtGui
 from review_wdgt import ReviewWdgt
 
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
    
 
@@ -18,8 +17,8 @@ class ReviewWdgtCramming(ReviewWdgt):
 
     instantiate = Component.WHEN_PLUGIN_ACTIVE
     
-    def __init__(self):
-        ReviewWdgt.__init__(self)
+    def __init__(self, component_manager):
+        ReviewWdgt.__init__(self, component_manager)
         self.grade_0_button.setText(_("&Wrong"))       
         self.grade_1_button.hide()
         self.line.hide()
@@ -38,7 +37,7 @@ class ReviewWdgtCramming(ReviewWdgt):
         parent.add_to_statusbar(self.active)
 
     def update_status_bar(self, message=None):
-        db = database()            
+        db = self.database()            
         self.wrong.setText(_("Wrong: ") + \
             str(db.scheduler_data_count(Cramming.WRONG)) + " ")
         self.unseen.setText(_("Unseen: ") + \

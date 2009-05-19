@@ -6,17 +6,21 @@ import os
 
 from mnemosyne.libmnemosyne.renderer import Renderer
 
-# Modified version of html_css.py to work better with older, nono-standard
-# compliant browsers. It has been tweaked specifically for the html widget
-# in Windows Mobile.
-# Changes:
-#  - table height is 95% instead of 100% to avoid spurious scrollbars.
-#  - centering is done in html as opposed to only in css.
+"""Modified version of html_css.py to work better with older, nono-standard
+compliant browsers. It has been tweaked specifically for the html widget in
+Windows Mobile.
+
+Changes:
+  - table height is 95% instead of 100% to avoid spurious scrollbars.
+  - centering is done in html as opposed to only in css.
+
+"""
 
 
 class HtmlCssOld(Renderer):
-    
-    def __init__(self):
+      
+    def __init__(self, component_manager):
+        Renderer.__init__(self, component_manager)
         self._css = {} # {card_type.id: css}
 
     def update(self, card_type):
@@ -113,7 +117,7 @@ class HtmlCssOld(Renderer):
         for field in fields:
             s = fact[field]
             for f in self.filters():
-                s = f.run(s, fact)
+                s = f.run(s)
             html += "<div id=\"%s\">%s</div>" % (field, s)
         html += "</td></tr></table></body></html>"
         return html

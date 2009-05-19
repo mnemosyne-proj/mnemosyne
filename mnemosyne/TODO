@@ -1,9 +1,6 @@
--store component_manager as session context in each component
+-deactivating custom card type does not work
 
--translator
--pickle
-
--update plugins
+-scheduler regression with pickle database
 
 -add documentation on how to access context in filter
 
@@ -41,11 +38,12 @@ Import
 What if interrupted
 Media dir per deck / can refuse large files
 XML over JSON
-http://effbot.org/zone/element-iterparse.htm
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 
 -make card types instantiatable from sync data
+-handle deferred translation
+-different translators for different users?
 
 
 API is element per element
@@ -89,6 +87,9 @@ other languages in repo
 
 
 -cntrl enter in add and edit instead of clicking ok
+
+
+-always copy media to internal directory
 
 
 -make distrib

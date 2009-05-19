@@ -12,7 +12,8 @@ from mnemosyne.libmnemosyne.renderer import Renderer
 
 class HtmlCss(Renderer):
     
-    def __init__(self):
+    def __init__(self, component_manager):
+        Renderer.__init__(self, component_manager)
         self._css = {} # {card_type.id: css}
 
     def update(self, card_type):
@@ -98,7 +99,7 @@ class HtmlCss(Renderer):
         for field in fields:
             s = fact[field]
             for f in self.filters():
-                s = f.run(s, fact)
+                s = f.run(s)
             html += "<div id=\"%s\">%s</div>" % (field, s)
         html += "</td></tr></table></body></html>"
         return html

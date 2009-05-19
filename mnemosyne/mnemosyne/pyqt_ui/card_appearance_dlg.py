@@ -10,13 +10,15 @@ from PyQt4.QtGui import *
 from ui_card_appearance_dlg import Ui_CardAppearanceDlg
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 
 
-class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
+class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg, Component):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent, component_manager):
+        Component.__init__(self, component_manager)
         QDialog.__init__(self, parent)
         self.setupUi(self)
         self.dynamic_widgets = []
@@ -28,7 +30,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         # translation.
         self.card_types_widget.addItem(_("<all card types>"))
         self.card_type_by_name = {}
-        for card_type in card_types():
+        for card_type in self.card_types():
             self.card_type_by_name[card_type.name] = card_type
             self.card_types_widget.addItem(card_type.name)
             
@@ -42,7 +44,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
 
     def card_type_changed(self, new_card_type_name):
         if new_card_type_name == _("<all card types>"):
-            self.affected_card_types = card_types()
+            self.affected_card_types = self.card_types()
             self.key_names = [_("Text")]
         else:
             new_card_type_name = unicode(new_card_type_name)
@@ -207,7 +209,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg):
         fact_data = {}
         for fact_key, fact_key_name in card_type.fields:
             fact_data[fact_key] = fact_key_name
-        fact = Fact(fact_data, card_type)
+        fact = Fact(fact_data, card_type, creation_date=None)
         cards = card_type.create_related_cards(fact)        
         cat_text = ""
         dlg = PreviewCardsDlg(cards, cat_text, self)

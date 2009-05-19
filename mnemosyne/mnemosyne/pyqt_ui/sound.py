@@ -30,7 +30,7 @@ soundmanager = SoundManager()
 
 class SoundPlayer(Filter):
 
-    def run(self, text, fact):
+    def run(self, text):
         i = text.lower().find("sound src")
         while i != -1:
             start = text.find("\"", i)

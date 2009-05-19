@@ -16,12 +16,7 @@ from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmnemosyne.component_manager import _
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-from mnemosyne.libmnemosyne.component_manager import log, plugins
-from mnemosyne.libmnemosyne.component_manager import card_types, database
-from mnemosyne.libmnemosyne.component_manager import card_type_by_id
+from mnemosyne.libmnemosyne.translator import _
 
 
 class Pickle(Database):
@@ -43,7 +38,8 @@ class Pickle(Database):
     version = "4"
     suffix = ".p"
 
-    def __init__(self):
+    def __init__(self, component_manager):
+        Database.__init__(self, component_manager)
         self.start_date = None
         self.categories = []
         self.facts = []
@@ -59,7 +55,7 @@ class Pickle(Database):
         self.start_date = StartDate()
         self.save(contract_path(path, self.config().basedir))
         self.config()["path"] = path
-        log().new_database()
+        self.log().new_database()
 
     def load(self, path):
         if self.is_loaded():
@@ -85,16 +81,15 @@ class Pickle(Database):
 
         # Check database version.
         if self.global_variables["version"] != self.version:
-            print "Warning: database version mismatch."
             self.load_failed = True
-            raise RuntimeError, _("Unable to load file.")
+            raise RuntimeError, _("Unable to load file: database version mismatch.")
         
         # Deal with clones and plugins, also plugins for parent classes.
         # Because of the sip bugs, card types here are actually still card
         # type ids.
         plugin_needed = set()
         clone_needed = []
-        active_id = set(card_type.id for card_type in card_types())
+        active_id = set(card_type.id for card_type in self.card_types())
         for id in set(card.fact.card_type for card in self.cards):
             while "." in id: # Move up one level of the hierarchy.
                 id, child_name = id.rsplit(".", 1)          
@@ -109,7 +104,7 @@ class Pickle(Database):
         # Activate necessary plugins.
         for card_type_id in plugin_needed:
             found = False
-            for plugin in plugins():
+            for plugin in self.plugins():
                 for component in plugin.components:
                     if component.component_type == "card_type" and \
                            component.id == card_type_id:
@@ -129,7 +124,7 @@ class Pickle(Database):
             
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
-            parent_instance = card_type_by_id(parent_type_id)
+            parent_instance = self.card_type_by_id(parent_type_id)
             try:
                 parent_instance.clone(clone_name)
             except NameError:
@@ -139,13 +134,16 @@ class Pickle(Database):
             
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
-            f.card_type = card_type_by_id(f.card_type)    
+            f.card_type = self.card_type_by_id(f.card_type)    
         self.config()["path"] = contract_path(path, self.config().basedir)
-        log().loaded_database()
+        self.log().loaded_database()
         for f in self.component_manager.get_all("function_hook", "after_load"):
             f.run()
 
     def save(self, path=None):
+        # Don't erase a database which failed to load.
+        if self.load_failed == True:
+            return -1
         if not path:
             path = self.config()["path"]
         path = expand_path(path, self.config().basedir)
@@ -154,9 +152,6 @@ class Pickle(Database):
         # Work around a sip bug: don't store card types, but their ids.
         for f in self.facts:
             f.card_type = f.card_type.id
-        # Don't erase a database which failed to load.
-        if self.load_failed == True:
-            return -1
         try:
             # Write to a backup file first, as shutting down Windows can
             # interrupt the dump command and corrupt the database.
@@ -167,19 +162,18 @@ class Pickle(Database):
             outfile.close()
             shutil.move(path + "~", path) # Should be atomic.
         except:
-            print traceback_string()
             raise RuntimeError, _("Unable to save file.") \
                   + "\n" + traceback_string()
         self.config()["path"] = contract_path(path, self.config().basedir)
         # Work around sip bug again.
         for f in self.facts:
-            f.card_type = card_type_by_id(f.card_type)
+            f.card_type = self.card_type_by_id(f.card_type)
 
     def unload(self):
         if len(self.facts) == 0:
             return True
         self.save(self.config()["path"])
-        log().saved_database()
+        self.log().saved_database()
         self.start_date = None
         self.categories = []
         self.facts = []
@@ -283,7 +277,7 @@ class Pickle(Database):
         card._id = card.id
         self.load_failed = False
         self.cards.append(card)
-        log().new_card(card)
+        self.log().new_card(card)
 
     def update_card(self, card, update_categories=True):
         return # Happens automatically.
@@ -300,7 +294,7 @@ class Pickle(Database):
         self.cards.remove(card)
         for cat in old_cat:
             self.remove_category_if_unused(cat)    
-        log().deleted_card(card)
+        self.log().deleted_card(card)
         del card
     
     # Retrieving categories, facts, cards based on their internal id.
@@ -409,7 +403,7 @@ class Pickle(Database):
             yield (c.id, c.fact.id)
 
     def cards_due_for_ret_rep(self, sort_key="", limit=-1):
-        days_since_start = self.start_date.days_since_start()
+        days_since_start = self.days_since_start()
         cards = [c for c in self.cards if c.active and \
                  c.grade >= 2 and days_since_start >= c.next_rep]        
         return self._list_to_generator(cards, sort_key, limit)
@@ -430,7 +424,7 @@ class Pickle(Database):
         return self._list_to_generator(cards, sort_key, limit)
                                       
     def cards_learn_ahead(self, sort_key="", limit=-1):
-        days_since_start = self.start_date.days_since_start()
+        days_since_start = self.days_since_start()
         cards = [c for c in self.cards if c.active and \
                  c.grade >= 2 and days_since_start < c.next_rep]
         return self._list_to_generator(cards, sort_key, limit)

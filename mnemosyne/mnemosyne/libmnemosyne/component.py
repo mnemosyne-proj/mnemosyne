@@ -22,6 +22,11 @@ class Component(object):
 
     Each component has access to all of the context of the other components
     because it hold a reference to the user's component manager.
+
+    We need to pass the context of the component manager already in the
+    constructor, as many component make use of it in their __init__ method.
+    This means that derived components should always call the
+    Component.__init__ if they provide their own constructor.
     
     """
     
@@ -33,9 +38,9 @@ class Component(object):
     LATER = 2
     
     instantiate = IMMEDIATELY
-
-    def __init__(self):
-        self.component_manager = None
+    
+    def __init__(self, component_manager):
+        self.component_manager = component_manager
 
     def activate(self):
 
@@ -52,7 +57,10 @@ class Component(object):
 
     # Convenience functions, for easier access to all of the context of
     # libmnemosyne from within a component.
-
+    
+    def _(self):
+        return self.component_manager.get_current("translator")
+    
     def config(self):
         return self.component_manager.get_current("config")
 
@@ -86,5 +94,5 @@ class Component(object):
     def plugins(self):
         return self.component_manager.get_all("plugin")
 
-    def card_type_by_id(id): 
+    def card_type_by_id(self, id): 
         return self.component_manager.card_type_by_id[id]

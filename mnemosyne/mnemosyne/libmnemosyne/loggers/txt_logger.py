@@ -13,7 +13,8 @@ from mnemosyne.libmnemosyne.stopwatch import stopwatch
 
 class TxtLogger(Logger):
     
-    def __init__(self):
+    def __init__(self, component_manager):
+        Logger.__init__(self, component_manager)
         self.logger = logging.getLogger("mnemosyne")
 
     def start_logging(self):

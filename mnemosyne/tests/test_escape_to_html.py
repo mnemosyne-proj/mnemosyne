@@ -10,24 +10,24 @@ class TestEscapeToHtml:
     def test_1(self):
         in_string = "<1"
         out_string = "&lt;1"
-        assert EscapeToHtml().run(in_string, None) == out_string
+        assert EscapeToHtml(None).run(in_string) == out_string
 
     def test_2(self):
         in_string = "<1>"
         out_string = "<1>"
-        assert EscapeToHtml().run(in_string, None) == out_string
+        assert EscapeToHtml(None).run(in_string) == out_string
         
     def test_3(self):
         in_string = "a\nb"
         out_string = "a<br>b"
-        assert EscapeToHtml().run(in_string, None) == out_string
+        assert EscapeToHtml(None).run(in_string) == out_string
         
     def test_4(self):
         in_string = "<><"
         out_string = "<>&lt;"
-        assert EscapeToHtml().run(in_string, None) == out_string
+        assert EscapeToHtml(None).run(in_string) == out_string
         
     def test_5(self):
         in_string = "<<>"
         out_string = "&lt;<>"
-        assert EscapeToHtml().run(in_string, None) == out_string
+        assert EscapeToHtml(None).run(in_string) == out_string

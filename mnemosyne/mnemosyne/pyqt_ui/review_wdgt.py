@@ -2,17 +2,12 @@
 # review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from PyQt4 import QtGui
 
 from ui_review_wdgt import *
-
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
-from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
-from mnemosyne.libmnemosyne.component_manager import main_widget
+
 
 class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
@@ -29,8 +24,9 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
     auto_focus_grades = True
     
-    def __init__(self):
-        parent = main_widget()
+    def __init__(self, component_manager):
+        ReviewWidget.__init__(self, component_manager)
+        parent = self.main_widget()
         QtGui.QWidget.__init__(self, parent)
         parent.setCentralWidget(self)
         self.setupUi(self)
@@ -53,10 +49,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         parent.statusbar.setSizeGripEnabled(0)
 
     def show_answer(self):
-        ui_controller_review().show_answer()
+        self.ui_controller_review().show_answer()
 
     def grade_answer(self, grade):
-        ui_controller_review().grade_answer(grade)
+        self.ui_controller_review().grade_answer(grade)
     
     def enable_edit_current_card(self, enable):
         self.parent().actionEditCurrentCard.setEnabled(enable)
@@ -123,7 +119,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.button(grade).setToolTip(text)
 
     def update_status_bar(self, message=None):
-        db = database()            
+        db = self.database()            
         self.sched.setText(_("Scheduled: ") + \
             str(db.scheduled_count()) + " ")
         self.notmem.setText(_("Not memorised: ") + \

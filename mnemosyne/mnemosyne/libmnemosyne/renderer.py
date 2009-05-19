@@ -44,8 +44,6 @@ class Renderer(Component):
             keys = [fact_key]
         for key in keys:
             self.config()[property_name][card_type.id][key] = property
-        print "Setting property", property_name, self.config()[property_name]
-
         
     def render_card_fields(self, card, fields):
         

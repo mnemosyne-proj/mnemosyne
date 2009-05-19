@@ -12,11 +12,6 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 
 cloze_re = re.compile(r"\[(.+?)\]", re.DOTALL)
 
-manual = _("This card type can be used to blank fragments in a text, e.g.")
-manual += " \n" + _("\"The capital of France is [Paris]\",")
-manual += " " + _("will give a card with question") + "\n"
-manual += _("\"The capital of France is [...]\"")
-
 
 class Cloze(CardType):
     
@@ -46,7 +41,6 @@ class Cloze(CardType):
     fields = [("text", _("Text"))]
     unique_fields = ["text"]
     fact_views = [FactView("1", _("Cloze"))]
-    activation_message = manual
 
     def validate_data(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
@@ -123,7 +117,9 @@ class ClozePlugin(Plugin):
 
     name = _("Cloze deletion")
     description = _("A card type blanking out certain fragments in a text.")
+    activation_message = \
+        _("This card type can be used to blank fragments in a text, e.g.") + \
+        "\n" + _("\"The capital of France is [Paris]\",") + " " + \
+        _("will give a card with question") + "\n" + \
+        _("\"The capital of France is [...]\"")
     components = [Cloze]
-    
-
-

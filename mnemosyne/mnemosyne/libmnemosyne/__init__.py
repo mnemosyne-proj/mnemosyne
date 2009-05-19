@@ -20,9 +20,9 @@ class Mnemosyne(Component):
 
     def __init__(self, resource_limited=False):
         self.components = [
-        #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
-         ("mnemosyne.libmnemosyne.databases.SQLite",
-          "SQLite"),
+        ("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
+        # ("mnemosyne.libmnemosyne.databases.SQLite",
+        #  "SQLite"),
          ("mnemosyne.libmnemosyne.configuration",
           "Configuration"),
          ("mnemosyne.libmnemosyne.loggers.txt_logger",
@@ -74,11 +74,11 @@ class Mnemosyne(Component):
     def initialise(self, basedir, filename=None):
         self.component_manager = new_component_manager()
         self.register_components()
-        register_component_manager(self.component_manager,
-                                   self.config()["user_id"])
         self.config().basedir = basedir
         self.config().resource_limited = self.resource_limited 
         self.activate_components()
+        register_component_manager(self.component_manager,
+                                   self.config()["user_id"])
         self.execute_user_plugin_dir()
         self.activate_saved_plugins()       
         # Loading the database should come after all user plugins have been
@@ -103,8 +103,7 @@ class Mnemosyne(Component):
             exec("from %s import %s" % (module_name, class_name))
             exec("component = %s" % class_name)
             if component.instantiate == component.IMMEDIATELY:
-                component = component()
-                component.component_manager = self.component_manager
+                component = component(self.component_manager)
             self.component_manager.register(component)
         for plugin_name in self.extra_components_for_plugin:
             for module_name, class_name in \
@@ -144,7 +143,6 @@ class Mnemosyne(Component):
                     self.main_widget().error_box(msg)
 
     def activate_saved_plugins(self):
-        from mnemosyne.libmnemosyne.component_manager import plugins
         for plugin in self.config()["active_plugins"]:
             try:
                 for p in self.plugins():
@@ -158,7 +156,8 @@ class Mnemosyne(Component):
                 self.main_widget().error_box(msg)
                 
     def check_lockfile(self):
-        if os.path.exists(os.path.join(config().basedir, "MNEMOSYNE_LOCK")):
+        if os.path.exists(os.path.join(self.config().basedir,
+                                       "MNEMOSYNE_LOCK")):
             from mnemosyne.libmnemosyne.translator import _
             status = self.main_widget().question_box(
                 _("Either Mnemosyne didn't shut down properly,") + "\n" +
@@ -172,8 +171,8 @@ class Mnemosyne(Component):
 
     def load_database(self, filename):        
         if not filename:
-            filename = config()["path"]
-        filename = expand_path(filename, config().basedir)
+            filename = self.config()["path"]
+        filename = expand_path(filename, self.config().basedir)
         try:
             if not os.path.exists(filename):
                 self.database().new(filename)
@@ -194,7 +193,7 @@ class Mnemosyne(Component):
 
     def remove_lockfile(self):
         try:
-            os.remove(os.path.join(config().basedir, "MNEMOSYNE_LOCK"))
+            os.remove(os.path.join(self.config().basedir, "MNEMOSYNE_LOCK"))
         except OSError:
             from mnemosyne.libmnemosyne.translator import _
             msg = _("Failed to remove lock file.") \
@@ -206,7 +205,8 @@ class Mnemosyne(Component):
         # Saving the config shoulh happen before we deactivate the plugins,
         # otherwise they are not restored upon reload.
         self.config().save()
+        user_id = self.config()["user_id"]
         self.component_manager.deactivate_all()
-        unregister_component_manager(self.component_manager)
+        unregister_component_manager(user_id)
         
 

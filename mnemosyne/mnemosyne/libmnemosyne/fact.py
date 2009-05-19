@@ -35,9 +35,7 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, card_type, id=None, creation_date=None):
-        if not creation_date:
-            creation_date = self.database().days_since_start()
+    def __init__(self, data, card_type, creation_date, id=None):
         self.creation_date = creation_date
         self.modification_date = self.creation_date
         self.data = data

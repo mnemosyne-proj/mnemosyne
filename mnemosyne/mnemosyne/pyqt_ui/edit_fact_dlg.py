@@ -16,7 +16,8 @@ from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
 
 class EditFactDlg(QDialog, Ui_EditFactDlg, AddEditCards):
 
-    def __init__(self, fact, allow_cancel=True, parent=None):
+    def __init__(self, fact, parent, component_manager, allow_cancel=True):
+        AddEditCards.__init__(self, component_manager)
         QDialog.__init__(self, parent)
         self.setupUi(self)
         if not allow_cancel:
@@ -33,7 +34,7 @@ class EditFactDlg(QDialog, Ui_EditFactDlg, AddEditCards):
         self.OK_button.setEnabled(complete)    
             
     def accept(self):
-        new_fact_data = self.card_type.widget.get_data()
+        new_fact_data = self.card_type_widget.get_data()
         new_cat_names = [c.strip() for c in \
                         unicode(self.categories.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types_widget.currentText())

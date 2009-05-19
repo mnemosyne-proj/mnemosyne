@@ -2,27 +2,25 @@
 # clone_card_type_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from ui_clone_card_type_dlg import Ui_CloneCardTypeDlg
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.component import Component
 
-from mnemosyne.libmnemosyne.component_manager import card_types
 
+class CloneCardTypeDlg(QDialog, Ui_CloneCardTypeDlg, Component):
 
-class CloneCardTypeDlg(QDialog, Ui_CloneCardTypeDlg):
-
-    def __init__(self, parent=None):
+    def __init__(self, parent, component_manager):
+        Component.__init__(self, component_manager)
         QDialog.__init__(self, parent)
         self.setupUi(self)
-        self.card_types = []
-        for card_type in card_types():
+        self.uncloned_card_types = []
+        for card_type in self.card_types():
             if not card_type.is_clone:
                 self.parent_type.addItem(card_type.name)
-                self.card_types.append(card_type)
+                self.uncloned_card_types.append(card_type)
 
     def name_changed(self):
         if not self.name.text():
@@ -31,7 +29,8 @@ class CloneCardTypeDlg(QDialog, Ui_CloneCardTypeDlg):
             self.OK_button.setEnabled(True)
 
     def accept(self):
-        parent_instance = self.card_types[self.parent_type.currentIndex()]
+        parent_instance = self.uncloned_card_types\
+                          [self.parent_type.currentIndex()]
         clone_name = unicode(self.name.text())
         
         try:

@@ -19,7 +19,7 @@ class Logger(Component):
         if self.config()["upload_logs"] and \
                not self.config().resource_limited:
             from mnemosyne.libmnemosyne.log_uploader import LogUploader
-            self.upload_thread = LogUploader()
+            self.upload_thread = LogUploader(self.component_manager)
             self.upload_thread.start()
     
     def start_logging(self):
@@ -87,7 +87,7 @@ class Logger(Component):
 
     def deactivate(self):
         if self.upload_thread:
-            from mnemosyne.libmnemosyne.component_manager import _
+            from mnemosyne.libmnemosyne.translator import _
             print _("Waiting for uploader thread to stop...")
             self.upload_thread.join()
             print _("Done!")

@@ -8,7 +8,6 @@
 from PyQt4 import QtGui
 
 from mnemosyne.libmnemosyne.plugin import Plugin
-from mnemosyne.libmnemosyne.component_manager import component_manager
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
 from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 
@@ -21,8 +20,9 @@ class RedGenericCardTypeWdgt(GenericCardTypeWdgt):
 
     used_for = FrontToBack
 
-    def __init__(self, prefill_data=None, parent=None):
-        GenericCardTypeWdgt.__init__(self, FrontToBack, parent)
+    def __init__(self, parent, component_manager):
+        GenericCardTypeWdgt.__init__(self, FrontToBack,
+                                     parent, component_manager)
         for edit_box in self.edit_boxes:
             p = QtGui.QPalette()
             p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base, \
@@ -36,7 +36,9 @@ class RedPlugin(Plugin):
     description = "Red widget for front-to-back cards"
     components = [RedGenericCardTypeWdgt]
 
-component_manager.register(RedPlugin())
+from mnemosyne.libmnemosyne.plugin import register_user_plugin
+register_user_plugin(RedPlugin)
+
 
 
 

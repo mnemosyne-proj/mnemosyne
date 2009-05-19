@@ -5,9 +5,6 @@
 import sys
 import os
 
-import gettext
-_ = gettext.gettext
-
 from PyQt4 import QtCore, QtGui
 
 from ui_main_window import Ui_MainWindow
@@ -27,10 +24,9 @@ from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 #from product_tour_dlg import *
 #from tip_dlg import *
 #from about_dlg import *
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
+
 
 # The folloving is need to determine the location of the translations.
 # TODO: needed?
@@ -39,15 +35,16 @@ prefix = os.path.dirname(__file__)
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
 
-    def __init__(self, parent=None):
-        QtGui.QMainWindow.__init__(self, parent)
+    def __init__(self, component_manager):
+        MainWidget.__init__(self, component_manager)
+        QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
         self.statusbar_widgets = []
 
     def activate(self):
         self.timer = QtCore.QTimer()
         self.connect(self.timer, QtCore.SIGNAL("timeout()"),
-                     ui_controller_review().rollover)
+                     self.ui_controller_review().rollover)
         self.timer.start(1000 * 60 * 5)
 
     def add_to_statusbar(self, widget):
@@ -82,53 +79,53 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.setWindowTitle(title)
 
     def add_cards(self):
-        ui_controller_main().add_cards()
+        self.ui_controller_main().add_cards()
 
     def edit_current_card(self):
-        ui_controller_main().edit_current_card()
+        self.ui_controller_main().edit_current_card()
         
     def delete_current_fact(self):
-        ui_controller_main().delete_current_fact()
+        self.ui_controller_main().delete_current_fact()
         
     def file_new(self):
-        ui_controller_main().file_new()
+        self.ui_controller_main().file_new()
 
     def file_open(self):
-        ui_controller_main().file_open()
+        self.ui_controller_main().file_open()
         
     def file_save(self):
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         
     def file_save_as(self):
-        ui_controller_main().file_save_as()
+        self.ui_controller_main().file_save_as()
         
     def manage_card_types(self):
-        ui_controller_main().manage_card_types()
+        self.ui_controller_main().manage_card_types()
         
     def card_appearance(self):
-        ui_controller_main().card_appearance()
+        self.ui_controller_main().card_appearance()
         
     def activate_plugins(self):
-        ui_controller_main().activate_plugins()
+        self.ui_controller_main().activate_plugins()
         
     def run_add_cards_dialog(self):
-        dlg = AddCardsDlg(self)
+        dlg = AddCardsDlg(self, self.component_manager)
         dlg.exec_()
 
     def run_edit_fact_dialog(self, fact, allow_cancel=True):
-        dlg = EditFactDlg(fact, allow_cancel, self)
+        dlg = EditFactDlg(fact, self, self.component_manager, allow_cancel)
         dlg.exec_()
         
     def run_manage_card_types_dialog(self):
-        dlg = ClonedCardTypesListDlg(self)
+        dlg = ClonedCardTypesListDlg(self, self.component_manager)
         dlg.exec_()
         
     def run_card_appearance_dialog(self):
-        dlg = CardAppearanceDlg(self)
+        dlg = CardAppearanceDlg(self, self.component_manager)
         dlg.exec_()
 
     def run_activate_plugins_dialog(self):
-        dlg = ActivatePluginsDlg(self)
+        dlg = ActivatePluginsDlg(self, self.component_manager)
         dlg.exec_()
         
     def Import(self):
@@ -157,7 +154,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
             self.newQuestion()
         else:
             remove_from_revision_queue(self.card) # It's already being asked.
-        ui_controller_review().update_dialog(redraw_all=True)
+        self.ui_controller_review().update_dialog(redraw_all=True)
         self.updateDialog()
         stopwatch.unpause()
 
@@ -203,8 +200,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
 
     def closeEvent(self, event):
         try:
-            database().backup()
-            database().unload()
+            self.database().backup()
+            self.database().unload()
         except RuntimeError, error:
             self.error_box(str(error))
             event.ignore()

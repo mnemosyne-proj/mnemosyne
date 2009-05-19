@@ -2,19 +2,15 @@
 # test_convert_cards.py <Peter.Bienstman@UGent.be>
 #
 
-import os
 import copy
 
 from mnemosyne_test import MnemosyneTest
-from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import card_type_by_id
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 
 class TestConverter:
 
     def test(self):
-        c = CardTypeConverter()
+        c = CardTypeConverter(None)
         new_cards, updated_cards, deleted_cards \
                    = c.convert(None, None, None, None)
         assert new_cards == []
@@ -26,24 +22,24 @@ class TestConvertCards(MnemosyneTest):
     def test_1_to_2(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         
         fact = card.fact
-        old_card = copy.deepcopy(database().cards_from_fact(fact)[0])
+        old_card = copy.copy(self.database().cards_from_fact(fact)[0])
         
         new_fact_data = {"q": "question2",                    
                          "a": "answer2"}
-        new_card_type = card_type_by_id("2")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("2")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 2
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
         
-        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
 
         assert new_card_1.fact.card_type.id == "2"
         assert new_card_2.fact.card_type.id == "2"
@@ -65,27 +61,27 @@ class TestConvertCards(MnemosyneTest):
     def test_2_to_1(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("2")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("2")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
 
         new_fact_data = {"q": "question2",                    
                          "a": "answer2"}
-        new_card_type = card_type_by_id("1")
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("1")
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[],
                warn=False)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 1
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
 
-        new_card = database().cards_from_fact(fact)[0]
+        new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1"
         
         if old_card_1.fact_view.id == "1":
@@ -101,27 +97,27 @@ class TestConvertCards(MnemosyneTest):
     def test_1_to_3_a(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        old_card = copy.deepcopy(database().cards_from_fact(fact)[0])
+        old_card = copy.copy(self.database().cards_from_fact(fact)[0])
                 
         new_fact_data = {"f": "foreign word",
                          "p": "pronunciation",
                          "t": "translation"}
         correspondence = {"q": "f", "a": "p"}
-        new_card_type = card_type_by_id("3")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("3")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 2
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
 
-        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
         assert new_card_1.fact.card_type.id == "3"
         assert new_card_2.fact.card_type.id == "3"
 
@@ -140,27 +136,27 @@ class TestConvertCards(MnemosyneTest):
     def test_1_to_3_b(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        old_card = copy.deepcopy(database().cards_from_fact(fact)[0])
+        old_card = copy.copy(self.database().cards_from_fact(fact)[0])
                 
         new_fact_data = {"f": "foreign word",
                          "p": "pronunciation",
                          "t": "translation"}
         correspondence = {"q": "t", "a": "f"}
-        new_card_type = card_type_by_id("3")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("3")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 2
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
 
-        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
         assert new_card_1.fact.card_type.id == "3"
         assert new_card_2.fact.card_type.id == "3"
 
@@ -180,28 +176,28 @@ class TestConvertCards(MnemosyneTest):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
-        card_type = card_type_by_id("3")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("3")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"q": "question",
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}
-        new_card_type = card_type_by_id("1")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("1")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence, warn=False)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 1
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
         
-        new_card = database().cards_from_fact(fact)[0]
+        new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1"
         
         if old_card_1.fact_view.id == "1":
@@ -218,28 +214,28 @@ class TestConvertCards(MnemosyneTest):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
-        card_type = card_type_by_id("3")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("3")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"q": "question",
                          "a": "answer"}
         correspondence = {"f": "a", "t": ";"}
-        new_card_type = card_type_by_id("1")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("1")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence, warn=False)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 1
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
         
-        new_card = database().cards_from_fact(fact)[0]
+        new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1"
         
         if old_card_1.fact_view.id == "2":
@@ -255,29 +251,29 @@ class TestConvertCards(MnemosyneTest):
     def test_2_to_3_a(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("2")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("2")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"f": "foreign word",
                          "p": "pronunciation",
                          "t": "translation"}
         correspondence = {"q": "f", "a": "t"}
-        new_card_type = card_type_by_id("3")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("3")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 2
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
 
-        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
         assert new_card_1.fact.card_type.id == "3"
         assert new_card_2.fact.card_type.id == "3"
         
@@ -294,29 +290,29 @@ class TestConvertCards(MnemosyneTest):
     def test_2_to_3_b(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("2")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("2")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"f": "foreign word",
                          "p": "pronunciation",
                          "t": "translation"}
         correspondence = {"q": "t", "a": "f"}
-        new_card_type = card_type_by_id("3")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("3")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 2
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
 
-        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
         assert new_card_1.fact.card_type.id == "3"
         assert new_card_2.fact.card_type.id == "3"
 
@@ -334,28 +330,28 @@ class TestConvertCards(MnemosyneTest):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
-        card_type = card_type_by_id("3")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("3")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"q": "question",
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}
-        new_card_type = card_type_by_id("2")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("2")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence, warn=False)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 2
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
         
-        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
         
         assert new_card_1.fact.card_type.id == "2"
         assert new_card_2.fact.card_type.id == "2"
@@ -374,28 +370,28 @@ class TestConvertCards(MnemosyneTest):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
-        card_type = card_type_by_id("3")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("3")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"q": "question",
                          "a": "answer"}
         correspondence = {"f": "a", "t": "q"}
-        new_card_type = card_type_by_id("2")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("2")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence, warn=False)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 2
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
         
-        new_card_1, new_card_2 = database().cards_from_fact(fact)
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
         
         assert new_card_1.fact.card_type.id == "2"
         assert new_card_2.fact.card_type.id == "2"
@@ -414,31 +410,31 @@ class TestConvertCards(MnemosyneTest):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
-        card_type = card_type_by_id("3")
+        card_type = self.card_type_by_id("3")
         card_type.clone("my_3")
-        card_type = card_type_by_id("3_CLONED.my_3")
+        card_type = self.card_type_by_id("3_CLONED.my_3")
         
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"q": "question",
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}
-        new_card_type = card_type_by_id("1")     
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        new_card_type = self.card_type_by_id("1")     
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence, warn=False)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 1
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
         
-        new_card = database().cards_from_fact(fact)[0]
+        new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1"
         
         if old_card_1.fact_view.id == "1":
@@ -455,31 +451,31 @@ class TestConvertCards(MnemosyneTest):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
-        card_type = card_type_by_id("3")        
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("3")        
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"q": "question",
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}      
-        new_card_type = card_type_by_id("1")
+        new_card_type = self.card_type_by_id("1")
         new_card_type.clone("my_1")
-        new_card_type = card_type_by_id("1_CLONED.my_1")
+        new_card_type = self.card_type_by_id("1_CLONED.my_1")
       
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence, warn=False)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 1
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
         
-        new_card = database().cards_from_fact(fact)[0]
+        new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1_CLONED.my_1"
         assert new_card.fact.data["q"] == "question"
         assert new_card.fact.data["a"] == "answer"
@@ -498,34 +494,34 @@ class TestConvertCards(MnemosyneTest):
         fact_data = {"f": "foreign word",
                      "p": "pronunciation",
                      "t": "translation"}
-        card_type = card_type_by_id("3")
+        card_type = self.card_type_by_id("3")
         card_type.clone("my_3")
-        card_type = card_type_by_id("3_CLONED.my_3")
+        card_type = self.card_type_by_id("3_CLONED.my_3")
         
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        card_1, card_2 = database().cards_from_fact(fact)
-        old_card_1 = copy.deepcopy(card_1)
-        old_card_2 = copy.deepcopy(card_2)
+        card_1, card_2 = self.database().cards_from_fact(fact)
+        old_card_1 = copy.copy(card_1)
+        old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"q": "question",
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}      
-        new_card_type = card_type_by_id("1")
+        new_card_type = self.card_type_by_id("1")
         new_card_type.clone("my_1")
-        new_card_type = card_type_by_id("1_CLONED.my_1")
+        new_card_type = self.card_type_by_id("1_CLONED.my_1")
       
-        ui_controller_main().update_related_cards(fact, new_fact_data,
+        self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_cat_names=["default2"],
                correspondence=correspondence, warn=False)
         
-        assert database().fact_count() == 1
-        assert database().card_count() == 1
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
         
-        new_card = database().cards_from_fact(fact)[0]
+        new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.fact.card_type.id == "1_CLONED.my_1"
         
         if old_card_1.fact_view.id == "1":

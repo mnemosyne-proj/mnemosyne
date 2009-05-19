@@ -7,6 +7,7 @@ import sys
 import locale
 import cPickle
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 
 config_py = \
@@ -48,7 +49,8 @@ class Configuration(Component, dict):
 
     component_type = "config"
 
-    def __init__(self):
+    def __init__(self, component_manager):
+        Component.__init__(self, component_manager)
         basedir = None
         resource_limited = False
 
@@ -130,7 +132,7 @@ class Configuration(Component, dict):
         try:
             config_file = file(os.path.join(self.basedir,
                                             "config"), 'wb')
-            cPickle.dump(self, config_file)
+            cPickle.dump(dict(self), config_file)
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Unable to save config file:") \

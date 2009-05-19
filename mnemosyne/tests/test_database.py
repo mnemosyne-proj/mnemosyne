@@ -2,17 +2,11 @@
 # test_database.py <Peter.Bienstman@UGent.be>
 #
 
-import os
 from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.category import Category
-from mnemosyne.libmnemosyne.component_manager import config
-from mnemosyne.libmnemosyne.component_manager import component_manager
-from mnemosyne.libmnemosyne.component_manager import database, plugins
-from mnemosyne.libmnemosyne.component_manager import card_type_by_id
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
@@ -21,25 +15,25 @@ class TestDatabase(MnemosyneTest):
 
     def test_categories(self):
         cat = Category("test")
-        database().add_category(cat)
-        assert database().category_names() == [u"test"]
+        self.database().add_category(cat)
+        assert self.database().category_names() == [u"test"]
         cat.name = "test2"
-        database().update_category(cat)
-        assert database().category_names() == [u"test2"]        
+        self.database().update_category(cat)
+        assert self.database().category_names() == [u"test2"]        
 
     def test_new_cards(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        old_card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        old_card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                  grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         old_fact = old_card.fact
-        database().unload()
+        self.database().unload()
 
-        database().load(config()["path"])
-        assert database().fact_count() == 1
-        card = database().get_card(old_card._id)
+        self.database().load(self.config()["path"])
+        assert self.database().fact_count() == 1
+        card = self.database().get_card(old_card._id)
         fact = card.fact
         
         assert fact.data["q"] == "question"
@@ -85,8 +79,8 @@ class TestDatabase(MnemosyneTest):
         card.active = False
         card.in_view = False
         
-        database().update_card(card)
-        new_card = list(database().cards_from_fact(fact))[0]
+        self.database().update_card(card)
+        new_card = list(self.database().cards_from_fact(fact))[0]
         
         assert card.grade == -1
         assert card.easiness == -2
@@ -106,47 +100,47 @@ class TestDatabase(MnemosyneTest):
     def test_update_category(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         fact = card.fact
-        ui_controller_main().update_related_cards(fact, fact_data, card_type,
+        self.ui_controller_main().update_related_cards(fact, fact_data, card_type,
             new_cat_names=["default1"], correspondence=[])
-        new_card = database().get_card(card._id)
+        new_card = self.database().get_card(card._id)
         assert new_card.categories[0].name == "default1"     
         
     @raises(RuntimeError)
     def test_load_unexisting_file(self):        
-        database().load("unexisting")
+        self.database().load("unexisting")
         
     def test_clones(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         fact = card.fact
         fact.card_type.clone("my_1")
         
-        new_card_type = card_type_by_id("1_CLONED.my_1")
-        ui_controller_main().update_related_cards(fact, fact_data,
+        new_card_type = self.card_type_by_id("1_CLONED.my_1")
+        self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
-        ui_controller_main().file_save()       
-        database().unload()
+        self.ui_controller_main().file_save()       
+        self.database().unload()
         self.mnemosyne.finalise()
         self.restart()
-        assert database().fact_count() == 1
-        _card_id, _fact_id = list(database().cards_unseen(0))[0]
-        fact = database().get_fact(_fact_id)
-        card_type = card_type_by_id("1_CLONED.my_1")        
+        assert self.database().fact_count() == 1
+        _card_id, _fact_id = list(self.database().cards_unseen(0))[0]
+        fact = self.database().get_fact(_fact_id)
+        card_type = self.card_type_by_id("1_CLONED.my_1")        
         assert fact.card_type.id == "1_CLONED.my_1"
         assert fact.card_type == card_type
 
     def test_plugin_and_clones(self):
-        for plugin in plugins():
+        for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "4":
                 plugin.activate()
@@ -154,65 +148,65 @@ class TestDatabase(MnemosyneTest):
         fact_data = {"loc": "location",
                      "blank": "blank",
                      "marked": "marked"}
-        card_type = card_type_by_id("4")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("4")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        assert database().fact_count() == 1
+        assert self.database().fact_count() == 1
         
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         fact = card.fact
         fact.card_type.clone("my_4")
         
-        new_card_type = card_type_by_id("4_CLONED.my_4")
-        ui_controller_main().update_related_cards(fact, fact_data,
+        new_card_type = self.card_type_by_id("4_CLONED.my_4")
+        self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
-        assert database().fact_count() == 1        
-        ui_controller_main().file_save()       
-        database().unload()
+        assert self.database().fact_count() == 1        
+        self.ui_controller_main().file_save()       
+        self.database().unload()
         self.mnemosyne.finalise()
 
         self.restart()
         
-        assert database().fact_count() == 1
-        _card_id, _fact_id = list(database().cards_unseen(0))[0]
-        fact = database().get_fact(_fact_id)
-        card_type = card_type_by_id("4")           
-        card_type = card_type_by_id("4_CLONED.my_4")        
+        assert self.database().fact_count() == 1
+        _card_id, _fact_id = list(self.database().cards_unseen(0))[0]
+        fact = self.database().get_fact(_fact_id)
+        card_type = self.card_type_by_id("4")           
+        card_type = self.card_type_by_id("4_CLONED.my_4")        
         assert fact.card_type.id == "4_CLONED.my_4"
         assert fact.card_type == card_type
         
-        card = database().cards_from_fact(fact)[0]
+        card = self.database().cards_from_fact(fact)[0]
         card.question()
 
     def test_new_database_overriding_existing_one(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
-        database().new(config()["path"])
+        self.database().new(self.config()["path"])
 
-        assert database().fact_count() == 0
+        assert self.database().fact_count() == 0
 
     def test_delete_fact(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
         fact = card.fact
-        database().delete_fact_and_related_data(fact)
+        self.database().delete_fact_and_related_data(fact)
         
-        assert database().fact_count() == 0
-        assert len(database().category_names()) == 0
+        assert self.database().fact_count() == 0
+        assert len(self.database().category_names()) == 0
         
     @raises(RuntimeError)
     def test_missing_plugin(self):
-        for plugin in plugins():
+        for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "4":
                 plugin.activate()
@@ -220,38 +214,38 @@ class TestDatabase(MnemosyneTest):
         fact_data = {"loc": "location",
                      "blank": "blank",
                      "marked": "marked"}
-        card_type = card_type_by_id("4")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("4")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         fact = card.fact
         fact.card_type.clone("my_4")
         
-        new_card_type = card_type_by_id("4_CLONED.my_4")
-        ui_controller_main().update_related_cards(fact, fact_data,
+        new_card_type = self.card_type_by_id("4_CLONED.my_4")
+        self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
 
-        database().unload()
+        self.database().unload()
         self.mnemosyne.finalise()
         self.restart()
-        database().unload()
+        self.database().unload()
 
         # Artificially remove plugin.
-        for plugin in plugins():
+        for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "4":
                 plugin.deactivate()
-                component_manager.unregister(plugin)
-        database().load(config()["path"])
+                self.mnemosyne.component_manager.unregister(plugin)
+        self.database().load(self.config()["path"])
         
     def infinity(self):
         return 1/0
         
     @raises(RuntimeError)
     def test_corrupt_plugin(self):
-        for plugin in plugins():
+        for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "4":
                 plugin.activate()
@@ -259,204 +253,204 @@ class TestDatabase(MnemosyneTest):
         fact_data = {"loc": "location",
                      "blank": "blank",
                      "marked": "marked"}
-        card_type = card_type_by_id("4")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("4")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
-        ui_controller_main().file_save()
+        self.ui_controller_main().file_save()
         fact = card.fact
         fact.card_type.clone("my_4")
         
-        new_card_type = card_type_by_id("4_CLONED.my_4")
-        ui_controller_main().update_related_cards(fact, fact_data,
+        new_card_type = self.card_type_by_id("4_CLONED.my_4")
+        self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
-        ui_controller_main().file_save()       
-        database().unload()
+        self.ui_controller_main().file_save()       
+        self.database().unload()
         self.mnemosyne.finalise()
         self.restart()
-        database().unload()
+        self.database().unload()
         
         # Artificially mutilate plugin.
-        for plugin in plugins():
+        for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "4":
                 plugin.deactivate()
                 plugin.activate = self.infinity
                 break
                     
-        database().load(config()["path"])
+        self.database().load(self.config()["path"])
 
     def test_dont_overwrite_failed_load(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
-        ui_controller_main().file_save()
-        database().unload()
-        database().load_failed = True
-        assert database().save(config()["path"]) == -1
+        self.ui_controller_main().file_save()
+        self.database().unload()
+        self.database().load_failed = True
+        assert self.database().save(self.config()["path"]) == -1
         
     def test_save_as(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
-        ui_controller_main().file_save()
-        new_name = config()["path"] + ".bak"
-        assert database().save(config()["path"] + ".bak") != -1
-        assert config()["path"] == new_name
+        self.ui_controller_main().file_save()
+        new_name = self.config()["path"] + ".bak"
+        assert self.database().save(self.config()["path"] + ".bak") != -1
+        assert self.config()["path"] == new_name
         
     def test_has_fact_with_data(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
-        assert database().has_fact_with_data(fact_data, card_type) == True
+        assert self.database().has_fact_with_data(fact_data, card_type) == True
 
         fact_data = {"q": "question2",
                      "a": "answer2"}
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"]) 
-        assert database().has_fact_with_data(fact_data, card_type) == True
+        assert self.database().has_fact_with_data(fact_data, card_type) == True
         
         fact_data = {"q": "question",
                      "a": "answer2"}        
-        assert database().has_fact_with_data(fact_data, card_type) == False
+        assert self.database().has_fact_with_data(fact_data, card_type) == False
 
     def test_duplicates_for_fact(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=0, cat_names=["default"])[0]
         fact = card.fact
 
         fact_data = {"q": "question_",
                      "a": "answer_"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
             grade=0, cat_names=["default"], warn=False)
-        assert len(database().duplicates_for_fact(fact)) == 0
+        assert len(self.database().duplicates_for_fact(fact)) == 0
         
         fact_data = {"q": "question1",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
             grade=0, cat_names=["default"], warn=False)
-        assert len(database().duplicates_for_fact(fact)) == 0
+        assert len(self.database().duplicates_for_fact(fact)) == 0
         
         fact_data = {"q": "question",
                      "a": "answer1"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
             grade=0, cat_names=["default"], warn=False)
-        assert len(database().duplicates_for_fact(fact)) == 1
+        assert len(self.database().duplicates_for_fact(fact)) == 1
         
         fact_data = {"q": "question",
                      "a": "answer1"}
-        card_type = card_type_by_id("2")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("2")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
             grade=0, cat_names=["default"], warn=False)
-        assert len(database().duplicates_for_fact(fact)) == 1
+        assert len(self.database().duplicates_for_fact(fact)) == 1
         
     def test_card_types_in_use(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
-        assert len(database().card_types_in_use()) == 1
+        assert len(self.database().card_types_in_use()) == 1
         
-        card_type = card_type_by_id("2")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("2")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])        
-        assert len(database().card_types_in_use()) == 2
+        assert len(self.database().card_types_in_use()) == 2
 
     @raises(RuntimeError)
     def test_format_mismatch(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
-        database().save()
-        database().unload()
-        database().version = "Wrong"
-        database().load(config()["path"])
+        self.database().save()
+        self.database().unload()
+        self.database().version = "Wrong"
+        self.database().load(self.config()["path"])
 
     def test_vacuum(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type,
+        card_type = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
         for count in range(6):
-            database().save()
-            database().unload()
-            database().load(config()["path"])
+            self.database().save()
+            self.database().unload()
+            self.database().load(self.config()["path"])
             
     def test_activate_cards(self):
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type_1 = card_type_by_id("1")
-        ui_controller_main().create_new_cards(fact_data, card_type_1,
+        card_type_1 = self.card_type_by_id("1")
+        self.ui_controller_main().create_new_cards(fact_data, card_type_1,
                                               grade=0, cat_names=["default"])
-        assert database().active_count() == 1
+        assert self.database().active_count() == 1
         
         fact_data = {"q": "question",
                      "a": "answer"}
-        card_type_2 = card_type_by_id("2")
-        ui_controller_main().create_new_cards(fact_data, card_type_2,
+        card_type_2 = self.card_type_by_id("2")
+        self.ui_controller_main().create_new_cards(fact_data, card_type_2,
                                               grade=0, cat_names=["default"])
-        assert database().active_count() == 3
+        assert self.database().active_count() == 3
 
-        database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
+        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[1])],
-            [database().get_or_create_category_with_name("default")])
-        assert database().active_count() == 3
+            [self.database().get_or_create_category_with_name("default")])
+        assert self.database().active_count() == 3
 
-        database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
+        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[1])],
-            [database().get_or_create_category_with_name("default")])
-        assert database().active_count() == 2
+            [self.database().get_or_create_category_with_name("default")])
+        assert self.database().active_count() == 2
         
-        database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
+        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[1])],
-            [database().get_or_create_category_with_name("default2")])
-        assert database().active_count() == 0
+            [self.database().get_or_create_category_with_name("default2")])
+        assert self.database().active_count() == 0
         
         fact_data = {"q": "question2",
                      "a": "answer2"}
-        ui_controller_main().create_new_cards(fact_data, card_type_2,
+        self.ui_controller_main().create_new_cards(fact_data, card_type_2,
                                               grade=0, cat_names=["default2"])
-        database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
+        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[1])],
-            [database().get_or_create_category_with_name("default2")])        
-        assert database().active_count() == 2
+            [self.database().get_or_create_category_with_name("default2")])        
+        assert self.database().active_count() == 2
 
         fact_data = {"q": "question3",
                      "a": "answer3"}
-        ui_controller_main().create_new_cards(fact_data, card_type_2,
+        self.ui_controller_main().create_new_cards(fact_data, card_type_2,
                                               grade=0, cat_names=["default3",
                                                                   "default4"])
-        database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
+        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[1])],
-            [database().get_or_create_category_with_name("default3")])
-        assert database().active_count() == 2
+            [self.database().get_or_create_category_with_name("default3")])
+        assert self.database().active_count() == 2
 
-        database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
+        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
                                    (card_type_2, card_type_2.fact_views[1])],
-            [database().get_or_create_category_with_name("default3")])
-        assert database().active_count() == 1
+            [self.database().get_or_create_category_with_name("default3")])
+        assert self.database().active_count() == 1
 
-        database().set_cards_active([(card_type_1, card_type_1.fact_views[0])],
-            [database().get_or_create_category_with_name("default3")])
-        assert database().active_count() == 0        
+        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0])],
+            [self.database().get_or_create_category_with_name("default3")])
+        assert self.database().active_count() == 0        
         

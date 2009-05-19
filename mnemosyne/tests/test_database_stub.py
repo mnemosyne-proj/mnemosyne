@@ -8,7 +8,7 @@ from mnemosyne.libmnemosyne.database import Database
 class TestDatabaseStub:
 
     def setup(self):
-        self.database = Database()
+        self.database = Database(None)
 
     @raises(NotImplementedError)
     def test_new(self):

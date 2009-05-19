@@ -7,6 +7,7 @@ import shutil
 import sqlite3
 from datetime import datetime
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.database import Database
@@ -89,7 +90,8 @@ class SQLite(Database):
     version = "SQL 1.0"
     suffix = ".db"
 
-    def __init__(self):
+    def __init__(self, component_manager):
+        Database.__init__(self, component_manager)
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
         self.load_failed = True
@@ -416,8 +418,7 @@ class SQLite(Database):
             (_id, ))])
         # Create fact.
         fact = Fact(data, self.card_type_by_id(sql_res["card_type_id"]),
-                    id=sql_res["id"],
-                    creation_date=sql_res["creation_date"])
+            creation_date=sql_res["creation_date"], id=sql_res["id"])
         fact._id = sql_res["_id"]
         fact.modification_date = sql_res["modification_date"]
         fact.needs_sync = sql_res["needs_sync"]
@@ -585,7 +586,7 @@ class SQLite(Database):
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?>=next_rep order by ? limit ?""",
-            (self.start_date.days_since_start(), sort_key, limit)))
+            (self.days_since_start(), sort_key, limit)))
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
@@ -613,7 +614,7 @@ class SQLite(Database):
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
-            (self.start_date.days_since_start(), sort_key, limit)))
+            (self.days_since_start(), sort_key, limit)))
 
     # Extra commands for custom schedulers.
 
