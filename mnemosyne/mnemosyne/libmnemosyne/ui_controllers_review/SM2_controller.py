@@ -203,3 +203,9 @@ class SM2Controller(UiControllerReview):
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
         w.enable_edit_deck(self.database().is_loaded())
+
+    def is_question_showing(self):
+        return self.ui_controller_review().state == "SELECT SHOW"
+
+    def is_answer_showing(self):
+        return self.ui_controller_review().state == "SELECT GRADE"

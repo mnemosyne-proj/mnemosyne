@@ -58,7 +58,7 @@ class DefaultMainController(UiControllerMain):
         if db.has_fact_with_data(fact_data, card_type):
             if warn:
                 self.main_widget().information_box(\
-              _("Card is already in database.\nDuplicate not added."), _("OK"))
+              _("Card is already in database.\nDuplicate not added."))
             return
         fact = Fact(fact_data, card_type, self.database().days_since_start())
         categories = []

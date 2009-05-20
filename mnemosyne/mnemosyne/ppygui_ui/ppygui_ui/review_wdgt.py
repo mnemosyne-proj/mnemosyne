@@ -8,15 +8,14 @@ if os.name == "ce":
 else:
 	import emulator.api as gui
 
-from mnemosyne.libmnemosyne.component_manager import database
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
 class ReviewWdgt(gui.Frame, ReviewWidget):
     
-    def __init__(self):
-        parent = main_widget()
+    def __init__(self, component_manager):
+        ReviewWidget.__init__(self, component_manager)
+        parent = self.main_widget()
         gui.Frame.__init__(self, parent)
         parent.set_central_widget(self)
        
@@ -109,16 +108,16 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     def show_answer(self, event):
         if not self.show_button_enabled:
             return
-        ui_controller_review().show_answer()
+        self.ui_controller_review().show_answer()
            
     def grade_answer(self, event):
         if not self.grade_buttons_enabled:
             return
         grade = self.id_for_grade[event.id]
-        ui_controller_review().grade_answer(grade)
+        self.ui_controller_review().grade_answer(grade)
 
     def update_status_bar(self):
-        db = database()
+        db = self.database()
         if not self.active_cards:
             self.active_cards = db.active_count()
         self.status_bar.text = "Sch.:%d  Not mem.:%d  Act.: %d" % \

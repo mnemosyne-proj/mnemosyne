@@ -15,7 +15,7 @@ from mnemosyne.libmnemosyne import Mnemosyne
 # TODO: create mechanism which will make it easier to change the basedir,
 # e.g. by a first run wizard, of from an option in the program. Perhaps a
 # text file in the location of libmnemosyne?
-   basedir = "\SDMMC\.mnemosyne"
+basedir = "\SDMMC\.mnemosyne"
 
 # Load the Mnemosyne library.
 mnemosyne = Mnemosyne(resource_limited=True)
@@ -26,13 +26,13 @@ app = gui.Application()
 # List the components we use. The translator should obviously come first, and
 # the UI components should come in the order they should be instantiated, but
 # apart from that, the order does not matter.
-Mnemosyne.components = [
-    ("mnemosyne.libmnemosyne.translators",
+mnemosyne.components = [
+    ("mnemosyne.libmnemosyne.translator",
      "NoTranslation"),    
-    ("mnemosyne.ppygui.main_window",
+    ("mnemosyne.ppygui_ui.main_window",
      "MainFrame"),
-    ("mnemosyne.ppygui.review_wdgt",
-     "ReviewWdget"),
+    ("mnemosyne.ppygui_ui.review_wdgt",
+     "ReviewWdgt"),
     ("mnemosyne.libmnemosyne.databases.SQLite",
      "SQLite"), 
     ("mnemosyne.libmnemosyne.configuration",
@@ -63,12 +63,11 @@ Mnemosyne.components = [
      "MapPlugin"),
     ("mnemosyne.libmnemosyne.card_types.cloze",
      "ClozePlugin"),
-    ("mnemosyne.libmnemosyne.schedulers.cramming",
+    ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
      "CrammingPlugin") ]
 
 # Run Mnemosyne.
-from mnemosyne.libmnemosyne.component_manager import main_widget
-app.mainframe = main_widget()
 mnemosyne.initialise(basedir=basedir)
+app.mainframe = mnemosyne.main_widget()
 app.run()
 mnemosyne.finalise()

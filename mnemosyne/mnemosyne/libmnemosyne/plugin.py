@@ -37,6 +37,7 @@ class Plugin(Component):
         assert self.name and self.description, \
             "A plugin needs a name and a description."
         self.instantiated_components = []
+        self.registered_components = []
         
     def activate(self):
         # Register all our components. Instantiate them if needed.
@@ -51,7 +52,8 @@ class Plugin(Component):
                 component.activate()           
                 self.instantiated_components.append(component)
             else:
-                self.component_manager.register(component)                
+                self.component_manager.register(component)
+                self.registered_components.append(component)
         # Make necessary side effects happen.
         for component in self.instantiated_components:
             if component.component_type == "scheduler" \
@@ -73,6 +75,8 @@ class Plugin(Component):
                         return False
             component.deactivate()
             self.component_manager.unregister(component)
+        for component in self.registered_components:
+            self.component_manager.unregister(component)            
         # Make necessary side effects happen. We don't put all side effects in
         # a single loop, as the order is important.
         for component in self.instantiated_components:
@@ -93,6 +97,7 @@ class Plugin(Component):
         if self.__class__.__name__ in self.config()["active_plugins"]:
             self.config()["active_plugins"].remove(self.__class__.__name__)
         self.instantiated_components = []
+        self.registered_components = []        
         return True
 
 def register_user_plugin(plugin_class):

@@ -13,10 +13,11 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class MainFrame(gui.CeFrame, MainWidget):
     
-    def __init__(self):
+    def __init__(self, component_manager):
+        MainWidget.__init__(self, component_manager)
         gui.CeFrame.__init__(self, title="Mnemosyne")
 
-    def set_central_widget(self, widget)
+    def set_central_widget(self, widget):
         sizer = gui.VBox()
         sizer.add(widget)
         self.sizer = sizer

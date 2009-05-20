@@ -63,11 +63,17 @@ class Scheduler(Component):
 
     def get_next_card(self, learn_ahead=False):
         raise NotImplementedError
+    
+    def get_next_card_id(self, learn_ahead=False):
 
+        """Avoids creating a card object, which enables certain shortcuts."""
+        
+        raise NotImplementedError
+    
     def allow_prefetch(self):
 
         """Can we display a new card before having processed the grading of
-        the previous one?.
+        the previous one?
 
         """
         

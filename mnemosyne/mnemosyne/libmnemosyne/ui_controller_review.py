@@ -49,5 +49,10 @@ class UiControllerReview(Component):
         
     def update_dialog(self):
         raise NotImplementedError
-  
+
+    def is_question_showing(self):
+        raise NotImplementedError
+
+    def is_answer_showing(self):
+        raise NotImplementedError  
 

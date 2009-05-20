@@ -96,3 +96,30 @@ class TestPlugin(MnemosyneTest):
         self.database().delete_fact_and_related_data(fact)
         
         p.deactivate() # Should work without problems.
+
+    def test_4(self):
+   
+        from mnemosyne.libmnemosyne.plugin import Plugin
+        from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
+        from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
+
+        class RedGenericCardTypeWdgt(GenericCardTypeWdgt):
+
+            used_for = FrontToBack
+
+            def __init__(self, parent, component_manager):
+                GenericCardTypeWdgt.__init__(self, FrontToBack,
+                                             parent, component_manager)
+
+        class RedPlugin(Plugin):
+            name = "Red"
+            description = "Red widget for front-to-back cards"
+            components = [RedGenericCardTypeWdgt]
+            
+        p = RedPlugin(self.mnemosyne.component_manager)
+        p.activate()
+        assert self.mnemosyne.component_manager.get_current\
+                    ("card_type_widget", used_for=FrontToBack) != None
+        p.deactivate()  
+        assert self.mnemosyne.component_manager.get_current\
+                    ("card_type_widget", used_for=FrontToBack) == None

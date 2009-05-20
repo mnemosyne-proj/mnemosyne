@@ -1,20 +1,9 @@
--deactivating custom card type does not work
-
--scheduler regression with pickle database
-
--add documentation on how to access context in filter
-
--hook before and after review controller (for card typing checking)
-
--have schedulers return id's only
-
--optimise away cards_from_fact in scheduler
 -interval column + index (gain 0.5 sec)
 -indices on foreign keys
 -no primary keys on linkage
--merge review widget? (gain 0.4 sec)
+-optimise away cards_from_fact in scheduler
 -test feel without save, test if autocommit works, implement save interval
--review controller (lean controller)
+-lean review controller?
 -time full program
 
 -card attribute: type answer

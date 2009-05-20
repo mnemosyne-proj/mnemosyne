@@ -5,21 +5,26 @@ import cProfile
 import pstats
 
 from mnemosyne.libmnemosyne import Mnemosyne
-from mnemosyne.libmnemosyne.component_manager import database, config
-from mnemosyne.libmnemosyne.component_manager import card_type_by_id
-from mnemosyne.libmnemosyne.component_manager import scheduler
-from mnemosyne.libmnemosyne.component_manager import ui_controller_main
-from mnemosyne.libmnemosyne.component_manager import ui_controller_review
 
 number_of_calls = 15
 number_of_facts = 6000
 
+mnemosyne = None
+
 def startup():
+
+    global mnemosyne
 
     # Note that this also includes building the queue and getting the first card.
 
     mnemosyne = Mnemosyne(resource_limited=True)
-    mnemosyne.components = [ #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
+    mnemosyne.components = [
+        ("mnemosyne.libmnemosyne.translator",
+         "NoTranslation"),
+        ("mnemosyne.libmnemosyne.ui_components.main_widget",
+         "MainWidget"),
+        ("mnemosyne.libmnemosyne.ui_components.review_widget",
+         "ReviewWidget"),
         ("mnemosyne.libmnemosyne.databases.SQLite",
          "SQLite"),               
         ("mnemosyne.libmnemosyne.configuration",
@@ -50,56 +55,55 @@ def startup():
          "MapPlugin"),
         ("mnemosyne.libmnemosyne.card_types.cloze",
          "ClozePlugin"),
-        ("mnemosyne.libmnemosyne.schedulers.cramming",
+        ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
          "CrammingPlugin") ]    
 
-    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"),
-                         main_widget=None)
-    #mnemosyne.initialise(basedir="\SDMMC\.mnemosyne",
-    #                     main_widget=None)
+    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"))
+    #mnemosyne.initialise(basedir="\SDMMC\.mnemosyne")
     
 def create_database():
-    config()["upload_logs"] = False
+    mnemosyne.config()["upload_logs"] = False
 
     for i in range(number_of_facts):
         fact_data = {"q": "question" + str(i),
                      "a": "answer" + str(i)}
         if i % 2:
-            card_type = card_type_by_id("1")
+            card_type = mnemosyne.card_type_by_id("1")
         else:
-            card_type = card_type_by_id("2")            
-        card = ui_controller_main().create_new_cards(fact_data, card_type,
-                           grade=4, cat_names=["default" + str(i)])[0]
+            card_type = mnemosyne.card_type_by_id("2")            
+        card = mnemosyne.ui_controller_main().create_new_cards(\
+            fact_data, card_type, grade=4, cat_names=["default" + str(i)])[0]
         card.next_rep -= 1000
-        database().update_card(card)
-    database().save(config()["path"])
+        mnemosyne.database().update_card(card)
+    mnemosyne.database().save(mnemosyne.config()["path"])
     
 def queue():
-    ui_controller_review().reset()
-    ui_controller_review().new_question()
+    mnemosyne.ui_controller_review().reset()
+    mnemosyne.ui_controller_review().new_question()
     
 def new_question():
     # Note that this actually also happened in startup().
-    ui_controller_review().new_question()
+    mnemosyne.ui_controller_review().new_question()
     
 def display():
-    ui_controller_review().card.question()
+    mnemosyne.ui_controller_review().card.question()
     
 def grade():
     # Note that this will also pull in a new question.
-    ui_controller_review().grade_answer(0)
+    mnemosyne.ui_controller_review().grade_answer(0)
 
 def grade_only():
-    scheduler().grade_answer(ui_controller_review().card, 0)
+    mnemosyne.scheduler().grade_answer(\
+        mnemosyne.ui_controller_review().card, 0)
     
 def activate():
-    database().set_cards_active([(card_type_by_id("1"),
-                                 card_type_by_id("1").fact_views[0])],
-        [database().get_or_create_category_with_name("default1")])
+    mnemosyne.database().set_cards_active([(mnemosyne.card_type_by_id("1"),
+        mnemosyne.card_type_by_id("1").fact_views[0])],
+        [mnemosyne.database().get_or_create_category_with_name("default1")])
 
 def finalise():
-    config()["upload_logs"] = False
-    Mnemosyne().finalise()
+    mnemosyne.config()["upload_logs"] = False
+    mnemosyne.finalise()
 
 tests = ["startup()", "queue()", "new_question()", "display()", "grade_only()",
          "grade()"]
@@ -107,7 +111,7 @@ tests = ["startup()", "queue()", "new_question()", "display()", "grade_only()",
 #    "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
-tests = ["startup()"]
+#tests = ["startup()"]
 
 for test in tests:  
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))

@@ -179,12 +179,12 @@ class TestScheduler(MnemosyneTest):
                 card_type = self.card_type_by_id("2")            
             card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                     grade=4, cat_names=["default" + str(i)])[0]
-            card.next_rep -= 1000
+            card.next_rep -= 1000-i
             self.database().update_card(card)
             if i == 0:
                 card_1 = card
-        
         self.ui_controller_review().new_question()
+        assert self.ui_controller_review().card == card_1
         self.ui_controller_review().grade_answer(0)
         card_1_new = self.database().get_card(card_1._id)
         assert card_1_new.grade == 0
