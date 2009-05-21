@@ -1,7 +1,8 @@
--interval column + index (gain 0.5 sec)
--indices on foreign keys
--no primary keys on linkage
 -optimise away cards_from_fact in scheduler
+-add test for counts
+-interval column + index (gain 0.5 sec)
+-write scheduled count in terms of interval, remove scheduled count from txt logger?,
+ more caching of counts?
 -test feel without save, test if autocommit works, implement save interval
 -lean review controller?
 -time full program

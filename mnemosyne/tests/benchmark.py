@@ -111,6 +111,8 @@ tests = ["startup()", "queue()", "new_question()", "display()", "grade_only()",
 #    "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
+tests = ["startup()", "create_database()", "new_question()", "display()",
+    "grade()", "finalise()"]
 #tests = ["startup()"]
 
 for test in tests:  

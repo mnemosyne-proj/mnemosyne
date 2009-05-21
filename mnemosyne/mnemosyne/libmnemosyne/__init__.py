@@ -67,9 +67,6 @@ class Mnemosyne(Component):
           "CrammingPlugin") ]
         self.extra_components_for_plugin = {}
         self.resource_limited = resource_limited
-        if sys.platform == "win32":
-            error_log = os.path.join(config().basedir, "error_log.txt")
-            sys.stderr = file(error_log, "a")
 
     def initialise(self, basedir, filename=None):
         self.component_manager = new_component_manager()
@@ -77,6 +74,7 @@ class Mnemosyne(Component):
         self.config().basedir = basedir
         self.config().resource_limited = self.resource_limited 
         self.activate_components()
+        self.initialise_error_handling()
         register_component_manager(self.component_manager,
                                    self.config()["user_id"])
         self.execute_user_plugin_dir()
@@ -126,7 +124,12 @@ class Mnemosyne(Component):
             try:
                 self.component_manager.get_current(module).activate()
             except RuntimeError, e:
-                self.main_widget().error_box(str(e))            
+                self.main_widget().error_box(str(e))
+
+    def initialise_error_handling(self):
+        if sys.platform == "win32":
+            error_log = os.path.join(self.config().basedir, "error_log.txt")
+            sys.stderr = file(error_log, "a")
 
     def execute_user_plugin_dir(self):
         basedir = self.config().basedir

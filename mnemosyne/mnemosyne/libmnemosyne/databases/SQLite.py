@@ -34,11 +34,11 @@ SCHEMA = """
     );
 
     create table data_for_fact(
-        _id integer primary key,
         _fact_id int,
         key text,
         value text
     );
+    create index i_data_for_fact on data_for_fact (_fact_id);
     
     create table cards(
         _id integer primary key,
@@ -71,10 +71,10 @@ SCHEMA = """
     );
 
     create table categories_for_card(
-        _id integer primary key,
-        _category_id int,
-        _card_id int
+        _card_id int,
+        _category_id int
     );
+    create index i_categories_for_card on categories_for_card (_card_id);
 
     create table global_variables(
         key text,

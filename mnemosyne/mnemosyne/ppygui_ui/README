@@ -46,3 +46,6 @@
   0 for an unlearned card, and grade 4 for a learned card). This facilitates
   one-handed operation.
 
+* Note: tapping on the screen results in much faster operation than pushing
+  buttons, at least on my device (This has nothing to do with Mnemosyne and 
+  happens with other applications too)
