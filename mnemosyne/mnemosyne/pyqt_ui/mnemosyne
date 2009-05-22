@@ -35,7 +35,7 @@ if options.datadir != None:
 elif os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
     basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
 else:
-    basedir = os.path.abspath.join(os.environ['HOME'], ".mnemosyne")
+    basedir = os.path.abspath(os.path.join(os.environ['HOME'], ".mnemosyne"))
     
 # Filename argument.
 if len(args) > 0:

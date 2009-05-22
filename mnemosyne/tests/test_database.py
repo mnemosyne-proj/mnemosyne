@@ -454,3 +454,24 @@ class TestDatabase(MnemosyneTest):
             [self.database().get_or_create_category_with_name("default3")])
         assert self.database().active_count() == 0        
         
+    def test_schedule_on_same_day(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type_2 = self.card_type_by_id("2")
+        card_1, card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type_2,
+                                              grade=0, cat_names=["default"])
+        fact_data = {"q": "question2",
+                     "a": "answer2"}
+        card_3, card_4 = self.ui_controller_main().create_new_cards(fact_data, card_type_2,
+                                              grade=0, cat_names=["default"])        
+        self.ui_controller_review().new_question()
+        assert card_1 == self.ui_controller_review().card
+        assert self.database().count_related_cards_with_next_rep(card_1, 0) == 0
+        self.ui_controller_review().grade_answer(2)
+        card_1 = self.database().get_card(card_1._id)
+        card_3.next_rep = card_1.next_rep
+        card_3.grade = 2
+        self.database().update_card(card_3)
+        assert self.database().count_related_cards_with_next_rep(card_2, card_1.next_rep) == 1        
+        assert self.database().count_related_cards_with_next_rep(card_3, card_1.next_rep) == 0
+        assert self.database().count_related_cards_with_next_rep(card_1, card_1.next_rep) == 0       

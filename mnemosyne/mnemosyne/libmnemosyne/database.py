@@ -125,6 +125,15 @@ class Database(Component):
 
     def has_fact_with_data(self, fact_data, card_type):
         raise NotImplementedError
+    
+    def count_related_cards_with_next_rep(self, card, next_rep):
+
+        """Returns how many related cards with grade >= 2 are scheduled at
+        'next_rep'. Note that there is no need that next_rep == card.next_rep.
+
+        """
+        
+        raise NotImplementedError        
 
     def duplicates_for_fact(self, fact):
 

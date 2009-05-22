@@ -344,10 +344,10 @@ class SM2Mnemosyne(Scheduler):
         card.next_rep = days_since_start + new_interval + noise
         card.unseen = False
         # Don't schedule related cards on the same day.
-        for c in db.cards_from_fact(card.fact):
-            if c != card and c.next_rep == card.next_rep and card.grade >= 2:
-                card.next_rep += 1
-                noise += 1
+        while self.database().count_related_cards_with_next_rep\
+                  (card, card.next_rep):
+            card.noise += 1
+            card.next_rep += 1            
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.

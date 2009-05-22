@@ -340,7 +340,11 @@ class Pickle(Database):
 
     def cards_from_fact(self, fact):
         return [c for c in self.cards if c.fact == fact]
-          
+
+    def count_related_cards_with_next_rep(self, card, next_rep):
+        return len([c for c in self.cards if c.fact == card.fact and \
+            c != card and c.next_rep == next_rep and c.grade >= 2])
+
     def has_fact_with_data(self, fact_data, card_type):
         for f in self.facts:
             if f.data == fact_data and f.card_type == card_type:

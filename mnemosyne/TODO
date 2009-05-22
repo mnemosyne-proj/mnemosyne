@@ -1,5 +1,4 @@
 -optimise away cards_from_fact in scheduler
--add test for counts
 -interval column + index (gain 0.5 sec)
 -write scheduled count in terms of interval, remove scheduled count from txt logger?,
  more caching of counts?

@@ -5,6 +5,7 @@ WIDGETS = ui_main_window.py ui_add_cards_dlg.py ui_review_wdgt.py \
 	ui_clone_card_type_dlg.py
 
 default: $(WIDGETS)
+	pyrcc4 mnemosyne.qrc
 
 $(WIDGETS): ui_%.py: %.ui
 	pyuic4 $< > $@

@@ -20,7 +20,7 @@ class Mnemosyne(Component):
 
     def __init__(self, resource_limited=False):
         self.components = [
-        #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
+         #("mnemosyne.libmnemosyne.databases.pickle", "Pickle"),
          ("mnemosyne.libmnemosyne.databases.SQLite",
           "SQLite"),
          ("mnemosyne.libmnemosyne.configuration",

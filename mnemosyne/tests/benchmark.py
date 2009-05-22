@@ -58,8 +58,8 @@ def startup():
         ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
          "CrammingPlugin") ]    
 
-    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"))
-    #mnemosyne.initialise(basedir="\SDMMC\.mnemosyne")
+    #mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"))
+    mnemosyne.initialise(basedir="\SDMMC\.mnemosyne")
     
 def create_database():
     mnemosyne.config()["upload_logs"] = False
@@ -95,6 +95,15 @@ def grade():
 def grade_only():
     mnemosyne.scheduler().grade_answer(\
         mnemosyne.ui_controller_review().card, 0)
+
+def count_active():
+    mnemosyne.database().active_count()
+
+def count_scheduled():
+    mnemosyne.database().scheduled_count()
+
+def count_not_memorised():
+    mnemosyne.database().non_memorised_count()
     
 def activate():
     mnemosyne.database().set_cards_active([(mnemosyne.card_type_by_id("1"),
@@ -106,13 +115,13 @@ def finalise():
     mnemosyne.finalise()
 
 tests = ["startup()", "queue()", "new_question()", "display()", "grade_only()",
-         "grade()"]
+         "grade()", "count_active()", "count_scheduled()", "count_not_memorised()"]
 #tests = ["startup()", "new_question()", "display()", "grade()", "activate()",
 #    "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
-tests = ["startup()", "create_database()", "new_question()", "display()",
-    "grade()", "finalise()"]
+#tests = ["startup()", "create_database()", "new_question()", "display()",
+#    "grade()", "finalise()"]
 #tests = ["startup()"]
 
 for test in tests:  

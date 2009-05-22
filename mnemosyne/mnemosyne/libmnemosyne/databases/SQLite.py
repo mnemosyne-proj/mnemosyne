@@ -496,6 +496,12 @@ class SQLite(Database):
             self.con.execute("select _id from cards where _fact_id=?",
                              (fact._id, )))
 
+    def count_related_cards_with_next_rep(self, card, next_rep):
+        return self.con.execute("""select count() from cards where
+            next_rep=? and _id<>? and grade>=2 and _id in
+            (select _id from cards where _fact_id=?)""",
+            (next_rep, card._id, card.fact._id)).fetchone()[0]
+    
     def has_fact_with_data(self, fact_data, card_type):
         fact_ids = set()
         for key, value in fact_data.items():
