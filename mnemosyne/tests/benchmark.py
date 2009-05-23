@@ -58,8 +58,8 @@ def startup():
         ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
          "CrammingPlugin") ]    
 
-    #mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"))
-    mnemosyne.initialise(basedir="\SDMMC\.mnemosyne")
+    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"))
+    #mnemosyne.initialise(basedir="\SDMMC\.mnemosyne")
     
 def create_database():
     mnemosyne.config()["upload_logs"] = False
@@ -120,8 +120,8 @@ tests = ["startup()", "queue()", "new_question()", "display()", "grade_only()",
 #    "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
-#tests = ["startup()", "create_database()", "new_question()", "display()",
-#    "grade()", "finalise()"]
+tests = ["startup()", "create_database()", "new_question()", "display()",
+    "grade()", "finalise()"]
 #tests = ["startup()"]
 
 for test in tests:  

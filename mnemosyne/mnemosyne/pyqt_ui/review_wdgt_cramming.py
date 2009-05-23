@@ -10,7 +10,6 @@ from PyQt4 import QtGui
 from review_wdgt import ReviewWdgt
 
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
    
 
 class ReviewWdgtCramming(ReviewWdgt):
@@ -37,12 +36,10 @@ class ReviewWdgtCramming(ReviewWdgt):
         parent.add_to_statusbar(self.active)
 
     def update_status_bar(self, message=None):
-        db = self.database()            
-        self.wrong.setText(_("Wrong: ") + \
-            str(db.scheduler_data_count(Cramming.WRONG)) + " ")
-        self.unseen.setText(_("Unseen: ") + \
-            str(db.scheduler_data_count(Cramming.UNSEEN)) + " ")
-        self.active.setText(_("Active: ") + \
-            str(db.active_count()) + " ")
+        wrong_count, unseen_count, active_count = \
+                   self.ui_controller_review().get_counters()
+        self.wrong.setText(_("Wrong: %d ") % wrong_count)
+        self.unseen.setText(_("Unseen: %d ") % unseen_count)
+        self.active.setText(_("Active: %d ") % active_count)
         if message:
-            self.parent().statusBar().showMessage(message)
+            self.parent().statusBar().showMessage(message)         

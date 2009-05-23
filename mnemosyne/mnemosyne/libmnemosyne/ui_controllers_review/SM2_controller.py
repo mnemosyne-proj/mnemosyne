@@ -43,20 +43,25 @@ class SM2Controller(UiControllerReview):
         self.card = None
         self.state = "EMPTY"
         self.learning_ahead = False
+        self.non_memorised_count = None
+        self.scheduled_count = None
+        self.active_count = None
         self.scheduler().reset()
 
     def rollover(self):
 
         """To be called when a new day starts."""
 
+        self.reload_counters()
         self.review_widget().update_status_bar()
         if not self.card or self.learning_ahead:
             self.reset()
             self.new_question()
 
     def new_question(self):
-        if not self.database().is_loaded() or \
-               self.database().card_count() == 0:
+        if not self.active_count:
+            self.reload_counters()
+        if not self.database().is_loaded() or self.active_count == 0:
             self.state = "EMPTY"
             self.card = None
         else:
@@ -78,18 +83,19 @@ class SM2Controller(UiControllerReview):
         self.update_dialog()
 
     def grade_answer(self, grade):
+        card_to_grade = self.card
+        old_grade = card_to_grade.grade
+        self.update_counters(old_grade, grade)
         if self.scheduler().allow_prefetch():
-            previous_card = self.card
             self.new_question()
-            interval = self.scheduler().grade_answer(previous_card, grade)
-            self.database().update_card(previous_card, update_categories=False)
+            interval = self.scheduler().grade_answer(card_to_grade, grade)
+            self.database().update_card(card_to_grade, update_categories=False)
             self.database().save()
-            self.review_widget().update_status_bar()
         else:
-            interval = self.scheduler().grade_answer(self.card, grade)
-            self.database().update_card(self.card, update_categories=False)
+            interval = self.scheduler().grade_answer(card_to_grade, grade)
+            self.database().update_card(card_to_grade, update_categories=False)
             self.database().save()
-            self.new_question()
+            self.new_question()     
         if self.config()["show_intervals"] == "statusbar":
             self.review_widget().update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
@@ -102,9 +108,31 @@ class SM2Controller(UiControllerReview):
         else:
             return '\n' + _("Next repetition in ") + str(days) + _(" days.")
 
+    def get_counters(self):
+        if not self.non_memorised_count:
+            self.reload_counters()
+        return self.non_memorised_count, self.scheduled_count, self.active_count
+
+    def reload_counters(self):
+        db = self.database()
+        self.non_memorised_count = db.non_memorised_count()
+        self.scheduled_count = db.scheduled_count()
+        self.active_count = db.active_count()
+
+    def update_counters(self, old_grade, new_grade):
+        if not self.scheduled_count:
+            self.reload_counters()        
+        if old_grade >= 2:
+            self.scheduled_count -= 1
+        if old_grade >= 2 and new_grade <= 1:
+            self.non_memorised_count += 1
+        if old_grade <= 1 and new_grade >= 2:
+            self.non_memorised_count -= 1
+            
     def update_dialog(self, redraw_all=False):
         self.update_qa_area(redraw_all)
         self.update_grades_area()
+        self.review_widget().update_status_bar()
         self.update_menu_bar()
                    
     def update_qa_area(self, redraw_all=False):
@@ -154,8 +182,6 @@ class SM2Controller(UiControllerReview):
                                      _("Learn ahead of schedule")
             self.grades_enabled = False
         w.update_show_button(text, default, show_enabled)
-        # Update status bar.
-        w.update_status_bar()
 
     def update_grades_area(self):
         w = self.review_widget()

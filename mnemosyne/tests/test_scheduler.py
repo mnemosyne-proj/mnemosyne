@@ -170,6 +170,7 @@ class TestScheduler(MnemosyneTest):
         
     def test_6(self):
         card_1 = None
+        self.ui_controller_review().reset()
         for i in range(10):
             fact_data = {"q": "question" + str(i),
                          "a": "answer" + str(i)}

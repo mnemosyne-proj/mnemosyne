@@ -30,7 +30,7 @@ class UiControllerReview(Component):
         raise NotImplementedError
 
     def grade_answer(self, grade):
-        raise NotImplementedError        
+        raise NotImplementedError     
 
     def rebuild_queue(self):
 
@@ -45,8 +45,20 @@ class UiControllerReview(Component):
         if not sch.in_queue(self.card):
             self.new_question()
         else:
-            sch.remove_from_queue(self.card) 
+            sch.remove_from_queue(self.card)
+
+    def get_counters(self):
+
+        """Returns tuple (scheduled_count, non_memorised_count, active_count). """
         
+        raise NotImplementedError
+
+    def reload_counters(self):
+        
+        """To be called when counters need to be reloaded from the database. """
+        
+        raise NotImplementedError
+    
     def update_dialog(self):
         raise NotImplementedError
 

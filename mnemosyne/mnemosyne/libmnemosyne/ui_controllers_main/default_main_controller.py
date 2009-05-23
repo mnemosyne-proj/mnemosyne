@@ -27,6 +27,7 @@ class DefaultMainController(UiControllerMain):
         stopwatch.pause()
         self.main_widget().run_add_cards_dialog()
         review_controller = self.ui_controller_review()
+        review_controller.reload_counters()
         if review_controller.card == None:
             review_controller.new_question()
         else:
@@ -37,6 +38,7 @@ class DefaultMainController(UiControllerMain):
         stopwatch.pause()
         review_controller = self.ui_controller_review()
         self.main_widget().run_edit_fact_dialog(review_controller.card.fact)
+        review_controller.reload_counters()
         if review_controller.card == None:
             self.review_widget().update_status_bar()
             review_controller.new_question()         
@@ -226,6 +228,7 @@ class DefaultMainController(UiControllerMain):
             return
         db.delete_fact_and_related_data(fact)
         db.save()
+        review_controller.reload_counters()
         review_controller.rebuild_queue()
         review_controller.new_question()
         self.review_widget().update_status_bar()

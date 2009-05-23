@@ -19,9 +19,6 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         gui.Frame.__init__(self, parent)
         parent.set_central_widget(self)
        
-        # Total number of cards for statusbar, to be cached.
-        self.active_cards = None
-
         # Note: ppygui makes heavy use of properties, so we can't use e.g.
         # self.question, as the presence of self.get_question would then
         # require a function self.set_question too.
@@ -117,8 +114,8 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         self.ui_controller_review().grade_answer(grade)
 
     def update_status_bar(self):
-        db = self.database()
-        if not self.active_cards:
-            self.active_cards = db.active_count()
-        self.status_bar.text = "Sch.:%d  Not mem.:%d  Act.: %d" % \
-            (db.scheduled_count(), db.non_memorised_count(), self.active_cards)
+        non_memorised_count, scheduled_count, active_count = \
+                   self.ui_controller_review().get_counters()
+        self.status_bar.text = "Not mem.:%d Sch.:%d  Act.: %d" % \
+            (non_memorised_count, scheduled_count, active_count)
+        

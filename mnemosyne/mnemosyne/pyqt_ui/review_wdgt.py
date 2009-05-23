@@ -43,8 +43,8 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.notmem = QtGui.QLabel("", parent.statusbar)
         self.act = QtGui.QLabel("", parent.statusbar)
         parent.clear_statusbar()
-        parent.add_to_statusbar(self.sched)
         parent.add_to_statusbar(self.notmem)
+        parent.add_to_statusbar(self.sched)
         parent.add_to_statusbar(self.act)
         parent.statusbar.setSizeGripEnabled(0)
 
@@ -119,12 +119,10 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.button(grade).setToolTip(text)
 
     def update_status_bar(self, message=None):
-        db = self.database()            
-        self.sched.setText(_("Scheduled: ") + \
-            str(db.scheduled_count()) + " ")
-        self.notmem.setText(_("Not memorised: ") + \
-            str(db.non_memorised_count()) + " ")
-        self.act.setText(_("Active: ") + \
-             str(db.active_count()) + " ")
+        non_memorised_count, scheduled_count, active_count = \
+                   self.ui_controller_review().get_counters()
+        self.notmem.setText(_("Not memorised: %d ") % non_memorised_count)
+        self.sched.setText(_("Scheduled: %d ") % scheduled_count)
+        self.act.setText(_("Active: %d ") % active_count)
         if message:
             self.parent().statusBar().showMessage(message)

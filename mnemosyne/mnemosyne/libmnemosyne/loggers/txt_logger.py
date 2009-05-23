@@ -49,13 +49,13 @@ class TxtLogger(Logger):
         self.logger.info("Loaded database %d %d %d", \
                          self.database().scheduled_count(), \
                          self.database().non_memorised_count(), \
-                         self.database().card_count())
+                         self.database().active_count())
         
     def saved_database(self):
         self.logger.info("Saved database %d %d %d", \
                          self.database().scheduled_count(), \
                          self.database().non_memorised_count(), \
-                         self.database().card_count())
+                         self.database().active_count())
         
     def new_card(self, card):
         new_interval = self.database().days_since_start() - card.next_rep

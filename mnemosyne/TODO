@@ -1,13 +1,11 @@
--optimise away cards_from_fact in scheduler
--interval column + index (gain 0.5 sec)
--write scheduled count in terms of interval, remove scheduled count from txt logger?,
- more caching of counts?
--test feel without save, test if autocommit works, implement save interval
--lean review controller?
--time full program
+-hang on Spanish translation?
+-unicode
+
+-cramming scheduler
+-get rid of card count for is_loaded?
 
 -card attribute: type answer
--card attribute: sync status, move to int?, needed?
+-card attribute: remove sync status, also in fact, cat, ..
 
 
 -get rid of svn
@@ -92,6 +90,7 @@ other languages in repo
 -import full path for ui components
 
 -test rollover
+-start new session on rollover
 
 -make categories a set?
 
@@ -99,7 +98,7 @@ other languages in repo
 
 -import
 
--on import, activate plugins, created inherited types necessary
+-on import, activate plugins, created inherited types necessary, reload counters
 
 -on import don't add cards for which card type is not present
 
@@ -129,8 +128,8 @@ other languages in repo
 
 
 
--do review_controller.rebuild_queue after edit deck, clean duplicates, activate cards, 
- configuration 
+-do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
+ activate cards, configuration 
 
 -backup after unloading, not after exiting
 
@@ -225,9 +224,6 @@ other languages in repo
 -test: make <a> links clickable / animated GIFs
 
 
--update old plugins
-
--hang on Spanish translation?
 
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby
 
@@ -259,7 +255,7 @@ Windows Mobile client:
 
 -better way of making default actions visible? Call layout()?
 -hook up scheduler rollover
--cramming widget
+-cramming widget, cache counters
 -implement hide question
 -icon
 -more complete question box implementation
