@@ -88,8 +88,8 @@ class SM2Mnemosyne(Scheduler):
         # Do the cards that are scheduled for today (or are overdue), but
         # first do those that have the shortest interval, as being a day
         # late on an interval of 2 could be much worse than being a day late
-        # on an interval of 25.
-        # Fetch maximum 25 cards at the same time, as a trade-off between
+        # on an interval of 50.
+        # Fetch maximum 50 cards at the same time, as a trade-off between
         # memory usage and redoing the query.
         if self.stage == 1:
             if self.config()["randomise_scheduled_cards"] == True:
@@ -97,7 +97,7 @@ class SM2Mnemosyne(Scheduler):
             else:
                 sort_key = "interval"
             for _card_id, _fact_id in \
-                    db.cards_due_for_ret_rep(sort_key=sort_key, limit=25):
+                    db.cards_due_for_ret_rep(sort_key=sort_key, limit=50):
                 self.queue.append(_card_id)
                 self.facts.append(_fact_id)
             if len(self.queue):
@@ -206,13 +206,13 @@ class SM2Mnemosyne(Scheduler):
         # to learn. The user can signal that he wants to learn ahead by
         # calling rebuild_queue with 'learn_ahead' set to True.
         # Don't shuffle this queue, as it's more useful to review the
-        # earliest scheduled cards first. We only put 25 cards at the same
+        # earliest scheduled cards first. We only put 50 cards at the same
         # time into the queue, in order to save memory.
         if learn_ahead == False:
             self.stage = 3
             return
         for _card_id, _fact_id in db.cards_learn_ahead(sort_key="next_rep",
-                                                       limit=25):
+                                                       limit=50):
             self.queue.append(_card_id)
         # Relearn cards which we got wrong during learn ahead.
         self.stage = 2

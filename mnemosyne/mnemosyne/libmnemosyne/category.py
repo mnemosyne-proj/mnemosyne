@@ -21,7 +21,6 @@ class Category(object):
         self.id = id
         self._id = None
         self.name = name
-        self.needs_sync = True
 
     def __eq__(self, other):
         try:

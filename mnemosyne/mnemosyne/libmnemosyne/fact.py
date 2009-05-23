@@ -45,7 +45,6 @@ class Fact(object):
             id = str(uuid.uuid4())
         self.id = id
         self._id = None
-        self.needs_sync = True
 
     def __eq__(self, other):
         try:

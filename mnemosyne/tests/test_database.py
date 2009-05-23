@@ -40,8 +40,7 @@ class TestDatabase(MnemosyneTest):
         assert fact.data["a"] == "answer"
         assert fact.id == old_fact.id
         assert fact.creation_date == old_fact.creation_date
-        assert fact.modification_date == old_fact.creation_date
-        assert fact.needs_sync == old_fact.needs_sync        
+        assert fact.modification_date == old_fact.creation_date     
         assert card.categories[0].name == old_card.categories[0].name
 
         assert card.fact == old_card.fact
@@ -58,7 +57,7 @@ class TestDatabase(MnemosyneTest):
         assert card.unseen == old_card.unseen
         assert card.extra_data == old_card.extra_data
         assert card.scheduler_data == old_card.scheduler_data
-        assert card.needs_sync == old_card.needs_sync
+        assert card.type_answer == old_card.type_answer
         assert card.active == old_card.active
         assert card.in_view == old_card.in_view
         
@@ -75,7 +74,7 @@ class TestDatabase(MnemosyneTest):
         card.unseen = False
         card.extra_data = "extra"
         card.scheduler_data = 1
-        card.needs_sync = True
+        card.type_answer = True
         card.active = False
         card.in_view = False
         
@@ -93,7 +92,7 @@ class TestDatabase(MnemosyneTest):
         assert card.unseen == False
         assert card.extra_data == "extra"
         assert card.scheduler_data == 1
-        assert card.needs_sync == True
+        assert card.type_answer == True
         assert card.active == False
         assert card.in_view == False
         

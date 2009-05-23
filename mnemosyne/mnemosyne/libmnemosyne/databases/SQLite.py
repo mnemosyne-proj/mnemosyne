@@ -29,8 +29,7 @@ SCHEMA = """
         id text,
         card_type_id text,
         creation_date float,
-        modification_date float,
-        needs_sync boolean default 1
+        modification_date float
     );
 
     create table data_for_fact(
@@ -57,7 +56,7 @@ SCHEMA = """
         unseen boolean default 1,
         extra_data text default "",
         scheduler_data int default 0,
-        needs_sync boolean default 1,
+        type_answer boolean default 1,
         active boolean default 1,
         in_view boolean default 1
     );
@@ -66,8 +65,7 @@ SCHEMA = """
         _id integer primary key,
         _parent_key int default 0,
         id text,
-        name text,
-        needs_sync boolean default 1
+        name text
     );
 
     create table categories_for_card(
@@ -269,9 +267,8 @@ class SQLite(Database):
     # control over transaction granularity.
 
     def add_category(self, category):
-        _id = self.con.execute("""insert into categories(name, id, needs_sync)
-            values(?,?,?)""", (category.name, category.id,
-                               category.needs_sync)).lastrowid
+        _id = self.con.execute("insert into categories(name, id) values(?,?)",
+            (category.name, category.id)).lastrowid
         category._id = _id
         
     def delete_category(self, category):
@@ -279,8 +276,8 @@ class SQLite(Database):
         del category
         
     def update_category(self, category):
-        self.con.execute("""update categories set name=?, needs_sync=?
-            where _id=?""", (category.name, category.needs_sync, category._id))
+        self.con.execute("update categories set name=? where _id=?",
+                         (category.name, category._id))
         
     def get_or_create_category_with_name(self, name):
         sql_res = self.con.execute("""select * from categories where name=?""",
@@ -334,13 +331,13 @@ class SQLite(Database):
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
-            unseen, extra_data, scheduler_data, needs_sync, active,
+            unseen, extra_data, scheduler_data, type_answer, active,
             in_view) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (card.id, card.fact._id, card.fact_view.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep, card.unseen, extra_data,
-            card.scheduler_data, card.needs_sync, card.active,
+            card.scheduler_data, card.type_answer, card.active,
             card.in_view)).lastrowid
         card._id = _card_id
         # Link card to its categories.
@@ -362,12 +359,12 @@ class SQLite(Database):
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
             next_rep=?, unseen=?, extra_data=?, scheduler_data=?,
-            needs_sync=?, active=?, in_view=? where _id=?""",
+            type_answer=?, active=?, in_view=? where _id=?""",
             (card.fact._id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep, card.unseen, extra_data,
-            card.scheduler_data, card.needs_sync, card.active,
+            card.scheduler_data, card.type_answer, card.active,
             card.in_view, card._id))
         if not update_categories:
             return
@@ -421,7 +418,6 @@ class SQLite(Database):
             creation_date=sql_res["creation_date"], id=sql_res["id"])
         fact._id = sql_res["_id"]
         fact.modification_date = sql_res["modification_date"]
-        fact.needs_sync = sql_res["needs_sync"]
         return fact
 
     def get_card(self, _id):
@@ -435,7 +431,7 @@ class SQLite(Database):
         for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
             "last_rep", "next_rep", "unseen", "scheduler_data",
-            "needs_sync", "active", "in_view"):
+            "type_answer", "active", "in_view"):
             setattr(card, attr, sql_res[attr])
         if sql_res["extra_data"] == "":
             card.extra_data = {}

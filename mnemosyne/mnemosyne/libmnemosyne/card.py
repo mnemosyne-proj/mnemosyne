@@ -44,9 +44,9 @@ class Card(object):
         self.categories = []
         self.extra_data = {}
         self.scheduler_data = 0
-        self.needs_sync = True
         self.active = True
         self.in_view = True
+        self.type_answer = False
         self.reset_learning_data()
         
     def __eq__(self, other):                                            
