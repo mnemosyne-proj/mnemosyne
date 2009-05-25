@@ -1,0 +1,93 @@
+Introduction:
+
+The aim of this document is to provide a high level overview of the syncing protocol which will be used to synchronise different instances of Mnemosyne. However, the aim is that it is sufficiently general so that other SRS programs based on the SM2 algorithm can implement the protocol, leading to increased interoperabibilty. This document is still a work in progress, and feedback is sollicited in order to spot deficiencies in the protocol or in order to improve the interoperability.
+
+Some definitions:
+
+The client is the one that initiates the sync, and the server is the other party. E.g. we could have a Windows Mobile client syncing to an application running on the desktop, but that same application could also act as client when it syncs to a publically accesible website or even to a different instance of that application running on a different computer. In order to make all of these scenarios possible, we need to have the concept of a partnership, a link between two different instances. Each instance can have multiple partnerships, each with a different other instance. A server can be either single user or multiuser. Applications running on desktops or mobile devices are typically single user, whereas a public webserver is multiuser.
+
+instance?
+
+Different phases in the protocol:
+
+1) handshaking
+
+Client sends:
+- the name of the application and its version number
+- the version number of the libSM2sync protocol is is speaking
+- an (anonymous but unique) id identifying the user, typically machine generated (for Mnemosyne, these are the long UUIDs)
+- optionally, a user chosen user id, because if we ever move to a Mnemosyne web server, we can't have the user remember its UUID
+- password
+- an (anonymous but unique) id identifying the client machine
+- a deck name
+- what card types it supports: Q/A only, N-sided cards (fact/card model), ...
+- (optionally) extra data about its capabilities which could be exploited by the syncing algorithm
+(e.g. on a mobile device, we are unlikely to have done editing of media files, so the sync of media files would only need to happen from the server to the client.
+
+If the server does not know the user id, send an error message if it's a single user server. Otherwise, make a new user account on the server, make a new partership between the server and the client's machine.
+
+If the server knows the user id, but not it's machine id, create a new partnership, provided the user's password is correct.
+
+Server sends:
+- the name of the application and its version number
+- the version number of the libSM2sync protocol is is speaking
+- an (anonymous but unique) id identifying the server machine
+- what card types it supports
+- whether it accepts upload of media files
+
+If the server id is not known to the client, create a new partnership
+
+
+2) change determination
+
+The server sends to the client a list of changes it recorded since the last sync, e.g. graded those 20 cards, edited this card, deleted that one, etc, ...
+The client locally constructs a similar list of changes, and a dialog boxes summarising the changes is presented to the user for final verification. If the client changes  conflict with the server changes, the user is given the option to either have the client or the server changes take precendence, or to cancel.
+
+Note that this way of working requires both client and server to store a full history of all the changes to be kept locally, in order that it can determine changes on its own without having to exchange a lot of information with the other party. Storing the full history also makes it possible to support multiple partnerships: for each partnership, the date of the last sync is stored separately and can be used easily to create the changeset for that particular partnership.
+
+3) The actual sync 
+
+The actual sync consists of the following subparts:
+
+-cards
+-facts
+-card types (AKA card models in Anki)
+-categories
+-history
+-media files
+-application specific data
+
+just send history across?
+
+
+3.1) cards
+
+For a card, the following information needs to be sent across, regardless of which SRS system in use:
+
+-id
+-question (possbly empty)
+-answer (possibly empty)
+-fact id (possibly empty)
+-fact view id
+-list of categories to which it belongs
+-grade
+-easiness
+-last rep
+-next rep
+
+However, a SRS system may need extra data in order to be able to work. This data can also be sent across, and the other party is *required* (To check?) to store that extra data in order to avoid information loss when round tripping between different SRS systems. However, in order to limit storage, SRS are requested to keep that information to the utmost minimum, and not include data that could be calculated from the rest of the revision process.
+
+
+        self.scheduler_data = 0
+        self.active = True
+        self.in_view = True
+        self.type_answer = False
+        self.acq_reps = 0
+        self.ret_reps = 0
+        self.lapses = 0
+        self.acq_reps_since_lapse = 0
+        self.ret_reps_since_lapse = 0
+
+        self.unseen = True
+
+Not all SRS systems use a card/fact model (N-sided cards). In order to accomodate this
