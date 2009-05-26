@@ -21,6 +21,8 @@ Negotiate when to use compression
 Unit tests
 Licence
 other languages in repo
+make sure unseen and active get updated to
+activating cards
 
 -have scheduler return ids
 
@@ -46,6 +48,9 @@ other languages in repo
 -get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
  'repetition' for individual repetition, or 'review' for whole process.
 
+-infrastructure to make it easier to type certain symbols
+
+-is_complete function of card_type
 
 -basic graphical statistics
 

@@ -2,11 +2,68 @@ Introduction:
 
 The aim of this document is to provide a high level overview of the syncing protocol which will be used to synchronise different instances of Mnemosyne. However, the aim is that it is sufficiently general so that other SRS programs based on the SM2 algorithm can implement the protocol, leading to increased interoperabibilty. This document is still a work in progress, and feedback is sollicited in order to spot deficiencies in the protocol or in order to improve the interoperability.
 
-Some definitions:
 
-The client is the one that initiates the sync, and the server is the other party. E.g. we could have a Windows Mobile client syncing to an application running on the desktop, but that same application could also act as client when it syncs to a publically accesible website or even to a different instance of that application running on a different computer. In order to make all of these scenarios possible, we need to have the concept of a partnership, a link between two different instances. Each instance can have multiple partnerships, each with a different other instance. A server can be either single user or multiuser. Applications running on desktops or mobile devices are typically single user, whereas a public webserver is multiuser.
 
-instance?
+Some use cases and definitions:
+
+The client is the one that initiates the sync, and the server is the other party. E.g. we could have a Windows Mobile client syncing to an application running on the desktop, a laptop client syncing to that same application, but that same application could also act as client when it syncs to a publically accesible website. In order to make all of these scenarios possible, we need to have the concept of a partnership, a link between two different instances (where instance is defined as being either client or server). Each instance can have multiple partnerships, each with a different other instance. 
+
+A server can be either single user or multiuser. Applications running on desktops or mobile devices are typically single user, whereas a public webserver is multiuser.
+
+
+
+Design considerations:
+
+There are two aspects which have an influence on the design on the protocol:
+
+-bandwith efficiency
+-interoperability with other SRS systems
+
+Let's look into each of these in more detail.
+
+
+
+Bandwith efficiency:
+
+In order to avoid many checksums on the data being calculated and sent across the network, we propose that each instance keeps track of a history of all the things that are changed since the last sync. This seems like a heavy burden, but most SRS systems already store the revision history for statistical reasons. The only extra information to be stored would the be when cards were added, edited, deleted, ...
+
+Storing all of this in the history would also make it very efficient to handle multiple partnership: for each partnership, we only need to store the place in the history corresponding to the last sync.  This can be used to easily create the changeset for that particular partnership. (Other options, like e.g. setting a 'needs_sync' flag on datastructures is less efficient as that would need to be done once per partnership, leading to much redundancy in storage.)
+
+For the actual sync, changes to the following data need to be sent across: cards, facts, card types, categories, history, media files, and perhaps application specific data. Apart from the last two, the history actually already stores most of the information needed to update the data. So in order to eliminate sending redundant information and to facilitate a streaming behaviour, it seems like a good idea to let the history be the main driver of the syncing process, i.e. send across each event in the history successively, if necessary supplemented by extra information. E.g., the 'new card' event would need to be supplemented by sending the actual card data across. The alternative, e.g. first updating all the cards, then all the facts, etc, and then finally the history, would result in information duplication. Indeed, if we know the information about all the revisions a card underwent, we easily determine the new status of a card without having to explicitly send it across the wire.
+
+
+
+Interoperability with other SRS systems:
+
+Some SRS systems are based on two sided cards only, others have a fact/card model for N-sided cards, yet others support card types which can incorporate different behaviour still. Also, the set of attributes describing a card can vary between different SRS systems. It would be possible to design a protocal in such a way that taking any path between any number of SRS systems would result in no information loss, but this would place a heavy burden on each SRS system, as it would also to hold on to the information from the other SRS systems. Therefore, it seems preferable to go for a protocol with the following properties:
+
+-moving data from SRS system A to SRS system B and back will never result in information loss.
+-Say you have three systems. A and C support a feature that B does not. If you move data from A to B and then onto C, you will have information loss (e.g. an N sided card being flatted out to N 2-sided cards, even though C has support for N-sided cards). However, this is not a big limitation from a practical point of view: the user just has to move its data from B back to A before syncing with C, as opposed to directly syncing B with C.
+
+A core data that each SRS system needs to store (or be able to generate) about each card, we propose the following:
+
+-card id
+-card type id
+-question
+-answer
+-list of categories
+-grade
+-easiness
+-last rep
+-next rep
+
+If the destination does not know about a card type that the source does know about, then the source sends along the question and the answer explicitly. The destination is then required to treat this card as review-only, i.e. no editing is allowed. When the data flows back to the original source, no information is lost in this way.
+
+If both source and destination know about the card type, there is no need to send across question and answer, but both instances need to know the card's
+
+-fact id
+-factview id
+
+Together with the fact data and their joint knowledge of the card type, this will allow both parties to generate the question and answer from the fact data. (Which capabilities both SRS systems have is determined during the handshaking phase of the protocol.)
+
+If one SRS system requires extra variables for its functioning that the other one does not know about, there is no need to send those across during sync or for these extra variables to be stored by the other party. The other party will not modify those anyway, and the sender still has access to these variables.
+
+
 
 Different phases in the protocol:
 
@@ -20,6 +77,7 @@ Client sends:
 - password
 - an (anonymous but unique) id identifying the client machine
 - a deck name
+
 - what card types it supports: Q/A only, N-sided cards (fact/card model), ...
 - (optionally) extra data about its capabilities which could be exploited by the syncing algorithm
 (e.g. on a mobile device, we are unlikely to have done editing of media files, so the sync of media files would only need to happen from the server to the client.
@@ -34,60 +92,64 @@ Server sends:
 - an (anonymous but unique) id identifying the server machine
 - what card types it supports
 - whether it accepts upload of media files
+- flag indicating whether it's a read only deck (useful to incorporate premade decks and their updates)
 
 If the server id is not known to the client, create a new partnership
 
 
 2) change determination
 
-The server sends to the client a list of changes it recorded since the last sync, e.g. graded those 20 cards, edited this card, deleted that one, etc, ...
-The client locally constructs a similar list of changes, and a dialog boxes summarising the changes is presented to the user for final verification. If the client changes  conflict with the server changes, the user is given the option to either have the client or the server changes take precendence, or to cancel.
+The server sends to the client a summary of the changes it recorded since the last sync, e.g. graded those 20 cards, edited these 2 card, deleted those 2, etc, ...
+The client locally constructs a similar summary of the changes, and a dialog box with this information is presented to the user for final verification. If the client changes conflict with the server changes, the user is given the option to either have the client or the server changes take precendence, or to cancel.
 
-Note that this way of working requires both client and server to store a full history of all the changes to be kept locally, in order that it can determine changes on its own without having to exchange a lot of information with the other party. Storing the full history also makes it possible to support multiple partnerships: for each partnership, the date of the last sync is stored separately and can be used easily to create the changeset for that particular partnership.
 
 3) The actual sync 
 
-The actual sync consists of the following subparts:
-
--cards
--facts
--card types (AKA card models in Anki)
--categories
--history
--media files
--application specific data
-
-just send history across?
+The bulk of the sync consists of exchanging a sequence of events from the history:
 
 
-3.1) cards
+* repetitions: we transmit the following information:
 
-For a card, the following information needs to be sent across, regardless of which SRS system in use:
+-timestamp
+-card id
+-new grade
+-easiness
+-new interval
+-thinking time
 
--id
--question (possbly empty)
--answer (possibly empty)
--fact id (possibly empty)
--fact view id
--list of categories to which it belongs
+BTW, Mnemosyne stores more data for easier statistical analysis: scheduled_interval, actual_interval, acq_reps, ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse. However, there is no need to send that data across the wire, as it can be calculated from the previous state of the card (provided of course that all SRS systems treat grade 0 and 1 as 'fail'. Is that true?)
+
+(Mnemosyne also stores 'noise', the random part of the new scheduled interval, but I'm not sure if it's worthwhile hanging on to this.) 
+
+* adding cards: we transmit
+
+-timestamp
+-card id
+-card type id
+-list of categories
 -grade
 -easiness
 -last rep
 -next rep
 
-However, a SRS system may need extra data in order to be able to work. This data can also be sent across, and the other party is *required* (To check?) to store that extra data in order to avoid information loss when round tripping between different SRS systems. However, in order to limit storage, SRS are requested to keep that information to the utmost minimum, and not include data that could be calculated from the rest of the revision process.
+If the source does not support facts, we also transmit
 
+-question
+-answer
+
+Otherwise we transmit:
+
+-fact id
+-fact view id
+
+(Transmission of fact data is a separate event)
+
+
+
+
+
+SRS system specific data
 
         self.scheduler_data = 0
         self.active = True
-        self.in_view = True
         self.type_answer = False
-        self.acq_reps = 0
-        self.ret_reps = 0
-        self.lapses = 0
-        self.acq_reps_since_lapse = 0
-        self.ret_reps_since_lapse = 0
-
-        self.unseen = True
-
-Not all SRS systems use a card/fact model (N-sided cards). In order to accomodate this
