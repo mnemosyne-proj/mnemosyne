@@ -1,12 +1,9 @@
 -sync protocol
 -log message for updated cards (to enable syncing)?
 history per deck in sql, globally in log.txt
-What about card attributes used in different systems
-Backup
 Store fact modif/cat modif
 Deck name
 Import
-What if interrupted
 Media dir per deck / can refuse large files
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
@@ -41,6 +38,9 @@ activating cards
 -move option to always randomise queue to config screen
 
 -hook up config screen
+
+
+-make sure we can easily calculate retention rates
 
 
 -time sql when storing dates as int. Move to int? update start_date.py
@@ -161,9 +161,11 @@ activating cards
   move latex configuration files?, import user id and config, ...
  urge user to merge all of his separate decks into one deck
 
+-best way for plugins / other guis to store their config info
 
 -update ohloh?
 
+-boxing / limiting
 
 -renamed default data dir on Windows?
 
@@ -238,11 +240,15 @@ activating cards
 http://pythoscope.org/
 -pylint, pyflakes
 
+-hover over extra hanzi information
+
 
 -plugin for midi files
 
 
 Windows Mobile client:
+
+If your phone has a touchscreen use the pocket pc version. Otherwise try the smartphone version. 
 
 -better way of making default actions visible? Call layout()?
 -hook up scheduler rollover
