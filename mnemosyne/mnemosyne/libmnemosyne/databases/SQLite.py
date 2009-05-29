@@ -3,9 +3,9 @@
 #
 
 import os
+import time
 import shutil
 import sqlite3
-from datetime import datetime
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
@@ -13,7 +13,6 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
@@ -28,8 +27,8 @@ SCHEMA = """
         _id integer primary key,
         id text,
         card_type_id text,
-        creation_date float,
-        modification_date float
+        creation_time int,
+        modification_time int
     );
 
     create table data_for_fact(
@@ -51,8 +50,8 @@ SCHEMA = """
         lapses int,
         acq_reps_since_lapse int,
         ret_reps_since_lapse int,
-        last_rep real,
-        next_rep real,
+        last_rep int,
+        next_rep int,
         unseen boolean default 1,
         extra_data text default "",
         scheduler_data int default 0,
@@ -93,7 +92,6 @@ class SQLite(Database):
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
         self.load_failed = True
-        self.start_date = None
 
     @property
     def con(self):
@@ -112,11 +110,7 @@ class SQLite(Database):
         if os.path.exists(self._path):
             os.remove(self._path)
         self.load_failed = False      
-        self.start_date = StartDate()
         self.con.executescript(SCHEMA) # Create tables.
-        self.con.execute("insert into global_variables(key,value) values(?,?)",
-                        ("start_date", datetime.strftime(self.start_date.start,
-                         "%Y-%m-%d %H:%M:%S")))
         self.con.execute("insert into global_variables(key,value) values(?,?)",
                         ("version", self.version))
         self.con.execute("insert into global_variables(key,value) values(?,?)",
@@ -129,19 +123,16 @@ class SQLite(Database):
         if self.is_loaded():        
             self.unload()
         self._path = expand_path(path, self.config().basedir)
+
+        # Check database version.
         try:
             sql_res = self.con.execute("""select value from global_variables
-                where key=?""", ("start_date", )).fetchone()
-            self.set_start_date(StartDate(datetime.strptime(sql_res["value"],
-                "%Y-%m-%d %H:%M:%S")))
+                where key=?""", ("version", )).fetchone()
             self.load_failed = False
         except:
             self.load_failed = True
             raise RuntimeError, _("Unable to load file.")
-
-        # Check database version.
-        sql_res = self.con.execute("""select value from global_variables
-            where key=?""", ("version", )).fetchone()
+        
         if sql_res["value"] != self.version:
             self.load_failed = True
             raise RuntimeError, \
@@ -245,22 +236,10 @@ class SQLite(Database):
             self._connection = None
         self._path = None
         self.load_failed = True
-        self.start_date = None
         return True
         
     def is_loaded(self):
         return not self.load_failed
-
-    # Start date.
-
-    def set_start_date(self, start_date_obj):
-        self.start_date = start_date_obj
-        self.con.execute("insert into global_variables(key,value) values(?,?)",
-                        ("start_date", datetime.strftime(self.start_date.start,
-                         "%Y-%m-%d %H:%M:%S")))
-
-    def days_since_start(self):
-        return self.start_date.days_since_start(self.config()["day_starts_at"])
 
     # Adding, modifying and deleting categories, facts and cards. Commiting is
     # done by calling save in the main controller, in order to have a better
@@ -300,9 +279,9 @@ class SQLite(Database):
         self.load_failed = False
         # Add fact to facts and data_for_fact tables.
         _fact_id = self.con.execute("""insert into facts(id, card_type_id,
-            creation_date, modification_date) values(?,?,?,?)""",
-            (fact.id, fact.card_type.id, fact.creation_date,
-             fact.modification_date)).lastrowid
+            creation_time, modification_time) values(?,?,?,?)""",
+            (fact.id, fact.card_type.id, fact.creation_time,
+             fact.modification_time)).lastrowid
         fact._id = _fact_id
         # Create data_for_fact.        
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
@@ -312,9 +291,9 @@ class SQLite(Database):
     def update_fact(self, fact):
         # Update fact.
         self.con.execute("""update facts set id=?, card_type_id=?,
-            creation_date=?, modification_date=? where _id=?""",
-            (fact.id, fact.card_type.id, fact.creation_date,
-             fact.modification_date, fact._id))
+            creation_time=?, modification_time=? where _id=?""",
+            (fact.id, fact.card_type.id, fact.creation_time,
+             fact.modification_time, fact._id))
         # Delete data_for_fact and recreate it.
         self.con.execute("delete from data_for_fact where _fact_id=?",
                 (fact._id, ))
@@ -415,9 +394,9 @@ class SQLite(Database):
             (_id, ))])
         # Create fact.
         fact = Fact(data, self.card_type_by_id(sql_res["card_type_id"]),
-            creation_date=sql_res["creation_date"], id=sql_res["id"])
+            creation_time=sql_res["creation_time"], id=sql_res["id"])
         fact._id = sql_res["_id"]
-        fact.modification_date = sql_res["modification_date"]
+        fact.modification_time = sql_res["modification_time"]
         return fact
 
     def get_card(self, _id):
@@ -557,7 +536,7 @@ class SQLite(Database):
 
         count = self.con.execute("""select count() from cards
             where active=1 and grade>=2 and ?>=next_rep-?""",
-            (self.days_since_start(), days)).fetchone()[0]
+            (self._adjusted_now(), days * 60 * 60)).fetchone()[0]
         return count
 
     def active_count(self):
@@ -583,12 +562,15 @@ class SQLite(Database):
             return "next_rep - last_rep"
         return sort_key
 
+    def _adjusted_now(self):
+        return time.time() - self.config()["day_starts_at"] * 60 * 60
+
     def cards_due_for_ret_rep(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?>=next_rep order by ? limit ?""",
-            (self.days_since_start(), sort_key, limit)))
+            (self._adjusted_now(), sort_key, limit)))
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
@@ -616,7 +598,7 @@ class SQLite(Database):
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
-            (self.days_since_start(), sort_key, limit)))
+            (self._adjusted_now(), sort_key, limit)))
 
     # Extra commands for custom schedulers.
 

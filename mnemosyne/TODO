@@ -1,5 +1,69 @@
+-time in seconds again, much more efficient that float for SQL
+
+-think about update start time of date
+
+-rework scheduling on same day
+
+-update controller to show days instead of seconds for next interval
+
+    # Parse file. The time stamps for repetitions are when the card
+    # was graded, not when it was first presented. We need the latter
+    # one, so we use the time stamp from the previous line.
+
+--> add to controller
+
+-update database.py, pickle
+
+-have scheduler return ids
+
+history table:
+
+_id: int
+event: string
+posix time: int (int(time.time())!
+_object_id: string
+Column('grade',              Integer),
+    Column('easiness',           Float),
+    Column('acq_reps',           Integer),
+    Column('ret_reps',           Integer),
+    Column('lapses',             Integer),
+    Column('acq_since_lapse',    Integer),
+    Column('ret_since_lapse',    Integer),
+
+secs int    Column('scheduled_interval', Integer),
+ditto    Column('actual_interval',    Integer),
+ditto    Column('new_interval',       Integer), 
+    Column('noise',              Integer), # noise added to new interval
+    Column('thinking_time',      Integer), # time spent looking at question
+
+
+make sure to convert int(time.time()) to integer
+
+make sure all events make it to the sync protocol + formats
+
+
+-scheduler string
+
+- card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
+or persistent for the full server
+
+# For consistency, we here add the initial grading through the 'add cards'
+# dialog as a proper 'Repetition' in the database. 
+
+"easiness"           : 2.5, # Not logged, take default.
+
+
+
+imported item cancelled
+
+
+-optimise scheduled count?
+
+-think again about 'unseen' initial grade stuff
+
+
 -sync protocol
--log message for updated cards (to enable syncing)?
+-log message for updated cards/facts (to enable syncing)
 history per deck in sql, globally in log.txt
 Store fact modif/cat modif
 Deck name
@@ -7,6 +71,8 @@ Import
 Media dir per deck / can refuse large files
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
+-be sure to truncate time to int if it comes from other SRS systems
+
 
 -make card types instantiatable from sync data
 -handle deferred translation
@@ -18,10 +84,8 @@ Negotiate when to use compression
 Unit tests
 Licence
 other languages in repo
-make sure unseen and active get updated to
+make sure unseen and active get updated to0
 activating cards
-
--have scheduler return ids
 
 
 -don't reset cramming scheduler
@@ -42,6 +106,8 @@ activating cards
 
 -make sure we can easily calculate retention rates
 
+
+-items --> cards in config, upgrade code
 
 -time sql when storing dates as int. Move to int? update start_date.py
 
@@ -244,6 +310,13 @@ http://pythoscope.org/
 
 
 -plugin for midi files
+
+
+Multiuser statistics analysis:
+
+-break out card ids to a different table and use _id as well
+-more times from a later start date to save space?
+-sql: insert or ignore statement, faster if adding same data twice is no problem
 
 
 Windows Mobile client:

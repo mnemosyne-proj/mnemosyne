@@ -15,8 +15,7 @@ class Fact(object):
     Card_type and categories are also stored here, because when resetting the
     learning data on export, we only export facts.
 
-    Creating and modification dates are stored as days since the creation of the
-    database (see start_date.py for rationale).
+    Creating and modification dates are POSIX timestamps stored as integers.
 
     'id' is used to identify this object to the external world (logs, xml
     files, ...), whereas '_id' is an internal id that could be different and
@@ -35,9 +34,9 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, card_type, creation_date, id=None):
-        self.creation_date = creation_date
-        self.modification_date = self.creation_date
+    def __init__(self, data, card_type, creation_time, id=None):
+        self.creation_time = creation_time
+        self.modification_time = self.creation_time
         self.data = data
         self.card_type = card_type
         if id is None:

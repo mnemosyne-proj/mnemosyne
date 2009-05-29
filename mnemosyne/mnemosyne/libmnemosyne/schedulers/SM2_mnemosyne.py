@@ -2,15 +2,18 @@
 # SM2_mnemosyne.py <Peter.Bienstman@UGent.be>
 #
 
+import time
 import random
-import copy
 
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 
 
 class SM2Mnemosyne(Scheduler):
 
-    """Scheduler based on http://www.supermemo.com/english/ol/sm2.htm."""
+    """Scheduler based on http://www.supermemo.com/english/ol/sm2.htm.
+    Note that all intervals are seconds.
+
+    """
     
     name = "SM2 Mnemosyne"
 
@@ -35,21 +38,19 @@ class SM2Mnemosyne(Scheduler):
         
         In both cases, this initial grading is seen as the first repetition.
 
-        In this way, both types of cards are treated in the same way. (There
-        is an ineffectual asymmetry left in the log messages they generate,
-        but all the relevant information can still be parsed from them.)
+        In this way, both types of cards are treated in the same way.
 
         """
-                
-        db = self.database()
+
         card.grade = grade
-        card.easiness = db.average_easiness()
+        card.easiness = self.database().average_easiness()
         card.acq_reps = 1
         card.acq_reps_since_lapse = 1
-        card.last_rep = db.days_since_start()
+        card.last_rep = time.time()
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
         card.next_rep = card.last_rep + new_interval
+        # TODO: add log message
 
     def calculate_initial_interval(self, grade):
         
@@ -59,10 +60,11 @@ class SM2Mnemosyne(Scheduler):
 
         """
         
-        interval = (0, 0, 1, 3, 4, 5) [grade]
-        return interval
+        days = (0, 0, 1, 3, 4, 5) [grade]
+        return 24 * 60 * 60 * days
 
     def calculate_interval_noise(self, interval):
+        interval = int(interval / (24 * 60 * 60))
         if interval == 0:
             noise = 0
         elif interval == 1:
@@ -74,7 +76,7 @@ class SM2Mnemosyne(Scheduler):
         else:
             a = .05 * interval
             noise = round(random.uniform(-a,a))
-        return noise
+        return 24 * 60 * 60 * noise
 
     def rebuild_queue(self, learn_ahead=False):
         self.queue = []
@@ -246,7 +248,7 @@ class SM2Mnemosyne(Scheduler):
     def allow_prefetch(self):
 
         """Can we display a new card before having processed the grading of
-        the previous one?.
+        the previous one?
 
         """
                 
@@ -255,22 +257,17 @@ class SM2Mnemosyne(Scheduler):
         return len(self.queue) >= 3
 
     def grade_answer(self, card, new_grade, dry_run=False):
-        db = self.database()
-        days_since_start = db.days_since_start()
         # When doing a dry run, make a copy to operate on. This leaves the
         # original in the GUI intact.
         if dry_run:
+            import copy
             card = copy.copy(card)
-        # Calculate scheduled and actual interval, taking care of corner
-        # case when learning ahead on the same day.
         scheduled_interval = card.next_rep - card.last_rep
-        actual_interval = days_since_start - card.last_rep
-        if actual_interval == 0:
-            actual_interval = 1 # Otherwise new interval can become zero.
+        actual_interval = int(time.time() - card.last_rep)
         if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
             # was imported or created during card type conversion.
-            card.easiness = db.average_easiness()
+            card.easiness = self.database().average_easiness()
             card.acq_reps = 1
             card.acq_reps_since_lapse = 1
             new_interval = self.calculate_initial_interval(new_grade)
@@ -288,7 +285,7 @@ class SM2Mnemosyne(Scheduler):
              # In the acquisition phase and moving to the retention phase.
              card.acq_reps += 1
              card.acq_reps_since_lapse += 1
-             new_interval = 1
+             new_interval = 24 * 60 * 60
              # Make sure the second copy of a grade 0 card doesn't show
              # up again.
              if not dry_run and card.grade == 0:
@@ -317,7 +314,7 @@ class SM2Mnemosyne(Scheduler):
                     card.easiness = 1.3
             new_interval = 0
             if card.ret_reps_since_lapse == 1:
-                new_interval = 6
+                new_interval = 6 * 24 * 60 * 60
             else:
                 if new_grade == 2 or new_grade == 3:
                     if actual_interval <= scheduled_interval:
@@ -331,17 +328,17 @@ class SM2Mnemosyne(Scheduler):
                         new_interval = scheduled_interval # Avoid spacing.
                     else:
                         new_interval = actual_interval * card.easiness
-            assert new_interval != 0
-            new_interval = int(new_interval)
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:
             return new_interval
         # Add some randomness to interval.
         noise = self.calculate_interval_noise(new_interval)
-        # Update grade and interval.
+        # Update grade and interval. Set next rep always to midnight, as we are
+        # doing day-level scheduling here. (The 'day_starts_at' option comes into
+        # play when getting cards from the database).
         card.grade = new_grade
-        card.last_rep = days_since_start
-        card.next_rep = days_since_start + new_interval + noise
+        card.last_rep = int(time.time()) # TODO: fix, this is time of grading, not time of showing.
+        card.next_rep = int( (last_rep + new_interval + noise) / (24 * 60 * 60)) * 24 * 60 * 60
         card.unseen = False
         # Don't schedule related cards on the same day.
         while self.database().count_related_cards_with_next_rep\

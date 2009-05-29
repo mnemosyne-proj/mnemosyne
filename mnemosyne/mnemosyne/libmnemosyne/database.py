@@ -38,14 +38,6 @@ class Database(Component):
     def is_loaded(self):
         raise NotImplementedError
 
-    # Start date.
-
-    def set_start_date(self, start_date_obj):
-        raise NotImplementedError
-
-    def days_since_start(self):
-        raise NotImplementedError
-
     # Adding, modifying and deleting categories, facts and cards.
 
     def add_category(self, category):
