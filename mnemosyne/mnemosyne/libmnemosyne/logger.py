@@ -47,7 +47,7 @@ class Logger(Component):
         raise NotImplementedError
         
     def revision(self, card, scheduled_interval, actual_interval, \
-                 new_interval, noise):
+                 new_interval, noise=0):
         raise NotImplementedError               
         
     def uploaded(self, filename):

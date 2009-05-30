@@ -4,19 +4,37 @@
 
 import time
 import random
+import datetime
 
 from mnemosyne.libmnemosyne.scheduler import Scheduler
+
+DAY = 24 * 60 * 60 # Seconds in a day.
 
 
 class SM2Mnemosyne(Scheduler):
 
     """Scheduler based on http://www.supermemo.com/english/ol/sm2.htm.
-    Note that all intervals are seconds.
+    Note that all intervals are in seconds, since time is stored as
+    integer POSIX timestamps.
 
     """
     
     name = "SM2 Mnemosyne"
 
+    def normalise_time(self, timestamp):
+
+        """As we are doing scheduling at the day level, always throw away the
+        time information and only keep the date, so that all cards become due
+        at the same time in the day.
+
+        (The 'day_starts_at' option comes into play when getting cards from
+        the database).
+
+        """
+        
+        date_only = datetime.date.fromtimestamp(timestamp)
+        return time.mktime(date_only.timetuple())
+        
     def reset(self):
         self.queue = []
         self.facts = []
@@ -49,7 +67,7 @@ class SM2Mnemosyne(Scheduler):
         card.last_rep = time.time()
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
-        card.next_rep = card.last_rep + new_interval
+        card.next_rep = self.normalise_time(card.last_rep + new_interval)
         # TODO: add log message
 
     def calculate_initial_interval(self, grade):
@@ -60,23 +78,20 @@ class SM2Mnemosyne(Scheduler):
 
         """
         
-        days = (0, 0, 1, 3, 4, 5) [grade]
-        return 24 * 60 * 60 * days
+        return = (0, 0, 1*DAY, 3*DAY, 4*DAY, 5*DAY) [grade]
 
     def calculate_interval_noise(self, interval):
-        interval = int(interval / (24 * 60 * 60))
         if interval == 0:
             noise = 0
-        elif interval == 1:
-            noise = random.randint(0,1)
-        elif interval <= 10:
-            noise = random.randint(-1,1)
-        elif interval <= 60:
-            noise = random.randint(-3,3)
+        elif interval <= DAY:
+            noise = random.uniform(0, DAY)
+        elif interval <= 10 * DAY:
+            noise = random.uniform(-DAY, DAY)
+        elif interval <= 60 * DAY:
+            noise = random.uniform(-3 * DAY, 3 * DAY)
         else:
-            a = .05 * interval
-            noise = round(random.uniform(-a,a))
-        return 24 * 60 * 60 * noise
+            noise = random.uniform(-0.05 * interval, 0.05 * interval)
+        return int(noise / DAY) * DAY
 
     def rebuild_queue(self, learn_ahead=False):
         self.queue = []
@@ -285,7 +300,7 @@ class SM2Mnemosyne(Scheduler):
              # In the acquisition phase and moving to the retention phase.
              card.acq_reps += 1
              card.acq_reps_since_lapse += 1
-             new_interval = 24 * 60 * 60
+             new_interval = DAY
              # Make sure the second copy of a grade 0 card doesn't show
              # up again.
              if not dry_run and card.grade == 0:
@@ -314,7 +329,7 @@ class SM2Mnemosyne(Scheduler):
                     card.easiness = 1.3
             new_interval = 0
             if card.ret_reps_since_lapse == 1:
-                new_interval = 6 * 24 * 60 * 60
+                new_interval = 6 * DAY
             else:
                 if new_grade == 2 or new_grade == 3:
                     if actual_interval <= scheduled_interval:
@@ -328,27 +343,27 @@ class SM2Mnemosyne(Scheduler):
                         new_interval = scheduled_interval # Avoid spacing.
                     else:
                         new_interval = actual_interval * card.easiness
+        new_interval = int(new_interval)
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:
             return new_interval
         # Add some randomness to interval.
-        noise = self.calculate_interval_noise(new_interval)
-        # Update grade and interval. Set next rep always to midnight, as we are
-        # doing day-level scheduling here. (The 'day_starts_at' option comes into
-        # play when getting cards from the database).
+        new_interval += self.calculate_interval_noise(new_interval)
+        # Update card properties.
         card.grade = new_grade
         card.last_rep = int(time.time()) # TODO: fix, this is time of grading, not time of showing.
-        card.next_rep = int( (last_rep + new_interval + noise) / (24 * 60 * 60)) * 24 * 60 * 60
+        card.next_rep = self.normalise_time(last_rep + new_interval + noise)
         card.unseen = False
         # Don't schedule related cards on the same day.
         while self.database().count_related_cards_with_next_rep\
                   (card, card.next_rep):
-            card.noise += 1
-            card.next_rep += 1            
+            card.next_rep = self.normalise_time(card.next_rep + DAY)
+        # Reflect normalisation in new_interval.
+        new_interval = card.next_rep - card.last_rep
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.
         self.log().revision(card, scheduled_interval, actual_interval,
-                       new_interval, noise)
+                            new_interval)
         return new_interval + noise
 

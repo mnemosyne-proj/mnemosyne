@@ -1,6 +1,6 @@
 -time in seconds again, much more efficient that float for SQL
 
--think about update start time of date
+-don't log noise?
 
 -rework scheduling on same day
 
@@ -13,8 +13,6 @@
 --> add to controller
 
 -update database.py, pickle
-
--have scheduler return ids
 
 history table:
 
