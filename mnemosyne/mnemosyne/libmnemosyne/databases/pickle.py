@@ -5,15 +5,14 @@
 
 import os
 import gzip
+import time
 import cPickle
-import datetime
 import shutil
 import random
 import mnemosyne.version
 
 from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.database import Database
-from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.translator import _
@@ -40,7 +39,6 @@ class Pickle(Database):
 
     def __init__(self, component_manager):
         Database.__init__(self, component_manager)
-        self.start_date = None
         self.categories = []
         self.facts = []
         self.cards = []
@@ -52,7 +50,6 @@ class Pickle(Database):
             self.unload()
         path = expand_path(path, self.config().basedir)
         self.load_failed = False
-        self.start_date = StartDate()
         self.save(contract_path(path, self.config().basedir))
         self.config()["path"] = path
         self.log().new_database()
@@ -67,11 +64,10 @@ class Pickle(Database):
         try:
             infile = file(path, 'rb')
             db = cPickle.load(infile)
-            self.start_date = db[0]
-            self.categories = db[1]
-            self.facts = db[2]
-            self.cards = db[3]
-            self.global_variables = db[4]
+            self.categories = db[0]
+            self.facts = db[1]
+            self.cards = db[2]
+            self.global_variables = db[3]
             infile.close()
             self.load_failed = False
         except:
@@ -156,7 +152,7 @@ class Pickle(Database):
             # Write to a backup file first, as shutting down Windows can
             # interrupt the dump command and corrupt the database.
             outfile = file(path + "~", 'wb')
-            db = [self.start_date, self.categories, self.facts, self.cards,
+            db = [self.categories, self.facts, self.cards,
                   self.global_variables]
             cPickle.dump(db, outfile)
             outfile.close()
@@ -174,7 +170,6 @@ class Pickle(Database):
             return True
         self.save(self.config()["path"])
         self.log().saved_database()
-        self.start_date = None
         self.categories = []
         self.facts = []
         self.cards = []
@@ -224,12 +219,6 @@ class Pickle(Database):
 
     def is_loaded(self):
         return len(self.facts) != 0
-
-    def set_start_date(self, start_date_obj):
-        self.start_date = start_date_obj
-
-    def days_since_start(self):
-        return self.start_date.days_since_start(self.config()["day_starts_at"])
     
     # Adding, modifying and deleting categories, facts and cards.
     
@@ -377,9 +366,9 @@ class Pickle(Database):
 
         """Number of cards scheduled within 'days' days."""
 
-        days_since_start = self.days_since_start()
+        adjusted_now = self._adjusted_now()
         return sum(1 for c in self.cards if c.active and (c.grade >= 2) and \
-                           (days_since_start >= c.next_rep - days))
+                           (adjusted_now >= c.next_rep - days))
 
     def active_count(self):
         return len([c for c in self.cards if c.active])
@@ -393,7 +382,10 @@ class Pickle(Database):
             return sum(cards) / len([cards])
 
     # Card queries used by the scheduler.
-            
+          
+    def _adjusted_now(self):
+        return time.time() - self.config()["day_starts_at"] * 60 * 60
+    
     def _list_to_generator(self, list, sort_key, limit):
         if list == None:
             raise StopIteration
@@ -407,9 +399,9 @@ class Pickle(Database):
             yield (c.id, c.fact.id)
 
     def cards_due_for_ret_rep(self, sort_key="", limit=-1):
-        days_since_start = self.days_since_start()
+        adjusted_now = self._adjusted_now()
         cards = [c for c in self.cards if c.active and \
-                 c.grade >= 2 and days_since_start >= c.next_rep]        
+                 c.grade >= 2 and adjusted_now >= c.next_rep]        
         return self._list_to_generator(cards, sort_key, limit)
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
@@ -428,9 +420,9 @@ class Pickle(Database):
         return self._list_to_generator(cards, sort_key, limit)
                                       
     def cards_learn_ahead(self, sort_key="", limit=-1):
-        days_since_start = self.days_since_start()
+        adjusted_now = self._adjusted_now()
         cards = [c for c in self.cards if c.active and \
-                 c.grade >= 2 and days_since_start < c.next_rep]
+                 c.grade >= 2 and adjusted_now < c.next_rep]
         return self._list_to_generator(cards, sort_key, limit)
 
     # Extra commands for custom schedulers.
