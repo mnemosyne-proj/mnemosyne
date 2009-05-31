@@ -1,12 +1,8 @@
 -Hungarian translation by bkil (announce on website)
 
 
+-update database.py, pickle
 
--time in seconds again, much more efficient that float for SQL
-
--don't log noise?
-
--rework scheduling on same day
 
 -update controller to show days instead of seconds for next interval
 
@@ -15,8 +11,6 @@
     # one, so we use the time stamp from the previous line.
 
 --> add to controller
-
--update database.py, pickle
 
 history table:
 
@@ -50,7 +44,8 @@ make sure all events make it to the sync protocol + formats
 or persistent for the full server
 
 # For consistency, we here add the initial grading through the 'add cards'
-# dialog as a proper 'Repetition' in the database. 
+# dialog as a proper 'Repetition' in the database.
+make sure it comes after new card log 
 
 "easiness"           : 2.5, # Not logged, take default.
 
@@ -93,8 +88,6 @@ activating cards
 -don't reset cramming scheduler
 
 -is complete check on changing card type does not fire
-
--fact modification date is not set?
 
 -more tests
 
@@ -148,7 +141,8 @@ activating cards
 -import full path for ui components
 
 -test rollover
--start new session on rollover
+-test day starts at
+
 
 -make categories a set?
 

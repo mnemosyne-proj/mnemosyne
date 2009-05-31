@@ -35,14 +35,6 @@ class TestDatabaseStub:
         self.database.is_loaded()
         
     @raises(NotImplementedError)
-    def test_set_start_date(self):
-        self.database.set_start_date(None)
-        
-    @raises(NotImplementedError)
-    def test_days_since_start(self):
-        self.database.days_since_start()
-        
-    @raises(NotImplementedError)
     def test_add_category(self):
         self.database.add_category(None)
 

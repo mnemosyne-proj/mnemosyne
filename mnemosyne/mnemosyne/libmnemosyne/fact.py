@@ -2,6 +2,9 @@
 # fact.py <Peter.Bienstman@UGent.be>
 #
 
+import time
+
+
 class Fact(object):
 
     """Basic unit of information from which several cards can be derived.
@@ -34,7 +37,9 @@ class Fact(object):
 
     """
 
-    def __init__(self, data, card_type, creation_time, id=None):
+    def __init__(self, data, card_type, creation_time=None, id=None):
+        if creation_time is None:
+            creation_time = time.time()
         self.creation_time = creation_time
         self.modification_time = self.creation_time
         self.data = data

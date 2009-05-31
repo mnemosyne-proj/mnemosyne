@@ -39,8 +39,8 @@ class TestDatabase(MnemosyneTest):
         assert fact.data["q"] == "question"
         assert fact.data["a"] == "answer"
         assert fact.id == old_fact.id
-        assert fact.creation_date == old_fact.creation_date
-        assert fact.modification_date == old_fact.creation_date     
+        assert fact.creation_time == old_fact.creation_time
+        assert fact.modification_time == old_fact.modification_time     
         assert card.categories[0].name == old_card.categories[0].name
 
         assert card.fact == old_card.fact

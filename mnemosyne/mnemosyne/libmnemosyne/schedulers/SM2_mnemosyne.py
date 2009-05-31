@@ -28,7 +28,7 @@ class SM2Mnemosyne(Scheduler):
         at the same time in the day.
 
         (The 'day_starts_at' option comes into play when getting cards from
-        the database).
+        the database.)
 
         """
         
@@ -78,7 +78,7 @@ class SM2Mnemosyne(Scheduler):
 
         """
         
-        return = (0, 0, 1*DAY, 3*DAY, 4*DAY, 5*DAY) [grade]
+        return (0, 0, 1*DAY, 3*DAY, 4*DAY, 5*DAY) [grade]
 
     def calculate_interval_noise(self, interval):
         if interval == 0:
@@ -91,7 +91,7 @@ class SM2Mnemosyne(Scheduler):
             noise = random.uniform(-3 * DAY, 3 * DAY)
         else:
             noise = random.uniform(-0.05 * interval, 0.05 * interval)
-        return int(noise / DAY) * DAY
+        return noise
 
     def rebuild_queue(self, learn_ahead=False):
         self.queue = []
@@ -327,7 +327,6 @@ class SM2Mnemosyne(Scheduler):
                     card.easiness += 0.10
                 if card.easiness < 1.3:
                     card.easiness = 1.3
-            new_interval = 0
             if card.ret_reps_since_lapse == 1:
                 new_interval = 6 * DAY
             else:
@@ -352,7 +351,7 @@ class SM2Mnemosyne(Scheduler):
         # Update card properties.
         card.grade = new_grade
         card.last_rep = int(time.time()) # TODO: fix, this is time of grading, not time of showing.
-        card.next_rep = self.normalise_time(last_rep + new_interval + noise)
+        card.next_rep = self.normalise_time(card.last_rep + new_interval)
         card.unseen = False
         # Don't schedule related cards on the same day.
         while self.database().count_related_cards_with_next_rep\
@@ -365,5 +364,5 @@ class SM2Mnemosyne(Scheduler):
         # Create log entry.
         self.log().revision(card, scheduled_interval, actual_interval,
                             new_interval)
-        return new_interval + noise
+        return new_interval
 

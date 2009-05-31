@@ -21,7 +21,7 @@ class TestUIControllerReview(MnemosyneTest):
                     grade=4, cat_names=["default" + str(i)])[0]
             if i == 0:
                 card_1 = card
-                card.next_rep -= 1000
+                card.next_rep -= 1000 * 24 * 60 * 60 
                 self.database().update_card(card)
         self.ui_controller_review().new_question()
         assert self.ui_controller_review().card == card_1
@@ -45,7 +45,7 @@ class TestUIControllerReview(MnemosyneTest):
                     grade=4, cat_names=["default" + str(i)])[0]
             if i == 0:
                 card_1 = card
-                card.next_rep -= 1000
+                card.next_rep -= 1000 * 24 * 60 * 60
                 self.database().update_card(card)
         self.ui_controller_review().new_question()
         assert self.ui_controller_review().card == card_1

@@ -58,8 +58,9 @@ class TxtLogger(Logger):
                          self.database().active_count())
         
     def new_card(self, card):
-        new_interval = self.database().days_since_start() - card.next_rep
-        self.logger.info("New item %s %d %d", card.id, card.grade,
+        grade = -1
+        new_interval = -1 # We log the first rep separately anyhow
+        self.logger.info("New item %s %d %d", card.id, grade,
                          new_interval)
         
     def imported_card(self, card):

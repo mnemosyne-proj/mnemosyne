@@ -22,7 +22,7 @@ class TestScheduler(MnemosyneTest):
         fact_data = {"q": "4", "a": "a"}
         card_4 = self.ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=2, cat_names=["default"], warn=False)[0]
-        card_4.next_rep -= 1000
+        card_4.next_rep -= 1000 * 24 * 60 * 60
         self.database().update_card(card_4)
 
         # Due cards.
@@ -180,7 +180,7 @@ class TestScheduler(MnemosyneTest):
                 card_type = self.card_type_by_id("2")            
             card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                     grade=4, cat_names=["default" + str(i)])[0]
-            card.next_rep -= 1000-i
+            card.next_rep -= (1000-i) * 24 * 60 * 60
             self.database().update_card(card)
             if i == 0:
                 card_1 = card

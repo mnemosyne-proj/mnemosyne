@@ -4,6 +4,7 @@
 
 import os
 import copy
+import time
 import datetime
 
 from mnemosyne.libmnemosyne.translator import _
@@ -62,7 +63,7 @@ class DefaultMainController(UiControllerMain):
                 self.main_widget().information_box(\
               _("Card is already in database.\nDuplicate not added."))
             return
-        fact = Fact(fact_data, card_type, self.database().days_since_start())
+        fact = Fact(fact_data, card_type)
         categories = []
         for cat_name in cat_names:
             categories.append(db.get_or_create_category_with_name(cat_name))
@@ -172,7 +173,7 @@ class DefaultMainController(UiControllerMain):
         # Update facts and cards.
         new_cards, updated_cards, deleted_cards = \
             fact.card_type.update_related_cards(fact, new_fact_data)
-        fact.modification_date = self.database().days_since_start()
+        fact.modification_time = time.time()
         fact.data = new_fact_data
         db.update_fact(fact)
         for card in deleted_cards:
