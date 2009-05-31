@@ -1,3 +1,7 @@
+-Hungarian translation by bkil (announce on website)
+
+
+
 -time in seconds again, much more efficient that float for SQL
 
 -don't log noise?
