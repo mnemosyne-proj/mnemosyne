@@ -68,7 +68,8 @@ class SM2Mnemosyne(Scheduler):
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
         card.next_rep = self.normalise_time(card.last_rep + new_interval)
-        # TODO: add log message
+        self.log().revision(card, scheduled_interval=0, actual_interval=0,
+                            new_interval=new_interval)
 
     def calculate_initial_interval(self, grade):
         

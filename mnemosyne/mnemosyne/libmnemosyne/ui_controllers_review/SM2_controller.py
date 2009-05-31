@@ -97,6 +97,8 @@ class SM2Controller(UiControllerReview):
             self.database().save()
             self.new_question()     
         if self.config()["show_intervals"] == "statusbar":
+            import math
+            days = int(math.ceil(interval / (24.0 * 60 * 60)))
             self.review_widget().update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
         
@@ -200,9 +202,12 @@ class SM2Controller(UiControllerReview):
             # Tooltip.
             if self.state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "tooltips":
-                w.set_grade_tooltip(grade, tooltip[i][grade] +\
-                    self.next_rep_string(self.scheduler().\
-                        process_answer(self.card, grade, dry_run=True)))
+                import math
+                interval = self.scheduler().process_answer(self.card, \
+                    grade, dry_run=True)
+                days = int(math.ceil(interval / (24.0 * 60 * 60)))               
+                w.set_grade_tooltip(grade, tooltip[i][grade] + \
+                    self.next_rep_string(days))
             else:
                 w.set_grade_tooltip(grade, tooltip[i][grade])
             # Button text.

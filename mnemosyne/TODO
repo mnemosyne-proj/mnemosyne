@@ -1,10 +1,10 @@
 -Hungarian translation by bkil (announce on website)
 
 
--update database.py, pickle
+# For consistency, we here add the initial grading through the 'add cards'
+# dialog as a proper 'Repetition' in the database.
+make sure it comes after new card log 
 
-
--update controller to show days instead of seconds for next interval
 
     # Parse file. The time stamps for repetitions are when the card
     # was graded, not when it was first presented. We need the latter
@@ -29,7 +29,6 @@ Column('grade',              Integer),
 secs int    Column('scheduled_interval', Integer),
 ditto    Column('actual_interval',    Integer),
 ditto    Column('new_interval',       Integer), 
-    Column('noise',              Integer), # noise added to new interval
     Column('thinking_time',      Integer), # time spent looking at question
 
 
@@ -42,12 +41,6 @@ make sure all events make it to the sync protocol + formats
 
 - card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
 or persistent for the full server
-
-# For consistency, we here add the initial grading through the 'add cards'
-# dialog as a proper 'Repetition' in the database.
-make sure it comes after new card log 
-
-"easiness"           : 2.5, # Not logged, take default.
 
 
 
