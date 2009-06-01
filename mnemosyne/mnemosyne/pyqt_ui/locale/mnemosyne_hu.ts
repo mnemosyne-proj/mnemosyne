@@ -1343,7 +1343,7 @@ For more documentation, see http://www.mnemosyne-proj.sourceforge.net.
 Happy learning!</source>
         <translation>Ön most már kezdésre kész!
 &lt;p&gt;
-Új kártyák felviteléhez kattintson arra az ikonra, amelyiknek &apos;plusz&apos;-jel van a bal felső sarkában.
+Új kártyák felviteléhez kattintson a bal felső sarokban lévő &apos;plusz&apos;-jeles ikonra.
 &lt;p&gt;
 Emlékeztetem, hogy nincs szükség munkájának folytonos mentésére, mivel én ezt megteszem automatikusan.
 &lt;p&gt;
