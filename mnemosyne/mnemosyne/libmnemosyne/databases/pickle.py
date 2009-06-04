@@ -266,7 +266,6 @@ class Pickle(Database):
         card._id = card.id
         self.load_failed = False
         self.cards.append(card)
-        self.log().new_card(card)
 
     def update_card(self, card, update_categories=True):
         return # Happens automatically.

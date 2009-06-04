@@ -93,6 +93,7 @@ class DefaultMainController(UiControllerMain):
         db.add_fact(fact)
         cards = []
         for card in card_type.create_related_cards(fact):
+            self.log().new_card(card)
             if grade != -1:
                 self.scheduler().set_initial_grade(card, grade)
             card.categories = categories

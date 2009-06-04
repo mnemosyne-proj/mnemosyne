@@ -327,7 +327,6 @@ class SQLite(Database):
                 where id=?""", (cat.id, )).fetchone()[0]
             self.con.execute("""insert into categories_for_card(_category_id,
                 _card_id) values(?,?)""", (_category_id, _card_id))
-        self.log().new_card(card)
 
     def update_card(self, card, update_categories=True):
         if card.extra_data == {}:

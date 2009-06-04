@@ -4,9 +4,11 @@
 
 import time
 import random
+import calendar
 import datetime
 
 from mnemosyne.libmnemosyne.scheduler import Scheduler
+from mnemosyne.libmnemosyne.stopwatch import stopwatch
 
 DAY = 24 * 60 * 60 # Seconds in a day.
 
@@ -16,6 +18,12 @@ class SM2Mnemosyne(Scheduler):
     """Scheduler based on http://www.supermemo.com/english/ol/sm2.htm.
     Note that all intervals are in seconds, since time is stored as
     integer POSIX timestamps.
+
+    For next_rep, we are only interested in day information however, so
+    we store here the day at UTC midnight. The timezone and the day_starts_at
+    option only come into play when querying the database, making it possible
+    that these values can change over time.
+
 
     """
     
@@ -33,8 +41,9 @@ class SM2Mnemosyne(Scheduler):
         """
         
         date_only = datetime.date.fromtimestamp(timestamp)
-        return time.mktime(date_only.timetuple())
-        
+        return int(calendar.timegm(date_only.timetuple()))
+        #return int(time.mktime(date_only.timetuple()))
+     
     def reset(self):
         self.queue = []
         self.facts = []
@@ -279,7 +288,7 @@ class SM2Mnemosyne(Scheduler):
             import copy
             card = copy.copy(card)
         scheduled_interval = card.next_rep - card.last_rep
-        actual_interval = int(time.time() - card.last_rep)
+        actual_interval = stopwatch.start_time - card.last_rep
         if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
             # was imported or created during card type conversion.
@@ -351,7 +360,7 @@ class SM2Mnemosyne(Scheduler):
         new_interval += self.calculate_interval_noise(new_interval)
         # Update card properties.
         card.grade = new_grade
-        card.last_rep = int(time.time()) # TODO: fix, this is time of grading, not time of showing.
+        card.last_rep = stopwatch.start_time
         card.next_rep = self.normalise_time(card.last_rep + new_interval)
         card.unseen = False
         # Don't schedule related cards on the same day.

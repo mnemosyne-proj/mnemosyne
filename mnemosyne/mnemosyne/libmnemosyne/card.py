@@ -2,9 +2,6 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
-import time
-
-
 class Card(object):
 
     """A card has a question and an answer, based on a fact view operating on
@@ -109,10 +106,5 @@ class Card(object):
         
     interval = property(lambda self : self.next_rep - self.last_rep)
     
-    days_since_last_rep = property(lambda self : \
-        24 * 60 * 60 * (time.time()  - self.last_rep))
-                            
-    days_until_next_rep = property(lambda self : \
-        24 * 60 * 60 * (self.next_rep - time.time()))
 
 

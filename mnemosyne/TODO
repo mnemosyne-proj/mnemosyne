@@ -1,16 +1,19 @@
 -Hungarian translation by bkil (announce on website)
 
 
-# For consistency, we here add the initial grading through the 'add cards'
-# dialog as a proper 'Repetition' in the database.
-make sure it comes after new card log 
-
 
     # Parse file. The time stamps for repetitions are when the card
     # was graded, not when it was first presented. We need the latter
     # one, so we use the time stamp from the previous line.
 
 --> add to controller
+
+move adjusted now to scheduler
+
+-test time zone, day starts at, take these into account in scheduled interval?
+
+
+look again at statistics parsing code
 
 history table:
 
@@ -32,7 +35,13 @@ ditto    Column('new_interval',       Integer),
     Column('thinking_time',      Integer), # time spent looking at question
 
 
+-log scheduler change
+
+-move logging event from database to controller
+
 make sure to convert int(time.time()) to integer
+
+-make index on time
 
 make sure all events make it to the sync protocol + formats
 
@@ -62,6 +71,10 @@ Media dir per deck / can refuse large files
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 -be sure to truncate time to int if it comes from other SRS systems
+
+-rename cat to tag, 'Tags:' in add card dialog
+-extra data in fact / cat
+-get rid of unseen
 
 
 -make card types instantiatable from sync data
@@ -181,6 +194,10 @@ activating cards
 -have hierarchy in plugin names
 
 
+-way to override generic card type widget, by having two components: generic_card_type_widget
+ card type widget
+-way to override other widgets? add, edit, ...
+
 -test sound
 
 
@@ -203,8 +220,13 @@ activating cards
 
 -qsortfilter proxy
 
+-show number of cards selected
 
--partial implementation of type answer (uses special category)
+
+-ampersand mnemonics everywhere
+
+
+-partial implementation of type answer (uses special category? Attribute? Button?)
 
 
 -move 'card type by name' to different place?
@@ -220,7 +242,7 @@ activating cards
 
 -update ohloh?
 
--boxing / limiting
+-boxing / limiting: see which hooks needed
 
 -renamed default data dir on Windows?
 
@@ -247,6 +269,8 @@ activating cards
 -make filters more efficients by using regex instead of loops.
 
 -easier function to do tag detection in plugin
+
+-skritter/cpod interop mail
 
 
 
@@ -295,7 +319,7 @@ activating cards
 http://pythoscope.org/
 -pylint, pyflakes
 
--hover over extra hanzi information
+-hover over extra hanzi information, hanzi statistics
 
 
 -plugin for midi files
