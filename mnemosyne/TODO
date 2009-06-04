@@ -80,11 +80,14 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -extra data in fact / cat
 -get rid of unseen
 
+-symplify component manager and renderer with default dict
 
 -make card types instantiatable from sync data
 -handle deferred translation
 -different translators for different users?
 -hang on Spanish translation?
+
+-better mechanism to have different renderers
 
 API is element per element
 Negotiate when to use compression

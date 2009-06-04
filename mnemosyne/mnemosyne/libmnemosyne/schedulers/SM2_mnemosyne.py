@@ -42,13 +42,24 @@ class SM2Mnemosyne(Scheduler):
 
         """
 
-        now = time.time
+        now = time.time()
         now -= self.config()["day_starts_at"] * 60 * 60            
         if time.daylight:
             now -= time.altzone
         else:
             now -= time.timezone
         return int(now)
+
+    def adjusted_interval(self, interval):
+
+        # TODO: document
+        
+        interval += self.config()["day_starts_at"] * 60 * 60            
+        if time.daylight:
+            interval += time.altzone
+        else:
+            interval += time.timezone
+        return int(interval)       
     
     def reset(self):
         self.queue = []
@@ -281,7 +292,7 @@ class SM2Mnemosyne(Scheduler):
         if dry_run:
             import copy
             card = copy.copy(card)
-        scheduled_interval = card.next_rep - card.last_rep # + interval
+        scheduled_interval = self.adjust_interval(card.next_rep - card.last_rep)
         actual_interval = stopwatch.start_time - card.last_rep
         if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
@@ -362,8 +373,7 @@ class SM2Mnemosyne(Scheduler):
         while self.database().count_related_cards_with_next_rep\
                   (card, card.next_rep):
             card.next_rep = self.midnight_UTC(card.next_rep + DAY)
-        # Reflect normalisation in new_interval.
-        new_interval = card.next_rep - card.last_rep
+            new_interval += DAY
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.
