@@ -561,15 +561,12 @@ class SQLite(Database):
             return "next_rep - last_rep"
         return sort_key
 
-    def _adjusted_now(self):
-        return time.time() - self.config()["day_starts_at"] * 60 * 60
-
-    def cards_due_for_ret_rep(self, sort_key="", limit=-1):
+    def cards_due_for_ret_rep(self, now, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?>=next_rep order by ? limit ?""",
-            (self._adjusted_now(), sort_key, limit)))
+            (now, sort_key, limit)))
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
@@ -592,12 +589,12 @@ class SQLite(Database):
             active=1 and unseen=1 and grade=? order by ? limit ?""",
             (grade, sort_key, limit)))
     
-    def cards_learn_ahead(self, sort_key="", limit=-1):
+    def cards_learn_ahead(self, now, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
-            (self._adjusted_now(), sort_key, limit)))
+            (now, sort_key, limit)))
 
     # Extra commands for custom schedulers.
 

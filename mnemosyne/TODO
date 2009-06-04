@@ -10,7 +10,11 @@
 
 move adjusted now to scheduler
 
--test time zone, day starts at, take these into account in scheduled interval?
+-test time zone, day starts at
+
+-take these into account in scheduled interval, when logging?
+
+-intervals displayed as tooltips
 
 
 look again at statistics parsing code
@@ -302,6 +306,8 @@ activating cards
 
 
 * After 2.0:
+
+-website redesign? like http://hanzim.com/download.php
 
 -don't activate plugins until after clicking ok
 

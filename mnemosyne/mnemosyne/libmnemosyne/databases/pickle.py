@@ -381,9 +381,6 @@ class Pickle(Database):
             return sum(cards) / len([cards])
 
     # Card queries used by the scheduler.
-          
-    def _adjusted_now(self):
-        return time.time() - self.config()["day_starts_at"] * 60 * 60
     
     def _list_to_generator(self, list, sort_key, limit):
         if list == None:
@@ -397,10 +394,9 @@ class Pickle(Database):
         for c in list:
             yield (c.id, c.fact.id)
 
-    def cards_due_for_ret_rep(self, sort_key="", limit=-1):
-        adjusted_now = self._adjusted_now()
+    def cards_due_for_ret_rep(self, now, sort_key="", limit=-1):
         cards = [c for c in self.cards if c.active and \
-                 c.grade >= 2 and adjusted_now >= c.next_rep]        
+                 c.grade >= 2 and now >= c.next_rep]        
         return self._list_to_generator(cards, sort_key, limit)
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
@@ -418,10 +414,9 @@ class Pickle(Database):
                  c.grade == grade and c.unseen == True]
         return self._list_to_generator(cards, sort_key, limit)
                                       
-    def cards_learn_ahead(self, sort_key="", limit=-1):
-        adjusted_now = self._adjusted_now()
+    def cards_learn_ahead(self, now, sort_key="", limit=-1):
         cards = [c for c in self.cards if c.active and \
-                 c.grade >= 2 and adjusted_now < c.next_rep]
+                 c.grade >= 2 and now < c.next_rep]
         return self._list_to_generator(cards, sort_key, limit)
 
     # Extra commands for custom schedulers.

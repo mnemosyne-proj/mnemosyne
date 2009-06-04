@@ -162,7 +162,7 @@ class Database(Component):
     # used to limit the number of cards returned by the iterator, with -1
     # meaning no limit.
     
-    def cards_due_for_ret_rep(self, sort_key="", limit=-1):
+    def cards_due_for_ret_rep(self, now, sort_key="", limit=-1):
         raise NotImplementedError
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
@@ -174,7 +174,7 @@ class Database(Component):
     def cards_unseen(self, grade, sort_key="", limit=-1):
         raise NotImplementedError
     
-    def cards_learn_ahead(self, sort_key="", limit=-1):
+    def cards_learn_ahead(self, now, sort_key="", limit=-1):
         raise NotImplementedError
 
     # Extra commands for custom schedulers.
