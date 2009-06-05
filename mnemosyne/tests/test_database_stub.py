@@ -144,7 +144,7 @@ class TestDatabaseStub:
 
     @raises(NotImplementedError)
     def test_cards_due_for_ret_rep(self):
-        self.database.cards_due_for_ret_rep()
+        self.database.cards_due_for_ret_rep(None)
 
     @raises(NotImplementedError)
     def test_cards_due_for_final_review(self):
@@ -160,4 +160,4 @@ class TestDatabaseStub:
         
     @raises(NotImplementedError)   
     def test_cards_learn_ahead(self):
-        self.database.cards_learn_ahead()
+        self.database.cards_learn_ahead(None)

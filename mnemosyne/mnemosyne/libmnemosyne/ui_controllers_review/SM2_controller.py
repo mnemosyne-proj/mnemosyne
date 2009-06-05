@@ -38,6 +38,7 @@ class SM2Controller(UiControllerReview):
 
     def activate(self):
         self.reset()
+        self.log().scheduler_started()
         
     def reset(self):
         self.card = None
@@ -46,7 +47,7 @@ class SM2Controller(UiControllerReview):
         self.non_memorised_count = None
         self.scheduled_count = None
         self.active_count = None
-        self.scheduler().reset()
+        self.scheduler().reset()     
 
     def rollover(self):
 
@@ -58,7 +59,11 @@ class SM2Controller(UiControllerReview):
             self.reset()
             self.new_question()
 
-    def new_question(self):
+        # TODO: tmp:
+        import datetime
+        print datetime.datetime.now(), self.scheduler().scheduled_count()
+
+    def new_question(self):            
         if not self.active_count:
             self.reload_counters()
         if not self.database().is_loaded() or self.active_count == 0:
@@ -116,10 +121,10 @@ class SM2Controller(UiControllerReview):
         return self.non_memorised_count, self.scheduled_count, self.active_count
 
     def reload_counters(self):
-        db = self.database()
-        self.non_memorised_count = db.non_memorised_count()
-        self.scheduled_count = db.scheduled_count()
-        self.active_count = db.active_count()
+        sch = self.scheduler()
+        self.non_memorised_count = sch.non_memorised_count()
+        self.scheduled_count = sch.scheduled_count()
+        self.active_count = sch.active_count()
 
     def update_counters(self, old_grade, new_grade):
         if not self.scheduled_count:

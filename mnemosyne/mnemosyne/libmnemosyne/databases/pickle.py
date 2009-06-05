@@ -361,13 +361,9 @@ class Pickle(Database):
     def non_memorised_count(self):
         return sum(1 for c in self.cards if c.active and (c.grade < 2))
 
-    def scheduled_count(self, days=0):
-
-        """Number of cards scheduled within 'days' days."""
-
-        adjusted_now = self._adjusted_now()
+    def scheduled_count(self, timestamp):
         return sum(1 for c in self.cards if c.active and (c.grade >= 2) and \
-                           (adjusted_now >= c.next_rep - days))
+                           (timestamp >= c.next_rep))
 
     def active_count(self):
         return len([c for c in self.cards if c.active])
@@ -394,9 +390,9 @@ class Pickle(Database):
         for c in list:
             yield (c.id, c.fact.id)
 
-    def cards_due_for_ret_rep(self, now, sort_key="", limit=-1):
+    def cards_due_for_ret_rep(self, timestamp, sort_key="", limit=-1):
         cards = [c for c in self.cards if c.active and \
-                 c.grade >= 2 and now >= c.next_rep]        
+                 c.grade >= 2 and timestamp >= c.next_rep]        
         return self._list_to_generator(cards, sort_key, limit)
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
@@ -414,9 +410,9 @@ class Pickle(Database):
                  c.grade == grade and c.unseen == True]
         return self._list_to_generator(cards, sort_key, limit)
                                       
-    def cards_learn_ahead(self, now, sort_key="", limit=-1):
+    def cards_learn_ahead(self, timestamp, sort_key="", limit=-1):
         cards = [c for c in self.cards if c.active and \
-                 c.grade >= 2 and now < c.next_rep]
+                 c.grade >= 2 and timestamp < c.next_rep]
         return self._list_to_generator(cards, sort_key, limit)
 
     # Extra commands for custom schedulers.

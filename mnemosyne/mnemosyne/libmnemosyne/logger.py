@@ -26,8 +26,11 @@ class Logger(Component):
         raise NotImplementedError
     
     def program_started(self):
-        raise NotImplementedError  
-        
+        raise NotImplementedError
+
+    def scheduler_started(self):
+        raise NotImplementedError
+    
     def new_database(self):
         raise NotImplementedError
     

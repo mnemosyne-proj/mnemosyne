@@ -28,7 +28,8 @@ SCHEMA = """
         id text,
         card_type_id text,
         creation_time int,
-        modification_time int
+        modification_time int,
+        extra_data text default ""
     );
 
     create table data_for_fact(
@@ -64,7 +65,8 @@ SCHEMA = """
         _id integer primary key,
         _parent_key int default 0,
         id text,
-        name text
+        name text,
+        extra_data text default ""
     );
 
     create table categories_for_card(
@@ -245,9 +247,16 @@ class SQLite(Database):
     # done by calling save in the main controller, in order to have a better
     # control over transaction granularity.
 
+    def _repr_extra_data(self, extra_data):
+        if extra_data == {}:
+            return "" # Save space.
+        else:
+            return repr(extra_data)
+
     def add_category(self, category):
-        _id = self.con.execute("insert into categories(name, id) values(?,?)",
-            (category.name, category.id)).lastrowid
+        _id = self.con.execute("""insert into categories(name, extra_data, id)
+            values(?,?,?)""", (category.name,
+            self._repr_extra_data(category.extra_data), category.id)).lastrowid
         category._id = _id
         
     def delete_category(self, category):
@@ -255,8 +264,9 @@ class SQLite(Database):
         del category
         
     def update_category(self, category):
-        self.con.execute("update categories set name=? where _id=?",
-                         (category.name, category._id))
+        self.con.execute("update categories set name=?, extra_data=? where _id=?",
+            (category.name, self._repr_extra_data(category.extra_data),
+             category._id))
         
     def get_or_create_category_with_name(self, name):
         sql_res = self.con.execute("""select * from categories where name=?""",
@@ -303,10 +313,6 @@ class SQLite(Database):
 
     def add_card(self, card):
         self.load_failed = False
-        if card.extra_data == {}:
-            extra_data = "" # Save space.
-        else:
-            extra_data = repr(card.extra_data)
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
@@ -315,7 +321,8 @@ class SQLite(Database):
             (card.id, card.fact._id, card.fact_view.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep, card.unseen, extra_data,
+            card.last_rep, card.next_rep, card.unseen,
+            self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.type_answer, card.active,
             card.in_view)).lastrowid
         card._id = _card_id
@@ -329,10 +336,6 @@ class SQLite(Database):
                 _card_id) values(?,?)""", (_category_id, _card_id))
 
     def update_card(self, card, update_categories=True):
-        if card.extra_data == {}:
-            extra_data = "" # Save space.
-        else:
-            extra_data = repr(card.extra_data)
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
@@ -341,7 +344,8 @@ class SQLite(Database):
             (card.fact._id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep, card.unseen, extra_data,
+            card.last_rep, card.next_rep, card.unseen,
+            self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.type_answer, card.active,
             card.in_view, card._id))
         if not update_categories:
@@ -529,13 +533,10 @@ class SQLite(Database):
         return self.con.execute("""select count() from cards
             where active=1 and grade<2""").fetchone()[0]
 
-    def scheduled_count(self, days=0):
-        
-        """Get number of cards scheduled within 'days' days."""
-
+    def scheduled_count(self, timestamp):
         count = self.con.execute("""select count() from cards
-            where active=1 and grade>=2 and ?>=next_rep-?""",
-            (self._adjusted_now(), days * 60 * 60)).fetchone()[0]
+            where active=1 and grade>=2 and ?>=next_rep""",
+            (timestamp,)).fetchone()[0]
         return count
 
     def active_count(self):
@@ -561,12 +562,12 @@ class SQLite(Database):
             return "next_rep - last_rep"
         return sort_key
 
-    def cards_due_for_ret_rep(self, now, sort_key="", limit=-1):
+    def cards_due_for_ret_rep(self, timestamp, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?>=next_rep order by ? limit ?""",
-            (now, sort_key, limit)))
+            (timestamp, sort_key, limit)))
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
@@ -589,12 +590,12 @@ class SQLite(Database):
             active=1 and unseen=1 and grade=? order by ? limit ?""",
             (grade, sort_key, limit)))
     
-    def cards_learn_ahead(self, now, sort_key="", limit=-1):
+    def cards_learn_ahead(self, timestamp, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
-            (now, sort_key, limit)))
+            (timestamp, sort_key, limit)))
 
     # Extra commands for custom schedulers.
 

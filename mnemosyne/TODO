@@ -1,23 +1,7 @@
 -Hungarian translation by bkil (announce on website)
 
-
-
-    # Parse file. The time stamps for repetitions are when the card
-    # was graded, not when it was first presented. We need the latter
-    # one, so we use the time stamp from the previous line.
-
---> add to controller
-
-move adjusted now to scheduler
-
 -test time zone, day starts at
-
--take these into account in scheduled interval, when logging?
-
--intervals displayed as tooltips
-
-
-look again at statistics parsing code
+-remove testing code
 
 history table:
 
@@ -38,31 +22,29 @@ ditto    Column('actual_interval',    Integer),
 ditto    Column('new_interval',       Integer), 
     Column('thinking_time',      Integer), # time spent looking at question
 
-
--log scheduler change
-
--move logging event from database to controller
-
-make sure to convert int(time.time()) to integer
-
 -make index on time
 
-make sure all events make it to the sync protocol + formats
+
+-rename cat to tag, 'Tags:' in add card dialog
+
+-symplify component manager and renderer with default dict
 
 
--scheduler string
+-move more logging event from database to controller
 
-- card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
+-make sure to convert int(time.time()) to integer
+
+-make sure all events make it to the sync protocol + formats
+
+-add test on logged interval times, making sure they are reasonable
+
+
+
+-card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
 or persistent for the full server
 
+-get rid of 'unseen' initial grade stuff
 
-
-imported item cancelled
-
-
--optimise scheduled count?
-
--think again about 'unseen' initial grade stuff
 
 
 -sync protocol
@@ -75,12 +57,8 @@ Media dir per deck / can refuse large files
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 -be sure to truncate time to int if it comes from other SRS systems
-
--rename cat to tag, 'Tags:' in add card dialog
--extra data in fact / cat
--get rid of unseen
-
--symplify component manager and renderer with default dict
+make sure active gets updated to0
+activating cards
 
 -make card types instantiatable from sync data
 -handle deferred translation
@@ -88,14 +66,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -hang on Spanish translation?
 
 -better mechanism to have different renderers
-
-API is element per element
-Negotiate when to use compression
-Unit tests
-Licence
-other languages in repo
-make sure unseen and active get updated to0
-activating cards
 
 
 -don't reset cramming scheduler

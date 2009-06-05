@@ -19,8 +19,10 @@ class SM2Mnemosyne(Scheduler):
     Note that all intervals are in seconds, since time is stored as
     integer POSIX timestamps.
 
-    Since the scheduling granularity is days, we choose 'next_rep' to be the
-    same for all cards that are due on the same day.
+    Since the scheduling granularity is days, all cards due on the same time
+    should become due at the same time. In order to keep the SQL query
+    efficient, we do this by setting 'next_rep' the same for all cards that
+    are due on the same day.
     
     In order to allow for the fact that the time zone and 'day_starts_at' can
     change after scheduling a card, we store 'next_rep' as midnight UTC, and
@@ -50,10 +52,17 @@ class SM2Mnemosyne(Scheduler):
             now -= time.timezone
         return int(now)
 
-    def adjusted_interval(self, interval):
+    def true_scheduled_interval(self, card):
 
-        # TODO: document
-        
+        """Since 'next_rep' is always midnight UTC for retention reps, we need
+        to take timezone and 'day_starts_at' into account to calculate the true
+        scheduled interval when we are doing the actual repetition.
+
+        """
+
+        interval = card.next_rep - card.last_rep
+        if card.grade < 2:
+            return interval
         interval += self.config()["day_starts_at"] * 60 * 60            
         if time.daylight:
             interval += time.altzone
@@ -81,7 +90,10 @@ class SM2Mnemosyne(Scheduler):
         card.last_rep = time.time()
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
-        card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
+        if grade >= 2:
+            card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
+        else:
+            card.next_rep = time.time()            
         self.log().revision(card, scheduled_interval=0, actual_interval=0,
                             new_interval=new_interval)
 
@@ -99,9 +111,9 @@ class SM2Mnemosyne(Scheduler):
         if interval == 0:
             noise = 0
         elif interval <= DAY:
-            noise = random.uniform(0, DAY)
+            noise = random.choice([0, DAY])
         elif interval <= 10 * DAY:
-            noise = random.uniform(-DAY, DAY)
+            noise = random.choice([-DAY, 0, DAY])
         elif interval <= 60 * DAY:
             noise = random.uniform(-3 * DAY, 3 * DAY)
         else:
@@ -292,7 +304,7 @@ class SM2Mnemosyne(Scheduler):
         if dry_run:
             import copy
             card = copy.copy(card)
-        scheduled_interval = self.adjust_interval(card.next_rep - card.last_rep)
+        scheduled_interval = self.true_scheduled_interval(card)
         actual_interval = stopwatch.start_time - card.last_rep
         if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
@@ -361,23 +373,40 @@ class SM2Mnemosyne(Scheduler):
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:
             return new_interval
+
         # Add some randomness to interval.
         new_interval += self.calculate_interval_noise(new_interval)
         # Update card properties.
         card.grade = new_grade
-        card.last_rep = stopwatch.start_time
-        card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
-        card.unseen = False
-        # Don't schedule related cards on the same day. Keep normalising, as
-        # a day is not always exactly DAY seconds when there are leap seconds. 
-        while self.database().count_related_cards_with_next_rep\
+        card.last_rep = time.time()
+        if new_grade >= 2:
+            card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
+            # Don't schedule related cards on the same day. Keep normalising,
+            # as a day is not always exactly DAY seconds when there are leap
+            # seconds. 
+            while self.database().count_related_cards_with_next_rep\
                   (card, card.next_rep):
-            card.next_rep = self.midnight_UTC(card.next_rep + DAY)
-            new_interval += DAY
+                card.next_rep = self.midnight_UTC(card.next_rep + DAY)
+            # Round new interval to nearest cross-over point (only used in
+            # logging here).
+            new_interval = self.true_scheduled_interval(card)
+        else:
+            card.next_rep = time.time()
+            new_interval = 0
+        card.unseen = False
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.
         self.log().revision(card, scheduled_interval, actual_interval,
                             new_interval)
         return new_interval
+
+    def non_memorised_count(self):
+        return self.database().non_memorised_count()
+
+    def scheduled_count(self):
+        return self.database().scheduled_count(self.adjusted_now())
+
+    def active_count(self):
+        return self.database().active_count()
 

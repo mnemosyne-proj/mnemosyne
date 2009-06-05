@@ -93,6 +93,7 @@ class Plugin(Component):
                    self.database().is_loaded():
                 self.ui_controller_review().reset()
                 self.ui_controller_review().new_question()
+                self.log().scheduler_started()
         # Use names instead of instances here in order to survive pickling.
         if self.__class__.__name__ in self.config()["active_plugins"]:
             self.config()["active_plugins"].remove(self.__class__.__name__)

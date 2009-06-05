@@ -40,22 +40,26 @@ class TxtLogger(Logger):
         self.logger.info("Program started : Mnemosyne " + \
                          mnemosyne.version.version\
                          + " " + os.name + " " + sys.platform)
+
+    def scheduler_started(self):
         self.logger.info("Scheduler : " + self.scheduler().name)
         
     def new_database(self):
         self.logger.info("New database")
     
     def loaded_database(self):
+        sch = self.scheduler()
         self.logger.info("Loaded database %d %d %d", \
-                         self.database().scheduled_count(), \
-                         self.database().non_memorised_count(), \
-                         self.database().active_count())
+                         sch.scheduled_count(), \
+                         sch.non_memorised_count(), \
+                         sch.active_count())
         
     def saved_database(self):
+        sch = self.scheduler()        
         self.logger.info("Saved database %d %d %d", \
-                         self.database().scheduled_count(), \
-                         self.database().non_memorised_count(), \
-                         self.database().active_count())
+                         sch.scheduled_count(), \
+                         sch.non_memorised_count(), \
+                         sch.active_count())
         
     def new_card(self, card):
         grade = -1

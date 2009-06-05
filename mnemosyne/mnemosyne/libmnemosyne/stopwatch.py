@@ -27,8 +27,9 @@ class Stopwatch(object):
         self.start_time = time.time()
 
     def stop(self):
+        # Don't reset start_time here yet, as we rely on it to know when we
+        # first showed the card.
         self.running_time += time.time() - self.start_time
-        self.start_time = 0
         return self.running_time
         
     def time(self):
