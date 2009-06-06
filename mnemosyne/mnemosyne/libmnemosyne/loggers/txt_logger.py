@@ -1,5 +1,5 @@
 #
-# txt_logging <Peter.Bienstman@UGent.be>
+# txt_logger.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -43,9 +43,6 @@ class TxtLogger(Logger):
 
     def scheduler_started(self):
         self.logger.info("Scheduler : " + self.scheduler().name)
-        
-    def new_database(self):
-        self.logger.info("New database")
     
     def loaded_database(self):
         sch = self.scheduler()
@@ -66,11 +63,6 @@ class TxtLogger(Logger):
         new_interval = -1 # We log the first rep separately anyhow
         self.logger.info("New item %s %d %d", card.id, grade,
                          new_interval)
-        
-    def imported_card(self, card):
-        self.logger.info("Imported item %s %d %d %d %d %d",
-                         card.id, card.grade, card.ret_reps,
-                         card.last_rep, card.next_rep, card.interval)
     
     def deleted_card(self, card):
         self.logger.info("Deleted item %s", card.id)
@@ -90,5 +82,5 @@ class TxtLogger(Logger):
     def uploading_failed(self):
         self.logger.info("Uploading failed")
         
-    def program_stopped(self):    
+    def program_quit(self):    
         self.logger.info("Program stopped")  

@@ -15,7 +15,6 @@ class Logger(Component):
         self.upload_thread = None
         self.archive_old_log()
         self.start_logging()
-        self.program_started()
         if self.config()["upload_logs"] and \
                not self.config().resource_limited:
             from mnemosyne.libmnemosyne.log_uploader import LogUploader
@@ -23,44 +22,59 @@ class Logger(Component):
             self.upload_thread.start()
     
     def start_logging(self):
-        raise NotImplementedError
+        pass
     
     def program_started(self):
-        raise NotImplementedError
+        pass
 
     def scheduler_started(self):
-        raise NotImplementedError
-    
-    def new_database(self):
-        raise NotImplementedError
-    
+        pass
+
     def loaded_database(self):
-        raise NotImplementedError
+        pass
         
     def saved_database(self):
-        raise NotImplementedError
-        
-    def new_card(self, card):
-        raise NotImplementedError  
+        pass
+
+    def new_fact(self, fact):
+        pass
+
+    def edited_fact(self, fact):
+        pass
     
-    def imported_card(self, card):
-        raise NotImplementedError
+    def deleted_fact(self, fact):
+        pass
+    
+    def new_tag(self, tag):
+        pass
+
+    def edited_tag(self, tag):
+        pass
+    
+    def deleted_tag(self, tag):
+        pass
+    
+    def new_card(self, card):
+        pass
+
+    def edited_card(self, card):
+        pass
     
     def deleted_card(self, card):
-        raise NotImplementedError
+        pass
         
     def revision(self, card, scheduled_interval, actual_interval, \
                  new_interval, noise=0):
-        raise NotImplementedError               
+        pass               
         
     def uploaded(self, filename):
-        raise NotImplementedError
+        pass
     
     def uploading_failed(self):
-        raise NotImplementedError
+        pass
         
-    def program_stopped(self):
-        raise NotImplementedError      
+    def program_quit(self):
+        pass      
         
     def archive_old_log(self):
         
@@ -94,4 +108,3 @@ class Logger(Component):
             print _("Waiting for uploader thread to stop...")
             self.upload_thread.join()
             print _("Done!")
-        self.program_stopped()

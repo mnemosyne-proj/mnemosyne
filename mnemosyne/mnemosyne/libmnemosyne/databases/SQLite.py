@@ -27,13 +27,13 @@ SCHEMA = """
         _id integer primary key,
         id text,
         card_type_id text,
-        creation_time int,
-        modification_time int,
+        creation_time integer,
+        modification_time integer,
         extra_data text default ""
     );
 
     create table data_for_fact(
-        _fact_id int,
+        _fact_id integer,
         key text,
         value text
     );
@@ -42,20 +42,20 @@ SCHEMA = """
     create table cards(
         _id integer primary key,
         id text,
-        _fact_id int,
+        _fact_id integer,
         fact_view_id text,
-        grade int,
+        grade integer,
         easiness real,
-        acq_reps int,
-        ret_reps int,
-        lapses int,
-        acq_reps_since_lapse int,
-        ret_reps_since_lapse int,
-        last_rep int,
-        next_rep int,
+        acq_reps integer,
+        ret_reps integer,
+        lapses integer,
+        acq_reps_since_lapse integer,
+        ret_reps_since_lapse integer,
+        last_rep integer,
+        next_rep integer,
         unseen boolean default 1,
         extra_data text default "",
-        scheduler_data int default 0,
+        scheduler_data integer default 0,
         type_answer boolean default 1,
         active boolean default 1,
         in_view boolean default 1
@@ -63,21 +63,45 @@ SCHEMA = """
 
     create table categories(
         _id integer primary key,
-        _parent_key int default 0,
+        _parent_key integer default 0,
         id text,
         name text,
         extra_data text default ""
     );
 
     create table categories_for_card(
-        _card_id int,
-        _category_id int
+        _card_id integer,
+        _category_id integer
     );
     create index i_categories_for_card on categories_for_card (_card_id);
 
     create table global_variables(
         key text,
         value text
+    );
+
+    create table history(
+        _id integer primary key,
+        event text,
+        timestamp integer,
+        _object_id text,
+        grade integer,
+        easiness real,
+        acq_reps integer,
+        ret_reps integer,
+        lapses integer,
+        acq_reps_since_lapse integer,
+        ret_reps_since_lapse integer,
+        scheduled_interval integer,
+        actual_interval integer,
+        new_interval integer,
+        thinking_time integer
+    );
+    create index i_history on history (timestamp);
+
+    create table partnerships(
+        partner text,
+        last_sync integer
     );
     
     commit;
@@ -113,13 +137,14 @@ class SQLite(Database):
             os.remove(self._path)
         self.load_failed = False      
         self.con.executescript(SCHEMA) # Create tables.
-        self.con.execute("insert into global_variables(key,value) values(?,?)",
+        self.con.execute("insert into global_variables(key, value) values(?,?)",
                         ("version", self.version))
-        self.con.execute("insert into global_variables(key,value) values(?,?)",
-                        ("times_loaded", "0"))
+        self.con.execute("insert into global_variables(key, value) values(?,?)",
+                        ("times_loaded", 0))
+        self.con.execute("""insert into partnerships(partner, last_sync)
+                         values(?,?)""", ("log.txt", 0))
         self.con.commit()
         self.config()["path"] = self._path
-        self.log().new_database()
 
     def load(self, path):
         if self.is_loaded():        
@@ -334,6 +359,8 @@ class SQLite(Database):
                 where id=?""", (cat.id, )).fetchone()[0]
             self.con.execute("""insert into categories_for_card(_category_id,
                 _card_id) values(?,?)""", (_category_id, _card_id))
+        # Add card is not logged here, but in the controller, to make sure
+        # that the first repetition is logged after the card creation.
 
     def update_card(self, card, update_categories=True):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,

@@ -1,39 +1,17 @@
 -Hungarian translation by bkil (announce on website)
+-hang on Spanish translation?
 
--test time zone, day starts at
--remove testing code
 
-history table:
+-scheduler start events
+-program quit
+-database load events
 
-_id: int
-event: string
-posix time: int (int(time.time())!
-_object_id: string
-Column('grade',              Integer),
-    Column('easiness',           Float),
-    Column('acq_reps',           Integer),
-    Column('ret_reps',           Integer),
-    Column('lapses',             Integer),
-    Column('acq_since_lapse',    Integer),
-    Column('ret_since_lapse',    Integer),
-
-secs int    Column('scheduled_interval', Integer),
-ditto    Column('actual_interval',    Integer),
-ditto    Column('new_interval',       Integer), 
-    Column('thinking_time',      Integer), # time spent looking at question
-
--make index on time
-
+-dump sql history to txt log
 
 -rename cat to tag, 'Tags:' in add card dialog
 
--symplify component manager and renderer with default dict
-
-
--move more logging event from database to controller
 
 -make sure to convert int(time.time()) to integer
-
 -make sure all events make it to the sync protocol + formats
 
 -add test on logged interval times, making sure they are reasonable
@@ -63,14 +41,15 @@ activating cards
 -make card types instantiatable from sync data
 -handle deferred translation
 -different translators for different users?
--hang on Spanish translation?
+
 
 -better mechanism to have different renderers
-
 
 -don't reset cramming scheduler
 
 -is complete check on changing card type does not fire
+
+-create UI components for other widgets
 
 -more tests
 
@@ -123,10 +102,6 @@ activating cards
 
 -import full path for ui components
 
--test rollover
--test day starts at
-
-
 -make categories a set?
 
 
@@ -146,6 +121,8 @@ activating cards
 -warn when not importing a duplicate card
 
 -save after import, close blueprint
+
+-make sure we log new card creation on import
 
 -reset learning ahead queue after import
 

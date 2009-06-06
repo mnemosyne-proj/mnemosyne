@@ -38,7 +38,7 @@ class SM2Controller(UiControllerReview):
 
     def activate(self):
         self.reset()
-        self.log().scheduler_started()
+        #self.log().scheduler_started()
         
     def reset(self):
         self.card = None
@@ -58,10 +58,6 @@ class SM2Controller(UiControllerReview):
         if not self.card or self.learning_ahead:
             self.reset()
             self.new_question()
-
-        # TODO: tmp:
-        import datetime
-        print datetime.datetime.now(), self.scheduler().scheduled_count()
 
     def new_question(self):            
         if not self.active_count:
