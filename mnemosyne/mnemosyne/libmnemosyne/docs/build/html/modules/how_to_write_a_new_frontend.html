@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How to write a new frontend &mdash; libmnemosyne v2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="prev" title="Stopwatch" href="stopwatch.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="stopwatch.html" title="Stopwatch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="how-to-write-a-new-frontend">
+<h1>How to write a new frontend<a class="headerlink" href="#how-to-write-a-new-frontend" title="Permalink to this headline">¶</a></h1>
+<p>libmnemosyne is designed in such a way that writing a new front is as painless as possible. All the code for running a GUI which is actually GUI toolkit independent is grouped in two controllers: the main ui controller and the review ui controller. In order to build a new frontend, you need to create a main widget which inherits from <tt class="docutils literal"><span class="pre">MainWidget</span></tt> and implements its interface, and similarly a review widget which inherits from <tt class="docutils literal"><span class="pre">ReviewWidget</span></tt>.</p>
+<p>In order to get a feel for how this works, it&#8217;s best by starting to study the code for the ppygui_ui Windows Mobile client, which is the simplest possible frontend, a it only supports reviewing cards.</p>
+<p>There a three files in that frontend:</p>
+<ul class="simple">
+<li>a startup script, which specifies which compoments your frontend wants to activate in libmnemosyne, whether you are running on a device which is resource limited, ... .</li>
+<li>the review widget, where you need to implement a.o. the code to display text in the question window, ... .</li>
+<li>a main window, which in the windows mobile backend is just a container for the review widget, but which in a more advanced client could contain the functionality needed to add cards, edit cards, etc...</li>
+</ul>
+<p>To give a better feeling for how the division of labour between your own new GUI code and the GUI independent code in the controllers works, consider this example from the &#8216;add cards&#8217; functionality in the PyQt frontend.</p>
+<p>When the user activates the menu option or icon to add cards, it will fire up a certain function, which in the PyQt frontend is called <tt class="docutils literal"><span class="pre">add_cards()</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">QObject</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actionAddCards</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="s">&quot;activated()&quot;</span><span class="p">),</span> <span class="n">MainWindow</span><span class="o">.</span><span class="n">add_cards</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The implementation of this function is rather trivial, it just calls the ui controller:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ui_controller_main</span><span class="p">()</span><span class="o">.</span><span class="n">add_cards</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The code above is code you need to implement for your new frontend, but as you can see, it&#8217;s rather trivial.</p>
+<p>The ui_controller_main add cards function looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">stopwatch</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">main_widget</span><span class="p">()</span><span class="o">.</span><span class="n">run_add_cards_dialog</span><span class="p">()</span>
+    <span class="n">review_controller</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_controller_review</span><span class="p">()</span>
+    <span class="n">review_controller</span><span class="o">.</span><span class="n">reload_counters</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">review_controller</span><span class="o">.</span><span class="n">card</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">review_controller</span><span class="o">.</span><span class="n">new_question</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">review_widget</span><span class="p">()</span><span class="o">.</span><span class="n">update_status_bar</span><span class="p">()</span>
+    <span class="n">stopwatch</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This is where the heavy lifting is done, but it&#8217;s completely UI independent,
+and there should be no need for you to modify that code.</p>
+<p>To enable the controller to do it&#8217;s actual work, you need to write the
+callback <tt class="docutils literal"><span class="pre">main_widget().run_add_cards_dialog()</span></tt>, but as you can see, the code
+you need to write yourself is again rather trivial:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">run_add_cards_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">dlg</span> <span class="o">=</span> <span class="n">AddCardsDlg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="p">)</span>
+    <span class="n">dlg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Inside the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt>, there is of course lots of UI specific code, but once
+the dialog has enough data to create the cards, it simply calls:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">ui_controller_main</span><span class="p">()</span><span class="o">.</span><span class="n">create_new_cards</span><span class="p">(</span><span class="n">fact_data</span><span class="p">,</span> <span class="n">card_type</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">cat_names</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So, the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the ui controller&#8217;s <tt class="docutils literal"><span class="pre">create_new_cards()</span></tt> method.</p>
+<p>If you feel like you need to override the review or the main ui controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.</p>
+<p>Notes:</p>
+<ul class="simple">
+<li>If you need access to the main widget when you are constructing the review widget, e.g. to specify it&#8217;s parent, you can access it using <cite>self.main_widget()`</cite></li>
+<li>If you need access to some components of libmnemosyne to construct your widget (e.g. the configuration), these might not yet be available inside your <tt class="docutils literal"><span class="pre">__init__()</span></tt> method. In this case, you need to move that code to your widget&#8217;s <tt class="docutils literal"><span class="pre">activate()</span></tt> method, at which time all the other compoments will already be active.</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="stopwatch.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/modules/how_to_write_a_new_frontend.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="stopwatch.html" title="Stopwatch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Jun 07, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
+    </div>
+  </body>
+</html>
