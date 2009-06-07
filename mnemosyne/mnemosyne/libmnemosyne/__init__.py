@@ -100,7 +100,7 @@ class Mnemosyne(Component):
         for module_name, class_name in self.components:
             exec("from %s import %s" % (module_name, class_name))
             exec("component = %s" % class_name)
-            if component.instantiate == component.IMMEDIATELY:
+            if component.instantiate == Component.IMMEDIATELY:
                 component = component(self.component_manager)
             self.component_manager.register(component)
         for plugin_name in self.extra_components_for_plugin:
@@ -118,9 +118,11 @@ class Mnemosyne(Component):
         
         """
 
-        for module in ["config", "log", "database", "scheduler",
-                       "ui_controller_main", "ui_controller_review",
-                       "main_widget", "review_widget"]:
+        modules = ["config", "log", "database", "scheduler",
+                   "ui_controller_main", "main_widget"]
+        if self.review_widget().instantiate == Component.IMMEDIATELY:
+            modules.extend(["ui_controller_review", "review_widget"])
+        for module in modules:
             try:
                 self.component_manager.get_current(module).activate()
             except RuntimeError, e:
