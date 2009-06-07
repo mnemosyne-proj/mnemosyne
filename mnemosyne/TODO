@@ -1,15 +1,6 @@
--hang on Spanish translation?
--unicode
-
--get rid of svn
-
-
 -sync protocol
 -log message for updated cards (to enable syncing)?
 history per deck in sql, globally in log.txt
-Partership / sync status per partnership / user id / machine id
-Revision history per partnership
-Partnership status stored per deck
 What about card attributes used in different systems
 Backup
 Store fact modif/cat modif
@@ -17,20 +8,23 @@ Deck name
 Import
 What if interrupted
 Media dir per deck / can refuse large files
-XML over JSON
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 
 -make card types instantiatable from sync data
 -handle deferred translation
 -different translators for different users?
-
+-hang on Spanish translation?
 
 API is element per element
 Negotiate when to use compression
 Unit tests
 Licence
 other languages in repo
+make sure unseen and active get updated to
+activating cards
+
+-have scheduler return ids
 
 
 -don't reset cramming scheduler
@@ -41,7 +35,7 @@ other languages in repo
 
 -more tests
 
-
+-gray out button 3-5 on new cards
 
 
 -move option to always randomise queue to config screen
@@ -54,6 +48,9 @@ other languages in repo
 -get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
  'repetition' for individual repetition, or 'review' for whole process.
 
+-infrastructure to make it easier to type certain symbols
+
+-is_complete function of card_type
 
 -basic graphical statistics
 
@@ -69,7 +66,7 @@ other languages in repo
 -cntrl enter in add and edit instead of clicking ok
 
 
--always copy media to internal directory
+-always copy media to internal directory, a different one per deck
 
 
 -make distrib
@@ -162,6 +159,7 @@ other languages in repo
  
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?, import user id and config, ...
+ urge user to merge all of his separate decks into one deck
 
 
 -update ohloh?
