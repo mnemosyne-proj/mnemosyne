@@ -52,3 +52,9 @@ class UiControllerMain(Component):
     
     def activate_plugins(self):
         raise NotImplementedError
+    
+    def edit_deck(self):
+        raise NotImplementedError
+    
+    def configure(self):
+        raise NotImplementedError

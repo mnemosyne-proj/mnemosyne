@@ -41,8 +41,9 @@ used, is abstracted in ui controllers. In order to get more flexibility, there
 are two of them: one related to the review widget, and one to the rest 
 of the program.
 
-Modules
-=======
+
+Contents
+========
 
 .. toctree::
     :maxdepth: 2
@@ -68,6 +69,8 @@ Modules
     modules/plugin
     modules/scheduler
     modules/stopwatch
+
+    modules/how_to_write_a_new_frontend
     
      
 Indices and tables

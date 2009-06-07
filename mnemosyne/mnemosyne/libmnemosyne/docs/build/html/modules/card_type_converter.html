@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CardTypeConverter &mdash; libmnemosyne v2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="next" title="Renderer" href="renderer.html" />
+    <link rel="prev" title="Card" href="card.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="renderer.html" title="Renderer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="card.html" title="Card"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="module-mnemosyne.libmnemosyne.card_type_converter">
+<h1><tt class="xref docutils literal"><span class="pre">CardTypeConverter</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type_converter" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter]-->class <tt class="descclassname">mnemosyne.libmnemosyne.card_type_converter.</tt><tt class="descname">CardTypeConverter</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a set of related cards to a new card type.</p>
+<p>&#8220;used_for&#8221; should be set to the tuple (old_type class, new_type class)</p>
+<p>Note that the function of this class is not to update the fact data behind
+the cards, which is trivial and handled in the main UI controller, but
+rather to delete, create or convert cards to make the transition to the
+new card type.</p>
+<p>&#8216;correspondence&#8217; is the dictionary which relates fact keys in the two
+card types, in order to determine in which way cards should be created
+or deleted.</p>
+<p>The returned values are to be able to update the results in the database.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.activate">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.activate" title="Permalink to this definition">¶</a></dt>
+<dd>Initialisation code called when the component is about to do actual
+work, and which can&#8217;t happen in the constructor, e.g. because
+components on which it relies have not yet been registered.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.card_type_by_id">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.card_type_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.card_types">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.card_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.config">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.convert">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.convert]--><tt class="descname">convert</tt><big>(</big><em>cards</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.convert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.database">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.deactivate">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.deactivate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.filters">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.log">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.main_widget">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.main_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.plugins">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.plugins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.review_widget">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.review_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.scheduler">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.scheduler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.ui_controller_main">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.ui_controller_main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.ui_controller_review">
+<!--[mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.ui_controller_review" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="card.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="renderer.html" title="next chapter"><tt class="docutils literal"><span class="pre">Renderer</span></tt></a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/modules/card_type_converter.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="renderer.html" title="Renderer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="card.html" title="Card"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Jun 07, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
+    </div>
+  </body>
+</html>
