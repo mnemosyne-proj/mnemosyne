@@ -17,7 +17,9 @@
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" /> 
+    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="next" title="ComponentManager" href="component_manager.html" />
+    <link rel="prev" title="Libmnemosyne overview" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -29,6 +31,12 @@
         <li class="right" >
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="component_manager.html" title="ComponentManager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Libmnemosyne overview"
+             accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -38,8 +46,104 @@
           <div class="body">
             
   
-  <div class="section" id="component">
-<h1><tt class="xref docutils literal"><span class="pre">Component</span></tt><a class="headerlink" href="#component" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-mnemosyne.libmnemosyne.component">
+<h1><tt class="xref docutils literal"><span class="pre">Component</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.component" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.component.Component">
+<!--[mnemosyne.libmnemosyne.component.Component]-->class <tt class="descclassname">mnemosyne.libmnemosyne.component.</tt><tt class="descname">Component</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class of components that are registered with the component
+manager. This is a list of component types: config, log, database,
+scheduler, translator, filter, card_type, card_type_converter,
+card_type_widget, ui_component, renderer, ui_controller_main, main_widget,
+ui_controller_review, review_widget, plugin, function_hook.</p>
+<p>&#8216;used_for&#8217; can store certain relationships between components, e.g.
+a card type widget is used for a certain card type.</p>
+<p>For efficiency reasons, not all components are instantiated immediately,
+e.g. instantiating a complex widget can take a lot of time on a mobile
+device. Some components like review widgets need to be instantiated when
+the plugin in which they are contained becomes active. Others, like card
+type widgets, are instantiated even later, e.g. when the add or edit
+dialog is shown.</p>
+<p>Each component has access to all of the context of the other components
+because it hold a reference to the user&#8217;s component manager.</p>
+<p>We need to pass the context of the component manager already in the
+constructor, as many component make use of it in their __init__ method.
+This means that derived components should always call the
+Component.__init__ if they provide their own constructor.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.activate">
+<!--[mnemosyne.libmnemosyne.component.Component.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.activate" title="Permalink to this definition">¶</a></dt>
+<dd>Initialisation code called when the component is about to do actual
+work, and which can&#8217;t happen in the constructor, e.g. because
+components on which it relies have not yet been registered.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.card_type_by_id">
+<!--[mnemosyne.libmnemosyne.component.Component.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.card_type_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.card_types">
+<!--[mnemosyne.libmnemosyne.component.Component.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.card_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.config">
+<!--[mnemosyne.libmnemosyne.component.Component.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.database">
+<!--[mnemosyne.libmnemosyne.component.Component.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.deactivate">
+<!--[mnemosyne.libmnemosyne.component.Component.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.deactivate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.filters">
+<!--[mnemosyne.libmnemosyne.component.Component.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.log">
+<!--[mnemosyne.libmnemosyne.component.Component.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.main_widget">
+<!--[mnemosyne.libmnemosyne.component.Component.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.main_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.plugins">
+<!--[mnemosyne.libmnemosyne.component.Component.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.plugins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.review_widget">
+<!--[mnemosyne.libmnemosyne.component.Component.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.review_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.scheduler">
+<!--[mnemosyne.libmnemosyne.component.Component.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.scheduler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.ui_controller_main">
+<!--[mnemosyne.libmnemosyne.component.Component.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.ui_controller_main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.ui_controller_review">
+<!--[mnemosyne.libmnemosyne.component.Component.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.ui_controller_review" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -48,6 +152,10 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="../index.html" title="previous chapter">Libmnemosyne overview</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="component_manager.html" title="next chapter"><tt class="docutils literal"><span class="pre">ComponentManager</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/component.txt">Show Source</a></li>
@@ -71,12 +179,18 @@
         <li class="right" >
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="component_manager.html" title="ComponentManager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Libmnemosyne overview"
+             accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on Jun 07, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
