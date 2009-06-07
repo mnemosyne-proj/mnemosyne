@@ -50,7 +50,7 @@
 <h1><tt class="xref docutils literal"><span class="pre">UiControllerReview</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.ui_controller_review" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview">
-<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview]-->class <tt class="descclassname">mnemosyne.libmnemosyne.ui_controller_review.</tt><tt class="descname">UiControllerReview</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview]-->class <tt class="descclassname">mnemosyne.libmnemosyne.ui_controller_review.</tt><tt class="descname">UiControllerReview</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls the behaviour of a widget which implements the ReviewWidget
 interface.</p>
 <dl class="method">
@@ -61,9 +61,39 @@ work, and which can&#8217;t happen in the constructor, e.g. because
 components on which it relies have not yet been registered.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.card_type_by_id">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.card_type_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.card_types">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.card_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.config">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.database">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.deactivate">
 <!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.deactivate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.filters">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.get_counters">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.get_counters]--><tt class="descname">get_counters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.get_counters" title="Permalink to this definition">¶</a></dt>
+<dd>Returns tuple (scheduled_count, non_memorised_count, active_count).</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.grade_answer">
@@ -71,8 +101,33 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.is_answer_showing">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.is_answer_showing]--><tt class="descname">is_answer_showing</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.is_answer_showing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.is_question_showing">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.is_question_showing]--><tt class="descname">is_question_showing</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.is_question_showing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.log">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.main_widget">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.main_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question">
 <!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question]--><tt class="descname">new_question</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.new_question" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.plugins">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.plugins" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -82,8 +137,18 @@ components on which it relies have not yet been registered.</dd></dl>
 (e.g. card deletion).</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reload_counters">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reload_counters]--><tt class="descname">reload_counters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reload_counters" title="Permalink to this definition">¶</a></dt>
+<dd>To be called when counters need to be reloaded from the database.</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reset">
 <!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reset]--><tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.review_widget">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.review_widget" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -92,8 +157,23 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd>To be called when a new day starts.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.scheduler">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.scheduler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.show_answer">
 <!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.show_answer]--><tt class="descname">show_answer</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.show_answer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.ui_controller_main">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.ui_controller_main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.ui_controller_review">
+<!--[mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.ui_controller_review.UiControllerReview.ui_controller_review" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -149,7 +229,7 @@ components on which it relies have not yet been registered.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 16, 2009.
+      Last updated on Jun 07, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

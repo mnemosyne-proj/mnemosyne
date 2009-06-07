@@ -42,6 +42,7 @@ activating cards
 -handle deferred translation
 -different translators for different users?
 
+-document 'how to write a new frontend'
 
 -better mechanism to have different renderers
 

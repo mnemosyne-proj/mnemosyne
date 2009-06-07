@@ -50,16 +50,31 @@
 <h1><tt class="xref docutils literal"><span class="pre">Configuration</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.configuration" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration">
-<!--[mnemosyne.libmnemosyne.configuration.Configuration]-->class <tt class="descclassname">mnemosyne.libmnemosyne.configuration.</tt><tt class="descname">Configuration</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.configuration.Configuration]-->class <tt class="descclassname">mnemosyne.libmnemosyne.configuration.</tt><tt class="descname">Configuration</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.activate">
 <!--[mnemosyne.libmnemosyne.configuration.Configuration.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.activate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.card_type_by_id">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.card_type_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.card_types">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.card_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.clear">
 <!--[mnemosyne.libmnemosyne.configuration.Configuration.clear]--><tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.clear" title="Permalink to this definition">¶</a></dt>
 <dd>D.clear() -&gt; None.  Remove all items from D.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.config">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.copy">
@@ -69,6 +84,11 @@
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.correct_config">
 <!--[mnemosyne.libmnemosyne.configuration.Configuration.correct_config]--><tt class="descname">correct_config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.correct_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.database">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.database" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -87,6 +107,11 @@
 <dd>Fill basedir with configuration files. Do this even if basedir
 already exists, because we might have added new files since the
 last version.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.filters">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="staticmethod">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.fromkeys">
@@ -141,8 +166,23 @@ v defaults to None.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.log">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.main_widget">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.main_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.migrate_basedir">
 <!--[mnemosyne.libmnemosyne.configuration.Configuration.migrate_basedir]--><tt class="descname">migrate_basedir</tt><big>(</big><em>old</em>, <em>new</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.migrate_basedir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.plugins">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.plugins" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -158,8 +198,18 @@ If key is not found, d is returned if given, otherwise KeyError is raised</dd></
 2-tuple; but raise KeyError if D is empty.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.review_widget">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.review_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.save">
 <!--[mnemosyne.libmnemosyne.configuration.Configuration.save]--><tt class="descname">save</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.scheduler">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.scheduler" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -172,6 +222,16 @@ since a new version of Mnemosyne might have introduced new keys.</dd></dl>
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.setdefault">
 <!--[mnemosyne.libmnemosyne.configuration.Configuration.setdefault]--><tt class="descname">setdefault</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.setdefault" title="Permalink to this definition">¶</a></dt>
 <dd>D.setdefault(k[,d]) -&gt; D.get(k,d), also set D[k]=d if k not in D</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.ui_controller_main">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.ui_controller_main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.ui_controller_review">
+<!--[mnemosyne.libmnemosyne.configuration.Configuration.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.ui_controller_review" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.update">
@@ -234,7 +294,7 @@ In either case, this is followed by: for k in F: D[k] = F[k]</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 16, 2009.
+      Last updated on Jun 07, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

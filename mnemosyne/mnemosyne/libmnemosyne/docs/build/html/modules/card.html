@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
-    <link rel="next" title="Renderer" href="renderer.html" />
+    <link rel="next" title="CardTypeConverter" href="card_type_converter.html" />
     <link rel="prev" title="CardType" href="card_type.html" /> 
   </head>
   <body>
@@ -32,7 +32,7 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="renderer.html" title="Renderer"
+          <a href="card_type_converter.html" title="CardTypeConverter"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="card_type.html" title="CardType"
@@ -80,16 +80,6 @@ that can be used by the database for efficiency reasons.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card.Card.days_since_last_rep">
-<!--[mnemosyne.libmnemosyne.card.Card.days_since_last_rep]--><tt class="descname">days_since_last_rep</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.days_since_last_rep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.card.Card.days_until_next_rep">
-<!--[mnemosyne.libmnemosyne.card.Card.days_until_next_rep]--><tt class="descname">days_until_next_rep</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.days_until_next_rep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.card.Card.interval">
 <!--[mnemosyne.libmnemosyne.card.Card.interval]--><tt class="descname">interval</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.interval" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -109,9 +99,9 @@ seen in the acquisition phase (grade 0 and 1) and the retention phase
 (grades 3 through 5) respectively.</p>
 <p>&#8216;lapses&#8217; is the number of times a card with grade 2 or higher was
 forgotten, i.e. graded 0 or 1.</p>
-<p>&#8216;last_rep&#8217; and &#8216;next_rep&#8217; are measured in days since the creation of
-the database. Note that these values should be stored as float in
-order to accomodate plugins doing minute-level scheduling.</p>
+<p>&#8216;last_rep&#8217; and &#8216;next_rep&#8217; are integer POSIX timestamps. Since they have
+a resolution in seconds, the accomodate plugins doing minute-level
+scheduling. Storing them as int makes it very efficient in SQL.</p>
 <p>&#8216;unseen&#8217; means that the card has not been seen during the interactive
 review process. This variable is needed to determine which new cards to
 pull in after current cards have been memorised. These unseen cards have
@@ -140,7 +130,7 @@ unseen cards does not work.</p>
             <h4>Previous topic</h4>
             <p class="topless"><a href="card_type.html" title="previous chapter"><tt class="docutils literal"><span class="pre">CardType</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="renderer.html" title="next chapter"><tt class="docutils literal"><span class="pre">Renderer</span></tt></a></p>
+            <p class="topless"><a href="card_type_converter.html" title="next chapter"><tt class="docutils literal"><span class="pre">CardTypeConverter</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/card.txt">Show Source</a></li>
@@ -165,7 +155,7 @@ unseen cards does not work.</p>
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="renderer.html" title="Renderer"
+          <a href="card_type_converter.html" title="CardTypeConverter"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="card_type.html" title="CardType"
@@ -175,7 +165,7 @@ unseen cards does not work.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2009.
+      Last updated on Jun 07, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
