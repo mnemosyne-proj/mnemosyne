@@ -84,7 +84,7 @@ class Mnemosyne(Component):
         # database.
         self.check_lockfile()
         self.load_database(filename)
-        self.log().program_started()
+        self.log().started_program()
         # Finally, everything is in place to start the review process.
         self.ui_controller_review().new_question()
 
@@ -205,7 +205,7 @@ class Mnemosyne(Component):
             self.main_widget().error_box(msg)
 
     def finalise(self):
-        self.log().program_quit()
+        self.log().stopped_program()
         self.remove_lockfile()
         # Saving the config shoulh happen before we deactivate the plugins,
         # otherwise they are not restored upon reload.

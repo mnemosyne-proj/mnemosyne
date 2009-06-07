@@ -82,7 +82,7 @@ SCHEMA = """
 
     create table history(
         _id integer primary key,
-        event text,
+        event integer,
         timestamp integer,
         _object_id text,
         grade integer,
@@ -102,6 +102,11 @@ SCHEMA = """
     create table partnerships(
         partner text,
         last_sync integer
+    );
+
+    create table media(
+        filename text,
+        last_modified integer
     );
     
     commit;
@@ -257,6 +262,7 @@ class SQLite(Database):
         pass
 
     def unload(self):
+        self.backup()
         if self._connection:
             self._connection.commit()
             self._connection.close()

@@ -36,12 +36,12 @@ class TxtLogger(Logger):
         #                    datefmt="%Y-%m-%d %H:%M:%S :",
         #                    filename=log_name)
                             
-    def program_started(self):    
+    def started_program(self):    
         self.logger.info("Program started : Mnemosyne " + \
                          mnemosyne.version.version\
                          + " " + os.name + " " + sys.platform)
 
-    def scheduler_started(self):
+    def started_scheduler(self):
         self.logger.info("Scheduler : " + self.scheduler().name)
     
     def loaded_database(self):
@@ -67,8 +67,8 @@ class TxtLogger(Logger):
     def deleted_card(self, card):
         self.logger.info("Deleted item %s", card.id)
         
-    def revision(self, card, scheduled_interval, actual_interval, \
-                 new_interval, noise=0):
+    def repetition(self, card, scheduled_interval, actual_interval,
+                   new_interval, noise=0):
         self.logger.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
                          card.id, card.grade, card.easiness,
                          card.acq_reps, card.ret_reps, card.lapses,
@@ -79,8 +79,8 @@ class TxtLogger(Logger):
     def uploaded(self, filename):
         self.logger.info("Uploaded %s" % filename)
     
-    def uploading_failed(self):
+    def upload_failed(self):
         self.logger.info("Uploading failed")
         
-    def program_quit(self):    
+    def stopped_program(self):    
         self.logger.info("Program stopped")  

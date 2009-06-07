@@ -107,11 +107,7 @@ class TestDatabase(MnemosyneTest):
         self.ui_controller_main().update_related_cards(fact, fact_data, card_type,
             new_cat_names=["default1"], correspondence=[])
         new_card = self.database().get_card(card._id)
-        assert new_card.categories[0].name == "default1"     
-        
-    @raises(RuntimeError)
-    def test_load_unexisting_file(self):        
-        self.database().load("unexisting")
+        assert new_card.categories[0].name == "default1"                                  
         
     def test_clones(self):
         fact_data = {"q": "question",
@@ -128,7 +124,7 @@ class TestDatabase(MnemosyneTest):
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
         self.ui_controller_main().file_save()       
-        self.database().unload()
+
         self.mnemosyne.finalise()
         self.restart()
         assert self.database().fact_count() == 1
@@ -160,8 +156,8 @@ class TestDatabase(MnemosyneTest):
         self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
         assert self.database().fact_count() == 1        
-        self.ui_controller_main().file_save()       
-        self.database().unload()
+        self.ui_controller_main().file_save()
+
         self.mnemosyne.finalise()
 
         self.restart()
@@ -226,7 +222,6 @@ class TestDatabase(MnemosyneTest):
         
         self.ui_controller_main().file_save()
 
-        self.database().unload()
         self.mnemosyne.finalise()
         self.restart()
         self.database().unload()
@@ -264,7 +259,7 @@ class TestDatabase(MnemosyneTest):
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
         self.ui_controller_main().file_save()       
-        self.database().unload()
+
         self.mnemosyne.finalise()
         self.restart()
         self.database().unload()
@@ -286,7 +281,7 @@ class TestDatabase(MnemosyneTest):
         self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
         self.ui_controller_main().file_save()
-        self.database().unload()
+        
         self.database().load_failed = True
         assert self.database().save(self.config()["path"]) == -1
         

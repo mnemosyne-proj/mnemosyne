@@ -198,16 +198,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.updateDialog()
         stopwatch.unpause()
 
-    def closeEvent(self, event):
-        try:
-            self.database().backup()
-            self.database().unload()
-        except RuntimeError, error:
-            self.error_box(str(error))
-            event.ignore()
-        else:
-            event.accept()
-
     def productTour(self):
         return
         stopwatch.pause()

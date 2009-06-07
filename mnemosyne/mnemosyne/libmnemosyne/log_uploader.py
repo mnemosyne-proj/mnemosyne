@@ -98,6 +98,6 @@ class LogUploader(Thread, Component):
                 self.log().uploaded(filename)
                 print _("done!")           
         except:
-            self.log().uploading_failed()
+            self.log().upload_failed()
             traceback.print_exc()
         upload_log.close()

@@ -94,8 +94,8 @@ class SM2Mnemosyne(Scheduler):
             card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
         else:
             card.next_rep = time.time()            
-        self.log().revision(card, scheduled_interval=0, actual_interval=0,
-                            new_interval=new_interval)
+        self.log().repetition(card, scheduled_interval=0, actual_interval=0,
+                              new_interval=new_interval)
 
     def calculate_initial_interval(self, grade):
         
@@ -397,8 +397,8 @@ class SM2Mnemosyne(Scheduler):
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.
-        self.log().revision(card, scheduled_interval, actual_interval,
-                            new_interval)
+        self.log().repetition(card, scheduled_interval, actual_interval,
+                              new_interval)
         return new_interval
 
     def non_memorised_count(self):

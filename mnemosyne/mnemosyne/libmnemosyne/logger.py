@@ -24,10 +24,10 @@ class Logger(Component):
     def start_logging(self):
         pass
     
-    def program_started(self):
+    def started_program(self):
         pass
 
-    def scheduler_started(self):
+    def started_scheduler(self):
         pass
 
     def loaded_database(self):
@@ -63,17 +63,17 @@ class Logger(Component):
     def deleted_card(self, card):
         pass
         
-    def revision(self, card, scheduled_interval, actual_interval, \
-                 new_interval, noise=0):
+    def repetition(self, card, scheduled_interval, actual_interval,
+                   new_interval, noise=0):
         pass               
         
     def uploaded(self, filename):
         pass
     
-    def uploading_failed(self):
+    def upload_failed(self):
         pass
         
-    def program_quit(self):
+    def stopped_program(self):
         pass      
         
     def archive_old_log(self):

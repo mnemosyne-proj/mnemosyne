@@ -166,6 +166,7 @@ class Pickle(Database):
             f.card_type = self.card_type_by_id(f.card_type)
 
     def unload(self):
+        self.backup()
         if len(self.facts) == 0:
             return True
         self.save(self.config()["path"])

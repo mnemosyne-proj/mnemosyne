@@ -2,20 +2,26 @@
 -hang on Spanish translation?
 
 
+-int codes
 -scheduler start events
 -program quit
 -database load events
+-see if startup log hack is still needed
 
 -dump sql history to txt log
 
 -rename cat to tag, 'Tags:' in add card dialog
 
+-make stopwatch a component
+
+-put archive log code in rollover
 
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
 
 -add test on logged interval times, making sure they are reasonable
 
+-log adding and deleting media
 
 
 -card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
@@ -42,7 +48,7 @@ activating cards
 -handle deferred translation
 -different translators for different users?
 
--document 'how to write a new frontend'
+-how to join 2 SQL databases
 
 -better mechanism to have different renderers
 
