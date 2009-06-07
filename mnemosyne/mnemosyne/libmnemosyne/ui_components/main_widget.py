@@ -43,3 +43,10 @@ class MainWidget(UiComponent):
 
     def run_manage_card_types_dialog(self):
         pass
+
+    def run_edit_deck_dialog(self):
+        pass
+    
+    def run_configuration_dialog(self):
+        pass
+

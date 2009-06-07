@@ -325,3 +325,13 @@ class DefaultMainController(UiControllerMain):
         stopwatch.pause()
         self.main_widget().run_manage_card_types_dialog()
         stopwatch.unpause()
+        
+    def edit_deck(self):
+        stopwatch.pause()
+        self.main_widget().run_edit_deck_dialog()
+        stopwatch.unpause()
+        
+    def configure(self):
+        stopwatch.pause()
+        self.main_widget().run_configuration_dialog()
+        stopwatch.unpause()
