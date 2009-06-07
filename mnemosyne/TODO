@@ -48,6 +48,8 @@ activating cards
 
 -don't reset cramming scheduler
 
+-review hooks.
+
 -is complete check on changing card type does not fire
 
 -create UI components for other widgets
