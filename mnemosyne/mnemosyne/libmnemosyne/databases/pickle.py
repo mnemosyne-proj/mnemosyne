@@ -164,13 +164,13 @@ class Pickle(Database):
         # Work around sip bug again.
         for f in self.facts:
             f.card_type = self.card_type_by_id(f.card_type)
+        self.log().saved_database()
 
     def unload(self):
         self.backup()
         if len(self.facts) == 0:
             return True
         self.save(self.config()["path"])
-        self.log().saved_database()
         self.categories = []
         self.facts = []
         self.cards = []
@@ -268,7 +268,7 @@ class Pickle(Database):
         self.load_failed = False
         self.cards.append(card)
 
-    def update_card(self, card, update_categories=True):
+    def update_card(self, card, repetition_only=False):
         return # Happens automatically.
     
     def delete_fact_and_related_data(self, fact):

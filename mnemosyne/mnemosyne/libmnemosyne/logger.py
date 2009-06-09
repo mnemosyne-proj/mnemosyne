@@ -36,28 +36,28 @@ class Logger(Component):
     def saved_database(self):
         pass
 
-    def new_fact(self, fact):
+    def added_fact(self, fact):
         pass
 
-    def edited_fact(self, fact):
+    def updated_fact(self, fact):
         pass
     
     def deleted_fact(self, fact):
         pass
     
-    def new_tag(self, tag):
+    def added_tag(self, tag):
         pass
 
-    def edited_tag(self, tag):
+    def updated_tag(self, tag):
         pass
     
     def deleted_tag(self, tag):
         pass
     
-    def new_card(self, card):
+    def added_card(self, card):
         pass
 
-    def edited_card(self, card):
+    def updated_card(self, card):
         pass
     
     def deleted_card(self, card):

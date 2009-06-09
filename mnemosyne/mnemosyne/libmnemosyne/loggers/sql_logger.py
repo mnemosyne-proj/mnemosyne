@@ -17,14 +17,14 @@ class SqlLogger(Logger):
     STARTED_SCHEDULER = 2
     LOADED_DATABASE = 3
     SAVED_DATABASE = 4
-    NEW_FACT = 5
-    EDITED_FACT = 6
+    ADDED_FACT = 5
+    UPDATED_FACT = 6
     DELETED_FACT = 7
-    NEW_TAG = 8
-    EDITED_TAG = 9
+    ADDED_TAG = 8
+    UPDATED_TAG = 9
     DELETED_TAG = 10
-    NEW_CARD = 11
-    EDITED_CARD = 12
+    ADDED_CARD = 11
+    UPDATED_CARD = 12
     DELETED_CARD = 13
     REPETITION = 14
     UPLOADED = 15
@@ -58,30 +58,30 @@ class SqlLogger(Logger):
             (self.SAVED_DATABASE, int(time.time()), sch.scheduled_count(),
             sch.non_memorised_count(), sch.active_count()))
         
-    def new_fact(self, fact):
+    def added_fact(self, fact):
         self.database().con.execute(\
             "insert into history(event, timestamp, _object_id) values(?,?,?)",
-            (self.NEW_FACT, int(time.time()), fact.id))
+            (self.ADDED_FACT, int(time.time()), fact.id))
         
-    def edited_fact(self, fact):
+    def updated_fact(self, fact):
         self.database().con.execute(\
             "insert into history(event, timestamp, _object_id) values(?,?,?)",
-            (self.EDITED_FACT, int(time.time()), fact.id))
+            (self.UPDATED_FACT, int(time.time()), fact.id))
         
     def deleted_fact(self, fact):
         self.database().con.execute(\
             "insert into history(event, timestamp, _object_id) values(?,?,?)",
             (self.DELETED_FACT, int(time.time()), fact.id))
         
-    def new_tag(self, tag):
+    def added_tag(self, tag):
         self.database().con.execute(\
             "insert into history(event, timestamp, _object_id) values(?,?,?)",
-            (self.NEW_TAG, int(time.time()), tag.id))
+            (self.ADDED_TAG, int(time.time()), tag.id))
         
-    def edited_tag(self, tag):
+    def updated_tag(self, tag):
         self.database().con.execute(\
             "insert into history(event, timestamp, _object_id) values(?,?,?)",
-            (self.EDITED_TAG, int(time.time()), tag.id))
+            (self.UPDATED_TAG, int(time.time()), tag.id))
         
     def deleted_tag(self, tag):
         self.database().con.execute(\
@@ -91,12 +91,12 @@ class SqlLogger(Logger):
     def new_card(self, card):
         self.database().con.execute(\
             "insert into history(event, timestamp, _object_id) values(?,?,?)",
-            (self.NEW_CARD, int(time.time()), card.id))
+            (self.ADDED_CARD, int(time.time()), card.id))
         
-    def edited_card(self, card):
+    def updated_card(self, card):
         self.database().con.execute(\
             "insert into history(event, timestamp, _object_id) values(?,?,?)",
-            (self.EDITED_CARD, int(time.time()), card.id))
+            (self.UPDATED_CARD, int(time.time()), card.id))
         
     def deleted_card(self, card):
         self.database().con.execute(\

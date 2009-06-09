@@ -90,11 +90,11 @@ class SM2Controller(UiControllerReview):
         if self.scheduler().allow_prefetch():
             self.new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().update_card(card_to_grade, update_categories=False)
+            self.database().update_card(card_to_grade, repetition_only=True)
             self.database().save()
         else:
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().update_card(card_to_grade, update_categories=False)
+            self.database().update_card(card_to_grade, repetition_only=True)
             self.database().save()
             self.new_question()     
         if self.config()["show_intervals"] == "statusbar":

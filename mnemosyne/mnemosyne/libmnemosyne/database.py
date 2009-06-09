@@ -64,7 +64,7 @@ class Database(Component):
     def add_card(self, card):
         raise NotImplementedError
 
-    def update_card(self, card, update_categories=True):
+    def update_card(self, card, repetition_only=False):
         raise NotImplementedError
         
     def delete_fact_and_related_data(self, fact):

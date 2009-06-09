@@ -101,7 +101,7 @@ SCHEMA = """
 
     create table partnerships(
         partner text,
-        last_sync integer
+        _last_history_id integer
     );
 
     create table media(
@@ -146,7 +146,7 @@ class SQLite(Database):
                         ("version", self.version))
         self.con.execute("insert into global_variables(key, value) values(?,?)",
                         ("times_loaded", 0))
-        self.con.execute("""insert into partnerships(partner, last_sync)
+        self.con.execute("""insert into partnerships(partner, _last_history_id)
                          values(?,?)""", ("log.txt", 0))
         self.con.commit()
         self.config()["path"] = self._path
@@ -245,6 +245,7 @@ class SQLite(Database):
             key=?""", (self.version, "version" ))
         # Save database and copy it to different location if needed.
         self.con.commit()
+        self.log().saved_database()
         if not path:
             return
         dest_path = expand_path(path, self.config().basedir)
@@ -264,7 +265,7 @@ class SQLite(Database):
     def unload(self):
         self.backup()
         if self._connection:
-            self._connection.commit()
+            self.save()
             self._connection.close()
             self._connection = None
         self._path = None
@@ -289,15 +290,18 @@ class SQLite(Database):
             values(?,?,?)""", (category.name,
             self._repr_extra_data(category.extra_data), category.id)).lastrowid
         category._id = _id
+        self.log().added_tag(category)
         
     def delete_category(self, category):
         self.con.execute("delete from categories where _id=?", (category._id,))
+        self.log().deleted_tag(category)
         del category
         
     def update_category(self, category):
         self.con.execute("update categories set name=?, extra_data=? where _id=?",
             (category.name, self._repr_extra_data(category.extra_data),
              category._id))
+        self.log().updated_tag(category)
         
     def get_or_create_category_with_name(self, name):
         sql_res = self.con.execute("""select * from categories where name=?""",
@@ -328,6 +332,7 @@ class SQLite(Database):
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((_fact_id, key, value)
                 for key, value in fact.data.items()))
+        self.log().added_fact(fact)
 
     def update_fact(self, fact):
         # Update fact.
@@ -341,7 +346,8 @@ class SQLite(Database):
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
                 for key, value in fact.data.items()))
-
+        self.log().updated_fact(fact)
+        
     def add_card(self, card):
         self.load_failed = False
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
@@ -368,7 +374,7 @@ class SQLite(Database):
         # Add card is not logged here, but in the controller, to make sure
         # that the first repetition is logged after the card creation.
 
-    def update_card(self, card, update_categories=True):
+    def update_card(self, card, repetition_only=False):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
@@ -381,7 +387,7 @@ class SQLite(Database):
             self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.type_answer, card.active,
             card.in_view, card._id))
-        if not update_categories:
+        if repetition_only:
             return
         # Link card to its categories.
         # The categories themselves have already been created by
@@ -390,7 +396,8 @@ class SQLite(Database):
                          (card._id, ))
         for cat in card.categories:
             self.con.execute("""insert into categories_for_card(_category_id,
-                _card_id) values(?,?)""", (cat._id, card._id))            
+                _card_id) values(?,?)""", (cat._id, card._id))
+        self.log().updated_card(card)
 
     def delete_fact_and_related_data(self, fact):
         for card in self.cards_from_fact(fact):
@@ -398,6 +405,7 @@ class SQLite(Database):
         self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
                          (fact._id, ))
+        self.log().deleted_card(fact)
         del fact
         
     def delete_card(self, card):

@@ -114,3 +114,4 @@ class TestScheduler(MnemosyneTest):
         self.ui_controller_review().new_question()
         self.database().unload()
         self.ui_controller_review().reset()
+        self.restart()

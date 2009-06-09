@@ -16,11 +16,11 @@ class SM2ControllerCramming(SM2Controller):
         if self.scheduler().allow_prefetch():
             self.new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().update_card(card_to_grade, update_categories=False)
+            self.database().update_card(card_to_grade, repetition_only=True)
             self.database().save()
         else:
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().update_card(card_to_grade, update_categories=False)
+            self.database().update_card(card_to_grade, repetition_only=True)
             self.database().save()
             self.new_question()
         self.review_widget().update_status_bar()

@@ -58,7 +58,7 @@ class TxtLogger(Logger):
                          sch.non_memorised_count(), \
                          sch.active_count())
         
-    def new_card(self, card):
+    def added_card(self, card):
         grade = -1
         new_interval = -1 # We log the first rep separately anyhow
         self.logger.info("New item %s %d %d", card.id, grade,

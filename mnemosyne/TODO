@@ -1,37 +1,26 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
-
--int codes
--scheduler start events
--program quit
--database load events
--see if startup log hack is still needed
-
--dump sql history to txt log
+-dump sql history to txt log after unloading database
+-add test on logged interval times, making sure they are reasonable
+-put archive log code in rollover
 
 -rename cat to tag, 'Tags:' in add card dialog
+-make categories a set?
 
 -make stopwatch a component
 
--put archive log code in rollover
-
--make sure to convert int(time.time()) to integer
--make sure all events make it to the sync protocol + formats
-
--add test on logged interval times, making sure they are reasonable
-
--log adding and deleting media
-
-
--card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
-or persistent for the full server
-
 -get rid of 'unseen' initial grade stuff
 
+-always copy media to internal directory, a different one per deck
+-fact id in media table in database?
+-log adding and deleting media
 
+-make card types instantiatable from sync data
 
--sync protocol
+-make sure we can easily calculate retention rates
+
+-sync protocol:
 -log message for updated cards/facts (to enable syncing)
 history per deck in sql, globally in log.txt
 Store fact modif/cat modif
@@ -41,20 +30,22 @@ Media dir per deck / can refuse large files
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 -be sure to truncate time to int if it comes from other SRS systems
-make sure active gets updated to0
-activating cards
+-make sure active gets updated too
+-activating cards
+-make sure to convert int(time.time()) to integer
+-make sure all events make it to the sync protocol + formats
+-last sync: id instead of time, add comments why
 
--make card types instantiatable from sync data
 -handle deferred translation
 -different translators for different users?
 
--how to join 2 SQL databases
+-how to join 2 SQL databases: sync on _id, not timestamps
 
 -better mechanism to have different renderers
 
 -don't reset cramming scheduler
 
--review hooks.
+-hooks before and after grading?
 
 -is complete check on changing card type does not fire
 
@@ -70,12 +61,7 @@ activating cards
 -hook up config screen
 
 
--make sure we can easily calculate retention rates
-
-
 -items --> cards in config, upgrade code
-
--time sql when storing dates as int. Move to int? update start_date.py
 
 -get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
  'repetition' for individual repetition, or 'review' for whole process.
@@ -98,20 +84,13 @@ activating cards
 -cntrl enter in add and edit instead of clicking ok
 
 
--always copy media to internal directory, a different one per deck
-
-
 -make distrib
 
 -warn when importing card type with duplicate id
 
--write more tests
-
 -don't import * for Qt
 
 -import full path for ui components
-
--make categories a set?
 
 
 
@@ -147,6 +126,8 @@ activating cards
  cards, as opposed to adding new cards. Implemented through id's of the form
  T.<fixed card id for all pupils>.<pupil user id>?
 
+-don't recreate text logs upon import
+
 
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
@@ -174,7 +155,7 @@ activating cards
 -test uploading of logs
 
 
--activate categories
+-activate cards, belonging to these card types, having any of these tags, but non of these
 
 
 -deck editor
@@ -292,6 +273,8 @@ http://pythoscope.org/
 
 Multiuser statistics analysis:
 
+-card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
+or persistent for the full server
 -break out card ids to a different table and use _id as well
 -more times from a later start date to save space?
 -sql: insert or ignore statement, faster if adding same data twice is no problem
@@ -315,8 +298,7 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -button color
 
 
--download media files when giving URL? Store media inside database? Copy 
- it to .mnemosyne by default?
+-download media files when giving URL
 
 
 -also allow import compressed backup files from within Mnemosyne

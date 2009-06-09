@@ -85,6 +85,7 @@ class Mnemosyne(Component):
         self.check_lockfile()
         self.load_database(filename)
         self.log().started_program()
+        self.log().started_scheduler()
         # Finally, everything is in place to start the review process.
         self.ui_controller_review().new_question()
 

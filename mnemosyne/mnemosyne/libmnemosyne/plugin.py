@@ -58,6 +58,7 @@ class Plugin(Component):
         for component in self.instantiated_components:
             if component.component_type == "scheduler" \
                    and self.database().is_loaded():
+                self.log().started_scheduler()
                 self.ui_controller_review().reset()
                 self.ui_controller_review().new_question()
         # Use names instead of instances here in order to survive pickling.  
