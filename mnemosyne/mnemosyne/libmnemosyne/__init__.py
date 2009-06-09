@@ -197,6 +197,7 @@ class Mnemosyne(Component):
                                     + database().suffix)
             self.database().new(filename)
         self.ui_controller_main().update_title()
+        self.log().loaded_database()
 
     def remove_lockfile(self):
         try:
@@ -208,10 +209,12 @@ class Mnemosyne(Component):
             self.main_widget().error_box(msg)
 
     def finalise(self):
+        # Saving the config should happen before we deactivate the plugins,
+        # otherwise they are not restored upon reload. Ditto for logging, which
+        # needs to happen before we unload the database.
+        self.log().saved_database()
         self.log().stopped_program()
         self.remove_lockfile()
-        # Saving the config shoulh happen before we deactivate the plugins,
-        # otherwise they are not restored upon reload.
         self.config().save()
         user_id = self.config()["user_id"]
         self.component_manager.deactivate_all()

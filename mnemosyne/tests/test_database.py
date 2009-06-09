@@ -7,6 +7,7 @@ from nose.tools import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.category import Category
+from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
@@ -295,6 +296,7 @@ class TestDatabase(MnemosyneTest):
         new_name = self.config()["path"] + ".bak"
         assert self.database().save(self.config()["path"] + ".bak") != -1
         assert self.config()["path"] == new_name
+        assert new_name != expand_path(new_name, self.config().basedir)
         
     def test_has_fact_with_data(self):
         fact_data = {"q": "question",

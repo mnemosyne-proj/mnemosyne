@@ -45,7 +45,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.timer = QtCore.QTimer()
         self.connect(self.timer, QtCore.SIGNAL("timeout()"),
                      self.ui_controller_review().rollover)
-        self.timer.start(1000 * 60 * 5)
+        self.timer.start(1000 * 60 * 15)
 
     def add_to_statusbar(self, widget):
         self.statusbar_widgets.append(widget)

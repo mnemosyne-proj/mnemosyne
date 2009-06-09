@@ -87,12 +87,12 @@ class DefaultMainController(UiControllerMain):
         db.add_fact(fact)
         cards = []
         for card in card_type.create_related_cards(fact):
-            self.log().new_card(card)
             if grade != -1:
                 self.scheduler().set_initial_grade(card, grade)
             card.categories = categories
             db.add_card(card)
             cards.append(card)
+            self.log().added_card(card)
         db.save()
         if self.ui_controller_review().learning_ahead == True:
             self.ui_controller_review().reset()
@@ -240,6 +240,7 @@ class DefaultMainController(UiControllerMain):
         db.unload()
         db.new(out)
         db.load(self.config()["path"])
+        self.log().loaded_database()
         self.ui_controller_review().reset()
         self.ui_controller_review().update_dialog()
         self.update_title()
@@ -247,7 +248,7 @@ class DefaultMainController(UiControllerMain):
 
     def file_open(self):
         stopwatch.pause()
-        old_path = self.config()["path"]
+        old_path = expand_path(self.config()["path"], self.config().basedir)
         out = self.main_widget().open_file_dialog(path=old_path,
             filter=_("Mnemosyne databases (*%s)" % self.database().suffix))
         if not out:
@@ -255,6 +256,7 @@ class DefaultMainController(UiControllerMain):
             return
         try:
             self.database().unload()
+            self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
             stopwatch.unpause()
@@ -262,6 +264,7 @@ class DefaultMainController(UiControllerMain):
         self.ui_controller_review().reset()
         try:
             self.database().load(out)
+            self.log().loaded_database()
         except MnemosyneError, e:
             self.main_widget().show_exception(e)
             stopwatch.unpause()
@@ -272,9 +275,9 @@ class DefaultMainController(UiControllerMain):
 
     def file_save(self):
         stopwatch.pause()
-        path = self.config()["path"]
         try:
-            self.database().save(path)
+            self.database().save()
+            self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
         stopwatch.unpause()
@@ -282,7 +285,7 @@ class DefaultMainController(UiControllerMain):
     def file_save_as(self):
         stopwatch.pause()
         suffix = self.database().suffix
-        old_path = self.config()["path"]
+        old_path = expand_path(self.config()["path"], self.config().basedir)
         out = self.main_widget().save_file_dialog(path=old_path,
             filter=_("Mnemosyne databases (*%s)" % suffix))
         if not out:
@@ -292,11 +295,13 @@ class DefaultMainController(UiControllerMain):
             out += suffix
         try:
             self.database().save(out)
+            self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
             stopwatch.unpause()
             return
         self.ui_controller_review().update_dialog()
+        self.update_title()
         stopwatch.unpause()
 
     def card_appearance(self):

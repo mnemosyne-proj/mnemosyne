@@ -80,6 +80,10 @@ SCHEMA = """
         value text
     );
 
+    /* For _object_id, we store internal _ids to save space, except when
+       deleting objects, when we need to store a full id, as there is no
+       more way to retrieve the full id then. */
+       
     create table history(
         _id integer primary key,
         event integer,
@@ -99,6 +103,10 @@ SCHEMA = """
     );
     create index i_history on history (timestamp);
 
+    /* We track the last _id as opposed to the last timestamp, as importing
+       another database could add history events with earlier dates, but
+       which still need to be synced. */
+    
     create table partnerships(
         partner text,
         _last_history_id integer
@@ -149,7 +157,7 @@ class SQLite(Database):
         self.con.execute("""insert into partnerships(partner, _last_history_id)
                          values(?,?)""", ("log.txt", 0))
         self.con.commit()
-        self.config()["path"] = self._path
+        self.config()["path"] = contract_path(self._path, self.config().basedir)
 
     def load(self, path):
         if self.is_loaded():        
@@ -232,9 +240,10 @@ class SQLite(Database):
                 # database earlier.
                 pass        
         self.config()["path"] = contract_path(path, self.config().basedir)
-        self.log().loaded_database()
         for f in self.component_manager.get_all("function_hook", "after_load"):
             f.run()
+        # We don't log the database load here, as we prefer to log the start
+        # of the program first.
         
     def save(self, path=None):
         # Don't erase a database which failed to load.
@@ -245,7 +254,6 @@ class SQLite(Database):
             key=?""", (self.version, "version" ))
         # Save database and copy it to different location if needed.
         self.con.commit()
-        self.log().saved_database()
         if not path:
             return
         dest_path = expand_path(path, self.config().basedir)
@@ -253,6 +261,8 @@ class SQLite(Database):
             shutil.copy(self._path, dest_path)
             self._path = dest_path
         self.config()["path"] = contract_path(path, self.config().basedir)
+        # We don't log every save, as that would result in an event after
+        # every review.
 
     def backup(self):
         if self.config().resource_limited:
@@ -264,6 +274,7 @@ class SQLite(Database):
 
     def unload(self):
         self.backup()
+        self.log().dump_to_txt_log()
         if self._connection:
             self.save()
             self._connection.close()

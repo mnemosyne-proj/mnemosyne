@@ -51,7 +51,7 @@ class Pickle(Database):
         path = expand_path(path, self.config().basedir)
         self.load_failed = False
         self.save(contract_path(path, self.config().basedir))
-        self.config()["path"] = path
+        self.config()["path"] = contract_path(path, self.config().basedir)
         self.log().new_database()
 
     def load(self, path):
@@ -132,10 +132,11 @@ class Pickle(Database):
         for f in self.facts:
             f.card_type = self.card_type_by_id(f.card_type)    
         self.config()["path"] = contract_path(path, self.config().basedir)
-        self.log().loaded_database()
         for f in self.component_manager.get_all("function_hook", "after_load"):
             f.run()
-
+        # We don't log the database load here, as we prefer to log the start
+        # of the program first.
+        
     def save(self, path=None):
         # Don't erase a database which failed to load.
         if self.load_failed == True:
@@ -164,10 +165,12 @@ class Pickle(Database):
         # Work around sip bug again.
         for f in self.facts:
             f.card_type = self.card_type_by_id(f.card_type)
-        self.log().saved_database()
+        # We don't log every save, as that would result in an event after
+        # every review.
 
     def unload(self):
         self.backup()
+        self.log().dump_to_txt_log()
         if len(self.facts) == 0:
             return True
         self.save(self.config()["path"])

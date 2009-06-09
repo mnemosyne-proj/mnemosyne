@@ -356,7 +356,7 @@ class SM2Mnemosyne(Scheduler):
                     card.easiness = 1.3
             if card.ret_reps_since_lapse == 1:
                 new_interval = 6 * DAY
-            else:
+            else:               
                 if new_grade == 2 or new_grade == 3:
                     if actual_interval <= scheduled_interval:
                         new_interval = actual_interval * card.easiness
@@ -369,6 +369,10 @@ class SM2Mnemosyne(Scheduler):
                         new_interval = scheduled_interval # Avoid spacing.
                     else:
                         new_interval = actual_interval * card.easiness
+                # Pathological case which can occur when learning ahead
+                # many times in a row.
+                if new_grade >= 2 and new_interval < DAY:
+                    new_interval = DAY
         new_interval = int(new_interval)
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:

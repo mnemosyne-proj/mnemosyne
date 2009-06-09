@@ -1,9 +1,12 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--dump sql history to txt log after unloading database
+
+-dump sql history to txt log
+-best way to deal with id's of deleted objects?
 -add test on logged interval times, making sure they are reasonable
--put archive log code in rollover
+-add test that id's for adding and reviewing are not null in the history table
+-put archive log code and saving logs in rollover
 
 -rename cat to tag, 'Tags:' in add card dialog
 -make categories a set?
@@ -34,7 +37,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -activating cards
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
--last sync: id instead of time, add comments why
 
 -handle deferred translation
 -different translators for different users?

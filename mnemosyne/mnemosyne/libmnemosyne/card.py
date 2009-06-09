@@ -40,7 +40,7 @@ class Card(object):
         self.fact_view = fact_view
         self.id = self.fact.id + "." + self.fact.card_type.id + "." + \
                   self.fact_view.id
-        self.id_ = None
+        self._id = None
         self.categories = []
         self.extra_data = {}
         self.scheduler_data = 0

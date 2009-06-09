@@ -74,7 +74,16 @@ class Logger(Component):
         pass
         
     def stopped_program(self):
-        pass      
+        pass
+
+    def dump_to_txt_log(self):
+
+        """If we're not logging to a standard text file, we need to dump the
+        collected logs to such a file from time to time for uploading.
+
+        """
+        
+        pass
         
     def archive_old_log(self):
         
