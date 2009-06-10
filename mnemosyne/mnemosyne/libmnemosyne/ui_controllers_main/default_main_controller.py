@@ -15,6 +15,17 @@ from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
 
 class DefaultMainController(UiControllerMain):
+
+    def heartbeat(self):
+
+        """To be called once a day, to make sure that the logs get uploaded
+        even if the user leaves the program open for a very long time.
+
+        """
+        
+        self.log().dump_to_txt_log()
+        self.log().deactivate()
+        self.log().activate()   
         
     def update_title(self):
         database_name = os.path.basename(self.config()["path"]).\
@@ -87,12 +98,12 @@ class DefaultMainController(UiControllerMain):
         db.add_fact(fact)
         cards = []
         for card in card_type.create_related_cards(fact):
+            self.log().added_card(card)
             if grade != -1:
                 self.scheduler().set_initial_grade(card, grade)
             card.categories = categories
             db.add_card(card)
             cards.append(card)
-            self.log().added_card(card)
         db.save()
         if self.ui_controller_review().learning_ahead == True:
             self.ui_controller_review().reset()
@@ -130,7 +141,7 @@ class DefaultMainController(UiControllerMain):
             else:
                 # Make sure the converter operates on card objects which
                 # already know their new type, otherwise we could get
-                # conflicting id's.
+                # conflicting ids.
                 fact.card_type = new_card_type
                 cards_to_be_updated = db.cards_from_fact(fact)
                 for card in cards_to_be_updated:

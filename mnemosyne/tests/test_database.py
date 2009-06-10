@@ -8,8 +8,6 @@ from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.utils import expand_path
-from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
 class TestDatabase(MnemosyneTest):

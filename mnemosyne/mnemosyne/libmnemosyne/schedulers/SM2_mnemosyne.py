@@ -87,13 +87,13 @@ class SM2Mnemosyne(Scheduler):
         card.easiness = self.database().average_easiness()
         card.acq_reps = 1
         card.acq_reps_since_lapse = 1
-        card.last_rep = time.time()
+        card.last_rep = int(time.time())
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
         if grade >= 2:
             card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
         else:
-            card.next_rep = time.time()            
+            card.next_rep = int(time.time())            
         self.log().repetition(card, scheduled_interval=0, actual_interval=0,
                               new_interval=new_interval)
 
@@ -305,7 +305,7 @@ class SM2Mnemosyne(Scheduler):
             import copy
             card = copy.copy(card)
         scheduled_interval = self.true_scheduled_interval(card)
-        actual_interval = stopwatch.start_time - card.last_rep
+        actual_interval = int(stopwatch.start_time) - card.last_rep
         if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
             # was imported or created during card type conversion.
@@ -382,7 +382,7 @@ class SM2Mnemosyne(Scheduler):
         new_interval += self.calculate_interval_noise(new_interval)
         # Update card properties.
         card.grade = new_grade
-        card.last_rep = time.time()
+        card.last_rep = int(time.time())
         if new_grade >= 2:
             card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
             # Don't schedule related cards on the same day. Keep normalising,
@@ -395,7 +395,7 @@ class SM2Mnemosyne(Scheduler):
             # logging here).
             new_interval = self.true_scheduled_interval(card)
         else:
-            card.next_rep = time.time()
+            card.next_rep = int(time.time())
             new_interval = 0
         card.unseen = False
         # Run post review hooks.

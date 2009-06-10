@@ -76,7 +76,7 @@ class TxtLogger(Logger):
                          scheduled_interval, actual_interval,
                          new_interval, noise, stopwatch.time())
                     
-    def uploaded(self, filename):
+    def uploaded_log(self, filename):
         self.logger.info("Uploaded %s" % filename)
     
     def upload_failed(self):

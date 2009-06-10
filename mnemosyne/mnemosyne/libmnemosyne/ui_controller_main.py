@@ -14,6 +14,12 @@ class UiControllerMain(Component):
     """
 
     component_type = "ui_controller_main"
+
+    def heartbeat(self):
+
+        "For code that needs to run periodically."
+        
+        pass
         
     def add_cards(self):
         raise NotImplementedError

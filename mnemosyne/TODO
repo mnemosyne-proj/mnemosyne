@@ -1,12 +1,8 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
-
--dump sql history to txt log
--best way to deal with id's of deleted objects?
 -add test on logged interval times, making sure they are reasonable
 -add test that id's for adding and reviewing are not null in the history table
--put archive log code and saving logs in rollover
 
 -rename cat to tag, 'Tags:' in add card dialog
 -make categories a set?
@@ -154,7 +150,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -need to store parent of category?
 
 
--test uploading of logs
+-test uploading of logs, also in rollover
 
 
 -activate cards, belonging to these card types, having any of these tags, but non of these

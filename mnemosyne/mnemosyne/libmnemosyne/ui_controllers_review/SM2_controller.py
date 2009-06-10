@@ -38,7 +38,6 @@ class SM2Controller(UiControllerReview):
 
     def activate(self):
         self.reset()
-        #self.log().scheduler_started()
         
     def reset(self):
         self.card = None
@@ -49,10 +48,11 @@ class SM2Controller(UiControllerReview):
         self.active_count = None
         self.scheduler().reset()     
 
-    def rollover(self):
+    def heartbeat(self):
 
-        """To be called when a new day starts."""
-
+        """To be called several times during the day, to make sure that
+        the data gets updated when a new day starts."""
+            
         self.reload_counters()
         self.review_widget().update_status_bar()
         if not self.card or self.learning_ahead:

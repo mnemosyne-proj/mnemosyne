@@ -80,15 +80,17 @@ SCHEMA = """
         value text
     );
 
-    /* For _object_id, we store internal _ids to save space, except when
-       deleting objects, when we need to store a full id, as there is no
-       more way to retrieve the full id then. */
+    /* For object_id, we need to store the full ids as opposed to the _ids.
+       When deleting an object, there is no longer a way to get the ids from
+       the _ids, and for robustness and interoperability, we need to send the
+       ids across when syncing.
+    */
        
     create table history(
         _id integer primary key,
         event integer,
         timestamp integer,
-        _object_id text,
+        object_id text,
         grade integer,
         easiness real,
         acq_reps integer,
@@ -114,6 +116,7 @@ SCHEMA = """
 
     create table media(
         filename text,
+        _fact_id integer,
         last_modified integer
     );
     
@@ -416,7 +419,7 @@ class SQLite(Database):
         self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
                          (fact._id, ))
-        self.log().deleted_card(fact)
+        self.log().deleted_fact(fact)
         del fact
         
     def delete_card(self, card):

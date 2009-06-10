@@ -67,7 +67,7 @@ class Logger(Component):
                    new_interval, noise=0):
         pass               
         
-    def uploaded(self, filename):
+    def uploaded_log(self, filename):
         pass
     
     def upload_failed(self):

@@ -17,9 +17,12 @@ class UiControllerReview(Component):
     def reset(self):
         raise NotImplementedError
 
-    def rollover(self):
+    def heartbeat(self):
 
-        """To be called when a new day starts."""
+        """For code that needs to run periodically, e.g. to react to a change
+        of date.
+
+        """
         
         pass
 

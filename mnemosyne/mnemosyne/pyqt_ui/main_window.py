@@ -42,11 +42,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.statusbar_widgets = []
 
     def activate(self):
-        self.timer = QtCore.QTimer()
-        self.connect(self.timer, QtCore.SIGNAL("timeout()"),
-                     self.ui_controller_review().rollover)
-        self.timer.start(1000 * 60 * 15)
-
+        self.timer_1 = QtCore.QTimer()
+        self.connect(self.timer_1, QtCore.SIGNAL("timeout()"),
+                     self.ui_controller_review().heartbeat)
+        self.timer_1.start(1000 * 60 * 10)
+        self.timer_2 = QtCore.QTimer()
+        self.connect(self.timer_2, QtCore.SIGNAL("timeout()"),
+                     self.ui_controller_main().heartbeat)
+        self.timer_2.start(1000 * 60 * 60 * 24)
+        
     def add_to_statusbar(self, widget):
         self.statusbar_widgets.append(widget)
         self.statusbar.addPermanentWidget(widget)

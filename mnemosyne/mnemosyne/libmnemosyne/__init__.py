@@ -86,6 +86,7 @@ class Mnemosyne(Component):
         self.load_database(filename)
         self.log().started_program()
         self.log().started_scheduler()
+        self.log().loaded_database()
         # Finally, everything is in place to start the review process.
         self.ui_controller_review().new_question()
 
@@ -197,7 +198,6 @@ class Mnemosyne(Component):
                                     + database().suffix)
             self.database().new(filename)
         self.ui_controller_main().update_title()
-        self.log().loaded_database()
 
     def remove_lockfile(self):
         try:
