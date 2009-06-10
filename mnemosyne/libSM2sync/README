@@ -78,7 +78,7 @@ Client sends:
 - an (anonymous but unique) id identifying the client machine
 - a deck name
 
-- what card types it supports: Q/A only, N-sided cards (fact/card model), ...
+- what card types it supports: Q/A only, vice-versa cards only, general N-sided cards (fact/card model), ...
 - (optionally) extra data about its capabilities which could be exploited by the syncing algorithm
 (e.g. on a mobile device, we are unlikely to have done editing of media files, so the sync of media files would only need to happen from the server to the client.
 
