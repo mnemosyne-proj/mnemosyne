@@ -50,12 +50,6 @@ class DefaultMainController(UiControllerMain):
 
         """Create a new set of related cards."""
 
-        # Allow this function to be overridden by a function hook.
-        f = self.component_manager.get_current("function_hook",
-                                               "create_new_cards")
-        if f:
-            return f.run()
-        
         db = self.database()
         if db.has_fact_with_data(fact_data, card_type):
             if warn:
@@ -104,12 +98,6 @@ class DefaultMainController(UiControllerMain):
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
                              new_cat_names, correspondence, warn=True):
-        # Allow this function to be overridden by a function hook.
-        f = self.component_manager.get_current("function_hook",
-                                               "update_related_cards")
-        if f:
-            return f.run()
-        
         # Change card type.
         db = self.database()
         old_card_type = fact.card_type       
@@ -324,4 +312,14 @@ class DefaultMainController(UiControllerMain):
     def manage_card_types(self):
         stopwatch.pause()
         self.main_widget().run_manage_card_types_dialog()
+        stopwatch.unpause()
+        
+    def edit_deck(self):
+        stopwatch.pause()
+        self.main_widget().run_edit_deck_dialog()
+        stopwatch.unpause()
+        
+    def configure(self):
+        stopwatch.pause()
+        self.main_widget().run_configuration_dialog()
         stopwatch.unpause()

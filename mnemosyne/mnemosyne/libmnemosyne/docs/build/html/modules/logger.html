@@ -50,7 +50,7 @@
 <h1><tt class="xref docutils literal"><span class="pre">Logger</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.logger" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.logger.Logger">
-<!--[mnemosyne.libmnemosyne.logger.Logger]-->class <tt class="descclassname">mnemosyne.libmnemosyne.logger.</tt><tt class="descname">Logger</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.logger.Logger]-->class <tt class="descclassname">mnemosyne.libmnemosyne.logger.</tt><tt class="descname">Logger</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.activate">
 <!--[mnemosyne.libmnemosyne.logger.Logger.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.activate" title="Permalink to this definition">¶</a></dt>
@@ -62,6 +62,26 @@
 <dd>Archive log to history folder if it&#8217;s large enough.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.card_type_by_id">
+<!--[mnemosyne.libmnemosyne.logger.Logger.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.card_type_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.card_types">
+<!--[mnemosyne.libmnemosyne.logger.Logger.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.card_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.config">
+<!--[mnemosyne.libmnemosyne.logger.Logger.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.database">
+<!--[mnemosyne.libmnemosyne.logger.Logger.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.deactivate">
 <!--[mnemosyne.libmnemosyne.logger.Logger.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.deactivate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -69,6 +89,11 @@
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.deleted_card">
 <!--[mnemosyne.libmnemosyne.logger.Logger.deleted_card]--><tt class="descname">deleted_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.deleted_card" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.filters">
+<!--[mnemosyne.libmnemosyne.logger.Logger.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.filters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -82,6 +107,16 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.log">
+<!--[mnemosyne.libmnemosyne.logger.Logger.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.main_widget">
+<!--[mnemosyne.libmnemosyne.logger.Logger.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.main_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.new_card">
 <!--[mnemosyne.libmnemosyne.logger.Logger.new_card]--><tt class="descname">new_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.new_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -89,6 +124,11 @@
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.new_database">
 <!--[mnemosyne.libmnemosyne.logger.Logger.new_database]--><tt class="descname">new_database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.new_database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.plugins">
+<!--[mnemosyne.libmnemosyne.logger.Logger.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.plugins" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -102,6 +142,11 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.review_widget">
+<!--[mnemosyne.libmnemosyne.logger.Logger.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.review_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.revision">
 <!--[mnemosyne.libmnemosyne.logger.Logger.revision]--><tt class="descname">revision</tt><big>(</big><em>card</em>, <em>scheduled_interval</em>, <em>actual_interval</em>, <em>new_interval</em>, <em>noise</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.revision" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -112,8 +157,23 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.scheduler">
+<!--[mnemosyne.libmnemosyne.logger.Logger.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.scheduler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.start_logging">
 <!--[mnemosyne.libmnemosyne.logger.Logger.start_logging]--><tt class="descname">start_logging</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.start_logging" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.ui_controller_main">
+<!--[mnemosyne.libmnemosyne.logger.Logger.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.ui_controller_main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.ui_controller_review">
+<!--[mnemosyne.libmnemosyne.logger.Logger.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.ui_controller_review" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -174,7 +234,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 16, 2009.
+      Last updated on Jun 07, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

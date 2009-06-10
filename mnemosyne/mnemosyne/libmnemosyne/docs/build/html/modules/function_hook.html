@@ -50,7 +50,7 @@
 <h1><tt class="xref docutils literal"><span class="pre">FunctionHook</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.function_hook" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook">
-<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook]-->class <tt class="descclassname">mnemosyne.libmnemosyne.function_hook.</tt><tt class="descname">FunctionHook</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook]-->class <tt class="descclassname">mnemosyne.libmnemosyne.function_hook.</tt><tt class="descname">FunctionHook</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function hooks are used by registering an instance of this class as
 component of type function_hook, with the &#8220;used_for&#8221; argument any of the
 following hook points:</p>
@@ -83,13 +83,73 @@ work, and which can&#8217;t happen in the constructor, e.g. because
 components on which it relies have not yet been registered.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.card_type_by_id">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.card_type_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.card_types">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.card_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.config">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.database">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.deactivate">
 <!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.deactivate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.filters">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.log">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.main_widget">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.main_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.plugins">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.plugins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.review_widget">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.review_widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.run">
 <!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.run]--><tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.scheduler">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.scheduler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.ui_controller_main">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.ui_controller_main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.function_hook.FunctionHook.ui_controller_review">
+<!--[mnemosyne.libmnemosyne.function_hook.FunctionHook.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.function_hook.FunctionHook.ui_controller_review" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -103,7 +163,7 @@ components on which it relies have not yet been registered.</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="filter.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Filter</span></tt></a></p>
+            <p class="topless"><a href="filter.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Filter</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="log_uploader.html" title="next chapter"><tt class="docutils literal"><span class="pre">LogUploader</span></tt></a></p>
             <h3>This Page</h3>
@@ -140,7 +200,7 @@ components on which it relies have not yet been registered.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 16, 2009.
+      Last updated on Jun 07, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
