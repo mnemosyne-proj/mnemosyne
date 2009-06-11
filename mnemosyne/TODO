@@ -1,15 +1,13 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--add test on logged interval times, making sure they are reasonable
--add test that id's for adding and reviewing are not null in the history table
-
 -rename cat to tag, 'Tags:' in add card dialog
 -make categories a set?
 
 -make stopwatch a component
 
 -get rid of 'unseen' initial grade stuff
+-get rid of type_answer?
 
 -always copy media to internal directory, a different one per deck
 -fact id in media table in database?
@@ -118,6 +116,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -update XML import/export to new database format
 
+-option to add tags on import
+
 -routines to do mass adding, don't save everytime, cache average easiness
 
 -'teacher mode' on export, which allows pupils to update previously imported
@@ -153,7 +153,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -test uploading of logs, also in rollover
 
 
--activate cards, belonging to these card types, having any of these tags, but non of these
+-activate cards, belonging to these card types, having any of these tags, but non of these, ro just none of these
 
 
 -deck editor
@@ -168,8 +168,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -ampersand mnemonics everywhere
 
 
--partial implementation of type answer (uses special category? Attribute? Button?)
-
+-partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
+-draw answer, make configurable by card type
 
 -move 'card type by name' to different place?
 
