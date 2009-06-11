@@ -160,12 +160,12 @@ class SM2Controller(UiControllerReview):
             question_label_text = question_label_text[:-2]
         w.set_question_label(question_label_text)
         # Update question content.
-        if self.card == None:
+        if self.card is None:
             w.clear_question()
         elif self.state == "SELECT SHOW" or redraw_all == True:
             w.set_question(self.card.question())
         # Update answer content.
-        if self.card == None or self.state == "SELECT SHOW":
+        if self.card is None or self.state == "SELECT SHOW":
             w.clear_answer()
         else:
             w.set_answer(self.card.answer())
@@ -188,7 +188,7 @@ class SM2Controller(UiControllerReview):
     def update_grades_area(self):
         w = self.review_widget()
         # Update grade buttons.
-        if self.card != None and self.card.grade in [0,1]:
+        if self.card and self.card.grade in [0,1]:
             i = 0 # Acquisition phase.
             default_grade = 0
         else:
@@ -223,12 +223,12 @@ class SM2Controller(UiControllerReview):
     def update_menu_bar(self):
         w = self.review_widget()
         if self.config()["only_editable_when_answer_shown"] == True:
-            if self.card != None and self.state == "SELECT GRADE":
+            if self.card and self.state == "SELECT GRADE":
                 w.enable_edit_current_card(True)
             else:
                 w.enable_edit_current_card(False)
         else:
-            if self.card != None:
+            if self.card:
                 w.enable_edit_current_card(True)
             else:
                 w.enable_edit_current_card(False)

@@ -9,7 +9,7 @@ install-virtual-env:
 setup:
 	virtualenv .
 	./bin/easy_install nose
-	./bin/easy_install coverage
+	#./bin/easy_install coverage
 
 install-system:
 	cd mnemosyne/pyqt_ui ; make clean
@@ -49,7 +49,7 @@ clean:
 	rm -f -R dot_benchmark dist
 	cd mnemosyne/pyqt_ui ; make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
-	rm -f mnemosyne/core/*~ mnemosyne/core/*.pyc
+	rm -f mnemosyne/libmnemosyne/*~ mnemosyne/libmnemosyne/*.pyc
 
 distrib: FORCE
 	make clean

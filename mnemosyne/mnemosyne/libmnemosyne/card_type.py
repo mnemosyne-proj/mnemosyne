@@ -54,10 +54,7 @@ class CardType(Component):
     renderer = None
         
     def __eq__(self, other):
-        try:
-            return self.id == other.id
-        except:
-            return False
+        return self.id == other.id
         
     def keys(self):
         return set(fact_key for (fact_key, fact_key_name) in self.fields)

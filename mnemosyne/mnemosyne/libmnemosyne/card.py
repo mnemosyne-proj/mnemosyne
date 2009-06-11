@@ -48,11 +48,8 @@ class Card(object):
         self.in_view = True
         self.reset_learning_data()
         
-    def __eq__(self, other):                                            
-        try:                                                            
-            return self.id == other.id                                  
-        except:                                                         
-            return False
+    def __eq__(self, other):
+        return self.id == other.id
 
     def reset_learning_data(self):
 

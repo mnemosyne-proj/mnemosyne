@@ -63,6 +63,7 @@ class TestAddCards(MnemosyneTest):
                      "a": "answer2"}
         card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
                               warn=False, grade=0, cat_names=["default"])[0]
+        assert card_1.categories[0] == card_2.categories[0]
         fact_data = {"q": "question3",
                      "a": "answer3"}
         card_3 = self.ui_controller_main().create_new_cards(fact_data, card_type,

@@ -24,6 +24,7 @@ class TestUIControllerReview(MnemosyneTest):
                 card.next_rep -= 1000 * 24 * 60 * 60 
                 self.database().update_card(card)
         self.ui_controller_review().new_question()
+        self.ui_controller_review().show_answer()        
         assert self.ui_controller_review().card == card_1
         assert self.ui_controller_review().get_counters() == (0, 1, 15)       
         self.ui_controller_review().grade_answer(0)

@@ -24,7 +24,5 @@ class Category(object):
         self.extra_data = {}
 
     def __eq__(self, other):
-        try:
-            return self.id == other.id
-        except:
-            return False
+        return self.id == other.id
+

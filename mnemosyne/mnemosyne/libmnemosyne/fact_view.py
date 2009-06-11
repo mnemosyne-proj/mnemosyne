@@ -20,9 +20,6 @@ class FactView(object):
         self.a_on_top_of_q = False
 
     def __eq__(self, other):
-        try:
-            return self.id == other.id
-        except:
-            return False      
+        return self.id == other.id   
 
     
