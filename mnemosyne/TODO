@@ -30,6 +30,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
 
+
 -handle deferred translation
 -different translators for different users?
 
@@ -124,6 +125,9 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -don't recreate text logs upon import
 
+
+-corrupt icon
+-time Windows mobile again
 
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
