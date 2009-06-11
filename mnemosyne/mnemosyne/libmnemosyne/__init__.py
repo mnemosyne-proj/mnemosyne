@@ -29,6 +29,8 @@ class Mnemosyne(Component):
           "SqlLogger"), 
          ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
           "SM2Mnemosyne"),
+         ("mnemosyne.libmnemosyne.stopwatch",
+          "Stopwatch"),         
          ("mnemosyne.libmnemosyne.card_types.front_to_back",
           "FrontToBack"),
          ("mnemosyne.libmnemosyne.card_types.both_ways",

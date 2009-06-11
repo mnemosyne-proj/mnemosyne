@@ -29,7 +29,7 @@ The code above is code you need to implement for your new frontend, but as you c
 The ui_controller_main add cards function looks like this::
 
     def add_cards(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         self.main_widget().run_add_cards_dialog()
         review_controller = self.ui_controller_review()
         review_controller.reload_counters()
@@ -37,7 +37,7 @@ The ui_controller_main add cards function looks like this::
             review_controller.new_question()
         else:
             self.review_widget().update_status_bar()
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
 This is where the heavy lifting is done, but it's completely UI independent, 
 and there should be no need for you to modify that code.

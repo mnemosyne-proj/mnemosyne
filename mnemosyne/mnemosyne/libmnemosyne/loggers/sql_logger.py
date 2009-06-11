@@ -8,7 +8,6 @@ import time
 
 import mnemosyne.version
 from mnemosyne.libmnemosyne.logger import Logger
-from mnemosyne.libmnemosyne.stopwatch import stopwatch
 
 
 class SqlLogger(Logger):
@@ -115,7 +114,7 @@ class SqlLogger(Logger):
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             scheduled_interval, actual_interval, new_interval,
-            int(stopwatch.time())))
+            int(self.stopwatch().time())))
 
     def uploaded_log(self, filename):
         self.database().con.execute(\

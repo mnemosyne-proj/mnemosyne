@@ -56,7 +56,6 @@ class TestDatabase(MnemosyneTest):
         assert card.unseen == old_card.unseen
         assert card.extra_data == old_card.extra_data
         assert card.scheduler_data == old_card.scheduler_data
-        assert card.type_answer == old_card.type_answer
         assert card.active == old_card.active
         assert card.in_view == old_card.in_view
         

@@ -10,7 +10,6 @@ import datetime
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.utils import expand_path
-from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
 
@@ -36,7 +35,7 @@ class DefaultMainController(UiControllerMain):
         self.main_widget().set_window_title(title)
 
     def add_cards(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         self.main_widget().run_add_cards_dialog()
         review_controller = self.ui_controller_review()
         review_controller.reload_counters()
@@ -44,10 +43,10 @@ class DefaultMainController(UiControllerMain):
             review_controller.new_question()
         else:
             self.review_widget().update_status_bar()
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
     def edit_current_card(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         review_controller = self.ui_controller_review()
         self.main_widget().run_edit_fact_dialog(review_controller.card.fact)
         review_controller.reload_counters()
@@ -55,7 +54,7 @@ class DefaultMainController(UiControllerMain):
             self.review_widget().update_status_bar()
             review_controller.new_question()         
         review_controller.update_dialog(redraw_all=True)
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
     def create_new_cards(self, fact_data, card_type, grade, cat_names,
                          warn=True):
@@ -207,7 +206,7 @@ class DefaultMainController(UiControllerMain):
         return 0
 
     def delete_current_fact(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         db = self.database()
         review_controller = self.ui_controller_review()
         fact = review_controller.card.fact
@@ -234,17 +233,17 @@ class DefaultMainController(UiControllerMain):
         review_controller.new_question()
         self.review_widget().update_status_bar()
         review_controller.update_dialog(redraw_all=True)
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
     def file_new(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         db = self.database()
         suffix = db.suffix
         out = self.main_widget().save_file_dialog(path=self.config().basedir,
                             filter=_("Mnemosyne databases (*%s)" % suffix),
                             caption=_("New"))
         if not out:
-            stopwatch.unpause()
+            self.stopwatch().unpause()
             return
         if not out.endswith(suffix):
             out += suffix
@@ -255,22 +254,22 @@ class DefaultMainController(UiControllerMain):
         self.ui_controller_review().reset()
         self.ui_controller_review().update_dialog()
         self.update_title()
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
     def file_open(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         old_path = expand_path(self.config()["path"], self.config().basedir)
         out = self.main_widget().open_file_dialog(path=old_path,
             filter=_("Mnemosyne databases (*%s)" % self.database().suffix))
         if not out:
-            stopwatch.unpause()
+            self.stopwatch().unpause()
             return
         try:
             self.database().unload()
             self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
-            stopwatch.unpause()
+            self.stopwatch().unpause()
             return            
         self.ui_controller_review().reset()
         try:
@@ -278,29 +277,29 @@ class DefaultMainController(UiControllerMain):
             self.log().loaded_database()
         except MnemosyneError, e:
             self.main_widget().show_exception(e)
-            stopwatch.unpause()
+            self.stopwatch().unpause()
             return
         self.ui_controller_review().new_question()
         self.update_title()
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
     def file_save(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         try:
             self.database().save()
             self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
     def file_save_as(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         suffix = self.database().suffix
         old_path = expand_path(self.config()["path"], self.config().basedir)
         out = self.main_widget().save_file_dialog(path=old_path,
             filter=_("Mnemosyne databases (*%s)" % suffix))
         if not out:
-            stopwatch.unpause()
+            self.stopwatch().unpause()
             return
         if not out.endswith(suffix):
             out += suffix
@@ -309,35 +308,35 @@ class DefaultMainController(UiControllerMain):
             self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
-            stopwatch.unpause()
+            self.stopwatch().unpause()
             return
         self.ui_controller_review().update_dialog()
         self.update_title()
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
     def card_appearance(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         self.main_widget().run_card_appearance_dialog()
         self.ui_controller_review().update_dialog(redraw_all=True)
-        stopwatch.unpause()
+        self.stopwatch().unpause()
         
     def activate_plugins(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         self.main_widget().run_activate_plugins_dialog()
         self.ui_controller_review().update_dialog(redraw_all=True)
-        stopwatch.unpause()
+        self.stopwatch().unpause()
 
     def manage_card_types(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         self.main_widget().run_manage_card_types_dialog()
-        stopwatch.unpause()
+        self.stopwatch().unpause()
         
     def edit_deck(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         self.main_widget().run_edit_deck_dialog()
-        stopwatch.unpause()
+        self.stopwatch().unpause()
         
     def configure(self):
-        stopwatch.pause()
+        self.stopwatch().pause()
         self.main_widget().run_configuration_dialog()
-        stopwatch.unpause()
+        self.stopwatch().unpause()

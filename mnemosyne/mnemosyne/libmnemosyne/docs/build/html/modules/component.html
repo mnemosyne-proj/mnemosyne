@@ -53,7 +53,7 @@
 <!--[mnemosyne.libmnemosyne.component.Component]-->class <tt class="descclassname">mnemosyne.libmnemosyne.component.</tt><tt class="descname">Component</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class of components that are registered with the component
 manager. This is a list of component types: config, log, database,
-scheduler, translator, filter, card_type, card_type_converter,
+scheduler, stopwatch, translator, filter, card_type, card_type_converter,
 card_type_widget, ui_component, renderer, ui_controller_main, main_widget,
 ui_controller_review, review_widget, plugin, function_hook.</p>
 <p>&#8216;used_for&#8217; can store certain relationships between components, e.g.
@@ -133,6 +133,11 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.stopwatch">
+<!--[mnemosyne.libmnemosyne.component.Component.stopwatch]--><tt class="descname">stopwatch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.stopwatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.component.Component.ui_controller_main">
 <!--[mnemosyne.libmnemosyne.component.Component.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.ui_controller_main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -190,7 +195,7 @@ components on which it relies have not yet been registered.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 07, 2009.
+      Last updated on Jun 11, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

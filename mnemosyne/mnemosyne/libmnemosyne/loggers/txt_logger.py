@@ -8,7 +8,6 @@ import logging
 
 import mnemosyne.version
 from mnemosyne.libmnemosyne.logger import Logger
-from mnemosyne.libmnemosyne.stopwatch import stopwatch
 
 
 class TxtLogger(Logger):
@@ -74,7 +73,7 @@ class TxtLogger(Logger):
                          card.acq_reps, card.ret_reps, card.lapses,
                          card.acq_reps_since_lapse, card.ret_reps_since_lapse,
                          scheduled_interval, actual_interval,
-                         new_interval, noise, stopwatch.time())
+                         new_interval, noise, self.stopwatch().time())
                     
     def uploaded_log(self, filename):
         self.logger.info("Uploaded %s" % filename)

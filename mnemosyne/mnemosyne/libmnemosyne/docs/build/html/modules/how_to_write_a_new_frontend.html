@@ -65,7 +65,7 @@
 <p>The code above is code you need to implement for your new frontend, but as you can see, it&#8217;s rather trivial.</p>
 <p>The ui_controller_main add cards function looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">stopwatch</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stopwatch</span><span class="p">()</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">main_widget</span><span class="p">()</span><span class="o">.</span><span class="n">run_add_cards_dialog</span><span class="p">()</span>
     <span class="n">review_controller</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_controller_review</span><span class="p">()</span>
     <span class="n">review_controller</span><span class="o">.</span><span class="n">reload_counters</span><span class="p">()</span>
@@ -73,7 +73,7 @@
         <span class="n">review_controller</span><span class="o">.</span><span class="n">new_question</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">review_widget</span><span class="p">()</span><span class="o">.</span><span class="n">update_status_bar</span><span class="p">()</span>
-    <span class="n">stopwatch</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stopwatch</span><span class="p">()</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>This is where the heavy lifting is done, but it&#8217;s completely UI independent,
@@ -139,7 +139,7 @@ the dialog has enough data to create the cards, it simply calls:</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 07, 2009.
+      Last updated on Jun 11, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

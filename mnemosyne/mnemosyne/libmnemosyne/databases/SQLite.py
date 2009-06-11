@@ -367,7 +367,7 @@ class SQLite(Database):
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
             unseen, extra_data, scheduler_data, active, in_view)
-            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (card.id, card.fact._id, card.fact_view.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,

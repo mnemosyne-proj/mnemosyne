@@ -6,7 +6,7 @@ class Component(object):
 
     """Base class of components that are registered with the component
     manager. This is a list of component types: config, log, database,
-    scheduler, translator, filter, card_type, card_type_converter,
+    scheduler, stopwatch, translator, filter, card_type, card_type_converter,
     card_type_widget, ui_component, renderer, ui_controller_main, main_widget,
     ui_controller_review, review_widget, plugin, function_hook.       
 
@@ -72,7 +72,10 @@ class Component(object):
 
     def scheduler(self):
         return self.component_manager.get_current("scheduler")
-
+    
+    def stopwatch(self):
+        return self.component_manager.get_current("stopwatch")
+    
     def main_widget(self):
         return self.component_manager.get_current("main_widget")
 

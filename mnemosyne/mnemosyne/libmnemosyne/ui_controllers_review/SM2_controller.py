@@ -3,7 +3,6 @@
 #
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.stopwatch import stopwatch
 from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
 
 
@@ -72,14 +71,14 @@ class SM2Controller(UiControllerReview):
             else:
                 self.state = "SELECT AHEAD"
         self.update_dialog()
-        stopwatch.start()
+        self.stopwatch().start()
 
     def show_answer(self):
         if self.state == "SELECT AHEAD":
             self.learning_ahead = True
             self.new_question()
         else:
-            stopwatch.stop()
+            self.stopwatch().stop()
             self.state = "SELECT GRADE"
         self.update_dialog()
 

@@ -8,7 +8,6 @@ import calendar
 import datetime
 
 from mnemosyne.libmnemosyne.scheduler import Scheduler
-from mnemosyne.libmnemosyne.stopwatch import stopwatch
 
 DAY = 24 * 60 * 60 # Seconds in a day.
 
@@ -305,7 +304,7 @@ class SM2Mnemosyne(Scheduler):
             import copy
             card = copy.copy(card)
         scheduled_interval = self.true_scheduled_interval(card)
-        actual_interval = int(stopwatch.start_time) - card.last_rep
+        actual_interval = int(self.stopwatch().start_time) - card.last_rep
         if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
             # was imported or created during card type conversion.
