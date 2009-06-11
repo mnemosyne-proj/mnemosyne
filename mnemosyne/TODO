@@ -1,13 +1,12 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
+-make stopwatch a component
+
 -rename cat to tag, 'Tags:' in add card dialog
 -make categories a set?
 
--make stopwatch a component
-
 -get rid of 'unseen' initial grade stuff
--get rid of type_answer?
 
 -always copy media to internal directory, a different one per deck
 -fact id in media table in database?
