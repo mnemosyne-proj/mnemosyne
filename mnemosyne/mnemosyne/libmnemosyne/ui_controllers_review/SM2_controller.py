@@ -46,19 +46,20 @@ class SM2Controller(UiControllerReview):
         self.non_memorised_count = None
         self.scheduled_count = None
         self.active_count = None
-        self.scheduler().reset()
+        self.scheduler().reset()     
 
-    def rollover(self):
+    def heartbeat(self):
 
-        """To be called when a new day starts."""
-
+        """To be called several times during the day, to make sure that
+        the data gets updated when a new day starts."""
+            
         self.reload_counters()
         self.review_widget().update_status_bar()
         if not self.card or self.learning_ahead:
             self.reset()
             self.new_question()
 
-    def new_question(self):
+    def new_question(self):            
         if not self.active_count:
             self.reload_counters()
         if not self.database().is_loaded() or self.active_count == 0:
@@ -89,14 +90,16 @@ class SM2Controller(UiControllerReview):
         if self.scheduler().allow_prefetch():
             self.new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().update_card(card_to_grade, update_categories=False)
+            self.database().update_card(card_to_grade, repetition_only=True)
             self.database().save()
         else:
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().update_card(card_to_grade, update_categories=False)
+            self.database().update_card(card_to_grade, repetition_only=True)
             self.database().save()
             self.new_question()     
         if self.config()["show_intervals"] == "statusbar":
+            import math
+            days = int(math.ceil(interval / (24.0 * 60 * 60)))
             self.review_widget().update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
         
@@ -114,10 +117,10 @@ class SM2Controller(UiControllerReview):
         return self.non_memorised_count, self.scheduled_count, self.active_count
 
     def reload_counters(self):
-        db = self.database()
-        self.non_memorised_count = db.non_memorised_count()
-        self.scheduled_count = db.scheduled_count()
-        self.active_count = db.active_count()
+        sch = self.scheduler()
+        self.non_memorised_count = sch.non_memorised_count()
+        self.scheduled_count = sch.scheduled_count()
+        self.active_count = sch.active_count()
 
     def update_counters(self, old_grade, new_grade):
         if not self.scheduled_count:
@@ -200,9 +203,12 @@ class SM2Controller(UiControllerReview):
             # Tooltip.
             if self.state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "tooltips":
-                w.set_grade_tooltip(grade, tooltip[i][grade] +\
-                    self.next_rep_string(self.scheduler().\
-                        process_answer(self.card, grade, dry_run=True)))
+                import math
+                interval = self.scheduler().process_answer(self.card, \
+                    grade, dry_run=True)
+                days = int(math.ceil(interval / (24.0 * 60 * 60)))               
+                w.set_grade_tooltip(grade, tooltip[i][grade] + \
+                    self.next_rep_string(days))
             else:
                 w.set_grade_tooltip(grade, tooltip[i][grade])
             # Button text.

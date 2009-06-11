@@ -1,37 +1,50 @@
--sync protocol
--log message for updated cards (to enable syncing)?
+-Hungarian translation by bkil (announce on website)
+-hang on Spanish translation?
+
+-make stopwatch a component
+
+-rename cat to tag, 'Tags:' in add card dialog
+-make categories a set?
+
+-get rid of 'unseen' initial grade stuff
+
+-always copy media to internal directory, a different one per deck
+-fact id in media table in database?
+-log adding and deleting media
+
+-make card types instantiatable from sync data
+
+-make sure we can easily calculate retention rates
+
+-sync protocol:
+-log message for updated cards/facts (to enable syncing)
 history per deck in sql, globally in log.txt
-What about card attributes used in different systems
-Backup
 Store fact modif/cat modif
 Deck name
 Import
-What if interrupted
 Media dir per deck / can refuse large files
 Streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
+-be sure to truncate time to int if it comes from other SRS systems
+-make sure active gets updated too
+-activating cards
+-make sure to convert int(time.time()) to integer
+-make sure all events make it to the sync protocol + formats
 
--make card types instantiatable from sync data
 -handle deferred translation
 -different translators for different users?
--hang on Spanish translation?
 
-API is element per element
-Negotiate when to use compression
-Unit tests
-Licence
-other languages in repo
-make sure unseen and active get updated to
-activating cards
+-how to join 2 SQL databases: sync on _id, not timestamps
 
--have scheduler return ids
-
+-better mechanism to have different renderers
 
 -don't reset cramming scheduler
 
+-hooks before and after grading?
+
 -is complete check on changing card type does not fire
 
--fact modification date is not set?
+-create UI components for other widgets
 
 -more tests
 
@@ -43,7 +56,7 @@ activating cards
 -hook up config screen
 
 
--time sql when storing dates as int. Move to int? update start_date.py
+-items --> cards in config, upgrade code
 
 -get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
  'repetition' for individual repetition, or 'review' for whole process.
@@ -66,23 +79,13 @@ activating cards
 -cntrl enter in add and edit instead of clicking ok
 
 
--always copy media to internal directory, a different one per deck
-
-
 -make distrib
 
 -warn when importing card type with duplicate id
 
--write more tests
-
 -don't import * for Qt
 
 -import full path for ui components
-
--test rollover
--start new session on rollover
-
--make categories a set?
 
 
 
@@ -102,6 +105,8 @@ activating cards
 
 -save after import, close blueprint
 
+-make sure we log new card creation on import
+
 -reset learning ahead queue after import
 
 -xml import tests (wcu, memaid, plconv)
@@ -110,11 +115,15 @@ activating cards
 
 -update XML import/export to new database format
 
+-option to add tags on import
+
 -routines to do mass adding, don't save everytime, cache average easiness
 
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
  T.<fixed card id for all pupils>.<pupil user id>?
+
+-don't recreate text logs upon import
 
 
 
@@ -126,6 +135,10 @@ activating cards
 -have hierarchy in plugin names
 
 
+-way to override generic card type widget, by having two components: generic_card_type_widget
+ card type widget
+-way to override other widgets? add, edit, ...
+
 -test sound
 
 
@@ -136,10 +149,10 @@ activating cards
 -need to store parent of category?
 
 
--test uploading of logs
+-test uploading of logs, also in rollover
 
 
--activate categories
+-activate cards, belonging to these card types, having any of these tags, but non of these, ro just none of these
 
 
 -deck editor
@@ -148,9 +161,14 @@ activating cards
 
 -qsortfilter proxy
 
+-show number of cards selected
 
--partial implementation of type answer (uses special category)
 
+-ampersand mnemonics everywhere
+
+
+-partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
+-draw answer, make configurable by card type
 
 -move 'card type by name' to different place?
 
@@ -161,9 +179,11 @@ activating cards
   move latex configuration files?, import user id and config, ...
  urge user to merge all of his separate decks into one deck
 
+-best way for plugins / other guis to store their config info
 
 -update ohloh?
 
+-boxing / limiting: see which hooks needed
 
 -renamed default data dir on Windows?
 
@@ -190,6 +210,8 @@ activating cards
 -make filters more efficients by using regex instead of loops.
 
 -easier function to do tag detection in plugin
+
+-skritter/cpod interop mail
 
 
 
@@ -222,6 +244,8 @@ activating cards
 
 * After 2.0:
 
+-website redesign? like http://hanzim.com/download.php
+
 -don't activate plugins until after clicking ok
 
 -respect font in fact editor
@@ -238,11 +262,24 @@ activating cards
 http://pythoscope.org/
 -pylint, pyflakes
 
+-hover over extra hanzi information, hanzi statistics
+
 
 -plugin for midi files
 
 
+Multiuser statistics analysis:
+
+-card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
+or persistent for the full server
+-break out card ids to a different table and use _id as well
+-more times from a later start date to save space?
+-sql: insert or ignore statement, faster if adding same data twice is no problem
+
+
 Windows Mobile client:
+
+If your phone has a touchscreen use the pocket pc version. Otherwise try the smartphone version. 
 
 -better way of making default actions visible? Call layout()?
 -hook up scheduler rollover
@@ -258,8 +295,7 @@ Windows Mobile client:
 -button color
 
 
--download media files when giving URL? Store media inside database? Copy 
- it to .mnemosyne by default?
+-download media files when giving URL
 
 
 -also allow import compressed backup files from within Mnemosyne

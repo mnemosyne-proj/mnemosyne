@@ -40,13 +40,12 @@ class Card(object):
         self.fact_view = fact_view
         self.id = self.fact.id + "." + self.fact.card_type.id + "." + \
                   self.fact_view.id
-        self.id_ = None
+        self._id = None
         self.categories = []
         self.extra_data = {}
         self.scheduler_data = 0
         self.active = True
         self.in_view = True
-        self.type_answer = False
         self.reset_learning_data()
         
     def __eq__(self, other):                                            
@@ -67,9 +66,9 @@ class Card(object):
         'lapses' is the number of times a card with grade 2 or higher was
         forgotten, i.e. graded 0 or 1.
 
-        'last_rep' and 'next_rep' are measured in days since the creation of
-        the database. Note that these values should be stored as float in
-        order to accomodate plugins doing minute-level scheduling.
+        'last_rep' and 'next_rep' are integer POSIX timestamps. Since they have
+        a resolution in seconds, the accomodate plugins doing minute-level
+        scheduling. Storing them as int makes it very efficient in SQL.
 
         'unseen' means that the card has not been seen during the interactive
         review process. This variable is needed to determine which new cards to
@@ -106,10 +105,5 @@ class Card(object):
         
     interval = property(lambda self : self.next_rep - self.last_rep)
     
-    days_since_last_rep = property(lambda self : \
-        self.database().days_since_start() - self.last_rep)
-                            
-    days_until_next_rep = property(lambda self : \
-        self.next_rep - self.database().days_since_start())
 
 

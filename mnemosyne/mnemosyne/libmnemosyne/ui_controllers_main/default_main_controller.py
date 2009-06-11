@@ -4,6 +4,7 @@
 
 import os
 import copy
+import time
 import datetime
 
 from mnemosyne.libmnemosyne.translator import _
@@ -14,6 +15,17 @@ from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
 
 class DefaultMainController(UiControllerMain):
+
+    def heartbeat(self):
+
+        """To be called once a day, to make sure that the logs get uploaded
+        even if the user leaves the program open for a very long time.
+
+        """
+        
+        self.log().dump_to_txt_log()
+        self.log().deactivate()
+        self.log().activate()   
         
     def update_title(self):
         database_name = os.path.basename(self.config()["path"]).\
@@ -56,7 +68,7 @@ class DefaultMainController(UiControllerMain):
                 self.main_widget().information_box(\
               _("Card is already in database.\nDuplicate not added."))
             return
-        fact = Fact(fact_data, card_type, self.database().days_since_start())
+        fact = Fact(fact_data, card_type)
         categories = []
         for cat_name in cat_names:
             categories.append(db.get_or_create_category_with_name(cat_name))
@@ -86,6 +98,7 @@ class DefaultMainController(UiControllerMain):
         db.add_fact(fact)
         cards = []
         for card in card_type.create_related_cards(fact):
+            self.log().added_card(card)
             if grade != -1:
                 self.scheduler().set_initial_grade(card, grade)
             card.categories = categories
@@ -128,7 +141,7 @@ class DefaultMainController(UiControllerMain):
             else:
                 # Make sure the converter operates on card objects which
                 # already know their new type, otherwise we could get
-                # conflicting id's.
+                # conflicting ids.
                 fact.card_type = new_card_type
                 cards_to_be_updated = db.cards_from_fact(fact)
                 for card in cards_to_be_updated:
@@ -160,7 +173,7 @@ class DefaultMainController(UiControllerMain):
         # Update facts and cards.
         new_cards, updated_cards, deleted_cards = \
             fact.card_type.update_related_cards(fact, new_fact_data)
-        fact.modification_date = self.database().days_since_start()
+        fact.modification_time = time.time()
         fact.data = new_fact_data
         db.update_fact(fact)
         for card in deleted_cards:
@@ -238,6 +251,7 @@ class DefaultMainController(UiControllerMain):
         db.unload()
         db.new(out)
         db.load(self.config()["path"])
+        self.log().loaded_database()
         self.ui_controller_review().reset()
         self.ui_controller_review().update_dialog()
         self.update_title()
@@ -245,7 +259,7 @@ class DefaultMainController(UiControllerMain):
 
     def file_open(self):
         stopwatch.pause()
-        old_path = self.config()["path"]
+        old_path = expand_path(self.config()["path"], self.config().basedir)
         out = self.main_widget().open_file_dialog(path=old_path,
             filter=_("Mnemosyne databases (*%s)" % self.database().suffix))
         if not out:
@@ -253,6 +267,7 @@ class DefaultMainController(UiControllerMain):
             return
         try:
             self.database().unload()
+            self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
             stopwatch.unpause()
@@ -260,6 +275,7 @@ class DefaultMainController(UiControllerMain):
         self.ui_controller_review().reset()
         try:
             self.database().load(out)
+            self.log().loaded_database()
         except MnemosyneError, e:
             self.main_widget().show_exception(e)
             stopwatch.unpause()
@@ -270,9 +286,9 @@ class DefaultMainController(UiControllerMain):
 
     def file_save(self):
         stopwatch.pause()
-        path = self.config()["path"]
         try:
-            self.database().save(path)
+            self.database().save()
+            self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
         stopwatch.unpause()
@@ -280,7 +296,7 @@ class DefaultMainController(UiControllerMain):
     def file_save_as(self):
         stopwatch.pause()
         suffix = self.database().suffix
-        old_path = self.config()["path"]
+        old_path = expand_path(self.config()["path"], self.config().basedir)
         out = self.main_widget().save_file_dialog(path=old_path,
             filter=_("Mnemosyne databases (*%s)" % suffix))
         if not out:
@@ -290,11 +306,13 @@ class DefaultMainController(UiControllerMain):
             out += suffix
         try:
             self.database().save(out)
+            self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
             stopwatch.unpause()
             return
         self.ui_controller_review().update_dialog()
+        self.update_title()
         stopwatch.unpause()
 
     def card_appearance(self):

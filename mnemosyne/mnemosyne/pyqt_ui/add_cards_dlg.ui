@@ -80,6 +80,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="grade_1_button">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>1</string>
             </property>

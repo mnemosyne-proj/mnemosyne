@@ -21,6 +21,7 @@ class Category(object):
         self.id = id
         self._id = None
         self.name = name
+        self.extra_data = {}
 
     def __eq__(self, other):
         try:

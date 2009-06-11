@@ -35,14 +35,6 @@ class TestDatabaseStub:
         self.database.is_loaded()
         
     @raises(NotImplementedError)
-    def test_set_start_date(self):
-        self.database.set_start_date(None)
-        
-    @raises(NotImplementedError)
-    def test_days_since_start(self):
-        self.database.days_since_start()
-        
-    @raises(NotImplementedError)
     def test_add_category(self):
         self.database.add_category(None)
 
@@ -152,7 +144,7 @@ class TestDatabaseStub:
 
     @raises(NotImplementedError)
     def test_cards_due_for_ret_rep(self):
-        self.database.cards_due_for_ret_rep()
+        self.database.cards_due_for_ret_rep(None)
 
     @raises(NotImplementedError)
     def test_cards_due_for_final_review(self):
@@ -168,4 +160,4 @@ class TestDatabaseStub:
         
     @raises(NotImplementedError)   
     def test_cards_learn_ahead(self):
-        self.database.cards_learn_ahead()
+        self.database.cards_learn_ahead(None)

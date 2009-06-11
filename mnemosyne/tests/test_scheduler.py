@@ -22,7 +22,7 @@ class TestScheduler(MnemosyneTest):
         fact_data = {"q": "4", "a": "a"}
         card_4 = self.ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=2, cat_names=["default"], warn=False)[0]
-        card_4.next_rep -= 1000
+        card_4.next_rep -= 1000 * 24 * 60 * 60
         self.database().update_card(card_4)
 
         # Due cards.
@@ -180,7 +180,7 @@ class TestScheduler(MnemosyneTest):
                 card_type = self.card_type_by_id("2")            
             card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                     grade=4, cat_names=["default" + str(i)])[0]
-            card.next_rep -= 1000-i
+            card.next_rep -= (1000-i) * 24 * 60 * 60
             self.database().update_card(card)
             if i == 0:
                 card_1 = card
@@ -189,3 +189,16 @@ class TestScheduler(MnemosyneTest):
         self.ui_controller_review().grade_answer(0)
         card_1_new = self.database().get_card(card_1._id)
         assert card_1_new.grade == 0
+
+    def test_learn_ahead_3(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "1", "a": "a"}
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=0, cat_names=["default"], warn=False)[0]
+        self.ui_controller_review().new_question()
+        self.ui_controller_review().grade_answer(5)    
+        self.ui_controller_review().learning_ahead = True
+        for i in range(10):
+            self.ui_controller_review().new_question()
+            assert self.ui_controller_review().card is not None
+            self.ui_controller_review().grade_answer(2)

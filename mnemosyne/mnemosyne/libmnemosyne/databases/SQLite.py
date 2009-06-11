@@ -3,9 +3,9 @@
 #
 
 import os
+import time
 import shutil
 import sqlite3
-from datetime import datetime
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
@@ -13,7 +13,6 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
@@ -28,12 +27,13 @@ SCHEMA = """
         _id integer primary key,
         id text,
         card_type_id text,
-        creation_date float,
-        modification_date float
+        creation_time integer,
+        modification_time integer,
+        extra_data text default ""
     );
 
     create table data_for_fact(
-        _fact_id int,
+        _fact_id integer,
         key text,
         value text
     );
@@ -42,41 +42,81 @@ SCHEMA = """
     create table cards(
         _id integer primary key,
         id text,
-        _fact_id int,
+        _fact_id integer,
         fact_view_id text,
-        grade int,
+        grade integer,
         easiness real,
-        acq_reps int,
-        ret_reps int,
-        lapses int,
-        acq_reps_since_lapse int,
-        ret_reps_since_lapse int,
-        last_rep real,
-        next_rep real,
+        acq_reps integer,
+        ret_reps integer,
+        lapses integer,
+        acq_reps_since_lapse integer,
+        ret_reps_since_lapse integer,
+        last_rep integer,
+        next_rep integer,
         unseen boolean default 1,
         extra_data text default "",
-        scheduler_data int default 0,
-        type_answer boolean default 1,
+        scheduler_data integer default 0,
         active boolean default 1,
         in_view boolean default 1
     );
 
     create table categories(
         _id integer primary key,
-        _parent_key int default 0,
+        _parent_key integer default 0,
         id text,
-        name text
+        name text,
+        extra_data text default ""
     );
 
     create table categories_for_card(
-        _card_id int,
-        _category_id int
+        _card_id integer,
+        _category_id integer
     );
     create index i_categories_for_card on categories_for_card (_card_id);
 
     create table global_variables(
         key text,
         value text
+    );
+
+    /* For object_id, we need to store the full ids as opposed to the _ids.
+       When deleting an object, there is no longer a way to get the ids from
+       the _ids, and for robustness and interoperability, we need to send the
+       ids across when syncing.
+    */
+       
+    create table history(
+        _id integer primary key,
+        event integer,
+        timestamp integer,
+        object_id text,
+        grade integer,
+        easiness real,
+        acq_reps integer,
+        ret_reps integer,
+        lapses integer,
+        acq_reps_since_lapse integer,
+        ret_reps_since_lapse integer,
+        scheduled_interval integer,
+        actual_interval integer,
+        new_interval integer,
+        thinking_time integer
+    );
+    create index i_history on history (timestamp);
+
+    /* We track the last _id as opposed to the last timestamp, as importing
+       another database could add history events with earlier dates, but
+       which still need to be synced. */
+    
+    create table partnerships(
+        partner text,
+        _last_history_id integer
+    );
+
+    create table media(
+        filename text,
+        _fact_id integer,
+        last_modified integer
     );
     
     commit;
@@ -93,7 +133,6 @@ class SQLite(Database):
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
         self.load_failed = True
-        self.start_date = None
 
     @property
     def con(self):
@@ -112,36 +151,30 @@ class SQLite(Database):
         if os.path.exists(self._path):
             os.remove(self._path)
         self.load_failed = False      
-        self.start_date = StartDate()
         self.con.executescript(SCHEMA) # Create tables.
-        self.con.execute("insert into global_variables(key,value) values(?,?)",
-                        ("start_date", datetime.strftime(self.start_date.start,
-                         "%Y-%m-%d %H:%M:%S")))
-        self.con.execute("insert into global_variables(key,value) values(?,?)",
+        self.con.execute("insert into global_variables(key, value) values(?,?)",
                         ("version", self.version))
-        self.con.execute("insert into global_variables(key,value) values(?,?)",
-                        ("times_loaded", "0"))
+        self.con.execute("insert into global_variables(key, value) values(?,?)",
+                        ("times_loaded", 0))
+        self.con.execute("""insert into partnerships(partner, _last_history_id)
+                         values(?,?)""", ("log.txt", 0))
         self.con.commit()
-        self.config()["path"] = self._path
-        self.log().new_database()
+        self.config()["path"] = contract_path(self._path, self.config().basedir)
 
     def load(self, path):
         if self.is_loaded():        
             self.unload()
         self._path = expand_path(path, self.config().basedir)
+
+        # Check database version.
         try:
             sql_res = self.con.execute("""select value from global_variables
-                where key=?""", ("start_date", )).fetchone()
-            self.set_start_date(StartDate(datetime.strptime(sql_res["value"],
-                "%Y-%m-%d %H:%M:%S")))
+                where key=?""", ("version", )).fetchone()
             self.load_failed = False
         except:
             self.load_failed = True
             raise RuntimeError, _("Unable to load file.")
-
-        # Check database version.
-        sql_res = self.con.execute("""select value from global_variables
-            where key=?""", ("version", )).fetchone()
+        
         if sql_res["value"] != self.version:
             self.load_failed = True
             raise RuntimeError, \
@@ -209,9 +242,10 @@ class SQLite(Database):
                 # database earlier.
                 pass        
         self.config()["path"] = contract_path(path, self.config().basedir)
-        self.log().loaded_database()
         for f in self.component_manager.get_all("function_hook", "after_load"):
             f.run()
+        # We don't log the database load here, as we prefer to log the start
+        # of the program first.
         
     def save(self, path=None):
         # Don't erase a database which failed to load.
@@ -229,6 +263,8 @@ class SQLite(Database):
             shutil.copy(self._path, dest_path)
             self._path = dest_path
         self.config()["path"] = contract_path(path, self.config().basedir)
+        # We don't log every save, as that would result in an event after
+        # every review.
 
     def backup(self):
         if self.config().resource_limited:
@@ -239,45 +275,46 @@ class SQLite(Database):
         pass
 
     def unload(self):
+        self.backup()
+        self.log().dump_to_txt_log()
         if self._connection:
-            self._connection.commit()
+            self.save()
             self._connection.close()
             self._connection = None
         self._path = None
         self.load_failed = True
-        self.start_date = None
         return True
         
     def is_loaded(self):
         return not self.load_failed
 
-    # Start date.
-
-    def set_start_date(self, start_date_obj):
-        self.start_date = start_date_obj
-        self.con.execute("insert into global_variables(key,value) values(?,?)",
-                        ("start_date", datetime.strftime(self.start_date.start,
-                         "%Y-%m-%d %H:%M:%S")))
-
-    def days_since_start(self):
-        return self.start_date.days_since_start(self.config()["day_starts_at"])
-
     # Adding, modifying and deleting categories, facts and cards. Commiting is
     # done by calling save in the main controller, in order to have a better
     # control over transaction granularity.
 
+    def _repr_extra_data(self, extra_data):
+        if extra_data == {}:
+            return "" # Save space.
+        else:
+            return repr(extra_data)
+
     def add_category(self, category):
-        _id = self.con.execute("insert into categories(name, id) values(?,?)",
-            (category.name, category.id)).lastrowid
+        _id = self.con.execute("""insert into categories(name, extra_data, id)
+            values(?,?,?)""", (category.name,
+            self._repr_extra_data(category.extra_data), category.id)).lastrowid
         category._id = _id
+        self.log().added_tag(category)
         
     def delete_category(self, category):
         self.con.execute("delete from categories where _id=?", (category._id,))
+        self.log().deleted_tag(category)
         del category
         
     def update_category(self, category):
-        self.con.execute("update categories set name=? where _id=?",
-                         (category.name, category._id))
+        self.con.execute("update categories set name=?, extra_data=? where _id=?",
+            (category.name, self._repr_extra_data(category.extra_data),
+             category._id))
+        self.log().updated_tag(category)
         
     def get_or_create_category_with_name(self, name):
         sql_res = self.con.execute("""select * from categories where name=?""",
@@ -300,45 +337,43 @@ class SQLite(Database):
         self.load_failed = False
         # Add fact to facts and data_for_fact tables.
         _fact_id = self.con.execute("""insert into facts(id, card_type_id,
-            creation_date, modification_date) values(?,?,?,?)""",
-            (fact.id, fact.card_type.id, fact.creation_date,
-             fact.modification_date)).lastrowid
+            creation_time, modification_time) values(?,?,?,?)""",
+            (fact.id, fact.card_type.id, fact.creation_time,
+             fact.modification_time)).lastrowid
         fact._id = _fact_id
         # Create data_for_fact.        
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((_fact_id, key, value)
                 for key, value in fact.data.items()))
+        self.log().added_fact(fact)
 
     def update_fact(self, fact):
         # Update fact.
         self.con.execute("""update facts set id=?, card_type_id=?,
-            creation_date=?, modification_date=? where _id=?""",
-            (fact.id, fact.card_type.id, fact.creation_date,
-             fact.modification_date, fact._id))
+            creation_time=?, modification_time=? where _id=?""",
+            (fact.id, fact.card_type.id, fact.creation_time,
+             fact.modification_time, fact._id))
         # Delete data_for_fact and recreate it.
         self.con.execute("delete from data_for_fact where _fact_id=?",
                 (fact._id, ))
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
                 for key, value in fact.data.items()))
-
+        self.log().updated_fact(fact)
+        
     def add_card(self, card):
         self.load_failed = False
-        if card.extra_data == {}:
-            extra_data = "" # Save space.
-        else:
-            extra_data = repr(card.extra_data)
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
-            unseen, extra_data, scheduler_data, type_answer, active,
-            in_view) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            unseen, extra_data, scheduler_data, active, in_view)
+            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (card.id, card.fact._id, card.fact_view.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep, card.unseen, extra_data,
-            card.scheduler_data, card.type_answer, card.active,
-            card.in_view)).lastrowid
+            card.last_rep, card.next_rep, card.unseen,
+            self._repr_extra_data(card.extra_data),
+            card.scheduler_data, card.active, card.in_view)).lastrowid
         card._id = _card_id
         # Link card to its categories.
         # The categories themselves have already been created by
@@ -348,25 +383,22 @@ class SQLite(Database):
                 where id=?""", (cat.id, )).fetchone()[0]
             self.con.execute("""insert into categories_for_card(_category_id,
                 _card_id) values(?,?)""", (_category_id, _card_id))
-        self.log().new_card(card)
+        # Add card is not logged here, but in the controller, to make sure
+        # that the first repetition is logged after the card creation.
 
-    def update_card(self, card, update_categories=True):
-        if card.extra_data == {}:
-            extra_data = "" # Save space.
-        else:
-            extra_data = repr(card.extra_data)
+    def update_card(self, card, repetition_only=False):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
             next_rep=?, unseen=?, extra_data=?, scheduler_data=?,
-            type_answer=?, active=?, in_view=? where _id=?""",
+            active=?, in_view=? where _id=?""",
             (card.fact._id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep, card.unseen, extra_data,
-            card.scheduler_data, card.type_answer, card.active,
-            card.in_view, card._id))
-        if not update_categories:
+            card.last_rep, card.next_rep, card.unseen,
+            self._repr_extra_data(card.extra_data),
+            card.scheduler_data, card.active, card.in_view, card._id))
+        if repetition_only:
             return
         # Link card to its categories.
         # The categories themselves have already been created by
@@ -375,7 +407,8 @@ class SQLite(Database):
                          (card._id, ))
         for cat in card.categories:
             self.con.execute("""insert into categories_for_card(_category_id,
-                _card_id) values(?,?)""", (cat._id, card._id))            
+                _card_id) values(?,?)""", (cat._id, card._id))
+        self.log().updated_card(card)
 
     def delete_fact_and_related_data(self, fact):
         for card in self.cards_from_fact(fact):
@@ -383,6 +416,7 @@ class SQLite(Database):
         self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
                          (fact._id, ))
+        self.log().deleted_fact(fact)
         del fact
         
     def delete_card(self, card):
@@ -415,9 +449,9 @@ class SQLite(Database):
             (_id, ))])
         # Create fact.
         fact = Fact(data, self.card_type_by_id(sql_res["card_type_id"]),
-            creation_date=sql_res["creation_date"], id=sql_res["id"])
+            creation_time=sql_res["creation_time"], id=sql_res["id"])
         fact._id = sql_res["_id"]
-        fact.modification_date = sql_res["modification_date"]
+        fact.modification_time = sql_res["modification_time"]
         return fact
 
     def get_card(self, _id):
@@ -430,8 +464,8 @@ class SQLite(Database):
                 break
         for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
-            "last_rep", "next_rep", "unseen", "scheduler_data",
-            "type_answer", "active", "in_view"):
+            "last_rep", "next_rep", "unseen", "scheduler_data", "active",
+            "in_view"):
             setattr(card, attr, sql_res[attr])
         if sql_res["extra_data"] == "":
             card.extra_data = {}
@@ -551,13 +585,10 @@ class SQLite(Database):
         return self.con.execute("""select count() from cards
             where active=1 and grade<2""").fetchone()[0]
 
-    def scheduled_count(self, days=0):
-        
-        """Get number of cards scheduled within 'days' days."""
-
+    def scheduled_count(self, timestamp):
         count = self.con.execute("""select count() from cards
-            where active=1 and grade>=2 and ?>=next_rep-?""",
-            (self.days_since_start(), days)).fetchone()[0]
+            where active=1 and grade>=2 and ?>=next_rep""",
+            (timestamp,)).fetchone()[0]
         return count
 
     def active_count(self):
@@ -583,12 +614,12 @@ class SQLite(Database):
             return "next_rep - last_rep"
         return sort_key
 
-    def cards_due_for_ret_rep(self, sort_key="", limit=-1):
+    def cards_due_for_ret_rep(self, timestamp, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?>=next_rep order by ? limit ?""",
-            (self.days_since_start(), sort_key, limit)))
+            (timestamp, sort_key, limit)))
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
@@ -611,12 +642,12 @@ class SQLite(Database):
             active=1 and unseen=1 and grade=? order by ? limit ?""",
             (grade, sort_key, limit)))
     
-    def cards_learn_ahead(self, sort_key="", limit=-1):
+    def cards_learn_ahead(self, timestamp, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
             active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
-            (self.days_since_start(), sort_key, limit)))
+            (timestamp, sort_key, limit)))
 
     # Extra commands for custom schedulers.
 

@@ -15,7 +15,6 @@ class Logger(Component):
         self.upload_thread = None
         self.archive_old_log()
         self.start_logging()
-        self.program_started()
         if self.config()["upload_logs"] and \
                not self.config().resource_limited:
             from mnemosyne.libmnemosyne.log_uploader import LogUploader
@@ -23,41 +22,68 @@ class Logger(Component):
             self.upload_thread.start()
     
     def start_logging(self):
-        raise NotImplementedError
+        pass
     
-    def program_started(self):
-        raise NotImplementedError  
-        
-    def new_database(self):
-        raise NotImplementedError
-    
+    def started_program(self):
+        pass
+
+    def started_scheduler(self):
+        pass
+
     def loaded_database(self):
-        raise NotImplementedError
+        pass
         
     def saved_database(self):
-        raise NotImplementedError
-        
-    def new_card(self, card):
-        raise NotImplementedError  
+        pass
+
+    def added_fact(self, fact):
+        pass
+
+    def updated_fact(self, fact):
+        pass
     
-    def imported_card(self, card):
-        raise NotImplementedError
+    def deleted_fact(self, fact):
+        pass
+    
+    def added_tag(self, tag):
+        pass
+
+    def updated_tag(self, tag):
+        pass
+    
+    def deleted_tag(self, tag):
+        pass
+    
+    def added_card(self, card):
+        pass
+
+    def updated_card(self, card):
+        pass
     
     def deleted_card(self, card):
-        raise NotImplementedError
+        pass
         
-    def revision(self, card, scheduled_interval, actual_interval, \
-                 new_interval, noise):
-        raise NotImplementedError               
+    def repetition(self, card, scheduled_interval, actual_interval,
+                   new_interval, noise=0):
+        pass               
         
-    def uploaded(self, filename):
-        raise NotImplementedError
+    def uploaded_log(self, filename):
+        pass
     
-    def uploading_failed(self):
-        raise NotImplementedError
+    def upload_failed(self):
+        pass
         
-    def program_stopped(self):
-        raise NotImplementedError      
+    def stopped_program(self):
+        pass
+
+    def dump_to_txt_log(self):
+
+        """If we're not logging to a standard text file, we need to dump the
+        collected logs to such a file from time to time for uploading.
+
+        """
+        
+        pass
         
     def archive_old_log(self):
         
@@ -91,4 +117,3 @@ class Logger(Component):
             print _("Waiting for uploader thread to stop...")
             self.upload_thread.join()
             print _("Done!")
-        self.program_stopped()

@@ -2,18 +2,74 @@
 # SM2_mnemosyne.py <Peter.Bienstman@UGent.be>
 #
 
+import time
 import random
-import copy
+import calendar
+import datetime
 
 from mnemosyne.libmnemosyne.scheduler import Scheduler
+from mnemosyne.libmnemosyne.stopwatch import stopwatch
+
+DAY = 24 * 60 * 60 # Seconds in a day.
 
 
 class SM2Mnemosyne(Scheduler):
 
-    """Scheduler based on http://www.supermemo.com/english/ol/sm2.htm."""
+    """Scheduler based on http://www.supermemo.com/english/ol/sm2.htm.
+    Note that all intervals are in seconds, since time is stored as
+    integer POSIX timestamps.
+
+    Since the scheduling granularity is days, all cards due on the same time
+    should become due at the same time. In order to keep the SQL query
+    efficient, we do this by setting 'next_rep' the same for all cards that
+    are due on the same day.
+    
+    In order to allow for the fact that the time zone and 'day_starts_at' can
+    change after scheduling a card, we store 'next_rep' as midnight UTC, and
+    bring local time and 'day_starts_at' only into play when querying the
+    database.
+
+    """
     
     name = "SM2 Mnemosyne"
 
+    def midnight_UTC(self, timestamp):        
+        date_only = datetime.date.fromtimestamp(timestamp)
+        return int(calendar.timegm(date_only.timetuple()))
+    
+    def adjusted_now(self):
+
+        """Adjust now such that the cross-over point of h:00 local time
+        (with h being 'day_starts_at') to midnight UTC.
+
+        """
+
+        now = time.time()
+        now -= self.config()["day_starts_at"] * 60 * 60            
+        if time.daylight:
+            now -= time.altzone
+        else:
+            now -= time.timezone
+        return int(now)
+
+    def true_scheduled_interval(self, card):
+
+        """Since 'next_rep' is always midnight UTC for retention reps, we need
+        to take timezone and 'day_starts_at' into account to calculate the true
+        scheduled interval when we are doing the actual repetition.
+
+        """
+
+        interval = card.next_rep - card.last_rep
+        if card.grade < 2:
+            return interval
+        interval += self.config()["day_starts_at"] * 60 * 60            
+        if time.daylight:
+            interval += time.altzone
+        else:
+            interval += time.timezone
+        return int(interval)       
+    
     def reset(self):
         self.queue = []
         self.facts = []
@@ -22,34 +78,24 @@ class SM2Mnemosyne(Scheduler):
                 
     def set_initial_grade(self, card, grade):
 
-        """Called when cards are given their initial grade outside of the
-        review process, e.g. when the user gives an initial grade when
-        adding a new card in the GUI. Therefore, 'unseen' is still left to
-        True, as this card has not yet been seen in the interactive review
-        process.
-
-        Cards which don't have initial grade information available (e.g. for
-        cards created during import or conversion from different card type),
-        get their initial grade when they are encountered in the interactive
-        review process for the first time.
-        
-        In both cases, this initial grading is seen as the first repetition.
-
-        In this way, both types of cards are treated in the same way. (There
-        is an ineffectual asymmetry left in the log messages they generate,
-        but all the relevant information can still be parsed from them.)
+        """Note that even if the initial grading happens when adding a card, it
+        is seen as a repetition.
 
         """
-                
-        db = self.database()
+
         card.grade = grade
-        card.easiness = db.average_easiness()
+        card.easiness = self.database().average_easiness()
         card.acq_reps = 1
         card.acq_reps_since_lapse = 1
-        card.last_rep = db.days_since_start()
+        card.last_rep = int(time.time())
         new_interval = self.calculate_initial_interval(grade)
         new_interval += self.calculate_interval_noise(new_interval)
-        card.next_rep = card.last_rep + new_interval
+        if grade >= 2:
+            card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
+        else:
+            card.next_rep = int(time.time())            
+        self.log().repetition(card, scheduled_interval=0, actual_interval=0,
+                              new_interval=new_interval)
 
     def calculate_initial_interval(self, grade):
         
@@ -59,21 +105,19 @@ class SM2Mnemosyne(Scheduler):
 
         """
         
-        interval = (0, 0, 1, 3, 4, 5) [grade]
-        return interval
+        return (0, 0, 1*DAY, 3*DAY, 4*DAY, 5*DAY) [grade]
 
     def calculate_interval_noise(self, interval):
         if interval == 0:
             noise = 0
-        elif interval == 1:
-            noise = random.randint(0,1)
-        elif interval <= 10:
-            noise = random.randint(-1,1)
-        elif interval <= 60:
-            noise = random.randint(-3,3)
+        elif interval <= DAY:
+            noise = random.choice([0, DAY])
+        elif interval <= 10 * DAY:
+            noise = random.choice([-DAY, 0, DAY])
+        elif interval <= 60 * DAY:
+            noise = random.uniform(-3 * DAY, 3 * DAY)
         else:
-            a = .05 * interval
-            noise = round(random.uniform(-a,a))
+            noise = random.uniform(-0.05 * interval, 0.05 * interval)
         return noise
 
     def rebuild_queue(self, learn_ahead=False):
@@ -96,8 +140,8 @@ class SM2Mnemosyne(Scheduler):
                 sort_key = "random"
             else:
                 sort_key = "interval"
-            for _card_id, _fact_id in \
-                    db.cards_due_for_ret_rep(sort_key=sort_key, limit=50):
+            for _card_id, _fact_id in db.cards_due_for_ret_rep(\
+                    self.adjusted_now(), sort_key=sort_key, limit=50):
                 self.queue.append(_card_id)
                 self.facts.append(_fact_id)
             if len(self.queue):
@@ -211,8 +255,8 @@ class SM2Mnemosyne(Scheduler):
         if learn_ahead == False:
             self.stage = 3
             return
-        for _card_id, _fact_id in db.cards_learn_ahead(sort_key="next_rep",
-                                                       limit=50):
+        for _card_id, _fact_id in db.cards_learn_ahead(self.adjusted_now(),
+                sort_key="next_rep", limit=50):
             self.queue.append(_card_id)
         # Relearn cards which we got wrong during learn ahead.
         self.stage = 2
@@ -246,7 +290,7 @@ class SM2Mnemosyne(Scheduler):
     def allow_prefetch(self):
 
         """Can we display a new card before having processed the grading of
-        the previous one?.
+        the previous one?
 
         """
                 
@@ -255,22 +299,17 @@ class SM2Mnemosyne(Scheduler):
         return len(self.queue) >= 3
 
     def grade_answer(self, card, new_grade, dry_run=False):
-        db = self.database()
-        days_since_start = db.days_since_start()
         # When doing a dry run, make a copy to operate on. This leaves the
         # original in the GUI intact.
         if dry_run:
+            import copy
             card = copy.copy(card)
-        # Calculate scheduled and actual interval, taking care of corner
-        # case when learning ahead on the same day.
-        scheduled_interval = card.next_rep - card.last_rep
-        actual_interval = days_since_start - card.last_rep
-        if actual_interval == 0:
-            actual_interval = 1 # Otherwise new interval can become zero.
+        scheduled_interval = self.true_scheduled_interval(card)
+        actual_interval = int(stopwatch.start_time) - card.last_rep
         if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
             # was imported or created during card type conversion.
-            card.easiness = db.average_easiness()
+            card.easiness = self.database().average_easiness()
             card.acq_reps = 1
             card.acq_reps_since_lapse = 1
             new_interval = self.calculate_initial_interval(new_grade)
@@ -288,7 +327,7 @@ class SM2Mnemosyne(Scheduler):
              # In the acquisition phase and moving to the retention phase.
              card.acq_reps += 1
              card.acq_reps_since_lapse += 1
-             new_interval = 1
+             new_interval = DAY
              # Make sure the second copy of a grade 0 card doesn't show
              # up again.
              if not dry_run and card.grade == 0:
@@ -315,10 +354,9 @@ class SM2Mnemosyne(Scheduler):
                     card.easiness += 0.10
                 if card.easiness < 1.3:
                     card.easiness = 1.3
-            new_interval = 0
             if card.ret_reps_since_lapse == 1:
-                new_interval = 6
-            else:
+                new_interval = 6 * DAY
+            else:               
                 if new_grade == 2 or new_grade == 3:
                     if actual_interval <= scheduled_interval:
                         new_interval = actual_interval * card.easiness
@@ -331,27 +369,48 @@ class SM2Mnemosyne(Scheduler):
                         new_interval = scheduled_interval # Avoid spacing.
                     else:
                         new_interval = actual_interval * card.easiness
-            assert new_interval != 0
-            new_interval = int(new_interval)
+                # Pathological case which can occur when learning ahead
+                # many times in a row.
+                if new_grade >= 2 and new_interval < DAY:
+                    new_interval = DAY
+        new_interval = int(new_interval)
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:
             return new_interval
+
         # Add some randomness to interval.
-        noise = self.calculate_interval_noise(new_interval)
-        # Update grade and interval.
+        new_interval += self.calculate_interval_noise(new_interval)
+        # Update card properties.
         card.grade = new_grade
-        card.last_rep = days_since_start
-        card.next_rep = days_since_start + new_interval + noise
-        card.unseen = False
-        # Don't schedule related cards on the same day.
-        while self.database().count_related_cards_with_next_rep\
+        card.last_rep = int(time.time())
+        if new_grade >= 2:
+            card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
+            # Don't schedule related cards on the same day. Keep normalising,
+            # as a day is not always exactly DAY seconds when there are leap
+            # seconds. 
+            while self.database().count_related_cards_with_next_rep\
                   (card, card.next_rep):
-            card.noise += 1
-            card.next_rep += 1            
+                card.next_rep = self.midnight_UTC(card.next_rep + DAY)
+            # Round new interval to nearest cross-over point (only used in
+            # logging here).
+            new_interval = self.true_scheduled_interval(card)
+        else:
+            card.next_rep = int(time.time())
+            new_interval = 0
+        card.unseen = False
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.
-        self.log().revision(card, scheduled_interval, actual_interval,
-                       new_interval, noise)
-        return new_interval + noise
+        self.log().repetition(card, scheduled_interval, actual_interval,
+                              new_interval)
+        return new_interval
+
+    def non_memorised_count(self):
+        return self.database().non_memorised_count()
+
+    def scheduled_count(self):
+        return self.database().scheduled_count(self.adjusted_now())
+
+    def active_count(self):
+        return self.database().active_count()
 

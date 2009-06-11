@@ -1,5 +1,5 @@
 #
-# txt_logging <Peter.Bienstman@UGent.be>
+# txt_logger.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -36,42 +36,39 @@ class TxtLogger(Logger):
         #                    datefmt="%Y-%m-%d %H:%M:%S :",
         #                    filename=log_name)
                             
-    def program_started(self):    
+    def started_program(self):    
         self.logger.info("Program started : Mnemosyne " + \
                          mnemosyne.version.version\
                          + " " + os.name + " " + sys.platform)
+
+    def started_scheduler(self):
         self.logger.info("Scheduler : " + self.scheduler().name)
-        
-    def new_database(self):
-        self.logger.info("New database")
     
     def loaded_database(self):
+        sch = self.scheduler()
         self.logger.info("Loaded database %d %d %d", \
-                         self.database().scheduled_count(), \
-                         self.database().non_memorised_count(), \
-                         self.database().active_count())
+                         sch.scheduled_count(), \
+                         sch.non_memorised_count(), \
+                         sch.active_count())
         
     def saved_database(self):
+        sch = self.scheduler()        
         self.logger.info("Saved database %d %d %d", \
-                         self.database().scheduled_count(), \
-                         self.database().non_memorised_count(), \
-                         self.database().active_count())
+                         sch.scheduled_count(), \
+                         sch.non_memorised_count(), \
+                         sch.active_count())
         
-    def new_card(self, card):
-        new_interval = self.database().days_since_start() - card.next_rep
-        self.logger.info("New item %s %d %d", card.id, card.grade,
+    def added_card(self, card):
+        grade = -1
+        new_interval = -1 # We log the first rep separately anyhow
+        self.logger.info("New item %s %d %d", card.id, grade,
                          new_interval)
-        
-    def imported_card(self, card):
-        self.logger.info("Imported item %s %d %d %d %d %d",
-                         card.id, card.grade, card.ret_reps,
-                         card.last_rep, card.next_rep, card.interval)
     
     def deleted_card(self, card):
         self.logger.info("Deleted item %s", card.id)
         
-    def revision(self, card, scheduled_interval, actual_interval, \
-                 new_interval, noise):
+    def repetition(self, card, scheduled_interval, actual_interval,
+                   new_interval, noise=0):
         self.logger.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
                          card.id, card.grade, card.easiness,
                          card.acq_reps, card.ret_reps, card.lapses,
@@ -79,11 +76,11 @@ class TxtLogger(Logger):
                          scheduled_interval, actual_interval,
                          new_interval, noise, stopwatch.time())
                     
-    def uploaded(self, filename):
+    def uploaded_log(self, filename):
         self.logger.info("Uploaded %s" % filename)
     
-    def uploading_failed(self):
+    def upload_failed(self):
         self.logger.info("Uploading failed")
         
-    def program_stopped(self):    
+    def stopped_program(self):    
         self.logger.info("Program stopped")  

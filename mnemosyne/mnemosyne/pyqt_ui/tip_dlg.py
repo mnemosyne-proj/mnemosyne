@@ -37,7 +37,7 @@ class TipDlg(TipFrm):
 
         self.tips.append(self.trUtf8("""The 'number of grade 0 cards to hold in your hand' setting determines how many new cards you are trying to learn at the same time. It does <b>not</b> tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel."""))
 
-        self.tips.append(self.trUtf8("""In summary, try to do your repetitions every day, but don't worry too much about getting the 'scheduled' counter to zero, and certainly not about getting the 'Not memorised' counter to zero."""))
+        self.tips.append(self.trUtf8("""In summary, try to do your repetitions every day, but don't worry too much about getting the 'Scheduled' counter to zero, and certainly not about getting the 'Not memorised' counter to zero."""))
 
         self.tips.append(self.trUtf8("""Grade 1 cards are different from grade 0 cards in the sense that they show up less often and are not subject to the 'number of grade 0 cards to learn at once' setting."""))
 

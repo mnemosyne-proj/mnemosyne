@@ -7,8 +7,7 @@ from nose.tools import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.category import Category
-from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
+from mnemosyne.libmnemosyne.utils import expand_path
 
 
 class TestDatabase(MnemosyneTest):
@@ -39,8 +38,8 @@ class TestDatabase(MnemosyneTest):
         assert fact.data["q"] == "question"
         assert fact.data["a"] == "answer"
         assert fact.id == old_fact.id
-        assert fact.creation_date == old_fact.creation_date
-        assert fact.modification_date == old_fact.creation_date     
+        assert fact.creation_time == old_fact.creation_time
+        assert fact.modification_time == old_fact.modification_time     
         assert card.categories[0].name == old_card.categories[0].name
 
         assert card.fact == old_card.fact
@@ -107,11 +106,7 @@ class TestDatabase(MnemosyneTest):
         self.ui_controller_main().update_related_cards(fact, fact_data, card_type,
             new_cat_names=["default1"], correspondence=[])
         new_card = self.database().get_card(card._id)
-        assert new_card.categories[0].name == "default1"     
-        
-    @raises(RuntimeError)
-    def test_load_unexisting_file(self):        
-        self.database().load("unexisting")
+        assert new_card.categories[0].name == "default1"                                  
         
     def test_clones(self):
         fact_data = {"q": "question",
@@ -128,7 +123,7 @@ class TestDatabase(MnemosyneTest):
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
         self.ui_controller_main().file_save()       
-        self.database().unload()
+
         self.mnemosyne.finalise()
         self.restart()
         assert self.database().fact_count() == 1
@@ -160,8 +155,8 @@ class TestDatabase(MnemosyneTest):
         self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_cat_names=["default2"], correspondence=[])
         assert self.database().fact_count() == 1        
-        self.ui_controller_main().file_save()       
-        self.database().unload()
+        self.ui_controller_main().file_save()
+
         self.mnemosyne.finalise()
 
         self.restart()
@@ -226,7 +221,6 @@ class TestDatabase(MnemosyneTest):
         
         self.ui_controller_main().file_save()
 
-        self.database().unload()
         self.mnemosyne.finalise()
         self.restart()
         self.database().unload()
@@ -264,7 +258,7 @@ class TestDatabase(MnemosyneTest):
                new_card_type, new_cat_names=["default2"], correspondence=[])
         
         self.ui_controller_main().file_save()       
-        self.database().unload()
+
         self.mnemosyne.finalise()
         self.restart()
         self.database().unload()
@@ -286,7 +280,7 @@ class TestDatabase(MnemosyneTest):
         self.ui_controller_main().create_new_cards(fact_data, card_type,
                                               grade=0, cat_names=["default"])
         self.ui_controller_main().file_save()
-        self.database().unload()
+        
         self.database().load_failed = True
         assert self.database().save(self.config()["path"]) == -1
         
@@ -300,6 +294,7 @@ class TestDatabase(MnemosyneTest):
         new_name = self.config()["path"] + ".bak"
         assert self.database().save(self.config()["path"] + ".bak") != -1
         assert self.config()["path"] == new_name
+        assert new_name != expand_path(new_name, self.config().basedir)
         
     def test_has_fact_with_data(self):
         fact_data = {"q": "question",

@@ -5,15 +5,14 @@
 
 import os
 import gzip
+import time
 import cPickle
-import datetime
 import shutil
 import random
 import mnemosyne.version
 
 from mnemosyne.libmnemosyne.category import Category
 from mnemosyne.libmnemosyne.database import Database
-from mnemosyne.libmnemosyne.start_date import StartDate
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.translator import _
@@ -40,7 +39,6 @@ class Pickle(Database):
 
     def __init__(self, component_manager):
         Database.__init__(self, component_manager)
-        self.start_date = None
         self.categories = []
         self.facts = []
         self.cards = []
@@ -52,9 +50,8 @@ class Pickle(Database):
             self.unload()
         path = expand_path(path, self.config().basedir)
         self.load_failed = False
-        self.start_date = StartDate()
         self.save(contract_path(path, self.config().basedir))
-        self.config()["path"] = path
+        self.config()["path"] = contract_path(path, self.config().basedir)
         self.log().new_database()
 
     def load(self, path):
@@ -67,11 +64,10 @@ class Pickle(Database):
         try:
             infile = file(path, 'rb')
             db = cPickle.load(infile)
-            self.start_date = db[0]
-            self.categories = db[1]
-            self.facts = db[2]
-            self.cards = db[3]
-            self.global_variables = db[4]
+            self.categories = db[0]
+            self.facts = db[1]
+            self.cards = db[2]
+            self.global_variables = db[3]
             infile.close()
             self.load_failed = False
         except:
@@ -136,10 +132,11 @@ class Pickle(Database):
         for f in self.facts:
             f.card_type = self.card_type_by_id(f.card_type)    
         self.config()["path"] = contract_path(path, self.config().basedir)
-        self.log().loaded_database()
         for f in self.component_manager.get_all("function_hook", "after_load"):
             f.run()
-
+        # We don't log the database load here, as we prefer to log the start
+        # of the program first.
+        
     def save(self, path=None):
         # Don't erase a database which failed to load.
         if self.load_failed == True:
@@ -156,7 +153,7 @@ class Pickle(Database):
             # Write to a backup file first, as shutting down Windows can
             # interrupt the dump command and corrupt the database.
             outfile = file(path + "~", 'wb')
-            db = [self.start_date, self.categories, self.facts, self.cards,
+            db = [self.categories, self.facts, self.cards,
                   self.global_variables]
             cPickle.dump(db, outfile)
             outfile.close()
@@ -168,13 +165,15 @@ class Pickle(Database):
         # Work around sip bug again.
         for f in self.facts:
             f.card_type = self.card_type_by_id(f.card_type)
+        # We don't log every save, as that would result in an event after
+        # every review.
 
     def unload(self):
+        self.backup()
+        self.log().dump_to_txt_log()
         if len(self.facts) == 0:
             return True
         self.save(self.config()["path"])
-        self.log().saved_database()
-        self.start_date = None
         self.categories = []
         self.facts = []
         self.cards = []
@@ -224,12 +223,6 @@ class Pickle(Database):
 
     def is_loaded(self):
         return len(self.facts) != 0
-
-    def set_start_date(self, start_date_obj):
-        self.start_date = start_date_obj
-
-    def days_since_start(self):
-        return self.start_date.days_since_start(self.config()["day_starts_at"])
     
     # Adding, modifying and deleting categories, facts and cards.
     
@@ -277,9 +270,8 @@ class Pickle(Database):
         card._id = card.id
         self.load_failed = False
         self.cards.append(card)
-        self.log().new_card(card)
 
-    def update_card(self, card, update_categories=True):
+    def update_card(self, card, repetition_only=False):
         return # Happens automatically.
     
     def delete_fact_and_related_data(self, fact):
@@ -373,13 +365,9 @@ class Pickle(Database):
     def non_memorised_count(self):
         return sum(1 for c in self.cards if c.active and (c.grade < 2))
 
-    def scheduled_count(self, days=0):
-
-        """Number of cards scheduled within 'days' days."""
-
-        days_since_start = self.days_since_start()
+    def scheduled_count(self, timestamp):
         return sum(1 for c in self.cards if c.active and (c.grade >= 2) and \
-                           (days_since_start >= c.next_rep - days))
+                           (timestamp >= c.next_rep))
 
     def active_count(self):
         return len([c for c in self.cards if c.active])
@@ -393,7 +381,7 @@ class Pickle(Database):
             return sum(cards) / len([cards])
 
     # Card queries used by the scheduler.
-            
+    
     def _list_to_generator(self, list, sort_key, limit):
         if list == None:
             raise StopIteration
@@ -406,10 +394,9 @@ class Pickle(Database):
         for c in list:
             yield (c.id, c.fact.id)
 
-    def cards_due_for_ret_rep(self, sort_key="", limit=-1):
-        days_since_start = self.days_since_start()
+    def cards_due_for_ret_rep(self, timestamp, sort_key="", limit=-1):
         cards = [c for c in self.cards if c.active and \
-                 c.grade >= 2 and days_since_start >= c.next_rep]        
+                 c.grade >= 2 and timestamp >= c.next_rep]        
         return self._list_to_generator(cards, sort_key, limit)
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
@@ -427,10 +414,9 @@ class Pickle(Database):
                  c.grade == grade and c.unseen == True]
         return self._list_to_generator(cards, sort_key, limit)
                                       
-    def cards_learn_ahead(self, sort_key="", limit=-1):
-        days_since_start = self.days_since_start()
+    def cards_learn_ahead(self, timestamp, sort_key="", limit=-1):
         cards = [c for c in self.cards if c.active and \
-                 c.grade >= 2 and days_since_start < c.next_rep]
+                 c.grade >= 2 and timestamp < c.next_rep]
         return self._list_to_generator(cards, sort_key, limit)
 
     # Extra commands for custom schedulers.

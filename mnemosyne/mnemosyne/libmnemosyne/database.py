@@ -38,14 +38,6 @@ class Database(Component):
     def is_loaded(self):
         raise NotImplementedError
 
-    # Start date.
-
-    def set_start_date(self, start_date_obj):
-        raise NotImplementedError
-
-    def days_since_start(self):
-        raise NotImplementedError
-
     # Adding, modifying and deleting categories, facts and cards.
 
     def add_category(self, category):
@@ -72,7 +64,7 @@ class Database(Component):
     def add_card(self, card):
         raise NotImplementedError
 
-    def update_card(self, card, update_categories=True):
+    def update_card(self, card, repetition_only=False):
         raise NotImplementedError
         
     def delete_fact_and_related_data(self, fact):
@@ -170,7 +162,7 @@ class Database(Component):
     # used to limit the number of cards returned by the iterator, with -1
     # meaning no limit.
     
-    def cards_due_for_ret_rep(self, sort_key="", limit=-1):
+    def cards_due_for_ret_rep(self, now, sort_key="", limit=-1):
         raise NotImplementedError
 
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
@@ -182,7 +174,7 @@ class Database(Component):
     def cards_unseen(self, grade, sort_key="", limit=-1):
         raise NotImplementedError
     
-    def cards_learn_ahead(self, sort_key="", limit=-1):
+    def cards_learn_ahead(self, now, sort_key="", limit=-1):
         raise NotImplementedError
 
     # Extra commands for custom schedulers.

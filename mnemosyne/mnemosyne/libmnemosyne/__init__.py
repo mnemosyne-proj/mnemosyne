@@ -25,8 +25,8 @@ class Mnemosyne(Component):
           "SQLite"),
          ("mnemosyne.libmnemosyne.configuration",
           "Configuration"),
-         ("mnemosyne.libmnemosyne.loggers.txt_logger",
-          "TxtLogger"), 
+         ("mnemosyne.libmnemosyne.loggers.sql_logger",
+          "SqlLogger"), 
          ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
           "SM2Mnemosyne"),
          ("mnemosyne.libmnemosyne.card_types.front_to_back",
@@ -84,6 +84,9 @@ class Mnemosyne(Component):
         # database.
         self.check_lockfile()
         self.load_database(filename)
+        self.log().started_program()
+        self.log().started_scheduler()
+        self.log().loaded_database()
         # Finally, everything is in place to start the review process.
         self.ui_controller_review().new_question()
 
@@ -206,12 +209,16 @@ class Mnemosyne(Component):
             self.main_widget().error_box(msg)
 
     def finalise(self):
+        # Saving the config should happen before we deactivate the plugins,
+        # otherwise they are not restored upon reload. Ditto for logging, which
+        # needs to happen before we unload the database.
+        self.log().saved_database()
+        self.log().stopped_program()
         self.remove_lockfile()
-        # Saving the config shoulh happen before we deactivate the plugins,
-        # otherwise they are not restored upon reload.
         self.config().save()
         user_id = self.config()["user_id"]
         self.component_manager.deactivate_all()
         unregister_component_manager(user_id)
+        
         
 
