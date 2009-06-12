@@ -8,7 +8,9 @@
 -always copy media to internal directory, a different one per deck
 -log adding and deleting media
 
--make N sided card types instantiatable at run time
+-review schema for card types
+-more clones to database
+-do same for pickle database?
 
 -sync protocol:
 -store fact modif/cat modif

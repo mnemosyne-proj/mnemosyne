@@ -117,6 +117,35 @@ SCHEMA = """
         _fact_id integer,
         last_modified integer
     );
+
+    /* Here, we store the card types that are created at run time by the user
+       through the GUI, as opposed to those that are instantiated through a
+       plugin. For columns containing lists and lists of tuples like 'fields',
+       'unique_fields', ... we store the __repr__ representations of the
+       Python objects.
+    */
+
+    create table fact_views(
+        id text,
+        name text,
+        q_fields text,
+        a_fields text,
+        required_fields text,
+        a_on_top_of_q boolean default 0
+    );
+
+    create table card_types(
+        id text,
+        parent text, /* Name of the parent class. */
+        name text,
+        fields text,
+        unique_fields text
+    );
+
+    create table fact_views_for_card_type(
+        fact_view_id text,
+        card_type_id text
+    );
     
     commit;
 """
