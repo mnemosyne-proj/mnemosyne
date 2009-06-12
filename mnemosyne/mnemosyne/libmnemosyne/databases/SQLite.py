@@ -251,8 +251,8 @@ class SQLite(Database):
         if self.load_failed == True:
             return -1
         # Update format.
-        self.con.execute("""update global_variables set value=? where
-            key=?""", (self.version, "version" ))
+        self.con.execute("update global_variables set value=? where key=?",
+                         (self.version, "version" ))
         # Save database and copy it to different location if needed.
         self.con.commit()
         if not path:

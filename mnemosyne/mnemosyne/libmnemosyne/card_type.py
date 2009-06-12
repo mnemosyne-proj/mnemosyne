@@ -12,8 +12,7 @@ class CardType(Component):
     forming a set of related cards.
 
     A card type needs an id as well as a name, because the name can change
-    for different translations. The description is used when card types are
-    plugins, in order to give more information.
+    for different translations.
 
     Inherited card types should have ids where dots separate the different
     levels of the hierarchy, e.g. parent_id.child_id. For card types which
@@ -29,6 +28,13 @@ class CardType(Component):
     called 'reading' in a Kanji card type.) This in done in self.fields,
     which is a list of the form [(fact_key, fact_key_name)]. It is tempting to
     use a dictionary here, but we can't do that since ordering is important.
+
+    Fields which need to be different for all facts belonging to this card
+    type are listed in unique_fields.
+
+    Note that a fact could contain more data than those listed in the card
+    type's 'fields' variable, which could be useful for card types needing
+    hidden fields.
 
     We could use the component manager to track fact views, but this is
     probably overkill.
@@ -52,6 +58,10 @@ class CardType(Component):
     is_clone = False
     component_type = "card_type"
     renderer = None
+
+    fields = None
+    fact_views = None
+    unique_fields = None
         
     def __eq__(self, other):
         return self.id == other.id
@@ -115,6 +125,7 @@ class CardType(Component):
                  {"name": clone_name,
                   "is_clone": True,
                   "id": clone_id})
+        
         self.component_manager.register(C(self.component_manager))
 
     # The following functions allow for the fact that all the logic

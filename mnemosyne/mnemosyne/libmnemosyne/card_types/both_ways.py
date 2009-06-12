@@ -32,7 +32,7 @@ class BothWays(CardType):
     
     fact_views = [v1, v2]
     
-    # The question field needs to be unique. As for duplicates is the answer
+    # The question field needs to be unique. As for duplicates in the answer
     # field, these are better handled through a synonym detection plugin.
     unique_fields = ["q"]
 

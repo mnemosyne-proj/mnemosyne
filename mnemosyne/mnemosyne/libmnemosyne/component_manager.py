@@ -22,9 +22,6 @@ class ComponentManager(object):
         self.card_type_by_id = {}
 
     def register(self, component, in_front=False):
-        
-        """For type, component and used_for, see the table above."""
-
         comp_type = component.component_type
         used_for = component.used_for
         if not self.components.has_key(used_for):

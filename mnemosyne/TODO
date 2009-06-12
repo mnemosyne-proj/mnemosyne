@@ -6,23 +6,16 @@
 -make categories a set?
 
 -always copy media to internal directory, a different one per deck
--fact id in media table in database?
 -log adding and deleting media
 
--hidden fields in card type
-
--make card types instantiatable from sync data
-
--make sure we can easily calculate retention rates
+-make N sided card types instantiatable at run time
 
 -sync protocol:
--log message for updated cards/facts (to enable syncing)
-history per deck in sql, globally in log.txt
-Store fact modif/cat modif
-Deck name
-Import
-Media dir per deck / can refuse large files
-Streaming compression
+-store fact modif/cat modif
+-deck name
+-import
+-media dir per deck / can refuse large files
+-streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 -be sure to truncate time to int if it comes from other SRS systems
 -make sure active gets updated too
