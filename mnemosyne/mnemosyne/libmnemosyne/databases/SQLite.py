@@ -139,7 +139,8 @@ SCHEMA = """
         parent text, /* Name of the parent class. */
         name text,
         fields text,
-        unique_fields text
+        unique_fields text,
+        keyboard_shortcuts text
     );
 
     create table fact_views_for_card_type(
@@ -468,9 +469,6 @@ class SQLite(Database):
     def get_fact(self, _id):        
         sql_res = self.con.execute("select * from facts where _id=?",
                                    (_id, )).fetchone()
-        if not sql_res:
-            raise RuntimeError, \
-                _("Fact _id=%d not found in the database.") % _id 
         # Create dictionary with fact.data.
         data = dict([(cursor["key"], cursor["value"]) for cursor in
             self.con.execute("select * from data_for_fact where _fact_id=?",
