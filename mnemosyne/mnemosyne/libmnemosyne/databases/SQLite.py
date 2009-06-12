@@ -53,7 +53,6 @@ SCHEMA = """
         ret_reps_since_lapse integer,
         last_rep integer,
         next_rep integer,
-        unseen boolean default 1,
         extra_data text default "",
         scheduler_data integer default 0,
         active boolean default 1,
@@ -366,12 +365,12 @@ class SQLite(Database):
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
-            unseen, extra_data, scheduler_data, active, in_view)
-            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            extra_data, scheduler_data, active, in_view)
+            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (card.id, card.fact._id, card.fact_view.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep, card.unseen,
+            card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.active, card.in_view)).lastrowid
         card._id = _card_id
@@ -390,12 +389,12 @@ class SQLite(Database):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
-            next_rep=?, unseen=?, extra_data=?, scheduler_data=?,
-            active=?, in_view=? where _id=?""",
+            next_rep=?, extra_data=?, scheduler_data=?, active=?,
+            in_view=? where _id=?""",
             (card.fact._id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep, card.unseen,
+            card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.active, card.in_view, card._id))
         if repetition_only:
@@ -464,8 +463,7 @@ class SQLite(Database):
                 break
         for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
-            "last_rep", "next_rep", "unseen", "scheduler_data", "active",
-            "in_view"):
+            "last_rep", "next_rep", "scheduler_data", "active", "in_view"):
             setattr(card, attr, sql_res[attr])
         if sql_res["extra_data"] == "":
             card.extra_data = {}
@@ -632,15 +630,15 @@ class SQLite(Database):
         sort_key = self._parse_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and grade=? and lapses=0 and unseen=0
-            order by ? limit ?""", (grade, sort_key, limit)))
+            active=1 and grade=? and lapses=0 order by ? limit ?""",
+            (grade, sort_key, limit)))
     
-    def cards_unseen(self, grade, sort_key="", limit=-1):
+    def cards_unseen(self, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)      
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and unseen=1 and grade=? order by ? limit ?""",
-            (grade, sort_key, limit)))
+            active=1 and grade=-1 order by ? limit ?""",
+            (sort_key, limit)))
     
     def cards_learn_ahead(self, timestamp, sort_key="", limit=-1):
         sort_key = self._parse_sort_key(sort_key)

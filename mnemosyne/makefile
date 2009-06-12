@@ -37,6 +37,9 @@ benchmark: install-virtual-env
 wm: install-virtual-env
 	./bin/python mnemosyne/ppygui_ui/ppygui_ui/Mnemosyne\ Mobile.py -d dot_mnemosyne2
 
+docs:
+	cd mnemosyne/libmnemosyne/docs ; make html
+
 windows:
 	rmdir /S /Q dist
 	rmdir /S /Q build

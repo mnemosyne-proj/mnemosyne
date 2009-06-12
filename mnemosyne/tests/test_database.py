@@ -53,7 +53,6 @@ class TestDatabase(MnemosyneTest):
         assert card.acq_reps_since_lapse == old_card.acq_reps_since_lapse
         assert card.last_rep == old_card.last_rep
         assert card.next_rep == old_card.next_rep
-        assert card.unseen == old_card.unseen
         assert card.extra_data == old_card.extra_data
         assert card.scheduler_data == old_card.scheduler_data
         assert card.active == old_card.active
@@ -69,10 +68,8 @@ class TestDatabase(MnemosyneTest):
         card.acq_reps_since_lapse = -6
         card.last_rep = -7
         card.next_rep = -8
-        card.unseen = False
         card.extra_data = "extra"
         card.scheduler_data = 1
-        card.type_answer = True
         card.active = False
         card.in_view = False
         
@@ -87,10 +84,8 @@ class TestDatabase(MnemosyneTest):
         assert card.acq_reps_since_lapse == -6
         assert card.last_rep == -7
         assert card.next_rep == -8
-        assert card.unseen == False
         assert card.extra_data == "extra"
         assert card.scheduler_data == 1
-        assert card.type_answer == True
         assert card.active == False
         assert card.in_view == False
         

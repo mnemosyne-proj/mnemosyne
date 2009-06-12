@@ -61,10 +61,9 @@ objects.</p>
 state.</p>
 <p>&#8216;active&#8217; is used to determine whether a card is included in the review
 process. Currently, the UI allows setting cards active when then belong to
-certain card type/fact view combos, and when any of their categories are
-considered active. We choose to store this information on card level and
-not as a flag in fact view or category, so that plugins have the
-possibility to offer more flexibility, e.g. by having different active
+certain card type/fact view combos. We choose to store this information on
+card level and not as a flag in fact view or category, so that plugins have
+the possibility to offer more flexibility, e.g. by having different active
 categories per card type/fact view combo.</p>
 <p>&#8216;in_view&#8217; offers similar functionality as &#8216;active&#8217;, but is not used by the
 scheduler, but e.g. by GUI elements which need to operate only on a subset
@@ -102,19 +101,6 @@ forgotten, i.e. graded 0 or 1.</p>
 <p>&#8216;last_rep&#8217; and &#8216;next_rep&#8217; are integer POSIX timestamps. Since they have
 a resolution in seconds, the accomodate plugins doing minute-level
 scheduling. Storing them as int makes it very efficient in SQL.</p>
-<p>&#8216;unseen&#8217; means that the card has not been seen during the interactive
-review process. This variable is needed to determine which new cards to
-pull in after current cards have been memorised. These unseen cards have
-two distinct origins: cards that were created interactively by the user
-and given an intial grade 0 or 1 in the &#8216;Add cards&#8217; dialog, or cards
-which were created on import or when converting cards types, and which
-yet have to get their initial grade. The first category initially has
-&#8216;grade&#8217;=0 or 1, and &#8216;ack_reps&#8217;=1, and the second category &#8216;grade&#8217;=-1
-and &#8216;ack_reps&#8217;=0. However, after a subsequent review of a card from the
-second category, its &#8216;grade&#8217; and &#8216;ack_reps&#8217; could become identical to
-an unseen card in the first category, even though the card is no longer
-unseen. Therefore, just relying on &#8216;grade&#8217; and &#8216;ack_reps&#8217; to track
-unseen cards does not work.</p>
 </dd></dl>
 
 </dd></dl>
@@ -165,7 +151,7 @@ unseen cards does not work.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 11, 2009.
+      Last updated on Jun 12, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

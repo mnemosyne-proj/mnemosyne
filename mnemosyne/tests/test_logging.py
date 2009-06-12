@@ -98,7 +98,7 @@ class TestLogging(MnemosyneTest):
         assert sql_res["actual_interval"] == 0
         assert sql_res["new_interval"] == 0
         assert sql_res["thinking_time"] == 0
-
+        
         sql_res = self.database().con.execute(\
             "select * from history where _id=9").fetchone()
         assert sql_res["event"] == self.log().REPETITION
@@ -106,71 +106,50 @@ class TestLogging(MnemosyneTest):
         assert sql_res["ret_reps"] == 0
         assert sql_res["scheduled_interval"] == 0
         assert sql_res["actual_interval"] == 0
-        assert sql_res["new_interval"] == 0
-        assert sql_res["thinking_time"] == 0
-        
-        sql_res = self.database().con.execute(\
-            "select * from history where _id=10").fetchone()
-        assert sql_res["event"] == self.log().REPETITION
-        assert sql_res["acq_reps"] == 4
-        assert sql_res["ret_reps"] == 0
-        assert sql_res["scheduled_interval"] == 0
-        assert sql_res["actual_interval"] == 0
         assert sql_res["new_interval"] > 0
         assert sql_res["thinking_time"] == 0  
 
         sql_res = self.database().con.execute(\
-            "select * from history where _id=11").fetchone()
+            "select * from history where _id=10").fetchone()
         assert sql_res["event"] == self.log().SAVED_DATABASE
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 1
 
         sql_res = self.database().con.execute(\
-            "select * from history where _id=12").fetchone()
+            "select * from history where _id=11").fetchone()
         assert sql_res["event"] == self.log().STOPPED_PROGRAM
 
         sql_res = self.database().con.execute(\
-            "select * from history where _id=13").fetchone()
+            "select * from history where _id=12").fetchone()
         assert sql_res["event"] == self.log().STARTED_PROGRAM
 
         sql_res = self.database().con.execute(\
-            "select * from history where _id=14").fetchone()
+            "select * from history where _id=13").fetchone()
         assert sql_res["event"] == self.log().STARTED_SCHEDULER
 
         sql_res = self.database().con.execute(\
-            "select * from history where _id=15").fetchone()
+            "select * from history where _id=14").fetchone()
         assert sql_res["event"] == self.log().LOADED_DATABASE
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 1
 
         sql_res = self.database().con.execute(\
-            "select * from history where _id=16").fetchone()
+            "select * from history where _id=15").fetchone()
         assert sql_res["event"] == self.log().ADDED_FACT        
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from history where _id=17").fetchone()
+            "select * from history where _id=16").fetchone()
         assert sql_res["event"] == self.log().ADDED_CARD
         
         sql_res = self.database().con.execute(\
-            "select * from history where _id=18").fetchone()
-        assert sql_res["event"] == self.log().REPETITION
-        assert sql_res["acq_reps"] == 1
-        assert sql_res["ret_reps"] == 0
-        assert sql_res["scheduled_interval"] == 0
-        assert sql_res["actual_interval"] == 0
-        assert sql_res["new_interval"] == 0
-        assert sql_res["thinking_time"] == 0
-        assert sql_res["object_id"] is not None
-        
-        sql_res = self.database().con.execute(\
-            "select * from history where _id=19").fetchone()
+            "select * from history where _id=17").fetchone()
         assert sql_res["event"] == self.log().DELETED_CARD       
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from history where _id=20").fetchone()
+            "select * from history where _id=18").fetchone()
         assert sql_res["event"] == self.log().DELETED_FACT
         assert sql_res["object_id"] is not None

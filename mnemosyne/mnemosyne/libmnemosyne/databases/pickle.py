@@ -406,12 +406,11 @@ class Pickle(Database):
                                       
     def cards_new_memorising(self, grade, sort_key="", limit=-1):
         cards = [c for c in self.cards if c.active and \
-                 c.grade == grade and c.lapses == 0 and c.unseen == False]
+                 c.grade == grade and c.lapses == 0]
         return self._list_to_generator(cards, sort_key, limit)
                                       
-    def cards_unseen(self, grade, sort_key="", limit=-1):
-        cards = [c for c in self.cards if c.active and \
-                 c.grade == grade and c.unseen == True]
+    def cards_unseen(self, sort_key="", limit=-1):
+        cards = [c for c in self.cards if c.active and c.grade == -1]
         return self._list_to_generator(cards, sort_key, limit)
                                       
     def cards_learn_ahead(self, timestamp, sort_key="", limit=-1):

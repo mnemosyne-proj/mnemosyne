@@ -5,11 +5,11 @@
 -rename cat to tag, 'Tags:' in add card dialog
 -make categories a set?
 
--get rid of 'unseen' initial grade stuff
-
 -always copy media to internal directory, a different one per deck
 -fact id in media table in database?
 -log adding and deleting media
+
+-hidden fields in card type
 
 -make card types instantiatable from sync data
 

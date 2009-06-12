@@ -207,39 +207,22 @@ class SM2Mnemosyne(Scheduler):
 
         # Stage 4
         #
-        # Now add some unseen cards.
+        # Now add some unseen cards. We treat these cards as grade 0 cards in
+        # terms of limiting the queue size.
         if self.stage <= 4:
             if self.config()["randomise_new_cards"]:
                 sort_key = "random"
             else:
                 sort_key = ""
-            for _card_id, _fact_id in db.cards_unseen(grade=1, sort_key=sort_key,
-                                                      limit=50):
+            for _card_id, _fact_id in db.cards_unseen(sort_key=sort_key,
+                                                      limit=min(limit, 50)):
                 if _fact_id not in self.facts:
                     self.queue.append(_card_id)
-                    self.facts.append(_fact_id)        
-            if limit:
-                for _card_id, _fact_id in db.cards_unseen(grade=0, sort_key=sort_key,
-                                                          limit=limit):
-                    if _fact_id not in self.facts:
-                        self.queue.append(_card_id)
-                        self.facts.append(_fact_id)
-                        grade_0_in_queue += 1
-                        if grade_0_in_queue == limit:
-                            self.stage = 2
-                            return
-            # Ungraded cards (with grade -1) are treated as grade 0 cards here in
-            # terms of limiting the queue size.
-            if limit:
-                for _card_id, _fact_id in db.cards_unseen(grade=-1, sort_key=sort_key,
-                                                          limit=limit):
-                    if _fact_id not in self.facts:
-                        self.queue.append(_card_id)
-                        self.facts.append(_fact_id)
-                        grade_0_in_queue += 1
-                        if grade_0_in_queue == limit:
-                            self.stage = 2
-                            return
+                    self.facts.append(_fact_id)
+                    grade_0_in_queue += 1
+                    if limit and grade_0_in_queue == limit:
+                        self.stage = 2
+                        return
             if len(self.queue) == 0:
                 self.stage = 5
             
@@ -304,7 +287,10 @@ class SM2Mnemosyne(Scheduler):
             import copy
             card = copy.copy(card)
         scheduled_interval = self.true_scheduled_interval(card)
-        actual_interval = int(self.stopwatch().start_time) - card.last_rep
+        if card.last_rep == -1: # Unseen card.
+            actual_interval = 0
+        else:
+            actual_interval = int(self.stopwatch().start_time) - card.last_rep
         if card.acq_reps == 0 and card.ret_reps == 0:
             # The card has not yet been given its initial grade, because it
             # was imported or created during card type conversion.
@@ -396,7 +382,6 @@ class SM2Mnemosyne(Scheduler):
         else:
             card.next_rep = int(time.time())
             new_interval = 0
-        card.unseen = False
         # Run post review hooks.
         card.fact.card_type.after_review(card)
         # Create log entry.

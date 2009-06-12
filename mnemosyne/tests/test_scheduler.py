@@ -63,8 +63,7 @@ class TestScheduler(MnemosyneTest):
         # Learn ahead.
         
         assert self.scheduler().get_next_card(learn_ahead=True) != None
-
-
+        
     def test_2(self):
         card_type = self.card_type_by_id("1")
         
@@ -73,23 +72,10 @@ class TestScheduler(MnemosyneTest):
                      grade=0, cat_names=["default"], warn=False)[0]
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=1, cat_names=["default"], warn=False)[0]
-        self.config()["grade_0_items_at_once"] = 0
-        
-        assert self.scheduler().get_next_card() == card_2
-        
-    def test_3(self):
-        card_type = self.card_type_by_id("1")
-        
-        fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, cat_names=["default"], warn=False)[0]
-        fact_data = {"q": "2", "a": "a"}        
-        card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=0, cat_names=["default"], warn=False)[0]
         self.config()["grade_0_items_at_once"] = 0
         
-        assert self.scheduler().get_next_card() == None
+        assert self.scheduler().get_next_card() is None
         
     def test_grade_0_limit(self):
         card_type = self.card_type_by_id("1")

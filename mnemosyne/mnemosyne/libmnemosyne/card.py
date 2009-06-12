@@ -17,10 +17,9 @@ class Card(object):
 
     'active' is used to determine whether a card is included in the review
     process. Currently, the UI allows setting cards active when then belong to
-    certain card type/fact view combos, and when any of their categories are
-    considered active. We choose to store this information on card level and
-    not as a flag in fact view or category, so that plugins have the
-    possibility to offer more flexibility, e.g. by having different active
+    certain card type/fact view combos. We choose to store this information on
+    card level and not as a flag in fact view or category, so that plugins have
+    the possibility to offer more flexibility, e.g. by having different active
     categories per card type/fact view combo.
 
     'in_view' offers similar functionality as 'active', but is not used by the
@@ -67,20 +66,6 @@ class Card(object):
         a resolution in seconds, the accomodate plugins doing minute-level
         scheduling. Storing them as int makes it very efficient in SQL.
 
-        'unseen' means that the card has not been seen during the interactive
-        review process. This variable is needed to determine which new cards to
-        pull in after current cards have been memorised. These unseen cards have
-        two distinct origins: cards that were created interactively by the user
-        and given an intial grade 0 or 1 in the 'Add cards' dialog, or cards
-        which were created on import or when converting cards types, and which
-        yet have to get their initial grade. The first category initially has
-        'grade'=0 or 1, and 'ack_reps'=1, and the second category 'grade'=-1
-        and 'ack_reps'=0. However, after a subsequent review of a card from the
-        second category, its 'grade' and 'ack_reps' could become identical to
-        an unseen card in the first category, even though the card is no longer
-        unseen. Therefore, just relying on 'grade' and 'ack_reps' to track
-        unseen cards does not work.
-
         """
 
         self.grade = -1
@@ -92,7 +77,6 @@ class Card(object):
         self.ret_reps_since_lapse = 0
         self.last_rep = -1
         self.next_rep = -1
-        self.unseen = True
 
     def question(self):
         return self.fact.card_type.question(self)

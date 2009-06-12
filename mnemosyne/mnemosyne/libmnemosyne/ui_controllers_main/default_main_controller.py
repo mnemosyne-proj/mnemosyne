@@ -39,7 +39,7 @@ class DefaultMainController(UiControllerMain):
         self.main_widget().run_add_cards_dialog()
         review_controller = self.ui_controller_review()
         review_controller.reload_counters()
-        if review_controller.card == None:
+        if review_controller.card is None:
             review_controller.new_question()
         else:
             self.review_widget().update_status_bar()
@@ -50,7 +50,7 @@ class DefaultMainController(UiControllerMain):
         review_controller = self.ui_controller_review()
         self.main_widget().run_edit_fact_dialog(review_controller.card.fact)
         review_controller.reload_counters()
-        if review_controller.card == None:
+        if review_controller.card is None:
             self.review_widget().update_status_bar()
             review_controller.new_question()         
         review_controller.update_dialog(redraw_all=True)
@@ -59,7 +59,15 @@ class DefaultMainController(UiControllerMain):
     def create_new_cards(self, fact_data, card_type, grade, cat_names,
                          warn=True):
 
-        """Create a new set of related cards."""
+        """Create a new set of related cards. If the grade is 2 or higher,
+        we perform a initial review with that grade and move the cards into
+        the long term retention process. For other grades, we treat the card
+        as still unseen and keep its grade at -1. This puts the card on equal
+        footing with ungraded cards created during the import process. These
+        ungraded cards are pulled in at the end of the review process, either
+        in the order they were added, on in random order.
+
+        """
 
         db = self.database()
         if db.has_fact_with_data(fact_data, card_type):
@@ -80,7 +88,7 @@ class DefaultMainController(UiControllerMain):
             if answer == 0: # Merge and edit.
                 db.add_fact(fact)
                 for card in card_type.create_related_cards(fact):
-                    if grade != -1:
+                    if grade >= 2:
                         self.scheduler().set_initial_grade(card, grade)
                     db.add_card(card)  
                 merged_fact_data = copy.copy(fact.data)
@@ -98,7 +106,7 @@ class DefaultMainController(UiControllerMain):
         cards = []
         for card in card_type.create_related_cards(fact):
             self.log().added_card(card)
-            if grade != -1:
+            if grade >= 2:
                 self.scheduler().set_initial_grade(card, grade)
             card.categories = categories
             db.add_card(card)

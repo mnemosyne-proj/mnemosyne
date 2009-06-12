@@ -13,22 +13,22 @@ from mnemosyne.libmnemosyne.logger import Logger
 class SqlLogger(Logger):
 
     STARTED_PROGRAM = 1
-    STARTED_SCHEDULER = 2
-    LOADED_DATABASE = 3
-    SAVED_DATABASE = 4
-    ADDED_FACT = 5
-    UPDATED_FACT = 6
-    DELETED_FACT = 7
-    ADDED_TAG = 8
-    UPDATED_TAG = 9
-    DELETED_TAG = 10
-    ADDED_CARD = 11
-    UPDATED_CARD = 12
-    DELETED_CARD = 13
-    REPETITION = 14
-    UPLOADED_LOG = 15
-    UPLOAD_FAILED = 16
-    STOPPED_PROGRAM = 17
+    STOPPED_PROGRAM = 2
+    STARTED_SCHEDULER = 3
+    LOADED_DATABASE = 4
+    SAVED_DATABASE = 5
+    ADDED_FACT = 6
+    UPDATED_FACT = 7
+    DELETED_FACT = 8
+    ADDED_TAG = 9
+    UPDATED_TAG = 10
+    DELETED_TAG = 11
+    ADDED_CARD = 12
+    UPDATED_CARD = 13
+    DELETED_CARD = 14
+    REPETITION = 15
+    UPLOADED_LOG = 16
+    UPLOAD_FAILED = 17
                             
     def started_program(self):
         self.database().con.execute(\
