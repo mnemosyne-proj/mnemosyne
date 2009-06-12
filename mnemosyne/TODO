@@ -9,8 +9,12 @@
 -log adding and deleting media
 
 -review schema for card types
--more clones to database
+-move clones to database
 -do same for pickle database?
+-store needed plugins in database too?
+
+-unique id for plugin
+-move id to component_level?
 
 -sync protocol:
 -store fact modif/cat modif
