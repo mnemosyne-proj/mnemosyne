@@ -2,15 +2,16 @@
 -hang on Spanish translation?
 
 -always copy media to internal directory, a different one per deck
+-rename if file already exists
 -log adding and deleting media
+-shared media between facts
+-deleting fact
 
 -review schema for card types
 -move clones to database
--do same for pickle database?
--store needed plugins in database too?
+-lazy checking for necessary plugins
 
--unique id for plugin
--move id to component_level?
+-WM test and benchmark
 
 -sync protocol:
 -store fact modif/cat modif
@@ -26,9 +27,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -make sure all events make it to the sync protocol + formats
 
 
--handle deferred translation
--different translators for different users?
-
 -how to join 2 SQL databases: sync on _id, not timestamps
 
 -better mechanism to have different renderers
@@ -40,6 +38,9 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -is complete check on changing card type does not fire
 
 -create UI components for other widgets
+-way to override generic card type widget, by having two components: generic_card_type_widget
+ card type widget
+
 
 -more tests
 
@@ -57,8 +58,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
  'repetition' for individual repetition, or 'review' for whole process.
 
 -infrastructure to make it easier to type certain symbols
-
--is_complete function of card_type
 
 -basic graphical statistics
 
@@ -102,6 +101,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -make sure we log new card creation on import
 
+-move media to media dir
+
 -reset learning ahead queue after import
 
 -xml import tests (wcu, memaid, plconv)
@@ -124,8 +125,14 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -don't recreate text logs upon import
 
 
+-new translation infrastructure
+-handle deferred translation
+-different translators for different users?
+
+
 -corrupt icon
--time Windows mobile again
+
+-card type with prefilled fields
 
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
@@ -135,10 +142,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -have hierarchy in plugin names
 
-
--way to override generic card type widget, by having two components: generic_card_type_widget
- card type widget
--way to override other widgets? add, edit, ...
 
 -test sound
 
@@ -165,6 +168,9 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -show number of cards selected
 
 
+-time WM: history in same DB?
+
+
 -ampersand mnemonics everywhere
 
 
@@ -179,8 +185,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?, import user id and config, ...
  urge user to merge all of his separate decks into one deck
-
--best way for plugins / other guis to store their config info
 
 -update ohloh?
 
@@ -216,18 +220,14 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 
 
--'tooltips' during use: relative path when adding pictures or sound.
-
 -tips (both on startup and on use): right click to add cards or sound, comma to 
- separate cat names, : to separate hierarchies
+ separate tag names, :: to separate hierarchies
 
--comment/tip about not having to do all your scheduled revisions in
+-comment/tip about not having to do all your scheduled repetitions in
  one sitting
 
 -update tooltips, inform Patrick
 
-
--chinese pod plugin
 
 
 -bug in Qt? : shortcuts don't change back after changing 'show answer'
@@ -236,7 +236,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -bug in Qt? : spaces around images are not respected.
 
 -test: make <a> links clickable / animated GIFs
-
 
 
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby
@@ -265,8 +264,9 @@ http://pythoscope.org/
 
 -hover over extra hanzi information, hanzi statistics
 
-
 -plugin for midi files
+
+-chinese pod plugin
 
 
 Multiuser statistics analysis:
@@ -298,12 +298,9 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 
 -download media files when giving URL
 
-
 -also allow import compressed backup files from within Mnemosyne
 
 -three sided export?
-
--option to type right answer
 
 -synonym handling plugin?
 
@@ -311,11 +308,8 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 
 -add 'add card' option to deck manager?
 
--mnemosyne analysis as plugin
-
 -active alert as plugin
 
--card type with prefilled fields
 
 -zooming picture instead of scrollbars?
  
@@ -369,8 +363,6 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -investigate ridiculously large thinking times
 
 -DTD for xml format
-
--priorities for categories?
 
 -determine import / export file type based on suffix
  (i.e. remove file format field)? Probably not possible, as

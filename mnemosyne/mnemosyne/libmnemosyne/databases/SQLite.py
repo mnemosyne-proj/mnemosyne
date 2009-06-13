@@ -179,7 +179,8 @@ class SQLite(Database):
         self._path = expand_path(path, self.config().basedir)
         if os.path.exists(self._path):
             os.remove(self._path)
-        self.load_failed = False      
+        self.load_failed = False
+        # Create tables.
         self.con.executescript(SCHEMA) # Create tables.
         self.con.execute("insert into global_variables(key, value) values(?,?)",
                         ("version", self.version))
@@ -189,6 +190,11 @@ class SQLite(Database):
                          values(?,?)""", ("log.txt", 0))
         self.con.commit()
         self.config()["path"] = contract_path(self._path, self.config().basedir)
+        # Create media directory.
+        media_dir_name = os.path.basename(path) + "_media"
+        media_dir = os.path.join(self.config().basedir, media_dir_name)
+        if not os.path.exists(media_dir):
+            os.mkdir(media_dir)
 
     def load(self, path):
         if self.is_loaded():        
@@ -375,6 +381,8 @@ class SQLite(Database):
             values(?,?,?)""", ((_fact_id, key, value)
                 for key, value in fact.data.items()))
         self.log().added_fact(fact)
+        # Process media files.
+        self._process_media(fact)
 
     def update_fact(self, fact):
         # Update fact.
@@ -389,6 +397,8 @@ class SQLite(Database):
             values(?,?,?)""", ((fact._id, key, value)
                 for key, value in fact.data.items()))
         self.log().updated_fact(fact)
+        # Process media files.
+        self._process_media(fact)        
         
     def add_card(self, card):
         self.load_failed = False
@@ -404,9 +414,8 @@ class SQLite(Database):
             self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.active, card.in_view)).lastrowid
         card._id = _card_id
-        # Link card to its tags.
-        # The tags themselves have already been created by
-        # default_main_controller calling get_or_create_tag_with_name.
+        # Link card to its tags. The tags themselves have already been created
+        # by default_main_controller calling get_or_create_tag_with_name.
         for cat in card.tags:
             _tag_id = self.con.execute("""select _id from tags
                 where id=?""", (cat.id, )).fetchone()[0]
@@ -429,9 +438,8 @@ class SQLite(Database):
             card.scheduler_data, card.active, card.in_view, card._id))
         if repetition_only:
             return
-        # Link card to its tags.
-        # The tags themselves have already been created by
-        # default_main_controller calling get_or_create_tag_with_name.
+        # Link card to its tags. The tags themselves have already been created
+        # by default_main_controller calling get_or_create_tag_with_name.
         self.con.execute("delete from tags_for_card where _card_id=?",
                          (card._id, ))
         for cat in card.tags:
@@ -446,6 +454,9 @@ class SQLite(Database):
         self.con.execute("delete from data_for_fact where _fact_id=?",
                          (fact._id, ))
         self.log().deleted_fact(fact)
+        # Process media files.
+        fact.data = {}
+        self._process_media(fact)
         del fact
         
     def delete_card(self, card):
@@ -456,6 +467,17 @@ class SQLite(Database):
             self.remove_tag_if_unused(tag)      
         self.log().deleted_card(card)
         del card
+
+    # Process media files in fact data. If they are not in the deck's media
+    # directory, copy them over. Also gather all the necessary information for
+    # syncing: update the media table to reflect which media files have been
+    # added or deleted; record the modification date so that we can detect if
+    # media files have been modified outside of Mnemosyne. (Although less
+    # robust, modifaction dates are faster to lookup then calculating a hash,
+    # especially on mobile devices.
+
+    def _process_media(self, fact):
+        pass
 
     # Retrieve tags, facts and cards using their internal id.
 

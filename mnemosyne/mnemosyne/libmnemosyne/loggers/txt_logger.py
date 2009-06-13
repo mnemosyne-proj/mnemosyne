@@ -39,7 +39,10 @@ class TxtLogger(Logger):
         self.logger.info("Program started : Mnemosyne " + \
                          mnemosyne.version.version\
                          + " " + os.name + " " + sys.platform)
-
+        
+    def stopped_program(self):    
+        self.logger.info("Program stopped")
+        
     def started_scheduler(self):
         self.logger.info("Scheduler : " + self.scheduler().name)
     
@@ -80,6 +83,4 @@ class TxtLogger(Logger):
     
     def upload_failed(self):
         self.logger.info("Uploading failed")
-        
-    def stopped_program(self):    
-        self.logger.info("Program stopped")  
+

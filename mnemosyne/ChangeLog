@@ -1,4 +1,5 @@
 -the revision history is now stored inside an SQL database too. This is a prerequisite for when implementing the sync algorithm, and will also allow to display more sophisticated statistics.
+-when importing a sound or an image, a copy is made to the .mnemosyne directory. This saves some confusing explaining to new users about the difference between relative and absolute paths.
 -removed some old warts/hacks inherited from the 1.x codebase: card.unseen and StartDate
 -various architectural improvements and bug fixes
 	

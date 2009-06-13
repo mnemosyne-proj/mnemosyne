@@ -29,12 +29,19 @@ class SqlLogger(Logger):
     REPETITION = 15
     UPLOADED_LOG = 16
     UPLOAD_FAILED = 17
+    ADDED_MEDIA = 18
+    DELETED_MEDIA = 19
                             
     def started_program(self):
         self.database().con.execute(\
             "insert into history(event, timestamp, object_id) values(?,?,?)",
             (self.STARTED_PROGRAM, int(time.time()), "Mnemosyne %s %s %s" % \
              (mnemosyne.version.version, os.name, sys.platform)))
+
+    def stopped_program(self):
+        self.database().con.execute(\
+            "insert into history(event, timestamp) values(?,?)",
+            (self.STOPPED_PROGRAM, int(time.time())))
 
     def started_scheduler(self):
         self.database().con.execute(\
@@ -125,12 +132,19 @@ class SqlLogger(Logger):
         self.database().con.execute(\
             "insert into history(event, timestamp) values(?,?)",
             (self.UPLOAD_FAILED, int(time.time())))
-        
-    def stopped_program(self):
-        self.database().con.execute(\
-            "insert into history(event, timestamp) values(?,?)",
-            (self.STOPPED_PROGRAM, int(time.time())))
 
+    def added_media(self, filename, fact):
+        self.database().con.execute(\
+            "insert into history(event, timestamp, object_id) values(?,?,?)",
+            (self.ADDED_MEDIA, int(time.time()),
+             filename + "__for__" + fact.id))       
+
+    def deleted_media(self, filename, fact):
+        self.database().con.execute(\
+            "insert into history(event, timestamp, object_id) values(?,?,?)",
+            (self.DELETED_MEDIA, int(time.time()),
+             filename + "__for__" + fact.id))
+    
     def dump_to_txt_log(self):
         # Open log file and get starting index.
         logname = os.path.join(self.config().basedir, "log.txt")

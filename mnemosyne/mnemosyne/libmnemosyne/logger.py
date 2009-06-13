@@ -26,7 +26,10 @@ class Logger(Component):
     
     def started_program(self):
         pass
-
+        
+    def stopped_program(self):
+        pass
+    
     def started_scheduler(self):
         pass
 
@@ -72,8 +75,11 @@ class Logger(Component):
     
     def upload_failed(self):
         pass
-        
-    def stopped_program(self):
+
+    def added_media(self, filename, fact):
+        pass
+
+    def deleted_media(self, filename, fact):
         pass
 
     def dump_to_txt_log(self):

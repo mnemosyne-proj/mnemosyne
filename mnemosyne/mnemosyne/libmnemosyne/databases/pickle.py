@@ -21,7 +21,7 @@ from mnemosyne.libmnemosyne.translator import _
 class Pickle(Database):
 
     """A simple storage backend, mainly for testing purposes and to help
-    flesh out the design. It has some issues
+    flesh out the design. It has some issues:
 
     * Due to an obscure bug in SIP, we need to replace the card type
     info in fact by a card type id, otherwise we get:
@@ -31,7 +31,11 @@ class Pickle(Database):
     TypeError: the sip.wrapper type cannot be instantiated or sub-classed
 
     * It is wasteful in memory during queries.
-
+    
+    Also, it does not have all the features of the SQL database. Notably,
+    it is missing review history, and the handling of media files and card
+    types.
+    
     """
 
     version = "4"
