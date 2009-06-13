@@ -11,7 +11,7 @@ import shutil
 import random
 import mnemosyne.version
 
-from mnemosyne.libmnemosyne.category import Category
+from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
@@ -39,7 +39,7 @@ class Pickle(Database):
 
     def __init__(self, component_manager):
         Database.__init__(self, component_manager)
-        self.categories = []
+        self.tags = []
         self.facts = []
         self.cards = []
         self.global_variables = {"version": self.version}
@@ -64,7 +64,7 @@ class Pickle(Database):
         try:
             infile = file(path, 'rb')
             db = cPickle.load(infile)
-            self.categories = db[0]
+            self.tags = db[0]
             self.facts = db[1]
             self.cards = db[2]
             self.global_variables = db[3]
@@ -153,7 +153,7 @@ class Pickle(Database):
             # Write to a backup file first, as shutting down Windows can
             # interrupt the dump command and corrupt the database.
             outfile = file(path + "~", 'wb')
-            db = [self.categories, self.facts, self.cards,
+            db = [self.tags, self.facts, self.cards,
                   self.global_variables]
             cPickle.dump(db, outfile)
             outfile.close()
@@ -174,7 +174,7 @@ class Pickle(Database):
         if len(self.facts) == 0:
             return True
         self.save(self.config()["path"])
-        self.categories = []
+        self.tags = []
         self.facts = []
         self.cards = []
         self.global_variables = {"version": self.version}
@@ -200,7 +200,7 @@ class Pickle(Database):
                    datetime.date.today().strftime("%Y%m%d") + ".xml"
         filename = os.path.join(backupdir, filename)
 
-        export_XML(filename, get_category_names(), reset_learning_data=False)
+        export_XML(filename, get_tag_names(), reset_learning_data=False)
 
         # Compress the file.
 
@@ -224,39 +224,39 @@ class Pickle(Database):
     def is_loaded(self):
         return len(self.facts) != 0
     
-    # Adding, modifying and deleting categories, facts and cards.
+    # Adding, modifying and deleting tags, facts and cards.
     
-    def add_category(self, category):
-        category._id = category.id
-        self.categories.append(category)
+    def add_tag(self, tag):
+        tag._id = tag.id
+        self.tags.append(tag)
 
-    def update_category(self, category):
+    def update_tag(self, tag):
         return # Happens automatically.
 
-    def delete_category(self, category):
-        for category_i in self.categories:
-            if category_i.id == category.id:
-                self.categories.remove(category_i)
-                del category_i
+    def delete_tag(self, tag):
+        for tag_i in self.tags:
+            if tag_i.id == tag.id:
+                self.tags.remove(tag_i)
+                del tag_i
                 return
             
-    # TODO: benchmark this and see if we need a dictionary category_by_name.
+    # TODO: benchmark this and see if we need a dictionary tag_by_name.
 
-    def get_or_create_category_with_name(self, name):
-        for category in self.categories:
-            if category.name == name:
-                return category
-        category = Category(name)
-        self.categories.append(category)
-        return category
+    def get_or_create_tag_with_name(self, name):
+        for tag in self.tags:
+            if tag.name == name:
+                return tag
+        tag = Tag(name)
+        self.tags.append(tag)
+        return tag
 
-    def remove_category_if_unused(self, category):
+    def remove_tag_if_unused(self, tag):
         for c in self.cards:
-            if category in c.categories:
+            if tag in c.tags:
                 break
         else:
-            self.categories.remove(category)
-            del category
+            self.tags.remove(tag)
+            del tag
 
     def add_fact(self, fact):
         fact._id = fact.id
@@ -282,17 +282,17 @@ class Pickle(Database):
         del fact
             
     def delete_card(self, card):
-        old_cat = card.categories
+        old_cat = card.tags
         self.cards.remove(card)
         for cat in old_cat:
-            self.remove_category_if_unused(cat)    
+            self.remove_tag_if_unused(cat)    
         self.log().deleted_card(card)
         del card
     
-    # Retrieving categories, facts, cards based on their internal id.
+    # Retrieving tags, facts, cards based on their internal id.
 
-    def get_category(self, _id):
-        return [c for c in self.categories if c._id == _id][0]
+    def get_tag(self, _id):
+        return [c for c in self.tags if c._id == _id][0]
     
     def get_fact(self, _id):
         return [f for f in self.facts if f._id == _id][0]
@@ -302,21 +302,21 @@ class Pickle(Database):
     
     # Activate and set cards in view.
 
-    def set_cards_active(self, card_types_fact_views, categories):
+    def set_cards_active(self, card_types_fact_views, tags):
         return self._turn_on_cards("active", card_types_fact_views,
-                                   categories)
+                                   tags)
     
-    def set_cards_in_view(self, card_types_fact_views, categories):
+    def set_cards_in_view(self, card_types_fact_views, tags):
         return self._turn_on_cards("in_view", card_types_fact_views,
-                                   categories)    
+                                   tags)    
     
-    def _turn_on_cards(self, attr, card_types_fact_views, categories):
+    def _turn_on_cards(self, attr, card_types_fact_views, tags):
         # Turn off everything.
         for card in self.cards:
             setattr(card, attr, False)
-        # Turn on active categories.                    
+        # Turn on active tags.                    
         for card in self.cards:        
-            if set(card.categories).intersection(set(categories)):
+            if set(card.tags).intersection(set(tags)):
                 card.active = True
                 setattr(card, attr, True)
         # Turn off inactive card types and views.
@@ -327,8 +327,8 @@ class Pickle(Database):
         
     # Queries.
 
-    def category_names(self):
-        return [c.name for c in self.categories]
+    def tag_names(self):
+        return [c.name for c in self.tags]
 
     def cards_from_fact(self, fact):
         return [c for c in self.cards if c.fact == fact]

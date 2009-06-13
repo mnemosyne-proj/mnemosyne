@@ -31,7 +31,7 @@ class TestLogging(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         fact_data = {"q": "1", "a": "a"}
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, cat_names=["default"], warn=False)[0]
+                     grade=0, tag_names=["default"], warn=False)[0]
         self.ui_controller_review().new_question()
         self.ui_controller_review().grade_answer(0)
         self.ui_controller_review().new_question()
@@ -42,7 +42,7 @@ class TestLogging(MnemosyneTest):
         self.restart()
         fact_data = {"q": "2", "a": "a"}
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, cat_names=["default"], warn=False)[0]
+                     grade=0, tag_names=["default"], warn=False)[0]
         self.ui_controller_review().new_question()        
         self.ui_controller_main().delete_current_fact()
 

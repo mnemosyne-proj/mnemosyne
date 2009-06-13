@@ -18,9 +18,9 @@ class Card(object):
     'active' is used to determine whether a card is included in the review
     process. Currently, the UI allows setting cards active when then belong to
     certain card type/fact view combos. We choose to store this information on
-    card level and not as a flag in fact view or category, so that plugins have
-    the possibility to offer more flexibility, e.g. by having different active
-    categories per card type/fact view combo.
+    card level and not as a flag in fact view or tag, so that plugins have the
+    possibility to offer more flexibility, e.g. by having different active
+    tags per card type/fact view combo.
 
     'in_view' offers similar functionality as 'active', but is not used by the
     scheduler, but e.g. by GUI elements which need to operate only on a subset
@@ -40,7 +40,7 @@ class Card(object):
         self.id = self.fact.id + "." + self.fact.card_type.id + "." + \
                   self.fact_view.id
         self._id = None
-        self.categories = []
+        self.tags = set()
         self.extra_data = {}
         self.scheduler_data = 0
         self.active = True
@@ -85,6 +85,3 @@ class Card(object):
         return self.fact.card_type.answer(self)
         
     interval = property(lambda self : self.next_rep - self.last_rep)
-    
-
-

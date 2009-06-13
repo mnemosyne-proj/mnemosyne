@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.database import Database
-from mnemosyne.libmnemosyne.category import Category
+from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.utils import traceback_string
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
@@ -59,7 +59,7 @@ SCHEMA = """
         in_view boolean default 1
     );
 
-    create table categories(
+    create table tags(
         _id integer primary key,
         _parent_key integer default 0,
         id text,
@@ -67,11 +67,11 @@ SCHEMA = """
         extra_data text default ""
     );
 
-    create table categories_for_card(
+    create table tags_for_card(
         _card_id integer,
-        _category_id integer
+        _tag_id integer
     );
-    create index i_categories_for_card on categories_for_card (_card_id);
+    create index i_tags_for_card on tags_for_card (_card_id);
 
     create table global_variables(
         key text,
@@ -317,7 +317,7 @@ class SQLite(Database):
     def is_loaded(self):
         return not self.load_failed
 
-    # Adding, modifying and deleting categories, facts and cards. Commiting is
+    # Adding, modifying and deleting tags, facts and cards. Commiting is
     # done by calling save in the main controller, in order to have a better
     # control over transaction granularity.
 
@@ -327,40 +327,40 @@ class SQLite(Database):
         else:
             return repr(extra_data)
 
-    def add_category(self, category):
-        _id = self.con.execute("""insert into categories(name, extra_data, id)
-            values(?,?,?)""", (category.name,
-            self._repr_extra_data(category.extra_data), category.id)).lastrowid
-        category._id = _id
-        self.log().added_tag(category)
+    def add_tag(self, tag):
+        _id = self.con.execute("""insert into tags(name, extra_data, id)
+            values(?,?,?)""", (tag.name,
+            self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
+        tag._id = _id
+        self.log().added_tag(tag)
         
-    def delete_category(self, category):
-        self.con.execute("delete from categories where _id=?", (category._id,))
-        self.log().deleted_tag(category)
-        del category
+    def delete_tag(self, tag):
+        self.con.execute("delete from tags where _id=?", (tag._id,))
+        self.log().deleted_tag(tag)
+        del tag
         
-    def update_category(self, category):
-        self.con.execute("update categories set name=?, extra_data=? where _id=?",
-            (category.name, self._repr_extra_data(category.extra_data),
-             category._id))
-        self.log().updated_tag(category)
+    def update_tag(self, tag):
+        self.con.execute("update tags set name=?, extra_data=? where _id=?",
+            (tag.name, self._repr_extra_data(tag.extra_data),
+             tag._id))
+        self.log().updated_tag(tag)
         
-    def get_or_create_category_with_name(self, name):
-        sql_res = self.con.execute("""select * from categories where name=?""",
+    def get_or_create_tag_with_name(self, name):
+        sql_res = self.con.execute("""select * from tags where name=?""",
                                    (name, )).fetchone()
         if sql_res:
-            category = Category(sql_res["name"], sql_res["id"])
-            category._id = sql_res["_id"]
-            return category
-        category = Category(name)
-        self.add_category(category)
-        return category
+            tag = Tag(sql_res["name"], sql_res["id"])
+            tag._id = sql_res["_id"]
+            return tag
+        tag = Tag(name)
+        self.add_tag(tag)
+        return tag
     
-    def remove_category_if_unused(self, category):
-        if self.con.execute("""select count() from categories as cat,
-            categories_for_card as cat_c where cat_c._category_id=cat._id and
-            cat._id=?""", (category._id, )).fetchone()[0] == 0:
-            self.delete_category(category)
+    def remove_tag_if_unused(self, tag):
+        if self.con.execute("""select count() from tags as cat,
+            tags_for_card as cat_c where cat_c._tag_id=cat._id and
+            cat._id=?""", (tag._id, )).fetchone()[0] == 0:
+            self.delete_tag(tag)
     
     def add_fact(self, fact):
         self.load_failed = False
@@ -404,14 +404,14 @@ class SQLite(Database):
             self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.active, card.in_view)).lastrowid
         card._id = _card_id
-        # Link card to its categories.
-        # The categories themselves have already been created by
-        # default_main_controller calling get_or_create_category_with_name.
-        for cat in card.categories:
-            _category_id = self.con.execute("""select _id from categories
+        # Link card to its tags.
+        # The tags themselves have already been created by
+        # default_main_controller calling get_or_create_tag_with_name.
+        for cat in card.tags:
+            _tag_id = self.con.execute("""select _id from tags
                 where id=?""", (cat.id, )).fetchone()[0]
-            self.con.execute("""insert into categories_for_card(_category_id,
-                _card_id) values(?,?)""", (_category_id, _card_id))
+            self.con.execute("""insert into tags_for_card(_tag_id,
+                _card_id) values(?,?)""", (_tag_id, _card_id))
         # Add card is not logged here, but in the controller, to make sure
         # that the first repetition is logged after the card creation.
 
@@ -429,13 +429,13 @@ class SQLite(Database):
             card.scheduler_data, card.active, card.in_view, card._id))
         if repetition_only:
             return
-        # Link card to its categories.
-        # The categories themselves have already been created by
-        # default_main_controller calling get_or_create_category_with_name.
-        self.con.execute("delete from categories_for_card where _card_id=?",
+        # Link card to its tags.
+        # The tags themselves have already been created by
+        # default_main_controller calling get_or_create_tag_with_name.
+        self.con.execute("delete from tags_for_card where _card_id=?",
                          (card._id, ))
-        for cat in card.categories:
-            self.con.execute("""insert into categories_for_card(_category_id,
+        for cat in card.tags:
+            self.con.execute("""insert into tags_for_card(_tag_id,
                 _card_id) values(?,?)""", (cat._id, card._id))
         self.log().updated_card(card)
 
@@ -450,21 +450,21 @@ class SQLite(Database):
         
     def delete_card(self, card):
         self.con.execute("delete from cards where _id=?", (card._id, ))
-        self.con.execute("delete from categories_for_card where _card_id=?",
+        self.con.execute("delete from tags_for_card where _card_id=?",
                          (card._id, ))
-        for category in card.categories:
-            self.remove_category_if_unused(category)      
+        for tag in card.tags:
+            self.remove_tag_if_unused(tag)      
         self.log().deleted_card(card)
         del card
 
-    # Retrieve categories, facts and cards using their internal id.
+    # Retrieve tags, facts and cards using their internal id.
 
-    def get_category(self, _id):
-        sql_res = self.con.execute("""select * from categories where _id=?""",
+    def get_tag(self, _id):
+        sql_res = self.con.execute("""select * from tags where _id=?""",
                                    (_id, )).fetchone()
-        category = Category(sql_res["name"], sql_res["id"])
-        category._id = sql_res["_id"]
-        return category
+        tag = Tag(sql_res["name"], sql_res["id"])
+        tag._id = sql_res["_id"]
+        return tag
     
     def get_fact(self, _id):        
         sql_res = self.con.execute("select * from facts where _id=?",
@@ -496,35 +496,35 @@ class SQLite(Database):
             card.extra_data = {}
         else:
             card.extra_data = eval(sql_res["extra_data"])
-        for cursor in self.con.execute("""select cat.* from categories as cat,
-            categories_for_card as cat_c where cat_c._category_id=cat._id
+        for cursor in self.con.execute("""select cat.* from tags as cat,
+            tags_for_card as cat_c where cat_c._tag_id=cat._id
             and cat_c._card_id=?""", (sql_res["_id"],)):
-            category = Category(cursor["name"], cursor["id"])
-            category._id = cursor["_id"]
-            card.categories.append(category)              
+            tag = Tag(cursor["name"], cursor["id"])
+            tag._id = cursor["_id"]
+            card.tags.add(tag)              
         return card
 
     # Activate cards.
     
-    def set_cards_active(self, card_types_fact_views, categories):
+    def set_cards_active(self, card_types_fact_views, tags):
         return self._turn_on_cards("active", card_types_fact_views,
-                                   categories)
+                                   tags)
     
-    def set_cards_in_view(self, card_types_fact_views, categories):
+    def set_cards_in_view(self, card_types_fact_views, tags):
         return self._turn_on_cards("in_view", card_types_fact_views,
-                                   categories)
+                                   tags)
     
-    def _turn_on_cards(self, attr, card_types_fact_views, categories):
+    def _turn_on_cards(self, attr, card_types_fact_views, tags):
         # Turn off everything.
         self.con.execute("update cards set active=0")
-        # Turn on as soon as there is one active category.
+        # Turn on as soon as there is one active tag.
         command = """update cards set %s=1 where _id in (select cards._id
-            from cards, categories, categories_for_card where
-            categories_for_card._card_id=cards._id and
-            categories_for_card._category_id=categories._id and """ % attr
+            from cards, tags, tags_for_card where
+            tags_for_card._card_id=cards._id and
+            tags_for_card._tag_id=tags._id and """ % attr
         args = []
-        for cat in categories:
-            command += "categories.id=? or "
+        for cat in tags:
+            command += "tags.id=? or "
             args.append(cat.id)
         command = command.rsplit("or ", 1)[0] + ")"
         self.con.execute(command, args)
@@ -542,9 +542,9 @@ class SQLite(Database):
 
     # Queries.
 
-    def category_names(self):
-        return list(cursor[0] for cursor in
-            self.con.execute("select name from categories"))
+    def tag_names(self):
+        return list(cursor[0] for cursor in \
+            self.con.execute("select name from tags"))
 
     def cards_from_fact(self, fact):
         return list(self.get_card(cursor[0]) for cursor in

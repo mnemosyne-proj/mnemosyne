@@ -92,7 +92,7 @@ class Configuration(Component, dict):
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
              "card_type_name_of_last_added": "",
-             "categories_of_last_added": _("<default>"),
+             "tags_of_last_added": _("<default>"),
              "sort_column": None,
              "sort_order": None,
              "show_intervals": "never",

@@ -82,19 +82,19 @@ class AddEditCards(Component):
         self.card_type_widget.show()
         self.verticalLayout.insertWidget(1, self.card_type_widget)
 
-    def update_categories_combobox(self, current_cat_name):
-        self.categories.clear()
-        self.categories.addItem(_("<default>"))
-        sorted_categories = sorted(self.database().category_names(),
-                                   cmp=numeric_string_cmp)
-        for name in sorted_categories:
+    def update_tags_combobox(self, current_tag_name):
+        self.tags.clear()
+        self.tags.addItem(_("<default>"))
+        sorted_tags = sorted(self.database().tag_names(),
+                             cmp=numeric_string_cmp)
+        for name in sorted_tags:
             if name != _("<default>"):
-                self.categories.addItem(name)
-        if ',' in current_cat_name:
-            self.categories.addItem(current_cat_name)      
-        for i in range(self.categories.count()):
-            if self.categories.itemText(i) == current_cat_name:
-                self.categories.setCurrentIndex(i)
+                self.tags.addItem(name)
+        if ',' in current_tag_name:
+            self.tags.addItem(current_tag_name)      
+        for i in range(self.tags.count()):
+            if self.tags.itemText(i) == current_tag_name:
+                self.tags.setCurrentIndex(i)
                 break
 
     def card_type_changed(self, new_card_type_name):
@@ -117,10 +117,10 @@ class AddEditCards(Component):
         fact_data = self.card_type_widget.get_data(check_for_required=False)
         fact = Fact(fact_data, self.card_type, creation_date=None)
         cards = self.card_type.create_related_cards(fact)
-        cat_text = self.categories.currentText()
-        if cat_text == _("<default>"):
-            cat_text = ""
-        dlg = PreviewCardsDlg(cards, cat_text, self)
+        tag_text = self.tags.currentText()
+        if tag_text == _("<default>"):
+            tag_text = ""
+        dlg = PreviewCardsDlg(cards, tag_text, self)
         dlg.exec_()
 
     def __del__(self):
@@ -136,8 +136,8 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         self.setupUi(self)
         self.initialise_card_types_combobox(\
             self.config()["card_type_name_of_last_added"])
-        self.update_categories_combobox(\
-            self.config()["categories_of_last_added"])  
+        self.update_tags_combobox(\
+            self.config()["tags_of_last_added"])  
         self.grades = QButtonGroup()
         self.grades.addButton(self.grade_0_button, 0)
         self.grades.addButton(self.grade_1_button, 1)
@@ -155,15 +155,15 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         
     def new_cards(self, grade):
         fact_data = self.card_type_widget.get_data()
-        cat_names = [c.strip() for c in \
-                     unicode(self.categories.currentText()).split(',')]
+        tag_names = [c.strip() for c in \
+                     unicode(self.tags.currentText()).split(',')]
         card_type_name = unicode(self.card_types_widget.currentText())
         card_type = self.card_type_by_name[card_type_name]
         c = self.ui_controller_main()
-        c.create_new_cards(fact_data, card_type, grade, cat_names)
-        cat_text = ", ".join(cat_names)
-        self.update_categories_combobox(cat_text)
-        self.config()["categories_of_last_added"] = cat_text
+        c.create_new_cards(fact_data, card_type, grade, tag_names)
+        tag_text = ", ".join(tag_names)
+        self.update_tags_combobox(tag_text)
+        self.config()["tags_of_last_added"] = tag_text
         self.database().save(self.config()["path"])
         self.card_type_widget.clear()
 

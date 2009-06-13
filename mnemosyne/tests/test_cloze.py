@@ -39,7 +39,7 @@ class TestCloze(MnemosyneTest):
         fact_data = {"text": "a [b] c"}
 
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -70,7 +70,7 @@ div#text { text-align: center; }
         fact_data = {"text": "a [b] [c]"}
 
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -81,21 +81,21 @@ div#text { text-align: center; }
 
         fact_data = {"text": "a_ [b_] [c_]"}
         self.ui_controller_main().update_related_cards(fact, fact_data,
-               card_type, new_cat_names=["default2"], correspondence=[])
+               card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_]"}
         self.ui_controller_main().update_related_cards(fact, fact_data,
-               card_type, new_cat_names=["default2"], correspondence=[])
+               card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
         
         fact_data = {"text": "a_ [b_] [d] [e]"}
         self.ui_controller_main().update_related_cards(fact, fact_data,
-               card_type, new_cat_names=["default2"], correspondence=[])
+               card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 3

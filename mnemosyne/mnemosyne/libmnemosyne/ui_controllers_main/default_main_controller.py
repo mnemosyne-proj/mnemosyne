@@ -56,7 +56,7 @@ class DefaultMainController(UiControllerMain):
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
-    def create_new_cards(self, fact_data, card_type, grade, cat_names,
+    def create_new_cards(self, fact_data, card_type, grade, tag_names,
                          warn=True):
 
         """Create a new set of related cards. If the grade is 2 or higher,
@@ -76,9 +76,9 @@ class DefaultMainController(UiControllerMain):
               _("Card is already in database.\nDuplicate not added."))
             return
         fact = Fact(fact_data, card_type)
-        categories = []
-        for cat_name in cat_names:
-            categories.append(db.get_or_create_category_with_name(cat_name))
+        tags = set()
+        for tag_name in tag_names:
+            tags.add(db.get_or_create_tag_with_name(tag_name))
         duplicates = db.duplicates_for_fact(fact)
         if warn and len(duplicates) != 0:
             answer = self.main_widget().question_box(\
@@ -108,7 +108,7 @@ class DefaultMainController(UiControllerMain):
             self.log().added_card(card)
             if grade >= 2:
                 self.scheduler().set_initial_grade(card, grade)
-            card.categories = categories
+            card.tags = tags
             db.add_card(card)
             cards.append(card)
         db.save()
@@ -117,7 +117,7 @@ class DefaultMainController(UiControllerMain):
         return cards # For testability.
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
-                             new_cat_names, correspondence, warn=True):
+                             new_tag_names, correspondence, warn=True):
         # Change card type.
         db = self.database()
         old_card_type = fact.card_type       
@@ -193,16 +193,16 @@ class DefaultMainController(UiControllerMain):
             self.ui_controller_review().reset()
             
         # Update categories.
-        old_cats = set()
-        categories = []
-        for cat_name in new_cat_names:
-            categories.append(db.get_or_create_category_with_name(cat_name))
+        old_tags = set()
+        tags = set()
+        for tag_name in new_tag_names:
+            tags.add(db.get_or_create_tag_with_name(tag_name))
         for card in self.database().cards_from_fact(fact):
-            old_cats = old_cats.union(set(card.categories))
-            card.categories = categories
+            old_tags = old_tags.union(card.tags)
+            card.tags = tags
             db.update_card(card)
-        for cat in old_cats:
-            db.remove_category_if_unused(cat)
+        for tag in old_tags:
+            db.remove_tag_if_unused(tag)
         db.save()
 
         # Update card present in UI.

@@ -61,7 +61,7 @@ class TestPlugin(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("666")
         self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, cat_names=["default"])
+                                              grade=0, tag_names=["default"])
         p.deactivate() # Pops up an information box that this is not possible.
        
     def test_3(self):
@@ -91,7 +91,7 @@ class TestPlugin(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("666")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         fact = card.fact
         self.database().delete_fact_and_related_data(fact)
         

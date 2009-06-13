@@ -72,7 +72,7 @@ def create_database():
         else:
             card_type = mnemosyne.card_type_by_id("2")            
         card = mnemosyne.ui_controller_main().create_new_cards(\
-            fact_data, card_type, grade=4, cat_names=["default" + str(i)])[0]
+            fact_data, card_type, grade=4, tag_names=["default" + str(i)])[0]
         card.next_rep -= 1000
         mnemosyne.database().update_card(card)
     mnemosyne.database().save(mnemosyne.config()["path"])
@@ -108,7 +108,7 @@ def count_not_memorised():
 def activate():
     mnemosyne.database().set_cards_active([(mnemosyne.card_type_by_id("1"),
         mnemosyne.card_type_by_id("1").fact_views[0])],
-        [mnemosyne.database().get_or_create_category_with_name("default1")])
+        [mnemosyne.database().get_or_create_tag_with_name("default1")])
 
 def finalise():
     mnemosyne.config()["upload_logs"] = False

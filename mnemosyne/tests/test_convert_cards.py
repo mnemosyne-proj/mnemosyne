@@ -24,7 +24,7 @@ class TestConvertCards(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
         
         fact = card.fact
@@ -34,7 +34,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer2"}
         new_card_type = self.card_type_by_id("2")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"], correspondence=[])
+               new_card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
@@ -63,7 +63,7 @@ class TestConvertCards(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("2")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -75,7 +75,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer2"}
         new_card_type = self.card_type_by_id("1")
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"], correspondence=[],
+               new_card_type, new_tag_names=["default2"], correspondence=[],
                warn=False)
         
         assert self.database().fact_count() == 1
@@ -99,7 +99,7 @@ class TestConvertCards(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -111,7 +111,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"q": "f", "a": "p"}
         new_card_type = self.card_type_by_id("3")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
         assert self.database().fact_count() == 1
@@ -138,7 +138,7 @@ class TestConvertCards(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -150,7 +150,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"q": "t", "a": "f"}
         new_card_type = self.card_type_by_id("3")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
         assert self.database().fact_count() == 1
@@ -178,7 +178,7 @@ class TestConvertCards(MnemosyneTest):
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -191,7 +191,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"f": "q", "t": "a"}
         new_card_type = self.card_type_by_id("1")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence, warn=False)
         
         assert self.database().fact_count() == 1
@@ -216,7 +216,7 @@ class TestConvertCards(MnemosyneTest):
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -229,7 +229,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"f": "a", "t": ";"}
         new_card_type = self.card_type_by_id("1")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence, warn=False)
         
         assert self.database().fact_count() == 1
@@ -253,7 +253,7 @@ class TestConvertCards(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("2")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -267,7 +267,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"q": "f", "a": "t"}
         new_card_type = self.card_type_by_id("3")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
         assert self.database().fact_count() == 1
@@ -292,7 +292,7 @@ class TestConvertCards(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("2")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -306,7 +306,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"q": "t", "a": "f"}
         new_card_type = self.card_type_by_id("3")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
         assert self.database().fact_count() == 1
@@ -332,7 +332,7 @@ class TestConvertCards(MnemosyneTest):
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -345,7 +345,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"f": "q", "t": "a"}
         new_card_type = self.card_type_by_id("2")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence, warn=False)
         
         assert self.database().fact_count() == 1
@@ -372,7 +372,7 @@ class TestConvertCards(MnemosyneTest):
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -385,7 +385,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"f": "a", "t": "q"}
         new_card_type = self.card_type_by_id("2")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence, warn=False)
         
         assert self.database().fact_count() == 1
@@ -415,7 +415,7 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("3_CLONED.my_3")
         
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -428,7 +428,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"f": "q", "t": "a"}
         new_card_type = self.card_type_by_id("1")     
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence, warn=False)
         
         assert self.database().fact_count() == 1
@@ -453,7 +453,7 @@ class TestConvertCards(MnemosyneTest):
                      "t": "translation"}
         card_type = self.card_type_by_id("3")        
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -469,7 +469,7 @@ class TestConvertCards(MnemosyneTest):
         new_card_type = self.card_type_by_id("1_CLONED.my_1")
       
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence, warn=False)
         
         assert self.database().fact_count() == 1
@@ -499,7 +499,7 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("3_CLONED.my_3")
         
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                          grade=0, cat_names=["default"])[0]
+                                          grade=0, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
 
         fact = card.fact
@@ -515,7 +515,7 @@ class TestConvertCards(MnemosyneTest):
         new_card_type = self.card_type_by_id("1_CLONED.my_1")
       
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
-               new_card_type, new_cat_names=["default2"],
+               new_card_type, new_tag_names=["default2"],
                correspondence=correspondence, warn=False)
         
         assert self.database().fact_count() == 1

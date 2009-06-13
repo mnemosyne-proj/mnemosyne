@@ -1,10 +1,6 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
-
--rename cat to tag, 'Tags:' in add card dialog
--make categories a set?
-
 -always copy media to internal directory, a different one per deck
 -log adding and deleting media
 
@@ -121,6 +117,9 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
  T.<fixed card id for all pupils>.<pupil user id>?
+
+-when resetting learning data on export, can we export facts only? Tags are on
+ a per card basis.
 
 -don't recreate text logs upon import
 

@@ -52,7 +52,7 @@ Contents
     modules/component_manager
     modules/fact
     modules/fact_view
-    modules/category    
+    modules/tag   
     modules/card_type
     modules/card
     modules/card_type_converter

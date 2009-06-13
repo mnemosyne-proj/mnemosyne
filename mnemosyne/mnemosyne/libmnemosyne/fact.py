@@ -15,9 +15,6 @@ class Fact(object):
     Note that a dynamic data field can be defined by defining a data_foo method
     for a card_type that accepts a datafields dictonary.
 
-    Card_type and categories are also stored here, because when resetting the
-    learning data on export, we only export facts.
-
     Creating and modification dates are POSIX timestamps stored as integers.
 
     'id' is used to identify this object to the external world (logs, xml

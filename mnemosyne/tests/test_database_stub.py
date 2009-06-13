@@ -35,24 +35,24 @@ class TestDatabaseStub:
         self.database.is_loaded()
         
     @raises(NotImplementedError)
-    def test_add_category(self):
-        self.database.add_category(None)
+    def test_add_tag(self):
+        self.database.add_tag(None)
 
     @raises(NotImplementedError)
-    def test_update_category(self):
-        self.database.update_category(None)
+    def test_update_tag(self):
+        self.database.update_tag(None)
         
     @raises(NotImplementedError)
-    def test_delete_category(self):
-        self.database.delete_category(None)
+    def test_delete_tag(self):
+        self.database.delete_tag(None)
         
     @raises(NotImplementedError)
-    def test_get_or_create_category_with_name(self):
-        self.database.get_or_create_category_with_name("test")
+    def test_get_or_create_tag_with_name(self):
+        self.database.get_or_create_tag_with_name("test")
         
     @raises(NotImplementedError)
-    def test_remove_category_if_unused(self):
-        self.database.remove_category_if_unused(None)
+    def test_remove_tag_if_unused(self):
+        self.database.remove_tag_if_unused(None)
         
     @raises(NotImplementedError)
     def test_add_fact(self):
@@ -79,8 +79,8 @@ class TestDatabaseStub:
         self.database.delete_card(None)
 
     @raises(NotImplementedError)
-    def test_get_category(self):
-        self.database.get_category(None)
+    def test_get_tag(self):
+        self.database.get_tag(None)
 
     @raises(NotImplementedError)
     def test_get_fact(self):
@@ -99,8 +99,8 @@ class TestDatabaseStub:
         self.database.set_cards_in_view(None, None)
         
     @raises(NotImplementedError)
-    def test_category_names(self):
-        self.database.category_names()
+    def test_tag_names(self):
+        self.database.tag_names()
            
     @raises(NotImplementedError)       
     def test_cards_from_fact(self):        

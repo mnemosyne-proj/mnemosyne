@@ -1,3 +1,7 @@
+-the revision history is now stored inside an SQL database too. This is a prerequisite for when implementing the sync algorithm, and will also allow to display more sophisticated statistics.
+-removed some old warts/hacks inherited from the 1.x codebase: card.unseen and StartDate
+-various architectural improvements and bug fixes
+	
 MNEMOSYNE 2.0
 
 (Note that for Windows users we recommend uninstalling the previous
@@ -20,7 +24,8 @@ easily, which allows plugin writers maximum flexibility.
 -Each individual field in a card can now have its own font, colour, ... which
  can be set through the GUI. No more need for hacks like 'increase size of 
  non-latin characters'. Background colour is also configurable per card type.
--Cards can belong to more than one category.
+-Whereas in Mnemosyne 1.x, a card could belong to only one category, now a card
+ can have multiple tags.
 -Added card type for maps, and for cloze deletion.
 -Plugins can now be turned on and off through the GUI.
 -Move from Qt3 to Qt4 as GUI toolkit, which has better performance and 

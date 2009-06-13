@@ -1,11 +1,11 @@
 #
-# category.py <Peter.Bienstman@UGent.be>
+# tag.py <Peter.Bienstman@UGent.be>
 #
 
 
-class Category(object):
+class Tag(object):
     
-    """The category name is the full name, including all levels of the hierarchy
+    """The tag name is the full name, including all levels of the hierarchy
     separated by two colons.
 
     'id' is used to identify this object to the external world (logs, xml
@@ -25,4 +25,3 @@ class Category(object):
 
     def __eq__(self, other):
         return self.id == other.id
-

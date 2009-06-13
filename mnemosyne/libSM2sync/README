@@ -29,7 +29,7 @@ In order to avoid many checksums on the data being calculated and sent across th
 
 Storing all of this in the history would also make it very efficient to handle multiple partnerships: for each partnership, we only need to store the place in the history corresponding to the last sync.  This can be used to easily create the changeset for that particular partnership. (Other options, like e.g. setting a 'needs_sync' flag on datastructures is less efficient as that would need to be done once per partnership, leading to much redundancy in storage.)
 
-For the actual sync, changes to the following data need to be sent across: cards, facts, categories, card types, history, media files, and perhaps application specific data. Apart from the last two, the history actually already stores most of the information needed to update the data. So in order to eliminate sending redundant information and to facilitate a streaming behaviour, it seems like a good idea to let the history be the main driver of the syncing process, i.e. send across each event in the history successively, if necessary supplemented by extra information. E.g., the 'new card' event would need to be supplemented by sending the actual card data across. The alternative, e.g. first updating all the cards, then all the facts, etc, and then finally the history, would result in information duplication. Indeed, if we know the information about all the revisions a card underwent, we easily determine the new status of a card without having to explicitly send it across.
+For the actual sync, changes to the following data need to be sent across: cards, facts, tags, card types, history, media files, and perhaps application specific data. Apart from the last two, the history actually already stores most of the information needed to update the data. So in order to eliminate sending redundant information and to facilitate a streaming behaviour, it seems like a good idea to let the history be the main driver of the syncing process, i.e. send across each event in the history successively, if necessary supplemented by extra information. E.g., the 'new card' event would need to be supplemented by sending the actual card data across. The alternative, e.g. first updating all the cards, then all the facts, etc, and then finally the history, would result in information duplication. Indeed, if we know the information about all the revisions a card underwent, we easily determine the new status of a card without having to explicitly send it across.
 
 
 
@@ -46,7 +46,7 @@ As core data that each SRS system needs to store (or be able to generate) about 
 -card type id
 -question
 -answer
--list of categories
+-list of tags
 -grade
 -easiness
 -last rep
@@ -141,7 +141,7 @@ A variable which Mnemosyne (optionally) uses and which therefore should be sent 
 -timestamp
 -card id
 -card type id (see later)
--list of categories
+-list of tags
 -grade
 -easiness
 -last rep
@@ -159,7 +159,7 @@ Otherwise we transmit:
 
 (Transmission of fact data is a separate event)
 
-Note that some SRS systems have categories only associated with facts, others only with cards. Associating it with cards is more general, and therefore the protocol needs to take this approach.
+Note that some SRS systems have tags only associated with facts, others only with cards. Associating it with cards is more general, and therefore the protocol needs to take this approach.
 
 
 * modifying cards:
@@ -168,7 +168,7 @@ Send same data when adding cards.
 
 Used for:
 -two 2-sided only SRS systems talking to each other, and changing the question/answer (for N-sided SRS systems this happens through the modifying facts events.
--modifying categories associated with a card
+-modifying tags associated with a card
 -resetting the learing data of the card
 
 Not used for:
@@ -192,16 +192,16 @@ Note that adding / modifying cards associated with this fact are separate events
 -timestamp
 -fact id
 
-* adding / modifying categories
+* adding / modifying tags
 
 -timestamp
--category id
--category name
+-tag id
+-tag name
 
-* deleting categories:
+* deleting tags:
 
 -timestamp
--category id
+-tag id
 
 * card types
 
@@ -234,8 +234,8 @@ Contrary to the other datastreams, the media should not be compressed as it is a
 
 * Mnemosyne specific data
 
--which card types and categories are active
--for which card types and categories is 'type answer' activated
+-which card types and tags are active
+-for which card types and tags is 'type answer' activated
 
 Question: can / should we generalise this to other SRS systems? In this case, we should probably exchange in a lower level fashion all the card id's which are active, as other SRS systems could have different higher-level ways of handling this.
 
@@ -254,7 +254,7 @@ Question: is this robust enough in case the sync or the commit process gets inte
 
 Deck sharing servers:
 
-These are special servers to hold premade decks people can download into their own database. They follow the same protocol, but they only sync facts, categories and card types, not revision or cards. (They don't sync cards so that different people who download the same deck still generate cards with unique ids to be able to distinguish then in the statistics). Modifying fact data should only be possible by the original author. 
+These are special servers to hold premade decks people can download into their own database. They follow the same protocol, but they only sync facts, tags and card types, not revision or cards. (They don't sync cards so that different people who download the same deck still generate cards with unique ids to be able to distinguish then in the statistics). Modifying fact data should only be possible by the original author. 
 
 
 

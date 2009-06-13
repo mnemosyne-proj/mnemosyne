@@ -62,9 +62,9 @@ state.</p>
 <p>&#8216;active&#8217; is used to determine whether a card is included in the review
 process. Currently, the UI allows setting cards active when then belong to
 certain card type/fact view combos. We choose to store this information on
-card level and not as a flag in fact view or category, so that plugins have
-the possibility to offer more flexibility, e.g. by having different active
-categories per card type/fact view combo.</p>
+card level and not as a flag in fact view or tag, so that plugins have the
+possibility to offer more flexibility, e.g. by having different active
+tags per card type/fact view combo.</p>
 <p>&#8216;in_view&#8217; offers similar functionality as &#8216;active&#8217;, but is not used by the
 scheduler, but e.g. by GUI elements which need to operate only on a subset
 of the cards (displaying search results, e.g.). The &#8216;active&#8217; flag could
@@ -151,7 +151,7 @@ scheduling. Storing them as int makes it very efficient in SQL.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 12, 2009.
+      Last updated on Jun 13, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

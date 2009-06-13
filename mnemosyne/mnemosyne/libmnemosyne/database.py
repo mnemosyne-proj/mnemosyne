@@ -40,19 +40,19 @@ class Database(Component):
 
     # Adding, modifying and deleting categories, facts and cards.
 
-    def add_category(self, category):
+    def add_tag(self, tag):
         raise NotImplementedError
 
-    def update_category(self, category):
+    def update_tag(self, tag):
         raise NotImplementedError
 
-    def delete_category(self, category):
+    def delete_tag(self, tag):
         raise NotImplementedError
 
-    def get_or_create_category_with_name(self, name):
+    def get_or_create_tag_with_name(self, name):
         raise NotImplementedError
 
-    def remove_category_if_unused(self, category):
+    def remove_tag_if_unused(self, tag):
         raise NotImplementedError
 
     def add_fact(self, fact):
@@ -75,7 +75,7 @@ class Database(Component):
     
     # Retrieving categories, facts, cards using their internal id.
     
-    def get_category(self, _id):
+    def get_tag(self, _id):
         raise NotImplementedError
     
     def get_fact(self, _id):
@@ -106,7 +106,7 @@ class Database(Component):
     
     # Queries.
 
-    def category_names(self):
+    def tag_names(self):
         raise NotImplementedError
 
     def cards_from_fact(self, fact):

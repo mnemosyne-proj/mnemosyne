@@ -18,7 +18,7 @@ class TestUIControllerReview(MnemosyneTest):
             else:
                 card_type = self.card_type_by_id("2")            
             card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                    grade=4, cat_names=["default" + str(i)])[0]
+                    grade=4, tag_names=["default" + str(i)])[0]
             if i == 0:
                 card_1 = card
                 card.next_rep -= 1000 * 24 * 60 * 60 
@@ -43,7 +43,7 @@ class TestUIControllerReview(MnemosyneTest):
             else:
                 card_type = self.card_type_by_id("2")            
             card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                    grade=4, cat_names=["default" + str(i)])[0]
+                    grade=4, tag_names=["default" + str(i)])[0]
             if i == 0:
                 card_1 = card
                 card.next_rep -= 1000 * 24 * 60 * 60
