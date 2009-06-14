@@ -2,10 +2,9 @@
 -hang on Spanish translation?
 
 -always copy media to internal directory, a different one per deck
--rename if file already exists
+-rename if file already exists, but not if source inside dir
 -log adding and deleting media
--shared media between facts
--deleting fact
+-shared media between facts: don't delete media if in use by other card
 
 -review schema for card types
 -move clones to database

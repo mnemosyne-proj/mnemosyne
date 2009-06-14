@@ -34,27 +34,18 @@ class QTextEdit2(QTextEdit):
             QTextEdit.keyPressEvent(self, e)
 
     def insert_img(self):
-        path = expand_path(self.config()["import_img_dir"],
-                           self.config()["path"])
-        fname = unicode(QFileDialog.getOpenFileName(self, _("Insert image"),
-                        path, _("Image files") + \
-                        " (*.png *.gif *.jpg *.bmp *.jpeg" + \
-                        " *.PNG *.GIF *.jpg *.BMP *.JPEG)"))
+        filter = "(*.png *.gif *.jpg *.bmp *.jpeg" + \
+                 " *.PNG *.GIF *.jpg *.BMP *.JPEG)"
+        fname = self.parent().ui_controller_main().insert_img(filter)
         if fname:
-            self.insertPlainText("<img src=\""+contract_path(fname)+"\">")
-            self.config()["import_img_dir"] = \
-                       contract_path(os.path.dirname(fname))
-    
+            self.insertPlainText("<img src=\"" + fname + "\">")
+
     def insert_sound(self):
-        path = expand_path(self.config()["import_sound_dir"],
-                           self.config()["path"])
-        fname = unicode(QFileDialog.getOpenFileName(self, _("Insert sound"),
-                        path, _("Sound files") + \
-                        " (*.wav *.mp3 *.ogg *.WAV *.MP3 *.OGG)"))
+        filter = "(*.wav *.mp3 *.ogg *.WAV *.MP3 *.OGG)"
+        fname = self.parent().ui_controller_main().insert_sound(filter)
         if fname:
-            self.insertPlainText("<sound src=\""+contract_path(fname)+"\">")
-            self.config()["import_sound_dir"] = \
-                       contract_path(os.path.dirname(fname))
+            self.insertPlainText("<sound src=\"" + fname + "\">")
+        
 
 
         

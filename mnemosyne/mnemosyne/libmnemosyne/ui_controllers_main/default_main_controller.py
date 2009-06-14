@@ -5,11 +5,10 @@
 import os
 import copy
 import time
-import datetime
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
-from mnemosyne.libmnemosyne.utils import expand_path
+from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
 
@@ -321,6 +320,66 @@ class DefaultMainController(UiControllerMain):
         self.ui_controller_review().update_dialog()
         self.update_title()
         self.stopwatch().unpause()
+
+    def insert_img(self):
+        fname = self.parent().ui_controller_main().insert_img()
+        if fname:
+            self.insertPlainText("<img src=\"" + fname + "\">")
+        
+            
+        config = self.parent().config()
+        path = expand_path(config["import_img_dir"], config.basedir)
+        fname = unicode(QFileDialog.getOpenFileName(self, _("Insert image"),
+                        path, _("Image files") + \
+                        " (*.png *.gif *.jpg *.bmp *.jpeg" + \
+                        " *.PNG *.GIF *.jpg *.BMP *.JPEG)"))
+        if fname:
+            self.insertPlainText("<img src=\"" + \
+                contract_path(fname, config.basedir) + "\">")
+            config["import_img_dir"] = contract_path(os.path.dirname(fname),
+                config.basedir)
+            
+    def insert_img(self, filter):
+
+        """Show a file dialog filtered on the supported filetypes, get a
+        filename, massage it, and return it to the widget to be inserted.
+        There is more media file logic inside the database code too, as the
+        user could also just type in the html tags as opposed to passing
+        through the fileselector here.
+
+        """
+
+        from mnemosyne.libmnemosyne.utils import copy_file_to_dir
+
+        basedir, mediadir = self.config().basedir, self.config().mediadir()
+        path = expand_path(self.config()["import_img_dir"], basedir)
+        filter = _("Image files") + " " + filter
+        fname = self.main_widget().open_file_dialog(\
+            path, filter, _("Insert image"))
+        if not fname:
+            return ""
+        else:
+            self.config()["import_img_dir"] = contract_path(\
+                os.path.dirname(fname), basedir)
+            fname = copy_file_to_dir(fname, mediadir)
+            return contract_path(fname, mediadir)
+        
+    def insert_sound(self, filter):
+
+        from mnemosyne.libmnemosyne.utils import copy_file_to_dir
+
+        basedir, mediadir = self.config().basedir, self.config().mediadir()
+        path = expand_path(self.config()["import_sound_dir"], basedir)
+        filter = _("Sound files") + " " + filter
+        fname = self.main_widget().open_file_dialog(\
+            path, filter, _("Insert sound"))
+        if not fname:
+            return ""
+        else:
+            self.config()["import_sound_dir"] = contract_path(\
+                os.path.dirname(fname), basedir)
+            fname = copy_file_to_dir(fname, mediadir)
+            return contract_path(fname, mediadir)
 
     def card_appearance(self):
         self.stopwatch().pause()

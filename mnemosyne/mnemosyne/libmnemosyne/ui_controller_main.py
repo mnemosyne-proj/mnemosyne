@@ -50,6 +50,18 @@ class UiControllerMain(Component):
     def file_save_as(self):
         raise NotImplementedError
 
+    def insert_img(self, filter):
+
+        "Filter contains the file dialog filter with the supported filetypes."
+        
+        raise NotImplementedError
+
+    def insert_sound(self, filter):
+
+        "Filter contains the file dialog filter with the supported filetypes."
+        
+        raise NotImplementedError    
+
     def manage_card_types(self):
         raise NotImplementedError    
     

@@ -5,7 +5,7 @@
 import os
 import re
 import sys
-import datetime
+import shutil
 import traceback
 
 def expand_path(p, prefix):
@@ -39,6 +39,20 @@ def contract_path(p, prefix):
             return p            
     else:
         return p
+
+
+def copy_file_to_dir(fname, dirname):
+
+    "If the file is not in the directory, copy it there."
+    
+    fname = os.path.abspath(fname)
+    dirname = os.path.abspath(dirname)
+    if not fname.startswith(dirname):
+        dest_path = os.path.join(dirname, os.path.basename(fname))
+        shutil.copy(fname, dest_path)
+        return dest_path
+    else:
+        return fname
 
 
 def numeric_string_cmp(s1, s2):

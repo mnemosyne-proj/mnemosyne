@@ -3,6 +3,7 @@
 #
 
 import os
+import re
 import time
 import shutil
 import sqlite3
@@ -120,7 +121,7 @@ SCHEMA = """
 
     /* Here, we store the card types that are created at run time by the user
        through the GUI, as opposed to those that are instantiated through a
-       plugin. For columns containing lists and lists of tuples like 'fields',
+       plugin. For columns containing lists, dicts, ...  like 'fields',
        'unique_fields', ... we store the __repr__ representations of the
        Python objects.
     */
@@ -181,7 +182,7 @@ class SQLite(Database):
             os.remove(self._path)
         self.load_failed = False
         # Create tables.
-        self.con.executescript(SCHEMA) # Create tables.
+        self.con.executescript(SCHEMA)
         self.con.execute("insert into global_variables(key, value) values(?,?)",
                         ("version", self.version))
         self.con.execute("insert into global_variables(key, value) values(?,?)",
@@ -191,10 +192,9 @@ class SQLite(Database):
         self.con.commit()
         self.config()["path"] = contract_path(self._path, self.config().basedir)
         # Create media directory.
-        media_dir_name = os.path.basename(path) + "_media"
-        media_dir = os.path.join(self.config().basedir, media_dir_name)
-        if not os.path.exists(media_dir):
-            os.mkdir(media_dir)
+        mediadir = self.config().mediadir()
+        if not os.path.exists(mediadir):
+            os.mkdir(mediadir)
 
     def load(self, path):
         if self.is_loaded():
@@ -469,15 +469,29 @@ class SQLite(Database):
         self.log().deleted_card(card)
         del card
 
-    # Process media files in fact data. If they are not in the deck's media
-    # directory, copy them over. Also gather all the necessary information for
-    # syncing: update the media table to reflect which media files have been
-    # added or deleted; record the modification date so that we can detect if
-    # media files have been modified outside of Mnemosyne. (Although less
-    # robust, modifaction dates are faster to lookup then calculating a hash,
-    # especially on mobile devices.
+    # Process media files in fact data.
 
     def _process_media(self, fact):
+        # Determine new media files for this fact.
+        data = "".join(fact.data.values())
+        
+        # Todo: move as global  
+        re1 = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
+        for match in re1.finditer(data):
+            print match.group(1)
+
+        # Copy them to the media directory if necessary.
+        
+        # Determine old media files for this fact.
+
+        # Update the media table and log additions or deletions.
+
+        # Record the modification date so that we can detect if media files
+        # have been modified outside of Mnemosyne. (Although less robust, m
+        # odifaction dates are faster to lookup then calculating a hash,
+        # especially on mobile devices.
+
+        
         pass
 
     # Retrieve tags, facts and cards using their internal id.
