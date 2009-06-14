@@ -198,7 +198,6 @@ class SQLite(Database):
 
     def load(self, path):
         if self.is_loaded():
-            1/0 # Coverage bug?
             self.unload()
         self._path = expand_path(path, self.config().basedir)
 

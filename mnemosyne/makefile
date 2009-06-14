@@ -22,7 +22,7 @@ test: install-virtual-env
 	./bin/nosetests tests
 
 coverage: install-virtual-env
-	./bin/nosetests --with-coverage --cover-html --cover-package=mnemosyne.libmnemosyne
+	./bin/nosetests --with-coverage --cover-erase --cover-html --cover-package=mnemosyne.libmnemosyne
 	firefox cover/index.html
 
 profile: install-virtual-env
