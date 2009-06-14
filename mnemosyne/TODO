@@ -11,6 +11,8 @@
 -move clones to database
 -lazy checking for necessary plugins
 
+-remove coverage testing code
+
 -WM test and benchmark
 
 -sync protocol:

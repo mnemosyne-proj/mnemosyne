@@ -105,7 +105,7 @@ class TestLogging(MnemosyneTest):
         assert sql_res["acq_reps"] == 3
         assert sql_res["ret_reps"] == 0
         assert sql_res["scheduled_interval"] == 0
-        assert sql_res["actual_interval"] == 0
+        assert sql_res["actual_interval"] <= 10 # Depends on CUP load.
         assert sql_res["new_interval"] > 0
         assert sql_res["thinking_time"] == 0  
 

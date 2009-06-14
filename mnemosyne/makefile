@@ -9,7 +9,7 @@ install-virtual-env:
 setup:
 	virtualenv .
 	./bin/easy_install nose
-	#./bin/easy_install coverage
+	./bin/easy_install coverage
 
 install-system:
 	cd mnemosyne/pyqt_ui ; make clean
@@ -22,7 +22,8 @@ test: install-virtual-env
 	./bin/nosetests tests
 
 coverage: install-virtual-env
-	./bin/nosetests --with-coverage --cover-package=mnemosyne.libmnemosyne
+	./bin/nosetests --with-coverage --cover-html --cover-package=mnemosyne.libmnemosyne
+	firefox cover/index.html
 
 profile: install-virtual-env
 	echo "from hotshot import stats" > process_profile.py

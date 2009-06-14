@@ -197,7 +197,8 @@ class SQLite(Database):
             os.mkdir(media_dir)
 
     def load(self, path):
-        if self.is_loaded():        
+        if self.is_loaded():
+            1/0 # Coverage bug?
             self.unload()
         self._path = expand_path(path, self.config().basedir)
 
