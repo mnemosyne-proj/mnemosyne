@@ -209,7 +209,7 @@ class CardAppearanceDlg(QDialog, Ui_CardAppearanceDlg, Component):
         fact_data = {}
         for fact_key, fact_key_name in card_type.fields:
             fact_data[fact_key] = fact_key_name
-        fact = Fact(fact_data, card_type, creation_date=None)
+        fact = Fact(fact_data, card_type)
         cards = card_type.create_related_cards(fact)        
         cat_text = ""
         dlg = PreviewCardsDlg(cards, cat_text, self)

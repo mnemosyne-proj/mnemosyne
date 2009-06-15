@@ -1,24 +1,22 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--always copy media to internal directory, a different one per deck
--rename if file already exists, but not if source inside dir
--log adding and deleting media
--shared media between facts: don't delete media if in use by other card
+-more tests for media
+
+-test fact modif/cat modif
 
 -review schema for card types
 -move clones to database
 -lazy checking for necessary plugins
 
--remove coverage testing code
+-don't memorise related cards on same day
 
 -WM test and benchmark
 
 -sync protocol:
--store fact modif/cat modif
 -deck name
 -import
--media dir per deck / can refuse large files
+-server can report can refuse large files
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 -be sure to truncate time to int if it comes from other SRS systems
@@ -129,6 +127,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -new translation infrastructure
 -handle deferred translation
 -different translators for different users?
+
+-move card type by name to core, as well as string for tag list
 
 
 -corrupt icon

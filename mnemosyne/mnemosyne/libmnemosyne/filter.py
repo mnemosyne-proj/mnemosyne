@@ -20,8 +20,3 @@ class Filter(Component):
 
     def run(self, text):
         raise NotImplementedError
-
-
-
-
-

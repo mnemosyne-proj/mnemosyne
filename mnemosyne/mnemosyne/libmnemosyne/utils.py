@@ -10,8 +10,13 @@ import traceback
 
 def expand_path(p, prefix):
 
-    """Make relative path absolute and normalise slashes."""
-    
+    """Make relative path 'p' absolute having prefix 'prefix' and normalise
+    slashes.
+
+    """
+
+    # We write our own code to do os.path.isabs, so that the testsuite can run
+    # under Linux as well.
     if (    ( (len(p) > 1) and p[0] == "/") \
          or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
         return os.path.normpath(p)
@@ -21,15 +26,17 @@ def expand_path(p, prefix):
 
 def contract_path(p, prefix):
 
-    """Make absolute path relative and normalise slashes."""
+    """Make absolute path 'p' relative to prefix 'prefix' and normalise
+    slashes.
+
+    """
 
     # Normalise paths and convert everything to lowercase on Windows.
     p = os.path.normpath(p)
     prefix = os.path.normpath(prefix)
     if ( (len(p) > 2) and p[1] == ":"):
         p = p.lower()
-        prefix = prefix.lower()
-        
+        prefix = prefix.lower()       
     # Do the actual detection.
     if (    ( (len(p) > 1) and p[0] == "/") \
          or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
@@ -41,18 +48,25 @@ def contract_path(p, prefix):
         return p
 
 
-def copy_file_to_dir(fname, dirname):
+def copy_file_to_dir(filename, dirname):
 
     "If the file is not in the directory, copy it there."
     
-    fname = os.path.abspath(fname)
+    filename = os.path.abspath(filename)
     dirname = os.path.abspath(dirname)
-    if not fname.startswith(dirname):
-        dest_path = os.path.join(dirname, os.path.basename(fname))
-        shutil.copy(fname, dest_path)
-        return dest_path
-    else:
-        return fname
+    if filename.startswith(dirname):
+        return filename
+    dest_path = os.path.join(dirname, os.path.basename(filename))
+    if os.path.exists(dest_path):
+        prefix, suffix = dest_path.rsplit(".", 1)
+        count = 0
+        while True:
+            count += 1
+            dest_path = "%s (%d).%s" % (prefix, count, suffix)
+            if not os.path.exists(dest_path):
+                break            
+    shutil.copy(filename, dest_path)
+    return dest_path
 
 
 def numeric_string_cmp(s1, s2):

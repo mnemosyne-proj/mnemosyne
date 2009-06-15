@@ -321,24 +321,6 @@ class DefaultMainController(UiControllerMain):
         self.update_title()
         self.stopwatch().unpause()
 
-    def insert_img(self):
-        fname = self.parent().ui_controller_main().insert_img()
-        if fname:
-            self.insertPlainText("<img src=\"" + fname + "\">")
-        
-            
-        config = self.parent().config()
-        path = expand_path(config["import_img_dir"], config.basedir)
-        fname = unicode(QFileDialog.getOpenFileName(self, _("Insert image"),
-                        path, _("Image files") + \
-                        " (*.png *.gif *.jpg *.bmp *.jpeg" + \
-                        " *.PNG *.GIF *.jpg *.BMP *.JPEG)"))
-        if fname:
-            self.insertPlainText("<img src=\"" + \
-                contract_path(fname, config.basedir) + "\">")
-            config["import_img_dir"] = contract_path(os.path.dirname(fname),
-                config.basedir)
-            
     def insert_img(self, filter):
 
         """Show a file dialog filtered on the supported filetypes, get a

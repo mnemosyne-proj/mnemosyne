@@ -15,7 +15,11 @@ from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.utils import traceback_string
+from mnemosyne.libmnemosyne.utils import copy_file_to_dir
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
+
+re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
+
 
 # Note: all id's beginning with an underscore refer to primary keys in the
 # SQL database. All other id's correspond to the id's used in libmnemosyne.
@@ -471,27 +475,36 @@ class SQLite(Database):
     # Process media files in fact data.
 
     def _process_media(self, fact):
-        # Determine new media files for this fact.
+        mediadir = self.config().mediadir()
+        # Determine new media files for this fact.     
         data = "".join(fact.data.values())
-        
-        # Todo: move as global  
-        re1 = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
-        for match in re1.finditer(data):
-            print match.group(1)
-
-        # Copy them to the media directory if necessary.
-        
+        new_files = set()
+        for match in re_src.finditer(data):
+            filename = match.group(1)
+            if os.path.isabs(filename):
+                filename = copy_file_to_dir(filename, mediadir)
+            new_files.add(filename)               
         # Determine old media files for this fact.
-
-        # Update the media table and log additions or deletions.
-
-        # Record the modification date so that we can detect if media files
-        # have been modified outside of Mnemosyne. (Although less robust, m
-        # odifaction dates are faster to lookup then calculating a hash,
+        old_files = set((cursor["filename"] for cursor in self.con.execute(\
+            "select filename from media where _fact_id=?", (fact._id, )))) 
+        # Update the media table and log additions or deletions. We record
+        # the modification date so that we can detect if media files have
+        # been modified outside of Mnemosyne. (Although less robust,
+        # modifaction dates are faster to lookup then calculating a hash,
         # especially on mobile devices.
-
-        
-        pass
+        for filename in old_files - new_files:
+            self.con.execute("""delete from media where filename=?
+                and _fact_id=?""", (filename, fact._id))
+            self.log().deleted_media(filename, fact)
+            # Delete the media file if it's not used by other facts.
+            if self.con.execute("select count() from media where filename=?",
+                                (filename, )).fetchone()[0] == 0:
+                os.remove(os.path.join(mediadir, filename))
+        for filename in new_files - old_files:
+            self.con.execute("""insert into media(filename, _fact_id,
+                last_modified) values(?,?,?)""", (filename, fact._id,
+                os.path.getmtime(os.path.join(mediadir, filename))))
+            self.log().added_media(filename, fact)
 
     # Retrieve tags, facts and cards using their internal id.
 
