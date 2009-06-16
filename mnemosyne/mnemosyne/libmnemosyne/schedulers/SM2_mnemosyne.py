@@ -281,6 +281,14 @@ class SM2Mnemosyne(Scheduler):
         return len(self.queue) >= 3
 
     def grade_answer(self, card, new_grade, dry_run=False):
+        # The dry run mode is typically used to determine the intervals
+        # for the different grades, so we don't want any side effects
+        # from hooks running then.
+        if not dry_run:
+            card.fact.card_type.before_repetition(card)
+            for f in self.component_manager.get_all("hook",
+                                                    "before_repetition"):
+                f.run(card)            
         # When doing a dry run, make a copy to operate on. This leaves the
         # original in the GUI intact.
         if dry_run:
@@ -382,8 +390,10 @@ class SM2Mnemosyne(Scheduler):
         else:
             card.next_rep = int(time.time())
             new_interval = 0
-        # Run post review hooks.
-        card.fact.card_type.after_review(card)
+        # Run hooks.
+        card.fact.card_type.after_repetition(card)
+        for f in self.component_manager.get_all("hook", "after_repetition"):
+            f.run(card)
         # Create log entry.
         self.log().repetition(card, scheduled_interval, actual_interval,
                               new_interval)

@@ -1,8 +1,6 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--more tests for media
-
 -test fact modif/cat modif
 
 -review schema for card types
@@ -31,8 +29,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -better mechanism to have different renderers
 
 -don't reset cramming scheduler
-
--hooks before and after grading?
 
 -is complete check on changing card type does not fire
 
@@ -168,6 +164,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -show number of cards selected
 
+-don't show inactive card types, but do show inactive tags
+
 
 -time WM: history in same DB?
 
@@ -178,7 +176,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
 -draw answer, make configurable by card type
 
--move 'card type by name' to different place?
+
+-leech detection
 
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
@@ -188,10 +187,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
  urge user to merge all of his separate decks into one deck
 
 -update ohloh?
-
--boxing / limiting: see which hooks needed
-
--renamed default data dir on Windows?
 
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447?
 

@@ -149,6 +149,9 @@ class CardType(Component):
 
         new_cards, updated_cards, deleted_cards = [], [], []
         return new_cards, updated_cards, deleted_cards
+    
+    def before_repetition(self, card):
+        return
 
-    def after_review(self, card):
+    def after_repetition(self, card):
         return

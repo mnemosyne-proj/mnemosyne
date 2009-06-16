@@ -56,19 +56,19 @@ class ComponentManager(object):
             if plugin.__class__.__name__ == plugin_class_name:
                 plugin.components.append(component_class)
 
-    def get_all(self, type, used_for=None):
+    def get_all(self, comp_type, used_for=None):
         
         """For components for which there can be many active at once."""
 
         if used_for == None or isinstance(used_for, str):
             try:
-                return self.components[used_for][type]
+                return self.components[used_for][comp_type]
             except:
                 return []
 
         # See if there is a component registered for the exact type.
         try:
-            return self.components[used_for][type]
+            return self.components[used_for][comp_type]
         except:
             # See if there is a component registered for the parent class.
             class_keys = [key for key in self.components.keys() if \
@@ -78,7 +78,7 @@ class ComponentManager(object):
                     if issubclass(used_for[0], key[0]) and \
                        issubclass(used_for[1], key[1]):
                         try:
-                            return self.components[key][type]
+                            return self.components[key][comp_type]
                         except:
                             return []
                 return []
@@ -86,19 +86,19 @@ class ComponentManager(object):
                 for key in class_keys:
                     if issubclass(used_for, key):
                         try:
-                            return self.components[key][type]
+                            return self.components[key][comp_type]
                         except:
                             return []
                 return []
         
-    def get_current(self, type, used_for=None):
+    def get_current(self, comp_type, used_for=None):
         
         """For components for which there can be only one active at any
         time.
 
         """
 
-        all = self.get_all(type, used_for)
+        all = self.get_all(comp_type, used_for)
         if all == []:
             return None
         else:

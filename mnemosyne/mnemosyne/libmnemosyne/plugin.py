@@ -44,11 +44,7 @@ class Plugin(Component):
         for component in self.components:
             if component.instantiate != Component.LATER:
                 component = component(self.component_manager)
-                self.component_manager.register(component)
-                # Now, both the class component and the instance component
-                # will be registered (with the instance having precendence),
-                # and the instance component will be unregistered again when
-                # the plugin is deactivated.                
+                self.component_manager.register(component)                
                 component.activate()           
                 self.instantiated_components.append(component)
             else:

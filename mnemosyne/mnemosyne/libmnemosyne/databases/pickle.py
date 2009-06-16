@@ -136,7 +136,7 @@ class Pickle(Database):
         for f in self.facts:
             f.card_type = self.card_type_by_id(f.card_type)    
         self.config()["path"] = contract_path(path, self.config().basedir)
-        for f in self.component_manager.get_all("function_hook", "after_load"):
+        for f in self.component_manager.get_all("hook", "after_load"):
             f.run()
         # We don't log the database load here, as we prefer to log the start
         # of the program first.

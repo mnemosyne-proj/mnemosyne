@@ -361,7 +361,7 @@ class DefaultMainController(UiControllerMain):
             self.config()["import_sound_dir"] = contract_path(\
                 os.path.dirname(fname), basedir)
             fname = copy_file_to_dir(fname, mediadir)
-            return contract_path(fname, mediadir)
+            return fname
 
     def card_appearance(self):
         self.stopwatch().pause()

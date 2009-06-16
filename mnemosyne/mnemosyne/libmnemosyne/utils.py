@@ -50,8 +50,11 @@ def contract_path(p, prefix):
 
 def copy_file_to_dir(filename, dirname):
 
-    "If the file is not in the directory, copy it there."
-    
+    """If the file is not in the directory, copy it there. Return the relative
+    path to that file inside the directory.
+
+    """
+
     filename = os.path.abspath(filename)
     dirname = os.path.abspath(dirname)
     if filename.startswith(dirname):
@@ -64,9 +67,9 @@ def copy_file_to_dir(filename, dirname):
             count += 1
             dest_path = "%s (%d).%s" % (prefix, count, suffix)
             if not os.path.exists(dest_path):
-                break            
+                break
     shutil.copy(filename, dest_path)
-    return dest_path
+    return contract_path(dest_path, dirname)
 
 
 def numeric_string_cmp(s1, s2):

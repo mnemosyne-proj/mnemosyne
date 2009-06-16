@@ -1,19 +1,23 @@
 #
-# function_hook.py <Peter.Bienstman@UGent.be>
+# hook.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.component import Component
 
 
-class FunctionHook(Component):
+class Hook(Component):
 
     """Function hooks are used by registering an instance of this class as
-    component of type function_hook, with the "used_for" argument any of the
-    following hook points:
+    component of type hook, with the "used_for" argument any of the following
+    hook points:
     
        ========================   ===============================
        "after_load"               in database.load
        "configuration_defaults"   in configuration.set_defaults
+       "before_repetititon"       in SM2_mnemosyne.grade_answer
+                                  extra argument: card
+       "after_repetititon"        in SM2_mnemosyne.grade_answer
+                                  extra argument: card
        ========================   ===============================
 
     It is the 'run' method that will get called at the corresponding point
@@ -21,7 +25,7 @@ class FunctionHook(Component):
     
     """
 
-    component_type = "function_hook"
+    component_type = "hook"
     
     def run(self):
         raise NotImplementedError

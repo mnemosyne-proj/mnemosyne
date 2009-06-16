@@ -281,7 +281,7 @@ class SQLite(Database):
                 # database earlier.
                 pass        
         self.config()["path"] = contract_path(path, self.config().basedir)
-        for f in self.component_manager.get_all("function_hook", "after_load"):
+        for f in self.component_manager.get_all("hook", "after_load"):
             f.run()
         # We don't log the database load here, as we prefer to log the start
         # of the program first.
@@ -476,17 +476,22 @@ class SQLite(Database):
 
     def _process_media(self, fact):
         mediadir = self.config().mediadir()
-        # Determine new media files for this fact.     
+        # Determine new media files for this fact. Copy them to the media dir
+        # if needed. (The user could have typed in the full path directly
+        # withouh going through the add_img or add_sound callback.)
         data = "".join(fact.data.values())
         new_files = set()
         for match in re_src.finditer(data):
             filename = match.group(1)
             if os.path.isabs(filename):
                 filename = copy_file_to_dir(filename, mediadir)
+                for key, value in fact.data.iteritems():
+                    fact.data[key] = value.replace(match.group(1), filename)
             new_files.add(filename)               
         # Determine old media files for this fact.
         old_files = set((cursor["filename"] for cursor in self.con.execute(\
-            "select filename from media where _fact_id=?", (fact._id, )))) 
+            "select filename from media where _fact_id=?", (fact._id, ))))
+        print "old", old_files, "new", new_files
         # Update the media table and log additions or deletions. We record
         # the modification date so that we can detect if media files have
         # been modified outside of Mnemosyne. (Although less robust,
