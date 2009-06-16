@@ -40,3 +40,9 @@ class TestUtilFunctions:
         s1 = "xyz 77"
         s2 = "xyz 42"
         assert numeric_string_cmp(s1, s2) > 0
+
+    def test_contract_windows(self):
+        print contract_path("C:\a\b", "C:\a")
+        print contract_path("C:\\a\\b", "C:\\a")
+        assert contract_path("C:\\a\\b", "C:\\a") == "b"
+        assert contract_path("C:\\a\\b", "c:\\a") == "b"

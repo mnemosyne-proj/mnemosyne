@@ -51,8 +51,21 @@ class Cramming(SM2Mnemosyne):
         self.rebuild_queue()
 
     def grade_answer(self, card, new_grade, dry_run=False):
+        # The dry run mode is typically used to determine the intervals
+        # for the different grades, so we don't want any side effects
+        # from hooks running then.
+        if not dry_run:
+            card.fact.card_type.before_repetition(card)
+            for f in self.component_manager.get_all("hook",
+                                                    "before_repetition"):
+                f.run(card)
+        # Do the actual grading.       
         if new_grade <= 1:
             card.scheduler_data = self.WRONG
         else:
             card.scheduler_data = self.RIGHT
+        # Run hooks.
+        card.fact.card_type.after_repetition(card)
+        for f in self.component_manager.get_all("hook", "after_repetition"):
+            f.run(card)
         return 0

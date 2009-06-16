@@ -117,7 +117,7 @@ class Configuration(Component, dict):
             self["user_id"] = str(uuid.uuid4())
 
         # Allow other plugins or frontend to set their configuration data.
-        for f in self.component_manager.get_all("function_hook",
+        for f in self.component_manager.get_all("hook",
                                                 "configuration_defaults"):
             f.run()
 

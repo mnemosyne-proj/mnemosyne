@@ -1,24 +1,20 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--always copy media to internal directory, a different one per deck
--rename if file already exists, but not if source inside dir
--log adding and deleting media
--shared media between facts: don't delete media if in use by other card
+-test fact modif/cat modif
 
 -review schema for card types
 -move clones to database
 -lazy checking for necessary plugins
 
--remove coverage testing code
+-don't memorise related cards on same day
 
 -WM test and benchmark
 
 -sync protocol:
--store fact modif/cat modif
 -deck name
 -import
--media dir per deck / can refuse large files
+-server can report can refuse large files
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 -be sure to truncate time to int if it comes from other SRS systems
@@ -33,8 +29,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -better mechanism to have different renderers
 
 -don't reset cramming scheduler
-
--hooks before and after grading?
 
 -is complete check on changing card type does not fire
 
@@ -130,6 +124,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -handle deferred translation
 -different translators for different users?
 
+-move card type by name to core, as well as string for tag list
+
 
 -corrupt icon
 
@@ -168,6 +164,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -show number of cards selected
 
+-don't show inactive card types, but do show inactive tags
+
 
 -time WM: history in same DB?
 
@@ -178,7 +176,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
 -draw answer, make configurable by card type
 
--move 'card type by name' to different place?
+
+-leech detection
 
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
@@ -188,10 +187,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
  urge user to merge all of his separate decks into one deck
 
 -update ohloh?
-
--boxing / limiting: see which hooks needed
-
--renamed default data dir on Windows?
 
 -http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447?
 

@@ -115,7 +115,7 @@ class AddEditCards(Component):
 
     def preview(self):
         fact_data = self.card_type_widget.get_data(check_for_required=False)
-        fact = Fact(fact_data, self.card_type, creation_date=None)
+        fact = Fact(fact_data, self.card_type)
         cards = self.card_type.create_related_cards(fact)
         tag_text = self.tags.currentText()
         if tag_text == _("<default>"):

@@ -31,6 +31,9 @@ The actual displaying of the data in a Card is handled by a Renderer. The
 default Renderer takes the fields from the Fact, adds them into a html template
 and applies a CSS for formatting.
 
+At several points in the program, plugin writers can hook in their code using
+the Hook mechanism.
+
 Before the data is passed to the Renderer, Filters can be applied to it. This
 is an extra level of flexibility, and can be used to generate LaTeX, convert
 relative paths to absolute paths, etc ..
@@ -63,7 +66,7 @@ Contents
     modules/database
     modules/file_format
     modules/filter
-    modules/function_hook
+    modules/hook
     modules/log_uploader
     modules/logger
     modules/plugin
