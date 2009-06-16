@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>StatisticsDlg</class>
- <widget class="QDialog" name="StatisticsDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="StatisticsDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,116 +10,116 @@
     <height>600</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Statistics</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
+  <layout class="QVBoxLayout">
+   <property name="margin">
     <number>11</number>
    </property>
    <item>
-    <widget class="QTabWidget" name="tabWidget" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="currentIndex" >
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="sched_tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="sched_tab">
+      <attribute name="title">
        <string>Schedule</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QComboBox" name="sched_combo" >
+        <widget class="QComboBox" name="sched_combo">
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Next week</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Next month</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Next year</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>All-time</string>
           </property>
          </item>
         </widget>
        </item>
        <item>
-        <widget class="QStackedWidget" name="sched_stack" >
-         <property name="currentIndex" >
+        <widget class="QStackedWidget" name="sched_stack">
+         <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="next_week" />
-         <widget class="QWidget" name="next_month" />
-         <widget class="QWidget" name="next_year" />
-         <widget class="QWidget" name="all_time" />
+         <widget class="QWidget" name="next_week"/>
+         <widget class="QWidget" name="next_month"/>
+         <widget class="QWidget" name="next_year"/>
+         <widget class="QWidget" name="all_time"/>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="grades_tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="grades_tab">
+      <attribute name="title">
        <string>Grades</string>
       </attribute>
-      <layout class="QVBoxLayout" name="grades_layout" >
+      <layout class="QVBoxLayout" name="grades_layout">
        <item>
-        <widget class="QComboBox" name="grades_combo" >
+        <widget class="QComboBox" name="grades_combo">
          <item>
-          <property name="text" >
+          <property name="text">
            <string>All Categories</string>
           </property>
          </item>
         </widget>
        </item>
        <item>
-        <widget class="QStackedWidget" name="grades_stack" >
-         <widget class="QWidget" name="grades_all_categories" />
+        <widget class="QStackedWidget" name="grades_stack">
+         <widget class="QWidget" name="grades_all_categories"/>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="easiness_tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="easiness_tab">
+      <attribute name="title">
        <string>Easiness</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2" >
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QComboBox" name="easiness_combo" >
+        <widget class="QComboBox" name="easiness_combo">
          <item>
-          <property name="text" >
+          <property name="text">
            <string>All Categories</string>
           </property>
          </item>
         </widget>
        </item>
        <item>
-        <widget class="QStackedWidget" name="easiness_stack" >
-         <property name="currentIndex" >
+        <widget class="QStackedWidget" name="easiness_stack">
+         <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="easiness_all_categories" />
+         <widget class="QWidget" name="easiness_all_categories"/>
         </widget>
        </item>
       </layout>
@@ -126,16 +127,16 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="button_layout" >
+    <layout class="QHBoxLayout" name="button_layout">
      <item>
-      <spacer name="horizontalSpacer_2" >
-       <property name="orientation" >
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -144,17 +145,17 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonOk" >
-       <property name="text" >
+      <widget class="QPushButton" name="buttonOk">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string/>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
@@ -163,7 +164,7 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="6" margin="11"/>
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <resources/>
  <connections>
@@ -173,11 +174,11 @@
    <receiver>StatisticsDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>588</x>
      <y>588</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>238</x>
      <y>194</y>
     </hint>
@@ -189,11 +190,11 @@
    <receiver>sched_stack</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>197</x>
      <y>54</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>63</x>
      <y>97</y>
     </hint>
@@ -205,11 +206,11 @@
    <receiver>sched_combo</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>272</x>
      <y>121</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>291</x>
      <y>57</y>
     </hint>
@@ -221,11 +222,11 @@
    <receiver>grades_stack</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>78</x>
      <y>55</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>79</x>
      <y>82</y>
     </hint>
@@ -237,11 +238,11 @@
    <receiver>grades_combo</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>266</x>
      <y>102</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>321</x>
      <y>60</y>
     </hint>
@@ -253,11 +254,11 @@
    <receiver>easiness_stack</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>158</x>
      <y>55</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>158</x>
      <y>93</y>
     </hint>
@@ -269,11 +270,11 @@
    <receiver>easiness_combo</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>366</x>
      <y>109</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>362</x>
      <y>60</y>
     </hint>
