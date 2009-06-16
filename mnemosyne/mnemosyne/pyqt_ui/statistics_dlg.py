@@ -9,7 +9,6 @@ from numpy import arange
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-from mnemosyne.libmnemosyne.component_manager import database
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from ui_statistics_dlg import Ui_StatisticsDlg
 
