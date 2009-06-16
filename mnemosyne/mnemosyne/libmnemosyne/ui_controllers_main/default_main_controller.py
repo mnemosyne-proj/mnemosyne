@@ -407,3 +407,9 @@ class DefaultMainController(UiControllerMain):
         self.stopwatch().pause()
         self.main_widget().run_configuration_dialog()
         self.stopwatch().unpause()
+
+    def show_statistics(self):
+        stopwatch.pause()
+        self.widget.run_show_statistics_dialog()
+        stopwatch.unpause()
+

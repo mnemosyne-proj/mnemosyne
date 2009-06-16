@@ -17,7 +17,7 @@ from cloned_card_types_list_dlg import ClonedCardTypesListDlg
 #from export_dlg import *
 #from edit_item_dlg import *
 #from clean_duplicates import *
-#from statistics_dlg import *
+from statistics_dlg import *
 #from edit_items_dlg import *
 #from activate_categories_dlg import *
 #from config_dlg import *
@@ -111,6 +111,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         
     def activate_plugins(self):
         self.ui_controller_main().activate_plugins()
+
+    def show_statistics(self):
+        self.ui_controller_main().show_statistics()
         
     def run_add_cards_dialog(self):
         dlg = AddCardsDlg(self, self.component_manager)
@@ -130,6 +133,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
 
     def run_activate_plugins_dialog(self):
         dlg = ActivatePluginsDlg(self, self.component_manager)
+        dlg.exec_()
+
+    def run_show_statistics_dialog(self):
+        dlg = StatisticsDlg(self)
         dlg.exec_()
         
     def Import(self):

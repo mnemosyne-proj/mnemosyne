@@ -50,3 +50,5 @@ class MainWidget(UiComponent):
     def run_configuration_dialog(self):
         pass
 
+    def run_show_statistics_diago(self):
+        pass

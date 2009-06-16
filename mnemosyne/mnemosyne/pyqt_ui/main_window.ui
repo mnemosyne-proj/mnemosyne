@@ -471,5 +471,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionShowStatistics</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>show_statistics</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>250</x>
+     <y>105</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>
