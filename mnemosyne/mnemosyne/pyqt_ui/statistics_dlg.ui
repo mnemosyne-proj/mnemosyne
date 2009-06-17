@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>600</height>
+    <width>414</width>
+    <height>417</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -59,22 +59,16 @@
            <string>Next year</string>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string>All-time</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item>
         <widget class="QStackedWidget" name="sched_stack">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="next_week"/>
          <widget class="QWidget" name="next_month"/>
          <widget class="QWidget" name="next_year"/>
-         <widget class="QWidget" name="all_time"/>
         </widget>
        </item>
       </layout>
@@ -88,7 +82,7 @@
         <widget class="QComboBox" name="grades_combo">
          <item>
           <property name="text">
-           <string>All Categories</string>
+           <string>All tags</string>
           </property>
          </item>
         </widget>
@@ -109,7 +103,7 @@
         <widget class="QComboBox" name="easiness_combo">
          <item>
           <property name="text">
-           <string>All Categories</string>
+           <string>All tags</string>
           </property>
          </item>
         </widget>
@@ -123,6 +117,11 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Page</string>
+      </attribute>
      </widget>
     </widget>
    </item>

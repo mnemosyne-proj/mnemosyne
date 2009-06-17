@@ -11,6 +11,11 @@
 
 -WM test and benchmark
 
+-plotting
+-upgrading to lastest version of matplotlib to fix corruption at the bottom?
+-document new statistics classes more, including arguments, rst
+-default assigning of widgets
+
 -sync protocol:
 -deck name
 -import

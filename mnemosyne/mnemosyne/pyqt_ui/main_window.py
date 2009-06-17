@@ -136,7 +136,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         dlg.exec_()
 
     def run_show_statistics_dialog(self):
-        dlg = StatisticsDlg(self)
+        dlg = StatisticsDlg(self, self.component_manager)
         dlg.exec_()
         
     def Import(self):
