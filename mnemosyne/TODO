@@ -229,6 +229,9 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -update tooltips, inform Patrick
 
+-don't enable ok in converting between card types as long as insufficient info
+
+-edit card types hides tags, check if it survives changing card types
 
 
 -bug in Qt? : shortcuts don't change back after changing 'show answer'
@@ -264,6 +267,7 @@ http://pythoscope.org/
 -pylint, pyflakes
 
 -hover over extra hanzi information, hanzi statistics
+
 
 -plugin for midi files
 
@@ -316,6 +320,7 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
  
 -animated strokes: http://lost-theory.org/ocrat/
 
+-congratulations screen
 
 
 * Miscellaneous:

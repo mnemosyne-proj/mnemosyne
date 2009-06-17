@@ -173,6 +173,8 @@ class Pickle(Database):
         # every review.
 
     def unload(self):
+        for f in self.component_manager.get_all("hook", "before_unload"):
+            f.run()
         self.backup()
         self.log().dump_to_txt_log()
         if len(self.facts) == 0:

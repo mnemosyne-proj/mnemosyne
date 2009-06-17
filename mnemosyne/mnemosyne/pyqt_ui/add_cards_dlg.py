@@ -80,7 +80,7 @@ class AddEditCards(Component):
                       (self.card_type, self, self.component_manager)
         self.card_type_widget.set_data(prefill_data)
         self.card_type_widget.show()
-        self.verticalLayout.insertWidget(1, self.card_type_widget)
+        self.vbox_layout.insertWidget(1, self.card_type_widget)
 
     def update_tags_combobox(self, current_tag_name):
         self.tags.clear()

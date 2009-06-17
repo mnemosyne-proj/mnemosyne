@@ -314,6 +314,8 @@ class SQLite(Database):
         pass
 
     def unload(self):
+        for f in self.component_manager.get_all("hook", "before_unload"):
+            f.run()
         self.backup()
         self.log().dump_to_txt_log()
         if self._connection:
@@ -491,7 +493,6 @@ class SQLite(Database):
         # Determine old media files for this fact.
         old_files = set((cursor["filename"] for cursor in self.con.execute(\
             "select filename from media where _fact_id=?", (fact._id, ))))
-        print "old", old_files, "new", new_files
         # Update the media table and log additions or deletions. We record
         # the modification date so that we can detect if media files have
         # been modified outside of Mnemosyne. (Although less robust,

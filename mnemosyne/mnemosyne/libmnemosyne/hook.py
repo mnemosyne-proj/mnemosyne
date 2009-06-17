@@ -13,6 +13,7 @@ class Hook(Component):
     
        ========================   ===============================
        "after_load"               in database.load
+       "before_unload"            in database.unload
        "configuration_defaults"   in configuration.set_defaults
        "before_repetititon"       in SM2_mnemosyne.grade_answer
                                   extra argument: card

@@ -10,9 +10,8 @@ class StatisticsPage(Component):
     """A self-contained piece of statistical information, typically displayed
     in the GUI as a page in a tabbed widget.
 
-    Each StatisticsPage can have several variants, called 'scopes',  e.g.
-    displaying the number of scheduled cards either for next week or for next
-    month.
+    Each StatisticsPage can have several 'variants', e.g. displaying the
+    number of scheduled cards either for next week or for next month.
 
     A StatisticsPage can also set some hints to indicate how it prefers the
     data to be displayed in the GUI, through variables like 'plot_type',
@@ -32,7 +31,7 @@ class StatisticsPage(Component):
     instantiate = Component.LATER
 
     name = ""
-    scopes = [] # [(scope_id, scope_name)]
+    variants = [] # [(variant_id, variant_name)]
         
     def __init__(self):
         self.data = None
@@ -52,9 +51,9 @@ class StatisticsPage(Component):
         # Other hints should be collected here:
         self.extra_hints = {}
 
-    def prepare(self, scope_id):
+    def prepare(self, variant_id):
 
-        """This method calculates the data for the requested scope and sets
+        """This method calculates the data for the requested variant and sets
         the approriate hints to be picked up by the corresponding widget.
 
         """

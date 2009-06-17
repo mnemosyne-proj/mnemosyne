@@ -12,13 +12,6 @@ from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from mnemosyne.pyqt_ui.matplotlib_canvas import Histogram, PieChart, BarGraph 
 from mnemosyne.pyqt_ui.ui_statistics_dlg import Ui_StatisticsDlg
 
-# TODO: Make graph creation lazy.
-# Now all the graphs are created when the widget is opened, which could take a
-# long time on large databases. So, we should get rid of the stacked widgets
-# and only use one widget which we redraw once the user changes the combobox.
-# Also, rather than making a graph upon creation of the widget, we should
-# try to do this in the paint method, such that it only gets created when the
-# user changes the tabs.
 
 # TODO: Add graphs which include data from the history: retention rate, cards
 # scheduled in the past, repetitions per day, cards added per day, ...
@@ -236,7 +229,7 @@ class EasinessGraph(Graph):
                 self._data.append(card.easiness)
 
         
-class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, Component):
+class StatisticsDlg_old(QtGui.QDialog, Ui_StatisticsDlg, Component):
 
     def __init__(self, parent, component_manager):
         Component.__init__(self, component_manager)
@@ -284,4 +277,49 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, Component):
             graph_obj.generate_plot()
             self.layout.addWidget(graph_obj.graph)
 
+
+class StatisticsPage(QtGui.QWidget):
+
+    def __init__(self, parent, value):
+        self.value = value
+        QtGui.QWidget.__init__(self, parent)
+        self.vbox_layout = QtGui.QVBoxLayout(self)
+        self.combobox = QtGui.QComboBox(self)
+        self.vbox_layout.addWidget(self.combobox)
+        self.widget = None
+
+    def display(self):
+        print 'display', self.value
+        if not self.widget:
+            print 'creating'
+            self.widget = QtGui.QLabel("hi " + str(self.value))
+            self.vbox_layout.addWidget(self.widget)
+
+
+class StatisticsDlg(QtGui.QDialog, Component):
+
+    def __init__(self, parent, component_manager):
+        Component.__init__(self, component_manager)
+        QtGui.QDialog.__init__(self, parent)
+        self.vbox_layout = QtGui.QVBoxLayout(self)
+        self.tab_widget = QtGui.QTabWidget(parent)
+        self.pages = [StatisticsPage(self, 1), StatisticsPage(self, 2)]
+        self.tab_widget.addTab(self.pages[0], "Page 1")
+        self.tab_widget.addTab(self.pages[1], "Page 2")
+        self.vbox_layout.addWidget(self.tab_widget)       
+        self.button_layout = QtGui.QHBoxLayout()
+        spacer = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Expanding,
+                                   QtGui.QSizePolicy.Minimum)
+        self.button_layout.addItem(spacer)
+        self.ok_button = QtGui.QPushButton(_("&OK"), self)
+        self.button_layout.addWidget(self.ok_button)
+        self.vbox_layout.addLayout(self.button_layout)
+        self.connect(self.ok_button, QtCore.SIGNAL("clicked()"), self.accept)
+
+        self.connect(self.tab_widget, QtCore.SIGNAL("currentChanged(int)"),
+                     self.display_page)
+        self.display_page(0)
+
+    def display_page(self, index):
+        self.pages[index].display()
 
