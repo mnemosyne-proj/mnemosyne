@@ -188,12 +188,18 @@ class GradesGraph(Graph):
             self._data[i] = random.randint(0, 2000)
         return
 
-        
         self._data = [0] * 6 # There are six grade levels.
         for card in self.database().get_all_cards():
             cat_names = [c.name for c in card.tags]
             if self.scope == "grades_all_tags" or self.scope in cat_names:
                 self._data[card.grade] += 1
+
+    def kwargs(self):
+        kwargs = dict()
+        if self.validate():
+            kwargs['range'] = (0, 5)
+            kwargs['bins'] = 6
+        return kwargs
 
     #def kwargs(self): # For piechart
     #    return dict(explode=(0.05, 0, 0, 0, 0, 0),
@@ -201,6 +207,7 @@ class GradesGraph(Graph):
     #                          for g in range(0, len(data))],
     #                colors=("r", "m", "y", "g", "c", "b"), 
     #                shadow=True)
+
 
 
 class EasinessGraph(Graph):
@@ -228,7 +235,19 @@ class EasinessGraph(Graph):
             if self.scope == "easiness_all_tags" or self.scope in tag_names:
                 self._data.append(card.easiness)
 
-        
+
+        kwargs = dict()
+        if self.validate(values):
+            diff = max(values) - min(values)
+            if diff < 3:
+                kwargs['range'] = (min(values) - 1, max(values) + 1)
+            else:
+                kwargs['range'] = (min(values), max(values))
+            #kwargs['bins'] = max(values) - min(values) + 1
+        return kwargs
+
+
+
 class StatisticsDlg_old(QtGui.QDialog, Ui_StatisticsDlg, Component):
 
     def __init__(self, parent, component_manager):
