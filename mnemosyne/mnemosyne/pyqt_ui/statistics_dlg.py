@@ -206,7 +206,7 @@ class ScheduleGraph(StatGraphBase):
 
     def kwargs_for_histogram(self, values):
         kwargs = dict()
-        if len(values) != 0:
+        if self.validate(values):
             kwargs['range'] = (min(values) - 0.5, max(values) + 0.5)
             kwargs['bins'] = max(values) - min(values) + 1
         return kwargs
@@ -262,6 +262,12 @@ class GradesGraph(StatGraphBase):
     #                colors=('r', 'm', 'y', 'g', 'c', 'b'), 
     #                shadow=True)
 
+    def kwargs(self, values):
+        kwargs = dict()
+        if self.validate(values):
+            kwargs['range'] = (0, 5)
+            kwargs['bins'] = 6
+        return kwargs
 
 class EasinessGraph(StatGraphBase):
 
@@ -281,6 +287,17 @@ class EasinessGraph(StatGraphBase):
             if self.scope == 'easiness_all_categories' or self.scope in cat_names:
                 values.append(card.easiness)
         return values
+
+    def kwargs(self, values):
+        kwargs = dict()
+        if self.validate(values):
+            diff = max(values) - min(values)
+            if diff < 3:
+                kwargs['range'] = (min(values) - 1, max(values) + 1)
+            else:
+                kwargs['range'] = (min(values), max(values))
+            #kwargs['bins'] = max(values) - min(values) + 1
+        return kwargs
 
 
 class StatisticsDlg(QDialog, Ui_StatisticsDlg):
