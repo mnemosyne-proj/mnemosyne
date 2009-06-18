@@ -1,17 +1,98 @@
 #
-# statistics_dlg.py <mike@peacecorps.org.cv>, <Peter.Bienstman@UGent.be>
+# statistics_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from numpy import arange
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+
+
+class StatisticsDlg(QtGui.QDialog, Component):
+
+    """A tab widget containing several statistics pages. The number and names
+    of the tab pages are determined at run time.
+
+    """
+
+    def __init__(self, parent, component_manager):
+        Component.__init__(self, component_manager)
+        QtGui.QDialog.__init__(self, parent)
+        self.vbox_layout = QtGui.QVBoxLayout(self)
+        self.tab_widget = QtGui.QTabWidget(parent)
+        self.tab_widget.addTab(StatisticsPageWdgt(self, 1), "Page 1")
+        self.tab_widget.addTab(StatisticsPageWdgt(self, 2), "Page 2")
+        self.vbox_layout.addWidget(self.tab_widget)       
+        self.button_layout = QtGui.QHBoxLayout()
+        self.button_layout.addItem(QtGui.QSpacerItem(20, 20,
+            QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum))
+        self.ok_button = QtGui.QPushButton(_("&OK"), self)
+        self.button_layout.addWidget(self.ok_button)
+        self.vbox_layout.addLayout(self.button_layout)
+        self.connect(self.ok_button, QtCore.SIGNAL("clicked()"), self.accept)
+        self.connect(self.tab_widget, QtCore.SIGNAL("currentChanged(int)"),
+                     self.display_page)
+        self.display_page(0)
+
+    def display_page(self, page_index):
+        page = self.tab_widget.widget(page_index)
+        page.combobox.setCurrentIndex(0)
+        page.display_variant(0)
+        
+
+class StatisticsPageWdgt(QtGui.QWidget):
+
+    """A page in the StatisticsDlg tab widget. This page widget only contains
+    a combobox to select different variants of the page. The widget that
+    displays the statistics information itself is only generated when it
+    becomes visible.
+
+    """
+
+    def __init__(self, parent, statistics_page):
+        QtGui.QWidget.__init__(self, parent)
+        self.statistics_page = statistics_page
+        self.vbox_layout = QtGui.QVBoxLayout(self)
+        self.combobox = QtGui.QComboBox(self)
+        self.variant_ids = []
+        self.variant_widgets = []
+        self.current_variant_widget = None
+        #if page.show_variant_in_combobox = True
+        # Hide combobox if empty
+        for variant_index in range(5):
+            self.variant_ids.append(variant_index) # Variant_id
+            self.variant_widgets.append(None)
+            self.combobox.addItem(str(variant_index)) # Variant description    
+        self.vbox_layout.addWidget(self.combobox)
+        self.connect(self.combobox, QtCore.SIGNAL("currentIndexChanged(int)"),
+                     self.display_variant)
+        
+    def display_variant(self, variant_index):
+
+        "Lazy creation of the actual widget that displays the statistics."
+        
+        print 'display page', self.statistics_page, 'variant', variant_index
+        if self.current_variant_widget:
+            self.vbox_layout.removeWidget(self.current_variant_widget)
+            self.current_variant_widget.hide()
+        if not self.variant_widgets[variant_index]:
+            print 'creating page', self.statistics_page, 'variant', variant_index
+            # self.statistics_page.prepare(self.variant_ids[variant_index])
+            self.variant_widgets[variant_index] = \
+                QtGui.QLabel("page " + str(self.statistics_page) \
+                + " variant " +  str(variant_index))
+        self.current_variant_widget = self.variant_widgets[variant_index]
+        self.vbox_layout.addWidget(self.current_variant_widget)
+        self.current_variant_widget.show()
+
+
+
+# TODO: move stuff below to libmnemosyne
+
+from numpy import arange
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
-from mnemosyne.pyqt_ui.matplotlib_canvas import Histogram, PieChart, BarGraph 
-from mnemosyne.pyqt_ui.ui_statistics_dlg import Ui_StatisticsDlg
-
+# <mike@peacecorps.org.cv>,
 
 # TODO: Add graphs which include data from the history: retention rate, cards
 # scheduled in the past, repetitions per day, cards added per day, ...
@@ -30,7 +111,7 @@ class Graph(object):
     """
 
     def __init__(self, parent):
-        self.graph = None # TODO: why not inheriting here?
+        self.graph = None
         self.title = ""
         self.xlabel = ""
         self.ylabel = ""
@@ -248,97 +329,6 @@ class EasinessGraph(Graph):
 
 
 
-class StatisticsDlg_old(QtGui.QDialog, Ui_StatisticsDlg, Component):
-
-    def __init__(self, parent, component_manager):
-        Component.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
-        self.setupUi(self)
-        tags = sorted(self.database().tag_names(), cmp=numeric_string_cmp)
-
-        # Add tags to combobox and corresponding pages to stacked widget
-        # for grades and easiness tabs.
-        self.add_items_to_combobox(tags, self.grades_combo)
-        self.add_pages_to_stacked_widget(tags, self.grades_stack)
-        self.add_items_to_combobox(tags, self.easiness_combo)
-        self.add_pages_to_stacked_widget(tags, self.easiness_stack)
-
-        pages = lambda sw: [sw.widget(i) for i in range(0, sw.count())]
-        self.add_graphs_to_pages(ScheduleGraph, pages(self.sched_stack))
-        self.add_graphs_to_pages(GradesGraph, pages(self.grades_stack))
-        self.add_graphs_to_pages(EasinessGraph, pages(self.easiness_stack))
-        #self.add_graphs_to_pages(IntervalGraph, pages(self.easiness_stack))
-        
-    def add_items_to_combobox(self, names, combobox):
-        for name in names:
-            combobox.addItem(QtCore.QString(name))
-
-    def add_pages_to_stacked_widget(self, names, stacked_widget):
-        
-        """Create and add a list of widgets with specified objectNames to the 
-        specified stacked widget.
-        
-        names -- the list of strings to use as objectNames for the widgets
-                 that will be added to the stack.
-        stack -- a QStackedWidget.
-
-        """
-        for name in names:
-            widget = QtGui.QWidget()
-            widget.setObjectName(name)
-            stacked_widget.addWidget(widget)
-        
-    def add_graphs_to_pages(self, graph, pages):
-        scopes = [str(page.objectName()) for page in pages]
-        for parent, scope in zip(pages, scopes):
-            self.layout = QtGui.QVBoxLayout(parent)
-            graph_obj = graph(parent, scope) # TODO: redesign
-            graph_obj.generate_plot()
-            self.layout.addWidget(graph_obj.graph)
 
 
-class StatisticsPage(QtGui.QWidget):
-
-    def __init__(self, parent, value):
-        self.value = value
-        QtGui.QWidget.__init__(self, parent)
-        self.vbox_layout = QtGui.QVBoxLayout(self)
-        self.combobox = QtGui.QComboBox(self)
-        self.vbox_layout.addWidget(self.combobox)
-        self.widget = None
-
-    def display(self):
-        print 'display', self.value
-        if not self.widget:
-            print 'creating'
-            self.widget = QtGui.QLabel("hi " + str(self.value))
-            self.vbox_layout.addWidget(self.widget)
-
-
-class StatisticsDlg(QtGui.QDialog, Component):
-
-    def __init__(self, parent, component_manager):
-        Component.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
-        self.vbox_layout = QtGui.QVBoxLayout(self)
-        self.tab_widget = QtGui.QTabWidget(parent)
-        self.pages = [StatisticsPage(self, 1), StatisticsPage(self, 2)]
-        self.tab_widget.addTab(self.pages[0], "Page 1")
-        self.tab_widget.addTab(self.pages[1], "Page 2")
-        self.vbox_layout.addWidget(self.tab_widget)       
-        self.button_layout = QtGui.QHBoxLayout()
-        spacer = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Expanding,
-                                   QtGui.QSizePolicy.Minimum)
-        self.button_layout.addItem(spacer)
-        self.ok_button = QtGui.QPushButton(_("&OK"), self)
-        self.button_layout.addWidget(self.ok_button)
-        self.vbox_layout.addLayout(self.button_layout)
-        self.connect(self.ok_button, QtCore.SIGNAL("clicked()"), self.accept)
-
-        self.connect(self.tab_widget, QtCore.SIGNAL("currentChanged(int)"),
-                     self.display_page)
-        self.display_page(0)
-
-    def display_page(self, index):
-        self.pages[index].display()
 

@@ -32,6 +32,7 @@ class StatisticsPage(Component):
 
     name = ""
     variants = [] # [(variant_id, variant_name)]
+    show_variants_in_combobox = True
         
     def __init__(self):
         self.data = None

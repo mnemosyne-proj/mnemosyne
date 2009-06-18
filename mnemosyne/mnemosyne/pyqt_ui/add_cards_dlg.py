@@ -46,7 +46,7 @@ class AddEditCards(Component):
     def update_card_widget(self):
         # Determine data to put into card widget. Since we want to share this
         # code between the 'add' and the 'edit' dialogs, we put the reference
-        # to self.fact (which only exists in the 'edit' dialog) insid a try
+        # to self.fact (which only exists in the 'edit' dialog) inside a try
         # statement.
         if self.card_type_widget: # Get data from previous card widget.
             prefill_data = \

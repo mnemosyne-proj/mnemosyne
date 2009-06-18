@@ -1,7 +1,13 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--test fact modif/cat modif
+-statistics
+-upgrading to lastest version of matplotlib to fix corruption at the bottom?
+-document new statistics classes more, including arguments, rst
+-default assigning of widgets
+-remember last page/variant
+
+-add test for fact modif/cat modif
 
 -review schema for card types
 -move clones to database
@@ -10,11 +16,6 @@
 -don't memorise related cards on same day
 
 -WM test and benchmark
-
--plotting
--upgrading to lastest version of matplotlib to fix corruption at the bottom?
--document new statistics classes more, including arguments, rst
--default assigning of widgets
 
 -sync protocol:
 -deck name
@@ -27,7 +28,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -activating cards
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
-
 
 -how to join 2 SQL databases: sync on _id, not timestamps
 
