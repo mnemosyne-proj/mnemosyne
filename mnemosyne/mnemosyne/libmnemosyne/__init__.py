@@ -65,7 +65,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.card_types.cloze",
           "ClozePlugin"),
          ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
-          "CrammingPlugin") ]
+          "CrammingPlugin"),
+         ("mnemosyne.libmnemosyne.statistics_pages.cards_scheduled",
+          "CardsScheduled")]
         self.extra_components_for_plugin = {}
         self.resource_limited = resource_limited
 

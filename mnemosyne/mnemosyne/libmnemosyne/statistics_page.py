@@ -34,7 +34,9 @@ class StatisticsPage(Component):
     variants = [] # [(variant_id, variant_name)]
     show_variants_in_combobox = True
         
-    def __init__(self):
+    def __init__(self, component_manager):
+        Component.__init__(self, component_manager)
+        
         self.data = None
         
         # Relevant for graphs.
@@ -42,6 +44,7 @@ class StatisticsPage(Component):
         self.title = ""
         self.xlabel = ""
         self.ylabel = ""
+        self.xvalues = []
         self.xticks = []
         self.xticklabels = []
         

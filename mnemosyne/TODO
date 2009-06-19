@@ -2,10 +2,10 @@
 -hang on Spanish translation?
 
 -statistics
--upgrading to lastest version of matplotlib to fix corruption at the bottom?
 -document new statistics classes more, including arguments, rst
 -default assigning of widgets
 -remember last page/variant
+-update to latest matplotlib version?
 
 -add test for fact modif/cat modif
 
@@ -182,7 +182,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -draw answer, make configurable by card type
 
 
--leech detection
+-leech detection (mod 10)
 
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
