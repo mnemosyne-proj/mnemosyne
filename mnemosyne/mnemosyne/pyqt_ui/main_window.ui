@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>259</width>
-    <height>309</height>
+    <width>253</width>
+    <height>222</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>259</width>
+     <width>253</width>
      <height>24</height>
     </rect>
    </property>
@@ -109,7 +109,7 @@
   </widget>
   <action name="actionActivateCards">
    <property name="text">
-    <string>A&amp;ctivate cards</string>
+    <string>(De)a&amp;ctivate cards</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>

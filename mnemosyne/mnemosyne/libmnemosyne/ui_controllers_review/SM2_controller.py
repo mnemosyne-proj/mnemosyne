@@ -188,7 +188,7 @@ class SM2Controller(UiControllerReview):
     def update_grades_area(self):
         w = self.review_widget()
         # Update grade buttons.
-        if self.card and self.card.grade in [0,1]:
+        if self.card and self.card.grade < 2:
             i = 0 # Acquisition phase.
             default_grade = 0
         else:

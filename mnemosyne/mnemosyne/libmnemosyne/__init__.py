@@ -68,6 +68,8 @@ class Mnemosyne(Component):
           "CrammingPlugin"),
          ("mnemosyne.libmnemosyne.statistics_pages.scheduled_cards",
           "ScheduledCards"),
+         ("mnemosyne.libmnemosyne.statistics_pages.grades",
+          "Grades"),
          ("mnemosyne.libmnemosyne.statistics_pages.easiness",
           "Easiness")]
         self.extra_components_for_plugin = {}
@@ -83,7 +85,7 @@ class Mnemosyne(Component):
         register_component_manager(self.component_manager,
                                    self.config()["user_id"])
         self.execute_user_plugin_dir()
-        self.activate_saved_plugins()       
+        self.activate_saved_plugins()
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.

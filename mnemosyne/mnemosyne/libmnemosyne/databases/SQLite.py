@@ -175,7 +175,7 @@ class SQLite(Database):
 
         if not self._connection:
             self._connection = sqlite3.connect(self._path, timeout=0.1,
-                                isolation_level="EXCLUSIVE")
+                               isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
         return self._connection
 
@@ -554,9 +554,9 @@ class SQLite(Database):
             card.extra_data = {}
         else:
             card.extra_data = eval(sql_res["extra_data"])
-        for cursor in self.con.execute("""select cat.* from tags as cat,
-            tags_for_card as cat_c where cat_c._tag_id=cat._id
-            and cat_c._card_id=?""", (sql_res["_id"],)):
+        for cursor in self.con.execute("""select tags.* from tags,
+            tags_for_card where tags_for_card._tag_id=tags._id
+            and tags_for_card._card_id=?""", (sql_res["_id"],)):
             tag = Tag(cursor["name"], cursor["id"])
             tag._id = cursor["_id"]
             card.tags.add(tag)              
@@ -581,9 +581,9 @@ class SQLite(Database):
             tags_for_card._card_id=cards._id and
             tags_for_card._tag_id=tags._id and """ % attr
         args = []
-        for cat in tags:
+        for tag in tags:
             command += "tags.id=? or "
-            args.append(cat.id)
+            args.append(tag.id)
         command = command.rsplit("or ", 1)[0] + ")"
         self.con.execute(command, args)
         # Turn off inactive card types and views.

@@ -1,5 +1,5 @@
 #
-# cards_scheduled.py <Peter.Bienstman@UGent.be>, <mike@peacecorps.org.cv>,
+# cards_scheduled.py <Peter.Bienstman@UGent.be>, <mike@peacecorps.org.cv>
 #
 
 from mnemosyne.libmnemosyne.translator import _
@@ -22,7 +22,7 @@ class ScheduledCards(StatisticsPage):
                 (NEXT_MONTH, _("Next month")),
                 (NEXT_YEAR, _("Next year"))]
     
-    def prepare(self, variant):                
+    def prepare(self, variant):               
         self.plot_type = "barchart"
         self.title = _("Number of cards scheduled")
         self.xlabel = _("Days") 
@@ -52,4 +52,4 @@ class ScheduledCards(StatisticsPage):
                 """select count() from cards where active=1 and grade>=2
                 and ?<next_rep and next_rep<=?""",
                 (now + (day - 1) * DAY, now + day * DAY)).fetchone()[0])
-
+            

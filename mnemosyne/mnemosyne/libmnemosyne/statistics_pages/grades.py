@@ -1,5 +1,5 @@
 #
-# easiness.py <Peter.Bienstman@UGent.be>
+# grades.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.translator import _
@@ -7,9 +7,9 @@ from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from mnemosyne.libmnemosyne.statistics_page import StatisticsPage
 
 
-class Easiness(StatisticsPage):
+class Grades(StatisticsPage):
 
-    name = _("Easiness")
+    name = _("Grades")
     
     ALL_CARDS = -1
 
@@ -27,15 +27,15 @@ class Easiness(StatisticsPage):
     def prepare(self, variant):                
         self.plot_type = "histogram"
         self.title = _("Number of cards")
-        self.xlabel = _("Easiness")
+        self.xlabel = _("Grades")
         if variant == self.ALL_CARDS:
             self.data = [cursor[0] for cursor in self.database().con.execute(\
-            "select easiness from cards where active=1 and grade>=0")]
+            "select grade from cards where active=1")]
         else:
             self.data = [cursor[0] for cursor in self.database().con.execute(\
-            """select cards.easiness from cards, tags_for_card where
-            tags_for_card._card_id=cards._id and cards.active=1 and
-            cards.grade>=0 and tags_for_card._tag_id=?""", (variant,))]
-        self.extra_hints['range'] = (1.3, 3.7)
-        self.extra_hints['bins'] = 24        
+            """select cards.grade from cards, tags_for_card where
+            tags_for_card._card_id=cards._id and cards.active=1
+            and tags_for_card._tag_id=?""", (variant,))]
+        self.extra_hints['range'] = (0, 5)
+        self.extra_hints['bins'] = 6
 

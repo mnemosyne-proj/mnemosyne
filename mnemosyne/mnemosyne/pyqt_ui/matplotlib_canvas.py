@@ -6,6 +6,7 @@ from numpy import arange
 from PyQt4 import QtGui
 
 from matplotlib.figure import Figure
+from matplotlib.ticker import FuncFormatter
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 
 from mnemosyne.libmnemosyne.translator import _
@@ -38,20 +39,21 @@ class MatplotlibCanvas(FigureCanvas):
         if hasattr(self.model, "ylabel"):
             self.axes.set_ylabel(self.model.ylabel)
         if not self.model.data:
-            self.display_message(_("No stats available."))                           
+            self.display_message(_("No stats available."))
+            return
         functions = {"barchart": self.plot_barchart,
                      "histogram": self.plot_histogram,                     
                      "piechart": self.plot_piechart,
                      "linechart": self.plot_linechart}
         functions[self.model.plot_type]()
 
-    def display_message(self):
+    def display_message(self, text):
         self.axes.clear()
         self.axes.set_xticklabels("")
         self.axes.set_yticklabels("")
         self.axes.set_xticks((0.0,))
         self.axes.set_yticks((0.0,))
-        self.axes.text(0.5, 0.5, self.model/data, transform=self.axes.transAxes,
+        self.axes.text(0.5, 0.5, text, transform=self.axes.transAxes,
                        horizontalalignment="center", verticalalignment="center")
 
     def plot_barchart(self):
@@ -99,9 +101,20 @@ class MatplotlibCanvas(FigureCanvas):
                            ha="center", va="bottom", fontsize="small")
 
     def plot_histogram(self):
-        self.axes.hist(self.model.data, **self.model.extra_hints)
+        self.model.extra_hints.setdefault("align", "left")
+        n, bins, patches = self.axes.hist(self.model.data,
+                                          **self.model.extra_hints)
+        xmin, xmax = self.model.extra_hints["range"]
+        self.axes.set_xlim(xmin=xmin, xmax=xmax)
+        self.axes.set_ylim(ymax=max(n)+1)
 
-    
+        def int_format(x, pos=None):
+            if x == int(x):
+                return "%d" % x
+            else:
+                return ""
+        self.axes.yaxis.set_major_formatter(FuncFormatter(int_format))
+        
     def plot_linechart(self):
         if not hasattr(self.model, "xvalues"):
             self.model.xvalues = arange(len(self.model.data))       
