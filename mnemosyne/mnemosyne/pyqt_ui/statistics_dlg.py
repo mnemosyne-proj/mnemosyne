@@ -59,12 +59,13 @@ class StatisticsPageWdgt(QtGui.QWidget):
         self.variant_ids = []
         self.variant_widgets = []
         self.current_variant_widget = None
-        #if page.show_variant_in_combobox = True
-        # Hide combobox if empty
         for variant_id, variant_name in statistics_page.variants:
             self.variant_ids.append(variant_id)
             self.variant_widgets.append(None)
             self.combobox.addItem(str(variant_name))
+        if len(self.variant_ids) <= 1 or \
+           self.statistics_page.show_variants_in_combobox == False:
+            self.combobox.hide()
         self.vbox_layout.addWidget(self.combobox)
         self.connect(self.combobox, QtCore.SIGNAL("currentIndexChanged(int)"),
                      self.display_variant)
@@ -109,38 +110,8 @@ from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 # scheduled in the past, repetitions per day, cards added per day, ...
 
 
-class IntervalGraph(Graph):
 
-    "Histogram of card intervals."
-
-    def __init__(self, parent):
-        Graph.__init__(self, parent)
-        self.xlabel = "Days"
-        self.ylabel = "Number of cards scheduled"
-        self.graph = Histogram(parent)
-        
-    def _calc_data(self):
-        iton = lambda i: (i + abs(i)) / 2 # i < 0 ? 0 : i
-        self._data = [iton(c.days_until_next_rep) 
-                    for c in self.database().get_all_cards()]
-
-    def kwargs(self):
-        kwargs = {}
-        if len(self.data) != 0:
-            kwargs["range"] = (min(self.data) - 0.5, max(self.data) + 0.5)
-            kwargs["bins"] = max(self.data) - min(self.data) + 1
-        return kwargs
-
-    def prepare_axes(self):
-        Graph.prepare_axes(self)
-        if len(self.data) != 0:
-            self.graph.axes.set_xticks(arange(max(self.data) + 1))
-
-    def is_valid(self):
-        return len(self.data) > 0
-
-
-class GradesGraph(Graph):
+class GradesGraph:
 
     "Graph of card grade statistics."
 
@@ -174,7 +145,7 @@ class GradesGraph(Graph):
 
 
 
-class EasinessGraph(Graph):
+class EasinessGraph:
 
     "Graph of card easiness statistics."
 

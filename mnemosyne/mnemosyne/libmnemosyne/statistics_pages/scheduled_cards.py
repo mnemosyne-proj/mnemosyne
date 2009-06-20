@@ -8,7 +8,7 @@ from mnemosyne.libmnemosyne.statistics_page import StatisticsPage
 DAY = 24 * 60 * 60 # Seconds in a day.
 
 
-class CardsScheduled(StatisticsPage):
+class ScheduledCards(StatisticsPage):
 
     name = _("Schedule")
 
@@ -42,6 +42,7 @@ class CardsScheduled(StatisticsPage):
             self.xticks = [1] + range(60, 365, 60)            
             self.xticklabels = ["+1"] + xticklabels(60, 365, 60)
             self.show_text_value = False
+            self.extra_hints["linewidth"] = 0
         else:
             raise ArgumentError, "Invalid variant for CardsScheduled"
         self.data = []

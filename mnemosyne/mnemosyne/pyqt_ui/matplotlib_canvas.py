@@ -40,8 +40,9 @@ class MatplotlibCanvas(FigureCanvas):
         if not self.model.data:
             self.display_message(_("No stats available."))                           
         functions = {"barchart": self.plot_barchart,
-                     "histogram": self.plot_histogram,
-                     "piechart": self.plot_piechart}
+                     "histogram": self.plot_histogram,                     
+                     "piechart": self.plot_piechart,
+                     "linechart": self.plot_linechart}
         functions[self.model.plot_type]()
 
     def display_message(self):
@@ -57,28 +58,18 @@ class MatplotlibCanvas(FigureCanvas):
         # Set default parameters.
         self.model.extra_hints.setdefault("width", 1.0)
         self.model.extra_hints.setdefault("align", "center")
-        self.model.extra_hints.setdefault("alpha", 0.70)
-        self.model.extra_hints.setdefault("linewidth", 0)        
-        self.model.extra_hints.setdefault("color", "red")
         if not hasattr(self.model, "xvalues"):
             self.model.xvalues = arange(len(self.model.data))
         if not hasattr(self.model, "xticks"):
-            self.model.xticks = arange(len(self.model.data)) + \
-                                self.model.extra_hints["width"]/2
+            self.model.xticks = self.model.xvalues + 0.5
         if not hasattr(self.model, "xticklabels"):
             self.model.xticklabels = range(len(self.model.data))
         # Plot data.
         self.axes.bar(self.model.xvalues, self.model.data, **self.model.extra_hints)
         self.axes.set_xticks(self.model.xticks)
         self.axes.set_xticklabels(self.model.xticklabels)
-        print self.model.xvalues
-        print self.model.data
-        print self.model.xticks
-        print self.model.xticklabels
         xmin, xmax = min(self.model.xvalues), max(self.model.xvalues)
-        self.axes.set_xlim(xmin=xmin - self.model.extra_hints["width"] / 2.0,
-                           xmax=xmax + self.model.extra_hints["width"] / 2.0)
-
+        self.axes.set_xlim(xmin=xmin - 0.5, xmax=xmax + 0.5)
         max_value = max(self.model.data)
         tick_interval = round((max_value / 4.0) + 1)
         self.axes.set_yticks(arange(tick_interval, max_value + tick_interval, 
@@ -106,13 +97,16 @@ class MatplotlibCanvas(FigureCanvas):
                 continue
             self.axes.text(self.model.xvalues[i], height + pad, "%d" % height,
                            ha="center", va="bottom", fontsize="small")
-            
+
     def plot_histogram(self):
-        self.axes.grid(True)
-        self.model.extra_hints.setdefault("facecolor", "red")
-        self.model.extra_hints.setdefault("alpha", 0.7)
         self.axes.hist(self.model.data, **self.model.extra_hints)
 
+    
+    def plot_linechart(self):
+        if not hasattr(self.model, "xvalues"):
+            self.model.xvalues = arange(len(self.model.data))       
+        self.axes.plot(self.model.xvalues, self.model.data, **self.model.extra_hints)
+        
     def plot_piechart(self):
         # Pie charts look better on a square canvas, but the following does not
         # seem enough to achieve this, probably due to interplay with the Qt

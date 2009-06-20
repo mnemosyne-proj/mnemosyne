@@ -40,7 +40,7 @@ class StatisticsPage(Component):
         self.data = None
         
         # Relevant for graphs.
-        self.plot_type = "" # barchart, histogram, piechart
+        self.plot_type = "" # barchart, histogram, piechart, linechart
         self.title = ""
         self.xlabel = ""
         self.ylabel = ""
