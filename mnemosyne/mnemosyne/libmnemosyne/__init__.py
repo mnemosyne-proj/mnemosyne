@@ -87,7 +87,6 @@ class Mnemosyne(Component):
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.
-        self.check_lockfile()
         self.load_database(filename)
         self.log().started_program()
         self.log().started_scheduler()
@@ -168,20 +167,6 @@ class Mnemosyne(Component):
                       + "\n" + traceback_string()
                 self.main_widget().error_box(msg)
                 
-    def check_lockfile(self):
-        if os.path.exists(os.path.join(self.config().basedir,
-                                       "MNEMOSYNE_LOCK")):
-            from mnemosyne.libmnemosyne.translator import _
-            status = self.main_widget().question_box(
-                _("Either Mnemosyne didn't shut down properly,") + "\n" +
-                _("or another copy of Mnemosyne is still running.") + "\n" +
-                _("Continuing in the latter case could lead to data loss!"),      
-                _("&Exit"), _("&Continue"), "")
-            if status == 0:
-                sys.exit()
-        lockfile = file(os.path.join(self.config().basedir, "MNEMOSYNE_LOCK"), 'w')
-        lockfile.close()          
-
     def load_database(self, filename):        
         if not filename:
             filename = self.config()["path"]
@@ -191,6 +176,12 @@ class Mnemosyne(Component):
                 self.database().new(filename)
             else:
                 self.database().load(filename)
+        except EnvironmentError:
+            from mnemosyne.libmnemosyne.translator import _
+            self.main_widget().error_box(
+                _("Another copy of Mnemosyne is still running.") + "\n" +
+                _("Continuing is impossible and will lead to data loss!"))
+            sys.exit()
         except RuntimeError, e:
             # Making sure the GUI is in a correct state when no database is
             # loaded would require a lot of extra code, and this is only a
@@ -204,22 +195,12 @@ class Mnemosyne(Component):
             self.database().new(filename)
         self.ui_controller_main().update_title()
 
-    def remove_lockfile(self):
-        try:
-            os.remove(os.path.join(self.config().basedir, "MNEMOSYNE_LOCK"))
-        except OSError:
-            from mnemosyne.libmnemosyne.translator import _
-            msg = _("Failed to remove lock file.") \
-                  + "\n" + traceback_string()
-            self.main_widget().error_box(msg)
-
     def finalise(self):
         # Saving the config should happen before we deactivate the plugins,
         # otherwise they are not restored upon reload. Ditto for logging, which
         # needs to happen before we unload the database.
         self.log().saved_database()
         self.log().stopped_program()
-        self.remove_lockfile()
         self.config().save()
         user_id = self.config()["user_id"]
         self.component_manager.deactivate_all()

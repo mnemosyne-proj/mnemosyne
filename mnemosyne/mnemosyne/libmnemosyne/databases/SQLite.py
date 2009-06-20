@@ -174,7 +174,8 @@ class SQLite(Database):
         """Connection to the database, lazily created."""
 
         if not self._connection:
-            self._connection = sqlite3.connect(self._path)
+            self._connection = sqlite3.connect(self._path, timeout=0.1,
+                                isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
         return self._connection
 
@@ -210,6 +211,8 @@ class SQLite(Database):
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
             self.load_failed = False
+        except sqlite3.OperationalError, e:
+            raise EnvironmentError(str(e))
         except:
             self.load_failed = True
             raise RuntimeError, _("Unable to load file.")
