@@ -198,7 +198,7 @@ class Mnemosyne(Component):
             # database.
             from mnemosyne.libmnemosyne.translator import _
             self.main_widget().error_box(str(e))
-            self.main_widget().error_box(_("Creating temporary deck."))
+            self.main_widget().error_box(_("Creating temporary database."))
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + database().suffix)
             self.database().new(filename)

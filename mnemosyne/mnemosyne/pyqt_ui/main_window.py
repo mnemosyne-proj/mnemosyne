@@ -70,6 +70,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
     def error_box(self, message):  
         QtGui.QMessageBox.critical(None, _("Mnemosyne"), message,
             _("&OK"), "", "", 0, -1)
+ 
+    def enable_edit_current_card(self, enable):
+        self.actionEditCurrentCard.setEnabled(enable)
+
+    def enable_delete_current_card(self, enable):      
+        self.actionDeleteCurrentFact.setEnabled(enable)
+
+    def enable_browse_cards(self, enable):      
+        self.actionBrowseCards.setEnabled(enable)
 
     def save_file_dialog(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.getSaveFileName(self, caption, path,

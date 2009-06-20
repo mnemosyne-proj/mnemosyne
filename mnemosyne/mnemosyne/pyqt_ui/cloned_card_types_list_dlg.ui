@@ -24,7 +24,7 @@
      <item>
       <widget class="QLabel" name="label_2" >
        <property name="text" >
-        <string>Cloned card types in use in this deck:</string>
+        <string>Cloned card types in use:</string>
        </property>
       </widget>
      </item>

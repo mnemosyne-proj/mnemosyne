@@ -380,9 +380,9 @@ class DefaultMainController(UiControllerMain):
         self.main_widget().run_manage_card_types_dialog()
         self.stopwatch().unpause()
         
-    def edit_deck(self):
+    def browse_cards(self):
         self.stopwatch().pause()
-        self.main_widget().run_edit_deck_dialog()
+        self.main_widget().run_browse_cards_dialog()
         self.stopwatch().unpause()
         
     def configure(self):

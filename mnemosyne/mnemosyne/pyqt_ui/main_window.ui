@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>245</width>
-    <height>300</height>
+    <width>259</width>
+    <height>309</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>245</width>
+     <width>259</width>
      <height>24</height>
     </rect>
    </property>
@@ -47,18 +47,18 @@
     <addaction name="separator"/>
     <addaction name="actionFileExit"/>
    </widget>
-   <widget class="QMenu" name="menu_Deck">
+   <widget class="QMenu" name="menu_Cards">
     <property name="title">
-     <string>&amp;Deck</string>
+     <string>&amp;Cards</string>
     </property>
     <addaction name="actionAddCards"/>
     <addaction name="actionEditCurrentCard"/>
     <addaction name="actionDeleteCurrentFact"/>
     <addaction name="separator"/>
-    <addaction name="actionEditDeck"/>
-    <addaction name="actionCloneCardTypes"/>
-    <addaction name="actionActivateCategories"/>
+    <addaction name="actionBrowseCards"/>
+    <addaction name="actionActivateCards"/>
     <addaction name="actionCleanDuplicates"/>
+    <addaction name="actionCloneCardTypes"/>
     <addaction name="separator"/>
     <addaction name="actionShowStatistics"/>
    </widget>
@@ -66,9 +66,9 @@
     <property name="title">
      <string>&amp;Settings</string>
     </property>
+    <addaction name="actionConfiguration"/>
     <addaction name="actionCardAppearance"/>
     <addaction name="actionActivatePlugins"/>
-    <addaction name="actionConfiguration"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -80,7 +80,7 @@
     <addaction name="actionHelpAbout"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menu_Deck"/>
+   <addaction name="menu_Cards"/>
    <addaction name="menu_Settings"/>
    <addaction name="menu_Help"/>
   </widget>
@@ -104,15 +104,15 @@
    <addaction name="actionAddCards"/>
    <addaction name="actionEditCurrentCard"/>
    <addaction name="actionDeleteCurrentFact"/>
-   <addaction name="actionEditDeck"/>
+   <addaction name="actionBrowseCards"/>
    <addaction name="actionShowStatistics"/>
   </widget>
-  <action name="actionActivateCategories">
+  <action name="actionActivateCards">
    <property name="text">
-    <string>Activate cate&amp;gories</string>
+    <string>A&amp;ctivate cards</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+G</string>
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionAddCards">
@@ -129,7 +129,7 @@
   </action>
   <action name="actionCleanDuplicates">
    <property name="text">
-    <string>&amp;Clean duplicates</string>
+    <string>C&amp;lean duplicates</string>
    </property>
   </action>
   <action name="actionConfiguration">
@@ -143,7 +143,7 @@
      <normaloff>:/mnemosyne/pixmaps/delete.png</normaloff>:/mnemosyne/pixmaps/delete.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Delete current card(s)</string>
+    <string>&amp;Delete current card</string>
    </property>
    <property name="shortcut">
     <string>Backspace</string>
@@ -161,16 +161,16 @@
     <string>Ctrl+E</string>
    </property>
   </action>
-  <action name="actionEditDeck">
+  <action name="actionBrowseCards">
    <property name="icon">
     <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/deck.png</normaloff>:/mnemosyne/pixmaps/deck.png</iconset>
    </property>
    <property name="text">
-    <string>Edit &amp;deck</string>
+    <string>&amp;Browse cards</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+D</string>
+    <string>Ctrl+B</string>
    </property>
   </action>
   <action name="actionExport">
@@ -282,12 +282,12 @@
   </action>
   <action name="actionActivatePlugins">
    <property name="text">
-    <string>&amp;Activate plugins</string>
+    <string>Activate &amp;plugins</string>
    </property>
   </action>
   <action name="actionCloneCardTypes">
    <property name="text">
-    <string>Clone card &amp;types</string>
+    <string>C&amp;lone card types</string>
    </property>
   </action>
  </widget>
@@ -477,11 +477,11 @@
    <receiver>MainWindow</receiver>
    <slot>show_statistics</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>250</x>
      <y>105</y>
     </hint>

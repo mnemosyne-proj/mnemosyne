@@ -13,15 +13,6 @@ class ReviewWidget(UiComponent):
     """
 
     component_type = "review_widget"
-    
-    def enable_edit_current_card(self, enabled):
-        pass
-        
-    def enable_delete_current_card(self, enabled):
-        pass
-        
-    def enable_edit_deck(self, enable): 
-        pass
         
     def question_box_visible(self, visible):
         pass

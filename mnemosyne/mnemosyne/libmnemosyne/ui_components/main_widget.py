@@ -22,6 +22,15 @@ class MainWidget(UiComponent):
     
     def error_box(self, message):
         pass
+
+    def enable_edit_current_card(self, enabled):
+        pass
+        
+    def enable_delete_current_card(self, enabled):
+        pass
+        
+    def enable_browse_cards(self, enable): 
+        pass
     
     def save_file_dialog(self, path, filter, caption=""):
         pass
@@ -44,7 +53,7 @@ class MainWidget(UiComponent):
     def run_manage_card_types_dialog(self):
         pass
 
-    def run_edit_deck_dialog(self):
+    def run_browse_cards_dialog(self):
         pass
     
     def run_configuration_dialog(self):

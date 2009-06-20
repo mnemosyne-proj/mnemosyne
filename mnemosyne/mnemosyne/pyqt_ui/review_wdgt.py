@@ -53,15 +53,6 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
     def grade_answer(self, grade):
         self.ui_controller_review().grade_answer(grade)
-    
-    def enable_edit_current_card(self, enable):
-        self.parent().actionEditCurrentCard.setEnabled(enable)
-
-    def enable_delete_current_card(self, enable):      
-        self.parent().actionDeleteCurrentFact.setEnabled(enable)
-
-    def enable_edit_deck(self, enable):      
-        self.parent().actionEditDeck.setEnabled(enable)
 
     def question_box_visible(self, visible):
         if visible:

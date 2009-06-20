@@ -1,6 +1,8 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
+-move enable actions to main widget?
+
 -statistics
 -document new statistics classes more, including arguments, rst
 -default assigning of widgets
@@ -63,6 +65,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -basic graphical statistics
 
 -sql query for statistics
+
+-new icon for browse cards
 
 
 -add 'update_card_active' (or something like that) to be called when

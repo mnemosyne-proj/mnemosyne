@@ -221,7 +221,7 @@ class SM2Controller(UiControllerReview):
                 w.set_grades_title(_("Grade your answer:"))
 
     def update_menu_bar(self):
-        w = self.review_widget()
+        w = self.main_widget()
         if self.config()["only_editable_when_answer_shown"] == True:
             if self.card and self.state == "SELECT GRADE":
                 w.enable_edit_current_card(True)
@@ -233,7 +233,7 @@ class SM2Controller(UiControllerReview):
             else:
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
-        w.enable_edit_deck(self.database().is_loaded())
+        w.enable_browse_cards(self.database().is_loaded())
 
     def is_question_showing(self):
         return self.ui_controller_review().state == "SELECT SHOW"
