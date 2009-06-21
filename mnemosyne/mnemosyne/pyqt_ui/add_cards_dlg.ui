@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>297</width>
-    <height>175</height>
+    <width>316</width>
+    <height>170</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,28 +66,12 @@
         <item>
          <layout class="QHBoxLayout">
           <item>
-           <widget class="QPushButton" name="grade_0_button">
+           <widget class="QPushButton" name="grade_unseen_button">
             <property name="text">
-             <string>0</string>
+             <string>&amp;Yet to learn</string>
             </property>
             <property name="shortcut">
              <string>Ctrl+0</string>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="grade_1_button">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-            <property name="shortcut">
-             <string>Ctrl+1</string>
             </property>
             <property name="autoDefault">
              <bool>false</bool>

@@ -139,8 +139,7 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         self.update_tags_combobox(\
             self.config()["tags_of_last_added"])  
         self.grades = QButtonGroup()
-        self.grades.addButton(self.grade_0_button, 0)
-        self.grades.addButton(self.grade_1_button, 1)
+        self.grades.addButton(self.grade_unseen_button, -1)
         self.grades.addButton(self.grade_2_button, 2)
         self.grades.addButton(self.grade_3_button, 3)
         self.grades.addButton(self.grade_4_button, 4)

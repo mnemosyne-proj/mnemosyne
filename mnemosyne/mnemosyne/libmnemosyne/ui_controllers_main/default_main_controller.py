@@ -68,6 +68,8 @@ class DefaultMainController(UiControllerMain):
 
         """
 
+        if grade in [0,1]:
+            raise ArgumentError, "Use -1 as grade for unlearned cards."
         db = self.database()
         if db.has_fact_with_data(fact_data, card_type):
             if warn:
