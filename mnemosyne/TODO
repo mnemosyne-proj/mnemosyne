@@ -2,9 +2,10 @@
 -hang on Spanish translation?
 
 -document new statistics classes more, including arguments, rst
--default assigning of widgets
 -remember last page/variant
 -update to latest matplotlib version?
+
+-more plugins, readme
 
 -add test for fact modif/cat modif
 

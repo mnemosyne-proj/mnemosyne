@@ -23,7 +23,8 @@ class StatisticsDlg(QtGui.QDialog, Component):
         self.tab_widget = QtGui.QTabWidget(parent)
         for page in self.statistics_pages():
             page = page(self.component_manager)
-            self.tab_widget.addTab(StatisticsPageWdgt(self, page), page.name)
+            self.tab_widget.addTab(StatisticsPageWdgt(self, component_manager,
+                                                      page), page.name)
         self.vbox_layout.addWidget(self.tab_widget)       
         self.button_layout = QtGui.QHBoxLayout()
         self.button_layout.addItem(QtGui.QSpacerItem(20, 20,
@@ -42,7 +43,7 @@ class StatisticsDlg(QtGui.QDialog, Component):
         page.display_variant(0)
         
 
-class StatisticsPageWdgt(QtGui.QWidget):
+class StatisticsPageWdgt(QtGui.QWidget, Component):
 
     """A page in the StatisticsDlg tab widget. This page widget only contains
     a combobox to select different variants of the page. The widget that
@@ -51,7 +52,8 @@ class StatisticsPageWdgt(QtGui.QWidget):
 
     """
 
-    def __init__(self, parent, statistics_page):
+    def __init__(self, parent, component_manager, statistics_page):
+        Component.__init__(self, component_manager)        
         QtGui.QWidget.__init__(self, parent)
         self.statistics_page = statistics_page
         self.vbox_layout = QtGui.QVBoxLayout(self)
@@ -84,11 +86,13 @@ class StatisticsPageWdgt(QtGui.QWidget):
         if not self.variant_widgets[variant_index]:
             print 'creating page', self.statistics_page.name, 'variant', variant_index
             self.statistics_page.prepare(self.variant_ids[variant_index])
-            try:                                                                    
+            if 1:
+                print self.component_manager.components["ui_component"]
                 widget = self.component_manager.get_current("ui_component", \
                     used_for=self.statistics_page.__class__)\
                         (self, self.component_manager)
-            except:
+                self.statistics_page.widget = widget
+            else:
                 if self.statistics_page.plot_type in \
                     ("barchart", "histogram", "piechart"):
                     widget = MatplotlibCanvas(self, self.statistics_page)

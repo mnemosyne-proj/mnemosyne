@@ -42,12 +42,15 @@ class Plugin(Component):
     def activate(self):
         # Register all our components. Instantiate them if needed.
         for component in self.components:
+            print component, component.component_type, component.used_for
             if component.instantiate != Component.LATER:
+                print 'now'
                 component = component(self.component_manager)
                 self.component_manager.register(component)                
                 component.activate()           
                 self.instantiated_components.append(component)
             else:
+                print 'later'
                 self.component_manager.register(component)
                 self.registered_components.append(component)
         # Make necessary side effects happen.
