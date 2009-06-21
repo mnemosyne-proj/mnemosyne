@@ -3,7 +3,6 @@
 #
 
 # Colour the widget for the front to back card type red.
-# Plugin version.
 
 from PyQt4 import QtGui
 

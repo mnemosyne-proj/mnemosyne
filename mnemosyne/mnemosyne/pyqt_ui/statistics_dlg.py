@@ -59,7 +59,10 @@ class StatisticsPageWdgt(QtGui.QWidget):
         self.variant_ids = []
         self.variant_widgets = []
         self.current_variant_widget = None
-        for variant_id, variant_name in statistics_page.variants:
+        variants = statistics_page.variants
+        if not variants:
+            variants = [(0, "Default")]
+        for variant_id, variant_name in variants:
             self.variant_ids.append(variant_id)
             self.variant_widgets.append(None)
             self.combobox.addItem(str(variant_name))
@@ -96,23 +99,3 @@ class StatisticsPageWdgt(QtGui.QWidget):
         self.current_variant_widget = self.variant_widgets[variant_index]
         self.vbox_layout.addWidget(self.current_variant_widget)
         self.current_variant_widget.show()
-
-
-
-# TODO: move stuff below to libmnemosyne
-
-# <mike@peacecorps.org.cv>,
-
-# TODO: Add graphs which include data from the history: retention rate, cards
-# scheduled in the past, repetitions per day, cards added per day, ...
-
-
-#class GradesGraph:
-
-
-    #def kwargs(self): # For piechart
-    #    return dict(explode=(0.05, 0, 0, 0, 0, 0),
-    #                labels=["Grade %d" % g if data[g] > 0 else "" 
-    #                          for g in range(0, len(data))],
-    #                colors=("r", "m", "y", "g", "c", "b"), 
-    #                shadow=True)
