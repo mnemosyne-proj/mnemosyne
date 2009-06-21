@@ -70,6 +70,8 @@ class MatplotlibCanvas(FigureCanvas):
         self.axes.bar(self.model.xvalues, self.model.data, **self.model.extra_hints)
         self.axes.set_xticks(self.model.xticks)
         self.axes.set_xticklabels(self.model.xticklabels)
+        for label in self.axes.get_xticklabels():
+            label.set_size("small")
         xmin, xmax = min(self.model.xvalues), max(self.model.xvalues)
         self.axes.set_xlim(xmin=xmin - 0.5, xmax=xmax + 0.5)
         max_value = max(self.model.data)
