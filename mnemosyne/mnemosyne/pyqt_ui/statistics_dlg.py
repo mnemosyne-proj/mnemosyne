@@ -2,7 +2,7 @@
 # statistics_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui, QtWebKit
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
@@ -93,8 +93,9 @@ class StatisticsPageWdgt(QtGui.QWidget):
                     ("barchart", "histogram", "piechart"):
                     widget = MatplotlibCanvas(self, self.statistics_page)
                     widget.show_plot()
-                else: # TODO: create html widget
-                    pass
+                else:
+                    widget = QtWebKit.QWebView(self)
+                    widget.setHtml(self.statistics_page.data)
             self.variant_widgets[variant_index] = widget
         self.current_variant_widget = self.variant_widgets[variant_index]
         self.vbox_layout.addWidget(self.current_variant_widget)

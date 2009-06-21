@@ -71,7 +71,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.statistics_pages.grades",
           "Grades"),
          ("mnemosyne.libmnemosyne.statistics_pages.easiness",
-          "Easiness")]
+          "Easiness"),
+         ("mnemosyne.libmnemosyne.statistics_pages.current_card",
+          "CurrentCard")]
         self.extra_components_for_plugin = {}
         self.resource_limited = resource_limited
 
