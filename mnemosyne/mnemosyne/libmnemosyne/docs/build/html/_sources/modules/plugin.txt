@@ -6,4 +6,4 @@
 .. autoclass:: Plugin
    :members:
    :undoc-members:   
-   :inherited-members:
+

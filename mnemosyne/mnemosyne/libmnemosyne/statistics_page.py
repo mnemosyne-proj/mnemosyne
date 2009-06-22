@@ -13,17 +13,11 @@ class StatisticsPage(Component):
     Each StatisticsPage can have several 'variants', e.g. displaying the
     number of scheduled cards either for next week or for next month.
 
-    A StatisticsPage can also set some hints to indicate how it prefers the
-    data to be displayed in the GUI, through variables like 'plot_type',
-    'title', 'xlabel', 'ylabel, ... . See the source for more details.
-
-    For each StatisticsPage, there will be an associated widget (HTML browser,
-    plotting widget, custom widget, ... ) that is in charge of displaying the
-    information from that StatisticsPage. The widget can be registered in the
-    component manager as an widget component 'used_for' a particular
-    StatisticsPage, but if no such information is available, the GUI toolkit
-    should make an educated guess.
-
+    For each StatisticsPage, there will be an associated widget (plotting
+    widget, html browser, custom widget, ... ) that is in charge of displaying
+    the information. This widget needs to be registered in the component
+    manager as a 'statistics_widget' 'used_for' a particular StatisticsPage (or a
+    parent class of a StatisticsPage).
 
     """
     
@@ -34,28 +28,7 @@ class StatisticsPage(Component):
     variants = [] # [(variant_id, variant_name)]
     show_variants_in_combobox = True
         
-    def __init__(self, component_manager):
-        Component.__init__(self, component_manager)
-        
-        self.data = None
-        
-        # Relevant for graphs.
-        self.plot_type = "" # barchart, histogram, piechart, linechart
-        self.title = ""
-        self.xlabel = ""
-        self.ylabel = ""
-        self.xvalues = []
-        self.xticks = []
-        self.xticklabels = []
-        
-        # Relevant for histograms. TODO: needed?
-        self.range = []
-        self.bins = -1
-        
-        # Other hints should be collected here:
-        self.extra_hints = {}
-
-    def prepare(self, variant_id):
+    def prepare_statistics(self, variant_id):
 
         """This method calculates the data for the requested variant and sets
         the approriate hints to be picked up by the corresponding widget.
@@ -63,4 +36,37 @@ class StatisticsPage(Component):
         """
         
         raise NotImplementedError
+
+
+class PlotStatisticsPage(StatisticsPage):
+
+    """A statistics page where the data is represented on a graphical plot.
+
+    Most variables here have a relatively plotting toolkit independent meaning,
+    except for 'extra_hints', which currently is being used as the **kwargs
+    variable from matplotlib.
+
+    """
         
+    def __init__(self, component_manager):
+        StatisticsPage.__init__(self, component_manager)
+        self.data = None
+        self.plot_type = "" # barchart, histogram, piechart, linechart
+        self.title = ""
+        self.xlabel = ""
+        self.ylabel = ""
+        self.xvalues = []
+        self.xticks = []
+        self.xticklabels = []
+        self.show_text_value = True # Show value above each bar in barchart.
+        self.extra_hints = {}
+
+
+class HtmlStatisticsPage(StatisticsPage):
+
+    "A statistics page which generates html to displayed in a browser widget."
+        
+    def __init__(self, component_manager):
+        StatisticsPage.__init__(self, component_manager)
+        self.html = None
+

@@ -1,18 +1,18 @@
 #
-# piechart_statistics.py <Peter.Bienstman@UGent.be>, <mike@peacecorps.org.cv>
+# plot_statistics.py <Peter.Bienstman@UGent.be>, <mike@peacecorps.org.cv>
 #
 
 from mnemosyne.libmnemosyne.plugin import Plugin
-from mnemosyne.libmnemosyne.statistics_page import StatisticsPage
+from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 
 # The piechart statistics page.
 
-class GradesPiechart(StatisticsPage):
+class GradesPiechart(PlotStatisticsPage):
 
     name = "Grades piechart"
         
-    def prepare(self, variant):                
+    def prepare_statistics(self, variant):                
         self.plot_type = "piechart"
         self.title = "Number of cards"
         self.data = []

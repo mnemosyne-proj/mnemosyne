@@ -52,47 +52,10 @@
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler]-->class <tt class="descclassname">mnemosyne.libmnemosyne.scheduler.</tt><tt class="descname">Scheduler</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.activate">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.activate" title="Permalink to this definition">¶</a></dt>
-<dd>Initialisation code called when the component is about to do actual
-work, and which can&#8217;t happen in the constructor, e.g. because
-components on which it relies have not yet been registered.</dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch]--><tt class="descname">allow_prefetch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch" title="Permalink to this definition">¶</a></dt>
 <dd>Can we display a new card before having processed the grading of
 the previous one?</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.card_type_by_id">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.card_type_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.card_types">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.card_types" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.config">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.database">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.deactivate">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.filters">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.filters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card">
@@ -116,21 +79,6 @@ the previous one?</dd></dl>
 a card that was deleted in the GUI.</dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.log">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.main_widget">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.main_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.plugins">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.plugins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue]--><tt class="descname">rebuild_queue</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue" title="Permalink to this definition">¶</a></dt>
 <dd>Called by the rest of the library when an existing queue risks
@@ -146,16 +94,6 @@ becoming invalid, e.g. when cards have been deleted in the GUI.
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.reset">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.reset]--><tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.reset" title="Permalink to this definition">¶</a></dt>
 <dd>Called when starting the scheduler for the first time.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.review_widget">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.review_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.scheduler">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.scheduler" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade">
@@ -175,21 +113,6 @@ is an ineffectual asymmetry left in the log messages they generate,
 but all the relevant information can still be parsed from them.)</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.stopwatch">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.stopwatch]--><tt class="descname">stopwatch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.stopwatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.ui_controller_main">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.ui_controller_main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.ui_controller_review">
-<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.ui_controller_review" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </div>
@@ -201,9 +124,9 @@ but all the relevant information can still be parsed from them.)</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="plugin.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Plugin</span></tt></a></p>
+            <p class="topless"><a href="plugin.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Plugin</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="stopwatch.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
+            <p class="topless"><a href="stopwatch.html" title="next chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/scheduler.txt">Show Source</a></li>
@@ -238,7 +161,7 @@ but all the relevant information can still be parsed from them.)</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 12, 2009.
+      Last updated on Jun 22, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

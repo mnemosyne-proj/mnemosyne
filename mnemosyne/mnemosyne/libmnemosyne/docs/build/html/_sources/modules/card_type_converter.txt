@@ -6,4 +6,4 @@
 .. autoclass:: CardTypeConverter
    :members:
    :undoc-members:   
-   :inherited-members:
+

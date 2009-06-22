@@ -6,4 +6,4 @@
 .. autoclass:: Renderer
    :members:
    :undoc-members:   
-   :inherited-members:
+

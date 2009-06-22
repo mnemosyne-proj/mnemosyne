@@ -6,4 +6,4 @@
 .. autoclass:: Hook
    :members:
    :undoc-members:   
-   :inherited-members:
+

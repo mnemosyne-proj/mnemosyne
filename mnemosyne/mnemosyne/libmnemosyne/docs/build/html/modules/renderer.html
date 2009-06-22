@@ -54,58 +54,6 @@
 <dd><p>Renders the contents of the Fact behind a Card to a suitable format.</p>
 <p>&#8220;used_for&#8221; = card_type class</p>
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.activate">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.activate" title="Permalink to this definition">¶</a></dt>
-<dd>Initialisation code called when the component is about to do actual
-work, and which can&#8217;t happen in the constructor, e.g. because
-components on which it relies have not yet been registered.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.card_type_by_id">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.card_type_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.card_types">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.card_types" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.config">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.database">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.deactivate">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.filters">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.filters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.log">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.main_widget">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.main_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.plugins">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.plugins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields">
 <!--[mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields]--><tt class="descname">render_card_fields</tt><big>(</big><em>card</em>, <em>fields</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields" title="Permalink to this definition">¶</a></dt>
 <dd>Renders a sequence of fields from a card, e.g. by generating html 
@@ -119,35 +67,10 @@ fact_view.a_fields.</dd></dl>
 &#8216;field_name&#8217; from &#8216;card_type&#8217;.</dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.review_widget">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.review_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.scheduler">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.scheduler" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.set_property">
 <!--[mnemosyne.libmnemosyne.renderer.Renderer.set_property]--><tt class="descname">set_property</tt><big>(</big><em>property_name</em>, <em>property</em>, <em>card_type</em>, <em>fact_key=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.set_property" title="Permalink to this definition">¶</a></dt>
 <dd>Set a property (like font, colour, ..) for a certain card type.
 If fact_key is None, then this will be applied to all fact keys.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.stopwatch">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.stopwatch]--><tt class="descname">stopwatch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.stopwatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.ui_controller_main">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.ui_controller_main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.renderer.Renderer.ui_controller_review">
-<!--[mnemosyne.libmnemosyne.renderer.Renderer.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.ui_controller_review" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.update">
@@ -165,7 +88,7 @@ If fact_key is None, then this will be applied to all fact keys.</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="card_type_converter.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">CardTypeConverter</span></tt></a></p>
+            <p class="topless"><a href="card_type_converter.html" title="previous chapter"><tt class="docutils literal"><span class="pre">CardTypeConverter</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="ui_controller_main.html" title="next chapter"><tt class="docutils literal"><span class="pre">UiControllerMain</span></tt></a></p>
             <h3>This Page</h3>
@@ -202,7 +125,7 @@ If fact_key is None, then this will be applied to all fact keys.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 12, 2009.
+      Last updated on Jun 22, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -83,13 +83,6 @@ after_review provide an extra layer of abstraction and can be overridden
 by card types like cloze deletion, which require a varying number of fact
 views with card specific data.</p>
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.activate">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.activate" title="Permalink to this definition">¶</a></dt>
-<dd>Initialisation code called when the component is about to do actual
-work, and which can&#8217;t happen in the constructor, e.g. because
-components on which it relies have not yet been registered.</dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.after_repetition">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.after_repetition]--><tt class="descname">after_repetition</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.after_repetition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -100,13 +93,8 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.card_type_by_id">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.card_type_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.card_types">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.card_types" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.before_repetition">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.before_repetition]--><tt class="descname">before_repetition</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.before_repetition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -115,28 +103,8 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.config">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.create_related_cards">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.create_related_cards]--><tt class="descname">create_related_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_related_cards" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.database">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.deactivate">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.filters">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.filters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -160,21 +128,6 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.log">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.main_widget">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.main_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.plugins">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.plugins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.question">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.question]--><tt class="descname">question</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.question" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -183,31 +136,6 @@ components on which it relies have not yet been registered.</dd></dl>
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.required_fields">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.required_fields]--><tt class="descname">required_fields</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.required_fields" title="Permalink to this definition">¶</a></dt>
 <dd>Collect required fields from registered views.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.review_widget">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.review_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.scheduler">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.scheduler" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.stopwatch">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.stopwatch]--><tt class="descname">stopwatch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.stopwatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.ui_controller_main">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.ui_controller_main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.ui_controller_review">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.ui_controller_review" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.update_related_cards">
@@ -236,7 +164,7 @@ all the required fields are there, this can be done here.</dd></dl>
             <h4>Previous topic</h4>
             <p class="topless"><a href="tag.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Tag</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="card.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
+            <p class="topless"><a href="card.html" title="next chapter"><tt class="docutils literal"><span class="pre">Card</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/card_type.txt">Show Source</a></li>
@@ -271,7 +199,7 @@ all the required fields are there, this can be done here.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 16, 2009.
+      Last updated on Jun 22, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

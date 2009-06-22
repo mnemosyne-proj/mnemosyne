@@ -6,4 +6,4 @@
 .. autoclass:: Configuration
    :members:
    :undoc-members:   
-   :inherited-members:
+

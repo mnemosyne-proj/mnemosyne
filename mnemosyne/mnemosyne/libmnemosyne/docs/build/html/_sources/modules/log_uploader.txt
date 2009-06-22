@@ -6,4 +6,4 @@
 .. autoclass:: LogUploader
    :members:
    :undoc-members:   
-   :inherited-members:
+

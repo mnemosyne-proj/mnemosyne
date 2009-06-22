@@ -2,6 +2,7 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
+
 class Card(object):
 
     """A card has a question and an answer, based on a fact view operating on

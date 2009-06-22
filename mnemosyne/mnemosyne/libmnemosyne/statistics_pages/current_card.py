@@ -5,18 +5,18 @@
 import time
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.statistics_page import StatisticsPage
+from mnemosyne.libmnemosyne.statistics_page import HtmlStatisticsPage
 
 DAY = 24 * 60 * 60 # Seconds in a day.
 
 
-class CurrentCard(StatisticsPage):
+class CurrentCard(HtmlStatisticsPage):
 
     name = _("Current card")
         
-    def prepare(self, variant):
+    def prepare_statistics(self, variant):
         card = self.ui_controller_review().card
-        self.data = """<html<body>
+        self.html = """<html<body>
         <style type="text/css">
         table { height: 100%;
                 margin-left: auto; margin-right: auto;
@@ -27,17 +27,17 @@ class CurrentCard(StatisticsPage):
                 border: thin solid #8F8F8F; }
         </style></head><table><tr><td>"""
         if not card:
-            self.data += _("No current card.")
+            self.html += _("No current card.")
         elif card.grade == -1:
-            self.data += _("Unseen card, no statistics available yet.")
+            self.html += _("Unseen card, no statistics available yet.")
         else:
-            self.data += _("Grade") + ": %d<br>" % card.grade
-            self.data += _("Easiness") + ": %1.2f<br>" % card.easiness
-            self.data += _("Repetitions") + ": %d<br>" \
+            self.html += _("Grade") + ": %d<br>" % card.grade
+            self.html += _("Easiness") + ": %1.2f<br>" % card.easiness
+            self.html += _("Repetitions") + ": %d<br>" \
                 % (card.acq_reps + card.ret_reps)
-            self.data += _("Lapses") + ": %d<br>" % card.lapses
-            self.data += _("Interval") + ": %d<br>" \
+            self.html += _("Lapses") + ": %d<br>" % card.lapses
+            self.html += _("Interval") + ": %d<br>" \
                 % (card.interval / DAY)            
-            self.data += _("Next repetition") + ": %s<br>" \
+            self.html += _("Next repetition") + ": %s<br>" \
                 % time.strftime("%B %d, %Y", time.gmtime(card.next_rep))
-        self.data += "</td></tr></table></body></html>"
+        self.html += "</td></tr></table></body></html>"

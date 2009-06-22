@@ -19,7 +19,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Logger" href="logger.html" />
-    <link rel="prev" title="FunctionHook" href="function_hook.html" /> 
+    <link rel="prev" title="Hook" href="hook.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,7 +35,7 @@
           <a href="logger.html" title="Logger"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="function_hook.html" title="FunctionHook"
+          <a href="hook.html" title="Hook"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -52,140 +52,8 @@
 <dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader">
 <!--[mnemosyne.libmnemosyne.log_uploader.LogUploader]-->class <tt class="descclassname">mnemosyne.libmnemosyne.log_uploader.</tt><tt class="descname">LogUploader</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.activate">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.activate" title="Permalink to this definition">¶</a></dt>
-<dd>Initialisation code called when the component is about to do actual
-work, and which can&#8217;t happen in the constructor, e.g. because
-components on which it relies have not yet been registered.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.card_type_by_id">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.card_type_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.card_types">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.card_types" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.config">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.daemon">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.daemon]--><tt class="descname">daemon</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.daemon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.database">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.deactivate">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.filters">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.filters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.getName">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.getName]--><tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.getName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.ident">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.ident]--><tt class="descname">ident</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.ident" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.isAlive">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.isAlive]--><tt class="descname">isAlive</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.isAlive" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.isDaemon">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.isDaemon]--><tt class="descname">isDaemon</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.isDaemon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.is_alive">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.is_alive]--><tt class="descname">is_alive</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.is_alive" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.join">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.join]--><tt class="descname">join</tt><big>(</big><em>timeout=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.join" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.log">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.main_widget">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.main_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.name">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.name]--><tt class="descname">name</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.plugins">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.plugins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.review_widget">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.review_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.run">
 <!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.run]--><tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.scheduler">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.scheduler" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.setDaemon">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.setDaemon]--><tt class="descname">setDaemon</tt><big>(</big><em>daemonic</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.setDaemon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.setName">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.setName]--><tt class="descname">setName</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.setName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.start">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.start]--><tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.stopwatch">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.stopwatch]--><tt class="descname">stopwatch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.stopwatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.ui_controller_main">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.ui_controller_main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.log_uploader.LogUploader.ui_controller_review">
-<!--[mnemosyne.libmnemosyne.log_uploader.LogUploader.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.log_uploader.LogUploader.ui_controller_review" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -205,7 +73,7 @@ Based on code by Jeff Bauer, Aaron Watters, Jim Fulton</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="function_hook.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">FunctionHook</span></tt></a></p>
+            <p class="topless"><a href="hook.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Hook</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="logger.html" title="next chapter"><tt class="docutils literal"><span class="pre">Logger</span></tt></a></p>
             <h3>This Page</h3>
@@ -235,14 +103,14 @@ Based on code by Jeff Bauer, Aaron Watters, Jim Fulton</dd></dl>
           <a href="logger.html" title="Logger"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="function_hook.html" title="FunctionHook"
+          <a href="hook.html" title="Hook"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 12, 2009.
+      Last updated on Jun 22, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

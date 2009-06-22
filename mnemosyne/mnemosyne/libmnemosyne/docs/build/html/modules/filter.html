@@ -57,85 +57,8 @@ functionality.  The &#8216;card&#8217; argument provides extra context if needed
 manager. If you really need to make sure that your filter runs before the
 rest, set &#8216;in_front=True&#8217; as argument in &#8216;component_manager.register&#8217;.</p>
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.activate">
-<!--[mnemosyne.libmnemosyne.filter.Filter.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.activate" title="Permalink to this definition">¶</a></dt>
-<dd>Initialisation code called when the component is about to do actual
-work, and which can&#8217;t happen in the constructor, e.g. because
-components on which it relies have not yet been registered.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.card_type_by_id">
-<!--[mnemosyne.libmnemosyne.filter.Filter.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.card_type_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.card_types">
-<!--[mnemosyne.libmnemosyne.filter.Filter.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.card_types" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.config">
-<!--[mnemosyne.libmnemosyne.filter.Filter.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.database">
-<!--[mnemosyne.libmnemosyne.filter.Filter.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.deactivate">
-<!--[mnemosyne.libmnemosyne.filter.Filter.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.filters">
-<!--[mnemosyne.libmnemosyne.filter.Filter.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.filters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.log">
-<!--[mnemosyne.libmnemosyne.filter.Filter.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.main_widget">
-<!--[mnemosyne.libmnemosyne.filter.Filter.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.main_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.plugins">
-<!--[mnemosyne.libmnemosyne.filter.Filter.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.plugins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.review_widget">
-<!--[mnemosyne.libmnemosyne.filter.Filter.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.review_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.filter.Filter.run">
 <!--[mnemosyne.libmnemosyne.filter.Filter.run]--><tt class="descname">run</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.scheduler">
-<!--[mnemosyne.libmnemosyne.filter.Filter.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.scheduler" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.stopwatch">
-<!--[mnemosyne.libmnemosyne.filter.Filter.stopwatch]--><tt class="descname">stopwatch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.stopwatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.ui_controller_main">
-<!--[mnemosyne.libmnemosyne.filter.Filter.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.ui_controller_main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.filter.Filter.ui_controller_review">
-<!--[mnemosyne.libmnemosyne.filter.Filter.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.ui_controller_review" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -149,7 +72,7 @@ components on which it relies have not yet been registered.</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="file_format.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">FileFormat</span></tt></a></p>
+            <p class="topless"><a href="file_format.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">FileFormat</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="hook.html" title="next chapter"><tt class="docutils literal"><span class="pre">Hook</span></tt></a></p>
             <h3>This Page</h3>
@@ -186,7 +109,7 @@ components on which it relies have not yet been registered.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 16, 2009.
+      Last updated on Jun 22, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -4,17 +4,17 @@
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
-from mnemosyne.libmnemosyne.statistics_page import StatisticsPage
+from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 
-class Easiness(StatisticsPage):
+class Easiness(PlotStatisticsPage):
 
     name = _("Easiness")
     
     ALL_CARDS = -1
 
     def __init__(self, component_manager):
-        StatisticsPage.__init__(self, component_manager)
+        PlotStatisticsPage.__init__(self, component_manager)
         self.variants = [(self.ALL_CARDS, _("All cards"))]
         tags = []
         for cursor in self.database().con.execute(\
@@ -24,7 +24,7 @@ class Easiness(StatisticsPage):
         for id, name in tags:
             self.variants.append((id, name))
         
-    def prepare(self, variant):                
+    def prepare_statistics(self, variant):                
         self.plot_type = "histogram"
         self.title = _("Number of cards")
         self.xlabel = _("Easiness")

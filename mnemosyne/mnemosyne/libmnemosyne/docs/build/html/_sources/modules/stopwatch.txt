@@ -6,4 +6,4 @@
 .. autoclass:: Stopwatch
    :members:
    :undoc-members:   
-   :inherited-members:
+

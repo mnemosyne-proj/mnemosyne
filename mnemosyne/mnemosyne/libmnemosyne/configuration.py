@@ -107,7 +107,9 @@ class Configuration(Component, dict):
              "latex_postamble": "\\end{document}", 
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
-             "active_plugins": set() # Plugin classes, not instances.
+             "active_plugins": set(), # Plugin classes, not instances.
+             "last_statistics_page": 0,
+             "last_variant_for_statistics_page": {} # dict[page] = variant
             }.items():
 
             self.setdefault(key, value)

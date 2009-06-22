@@ -54,13 +54,6 @@
 <dd><p>Interface class describing the functions to be implemented by the
 actual database classes.</p>
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.activate">
-<!--[mnemosyne.libmnemosyne.database.Database.activate]--><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.activate" title="Permalink to this definition">¶</a></dt>
-<dd>Initialisation code called when the component is about to do actual
-work, and which can&#8217;t happen in the constructor, e.g. because
-components on which it relies have not yet been registered.</dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.active_count">
 <!--[mnemosyne.libmnemosyne.database.Database.active_count]--><tt class="descname">active_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.active_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -93,16 +86,6 @@ components on which it relies have not yet been registered.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.card_count">
 <!--[mnemosyne.libmnemosyne.database.Database.card_count]--><tt class="descname">card_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_count" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.card_type_by_id">
-<!--[mnemosyne.libmnemosyne.database.Database.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_type_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.card_types">
-<!--[mnemosyne.libmnemosyne.database.Database.card_types]--><tt class="descname">card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_types" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -146,20 +129,10 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.config">
-<!--[mnemosyne.libmnemosyne.database.Database.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.count_related_cards_with_next_rep">
 <!--[mnemosyne.libmnemosyne.database.Database.count_related_cards_with_next_rep]--><tt class="descname">count_related_cards_with_next_rep</tt><big>(</big><em>card</em>, <em>next_rep</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.count_related_cards_with_next_rep" title="Permalink to this definition">¶</a></dt>
 <dd>Returns how many related cards with grade &gt;= 2 are scheduled at
 &#8216;next_rep&#8217;. Note that there is no need that next_rep == card.next_rep.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.database">
-<!--[mnemosyne.libmnemosyne.database.Database.database]--><tt class="descname">database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.deactivate">
@@ -189,11 +162,6 @@ components on which it relies have not yet been registered.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.fact_count">
 <!--[mnemosyne.libmnemosyne.database.Database.fact_count]--><tt class="descname">fact_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact_count" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.filters">
-<!--[mnemosyne.libmnemosyne.database.Database.filters]--><tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.filters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -232,16 +200,6 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.log">
-<!--[mnemosyne.libmnemosyne.database.Database.log]--><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.main_widget">
-<!--[mnemosyne.libmnemosyne.database.Database.main_widget]--><tt class="descname">main_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.main_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.new">
 <!--[mnemosyne.libmnemosyne.database.Database.new]--><tt class="descname">new</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.new" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -252,18 +210,8 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.plugins">
-<!--[mnemosyne.libmnemosyne.database.Database.plugins]--><tt class="descname">plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.plugins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.remove_tag_if_unused">
 <!--[mnemosyne.libmnemosyne.database.Database.remove_tag_if_unused]--><tt class="descname">remove_tag_if_unused</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.remove_tag_if_unused" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.review_widget">
-<!--[mnemosyne.libmnemosyne.database.Database.review_widget]--><tt class="descname">review_widget</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.review_widget" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -274,11 +222,6 @@ components on which it relies have not yet been registered.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.scheduled_count">
 <!--[mnemosyne.libmnemosyne.database.Database.scheduled_count]--><tt class="descname">scheduled_count</tt><big>(</big><em>days=0</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.scheduled_count" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.scheduler">
-<!--[mnemosyne.libmnemosyne.database.Database.scheduler]--><tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.scheduler" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -304,23 +247,8 @@ fact_view).</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.stopwatch">
-<!--[mnemosyne.libmnemosyne.database.Database.stopwatch]--><tt class="descname">stopwatch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.stopwatch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.tag_names">
 <!--[mnemosyne.libmnemosyne.database.Database.tag_names]--><tt class="descname">tag_names</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tag_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.ui_controller_main">
-<!--[mnemosyne.libmnemosyne.database.Database.ui_controller_main]--><tt class="descname">ui_controller_main</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.ui_controller_main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.ui_controller_review">
-<!--[mnemosyne.libmnemosyne.database.Database.ui_controller_review]--><tt class="descname">ui_controller_review</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.ui_controller_review" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -354,7 +282,7 @@ fact_view).</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="configuration.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+            <p class="topless"><a href="configuration.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Configuration</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="file_format.html" title="next chapter"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></p>
             <h3>This Page</h3>
@@ -391,7 +319,7 @@ fact_view).</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 16, 2009.
+      Last updated on Jun 22, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

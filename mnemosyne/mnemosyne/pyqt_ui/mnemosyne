@@ -70,6 +70,10 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
                              "ReviewWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.sound",
                              "SoundPlayer"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgt",
+                             "PlotStatisticsWdgt"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.html_statistics_wdgt",
+                             "HtmlStatisticsWdgt"))
 mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                             [("mnemosyne.pyqt_ui.review_wdgt_cramming",
                              "ReviewWdgtCramming")]

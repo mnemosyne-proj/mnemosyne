@@ -6,4 +6,4 @@
 .. autoclass:: Database
    :members:
    :undoc-members:   
-   :inherited-members:
+

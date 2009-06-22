@@ -1,14 +1,6 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--document new statistics classes more, including arguments, rst
--remember last page/variant
--update to latest matplotlib version?
-
--more plugins, readme
-
--add test for fact modif/cat modif
-
 -review schema for card types
 -move clones to database
 -lazy checking for necessary plugins
@@ -35,6 +27,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -don't reset cramming scheduler
 
+-move pyqt ui variables out of main config
+
 -is complete check on changing card type does not fire
 
 -create UI components for other widgets
@@ -51,7 +45,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -hook up config screen
 
--naming in menus: database, decks, virtual decks
+-grade 0 cards default value?
 
 -items --> cards in config, upgrade code
 
@@ -67,6 +61,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -new icon for browse cards
 
 
+
+
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
  Make the mechanism customisible with hooks, and document this in 
@@ -74,6 +70,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 
 -cntrl enter in add and edit instead of clicking ok
+
+-try graphical glitches with latest matplotlib version?
 
 
 -make distrib
@@ -174,6 +172,11 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -don't show inactive card types, but do show inactive tags
 
+-card.in_view needed?
+
+
+-abstract statistics queries to database?
+
 
 -time WM: history in same DB?
 
@@ -184,6 +187,9 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
 -draw answer, make configurable by card type
 
+
+-more plugin examples: file format, custom tag, activate all cards,
+ last grade filter, always_shuffle?
 
 -leech detection (mod 10)
 
@@ -200,6 +206,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 
 
+-starting with a html statistics widget gives a large size
 
 -alt tabbing gives low res icon.
 
@@ -245,6 +252,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -test: make <a> links clickable / animated GIFs
 
 
+
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby
 
 
@@ -252,6 +260,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 * After 2.0:
 
 -website redesign? like http://hanzim.com/download.php
+
+-add days since last rep / until next rep to statistics
 
 -don't activate plugins until after clicking ok
 

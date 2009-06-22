@@ -6,4 +6,4 @@
 .. autoclass:: UiControllerMain
    :members:
    :undoc-members:   
-   :inherited-members:
+

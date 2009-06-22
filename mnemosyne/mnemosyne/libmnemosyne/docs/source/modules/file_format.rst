@@ -6,4 +6,4 @@
 .. autoclass:: FileFormat
    :members:
    :undoc-members:   
-   :inherited-members:
+

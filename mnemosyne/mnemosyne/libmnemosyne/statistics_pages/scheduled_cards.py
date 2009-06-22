@@ -3,12 +3,12 @@
 #
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.statistics_page import StatisticsPage
+from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
 DAY = 24 * 60 * 60 # Seconds in a day.
 
 
-class ScheduledCards(StatisticsPage):
+class ScheduledCards(PlotStatisticsPage):
 
     name = _("Schedule")
 
@@ -22,25 +22,25 @@ class ScheduledCards(StatisticsPage):
                 (NEXT_MONTH, _("Next month")),
                 (NEXT_YEAR, _("Next year"))]
     
-    def prepare(self, variant):               
+    def prepare_statistics(self, variant):               
         self.plot_type = "barchart"
         self.title = _("Number of cards scheduled")
         self.xlabel = _("Days") 
-        xticklabels = lambda i, j, k: map(lambda x: "+%d" % x, range(i, j, k))        
+        ticklabels = lambda i, j, k: map(lambda x: "+%d" % x, range(i, j, k))        
         if variant == self.NEXT_WEEK:
             self.xvalues = range(1, 8, 1)
             self.xticks = range(1, 8, 1)
-            self.xticklabels = xticklabels(1, 8, 1)
+            self.xticklabels = ticklabels(1, 8, 1)
             self.show_text_value = True
         elif variant == self.NEXT_MONTH:   
             self.xvalues = range(1, 32, 1)
             self.xticks = [1] + range(5, 32, 5)
-            self.xticklabels = ["+1"] + xticklabels(5, 32, 5)
+            self.xticklabels = ["+1"] + ticklabels(5, 32, 5)
             self.show_text_value = True          
         elif variant == self.NEXT_YEAR:
             self.xvalues = range(1, 366, 1)
             self.xticks = [1] + range(60, 365, 60)            
-            self.xticklabels = ["+1"] + xticklabels(60, 365, 60)
+            self.xticklabels = ["+1"] + ticklabels(60, 365, 60)
             self.show_text_value = False
             self.extra_hints["linewidth"] = 0
         else:

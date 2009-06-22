@@ -1,0 +1,22 @@
+This directory contains some example plugins with the main purpose of
+illustrating to plugin writers on how to achieve certain functionality.
+
+ * add_menu_item.py: adding a menu item to the GUI.
+
+ * shortcuts.py: changing some keyboard shortcuts during review.
+
+ * new_card_type_widget.py: for if you want to customise the input/edit widget
+   used for a certain card type.
+ 
+ * after_repetition.py: illustration of function hooks, in this case
+   running code after a repetition was performed.
+
+ * plot_statistics.py: adding an extra page with plotted statistics
+
+ * html_statistics.py: adding an extra page with html statistics
+
+ * custom_statistics_page_widget.py: for when you need more flexibily than
+   either plots or html
+
+Note that if you write plugins which require extra modules, the Windows user
+should add those to library.zip.

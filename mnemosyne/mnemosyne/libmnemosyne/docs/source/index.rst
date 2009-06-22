@@ -44,6 +44,9 @@ used, is abstracted in ui controllers. In order to get more flexibility, there
 are two of them: one related to the review widget, and one to the rest 
 of the program.
 
+There is also mechanism for plugins to add new statistical data to the standard
+statistics in an integrated way.
+
 
 Contents
 ========
@@ -72,6 +75,7 @@ Contents
     modules/plugin
     modules/scheduler
     modules/stopwatch
+    modules/statistics_page
 
     modules/how_to_write_a_new_frontend
     

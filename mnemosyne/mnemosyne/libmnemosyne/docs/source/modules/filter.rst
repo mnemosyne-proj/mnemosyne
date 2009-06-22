@@ -6,4 +6,4 @@
 .. autoclass:: Filter
    :members:
    :undoc-members:   
-   :inherited-members:
+

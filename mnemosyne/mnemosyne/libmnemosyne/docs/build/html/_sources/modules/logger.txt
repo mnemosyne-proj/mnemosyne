@@ -6,4 +6,4 @@
 .. autoclass:: Logger
    :members:
    :undoc-members:   
-   :inherited-members:
+

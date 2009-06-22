@@ -54,16 +54,8 @@ class Fact(object):
             return False
     
     def __getitem__(self, key):
-        try:
-            return self.data[key]
-        except KeyError:
-            # Check if the card_type defines a dynamic field by this name.
-            dynfield = getattr(self.card_type, 'field_' + key, None)
-            if not dynfield:
-                raise KeyError, "Fact has no field '%s'" % key
-            else:
-                return dynfield(self.data)
-
+        return self.data[key]
+    
     def __setitem__(self, key, value):
         self.data[key] = value
         
