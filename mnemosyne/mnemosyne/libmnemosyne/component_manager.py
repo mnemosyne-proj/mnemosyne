@@ -18,7 +18,7 @@ class ComponentManager(object):
     """
         
     def __init__(self):
-        self.components = {} # { used_for : {type : [component]} }
+        self.components = {} # {used_for: {type: [component]} }
         self.card_type_by_id = {}
 
     def register(self, component, in_front=False):

@@ -16,11 +16,8 @@ class CloneCardTypeDlg(QDialog, Ui_CloneCardTypeDlg, Component):
         Component.__init__(self, component_manager)
         QDialog.__init__(self, parent)
         self.setupUi(self)
-        self.uncloned_card_types = []
         for card_type in self.card_types():
-            if not card_type.is_clone:
-                self.parent_type.addItem(card_type.name)
-                self.uncloned_card_types.append(card_type)
+            self.parent_type.addItem(card_type.name)
 
     def name_changed(self):
         if not self.name.text():
@@ -29,8 +26,7 @@ class CloneCardTypeDlg(QDialog, Ui_CloneCardTypeDlg, Component):
             self.OK_button.setEnabled(True)
 
     def accept(self):
-        parent_instance = self.uncloned_card_types\
-                          [self.parent_type.currentIndex()]
+        parent_instance = self.card_types()[self.parent_type.currentIndex()]
         clone_name = unicode(self.name.text())
         
         try:

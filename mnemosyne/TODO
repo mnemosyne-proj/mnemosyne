@@ -1,9 +1,15 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--review schema for card types
+-reinstate mangling?
+-get card type
 -move clones to database
--lazy checking for necessary plugins
+-lazy checking for necessary plugins? Problem: thrown exceptions are then not caught
+-get rid of card_type.is_clone everywhere, other mechanism to check clones in database
+-store fact_view _id in factview too? what about card type?
+-remove clone_id = self.id + "_CLONED." + clone_name
+-remove clone comments in card type
+-try to clone a clone
 
 -don't memorise related cards on same day
 
@@ -35,9 +41,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -way to override generic card type widget, by having two components: generic_card_type_widget
  card type widget
 
-34, in upload_failed
-    (self.UPLOAD_FAILED, int(time.time())))
-ProgrammingError: SQLite objects created in a thread can only be used in that same thread.The object was created in thread id 47749639836336 and this is thread id 47750008674640
 
 
 -more tests

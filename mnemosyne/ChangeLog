@@ -1,5 +1,9 @@
 -the revision history is now stored inside an SQL database too. This is a prerequisite for when implementing the sync algorithm, and will also allow to display more sophisticated statistics.
 -when importing a sound or an image, a copy is made to the .mnemosyne directory. This saves some confusing explaining to new users about the difference between relative and absolute paths.
+-card types can now be stored in the database too
+(The three feature above mean that all the prerequisites are there in order for Max to implement a full syncing algorithm.
+-merged Mike's graphical statistics code.
+-extended the plugin architecture to encompass the statistics
 -removed some old warts/hacks inherited from the 1.x codebase: card.unseen and StartDate
 -various architectural improvements and bug fixes
 	

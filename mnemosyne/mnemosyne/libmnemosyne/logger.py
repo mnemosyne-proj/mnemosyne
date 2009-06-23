@@ -39,15 +39,6 @@ class Logger(Component):
     def saved_database(self):
         pass
 
-    def added_fact(self, fact):
-        pass
-
-    def updated_fact(self, fact):
-        pass
-    
-    def deleted_fact(self, fact):
-        pass
-    
     def added_tag(self, tag):
         pass
 
@@ -55,6 +46,15 @@ class Logger(Component):
         pass
     
     def deleted_tag(self, tag):
+        pass
+    
+    def added_fact(self, fact):
+        pass
+
+    def updated_fact(self, fact):
+        pass
+    
+    def deleted_fact(self, fact):
         pass
     
     def added_card(self, card):
@@ -65,15 +65,18 @@ class Logger(Component):
     
     def deleted_card(self, card):
         pass
-        
-    def repetition(self, card, scheduled_interval, actual_interval,
-                   new_interval, noise=0):
-        pass               
-        
-    def uploaded_log(self, filename):
+    
+    def added_card_type(self, card_type):
+        pass
+
+    def updated_card_type(self, card_type):
         pass
     
-    def upload_failed(self):
+    def deleted_card_type(self, card_type):
+        pass
+    
+    def repetition(self, card, scheduled_interval, actual_interval,
+                   new_interval, noise=0):
         pass
 
     def added_media(self, filename, fact):

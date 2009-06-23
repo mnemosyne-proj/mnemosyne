@@ -131,6 +131,7 @@ SCHEMA = """
     */
 
     create table fact_views(
+        _id integer primary key,
         id text,
         name text,
         q_fields text,
@@ -141,7 +142,6 @@ SCHEMA = """
 
     create table card_types(
         id text,
-        parent text, /* Name of the parent class. */
         name text,
         fields text,
         unique_fields text,
@@ -149,15 +149,20 @@ SCHEMA = """
     );
 
     create table fact_views_for_card_type(
-        fact_view_id text,
+        _fact_view_id text,
         card_type_id text
     );
     
     commit;
 """
 
-
 class SQLite(Database):
+
+    """Note that most of the time, Commiting is done elsewhere, e.g. by
+    calling save in the main controller, in order to have a better control
+    over transaction granularity.
+
+    """
 
     version = "SQL 1.0"
     suffix = ".db"
@@ -168,6 +173,10 @@ class SQLite(Database):
         self._path = None # Needed for lazy creation of connection.
         self.load_failed = True
 
+    #
+    # File operations
+    #
+    
     @property
     def con(self):
         
@@ -201,6 +210,28 @@ class SQLite(Database):
         if not os.path.exists(mediadir):
             os.mkdir(mediadir)
 
+    def _find_plugin_for_card_type(self, card_type_id):
+        found = False
+        for plugin in self.plugins():
+            for component in plugin.components:
+                if component.component_type == "card_type" and \
+                    component.id == card_type_id:
+                    found = True
+                    try:
+                        plugin.activate()
+                    except:
+                        self._connection.close()
+                        self._connection = None
+                        self.load_failed = True
+                        raise RuntimeError, _("Error when running plugin:") \
+                            + "\n" + traceback_string()
+        if not found:
+            self._connection.close()
+            self._connection = None
+            self.load_failed = True
+            raise RuntimeError, _("Missing plugin for card type with id:") \
+                + " " + card_type_id
+
     def load(self, path):
         if self.is_loaded():
             self.unload()
@@ -232,6 +263,20 @@ class SQLite(Database):
         self.con.execute("""update global_variables set value=? where
             key=?""", (str(times_loaded), "times_loaded"))
 
+        # Instantiate card types stored in this database.
+
+        # Identify missing plugins for card types and their parents
+        
+        #plugin_needed = set()
+        #active_id = set(card_type.id for card_type in self.card_types())
+        #for cursor in self.con.execute("""select distinct card_type_id
+        #    from facts"""):
+        #    card_type_id = cursor[0]
+        #    plugin_needed.union(set([id for id in card_type_id.split(".") \
+        #        if id not in active_ids]))          
+        #for card_type_id in plugin_needed:
+        #    self._find_plugin_for_card_type(card_type_id)        
+
         # Deal with clones and plugins, also plugins for parent classes.
         plugin_needed = set()
         clone_needed = []
@@ -251,28 +296,7 @@ class SQLite(Database):
 
         # Activate necessary plugins.
         for card_type_id in plugin_needed:
-            found = False
-            for plugin in self.plugins():
-                for component in plugin.components:
-                    if component.component_type == "card_type" and \
-                           component.id == card_type_id:
-                        found = True
-                        try:
-                            plugin.activate()
-                        except:
-                            self._connection.close()
-                            self._connection = None
-                            self.load_failed = True
-                            raise RuntimeError, \
-                                  _("Error when running plugin:") \
-                                  + "\n" + traceback_string()
-            if not found:
-                self._connection.close()
-                self._connection = None
-                self.load_failed = True
-                raise RuntimeError, \
-                      _("Missing plugin for card type with id:") \
-                      + " " + card_type_id
+            self._find_plugin_for_card_type(card_type_id)
             
         # Create necessary clones.
         for parent_type_id, clone_name in clone_needed:
@@ -332,15 +356,26 @@ class SQLite(Database):
     def is_loaded(self):
         return not self.load_failed
 
-    # Adding, modifying and deleting tags, facts and cards. Commiting is
-    # done by calling save in the main controller, in order to have a better
-    # control over transaction granularity.
-
     def _repr_extra_data(self, extra_data):
         if extra_data == {}:
             return "" # Save space.
         else:
             return repr(extra_data)
+
+    #
+    # Tags.
+    #
+
+    def get_or_create_tag_with_name(self, name):
+        sql_res = self.con.execute("""select * from tags where name=?""",
+                                   (name, )).fetchone()
+        if sql_res:
+            tag = Tag(sql_res["name"], sql_res["id"])
+            tag._id = sql_res["_id"]
+            return tag
+        tag = Tag(name)
+        self.add_tag(tag)
+        return tag
 
     def add_tag(self, tag):
         _id = self.con.execute("""insert into tags(name, extra_data, id)
@@ -348,7 +383,14 @@ class SQLite(Database):
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
         self.log().added_tag(tag)
-        
+
+    def get_tag(self, _id):
+        sql_res = self.con.execute("""select * from tags where _id=?""",
+                                   (_id, )).fetchone()
+        tag = Tag(sql_res["name"], sql_res["id"])
+        tag._id = sql_res["_id"]
+        return tag
+    
     def delete_tag(self, tag):
         self.con.execute("delete from tags where _id=?", (tag._id,))
         self.log().deleted_tag(tag)
@@ -360,26 +402,19 @@ class SQLite(Database):
              tag._id))
         self.log().updated_tag(tag)
         
-    def get_or_create_tag_with_name(self, name):
-        sql_res = self.con.execute("""select * from tags where name=?""",
-                                   (name, )).fetchone()
-        if sql_res:
-            tag = Tag(sql_res["name"], sql_res["id"])
-            tag._id = sql_res["_id"]
-            return tag
-        tag = Tag(name)
-        self.add_tag(tag)
-        return tag
-    
     def remove_tag_if_unused(self, tag):
         if self.con.execute("""select count() from tags as cat,
             tags_for_card as cat_c where cat_c._tag_id=cat._id and
             cat._id=?""", (tag._id, )).fetchone()[0] == 0:
             self.delete_tag(tag)
+
+    #
+    # Facts.
+    #
     
     def add_fact(self, fact):
         self.load_failed = False
-        # Add fact to facts and data_for_fact tables.
+        # Add fact to facts table.
         _fact_id = self.con.execute("""insert into facts(id, card_type_id,
             creation_time, modification_time) values(?,?,?,?)""",
             (fact.id, fact.card_type.id, fact.creation_time,
@@ -393,6 +428,20 @@ class SQLite(Database):
         # Process media files.
         self._process_media(fact)
 
+    def get_fact(self, _id):        
+        sql_res = self.con.execute("select * from facts where _id=?",
+                                   (_id, )).fetchone()
+        # Create dictionary with fact.data.
+        data = dict([(cursor["key"], cursor["value"]) for cursor in
+            self.con.execute("select * from data_for_fact where _fact_id=?",
+            (_id, ))])
+        # Create fact.
+        fact = Fact(data, self.card_type_by_id(sql_res["card_type_id"]),
+            creation_time=sql_res["creation_time"], id=sql_res["id"])
+        fact._id = sql_res["_id"]
+        fact.modification_time = sql_res["modification_time"]
+        return fact
+    
     def update_fact(self, fact):
         # Update fact.
         self.con.execute("""update facts set id=?, card_type_id=?,
@@ -408,7 +457,23 @@ class SQLite(Database):
         self.log().updated_fact(fact)
         # Process media files.
         self._process_media(fact)        
-        
+
+    def delete_fact_and_related_data(self, fact):
+        for card in self.cards_from_fact(fact):
+            self.delete_card(card)
+        self.con.execute("delete from facts where _id=?", (fact._id, ))
+        self.con.execute("delete from data_for_fact where _fact_id=?",
+                         (fact._id, ))
+        self.log().deleted_fact(fact)
+        # Process media files.
+        fact.data = {}
+        self._process_media(fact)
+        del fact
+
+    #
+    # Cards.
+    #
+    
     def add_card(self, card):
         self.load_failed = False
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
@@ -433,6 +498,30 @@ class SQLite(Database):
         # Add card is not logged here, but in the controller, to make sure
         # that the first repetition is logged after the card creation.
 
+    def get_card(self, _id):
+        sql_res = self.con.execute("select * from cards where _id=?",
+                                   (_id, )).fetchone()
+        fact = self.get_fact(sql_res["_fact_id"])
+        for view in fact.card_type.fact_views:
+            if view.id == sql_res["fact_view_id"]:
+                card = Card(fact, view)
+                break
+        for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
+            "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
+            "last_rep", "next_rep", "scheduler_data", "active", "in_view"):
+            setattr(card, attr, sql_res[attr])
+        if sql_res["extra_data"] == "":
+            card.extra_data = {}
+        else:
+            card.extra_data = eval(sql_res["extra_data"])
+        for cursor in self.con.execute("""select tags.* from tags,
+            tags_for_card where tags_for_card._tag_id=tags._id
+            and tags_for_card._card_id=?""", (sql_res["_id"],)):
+            tag = Tag(cursor["name"], cursor["id"])
+            tag._id = cursor["_id"]
+            card.tags.add(tag)              
+        return card
+    
     def update_card(self, card, repetition_only=False):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
@@ -449,24 +538,13 @@ class SQLite(Database):
             return
         # Link card to its tags. The tags themselves have already been created
         # by default_main_controller calling get_or_create_tag_with_name.
+        # Unused tags will also be cleaned up there.
         self.con.execute("delete from tags_for_card where _card_id=?",
                          (card._id, ))
         for cat in card.tags:
             self.con.execute("""insert into tags_for_card(_tag_id,
                 _card_id) values(?,?)""", (cat._id, card._id))
         self.log().updated_card(card)
-
-    def delete_fact_and_related_data(self, fact):
-        for card in self.cards_from_fact(fact):
-            self.delete_card(card)
-        self.con.execute("delete from facts where _id=?", (fact._id, ))
-        self.con.execute("delete from data_for_fact where _fact_id=?",
-                         (fact._id, ))
-        self.log().deleted_fact(fact)
-        # Process media files.
-        fact.data = {}
-        self._process_media(fact)
-        del fact
         
     def delete_card(self, card):
         self.con.execute("delete from cards where _id=?", (card._id, ))
@@ -477,8 +555,46 @@ class SQLite(Database):
         self.log().deleted_card(card)
         del card
 
-    # Process media files in fact data.
+    #
+    # Card types.
+    #
+        
+    def add_card_type(self, card_type):
+        for fact_view in self.card_type.fact_views:
+            _fact_view_id = self.con.execute("""insert into fact_views(id,
+                name, q_fields, a_fields, required_fields, a_on_top_of_q)
+                values(?,?,?,?,?,?)""", (fact_view.id, fact_view.name,
+                repr(fact_view.q_fields), repr(fact_view.a_fields),
+                repr(fact_view.required_fields), fact_view.a_on_top_of_q))\
+                .lastrowid
+            self.con.execute("""insert into fact_views_for_card_type
+                (_fact_view_id, card_type_id) values(?,?)""",
+                (_fact_view_id, card_type.id))
+        self.con.execute("""insert into card_types(id, name, fields,
+            unique_fields, keyboard_shortcuts values (?,?,?,?,?)""",
+            (card_type.id, card_type.name, repr(card_type.fields),
+            repr(card_type.unique_fields), repr(card_type.keyboard_shortcuts)))       
+        self.log.added_card_type(card_type)
 
+    def get_card_type(self, id):
+
+        # get immediate parent from id
+        # construct derived class
+        # delete exisiting factviews
+        # when to register with component_manager?
+        
+        pass
+
+    def update_card_type(self, card_type):       
+        self.log.updated_card_type(card_type)
+
+    def delete_card_type(self, card_type):
+        self.log.deleted_card_type(card_type)
+
+    #
+    # Process media files in fact data.
+    #
+    
     def _process_media(self, fact):
         mediadir = self.config().mediadir()
         # Determine new media files for this fact. Copy them to the media dir
@@ -515,54 +631,9 @@ class SQLite(Database):
                 os.path.getmtime(os.path.join(mediadir, filename))))
             self.log().added_media(filename, fact)
 
-    # Retrieve tags, facts and cards using their internal id.
-
-    def get_tag(self, _id):
-        sql_res = self.con.execute("""select * from tags where _id=?""",
-                                   (_id, )).fetchone()
-        tag = Tag(sql_res["name"], sql_res["id"])
-        tag._id = sql_res["_id"]
-        return tag
-    
-    def get_fact(self, _id):        
-        sql_res = self.con.execute("select * from facts where _id=?",
-                                   (_id, )).fetchone()
-        # Create dictionary with fact.data.
-        data = dict([(cursor["key"], cursor["value"]) for cursor in
-            self.con.execute("select * from data_for_fact where _fact_id=?",
-            (_id, ))])
-        # Create fact.
-        fact = Fact(data, self.card_type_by_id(sql_res["card_type_id"]),
-            creation_time=sql_res["creation_time"], id=sql_res["id"])
-        fact._id = sql_res["_id"]
-        fact.modification_time = sql_res["modification_time"]
-        return fact
-
-    def get_card(self, _id):
-        sql_res = self.con.execute("select * from cards where _id=?",
-                                   (_id, )).fetchone()
-        fact = self.get_fact(sql_res["_fact_id"])
-        for view in fact.card_type.fact_views:
-            if view.id == sql_res["fact_view_id"]:
-                card = Card(fact, view)
-                break
-        for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
-            "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
-            "last_rep", "next_rep", "scheduler_data", "active", "in_view"):
-            setattr(card, attr, sql_res[attr])
-        if sql_res["extra_data"] == "":
-            card.extra_data = {}
-        else:
-            card.extra_data = eval(sql_res["extra_data"])
-        for cursor in self.con.execute("""select tags.* from tags,
-            tags_for_card where tags_for_card._tag_id=tags._id
-            and tags_for_card._card_id=?""", (sql_res["_id"],)):
-            tag = Tag(cursor["name"], cursor["id"])
-            tag._id = cursor["_id"]
-            card.tags.add(tag)              
-        return card
-
+    #
     # Activate cards.
+    #
     
     def set_cards_active(self, card_types_fact_views, tags):
         return self._turn_on_cards("active", card_types_fact_views,
@@ -598,8 +669,10 @@ class SQLite(Database):
         command = command.rsplit("and ", 1)[0] + ")"
         self.con.execute(command, args)
 
+    #
     # Queries.
-
+    #
+    
     def tag_names(self):
         return list(cursor[0] for cursor in \
             self.con.execute("select name from tags"))
@@ -686,7 +759,9 @@ class SQLite(Database):
         else:
             return 2.5
 
+    #
     # Card queries used by the scheduler.
+    #
     
     def _parse_sort_key(self, sort_key):
         if sort_key == "":
@@ -732,8 +807,10 @@ class SQLite(Database):
             active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
             (timestamp, sort_key, limit)))
 
+    #
     # Extra commands for custom schedulers.
-
+    #
+    
     def set_scheduler_data(self, scheduler_data):
         self.con.execute("update cards set scheduler_data=?",
             (scheduler_data, ))

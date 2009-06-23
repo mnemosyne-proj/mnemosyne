@@ -193,7 +193,7 @@ class DefaultMainController(UiControllerMain):
         if new_cards and self.ui_controller_review().learning_ahead == True:
             self.ui_controller_review().reset()
             
-        # Update categories.
+        # Update tags.
         old_tags = set()
         tags = set()
         for tag_name in new_tag_names:

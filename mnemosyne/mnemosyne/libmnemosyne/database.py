@@ -18,7 +18,7 @@ class Database(Component):
     def deactivate(self):
         self.unload()
 
-    # Creating, loading and saving the entire database.
+    # File operations.
 
     def new(self, path):
         raise NotImplementedError
@@ -38,11 +38,14 @@ class Database(Component):
     def is_loaded(self):
         raise NotImplementedError
 
-    # Adding, modifying and deleting categories, facts and cards.
+    # Tags.
 
     def add_tag(self, tag):
         raise NotImplementedError
 
+    def get_tag(self, _id):
+        raise NotImplementedError
+    
     def update_tag(self, tag):
         raise NotImplementedError
 
@@ -55,33 +58,46 @@ class Database(Component):
     def remove_tag_if_unused(self, tag):
         raise NotImplementedError
 
+    # Facts.
+    
     def add_fact(self, fact):
         raise NotImplementedError
-
+    
+    def get_fact(self, _id):
+        raise NotImplementedError
+    
     def update_fact(self, fact):
         raise NotImplementedError
 
+    def delete_fact_and_related_data(self, fact):
+        raise NotImplementedError
+    
+    # Cards.
+    
     def add_card(self, card):
         raise NotImplementedError
 
     def update_card(self, card, repetition_only=False):
         raise NotImplementedError
         
-    def delete_fact_and_related_data(self, fact):
+    def get_card(self, _id):
         raise NotImplementedError
 
     def delete_card(self, card):
         raise NotImplementedError
     
-    # Retrieving categories, facts, cards using their internal id.
+    # Card types.
     
-    def get_tag(self, _id):
-        raise NotImplementedError
-    
-    def get_fact(self, _id):
+    def add_card_type(self, card_type):
         raise NotImplementedError
 
-    def get_card(self, _id):
+    def update_card_type(self, card_type):
+        raise NotImplementedError
+        
+    def get_card_type(self, id):
+        raise NotImplementedError
+
+    def delete_card_type(self, card_type):
         raise NotImplementedError
     
     # Activate or put cards in view.

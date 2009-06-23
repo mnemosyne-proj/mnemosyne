@@ -17,20 +17,21 @@ class SqlLogger(Logger):
     STARTED_SCHEDULER = 3
     LOADED_DATABASE = 4
     SAVED_DATABASE = 5
-    ADDED_FACT = 6
-    UPDATED_FACT = 7
-    DELETED_FACT = 8
-    ADDED_TAG = 9
-    UPDATED_TAG = 10
-    DELETED_TAG = 11
+    ADDED_TAG = 6
+    UPDATED_TAG = 7
+    DELETED_TAG = 8
+    ADDED_FACT = 9
+    UPDATED_FACT = 10
+    DELETED_FACT = 11
     ADDED_CARD = 12
     UPDATED_CARD = 13
     DELETED_CARD = 14
-    REPETITION = 15
-    UPLOADED_LOG = 16
-    UPLOAD_FAILED = 17
-    ADDED_MEDIA = 18
-    DELETED_MEDIA = 19
+    ADDED_CARD_TYPE = 15
+    UPDATED_CARD_TYPE = 16
+    DELETED_CARD_TYPE = 17
+    REPETITION = 18
+    ADDED_MEDIA = 19
+    DELETED_MEDIA = 20
                             
     def started_program(self):
         self.database().con.execute(\
@@ -64,21 +65,6 @@ class SqlLogger(Logger):
             (self.SAVED_DATABASE, int(time.time()), sch.scheduled_count(),
             sch.non_memorised_count(), sch.active_count()))
         
-    def added_fact(self, fact):
-        self.database().con.execute(\
-            "insert into history(event, timestamp, object_id) values(?,?,?)",
-            (self.ADDED_FACT, int(time.time()), fact.id))
-        
-    def updated_fact(self, fact):
-        self.database().con.execute(\
-            "insert into history(event, timestamp, object_id) values(?,?,?)",
-            (self.UPDATED_FACT, int(time.time()), fact.id))
-        
-    def deleted_fact(self, fact):
-        self.database().con.execute(\
-            "insert into history(event, timestamp, object_id) values(?,?,?)",
-            (self.DELETED_FACT, int(time.time()), fact.id))
-        
     def added_tag(self, tag):
         self.database().con.execute(\
             "insert into history(event, timestamp, object_id) values(?,?,?)",
@@ -93,6 +79,21 @@ class SqlLogger(Logger):
         self.database().con.execute(\
             "insert into history(event, timestamp, object_id) values(?,?,?)",
             (self.DELETED_TAG, int(time.time()), tag.id))
+        
+    def added_fact(self, fact):
+        self.database().con.execute(\
+            "insert into history(event, timestamp, object_id) values(?,?,?)",
+            (self.ADDED_FACT, int(time.time()), fact.id))
+        
+    def updated_fact(self, fact):
+        self.database().con.execute(\
+            "insert into history(event, timestamp, object_id) values(?,?,?)",
+            (self.UPDATED_FACT, int(time.time()), fact.id))
+        
+    def deleted_fact(self, fact):
+        self.database().con.execute(\
+            "insert into history(event, timestamp, object_id) values(?,?,?)",
+            (self.DELETED_FACT, int(time.time()), fact.id))
         
     def added_card(self, card):
         self.database().con.execute(\
@@ -109,6 +110,21 @@ class SqlLogger(Logger):
             "insert into history(event, timestamp, object_id) values(?,?,?)",
             (self.DELETED_CARD, int(time.time()), card.id))
         
+    def added_card_type(self, card_type):
+        self.database().con.execute(\
+            "insert into history(event, timestamp, object_id) values(?,?,?)",
+            (self.ADDED_CARD_TYPE, int(time.time()), card_type.id))
+        
+    def updated_card_type(self, card_type):
+        self.database().con.execute(\
+            "insert into history(event, timestamp, object_id) values(?,?,?)",
+            (self.UPDATED_CARD_TYPE, int(time.time()), card_type.id))
+        
+    def deleted_card_type(self, card_type):
+        self.database().con.execute(\
+            "insert into history(event, timestamp, object_id) values(?,?,?)",
+            (self.DELETED_CARD_TYPE, int(time.time()), card_type.id))
+        
     def repetition(self, card, scheduled_interval, actual_interval, \
                    new_interval, noise=0):
         self.database().con.execute(\
@@ -122,16 +138,6 @@ class SqlLogger(Logger):
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             scheduled_interval, actual_interval, new_interval,
             int(self.stopwatch().time())))
-
-    def uploaded_log(self, filename):
-        self.database().con.execute(\
-            "insert into history(event, timestamp, object_id) values(?,?,?)",
-            (self.UPLOADED_LOG, int(time.time()), filename))
-        
-    def upload_failed(self):
-        self.database().con.execute(\
-            "insert into history(event, timestamp) values(?,?)",
-            (self.UPLOAD_FAILED, int(time.time())))
 
     def added_media(self, filename, fact):
         self.database().con.execute(\
@@ -194,11 +200,6 @@ class SqlLogger(Logger):
                           cursor["scheduled_interval"],
                           cursor["actual_interval"], cursor["new_interval"],
                           0, cursor["thinking_time"])
-            elif event == self.UPLOADED_LOG:
-                print >> logfile, "%s : Uploaded %s" %\
-                      (timestamp, cursor["object_id"])
-            elif event == self.UPLOAD_FAILED:
-                print >> logfile, "%s : Upload failed" % (timestamp, )
             elif event == self.STOPPED_PROGRAM:
                 print >> logfile, "%s : Program stopped" % (timestamp, )               
         # Update partnership index.

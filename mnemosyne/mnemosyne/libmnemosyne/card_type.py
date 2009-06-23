@@ -62,7 +62,8 @@ class CardType(Component):
     fields = None
     fact_views = None
     unique_fields = None
-        
+    keyboard_shortcuts = {}
+    
     def __eq__(self, other):
         return self.id == other.id
         

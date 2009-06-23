@@ -95,9 +95,8 @@ class LogUploader(Thread, Component):
                 filename = join(basedir, "history", f)
                 self.upload(filename)
                 print >> upload_log, f
-                self.log().uploaded_log(filename)
                 print _("done!")           
         except:
-            self.log().upload_failed()
+            print _("Upload failed")
             traceback.print_exc()
         upload_log.close()
