@@ -579,16 +579,20 @@ class SQLite(Database):
     def get_card_type(self, id):
 
         # get immediate parent from id
-        # construct derived class
+        # construct parent class, using mangled name and full id
         # delete exisiting factviews
         # when to register with component_manager?
         
         pass
 
-    def update_card_type(self, card_type):       
+    def update_card_type(self, card_type):
+        #self.delete_card_type(card_type)
+        # make sure to deleted orphan factviews
+        #self.new_card_type(card_type)
         self.log.updated_card_type(card_type)
 
     def delete_card_type(self, card_type):
+        # make sure to deleted orphan factviews
         self.log.deleted_card_type(card_type)
 
     #

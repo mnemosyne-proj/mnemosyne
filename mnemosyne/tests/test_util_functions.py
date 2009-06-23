@@ -42,7 +42,11 @@ class TestUtilFunctions:
         assert numeric_string_cmp(s1, s2) > 0
 
     def test_contract_windows(self):
-        print contract_path("C:\a\b", "C:\a")
-        print contract_path("C:\\a\\b", "C:\\a")
         assert contract_path("C:\\a\\b", "C:\\a") == "b"
         assert contract_path("C:\\a\\b", "c:\\a") == "b"
+
+    def test_mangle(self):
+        for name in [mangle("1aa"), mangle("a!@#$% ^&*(){}{a"),
+                     mangle(u"a\xac\u1234\u20ac\U00008000")]:
+            C = type(name)
+        

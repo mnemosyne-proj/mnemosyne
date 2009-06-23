@@ -4,6 +4,7 @@
 
 import os
 import re
+import cgi
 import sys
 import shutil
 import traceback
@@ -96,7 +97,7 @@ def numeric_string_cmp(s1, s2):
 
 def traceback_string():
     
-    """Like traceback.print_exc(), but returns a string."""
+    "Like traceback.print_exc(), but returns a string."
 
     type, value, tb = sys.exc_info()
     body = "\nTraceback (innermost last):\n"
@@ -105,4 +106,17 @@ def traceback_string():
     body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
     return body
 
+
+def mangle(string):
+
+    "Massage string such that it can be used as an identifier"
+
+    string = cgi.escape(string).encode("ascii", "xmlcharrefreplace")
+    if string[0].isdigit():
+        string = "_" + string
+    new_string = ""
+    for char in string:
+        if char.isalnum() or char == "_":
+            new_string += char    
+    return new_string
 

@@ -1,7 +1,6 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--reinstate mangling?
 -get card type
 -move clones to database
 -lazy checking for necessary plugins? Problem: thrown exceptions are then not caught

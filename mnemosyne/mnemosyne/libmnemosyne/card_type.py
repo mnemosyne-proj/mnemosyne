@@ -3,6 +3,7 @@
 #
 
 from mnemosyne.libmnemosyne.card import Card
+from mnemosyne.libmnemosyne.utils import mangle
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -119,10 +120,7 @@ class CardType(Component):
         clone_id = self.id + "_CLONED." + clone_name
         if clone_id in [card_type.id for card_type in self.card_types()]:
             raise NameError
-        # Create a safe version of the name to be used as class name.
-        # TODO: not fool proof yet, but captures the most obvious cases.   
-        clone_name_safe = clone_name.encode('utf8').replace(" ", "_")  
-        C = type(clone_name_safe, (self.__class__, ),
+        C = type(mangle(clone_name), (self.__class__, ),
                  {"name": clone_name,
                   "is_clone": True,
                   "id": clone_id})
