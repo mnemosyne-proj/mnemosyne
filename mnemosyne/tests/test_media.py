@@ -97,7 +97,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir)
         assert full_path not in card.fact.data["q"]
@@ -113,7 +113,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         assert os.path.join(self.config().mediadir(), "a.ogg") \
                not in card.question()
 
@@ -125,7 +125,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
 
         fact_data = {"q": "edited <img src=\"%s\">" % "a.ogg",
@@ -150,7 +150,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
 
         os.system("touch b.ogg")
         full_path = os.path.abspath("b.ogg")
@@ -177,7 +177,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "edited ",
                      "a": "answer"}
         self.ui_controller_main().update_related_cards(card.fact, fact_data,
@@ -200,11 +200,11 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2 <img src=\"%s\">" % "a.ogg",
                      "a": "answer"}
         self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "edited",
                      "a": "answer"}        
         self.ui_controller_main().update_related_cards(card.fact, fact_data,
@@ -227,7 +227,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         self.database().delete_fact_and_related_data(card.fact)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
         assert not os.path.exists(full_path_in_media_dir)
@@ -246,11 +246,11 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2 <img src=\"%s\">" % "a.ogg",
                      "a": "answer"}
         self.ui_controller_main().create_new_cards(fact_data, card_type,
-                                              grade=0, tag_names=["default"])[0]
+                                              grade=-1, tag_names=["default"])[0]
         self.database().delete_fact_and_related_data(card.fact)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Not deleted.

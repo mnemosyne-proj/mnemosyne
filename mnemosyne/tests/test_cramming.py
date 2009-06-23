@@ -43,10 +43,10 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=1, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         fact_data = {"q": "3", "a": "a"}
         card_3 = self.ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=["default"], warn=False)[0]
@@ -84,7 +84,7 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
 
         self.ui_controller_review().new_question()
         self.ui_controller_main().delete_current_fact()
@@ -95,7 +95,7 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
 
         self.ui_controller_review().new_question()
 
@@ -109,7 +109,7 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
 
         self.ui_controller_review().new_question()
         self.database().unload()

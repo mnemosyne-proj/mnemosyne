@@ -24,25 +24,19 @@ class Grades(PlotStatisticsPage):
         for id, name in tags:
             self.variants.append((id, name))
         
-    def prepare_statistics(self, variant):                
-        self.plot_type = "barchart"
-        self.title = _("Number of cards")
-        self.xlabel = _("Grades")
-        self.data = []
+    def prepare_statistics(self, variant):
+        self.x = range(-1, 6)
+        self.y = [] # Don't forget to reset this after variant change.
         if variant == self.ALL_CARDS:
-            for grade in range (-1,6):
-                self.data.append(self.database().con.execute(\
+            for grade in self.x:
+                self.y.append(self.database().con.execute(\
                     "select count() from cards where grade=? and active=1",
                      (grade, )).fetchone()[0])   
         else:
-            for grade in range (-1,6):
-                self.data.append(self.database().con.execute(\
+            for grade in self.x:
+                self.y.append(self.database().con.execute(\
                     """select count() from cards, tags_for_card where
                     tags_for_card._card_id=cards._id and cards.active=1
                     and tags_for_card._tag_id=? and grade=?""",
                     (variant, grade)).fetchone()[0])
-        self.xvalues = range(-1, 6)
-        self.xticks = self.xvalues
-        self.xticklabels = [_("Unseen")] + range(0, 6)
-        self.extra_hints["width"] = 0.5
-        self.show_text_value = True
+

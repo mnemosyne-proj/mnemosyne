@@ -42,24 +42,12 @@ class PlotStatisticsPage(StatisticsPage):
 
     """A statistics page where the data is represented on a graphical plot.
 
-    Most variables here have a relatively plotting toolkit independent meaning,
-    except for 'extra_hints', which currently is being used as the **kwargs
-    variable from matplotlib.
-
     """
         
     def __init__(self, component_manager):
         StatisticsPage.__init__(self, component_manager)
-        self.data = None
-        self.plot_type = "" # barchart, histogram, piechart, linechart
-        self.title = ""
-        self.xlabel = ""
-        self.ylabel = ""
-        self.xvalues = []
-        self.xticks = []
-        self.xticklabels = []
-        self.show_text_value = True # Show value above each bar in barchart.
-        self.extra_hints = {}
+        self.x = []
+        self.y = []
 
 
 class HtmlStatisticsPage(StatisticsPage):

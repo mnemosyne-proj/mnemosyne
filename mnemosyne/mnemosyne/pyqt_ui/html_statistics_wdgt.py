@@ -18,5 +18,5 @@ class HtmlStatisticsWdgt(QtWebKit.QWebView, StatisticsWidget):
         QtWebKit.QWebView.__init__(self, parent)
         self.page = page
 
-    def show_statistics(self):
+    def show_statistics(self, variant):
         self.setHtml(self.page.html)

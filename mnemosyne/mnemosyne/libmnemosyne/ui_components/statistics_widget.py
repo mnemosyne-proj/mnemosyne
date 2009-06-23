@@ -10,5 +10,5 @@ class StatisticsWidget(UiComponent):
     component_type = "statistics_widget"
     instantiate = UiComponent.LATER
     
-    def show_statistics(self):
+    def show_statistics(self, variant):
         pass

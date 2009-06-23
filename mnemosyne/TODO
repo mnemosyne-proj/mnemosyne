@@ -35,6 +35,10 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -way to override generic card type widget, by having two components: generic_card_type_widget
  card type widget
 
+34, in upload_failed
+    (self.UPLOAD_FAILED, int(time.time())))
+ProgrammingError: SQLite objects created in a thread can only be used in that same thread.The object was created in thread id 47749639836336 and this is thread id 47750008674640
+
 
 -more tests
 
@@ -211,7 +215,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -alt tabbing gives low res icon.
 
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
-
+-http://lists.trolltech.com/qt-interest/2008-05/thread00878-0.html
+-video
 -make all subwindows remember their size
 
 -modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?

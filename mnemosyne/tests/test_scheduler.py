@@ -12,10 +12,10 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=1, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         fact_data = {"q": "3", "a": "a"}
         card_3 = self.ui_controller_main().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=["default"], warn=False)[0]
@@ -69,10 +69,10 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         self.config()["grade_0_items_at_once"] = 0
         
         assert self.scheduler().get_next_card() is None
@@ -82,7 +82,7 @@ class TestScheduler(MnemosyneTest):
         for i in range(10):
             fact_data = {"q": str(i), "a": "a"}
             self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]    
+                     grade=-1, tag_names=["default"], warn=False)[0]    
         self.config()["grade_0_items_at_once"] = 3
         cards = set()
         for i in range(10):
@@ -116,7 +116,7 @@ class TestScheduler(MnemosyneTest):
             self.database().update_card(card)
         fact_data = {"q": "2", "a": "a"}
         new_card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         assert self.scheduler().get_next_card() == new_card
 
 
@@ -125,10 +125,10 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
 
         card = self.scheduler().get_next_card()
         self.scheduler().grade_answer(card, 0)
@@ -143,10 +143,10 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
 
         self.ui_controller_review().new_question()
         self.ui_controller_review().grade_answer(0)
@@ -180,7 +180,7 @@ class TestScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         fact_data = {"q": "1", "a": "a"}
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=0, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"], warn=False)[0]
         self.ui_controller_review().new_question()
         self.ui_controller_review().grade_answer(5)    
         self.ui_controller_review().learning_ahead = True

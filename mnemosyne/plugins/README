@@ -11,12 +11,10 @@ illustrating to plugin writers on how to achieve certain functionality.
  * after_repetition.py: illustration of function hooks, in this case
    running code after a repetition was performed.
 
- * plot_statistics.py: adding an extra page with plotted statistics
-
  * html_statistics.py: adding an extra page with html statistics
 
- * custom_statistics_page_widget.py: for when you need more flexibily than
-   either plots or html
+ * plot_statistics.py: adding an extra page with plotted statistics
+
 
 Note that if you write plugins which require extra modules, the Windows user
 should add those to library.zip.

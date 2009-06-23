@@ -25,9 +25,6 @@ class Easiness(PlotStatisticsPage):
             self.variants.append((id, name))
         
     def prepare_statistics(self, variant):                
-        self.plot_type = "histogram"
-        self.title = _("Number of cards")
-        self.xlabel = _("Easiness")
         if variant == self.ALL_CARDS:
             self.data = [cursor[0] for cursor in self.database().con.execute(\
             "select easiness from cards where active=1 and grade>=0")]
@@ -36,6 +33,3 @@ class Easiness(PlotStatisticsPage):
             """select cards.easiness from cards, tags_for_card where
             tags_for_card._card_id=cards._id and cards.active=1 and
             cards.grade>=0 and tags_for_card._tag_id=?""", (variant,))]
-        self.extra_hints['range'] = (1.3, 3.7)
-        self.extra_hints['bins'] = 24        
-
