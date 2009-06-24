@@ -6,9 +6,6 @@ from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
-from mnemosyne.libmnemosyne.statistics_page import HtmlStatisticsPage
-from mnemosyne.pyqt_ui.matplotlib_canvas import MatplotlibCanvas
 
 
 class StatisticsDlg(QtGui.QDialog, Component):

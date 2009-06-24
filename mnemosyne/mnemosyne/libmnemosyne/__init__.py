@@ -96,7 +96,8 @@ class Mnemosyne(Component):
         self.log().started_scheduler()
         self.log().loaded_database()
         # Finally, everything is in place to start the review process.
-        self.ui_controller_review().new_question()
+        if self.review_widget().instantiate == Component.IMMEDIATELY:
+            self.ui_controller_review().new_question()
 
     def register_components(self):
 
