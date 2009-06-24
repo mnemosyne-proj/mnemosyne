@@ -9,13 +9,14 @@ import shutil
 import sqlite3
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.database import Database
-from mnemosyne.libmnemosyne.tag import Tag
+from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.utils import traceback_string
-from mnemosyne.libmnemosyne.utils import copy_file_to_dir
+from mnemosyne.libmnemosyne.utils import mangle, copy_file_to_dir
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
@@ -264,49 +265,26 @@ class SQLite(Database):
             key=?""", (str(times_loaded), "times_loaded"))
 
         # Instantiate card types stored in this database.
+        for cursor in self.con.execute("select id from card_types"):
+            id = cursor[0]
+            card_type = self.get_card_type(id)
+            self.component_manager.register(card_type)
 
-        # Identify missing plugins for card types and their parents
-        
-        #plugin_needed = set()
-        #active_id = set(card_type.id for card_type in self.card_types())
-        #for cursor in self.con.execute("""select distinct card_type_id
-        #    from facts"""):
-        #    card_type_id = cursor[0]
-        #    plugin_needed.union(set([id for id in card_type_id.split(".") \
-        #        if id not in active_ids]))          
-        #for card_type_id in plugin_needed:
-        #    self._find_plugin_for_card_type(card_type_id)        
-
-        # Deal with clones and plugins, also plugins for parent classes.
+        # Identify missing plugins for card types and their parents.       
         plugin_needed = set()
-        clone_needed = []
-        active_id = set(card_type.id for card_type in self.card_types())
+        active_ids = set(card_type.id for card_type in self.card_types())
         for cursor in self.con.execute("""select distinct card_type_id
             from facts"""):
             id = cursor[0]
             while "." in id: # Move up one level of the hierarchy.
-                id, child_name = id.rsplit(".", 1)          
-                if id.endswith("_CLONED"):
-                    id = id.replace("_CLONED", "")
-                    clone_needed.append((id, child_name))
-                if id not in active_id:
+                id, child_name = id.rsplit(".", 1)
+                if id not in active_ids:
                     plugin_needed.add(id)
-            if id not in active_id:
+            if id not in active_ids:
                 plugin_needed.add(id)
-
-        # Activate necessary plugins.
         for card_type_id in plugin_needed:
-            self._find_plugin_for_card_type(card_type_id)
-            
-        # Create necessary clones.
-        for parent_type_id, clone_name in clone_needed:
-            parent_instance = self.card_type_by_id(parent_type_id)
-            try:
-                parent_instance.clone(clone_name)
-            except NameError:
-                # In this case the clone was already created by loading the
-                # database earlier.
-                pass        
+            self._find_plugin_for_card_type(card_type_id)        
+       
         self.config()["path"] = contract_path(path, self.config().basedir)
         for f in self.component_manager.get_all("hook", "after_load"):
             f.run()
@@ -385,10 +363,10 @@ class SQLite(Database):
         self.log().added_tag(tag)
 
     def get_tag(self, _id):
-        sql_res = self.con.execute("""select * from tags where _id=?""",
+        sql_res = self.con.execute("select * from tags where _id=?",
                                    (_id, )).fetchone()
         tag = Tag(sql_res["name"], sql_res["id"])
-        tag._id = sql_res["_id"]
+        tag._id = _id
         return tag
     
     def delete_tag(self, tag):
@@ -435,7 +413,9 @@ class SQLite(Database):
         data = dict([(cursor["key"], cursor["value"]) for cursor in
             self.con.execute("select * from data_for_fact where _fact_id=?",
             (_id, ))])
-        # Create fact.
+        # Create fact. Note that for the card type, we turn to the component
+        # manager as opposed to this database, as we would otherwise miss the
+        # built-in system card types.
         fact = Fact(data, self.card_type_by_id(sql_res["card_type_id"]),
             creation_time=sql_res["creation_time"], id=sql_res["id"])
         fact._id = sql_res["_id"]
@@ -514,12 +494,9 @@ class SQLite(Database):
             card.extra_data = {}
         else:
             card.extra_data = eval(sql_res["extra_data"])
-        for cursor in self.con.execute("""select tags.* from tags,
-            tags_for_card where tags_for_card._tag_id=tags._id
-            and tags_for_card._card_id=?""", (sql_res["_id"],)):
-            tag = Tag(cursor["name"], cursor["id"])
-            tag._id = cursor["_id"]
-            card.tags.add(tag)              
+        for cursor in self.con.execute("""select _tag_id from tags_for_card
+            where _card_id=?""", (_id, )):
+            card.tags.add(self.get_tag(cursor["_tag_id"]))
         return card
     
     def update_card(self, card, repetition_only=False):
@@ -556,44 +533,75 @@ class SQLite(Database):
         del card
 
     #
+    # Fact views.
+    #
+
+    def _add_fact_view(self, fact_view):
+        return self.con.execute("""insert into fact_views(id, name, q_fields,
+            a_fields, required_fields, a_on_top_of_q) values(?,?,?,?,?,?)""",
+            (fact_view.id, fact_view.name, repr(fact_view.q_fields),
+            repr(fact_view.a_fields), repr(fact_view.required_fields),
+            fact_view.a_on_top_of_q)).lastrowid
+
+    def _get_fact_view(self, _id):
+        sql_res = self.con.execute("select * from fact_views where _id=?",
+                                   (_id, )).fetchone()
+        fact_view = FactView(sql_res["id"], sql_res["name"])
+        fact_view.a_on_top_of_q = sql_res["a_on_top_of_q"]
+        for attr in ("q_fields", "a_fields", "required_fields"):
+            setattr(fact_view, attr, eval(sql_res[attr]))
+        return fact_view
+    
+    #
     # Card types.
     #
         
     def add_card_type(self, card_type):
-        for fact_view in self.card_type.fact_views:
-            _fact_view_id = self.con.execute("""insert into fact_views(id,
-                name, q_fields, a_fields, required_fields, a_on_top_of_q)
-                values(?,?,?,?,?,?)""", (fact_view.id, fact_view.name,
-                repr(fact_view.q_fields), repr(fact_view.a_fields),
-                repr(fact_view.required_fields), fact_view.a_on_top_of_q))\
-                .lastrowid
+        for fact_view in card_type.fact_views:
+            _fact_view_id = self._add_fact_view(fact_view)
             self.con.execute("""insert into fact_views_for_card_type
                 (_fact_view_id, card_type_id) values(?,?)""",
                 (_fact_view_id, card_type.id))
         self.con.execute("""insert into card_types(id, name, fields,
-            unique_fields, keyboard_shortcuts values (?,?,?,?,?)""",
+            unique_fields, keyboard_shortcuts) values (?,?,?,?,?)""",
             (card_type.id, card_type.name, repr(card_type.fields),
             repr(card_type.unique_fields), repr(card_type.keyboard_shortcuts)))       
-        self.log.added_card_type(card_type)
+        self.log().added_card_type(card_type)
 
-    def get_card_type(self, id):
-
-        # get immediate parent from id
-        # construct parent class, using mangled name and full id
-        # delete exisiting factviews
-        # when to register with component_manager?
+    def get_card_type(self, id): 
+        if id in self.component_manager.card_type_by_id:
+            return self.component_manager.card_type_by_id[id]
+        parent_id, child_id = "", id
+        if "." in id:
+            parent_id, child_id = id.rsplit(".", 1)
+        if "." in parent_id:
+            grand_parent_id, parent_id = parent_id.rsplit(".", 1)
+        if parent_id:
+            parent = self.get_card_type(parent_id)
+        else:
+            parent = CardType(self.component_manager)
+        sql_res = self.con.execute("select * from card_types where id=?",
+                                   (id, )).fetchone()
+        card_type = type(mangle(id), (parent.__class__, ),
+            {"name": sql_res["name"], "id": id})(self.component_manager)
+        for attr in ("fields", "unique_fields", "keyboard_shortcuts"):
+            setattr(card_type, attr, eval(sql_res[attr]))   
+        card_type.fact_views = []
+        for cursor in self.con.execute("""select _fact_view_id from
+            fact_views_for_card_type where card_type_id=?""", (id, )):
+            card_type.fact_views.append(self._get_fact_view(\
+                cursor["_fact_view_id"]))
+        return card_type
         
-        pass
-
     def update_card_type(self, card_type):
         #self.delete_card_type(card_type)
         # make sure to deleted orphan factviews
         #self.new_card_type(card_type)
-        self.log.updated_card_type(card_type)
+        self.log().updated_card_type(card_type)
 
     def delete_card_type(self, card_type):
         # make sure to deleted orphan factviews
-        self.log.deleted_card_type(card_type)
+        self.log().deleted_card_type(card_type)
 
     #
     # Process media files in fact data.

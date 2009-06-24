@@ -412,7 +412,7 @@ class TestConvertCards(MnemosyneTest):
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
         card_type.clone("my_3")
-        card_type = self.card_type_by_id("3_CLONED.my_3")
+        card_type = self.card_type_by_id("3.my_3")
         
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -466,7 +466,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"f": "q", "t": "a"}      
         new_card_type = self.card_type_by_id("1")
         new_card_type.clone("my_1")
-        new_card_type = self.card_type_by_id("1_CLONED.my_1")
+        new_card_type = self.card_type_by_id("1.my_1")
       
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
@@ -476,7 +476,7 @@ class TestConvertCards(MnemosyneTest):
         assert self.database().card_count() == 1
         
         new_card = self.database().cards_from_fact(fact)[0]
-        assert new_card.fact.card_type.id == "1_CLONED.my_1"
+        assert new_card.fact.card_type.id == "1.my_1"
         assert new_card.fact.data["q"] == "question"
         assert new_card.fact.data["a"] == "answer"
         
@@ -496,7 +496,7 @@ class TestConvertCards(MnemosyneTest):
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
         card_type.clone("my_3")
-        card_type = self.card_type_by_id("3_CLONED.my_3")
+        card_type = self.card_type_by_id("3.my_3")
         
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -512,7 +512,7 @@ class TestConvertCards(MnemosyneTest):
         correspondence = {"f": "q", "t": "a"}      
         new_card_type = self.card_type_by_id("1")
         new_card_type.clone("my_1")
-        new_card_type = self.card_type_by_id("1_CLONED.my_1")
+        new_card_type = self.card_type_by_id("1.my_1")
       
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
@@ -522,7 +522,7 @@ class TestConvertCards(MnemosyneTest):
         assert self.database().card_count() == 1
         
         new_card = self.database().cards_from_fact(fact)[0]
-        assert new_card.fact.card_type.id == "1_CLONED.my_1"
+        assert new_card.fact.card_type.id == "1.my_1"
         
         if old_card_1.fact_view.id == "1":
             assert new_card == old_card_1

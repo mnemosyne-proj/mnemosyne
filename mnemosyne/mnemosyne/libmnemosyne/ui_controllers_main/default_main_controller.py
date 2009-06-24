@@ -144,7 +144,7 @@ class DefaultMainController(UiControllerMain):
                 else:
                     db.delete_fact_and_related_data(fact)
                     self.create_new_cards(new_fact_data, new_card_type,
-                                          grade=-1, cat_names=new_cat_names)
+                                          grade=-1, tag_names=new_tag_names)
                     return 0
             else:
                 # Make sure the converter operates on card objects which

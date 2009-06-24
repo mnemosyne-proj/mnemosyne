@@ -42,7 +42,7 @@ class Cloze(CardType):
     unique_fields = ["text"]
     fact_views = [FactView("1", _("Cloze"))]
 
-    def validate_data(self, fact_data):
+    def is_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
         
     def question(self, card):

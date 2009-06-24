@@ -4,7 +4,7 @@
 
 from mnemosyne.libmnemosyne.utils import *
 
-class TestUtilFunctions:
+class TestUtilFunctions(object):
 
     def test_numeric_string_cmp_1(self):
         s1 = "abc123"
@@ -48,5 +48,7 @@ class TestUtilFunctions:
     def test_mangle(self):
         for name in [mangle("1aa"), mangle("a!@#$% ^&*(){}{a"),
                      mangle(u"a\xac\u1234\u20ac\U00008000")]:
-            C = type(name)
+            C = type(name, (self.__class__, ),
+                 {"name": 1})
+            
         

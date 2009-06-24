@@ -113,6 +113,12 @@ views with card specific data.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.is_data_valid">
+<!--[mnemosyne.libmnemosyne.card_type.CardType.is_data_valid]--><tt class="descname">is_data_valid</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.is_data_valid" title="Permalink to this definition">¶</a></dt>
+<dd>If a card type needs to validate its data apart from asking that
+all the required fields are there, this can be done here.</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.key_names">
 <!--[mnemosyne.libmnemosyne.card_type.CardType.key_names]--><tt class="descname">key_names</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.key_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -144,12 +150,6 @@ views with card specific data.</p>
 deleted card data apart from the updated fact data from which they
 derive, these should be returned here, so that they can be taken into
 account in the database storage.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.validate_data">
-<!--[mnemosyne.libmnemosyne.card_type.CardType.validate_data]--><tt class="descname">validate_data</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.validate_data" title="Permalink to this definition">¶</a></dt>
-<dd>If a card type needs to validate its data apart from asking that
-all the required fields are there, this can be done here.</dd></dl>
 
 </dd></dl>
 
@@ -199,7 +199,7 @@ all the required fields are there, this can be done here.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 22, 2009.
+      Last updated on Jun 24, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

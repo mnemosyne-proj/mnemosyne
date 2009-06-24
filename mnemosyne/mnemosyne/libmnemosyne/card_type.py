@@ -3,7 +3,6 @@
 #
 
 from mnemosyne.libmnemosyne.card import Card
-from mnemosyne.libmnemosyne.utils import mangle
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -16,11 +15,8 @@ class CardType(Component):
     for different translations.
 
     Inherited card types should have ids where dots separate the different
-    levels of the hierarchy, e.g. parent_id.child_id. For card types which
-    don't have code of their own, but are only a clone of an existing card
-    type, the parent id should be followed by _CLONED, e.g.
-    3_CLONED.Japanese
-
+    levels of the hierarchy, e.g. parent_id.child_id.
+    
     The keys from the fact are also given more verbose names here.
     This is not done in fact.py, on one hand to save space in the database,
     and on the other hand to allow the possibility that different card types
@@ -56,7 +52,6 @@ class CardType(Component):
 
     id = "-1"
     name = ""
-    is_clone = False
     component_type = "card_type"
     renderer = None
 
@@ -89,7 +84,7 @@ class CardType(Component):
                 s.add(k)
         return s
 
-    def validate_data(self, fact_data):
+    def is_data_valid(self, fact_data):
 
         """If a card type needs to validate its data apart from asking that
         all the required fields are there, this can be done here.
@@ -117,15 +112,17 @@ class CardType(Component):
             return self.renderer
 
     def clone(self, clone_name):
-        clone_id = self.id + "_CLONED." + clone_name
+        from mnemosyne.libmnemosyne.utils import mangle
+        
+        clone_id = self.id + "." + clone_name
         if clone_id in [card_type.id for card_type in self.card_types()]:
             raise NameError
-        C = type(mangle(clone_name), (self.__class__, ),
-                 {"name": clone_name,
-                  "is_clone": True,
-                  "id": clone_id})
-        
-        self.component_manager.register(C(self.component_manager))
+        card_type_class = type(mangle(clone_name), (self.__class__, ),
+            {"name": clone_name, "id": clone_id})
+        card_type = card_type_class(self.component_manager)
+        self.database().add_card_type(card_type)
+        self.component_manager.register(card_type)
+        return card_type
 
     # The following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be

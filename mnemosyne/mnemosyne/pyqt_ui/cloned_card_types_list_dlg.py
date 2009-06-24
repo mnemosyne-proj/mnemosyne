@@ -9,6 +9,7 @@ from clone_card_type_dlg import CloneCardTypeDlg
 
 from ui_cloned_card_types_list_dlg import Ui_ClonedCardTypesListDlg
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.card_type import CardType
 
 
 class ClonedCardTypesListDlg(QDialog, Ui_ClonedCardTypesListDlg, Component):
@@ -22,7 +23,7 @@ class ClonedCardTypesListDlg(QDialog, Ui_ClonedCardTypesListDlg, Component):
     def update(self):
         self.cloned_card_types.clear()
         for card_type in self.card_types():
-            if card_type.is_clone:
+            if card_type.__class__.__bases__[0] != CardType:
                 name = "%s (%s)" % (card_type.name,
                                     card_type.__class__.__bases__[0].name)
                 self.cloned_card_types.addItem(QListWidgetItem(name))

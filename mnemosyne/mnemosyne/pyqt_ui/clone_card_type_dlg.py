@@ -27,8 +27,7 @@ class CloneCardTypeDlg(QDialog, Ui_CloneCardTypeDlg, Component):
 
     def accept(self):
         parent_instance = self.card_types()[self.parent_type.currentIndex()]
-        clone_name = unicode(self.name.text())
-        
+        clone_name = unicode(self.name.text())       
         try:
             parent_instance.clone(clone_name)
         except NameError:

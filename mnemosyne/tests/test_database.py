@@ -115,7 +115,7 @@ class TestDatabase(MnemosyneTest):
         fact = card.fact
         fact.card_type.clone("my_1")
         
-        new_card_type = self.card_type_by_id("1_CLONED.my_1")
+        new_card_type = self.card_type_by_id("1.my_1")
         self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
         
@@ -126,8 +126,8 @@ class TestDatabase(MnemosyneTest):
         assert self.database().fact_count() == 1
         _card_id, _fact_id = list(self.database().cards_unseen(0))[0]
         fact = self.database().get_fact(_fact_id)
-        card_type = self.card_type_by_id("1_CLONED.my_1")        
-        assert fact.card_type.id == "1_CLONED.my_1"
+        card_type = self.card_type_by_id("1.my_1")        
+        assert fact.card_type.id == "1.my_1"
         assert fact.card_type == card_type
 
     def test_plugin_and_clones(self):
@@ -148,7 +148,7 @@ class TestDatabase(MnemosyneTest):
         fact = card.fact
         fact.card_type.clone("my_4")
         
-        new_card_type = self.card_type_by_id("4_CLONED.my_4")
+        new_card_type = self.card_type_by_id("4.my_4")
         self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
         assert self.database().fact_count() == 1        
@@ -162,8 +162,8 @@ class TestDatabase(MnemosyneTest):
         _card_id, _fact_id = list(self.database().cards_unseen(0))[0]
         fact = self.database().get_fact(_fact_id)
         card_type = self.card_type_by_id("4")           
-        card_type = self.card_type_by_id("4_CLONED.my_4")        
-        assert fact.card_type.id == "4_CLONED.my_4"
+        card_type = self.card_type_by_id("4.my_4")        
+        assert fact.card_type.id == "4.my_4"
         assert fact.card_type == card_type
         
         card = self.database().cards_from_fact(fact)[0]
@@ -212,7 +212,7 @@ class TestDatabase(MnemosyneTest):
         fact = card.fact
         fact.card_type.clone("my_4")
         
-        new_card_type = self.card_type_by_id("4_CLONED.my_4")
+        new_card_type = self.card_type_by_id("4.my_4")
         self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
         
@@ -250,7 +250,7 @@ class TestDatabase(MnemosyneTest):
         fact = card.fact
         fact.card_type.clone("my_4")
         
-        new_card_type = self.card_type_by_id("4_CLONED.my_4")
+        new_card_type = self.card_type_by_id("4.my_4")
         self.ui_controller_main().update_related_cards(fact, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
         

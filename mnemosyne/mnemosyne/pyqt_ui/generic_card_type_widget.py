@@ -92,5 +92,5 @@ class GenericCardTypeWdgt(QWidget, CardTypeWidget):
             data = self.get_data()
         except ValueError:
             complete = False
-        complete = self.card_type.validate_data(data)
+        complete = self.card_type.is_data_valid(data)
         self.parent().is_complete(complete)
