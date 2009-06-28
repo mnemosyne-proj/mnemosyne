@@ -113,7 +113,7 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
         fact = card.fact
-        fact.card_type.clone("my_1")
+        self.ui_controller_main().clone_card_type(fact.card_type, "my_1")
         
         new_card_type = self.card_type_by_id("1.my_1")
         self.ui_controller_main().update_related_cards(fact, fact_data,
@@ -146,7 +146,7 @@ class TestDatabase(MnemosyneTest):
         
         self.ui_controller_main().file_save()
         fact = card.fact
-        fact.card_type.clone("my_4")
+        self.ui_controller_main().clone_card_type(fact.card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4.my_4")
         self.ui_controller_main().update_related_cards(fact, fact_data,
@@ -210,7 +210,7 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
         fact = card.fact
-        fact.card_type.clone("my_4")
+        self.ui_controller_main().clone_card_type(fact.card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4.my_4")
         self.ui_controller_main().update_related_cards(fact, fact_data,
@@ -248,7 +248,7 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
         self.ui_controller_main().file_save()
         fact = card.fact
-        fact.card_type.clone("my_4")
+        self.ui_controller_main().clone_card_type(fact.card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4.my_4")
         self.ui_controller_main().update_related_cards(fact, fact_data,

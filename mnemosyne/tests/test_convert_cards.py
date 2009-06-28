@@ -411,7 +411,7 @@ class TestConvertCards(MnemosyneTest):
                      "p": "pronunciation",
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
-        card_type.clone("my_3")
+        self.ui_controller_main().clone_card_type(card_type, "my_3")
         card_type = self.card_type_by_id("3.my_3")
         
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
@@ -465,7 +465,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}      
         new_card_type = self.card_type_by_id("1")
-        new_card_type.clone("my_1")
+        self.ui_controller_main().clone_card_type(new_card_type, "my_1")
         new_card_type = self.card_type_by_id("1.my_1")
       
         self.ui_controller_main().update_related_cards(fact, new_fact_data,
@@ -495,7 +495,7 @@ class TestConvertCards(MnemosyneTest):
                      "p": "pronunciation",
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
-        card_type.clone("my_3")
+        self.ui_controller_main().clone_card_type(card_type, "my_3")
         card_type = self.card_type_by_id("3.my_3")
         
         card = self.ui_controller_main().create_new_cards(fact_data, card_type,
@@ -511,7 +511,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}      
         new_card_type = self.card_type_by_id("1")
-        new_card_type.clone("my_1")
+        self.ui_controller_main().clone_card_type(new_card_type, "my_1")
         new_card_type = self.card_type_by_id("1.my_1")
       
         self.ui_controller_main().update_related_cards(fact, new_fact_data,

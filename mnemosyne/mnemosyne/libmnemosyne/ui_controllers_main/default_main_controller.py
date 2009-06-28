@@ -244,6 +244,21 @@ class DefaultMainController(UiControllerMain):
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
+    def clone_card_type(self, card_type, clone_name):
+        from mnemosyne.libmnemosyne.utils import mangle
+        
+        clone_id = card_type.id + "." + clone_name
+        if clone_id in [card_t.id for card_t in self.card_types()]:
+            self.main_widget.error_box(_("Card type name already exists."))
+            return None
+        card_type_class = type(mangle(clone_name), (card_type.__class__, ),
+            {"name": clone_name, "id": clone_id})
+        cloned_card_type = card_type_class(self.component_manager)
+        self.database().add_card_type(cloned_card_type)
+        self.component_manager.register(cloned_card_type)
+        self.database().save()
+        return cloned_card_type
+    
     def file_new(self):
         self.stopwatch().pause()
         db = self.database()

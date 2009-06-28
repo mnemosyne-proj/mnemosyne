@@ -1,9 +1,6 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--try to clone a clone
--move clone to to controller
-
 -don't memorise related cards on same day
 
 -WM test and benchmark
@@ -182,6 +179,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 
 -time WM: history in same DB?
+
+-check for related cards on same day could fail if minute level scheduler is used in the meantime
 
 
 -ampersand mnemonics everywhere

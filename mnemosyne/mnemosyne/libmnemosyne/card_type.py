@@ -59,6 +59,7 @@ class CardType(Component):
     fact_views = None
     unique_fields = None
     keyboard_shortcuts = {}
+    extra_data = {}
     
     def __eq__(self, other):
         return self.id == other.id
@@ -110,19 +111,6 @@ class CardType(Component):
             if not self.renderer:
                  self.renderer = self.component_manager.get_current("renderer")
             return self.renderer
-
-    def clone(self, clone_name):
-        from mnemosyne.libmnemosyne.utils import mangle
-        
-        clone_id = self.id + "." + clone_name
-        if clone_id in [card_type.id for card_type in self.card_types()]:
-            raise NameError
-        card_type_class = type(mangle(clone_name), (self.__class__, ),
-            {"name": clone_name, "id": clone_id})
-        card_type = card_type_class(self.component_manager)
-        self.database().add_card_type(card_type)
-        self.component_manager.register(card_type)
-        return card_type
 
     # The following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be

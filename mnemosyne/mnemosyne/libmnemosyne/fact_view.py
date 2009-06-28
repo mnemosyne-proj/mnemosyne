@@ -18,6 +18,8 @@ class FactView(object):
         self.a_fields = []
         self.required_fields = []
         self.a_on_top_of_q = False
+        self.type_answer = False
+        self.extra_data = {}
 
     def __eq__(self, other):
         return self.id == other.id   
