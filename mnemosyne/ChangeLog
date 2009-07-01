@@ -1,14 +1,4 @@
--the revision history is now stored inside an SQL database too. This is a prerequisite for when implementing the sync algorithm, and will also allow to display more sophisticated statistics.
--when importing a sound or an image, a copy is made to the .mnemosyne directory. This saves some confusing explaining to new users about the difference between relative and absolute paths.
--card types can now be stored in the database too
-(The three feature above mean that all the prerequisites are there in order for Max to implement a full syncing algorithm.
--merged Mike's graphical statistics code.
--extended the plugin architecture to encompass the statistics
--removed some old warts/hacks inherited from the 1.x codebase: card.unseen and StartDate
--added option "learn new related cards in same session"
--warn if the user memorises over 15 new cards in a session.
--various architectural improvements and bug fixes
-	
+
 MNEMOSYNE 2.0
 
 (Note that for Windows users we recommend uninstalling the previous
@@ -43,8 +33,13 @@ easily, which allows plugin writers maximum flexibility.
 -Move to SQL as the storage backend, resulting in improved speed and memory
  usage, as well as better scalability for large decks. Majority of work done
  by Ed Bartosh.
+-when importing a sound or an image, a copy is made to the .mnemosyne directory. 
+ This saves some confusing explaining to new users about the difference between 
+ relative and absolute paths.
 -Mnemosyne now saves after each reviewed card.
 -Avoid showing the same card twice in a row.
+-added option "learn new related cards in same session"
+-warn if the user memorises over 15 new cards in a session.
 -The learing history is now stored in an SQL database, allowing to calculate
  more statistics
 -Graphical statistics (Mike Appleby)
