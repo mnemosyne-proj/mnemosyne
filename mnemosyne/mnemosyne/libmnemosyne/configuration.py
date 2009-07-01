@@ -91,6 +91,7 @@ class Configuration(Component, dict):
              "grade_0_items_at_once": 5,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
+             "learn_new_related_cards_in_same_session": True, 
              "card_type_name_of_last_added": "",
              "tags_of_last_added": _("<default>"),
              "sort_column": None,

@@ -1,7 +1,12 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--don't memorise related cards on same day
+-don't memorise related cards on same day: add tests,
+-explain difference between facts and new_facts_learned. Also, Rename? _card_ids_in_queue, _fact_ids_in_queue,
+ _new_fact_ids_learned
+-or merge them, only reseting them depending on switch? No, does not allow to relax the requirement
+-Problem: scheduler does not reset when leaving the program open and there is still
+ a card to review. So, add heartbeat
 
 -WM test and benchmark
 
@@ -25,8 +30,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -move pyqt ui variables out of main config
 
--focus hooks
-
 -is complete check on changing card type does not fire
 
 -create UI components for other widgets
@@ -42,6 +45,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 
 -move option to always randomise queue to config screen
+-ditto for learn new related cards in same session
 
 -hook up config screen
 
@@ -62,7 +66,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 
 
-
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
  Make the mechanism customisible with hooks, and document this in 
@@ -71,7 +74,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -cntrl enter in add and edit instead of clicking ok
 
--try graphical glitches with latest matplotlib version?
+-see if graphical glitch is fixed with latest matplotlib version
 
 
 -make distrib
@@ -181,6 +184,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -time WM: history in same DB?
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
+ (update comment in scheduler too)
 
 
 -ampersand mnemonics everywhere
@@ -288,6 +292,8 @@ http://pythoscope.org/
 -plugin for midi files
 
 -chinese pod plugin
+
+-"reschedule" cheating plugin
 
 
 Multiuser statistics analysis:

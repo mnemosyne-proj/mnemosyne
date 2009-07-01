@@ -67,11 +67,12 @@ class SM2Mnemosyne(Scheduler):
             interval += time.altzone
         else:
             interval += time.timezone
-        return int(interval)       
-    
+        return int(interval)
+        
     def reset(self):
-        self.queue = []
-        self.facts = []
+        self.queue = [] # Queue with card _ids.
+        self.facts = [] # Fact _ids for cards in queue.
+        self.new_facts_learned = [] # New facts learned in this session.
         self.last_card = None # To avoid showing the same card twice in a row.
         self.stage = 1 # Allow skipping unnecessary queries.
                 
@@ -214,15 +215,32 @@ class SM2Mnemosyne(Scheduler):
                 sort_key = "random"
             else:
                 sort_key = ""
+            related_together = self.config()[\
+                "learn_new_related_cards_in_same_session"]
             for _card_id, _fact_id in db.cards_unseen(sort_key=sort_key,
                                                       limit=min(limit, 50)):
-                if _fact_id not in self.facts:
+                if (    related_together and _fact_id not in self.facts) or \
+                   (not related_together and _fact_id not in self.facts \
+                          and _fact_id not in self.new_facts_learned):
                     self.queue.append(_card_id)
                     self.facts.append(_fact_id)
                     grade_0_in_queue += 1
                     if limit and grade_0_in_queue == limit:
                         self.stage = 2
                         return
+            # If the queue is empty, relax the 'related not together'
+            # requirement.
+            if not related_together and len(self.queue) == 0:
+                for _card_id, _fact_id in db.cards_unseen(sort_key=sort_key,
+                                                          limit=min(limit, 50)):
+                    if _fact_id not in self.facts:
+                        self.queue.append(_card_id)
+                        self.facts.append(_fact_id)
+                        grade_0_in_queue += 1
+                        if limit and grade_0_in_queue == limit:
+                            self.stage = 2
+                            return
+            # If the queue is still empty, go to learn ahead of schedule.
             if len(self.queue) == 0:
                 self.stage = 5
             
@@ -295,22 +313,16 @@ class SM2Mnemosyne(Scheduler):
             import copy
             card = copy.copy(card)
         scheduled_interval = self.true_scheduled_interval(card)
-        if card.last_rep == -1: # Unseen card.
+        if card.grade == -1: # Unseen card.
             actual_interval = 0
         else:
             actual_interval = int(self.stopwatch().start_time) - card.last_rep
-        if card.acq_reps == 0 and card.ret_reps == 0:
-            # The card has not yet been given its initial grade, because it
-            # was imported or created during card type conversion.
+        if card.grade == -1:
+            # The card has not yet been given its initial grade.
             card.easiness = self.database().average_easiness()
             card.acq_reps = 1
             card.acq_reps_since_lapse = 1
-            new_interval = self.calculate_initial_interval(new_grade)
-            # Make sure the second copy of a grade 0 card doesn't show
-            # up again.
-            if not dry_run and card.grade == 0 and new_grade in [2, 3, 4, 5]:
-                if card._id in self.queue:
-                    self.queue.remove(card._id)    
+            new_interval = self.calculate_initial_interval(new_grade)   
         elif card.grade in [0, 1] and new_grade in [0, 1]:
             # In the acquisition phase and staying there.
             card.acq_reps += 1
@@ -326,6 +338,11 @@ class SM2Mnemosyne(Scheduler):
              if not dry_run and card.grade == 0:
                 if card._id in self.queue:
                     self.queue.remove(card._id)
+             # If this is a card we memorised for the first time, keep track
+             # of its fact, so that we can avoid showing a related card in the
+             # same session.
+             if not dry_run and card.ret_reps == 0:
+                 self.new_facts_learned.append(card.fact._id)   
         elif card.grade in [2, 3, 4, 5] and new_grade in [0, 1]:
              # In the retention phase and dropping back to the
              # acquisition phase.
@@ -370,7 +387,6 @@ class SM2Mnemosyne(Scheduler):
         # When doing a dry run, stop here and return the scheduled interval.
         if dry_run:
             return new_interval
-
         # Add some randomness to interval.
         new_interval += self.calculate_interval_noise(new_interval)
         # Update card properties.
@@ -390,6 +406,11 @@ class SM2Mnemosyne(Scheduler):
         else:
             card.next_rep = int(time.time())
             new_interval = 0
+        # Warn if we learned a lot of new cards.
+        if len(self.new_facts_learned) == 10:
+            self.main_window.information_box(\
+        _("You've learned 10 new cards.") + " " +\
+        _("If you do this for many days, you could get a big workload later."))
         # Run hooks.
         card.fact.card_type.after_repetition(card)
         for f in self.component_manager.get_all("hook", "after_repetition"):
