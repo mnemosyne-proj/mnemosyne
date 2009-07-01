@@ -188,3 +188,57 @@ class TestScheduler(MnemosyneTest):
             self.ui_controller_review().new_question()
             assert self.ui_controller_review().card is not None
             self.ui_controller_review().grade_answer(2)
+
+    def test_learn_related_together(self):
+        self.config()["learn_related_cards_together"] = True
+        card_type = self.card_type_by_id("2")
+        fact_data = {"q": "q", "a": "a"}
+        card_1, card_2 = self.ui_controller_main().create_new_cards(fact_data,
+          card_type, grade=-1, tag_names=["default"], warn=False)
+        for i in range(7):
+            fact_data = {"q": str(i), "a": "a"}
+            self.ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=-1, tag_names=["default"], warn=False)[0]
+        self.ui_controller_review().new_question()
+        assert self.ui_controller_review().card == card_1
+        self.ui_controller_review().grade_answer(5)
+        cards = set()
+        for i in range(30):
+            self.ui_controller_review().grade_answer(1)
+            cards.add(self.ui_controller_review().card._id)
+        assert card_2._id in cards
+        
+    def test_learn_related_together_2(self):
+        self.config()["learn_related_cards_together"] = False
+        card_type = self.card_type_by_id("2")
+        fact_data = {"q": "q", "a": "a"}
+        card_1, card_2 = self.ui_controller_main().create_new_cards(fact_data,
+          card_type, grade=-1, tag_names=["default"], warn=False)
+        for i in range(7):
+            fact_data = {"q": str(i), "a": "a"}
+            self.ui_controller_main().create_new_cards(fact_data, card_type,
+                     grade=-1, tag_names=["default"], warn=False)[0]
+        self.ui_controller_review().new_question()
+        assert self.ui_controller_review().card == card_1
+        self.ui_controller_review().grade_answer(5)
+        cards = set()
+        for i in range(30):
+            self.ui_controller_review().grade_answer(1)
+            cards.add(self.ui_controller_review().card._id)
+        assert card_2._id not in cards
+
+    def test_learn_related_together_3(self):
+        # Relax requirements if there are not enough cards.
+        self.config()["learn_related_cards_together"] = False
+        card_type = self.card_type_by_id("2")
+        fact_data = {"q": "q", "a": "a"}
+        card_1, card_2 = self.ui_controller_main().create_new_cards(fact_data,
+          card_type, grade=-1, tag_names=["default"], warn=False)
+        self.ui_controller_review().new_question()
+        assert self.ui_controller_review().card == card_1
+        self.ui_controller_review().grade_answer(5)
+        cards = set()
+        for i in range(30):
+            self.ui_controller_review().grade_answer(1)
+            cards.add(self.ui_controller_review().card._id)
+        assert card_2._id in cards

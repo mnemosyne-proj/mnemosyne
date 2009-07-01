@@ -71,10 +71,11 @@ class ComponentManager(object):
             return self.components[used_for][comp_type]
         except:
             # See if there is a component registered for the parent class.
-            class_keys = [key for key in self.components.keys() if \
-                          not isinstance(key, str) and not (key == None)]
             if isinstance(used_for, tuple):
-                for key in class_keys:
+                class_keys = [_key for _key in self.components.keys() if \
+                    not isinstance(_key, str) and not (_key == None) \
+                    and isinstance(_key, tuple)]
+                for key in class_keys:                   
                     if issubclass(used_for[0], key[0]) and \
                        issubclass(used_for[1], key[1]):
                         try:
@@ -83,6 +84,9 @@ class ComponentManager(object):
                             return []
                 return []
             else:
+                class_keys = [_key for _key in self.components.keys() if \
+                    not isinstance(_key, str) and not (_key == None) \
+                    and not isinstance(_key, tuple)]
                 for key in class_keys:
                     if issubclass(used_for, key):
                         try:

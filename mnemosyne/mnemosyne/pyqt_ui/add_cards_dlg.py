@@ -50,7 +50,7 @@ class AddEditCards(Component):
         # statement.
         if self.card_type_widget: # Get data from previous card widget.
             prefill_data = \
-                     self.card_type_widget.get_data(check_for_required=False)
+                     self.card_type_widget.get_data()
             self.card_type_widget.close()
             self.card_type_widget = None
         else:
@@ -114,7 +114,7 @@ class AddEditCards(Component):
             self.update_card_widget()
 
     def preview(self):
-        fact_data = self.card_type_widget.get_data(check_for_required=False)
+        fact_data = self.card_type_widget.get_data()
         fact = Fact(fact_data, self.card_type)
         cards = self.card_type.create_related_cards(fact)
         tag_text = self.tags.currentText()
@@ -146,11 +146,11 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         self.grades.addButton(self.grade_5_button, 5)
         self.connect(self.grades, SIGNAL("buttonClicked(int)"),
                      self.new_cards)
-        self.is_complete(False)
+        self.set_valid(False)
          
-    def is_complete(self, complete):
-        self.grade_buttons.setEnabled(complete)
-        self.preview_button.setEnabled(complete)
+    def set_valid(self, valid):
+        self.grade_buttons.setEnabled(valid)
+        self.preview_button.setEnabled(valid)
         
     def new_cards(self, grade):
         fact_data = self.card_type_widget.get_data()

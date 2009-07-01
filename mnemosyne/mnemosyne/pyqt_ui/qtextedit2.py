@@ -44,7 +44,7 @@ class QTextEdit2(QTextEdit):
         filter = "(*.wav *.mp3 *.ogg *.WAV *.MP3 *.OGG)"
         fname = self.parent().ui_controller_main().insert_sound(filter)
         if fname:
-            self.insertPlainText("<sound src=\"" + fname + "\">")
+            self.insertPlainText("<audio src=\"" + fname + "\">")
         
 
 

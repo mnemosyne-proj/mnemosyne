@@ -76,9 +76,6 @@ class CardType(Component):
                 return fact_key
 
     def required_fields(self):
-
-        """Collect required fields from registered views."""
-
         s = set()
         for f in self.fact_views:
             for k in f.required_fields:
@@ -86,12 +83,9 @@ class CardType(Component):
         return s
 
     def is_data_valid(self, fact_data):
-
-        """If a card type needs to validate its data apart from asking that
-        all the required fields are there, this can be done here.
-
-        """
-        
+        for required in self.required_fields():
+            if not fact_data[required]:
+                return False
         return True
         
     def question(self, card):

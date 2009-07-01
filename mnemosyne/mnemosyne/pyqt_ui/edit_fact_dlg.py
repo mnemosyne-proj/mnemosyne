@@ -30,9 +30,10 @@ class EditFactDlg(QDialog, Ui_EditFactDlg, AddEditCards):
         tag_string = tag_string[:-2]
         self.update_tags_combobox(tag_string)
 
-    def is_complete(self, complete):
-        self.OK_button.setEnabled(complete)    
-            
+    def set_valid(self, valid):
+        self.OK_button.setEnabled(valid)    
+        self.preview_button.setEnabled(valid)
+        
     def accept(self):
         new_fact_data = self.card_type_widget.get_data()
         new_tag_names = [tag.strip() for tag in \

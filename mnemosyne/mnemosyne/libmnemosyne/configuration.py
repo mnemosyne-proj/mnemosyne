@@ -87,15 +87,10 @@ class Configuration(Component, dict):
              "background_colour": {}, # [card_type.id]             
              "font_colour": {}, # [card_type.id][fact_key]
              "alignment": {}, # [card_type.id]
-             "list_font": None,
-             "grade_0_items_at_once": 5,
+             "grade_0_items_at_once": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
-             "learn_new_related_cards_in_same_session": True, 
-             "card_type_name_of_last_added": "",
-             "tags_of_last_added": _("<default>"),
-             "sort_column": None,
-             "sort_order": None,
+             "learn_related_cards_together": False, 
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
              "locale": None,
@@ -109,8 +104,6 @@ class Configuration(Component, dict):
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
              "active_plugins": set(), # Plugin classes, not instances.
-             "last_statistics_page": 0,
-             "last_variant_for_statistics_page": {} # dict[page] = variant
             }.items():
 
             self.setdefault(key, value)

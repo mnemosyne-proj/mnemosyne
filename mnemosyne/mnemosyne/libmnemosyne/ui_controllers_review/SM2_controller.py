@@ -54,11 +54,12 @@ class SM2Controller(UiControllerReview):
             
         self.reload_counters()
         self.review_widget().update_status_bar()
+        self.scheduler().heartbeat()
         if not self.card or self.learning_ahead:
             self.reset()
             self.new_question()
 
-    def new_question(self):            
+    def new_question(self):
         if not self.active_count:
             self.reload_counters()
         if not self.database().is_loaded() or self.active_count == 0:

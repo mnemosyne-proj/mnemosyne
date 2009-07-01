@@ -533,3 +533,37 @@ class TestConvertCards(MnemosyneTest):
             
         new_card.question()
         new_card.answer()
+
+    def test_cloze_to_1(self):
+        from mnemosyne.libmnemosyne.ui_components.statistics_widget import \
+             StatisticsWidget
+        from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
+        class ScheduleWdgt(StatisticsWidget):
+            used_for = Schedule
+        self.mnemosyne.component_manager.register(ScheduleWdgt)
+    
+        for plugin in self.plugins():
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "5":
+                plugin.activate()
+                
+        fact_data = {"text": "[question]"}
+        card_type = self.card_type_by_id("5")
+        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+        self.ui_controller_main().file_save()
+
+        new_card_type = self.card_type_by_id("1")
+        fact_data = {"q": "[question]", "a": ""}
+        self.ui_controller_main().update_related_cards(card.fact, fact_data,
+               new_card_type, new_tag_names=["default2"],
+               correspondence={'text': 'q'},
+               warn=False)
+
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
+
+        new_card = self.database().cards_from_fact(card.fact)[0]
+        
+        new_card.question()
+        new_card.answer()          

@@ -68,8 +68,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.main_window",
                              "MainWindow"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
                              "ReviewWdgt"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.sound",
-                             "SoundPlayer"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration",
+                             "PyQtConfiguration"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",
                              "ScheduleWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",

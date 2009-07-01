@@ -6,7 +6,7 @@
 -extended the plugin architecture to encompass the statistics
 -removed some old warts/hacks inherited from the 1.x codebase: card.unseen and StartDate
 -added option "learn new related cards in same session"
--warn if the user memorises over 10 new cards in a session.
+-warn if the user memorises over 15 new cards in a session.
 -various architectural improvements and bug fixes
 	
 MNEMOSYNE 2.0

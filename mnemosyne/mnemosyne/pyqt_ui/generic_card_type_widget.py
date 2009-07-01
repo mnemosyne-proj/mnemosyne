@@ -64,15 +64,10 @@ class GenericCardTypeWdgt(QWidget, CardTypeWidget):
                 return True
         return False
 
-    def get_data(self, check_for_required=True):
+    def get_data(self):
         fact_data = {}
         for edit_box, fact_key in self.edit_boxes.iteritems():
             fact_data[fact_key] = unicode(edit_box.document().toPlainText())
-        if not check_for_required:
-            return fact_data
-        for required in self.card_type.required_fields():
-            if not fact_data[required]:
-                raise ValueError
         return fact_data
 
     def set_data(self, data):
@@ -87,10 +82,4 @@ class GenericCardTypeWdgt(QWidget, CardTypeWidget):
         self.top_edit_box.setFocus()
     
     def text_changed(self):
-        data = None
-        try:
-            data = self.get_data()
-        except ValueError:
-            complete = False
-        complete = self.card_type.is_data_valid(data)
-        self.parent().is_complete(complete)
+        self.parent().set_valid(self.card_type.is_data_valid(self.get_data()))

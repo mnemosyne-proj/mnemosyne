@@ -1,36 +1,13 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--don't memorise related cards on same day: add tests,
--explain difference between facts and new_facts_learned. Also, Rename? _card_ids_in_queue, _fact_ids_in_queue,
- _new_fact_ids_learned
--or merge them, only reseting them depending on switch? No, does not allow to relax the requirement
--Problem: scheduler does not reset when leaving the program open and there is still
- a card to review. So, add heartbeat
 
 -WM test and benchmark
 
--sync protocol:
--deck name
--import
--server can report can refuse large files
--streaming compression
-http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
--be sure to truncate time to int if it comes from other SRS systems
--make sure active gets updated too
--activating cards
--make sure to convert int(time.time()) to integer
--make sure all events make it to the sync protocol + formats
+-add test for reload card in controller
+-convert cloze deletion to front to back (check: cannot deactivate...)
 
--how to join 2 SQL databases: sync on _id, not timestamps
-
--better mechanism to have different renderers
-
--don't reset cramming scheduler
-
--move pyqt ui variables out of main config
-
--is complete check on changing card type does not fire
+-remove clone stuff in update card type
 
 -create UI components for other widgets
 -way to override generic card type widget, by having two components: generic_card_type_widget
@@ -38,10 +15,27 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -need card.first_answered?
 
-
 -more tests
 
 -gray out button 3-5 on new cards
+
+-don't import * for Qt
+
+-import full path for ui components
+
+-items --> cards in config, upgrade code
+
+-get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
+ 'repetition' for individual repetition, or 'review' for whole process.
+
+-cntrl enter in add and edit instead of clicking ok
+
+-move card type by name to core, as well as string for tag list
+
+-don't enable ok in converting between card types as long as insufficient info
+
+-edit card types hides html tags, check if it survives changing card types
+
 
 
 -move option to always randomise queue to config screen
@@ -49,18 +43,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -hook up config screen
 
--grade 0 cards default value?
-
--items --> cards in config, upgrade code
-
--get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
- 'repetition' for individual repetition, or 'review' for whole process.
-
 -infrastructure to make it easier to type certain symbols
-
--basic graphical statistics
-
--sql query for statistics
 
 -new icon for browse cards
 
@@ -72,18 +55,11 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
  card.py.
 
 
--cntrl enter in add and edit instead of clicking ok
-
 -see if graphical glitch is fixed with latest matplotlib version
-
 
 -make distrib
 
 -warn when importing card type with duplicate id
-
--don't import * for Qt
-
--import full path for ui components
 
 
 
@@ -127,18 +103,18 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
  a per card basis.
 
 -don't recreate text logs upon import
-
+ 
+-upgrade from 1.x to 2.0 migration code: convert deck,
+  move latex configuration files?, import user id and config, ...
+  item --> card
 
 -new translation infrastructure
 -handle deferred translation
 -different translators for different users?
 
--move card type by name to core, as well as string for tag list
-
 
 -corrupt icon
 
--card type with prefilled fields
 
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
@@ -149,14 +125,9 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -have hierarchy in plugin names
 
 
--test sound
-
-
--allow non-unicode filenames: encode/decode in expand/contract path?
-
 -adding a picture under Windows screws up / and \, and case
 
--need to store parent of category?
+-need to store parent of tag?
 
 
 -test uploading of logs, also in rollover
@@ -177,6 +148,20 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -card.in_view needed?
 
+
+-sync protocol:
+-deck name
+-import
+-server can report can refuse large files
+-streaming compression
+http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
+-be sure to truncate time to int if it comes from other SRS systems
+-make sure active gets updated too
+-activating cards
+-make sure to convert int(time.time()) to integer
+-make sure all events make it to the sync protocol + formats
+
+-better mechanism to have different renderers
 
 -abstract statistics queries to database?
 
@@ -201,10 +186,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
- 
--upgrade from 1.x to 2.0 migration code: convert deck,
-  move latex configuration files?, import user id and config, ...
- urge user to merge all of his separate decks into one deck
+
 
 -update ohloh?
 
@@ -216,9 +198,12 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -alt tabbing gives low res icon.
 
+-add media player controls:
 -http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
 -http://lists.trolltech.com/qt-interest/2008-05/thread00878-0.html
--video
+
+-option to add video
+
 -make all subwindows remember their size
 
 -modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
@@ -246,17 +231,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -update tooltips, inform Patrick
 
--don't enable ok in converting between card types as long as insufficient info
-
--edit card types hides tags, check if it survives changing card types
-
-
--bug in Qt? : shortcuts don't change back after changing 'show answer'
- button text
-
--bug in Qt? : spaces around images are not respected.
-
--test: make <a> links clickable / animated GIFs
 
 
 
@@ -273,6 +247,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -don't activate plugins until after clicking ok
 
 -respect font in fact editor
+
+-card type with prefilled fields
 
 -detect wrong current date (last review in the future or way past)
 
@@ -352,6 +328,8 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -button after opening fact editor in edit deck to go to next card in the list
 
 -sound recorder
+
+-store _fact_ids_learned in config, such that they persist over sessions?
 
 -auto identifying similar cards
 

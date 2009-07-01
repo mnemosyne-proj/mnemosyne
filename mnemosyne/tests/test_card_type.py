@@ -10,7 +10,7 @@ class TestCardType(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         assert card_type.key_with_name("Question") == "q"
         assert card_type.required_fields() == set("q")
-        assert card_type.is_data_valid("foo") == True
+        assert card_type.is_data_valid({"q": "foo"}) == True
 
     def test_database(self):
         card_type = self.card_type_by_id("1")
@@ -25,7 +25,7 @@ class TestCardType(MnemosyneTest):
         card_type_out = self.database().get_card_type(card_type.id)
         assert card_type_out.key_with_name("Question") == "q"
         assert card_type_out.required_fields() == set("q")
-        assert card_type_out.is_data_valid("foo") == True
+        assert card_type_out.is_data_valid({"q": "foo"}) == True
 
         assert card_type_out.fields == card_type.fields
         assert card_type_out.unique_fields == card_type.unique_fields
@@ -88,7 +88,7 @@ class TestCardType(MnemosyneTest):
         card_type_out = self.database().get_card_type(card_type.id)
         assert card_type_out.key_with_name("Question") == "q"
         assert card_type_out.required_fields() == set("q")
-        assert card_type_out.is_data_valid("foo") == True
+        assert card_type_out.is_data_valid({"q": "foo"}) == True
 
         assert card_type_out.fields == card_type.fields
         assert card_type_out.unique_fields == card_type.unique_fields

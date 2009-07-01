@@ -121,7 +121,7 @@ class DefaultMainController(UiControllerMain):
                              new_tag_names, correspondence, warn=True):
         # Change card type.
         db = self.database()
-        old_card_type = fact.card_type       
+        old_card_type = fact.card_type
         if old_card_type != new_card_type:
             old_card_type_id_uncloned = old_card_type.id.split("_CLONED", 1)[0]
             new_card_type_id_uncloned = new_card_type.id.split("_CLONED", 1)[0] 

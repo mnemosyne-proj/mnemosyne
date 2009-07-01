@@ -12,10 +12,16 @@ class Scheduler(Component):
             
     def reset(self):
 
-        """Called when starting the scheduler for the first time."""
+        "Called when starting the scheduler for the first time."
         
         raise NotImplementedError
+    
+    def heartbeat(self):
 
+        "For code that needs to run periodically."
+        
+        pass
+    
     def set_initial_grade(self, card, grade):
 
         """Called when cards are given their initial grade outside of the
@@ -66,7 +72,7 @@ class Scheduler(Component):
     
     def get_next_card_id(self, learn_ahead=False):
 
-        """Avoids creating a card object, which enables certain shortcuts."""
+        "Avoids creating a card object, which enables certain shortcuts."
         
         raise NotImplementedError
     

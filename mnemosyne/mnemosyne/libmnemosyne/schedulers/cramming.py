@@ -19,20 +19,21 @@ class Cramming(SM2Mnemosyne):
             self.database().set_scheduler_data(self.UNSEEN)
 
     def rebuild_queue(self, learn_ahead=False):
-        self.queue = []
-        self.facts = []
+        self._card_ids_in_queue = []
+        self._fact_ids_in_queue = []
         db = self.database()
+
         if not db.is_loaded() or not db.active_count():
             return
-         
+
         # Stage 1 : do all the unseen cards.     
         if self.stage == 1:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.UNSEEN,
                                       sort_key="random", limit=25):
-                if _fact_id not in self.facts:
-                    self.queue.append(_card_id)
-                    self.facts.append(_fact_id)
-            if len(self.queue):
+                if _fact_id not in self._fact_ids_in_queue:
+                    self._card_ids_in_queue.append(_card_id)
+                    self._fact_ids_in_queue.append(_fact_id)
+            if len(self._card_ids_in_queue):
                 return
             self.stage = 2
 
@@ -40,10 +41,10 @@ class Cramming(SM2Mnemosyne):
         if self.stage == 2:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.WRONG,
                                       sort_key="random", limit=25):
-                if _fact_id not in self.facts:
-                    self.queue.append(_card_id)
-                    self.facts.append(_fact_id)
-            if len(self.queue):
+                if _fact_id not in self._fact_ids_in_queue:
+                    self._card_ids_in_queue.append(_card_id)
+                    self._fact_ids_in_queue.append(_fact_id)
+            if len(self._card_ids_in_queue):
                 return
             
         # Start again.

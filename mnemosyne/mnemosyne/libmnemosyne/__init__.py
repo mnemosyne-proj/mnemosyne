@@ -96,7 +96,7 @@ class Mnemosyne(Component):
         self.log().started_scheduler()
         self.log().loaded_database()
         # Finally, everything is in place to start the review process.
-        if self.review_widget().instantiate == Component.IMMEDIATELY:
+        if self.review_widget().instantiate != Component.LATER:
             self.ui_controller_review().new_question()
 
     def register_components(self):
@@ -112,7 +112,7 @@ class Mnemosyne(Component):
         for module_name, class_name in self.components:
             exec("from %s import %s" % (module_name, class_name))
             exec("component = %s" % class_name)
-            if component.instantiate == Component.IMMEDIATELY:
+            if component.instantiate != Component.LATER:
                 component = component(self.component_manager)
             self.component_manager.register(component)
         for plugin_name in self.extra_components_for_plugin:
@@ -132,7 +132,7 @@ class Mnemosyne(Component):
 
         modules = ["config", "log", "database", "scheduler",
                    "ui_controller_main", "main_widget"]
-        if self.review_widget().instantiate == Component.IMMEDIATELY:
+        if self.review_widget().instantiate != Component.LATER:
             modules.extend(["ui_controller_review", "review_widget"])
         for module in modules:
             try:
