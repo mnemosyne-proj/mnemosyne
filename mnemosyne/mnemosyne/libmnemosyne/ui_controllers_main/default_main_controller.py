@@ -48,6 +48,8 @@ class DefaultMainController(UiControllerMain):
         self.stopwatch().pause()
         review_controller = self.ui_controller_review()
         self.main_widget().run_edit_fact_dialog(review_controller.card.fact)
+        review_controller.card = \
+            self.database().get_card(review_controller.card._id)
         review_controller.reload_counters()
         if review_controller.card is None:
             self.review_widget().update_status_bar()
@@ -206,12 +208,6 @@ class DefaultMainController(UiControllerMain):
             db.remove_tag_if_unused(tag)
         db.save()
 
-        # Update card present in UI.
-        review_controller = self.ui_controller_review()
-        if review_controller.card:
-            review_controller.card = \
-                self.database().get_card(review_controller.card._id)
-            review_controller.update_dialog(redraw_all=True)
         return 0
 
     def delete_current_fact(self):

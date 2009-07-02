@@ -38,7 +38,26 @@ class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
             self.gridLayout.addWidget(combobox, index, 1, 1, 1)
             self.comboboxes[old_fact_key] = combobox
             index += 1
+            self.connect(combobox, SIGNAL("currentIndexChanged(QString)"),
+                         self.combobox_updated)
 
+    def combobox_updated(self):
+        self.ok_button.setEnabled(False)
+        self.correspondence.clear()
+        for old_fact_key, old_fact_key_name in self.old_card_type.fields:
+            new_fact_key_name = self.comboboxes[old_fact_key].currentText()
+            if new_fact_key_name != _("<none>"):
+                self.ok_button.setEnabled(True)                
+                new_fact_key = \
+                     self.new_card_type.key_with_name(new_fact_key_name)
+                if new_fact_key in self.correspondence.values():
+                    QMessageBox.critical(None, _("Mnemosyne"),
+                        _("No duplicate in new fields allowed."),
+                        _("&OK"), "", "", 0, -1)
+                    self.ok_button.setEnabled(False)
+                    return           
+                self.correspondence[old_fact_key] = new_fact_key
+              
     def accept(self):
         self.correspondence.clear()
         for old_fact_key, old_fact_key_name in self.old_card_type.fields:
@@ -46,12 +65,6 @@ class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
             if new_fact_key_name != _("<none>"):
                 new_fact_key = \
                      self.new_card_type.key_with_name(new_fact_key_name)
-                if new_fact_key in self.correspondence.values():
-                    QMessageBox.critical(None, _("Mnemosyne"),
-                        _("No duplicate in new fields allowed."),
-                        _("&OK"), "", "", 0, -1)
-                    return
                 self.correspondence[old_fact_key] = new_fact_key
-        if len(self.correspondence) >= 1:
-            QDialog.accept(self)
+        QDialog.accept(self)
         

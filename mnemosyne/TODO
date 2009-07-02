@@ -4,8 +4,6 @@
 
 -WM test and benchmark
 
--add test for reload card in controller
--convert cloze deletion to front to back (check: cannot deactivate...)
 
 -remove clone stuff in update card type
 
@@ -28,13 +26,8 @@
 -get rid of 'revision' (British) in scheduler queue, logger, tips. Use 
  'repetition' for individual repetition, or 'review' for whole process.
 
--cntrl enter in add and edit instead of clicking ok
-
 -move card type by name to core, as well as string for tag list
 
--don't enable ok in converting between card types as long as insufficient info
-
--edit card types hides html tags, check if it survives changing card types
 
 
 
@@ -194,8 +187,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 
 
--starting with a html statistics widget gives a large size
-
 -alt tabbing gives low res icon.
 
 -add media player controls:
@@ -222,6 +213,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -skritter/cpod interop mail
 
 
+-document cntrl enter in edit dialog instead of clicking ok
 
 -tips (both on startup and on use): right click to add cards or sound, comma to 
  separate tag names, :: to separate hierarchies

@@ -64,6 +64,9 @@
          <property name="text">
           <string>&amp;OK</string>
          </property>
+         <property name="shortcut">
+          <string>Ctrl+Return</string>
+         </property>
         </widget>
        </item>
        <item>

@@ -74,7 +74,7 @@ class GenericCardTypeWdgt(QWidget, CardTypeWidget):
         if data:
             for edit_box, fact_key in self.edit_boxes.iteritems():
                 if fact_key in data.keys():
-                    edit_box.setText(data[fact_key])
+                    edit_box.setPlainText(data[fact_key])
 
     def clear(self):
         for edit_box in self.edit_boxes:

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ConvertCardTypeFieldsDlg</class>
- <widget class="QDialog" name="ConvertCardTypeFieldsDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="ConvertCardTypeFieldsDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,52 +10,52 @@
     <height>105</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Convert card type fields</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" >
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label_2" >
-       <property name="minimumSize" >
+      <widget class="QLabel" name="label_2">
+       <property name="minimumSize">
         <size>
          <width>250</width>
          <height>40</height>
         </size>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Set the correspondence between fields in the old and the new card type:</string>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout" >
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label" >
-         <property name="font" >
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="font">
           <font>
            <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Old:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="QLabel" name="label_3" >
-         <property name="font" >
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_3">
+         <property name="font">
           <font>
            <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>New:</string>
          </property>
         </widget>
@@ -62,23 +63,26 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" >
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="ok_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="ok_button">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
           <string>&amp;OK</string>
          </property>
-         <property name="default" >
+         <property name="default">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer" >
-         <property name="orientation" >
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>208</width>
            <height>20</height>
@@ -87,8 +91,8 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="cancel_button" >
-         <property name="text" >
+        <widget class="QPushButton" name="cancel_button">
+         <property name="text">
           <string>&amp;Cancel</string>
          </property>
         </widget>
@@ -107,11 +111,11 @@
    <receiver>ConvertCardTypeFieldsDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>82</x>
      <y>272</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>199</x>
      <y>149</y>
     </hint>
@@ -123,11 +127,11 @@
    <receiver>ConvertCardTypeFieldsDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>216</x>
      <y>85</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>129</x>
      <y>52</y>
     </hint>
