@@ -2,17 +2,16 @@
 # add_cards_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4 import QtCore, QtGui
 
-from ui_add_cards_dlg import Ui_AddCardsDlg
-
-from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
-from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
+from mnemosyne.pyqt_ui.ui_add_cards_dlg import Ui_AddCardsDlg
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
+from mnemosyne.libmnemosyne.ui_components.dialogs import AddCardsDialog
+from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
                                                     ConvertCardTypeFieldsDlg
 
@@ -21,9 +20,8 @@ class AddEditCards(Component):
     """Code shared between the add and the edit dialogs."""
 
     def initialise_card_types_combobox(self, current_card_type_name):
-        # We calculate card_type_by_name here rather than in the component
-        # manager, because these names can change if the user chooses another
-        # translation.
+        # We calculate card_type_by_name here because these names can change
+        # if the user chooses another translation.
         self.card_type_by_name = {}
         self.card_type = None
         self.card_type_index = 0
@@ -38,8 +36,8 @@ class AddEditCards(Component):
             self.card_type = self.card_types()[0]
             self.card_type_index = 0
         self.card_types_widget.setCurrentIndex(self.card_type_index)
-        self.connect(self.card_types_widget, SIGNAL("currentIndexChanged(QString)"),
-                     self.card_type_changed)
+        self.connect(self.card_types_widget, QtCore.SIGNAL(\
+            "currentIndexChanged(QString)"), self.card_type_changed)
         self.correspondence = {} # Used when changing card types.
         self.update_card_widget()
         
@@ -75,8 +73,9 @@ class AddEditCards(Component):
                     ("card_type_widget", used_for=self.card_type.__class__)\
                           (self, self.component_manager)
         except:
-            if not self.card_type_widget: 
-                self.card_type_widget = GenericCardTypeWdgt\
+            if not self.card_type_widget:
+                self.card_type_widget = self.component_manager.get_current\
+                    ("generic_card_type_widget")\
                       (self.card_type, self, self.component_manager)
         self.card_type_widget.set_data(prefill_data)
         self.card_type_widget.show()
@@ -128,26 +127,36 @@ class AddEditCards(Component):
         self.card_type_widget = None        
 
 
-class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
+class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
 
     def __init__(self, parent, component_manager):
         AddEditCards.__init__(self, component_manager)
-        QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.initialise_card_types_combobox(\
             self.config()["card_type_name_of_last_added"])
         self.update_tags_combobox(\
             self.config()["tags_of_last_added"])  
-        self.grades = QButtonGroup()
+        self.grades = QtGui.QButtonGroup()
         self.grades.addButton(self.grade_unseen_button, -1)
         self.grades.addButton(self.grade_2_button, 2)
         self.grades.addButton(self.grade_3_button, 3)
         self.grades.addButton(self.grade_4_button, 4)
         self.grades.addButton(self.grade_5_button, 5)
-        self.connect(self.grades, SIGNAL("buttonClicked(int)"),
+        self.connect(self.grades, QtCore.SIGNAL("buttonClicked(int)"),
                      self.new_cards)
         self.set_valid(False)
-         
+        width, height = self.config()["add_widget_size"]
+        if width:
+            self.resize(width, height)
+            
+    def closeEvent(self, event):
+        self.config()["add_widget_size"] = (self.width(), self.height())
+        
+    def accept(self):
+        self.config()["add_widget_size"] = (self.width(), self.height())
+        return QtGui.QDialog.accept(self)
+    
     def set_valid(self, valid):
         self.grade_buttons.setEnabled(valid)
         self.preview_button.setEnabled(valid)
@@ -167,14 +176,14 @@ class AddCardsDlg(QDialog, Ui_AddCardsDlg, AddEditCards):
         self.card_type_widget.clear()
 
     def reject(self):
+        self.config()["add_widget_size"] = (self.width(), self.height())
         if self.card_type_widget.contains_data():
-            status = QMessageBox.warning(None, _("Mnemosyne"),
-                                         _("Abandon current card?"),
-                                         _("&Yes"), _("&No"), "", 1, -1)
+            status = QtGui.QMessageBox.warning(None, _("Mnemosyne"),
+                _("Abandon current card?"), _("&Yes"), _("&No"), "", 1, -1)
             if status == 0:
-                QDialog.reject(self)
+                QtGui.QDialog.reject(self)
                 return
         else:
-            QDialog.reject(self)
+            QtGui.QDialog.reject(self)
 
 

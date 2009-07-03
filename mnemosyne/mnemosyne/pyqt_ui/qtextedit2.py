@@ -1,37 +1,37 @@
 #
-# QTextEdit with extra options in popup menu <Peter.Bienstman@UGent.be>
+# qtextedit2.py <Peter.Bienstman@UGent.be>
 #
 
-import os
-
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 
-class QTextEdit2(QTextEdit):
+class QTextEdit2(QtGui.QTextEdit):
+
+    "QTextEdit with extra options in popup menu" 
     
     def __init__(self, parent=None):
-        QTextEdit.__init__(self, parent)
+        QtGui.QTextEdit.__init__(self, parent)
 
     def contextMenuEvent(self, e):
         popup = self.createStandardContextMenu()
         popup.addSeparator()
         popup.addAction(_("Insert &image"), self.insert_img,
-                        QKeySequence(_("Ctrl+I")))
+                        QtGui.QKeySequence(_("Ctrl+I")))
         popup.addAction(_("Insert &sound"), self.insert_sound,
-                        QKeySequence(_("Ctrl+S")))
+                        QtGui.QKeySequence(_("Ctrl+S")))
         popup.exec_(e.globalPos())
 
     def keyPressEvent(self, e):
-        if e.key() == Qt.Key_I and e.modifiers() == Qt.ControlModifier:
+        if e.key() == QtCore.Qt.Key_I and e.modifiers() == \
+            QtCore.Qt.ControlModifier:
             self.insert_img()
-        elif e.key() == Qt.Key_S and e.modifiers() == Qt.ControlModifier:
+        elif e.key() == QtCore.Qt.Key_S and e.modifiers() == \
+            QtCore.Qt.ControlModifier:
             self.insert_sound()
         else:
-            QTextEdit.keyPressEvent(self, e)
+            QtGui.QTextEdit.keyPressEvent(self, e)
 
     def insert_img(self):
         filter = "(*.png *.gif *.jpg *.bmp *.jpeg" + \

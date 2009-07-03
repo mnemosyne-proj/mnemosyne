@@ -22,7 +22,7 @@ As mentioned before, a Fact is linked to a CardType, and each CardType lists
 a set of FactViews.
 
 The actual Cards are generated from the data in Fact using the recipe of a
-certain FactView. A Card also contains all the revision data needed for the
+certain FactView. A Card also contains all the repetition data needed for the
 Scheduler to do its work. Since the question and answers are generated from
 the Fact data each time a Card is shown, related Cards (i.e. Cards with
 different FactViews of the same Fact) are always consistent.

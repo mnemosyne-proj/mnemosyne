@@ -28,11 +28,11 @@ class UiControllerMain(Component):
         raise NotImplementedError
     
     def create_new_cards(self, fact_data, card_type, grade,
-                         tag_names, warn=True):
+                         tag_names):
         raise NotImplementedError
     
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
-                             new_tag_names, correspondence, warn=True):
+                             new_tag_names, correspondence):
         raise NotImplementedError
 
     def delete_current_fact(self):

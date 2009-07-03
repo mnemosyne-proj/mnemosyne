@@ -32,4 +32,4 @@ class Easiness(PlotStatisticsPage):
             self.data = [cursor[0] for cursor in self.database().con.execute(\
             """select cards.easiness from cards, tags_for_card where
             tags_for_card._card_id=cards._id and cards.active=1 and
-            cards.grade>=0 and tags_for_card._tag_id=?""", (variant,))]
+            cards.grade>=0 and tags_for_card._tag_id=?""", (variant, ))]

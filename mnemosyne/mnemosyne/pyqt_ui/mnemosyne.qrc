@@ -2,7 +2,7 @@
     <qresource prefix="/mnemosyne" >
         <file>pixmaps/add.png</file>
         <file>pixmaps/configure.png</file>
-        <file>pixmaps/deck.png</file>
+        <file>pixmaps/cards.png</file>
         <file>pixmaps/delete.png</file>
         <file>pixmaps/edit.png</file>
         <file>pixmaps/exit.png</file>

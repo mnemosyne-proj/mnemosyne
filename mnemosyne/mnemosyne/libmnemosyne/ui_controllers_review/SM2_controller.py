@@ -155,10 +155,7 @@ class SM2Controller(UiControllerReview):
         # Update question label.
         question_label_text = _("Question: ")
         if self.card is not None:
-            for tag in self.card.tags:
-                if tag.name != _("<default>"):
-                    question_label_text += tag.name + ", "
-            question_label_text = question_label_text[:-2]
+            question_label_text += self.card.tag_string()
         w.set_question_label(question_label_text)
         # Update question content.
         if self.card is None:
@@ -192,13 +189,26 @@ class SM2Controller(UiControllerReview):
         if self.card and self.card.grade < 2:
             i = 0 # Acquisition phase.
             default_grade = 0
+            for grade in [3, 4, 5]:
+                w.enable_grade(grade, False)
         else:
             i = 1 # Retention phase.
             default_grade = 4
+            for grade in [3, 4, 5]:
+                w.enable_grade(grade, True)
         w.enable_grades(self.grades_enabled)
         if self.grades_enabled:
-            w.set_default_grade(default_grade)            
-        # Tooltips and texts for the grade buttons.
+            w.set_default_grade(default_grade)         
+        # Set title for grades box.
+        if self.state == "SELECT GRADE" and \
+               self.config()["show_intervals"] == "buttons":
+            w.set_grades_title(_("Pick days until next repetition:"))
+        else:
+            if self.card and self.card.grade == -1:
+                w.set_grades_title(_("Select initial grade:"))
+            else:
+                w.set_grades_title(_("Grade your answer:"))   
+        # Set tooltips and texts for the grade buttons.
         for grade in range(0,6):
             # Tooltip.
             if self.state == "SELECT GRADE" and \
@@ -216,10 +226,8 @@ class SM2Controller(UiControllerReview):
                self.config()["show_intervals"] == "buttons":
                 w.set_grade_text(grade, str(self.scheduler().process_answer(\
                                             self.card, grade, dry_run=True)))
-                w.set_grades_title(_("Pick days until next repetition:"))
             else:
-                w.set_grade_text(grade, str(grade))
-                w.set_grades_title(_("Grade your answer:"))
+                w.set_grade_text(grade, str(grade))           
 
     def update_menu_bar(self):
         w = self.main_widget()

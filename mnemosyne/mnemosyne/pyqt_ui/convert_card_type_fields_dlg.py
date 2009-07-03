@@ -2,20 +2,18 @@
 # convert_card_type_fields_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
+from PyQt4 import QtCore, QtGui
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
-from ui_convert_card_type_fields_dlg import Ui_ConvertCardTypeFieldsDlg
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.pyqt_ui.ui_convert_card_type_fields_dlg import \
+     Ui_ConvertCardTypeFieldsDlg
 
 
-class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
+class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
 
     def __init__(self, old_card_type, new_card_type,
                  correspondence, parent=None):
-        QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.old_card_type = old_card_type
         self.new_card_type = new_card_type
@@ -23,14 +21,14 @@ class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
         self.comboboxes = {}
         index = 1
         for old_fact_key, old_fact_key_name in old_card_type.fields:
-            label = QLabel(self)
+            label = QtGui.QLabel(self)
             label.setText(old_fact_key_name + ":")
-            font = QFont()
+            font = QtGui.QFont()
             font.setWeight(50)
             font.setBold(False)
             label.setFont(font)
             self.gridLayout.addWidget(label, index, 0, 1, 1)
-            combobox = QComboBox(self)
+            combobox = QtGui.QComboBox(self)
             for new_fact_key, new_key_name in new_card_type.fields:
                 combobox.addItem(new_key_name)
             combobox.addItem(_("<none>"))
@@ -38,8 +36,8 @@ class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
             self.gridLayout.addWidget(combobox, index, 1, 1, 1)
             self.comboboxes[old_fact_key] = combobox
             index += 1
-            self.connect(combobox, SIGNAL("currentIndexChanged(QString)"),
-                         self.combobox_updated)
+            self.connect(combobox, QtCore.SIGNAL(\
+                "currentIndexChanged(QString)"), self.combobox_updated)
 
     def combobox_updated(self):
         self.ok_button.setEnabled(False)
@@ -51,7 +49,7 @@ class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
                 new_fact_key = \
                      self.new_card_type.key_with_name(new_fact_key_name)
                 if new_fact_key in self.correspondence.values():
-                    QMessageBox.critical(None, _("Mnemosyne"),
+                    QtGui.QMessageBox.critical(None, _("Mnemosyne"),
                         _("No duplicate in new fields allowed."),
                         _("&OK"), "", "", 0, -1)
                     self.ok_button.setEnabled(False)
@@ -66,5 +64,5 @@ class ConvertCardTypeFieldsDlg(QDialog, Ui_ConvertCardTypeFieldsDlg):
                 new_fact_key = \
                      self.new_card_type.key_with_name(new_fact_key_name)
                 self.correspondence[old_fact_key] = new_fact_key
-        QDialog.accept(self)
+        QtGui.QDialog.accept(self)
         

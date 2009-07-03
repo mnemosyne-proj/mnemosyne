@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>253</width>
-    <height>222</height>
+    <width>255</width>
+    <height>282</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>253</width>
+     <width>255</width>
      <height>24</height>
     </rect>
    </property>
@@ -164,7 +164,7 @@
   <action name="actionBrowseCards">
    <property name="icon">
     <iconset resource="mnemosyne.qrc">
-     <normaloff>:/mnemosyne/pixmaps/deck.png</normaloff>:/mnemosyne/pixmaps/deck.png</iconset>
+     <normaloff>:/mnemosyne/pixmaps/cards.png</normaloff>:/mnemosyne/pixmaps/cards.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Browse cards</string>

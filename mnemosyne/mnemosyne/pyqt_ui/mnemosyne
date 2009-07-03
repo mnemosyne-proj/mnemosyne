@@ -70,6 +70,20 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
                              "ReviewWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration",
                              "PyQtConfiguration"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.add_cards_dlg",
+                             "AddCardsDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.edit_fact_dlg",
+                             "EditFactDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.cloned_card_types_list_dlg",
+                             "ClonedCardTypesListDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.card_appearance_dlg",
+                             "CardAppearanceDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.activate_plugins_dlg",
+                             "ActivatePluginsDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.statistics_dlg",
+                             "StatisticsDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.generic_card_type_widget",
+                             "GenericCardTypeWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",
                              "ScheduleWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",

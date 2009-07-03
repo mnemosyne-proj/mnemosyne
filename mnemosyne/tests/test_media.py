@@ -131,7 +131,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "edited <img src=\"%s\">" % "a.ogg",
                      "a": "answer"}
         self.ui_controller_main().update_related_cards(card.fact, fact_data,
-           card_type, new_tag_names=["bla"], correspondence=None, warn=False)
+           card_type, new_tag_names=["bla"], correspondence=None)
 
         assert os.path.exists(full_path_in_media_dir)
         assert full_path not in card.fact.data["q"]
@@ -158,7 +158,7 @@ class TestMedia(MnemosyneTest):
                      % ("a.ogg", full_path),
                      "a": "answer"}
         self.ui_controller_main().update_related_cards(card.fact, fact_data,
-           card_type, new_tag_names=["bla"], correspondence=None, warn=False)
+           card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "b.ogg")
         assert os.path.exists(full_path_in_media_dir)
         assert full_path not in card.fact.data["q"]
@@ -181,7 +181,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "edited ",
                      "a": "answer"}
         self.ui_controller_main().update_related_cards(card.fact, fact_data,
-           card_type, new_tag_names=["bla"], correspondence=None, warn=False)
+           card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
         assert not os.path.exists(full_path_in_media_dir)
         assert full_path_in_media_dir not in card.question()        
@@ -208,7 +208,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "edited",
                      "a": "answer"}        
         self.ui_controller_main().update_related_cards(card.fact, fact_data,
-           card_type, new_tag_names=["bla"], correspondence=None, warn=False)
+           card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Don't delete file.
         assert full_path_in_media_dir not in card.question()      

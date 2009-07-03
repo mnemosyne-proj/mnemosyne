@@ -122,7 +122,7 @@ def unanonymise_id(card):
 def import_file(filename, fformat_name, default_tag_name,
                 reset_learning_data=False):
 
-    global load_failed, revision_queue, anon_to_id
+    global load_failed, queue, anon_to_id
 
     # If no database is active, create one.
 
@@ -150,7 +150,7 @@ def import_file(filename, fformat_name, default_tag_name,
         else:
             cards.append(card)
             if card.is_due_for_retention_rep():
-                revision_queue[0:0] = [card]
+                queue[0:0] = [card]
             log().imported_card(card) 
     # Clean up.
 

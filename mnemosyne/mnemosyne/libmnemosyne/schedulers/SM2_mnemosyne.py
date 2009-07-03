@@ -180,7 +180,7 @@ class SM2Mnemosyne(Scheduler):
         # Now rememorise the cards that we got wrong during the last stage.
         # Concentrate on only a limited number of grade 0 cards, in order to
         # avoid too long intervals between repetitions.
-        limit = self.config()["grade_0_items_at_once"]
+        limit = self.config()["grade_0_cards_at_once"]
         grade_0_in_queue = 0
         if self.stage == 2:
             if limit != 0:

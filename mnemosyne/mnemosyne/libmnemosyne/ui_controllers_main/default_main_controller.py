@@ -57,8 +57,7 @@ class DefaultMainController(UiControllerMain):
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
-    def create_new_cards(self, fact_data, card_type, grade, tag_names,
-                         warn=True):
+    def create_new_cards(self, fact_data, card_type, grade, tag_names):
 
         """Create a new set of related cards. If the grade is 2 or higher,
         we perform a initial review with that grade and move the cards into
@@ -74,8 +73,7 @@ class DefaultMainController(UiControllerMain):
             raise AttributeError, "Use -1 as grade for unlearned cards."
         db = self.database()
         if db.has_fact_with_data(fact_data, card_type):
-            if warn:
-                self.main_widget().information_box(\
+            self.main_widget().information_box(\
               _("Card is already in database.\nDuplicate not added."))
             return
         fact = Fact(fact_data, card_type)
@@ -83,7 +81,7 @@ class DefaultMainController(UiControllerMain):
         for tag_name in tag_names:
             tags.add(db.get_or_create_tag_with_name(tag_name))
         duplicates = db.duplicates_for_fact(fact)
-        if warn and len(duplicates) != 0:
+        if len(duplicates) != 0:
             answer = self.main_widget().question_box(\
               _("There is already data present for:\n\N") +
               "".join(fact[k] for k in card_type.required_fields()),
@@ -120,34 +118,33 @@ class DefaultMainController(UiControllerMain):
         return cards # For testability.
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
-                             new_tag_names, correspondence, warn=True):
+                             new_tag_names, correspondence):
         # Change card type.
         db = self.database()
         old_card_type = fact.card_type
         if old_card_type != new_card_type:
-            old_card_type_id_uncloned = old_card_type.id.split("_CLONED", 1)[0]
-            new_card_type_id_uncloned = new_card_type.id.split("_CLONED", 1)[0] 
             converter = self.component_manager.get_current\
                   ("card_type_converter", used_for=(old_card_type.__class__,
                                                     new_card_type.__class__))
-            if old_card_type_id_uncloned == new_card_type_id_uncloned:
-                fact.card_type = new_card_type
-                updated_cards = db.cards_from_fact(fact)      
-            elif not converter:
-                if warn:
+            if not converter:
+                # Perhaps they have a common ancestor.
+                parents_old = old_card_type.id.split(".")
+                parents_new = new_card_type.id.split(".")
+                if parents_old[0] == parents_new[0]: 
+                    fact.card_type = new_card_type
+                    updated_cards = db.cards_from_fact(fact)      
+                else:
                     answer = self.main_widget().question_box(\
-          _("Can't preserve history when converting between these card types.")\
-                  + " " + _("The learning history of the cards will be reset."),
-                  _("&OK"), _("&Cancel"), "")
-                else:
-                    answer = 0
-                if answer == 1: # Cancel.
-                    return -1
-                else:
-                    db.delete_fact_and_related_data(fact)
-                    self.create_new_cards(new_fact_data, new_card_type,
-                                          grade=-1, tag_names=new_tag_names)
-                    return 0
+         _("Can't preserve history when converting between these card types.")\
+                 + " " + _("The learning history of the cards will be reset."),
+                      _("&OK"), _("&Cancel"), "")
+                    if answer == 1: # Cancel.
+                        return -1
+                    else:
+                        db.delete_fact_and_related_data(fact)
+                        self.create_new_cards(new_fact_data, new_card_type,
+                                         grade=-1, tag_names=new_tag_names)
+                        return 0
             else:
                 # Make sure the converter operates on card objects which
                 # already know their new type, otherwise we could get
@@ -161,14 +158,11 @@ class DefaultMainController(UiControllerMain):
                    converter.convert(cards_to_be_updated, old_card_type,
                                      new_card_type, correspondence)
                 if len(deleted_cards) != 0:
-                    if warn:
-                        answer = self.main_widget().question_box(\
+                    answer = self.main_widget().question_box(\
           _("This will delete cards and their history.") + " " +\
           _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?"),
                       _("&Proceed and delete"), _("&Cancel"), "")
-                    else:
-                        answer = 0
                     if answer == 1: # Cancel.
                         return -1
                 for card in deleted_cards:

@@ -2,21 +2,22 @@
 # cloned_card_types_list_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4 import QtGui
 
-from clone_card_type_dlg import CloneCardTypeDlg
-
-from ui_cloned_card_types_list_dlg import Ui_ClonedCardTypesListDlg
-from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
+from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.pyqt_ui.clone_card_type_dlg import CloneCardTypeDlg
+from mnemosyne.pyqt_ui.ui_cloned_card_types_list_dlg import \
+     Ui_ClonedCardTypesListDlg
+from mnemosyne.libmnemosyne.ui_components.dialogs import ManageCardTypesDialog
 
-
-class ClonedCardTypesListDlg(QDialog, Ui_ClonedCardTypesListDlg, Component):
+class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
+                             ManageCardTypesDialog):
 
     def __init__(self, parent, component_manager):
         Component.__init__(self, component_manager)
-        QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.update()
 
@@ -26,7 +27,7 @@ class ClonedCardTypesListDlg(QDialog, Ui_ClonedCardTypesListDlg, Component):
             if card_type.__class__.__bases__[0] != CardType:
                 name = "%s (%s)" % (card_type.name,
                                     card_type.__class__.__bases__[0].name)
-                self.cloned_card_types.addItem(QListWidgetItem(name))
+                self.cloned_card_types.addItem(QtGui.QListWidgetItem(name))
 
     def clone_card_type(self):
         dlg = CloneCardTypeDlg(self, self.component_manager)
@@ -34,6 +35,5 @@ class ClonedCardTypesListDlg(QDialog, Ui_ClonedCardTypesListDlg, Component):
         self.update()
 
     def help(self):
-        from mnemosyne.libmnemosyne.translator import _
         message = _("Here, you can make clones of existing card types. This allows you to format the cards in this type independently from the original type. E.g. you could make a clone of 'Foreign word with pronunciation', call it 'Thai' and set a Thai fonts specifically for this card type without disturbing the other cards.")
-        QMessageBox.information(self, _("Cloning card types"), message, _("&OK"))
+        QtGui.QMessageBox.information(self, _("Cloning card types"), message, _("&OK"))

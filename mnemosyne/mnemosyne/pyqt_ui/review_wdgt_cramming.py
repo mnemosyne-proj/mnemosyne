@@ -2,13 +2,10 @@
 # review_wdgt_cramming.py <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
-
 from PyQt4 import QtGui
 
-from review_wdgt import ReviewWdgt
-
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
 from mnemosyne.libmnemosyne.component import Component
    
 

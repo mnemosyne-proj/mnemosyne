@@ -220,9 +220,9 @@ class TestDatabase(MnemosyneTest):
 
         self.mnemosyne.finalise()
         self.restart()
-        self.database().unload()
 
         # Artificially remove plugin.
+        self.database().unload()
         for plugin in self.plugins():
             component = plugin.components[0]
             if component.component_type == "card_type" and component.id == "4":
@@ -323,28 +323,28 @@ class TestDatabase(MnemosyneTest):
                      "a": "answer_"}
         card_type = self.card_type_by_id("1")
         self.ui_controller_main().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["default"], warn=False)
+            grade=-1, tag_names=["default"])
         assert len(self.database().duplicates_for_fact(fact)) == 0
         
         fact_data = {"q": "question1",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         self.ui_controller_main().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["default"], warn=False)
+            grade=-1, tag_names=["default"])
         assert len(self.database().duplicates_for_fact(fact)) == 0
         
         fact_data = {"q": "question",
                      "a": "answer1"}
         card_type = self.card_type_by_id("1")
         self.ui_controller_main().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["default"], warn=False)
+            grade=-1, tag_names=["default"])
         assert len(self.database().duplicates_for_fact(fact)) == 1
         
         fact_data = {"q": "question",
                      "a": "answer1"}
         card_type = self.card_type_by_id("2")
         self.ui_controller_main().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["default"], warn=False)
+            grade=-1, tag_names=["default"])
         assert len(self.database().duplicates_for_fact(fact)) == 1
         
     def test_card_types_in_use(self):

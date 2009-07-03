@@ -130,13 +130,13 @@ class Mnemosyne(Component):
         
         """
 
-        modules = ["config", "log", "database", "scheduler",
-                   "ui_controller_main", "main_widget"]
+        components = ["config", "log", "database", "scheduler",
+                      "ui_controller_main", "main_widget"]
         if self.review_widget().instantiate != Component.LATER:
-            modules.extend(["ui_controller_review", "review_widget"])
-        for module in modules:
+            components.extend(["ui_controller_review", "review_widget"])
+        for component in components:
             try:
-                self.component_manager.get_current(module).activate()
+                self.component_manager.get_current(component).activate()
             except RuntimeError, e:
                 self.main_widget().error_box(str(e))
 
@@ -202,12 +202,17 @@ class Mnemosyne(Component):
 
     def finalise(self):
         # Saving the config should happen before we deactivate the plugins,
-        # otherwise they are not restored upon reload. Ditto for logging, which
-        # needs to happen before we unload the database.
-        self.log().saved_database()
-        self.log().stopped_program()
+        # otherwise they are not restored upon reload.
         self.config().save()
         user_id = self.config()["user_id"]
+        # We need to log before we unload the database.
+        self.log().saved_database()
+        self.log().stopped_program()
+        # Now deactivate the database, such that deactivating plugins with
+        # card types does not raise an error about card types in use.
+        self.database().deactivate()
+        self.component_manager.unregister(self.database())
+        # Then do the other components.
         self.component_manager.deactivate_all()
         unregister_component_manager(user_id)
         

@@ -62,18 +62,25 @@ class Plugin(Component):
 
     def deactivate(self):
         # Check if we are allowed to deactivate a card type.
+        if self.database() and self.database().is_loaded():
+            for component in self.instantiated_components:
+                if component.component_type == "card_type":
+                    for card_type in self.database().card_types_in_use():
+                        if issubclass(card_type.__class__,
+                                      component.__class__):
+                            self.main_widget().information_box(\
+          _("Cannot deactivate, this card type or a clone of it is in use."))
+                            return False
+        # Deactivate and unregister components.  
         for component in self.instantiated_components:
-            if component.component_type == "card_type" \
-                   and self.database().is_loaded():
-                for card_type in self.database().card_types_in_use():
-                    if issubclass(card_type.__class__, component.__class__):
-                        self.main_widget().information_box(\
-        _("Cannot deactivate, this card type or a clone of it is in use."))
-                        return False
             component.deactivate()
             self.component_manager.unregister(component)
         for component in self.registered_components:
-            self.component_manager.unregister(component)            
+            self.component_manager.unregister(component)
+        # If we are shutting down and the database is gone, don't worry about
+        # side effects.
+        if not self.database():
+            return True
         # Make necessary side effects happen. We don't put all side effects in
         # a single loop, as the order is important.
         for component in self.instantiated_components:
@@ -86,8 +93,7 @@ class Plugin(Component):
                 self.component_manager.unregister(old_widget)
                 self.component_manager.register(new_widget)
         for component in self.instantiated_components:            
-            if component.component_type == "scheduler" and \
-                   self.database().is_loaded():
+            if component.component_type == "scheduler":
                 self.ui_controller_review().reset()
                 self.ui_controller_review().new_question()
                 self.log().started_scheduler()

@@ -11,14 +11,15 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
 
-    def error_box(self, s1):
+    def question_box(self, question, option0, option1, option2):
+        if option0 == "&Delete":
+            return 0
         raise NotImplementedError
 
 
-class TestScheduler(MnemosyneTest):
+class TestCrammingScheduler(MnemosyneTest):
 
     def setup(self):
-
         os.system("rm -fr dot_test")
         
         self.mnemosyne = Mnemosyne()
@@ -29,7 +30,7 @@ class TestScheduler(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
-        MnemosyneTest.setup(self)
+
         from mnemosyne.libmnemosyne.plugins.cramming_plugin import CrammingPlugin
         for plugin in self.plugins():
             if isinstance(plugin, CrammingPlugin):
@@ -43,16 +44,16 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "3", "a": "a"}
         card_3 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=2, tag_names=["default"], warn=False)[0]
+                     grade=2, tag_names=["default"])[0]
         fact_data = {"q": "4", "a": "a"}
         card_4 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=2, tag_names=["default"], warn=False)[0]
+                     grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
 
@@ -84,7 +85,7 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"])[0]
 
         self.ui_controller_review().new_question()
         self.ui_controller_main().delete_current_fact()
@@ -95,7 +96,7 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"])[0]
 
         self.ui_controller_review().new_question()
 
@@ -109,7 +110,7 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"], warn=False)[0]
+                     grade=-1, tag_names=["default"])[0]
 
         self.ui_controller_review().new_question()
         self.database().unload()

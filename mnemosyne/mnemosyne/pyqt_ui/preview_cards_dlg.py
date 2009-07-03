@@ -2,18 +2,16 @@
 # Widget to preview set of related cards <Peter.Bienstman@UGent.be>
 #
 
-import gettext
-_ = gettext.gettext
+from PyQt4 import QtGui
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from ui_preview_cards_dlg import Ui_PreviewCardsDlg
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 
-class PreviewCardsDlg(QDialog, Ui_PreviewCardsDlg):
+class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg):
 
     def __init__(self, cards, cat_name_string, parent=None):
-        QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.cards = cards
         self.index = 0

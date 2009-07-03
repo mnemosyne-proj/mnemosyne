@@ -109,17 +109,11 @@ class ComponentManager(object):
             return all[-1]
         
     def deactivate_all(self):
-        # First let plugins deactivate their subcomponents.
-        for used_for in self.components:
-            if "plugin" in self.components[used_for]:
-                for component in self.components[used_for]["plugin"]:
-                    component.deactivate()
-        # Then do the other components.
         for used_for in self.components:
             for comp_type in self.components[used_for]:
                 for component in self.components[used_for][comp_type]:
                     if not isinstance(component, type):
-                        component.deactivate()
+                        component.deactivate()  
         self.components = {}
         self.card_type_by_id = {}
 

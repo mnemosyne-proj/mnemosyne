@@ -38,7 +38,16 @@ class ReviewWidget(UiComponent):
     def update_show_button(self, text, default, enabled): 
         pass
 
-    def enable_grades(self, enabled): 
+    def enable_grades(self, enabled):
+
+        "Enable whole grade area, including title"
+        
+        pass
+    
+    def enable_grade(self, grade, enabled):
+
+        "Enable just a single grade button"
+        
         pass
     
     def set_default_grade(self, grade):

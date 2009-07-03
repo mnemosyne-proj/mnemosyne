@@ -87,7 +87,7 @@ class Configuration(Component, dict):
              "background_colour": {}, # [card_type.id]             
              "font_colour": {}, # [card_type.id][fact_key]
              "alignment": {}, # [card_type.id]
-             "grade_0_items_at_once": 10,
+             "grade_0_cards_at_once": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
              "learn_related_cards_together": False, 
@@ -151,12 +151,7 @@ class Configuration(Component, dict):
             except:
                 pass
             if sys.platform == "darwin":
-                self.old_basedir = join(home, ".mnemosyne")
                 self.basedir = join(home, "Library", "Mnemosyne")
-                if not exists(self.basedir) and \
-                       exists(self.old_basedir):
-                    self.migrate_basedir(self.old_basedir,
-                                         self.basedir)
             else:
                 self.basedir = join(home, ".mnemosyne")
 
@@ -229,24 +224,3 @@ class Configuration(Component, dict):
                 last = history_files[-1]
                 user, index = last.split('_')
                 index = int(index.split('.')[0]) + 1
-
-    def migrate_basedir(self, old, new):
-        if os.path.islink(self.old_basedir):
-            print "Not migrating %s to %s because " % (old, new) \
-                    + "it is a symlink."
-            return
-        # Migrate Mnemosyne basedir to new location and create a symlink from
-        # the old one. The other way around is a bad idea, because a user
-        # might decide to clean up the old obsolete directory, not realising
-        # the new one is a symlink.
-        print "Migrating %s to %s" % (old, new)
-        try:
-            os.rename(old, new)
-        except OSError:
-            print "Move failed, manual migration required."
-            return
-        # Now create a symlink for backwards compatibility.
-        try:
-            os.symlink(new, old)
-        except OSError:
-            print "Backwards compatibility symlink creation failed."

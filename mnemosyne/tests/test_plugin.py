@@ -119,7 +119,7 @@ class TestPlugin(MnemosyneTest):
         p = RedPlugin(self.mnemosyne.component_manager)
         p.activate()
         assert self.mnemosyne.component_manager.get_current\
-                    ("card_type_widget", used_for=FrontToBack) != None
+                    ("generic_card_type_widget", used_for=FrontToBack) != None
         p.deactivate()  
         assert self.mnemosyne.component_manager.get_current\
-                    ("card_type_widget", used_for=FrontToBack) == None
+                    ("generic_card_type_widget", used_for=FrontToBack) == None

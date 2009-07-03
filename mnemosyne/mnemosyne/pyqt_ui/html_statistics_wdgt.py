@@ -2,7 +2,7 @@
 # html_statistics_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtGui, QtCore, QtWebKit
+from PyQt4 import QtCore, QtWebKit
 
 from mnemosyne.libmnemosyne.statistics_page import HtmlStatisticsPage
 from mnemosyne.libmnemosyne.ui_components.statistics_widget import \

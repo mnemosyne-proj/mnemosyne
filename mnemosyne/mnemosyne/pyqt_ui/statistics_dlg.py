@@ -6,9 +6,10 @@ from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.ui_components.dialogs import StatisticsDialog
 
 
-class StatisticsDlg(QtGui.QDialog, Component):
+class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
 
     """A tab widget containing several statistics pages. The number and names
     of the tab pages are determined at run time.
@@ -41,7 +42,14 @@ class StatisticsDlg(QtGui.QDialog, Component):
             page_index = 0
         self.tab_widget.setCurrentIndex(page_index)
         self.display_page(page_index)
-
+           
+    def closeEvent(self, event):
+        self.config()["statistics_widget_size"] = (self.width(), self.height())
+        
+    def accept(self):
+        self.config()["statistics_widget_size"] = (self.width(), self.height())
+        return QtGui.QDialog.accept(self)        
+        
     def display_page(self, page_index):
         page = self.tab_widget.widget(page_index)
         self.config()["last_variant_for_statistics_page"].setdefault(page_index, 0)
@@ -51,6 +59,11 @@ class StatisticsDlg(QtGui.QDialog, Component):
         page.combobox.setCurrentIndex(variant_index)
         page.display_variant(variant_index)
         self.config()["last_statistics_page"] = page_index
+
+        # TODO: suffers from screen corruption
+        #width, height = self.config()["main_window_size"]
+        #if width:
+        #    self.resize(width, height)
 
 
 class StatisticsPageWdgt(QtGui.QWidget, Component):

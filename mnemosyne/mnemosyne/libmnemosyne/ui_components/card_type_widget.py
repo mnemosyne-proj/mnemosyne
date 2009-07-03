@@ -44,6 +44,13 @@ class CardTypeWidget(UiComponent):
         """Empty the widget and prepare it for entry of the next card."""
         
         raise NotImplementedError
-    
 
     
+class GenericCardTypeWidget(CardTypeWidget):
+    
+    """A card type widget that can be used as fallback when no dedicated
+    widget exists.
+
+    """
+
+    component_type = "generic_card_type_widget"
