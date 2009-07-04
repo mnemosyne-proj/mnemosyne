@@ -43,6 +43,9 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
         self.tab_widget.setCurrentIndex(page_index)
         self.display_page(page_index)
            
+    def activate(self):
+        self.exec_()
+
     def closeEvent(self, event):
         self.config()["statistics_widget_size"] = (self.width(), self.height())
         

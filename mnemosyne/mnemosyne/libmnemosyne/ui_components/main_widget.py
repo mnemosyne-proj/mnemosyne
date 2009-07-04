@@ -40,27 +40,3 @@ class MainWidget(UiComponent):
 
     def set_window_title(self, title):
         pass
-    
-    def run_add_cards_dialog(self):
-        pass
-
-    def run_edit_fact_dialog(self, fact, allow_cancel=True):
-        pass
-    
-    def run_card_appearance_dialog(self):
-        pass
-    
-    def run_activate_plugins_dialog(self):
-        pass
-    
-    def run_manage_card_types_dialog(self):
-        pass
-
-    def run_browse_cards_dialog(self):
-        pass
-    
-    def run_configuration_dialog(self):
-        pass
-
-    def run_show_statistics_dialog(self):
-        pass

@@ -35,7 +35,8 @@ class DefaultMainController(UiControllerMain):
 
     def add_cards(self):
         self.stopwatch().pause()
-        self.main_widget().run_add_cards_dialog()
+        self.component_manager.get_current("add_cards_dialog")\
+            (self.main_widget(), self.component_manager).activate()
         review_controller = self.ui_controller_review()
         review_controller.reload_counters()
         if review_controller.card is None:
@@ -47,7 +48,9 @@ class DefaultMainController(UiControllerMain):
     def edit_current_card(self):
         self.stopwatch().pause()
         review_controller = self.ui_controller_review()
-        self.main_widget().run_edit_fact_dialog(review_controller.card.fact)
+        fact = review_controller.card.fact
+        self.component_manager.get_current("edit_fact_dialog")\
+            (fact, self.main_widget(), self.component_manager).activate()
         review_controller.card = \
             self.database().get_card(review_controller.card._id)
         review_controller.reload_counters()
@@ -56,7 +59,7 @@ class DefaultMainController(UiControllerMain):
             review_controller.new_question()         
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
-
+        
     def create_new_cards(self, fact_data, card_type, grade, tag_names):
 
         """Create a new set of related cards. If the grade is 2 or higher,
@@ -370,35 +373,40 @@ class DefaultMainController(UiControllerMain):
             fname = copy_file_to_dir(fname, mediadir)
             return fname
 
+    def browse_cards(self):
+        self.stopwatch().pause()
+        self.component_manager.get_current("browse_cards_dialog")\
+            (self.main_widget(), self.component_manager).activate()
+        self.stopwatch().unpause()
+        
     def card_appearance(self):
         self.stopwatch().pause()
-        self.main_widget().run_card_appearance_dialog()
+        self.component_manager.get_current("card_appearance_dialog")\
+            (self.main_widget(), self.component_manager).activate()
         self.ui_controller_review().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
     def activate_plugins(self):
         self.stopwatch().pause()
-        self.main_widget().run_activate_plugins_dialog()
+        self.component_manager.get_current("activate_plugins_dialog")\
+            (self.main_widget(), self.component_manager).activate()
         self.ui_controller_review().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
     def manage_card_types(self):
         self.stopwatch().pause()
-        self.main_widget().run_manage_card_types_dialog()
+        self.component_manager.get_current("manage_card_types_dialog")\
+            (self.main_widget(), self.component_manager).activate()
         self.stopwatch().unpause()
         
-    def browse_cards(self):
+    def show_statistics(self):
         self.stopwatch().pause()
-        self.main_widget().run_browse_cards_dialog()
+        self.component_manager.get_current("statistics_dialog")\
+            (self.main_widget(), self.component_manager).activate()
         self.stopwatch().unpause()
         
     def configure(self):
         self.stopwatch().pause()
-        self.main_widget().run_configuration_dialog()
+        self.component_manager.get_current("configuration_dialog")\
+            (self.main_widget(), self.component_manager).activate()
         self.stopwatch().unpause()
-
-    def show_statistics(self):
-        self.stopwatch().pause()
-        self.main_widget().run_show_statistics_dialog()
-        self.stopwatch().unpause()
-

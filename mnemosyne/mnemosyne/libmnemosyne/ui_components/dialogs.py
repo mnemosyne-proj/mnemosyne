@@ -11,7 +11,7 @@ class Dialog(UiComponent):
     instantiate = UiComponent.LATER
     
     def __init__(self, parent, component_manager):
-        raise NotImplementedError
+        pass
 
 
 class AddCardsDialog(Dialog):
@@ -23,14 +23,14 @@ class EditFactDialog(Dialog):
     
     component_type = "edit_fact_dialog"
 
-    def __init__(self, fact, parent, component_manager, allow_cancel):
-        raise NotImplementedError
+    def __init__(self, fact, parent, component_manager, allow_cancel=True):
+        pass
 
 
-class ManageCardTypesDialog(Dialog):
+class BrowseCardsDialog(Dialog):
     
-    component_type = "manage_card_types_dialog"
-    
+    component_type = "browse_cards_dialog"
+
 
 class CardAppearanceDialog(Dialog):
     
@@ -42,6 +42,17 @@ class ActivatePluginsDialog(Dialog):
     component_type = "activate_plugins_dialog"
 
 
+class ManageCardTypesDialog(Dialog):
+    
+    component_type = "manage_card_types_dialog"
+
+
 class StatisticsDialog(Dialog):
     
     component_type = "statistics_dialog"
+
+
+class ConfigurationDialog(Dialog):
+    
+    component_type = "configuration_dialog"
+

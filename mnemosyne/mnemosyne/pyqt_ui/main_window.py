@@ -112,36 +112,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
     def show_statistics(self):
         self.ui_controller_main().show_statistics()
         
-    def run_add_cards_dialog(self):
-        dlg = self.component_manager.get_current("add_cards_dialog")\
-            (self, self.component_manager)
-        dlg.exec_()
-
-    def run_edit_fact_dialog(self, fact, allow_cancel=True):
-        dlg = self.component_manager.get_current("edit_fact_dialog")\
-            (fact, self, self.component_manager, allow_cancel)
-        dlg.exec_()
-        
-    def run_manage_card_types_dialog(self):
-        dlg = self.component_manager.get_current("manage_card_types_dialog")\
-            (self, self.component_manager)
-        dlg.exec_()
-        
-    def run_card_appearance_dialog(self):
-        dlg = self.component_manager.get_current("card_appearance_dialog")\
-            (self, self.component_manager)
-        dlg.exec_()
-
-    def run_activate_plugins_dialog(self):
-        dlg = self.component_manager.get_current("activate_plugins_dialog")\
-            (self, self.component_manager)
-        dlg.exec_()
-
-    def run_show_statistics_dialog(self):
-        dlg = self.component_manager.get_current("statistics_dialog")\
-            (self, self.component_manager)
-        dlg.exec_()
-        
     def Import(self):
         stopwatch.pause()
         from xml.sax import saxutils, make_parser

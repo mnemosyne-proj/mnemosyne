@@ -89,7 +89,10 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg, ActivatePluginsDi
         width, height = self.config()["plugins_widget_size"]
         if width:
             self.resize(width, height)
-            
+        
+    def activate(self):
+        self.exec_()
+        
     def closeEvent(self, event):
         self.config()["plugins_widget_size"] = (self.width(), self.height())
         

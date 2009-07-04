@@ -19,6 +19,9 @@ class AddEditCards(Component):
 
     """Code shared between the add and the edit dialogs."""
 
+    def activate(self):
+        self.exec_()
+
     def initialise_card_types_combobox(self, current_card_type_name):
         # We calculate card_type_by_name here because these names can change
         # if the user chooses another translation.
@@ -124,7 +127,7 @@ class AddEditCards(Component):
 
     def __del__(self):
         # Make sure that Python knows Qt has deleted this widget.
-        self.card_type_widget = None        
+        self.card_type_widget = None
 
 
 class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):

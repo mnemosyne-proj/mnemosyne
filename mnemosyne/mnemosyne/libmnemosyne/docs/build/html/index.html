@@ -71,9 +71,10 @@ is an extra level of flexibility, and can be used to generate LaTeX, convert
 relative paths to absolute paths, etc ..</p>
 <p>In order to make it easier for other GUI frontends to be written, all the logic
 typically needed for GUIs, but that is independent of the actual GUI toolkit
-used, is abstracted in ui controllers. In order to get more flexibility, there
-are two of them: one related to the review widget, and one to the rest
-of the program.</p>
+used, is abstracted in controllers. In order to get more flexibility, there
+are two of them: one related to the review process (which is different for
+different schedulers), and one related to the rest of the program (which
+normally won&#8217;t change).</p>
 <p>There is also mechanism for plugins to add new statistical data to the standard
 statistics in an integrated way.</p>
 </div>
@@ -206,7 +207,7 @@ statistics in an integrated way.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 03, 2009.
+      Last updated on Jul 04, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

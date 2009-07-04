@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
-    <link rel="prev" title="Stopwatch" href="stopwatch.html" /> 
+    <link rel="prev" title="StatisticsPage" href="statistics_page.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,7 +31,7 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="stopwatch.html" title="Stopwatch"
+          <a href="statistics_page.html" title="StatisticsPage"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +49,8 @@
 <p>There a three files in that frontend:</p>
 <ul class="simple">
 <li>a startup script, which specifies which compoments your frontend wants to activate in libmnemosyne, whether you are running on a device which is resource limited, ... .</li>
+<li>a main widget, which corresponds to the application level widget in the GUI toolkit, and is in charge of showing error dialogs, displaying menus.</li>
 <li>the review widget, where you need to implement a.o. the code to display text in the question window, ... .</li>
-<li>a main window, which in the windows mobile backend is just a container for the review widget, but which in a more advanced client could contain the functionality needed to add cards, edit cards, etc...</li>
 </ul>
 <p>To give a better feeling for how the division of labour between your own new GUI code and the GUI independent code in the controllers works, consider this example from the &#8216;add cards&#8217; functionality in the PyQt frontend.</p>
 <p>When the user activates the menu option or icon to add cards, it will fire up a certain function, which in the PyQt frontend is called <tt class="docutils literal"><span class="pre">add_cards()</span></tt>:</p>
@@ -59,17 +59,18 @@
 </div>
 <p>The implementation of this function is rather trivial, it just calls the ui controller:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ui_controller_main</span><span class="p">()</span><span class="o">.</span><span class="n">add_cards</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ui_controller</span><span class="p">()</span><span class="o">.</span><span class="n">add_cards</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The code above is code you need to implement for your new frontend, but as you can see, it&#8217;s rather trivial.</p>
 <p>The ui_controller_main add cards function looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">stopwatch</span><span class="p">()</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">main_widget</span><span class="p">()</span><span class="o">.</span><span class="n">run_add_cards_dialog</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="o">.</span><span class="n">get_current</span><span class="p">(</span><span class="s">&quot;add_cards_dialog&quot;</span><span class="p">)</span>\
+        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_widget</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="p">)</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
     <span class="n">review_controller</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_controller_review</span><span class="p">()</span>
     <span class="n">review_controller</span><span class="o">.</span><span class="n">reload_counters</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">review_controller</span><span class="o">.</span><span class="n">card</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">review_controller</span><span class="o">.</span><span class="n">card</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">review_controller</span><span class="o">.</span><span class="n">new_question</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">review_widget</span><span class="p">()</span><span class="o">.</span><span class="n">update_status_bar</span><span class="p">()</span>
@@ -78,17 +79,18 @@
 </div>
 <p>This is where the heavy lifting is done, but it&#8217;s completely UI independent,
 and there should be no need for you to modify that code.</p>
-<p>To enable the controller to do it&#8217;s actual work, you need to write the
-callback <tt class="docutils literal"><span class="pre">main_widget().run_add_cards_dialog()</span></tt>, but as you can see, the code
-you need to write yourself is again rather trivial:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">run_add_cards_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">dlg</span> <span class="o">=</span> <span class="n">AddCardsDlg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="p">)</span>
-    <span class="n">dlg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+<p>In order for the controller to know where it can find the actual add cards dialog, which for PyQt is called <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> , you need to have that dialog derive from the abstract <tt class="docutils literal"><span class="pre">libmnemosyne.ui_components.dialogs.AddCardsDialog</span></tt>, and provide an activate function, which for the PyQt toolkit is simply:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Inside the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt>, there is of course lots of UI specific code, but once
-the dialog has enough data to create the cards, it simply calls:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">ui_controller_main</span><span class="p">()</span><span class="o">.</span><span class="n">create_new_cards</span><span class="p">(</span><span class="n">fact_data</span><span class="p">,</span> <span class="n">card_type</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">cat_names</span><span class="p">)</span>
+<p>Finally, you need to register the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> component. That is what the following line does inside the main startup script (which for PyQt is simply called <tt class="docutils literal"><span class="pre">mnemosyne</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mnemosyne</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&quot;mnemosyne.pyqt_ui.add_cards_dlg&quot;</span><span class="p">,</span>
+                             <span class="s">&quot;AddCardsDlg&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Inside the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt>, there is of course lots of UI specific code, but once the dialog has enough data to create the cards, it simply calls:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">ui_controller</span><span class="p">()</span><span class="o">.</span><span class="n">create_new_cards</span><span class="p">(</span><span class="n">fact_data</span><span class="p">,</span> <span class="n">card_type</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">cat_names</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>So, the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the ui controller&#8217;s <tt class="docutils literal"><span class="pre">create_new_cards()</span></tt> method.</p>
@@ -107,7 +109,7 @@ the dialog has enough data to create the cards, it simply calls:</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="stopwatch.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
+            <p class="topless"><a href="statistics_page.html" title="previous chapter"><tt class="docutils literal"><span class="pre">StatisticsPage</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/how_to_write_a_new_frontend.txt">Show Source</a></li>
@@ -132,14 +134,14 @@ the dialog has enough data to create the cards, it simply calls:</p>
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="stopwatch.html" title="Stopwatch"
+          <a href="statistics_page.html" title="StatisticsPage"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jun 12, 2009.
+      Last updated on Jul 04, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

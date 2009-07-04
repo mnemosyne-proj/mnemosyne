@@ -2,10 +2,41 @@
 # test_main_controller.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne_test import MnemosyneTest
+import os
 
+from mnemosyne_test import MnemosyneTest
+from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.ui_components.dialogs import *
 
 class TestMainController(MnemosyneTest):
+
+    def setup(self):
+        os.system("rm -fr dot_test")
+        
+        self.mnemosyne = Mnemosyne()
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_cramming", "Widget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "AddCardsDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditFactDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "BrowseCardsDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "CardAppearanceDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ActivatePluginsDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ManageCardTypesDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "StatisticsDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ConfigurationDialog"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"))
 
     def test_coverage(self):
         self.ui_controller_main().heartbeat()

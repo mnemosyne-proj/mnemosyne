@@ -21,6 +21,9 @@ class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
         self.setupUi(self)
         self.update()
 
+    def activate(self):
+        self.exec_()
+
     def update(self):
         self.cloned_card_types.clear()
         for card_type in self.card_types():

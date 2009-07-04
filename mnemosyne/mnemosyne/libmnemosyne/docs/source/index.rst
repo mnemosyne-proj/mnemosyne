@@ -40,9 +40,10 @@ relative paths to absolute paths, etc ..
 
 In order to make it easier for other GUI frontends to be written, all the logic
 typically needed for GUIs, but that is independent of the actual GUI toolkit
-used, is abstracted in ui controllers. In order to get more flexibility, there 
-are two of them: one related to the review widget, and one to the rest 
-of the program.
+used, is abstracted in controllers. In order to get more flexibility, there 
+are two of them: one related to the review process (which is different for 
+different schedulers), and one related to the rest of the program (which 
+normally won't change).
 
 There is also mechanism for plugins to add new statistical data to the standard
 statistics in an integrated way.

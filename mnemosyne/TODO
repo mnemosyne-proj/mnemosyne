@@ -1,13 +1,12 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--break out dialogs from main widget
--update porting guide
+-ui controller main -> ui_controller, also in docs
+-review widget starting code
 
 -WM test and benchmark
 
 -more tests
-
 
 -move option to always randomise queue to config screen
 -ditto for learn new related cards in same session

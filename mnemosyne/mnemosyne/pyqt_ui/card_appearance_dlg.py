@@ -38,7 +38,10 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.old_font_colour = deepcopy(self.config()["font_colour"])
         self.old_alignment = deepcopy(self.config()["alignment"])
         self.changed = False
-
+        
+    def activate(self):
+        self.exec_()
+        
     def card_type_changed(self, new_card_type_name):
         if new_card_type_name == _("<all card types>"):
             self.affected_card_types = self.card_types()
