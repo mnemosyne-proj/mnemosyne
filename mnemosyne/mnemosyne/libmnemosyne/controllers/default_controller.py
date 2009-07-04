@@ -1,18 +1,18 @@
 #
-# default_main_controller.py <Peter.Bienstman@UGent.be>
+# default_controller.py <Peter.Bienstman@UGent.be>
 #
 
 import os
 import copy
 import time
 
-from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.fact import Fact
+from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.controller import Controller
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
-from mnemosyne.libmnemosyne.ui_controller_main import UiControllerMain
 
 
-class DefaultMainController(UiControllerMain):
+class DefaultController(Controller):
 
     def heartbeat(self):
 
@@ -37,7 +37,7 @@ class DefaultMainController(UiControllerMain):
         self.stopwatch().pause()
         self.component_manager.get_current("add_cards_dialog")\
             (self.main_widget(), self.component_manager).activate()
-        review_controller = self.ui_controller_review()
+        review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:
             review_controller.new_question()
@@ -47,7 +47,7 @@ class DefaultMainController(UiControllerMain):
 
     def edit_current_card(self):
         self.stopwatch().pause()
-        review_controller = self.ui_controller_review()
+        review_controller = self.review_controller()
         fact = review_controller.card.fact
         self.component_manager.get_current("edit_fact_dialog")\
             (fact, self.main_widget(), self.component_manager).activate()
@@ -116,8 +116,8 @@ class DefaultMainController(UiControllerMain):
             db.add_card(card)
             cards.append(card)
         db.save()
-        if self.ui_controller_review().learning_ahead == True:
-            self.ui_controller_review().reset()
+        if self.review_controller().learning_ahead == True:
+            self.review_controller().reset()
         return cards # For testability.
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
@@ -174,8 +174,8 @@ class DefaultMainController(UiControllerMain):
                     db.add_card(card)
                 for card in updated_cards:
                     db.update_card(card)
-                if new_cards and self.ui_controller_review().learning_ahead:
-                    self.ui_controller_review().reset()
+                if new_cards and self.review_controller().learning_ahead:
+                    self.review_controller().reset()
                     
         # Update facts and cards.
         new_cards, updated_cards, deleted_cards = \
@@ -189,8 +189,8 @@ class DefaultMainController(UiControllerMain):
             db.add_card(card)
         for card in updated_cards:
             db.update_card(card)
-        if new_cards and self.ui_controller_review().learning_ahead == True:
-            self.ui_controller_review().reset()
+        if new_cards and self.review_controller().learning_ahead == True:
+            self.review_controller().reset()
             
         # Update tags.
         old_tags = set()
@@ -210,7 +210,7 @@ class DefaultMainController(UiControllerMain):
     def delete_current_fact(self):
         self.stopwatch().pause()
         db = self.database()
-        review_controller = self.ui_controller_review()
+        review_controller = self.review_controller()
         fact = review_controller.card.fact
         no_of_cards = len(db.cards_from_fact(fact))
         if no_of_cards == 1:
@@ -268,8 +268,8 @@ class DefaultMainController(UiControllerMain):
         db.new(out)
         db.load(self.config()["path"])
         self.log().loaded_database()
-        self.ui_controller_review().reset()
-        self.ui_controller_review().update_dialog()
+        self.review_controller().reset()
+        self.review_controller().update_dialog()
         self.update_title()
         self.stopwatch().unpause()
 
@@ -288,7 +288,7 @@ class DefaultMainController(UiControllerMain):
             self.main_widget().error_box(str(error))
             self.stopwatch().unpause()
             return            
-        self.ui_controller_review().reset()
+        self.review_controller().reset()
         try:
             self.database().load(out)
             self.log().loaded_database()
@@ -296,7 +296,7 @@ class DefaultMainController(UiControllerMain):
             self.main_widget().show_exception(e)
             self.stopwatch().unpause()
             return
-        self.ui_controller_review().new_question()
+        self.review_controller().new_question()
         self.update_title()
         self.stopwatch().unpause()
 
@@ -327,7 +327,7 @@ class DefaultMainController(UiControllerMain):
             self.main_widget().error_box(str(error))
             self.stopwatch().unpause()
             return
-        self.ui_controller_review().update_dialog()
+        self.review_controller().update_dialog()
         self.update_title()
         self.stopwatch().unpause()
 
@@ -383,14 +383,14 @@ class DefaultMainController(UiControllerMain):
         self.stopwatch().pause()
         self.component_manager.get_current("card_appearance_dialog")\
             (self.main_widget(), self.component_manager).activate()
-        self.ui_controller_review().update_dialog(redraw_all=True)
+        self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
     def activate_plugins(self):
         self.stopwatch().pause()
         self.component_manager.get_current("activate_plugins_dialog")\
             (self.main_widget(), self.component_manager).activate()
-        self.ui_controller_review().update_dialog(redraw_all=True)
+        self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
     def manage_card_types(self):

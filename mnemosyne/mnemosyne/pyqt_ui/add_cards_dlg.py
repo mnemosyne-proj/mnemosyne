@@ -170,7 +170,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
                      unicode(self.tags.currentText()).split(',')]
         card_type_name = unicode(self.card_types_widget.currentText())
         card_type = self.card_type_by_name[card_type_name]
-        c = self.ui_controller_main()
+        c = self.controller()
         c.create_new_cards(fact_data, card_type, grade, tag_names)
         tag_text = ", ".join(tag_names)
         self.update_tags_combobox(tag_text)
@@ -188,5 +188,4 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
                 return
         else:
             QtGui.QDialog.reject(self)
-
 

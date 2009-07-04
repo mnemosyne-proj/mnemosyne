@@ -38,9 +38,9 @@ class TestCloze(MnemosyneTest):
         
         fact_data = {"text": "a [b] c"}
 
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.ui_controller_main().file_save()
+        self.controller().file_save()
 
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]
@@ -69,9 +69,9 @@ div#text { text-align: center; }
         
         fact_data = {"text": "a [b] [c]"}
 
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.ui_controller_main().file_save()
+        self.controller().file_save()
 
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]
@@ -80,21 +80,21 @@ div#text { text-align: center; }
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_] [c_]"}
-        self.ui_controller_main().update_related_cards(fact, fact_data,
+        self.controller().update_related_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_]"}
-        self.ui_controller_main().update_related_cards(fact, fact_data,
+        self.controller().update_related_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
         
         fact_data = {"text": "a_ [b_] [d] [e]"}
-        self.ui_controller_main().update_related_cards(fact, fact_data,
+        self.controller().update_related_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1

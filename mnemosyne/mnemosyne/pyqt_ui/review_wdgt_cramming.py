@@ -34,7 +34,7 @@ class ReviewWdgtCramming(ReviewWdgt):
 
     def update_status_bar(self, message=None):
         wrong_count, unseen_count, active_count = \
-                   self.ui_controller_review().get_counters()
+                   self.review_controller().get_counters()
         self.wrong.setText(_("Wrong: %d ") % wrong_count)
         self.unseen.setText(_("Unseen: %d ") % unseen_count)
         self.active.setText(_("Active: %d ") % active_count)

@@ -13,7 +13,7 @@ class MyHtmlStatistics(HtmlStatisticsPage):
     name = "My html staticsics"
         
     def prepare_statistics(self, variant):
-        card = self.ui_controller_review().card
+        card = self.review_controller().card
         self.html = """<html<body>
         <style type="text/css">
         table { height: 100%;
@@ -37,4 +37,3 @@ class MyHtmlStatisticsPlugin(Plugin):
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(MyHtmlStatisticsPlugin)
-

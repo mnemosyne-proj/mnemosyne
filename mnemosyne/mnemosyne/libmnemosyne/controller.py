@@ -1,19 +1,19 @@
 #
-# ui_controller_main.py <Peter.Bienstman@UGent.be>
+# controller.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.component import Component
 
 
-class UiControllerMain(Component):
+class Controller(Component):
 
-    """A collection of logic used by the main Mnemosyne window and some related
-    widgets.  The logic related to the review process is split out in a
-    separated controller class, to allow that to be swapped out easily.
+    """A collection of logic used by the GUI.  The logic related to the
+    review process is split out in a separated controller class, to
+    allow that to be swapped out easily.
 
     """
 
-    component_type = "ui_controller_main"
+    component_type = "controller"
 
     def heartbeat(self):
 

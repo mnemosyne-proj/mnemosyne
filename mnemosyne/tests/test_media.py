@@ -31,18 +31,18 @@ class TestMedia(MnemosyneTest):
         global filename
         
         filename = ""
-        self.ui_controller_main().insert_sound("")
+        self.controller().insert_sound("")
 
     def test_sound_2(self):
         global filename
         
         os.system("touch a.ogg")
         filename = os.path.abspath("a.ogg")
-        self.ui_controller_main().insert_sound("")
+        self.controller().insert_sound("")
         assert os.path.exists(os.path.join(self.config().mediadir(), "a.ogg"))
 
         filename = os.path.join(self.config().mediadir(), "a.ogg")
-        self.ui_controller_main().insert_sound("")
+        self.controller().insert_sound("")
         assert os.path.exists(os.path.join(self.config().mediadir(), "a.ogg"))
         
     def test_sound_3(self):
@@ -51,31 +51,31 @@ class TestMedia(MnemosyneTest):
         os.system("touch a.ogg")
         
         filename = os.path.abspath("a.ogg")
-        self.ui_controller_main().insert_sound("")
+        self.controller().insert_sound("")
         assert os.path.exists(os.path.join(self.config().mediadir(), "a.ogg"))
         
-        self.ui_controller_main().insert_sound("")
+        self.controller().insert_sound("")
         assert os.path.exists(os.path.join(self.config().mediadir(), "a (1).ogg"))
         
-        self.ui_controller_main().insert_sound("")
+        self.controller().insert_sound("")
         assert os.path.exists(os.path.join(self.config().mediadir(), "a (2).ogg"))
         
     def test_img_1(self):
         global filename
         
         filename = ""
-        self.ui_controller_main().insert_img("")
+        self.controller().insert_img("")
 
     def test_img_2(self):
         global filename
         
         os.system("touch a.ogg")
         filename = os.path.abspath("a.ogg")
-        self.ui_controller_main().insert_img("")
+        self.controller().insert_img("")
         assert os.path.exists(os.path.join(self.config().mediadir(), "a.ogg"))
 
         filename = os.path.join(self.config().mediadir(), "a.ogg")
-        self.ui_controller_main().insert_img("")
+        self.controller().insert_img("")
         assert os.path.exists(os.path.join(self.config().mediadir(), "a.ogg"))
 
     def test_media_subdir(self):
@@ -85,7 +85,7 @@ class TestMedia(MnemosyneTest):
         os.mkdir(subdir)
         filename = os.path.join(subdir, "b.ogg")
         os.system("touch %s" % filename)
-        self.ui_controller_main().insert_img("")
+        self.controller().insert_img("")
         assert os.path.exists(os.path.join(self.config().mediadir(),
                                            "subdir", "b.ogg"))
 
@@ -96,7 +96,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "<img src=\"%s\">" % full_path,
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir)
@@ -112,7 +112,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "<img src=\"a.ogg>", # Missing closing "
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         assert os.path.join(self.config().mediadir(), "a.ogg") \
                not in card.question()
@@ -124,13 +124,13 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "<img src=\"%s\">" % full_path,
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
 
         fact_data = {"q": "edited <img src=\"%s\">" % "a.ogg",
                      "a": "answer"}
-        self.ui_controller_main().update_related_cards(card.fact, fact_data,
+        self.controller().update_related_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
 
         assert os.path.exists(full_path_in_media_dir)
@@ -149,7 +149,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "<img src=\"%s\">" % full_path,
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
 
         os.system("touch b.ogg")
@@ -157,7 +157,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "edited <img src=\"%s\"> <img src=\"%s\">" \
                      % ("a.ogg", full_path),
                      "a": "answer"}
-        self.ui_controller_main().update_related_cards(card.fact, fact_data,
+        self.controller().update_related_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "b.ogg")
         assert os.path.exists(full_path_in_media_dir)
@@ -176,11 +176,11 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "<img src=\"%s\">" % full_path,
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "edited ",
                      "a": "answer"}
-        self.ui_controller_main().update_related_cards(card.fact, fact_data,
+        self.controller().update_related_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
         assert not os.path.exists(full_path_in_media_dir)
@@ -199,15 +199,15 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "<img src=\"%s\">" % full_path,
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2 <img src=\"%s\">" % "a.ogg",
                      "a": "answer"}
-        self.ui_controller_main().create_new_cards(fact_data, card_type,
+        self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "edited",
                      "a": "answer"}        
-        self.ui_controller_main().update_related_cards(card.fact, fact_data,
+        self.controller().update_related_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Don't delete file.
@@ -226,7 +226,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "<img src=\"%s\">" % full_path,
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         self.database().delete_fact_and_related_data(card.fact)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")
@@ -245,11 +245,11 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "<img src=\"%s\">" % full_path,
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2 <img src=\"%s\">" % "a.ogg",
                      "a": "answer"}
-        self.ui_controller_main().create_new_cards(fact_data, card_type,
+        self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         self.database().delete_fact_and_related_data(card.fact)
         full_path_in_media_dir = os.path.join(self.config().mediadir(), "a.ogg")

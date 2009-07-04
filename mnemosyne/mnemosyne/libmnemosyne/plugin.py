@@ -55,8 +55,8 @@ class Plugin(Component):
             if component.component_type == "scheduler" \
                    and self.database().is_loaded():
                 self.log().started_scheduler()
-                self.ui_controller_review().reset()
-                self.ui_controller_review().new_question()
+                self.review_controller().reset()
+                self.review_controller().new_question()
         # Use names instead of instances here in order to survive pickling.  
         self.config()["active_plugins"].add(self.__class__.__name__)
 
@@ -94,8 +94,8 @@ class Plugin(Component):
                 self.component_manager.register(new_widget)
         for component in self.instantiated_components:            
             if component.component_type == "scheduler":
-                self.ui_controller_review().reset()
-                self.ui_controller_review().new_question()
+                self.review_controller().reset()
+                self.review_controller().new_question()
                 self.log().started_scheduler()
         # Use names instead of instances here in order to survive pickling.
         if self.__class__.__name__ in self.config()["active_plugins"]:

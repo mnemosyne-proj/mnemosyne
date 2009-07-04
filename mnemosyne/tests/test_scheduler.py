@@ -11,16 +11,16 @@ class TestScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         
         fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2", "a": "a"}        
-        card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "3", "a": "a"}
-        card_3 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_3 = self.controller().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=["default"])[0]
         fact_data = {"q": "4", "a": "a"}
-        card_4 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_4 = self.controller().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000 * 24 * 60 * 60
         self.database().update_card(card_4)
@@ -68,10 +68,10 @@ class TestScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         
         fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2", "a": "a"}        
-        card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.config()["grade_0_cards_at_once"] = 0
         
@@ -81,7 +81,7 @@ class TestScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         for i in range(10):
             fact_data = {"q": str(i), "a": "a"}
-            self.ui_controller_main().create_new_cards(fact_data, card_type,
+            self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]    
         self.config()["grade_0_cards_at_once"] = 3
         cards = set()
@@ -96,9 +96,9 @@ class TestScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         for i in range(5):
             fact_data = {"q": str(i), "a": "a"}
-            self.ui_controller_main().create_new_cards(fact_data, card_type,
+            self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
-        self.ui_controller_review().learning_ahead = True
+        self.review_controller().learning_ahead = True
         for i in range(30):
             card = self.scheduler().get_next_card(learn_ahead=True)
             self.scheduler().grade_answer(card, 5)
@@ -107,15 +107,15 @@ class TestScheduler(MnemosyneTest):
     def test_learn_ahead_2(self):
         card_type = self.card_type_by_id("1")
         fact_data = {"q": "1", "a": "a"}
-        old_card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        old_card = self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
-        self.ui_controller_review().learning_ahead = True      
+        self.review_controller().learning_ahead = True      
         for i in range(3):
             card = self.scheduler().get_next_card(learn_ahead=True)
             self.scheduler().grade_answer(card, 5)
             self.database().update_card(card)
         fact_data = {"q": "2", "a": "a"}
-        new_card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        new_card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         assert self.scheduler().get_next_card() == new_card
 
@@ -124,10 +124,10 @@ class TestScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         
         fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2", "a": "a"}        
-        card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
         card = self.scheduler().get_next_card()
@@ -142,21 +142,21 @@ class TestScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         
         fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2", "a": "a"}        
-        card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
-        self.ui_controller_review().new_question()
-        self.ui_controller_review().grade_answer(0)
-        self.ui_controller_review().grade_answer(0)
+        self.review_controller().new_question()
+        self.review_controller().grade_answer(0)
+        self.review_controller().grade_answer(0)
 
-        assert self.ui_controller_review().card != None
+        assert self.review_controller().card != None
         
     def test_6(self):
         card_1 = None
-        self.ui_controller_review().reset()
+        self.review_controller().reset()
         for i in range(10):
             fact_data = {"q": "question" + str(i),
                          "a": "answer" + str(i)}
@@ -164,67 +164,67 @@ class TestScheduler(MnemosyneTest):
                 card_type = self.card_type_by_id("1")
             else:
                 card_type = self.card_type_by_id("2")            
-            card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+            card = self.controller().create_new_cards(fact_data, card_type,
                     grade=4, tag_names=["default" + str(i)])[0]
             card.next_rep -= (1000-i) * 24 * 60 * 60
             self.database().update_card(card)
             if i == 0:
                 card_1 = card
-        self.ui_controller_review().new_question()
-        assert self.ui_controller_review().card == card_1
-        self.ui_controller_review().grade_answer(0)
+        self.review_controller().new_question()
+        assert self.review_controller().card == card_1
+        self.review_controller().grade_answer(0)
         card_1_new = self.database().get_card(card_1._id)
         assert card_1_new.grade == 0
 
     def test_learn_ahead_3(self):
         card_type = self.card_type_by_id("1")
         fact_data = {"q": "1", "a": "a"}
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.ui_controller_review().new_question()
-        self.ui_controller_review().grade_answer(5)    
-        self.ui_controller_review().learning_ahead = True
+        self.review_controller().new_question()
+        self.review_controller().grade_answer(5)    
+        self.review_controller().learning_ahead = True
         for i in range(10):
-            self.ui_controller_review().new_question()
-            assert self.ui_controller_review().card is not None
-            self.ui_controller_review().grade_answer(2)
+            self.review_controller().new_question()
+            assert self.review_controller().card is not None
+            self.review_controller().grade_answer(2)
 
     def test_learn_related_together(self):
         self.config()["learn_related_cards_together"] = True
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
-        card_1, card_2 = self.ui_controller_main().create_new_cards(fact_data,
+        card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
         for i in range(7):
             fact_data = {"q": str(i), "a": "a"}
-            self.ui_controller_main().create_new_cards(fact_data, card_type,
+            self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.ui_controller_review().new_question()
-        assert self.ui_controller_review().card == card_1
-        self.ui_controller_review().grade_answer(5)
+        self.review_controller().new_question()
+        assert self.review_controller().card == card_1
+        self.review_controller().grade_answer(5)
         cards = set()
         for i in range(30):
-            self.ui_controller_review().grade_answer(1)
-            cards.add(self.ui_controller_review().card._id)
+            self.review_controller().grade_answer(1)
+            cards.add(self.review_controller().card._id)
         assert card_2._id in cards
         
     def test_learn_related_together_2(self):
         self.config()["learn_related_cards_together"] = False
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
-        card_1, card_2 = self.ui_controller_main().create_new_cards(fact_data,
+        card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
         for i in range(7):
             fact_data = {"q": str(i), "a": "a"}
-            self.ui_controller_main().create_new_cards(fact_data, card_type,
+            self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.ui_controller_review().new_question()
-        assert self.ui_controller_review().card == card_1
-        self.ui_controller_review().grade_answer(5)
+        self.review_controller().new_question()
+        assert self.review_controller().card == card_1
+        self.review_controller().grade_answer(5)
         cards = set()
         for i in range(30):
-            self.ui_controller_review().grade_answer(1)
-            cards.add(self.ui_controller_review().card._id)
+            self.review_controller().grade_answer(1)
+            cards.add(self.review_controller().card._id)
         assert card_2._id not in cards
 
     def test_learn_related_together_3(self):
@@ -232,13 +232,13 @@ class TestScheduler(MnemosyneTest):
         self.config()["learn_related_cards_together"] = False
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
-        card_1, card_2 = self.ui_controller_main().create_new_cards(fact_data,
+        card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
-        self.ui_controller_review().new_question()
-        assert self.ui_controller_review().card == card_1
-        self.ui_controller_review().grade_answer(5)
+        self.review_controller().new_question()
+        assert self.review_controller().card == card_1
+        self.review_controller().grade_answer(5)
         cards = set()
         for i in range(30):
-            self.ui_controller_review().grade_answer(1)
-            cards.add(self.ui_controller_review().card._id)
+            self.review_controller().grade_answer(1)
+            cards.add(self.review_controller().card._id)
         assert card_2._id in cards

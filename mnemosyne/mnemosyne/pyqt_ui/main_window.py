@@ -32,11 +32,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
             self.resize(width, height)
         self.timer_1 = QtCore.QTimer()
         self.connect(self.timer_1, QtCore.SIGNAL("timeout()"),
-                     self.ui_controller_review().heartbeat)
+                     self.review_controller().heartbeat)
         self.timer_1.start(1000 * 60 * 10)
         self.timer_2 = QtCore.QTimer()
         self.connect(self.timer_2, QtCore.SIGNAL("timeout()"),
-                     self.ui_controller_main().heartbeat)
+                     self.controller().heartbeat)
         self.timer_2.start(1000 * 60 * 60 * 24)
         
     def add_to_statusbar(self, widget):
@@ -80,37 +80,37 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.setWindowTitle(title)
 
     def add_cards(self):
-        self.ui_controller_main().add_cards()
+        self.controller().add_cards()
 
     def edit_current_card(self):
-        self.ui_controller_main().edit_current_card()
+        self.controller().edit_current_card()
         
     def delete_current_fact(self):
-        self.ui_controller_main().delete_current_fact()
+        self.controller().delete_current_fact()
         
     def file_new(self):
-        self.ui_controller_main().file_new()
+        self.controller().file_new()
 
     def file_open(self):
-        self.ui_controller_main().file_open()
+        self.controller().file_open()
         
     def file_save(self):
-        self.ui_controller_main().file_save()
+        self.controller().file_save()
         
     def file_save_as(self):
-        self.ui_controller_main().file_save_as()
+        self.controller().file_save_as()
         
     def manage_card_types(self):
-        self.ui_controller_main().manage_card_types()
+        self.controller().manage_card_types()
         
     def card_appearance(self):
-        self.ui_controller_main().card_appearance()
+        self.controller().card_appearance()
         
     def activate_plugins(self):
-        self.ui_controller_main().activate_plugins()
+        self.controller().activate_plugins()
 
     def show_statistics(self):
-        self.ui_controller_main().show_statistics()
+        self.controller().show_statistics()
         
     def Import(self):
         stopwatch.pause()
@@ -138,7 +138,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
             self.newQuestion()
         else:
             remove_from_queue(self.card) # It's already being asked.
-        self.ui_controller_review().update_dialog(redraw_all=True)
+        self.review_controller().update_dialog(redraw_all=True)
         self.updateDialog()
         stopwatch.unpause()
 

@@ -56,9 +56,9 @@ class Mnemosyne(Component):
           "ExpandPaths"),
          ("mnemosyne.libmnemosyne.filters.latex",
           "Latex"),
-         ("mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller",
-          "DefaultMainController"),
-         ("mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller",
+         ("mnemosyne.libmnemosyne.controllers.default_controller",
+          "DefaultController"),
+         ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
           "SM2Controller"),
          ("mnemosyne.libmnemosyne.card_types.map",
           "MapPlugin"),
@@ -97,7 +97,7 @@ class Mnemosyne(Component):
         self.log().loaded_database()
         # Finally, everything is in place to start the review process.
         if self.review_widget().instantiate != Component.LATER:
-            self.ui_controller_review().new_question()
+            self.review_controller().new_question()
 
     def register_components(self):
 
@@ -131,9 +131,9 @@ class Mnemosyne(Component):
         """
 
         components = ["config", "log", "database", "scheduler",
-                      "ui_controller_main", "main_widget"]
+                      "controller", "main_widget"]
         if self.review_widget().instantiate != Component.LATER:
-            components.extend(["ui_controller_review", "review_widget"])
+            components.extend(["review_controller", "review_widget"])
         for component in components:
             try:
                 self.component_manager.get_current(component).activate()
@@ -198,7 +198,7 @@ class Mnemosyne(Component):
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + self.database().suffix)
             self.database().new(filename)
-        self.ui_controller_main().update_title()
+        self.controller().update_title()
 
     def finalise(self):
         # Saving the config should happen before we deactivate the plugins,
@@ -217,4 +217,3 @@ class Mnemosyne(Component):
         unregister_component_manager(user_id)
         
         
-

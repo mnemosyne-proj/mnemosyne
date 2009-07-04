@@ -3,7 +3,7 @@
 #
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.ui_controller_review import UiControllerReview
+from mnemosyne.libmnemosyne.review_controller import ReviewController
 
 
 # Tooltip texts.  The first index deals with whether we have a card with
@@ -33,7 +33,7 @@ tooltip[1][5] = \
     _("The interval was probably too short.")
 
 
-class SM2Controller(UiControllerReview):
+class SM2Controller(ReviewController):
 
     def activate(self):
         self.reset()
@@ -245,7 +245,7 @@ class SM2Controller(UiControllerReview):
         w.enable_browse_cards(self.database().is_loaded())
 
     def is_question_showing(self):
-        return self.ui_controller_review().state == "SELECT SHOW"
+        return self.review_controller().state == "SELECT SHOW"
 
     def is_answer_showing(self):
-        return self.ui_controller_review().state == "SELECT GRADE"
+        return self.review_controller().state == "SELECT GRADE"

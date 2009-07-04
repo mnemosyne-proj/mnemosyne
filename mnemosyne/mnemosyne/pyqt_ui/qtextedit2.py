@@ -36,13 +36,13 @@ class QTextEdit2(QtGui.QTextEdit):
     def insert_img(self):
         filter = "(*.png *.gif *.jpg *.bmp *.jpeg" + \
                  " *.PNG *.GIF *.jpg *.BMP *.JPEG)"
-        fname = self.parent().ui_controller_main().insert_img(filter)
+        fname = self.parent().controller().insert_img(filter)
         if fname:
             self.insertPlainText("<img src=\"" + fname + "\">")
 
     def insert_sound(self):
         filter = "(*.wav *.mp3 *.ogg *.WAV *.MP3 *.OGG)"
-        fname = self.parent().ui_controller_main().insert_sound(filter)
+        fname = self.parent().controller().insert_sound(filter)
         if fname:
             self.insertPlainText("<audio src=\"" + fname + "\">")
         

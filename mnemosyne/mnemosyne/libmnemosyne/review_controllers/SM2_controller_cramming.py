@@ -3,7 +3,7 @@
 #
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
+from mnemosyne.libmnemosyne.review_controllers.SM2_controller \
      import SM2Controller
 from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
 

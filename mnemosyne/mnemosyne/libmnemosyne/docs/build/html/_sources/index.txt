@@ -64,8 +64,8 @@ Contents
     modules/card
     modules/card_type_converter
     modules/renderer
-    modules/ui_controller_main
-    modules/ui_controller_review
+    modules/controller
+    modules/review_controller
     modules/configuration
     modules/database
     modules/file_format

@@ -37,9 +37,9 @@ class TestAddCards(MnemosyneTest):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        self.ui_controller_main().create_new_cards(fact_data, card_type,
+        self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
-        self.ui_controller_main().file_save()
+        self.controller().file_save()
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
@@ -49,10 +49,10 @@ class TestAddCards(MnemosyneTest):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        self.ui_controller_main().create_new_cards(fact_data, card_type,
+        self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
-        self.ui_controller_main().file_save()
-        self.ui_controller_main().create_new_cards(fact_data, card_type,
+        self.controller().file_save()
+        self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
@@ -61,9 +61,9 @@ class TestAddCards(MnemosyneTest):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = self.card_type_by_id("2")
-        self.ui_controller_main().create_new_cards(fact_data, card_type,
+        self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
-        self.ui_controller_main().file_save()
+        self.controller().file_save()
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
         
@@ -72,9 +72,9 @@ class TestAddCards(MnemosyneTest):
                      "p": "pronunciation",
                      "t": "translation"}
         card_type = self.card_type_by_id("3")
-        self.ui_controller_main().create_new_cards(fact_data, card_type,
+        self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
-        self.ui_controller_main().file_save()
+        self.controller().file_save()
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
 
@@ -82,36 +82,36 @@ class TestAddCards(MnemosyneTest):
         fact_data = {"q": "question1",
                      "a": "answer1"}
         card_type = self.card_type_by_id("1")
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "question2",
                      "a": "answer2"}
-        card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
         assert set(tag.name for tag in card_1.tags) == \
                set(tag.name for tag in card_2.tags)
         fact_data = {"q": "question3",
                      "a": "answer3"}
-        card_3 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_3 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
-        self.ui_controller_review().new_question()
-        assert self.ui_controller_review().card == card_1
-        self.ui_controller_review().grade_answer(0)
+        self.review_controller().new_question()
+        assert self.review_controller().card == card_1
+        self.review_controller().grade_answer(0)
         self.database().delete_fact_and_related_data(card_3.fact)
-        self.ui_controller_review().rebuild_queue()
-        self.ui_controller_review().new_question() 
+        self.review_controller().rebuild_queue()
+        self.review_controller().new_question() 
         for i in range(6):
-            assert self.ui_controller_review().card != card_3
-            self.ui_controller_review().grade_answer(0)        
+            assert self.review_controller().card != card_3
+            self.review_controller().grade_answer(0)        
 
     def test_change_tag(self):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        self.ui_controller_review().new_question()
-        self.ui_controller_main().update_related_cards(card.fact, fact_data, \
+        self.review_controller().new_question()
+        self.controller().update_related_cards(card.fact, fact_data, \
             card_type, ["new"], correspondence={})     
         new_card = self.database().get_card(card._id)
         tag_names = [tag.name for tag in new_card.tags]

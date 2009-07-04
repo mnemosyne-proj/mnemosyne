@@ -8,7 +8,7 @@ class Component(object):
     manager. This is a list of component types: config, log, database,
     scheduler, stopwatch, translator, filter, card_type, card_type_converter,
     card_type_widget, generic_card_type_widget, ui_component, renderer,
-    ui_controller_main, main_widget, ui_controller_review, review_widget,
+    controller, main_widget, review_controller, review_widget,
     plugin, hook, statistics_page, all the abstract dialogs, ...      
 
     'used_for' can store certain relationships between components, e.g.
@@ -83,11 +83,11 @@ class Component(object):
     def review_widget(self):
         return self.component_manager.get_current("review_widget")
 
-    def ui_controller_main(self):
-        return self.component_manager.get_current("ui_controller_main")
+    def controller(self):
+        return self.component_manager.get_current("controller")
 
-    def ui_controller_review(self):
-        return self.component_manager.get_current("ui_controller_review")
+    def review_controller(self):
+        return self.component_manager.get_current("review_controller")
 
     def card_types(self):
         return self.component_manager.get_all("card_type")

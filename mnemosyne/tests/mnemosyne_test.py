@@ -43,11 +43,11 @@ class MnemosyneTest():
     def review_widget(self):
         return self.mnemosyne.component_manager.get_current("review_widget")
 
-    def ui_controller_main(self):
-        return self.mnemosyne.component_manager.get_current("ui_controller_main")
+    def controller(self):
+        return self.mnemosyne.component_manager.get_current("controller")
 
-    def ui_controller_review(self):
-        return self.mnemosyne.component_manager.get_current("ui_controller_review")
+    def review_controller(self):
+        return self.mnemosyne.component_manager.get_current("review_controller")
 
     def card_types(self):
         return self.mnemosyne.component_manager.get_all("card_type")

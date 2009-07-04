@@ -40,7 +40,7 @@ class EditFactDlg(QtGui.QDialog, Ui_EditFactDlg, AddEditCards,
                         unicode(self.tags.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types_widget.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
-        c = self.ui_controller_main()
+        c = self.controller()
         status = c.update_related_cards(self.fact, new_fact_data,
                         new_card_type, new_tag_names, self.correspondence)
         if status == 0:

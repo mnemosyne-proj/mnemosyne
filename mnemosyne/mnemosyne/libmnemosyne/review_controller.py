@@ -1,18 +1,18 @@
 #
-# ui_controller_review.py <Peter.Bienstman@UGent.be>
+# review_controller.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.component import Component
 
 
-class UiControllerReview(Component):
+class ReviewController(Component):
     
     """Controls the behaviour of a widget which implements the ReviewWidget
     interface.
     
     """
 
-    component_type = "ui_controller_review"
+    component_type = "review_controller"
 
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
@@ -56,13 +56,13 @@ class UiControllerReview(Component):
 
     def get_counters(self):
 
-        """Returns tuple (scheduled_count, non_memorised_count, active_count). """
+        "Returns tuple (scheduled_count, non_memorised_count, active_count). "
         
         raise NotImplementedError
 
     def reload_counters(self):
         
-        """To be called when counters need to be reloaded from the database. """
+        "To be called when counters need to be reloaded from the database. "
         
         raise NotImplementedError
     
@@ -74,4 +74,3 @@ class UiControllerReview(Component):
 
     def is_answer_showing(self):
         raise NotImplementedError  
-

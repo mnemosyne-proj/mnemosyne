@@ -73,30 +73,30 @@ def create_database():
             card_type = mnemosyne.card_type_by_id("1")
         else:
             card_type = mnemosyne.card_type_by_id("2")            
-        card = mnemosyne.ui_controller_main().create_new_cards(\
+        card = mnemosyne.controller().create_new_cards(\
             fact_data, card_type, grade=4, tag_names=["default" + str(i)])[0]
         card.next_rep -= 1000*24*60*60
         mnemosyne.database().update_card(card)
     mnemosyne.database().save(mnemosyne.config()["path"])
     
 def queue():
-    mnemosyne.ui_controller_review().reset()
-    mnemosyne.ui_controller_review().new_question()
+    mnemosyne.review_controller().reset()
+    mnemosyne.review_controller().new_question()
     
 def new_question():
     # Note that this actually also happened in startup().
-    mnemosyne.ui_controller_review().new_question()
+    mnemosyne.review_controller().new_question()
     
 def display():
-    mnemosyne.ui_controller_review().card.question()
+    mnemosyne.review_controller().card.question()
     
 def grade():
     # Note that this will also pull in a new question.
-    mnemosyne.ui_controller_review().grade_answer(0)
+    mnemosyne.review_controller().grade_answer(0)
 
 def grade_only():
     mnemosyne.scheduler().grade_answer(\
-        mnemosyne.ui_controller_review().card, 0)
+        mnemosyne.review_controller().card, 0)
 
 def count_active():
     mnemosyne.scheduler().active_count()

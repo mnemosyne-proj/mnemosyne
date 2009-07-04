@@ -11,9 +11,9 @@ class TestHtmlCss(MnemosyneTest):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        card = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.ui_controller_main().file_save()
+        self.controller().file_save()
         
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]

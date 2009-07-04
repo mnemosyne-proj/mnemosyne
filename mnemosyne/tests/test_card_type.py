@@ -16,7 +16,7 @@ class TestCardType(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         card_type.fact_views[0].type_answer = True
         card_type.fact_views[0].extra_data = {"a": "b"}        
-        card_type = self.ui_controller_main().clone_card_type(\
+        card_type = self.controller().clone_card_type(\
             card_type, ("1 clone"))
         card_type.extra_data = {"b": "b"}
         self.database().update_card_type(card_type)
@@ -50,10 +50,10 @@ class TestCardType(MnemosyneTest):
 
     def test_delete(self):
         card_type = self.card_type_by_id("1")
-        card_type_1 = self.ui_controller_main().clone_card_type(\
+        card_type_1 = self.controller().clone_card_type(\
             card_type, "1 clone")
         card_type = self.card_type_by_id("2")
-        card_type_2 = self.ui_controller_main().clone_card_type(\
+        card_type_2 = self.controller().clone_card_type(\
                       card_type, "2 clone")
 
         self.database().delete_card_type(card_type_1)
@@ -77,9 +77,9 @@ class TestCardType(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         card_type.fact_views[0].type_answer = True
         card_type.fact_views[0].extra_data = {"a": "b"}        
-        card_type = self.ui_controller_main().clone_card_type(\
+        card_type = self.controller().clone_card_type(\
             card_type, ("1 clone"))
-        card_type = self.ui_controller_main().clone_card_type(\
+        card_type = self.controller().clone_card_type(\
             card_type, ("1 clone cloned"))
         card_type.extra_data = {"b": "b"}
         self.database().update_card_type(card_type)

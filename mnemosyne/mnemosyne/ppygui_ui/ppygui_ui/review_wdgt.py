@@ -105,17 +105,17 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     def show_answer(self, event):
         if not self.show_button_enabled:
             return
-        self.ui_controller_review().show_answer()
+        self.review_controller().show_answer()
            
     def grade_answer(self, event):
         if not self.grade_buttons_enabled:
             return
         grade = self.id_for_grade[event.id]
-        self.ui_controller_review().grade_answer(grade)
+        self.review_controller().grade_answer(grade)
 
     def update_status_bar(self):
         non_memorised_count, scheduled_count, active_count = \
-                   self.ui_controller_review().get_counters()
+                   self.review_controller().get_counters()
         self.status_bar.text = "Not mem.:%d Sch.:%d  Act.: %d" % \
             (non_memorised_count, scheduled_count, active_count)
         

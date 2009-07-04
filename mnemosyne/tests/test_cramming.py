@@ -43,16 +43,16 @@ class TestCrammingScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         
         fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "2", "a": "a"}        
-        card_2 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "3", "a": "a"}
-        card_3 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_3 = self.controller().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=["default"])[0]
         fact_data = {"q": "4", "a": "a"}
-        card_4 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_4 = self.controller().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
         self.database().update_card(card_4)
@@ -84,21 +84,21 @@ class TestCrammingScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         
         fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
-        self.ui_controller_review().new_question()
-        self.ui_controller_main().delete_current_fact()
-        assert self.ui_controller_review().card == None
+        self.review_controller().new_question()
+        self.controller().delete_current_fact()
+        assert self.review_controller().card == None
 
     def test_3(self):
         card_type = self.card_type_by_id("1")
         
         fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
-        self.ui_controller_review().new_question()
+        self.review_controller().new_question()
 
         self.mnemosyne.finalise()
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
@@ -109,10 +109,10 @@ class TestCrammingScheduler(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         
         fact_data = {"q": "1", "a": "a"}
-        card_1 = self.ui_controller_main().create_new_cards(fact_data, card_type,
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
-        self.ui_controller_review().new_question()
+        self.review_controller().new_question()
         self.database().unload()
-        self.ui_controller_review().reset()
+        self.review_controller().reset()
         self.restart()

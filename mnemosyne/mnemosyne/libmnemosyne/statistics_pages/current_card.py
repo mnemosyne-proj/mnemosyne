@@ -15,7 +15,7 @@ class CurrentCard(HtmlStatisticsPage):
     name = _("Current card")
         
     def prepare_statistics(self, variant):
-        card = self.ui_controller_review().card
+        card = self.review_controller().card
         self.html = """<html<body>
         <style type="text/css">
         table { height: 100%;
