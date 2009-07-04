@@ -16,11 +16,11 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
 
     """
 
-    def __init__(self, parent, component_manager):
+    def __init__(self, component_manager):
         Component.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, self.main_widget())
         self.vbox_layout = QtGui.QVBoxLayout(self)
-        self.tab_widget = QtGui.QTabWidget(parent)
+        self.tab_widget = QtGui.QTabWidget(self.main_widget())
         page_index = 0
         for page in self.statistics_pages():
             page = page(self.component_manager)

@@ -57,28 +57,27 @@
 <div class="highlight-python"><div class="highlight"><pre><span class="n">QObject</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actionAddCards</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="s">&quot;activated()&quot;</span><span class="p">),</span> <span class="n">MainWindow</span><span class="o">.</span><span class="n">add_cards</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The implementation of this function is rather trivial, it just calls the ui controller:</p>
+<p>The implementation of this function is rather trivial, it just calls the controller:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ui_controller</span><span class="p">()</span><span class="o">.</span><span class="n">add_cards</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">()</span><span class="o">.</span><span class="n">add_cards</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The code above is code you need to implement for your new frontend, but as you can see, it&#8217;s rather trivial.</p>
-<p>The ui_controller_main add cards function looks like this:</p>
+<p>The controller&#8217;s <tt class="docutils literal"><span class="pre">add_cards</span></tt> function looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">stopwatch</span><span class="p">()</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="o">.</span><span class="n">get_current</span><span class="p">(</span><span class="s">&quot;add_cards_dialog&quot;</span><span class="p">)</span>\
-        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_widget</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="p">)</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
-    <span class="n">review_controller</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_controller_review</span><span class="p">()</span>
+        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="p">)</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+    <span class="n">review_controller</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">review_controller</span><span class="p">()</span>
     <span class="n">review_controller</span><span class="o">.</span><span class="n">reload_counters</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">review_controller</span><span class="o">.</span><span class="n">card</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">review_controller</span><span class="o">.</span><span class="n">new_question</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">review_widget</span><span class="p">()</span><span class="o">.</span><span class="n">update_status_bar</span><span class="p">()</span>
+        <span class="n">review_controller</span><span class="o">.</span><span class="n">update_status_bar</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">stopwatch</span><span class="p">()</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This is where the heavy lifting is done, but it&#8217;s completely UI independent,
-and there should be no need for you to modify that code.</p>
+<p>This is where the heavy lifting is done, but it&#8217;s completely UI independent, and there should be no need for you to modify that code.</p>
 <p>In order for the controller to know where it can find the actual add cards dialog, which for PyQt is called <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> , you need to have that dialog derive from the abstract <tt class="docutils literal"><span class="pre">libmnemosyne.ui_components.dialogs.AddCardsDialog</span></tt>, and provide an activate function, which for the PyQt toolkit is simply:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
@@ -90,11 +89,11 @@ and there should be no need for you to modify that code.</p>
 </pre></div>
 </div>
 <p>Inside the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt>, there is of course lots of UI specific code, but once the dialog has enough data to create the cards, it simply calls:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">ui_controller</span><span class="p">()</span><span class="o">.</span><span class="n">create_new_cards</span><span class="p">(</span><span class="n">fact_data</span><span class="p">,</span> <span class="n">card_type</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">cat_names</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">()</span><span class="o">.</span><span class="n">create_new_cards</span><span class="p">(</span><span class="n">fact_data</span><span class="p">,</span> <span class="n">card_type</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">cat_names</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>So, the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the ui controller&#8217;s <tt class="docutils literal"><span class="pre">create_new_cards()</span></tt> method.</p>
-<p>If you feel like you need to override the review or the main ui controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.</p>
+<p>If you feel like you need to override the review or the main controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.</p>
 <p>Notes:</p>
 <ul class="simple">
 <li>If you need access to the main widget when you are constructing the review widget, e.g. to specify it&#8217;s parent, you can access it using <cite>self.main_widget()`</cite></li>

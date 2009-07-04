@@ -1,19 +1,8 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--omit parent arguments in dialogs? update how to write new frontend, dialogs.py
--replace reset by activate?
--do we need to start the scheduler in init? + logging
 
--merge start_review in activate? start_review to interface
-
--review widget starting code
-
--plugin: reset if scheduler or controller or both
--rename start review to reset
--move plugin review widget side effect to review controller 
-
-
+-hierarchy in card types ::
 
 -WM test and benchmark
 

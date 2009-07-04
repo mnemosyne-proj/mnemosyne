@@ -12,9 +12,9 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import EditFactDialog
 class EditFactDlg(QtGui.QDialog, Ui_EditFactDlg, AddEditCards,
                   EditFactDialog):
 
-    def __init__(self, fact, parent, component_manager, allow_cancel=True):
+    def __init__(self, fact, component_manager, allow_cancel=True):
         AddEditCards.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         if not allow_cancel:
             self.exit_button.setVisible(False)  

@@ -64,10 +64,13 @@ class ReviewController(Component):
         
         "To be called when counters need to be reloaded from the database. "
         
-        raise NotImplementedError
+        raise NotImplementedError       
     
     def update_dialog(self):
         raise NotImplementedError
+
+    def update_statusbar(self, message=None):
+        raise NotImplementedError 
 
     def is_question_showing(self):
         raise NotImplementedError

@@ -38,8 +38,14 @@ class Plugin(Component):
             "A plugin needs a name and a description."
         self.instantiated_components = []
         self.registered_components = []
-        
+            
     def activate(self):
+        # See if we need to reset the review process.
+        self.review_reset_needed = False
+        for component in self.components:
+            if component.component_type == "scheduler" or \
+               component.component_type == "review_controller":
+                self.review_reset_needed = True
         # Register all our components. Instantiate them if needed.
         for component in self.components:
             if component.instantiate == Component.IMMEDIATELY:
@@ -51,18 +57,9 @@ class Plugin(Component):
                 self.component_manager.register(component)
                 self.registered_components.append(component)
         # Make necessary side effects happen.
-        for component in self.instantiated_components:
-            if component.component_type == "scheduler" \
-                   and self.database().is_loaded():
-
-                self.review_controller().start_review()
-                
-                #self.log().started_scheduler()
-                #self.review_controller().reset()
-                #self.review_controller().new_question()
-
-
-                
+        if self.database().is_loaded() and self.review_reset_needed:
+            self.review_controller().reset()
+            self.log().started_scheduler()
         # Use names instead of instances here in order to survive pickling.  
         self.config()["active_plugins"].add(self.__class__.__name__)
 
@@ -87,22 +84,10 @@ class Plugin(Component):
         # side effects.
         if not self.database():
             return True
-        # Make necessary side effects happen. We don't put all side effects in
-        # a single loop, as the order is important.
-        for component in self.instantiated_components:
-            if component.component_type == "review_widget":
-                # Some toolkits (e.g. Qt) destroy the old review widget after
-                # it has been replaced by a new one, so we need to recreate
-                # the old one.           
-                old_widget = self.review_widget()
-                new_widget = old_widget.__class__(self.component_manager)
-                self.component_manager.unregister(old_widget)
-                self.component_manager.register(new_widget)
-        for component in self.instantiated_components:            
-            if component.component_type == "scheduler":
-                self.review_controller().reset()
-                self.review_controller().new_question()
-                self.log().started_scheduler()
+        # Make necessary side effects happen.
+        if self.review_reset_needed:
+            self.review_controller().reset()
+            self.log().started_scheduler()
         # Use names instead of instances here in order to survive pickling.
         if self.__class__.__name__ in self.config()["active_plugins"]:
             self.config()["active_plugins"].remove(self.__class__.__name__)

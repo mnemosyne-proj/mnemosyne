@@ -15,9 +15,9 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import ManageCardTypesDialog
 class ClonedCardTypesListDlg(QtGui.QDialog, Ui_ClonedCardTypesListDlg,
                              ManageCardTypesDialog):
 
-    def __init__(self, parent, component_manager):
+    def __init__(self, component_manager):
         Component.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         self.update()
 

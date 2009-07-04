@@ -35,34 +35,25 @@ tooltip[1][5] = \
 
 class SM2Controller(ReviewController):
 
-    def activate(self):
-        self.reset()
-
-    def start_review(self):
+    def reset(self):
 
         """A Plugin can have a new scheduler, a new review controller or both,
         and in order to avoid running this time consuming code more than once,
-        it is not folded into activate.
+        it is not folded into 'activate'.
 
         """
-        
-        self.reset()  # TODO: 2 resets?
-        w = self.component_manager.get_current("review_widget")
-        if isinstance(w, type): # We still need to instantiate it.
-            w = w(self.component_manager)
-            self.component_manager.register(w)
-            w.activate()
-        if self.card is None:
-            self.new_question()
-        
-    def reset(self):
+
         self.card = None
         self.state = "EMPTY"
         self.learning_ahead = False
         self.non_memorised_count = None
         self.scheduled_count = None
         self.active_count = None
-        self.scheduler().reset()     
+        self.widget = self.component_manager.get_current("review_widget")\
+                      (self.component_manager)
+        self.widget.activate()
+        self.scheduler().reset()
+        self.new_question() 
 
     def heartbeat(self):
 
@@ -70,11 +61,10 @@ class SM2Controller(ReviewController):
         the data gets updated when a new day starts."""
             
         self.reload_counters()
-        self.review_widget().update_status_bar()
+        self.widget.update_status_bar()
         self.scheduler().heartbeat()
         if self.card is None or self.learning_ahead:
             self.reset()
-            self.new_question()
 
     def new_question(self):
         if not self.active_count:
@@ -114,10 +104,10 @@ class SM2Controller(ReviewController):
             self.database().update_card(card_to_grade, repetition_only=True)
             self.database().save()
             self.new_question()     
-        if self.config()["show_intervals"] == "statusbar":
+        if self.config()["show_intervals"] == "status_bar":
             import math
             days = int(math.ceil(interval / (24.0 * 60 * 60)))
-            self.review_widget().update_status_bar(_("Returns in") + " " + \
+            self.widget.update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
         
     def next_rep_string(self, days):
@@ -152,11 +142,11 @@ class SM2Controller(ReviewController):
     def update_dialog(self, redraw_all=False):
         self.update_qa_area(redraw_all)
         self.update_grades_area()
-        self.review_widget().update_status_bar()
+        self.widget.update_status_bar()
         self.update_menu_bar()
                    
     def update_qa_area(self, redraw_all=False):
-        w = self.review_widget()
+        w = self.widget
         # Hide/show the question and answer boxes.
         if self.state == "SELECT SHOW":
             w.question_box_visible(True)
@@ -201,7 +191,7 @@ class SM2Controller(ReviewController):
         w.update_show_button(text, default, show_enabled)
 
     def update_grades_area(self):
-        w = self.review_widget()
+        w = self.widget
         # Update grade buttons.
         if self.card and self.card.grade < 2:
             i = 0 # Acquisition phase.
@@ -260,6 +250,9 @@ class SM2Controller(ReviewController):
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
         w.enable_browse_cards(self.database().is_loaded())
+        
+    def update_status_bar(self, message=None):
+        self.widget.update_status_bar(message)    
 
     def is_question_showing(self):
         return self.review_controller().state == "SELECT SHOW"

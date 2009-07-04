@@ -38,7 +38,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.connect(self.timer_2, QtCore.SIGNAL("timeout()"),
                      self.controller().heartbeat)
         self.timer_2.start(1000 * 60 * 60 * 24)
-        self.review_controller().start_review()
+        self.review_controller().reset()
         
     def add_to_statusbar(self, widget):
         self.statusbar_widgets.append(widget)

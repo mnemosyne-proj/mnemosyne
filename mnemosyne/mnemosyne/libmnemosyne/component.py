@@ -79,9 +79,6 @@ class Component(object):
     def main_widget(self):
         return self.component_manager.get_current("main_widget")
 
-    def review_widget(self):
-        return self.component_manager.get_current("review_widget")
-
     def controller(self):
         return self.component_manager.get_current("controller")
 

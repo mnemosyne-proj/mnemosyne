@@ -26,7 +26,7 @@ class TestMedia(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
-        self.review_controller().start_review()
+        self.review_controller().reset()
 
     def test_sound_1(self):
         global filename

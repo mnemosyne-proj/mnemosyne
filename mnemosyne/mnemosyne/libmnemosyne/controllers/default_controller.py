@@ -42,7 +42,7 @@ class DefaultController(Controller):
         if review_controller.card is None:
             review_controller.new_question()
         else:
-            self.review_widget().update_status_bar()
+            review_controller.update_status_bar()
         self.stopwatch().unpause()
 
     def edit_current_card(self):
@@ -50,12 +50,12 @@ class DefaultController(Controller):
         review_controller = self.review_controller()
         fact = review_controller.card.fact
         self.component_manager.get_current("edit_fact_dialog")\
-            (fact, self.main_widget(), self.component_manager).activate()
+            (fact, self.component_manager).activate()
         review_controller.card = \
             self.database().get_card(review_controller.card._id)
         review_controller.reload_counters()
         if review_controller.card is None:
-            self.review_widget().update_status_bar()
+            review_controller.update_status_bar()
             review_controller.new_question()         
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
@@ -101,8 +101,9 @@ class DefaultController(Controller):
                         if key not in card_type.required_fields():
                             merged_fact_data[key] += " / " + duplicate[key]
                     db.delete_fact_and_related_data(duplicate)
-                fact.data = merged_fact_data              
-                self.main_widget().run_edit_fact_dialog(fact, allow_cancel=False)
+                fact.data = merged_fact_data
+                self.component_manager.get_current("edit_fact_dialog")\
+                  (fact, self.component_manager, allow_cancel=False).activate()
                 return
             if answer == 2: # Don't add.
                 return
@@ -233,7 +234,7 @@ class DefaultController(Controller):
         review_controller.reload_counters()
         review_controller.rebuild_queue()
         review_controller.new_question()
-        self.review_widget().update_status_bar()
+        review_controller.update_status_bar()
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
@@ -376,37 +377,37 @@ class DefaultController(Controller):
     def browse_cards(self):
         self.stopwatch().pause()
         self.component_manager.get_current("browse_cards_dialog")\
-            (self.main_widget(), self.component_manager).activate()
+            (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def card_appearance(self):
         self.stopwatch().pause()
         self.component_manager.get_current("card_appearance_dialog")\
-            (self.main_widget(), self.component_manager).activate()
+            (self.component_manager).activate()
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
     def activate_plugins(self):
         self.stopwatch().pause()
         self.component_manager.get_current("activate_plugins_dialog")\
-            (self.main_widget(), self.component_manager).activate()
+            (self.component_manager).activate()
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
     def manage_card_types(self):
         self.stopwatch().pause()
         self.component_manager.get_current("manage_card_types_dialog")\
-            (self.main_widget(), self.component_manager).activate()
+            (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def show_statistics(self):
         self.stopwatch().pause()
         self.component_manager.get_current("statistics_dialog")\
-            (self.main_widget(), self.component_manager).activate()
+            (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def configure(self):
         self.stopwatch().pause()
         self.component_manager.get_current("configuration_dialog")\
-            (self.main_widget(), self.component_manager).activate()
+            (self.component_manager).activate()
         self.stopwatch().unpause()

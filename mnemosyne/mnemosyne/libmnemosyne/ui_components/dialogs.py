@@ -9,16 +9,10 @@ class Dialog(UiComponent):
 
     component_type = "dialog"
     instantiate = UiComponent.LATER
-    
-    def __init__(self, parent, component_manager):
-        pass
 
 
 class AddCardsDialog(Dialog):
-    
-    def __init__(self, component_manager):
-        pass # TODO: move up.
-        
+         
     component_type = "add_cards_dialog"
 
 
@@ -26,7 +20,7 @@ class EditFactDialog(Dialog):
     
     component_type = "edit_fact_dialog"
 
-    def __init__(self, fact, parent, component_manager, allow_cancel=True):
+    def __init__(self, fact, component_manager, allow_cancel=True):
         pass
 
 

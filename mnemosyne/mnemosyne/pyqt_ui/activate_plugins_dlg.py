@@ -74,9 +74,9 @@ class PluginListModel(QtCore.QAbstractTableModel, Component):
         
 class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg, ActivatePluginsDialog):
 
-    def __init__(self, parent, component_manager):
+    def __init__(self, component_manager):
         Component.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
 
         self.model = PluginListModel(self.component_manager)

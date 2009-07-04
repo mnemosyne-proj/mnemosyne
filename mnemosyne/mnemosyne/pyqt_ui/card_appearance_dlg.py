@@ -17,9 +17,9 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import CardAppearanceDialog
 class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
                         CardAppearanceDialog):
 
-    def __init__(self, parent, component_manager):
+    def __init__(self, component_manager):
         Component.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         self.dynamic_widgets = []
         self.affected_card_types = []

@@ -20,29 +20,28 @@ When the user activates the menu option or icon to add cards, it will fire up a 
 
     QObject.connect(self.actionAddCards, SIGNAL("activated()"), MainWindow.add_cards)
 
-The implementation of this function is rather trivial, it just calls the ui controller::
+The implementation of this function is rather trivial, it just calls the controller::
 
     def add_cards(self):
-        self.ui_controller().add_cards()
+        self.controller().add_cards()
 
 The code above is code you need to implement for your new frontend, but as you can see, it's rather trivial.
 
-The ui_controller_main add cards function looks like this::
+The controller's ``add_cards`` function looks like this::
 
     def add_cards(self):
         self.stopwatch().pause()
         self.component_manager.get_current("add_cards_dialog")\
-            (self.main_widget(), self.component_manager).activate()
-        review_controller = self.ui_controller_review()
+            (self.component_manager).activate()
+        review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:
             review_controller.new_question()
         else:
-            self.review_widget().update_status_bar()
+            review_controller.update_status_bar()
         self.stopwatch().unpause()
 
-This is where the heavy lifting is done, but it's completely UI independent, 
-and there should be no need for you to modify that code.
+This is where the heavy lifting is done, but it's completely UI independent, and there should be no need for you to modify that code.
 
 In order for the controller to know where it can find the actual add cards dialog, which for PyQt is called ``AddCardsDlg`` , you need to have that dialog derive from the abstract ``libmnemosyne.ui_components.dialogs.AddCardsDialog``, and provide an activate function, which for the PyQt toolkit is simply::
 
@@ -56,11 +55,11 @@ Finally, you need to register the ``AddCardsDlg`` component. That is what the fo
 
 Inside the ``AddCardsDlg``, there is of course lots of UI specific code, but once the dialog has enough data to create the cards, it simply calls::
 
-    self.ui_controller().create_new_cards(fact_data, card_type, grade, cat_names)
+    self.controller().create_new_cards(fact_data, card_type, grade, cat_names)
 
 So, the ``AddCardsDlg`` should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the ui controller's ``create_new_cards()`` method.
 
-If you feel like you need to override the review or the main ui controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.
+If you feel like you need to override the review or the main controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.
 
 Notes:
 
