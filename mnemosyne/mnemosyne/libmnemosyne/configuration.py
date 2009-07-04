@@ -9,6 +9,7 @@ import cPickle
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import traceback_string
 
 config_py = \
 """# Mnemosyne configuration file.
@@ -204,7 +205,8 @@ class Configuration(Component, dict):
                 if self["first_run"] == True:
                     pass
                 else:
-                    raise ConfigError(stack_trace=True)
+                    raise RuntimeError, _("Error in config.py:") \
+                          + "\n" + traceback_string()
                 
     def correct_config(self):
         # Update paths if the location has migrated.

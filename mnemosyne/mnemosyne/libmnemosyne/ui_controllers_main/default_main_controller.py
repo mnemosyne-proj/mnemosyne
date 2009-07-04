@@ -289,7 +289,7 @@ class DefaultMainController(UiControllerMain):
         try:
             self.database().load(out)
             self.log().loaded_database()
-        except MnemosyneError, e:
+        except Exception, e:
             self.main_widget().show_exception(e)
             self.stopwatch().unpause()
             return

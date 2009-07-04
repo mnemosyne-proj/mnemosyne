@@ -104,7 +104,7 @@ class HtmlCssOld(Renderer):
         html = "<html><head>" + self.css(fact.card_type) + \
             "</head><body><table  "
         try:
-            alignment = self.config()["alignment"][card_type.id]
+            alignment = self.config()["alignment"][fact.card_type.id]
         except:
             alignment = "center"
         if alignment == "left":

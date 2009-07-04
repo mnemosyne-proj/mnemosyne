@@ -2,6 +2,7 @@
 -hang on Spanish translation?
 
 -break out dialogs from main widget
+-update porting guide
 
 -WM test and benchmark
 
@@ -203,6 +204,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -update tooltips, inform Patrick
 
+pylint:
+	find ./mnemosyne/libmnemosyne/ -name \*.py | while read f ; do echo $f;pylint $f 2>&1|grep ^E:; done
 
 
 
@@ -232,7 +235,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
 http://pythoscope.org/
--pylint, pyflakes
+-pyflakes?
 
 -hover over extra hanzi information, hanzi statistics
 

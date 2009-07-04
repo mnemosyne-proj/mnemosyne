@@ -2,6 +2,7 @@
 # SM2_controller_cramming.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller \
      import SM2Controller
 from mnemosyne.libmnemosyne.schedulers.cramming import Cramming

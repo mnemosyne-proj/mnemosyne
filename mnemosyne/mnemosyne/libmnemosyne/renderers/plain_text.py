@@ -3,7 +3,7 @@
 #
 
 from mnemosyne.libmnemosyne.renderer import Renderer
-from mnemosyne.libmnemosyne.component_manager import filters
+
 
 class PlainText(Renderer):
             
@@ -12,7 +12,7 @@ class PlainText(Renderer):
         for field in fields:
             key = field[0]
             s = fact[key]
-            for f in filters():
+            for f in self.filters():
                 s = f.run(s, fact)
             text += s + "\n"
         return text

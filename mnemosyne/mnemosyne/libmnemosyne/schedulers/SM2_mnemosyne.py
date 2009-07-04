@@ -7,6 +7,7 @@ import random
 import calendar
 import datetime
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 
 DAY = 24 * 60 * 60 # Seconds in a day.
@@ -438,7 +439,7 @@ class SM2Mnemosyne(Scheduler):
             new_interval = 0
         # Warn if we learned a lot of new cards.
         if len(self._fact_ids_learned) == 15:
-            self.main_window.information_box(\
+            self.main_widget().information_box(\
         _("You've learned 15 new cards.") + " " +\
         _("If you do this for many days, you could get a big workload later."))
         # Run hooks.

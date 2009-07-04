@@ -196,7 +196,7 @@ class Mnemosyne(Component):
             self.main_widget().error_box(str(e))
             self.main_widget().error_box(_("Creating temporary database."))
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
-                                    + database().suffix)
+                                    + self.database().suffix)
             self.database().new(filename)
         self.ui_controller_main().update_title()
 
