@@ -6,12 +6,9 @@ from PyQt4 import QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.review_wdgt import ReviewWdgt
-from mnemosyne.libmnemosyne.component import Component
    
 
 class ReviewWdgtCramming(ReviewWdgt):
-
-    instantiate = Component.WHEN_PLUGIN_ACTIVE
     
     def __init__(self, component_manager):
         ReviewWdgt.__init__(self, component_manager)

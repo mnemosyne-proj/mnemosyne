@@ -13,6 +13,8 @@ class MainWidget(UiComponent):
     """
 
     component_type = "main_widget"
+
+    instantiate = UiComponent.IMMEDIATELY
     
     def information_box(self, message):
         raise NotImplementedError

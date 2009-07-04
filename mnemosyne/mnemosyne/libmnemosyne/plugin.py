@@ -42,7 +42,7 @@ class Plugin(Component):
     def activate(self):
         # Register all our components. Instantiate them if needed.
         for component in self.components:
-            if component.instantiate != Component.LATER:
+            if component.instantiate == Component.IMMEDIATELY:
                 component = component(self.component_manager)
                 self.component_manager.register(component)                
                 component.activate()           
@@ -54,9 +54,15 @@ class Plugin(Component):
         for component in self.instantiated_components:
             if component.component_type == "scheduler" \
                    and self.database().is_loaded():
-                self.log().started_scheduler()
-                self.review_controller().reset()
-                self.review_controller().new_question()
+
+                self.review_controller().start_review()
+                
+                #self.log().started_scheduler()
+                #self.review_controller().reset()
+                #self.review_controller().new_question()
+
+
+                
         # Use names instead of instances here in order to survive pickling.  
         self.config()["active_plugins"].add(self.__class__.__name__)
 

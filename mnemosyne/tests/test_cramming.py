@@ -36,7 +36,8 @@ class TestCrammingScheduler(MnemosyneTest):
             if isinstance(plugin, CrammingPlugin):
                 plugin.activate()
                 break
-
+        self.review_controller().start_review()
+        
     def test_1(self):
         from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
         

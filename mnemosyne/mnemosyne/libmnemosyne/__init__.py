@@ -95,9 +95,8 @@ class Mnemosyne(Component):
         self.log().started_program()
         self.log().started_scheduler()
         self.log().loaded_database()
-        # Finally, everything is in place to start the review process.
-        if self.review_widget().instantiate != Component.LATER:
-            self.review_controller().new_question()
+        # Finally, we can activate the main widget.
+        self.main_widget().activate()
 
     def register_components(self):
 
@@ -112,7 +111,7 @@ class Mnemosyne(Component):
         for module_name, class_name in self.components:
             exec("from %s import %s" % (module_name, class_name))
             exec("component = %s" % class_name)
-            if component.instantiate != Component.LATER:
+            if component.instantiate == Component.IMMEDIATELY:
                 component = component(self.component_manager)
             self.component_manager.register(component)
         for plugin_name in self.extra_components_for_plugin:
@@ -129,12 +128,9 @@ class Mnemosyne(Component):
         in the correct order: first config, followed by log.
         
         """
-
-        components = ["config", "log", "database", "scheduler",
-                      "controller", "main_widget"]
-        if self.review_widget().instantiate != Component.LATER:
-            components.extend(["review_controller", "review_widget"])
-        for component in components:
+        
+        for component in  ["config", "log", "database", "scheduler",
+                           "controller"]:
             try:
                 self.component_manager.get_current(component).activate()
             except RuntimeError, e:

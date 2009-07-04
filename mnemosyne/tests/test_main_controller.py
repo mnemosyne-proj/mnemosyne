@@ -37,7 +37,8 @@ class TestMainController(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ConfigurationDialog"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
-
+        self.review_controller().start_review()
+        
     def test_coverage(self):
         self.controller().heartbeat()
         self.controller().add_cards()

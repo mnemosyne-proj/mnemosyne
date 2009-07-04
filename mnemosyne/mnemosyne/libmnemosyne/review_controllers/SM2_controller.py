@@ -37,6 +37,23 @@ class SM2Controller(ReviewController):
 
     def activate(self):
         self.reset()
+
+    def start_review(self):
+
+        """A Plugin can have a new scheduler, a new review controller or both,
+        and in order to avoid running this time consuming code more than once,
+        it is not folded into activate.
+
+        """
+        
+        self.reset()  # TODO: 2 resets?
+        w = self.component_manager.get_current("review_widget")
+        if isinstance(w, type): # We still need to instantiate it.
+            w = w(self.component_manager)
+            self.component_manager.register(w)
+            w.activate()
+        if self.card is None:
+            self.new_question()
         
     def reset(self):
         self.card = None
@@ -55,7 +72,7 @@ class SM2Controller(ReviewController):
         self.reload_counters()
         self.review_widget().update_status_bar()
         self.scheduler().heartbeat()
-        if not self.card or self.learning_ahead:
+        if self.card is None or self.learning_ahead:
             self.reset()
             self.new_question()
 
@@ -67,7 +84,7 @@ class SM2Controller(ReviewController):
             self.card = None
         else:
             self.card = self.scheduler().get_next_card(self.learning_ahead)
-            if self.card != None:
+            if self.card is not None:
                 self.state = "SELECT SHOW"
             else:
                 self.state = "SELECT AHEAD"

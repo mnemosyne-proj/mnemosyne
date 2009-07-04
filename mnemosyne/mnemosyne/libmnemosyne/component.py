@@ -35,8 +35,7 @@ class Component(object):
     used_for = None
 
     IMMEDIATELY = 0
-    WHEN_PLUGIN_ACTIVE = 1
-    LATER = 2
+    LATER = 1
     
     instantiate = IMMEDIATELY
     

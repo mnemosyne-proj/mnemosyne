@@ -27,6 +27,7 @@ class TestPlugin(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
+        self.review_controller().start_review()
         
     @raises(AssertionError)
     def test_1(self):

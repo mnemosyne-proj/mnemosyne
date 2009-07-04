@@ -16,6 +16,9 @@ class Dialog(UiComponent):
 
 class AddCardsDialog(Dialog):
     
+    def __init__(self, component_manager):
+        pass # TODO: move up.
+        
     component_type = "add_cards_dialog"
 
 

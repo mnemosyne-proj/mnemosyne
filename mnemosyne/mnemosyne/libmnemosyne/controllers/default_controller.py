@@ -36,7 +36,7 @@ class DefaultController(Controller):
     def add_cards(self):
         self.stopwatch().pause()
         self.component_manager.get_current("add_cards_dialog")\
-            (self.main_widget(), self.component_manager).activate()
+            (self.component_manager).activate()
         review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:
