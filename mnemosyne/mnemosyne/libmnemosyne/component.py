@@ -2,24 +2,23 @@
 # component.py <Peter.Bienstman@UGent.be>
 #
 
+
 class Component(object):
 
     """Base class of components that are registered with the component
     manager. This is a list of component types: config, log, database,
     scheduler, stopwatch, translator, filter, card_type, card_type_converter,
     card_type_widget, generic_card_type_widget, ui_component, renderer,
-    controller, main_widget, review_controller, review_widget,
+    controller, main_widget, review_controller, review_widget, file format,
     plugin, hook, statistics_page, all the abstract dialogs, ...      
 
     'used_for' can store certain relationships between components, e.g.
     a card type widget is used for a certain card type.
 
-    For efficiency reasons, not all components are instantiated immediately,
-    e.g. instantiating a complex widget can take a lot of time on a mobile
-    device. Some components like review widgets need to be instantiated when
-    the plugin in which they are contained becomes active. Others, like card
-    type widgets, are instantiated even later, e.g. when the add or edit
-    dialog is shown.
+    Most of the time, instances are stored here, apart from widgets when
+    classes are stored. (Instantiating a complex widget can take a lot of
+    time on a mobile device, and should be done lazily.) Only the main
+    widget is stored as an instance here.
 
     Each component has access to all of the context of the other components
     because it hold a reference to the user's component manager.

@@ -76,3 +76,9 @@ class Controller(Component):
     
     def configure(self):
         raise NotImplementedError
+
+    def import_file(self):
+        raise NotImplementedError
+    
+    def export_file(self):
+        raise NotImplementedError

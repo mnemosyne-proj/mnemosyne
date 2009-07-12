@@ -1,50 +1,22 @@
-##############################################################################
 #
 # file_format.py <Peter.Bienstman@UGent.be>
 #
-##############################################################################
+
+from mnemosyne.libmnemosyne.component import Component
 
 
+class FileFormat(Component):
 
-##############################################################################
-#
-# FileFormat
-#
-##############################################################################
-
-class FileFormat(object):
-
-    ##########################################################################
-    #
-    # __init__
-    #
-    # The filename filter has to be given in Qt format, e. g.
-    #  XML Files (*.xml *XML)".
-    #
-    ##########################################################################
-
-    def __init__(self, name, description, filename_filter):
-
-        self.name            = name
-        self.description     = description
-        self.filename_filter = filename_filter
-        self.import_possible = import_possible
-        self.export_possible = export_possible
-
-
-
-    ##########################################################################
-    #
-    # Functions to be implemented by the actual file format.
-    #
-    ##########################################################################
-
-    def do_import(self, filename, default_tag_name,
-                  reset_learning_data=False):
+    component_type = "file_format"
+    description = ""
+    filename_filter = "" # E.g. "XML Files (*.xml *XML)"
+    import_possible = False
+    export_possible = False
+    
+    def do_import(self, filename, tag_name=None, reset_learning_data=False):
         raise NotImplementedError
 
-    def do_export(self, filename, default_tag_name,
-                  reset_learning_data=False):
+    def do_export(self, filename, tag_name=None, reset_learning_data=False):
         raise NotImplementedError    
 
 

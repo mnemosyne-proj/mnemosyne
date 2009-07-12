@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>255</width>
-    <height>282</height>
+    <width>264</width>
+    <height>305</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>255</width>
+     <width>264</width>
      <height>24</height>
     </rect>
    </property>
@@ -484,6 +484,22 @@
     <hint type="destinationlabel">
      <x>250</x>
      <y>105</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionImport</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>import_file</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>131</x>
+     <y>152</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>131</x>
+     <y>152</y>
     </hint>
    </hints>
   </connection>

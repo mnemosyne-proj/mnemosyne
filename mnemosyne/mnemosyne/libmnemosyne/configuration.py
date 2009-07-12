@@ -81,7 +81,7 @@ class Configuration(Component, dict):
              "import_img_dir": self.basedir, 
              "import_sound_dir": self.basedir,
              "user_id": None,
-             "upload_logs": True, 
+             "upload_logs": False, 
              "upload_server": "mnemosyne-proj.dyndns.org:80",
              "log_index": 1, 
              "font": {}, # [card_type.id][fact_key]

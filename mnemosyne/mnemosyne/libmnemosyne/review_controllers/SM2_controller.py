@@ -163,7 +163,7 @@ class SM2Controller(ReviewController):
         question_label_text = _("Question: ")
         if self.card is not None:
             question_label_text += self.card.tag_string()
-        w.set_question_label(question_label_text)
+        w.set_question_label(question_label_text.replace(_("<default>"), ""))
         # Update question content.
         if self.card is None:
             w.clear_question()

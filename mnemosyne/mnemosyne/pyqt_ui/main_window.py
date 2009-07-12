@@ -113,22 +113,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
     def show_statistics(self):
         self.controller().show_statistics()
         
-    def Import(self):
-        stopwatch.pause()
-        from xml.sax import saxutils, make_parser
-        from xml.sax.handler import feature_namespaces
-        dlg = ImportDlg(self)
-        dlg.exec_loop()
-        if self.card == None:
-            self.newQuestion()
-        self.updateDialog()
-        stopwatch.unpause()
-
-    def export(self):
-        stopwatch.pause()
-        dlg = ExportDlg(self)
-        dlg.exec_loop()
-        stopwatch.unpause()
+    def import_file(self):
+        self.controller().import_file()
+        
+    def export_file(self):
+        self.controller().export_file()
 
     def editCards(self):
         stopwatch.pause()

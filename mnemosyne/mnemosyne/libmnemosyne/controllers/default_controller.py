@@ -258,8 +258,8 @@ class DefaultController(Controller):
         db = self.database()
         suffix = db.suffix
         out = self.main_widget().save_file_dialog(path=self.config().basedir,
-                            filter=_("Mnemosyne databases (*%s)" % suffix),
-                            caption=_("New"))
+                        filter=_("Mnemosyne databases") + " (*%s)" % suffix,
+                        caption=_("New"))
         if not out:
             self.stopwatch().unpause()
             return
@@ -278,7 +278,7 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         old_path = expand_path(self.config()["path"], self.config().basedir)
         out = self.main_widget().open_file_dialog(path=old_path,
-            filter=_("Mnemosyne databases (*%s)" % self.database().suffix))
+            filter=_("Mnemosyne databases") + " (*%s)" % self.database().suffix)
         if not out:
             self.stopwatch().unpause()
             return
@@ -315,7 +315,7 @@ class DefaultController(Controller):
         suffix = self.database().suffix
         old_path = expand_path(self.config()["path"], self.config().basedir)
         out = self.main_widget().save_file_dialog(path=old_path,
-            filter=_("Mnemosyne databases (*%s)" % suffix))
+            filter=_("Mnemosyne databases") + " (*%s)" % suffix)
         if not out:
             self.stopwatch().unpause()
             return
@@ -410,4 +410,26 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.component_manager.get_current("configuration_dialog")\
             (self.component_manager).activate()
+        self.stopwatch().unpause()
+
+    def import_file(self):
+        self.stopwatch().pause()
+        path = expand_path(self.config()["import_dir"], self.config().basedir)
+
+        # TMP hardcoded single fileformat.
+        filename = self.main_widget().open_file_dialog(path=path,
+            filter=_("Mnemosyne 1.x databases") + " (*.mem)")
+        self.component_manager.get_current("file_format").do_import(filename)
+        
+        review_controller = self.review_controller()
+        review_controller.reload_counters()
+        if review_controller.card is None:
+            review_controller.new_question()
+        else:
+            review_controller.update_status_bar()
+        self.stopwatch().unpause()
+
+    def export_file(self):
+        self.stopwatch().pause()
+
         self.stopwatch().unpause()

@@ -31,8 +31,17 @@
 -warn when importing card type with duplicate id
 
 
+-reenable upload
+
+
+-default tag needed?
+
 
 -import
+
+-raising exceptions or printing errors immediately?
+
+-process mediafiles
 
 -on import, activate plugins, created inherited types necessary, reload counters
 
@@ -191,6 +200,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -skritter/cpod interop mail
 
 -bug in Qt: setting default colour to black does not register the colour clicks.
+
+-better supermemo import
 
 
 -document cntrl enter in edit dialog instead of clicking ok
