@@ -29,8 +29,8 @@ def startup():
          "SQLite"),               
         ("mnemosyne.libmnemosyne.configuration",
          "Configuration"),          
-        ("mnemosyne.libmnemosyne.loggers.txt_logger",
-         "TxtLogger"),          
+        ("mnemosyne.libmnemosyne.loggers.sql_logger",
+         "SqlLogger"),          
         ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
          "SM2Mnemosyne"),
         ("mnemosyne.libmnemosyne.stopwatch",
@@ -49,9 +49,9 @@ def startup():
          "ExpandPaths"),
         ("mnemosyne.libmnemosyne.filters.latex",
          "Latex"),
-        ("mnemosyne.libmnemosyne.ui_controllers_main.default_main_controller",
-         "DefaultMainController"),
-        ("mnemosyne.libmnemosyne.ui_controllers_review.SM2_controller",
+        ("mnemosyne.libmnemosyne.controllers.default_controller",
+         "DefaultController"),
+        ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
          "SM2Controller"),
         ("mnemosyne.libmnemosyne.card_types.map",
          "MapPlugin"),
@@ -62,10 +62,12 @@ def startup():
 
     mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"))
     #mnemosyne.initialise(basedir="\SDMMC\.mnemosyne")
+
+    mnemosyne.review_controller().reset()
+
     
 def create_database():
     mnemosyne.config()["upload_logs"] = False
-
     for i in range(number_of_facts):
         fact_data = {"q": "question" + str(i),
                      "a": "answer" + str(i)}
@@ -122,8 +124,8 @@ def finalise():
 #    "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
-tests = ["startup()", "create_database()", "new_question()", "display()",
-    "grade()", "finalise()"]
+#tests = ["startup()", "create_database()", "new_question()", "display()",
+#    "grade()", "finalise()"]
 tests = ["startup()", "create_database()"]
 
 for test in tests:  

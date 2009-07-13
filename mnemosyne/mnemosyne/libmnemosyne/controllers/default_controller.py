@@ -37,6 +37,7 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.component_manager.get_current("add_cards_dialog")\
             (self.component_manager).activate()
+        self.database().save()
         review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:
@@ -60,7 +61,7 @@ class DefaultController(Controller):
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
-    def create_new_cards(self, fact_data, card_type, grade, tag_names):
+    def create_new_cards_slow(self, fact_data, card_type, grade, tag_names):
 
         """Create a new set of related cards. If the grade is 2 or higher,
         we perform a initial review with that grade and move the cards into
@@ -116,10 +117,42 @@ class DefaultController(Controller):
             card.tags = tags
             db.add_card(card)
             cards.append(card)
-        db.save()
         if self.review_controller().learning_ahead == True:
             self.review_controller().reset()
         return cards # For testability.
+
+    def create_new_cards(self, fact_data, card_type, grade, tag_names):
+
+        """Create a new set of related cards. If the grade is 2 or higher,
+        we perform a initial review with that grade and move the cards into
+        the long term retention process. For other grades, we treat the card
+        as still unseen and keep its grade at -1. This puts the card on equal
+        footing with ungraded cards created during the import process. These
+        ungraded cards are pulled in at the end of the review process, either
+        in the order they were added, on in random order.
+
+        """
+
+        if grade in [0,1]:
+            raise AttributeError, "Use -1 as grade for unlearned cards."
+        db = self.database()
+        fact = Fact(fact_data, card_type)
+        tags = set()
+        for tag_name in tag_names:
+            tags.add(db.get_or_create_tag_with_name(tag_name))
+        db.add_fact(fact)
+        cards = []
+        for card in card_type.create_related_cards(fact):
+            self.log().added_card(card)
+            if grade >= 2:
+                self.scheduler().set_initial_grade(card, grade)
+            card.tags = tags
+            db.add_card(card)
+            cards.append(card)
+        if self.review_controller().learning_ahead == True:
+            self.review_controller().reset()
+        return cards # For testability.
+
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
                              new_tag_names, correspondence):

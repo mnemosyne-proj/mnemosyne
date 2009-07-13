@@ -112,7 +112,7 @@ class SM2Mnemosyne(Scheduler):
         """
 
         card.grade = grade
-        card.easiness = self.database().average_easiness()
+        card.easiness = 2.5
         card.acq_reps = 1
         card.acq_reps_since_lapse = 1
         card.last_rep = int(time.time())

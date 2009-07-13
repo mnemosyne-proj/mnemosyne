@@ -36,8 +36,14 @@
 
 -default tag needed?
 
+-remove average easiness function
+
 
 -import
+
+-executemany
+
+-rename two add cards routines
 
 -raising exceptions or printing errors immediately?
 
@@ -70,8 +76,6 @@
 -update XML import/export to new database format
 
 -option to add tags on import
-
--routines to do mass adding, don't save everytime, cache average easiness
 
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
