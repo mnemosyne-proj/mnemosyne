@@ -20,6 +20,8 @@ class MnemosyneTest():
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
         self.review_controller().reset()
 

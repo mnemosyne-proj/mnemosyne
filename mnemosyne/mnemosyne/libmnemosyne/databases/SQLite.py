@@ -72,7 +72,7 @@ SCHEMA = """
         name text,
         extra_data text default ""
     );
-
+    
     create table tags_for_card(
         _card_id integer,
         _tag_id integer
@@ -360,9 +360,9 @@ class SQLite(Database):
             tag = Tag(sql_res["name"], sql_res["id"])
             tag._id = sql_res["_id"]
             self._get_extra_data(sql_res, tag)
-            return tag
-        tag = Tag(name)
-        self.add_tag(tag)
+        else:
+            tag = Tag(name)
+            self.add_tag(tag)
         return tag
 
     def add_tag(self, tag):
@@ -479,12 +479,12 @@ class SQLite(Database):
             card.scheduler_data, card.active, card.in_view)).lastrowid
         card._id = _card_id
         # Link card to its tags. The tags themselves have already been created
-        # by default_main_controller calling get_or_create_tag_with_name.
-        for cat in card.tags:
-            _tag_id = self.con.execute("""select _id from tags
-                where id=?""", (cat.id, )).fetchone()[0]
+        # by default_controller calling get_or_create_tag_with_name.
+        # Note: using executemany here is often slower here as cards mostly
+        # have 0 or 1 tags.
+        for tag in card.tags:
             self.con.execute("""insert into tags_for_card(_tag_id,
-                _card_id) values(?,?)""", (_tag_id, _card_id))
+                _card_id) values(?,?)""", (tag._id, _card_id))
         # Add card is not logged here, but in the controller, to make sure
         # that the first repetition is logged after the card creation.
 
@@ -507,13 +507,13 @@ class SQLite(Database):
         return card
     
     def update_card(self, card, repetition_only=False):
-        self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
+        self.con.execute("""update cards set id=?, _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
             next_rep=?, extra_data=?, scheduler_data=?, active=?,
             in_view=? where _id=?""",
-            (card.fact._id, card.fact_view.id, card.grade, card.easiness,
-            card.acq_reps, card.ret_reps, card.lapses,
+            (card.id, card.fact._id, card.fact_view.id, card.grade,
+            card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
@@ -521,13 +521,13 @@ class SQLite(Database):
         if repetition_only:
             return
         # Link card to its tags. The tags themselves have already been created
-        # by default_main_controller calling get_or_create_tag_with_name.
+        # by default_controller calling get_or_create_tag_with_name.
         # Unused tags will also be cleaned up there.
         self.con.execute("delete from tags_for_card where _card_id=?",
                          (card._id, ))
-        for cat in card.tags:
+        for tag in card.tags:
             self.con.execute("""insert into tags_for_card(_tag_id,
-                _card_id) values(?,?)""", (cat._id, card._id))
+                _card_id) values(?,?)""", (tag._id, card._id))
         self.log().updated_card(card)
         
     def delete_card(self, card):

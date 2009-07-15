@@ -2,6 +2,68 @@
 -hang on Spanish translation?
 
 
+-process mediafiles
+
+-check forward backward slashes
+-check multiple levels deep
+-test if new media shows up in history
+
+-convert sound tag to audio tag
+
+-migrate 1.x hack to map card type
+
+-profile import
+
+-executemany needed?
+
+-on import, activate plugins, created inherited types necessary, reload counters
+
+-on import don't add cards for which card type is not present
+
+-get rid of has fact with data
+
+-break out duplicate logic
+
+-rename two add cards routines
+
+-warn when not importing a duplicate card
+
+-save after import, close blueprint
+
+-<default> tag?
+
+-reset learning ahead queue after import
+
+-xml import tests (wcu, memaid, plconv)
+
+-option to detect and mark inverses on import
+
+-update XML import/export to new database format
+
+-option to add tags on import
+
+-'teacher mode' on export, which allows pupils to update previously imported
+ cards, as opposed to adding new cards. Implemented through id's of the form
+ T.<fixed card id for all pupils>.<pupil user id>?
+
+-when resetting learning data on export, can we export facts only? Tags are on
+ a per card basis.
+
+-don't recreate text logs upon import
+ 
+-upgrade from 1.x to 2.0 migration code: convert deck,
+  move latex configuration files?, import user id and config, ...
+  item --> card, fonts
+
+-raising exceptions or printing errors immediately?
+
+
+
+-when importing history, remove first repetition for unseen card with grade <2
+
+-make sure we log new card creation on import
+
+
 -hierarchy in card types ::
 
 -WM test and benchmark
@@ -38,57 +100,8 @@
 
 -remove average easiness function
 
+-move lock checking to database code
 
--import
-
--executemany
-
--rename two add cards routines
-
--raising exceptions or printing errors immediately?
-
--process mediafiles
-
--on import, activate plugins, created inherited types necessary, reload counters
-
--on import don't add cards for which card type is not present
-
--import: duplicate check, ignore duplicates in answers
-
--don't change card id on import from old files
-
--migrate 1.x hack to map card type
-
--warn when not importing a duplicate card
-
--save after import, close blueprint
-
--make sure we log new card creation on import
-
--move media to media dir
-
--reset learning ahead queue after import
-
--xml import tests (wcu, memaid, plconv)
-
--detect and mark inverses on import
-
--update XML import/export to new database format
-
--option to add tags on import
-
--'teacher mode' on export, which allows pupils to update previously imported
- cards, as opposed to adding new cards. Implemented through id's of the form
- T.<fixed card id for all pupils>.<pupil user id>?
-
--when resetting learning data on export, can we export facts only? Tags are on
- a per card basis.
-
--don't recreate text logs upon import
- 
--upgrade from 1.x to 2.0 migration code: convert deck,
-  move latex configuration files?, import user id and config, ...
-  item --> card
 
 
 -new translation infrastructure
@@ -215,6 +228,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -comment/tip about not having to do all your scheduled repetitions in
  one sitting
+
+-upgrade docs on duplicate checking
 
 -update tooltips, inform Patrick
 

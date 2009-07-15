@@ -92,6 +92,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",
                              "EasinessWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.html_statistics_wdgt",
                              "HtmlStatisticsWdgt"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.progress_dlg",
+                             "ProgressDlg"))
 mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                             [("mnemosyne.pyqt_ui.review_wdgt_cramming",
                              "ReviewWdgtCramming")]

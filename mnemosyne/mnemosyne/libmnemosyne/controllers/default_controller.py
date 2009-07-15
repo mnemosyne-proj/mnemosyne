@@ -81,9 +81,6 @@ class DefaultController(Controller):
               _("Card is already in database.\nDuplicate not added."))
             return
         fact = Fact(fact_data, card_type)
-        tags = set()
-        for tag_name in tag_names:
-            tags.add(db.get_or_create_tag_with_name(tag_name))
         duplicates = db.duplicates_for_fact(fact)
         if len(duplicates) != 0:
             answer = self.main_widget().question_box(\
@@ -109,6 +106,9 @@ class DefaultController(Controller):
             if answer == 2: # Don't add.
                 return
         db.add_fact(fact)
+        tags = set()
+        for tag_name in tag_names:
+            tags.add(db.get_or_create_tag_with_name(tag_name))
         cards = []
         for card in card_type.create_related_cards(fact):
             self.log().added_card(card)
@@ -137,10 +137,10 @@ class DefaultController(Controller):
             raise AttributeError, "Use -1 as grade for unlearned cards."
         db = self.database()
         fact = Fact(fact_data, card_type)
+        db.add_fact(fact)
         tags = set()
         for tag_name in tag_names:
             tags.add(db.get_or_create_tag_with_name(tag_name))
-        db.add_fact(fact)
         cards = []
         for card in card_type.create_related_cards(fact):
             self.log().added_card(card)

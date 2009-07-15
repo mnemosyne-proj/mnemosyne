@@ -53,3 +53,16 @@ class ConfigurationDialog(Dialog):
     
     component_type = "configuration_dialog"
 
+
+class ProgressDialog(Dialog):
+
+    component_type = "progress_dialog"
+
+    def set_range(self, minimum, maximum):
+        pass
+
+    def set_text(self, text):
+        pass
+
+    def set_value(self, value):
+        pass
