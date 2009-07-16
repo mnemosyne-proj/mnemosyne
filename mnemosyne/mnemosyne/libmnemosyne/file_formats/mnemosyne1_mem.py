@@ -15,7 +15,7 @@ from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.file_format import FileFormat
 
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
-
+re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
 
 class Mnemosyne1Mem(FileFormat):
     
@@ -37,7 +37,7 @@ class Mnemosyne1Mem(FileFormat):
                       self._midnight_UTC(self.starttime + item.last_rep * DAY)
         card.next_rep = \
                       self._midnight_UTC(self.starttime + item.next_rep * DAY)
-        if item.unseen and item.grade < 2:
+        if item.unseen and item.grade in [0, 1]:
             card.grade = -1
             card.acq_reps = 0
             card.acq_reps_since_lapse = 0
@@ -45,11 +45,20 @@ class Mnemosyne1Mem(FileFormat):
             card.next_rep = -1
         self.database().update_card(card)
 
-    def _preprocess_media(self, fact_data):
-
-        "Copy file to media directory, creating subdirectories as we go."
-        
+    def _preprocess_media(self, fact_data):        
         mediadir = self.config().mediadir()
+        # os.path.normpath does not convert Windows separators to Unix
+        # separators, so we need to make sure we internally store Unix paths.
+        for key in fact_data:
+            for match in re_src.finditer(fact_data[key]):
+                fact_data[key] = fact_data[key].replace(match.group(),
+                            match.group().replace("\\", "/"))
+        # Convert sound tags to audio tags.
+        for key in fact_data:
+            for match in re_sound.finditer(fact_data[key]):
+                fact_data[key] = fact_data[key].replace(match.group(),
+                            match.group().replace("sound", "audio"))
+        # Copy files to media directory, creating subdirectories as we go.
         for key in fact_data:
             for match in re_src.finditer(fact_data[key]):
                 filename = match.group(1)
@@ -62,8 +71,21 @@ class Mnemosyne1Mem(FileFormat):
                     for subdir in subdirs:
                         if not os.path.exists(subdir):
                             os.mkdir(subdir)
-                    shutil.copy(expand_path(filename, self.importdir),
-                                expand_path(filename, mediadir))
+                    source = expand_path(filename, self.importdir)
+                    dest = expand_path(filename, mediadir)
+                    if not os.path.exists(source):
+                        self.main_widget().information_box(\
+                            _("Missing media file") + " %s" % source)
+                        fact_data[key] = fact_data[key].replace(match.group(),
+                            "src_missing=\"%s\"" % match.group(1))
+                    else:
+                        shutil.copy(source, dest)
+
+    def _activate_map_plugin(self):
+        for plugin in self.plugins():
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "4":
+                plugin.activate()
     
     def do_import(self, filename, tag_name=None, reset_learning_data=False):
         self.importdir = os.path.dirname(os.path.abspath(filename))
@@ -80,7 +102,7 @@ class Mnemosyne1Mem(FileFormat):
         sys.modules["mnemosyne.core.mnemosyne_core"] = MnemosyneCore()
         
         # Load data.
-        try:                                                    
+        try:
             memfile = file(filename, "rb")
             header = memfile.readline()
             self.starttime, self.categories, self.items = pickle.load(memfile)
@@ -101,6 +123,7 @@ class Mnemosyne1Mem(FileFormat):
         import time
         t0 = time.time()
         progress.set_value(0)
+        map_plugin_activated = False
         items_by_id = {}
         for item in self.items:
             items_by_id[item.id] = item
@@ -118,8 +141,27 @@ class Mnemosyne1Mem(FileFormat):
                         card_type, grade=-1, tag_names=[item.cat.name])[0]
                     self._set_card_attributes(card, item)
                 continue
+            # Map.
+            if item.id + ".inv" in items_by_id and \
+                "answerbox: overlay" in item.q:
+                item_2 = items_by_id[item.id + ".inv"]
+                loc = item_2.a
+                marked = item_2.q
+                blank = ""
+                for match in re_src.finditer(item.q):
+                    blank = "<img %s>" % match.group()
+                if map_plugin_activated == False:
+                    self._activate_map_plugin()
+                    map_plugin_activated = True
+                card_type = self.card_type_by_id("4")
+                fact_data = {"loc": loc, "marked": marked, "blank": blank}
+                self._preprocess_media(fact_data) 
+                card_1, card_2 = self.controller().create_new_cards(fact_data,
+                    card_type, grade=-1, tag_names=[item.cat.name])
+                self._set_card_attributes(card_2, item)
+                self._set_card_attributes(card_1, item_2)
             # Front-to-back.
-            if item.id + ".inv" not in items_by_id and \
+            elif item.id + ".inv" not in items_by_id and \
                item.id + ".tr.1" not in items_by_id:
                 card_type = self.card_type_by_id("1")
                 fact_data = {"q": item.q, "a": item.a}
@@ -128,7 +170,7 @@ class Mnemosyne1Mem(FileFormat):
                     card_type, grade=-1, tag_names=[item.cat.name])[0]
                 self._set_card_attributes(card, item)
             # Front-to-back and back-to-front.         
-            if item.id + ".inv" in items_by_id:
+            elif item.id + ".inv" in items_by_id:
                 card_type = self.card_type_by_id("2")
                 fact_data = {"q": item.q, "a": item.a}
                 self._preprocess_media(fact_data) 
@@ -138,7 +180,7 @@ class Mnemosyne1Mem(FileFormat):
                 self._set_card_attributes(card_2,
                                           items_by_id[item.id + ".inv"])               
             # Three-sided.
-            if item.id + ".tr.1" in items_by_id:
+            elif item.id + ".tr.1" in items_by_id:
                 card_type = self.card_type_by_id("3")
                 try:
                     p, t = item.a.split("\n", 1)
@@ -160,4 +202,5 @@ class Mnemosyne1Mem(FileFormat):
         # with related cards: 5.2
         # with time field: 5.7
         # copying media: 6.5
+        # with map test: 6.8
 

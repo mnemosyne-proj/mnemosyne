@@ -452,8 +452,11 @@ class DefaultController(Controller):
         # TMP hardcoded single fileformat.
         filename = self.main_widget().open_file_dialog(path=path,
             filter=_("Mnemosyne 1.x databases") + " (*.mem)")
+        if not filename:
+            self.stopwatch().unpause()
+            return
         self.component_manager.get_current("file_format").do_import(filename)
-        
+        self.database().save()
         review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:

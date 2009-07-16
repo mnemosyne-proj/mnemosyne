@@ -68,7 +68,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
             self.answer_label.show()
         else:
             self.answer.hide()
-            self.question_label.hide()
+            self.answer_label.hide()
 
     def set_question_label(self, text):
         self.question_label.setText(text)

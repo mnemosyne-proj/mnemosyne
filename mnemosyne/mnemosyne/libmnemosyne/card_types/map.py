@@ -20,14 +20,15 @@ class Map(CardType):
 
     # Recognition.
     v1 = FactView("1", _("Recognition"))
-    v1.q_fields = ["marked"]
-    v1.a_fields = ["loc"]
+    v1.q_fields = ["_", "marked"]
+    v1.a_fields = ["loc", "marked",]
     v1.required_fields = ["marked", "loc"]
-
+    v1.a_on_top_of_q = True
+    
     # Production.
     v2 = FactView("2", _("Production"))
     v2.q_fields = ["loc", "blank"]
-    v2.a_fields = ["marked"]
+    v2.a_fields = ["loc", "marked"]
     v2.required_fields = ["loc", "blank", "marked"]
     v2.a_on_top_of_q = True
 
@@ -35,6 +36,11 @@ class Map(CardType):
 
     # The following field needs to be unique.
     unique_fields = ["loc"]
+
+    def question(self, card):
+        # Hack to insert a blank line to improve layout.
+        card.fact["_"] = "<br>"
+        return CardType.question(self, card)
 
 
 class MapPlugin(Plugin):

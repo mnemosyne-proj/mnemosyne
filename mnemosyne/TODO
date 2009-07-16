@@ -1,24 +1,13 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
-
--process mediafiles
-
--check forward backward slashes
--check multiple levels deep
--test if new media shows up in history
-
--convert sound tag to audio tag
-
--migrate 1.x hack to map card type
+-counter issues with learn ahead + add to testsuite
+-test deactivation of map plugin upon first import
 
 -profile import
 
 -executemany needed?
 
--on import, activate plugins, created inherited types necessary, reload counters
-
--on import don't add cards for which card type is not present
 
 -get rid of has fact with data
 
@@ -26,9 +15,17 @@
 
 -rename two add cards routines
 
--warn when not importing a duplicate card
 
--save after import, close blueprint
+-raising exceptions or printing errors immediately?
+
+-break out functionality which is independent of file format
+
+
+-on import, activate plugins, created card types if necessary
+
+-on import don't add cards for which card type is not present
+
+-warn when not importing a duplicate card
 
 -<default> tag?
 
@@ -49,14 +46,17 @@
 -when resetting learning data on export, can we export facts only? Tags are on
  a per card basis.
 
+-flush old text logs first
+-warn if history not found
 -don't recreate text logs upon import
  
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?, import user id and config, ...
   item --> card, fonts
 
--raising exceptions or printing errors immediately?
 
+
+-do we need required fields per fact view? Update sql too.
 
 
 -when importing history, remove first repetition for unseen card with grade <2
@@ -120,8 +120,6 @@
 
 -have hierarchy in plugin names
 
-
--adding a picture under Windows screws up / and \, and case
 
 -need to store parent of tag?
 

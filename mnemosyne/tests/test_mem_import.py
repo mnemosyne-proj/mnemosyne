@@ -6,10 +6,35 @@ import os
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+
+
+class Widget(MainWidget):
+
+    def information_box(self, message):
+        if message.startswith("Missing media file"):
+            return 0
+        raise NotImplementedError
 
 
 class TestMemImport(MnemosyneTest):
 
+    def setup(self):
+        os.system("rm -fr dot_test")        
+        self.mnemosyne = Mnemosyne()
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))        
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_mem_import", "Widget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"))
+        self.review_controller().reset()
+        
     def get_mem_importer(self):
         for format in self.mnemosyne.component_manager.get_all("file_format"):
             if format.__class__.__name__ == "Mnemosyne1Mem":
@@ -89,3 +114,101 @@ class TestMemImport(MnemosyneTest):
         card_1 = self.review_controller().card
         print card_1.fact.data
         assert card_1.fact.data == {"q": "t", "a": "f\np"}
+
+    def test_media(self):
+        os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
+        os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
+        figures = [\
+            os.path.join(os.getcwd(), "tests", "files", "a.png"),
+            os.path.join(os.getcwd(), "tests", "files", "figs", "a.png"),
+            os.path.join(os.getcwd(), "tests", "files", "figs", "figs", "a.png")]
+        for filename in figures:
+            file(filename, "w")
+        filename = os.path.join(os.getcwd(), "tests", "files", "media.mem")
+        self.get_mem_importer().do_import(filename)
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "a.png"))
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
+        assert self.database().con.execute(\
+            "select count() from history where event=?",
+            (self.log().ADDED_MEDIA, )).fetchone()[0] == 3
+        for filename in figures:
+            os.remove(filename)
+        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
+        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs"))        
+
+    def test_media_missing(self):
+        os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
+        os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
+        figures = [\
+            os.path.join(os.getcwd(), "tests", "files", "a.png"),
+            os.path.join(os.getcwd(), "tests", "files", "figs", "a.png")]
+        for filename in figures:
+            file(filename, "w")
+        filename = os.path.join(os.getcwd(), "tests", "files", "media.mem")
+        self.get_mem_importer().do_import(filename)
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "a.png"))
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
+        assert self.database().con.execute(\
+            "select count() from history where event=?",
+            (self.log().ADDED_MEDIA, )).fetchone()[0] == 2
+        for filename in figures:
+            os.remove(filename)
+        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
+        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs"))        
+
+    def test_media_slashes(self):
+        os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
+        os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
+        figures = [\
+            os.path.join(os.getcwd(), "tests", "files", "a.png"),
+            os.path.join(os.getcwd(), "tests", "files", "figs", "a.png"),
+            os.path.join(os.getcwd(), "tests", "files", "figs", "figs", "a.png")]
+        for filename in figures:
+            file(filename, "w")
+        filename = os.path.join(os.getcwd(), "tests", "files", "media_slashes.mem")
+        self.get_mem_importer().do_import(filename)
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "a.png"))
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
+        assert self.database().con.execute(\
+            "select count() from history where event=?",
+            (self.log().ADDED_MEDIA, )).fetchone()[0] == 3
+        for filename in figures:
+            os.remove(filename)
+        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
+        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs"))  
+
+    def test_sound(self):
+        soundname = os.path.join(os.path.join(\
+            os.getcwd(), "tests", "files", "a.ogg"))
+        file(soundname, "w")
+        filename = os.path.join(os.getcwd(), "tests", "files", "sound.mem")
+        self.get_mem_importer().do_import(filename)
+        assert os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "a.ogg"))
+        assert self.database().con.execute(\
+            "select count() from history where event=?",
+            (self.log().ADDED_MEDIA, )).fetchone()[0] == 1
+        self.review_controller().reset()
+        card = self.review_controller().card
+        assert card.fact["q"] == """<audio src="a.ogg">"""
+        os.remove(soundname)
+
+    def test_map(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "map.mem")
+        self.get_mem_importer().do_import(filename)
+        self.review_controller().reset()
+        assert self.database().card_count() == 2
+        card = self.review_controller().card
+        assert card.fact.data == {'loc': '<b>Drenthe</b>',
+            'marked': '<img src_missing="maps/Netherlands-Provinces/Drenthe.png">',
+            'blank': '<img src_missing="maps/Netherlands-Provinces/Netherlands-Provinces.png">'}

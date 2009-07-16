@@ -16,6 +16,10 @@ def expand_path(p, prefix):
 
     """
 
+    # normpath does not convert Windows separators to Unix separators, so we
+    # need to do that here.
+    p = p.replace("\\", "/")
+    prefix = prefix.replace("\\", "/")
     # We write our own code to do os.path.isabs, so that the testsuite can run
     # under Linux as well.
     if (    ( (len(p) > 1) and p[0] == "/") \
