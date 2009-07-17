@@ -107,10 +107,6 @@ class TestDatabaseStub:
         self.database.cards_from_fact(None)
 
     @raises(NotImplementedError)
-    def test_has_fact_with_data(self):
-        self.database.has_fact_with_data(None, None)
-
-    @raises(NotImplementedError)
     def test_duplicates_for_fact(self):
         self.database.duplicates_for_fact(None)
 

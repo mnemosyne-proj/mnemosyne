@@ -5,8 +5,8 @@
 import os
 import re
 import sys
-import pickle
 import shutil
+import cPickle
 import datetime
 import calendar
 
@@ -105,7 +105,7 @@ class Mnemosyne1Mem(FileFormat):
         try:
             memfile = file(filename, "rb")
             header = memfile.readline()
-            self.starttime, self.categories, self.items = pickle.load(memfile)
+            self.starttime, self.categories, self.items = cPickle.load(memfile)
             self.starttime = self.starttime.time
         except:
             self.main_widget().error_box(_("Unable to open file."))
@@ -120,12 +120,12 @@ class Mnemosyne1Mem(FileFormat):
         if update_interval == 0:
             update_interval = 1
         count = 0
-        import time
-        t0 = time.time()
         progress.set_value(0)
         map_plugin_activated = False
         items_by_id = {}
         for item in self.items:
+            if item.id in items_by_id:
+               item.id = "dup" + item.id 
             items_by_id[item.id] = item
         for item in self.items:
             count += 1
@@ -138,7 +138,8 @@ class Mnemosyne1Mem(FileFormat):
                     fact_data = {"q": item.q, "a": item.a}
                     self._preprocess_media(fact_data) 
                     card = self.controller().create_new_cards(fact_data,
-                        card_type, grade=-1, tag_names=[item.cat.name])[0]
+                        card_type, grade=-1, tag_names=[item.cat.name],
+                        check_for_duplicates=False)[0]
                     self._set_card_attributes(card, item)
                 continue
             # Map.
@@ -157,7 +158,8 @@ class Mnemosyne1Mem(FileFormat):
                 fact_data = {"loc": loc, "marked": marked, "blank": blank}
                 self._preprocess_media(fact_data) 
                 card_1, card_2 = self.controller().create_new_cards(fact_data,
-                    card_type, grade=-1, tag_names=[item.cat.name])
+                    card_type, grade=-1, tag_names=[item.cat.name],
+                    check_for_duplicates=False)
                 self._set_card_attributes(card_2, item)
                 self._set_card_attributes(card_1, item_2)
             # Front-to-back.
@@ -167,7 +169,8 @@ class Mnemosyne1Mem(FileFormat):
                 fact_data = {"q": item.q, "a": item.a}
                 self._preprocess_media(fact_data) 
                 card = self.controller().create_new_cards(fact_data,
-                    card_type, grade=-1, tag_names=[item.cat.name])[0]
+                    card_type, grade=-1, tag_names=[item.cat.name],
+                    check_for_duplicates=False)[0]
                 self._set_card_attributes(card, item)
             # Front-to-back and back-to-front.         
             elif item.id + ".inv" in items_by_id:
@@ -175,7 +178,8 @@ class Mnemosyne1Mem(FileFormat):
                 fact_data = {"q": item.q, "a": item.a}
                 self._preprocess_media(fact_data) 
                 card_1, card_2 = self.controller().create_new_cards(fact_data,
-                    card_type, grade=-1, tag_names=[item.cat.name])
+                    card_type, grade=-1, tag_names=[item.cat.name],
+                    check_for_duplicates=False)
                 self._set_card_attributes(card_1, item)
                 self._set_card_attributes(card_2,
                                           items_by_id[item.id + ".inv"])               
@@ -189,18 +193,10 @@ class Mnemosyne1Mem(FileFormat):
                 fact_data = {"f": item.q, "p": p, "t": t}
                 self._preprocess_media(fact_data) 
                 card_1, card_2 = self.controller().create_new_cards(fact_data,
-                    card_type, grade=-1, tag_names=[item.cat.name])            
+                    card_type, grade=-1, tag_names=[item.cat.name],
+                    check_for_duplicates=False)            
                 self._set_card_attributes(card_1, item)
                 self._set_card_attributes(card_2,
                                           items_by_id[item.id + ".tr.1"])  
         progress.set_value(len(self.items))
-        print time.time()-t0
-
-        # 4.2 sec
-        # with cat: 4.6
-        # card type check: same
-        # with related cards: 5.2
-        # with time field: 5.7
-        # copying media: 6.5
-        # with map test: 6.8
-
+        

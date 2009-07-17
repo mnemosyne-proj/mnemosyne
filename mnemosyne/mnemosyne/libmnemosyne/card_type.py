@@ -58,6 +58,7 @@ class CardType(Component):
     fields = None
     fact_views = None
     unique_fields = None
+    required_fields = None
     keyboard_shortcuts = {}
     extra_data = {}
     
@@ -75,15 +76,8 @@ class CardType(Component):
             if fact_key_name == key_name:
                 return fact_key
 
-    def required_fields(self):
-        s = set()
-        for f in self.fact_views:
-            for k in f.required_fields:
-                s.add(k)
-        return s
-
     def is_data_valid(self, fact_data):
-        for required in self.required_fields():
+        for required in self.required_fields:
             if not fact_data[required]:
                 return False
         return True

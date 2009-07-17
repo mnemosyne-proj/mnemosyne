@@ -22,18 +22,14 @@ class BothWays(CardType):
     v1 = FactView("1", _("Front-to-back"))
     v1.q_fields = ["q"]
     v1.a_fields = ["a"]
-    v1.required_fields = ["q"]
 
     # Back-to-front.
     v2 = FactView("2", _("Back-to-front"))
     v2.q_fields = ["a"]
     v2.a_fields = ["q"]
-    v2.required_fields = ["q"]
     
     fact_views = [v1, v2]
-    
-    # The question field needs to be unique. As for duplicates in the answer
-    # field, these are better handled through a synonym detection plugin.
+    required_fields = ["q"]
     unique_fields = ["q"]
 
 

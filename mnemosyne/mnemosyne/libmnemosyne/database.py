@@ -130,9 +130,6 @@ class Database(Component):
         """ Returns a list of the cards deriving from a fact. """
         
         raise NotImplementedError
-
-    def has_fact_with_data(self, fact_data, card_type):
-        raise NotImplementedError
     
     def count_related_cards_with_next_rep(self, card, next_rep):
 

@@ -124,7 +124,7 @@ class TestDatabase(MnemosyneTest):
         self.mnemosyne.finalise()
         self.restart()
         assert self.database().fact_count() == 1
-        _card_id, _fact_id = list(self.database().cards_unseen(0))[0]
+        _card_id, _fact_id = list(self.database().cards_unseen())[0]
         fact = self.database().get_fact(_fact_id)
         card_type = self.card_type_by_id("1.my_1")        
         assert fact.card_type.id == "1.my_1"
@@ -159,7 +159,7 @@ class TestDatabase(MnemosyneTest):
         self.restart()
         
         assert self.database().fact_count() == 1
-        _card_id, _fact_id = list(self.database().cards_unseen(0))[0]
+        _card_id, _fact_id = list(self.database().cards_unseen())[0]
         fact = self.database().get_fact(_fact_id)
         card_type = self.card_type_by_id("4")           
         card_type = self.card_type_by_id("4.my_4")        
@@ -292,59 +292,41 @@ class TestDatabase(MnemosyneTest):
         assert self.database().save(self.config()["path"] + ".bak") != -1
         assert self.config()["path"] == new_name
         assert new_name != expand_path(new_name, self.config().basedir)
-        
-    def test_has_fact_with_data(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
-        card_type = self.card_type_by_id("1")
-        self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["default"])
-        assert self.database().has_fact_with_data(fact_data, card_type) == True
-
-        fact_data = {"q": "question2",
-                     "a": "answer2"}
-        self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["default"]) 
-        assert self.database().has_fact_with_data(fact_data, card_type) == True
-        
-        fact_data = {"q": "question",
-                     "a": "answer2"}        
-        assert self.database().has_fact_with_data(fact_data, card_type) == False
 
     def test_duplicates_for_fact(self):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
-                                          grade=-1, tag_names=["default"])[0]
+            grade=-1, tag_names=["default"], check_for_duplicates=False)[0]
         fact = card.fact
 
         fact_data = {"q": "question_",
                      "a": "answer_"}
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["default"])
+            grade=-1, tag_names=["default"], check_for_duplicates=False)
         assert len(self.database().duplicates_for_fact(fact)) == 0
         
         fact_data = {"q": "question1",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["default"])
+            grade=-1, tag_names=["default"], check_for_duplicates=False)
         assert len(self.database().duplicates_for_fact(fact)) == 0
         
         fact_data = {"q": "question",
                      "a": "answer1"}
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["default"])
+            grade=-1, tag_names=["default"], check_for_duplicates=False)
         assert len(self.database().duplicates_for_fact(fact)) == 1
         
         fact_data = {"q": "question",
                      "a": "answer1"}
         card_type = self.card_type_by_id("2")
         self.controller().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["default"])
+            grade=-1, tag_names=["default"], check_for_duplicates=False)
         assert len(self.database().duplicates_for_fact(fact)) == 1
         
     def test_card_types_in_use(self):

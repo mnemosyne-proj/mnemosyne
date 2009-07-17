@@ -132,11 +132,11 @@ class SM2Controller(ReviewController):
     def update_counters(self, old_grade, new_grade):
         if not self.scheduled_count:
             self.reload_counters()        
-        if old_grade >= 2:
+        if old_grade >= 2 and not self.learning_ahead:
             self.scheduled_count -= 1
         if old_grade >= 2 and new_grade <= 1:
             self.non_memorised_count += 1
-        if old_grade <= 1 and new_grade >= 2:
+        if old_grade <= 1 and new_grade >= 2: 
             self.non_memorised_count -= 1
             
     def update_dialog(self, redraw_all=False):

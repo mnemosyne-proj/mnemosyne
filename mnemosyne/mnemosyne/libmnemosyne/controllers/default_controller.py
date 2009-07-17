@@ -61,67 +61,8 @@ class DefaultController(Controller):
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
-    def create_new_cards_slow(self, fact_data, card_type, grade, tag_names):
-
-        """Create a new set of related cards. If the grade is 2 or higher,
-        we perform a initial review with that grade and move the cards into
-        the long term retention process. For other grades, we treat the card
-        as still unseen and keep its grade at -1. This puts the card on equal
-        footing with ungraded cards created during the import process. These
-        ungraded cards are pulled in at the end of the review process, either
-        in the order they were added, on in random order.
-
-        """
-
-        if grade in [0,1]:
-            raise AttributeError, "Use -1 as grade for unlearned cards."
-        db = self.database()
-        if db.has_fact_with_data(fact_data, card_type):
-            self.main_widget().information_box(\
-              _("Card is already in database.\nDuplicate not added."))
-            return
-        fact = Fact(fact_data, card_type)
-        duplicates = db.duplicates_for_fact(fact)
-        if len(duplicates) != 0:
-            answer = self.main_widget().question_box(\
-              _("There is already data present for:\n\N") +
-              "".join(fact[k] for k in card_type.required_fields()),
-              _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
-            if answer == 0: # Merge and edit.
-                db.add_fact(fact)
-                for card in card_type.create_related_cards(fact):
-                    if grade >= 2:
-                        self.scheduler().set_initial_grade(card, grade)
-                    db.add_card(card)  
-                merged_fact_data = copy.copy(fact.data)
-                for duplicate in duplicates:
-                    for key in fact_data:
-                        if key not in card_type.required_fields():
-                            merged_fact_data[key] += " / " + duplicate[key]
-                    db.delete_fact_and_related_data(duplicate)
-                fact.data = merged_fact_data
-                self.component_manager.get_current("edit_fact_dialog")\
-                  (fact, self.component_manager, allow_cancel=False).activate()
-                return
-            if answer == 2: # Don't add.
-                return
-        db.add_fact(fact)
-        tags = set()
-        for tag_name in tag_names:
-            tags.add(db.get_or_create_tag_with_name(tag_name))
-        cards = []
-        for card in card_type.create_related_cards(fact):
-            self.log().added_card(card)
-            if grade >= 2:
-                self.scheduler().set_initial_grade(card, grade)
-            card.tags = tags
-            db.add_card(card)
-            cards.append(card)
-        if self.review_controller().learning_ahead == True:
-            self.review_controller().reset()
-        return cards # For testability.
-
-    def create_new_cards(self, fact_data, card_type, grade, tag_names):
+    def create_new_cards(self, fact_data, card_type, grade, tag_names,
+                         check_for_duplicates=True):
 
         """Create a new set of related cards. If the grade is 2 or higher,
         we perform a initial review with that grade and move the cards into
@@ -137,6 +78,36 @@ class DefaultController(Controller):
             raise AttributeError, "Use -1 as grade for unlearned cards."
         db = self.database()
         fact = Fact(fact_data, card_type)
+        if check_for_duplicates:
+            duplicates = db.duplicates_for_fact(fact)
+            if len(duplicates) != 0:
+                if len(duplicates) == 1 and duplicates[0].data == fact_data:
+                    self.main_widget().information_box(\
+                      _("Card is already in database.\nDuplicate not added."))
+                    return                
+                answer = self.main_widget().question_box(\
+                  _("There is already data present for:\n\N") +
+                  "".join(fact[k] for k in card_type.required_fields),
+                  _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
+                if answer == 0: # Merge and edit.
+                    db.add_fact(fact)
+                    for card in card_type.create_related_cards(fact):
+                        if grade >= 2:
+                            self.scheduler().set_initial_grade(card, grade)
+                        db.add_card(card)  
+                    merged_fact_data = copy.copy(fact.data)
+                    for duplicate in duplicates:
+                        for key in fact_data:
+                            if key not in card_type.required_fields:
+                                merged_fact_data[key] += " / " + duplicate[key]
+                        db.delete_fact_and_related_data(duplicate)
+                    fact.data = merged_fact_data
+                    self.component_manager.get_current("edit_fact_dialog")\
+                      (fact, self.component_manager, allow_cancel=False).\
+                      activate()
+                    return
+                if answer == 2: # Don't add.
+                    return
         db.add_fact(fact)
         tags = set()
         for tag_name in tag_names:
@@ -152,7 +123,6 @@ class DefaultController(Controller):
         if self.review_controller().learning_ahead == True:
             self.review_controller().reset()
         return cards # For testability.
-
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
                              new_tag_names, correspondence):

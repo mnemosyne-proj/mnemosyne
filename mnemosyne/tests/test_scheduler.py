@@ -2,6 +2,7 @@
 # test_scheduler.py <Peter.Bienstman@UGent.be>
 #
 
+import time
 from mnemosyne_test import MnemosyneTest
 
 
@@ -166,7 +167,8 @@ class TestScheduler(MnemosyneTest):
                 card_type = self.card_type_by_id("2")            
             card = self.controller().create_new_cards(fact_data, card_type,
                     grade=4, tag_names=["default" + str(i)])[0]
-            card.next_rep -= (1000-i) * 24 * 60 * 60
+            card.next_rep = time.time() - 24 * 60 * 60
+            card.last_rep = card.next_rep - i * 24 * 60 * 60
             self.database().update_card(card)
             if i == 0:
                 card_1 = card
@@ -189,6 +191,16 @@ class TestScheduler(MnemosyneTest):
             assert self.review_controller().card is not None
             self.review_controller().grade_answer(2)
 
+    def test_learn_ahead_4(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "1", "a": "a"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+                     grade=5, tag_names=["default"])[0]
+        self.review_controller().learning_ahead = True
+        self.review_controller().new_question()
+        self.review_controller().grade_answer(0)
+        assert self.review_controller().scheduled_count == 0
+                    
     def test_learn_related_together(self):
         self.config()["learn_related_cards_together"] = True
         card_type = self.card_type_by_id("2")
@@ -242,3 +254,21 @@ class TestScheduler(MnemosyneTest):
             self.review_controller().grade_answer(1)
             cards.add(self.review_controller().card._id)
         assert card_2._id in cards
+
+    def test_order(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "1", "a": "a"}
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=5, tag_names=["default"])[0]
+        card_1.next_rep = time.time() - 24 * 60 * 60
+        card_1.last_rep = card_1.next_rep - 2 * 24 * 60 * 60
+        self.database().update_card(card_1)
+        fact_data = {"q": "2", "a": "a"}        
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
+                     grade=5, tag_names=["default"])[0]
+        card_2.next_rep = time.time() - 24 * 60 * 60
+        card_2.last_rep = card_2.next_rep - 24 * 60 * 60
+        self.database().update_card(card_2)
+
+        # Shortest interval should go first
+        assert self.scheduler().get_next_card() == card_2

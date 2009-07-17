@@ -124,3 +124,10 @@ class TestPlugin(MnemosyneTest):
         p.deactivate()  
         assert self.mnemosyne.component_manager.get_current\
                     ("generic_card_type_widget", used_for=FrontToBack) == None
+
+    def test_5(self):   
+        for plugin in self.plugins():
+            component = plugin.components[0]
+            if component.component_type == "card_type" and component.id == "4":
+                plugin.activate()
+                plugin.activate()

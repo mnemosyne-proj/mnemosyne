@@ -40,6 +40,8 @@ class Plugin(Component):
         self.registered_components = []
             
     def activate(self):
+        if self.instantiated_components or self.registered_components:
+            return
         # See if we need to reset the review process.
         self.review_reset_needed = False
         for component in self.components:

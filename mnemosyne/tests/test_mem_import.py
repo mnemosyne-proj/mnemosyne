@@ -209,6 +209,18 @@ class TestMemImport(MnemosyneTest):
         self.review_controller().reset()
         assert self.database().card_count() == 2
         card = self.review_controller().card
-        assert card.fact.data == {'loc': '<b>Drenthe</b>',
-            'marked': '<img src_missing="maps/Netherlands-Provinces/Drenthe.png">',
-            'blank': '<img src_missing="maps/Netherlands-Provinces/Netherlands-Provinces.png">'}
+        assert card.fact["loc"] == "<b>Drenthe</b>"
+        assert card.fact["marked"] == \
+          """<img src_missing="maps/Netherlands-Provinces/Drenthe.png">"""
+        assert card.fact["blank"] == \
+          """<img src_missing="maps/Netherlands-Provinces/Netherlands-Provinces.png">"""
+        
+    def test_dups(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "dups.mem")
+        self.get_mem_importer().do_import(filename)
+        self.review_controller().reset()
+        assert self.review_controller().card.fact["loc"] == \
+               u"""<b>Freistaat Th\xfcringen (Free State of Thuringia)</b>"""
+        assert self.review_controller().card.tag_string() == "Germany: States"
+        
+        

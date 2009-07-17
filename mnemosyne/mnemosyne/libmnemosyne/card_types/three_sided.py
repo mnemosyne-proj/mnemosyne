@@ -23,21 +23,15 @@ class ThreeSided(CardType):
     v1 = FactView("1", _("Recognition"))
     v1.q_fields = ["f"]
     v1.a_fields = ["p", "t"]
-    v1.required_fields = ["f"]
 
     # Production.
     v2 = FactView("2", _("Production"))
     v2.q_fields = ["t"]
     v2.a_fields = ["f", "p"]
-    v2.required_fields = ["t"]
     
     fact_views = [v1, v2]
-
-    # The foreign word field needs to be unique. As for duplicates in the
-    # answer field, these are better handled through a synonym detection 
-    # plugin.
     unique_fields = ["f"]
-
+    required_fields = ["f", "t"]
 
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
 from mnemosyne.libmnemosyne.card_types.both_ways import BothWays

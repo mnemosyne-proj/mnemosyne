@@ -64,7 +64,7 @@ SCHEMA = """
         active boolean default 1,
         in_view boolean default 1
     );
-
+    
     create table tags(
         _id integer primary key,
         _parent_key integer default 0,
@@ -137,7 +137,6 @@ SCHEMA = """
         name text,
         q_fields text,
         a_fields text,
-        required_fields text,
         a_on_top_of_q boolean default 0,
         type_answer boolean default 0,
         extra_data text default ""
@@ -148,6 +147,7 @@ SCHEMA = """
         name text,
         fields text,
         unique_fields text,
+        required_fields text,
         keyboard_shortcuts text,
         extra_data text default ""
     );
@@ -545,18 +545,17 @@ class SQLite(Database):
 
     def _add_fact_view(self, fact_view):
         return self.con.execute("""insert into fact_views(id, name, q_fields,
-            a_fields, required_fields, a_on_top_of_q, type_answer, extra_data)
-            values(?,?,?,?,?,?,?,?)""", (fact_view.id, fact_view.name,
+            a_fields, a_on_top_of_q, type_answer, extra_data)
+            values(?,?,?,?,?,?,?)""", (fact_view.id, fact_view.name,
             repr(fact_view.q_fields), repr(fact_view.a_fields),
-            repr(fact_view.required_fields), fact_view.a_on_top_of_q,
-            fact_view.type_answer, self._repr_extra_data(fact_view.extra_data\
-            ))).lastrowid
+            fact_view.a_on_top_of_q, fact_view.type_answer,
+            self._repr_extra_data(fact_view.extra_data))).lastrowid
 
     def _get_fact_view(self, _id):
         sql_res = self.con.execute("select * from fact_views where _id=?",
                                    (_id, )).fetchone()
         fact_view = FactView(sql_res["id"], sql_res["name"])
-        for attr in ("q_fields", "a_fields", "required_fields"):
+        for attr in ("q_fields", "a_fields"):
             setattr(fact_view, attr, eval(sql_res[attr]))
         for attr in ["a_on_top_of_q", "type_answer"]:
             setattr(fact_view, attr, sql_res[attr])
@@ -569,9 +568,10 @@ class SQLite(Database):
         
     def add_card_type(self, card_type):
         self.con.execute("""insert into card_types(id, name, fields,
-            unique_fields, keyboard_shortcuts, extra_data) values
-            (?,?,?,?,?,?)""", (card_type.id, card_type.name,
+            unique_fields, required_fields, keyboard_shortcuts, extra_data)
+            values (?,?,?,?,?,?,?)""", (card_type.id, card_type.name,
             repr(card_type.fields), repr(card_type.unique_fields),
+            repr(card_type.required_fields),
             repr(card_type.keyboard_shortcuts),
             self._repr_extra_data(card_type.extra_data)))
         for fact_view in card_type.fact_views:
@@ -594,7 +594,8 @@ class SQLite(Database):
                                    (id, )).fetchone()
         card_type = type(mangle(id), (parent.__class__, ),
             {"name": sql_res["name"], "id": id})(self.component_manager)
-        for attr in ("fields", "unique_fields", "keyboard_shortcuts"):
+        for attr in ("fields", "unique_fields", "required_fields",
+                     "keyboard_shortcuts"):
             setattr(card_type, attr, eval(sql_res[attr]))
         self._get_extra_data(sql_res, card_type)
         card_type.fact_views = []
@@ -606,9 +607,11 @@ class SQLite(Database):
         
     def update_card_type(self, card_type):
         self.con.execute("""update card_types set name=?, fields=?,
-            unique_fields=?, keyboard_shortcuts=?, extra_data=? where id=?""",
+            unique_fields=?, required_fields=?, keyboard_shortcuts=?,
+            extra_data=? where id=?""",
             (card_type.name, repr(card_type.fields),
-            repr(card_type.unique_fields), repr(card_type.keyboard_shortcuts),
+            repr(card_type.unique_fields), repr(card_type.required_fields),
+            repr(card_type.keyboard_shortcuts),
             self._repr_extra_data(card_type.extra_data), card_type.id))
         self.con.execute("""delete from fact_views where _id in (select
             _fact_view_id from fact_views_for_card_type where
@@ -728,37 +731,15 @@ class SQLite(Database):
             next_rep=? and _id<>? and grade>=2 and _id in
             (select _id from cards where _fact_id=?)""",
             (next_rep, card._id, card.fact._id)).fetchone()[0]
-    
-    def has_fact_with_data(self, fact_data, card_type):
-        fact_ids = set()
-        for key, value in fact_data.items():
-            # If key and value from fact_data are not in the database,
-            # we don't have such a fact.
-            if not self.con.execute("""select count() from data_for_fact, facts
-                where data_for_fact.key=? and data_for_fact.value=? and
-                facts._id=data_for_fact._fact_id and facts.card_type_id=?""",
-                (key, value, card_type.id)).fetchone()[0]:
-                return False
-            # If they are present, then we still need to check that they
-            # belong to the same fact.
-            item_fact_ids = set((cursor["_fact_id"] for cursor in
-                self.con.execute("""select _fact_id from data_for_fact, facts
-                where data_for_fact.key=? and data_for_fact.value=? and
-                facts._id=data_for_fact._fact_id and facts.card_type_id=?""",
-                (key, value, card_type.id))))            
-            if not fact_ids:
-                fact_ids = item_fact_ids
-            else:
-                fact_ids = fact_ids.intersection(item_fact_ids)
-            if not fact_ids:
-                return False
-        return True
 
     def duplicates_for_fact(self, fact):
-        duplicates = []
-        for cursor in self.con.execute("""select _id from facts
-            where card_type_id=? and not _id=?""",
-            (fact.card_type.id, fact._id)):
+        query = "select _id from facts where card_type_id=?"
+        args = (fact.card_type.id,)
+        if fact._id:
+            query += " and not _id=?"
+            args = (fact.card_type.id, fact._id)
+        duplicates = []            
+        for cursor in self.con.execute(query, args):
             data = dict([(cursor2["key"], cursor2["value"]) for cursor2 in \
                 self.con.execute("""select * from data_for_fact where
                 _fact_id=?""", (cursor[0], ))])
@@ -785,7 +766,7 @@ class SQLite(Database):
     def scheduled_count(self, timestamp):
         count = self.con.execute("""select count() from cards
             where active=1 and grade>=2 and ?>=next_rep""",
-            (timestamp,)).fetchone()[0]
+            (timestamp, )).fetchone()[0]
         return count
 
     def active_count(self):
@@ -804,49 +785,50 @@ class SQLite(Database):
     # Card queries used by the scheduler.
     #
     
-    def _parse_sort_key(self, sort_key):
+    def _process_sort_key(self, sort_key):
         if sort_key == "":
             return "_id"
-        if sort_key == "random":
+        elif sort_key == "random":
             return "random()"
-        if sort_key == "interval":
+        elif sort_key == "interval":
             return "next_rep - last_rep"
-        return sort_key
+        else:
+            return sort_key
 
     def cards_due_for_ret_rep(self, timestamp, sort_key="", limit=-1):
-        sort_key = self._parse_sort_key(sort_key)
+        sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and grade>=2 and ?>=next_rep order by ? limit ?""",
-            (timestamp, sort_key, limit)))
-
+            active=1 and grade>=2 and ?>=next_rep order by %s limit ?"""
+            % sort_key, (timestamp, limit)))
+    
     def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
-        sort_key = self._parse_sort_key(sort_key)
+        sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and grade=? and lapses>0 order by ? limit ?""",
-            (grade, sort_key, limit)))
+            active=1 and grade=? and lapses>0 order by %s limit ?"""
+            % sort_key, (grade, limit)))
 
     def cards_new_memorising(self, grade, sort_key="", limit=-1):
-        sort_key = self._parse_sort_key(sort_key)
+        sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and grade=? and lapses=0 order by ? limit ?""",
-            (grade, sort_key, limit)))
+            active=1 and grade=? and lapses=0 order by %s limit ?"""
+            % sort_key, (grade, limit)))
     
     def cards_unseen(self, sort_key="", limit=-1):
-        sort_key = self._parse_sort_key(sort_key)      
+        sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and grade=-1 order by ? limit ?""",
-            (sort_key, limit)))
+            active=1 and grade=-1 order by %s limit ?"""
+            % sort_key, (limit, )))
     
     def cards_learn_ahead(self, timestamp, sort_key="", limit=-1):
-        sort_key = self._parse_sort_key(sort_key)
+        sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and grade>=2 and ?<next_rep order by ? limit ?""",
-            (timestamp, sort_key, limit)))
+            active=1 and grade>=2 and ?<next_rep order by %s limit ?"""
+            % sort_key, (timestamp, limit)))
 
     #
     # Extra commands for custom schedulers.
@@ -857,11 +839,11 @@ class SQLite(Database):
             (scheduler_data, ))
 
     def cards_with_scheduler_data(self, scheduler_data, sort_key="", limit=-1):
-        sort_key = self._parse_sort_key(sort_key)
+        sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where
-            active=1 and scheduler_data=? order by ? limit ?""",
-            (scheduler_data, sort_key, limit)))
+            active=1 and scheduler_data=? order by %s limit ?"""
+            % sort_key, (scheduler_data, limit)))
 
     def scheduler_data_count(self, scheduler_data):
         return self.con.execute("""select count() from cards

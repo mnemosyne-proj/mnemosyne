@@ -1,24 +1,13 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--counter issues with learn ahead + add to testsuite
--test deactivation of map plugin upon first import
 
--profile import
-
--executemany needed?
-
-
--get rid of has fact with data
-
--break out duplicate logic
-
--rename two add cards routines
-
+-implement duplicate checking, break out duplicate logic?
 
 -raising exceptions or printing errors immediately?
 
 -break out functionality which is independent of file format
+
 
 
 -on import, activate plugins, created card types if necessary
@@ -26,8 +15,6 @@
 -on import don't add cards for which card type is not present
 
 -warn when not importing a duplicate card
-
--<default> tag?
 
 -reset learning ahead queue after import
 
@@ -54,9 +41,8 @@
   move latex configuration files?, import user id and config, ...
   item --> card, fonts
 
+-implement backup
 
-
--do we need required fields per fact view? Update sql too.
 
 
 -when importing history, remove first repetition for unseen card with grade <2
@@ -143,6 +129,8 @@
 -card.in_view needed?
 
 -make card browser remember its size
+
+-<default> tag?
 
 
 -sync protocol:

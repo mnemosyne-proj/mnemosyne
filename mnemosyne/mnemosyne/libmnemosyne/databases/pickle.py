@@ -6,9 +6,9 @@
 import os
 import gzip
 import time
-import cPickle
 import shutil
 import random
+import cPickle
 import mnemosyne.version
 
 from mnemosyne.libmnemosyne.tag import Tag
@@ -342,12 +342,6 @@ class Pickle(Database):
     def count_related_cards_with_next_rep(self, card, next_rep):
         return len([c for c in self.cards if c.fact == card.fact and \
             c != card and c.next_rep == next_rep and c.grade >= 2])
-
-    def has_fact_with_data(self, fact_data, card_type):
-        for f in self.facts:
-            if f.data == fact_data and f.card_type == card_type:
-                return True
-        return False
 
     def duplicates_for_fact(self, fact):
         duplicates = []

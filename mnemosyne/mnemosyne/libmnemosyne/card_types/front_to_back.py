@@ -20,9 +20,7 @@ class FrontToBack(CardType):
     v = FactView("1", _("Front-to-back"))
     v.q_fields = ["q"]
     v.a_fields = ["a"]
-    v.required_fields = ["q"]
 
-    fact_views = [v]
-    
-    # The following field needs to be unique.
+    fact_views = [v]   
     unique_fields = ["q"]
+    required_fields = ["q"]

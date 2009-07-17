@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import time
 import cProfile
 import pstats
 
@@ -58,7 +59,11 @@ def startup():
         ("mnemosyne.libmnemosyne.card_types.cloze",
          "ClozePlugin"),
         ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
-         "CrammingPlugin") ]    
+         "CrammingPlugin"),
+        ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
+          "Mnemosyne1Mem"),
+        ("mnemosyne.libmnemosyne.ui_components.dialogs",
+         "ProgressDialog") ]    
 
     mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"))
     #mnemosyne.initialise(basedir="\SDMMC\.mnemosyne")
@@ -66,39 +71,7 @@ def startup():
     mnemosyne.review_controller().reset()
 
     
-def create_database():
-
-    if 0:
-
-        import time
-
-        card_type = mnemosyne.card_type_by_id("1")
-        facts = []
-        from mnemosyne.libmnemosyne.fact import Fact
-        for i in range(number_of_facts):    
-            fact_data = {"q": "question" + str(i),
-                         "a": "answer" + str(i)}
-            facts.append(Fact(fact_data, card_type))
-
-        t0 = time.time()
-        for fact in facts:
-            # Add fact to facts table.
-            _fact_id = mnemosyne.database().con.execute("""insert into facts(id, card_type_id,
-                creation_time, modification_time) values(?,?,?,?)""",
-                (fact.id, fact.card_type.id, fact.creation_time,
-                 fact.modification_time)).lastrowid
-        print 'loop', time.time()-t0
-
-        def fact_generator():
-            for fact in facts:
-                yield (fact.id, fact.card_type.id, fact.creation_time,
-                 fact.modification_time)
-
-        t0 = time.time()    
-        mnemosyne.database().con.executemany("""insert into facts(id, card_type_id,
-                creation_time, modification_time) values(?,?,?,?)""", fact_generator())
-        print 'generator', time.time()-t0    
-    
+def create_database():    
     mnemosyne.config()["upload_logs"] = False
     for i in range(number_of_facts):
         fact_data = {"q": "question" + str(i),
@@ -109,13 +82,13 @@ def create_database():
             card_type = mnemosyne.card_type_by_id("2")            
         card = mnemosyne.controller().create_new_cards(\
             fact_data, card_type, grade=4, tag_names=["default"])[0]
-        card.next_rep -= 1000*24*60*60
+        card.next_rep = time.time() - 24 * 60 * 60
+        card.last_rep = card.next_rep - i * 24 * 60 * 60
         mnemosyne.database().update_card(card)
     mnemosyne.database().save(mnemosyne.config()["path"])
     
 def queue():
     mnemosyne.review_controller().reset()
-    mnemosyne.review_controller().new_question()
     
 def new_question():
     # Note that this actually also happened in startup().
@@ -151,7 +124,8 @@ def finalise():
     mnemosyne.finalise()
 
 def do_import():
-    mnemosyne.component_manager.get_current("file_format").do_import("default.mem")
+    mnemosyne.component_manager.get_current("file_format").\
+        do_import("/home/pbienst/dot_mnemosyne/default.mem")
 
 #tests = ["startup()", "create_database()", "queue()", "new_question()", "display()", "grade_only()",
 #         "grade()", "count_active()", "count_scheduled()", "count_not_memorised()"]
@@ -162,6 +136,8 @@ def do_import():
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "finalise()"]
 tests = ["startup()", "create_database()"]
+tests = ["startup()", "do_import()", "finalise()"]
+#tests = ["startup()", "queue()", "finalise()"]
 
 for test in tests:  
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))

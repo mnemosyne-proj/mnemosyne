@@ -11,8 +11,11 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class MyMainWidget(MainWidget):
 
-    def question_box(self, a, b, c, d):
-        return 0 # Say yes when deleting a card.
+    def question_box(self, question, b, c, d):
+        if question == "Delete this card?":
+            return 0 # Yes
+        else:
+            raise NotImplementedError
             
 
 class TestLogging(MnemosyneTest):
@@ -63,15 +66,15 @@ class TestLogging(MnemosyneTest):
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 0
-
+        
         sql_res = self.database().con.execute(\
             "select * from history where _id=4").fetchone()
-        assert sql_res["event"] == self.log().ADDED_TAG
+        assert sql_res["event"] == self.log().ADDED_FACT
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
             "select * from history where _id=5").fetchone()
-        assert sql_res["event"] == self.log().ADDED_FACT
+        assert sql_res["event"] == self.log().ADDED_TAG
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\

@@ -43,8 +43,8 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.notmem = QtGui.QLabel("", parent.statusbar)
         self.act = QtGui.QLabel("", parent.statusbar)
         parent.clear_statusbar()
-        parent.add_to_statusbar(self.notmem)
         parent.add_to_statusbar(self.sched)
+        parent.add_to_statusbar(self.notmem)
         parent.add_to_statusbar(self.act)
         parent.statusbar.setSizeGripEnabled(0)
 
