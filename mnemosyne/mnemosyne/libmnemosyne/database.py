@@ -86,6 +86,9 @@ class Database(Component):
     def delete_card(self, card):
         raise NotImplementedError
     
+    def has_card_with_external_id(self, id):
+        raise NotImplementedError
+
     # Card types.
     
     def add_card_type(self, card_type):

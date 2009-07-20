@@ -48,6 +48,7 @@ mnemosyne = Mnemosyne()
 
 # Initialise GUI toolkit.
 a = QApplication(sys.argv)
+a.setApplicationName("Mnemosyne")
 # TODO: install translator for Qt messages.
 # Under Windows, move out of library.zip to get the true prefix.
 # from mnemosyne.pyqt_ui.main_window import prefix

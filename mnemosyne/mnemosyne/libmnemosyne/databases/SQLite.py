@@ -539,6 +539,10 @@ class SQLite(Database):
         self.log().deleted_card(card)
         del card
 
+    def has_card_with_external_id(self, id):
+        return self.con.execute("select count() from cards where id=?",
+                                (id, )).fetchone()[0]
+
     #
     # Fact views.
     #

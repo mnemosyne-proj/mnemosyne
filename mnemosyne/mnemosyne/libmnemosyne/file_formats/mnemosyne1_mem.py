@@ -130,7 +130,7 @@ class Mnemosyne1Mem(FileFormat):
         for item in self.items:
             count += 1
             if count % update_interval == 0:
-                progress.set_value(count)
+                progress.set_value(count)  
             if item.id.endswith(".inv") or item.id.endswith(".tr.1"):
                 if not item.id.split(".", 1)[0] in items_by_id:
                     # Orphaned 2 or 3 sided card.
@@ -142,6 +142,11 @@ class Mnemosyne1Mem(FileFormat):
                         check_for_duplicates=False)[0]
                     self._set_card_attributes(card, item)
                 continue
+            if self.database().has_card_with_external_id(item.id):
+                progress.set_value(len(self.items))
+                self.main_widget().error_box(\
+               _("This file seems to have been imported before. Aborting..."))
+                return
             # Map.
             if item.id + ".inv" in items_by_id and \
                 "answerbox: overlay" in item.q:

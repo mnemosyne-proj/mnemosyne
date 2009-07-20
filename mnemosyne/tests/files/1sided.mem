@@ -32,7 +32,7 @@ Item
 p15
 (dp16
 S'a'
-Va
+Vanswer
 sS'last_rep'
 p17
 I0
@@ -43,7 +43,7 @@ sS'cat'
 p19
 g9
 sS'q'
-Vq
+Vquestion
 sS'ret_reps'
 p20
 I0

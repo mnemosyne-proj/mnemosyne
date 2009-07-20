@@ -294,6 +294,9 @@ class Pickle(Database):
             self.remove_tag_if_unused(cat)    
         self.log().deleted_card(card)
         del card
+        
+    def has_card_with_external_id(self, id):
+        return len([c for c in self.cards if c.id == id])
     
     # Retrieving tags, facts, cards based on their internal id.
 

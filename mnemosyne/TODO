@@ -1,16 +1,12 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
+-check audio
+
+
 -update data if same id present on import
 
--implement duplicate checking, break out duplicate logic?
-
--raising exceptions or printing errors immediately?
-
--break out functionality which is independent of file format
-
 -don't duplicate history on reimport
-
 
 -on import, activate plugins, created card types if necessary
 
@@ -27,6 +23,8 @@
 -update XML import/export to new database format
 
 -option to add tags on import
+
+-make sure enter does not cloze the import dialog
 
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
@@ -137,6 +135,8 @@
 -make card browser remember its size
 
 -<default> tag?
+
+-implement duplicate checking
 
 
 -sync protocol:
