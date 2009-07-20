@@ -1,6 +1,7 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
+-update data if same id present on import
 
 -implement duplicate checking, break out duplicate logic?
 
@@ -8,6 +9,7 @@
 
 -break out functionality which is independent of file format
 
+-don't duplicate history on reimport
 
 
 -on import, activate plugins, created card types if necessary
@@ -41,9 +43,13 @@
   move latex configuration files?, import user id and config, ...
   item --> card, fonts
 
+-reorder counters in source
+
 -implement backup
 
+-plugin to prioritise tag?
 
+-put all db code (stats, logs) in single dir
 
 -when importing history, remove first repetition for unseen card with grade <2
 
