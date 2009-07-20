@@ -100,4 +100,3 @@ div#text { text-align: center; }
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 3
         
-        assert self.database().average_easiness() == 2.5

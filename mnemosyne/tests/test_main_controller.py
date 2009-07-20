@@ -7,6 +7,17 @@ import os
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.ui_components.dialogs import *
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+
+
+class Widget(MainWidget):
+
+    def save_file_dialog(self, path, filter, caption=""):
+        return os.path.join(os.getcwd(), "dot_test", "copy.db")
+        return "test2.sql"
+    
+    def open_file_dialog(self, path, filter, caption=""):
+        return os.path.join(os.getcwd(), "dot_test", "default.db")
 
 class TestMainController(MnemosyneTest):
 
@@ -17,7 +28,7 @@ class TestMainController(MnemosyneTest):
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(\
-            ("test_cramming", "Widget"))
+            ("test_main_controller", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.components.append(\
@@ -57,3 +68,7 @@ class TestMainController(MnemosyneTest):
         self.controller().browse_cards()
         self.controller().configure()
         self.controller().show_statistics()
+
+    def test_2(self):
+        self.controller().file_save_as()
+        self.controller().file_open()        

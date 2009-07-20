@@ -14,8 +14,8 @@ class CardType(Component):
     A card type needs an id as well as a name, because the name can change
     for different translations.
 
-    Inherited card types should have ids where dots separate the different
-    levels of the hierarchy, e.g. parent_id.child_id.
+    Inherited card types should have ids where :: separates the different
+    levels of the hierarchy, e.g. parent_id::child_id.
     
     The keys from the fact are also given more verbose names here.
     This is not done in fact.py, on one hand to save space in the database,

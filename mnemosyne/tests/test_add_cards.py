@@ -43,8 +43,6 @@ class TestAddCards(MnemosyneTest):
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
-        assert self.database().average_easiness() == 2.5
-
     def test_1_duplicates(self):
         fact_data = {"q": "question",
                      "a": "answer"}

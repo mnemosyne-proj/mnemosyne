@@ -56,10 +56,10 @@ class TestMedia(MnemosyneTest):
         assert os.path.exists(os.path.join(self.config().mediadir(), "a.ogg"))
         
         self.controller().insert_sound("")
-        assert os.path.exists(os.path.join(self.config().mediadir(), "a (1).ogg"))
+        assert os.path.exists(os.path.join(self.config().mediadir(), "a_1_.ogg"))
         
         self.controller().insert_sound("")
-        assert os.path.exists(os.path.join(self.config().mediadir(), "a (2).ogg"))
+        assert os.path.exists(os.path.join(self.config().mediadir(), "a_2_.ogg"))
         
     def test_img_1(self):
         global filename

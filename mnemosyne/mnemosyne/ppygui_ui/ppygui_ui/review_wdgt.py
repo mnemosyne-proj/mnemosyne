@@ -114,7 +114,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         self.review_controller().grade_answer(grade)
 
     def update_status_bar(self):
-        non_memorised_count, scheduled_count, active_count = \
+        scheduled_count, non_memorised_count, active_count = \
                    self.review_controller().get_counters()
         self.status_bar.text = "Sch.:%d Not mem.:%d Act.:%d" % \
             (scheduled_count, non_memorised_count, active_count)

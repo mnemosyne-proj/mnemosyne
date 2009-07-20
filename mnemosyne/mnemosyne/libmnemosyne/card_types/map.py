@@ -35,7 +35,7 @@ class Map(CardType):
     required_fields = ["loc", "blank", "marked"]
     
     def question(self, card):
-        # Hack to insert a blank line to improve layout.
+        # Insert a blank line to improve layout.
         card.fact["_"] = "<br>"
         return CardType.question(self, card)
 

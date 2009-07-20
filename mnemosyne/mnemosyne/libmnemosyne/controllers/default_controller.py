@@ -135,8 +135,8 @@ class DefaultController(Controller):
                                                     new_card_type.__class__))
             if not converter:
                 # Perhaps they have a common ancestor.
-                parents_old = old_card_type.id.split(".")
-                parents_new = new_card_type.id.split(".")
+                parents_old = old_card_type.id.split("::")
+                parents_new = new_card_type.id.split("::")
                 if parents_old[0] == parents_new[0]: 
                     fact.card_type = new_card_type
                     updated_cards = db.cards_from_fact(fact)      
@@ -244,7 +244,7 @@ class DefaultController(Controller):
     def clone_card_type(self, card_type, clone_name):
         from mnemosyne.libmnemosyne.utils import mangle
         
-        clone_id = card_type.id + "." + clone_name
+        clone_id = card_type.id + "::" + clone_name
         if clone_id in [card_t.id for card_t in self.card_types()]:
             self.main_widget.error_box(_("Card type name already exists."))
             return None

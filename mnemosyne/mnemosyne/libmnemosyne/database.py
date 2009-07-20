@@ -167,9 +167,6 @@ class Database(Component):
     def active_count(self):
         raise NotImplementedError
 
-    def average_easiness(self):
-        raise NotImplementedError
-
     # Card queries used by the scheduler. Returns tuples of internal ids
     # (_card_id, _fact_id) Should function as an iterator in order to save
     # memory. "sort_key" is a string of an attribute of Card to be used for

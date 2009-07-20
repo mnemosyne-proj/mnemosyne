@@ -1,7 +1,13 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--logging save old database upon opening new one
+-move lock checking to database code
+
+
+-implement backup, add test, test restoring from backup, warn if opening backupfile
+-backup after unloading, not after exiting
+
+-put all db code (stats, logs) in single dir
 
 -import history
 -flush old text logs first
@@ -9,51 +15,6 @@
 -don't recreate text logs upon import
 -when importing history, remove first repetition for unseen card with grade <2
 
-
--update data if same id present on import
-
--don't duplicate history on reimport
-
--on import, activate plugins, created card types if necessary
-
--on import don't add cards for which card type is not present
-
--warn when not importing a duplicate card
-
--xml import tests (wcu, memaid, plconv)
-
--option to detect and mark inverses on import?
-
--update XML import/export to new database format
-
--option to add tags on import
-
--make sure enter does not cloze the import dialog
-
--make sure we log new card creation on import
-
--'teacher mode' on export, which allows pupils to update previously imported
- cards, as opposed to adding new cards. Implemented through id's of the form
- T.<fixed card id for all pupils>.<pupil user id>?
-
--when resetting learning data on export, can we export facts only? Tags are on
- a per card basis.
-
-
--upgrade from 1.x to 2.0 migration code: convert deck,
-  move latex configuration files?, import user id and config, ...
-  item --> card, fonts
-
--reorder counters in source
-
--implement backup
-
--put all db code (stats, logs) in single dir
-
-
-
-
--hierarchy in card types ::
 
 -WM test and benchmark
 
@@ -63,9 +24,6 @@
 -ditto for learn new related cards in same session
 
 -hook up config screen
-
--infrastructure to make it easier to type certain symbols
-
 
 
 -add 'update_card_active' (or something like that) to be called when
@@ -81,16 +39,10 @@
 
 -warn when importing card type with duplicate id
 
-
 -reenable upload
 
 
 -default tag needed?
-
--remove average easiness function
-
--move lock checking to database code
-
 
 
 -new translation infrastructure
@@ -101,11 +53,9 @@
 -corrupt icon
 
 
-
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
  activate cards, configuration 
 
--backup after unloading, not after exiting
 
 -have hierarchy in plugin names
 
@@ -137,6 +87,38 @@
 
 -implement duplicate checking
 
+-update data if same id present on import
+
+-don't duplicate history on reimport
+
+-on import, activate plugins, created card types if necessary
+
+-on import don't add cards for which card type is not present
+
+-warn when not importing a duplicate card
+
+-xml import tests (wcu, memaid, plconv)
+
+-option to detect and mark inverses on import?
+
+-update XML import/export to new database format
+
+-option to add tags on import
+
+-make sure enter does not close the import dialog
+
+-make sure we log new card creation on import
+
+-'teacher mode' on export, which allows pupils to update previously imported
+ cards, as opposed to adding new cards. Implemented through id's of the form
+ T.<fixed card id for all pupils>.<pupil user id>?
+
+-when resetting learning data on export, can we export facts only? Tags are on
+ a per card basis.
+
+-upgrade from 1.x to 2.0 migration code: convert deck,
+  move latex configuration files?, import user id and config, ...
+  item --> card, fonts
 
 -sync protocol:
 -deck name
@@ -160,6 +142,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
 
+-infrastructure to make it easier to type certain symbols
 
 -ampersand mnemonics everywhere
 
@@ -251,8 +234,6 @@ pylint:
 -add media to a card but then abandonig/editing the card keeps the media in media directory
  (they are not referenced in the database, though)
 
--checkbox to include inactive cards in statistics?
-
 -pythoscope? http://pypi.python.org/pypi/pythoscope/0.2.1
 http://pythoscope.org/
 -pyflakes?
@@ -294,8 +275,6 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 
 
 -download media files when giving URL
-
--also allow import compressed backup files from within Mnemosyne
 
 -three sided export?
 
@@ -367,10 +346,6 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -determine import / export file type based on suffix
  (i.e. remove file format field)? Probably not possible, as
  file dialogs only return filenames, not the chosen filter type.
-
--unify save and export?
-
--hints? separate mnemonics?
 
 -swac plugin, smart.fm
 

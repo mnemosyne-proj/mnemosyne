@@ -121,12 +121,12 @@ class SM2Controller(ReviewController):
     def get_counters(self):
         if not self.non_memorised_count:
             self.reload_counters()
-        return self.non_memorised_count, self.scheduled_count, self.active_count
+        return self.scheduled_count, self.non_memorised_count, self.active_count
 
     def reload_counters(self):
         sch = self.scheduler()
-        self.non_memorised_count = sch.non_memorised_count()
         self.scheduled_count = sch.scheduled_count()
+        self.non_memorised_count = sch.non_memorised_count()
         self.active_count = sch.active_count()
 
     def update_counters(self, old_grade, new_grade):

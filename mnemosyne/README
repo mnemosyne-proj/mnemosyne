@@ -2,7 +2,7 @@ INSTALLATION:
 
 First install the following dependencies:
 
--Python 2.4 or later(http://www.python.org)
+-Python 2.5 or later(http://www.python.org)
 -PyQt 4.x (http://www.riverbankcomputing.co.uk/software/pyqt/download)
 -If you want to be able to enter formulas using latex syntax, make sure that
  latex is installed.

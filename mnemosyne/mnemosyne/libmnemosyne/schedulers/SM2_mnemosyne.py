@@ -355,7 +355,7 @@ class SM2Mnemosyne(Scheduler):
             actual_interval = int(self.stopwatch().start_time) - card.last_rep
         if card.grade == -1:
             # The card has not yet been given its initial grade.
-            card.easiness = self.database().average_easiness()
+            card.easiness = 2.5
             card.acq_reps = 1
             card.acq_reps_since_lapse = 1
             new_interval = self.calculate_initial_interval(new_grade)   

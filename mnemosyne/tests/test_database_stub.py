@@ -131,10 +131,6 @@ class TestDatabaseStub:
         self.database.active_count()
 
     @raises(NotImplementedError)
-    def test_average_easiness(self):
-        self.database.average_easiness()
-
-    @raises(NotImplementedError)
     def test_card_types_in_use(self):
         self.database.card_types_in_use()
 

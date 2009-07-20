@@ -187,46 +187,8 @@ class Pickle(Database):
         return True
 
     def backup(self):
-        if self.config().resource_limited:
-            return
+        print "Backup not implemented"
         
-        # TODO: implement
-        return
-
-        #if number_of_items() == 0 or get_config("backups_to_keep") == 0:
-        #    return
-
-        #backupdir = os.path.join(basedir, "backups")
-
-        # Export to XML. Create only a single file per day.
-
-        #db_name = os.path.basename(config["path"])[:-4]
-
-        #filename = db_name + "-" +\
-        #           datetime.date.today().strftime("%Y%m%d") + ".xml"
-        #filename = os.path.join(backupdir, filename)
-
-        #export_XML(filename, get_tag_names(), reset_learning_data=False)
-
-        # Compress the file.
-
-        #f = bz2.BZ2File(filename + ".bz2", 'wb', compresslevel=5)
-        #for l in file(filename):
-        #    f.write(l)
-        #f.close()
-
-        #os.remove(filename)
-
-        # Only keep the last logs.
-
-        #if get_config("backups_to_keep") < 0:
-        #    return
-
-        #files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
-        #files.sort()
-        #if len(files) > get_config("backups_to_keep"):
-        #    os.remove(os.path.join(backupdir, files[0]))
-
     def is_loaded(self):
         return len(self.facts) != 0
     
@@ -245,8 +207,6 @@ class Pickle(Database):
                 self.tags.remove(tag_i)
                 del tag_i
                 return
-            
-    # TODO: benchmark this and see if we need a dictionary tag_by_name.
 
     def get_or_create_tag_with_name(self, name):
         for tag in self.tags:
@@ -374,14 +334,6 @@ class Pickle(Database):
 
     def active_count(self):
         return len([c for c in self.cards if c.active])
-
-    def average_easiness(self):
-        if len(self.cards) == 0:
-            return 2.5
-        else:
-            cards = (c.easiness for c in self.cards if \
-                     c.easiness > 0)
-            return sum(cards) / len([cards])
 
     # Card queries used by the scheduler.
     

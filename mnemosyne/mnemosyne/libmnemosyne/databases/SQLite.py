@@ -7,6 +7,7 @@ import re
 import time
 import shutil
 import sqlite3
+import datetime
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.tag import Tag
@@ -279,8 +280,8 @@ class SQLite(Database):
         for cursor in self.con.execute("""select distinct card_type_id
             from facts"""):
             id = cursor[0]
-            while "." in id: # Move up one level of the hierarchy.
-                id, child_name = id.rsplit(".", 1)
+            while "::" in id: # Move up one level of the hierarchy.
+                id, child_name = id.rsplit("::", 1)
                 if id not in active_ids:
                     plugin_needed.add(id)
             if id not in active_ids:
@@ -314,12 +315,23 @@ class SQLite(Database):
         # every review.
 
     def backup(self):
-        if self.config().resource_limited:
+        print 'backup'
+        if self.config()["backups_to_keep"] == 0:
             return
-        
-        # TODO: wait for XML export format.
-        # TODO: skip for resource limited?
-        pass
+        self.save()
+        backupdir = os.path.join(self.config().basedir, "backups")
+        # Make a copy. Create only a single file per day.
+        db_name = os.path.basename(self._path).rsplit(".", 1)[0]
+        backup_name = db_name + "-" + \
+                   datetime.date.today().strftime("%Y%m%d") + ".db"
+        shutil.copy(self._path, os.path.join(backupdir, backup_name))
+        # Only keep the last logs.
+        if self.config()["backups_to_keep"] < 0:
+            return
+        files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
+        files.sort()
+        if len(files) > self.config()["backups_to_keep"]:
+            os.remove(os.path.join(backupdir, files[0]))
 
     def unload(self):
         for f in self.component_manager.get_all("hook", "before_unload"):
@@ -589,8 +601,8 @@ class SQLite(Database):
         if id in self.component_manager.card_type_by_id:
             return self.component_manager.card_type_by_id[id]
         parent_id, child_id = "", id
-        if "." in id:
-            parent_id, child_id = id.rsplit(".", 1)
+        if "::" in id:
+            parent_id, child_id = id.rsplit("::", 1)
             parent = self.get_card_type(parent_id)
         else:
             parent = CardType(self.component_manager)
@@ -776,14 +788,6 @@ class SQLite(Database):
     def active_count(self):
         return self.con.execute("""select count() from cards
             where active=1""").fetchone()[0]
-
-    def average_easiness(self):
-        average = self.con.execute("""select sum(easiness)/count()
-            from cards where easiness>0""").fetchone()[0]
-        if average:
-            return average
-        else:
-            return 2.5
 
     #
     # Card queries used by the scheduler.
