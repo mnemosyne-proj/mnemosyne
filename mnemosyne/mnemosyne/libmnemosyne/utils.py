@@ -70,7 +70,7 @@ def copy_file_to_dir(filename, dirname):
         count = 0
         while True:
             count += 1
-            dest_path = "%s (%d).%s" % (prefix, count, suffix)
+            dest_path = "%s_%d_.%s" % (prefix, count, suffix)
             if not os.path.exists(dest_path):
                 break
     shutil.copy(filename, dest_path)

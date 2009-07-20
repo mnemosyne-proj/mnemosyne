@@ -286,13 +286,12 @@ class DefaultController(Controller):
             self.stopwatch().unpause()
             return
         try:
-            self.database().unload()
             self.log().saved_database()
+            self.database().unload()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
             self.stopwatch().unpause()
             return            
-        self.review_controller().reset()
         try:
             self.database().load(out)
             self.log().loaded_database()
@@ -300,7 +299,7 @@ class DefaultController(Controller):
             self.main_widget().show_exception(e)
             self.stopwatch().unpause()
             return
-        self.review_controller().new_question()
+        self.review_controller().reset()
         self.update_title()
         self.stopwatch().unpause()
 

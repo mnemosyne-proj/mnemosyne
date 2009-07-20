@@ -1,7 +1,13 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--check audio
+-logging save old database upon opening new one
+
+-import history
+-flush old text logs first
+-warn if history not found
+-don't recreate text logs upon import
+-when importing history, remove first repetition for unseen card with grade <2
 
 
 -update data if same id present on import
@@ -14,17 +20,17 @@
 
 -warn when not importing a duplicate card
 
--reset learning ahead queue after import
-
 -xml import tests (wcu, memaid, plconv)
 
--option to detect and mark inverses on import
+-option to detect and mark inverses on import?
 
 -update XML import/export to new database format
 
 -option to add tags on import
 
 -make sure enter does not cloze the import dialog
+
+-make sure we log new card creation on import
 
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
@@ -33,10 +39,7 @@
 -when resetting learning data on export, can we export facts only? Tags are on
  a per card basis.
 
--flush old text logs first
--warn if history not found
--don't recreate text logs upon import
- 
+
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?, import user id and config, ...
   item --> card, fonts
@@ -45,13 +48,9 @@
 
 -implement backup
 
--plugin to prioritise tag?
-
 -put all db code (stats, logs) in single dir
 
--when importing history, remove first repetition for unseen card with grade <2
 
--make sure we log new card creation on import
 
 
 -hierarchy in card types ::
@@ -187,9 +186,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -alt tabbing gives low res icon.
 
--add media player controls:
--http://www.phon.ucl.ac.uk/home/mark/audio/play.htm
--http://lists.trolltech.com/qt-interest/2008-05/thread00878-0.html
 
 -option to add video
 
@@ -251,6 +247,9 @@ pylint:
 -improve sphinxdocs: autoclass='both', document module members
 
 -show latex errors in GUI?
+
+-add media to a card but then abandonig/editing the card keeps the media in media directory
+ (they are not referenced in the database, though)
 
 -checkbox to include inactive cards in statistics?
 

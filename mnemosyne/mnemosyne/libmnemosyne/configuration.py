@@ -105,6 +105,8 @@ class Configuration(Component, dict):
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
              "active_plugins": set(), # Plugin classes, not instances.
+             "autoplay": True,
+             "controls": True
             }.items():
 
             self.setdefault(key, value)

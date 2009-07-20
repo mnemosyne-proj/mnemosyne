@@ -10,12 +10,12 @@ from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
 
 class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg):
 
-    def __init__(self, cards, cat_name_string, parent=None):
+    def __init__(self, cards, tag_text, parent=None):
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.cards = cards
         self.index = 0
-        self.question_label.setText(_("Question: ") + cat_name_string)
+        self.question_label.setText(_("Question: ") + tag_text)
         self.update_dialog()
 
     def update_dialog(self):

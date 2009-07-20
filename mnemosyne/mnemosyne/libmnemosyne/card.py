@@ -81,7 +81,7 @@ class Card(object):
 
     def question(self):
         return self.fact.card_type.question(self)
-
+       
     def answer(self):        
         return self.fact.card_type.answer(self)
 

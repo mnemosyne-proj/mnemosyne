@@ -56,6 +56,8 @@ class Mnemosyne(Component):
           "ExpandPaths"),
          ("mnemosyne.libmnemosyne.filters.latex",
           "Latex"),
+         ("mnemosyne.libmnemosyne.filters.html5_media",
+          "Html5Media"),
          ("mnemosyne.libmnemosyne.controllers.default_controller",
           "DefaultController"),
          ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
