@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ReviewController &mdash; libmnemosyne v2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Controller" href="controller.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="controller.html" title="Controller"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="module-mnemosyne.libmnemosyne.review_controller">
+<h1><tt class="xref docutils literal"><span class="pre">ReviewController</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.review_controller" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController]-->class <tt class="descclassname">mnemosyne.libmnemosyne.review_controller.</tt><tt class="descname">ReviewController</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls the behaviour of a widget which implements the ReviewWidget
+interface.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.get_counters">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.get_counters]--><tt class="descname">get_counters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.get_counters" title="Permalink to this definition">¶</a></dt>
+<dd>Returns tuple (scheduled_count, non_memorised_count, active_count).</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.grade_answer">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.grade_answer]--><tt class="descname">grade_answer</tt><big>(</big><em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.grade_answer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.heartbeat">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.heartbeat]--><tt class="descname">heartbeat</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.heartbeat" title="Permalink to this definition">¶</a></dt>
+<dd>For code that needs to run periodically, e.g. to react to a change
+of date.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.is_answer_showing">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.is_answer_showing]--><tt class="descname">is_answer_showing</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.is_answer_showing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.is_question_showing">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.is_question_showing]--><tt class="descname">is_question_showing</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.is_question_showing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.new_question">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.new_question]--><tt class="descname">new_question</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.new_question" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.rebuild_queue">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.rebuild_queue]--><tt class="descname">rebuild_queue</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.rebuild_queue" title="Permalink to this definition">¶</a></dt>
+<dd>Called when something in the GUI could have invalidated the queue.
+(e.g. card deletion).</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters]--><tt class="descname">reload_counters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters" title="Permalink to this definition">¶</a></dt>
+<dd>To be called when counters need to be reloaded from the database.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.reset">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.reset]--><tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.show_answer">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.show_answer]--><tt class="descname">show_answer</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.show_answer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.update_dialog">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.update_dialog]--><tt class="descname">update_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.update_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.update_statusbar">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.update_statusbar]--><tt class="descname">update_statusbar</tt><big>(</big><em>message=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.update_statusbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="controller.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Controller</span></tt></a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="configuration.html" title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/modules/review_controller.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="controller.html" title="Controller"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Jul 21, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
+    </div>
+  </body>
+</html>
