@@ -181,12 +181,6 @@ class Mnemosyne(Component):
                 self.database().new(filename)
             else:
                 self.database().load(filename)
-        except EnvironmentError:
-            from mnemosyne.libmnemosyne.translator import _
-            self.main_widget().error_box(
-                _("Another copy of Mnemosyne is still running.") + "\n" +
-                _("Continuing is impossible and will lead to data loss!"))
-            sys.exit()
         except RuntimeError, e:
             # Making sure the GUI is in a correct state when no database is
             # loaded would require a lot of extra code, and this is only a

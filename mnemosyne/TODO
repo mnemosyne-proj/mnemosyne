@@ -1,12 +1,6 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--backup plugin hook
-
--don't log load and save
-
--move lock checking to database code
-
 -option to add video
 
 -put all db code (stats, logs) in single dir
@@ -16,6 +10,7 @@
 -import history
 -flush old text logs first
 -warn if history not found
+-remove initial creation and update when importing logs
 -don't recreate text logs upon import
 -when importing history, remove first repetition for unseen card with grade <2
 
@@ -24,6 +19,7 @@
 
 -move option to always randomise queue to config screen
 -ditto for learn new related cards in same session
+-autostart/controls
 
 -hook up config screen
 
@@ -39,7 +35,7 @@
 
 -make distrib
 
--warn when importing card type with duplicate id
+
 
 -reenable upload
 
@@ -71,6 +67,7 @@
 -activate cards, belonging to these card types, having any of these tags, but non of these, ro just none of these
 
 
+
 -card browser
 
 -make sure searching for a single unicode character works
@@ -85,13 +82,13 @@
 
 -make card browser remember its size
 
--<default> tag?
 
 -implement duplicate checking
 
--update data if same id present on import
 
--don't duplicate history on reimport
+-import
+
+-update data if same id present on import
 
 -on import, activate plugins, created card types if necessary
 
@@ -104,6 +101,8 @@
 -option to detect and mark inverses on import?
 
 -update XML import/export to new database format
+
+-warn when importing card type with duplicate id
 
 -option to add tags on import
 

@@ -68,7 +68,6 @@ SCHEMA = """
     
     create table tags(
         _id integer primary key,
-        _parent_key integer default 0,
         id text,
         name text,
         extra_data text default ""
@@ -247,8 +246,11 @@ class SQLite(Database):
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
             self.load_failed = False
-        except sqlite3.OperationalError, e:
-            raise EnvironmentError(str(e))
+        except sqlite3.OperationalError:
+            self.main_widget().error_box(
+                _("Another copy of Mnemosyne is still running.") + "\n" +
+                _("Continuing is impossible and will lead to data loss!"))
+            sys.exit()
         except:
             self.load_failed = True
             raise RuntimeError, _("Unable to load file.")
