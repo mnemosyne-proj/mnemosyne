@@ -5,8 +5,6 @@
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 
-DAY = 24 * 60 * 60 # Seconds in a day.
-
 
 class Schedule(PlotStatisticsPage):
 
@@ -31,9 +29,7 @@ class Schedule(PlotStatisticsPage):
             self.x = range(1, 366, 1)
         else:
             raise AttributeError, "Invalid variant"
-        now = self.scheduler().adjusted_now()
-        self.y = [] # Don't forget to reset this after variant change.
-        for day in self.x:
-            self.y.append(self.database().card_count_scheduled_between\
-                (now + (day - 1) * DAY, now + day * DAY))
+        self.y = [self.scheduler().card_count_scheduled_between\
+                  (day - 1, day) for day in self.x]
+        
             

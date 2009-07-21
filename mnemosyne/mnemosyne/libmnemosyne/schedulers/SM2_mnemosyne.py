@@ -460,3 +460,10 @@ class SM2Mnemosyne(Scheduler):
     def active_count(self):
         return self.database().active_count()
 
+    def card_count_scheduled_between(self, start, end):
+
+        "Arguments are in days from today, i.e. today=0, tomorrow=1, ..."
+        
+        now = self.adjusted_now()
+        return self.database().card_count_scheduled_between\
+                (now + start * DAY, now + end * DAY)

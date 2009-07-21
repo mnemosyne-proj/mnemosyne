@@ -17,6 +17,7 @@ from mnemosyne.libmnemosyne.file_format import FileFormat
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
 
+
 class Mnemosyne1Mem(FileFormat):
     
     description = _("Mnemosyne 1.x *.mem files")
@@ -34,9 +35,9 @@ class Mnemosyne1Mem(FileFormat):
             setattr(card, attr, getattr(item, attr))    
         DAY = 24 * 60 * 60 # Seconds in a day.
         card.last_rep = \
-                      self._midnight_UTC(self.starttime + item.last_rep * DAY)
+            self._midnight_UTC(self.starttime + item.last_rep * DAY)
         card.next_rep = \
-                      self._midnight_UTC(self.starttime + item.next_rep * DAY)
+            self._midnight_UTC(self.starttime + item.next_rep * DAY)
         if item.unseen and item.grade in [0, 1]:
             card.grade = -1
             card.acq_reps = 0

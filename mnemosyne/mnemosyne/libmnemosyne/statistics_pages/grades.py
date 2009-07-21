@@ -20,13 +20,12 @@ class Grades(PlotStatisticsPage):
                 
     def prepare_statistics(self, variant):
         self.x = range(-1, 6)
-        self.y = [] # Don't forget to reset this after variant change.
-        for grade in self.x:
-            if variant == self.ALL_CARDS:
-                self.y.append(self.database().\
-                    card_count_for_grade(grade))
-            else:
-                self.y.append(self.database().\
-                    card_count_for_grade_and__tag_id(grade, variant))
+        if variant == self.ALL_CARDS:
+            self.y = [self.database().card_count_for_grade\
+                      (grade) for grade in self.x]
+        else:
+            self.y = [self.database().card_count_for_grade_and__tag_id\
+                      (grade, variant) for grade in self.x]
+            
                               
 

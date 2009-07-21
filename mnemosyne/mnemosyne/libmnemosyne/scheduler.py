@@ -88,3 +88,8 @@ class Scheduler(Component):
     def grade_answer(self, card, new_grade, dry_run=False):
         raise NotImplementedError
 
+    def card_count_scheduled_between(self, start, end):
+
+        "Arguments are in days from today, i.e. today=0, tomorrow=1, ..."
+        
+        raise NotImplementedError        
