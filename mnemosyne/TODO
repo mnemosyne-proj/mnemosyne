@@ -1,8 +1,6 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
--option to add video
-
 -put all db code (stats, logs) in single dir
 
 -WM test and benchmark
@@ -105,6 +103,8 @@
 -warn when importing card type with duplicate id
 
 -option to add tags on import
+
+-save import dir
 
 -make sure enter does not close the import dialog
 

@@ -366,7 +366,6 @@ class DefaultController(Controller):
         """
 
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-
         basedir, mediadir = self.config().basedir, self.config().mediadir()
         path = expand_path(self.config()["import_img_dir"], basedir)
         filter = _("Image files") + " " + filter
@@ -381,9 +380,7 @@ class DefaultController(Controller):
             return contract_path(fname, mediadir)
         
     def insert_sound(self, filter):
-
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-
         basedir, mediadir = self.config().basedir, self.config().mediadir()
         path = expand_path(self.config()["import_sound_dir"], basedir)
         filter = _("Sound files") + " " + filter
@@ -396,7 +393,22 @@ class DefaultController(Controller):
                 os.path.dirname(fname), basedir)
             fname = copy_file_to_dir(fname, mediadir)
             return fname
-
+        
+    def insert_video(self, filter):
+        from mnemosyne.libmnemosyne.utils import copy_file_to_dir
+        basedir, mediadir = self.config().basedir, self.config().mediadir()
+        path = expand_path(self.config()["import_video_dir"], basedir)
+        filter = _("Video files") + " " + filter
+        fname = self.main_widget().open_file_dialog(\
+            path, filter, _("Insert video"))
+        if not fname:
+            return ""
+        else:
+            self.config()["import_video_dir"] = contract_path(\
+                os.path.dirname(fname), basedir)
+            fname = copy_file_to_dir(fname, mediadir)
+            return fname
+        
     def browse_cards(self):
         self.stopwatch().pause()
         self.component_manager.get_current("browse_cards_dialog")\

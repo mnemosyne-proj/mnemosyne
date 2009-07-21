@@ -21,6 +21,8 @@ class QTextEdit2(QtGui.QTextEdit):
                         QtGui.QKeySequence(_("Ctrl+I")))
         popup.addAction(_("Insert &sound"), self.insert_sound,
                         QtGui.QKeySequence(_("Ctrl+S")))
+        popup.addAction(_("Insert vi&deo"), self.insert_video,
+                        QtGui.QKeySequence(_("Ctrl+D")))
         popup.exec_(e.globalPos())
 
     def keyPressEvent(self, e):
@@ -46,6 +48,11 @@ class QTextEdit2(QtGui.QTextEdit):
         if fname:
             self.insertPlainText("<audio src=\"" + fname + "\">")
         
-
+    def insert_video(self):
+        filter = "(*.mov *.ogg *.ogv * mp4 *.qt" + \
+                 " *.MOV *.OGG *.OGV *.MP4 *.QT)"
+        fname = self.parent().controller().insert_video(filter)
+        if fname:
+            self.insertPlainText("<video src=\"" + fname + "\">")
 
         
