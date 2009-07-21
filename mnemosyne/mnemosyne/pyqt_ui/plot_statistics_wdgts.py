@@ -87,7 +87,7 @@ class ScheduleWdgt(PlotStatisticsWdgt):
         elif variant == self.page.NEXT_MONTH:   
             xticks = [1] + range(5, 32, 5)
             xticklabels = ["+1"] + ticklabels(5, 32, 5)
-            show_text_value = True
+            show_text_value = False
             linewidth = 1        
         elif variant == self.page.NEXT_YEAR:
             xticks = [1] + range(60, 365, 60)            

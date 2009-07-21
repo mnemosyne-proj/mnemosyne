@@ -2,6 +2,8 @@
 # test_database.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+
 from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
@@ -447,4 +449,14 @@ class TestDatabase(MnemosyneTest):
         self.database().update_card(card_3)
         assert self.database().count_related_cards_with_next_rep(card_2, card_1.next_rep) == 1        
         assert self.database().count_related_cards_with_next_rep(card_3, card_1.next_rep) == 0
-        assert self.database().count_related_cards_with_next_rep(card_1, card_1.next_rep) == 0       
+        assert self.database().count_related_cards_with_next_rep(card_1, card_1.next_rep) == 0
+
+    def test_purge_backups(self):
+        backup_dir = os.path.join(self.config().basedir, "backups")
+        for count in range(10):
+            f = file(os.path.join(backup_dir, "default-%d.db" % count), "w")
+        self.mnemosyne.finalise()
+        backups = [f for f in os.listdir(backup_dir)]
+        assert len(backups) == 5
+        assert "default-0.db" not in backups
+        self.restart()

@@ -15,6 +15,8 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * plot_statistics.py: adding an extra page with plotted statistics
 
+ * backup.py: moving your backups to a safe place
+
 
 Note that if you write plugins which require extra modules, the Windows user
 should add those to library.zip.

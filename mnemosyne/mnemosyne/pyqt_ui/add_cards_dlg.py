@@ -171,11 +171,10 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         card_type_name = unicode(self.card_types_widget.currentText())
         card_type = self.card_type_by_name[card_type_name]
         c = self.controller()
-        c.create_new_cards(fact_data, card_type, grade, tag_names)
+        c.create_new_cards(fact_data, card_type, grade, tag_names, save=True)
         tag_text = ", ".join(tag_names)
         self.update_tags_combobox(tag_text)
         self.config()["tags_of_last_added"] = tag_text
-        self.database().save(self.config()["path"])
         self.card_type_widget.clear()
 
     def reject(self):

@@ -16,6 +16,7 @@ class Database(Component):
     component_type = "database"
 
     def deactivate(self):
+        self.backup()
         self.unload()
 
     # File operations.
@@ -34,6 +35,9 @@ class Database(Component):
 
     def unload(self):
         raise NotImplementedError
+
+    def abandon(self):
+        raise NotImplementedError        
 
     def is_loaded(self):
         raise NotImplementedError

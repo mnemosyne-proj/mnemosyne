@@ -185,7 +185,13 @@ class Pickle(Database):
         self.cards = []
         self.global_variables = {"version": self.version}
         return True
-
+    
+    def abandon(self):
+        self.tags = []
+        self.facts = []
+        self.cards = []
+        self.global_variables = {"version": self.version}
+    
     def backup(self):
         print "Backup not implemented"
         

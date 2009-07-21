@@ -185,7 +185,7 @@ class SQLite(Database):
     @property
     def con(self):
         
-        """Connection to the database, lazily created."""
+        "Connection to the database, lazily created."
 
         if not self._connection:
             self._connection = sqlite3.connect(self._path, timeout=0.1,
@@ -315,28 +315,30 @@ class SQLite(Database):
         # every review.
 
     def backup(self):
-        print 'backup'
         if self.config()["backups_to_keep"] == 0:
             return
-        self.save()
         backupdir = os.path.join(self.config().basedir, "backups")
         # Make a copy. Create only a single file per day.
         db_name = os.path.basename(self._path).rsplit(".", 1)[0]
-        backup_name = db_name + "-" + \
+        backup_file = db_name + "-" + \
                    datetime.date.today().strftime("%Y%m%d") + ".db"
-        shutil.copy(self._path, os.path.join(backupdir, backup_name))
+        backup_file = os.path.join(backupdir, backup_file)
+        shutil.copy(self._path, backup_file)
+        for f in self.component_manager.get_all("hook", "after_backup"):
+            f.run(backup_file)
         # Only keep the last logs.
         if self.config()["backups_to_keep"] < 0:
             return
         files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
         files.sort()
         if len(files) > self.config()["backups_to_keep"]:
-            os.remove(os.path.join(backupdir, files[0]))
+            surplus = len(files) - self.config()["backups_to_keep"]
+            for file in files[0:surplus]:
+                os.remove(os.path.join(backupdir, file))
 
     def unload(self):
         for f in self.component_manager.get_all("hook", "before_unload"):
             f.run()
-        self.backup()
         self.log().dump_to_txt_log()
         if self._connection:
             self.save()
@@ -345,6 +347,13 @@ class SQLite(Database):
         self._path = None
         self.load_failed = True
         return True
+
+    def abandon(self):
+        if self._connection:        
+            self._connection.close()
+            self._connection = None
+        self._path = None
+        self.load_failed = True        
         
     def is_loaded(self):
         return not self.load_failed

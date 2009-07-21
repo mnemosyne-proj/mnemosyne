@@ -62,7 +62,7 @@ class DefaultController(Controller):
         self.stopwatch().unpause()
         
     def create_new_cards(self, fact_data, card_type, grade, tag_names,
-                         check_for_duplicates=True):
+                         check_for_duplicates=True, save=False):
 
         """Create a new set of related cards. If the grade is 2 or higher,
         we perform a initial review with that grade and move the cards into
@@ -120,6 +120,8 @@ class DefaultController(Controller):
             card.tags = tags
             db.add_card(card)
             cards.append(card)
+        if save:
+            db.save()
         if self.review_controller().learning_ahead == True:
             self.review_controller().reset()
         return cards # For testability.
@@ -231,6 +233,7 @@ class DefaultController(Controller):
         answer = self.main_widget().question_box(question, _("&Delete"),
                                           _("&Cancel"), "")
         if answer == 1: # Cancel.
+            self.stopwatch().unpause()
             return
         db.delete_fact_and_related_data(fact)
         db.save()
@@ -260,16 +263,17 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         db = self.database()
         suffix = db.suffix
-        out = self.main_widget().save_file_dialog(path=self.config().basedir,
-                        filter=_("Mnemosyne databases") + " (*%s)" % suffix,
-                        caption=_("New"))
-        if not out:
+        filename = self.main_widget().save_file_dialog(\
+            path=self.config().basedir, filter=_("Mnemosyne databases") + \
+            " (*%s)" % suffix, caption=_("New"))
+        if not filename:
             self.stopwatch().unpause()
             return
-        if not out.endswith(suffix):
-            out += suffix
+        if not filename.endswith(suffix):
+            filename += suffix
+        db.backup()
         db.unload()
-        db.new(out)
+        db.new(filename)
         db.load(self.config()["path"])
         self.log().loaded_database()
         self.review_controller().reset()
@@ -279,21 +283,38 @@ class DefaultController(Controller):
 
     def file_open(self):
         self.stopwatch().pause()
-        old_path = expand_path(self.config()["path"], self.config().basedir)
-        out = self.main_widget().open_file_dialog(path=old_path,
-            filter=_("Mnemosyne databases") + " (*%s)" % self.database().suffix)
-        if not out:
+        db = self.database()
+        basedir = self.config().basedir
+        old_path = expand_path(self.config()["path"], basedir)
+        filename = self.main_widget().open_file_dialog(path=old_path,
+            filter=_("Mnemosyne databases") + " (*%s)" % db.suffix)
+        if not filename:
             self.stopwatch().unpause()
             return
+        if filename.startswith(os.path.join(basedir, "backups")):
+            result = self.main_widget().question_box(\
+                _("Do you want to restore from this backup?"),
+                _("Yes"), _("No"), "")
+            if result == 0: # Yes
+                db.abandon()
+                db_path = expand_path(self.config()["path"], basedir)
+                import shutil
+                shutil.copy(filename, db_path)
+                db.load(db_path)
+                self.review_controller().reset()
+                self.update_title()
+            self.stopwatch().unpause()
+            return  
         try:
             self.log().saved_database()
-            self.database().unload()
+            db.backup()
+            db.unload()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))
             self.stopwatch().unpause()
             return            
         try:
-            self.database().load(out)
+            db.load(filename)
             self.log().loaded_database()
         except Exception, e:
             self.main_widget().show_exception(e)
@@ -316,15 +337,15 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         suffix = self.database().suffix
         old_path = expand_path(self.config()["path"], self.config().basedir)
-        out = self.main_widget().save_file_dialog(path=old_path,
+        filename = self.main_widget().save_file_dialog(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % suffix)
-        if not out:
+        if not filename:
             self.stopwatch().unpause()
             return
-        if not out.endswith(suffix):
-            out += suffix
+        if not filename.endswith(suffix):
+            filename += suffix
         try:
-            self.database().save(out)
+            self.database().save(filename)
             self.log().saved_database()
         except RuntimeError, error:
             self.main_widget().error_box(str(error))

@@ -1,13 +1,17 @@
 -Hungarian translation by bkil (announce on website)
 -hang on Spanish translation?
 
+-backup plugin hook
+
+-don't log load and save
+
 -move lock checking to database code
 
-
--implement backup, add test, test restoring from backup, warn if opening backupfile
--backup after unloading, not after exiting
+-option to add video
 
 -put all db code (stats, logs) in single dir
+
+-WM test and benchmark
 
 -import history
 -flush old text logs first
@@ -15,8 +19,6 @@
 -don't recreate text logs upon import
 -when importing history, remove first repetition for unseen card with grade <2
 
-
--WM test and benchmark
 
 -more tests
 
@@ -169,8 +171,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -alt tabbing gives low res icon.
 
-
--option to add video
+-plugin to store backups on dropbox
 
 -modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 
