@@ -10,6 +10,10 @@ class Database(Component):
     """Interface class describing the functions to be implemented by the
     actual database classes.
 
+    Apart from the basic interface defined here, depending on the situation
+    a database can also implement functions for logging and statistics
+    (see SQLite_logging.py and SQLite_statistics.py for the interface).
+
     """
 
     version = ""
@@ -204,3 +208,4 @@ class Database(Component):
 
     def scheduler_data_count(self, scheduler_data):        
         raise NotImplementedError
+

@@ -16,14 +16,16 @@ class DefaultController(Controller):
 
     def heartbeat(self):
 
-        """To be called once a day, to make sure that the logs get uploaded
-        even if the user leaves the program open for a very long time.
+        """To be called once a day, to make sure e.g. that backups get taken
+        and that the logs get uploaded even if the user leaves the program
+        open for a very long time.
 
         """
         
+        self.database().backup()
         self.log().dump_to_txt_log()
         self.log().deactivate()
-        self.log().activate()   
+        self.log().activate()
         
     def update_title(self):
         database_name = os.path.basename(self.config()["path"]).\

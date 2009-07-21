@@ -160,7 +160,10 @@ SCHEMA = """
     commit;
 """
 
-class SQLite(Database):
+from mnemosyne.libmnemosyne.databases.SQLite_logging import SQLiteLogging
+from mnemosyne.libmnemosyne.databases.SQLite_statistics import SQLiteStatistics
+
+class SQLite(Database, SQLiteLogging, SQLiteStatistics):
 
     """Note that most of the time, Commiting is done elsewhere, e.g. by
     calling save in the main controller, in order to have a better control

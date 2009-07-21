@@ -107,7 +107,7 @@ class TestMedia(MnemosyneTest):
         assert full_path_in_media_dir in card.question()
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 1
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 1
 
     def test_card_2(self):
         fact_data = {"q": "<img src=\"a.ogg>", # Missing closing "
@@ -141,7 +141,7 @@ class TestMedia(MnemosyneTest):
         assert full_path_in_media_dir in card.question()        
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 1
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 1
 
     def test_card_edit_add(self):
         os.system("touch a.ogg")
@@ -168,7 +168,7 @@ class TestMedia(MnemosyneTest):
         assert full_path_in_media_dir in card.question()        
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 2
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 2
 
     def test_card_edit_delete(self):
         os.system("touch a.ogg")
@@ -188,10 +188,10 @@ class TestMedia(MnemosyneTest):
         assert full_path_in_media_dir not in card.question()        
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 1
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().DELETED_MEDIA, )).fetchone()[0] == 1
+            (self.database().DELETED_MEDIA, )).fetchone()[0] == 1
         
     def test_card_edit_delete_used_by_other(self):
         os.system("touch a.ogg")
@@ -215,10 +215,10 @@ class TestMedia(MnemosyneTest):
         assert full_path_in_media_dir not in card.question()      
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 2
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 2
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().DELETED_MEDIA, )).fetchone()[0] == 1
+            (self.database().DELETED_MEDIA, )).fetchone()[0] == 1
 
     def test_delete_fact(self):
         os.system("touch a.ogg")
@@ -234,10 +234,10 @@ class TestMedia(MnemosyneTest):
         assert not os.path.exists(full_path_in_media_dir)
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 1
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().DELETED_MEDIA, )).fetchone()[0] == 1
+            (self.database().DELETED_MEDIA, )).fetchone()[0] == 1
         
     def test_delete_fact_used_by_other(self):
         os.system("touch a.ogg")
@@ -257,10 +257,10 @@ class TestMedia(MnemosyneTest):
         assert os.path.exists(full_path_in_media_dir) # Not deleted.
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 2
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 2
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().DELETED_MEDIA, )).fetchone()[0] == 1
+            (self.database().DELETED_MEDIA, )).fetchone()[0] == 1
         
     def teardown(self):
         os.system("rm -f a.ogg")

@@ -34,8 +34,6 @@ class Schedule(PlotStatisticsPage):
         now = self.scheduler().adjusted_now()
         self.y = [] # Don't forget to reset this after variant change.
         for day in self.x:
-            self.y.append(self.database().con.execute(\
-                """select count() from cards where active=1 and grade>=2
-                and ?<next_rep and next_rep<=?""",
-                (now + (day - 1) * DAY, now + day * DAY)).fetchone()[0])
+            self.y.append(self.database().card_count_scheduled_between\
+                (now + (day - 1) * DAY, now + day * DAY))
             

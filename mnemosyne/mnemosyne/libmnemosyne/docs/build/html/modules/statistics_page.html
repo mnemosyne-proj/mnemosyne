@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>StatisticsPage &mdash; libmnemosyne v2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="next" title="How to write a new frontend" href="how_to_write_a_new_frontend.html" />
+    <link rel="prev" title="Stopwatch" href="stopwatch.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="how_to_write_a_new_frontend.html" title="How to write a new frontend"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stopwatch.html" title="Stopwatch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="module-mnemosyne.libmnemosyne.statistics_page">
+<h1><tt class="xref docutils literal"><span class="pre">StatisticsPage</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.statistics_page" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage">
+<!--[mnemosyne.libmnemosyne.statistics_page.StatisticsPage]-->class <tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">StatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A self-contained piece of statistical information, typically displayed
+in the GUI as a page in a tabbed widget.</p>
+<p>Each StatisticsPage can have several &#8216;variants&#8217;, e.g. displaying the
+number of scheduled cards either for next week or for next month.</p>
+<p>For each StatisticsPage, there will be an associated widget (plotting
+widget, html browser, custom widget, ... ) that is in charge of displaying
+the information. This widget needs to be registered in the component
+manager as a &#8216;statistics_widget&#8217; &#8216;used_for&#8217; a particular StatisticsPage (or a
+parent class of a StatisticsPage).</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics">
+<!--[mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics]--><tt class="descname">prepare_statistics</tt><big>(</big><em>variant_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.StatisticsPage.prepare_statistics" title="Permalink to this definition">¶</a></dt>
+<dd>This method calculates the data for the requested variant and sets
+the approriate hints to be picked up by the corresponding widget.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage">
+<!--[mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage]-->class <tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">PlotStatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.PlotStatisticsPage" title="Permalink to this definition">¶</a></dt>
+<dd>A statistics page where the data is represented on a graphical plot.</dd></dl>
+
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage">
+<!--[mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage]-->class <tt class="descclassname">mnemosyne.libmnemosyne.statistics_page.</tt><tt class="descname">HtmlStatisticsPage</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.statistics_page.HtmlStatisticsPage" title="Permalink to this definition">¶</a></dt>
+<dd>A statistics page which generates html to displayed in a browser widget.</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="stopwatch.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="how_to_write_a_new_frontend.html" title="next chapter">How to write a new frontend</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/modules/statistics_page.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="how_to_write_a_new_frontend.html" title="How to write a new frontend"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stopwatch.html" title="Stopwatch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Jun 24, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
+    </div>
+  </body>
+</html>

@@ -164,7 +164,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 3
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 3
         for filename in figures:
             os.remove(filename)
         os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
@@ -186,7 +186,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 2
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 2
         for filename in figures:
             os.remove(filename)
         os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
@@ -211,7 +211,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 3
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 3
         for filename in figures:
             os.remove(filename)
         os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
@@ -227,7 +227,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "a.ogg"))
         assert self.database().con.execute(\
             "select count() from history where event=?",
-            (self.log().ADDED_MEDIA, )).fetchone()[0] == 1
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 1
         self.review_controller().reset()
         card = self.review_controller().card
         assert card.fact["q"] == """<audio src="a.ogg">"""

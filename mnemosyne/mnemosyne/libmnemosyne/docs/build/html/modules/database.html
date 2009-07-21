@@ -53,6 +53,14 @@
 <!--[mnemosyne.libmnemosyne.database.Database]-->class <tt class="descclassname">mnemosyne.libmnemosyne.database.</tt><tt class="descname">Database</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface class describing the functions to be implemented by the
 actual database classes.</p>
+<p>Apart from the basic interface defined here, depending on the situation
+a database can also implement functions for logging and statistics
+(see SQLite_logging.py and SQLite_statistics.py for the interface).</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.abandon">
+<!--[mnemosyne.libmnemosyne.database.Database.abandon]--><tt class="descname">abandon</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.abandon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.active_count">
 <!--[mnemosyne.libmnemosyne.database.Database.active_count]--><tt class="descname">active_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.active_count" title="Permalink to this definition">¶</a></dt>
@@ -76,11 +84,6 @@ actual database classes.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_tag">
 <!--[mnemosyne.libmnemosyne.database.Database.add_tag]--><tt class="descname">add_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_tag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.average_easiness">
-<!--[mnemosyne.libmnemosyne.database.Database.average_easiness]--><tt class="descname">average_easiness</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.average_easiness" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -197,6 +200,11 @@ actual database classes.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.get_tag">
 <!--[mnemosyne.libmnemosyne.database.Database.get_tag]--><tt class="descname">get_tag</tt><big>(</big><em>_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.has_card_with_external_id">
+<!--[mnemosyne.libmnemosyne.database.Database.has_card_with_external_id]--><tt class="descname">has_card_with_external_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_card_with_external_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -334,7 +342,7 @@ fact_view).</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 18, 2009.
+      Last updated on Jul 21, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

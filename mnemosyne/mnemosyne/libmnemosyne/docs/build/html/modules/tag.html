@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>FileFormat &mdash; libmnemosyne v2.0 documentation</title>
+    <title>Tag &mdash; libmnemosyne v2.0 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
-    <link rel="next" title="Filter" href="filter.html" />
-    <link rel="prev" title="Database" href="database.html" /> 
+    <link rel="next" title="CardType" href="card_type.html" />
+    <link rel="prev" title="FactView" href="fact_view.html" /> 
   </head>
   <body>
     <div class="related">
@@ -32,10 +32,10 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="filter.html" title="Filter"
+          <a href="card_type.html" title="CardType"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="database.html" title="Database"
+          <a href="fact_view.html" title="FactView"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -46,21 +46,16 @@
           <div class="body">
             
   
-  <div class="section" id="module-mnemosyne.libmnemosyne.file_format">
-<h1><tt class="xref docutils literal"><span class="pre">FileFormat</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.file_format" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-mnemosyne.libmnemosyne.tag">
+<h1><tt class="xref docutils literal"><span class="pre">Tag</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.tag" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="mnemosyne.libmnemosyne.file_format.FileFormat">
-<!--[mnemosyne.libmnemosyne.file_format.FileFormat]-->class <tt class="descclassname">mnemosyne.libmnemosyne.file_format.</tt><tt class="descname">FileFormat</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.file_format.FileFormat" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="mnemosyne.libmnemosyne.file_format.FileFormat.do_export">
-<!--[mnemosyne.libmnemosyne.file_format.FileFormat.do_export]--><tt class="descname">do_export</tt><big>(</big><em>filename</em>, <em>tag_name=None</em>, <em>reset_learning_data=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.file_format.FileFormat.do_export" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.file_format.FileFormat.do_import">
-<!--[mnemosyne.libmnemosyne.file_format.FileFormat.do_import]--><tt class="descname">do_import</tt><big>(</big><em>filename</em>, <em>tag_name=None</em>, <em>reset_learning_data=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.file_format.FileFormat.do_import" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dt id="mnemosyne.libmnemosyne.tag.Tag">
+<!--[mnemosyne.libmnemosyne.tag.Tag]-->class <tt class="descclassname">mnemosyne.libmnemosyne.tag.</tt><tt class="descname">Tag</tt><big>(</big><em>name</em>, <em>id=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.tag.Tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>The tag name is the full name, including all levels of the hierarchy
+separated by two colons.</p>
+<p>&#8216;id&#8217; is used to identify this object to the external world (logs, xml
+files, ...), whereas &#8216;_id&#8217; is an internal id that could be different and
+that can be used by the database for efficiency reasons.</p>
 </dd></dl>
 
 </div>
@@ -72,12 +67,12 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="database.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Database</span></tt></a></p>
+            <p class="topless"><a href="fact_view.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">FactView</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="filter.html" title="next chapter"><tt class="docutils literal"><span class="pre">Filter</span></tt></a></p>
+            <p class="topless"><a href="card_type.html" title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">CardType</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
-              <li><a href="../_sources/modules/file_format.txt">Show Source</a></li>
+              <li><a href="../_sources/modules/tag.txt">Show Source</a></li>
             </ul>
           <h3>Quick search</h3>
             <form class="search" action="../search.html" method="get">
@@ -99,17 +94,17 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="filter.html" title="Filter"
+          <a href="card_type.html" title="CardType"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="database.html" title="Database"
+          <a href="fact_view.html" title="FactView"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 21, 2009.
+      Last updated on Jun 16, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

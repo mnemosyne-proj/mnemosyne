@@ -1,7 +1,4 @@
--Hungarian translation by bkil (announce on website)
--hang on Spanish translation?
-
--put all db code (stats, logs) in single dir
+-adjusted now, midnight_utc
 
 -WM test and benchmark
 
@@ -11,115 +8,73 @@
 -remove initial creation and update when importing logs
 -don't recreate text logs upon import
 -when importing history, remove first repetition for unseen card with grade <2
-
+-time WM: history in same DB?
 
 -more tests
 
+-hook up config screen
 -move option to always randomise queue to config screen
 -ditto for learn new related cards in same session
 -autostart/controls
 
--hook up config screen
-
-
+-activate cards, belonging to these card types, having any of these tags, but non of these, ro just none of these
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
  Make the mechanism customisible with hooks, and document this in 
  card.py.
 
-
--see if graphical glitch is fixed with latest matplotlib version, reenable
- remember size
-
--make distrib
-
-
-
--reenable upload
-
-
+-card browser
+-make sure searching for a single unicode character works
+-qsortfilter proxy
+-show number of cards selected
+-don't show inactive card types, but do show inactive tags
+-card.in_view needed?
+-make card browser remember its size
 -default tag needed?
-
-
--new translation infrastructure
--handle deferred translation
--different translators for different users?
-
-
--corrupt icon
+-need to store parent of tag?
+-implement duplicate checking
+-MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
  activate cards, configuration 
 
-
--have hierarchy in plugin names
-
-
--need to store parent of tag?
-
-
--test uploading of logs, also in rollover
-
-
--activate cards, belonging to these card types, having any of these tags, but non of these, ro just none of these
-
-
-
--card browser
-
--make sure searching for a single unicode character works
-
--qsortfilter proxy
-
--show number of cards selected
-
--don't show inactive card types, but do show inactive tags
-
--card.in_view needed?
-
--make card browser remember its size
-
-
--implement duplicate checking
-
-
--import
-
--update data if same id present on import
-
--on import, activate plugins, created card types if necessary
-
--on import don't add cards for which card type is not present
-
--warn when not importing a duplicate card
-
--xml import tests (wcu, memaid, plconv)
-
--option to detect and mark inverses on import?
-
--update XML import/export to new database format
-
--warn when importing card type with duplicate id
-
--option to add tags on import
-
--save import dir
-
--make sure enter does not close the import dialog
-
--make sure we log new card creation on import
-
--'teacher mode' on export, which allows pupils to update previously imported
- cards, as opposed to adding new cards. Implemented through id's of the form
- T.<fixed card id for all pupils>.<pupil user id>?
-
--when resetting learning data on export, can we export facts only? Tags are on
- a per card basis.
-
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?, import user id and config, ...
   item --> card, fonts
+
+-Hungarian translation by bkil (announce on website)
+-hang on Spanish translation?
+-new translation infrastructure
+-handle deferred translation
+-different translators for different users?
+
+-import
+-update data if same id present on import
+-on import, activate plugins, created card types if necessary
+-on import don't add cards for which card type is not present
+-warn when not importing a duplicate card
+-xml import tests (wcu, memaid, plconv)
+-option to detect and mark inverses on import?
+-update XML import/export to new database format
+-warn when importing card type with duplicate id
+-option to add tags on import
+-save import dir
+-make sure enter does not close the import dialog
+-make sure we log new card creation on import
+-'teacher mode' on export, which allows pupils to update previously imported
+ cards, as opposed to adding new cards. Implemented through id's of the form
+ T.<fixed card id for all pupils>.<pupil user id>?
+-when resetting learning data on export, can we export facts only? Tags are on
+ a per card basis.
+
+
+-tips (both on startup and on use): right click to add cards or sound, comma to 
+ separate tag names, :: to separate hierarchies
+-comment/tip about not having to do all your scheduled repetitions in
+ one sitting
+-upgrade docs on duplicate checking
+-update tooltips, inform Patrick
 
 -sync protocol:
 -deck name
@@ -133,12 +88,20 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
 
+-corrupt icon
+
+-have hierarchy in plugin names
+
+-test uploading of logs, also in rollover
+
 -better mechanism to have different renderers
 
--abstract statistics queries to database?
+-see if graphical glitch is fixed with latest matplotlib version, reenable
+ remember size
 
+-make distrib
 
--time WM: history in same DB?
+-reenable upload
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
@@ -147,10 +110,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -ampersand mnemonics everywhere
 
-
 -partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
 -draw answer, make configurable by card type
-
 
 -more plugin examples: file format, custom tag, activate all cards,
  last grade filter, always_shuffle?
@@ -158,19 +119,9 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -leech detection (mod 15)
 
 
--MVC: http://doc.trolltech.com/qq/qq24-delegates.html
-
-
--update ohloh?
-
--http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442447?
-
 -grep through TODO's in source code
 
-
 -alt tabbing gives low res icon.
-
--plugin to store backups on dropbox
 
 -modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 
@@ -185,31 +136,14 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -easier function to do tag detection in plugin
 
--skritter/cpod interop mail
-
 -bug in Qt: setting default colour to black does not register the colour clicks.
 
--better supermemo import
-
-
 -document cntrl enter in edit dialog instead of clicking ok
-
--tips (both on startup and on use): right click to add cards or sound, comma to 
- separate tag names, :: to separate hierarchies
-
--comment/tip about not having to do all your scheduled repetitions in
- one sitting
-
--upgrade docs on duplicate checking
-
--update tooltips, inform Patrick
 
 pylint:
 	find ./mnemosyne/libmnemosyne/ -name \*.py | while read f ; do echo $f;pylint $f 2>&1|grep ^E:; done
 
-
-
--Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby
+-Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev
 
 
 
@@ -224,6 +158,14 @@ pylint:
 -respect font in fact editor
 
 -card type with prefilled fields
+
+-update ohloh?
+
+-skritter/cpod interop mail
+
+-better supermemo import
+
+-plugin to store backups on dropbox
 
 -detect wrong current date (last review in the future or way past)
 
@@ -245,6 +187,8 @@ http://pythoscope.org/
 -chinese pod plugin
 
 -"reschedule" cheating plugin
+
+-more fine grained resource_limited?
 
 
 Multiuser statistics analysis:
@@ -285,7 +229,6 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -add 'add card' option to deck manager?
 
 -active alert as plugin
-
 
 -zooming picture instead of scrollbars?
  
@@ -340,8 +283,6 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -clean obsolete latex images / autogenerate them
 
 -investigate ridiculously large thinking times
-
--DTD for xml format
 
 -determine import / export file type based on suffix
  (i.e. remove file format field)? Probably not possible, as
