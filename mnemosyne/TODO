@@ -1,11 +1,16 @@
 -WM test and benchmark
 
 -import history
+-TODOs in file
+-how to report parsing errors
 -flush old text logs first
 -warn if history not found
+-parse scheduler info, see if more info from 2.0 needs to be captured
 -remove initial creation and update when importing logs
 -don't recreate text logs upon import
--when importing history, remove first repetition for unseen card with grade <2
+-remove first repetition for unseen card with grade <2
+-peak at multiuser stats
+-catch exceptions on parser __init__ and parse
 -time WM: history in same DB?
 
 -more tests
@@ -196,6 +201,7 @@ or persistent for the full server
 -break out card ids to a different table and use _id as well
 -more times from a later start date to save space?
 -sql: insert or ignore statement, faster if adding same data twice is no problem
+-check if log was imported earlier
 
 
 Windows Mobile client:

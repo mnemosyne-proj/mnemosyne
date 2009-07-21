@@ -450,13 +450,13 @@ class SM2Mnemosyne(Scheduler):
         self.log().repetition(card, scheduled_interval, actual_interval,
                               new_interval)
         return new_interval
-
-    def non_memorised_count(self):
-        return self.database().non_memorised_count()
-
+    
     def scheduled_count(self):
         return self.database().scheduled_count(self.adjusted_now())
-
+    
+    def non_memorised_count(self):
+        return self.database().non_memorised_count()
+    
     def active_count(self):
         return self.database().active_count()
 
