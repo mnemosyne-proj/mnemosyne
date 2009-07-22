@@ -6,7 +6,6 @@
 import os
 import bz2
 import time
-import traceback
 
 
 class TxtLogParser(object):
@@ -14,7 +13,83 @@ class TxtLogParser(object):
     """Parse the txt logs and write the info it contains to a database
     object.
 
+    This is complicated by several idiosyncrasies.
+
+    First, before 2.0, dates where only stored with a resolution of a day.
+    However, the timestamps of the logs make it possible to determine e.g.
+    the actual interval with a resolution of a second. This however requires
+    holding on to the exact time of the last repetition.
+    
+    A second, more thorny idiosyncrasy is the matter of the first grading of a
+    card. When adding cards manually through the UI, there is an option to set
+    an initial grade there. For cards that are imported, there is no such
+    possibility.
+    
+    Throughout the history of Mnemosyne, several approaches have been taken
+    to deal with this issue.
+
+    Before 0.9.8, the inconsistency was simply ignored, and the initial
+    grading of a card in the 'add cards' dialog was not counted as a grading.
+
+    Starting with 0.9.8, Dirk Hermann recognised the inconsistency, and
+    regardless of grade, the initial grading of a card in the 'add cards'
+    dialog was always counted as an acquisition repetition in the cards
+    attributes. So, the first 'R' log entry of a card added through the
+    'add cards' dialog had acquisition repetition 2. For cards imported, the
+    first 'R' was acquisition repetition 1.
+
+    When later on Mnemosyne acquired the possibility to learn new cards in
+    random order, this scheme turned out to require a new card attribute
+    'unseen', keeping track of whether the card was already seen in the
+    interactive review process. This hack complicated the code, and therefore,
+    starting with Mnemosyne 2.0, a different approach was taken. The initial
+    grading of a card in the 'add cards' dialog was only counted as an
+    acquisition repetition (and explicitly logged as an 'R' event) when the
+    grade was 2 or higher. In other cases, the grade got set to -1
+    (signifying unseen), just as imported cards.
+
+    When parsing old logs, the data needs to be adjusted to fit the latest
+    scheme. To clarify what needs to be done, the following table shows a
+    summary of the contents of the logs after creating a new card through
+    the GUI (giving it an initial grade at the same time) and then doing a
+    repetition after the card has been scheduled in the queue. (c) means that
+    the repetition event was generated when creating the card, (r) stands for
+    an event generated when doing the actual review.
+    
+                            initial grade 0,1    initial grade 2,3,4,5
+
+    version < 0.9.8:        New item             New item
+                            R acq_reps=1 (r)     R acq_reps=1 (r)
+
+    0.9.8 <= version < 2.0  New item             New item
+                            R acq_reps=2 (r)     R acq_reps=2 (r)
+                                
+    2.0 <= version          New item             New item
+                            R acq_reps=1 (r)     R acq_reps=1 (c)
+                                                 R acq_reps=2 (r)
+
+
+    So, to convert to the latest scheme, we need the following actions:
+
+
+                            initial grade 0,1    initial grade 2,3,4,5
+
+    version < 0.9.8:        None                 add creation R
+                                                 increase counters
+
+    0.9.8 <= version < 2.0  decrease counters    add creation R
+
+    Since there is no grading on import, we don't need to do anything special
+    for imported cards. We can even ignore the import events, since the card
+    will be created anyway later on during the next repetition.
+                                                                 
     """
+
+    versions_phase_1 = ["0.1", "0.9", "0.9.1", "0.9.2", "0.9.3", "0.9.4",
+                        "0.9.5","0.9.6","0.9.7"]
+
+    versions_phase_2 = ["0.9.8", "0.9.8.1", "0.9.9", "0.9.10", "1.0", "1.0.1",
+                        "1.0.1.1", "1.0.2", "1.1", "1.1.1", "1.2", "1.2.1"]
 
     def __init__(self, filename, database): 
         try:
@@ -29,231 +104,114 @@ class TxtLogParser(object):
         self.database = database
         
     def parse(self):
-        self.version = "Mnemosyne X.X.X" # TODO: better option?
+        
+        """For pre-2.0 logs, we need to hang on to the previous time stamp, as
+        this will be used as the time the card was shown, in order to
+        calculate the actual interval. (The time stamps for repetitions are
+        when the card was graded, not when it was presented to the user.)
+
+        """
+        
         self.stamp = None
         self.previous_stamp = None
         lower_stamp_limit = 1121021345 # 2005-07-10 21:49:05.
         upper_stamp_limit = time.time()
         self.database.parsing_started(self.user_id, self.log_number)
-        try:
-            for line in self.log_file:          
-                parts = line.split(" : ")           
-                try:
-                    self.stamp = time.mktime(time.strptime(parts[0],
-                                         "%Y-%m-%d %H:%M:%S"))
-                except:
-                    # Encountered in 48185e2d_00025.bz2.
-                    print "time.strptime failed on %s in line\n%s"\
-                          % (filename, line)
-                    traceback.print_exc()
-                    self.stamp = self.previous_stamp
-                    # The line might be completely corrupted, so move on.
-                    continue
-                if not lower_stamp_limit < self.stamp < upper_stamp_limit:
-                    raise TypeError, "Ignoring impossible date", parts[0]
-                if parts[1].startswith("R "):
-                    self._parse_repetition(parts[1])
-                elif parts[1].startswith("Program started"):
-                    self.version = parts[2]
-                    # log program start
-                elif parts[1].startswith("Loaded database"):
-                    # log loaded database
-                    pass
-                elif parts[1].startswith("New item"):
-                    self._parse_new_item(parts[1])
-                elif parts[1].startswith("Imported item"):
-                    self._parse_imported_item(parts[1])
-                    # log
-                elif parts[1].startswith("Deleted item"):
-                    # log
-                    pass
-                elif parts[1].startswith("Program stopped"):
-                    # log
-                    pass
-                self.previous_stamp = self.stamp
+        for line in self.log_file:          
+            parts = line.split(" : ")           
+            try:
+                self.stamp = time.mktime(time.strptime(parts[0],
+                                     "%Y-%m-%d %H:%M:%S"))
+            except:
+                # Encountered in 48185e2d_00025.bz2.
+                print "time.strptime failed on %s in line\n%s"\
+                      % (filename, line)
+                import traceback
+                traceback.print_exc()
+                self.stamp = self.previous_stamp
+                # The line might be completely corrupted, so move on.
+                continue
+            if not lower_stamp_limit < self.stamp < upper_stamp_limit:
+                raise TypeError, "Ignoring impossible date", parts[0]
+            if parts[1].startswith("R "):
+                self._parse_repetition(parts[1])
+            elif parts[1].startswith("Program started"):
+                self.version = parts[2]
+                # log program start
+            elif parts[1].startswith("Loaded database"):
+                # log loaded database
+                pass
+            elif parts[1].startswith("New item"):
+                self._parse_new_item(parts[1])
+            elif parts[1].startswith("Deleted item"):
+                # log deleted item
+                pass
+            elif parts[1].startswith("Program stopped"):
+                # log program stopped
+                pass
+            self.previous_stamp = self.stamp
             self.database.parsing_stopped(self.user_id, self.log_number)
-        except:
-            print "Problem parsing file", self.filename
-            traceback.print_exc()
-            self.database.rollback()
     
     def _parse_new_item(self, new_item_chunck):
-
-        """Note: there is a fundamental asymmetry in the way the first grading
-        occurs for new cards and imported cards. For new cards, this happens
-        when selecting the initial grade in the 'add card' dialog. For
-        imported cards, this happens the first time the item pops up in the
-        revision process.
-    
-        Starting from Mnemosyne 0.9.8, this asymmetry was recognised and
-        removed (by Dirk Hermann) by always counting the initial grading of a
-        card as an acquisition repetition, regardless of grade. So, the first
-        'R' log entry of a new card added through the 'add cards' dialog was
-        actually listed as acquisition repetition 2.
-    
-        For consistency, we here add the initial grading through the
-        'add cards' dialog as a proper Repetition in the database. For cards
-        added under the old scheme, we also modify the number of acq reps to
-        be in accordance with the new scheme.
-
-        TODO: expand docs
-        In the 1.x series, ...
-        The time stamps for repetitions are when the card was graded, not
-        when it was presented to the user. In order to calculate the
-        actual interval, we need the time of presentation, for which we will
-        use the time stamp from the previous line.
-        TODO: no longer valid still valid for 2.0?
-
-        """
-        
-        # TODO: is there a log that starts with R?
-        #if not self.previous_stamp:
-        #    self.previous_stamp = self.stamp
-        
+        # TODO: add documentation about version numbers format here.
         version_number = self.version.split()[1].split("-")[0]
-        old_log_format = (version_number in ("0.1","0.9.1","0.9.2","0.9.3",
-                                             "0.9.4", "0.9.5","0.9.6","0.9.7"))  
+        version_number = version_number.replace("pre", "")
         new, item, id, grade, new_interval = new_item_chunck.split(" ")
-        id = get_card_id(self.database, id)
-        # Check for id clashes. Note: this could be improved somewhat by also
-        # taking the user id in account in the query.
-        self.database.execute(card_insert, {
-            "user_id":self.user_id,
-            "id":id,
-            "old_log_format": old_log_format,
-            "last_sequence": 1,
-            "last_repetition_time": 0,
-            "first_repetition_time": self.previous_stamp,
-        })
-        self.database.execute(repetition_insert, {
-                     "card_id"            : id,
-                     "user_id"            : self.user_id,
-                     "time"               : 0,
-                     "sequence"           : 1,
-                     "grade"              : int(grade),
-                     "easiness"           : 2.5, # Not logged, take default.
-                     "acq_reps"           : 1,
-                     "ret_reps"           : 0,
-                     "lapses"             : 0,
-                     "acq_since_lapse"    : 1,
-                     "ret_since_lapse"    : 0,
-                     "scheduled_interval" : 0,
-                     "actual_interval"    : 0,
-                     "new_interval"       : int(new_interval),
-                     "noise"              : 0,
-                     "thinking_time"      : 0,
-                     "time_spent"         : self.stamp - self.previous_stamp,
-                     "actual_interval_s"  : -666})
-
-    def _parse_imported_item(imported_item_chunck):
-        pass
-    #    try:
-    #    	imported, item, id, grade, ret_reps, last_rep, next_rep, interval \
-    #              = imported_item_chunck.split(" ")
-    #    id = get_card_id(self.database,id)
-    #    except:
-    #    	print "Warning! Invalid imported item. "
-    #    	return False
-        # It is possible that the card is already in the database, e.g. if we
-        # export to file, start a new database, and then reimport.
-
-        # Note: in very rare case this masks an id clash between cards.
-
-    # Let _parse_repetition add the card on first repetition so we get
-    # the first repetition time right.
-    #    self.database.execute(card_insert, {
-    #        "user_id"               : self.user_id,
-    #        "id"                    : id,
-    #        "old_log_format"        : False,
-    #        "last_repetition_time"  : 0
-    #    })
-
+        offset = 0
+        if grade >= 2 and version_number in self.versions_phase_1:
+            offset = 1
+        elif grade < 2 and version_number in self.versions_phase_2:
+            offset = -1
+        self.database.add_card_data({"timestamp": self.stamp, "id": id, 
+            "offset": offset, "last_rep_time": 0})
+        if grade >= 2 and version_number in \
+           self.versions_phase_1 + self.versions_phase_2:    
+            self.database.add_repetition({"timestamp": self.stamp,
+                "card_id": id, "grade": int(grade), "easiness": 2.5,
+                "acq_reps": 1, "ret_reps": 0, "lapses": 0,
+                "acq_since_lapse": 1, "ret_since_lapse": 0,
+                "scheduled_interval": 0, "actual_interval": 0,
+                "new_interval": int(new_interval), "thinking_time": 0})
+        
     def _parse_repetition(self, repetition_chunck):
-        # TODO: is there a log that starts with R?
-        #if not self.previous_stamp:
-        #    self.previous_stamp = self.stamp
-        try:       
-            blocks = repetition_chunck.split(" | ")
-            R, id, grade, easiness = blocks[0].split(" ")
-            id = get_card_id(self.database,id)
-            acq_reps, ret_reps, lapses, acq_reps_since_lapse, \
-               ret_reps_since_lapse = blocks[1].split(" ")
-            scheduled_interval, actual_interval = blocks[2].split(" ")
-            new_interval, noise = blocks[3].split(" ")
-            thinking_time = blocks[4]
-        except:      
-            print "Problem parsing repetition", repetition_chunck
-            traceback.print_exc()
-        else:
-            # Make sure the card exists (e.g. due to missing logs.)
-            result = self.database.execute("""
-            SELECT old_log_format, last_repetition_time, 
-                   key, first_repetition_time
-            FROM card
-            WHERE card.id=:id AND card.user_id=:user_id
-                """,{"id":id, "user_id": self.user_id}
-            ).fetchone()
-
-            if result != None:
-            (old_log_format,last_rep_time, key,
-             first_rep_time) = result
-            else:
-            old_log_format = False
+        # Parse chunck.
+        blocks = repetition_chunck.split(" | ")
+        R, id, grade, easiness = blocks[0].split(" ")
+        acq_reps, ret_reps, lapses, acq_reps_since_lapse, \
+           ret_reps_since_lapse = blocks[1].split(" ")
+        scheduled_interval, actual_interval = blocks[2].split(" ")
+        new_interval, noise = blocks[3].split(" ")
+        thinking_time = int(blocks[4])
+        # Deal with extra data for card.
+        result = self.database.get_card_data(id, self.user_id)
+        if result != None:
+            _id, offset, last_rep_time = result
+            self.database.update_card_data(_id,
+                {"last_rep_time": self.previous_stamp})
+        # Make sure the card exists (e.g. due to missing logs or because the
+        # card was imported).
+        else: 
+            offset = 0
             last_rep_time = None
-            first_rep_time = self.previous_stamp
-                self.database.execute(card_insert, {
-                    "user_id"               : self.user_id,
-                    "id"                    : id,
-                    "old_log_format"        : old_log_format,
-                    "last_sequence"         : 1,
-                    "last_repetition_time"  : 0,
-                    "first_repetition_time" : first_rep_time,
-                })
-
-            if last_rep_time != None:
-            actual_interval_s = self.previous_stamp - last_rep_time - first_rep_time
+            self.database.add_card_data({"timestamp": self.stamp, "id": id, 
+            "offset": offset, "last_rep_time": 0})
+        # Add repetition.
+        if last_rep_time != None:
+            actual_interval = self.previous_stamp - last_rep_time
         else:
-            actual_interval_s = -666
-            # Move old log format to new one.
-            if old_log_format == True:
-                offset_1 = 1
-                offset_2 = 1            
-            else:
-                offset_1 = 0
-                offset_2 = 0
-            if (int(lapses) != 0):
-                offset_2 = 0
-            # We assume that thinking times larger than 5 minutes are not
-            # relevant (e.g. the phone rang and the user got distracted).
-            thinking_time = float(thinking_time)
-            if thinking_time > 5*60:
-                thinking_time = 5*60
-            # Add repetition.       
-            sequence = offset_1 + int(acq_reps) + int(ret_reps)
-            if result != None:
-            self.database.execute(card_update, {
-                "last_sequence"        : sequence,
-                "last_repetition_time" : self.previous_stamp - first_rep_time,
-                "key"                  : key,
-            })	    
-            data = {
-                "card_id"            : id,
-                "user_id"            : self.user_id,
-                "time"               : self.previous_stamp - first_rep_time,
-                "sequence"           : sequence,
-                "grade"              : int(grade),
-                "easiness"           : float(easiness),
-                "acq_reps"           : int(acq_reps) + offset_1,
-                "ret_reps"           : int(ret_reps),
-                "lapses"             : int(lapses),
-                "acq_since_lapse"    : int(acq_reps_since_lapse) + offset_2,
-                "ret_since_lapse"    : int(ret_reps_since_lapse),
-                "scheduled_interval" : int(scheduled_interval),
-                "actual_interval"    : int(actual_interval),
-                "new_interval"       : int(new_interval),
-                "noise"              : int(noise),
-                "thinking_time"      : thinking_time,
-                "time_spent"         : self.stamp - self.previous_stamp,
-                "actual_interval_s"  : actual_interval_s
-            }
-        self.database.execute(repetition_insert, data)
+            actual_interval = -1
+        acq_reps, lapses = int(acq_reps), int(lapses)
+        acq_reps_since_lapse = int(acq_reps_since_lapse)
+        acq_reps += offset
+        if int(lapses) == 0:
+            acq_reps_since_lapse += offset
+        self.database.add_repetition({"timestamp": self.stamp, "id": id,
+            "grade": int(grade), "easiness": float(easiness),
+            "acq_reps": acq_reps, "ret_reps": int(ret_reps), "lapses": lapses,
+            "acq_since_lapse": acq_reps_since_lapse,
+            "ret_since_lapse": int(ret_reps_since_lapse),
+            "scheduled_interval": int(scheduled_interval),
+            "actual_interval": int(actual_interval),
+            "new_interval": int(new_interval),
+            "thinking_time": int(thinking_time)})
+        

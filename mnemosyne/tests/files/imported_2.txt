@@ -1,0 +1,9 @@
+2009-07-22 13:32:36 : Program started : Mnemosyne 1.2.1 posix linux2
+2009-07-22 13:32:36 : Loaded database 0 0 1
+2009-07-22 13:32:46 : Saved database 0 0 1
+2009-07-22 13:32:46 : New database
+2009-07-22 13:32:46 : Loaded database 0 0 0
+2009-07-22 13:32:54 : Imported item 14670f10 0 0 0 0 0
+2009-07-22 13:32:57 : R 14670f10 2 2.50 | 1 0 0 1 0 | 0 1 | 1 1 | 1.6
+2009-07-22 13:32:58 : Saved database 0 0 1
+2009-07-22 13:32:58 : Program stopped

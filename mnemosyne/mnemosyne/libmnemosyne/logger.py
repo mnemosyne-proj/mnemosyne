@@ -76,7 +76,7 @@ class Logger(Component):
         pass
     
     def repetition(self, card, scheduled_interval, actual_interval,
-                   new_interval, noise=0):
+                   new_interval):
         pass
 
     def added_media(self, filename, fact):

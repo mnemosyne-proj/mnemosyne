@@ -130,8 +130,6 @@ The bulk of the sync consists of exchanging a sequence of events from the histor
 
 BTW, Mnemosyne stores more data for easier statistical analysis: scheduled_interval, actual_interval, acq_reps, ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse. However, there is no need to send that data across the wire, as it can be calculated from the previous state of the card (provided of course that all SRS systems treat grade 0 and 1 as 'fail'. Is that true?)
 
-(Mnemosyne also stores 'noise', the random part of the new scheduled interval, but I'm not sure if it's worthwhile hanging on to this.) 
-
 A variable which Mnemosyne (optionally) uses and which therefore should be sent to the partner is:
 
 -scheduler data

@@ -2,6 +2,8 @@
 
 -import history
 -TODOs in file
+-add noise to new interval
+-also update acq_reps in main sql database after import
 -how to report parsing errors
 -flush old text logs first
 -warn if history not found
@@ -199,10 +201,10 @@ Multiuser statistics analysis:
 -card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
 or persistent for the full server
 -break out card ids to a different table and use _id as well
--more times from a later start date to save space?
+-move times from a later start date to save space?
 -sql: insert or ignore statement, faster if adding same data twice is no problem
 -check if log was imported earlier
-
+-delayed index creation
 
 Windows Mobile client:
 

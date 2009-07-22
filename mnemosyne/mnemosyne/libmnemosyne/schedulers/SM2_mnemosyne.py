@@ -261,18 +261,18 @@ class SM2Mnemosyne(Scheduler):
                         return
             # If the queue is empty, relax the 'related not together'                           
             # requirement.                                                                      
-            if not related_together and len(self._card_ids_in_queue) == 0:                                   
+            if not related_together and len(self._card_ids_in_queue) == 0:
                 for _card_id, _fact_id in db.cards_unseen(\
                     sort_key=sort_key, limit=min(limit, 50)):                
-                    if _fact_id not in self._fact_ids_in_queue:                                              
-                        self._card_ids_in_queue.append(_card_id)                                             
-                        self._fact_ids_in_queue.append(_fact_id)                                             
+                    if _fact_id not in self._fact_ids_in_queue:
+                        self._card_ids_in_queue.append(_card_id)
+                        self._fact_ids_in_queue.append(_fact_id)
                         grade_0_in_queue += 1                                                   
                         if limit and grade_0_in_queue == limit:                                 
                             self.stage = 2                                                      
                             return                                                              
             # If the queue is still empty, go to learn ahead of schedule.                       
-            if len(self._card_ids_in_queue) == 0:                                                            
+            if len(self._card_ids_in_queue) == 0:
                 self.stage = 5
             
         # Stage 5

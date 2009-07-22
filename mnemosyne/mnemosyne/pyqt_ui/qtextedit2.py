@@ -49,7 +49,7 @@ class QTextEdit2(QtGui.QTextEdit):
             self.insertPlainText("<audio src=\"" + fname + "\">")
         
     def insert_video(self):
-        filter = "(*.mov *.ogg *.ogv * mp4 *.qt" + \
+        filter = "(*.mov *.ogg *.ogv *.mp4 *.qt" + \
                  " *.MOV *.OGG *.OGV *.MP4 *.QT)"
         fname = self.parent().controller().insert_video(filter)
         if fname:

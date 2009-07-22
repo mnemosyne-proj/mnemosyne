@@ -129,7 +129,7 @@ class SQLiteLogging(object):
             (self.DELETED_CARD_TYPE, int(time.time()), card_type.id))
         
     def log_repetition(self, card, scheduled_interval, actual_interval, \
-                   new_interval, noise=0):
+                   new_interval):
         self.con.execute(\
             """insert into history(event, timestamp, object_id, grade,
             easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
@@ -209,3 +209,30 @@ class SQLiteLogging(object):
         self.con.execute(\
             "update partnerships set _last_history_id=? where partner=?",
             (index, "log.txt"))
+
+    # The following functions are used when importing pre-2.0 logs.
+
+    def parsing_started(self, user_id, log_number):
+        if not self.con.execute("pragma table_info(cards_data)").fetchall():
+            self.con.execute("create temp table cards_data)
+
+    def parsing_stopped(self, user_id, log_number):
+        pass
+
+    def add_card_data(self, data):
+        # TODO: insert or ignore
+        # temporary table?
+        # id as index?
+        pass
+
+    def update_card_data(self, _id, data):
+        pass
+
+    def get_card_data(self, id, user_id):
+        return self.con.execute("""select _id, offset, last_rep_time,
+           from tmp_ card_data where card.id=? and card.user_id=?""",
+                                (id, user_id))
+
+    def add_repetition(self, data):
+        pass
+        

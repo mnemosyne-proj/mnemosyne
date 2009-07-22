@@ -65,7 +65,7 @@ class SqlLogger(Logger):
     def repetition(self, card, scheduled_interval, actual_interval,
                    new_interval, noise=0):
         self.database().log_repetition(card, scheduled_interval,
-            actual_interval, new_interval, noise=0)
+            actual_interval, new_interval)
 
     def added_media(self, filename, fact):
         self.database().log_added_media(filename, fact)

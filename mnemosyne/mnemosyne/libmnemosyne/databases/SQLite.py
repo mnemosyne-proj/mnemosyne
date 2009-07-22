@@ -22,10 +22,11 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 
-
-# Note: all id's beginning with an underscore refer to primary keys in the
-# SQL database. All other id's correspond to the id's used in libmnemosyne.
+# All id's beginning with an underscore refer to primary keys in the SQL
+# database. All other id's correspond to the id's used in libmnemosyne.
 # We don't use libmnemosyne id's as primary keys for speed reasons.
+
+# All times are Posix timestamps
 
 SCHEMA = """
     begin;
