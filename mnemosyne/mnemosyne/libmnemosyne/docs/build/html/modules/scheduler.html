@@ -52,10 +52,20 @@
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler]-->class <tt class="descclassname">mnemosyne.libmnemosyne.scheduler.</tt><tt class="descname">Scheduler</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.active_count">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.active_count]--><tt class="descname">active_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.active_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch]--><tt class="descname">allow_prefetch</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch" title="Permalink to this definition">¶</a></dt>
 <dd>Can we display a new card before having processed the grading of
 the previous one?</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_between">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_between]--><tt class="descname">card_count_scheduled_between</tt><big>(</big><em>start</em>, <em>end</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_between" title="Permalink to this definition">¶</a></dt>
+<dd>Arguments are in days from today, i.e. today=0, tomorrow=1, ...</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card">
@@ -84,6 +94,11 @@ the previous one?</dd></dl>
 a card that was deleted in the GUI.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count]--><tt class="descname">non_memorised_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue]--><tt class="descname">rebuild_queue</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue" title="Permalink to this definition">¶</a></dt>
 <dd>Called by the rest of the library when an existing queue risks
@@ -99,6 +114,11 @@ becoming invalid, e.g. when cards have been deleted in the GUI.
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.reset">
 <!--[mnemosyne.libmnemosyne.scheduler.Scheduler.reset]--><tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.reset" title="Permalink to this definition">¶</a></dt>
 <dd>Called when starting the scheduler for the first time.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.scheduled_count">
+<!--[mnemosyne.libmnemosyne.scheduler.Scheduler.scheduled_count]--><tt class="descname">scheduled_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.scheduled_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.set_initial_grade">
@@ -166,7 +186,7 @@ but all the relevant information can still be parsed from them.)</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 04, 2009.
+      Last updated on Jul 23, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

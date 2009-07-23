@@ -1,5 +1,5 @@
 :mod:`CardTypeConverter`
-======================
+========================
 
 .. automodule:: mnemosyne.libmnemosyne.card_type_converter
 
