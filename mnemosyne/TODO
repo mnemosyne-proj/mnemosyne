@@ -11,6 +11,7 @@
 -don't recreate text logs upon import
 -peak at multiuser stats
 -catch exceptions on parser __init__ and parse
+-get__card in multiuser should also check user_id
 -time WM: history in same DB?
 
 -more tests

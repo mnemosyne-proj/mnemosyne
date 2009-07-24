@@ -100,22 +100,22 @@ class TxtLogParser(object):
         
     def parse(self):
         
-        """For pre-2.0 logs, we need to hang on to the previous time stamp, as
+        """For pre-2.0 logs, we need to hang on to the previous timestamp, as
         this will be used as the time the card was shown, in order to
-        calculate the actual interval. (The time stamps for repetitions are
+        calculate the actual interval. (The timestamps for repetitions are
         when the card was graded, not when it was presented to the user.)
 
         """
         
-        self.stamp = None
-        self.previous_stamp = None
-        lower_stamp_limit = 1121021345 # 2005-07-10 21:49:05.
-        upper_stamp_limit = time.time()
+        self.timestamp = None
+        self.previous_timestamp = None
+        upper_timestamp_limit = 1121021345 # 2005-07-10 21:49:05.
+        lower_timestamp_limit = time.time()
         self.database.parsing_started(self.user_id, self.log_number)
         for line in self.log_file:          
             parts = line.split(" : ")           
             try:
-                self.stamp = time.mktime(time.strptime(parts[0],
+                self.timestamp = time.mktime(time.strptime(parts[0],
                                      "%Y-%m-%d %H:%M:%S"))
             except:
                 # Encountered in 48185e2d_00025.bz2.
@@ -123,58 +123,62 @@ class TxtLogParser(object):
                       % (filename, line)
                 import traceback
                 traceback.print_exc()
-                self.stamp = self.previous_stamp
+                self.timestamp = self.previous_timestamp
                 # The line might be completely corrupted, so move on.
                 continue
-            if not lower_stamp_limit < self.stamp < upper_stamp_limit:
+            if not lower_timestamp_limit < self.timestamp < \
+                                                upper_timestamp_limit:
                 raise TypeError, "Ignoring impossible date", parts[0]
             if parts[1].startswith("R "):
                 self._parse_repetition(parts[1])
             elif parts[1].startswith("Program started"):
-                self.version = parts[2]
-                # log program start
+                # Parse version string. They typically look like:
+                #   Mnemosyne 1.0-RC nt win32
+                #   Mnemosyne 1.0 RC posix linux2
+                #   Mnemosyne 1.1.1_debug3 posix linux2
+                #   Mnemosyne 1.2.1 posix linux2
+                self.version = parts[2].replace("_", "-")
+                self.version_number = self.version.split()[1].split("-")[0]
+                # TODO: log program start
             elif parts[1].startswith("Loaded database"):
-                # log loaded database
+                # TODO: log loaded database
                 pass
             elif parts[1].startswith("New item"):
                 self._parse_new_item(parts[1])
             elif parts[1].startswith("Imported item"):
                 self._parse_imported_item(parts[1])
             elif parts[1].startswith("Deleted item"):
-                # log deleted item
+                # TODO: log deleted item
                 pass
             elif parts[1].startswith("Program stopped"):
-                # log program stopped
+                # TODO: log program stopped
                 pass
-            self.previous_stamp = self.stamp
+            self.previous_timestamp = self.timestamp
             self.database.parsing_stopped(self.user_id, self.log_number)
-    
+
     def _parse_new_item(self, new_item_chunck):
-        # log database add new card
-        # TODO: add documentation about version numbers format here.
-        version_number = self.version.split()[1].split("-")[0]
-        version_number = version_number.replace("pre", "")
+        # TODO: log database add new card
         new, item, id, grade, new_interval = new_item_chunck.split(" ")
         offset = 0
-        if grade >= 2 and version_number in self.versions_phase_1:
+        if grade >= 2 and self.version_number in self.versions_phase_1:
             offset = 1
-        elif grade < 2 and version_number in self.versions_phase_2:
+        elif grade < 2 and self.version_number in self.versions_phase_2:
             offset = -1
-        self.database.add_card_data({"timestamp": self.stamp, "id": id, 
+        self.database.add_card_data({"id": id, 
             "offset": offset, "last_rep_time": 0})
-        if grade >= 2 and version_number in \
-           self.versions_phase_1 + self.versions_phase_2:    
-            self.database.add_repetition({"timestamp": self.stamp,
-                "card_id": id, "grade": int(grade), "easiness": 2.5,
-                "acq_reps": 1, "ret_reps": 0, "lapses": 0,
-                "acq_since_lapse": 1, "ret_since_lapse": 0,
-                "scheduled_interval": 0, "actual_interval": 0,
-                "new_interval": int(new_interval), "thinking_time": 0})
+        if grade >= 2 and self.version_number in \
+           self.versions_phase_1 + self.versions_phase_2:
+            self.database.log_repetition(self.timestamp, id, int(grade),
+                easiness=2.5, acq_reps=1, ret_reps=0, lapses=0,
+                acq_reps_since_lapse=1, ret_reps_since_lapse=0,
+                scheduled_interval=0, actual_interval=0, int(new_interval),
+                thinking_time=0)
 
     def _parse_imported_item(self, imported_item_chunck):
         imported, item, id, grade, ret_reps, last_rep, next_rep, interval \
                   = imported_item_chunck.split(" ")
-        # database: add new card
+        self.database.set_offset_last_rep_time(id, offset=0, last_rep_time=0)
+        # TODO: database: add new card
 
     def _parse_repetition(self, repetition_chunck):
         # Parse chunck.
@@ -185,36 +189,25 @@ class TxtLogParser(object):
         scheduled_interval, actual_interval = blocks[2].split(" ")
         new_interval, noise = blocks[3].split(" ")
         thinking_time = int(blocks[4])
-        # Deal with extra data for card.
-        result = self.database.get_card_data(id, self.user_id)
-        if result != None:
-            _id, offset, last_rep_time = result
-            self.database.update_card_data(_id,
-                {"last_rep_time": self.previous_stamp})
-        # Make sure the card exists (e.g. due to missing logs or because the
-        # card was imported).
-        else: 
-            offset = 0
-            last_rep_time = None
-            self.database.add_card_data({"timestamp": self.stamp, "id": id, 
-            "offset": offset, "last_rep_time": 0})
-        # Add repetition.
-        if last_rep_time != None:
-            actual_interval = self.previous_stamp - last_rep_time
-        else:
+        # Deal with offset and last_rep_time stored in database.
+        try:
+            offset, last_rep_time = self.database.get_offset_last_rep_time(id)
+            actual_interval = self.previous_timestamp - last_rep_time
+            self.database.set_offset_last_rep_time(id, offset,
+                                                   self.previous_timestamp)
+        except:
+            # Make sure the card exists (e.g. due to missing logs).
             actual_interval = -1
+            self.database.set_offset_last_rep_time(id, offset=0, last_rep_time=0)
+        # Add repetition.
         acq_reps, lapses = int(acq_reps), int(lapses)
         acq_reps_since_lapse = int(acq_reps_since_lapse)
         acq_reps += offset
         if int(lapses) == 0:
             acq_reps_since_lapse += offset
-        self.database.add_repetition({"timestamp": self.stamp, "id": id,
-            "grade": int(grade), "easiness": float(easiness),
-            "acq_reps": acq_reps, "ret_reps": int(ret_reps), "lapses": lapses,
-            "acq_since_lapse": acq_reps_since_lapse,
-            "ret_since_lapse": int(ret_reps_since_lapse),
-            "scheduled_interval": int(scheduled_interval),
-            "actual_interval": int(actual_interval),
-            "new_interval": int(new_interval),
-            "thinking_time": int(thinking_time)})
+        self.database.log_repetition(self.timestamp, id, int(grade),
+            float(easiness), acq_reps, int(ret_reps), lapses,
+            acq_reps_since_lapse, int(ret_reps_since_lapse),
+            int(scheduled_interval), int(actual_interval), int(new_interval),
+            int(thinking_time))
         

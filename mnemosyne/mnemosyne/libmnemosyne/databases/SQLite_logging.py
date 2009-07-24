@@ -213,6 +213,8 @@ class SQLiteLogging(object):
             (index, "log.txt"))
 
     # The following functions are only used when importing pre-2.0 logs.
+    # They are needed to store temporary data about cards whis is used during
+    # the parsing process.
 
     def parsing_started(self, user_id, log_number):
         if not self.con.execute("pragma table_info(cards_data)").fetchall():
@@ -224,21 +226,14 @@ class SQLiteLogging(object):
     def parsing_stopped(self, user_id, log_number):
         pass
 
-    def add_card_data(self, data):
+    def set_offset_last_rep_time(self, card_id, offset, last_rep_time):
         # generate true add card event in database
 
         # add data to tmp table
         # TODO: insert or ignore
         pass
 
-    def update_card_data(self, _id, data):
-        pass
-
-    def get_card_data(self, id, user_id):
-        return self.con.execute("""select _id, offset, last_rep_time,
-           from tmp_ card_data where card.id=? and card.user_id=?""",
-                                (id, user_id))
-
-    def add_repetition(self, data):
-        pass
-        
+    def get_offset_last_rep_time(self, card_id):
+        sql_result = self.con.execute("""select offset, last_rep_time,
+           from _cards where _card.id=?""", (card_id, )).fetchone()
+        return sql_result["offset"], sql_result["last_rep_time"]
