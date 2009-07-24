@@ -13,7 +13,8 @@ import calendar
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.file_format import FileFormat
-
+from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
+        
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
 
@@ -205,4 +206,12 @@ class Mnemosyne1Mem(FileFormat):
                 self._set_card_attributes(card_2,
                                           items_by_id[item.id + ".tr.1"])  
         progress.set_value(len(self.items))
-        
+
+        # Now import the history.
+
+        #history_dir = os.path.join(self.config().basedir, "history")
+        #for filename in os.listdir(history_dir).sort():
+        #    if filename.endswith(".bz2"):
+        #        parser = TxtLogParser(filename, self.database())
+        #        parser.parse()
+                        

@@ -91,7 +91,7 @@ SCHEMA = """
        ids across when syncing.
     */
        
-    create table history(
+    create table log(
         _id integer primary key,
         event integer,
         timestamp integer,
@@ -108,15 +108,15 @@ SCHEMA = """
         new_interval integer,
         thinking_time integer
     );
-    create index i_history on history (timestamp);
+    create index i_log on log (timestamp);
 
     /* We track the last _id as opposed to the last timestamp, as importing
-       another database could add history events with earlier dates, but
+       another database could add log events with earlier dates, but
        which still need to be synced. */
     
     create table partnerships(
         partner text,
-        _last_history_id integer
+        _last_log_id integer
     );
 
     create table media(
@@ -209,7 +209,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                         ("version", self.version))
         self.con.execute("insert into global_variables(key, value) values(?,?)",
                         ("times_loaded", 0))
-        self.con.execute("""insert into partnerships(partner, _last_history_id)
+        self.con.execute("""insert into partnerships(partner, _last_log_id)
                          values(?,?)""", ("log.txt", 0))
         self.con.commit()
         self.config()["path"] = contract_path(self._path, self.config().basedir)

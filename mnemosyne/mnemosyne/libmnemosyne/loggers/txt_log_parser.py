@@ -18,7 +18,8 @@ class TxtLogParser(object):
     First, before 2.0, dates where only stored with a resolution of a day.
     However, the timestamps of the logs make it possible to determine e.g.
     the actual interval with a resolution of a second. This however requires
-    holding on to the exact time of the last repetition.
+    holding on to the exact time of the previous repetition of each card,
+    while parsing the logs.
     
     A second, more thorny idiosyncrasy is the matter of the first grading of a
     card. When adding cards manually through the UI, there is an option to set
@@ -33,40 +34,34 @@ class TxtLogParser(object):
 
     Starting with 0.9.8, Dirk Hermann recognised the inconsistency, and
     regardless of grade, the initial grading of a card in the 'add cards'
-    dialog was always counted as an acquisition repetition in the cards
-    attributes. So, the first 'R' log entry of a card added through the
-    'add cards' dialog had acquisition repetition 2. For cards imported, the
-    first 'R' was acquisition repetition 1.
+    dialog was always counted as an acquisition repetition. So, before any 'R'
+    log entry of a card added through the 'add cards' dialog, 'acq_reps' was
+    already 1. For cards imported, 'acq_reps' stayed zero.
 
     When later on Mnemosyne acquired the possibility to learn new cards in
-    random order, this scheme turned out to require a new card attribute
-    'unseen', keeping track of whether the card was already seen in the
-    interactive review process. This hack complicated the code, and therefore,
-    starting with Mnemosyne 2.0, a different approach was taken. The initial
-    grading of a card in the 'add cards' dialog was only counted as an
-    acquisition repetition (and explicitly logged as an 'R' event) when the
-    grade was 2 or higher. In other cases, the grade got set to -1
-    (signifying unseen), just as imported cards.
+    random order, a new card attribute 'unseen' was introduced, keeping track
+    of whether the card was already seen in the interactive review process.
+    This hack complicated the code, and therefore, starting with Mnemosyne
+    2.0, a different approach was taken. The initial grading of a card in the
+    'add cards' dialog was only counted as an acquisition repetition (and
+    explicitly logged as an 'R' event) when the grade was 2 or higher. In
+    other cases, the grade got set to -1 (signifying unseen), just as for
+    imported cards.
 
     When parsing old logs, the data needs to be adjusted to fit the latest
     scheme. To clarify what needs to be done, the following table shows a
     summary of the contents of the logs after creating a new card through
-    the GUI (giving it an initial grade at the same time) and then doing a
-    repetition after the card has been scheduled in the queue. (c) means that
-    the repetition event was generated when creating the card, (r) stands for
-    an event generated when doing the actual review.
+    the GUI (giving it an initial grade at the same time), as well as the
+    value of 'acq_reps' at that time.
     
-                            initial grade 0,1    initial grade 2,3,4,5
+                            initial grade 0,1      initial grade 2,3,4,5
 
-    version < 0.9.8:        New item             New item
-                            R acq_reps=1 (r)     R acq_reps=1 (r)
+    version < 0.9.8:        New item, acq_reps=0   New item, acq_reps=0 
 
-    0.9.8 <= version < 2.0  New item             New item
-                            R acq_reps=2 (r)     R acq_reps=2 (r)
+    0.9.8 <= version < 2.0  New item, acq_reps=1   New item, acq_reps=1
                                 
-    2.0 <= version          New item             New item
-                            R acq_reps=1 (r)     R acq_reps=1 (c)
-                                                 R acq_reps=2 (r)
+    2.0 <= version          New item, acq_reps=0   New item, acq_reps=0
+                                                   R acq_reps=1
 
 
     So, to convert to the latest scheme, we need the following actions:
@@ -74,10 +69,10 @@ class TxtLogParser(object):
 
                             initial grade 0,1    initial grade 2,3,4,5
 
-    version < 0.9.8:        None                 add creation R
-                                                 increase counters
+    version < 0.9.8:        None                 add R at creation
+                                                 increase acq_reps
 
-    0.9.8 <= version < 2.0  decrease counters    add creation R
+    0.9.8 <= version < 2.0  decrease acq_reps    add R at creation
 
     Since there is no grading on import, we don't need to do anything special
     for imported cards. We can even ignore the import events, since the card
@@ -143,6 +138,8 @@ class TxtLogParser(object):
                 pass
             elif parts[1].startswith("New item"):
                 self._parse_new_item(parts[1])
+            elif parts[1].startswith("Imported item"):
+                self._parse_imported_item(parts[1])
             elif parts[1].startswith("Deleted item"):
                 # log deleted item
                 pass
@@ -153,6 +150,7 @@ class TxtLogParser(object):
             self.database.parsing_stopped(self.user_id, self.log_number)
     
     def _parse_new_item(self, new_item_chunck):
+        # log database add new card
         # TODO: add documentation about version numbers format here.
         version_number = self.version.split()[1].split("-")[0]
         version_number = version_number.replace("pre", "")
@@ -172,7 +170,12 @@ class TxtLogParser(object):
                 "acq_since_lapse": 1, "ret_since_lapse": 0,
                 "scheduled_interval": 0, "actual_interval": 0,
                 "new_interval": int(new_interval), "thinking_time": 0})
-        
+
+    def _parse_imported_item(self, imported_item_chunck):
+        imported, item, id, grade, ret_reps, last_rep, next_rep, interval \
+                  = imported_item_chunck.split(" ")
+        # database: add new card
+
     def _parse_repetition(self, repetition_chunck):
         # Parse chunck.
         blocks = repetition_chunck.split(" | ")

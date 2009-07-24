@@ -3,6 +3,7 @@
 #
 
 import os
+import shutil
 from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
@@ -163,12 +164,8 @@ class TestMemImport(MnemosyneTest):
         assert os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
-            "select count() from history where event=?",
-            (self.database().ADDED_MEDIA, )).fetchone()[0] == 3
-        for filename in figures:
-            os.remove(filename)
-        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
-        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs"))        
+            "select count() from log where event=?",
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 3      
 
     def test_media_missing(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
@@ -185,12 +182,8 @@ class TestMemImport(MnemosyneTest):
         assert os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
-            "select count() from history where event=?",
-            (self.database().ADDED_MEDIA, )).fetchone()[0] == 2
-        for filename in figures:
-            os.remove(filename)
-        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
-        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs"))        
+            "select count() from log where event=?",
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 2        
 
     def test_media_slashes(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
@@ -210,12 +203,8 @@ class TestMemImport(MnemosyneTest):
         assert os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
-            "select count() from history where event=?",
-            (self.database().ADDED_MEDIA, )).fetchone()[0] == 3
-        for filename in figures:
-            os.remove(filename)
-        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))
-        os.rmdir(os.path.join(os.getcwd(), "tests", "files", "figs"))  
+            "select count() from log where event=?",
+            (self.database().ADDED_MEDIA, )).fetchone()[0] == 3  
 
     def test_sound(self):
         soundname = os.path.join(os.path.join(\
@@ -226,12 +215,11 @@ class TestMemImport(MnemosyneTest):
         assert os.path.exists(os.path.join(\
             os.path.abspath("dot_test"), "default.db_media", "a.ogg"))
         assert self.database().con.execute(\
-            "select count() from history where event=?",
+            "select count() from log where event=?",
             (self.database().ADDED_MEDIA, )).fetchone()[0] == 1
         self.review_controller().reset()
         card = self.review_controller().card
         assert card.fact["q"] == """<audio src="a.ogg">"""
-        os.remove(soundname)
 
     def test_map(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "map.mem")
@@ -253,4 +241,14 @@ class TestMemImport(MnemosyneTest):
                u"""<b>Freistaat Th\xfcringen (Free State of Thuringia)</b>"""
         assert self.review_controller().card.tag_string() == "Germany: States"
         
-        
+    def teardown(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "a.png")
+        if os.path.exists(filename):
+            os.remove(filename)
+        filename = os.path.join(os.getcwd(), "tests", "files", "a.ogg")
+        if os.path.exists(filename):
+            os.remove(filename)
+        dirname = os.path.join(os.getcwd(), "tests", "files", "figs")
+        if os.path.exists(dirname):
+            shutil.rmtree(dirname)
+        MnemosyneTest.teardown(self)
