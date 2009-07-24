@@ -1,8 +1,5 @@
 -WM test and benchmark
 
--get db object by id or _id
-
-
 -import history
 -TODOs in file
 -add noise to new interval

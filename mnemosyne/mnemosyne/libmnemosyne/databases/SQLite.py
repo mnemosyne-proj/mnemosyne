@@ -277,7 +277,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         # Instantiate card types stored in this database.
         for cursor in self.con.execute("select id from card_types"):
             id = cursor[0]
-            card_type = self.get_card_type(id)
+            card_type = self.get_card_type(id, id_is_internal=-1)
             self.component_manager.register(card_type)
 
         # Identify missing plugins for card types and their parents.       
@@ -399,11 +399,15 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         tag._id = _id
         self.log().added_tag(tag)
 
-    def get_tag(self, _id):
-        sql_res = self.con.execute("select * from tags where _id=?",
-                                   (_id, )).fetchone()
+    def get_tag(self, id, id_is_internal):
+        if id_is_internal:
+            sql_res = self.con.execute("select * from tags where _id=?",
+                                       (id, )).fetchone()
+        else:
+            sql_res = self.con.execute("select * from tags where id=?",
+                                       (id, )).fetchone()            
         tag = Tag(sql_res["name"], sql_res["id"])
-        tag._id = _id
+        tag._id = sql_res["_id"]
         return tag
     
     def delete_tag(self, tag):
@@ -443,13 +447,17 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         # Process media files.
         self._process_media(fact)
 
-    def get_fact(self, _id):        
-        sql_res = self.con.execute("select * from facts where _id=?",
-                                   (_id, )).fetchone()
+    def get_fact(self, id, id_is_internal):
+        if id_is_internal:
+            sql_res = self.con.execute("select * from facts where _id=?",
+                                       (id, )).fetchone()
+        else:
+            sql_res = self.con.execute("select * from facts where id=?",
+                                       (id, )).fetchone()            
         # Create dictionary with fact.data.
         data = dict([(cursor["key"], cursor["value"]) for cursor in
             self.con.execute("select * from data_for_fact where _fact_id=?",
-            (_id, ))])
+            (sql_res["_id"], ))])            
         # Create fact. Note that for the card type, we turn to the component
         # manager as opposed to this database, as we would otherwise miss the
         # built-in system card types.
@@ -515,10 +523,14 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         # Add card is not logged here, but in the controller, to make sure
         # that the first repetition is logged after the card creation.
 
-    def get_card(self, _id):
-        sql_res = self.con.execute("select * from cards where _id=?",
-                                   (_id, )).fetchone()
-        fact = self.get_fact(sql_res["_fact_id"])
+    def get_card(self, id, id_is_internal):
+        if id_is_internal:
+            sql_res = self.con.execute("select * from cards where _id=?",
+                                       (id, )).fetchone()
+        else:
+            sql_res = self.con.execute("select * from cards where id=?",
+                                       (id, )).fetchone()            
+        fact = self.get_fact(sql_res["_fact_id"], id_is_internal=True)
         for view in fact.card_type.fact_views:
             if view.id == sql_res["fact_view_id"]:
                 card = Card(fact, view)
@@ -529,8 +541,8 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             setattr(card, attr, sql_res[attr])
         self._get_extra_data(sql_res, card)
         for cursor in self.con.execute("""select _tag_id from tags_for_card
-            where _card_id=?""", (_id, )):
-            card.tags.add(self.get_tag(cursor["_tag_id"]))
+            where _card_id=?""", (sql_res["_id"], )):
+            card.tags.add(self.get_tag(cursor["_tag_id"], id_is_internal=True))
         return card
     
     def update_card(self, card, repetition_only=False):
@@ -612,13 +624,14 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                 (_fact_view_id, card_type.id))
         self.log().added_card_type(card_type)
 
-    def get_card_type(self, id):
+    def get_card_type(self, id, id_is_internal):
+        # There are no internal ids for card types.
         if id in self.component_manager.card_type_by_id:
             return self.component_manager.card_type_by_id[id]
         parent_id, child_id = "", id
         if "::" in id:
             parent_id, child_id = id.rsplit("::", 1)
-            parent = self.get_card_type(parent_id)
+            parent = self.get_card_type(parent_id, id_is_internal=-1)
         else:
             parent = CardType(self.component_manager)
         sql_res = self.con.execute("select * from card_types where id=?",
@@ -753,9 +766,9 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             self.con.execute("select name from tags"))
 
     def cards_from_fact(self, fact):
-        return list(self.get_card(cursor[0]) for cursor in
-            self.con.execute("select _id from cards where _fact_id=?",
-                             (fact._id, )))
+        return list(self.get_card(cursor[0], id_is_internal=True) for cursor
+            in self.con.execute("select _id from cards where _fact_id=?",
+                                (fact._id, )))
 
     def count_related_cards_with_next_rep(self, card, next_rep):
         return self.con.execute("""select count() from cards where
@@ -776,7 +789,8 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                 _fact_id=?""", (cursor[0], ))])
             for field in fact.card_type.unique_fields:
                 if data[field] == fact[field]:
-                    duplicates.append(self.get_fact(cursor[0]))
+                    duplicates.append(\
+                        self.get_fact(cursor[0], id_is_internal=True))
                     break
         return duplicates
 

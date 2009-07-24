@@ -175,7 +175,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(0)
-        card_1_new = self.database().get_card(card_1._id)
+        card_1_new = self.database().get_card(card_1._id, id_is_internal=True)
         assert card_1_new.grade == 0
 
     def test_learn_ahead_3(self):

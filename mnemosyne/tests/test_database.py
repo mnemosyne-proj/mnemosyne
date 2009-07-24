@@ -34,7 +34,7 @@ class TestDatabase(MnemosyneTest):
 
         self.database().load(self.config()["path"])
         assert self.database().fact_count() == 1
-        card = self.database().get_card(old_card._id)
+        card = self.database().get_card(old_card._id, id_is_internal=True)
         fact = card.fact
         
         assert fact.data["q"] == "question"
@@ -102,7 +102,7 @@ class TestDatabase(MnemosyneTest):
         fact = card.fact
         self.controller().update_related_cards(fact, fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
-        new_card = self.database().get_card(card._id)
+        new_card = self.database().get_card(card._id, id_is_internal=True)
         tag_names = [tag.name for tag in new_card.tags]
         assert len(tag_names) == 1
         assert "default1" in tag_names
@@ -127,7 +127,7 @@ class TestDatabase(MnemosyneTest):
         self.restart()
         assert self.database().fact_count() == 1
         _card_id, _fact_id = list(self.database().cards_unseen())[0]
-        fact = self.database().get_fact(_fact_id)
+        fact = self.database().get_fact(_fact_id, id_is_internal=True)
         card_type = self.card_type_by_id("1::my_1")        
         assert fact.card_type.id == "1::my_1"
         assert fact.card_type == card_type
@@ -162,7 +162,7 @@ class TestDatabase(MnemosyneTest):
         
         assert self.database().fact_count() == 1
         _card_id, _fact_id = list(self.database().cards_unseen())[0]
-        fact = self.database().get_fact(_fact_id)
+        fact = self.database().get_fact(_fact_id, id_is_internal=True)
         card_type = self.card_type_by_id("4")           
         card_type = self.card_type_by_id("4::my_4")        
         assert fact.card_type.id == "4::my_4"
@@ -443,7 +443,7 @@ class TestDatabase(MnemosyneTest):
         assert card_1 == self.review_controller().card
         assert self.database().count_related_cards_with_next_rep(card_1, 0) == 0
         self.review_controller().grade_answer(2)
-        card_1 = self.database().get_card(card_1._id)
+        card_1 = self.database().get_card(card_1._id, id_is_internal=True)
         card_3.next_rep = card_1.next_rep
         card_3.grade = 2
         self.database().update_card(card_3)

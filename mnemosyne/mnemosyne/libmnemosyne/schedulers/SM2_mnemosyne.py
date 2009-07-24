@@ -317,7 +317,7 @@ class SM2Mnemosyne(Scheduler):
                       self.last_card == _card_id:
                 _card_id = self._card_ids_in_queue.pop(0)
         self.last_card = _card_id
-        return self.database().get_card(_card_id)
+        return self.database().get_card(_card_id, id_is_internal=True)
 
     def allow_prefetch(self):
 

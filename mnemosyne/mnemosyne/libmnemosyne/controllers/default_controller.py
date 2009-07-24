@@ -55,7 +55,8 @@ class DefaultController(Controller):
         self.component_manager.get_current("edit_fact_dialog")\
             (fact, self.component_manager).activate()
         review_controller.card = \
-            self.database().get_card(review_controller.card._id)
+            self.database().get_card(review_controller.card._id,
+                                     id_is_internal=True)
         review_controller.reload_counters()
         if review_controller.card is None:
             review_controller.update_status_bar()

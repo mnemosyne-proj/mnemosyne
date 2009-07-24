@@ -51,7 +51,7 @@ class Database(Component):
     def add_tag(self, tag):
         raise NotImplementedError
 
-    def get_tag(self, _id):
+    def get_tag(self, id, id_is_internal):
         raise NotImplementedError
     
     def update_tag(self, tag):
@@ -71,7 +71,7 @@ class Database(Component):
     def add_fact(self, fact):
         raise NotImplementedError
     
-    def get_fact(self, _id):
+    def get_fact(self, id, id_is_internal):
         raise NotImplementedError
     
     def update_fact(self, fact):
@@ -88,13 +88,10 @@ class Database(Component):
     def update_card(self, card, repetition_only=False):
         raise NotImplementedError
         
-    def get_card(self, _id):
+    def get_card(self, id, id_is_internal):
         raise NotImplementedError
 
     def delete_card(self, card):
-        raise NotImplementedError
-    
-    def has_card_with_external_id(self, id):
         raise NotImplementedError
 
     # Card types.
@@ -105,7 +102,7 @@ class Database(Component):
     def update_card_type(self, card_type):
         raise NotImplementedError
         
-    def get_card_type(self, id):
+    def get_card_type(self, id, id_is_internal):
         raise NotImplementedError
 
     def delete_card_type(self, card_type):

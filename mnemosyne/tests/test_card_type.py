@@ -21,7 +21,8 @@ class TestCardType(MnemosyneTest):
         self.database().update_card_type(card_type)
         self.database().save()
         self.mnemosyne.component_manager.unregister(card_type)
-        card_type_out = self.database().get_card_type(card_type.id)
+        card_type_out = self.database().get_card_type(card_type.id,
+                                                      id_is_internal=False)
         assert card_type_out.key_with_name("Question") == "q"
         assert card_type_out.required_fields == ["q"]
         assert card_type_out.is_data_valid({"q": "foo"}) == True
@@ -55,7 +56,8 @@ class TestCardType(MnemosyneTest):
 
         self.database().delete_card_type(card_type_1)
 
-        card_type_out = self.database().get_card_type(card_type_2.id)
+        card_type_out = self.database().get_card_type(card_type_2.id,
+                                                      id_is_internal=False)
 
         assert card_type_out.fact_views[0].id == \
                card_type.fact_views[0].id
@@ -80,7 +82,8 @@ class TestCardType(MnemosyneTest):
         self.database().update_card_type(card_type)
         self.database().save()
         self.mnemosyne.component_manager.unregister(card_type)
-        card_type_out = self.database().get_card_type(card_type.id)
+        card_type_out = self.database().get_card_type(card_type.id,
+                                                      id_is_internal=False)
         assert card_type_out.key_with_name("Question") == "q"
         assert card_type_out.required_fields == ["q"]
         assert card_type_out.is_data_valid({"q": "foo"}) == True

@@ -144,7 +144,11 @@ class Mnemosyne1Mem(FileFormat):
                         check_for_duplicates=False)[0]
                     self._set_card_attributes(card, item)
                 continue
-            if self.database().has_card_with_external_id(item.id):
+            try:
+                card = self.database().get_card(item.id, id_is_internal=False)
+            except:
+                card = None
+            if card:
                 progress.set_value(len(self.items))
                 self.main_widget().error_box(\
                _("This file seems to have been imported before. Aborting..."))
