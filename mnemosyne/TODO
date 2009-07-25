@@ -1,21 +1,33 @@
 -WM test and benchmark
 
 -import history
+-actual interval for initial rep
+-convert days to seconds
 -TODOs in file
--add noise to new interval
 -also update acq_reps in main sql database after import
--what if importing sencond mem file
--flush old text logs first
+-what if importing second mem file
+-parse creation date
+-flush old text logs first, both in 2.0 and 1.x
 -parse scheduler info, see if more info from 2.0 needs to be captured
 -remove initial creation and update when importing logs
 -don't recreate text logs upon import
--peak at multiuser stats
+-import event type codes
 -catch exceptions on parser __init__ and parse
--get__card in multiuser should also check user_id
+
 -time WM: history in same DB?
+
+
+Multiuser statistics analysis:
+
+-break out card ids to a different table and use _id as well
+-move times from a later start date to save space?
+-sql: insert or ignore statement, faster if adding same data twice is no problem
+-check if log was imported earlier
+-delayed index creation
 
 -more tests
 -docstring formatting: """ everywhere
+-update_cards --> modify cards?
 
 -hook up config screen
 -move option to always randomise queue to config screen
@@ -195,16 +207,6 @@ http://pythoscope.org/
 
 -more fine grained resource_limited?
 
-
-Multiuser statistics analysis:
-
--card: 'old_log_format', Boolean) : only needed during upgrade in memory, 
-or persistent for the full server
--break out card ids to a different table and use _id as well
--move times from a later start date to save space?
--sql: insert or ignore statement, faster if adding same data twice is no problem
--check if log was imported earlier
--delayed index creation
 
 Windows Mobile client:
 

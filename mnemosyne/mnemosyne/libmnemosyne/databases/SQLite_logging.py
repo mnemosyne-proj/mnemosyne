@@ -227,13 +227,11 @@ class SQLiteLogging(object):
         pass
 
     def set_offset_last_rep_time(self, card_id, offset, last_rep_time):
-        # generate true add card event in database
-
-        # add data to tmp table
-        # TODO: insert or ignore
-        pass
+        self.con.execute(\
+            """insert or replace into _cards(id, offset, last_rep_time)
+            values(?,?,?)""", (card_id, offset, int(last_rep_time)))
 
     def get_offset_last_rep_time(self, card_id):
-        sql_result = self.con.execute("""select offset, last_rep_time,
-           from _cards where _card.id=?""", (card_id, )).fetchone()
+        sql_result = self.con.execute("""select offset, last_rep_time
+           from _cards where _cards.id=?""", (card_id, )).fetchone()
         return sql_result["offset"], sql_result["last_rep_time"]

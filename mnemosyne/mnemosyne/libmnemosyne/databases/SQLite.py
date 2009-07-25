@@ -188,7 +188,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
     @property
     def con(self):
         
-        "Connection to the database, lazily created."
+        """Connection to the database, lazily created."""
 
         if not self._connection:
             self._connection = sqlite3.connect(self._path, timeout=0.1,

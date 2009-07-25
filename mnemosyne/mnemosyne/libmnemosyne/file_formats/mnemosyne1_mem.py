@@ -214,7 +214,7 @@ class Mnemosyne1Mem(FileFormat):
         # Now import the history.
 
         #history_dir = os.path.join(self.config().basedir, "history")
-        #for filename in os.listdir(history_dir).sort():
+        #for filename in sorted(os.listdir(history_dir)):
         #    if filename.endswith(".bz2"):
         #        parser = TxtLogParser(filename, self.database())
         #        parser.parse()
