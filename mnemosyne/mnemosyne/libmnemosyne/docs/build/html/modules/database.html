@@ -114,7 +114,7 @@ a database can also implement functions for logging and statistics
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_from_fact">
 <!--[mnemosyne.libmnemosyne.database.Database.cards_from_fact]--><tt class="descname">cards_from_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_from_fact" title="Permalink to this definition">¶</a></dt>
-<dd>Returns a list of the cards deriving from a fact.</dd></dl>
+<dd>Return a list of the cards deriving from a fact.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_learn_ahead">
@@ -139,7 +139,7 @@ a database can also implement functions for logging and statistics
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.count_related_cards_with_next_rep">
 <!--[mnemosyne.libmnemosyne.database.Database.count_related_cards_with_next_rep]--><tt class="descname">count_related_cards_with_next_rep</tt><big>(</big><em>card</em>, <em>next_rep</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.count_related_cards_with_next_rep" title="Permalink to this definition">¶</a></dt>
-<dd>Returns how many related cards with grade &gt;= 2 are scheduled at
+<dd>Return how many related cards with grade &gt;= 2 are scheduled at
 &#8216;next_rep&#8217;. Note that there is no need that next_rep == card.next_rep.</dd></dl>
 
 <dl class="method">
@@ -170,7 +170,7 @@ a database can also implement functions for logging and statistics
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.duplicates_for_fact">
 <!--[mnemosyne.libmnemosyne.database.Database.duplicates_for_fact]--><tt class="descname">duplicates_for_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.duplicates_for_fact" title="Permalink to this definition">¶</a></dt>
-<dd>Returns list of facts which have the same unique key.</dd></dl>
+<dd>Return facts with the same &#8216;unique_fields&#8217; data as &#8216;fact&#8217;.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.fact_count">
@@ -179,17 +179,17 @@ a database can also implement functions for logging and statistics
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.get_card">
-<!--[mnemosyne.libmnemosyne.database.Database.get_card]--><tt class="descname">get_card</tt><big>(</big><em>_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_card" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.database.Database.get_card]--><tt class="descname">get_card</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.get_card_type">
-<!--[mnemosyne.libmnemosyne.database.Database.get_card_type]--><tt class="descname">get_card_type</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_card_type" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.database.Database.get_card_type]--><tt class="descname">get_card_type</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.get_fact">
-<!--[mnemosyne.libmnemosyne.database.Database.get_fact]--><tt class="descname">get_fact</tt><big>(</big><em>_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_fact" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.database.Database.get_fact]--><tt class="descname">get_fact</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -199,12 +199,7 @@ a database can also implement functions for logging and statistics
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.get_tag">
-<!--[mnemosyne.libmnemosyne.database.Database.get_tag]--><tt class="descname">get_tag</tt><big>(</big><em>_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_tag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.has_card_with_external_id">
-<!--[mnemosyne.libmnemosyne.database.Database.has_card_with_external_id]--><tt class="descname">has_card_with_external_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.has_card_with_external_id" title="Permalink to this definition">¶</a></dt>
+<!--[mnemosyne.libmnemosyne.database.Database.get_tag]--><tt class="descname">get_tag</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -305,7 +300,7 @@ fact_view).</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="configuration.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+            <p class="topless"><a href="configuration.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Configuration</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="file_format.html" title="next chapter"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></p>
             <h3>This Page</h3>
@@ -342,7 +337,7 @@ fact_view).</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 23, 2009.
+      Last updated on Jul 26, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -1,29 +1,26 @@
 -WM test and benchmark
 
 -import history
--actual interval for initial rep
--convert days to seconds
--TODOs in file
+-combine user id and card id in _cards table (only pre 2.0?)
+-review all files
+-parse scheduler info, see if more info from 2.0 needs to be captured
+-index on card id? in libmnemosyne as well?
 -also update acq_reps in main sql database after import
 -what if importing second mem file
 -parse creation date
 -flush old text logs first, both in 2.0 and 1.x
--parse scheduler info, see if more info from 2.0 needs to be captured
 -remove initial creation and update when importing logs
 -don't recreate text logs upon import
--import event type codes
--catch exceptions on parser __init__ and parse
 
 -time WM: history in same DB?
 
 
 Multiuser statistics analysis:
 
--break out card ids to a different table and use _id as well
+-break out card id stringss to a different table and use interger _id in the rest of
+ the database to save space
 -move times from a later start date to save space?
--sql: insert or ignore statement, faster if adding same data twice is no problem
 -check if log was imported earlier
--delayed index creation
 
 -more tests
 -docstring formatting: """ everywhere
@@ -146,6 +143,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -make file handling more robust, detect all errors (see mail by
  OldGrantonian)
+
+-centralise event type codes
 
 -reenable datadir in setup.py
 

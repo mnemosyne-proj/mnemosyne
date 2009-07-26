@@ -216,15 +216,12 @@ class SQLiteLogging(object):
     # They are needed to store temporary data about cards whis is used during
     # the parsing process.
 
-    def parsing_started(self, user_id, log_number):
+    def create_temp_import_tables(self):
         if not self.con.execute("pragma table_info(cards_data)").fetchall():
             self.con.execute("""create temp table _cards(
                 id text primary key,
                 last_rep_time int,
                 offset int);""")
-            
-    def parsing_stopped(self, user_id, log_number):
-        pass
 
     def set_offset_last_rep_time(self, card_id, offset, last_rep_time):
         self.con.execute(\

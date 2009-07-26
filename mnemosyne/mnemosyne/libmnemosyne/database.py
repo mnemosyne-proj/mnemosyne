@@ -112,7 +112,7 @@ class Database(Component):
 
     def set_cards_active(self, card_types_fact_views, categories):
 
-        """ card_types_fact_views is a list of tuples containing (card_type,
+        """card_types_fact_views is a list of tuples containing (card_type,
         fact_view).
 
         """
@@ -121,7 +121,7 @@ class Database(Component):
 
     def set_cards_in_view(self, card_types_fact_views, categories):
 
-        """ card_types_fact_views is a list of tuples containing (card_type,
+        """card_types_fact_views is a list of tuples containing (card_type,
         fact_view).
 
         """
@@ -135,13 +135,13 @@ class Database(Component):
 
     def cards_from_fact(self, fact):
         
-        """ Returns a list of the cards deriving from a fact. """
+        """Return a list of the cards deriving from a fact. """
         
         raise NotImplementedError
     
     def count_related_cards_with_next_rep(self, card, next_rep):
 
-        """Returns how many related cards with grade >= 2 are scheduled at
+        """Return how many related cards with grade >= 2 are scheduled at
         'next_rep'. Note that there is no need that next_rep == card.next_rep.
 
         """
@@ -150,7 +150,7 @@ class Database(Component):
 
     def duplicates_for_fact(self, fact):
 
-        """Returns list of facts which have the same unique key."""
+        """Return facts with the same 'unique_fields' data as 'fact'."""
 
         raise NotImplementedError
 

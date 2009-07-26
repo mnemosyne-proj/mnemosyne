@@ -84,9 +84,11 @@ class DefaultController(Controller):
         if check_for_duplicates:
             duplicates = db.duplicates_for_fact(fact)
             if len(duplicates) != 0:
-                if len(duplicates) == 1 and duplicates[0].data == fact_data:
-                    self.main_widget().information_box(\
-                      _("Card is already in database.\nDuplicate not added."))
+                for duplicate in duplicates:
+                    # Duplicates only checks equality of unique keys.
+                    if duplicate.data == fact_data:
+                        self.main_widget().information_box(\
+                    _("Card is already in database.\nDuplicate not added."))
                     return                
                 answer = self.main_widget().question_box(\
                   _("There is already data present for:\n\N") +

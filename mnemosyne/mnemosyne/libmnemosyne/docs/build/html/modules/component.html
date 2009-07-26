@@ -63,6 +63,9 @@ a card type widget is used for a certain card type.</p>
 classes are stored. (Instantiating a complex widget can take a lot of
 time on a mobile device, and should be done lazily.) Only the main
 widget is stored as an instance here.</p>
+<p>When &#8216;instantiate == LATER&#8217;, the component is lazily created when needed.
+The instance is not cached for subsequent reuse, as these widgets
+typically can become obsolete/overwritten by plugins.</p>
 <p>Each component has access to all of the context of the other components
 because it hold a reference to the user&#8217;s component manager.</p>
 <p>We need to pass the context of the component manager already in the
@@ -194,7 +197,7 @@ components on which it relies have not yet been registered.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 23, 2009.
+      Last updated on Jul 26, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

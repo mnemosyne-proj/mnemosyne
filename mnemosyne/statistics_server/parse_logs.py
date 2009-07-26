@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import sqlite3
 
 from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
@@ -29,13 +30,15 @@ SCHEMA = """
         new_interval integer,
         thinking_time integer
     );
-    create index i_log on log (timestamp);
-    
+                
     create table _cards(
         id text primary key,
-        user_id text,
         last_rep_time int,
         offset int
+    );
+
+    create table parsed_logs(
+        log_name text
     );
     
     commit;
@@ -43,71 +46,89 @@ SCHEMA = """
 
 
 class LogDatabase(object):
-    
-    log_dir = "/home/pbienst/mnemosyne_logs"
-    
-    def __init__(self):
-        self._connection = None
 
-    @property
-    def con(self):
-        
-        """Connection to the database, lazily created."""
+    # A subset of the codes from
+    # mnemosyne.libmnemosyne.databases.SQLite_logging.py
 
-        if not self._connection:
-            db_name = os.path.join(self.log_dir, "logs.db")
-            self._connection = sqlite3.connect(db_name, timeout=0.1,
-                               isolation_level="EXCLUSIVE")
-            self._connection.row_factory = sqlite3.Row
-        return self._connection
-
-    def new(self):
-        self.con.executescript(SCHEMA)
-
-    # TODO: import this from somewhere?
-    
     STARTED_PROGRAM = 1
     STOPPED_PROGRAM = 2
     STARTED_SCHEDULER = 3
     LOADED_DATABASE = 4
     SAVED_DATABASE = 5
-    ADDED_TAG = 6
-    UPDATED_TAG = 7
-    DELETED_TAG = 8
-    ADDED_FACT = 9
-    UPDATED_FACT = 10
-    DELETED_FACT = 11
     ADDED_CARD = 12
     UPDATED_CARD = 13
     DELETED_CARD = 14
-    ADDED_CARD_TYPE = 15
-    UPDATED_CARD_TYPE = 16
-    DELETED_CARD_TYPE = 17
     REPETITION = 18
-    ADDED_MEDIA = 19
-    DELETED_MEDIA = 20
-    
-    def parsing_started(self, user_id, log_number):
-        self.user_id = user_id
-        # TODO: save log number
+   
+    def __init__(self, log_dir):
+        self.log_dir = log_dir
+        self._connection = None
+        db_name = os.path.join(self.log_dir, "logs.db")
+        initialisation_needed = not os.path.exists(db_name)
+        self.con = sqlite3.connect(db_name, timeout=0.1,
+                                   isolation_level="EXCLUSIVE")
+        self.con.row_factory = sqlite3.Row
+        if initialisation_needed:
+            self.con.executescript(SCHEMA)
+
+    def parse_directory(self):       
+        self.parser = TxtLogParser(database=self)
+        self._delete_indices()  # Takes too long while parsing.
+        filenames = [os.path.join(self.log_dir, filename) for filename in \
+            sorted(os.listdir(self.log_dir)) if filename.endswith(".bz2")]
+        filenames_count = len(filenames)
+        for counter, filename in enumerate(filenames):
+            sys.stdout.flush()
+            if self.con.execute(\
+                "select log_name from parsed_logs where parsed_logs.log_name=?",
+                (os.path.basename(filename), )).fetchone() is not None:
+                print "(%d/%d) %1.1f%% %s already parsed" % \
+                      (counter + 1, filenames_count,
+                      (counter + 1.) / filenames_count * 100, \
+                      os.path.basename(filename))
+                continue
+            print "(%d/%d) %1.1f%% %s" % (counter + 1, filenames_count,
+                (counter + 1.) / filenames_count * 100, \
+                os.path.basename(filename))
+            try:
+                self.parser.parse(filename)
+            except KeyboardInterrupt:                                              
+                print "Interrupted!"
+                exit()
+            except:
+                print "Can't open file, ignoring."
+            self.con.execute("insert into parsed_logs(log_name) values(?)",
+                (os.path.basename(filename), ))
+            self.con.commit()
+        self._create_indices()
+
+    def _delete_indices(self):
+        self.con.execute("drop index if exists i_log_timestamp;")
+        self.con.execute("drop index if exists i_log_user_id;")
+        self.con.execute("drop index if exists i_log_object_id;")
+        
+    def _create_indices(self):
+        self.con.execute("create index i_log_timestamp on log (timestamp);")
+        self.con.execute("create index i_log_user_id on log (user_id);")
+        self.con.execute("create index i_log_object_id on log (object_id);")
                                          
     def log_started_program(self, timestamp, program_name_version):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, object_id)
             values(?,?,?,?)""",
-            (self.user_id, self.STARTED_PROGRAM, int(timestamp),
+            (self.parser.user_id, self.STARTED_PROGRAM, int(timestamp),
              program_name_version)) 
 
     def log_stopped_program(self, timestamp):
         self.con.execute(\
             "insert into log(user_id, event, timestamp) values(?,?,?)",
-            (self.user_id, self.STOPPED_PROGRAM, int(timestamp)))
+            (self.parser.user_id, self.STOPPED_PROGRAM, int(timestamp)))
 
     def log_started_scheduler(self, timestamp, scheduler_name):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, object_id)
             values(?,?,?,?)""",
-            (self.user_id, self.STARTED_SCHEDULER, int(timestamp),
+            (self.parser.user_id, self.STARTED_SCHEDULER, int(timestamp),
             scheduler_name))
     
     def log_loaded_database(self, timestamp, scheduled_count,
@@ -115,7 +136,7 @@ class LogDatabase(object):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, acq_reps, ret_reps,
             lapses) values(?,?,?,?,?,?)""",
-            (self.user_id, self.LOADED_DATABASE, int(timestamp),
+            (self.parser.user_id, self.LOADED_DATABASE, int(timestamp),
             scheduled_count, non_memorised_count, active_count))
         
     def log_saved_database(self, timestamp, scheduled_count,
@@ -123,20 +144,20 @@ class LogDatabase(object):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, acq_reps, ret_reps,
             lapses) values(?,?,?,?,?,?)""",
-            (self.user_id, self.SAVED_DATABASE, int(timestamp),
+            (self.parser.user_id, self.SAVED_DATABASE, int(timestamp),
             scheduled_count, non_memorised_count, active_count))
         
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, object_id)
             values(?,?,?,?)""",
-            (self.user_id, self.ADDED_CARD, int(timestamp), card_id))
+            (self.parser.user_id, self.ADDED_CARD, int(timestamp), card_id))
         
     def log_deleted_card(self, timestamp, card_id):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, object_id)
             values(?,?,?,?)""",
-            (self.user_id, self.DELETED_CARD, int(timestamp), card_id))        
+            (self.parser.user_id, self.DELETED_CARD, int(timestamp), card_id))
      
     def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
         ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
@@ -147,37 +168,27 @@ class LogDatabase(object):
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, thinking_time)
             values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            (self.user_id, self.REPETITION, int(timestamp), card_id, grade,
-            easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
+            (self.parser.user_id, self.REPETITION, int(timestamp), card_id,
+            grade, easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, int(thinking_time)))
 
-    def parsing_stopped(self, user_id, log_number):
-        pass
-
     def set_offset_last_rep_time(self, card_id, offset, last_rep_time):
         self.con.execute(\
-            """insert or replace into _cards(id, user_id, offset,
-            last_rep_time) values(?,?,?,?)""",
-            (card_id, self.user_id, offset, int(last_rep_time)))
+            """insert or replace into _cards(id, offset, last_rep_time)
+            values(?,?,?)""",
+            (card_id + self.parser.user_id, offset, int(last_rep_time)))
 
     def get_offset_last_rep_time(self, card_id):
         sql_result = self.con.execute("""select offset, last_rep_time
-           from _cards where _cards.id=? and _cards.user_id=?""",
-           (card_id, self.user_id)).fetchone()
+           from _cards where _cards.id=?""",
+           (card_id + self.parser.user_id, )).fetchone()
         return sql_result["offset"], sql_result["last_rep_time"]
 
-    def parse(self):
-        for filename in sorted(os.listdir(self.log_dir)):
-            filename = os.path.join(self.log_dir, filename)
-            print filename
-            if filename.endswith(".bz2"):
-                parser = TxtLogParser(filename, self)
-                parser.parse()
-                self.con.commit()
 
+if __name__=="__main__":
+    if len(sys.argv) != 2:
+        print "Usage: %s <log_directory>" % sys.argv[0]
+    else:
+        LogDatabase(log_dir=sys.argv[1]).parse_directory()
 
-
-log_database = LogDatabase()
-log_database.new()
-log_database.parse()                        

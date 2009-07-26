@@ -20,6 +20,10 @@ class Component(object):
     time on a mobile device, and should be done lazily.) Only the main
     widget is stored as an instance here.
 
+    When 'instantiate == LATER', the component is lazily created when needed.
+    The instance is not cached for subsequent reuse, as these widgets
+    typically can become obsolete/overwritten by plugins.
+
     Each component has access to all of the context of the other components
     because it hold a reference to the user's component manager.
 

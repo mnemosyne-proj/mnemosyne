@@ -777,6 +777,9 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             (next_rep, card._id, card.fact._id)).fetchone()[0]
 
     def duplicates_for_fact(self, fact):
+
+        """Return fact with the same 'unique_fields' data as 'fact'."""
+        
         query = "select _id from facts where card_type_id=?"
         args = (fact.card_type.id,)
         if fact._id:
