@@ -13,7 +13,6 @@ SCHEMA = """
     begin;
           
     create table log(
-        _id integer primary key,
         user_id text,
         event integer,
         timestamp integer,

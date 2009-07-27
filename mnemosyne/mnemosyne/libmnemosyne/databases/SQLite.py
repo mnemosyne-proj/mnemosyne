@@ -108,8 +108,9 @@ SCHEMA = """
         new_interval integer,
         thinking_time integer
     );
-    create index i_log on log (timestamp);
-
+    create index i_log_timestamp on log (timestamp);
+    create index i_log_object_id on log (object_id);
+    
     /* We track the last _id as opposed to the last timestamp, as importing
        another database could add log events with earlier dates, but
        which still need to be synced. */

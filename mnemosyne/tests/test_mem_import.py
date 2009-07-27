@@ -21,6 +21,8 @@ class Widget(MainWidget):
     def information_box(self, message):
         if message.startswith("Missing media file"):
             return 0
+        if message.startswith("No history found to import."):
+            return 0
         raise NotImplementedError
 
     def error_box(self, message):
@@ -28,7 +30,7 @@ class Widget(MainWidget):
             raise SeenBeforeError
         if message.startswith("Unable to open"):
             raise FileNotFoundError
-        raise NotImplementedError        
+        raise NotImplementedError
 
 
 class TestMemImport(MnemosyneTest):

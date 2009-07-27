@@ -1,26 +1,16 @@
 -WM test and benchmark
 
 -import history
--combine user id and card id in _cards table (only pre 2.0?)
 -review all files
--parse scheduler info, see if more info from 2.0 needs to be captured
--index on card id? in libmnemosyne as well?
+-only capture events from certain cards
 -also update acq_reps in main sql database after import
--what if importing second mem file
+-parse scheduler info, see if more info from 2.0 needs to be captured
 -parse creation date
 -flush old text logs first, both in 2.0 and 1.x
--remove initial creation and update when importing logs
+-remove initial creation and update when importing logs needed?
 -don't recreate text logs upon import
 
 -time WM: history in same DB?
-
-
-Multiuser statistics analysis:
-
--break out card id stringss to a different table and use interger _id in the rest of
- the database to save space
--move times from a later start date to save space?
--check if log was imported earlier
 
 -more tests
 -docstring formatting: """ everywhere
@@ -82,6 +72,7 @@ Multiuser statistics analysis:
 -when resetting learning data on export, can we export facts only? Tags are on
  a per card basis.
 
+-delete 1.99 logs
 
 -tips (both on startup and on use): right click to add cards or sound, comma to 
  separate tag names, :: to separate hierarchies
@@ -224,6 +215,13 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -play around with MW5torage for easier sync and document this if it works.
 -button color
 
+Multiuser statistics analysis:
+
+-break out card id stringss to a different table and use interger _id in the rest of
+ the database to save space
+-move times from a later start date to save space?
+-investigate origin of ._ logs
+-don't do card checks for post 2.0
 
 -download media files when giving URL
 
@@ -242,6 +240,9 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -animated strokes: http://lost-theory.org/ocrat/
 
 -congratulations screen
+
+-language text based card types, with 'graduating' from word cards once they are learned enough,
+ and only keeping sentence cards (mail by querido, scheduler feedback needed)
 
 
 * Miscellaneous:

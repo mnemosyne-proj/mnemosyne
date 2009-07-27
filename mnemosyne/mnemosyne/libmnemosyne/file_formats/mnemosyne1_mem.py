@@ -90,6 +90,11 @@ class Mnemosyne1Mem(FileFormat):
                 plugin.activate()
     
     def do_import(self, filename, tag_name=None, reset_learning_data=False):
+        self._import_mem_file(filename, tag_name, reset_learning_data)
+        self._import_history(filename)
+
+    def _import_mem_file(self, filename, tag_name=None,
+                         reset_learning_data=False):        
         self.importdir = os.path.dirname(os.path.abspath(filename))
         
         # Mimick 1.x module structure.
@@ -210,12 +215,38 @@ class Mnemosyne1Mem(FileFormat):
                 self._set_card_attributes(card_2,
                                           items_by_id[item.id + ".tr.1"])  
         progress.set_value(len(self.items))
-
-        # Now import the history.
-
-        #history_dir = os.path.join(self.config().basedir, "history")
-        #for filename in sorted(os.listdir(history_dir)):
-        #    if filename.endswith(".bz2"):
-        #        parser = TxtLogParser(filename, self.database())
-        #        parser.parse()
                         
+    def _import_history(self, filename):
+        db = self.database()
+        db.before_log_import()
+        parser = TxtLogParser(db)
+        log_dir = os.path.join(os.path.dirname(filename), "history")
+        if not os.path.exists(log_dir):
+            self.main_widget().information_box(\
+                _("No history found to import."))
+            return
+        # Having the indices in place while importing takes too long.
+        db.con.execute("drop index if exists i_log_timestamp;")
+        db.con.execute("drop index if exists i_log_object_id;")
+        
+        filenames = [os.path.join(log_dir, filename) for filename in \
+            sorted(os.listdir(log_dir)) if filename.endswith(".bz2")]
+        filenames_count = len(filenames)
+        progress = self.component_manager.get_current("progress_dialog")\
+                   (self.component_manager)
+        progress.set_text(_("Importing history..."))
+        progress.set_range(0, filenames_count)
+        update_interval = int(filenames_count/50)
+        if update_interval == 0:
+            update_interval = 1
+        for count, filename in enumerate(filenames):
+            if count % update_interval == 0:
+                progress.set_value(count) 
+            try:
+                parser.parse(filename)
+            except:
+                self.main_widget().information_box(\
+                    _("Can't open file, ignoring."))
+            db.save()
+        db.after_log_import()
+        progress.set_value(filenames_count)

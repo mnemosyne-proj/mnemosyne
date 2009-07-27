@@ -216,12 +216,15 @@ class SQLiteLogging(object):
     # They are needed to store temporary data about cards whis is used during
     # the parsing process.
 
-    def create_temp_import_tables(self):
+    def before_log_import(self):
         if not self.con.execute("pragma table_info(cards_data)").fetchall():
             self.con.execute("""create temp table _cards(
                 id text primary key,
                 last_rep_time int,
                 offset int);""")
+        # Having the indices in place while importing takes too long.
+        self.con.execute("drop index if exists i_log_timestamp;")
+        self.con.execute("drop index if exists i_log_object_id;")
 
     def set_offset_last_rep_time(self, card_id, offset, last_rep_time):
         self.con.execute(\
@@ -232,3 +235,8 @@ class SQLiteLogging(object):
         sql_result = self.con.execute("""select offset, last_rep_time
            from _cards where _cards.id=?""", (card_id, )).fetchone()
         return sql_result["offset"], sql_result["last_rep_time"]
+
+    def after_log_import(self):
+        # Recreate indices.
+        self.con.execute("create index i_log_timestamp on log (timestamp);")
+        self.con.execute("create index i_log_object_id on log (object_id);")

@@ -4,6 +4,7 @@
 #
 
 import os
+import sys
 import bz2
 import time
 import traceback
@@ -128,6 +129,7 @@ class TxtLogParser(object):
             except:
                 print "Ignoring error while parsing line:\n%s" % line
                 traceback.print_exc()
+                sys.stdout.flush()                
         
     def _parse_line(self, line):      
         parts = line.rstrip().rsplit(" : ")           
@@ -197,7 +199,6 @@ class TxtLogParser(object):
         R, id, grade, easiness = blocks[0].split(" ")
         grade = int(grade)
         easiness = float(easiness)
-        # TODO: apply int
         acq_reps, ret_reps, lapses, acq_reps_since_lapse, \
             ret_reps_since_lapse = blocks[1].split(" ")
         acq_reps, ret_reps = int(acq_reps), int(acq_reps)
