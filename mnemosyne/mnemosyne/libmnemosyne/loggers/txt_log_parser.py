@@ -96,6 +96,7 @@ class TxtLogParser(object):
             scheduled_interval, actual_interval, new_interval, thinking_time)
         def set_offset_last_rep_time(self, card_id, offset, last_rep_time)
         def get_offset_last_rep_time(self, card_id)
+        def update_card_after_log_import(id, creation_time, offset)
                                                                  
     """
 
@@ -105,8 +106,15 @@ class TxtLogParser(object):
     versions_phase_2 = ["0.9.8", "0.9.8.1", "0.9.9", "0.9.10", "1.0", "1.0.1",
                         "1.0.1.1", "1.0.2", "1.1", "1.1.1", "1.2", "1.2.1"]
 
-    def __init__(self, database):
+    def __init__(self, database, ids_to_parse):
+
+        """Only convertings ids in ids_to_parse makes it possible to reliably
+        import different mem files (which all share the same log files).
+
+        """
+        
         self.database = database
+        self.ids_to_parse = ids_to_parse
         
     def parse(self, filename):
         # Open file.
@@ -172,6 +180,8 @@ class TxtLogParser(object):
 
     def _parse_new_item(self, new_item_chunck):
         New, item, id, grade, new_interval = new_item_chunck.split(" ")
+        if id not in self.ids_to_parse:
+            return
         offset = 0
         if grade >= 2 and self.version_number in self.versions_phase_1:
             offset = 1
@@ -179,6 +189,7 @@ class TxtLogParser(object):
             offset = -1
         self.database.log_added_card(self.timestamp, id)
         self.database.set_offset_last_rep_time(id, offset, last_rep_time=0)
+        self.database.update_card_after_log_import(id, self.timestamp, offset)
         if grade >= 2 and self.version_number in \
            self.versions_phase_1 + self.versions_phase_2:
             self.database.log_repetition(self.timestamp, id, int(grade),
@@ -190,13 +201,20 @@ class TxtLogParser(object):
     def _parse_imported_item(self, imported_item_chunck):
         Imported, item, id, grade, ret_reps, last_rep, next_rep, interval \
             = imported_item_chunck.split(" ")
+        if id not in self.ids_to_parse:
+            return
+        offset = 0
+        last_rep_time = 0
         self.database.log_added_card(self.timestamp, id)
-        self.database.set_offset_last_rep_time(id, offset=0, last_rep_time=0)
+        self.database.set_offset_last_rep_time(id, offset, last_rep_time)
+        self.database.update_card_after_log_import(id, self.timestamp, offset)
 
     def _parse_repetition(self, repetition_chunck):
         # Parse chunck.
         blocks = repetition_chunck.split(" | ")
         R, id, grade, easiness = blocks[0].split(" ")
+        if id not in self.ids_to_parse:
+            return
         grade = int(grade)
         easiness = float(easiness)
         acq_reps, ret_reps, lapses, acq_reps_since_lapse, \

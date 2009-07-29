@@ -183,7 +183,9 @@ class LogDatabase(object):
            from _cards where _cards.id=?""",
            (card_id + self.parser.user_id, )).fetchone()
         return sql_result["offset"], sql_result["last_rep_time"]
-
+    
+    def update_card_after_log_import(self, id, creation_time, offset):
+        pass
 
 if __name__=="__main__":
     if len(sys.argv) != 2:

@@ -2,13 +2,12 @@
 
 -import history
 -review all files
--only capture events from certain cards
--also update acq_reps in main sql database after import
+-benchmark indices etc
 -parse scheduler info, see if more info from 2.0 needs to be captured
--parse creation date
--flush old text logs first, both in 2.0 and 1.x
+-add logs.txt to list of files which need to be parsed
+-flush 2.o history to text logs before import
+-make sure imported history does not get reexported to txt logs
 -remove initial creation and update when importing logs needed?
--don't recreate text logs upon import
 
 -time WM: history in same DB?
 

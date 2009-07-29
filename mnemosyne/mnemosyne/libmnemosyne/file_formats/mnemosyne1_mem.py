@@ -90,8 +90,9 @@ class Mnemosyne1Mem(FileFormat):
                 plugin.activate()
     
     def do_import(self, filename, tag_name=None, reset_learning_data=False):
-        self._import_mem_file(filename, tag_name, reset_learning_data)
-        self._import_history(filename)
+        result = self._import_mem_file(filename, tag_name, reset_learning_data)
+        if result != -1:
+            self._import_history(filename)
 
     def _import_mem_file(self, filename, tag_name=None,
                          reset_learning_data=False):        
@@ -129,17 +130,17 @@ class Mnemosyne1Mem(FileFormat):
         count = 0
         progress.set_value(0)
         map_plugin_activated = False
-        items_by_id = {}
+        self.items_by_id = {}
         for item in self.items:
-            if item.id in items_by_id:
+            if item.id in self.items_by_id:
                item.id = "dup" + item.id 
-            items_by_id[item.id] = item
+            self.items_by_id[item.id] = item
         for item in self.items:
             count += 1
             if count % update_interval == 0:
                 progress.set_value(count)  
             if item.id.endswith(".inv") or item.id.endswith(".tr.1"):
-                if not item.id.split(".", 1)[0] in items_by_id:
+                if not item.id.split(".", 1)[0] in self.items_by_id:
                     # Orphaned 2 or 3 sided card.
                     card_type = self.card_type_by_id("1")
                     fact_data = {"q": item.q, "a": item.a}
@@ -157,11 +158,11 @@ class Mnemosyne1Mem(FileFormat):
                 progress.set_value(len(self.items))
                 self.main_widget().error_box(\
                _("This file seems to have been imported before. Aborting..."))
-                return
+                return -1
             # Map.
-            if item.id + ".inv" in items_by_id and \
+            if item.id + ".inv" in self.items_by_id and \
                 "answerbox: overlay" in item.q:
-                item_2 = items_by_id[item.id + ".inv"]
+                item_2 = self.items_by_id[item.id + ".inv"]
                 loc = item_2.a
                 marked = item_2.q
                 blank = ""
@@ -179,8 +180,8 @@ class Mnemosyne1Mem(FileFormat):
                 self._set_card_attributes(card_2, item)
                 self._set_card_attributes(card_1, item_2)
             # Front-to-back.
-            elif item.id + ".inv" not in items_by_id and \
-               item.id + ".tr.1" not in items_by_id:
+            elif item.id + ".inv" not in self.items_by_id and \
+               item.id + ".tr.1" not in self.items_by_id:
                 card_type = self.card_type_by_id("1")
                 fact_data = {"q": item.q, "a": item.a}
                 self._preprocess_media(fact_data) 
@@ -189,7 +190,7 @@ class Mnemosyne1Mem(FileFormat):
                     check_for_duplicates=False)[0]
                 self._set_card_attributes(card, item)
             # Front-to-back and back-to-front.         
-            elif item.id + ".inv" in items_by_id:
+            elif item.id + ".inv" in self.items_by_id:
                 card_type = self.card_type_by_id("2")
                 fact_data = {"q": item.q, "a": item.a}
                 self._preprocess_media(fact_data) 
@@ -198,9 +199,9 @@ class Mnemosyne1Mem(FileFormat):
                     check_for_duplicates=False)
                 self._set_card_attributes(card_1, item)
                 self._set_card_attributes(card_2,
-                                          items_by_id[item.id + ".inv"])               
+                                          self.items_by_id[item.id + ".inv"])               
             # Three-sided.
-            elif item.id + ".tr.1" in items_by_id:
+            elif item.id + ".tr.1" in self.items_by_id:
                 card_type = self.card_type_by_id("3")
                 try:
                     p, t = item.a.split("\n", 1)
@@ -213,13 +214,13 @@ class Mnemosyne1Mem(FileFormat):
                     check_for_duplicates=False)            
                 self._set_card_attributes(card_1, item)
                 self._set_card_attributes(card_2,
-                                          items_by_id[item.id + ".tr.1"])  
+                                          self.items_by_id[item.id + ".tr.1"])  
         progress.set_value(len(self.items))
                         
     def _import_history(self, filename):
         db = self.database()
         db.before_log_import()
-        parser = TxtLogParser(db)
+        parser = TxtLogParser(db, ids_to_parse=self.items_by_id.keys())
         log_dir = os.path.join(os.path.dirname(filename), "history")
         if not os.path.exists(log_dir):
             self.main_widget().information_box(\

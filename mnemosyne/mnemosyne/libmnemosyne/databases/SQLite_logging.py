@@ -222,7 +222,9 @@ class SQLiteLogging(object):
                 id text primary key,
                 last_rep_time int,
                 offset int);""")
-        # Having the indices in place while importing takes too long.
+        # This is a useful index to have when importing.
+        self.con.execute("create index i_cards_id on cards (id);")
+        # Having these indices in place while importing takes too long.
         self.con.execute("drop index if exists i_log_timestamp;")
         self.con.execute("drop index if exists i_log_object_id;")
 
@@ -232,11 +234,27 @@ class SQLiteLogging(object):
             values(?,?,?)""", (card_id, offset, int(last_rep_time)))
 
     def get_offset_last_rep_time(self, card_id):
-        sql_result = self.con.execute("""select offset, last_rep_time
+        sql_res = self.con.execute("""select offset, last_rep_time
            from _cards where _cards.id=?""", (card_id, )).fetchone()
-        return sql_result["offset"], sql_result["last_rep_time"]
+        return sql_res["offset"], sql_res["last_rep_time"]
+
+    def update_card_after_log_import(self, id, creation_time, offset):
+        sql_res = self.con.execute("""select _id, _fact_id, acq_reps,
+            lapses, acq_reps_since_lapse from cards where id=?""",
+            (id, )).fetchone()
+        acq_reps = sql_res["acq_reps"] + offset
+        acq_reps_since_lapse = sql_res["acq_reps_since_lapse"]
+        if sql_res["lapses"] == 0:
+            acq_reps_since_lapse += + offset
+        self.con.execute("""update cards set acq_reps=?,
+            acq_reps_since_lapse=? where _id=?""",
+            (acq_reps, acq_reps_since_lapse, sql_res["_id"]))
+        self.con.execute("""update facts set creation_time=?,
+            modification_time=? where _id=?""",
+            (creation_time, creation_time, sql_res["_fact_id"]))
 
     def after_log_import(self):
-        # Recreate indices.
+        # Restore index situation.
+        self.con.execute("drop index i_cards_id;")
         self.con.execute("create index i_log_timestamp on log (timestamp);")
         self.con.execute("create index i_log_object_id on log (object_id);")
