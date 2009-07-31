@@ -697,6 +697,9 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                 filename = copy_file_to_dir(filename, mediadir)
                 for key, value in fact.data.iteritems():
                     fact.data[key] = value.replace(match.group(1), filename)
+                    self.con.execute("""update data_for_fact set value=?
+                        where _fact_id=? and key=?""",
+                        (fact.data[key], fact._id, key))
             new_files.add(filename)               
         # Determine old media files for this fact.
         old_files = set((cursor["filename"] for cursor in self.con.execute(\
@@ -717,7 +720,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         for filename in new_files - old_files:
             self.con.execute("""insert into media(filename, _fact_id,
                 last_modified) values(?,?,?)""", (filename, fact._id,
-                os.path.getmtime(os.path.join(mediadir, filename))))
+                int(os.path.getmtime(os.path.join(mediadir, filename)))))
             self.log().added_media(filename, fact)
 
     #

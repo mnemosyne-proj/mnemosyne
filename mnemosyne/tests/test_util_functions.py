@@ -50,5 +50,10 @@ class TestUtilFunctions(object):
                      mangle(u"a\xac\u1234\u20ac\U00008000")]:
             C = type(name, (self.__class__, ),
                  {"name": 1})
-            
+
+    def test_copy(self):
+        assert copy_file_to_dir("/home/joe/test.py", "/home/joe") == "test.py"
+        assert copy_file_to_dir("/home/joe/test.py", "/home/joe/") == "test.py"
+        assert copy_file_to_dir("/home/joe/a/test.py", "/home/joe") == "a/test.py"
+        assert copy_file_to_dir("/home/joe/a/test.py", "/home/joe/") == "a/test.py"        
         

@@ -63,7 +63,7 @@ def copy_file_to_dir(filename, dirname):
     filename = os.path.abspath(filename)
     dirname = os.path.abspath(dirname)
     if filename.startswith(dirname):
-        return filename
+        return filename.replace(dirname, "")[1:]
     dest_path = os.path.join(dirname, os.path.basename(filename))
     if os.path.exists(dest_path):
         prefix, suffix = dest_path.rsplit(".", 1)

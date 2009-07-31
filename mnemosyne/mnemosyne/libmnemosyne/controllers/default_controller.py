@@ -65,7 +65,7 @@ class DefaultController(Controller):
         self.stopwatch().unpause()
         
     def create_new_cards(self, fact_data, card_type, grade, tag_names,
-                         check_for_duplicates=True, save=False):
+                         check_for_duplicates=True, save=True):
 
         """Create a new set of related cards. If the grade is 2 or higher,
         we perform a initial review with that grade and move the cards into

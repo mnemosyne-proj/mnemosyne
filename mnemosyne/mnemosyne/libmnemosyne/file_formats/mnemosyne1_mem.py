@@ -147,7 +147,7 @@ class Mnemosyne1Mem(FileFormat):
                     self._preprocess_media(fact_data) 
                     card = self.controller().create_new_cards(fact_data,
                         card_type, grade=-1, tag_names=[item.cat.name],
-                        check_for_duplicates=False)[0]
+                        check_for_duplicates=False, save=False)[0]
                     self._set_card_attributes(card, item)
                 continue
             try:
@@ -176,7 +176,7 @@ class Mnemosyne1Mem(FileFormat):
                 self._preprocess_media(fact_data) 
                 card_1, card_2 = self.controller().create_new_cards(fact_data,
                     card_type, grade=-1, tag_names=[item.cat.name],
-                    check_for_duplicates=False)
+                    check_for_duplicates=False, save=False)
                 self._set_card_attributes(card_2, item)
                 self._set_card_attributes(card_1, item_2)
             # Front-to-back.
@@ -187,7 +187,7 @@ class Mnemosyne1Mem(FileFormat):
                 self._preprocess_media(fact_data) 
                 card = self.controller().create_new_cards(fact_data,
                     card_type, grade=-1, tag_names=[item.cat.name],
-                    check_for_duplicates=False)[0]
+                    check_for_duplicates=False, save=False)[0]
                 self._set_card_attributes(card, item)
             # Front-to-back and back-to-front.         
             elif item.id + ".inv" in self.items_by_id:
@@ -196,7 +196,7 @@ class Mnemosyne1Mem(FileFormat):
                 self._preprocess_media(fact_data) 
                 card_1, card_2 = self.controller().create_new_cards(fact_data,
                     card_type, grade=-1, tag_names=[item.cat.name],
-                    check_for_duplicates=False)
+                    check_for_duplicates=False, save=False)
                 self._set_card_attributes(card_1, item)
                 self._set_card_attributes(card_2,
                                           self.items_by_id[item.id + ".inv"])               
@@ -211,7 +211,7 @@ class Mnemosyne1Mem(FileFormat):
                 self._preprocess_media(fact_data) 
                 card_1, card_2 = self.controller().create_new_cards(fact_data,
                     card_type, grade=-1, tag_names=[item.cat.name],
-                    check_for_duplicates=False)            
+                    check_for_duplicates=False, save=False)            
                 self._set_card_attributes(card_1, item)
                 self._set_card_attributes(card_2,
                                           self.items_by_id[item.id + ".tr.1"])  
