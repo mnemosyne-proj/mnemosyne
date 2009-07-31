@@ -106,10 +106,11 @@ class TxtLogParser(object):
     versions_phase_2 = ["0.9.8", "0.9.8.1", "0.9.9", "0.9.10", "1.0", "1.0.1",
                         "1.0.1.1", "1.0.2", "1.1", "1.1.1", "1.2", "1.2.1"]
 
-    def __init__(self, database, ids_to_parse):
+    def __init__(self, database, ids_to_parse=None):
 
-        """Only convertings ids in ids_to_parse makes it possible to reliably
+        """Only convertings ids in 'ids_to_parse' makes it possible to reliably
         import different mem files (which all share the same log files).
+        For efficiency reasons, 'ids_to_parse' is best a dictionary.
 
         """
         
@@ -180,7 +181,7 @@ class TxtLogParser(object):
 
     def _parse_new_item(self, new_item_chunck):
         New, item, id, grade, new_interval = new_item_chunck.split(" ")
-        if id not in self.ids_to_parse:
+        if self.ids_to_parse and id not in self.ids_to_parse:
             return
         offset = 0
         if grade >= 2 and self.version_number in self.versions_phase_1:
@@ -201,7 +202,7 @@ class TxtLogParser(object):
     def _parse_imported_item(self, imported_item_chunck):
         Imported, item, id, grade, ret_reps, last_rep, next_rep, interval \
             = imported_item_chunck.split(" ")
-        if id not in self.ids_to_parse:
+        if self.ids_to_parse and id not in self.ids_to_parse:
             return
         offset = 0
         last_rep_time = 0
@@ -213,7 +214,7 @@ class TxtLogParser(object):
         # Parse chunck.
         blocks = repetition_chunck.split(" | ")
         R, id, grade, easiness = blocks[0].split(" ")
-        if id not in self.ids_to_parse:
+        if self.ids_to_parse and id not in self.ids_to_parse:
             return
         grade = int(grade)
         easiness = float(easiness)

@@ -212,11 +212,11 @@ class SQLiteLogging(object):
             "update partnerships set _last_log_id=? where partner=?",
             (index, "log.txt"))
 
-    # The following functions are only used when importing pre-2.0 logs.
-    # They are needed to store temporary data about cards whis is used during
-    # the parsing process.
+    # The following functions are only used when importing pre-2.0 cards and
+    # logs. They are needed to store temporary data about cards whis is used
+    # during the parsing process.
 
-    def before_log_import(self):
+    def before_mem_import(self):
         if not self.con.execute("pragma table_info(cards_data)").fetchall():
             self.con.execute("""create temp table _cards(
                 id text primary key,
@@ -227,6 +227,13 @@ class SQLiteLogging(object):
         # Having these indices in place while importing takes too long.
         self.con.execute("drop index if exists i_log_timestamp;")
         self.con.execute("drop index if exists i_log_object_id;")
+
+    def after_mem_import(self):
+        self.con.execute("drop table _cards")
+        # Restore index situation.
+        self.con.execute("drop index i_cards_id;")
+        self.con.execute("create index i_log_timestamp on log (timestamp);")
+        self.con.execute("create index i_log_object_id on log (object_id);")
 
     def set_offset_last_rep_time(self, card_id, offset, last_rep_time):
         self.con.execute(\
@@ -252,9 +259,3 @@ class SQLiteLogging(object):
         self.con.execute("""update facts set creation_time=?,
             modification_time=? where _id=?""",
             (creation_time, creation_time, sql_res["_fact_id"]))
-
-    def after_log_import(self):
-        # Restore index situation.
-        self.con.execute("drop index i_cards_id;")
-        self.con.execute("create index i_log_timestamp on log (timestamp);")
-        self.con.execute("create index i_log_object_id on log (object_id);")

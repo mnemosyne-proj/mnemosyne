@@ -2,7 +2,6 @@
 
 -import history
 -review all files
--benchmark indices etc
 -parse scheduler info, see if more info from 2.0 needs to be captured
 -add logs.txt to list of files which need to be parsed
 -flush 2.o history to text logs before import
