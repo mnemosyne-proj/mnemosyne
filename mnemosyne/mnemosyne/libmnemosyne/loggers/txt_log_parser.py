@@ -94,8 +94,8 @@ class TxtLogParser(object):
         def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
             ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
             scheduled_interval, actual_interval, new_interval, thinking_time)
-        def set_offset_last_rep_time(self, card_id, offset, last_rep_time)
-        def get_offset_last_rep_time(self, card_id)
+        def set_offset_last_rep(self, card_id, offset, last_rep)
+        def get_offset_last_rep(self, card_id)
         def update_card_after_log_import(id, creation_time, offset)
                                                                  
     """
@@ -123,7 +123,10 @@ class TxtLogParser(object):
         self.user_id, self.log_number = \
             os.path.basename(before_extension).split('_')
         self.log_number = int(self.log_number)
-        self.log_file = bz2.BZ2File(filename)
+        if filename.endswith(".bz2"):
+            self.log_file = bz2.BZ2File(filename)
+        else:
+            self.log_file = file(filename)
         # For pre-2.0 logs, we need to hang on to the previous timestamp, as
         # this will be used as the time the card was shown, in order to
         # calculate the actual interval. (The timestamps for repetitions are
@@ -156,6 +159,9 @@ class TxtLogParser(object):
             self.version = parts[2].replace("_", "-")
             self.version_number = self.version.split()[1].split("-")[0]
             self.database.log_started_program(self.timestamp, self.version)
+        elif parts[1].startswith("Scheduler"):
+            scheduler_name = parts[2]
+            self.database.log_started_scheduler(self.timestamp, scheduler_name)
         elif parts[1].startswith("Loaded database"):
             Loaded, database, scheduled, non_memorised, active = \
                 parts[1].split(" ")
@@ -181,6 +187,7 @@ class TxtLogParser(object):
 
     def _parse_new_item(self, new_item_chunck):
         New, item, id, grade, new_interval = new_item_chunck.split(" ")
+        grade = int(grade)
         if self.ids_to_parse and id not in self.ids_to_parse:
             return
         offset = 0
@@ -189,11 +196,11 @@ class TxtLogParser(object):
         elif grade < 2 and self.version_number in self.versions_phase_2:
             offset = -1
         self.database.log_added_card(self.timestamp, id)
-        self.database.set_offset_last_rep_time(id, offset, last_rep_time=0)
+        self.database.set_offset_last_rep(id, offset, last_rep=0)
         self.database.update_card_after_log_import(id, self.timestamp, offset)
         if grade >= 2 and self.version_number in \
            self.versions_phase_1 + self.versions_phase_2:
-            self.database.log_repetition(self.timestamp, id, int(grade),
+            self.database.log_repetition(self.timestamp, id, grade,
                 easiness=2.5, acq_reps=1, ret_reps=0, lapses=0,
                 acq_reps_since_lapse=1, ret_reps_since_lapse=0,
                 scheduled_interval=0, actual_interval=0, new_interval=\
@@ -205,9 +212,9 @@ class TxtLogParser(object):
         if self.ids_to_parse and id not in self.ids_to_parse:
             return
         offset = 0
-        last_rep_time = 0
+        last_rep = 0
         self.database.log_added_card(self.timestamp, id)
-        self.database.set_offset_last_rep_time(id, offset, last_rep_time)
+        self.database.set_offset_last_rep(id, offset, last_rep)
         self.database.update_card_after_log_import(id, self.timestamp, offset)
 
     def _parse_repetition(self, repetition_chunck):
@@ -224,27 +231,25 @@ class TxtLogParser(object):
         lapses = int(lapses)
         acq_reps_since_lapse = int(acq_reps_since_lapse)
         ret_reps_since_lapse = int(ret_reps_since_lapse)  
-        scheduled_interval, actual_interval = blocks[2].split(" ")
+        scheduled_interval, actual_interval_not_used = blocks[2].split(" ")
         scheduled_interval = int(scheduled_interval)
-        actual_interval = int(actual_interval)        
         new_interval, noise = blocks[3].split(" ")
         new_interval = int(new_interval) + int(noise)
         thinking_time = int(float(blocks[4]))
-        # Deal with offset and last_rep_time stored in database.
+        # Deal with offset and last_rep stored in database. 'last_rep' is the
+        # time the card was graded, not when it was shown.
         try:
-            offset, last_rep_time = self.database.get_offset_last_rep_time(id)
-            if last_rep_time:
-                actual_interval = self.previous_timestamp - last_rep_time
+            offset, last_rep = self.database.get_offset_last_rep(id)
+            if last_rep:
+                actual_interval = self.previous_timestamp - last_rep               
             else:
                 actual_interval = 0
-            self.database.set_offset_last_rep_time(id, offset,
-                                                   self.previous_timestamp)
+            self.database.set_offset_last_rep(id, offset, self.timestamp)
         except TypeError:
             # Make sure the card exists (e.g. due to missing logs).
             offset = 0
             actual_interval = 0
-            self.database.set_offset_last_rep_time(id, offset=offset,
-                                                   last_rep_time=0)
+            self.database.set_offset_last_rep(id, offset=offset, last_rep=0)
         # Convert days to seconds if necessary.
         if self.version_number in \
           self.versions_phase_1 + self.versions_phase_2:
@@ -252,7 +257,7 @@ class TxtLogParser(object):
             new_interval *= DAY            
         # Log repetition.      
         acq_reps += offset
-        if int(lapses) == 0:
+        if lapses == 0:
             acq_reps_since_lapse += offset
         self.database.log_repetition(self.timestamp, id, grade, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,

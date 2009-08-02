@@ -420,7 +420,8 @@ class SM2Mnemosyne(Scheduler):
             return new_interval
         # Add some randomness to interval.
         new_interval += self.calculate_interval_noise(new_interval)
-        # Update card properties.
+        # Update card properties. 'last_rep' is the time the card was graded,
+        # not when it was shown.
         card.grade = new_grade
         card.last_rep = int(time.time())
         if new_grade >= 2:

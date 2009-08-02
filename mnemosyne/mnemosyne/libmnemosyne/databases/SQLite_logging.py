@@ -220,8 +220,8 @@ class SQLiteLogging(object):
         if not self.con.execute("pragma table_info(cards_data)").fetchall():
             self.con.execute("""create temp table _cards(
                 id text primary key,
-                last_rep_time int,
-                offset int);""")
+                offset int,
+                last_rep int);""")
         # This is a useful index to have when importing.
         self.con.execute("create index i_cards_id on cards (id);")
         # Having these indices in place while importing takes too long.
@@ -235,15 +235,15 @@ class SQLiteLogging(object):
         self.con.execute("create index i_log_timestamp on log (timestamp);")
         self.con.execute("create index i_log_object_id on log (object_id);")
 
-    def set_offset_last_rep_time(self, card_id, offset, last_rep_time):
+    def set_offset_last_rep(self, card_id, offset, last_rep):
         self.con.execute(\
-            """insert or replace into _cards(id, offset, last_rep_time)
-            values(?,?,?)""", (card_id, offset, int(last_rep_time)))
+            """insert or replace into _cards(id, offset, last_rep)
+            values(?,?,?)""", (card_id, offset, int(last_rep)))
 
-    def get_offset_last_rep_time(self, card_id):
-        sql_res = self.con.execute("""select offset, last_rep_time
+    def get_offset_last_rep(self, card_id):
+        sql_res = self.con.execute("""select offset, last_rep
            from _cards where _cards.id=?""", (card_id, )).fetchone()
-        return sql_res["offset"], sql_res["last_rep_time"]
+        return sql_res["offset"], sql_res["last_rep"]
 
     def update_card_after_log_import(self, id, creation_time, offset):
         sql_res = self.con.execute("""select _id, _fact_id, acq_reps,

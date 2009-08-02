@@ -93,7 +93,7 @@ class Mnemosyne1Mem(FileFormat):
         self.database().before_mem_import()
         result = self._import_mem_file(filename, tag_name, reset_learning_data)
         if result != -1:
-            self._import_history(filename)
+            self._import_logs(filename)
         self.database().after_mem_import()
             
     def _import_mem_file(self, filename, tag_name=None,
@@ -219,11 +219,11 @@ class Mnemosyne1Mem(FileFormat):
                                           self.items_by_id[item.id + ".tr.1"])  
         progress.set_value(len(self.items))
                         
-    def _import_history(self, filename):
+    def _import_logs(self, filename):
         progress = self.component_manager.get_current("progress_dialog")\
                    (self.component_manager)
         progress.set_text(_("Importing history..."))
-        db = self.database()
+        db = self.database().dump_to_txt_log()
         parser = TxtLogParser(db, ids_to_parse=self.items_by_id)
         log_dir = os.path.join(os.path.dirname(filename), "history")
         if not os.path.exists(log_dir):
@@ -232,6 +232,7 @@ class Mnemosyne1Mem(FileFormat):
             return
         filenames = [os.path.join(log_dir, filename) for filename in \
             sorted(os.listdir(log_dir)) if filename.endswith(".bz2")]
+        filenames.append(os.path.join(os.path.dirname(filename), "log.txt"))
         progress.set_range(0, len(filenames))
         for count, filename in enumerate(filenames):
             progress.set_value(count) 
@@ -239,6 +240,6 @@ class Mnemosyne1Mem(FileFormat):
                 parser.parse(filename)
             except:
                 self.main_widget().information_box(\
-                    _("Can't open file, ignoring."))
+                    _("Ignoring unparsable file:") + " " + filename)
         db.save()
         progress.set_value(len(filenames))

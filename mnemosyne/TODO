@@ -1,12 +1,45 @@
 -WM test and benchmark
 
+-import upon upgrade
+
+-test lapses non zero (in restored 1)
+-test actual interval in secs
+-how does export and reimport pre 2.0 affect logs
+-test import 2.x files
+-import 2 mem files sharing same logs
+
+-heart beat schdedule
+don't dump log to log.txt
+include log.txt in import
+move partnership index forward (looses program start event)
+
+or
+
+do dump to log.txt
+include log.txt in import (duplicates program start event)
+move partnership index forward
+
+
+-later import from same basedir
+
+-do dump log to log.txt
+-include log.txt, filter will ignore event from cards already in database
+-move partnership index forward
+
+
+-later import from different basedir
+
+-do dump log to log.txt
+-include log.txt in different dir, filter will ignore event from cards already in database
+-move partnership index forward
+
+
 -import history
 -review all files
--parse scheduler info, see if more info from 2.0 needs to be captured
--add logs.txt to list of files which need to be parsed
 -flush 2.o history to text logs before import
 -make sure imported history does not get reexported to txt logs
--remove initial creation and update when importing logs needed?
+-remove initial creation log
+-memory score
 
 -time WM: history in same DB?
 
@@ -35,6 +68,7 @@
 -default tag needed?
 -need to store parent of tag?
 -implement duplicate checking
+-card preview
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 
 
@@ -110,6 +144,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
  (update comment in scheduler too)
 
 -infrastructure to make it easier to type certain symbols
+
+-mark cards plugin
 
 -ampersand mnemonics everywhere
 
@@ -276,7 +312,7 @@ Multiuser statistics analysis:
 
 -bundle docs
 
--undo last grade + keyboard shortcut
+-undo last grade + keyboard shortcut. Disable undo after logs have been purged
 
 -http://labs.trolltech.com/blogs/2009/03/12/wysiwyg-html-editor/
 
