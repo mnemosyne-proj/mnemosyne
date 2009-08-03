@@ -343,11 +343,6 @@ class TestMemImport(MnemosyneTest):
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_4.txt")
         TxtLogParser(self.database()).parse(filename)
-        for result in self.database().con.execute(\
-            "select * from log").fetchall():
-            import time
-            print time.ctime(result['timestamp']),
-            print result['event'], result['object_id'], result['acq_reps'], result['acq_reps_since_lapse']
         assert self.database().con.execute(\
             "select count() from log where event=?",
             (self.database().ADDED_CARD, )).fetchone()[0] == 1           
@@ -375,7 +370,66 @@ class TestMemImport(MnemosyneTest):
             """select acq_reps_since_lapse from log where event=? and object_id='b7601e0c'
             order by _id desc limit 1""",
             (self.database().REPETITION, )).fetchone()[0] == 1
-            
+
+    def test_logs_imported_1(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "imported_1.txt")
+        TxtLogParser(self.database()).parse(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().REPETITION, )).fetchone()[0] == 3       
+        assert self.database().con.execute(\
+            "select acq_reps from log where event=? and object_id='f5d9bbe7'",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            "select ret_reps from log where event=? and object_id='f5d9bbe7'",
+            (self.database().REPETITION, )).fetchone()[0] == 0   
+        assert self.database().con.execute(\
+            "select acq_reps_since_lapse from log where event=? and object_id='f5d9bbe7'",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            """select acq_reps from log where event=? and object_id='f5d9bbe7'
+             order by _id desc limit 1""",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            """select ret_reps from log where event=? and object_id='f5d9bbe7'
+             order by _id desc limit 1""",
+            (self.database().REPETITION, )).fetchone()[0] == 2  
+        assert self.database().con.execute(\
+            """select acq_reps_since_lapse from log where event=? and object_id='f5d9bbe7'
+            order by _id desc limit 1""",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+
+    def test_logs_imported_2(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "imported_2.txt")
+        TxtLogParser(self.database()).parse(filename)
+        for result in self.database().con.execute(\
+            "select * from log").fetchall():
+            import time
+            print time.ctime(result['timestamp']),
+            print result['event'], result['object_id'], result['acq_reps'], result['ret_reps'], result['acq_reps_since_lapse']
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().REPETITION, )).fetchone()[0] == 1       
+        assert self.database().con.execute(\
+            "select acq_reps from log where event=? and object_id='14670f10'",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            "select ret_reps from log where event=? and object_id='14670f10'",
+            (self.database().REPETITION, )).fetchone()[0] == 0   
+        assert self.database().con.execute(\
+            "select acq_reps_since_lapse from log where event=? and object_id='14670f10'",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+        
     def teardown(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "a.png")
         if os.path.exists(filename):

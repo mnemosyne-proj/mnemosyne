@@ -1,13 +1,14 @@
 -WM test and benchmark
 
--import upon upgrade
-
 -test lapses non zero (in restored 1)
+-test import 2.x files, for 2 grade classes
 -test actual interval in secs
 -how does export and reimport pre 2.0 affect logs
--test import 2.x files
+-when importing an item from a backup, don't generate two new card events
 -import 2 mem files sharing same logs
+-remove print statements from tests
 
+-import upon upgrade
 -heart beat schdedule
 don't dump log to log.txt
 include log.txt in import

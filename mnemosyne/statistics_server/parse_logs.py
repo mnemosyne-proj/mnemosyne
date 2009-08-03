@@ -32,7 +32,7 @@ SCHEMA = """
                 
     create table _cards(
         id text primary key,
-        last_rep_time int,
+        last_rep int,
         offset int
     );
 
@@ -172,17 +172,17 @@ class LogDatabase(object):
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, int(thinking_time)))
 
-    def set_offset_last_rep_time(self, card_id, offset, last_rep_time):
+    def set_offset_last_rep(self, card_id, offset, last_rep):
         self.con.execute(\
-            """insert or replace into _cards(id, offset, last_rep_time)
+            """insert or replace into _cards(id, offset, last_rep)
             values(?,?,?)""",
-            (card_id + self.parser.user_id, offset, int(last_rep_time)))
+            (card_id + self.parser.user_id, offset, int(last_rep)))
 
-    def get_offset_last_rep_time(self, card_id):
-        sql_result = self.con.execute("""select offset, last_rep_time
+    def get_offset_last_rep(self, card_id):
+        sql_result = self.con.execute("""select offset, last_rep
            from _cards where _cards.id=?""",
            (card_id + self.parser.user_id, )).fetchone()
-        return sql_result["offset"], sql_result["last_rep_time"]
+        return sql_result["offset"], sql_result["last_rep"]
     
     def update_card_after_log_import(self, id, creation_time, offset):
         pass

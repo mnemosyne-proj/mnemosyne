@@ -227,7 +227,7 @@ class TxtLogParser(object):
         easiness = float(easiness)
         acq_reps, ret_reps, lapses, acq_reps_since_lapse, \
             ret_reps_since_lapse = blocks[1].split(" ")
-        acq_reps, ret_reps = int(acq_reps), int(acq_reps)
+        acq_reps, ret_reps = int(acq_reps), int(ret_reps)
         lapses = int(lapses)
         acq_reps_since_lapse = int(acq_reps_since_lapse)
         ret_reps_since_lapse = int(ret_reps_since_lapse)  
