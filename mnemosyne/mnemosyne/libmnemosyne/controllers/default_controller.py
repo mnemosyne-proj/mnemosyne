@@ -16,13 +16,16 @@ class DefaultController(Controller):
 
     def heartbeat(self):
 
-        """To be called once a day, to make sure e.g. that backups get taken
-        and that the logs get uploaded even if the user leaves the program
-        open for a very long time.
+        """To be called once a day, to make sure, even if the user leaves the
+        program open indefinitely, that backups get taken, that the cards
+        scheduled for the day get dumped to the log and that the the logs get
+        uploaded.
 
         """
         
         self.database().backup()
+        self.log().saved_database()
+        self.log().loaded_database()        
         self.log().dump_to_txt_log()
         self.log().deactivate()
         self.log().activate()

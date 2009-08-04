@@ -1,0 +1,6 @@
+2009-08-04 16:43:47 : Program started : Mnemosyne 1.2.1 posix linux2
+2009-08-04 16:43:47 : Loaded database 0 0 0
+2009-08-04 16:43:54 : R 4b59b830 0 2.50 | 2 0 0 2 0 | 0 1 | 0 0 | 0.8
+2009-08-04 16:44:01 : Deleted item 4b59b830
+2009-08-04 16:44:02 : Saved database 0 0 0
+2009-08-04 16:44:02 : Program stopped

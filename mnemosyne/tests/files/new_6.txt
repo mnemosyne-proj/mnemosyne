@@ -1,0 +1,8 @@
+2009-08-04 14:50:08 : Program started : Mnemosyne 2.0-pre posix linux2
+2009-08-04 14:50:08 : Scheduler : SM2 Mnemosyne
+2009-08-04 14:50:08 : Loaded database 0 0 0
+2009-08-04 14:50:14 : New item 4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1 -1 -1
+2009-08-04 14:50:14 : R 4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1 5 2.50 | 1 0 0 1 0 | 0 0 | 345600 0 | 0.0
+2009-08-04 14:50:26 : R 4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1 2 2.50 | 1 1 0 1 1 | 302986 10 | 475774 0 | 1.0
+2009-08-04 14:50:27 : Saved database 0 0 1
+2009-08-04 14:50:27 : Program stopped

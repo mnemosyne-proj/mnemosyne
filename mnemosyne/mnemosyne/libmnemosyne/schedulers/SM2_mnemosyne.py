@@ -123,7 +123,7 @@ class SM2Mnemosyne(Scheduler):
         else:
             card.next_rep = int(time.time())            
         self.log().repetition(card, scheduled_interval=0, actual_interval=0,
-                              new_interval=new_interval)
+                              new_interval=new_interval, thinking_time=0)
 
     def calculate_initial_interval(self, grade):
         
@@ -449,7 +449,8 @@ class SM2Mnemosyne(Scheduler):
             f.run(card)
         # Create log entry.
         self.log().repetition(card, scheduled_interval, actual_interval,
-                              new_interval)
+                              new_interval,
+                              thinking_time=self.stopwatch().time())
         return new_interval
     
     def scheduled_count(self):

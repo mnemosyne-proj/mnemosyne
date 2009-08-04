@@ -370,7 +370,84 @@ class TestMemImport(MnemosyneTest):
             """select acq_reps_since_lapse from log where event=? and object_id='b7601e0c'
             order by _id desc limit 1""",
             (self.database().REPETITION, )).fetchone()[0] == 1
-
+        
+    def test_logs_new_5(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "new_5.txt")
+        TxtLogParser(self.database()).parse(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().REPETITION, )).fetchone()[0] == 2       
+        assert self.database().con.execute(\
+            "select acq_reps from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            "select ret_reps from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'",
+            (self.database().REPETITION, )).fetchone()[0] == 0   
+        assert self.database().con.execute(\
+            "select acq_reps_since_lapse from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            """select acq_reps from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
+             order by _id desc limit 1""",
+            (self.database().REPETITION, )).fetchone()[0] == 2
+        assert self.database().con.execute(\
+            """select ret_reps from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
+             order by _id desc limit 1""",
+            (self.database().REPETITION, )).fetchone()[0] == 0  
+        assert self.database().con.execute(\
+            """select acq_reps_since_lapse from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
+            order by _id desc limit 1""",
+            (self.database().REPETITION, )).fetchone()[0] == 2
+        assert self.database().con.execute(\
+            """select object_id from log where event=?""",
+            (self.database().STARTED_SCHEDULER, )).fetchone()[0] == "SM2 Mnemosyne"
+        
+    def test_logs_new_6(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "new_6.txt")
+        TxtLogParser(self.database()).parse(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().REPETITION, )).fetchone()[0] == 2       
+        sql_res = self.database().con.execute(\
+            "select * from log where event=? and object_id='4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1'",
+            (self.database().REPETITION, )).fetchone()
+        assert sql_res["grade"] == 5
+        assert sql_res["easiness"] == 2.5
+        assert sql_res["acq_reps"] == 1
+        assert sql_res["ret_reps"] == 0
+        assert sql_res["lapses"] == 0        
+        assert sql_res["acq_reps_since_lapse"] == 1
+        assert sql_res["ret_reps_since_lapse"] == 0
+        assert sql_res["scheduled_interval"] == 0
+        assert sql_res["actual_interval"] == 0
+        assert sql_res["new_interval"] == 345600
+        assert sql_res["thinking_time"] == 0   
+        sql_res = self.database().con.execute(\
+            """select * from log where event=? and object_id='4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1'
+            order by _id desc limit 1""",
+            (self.database().REPETITION, )).fetchone()
+        assert sql_res["grade"] == 2
+        assert sql_res["easiness"] == 2.5
+        assert sql_res["acq_reps"] == 1
+        assert sql_res["ret_reps"] == 1
+        assert sql_res["lapses"] == 0        
+        assert sql_res["acq_reps_since_lapse"] == 1
+        assert sql_res["ret_reps_since_lapse"] == 1
+        assert sql_res["scheduled_interval"] == 302986
+        assert sql_res["actual_interval"] == 10
+        assert sql_res["new_interval"] == 475774
+        assert sql_res["thinking_time"] == 1
+        
     def test_logs_imported_1(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
@@ -409,11 +486,6 @@ class TestMemImport(MnemosyneTest):
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "imported_2.txt")
         TxtLogParser(self.database()).parse(filename)
-        for result in self.database().con.execute(\
-            "select * from log").fetchall():
-            import time
-            print time.ctime(result['timestamp']),
-            print result['event'], result['object_id'], result['acq_reps'], result['ret_reps'], result['acq_reps_since_lapse']
         assert self.database().con.execute(\
             "select count() from log where event=?",
             (self.database().ADDED_CARD, )).fetchone()[0] == 1           
@@ -429,6 +501,60 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select acq_reps_since_lapse from log where event=? and object_id='14670f10'",
             (self.database().REPETITION, )).fetchone()[0] == 1
+        
+    def test_restored_1(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "restored_1.txt")
+        TxtLogParser(self.database()).parse(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().REPETITION, )).fetchone()[0] == 1       
+        sql_res = self.database().con.execute(\
+            "select * from log where event=?",
+            (self.database().REPETITION, )).fetchone()
+        assert sql_res["grade"] == 1
+        assert sql_res["easiness"] == 2.36
+        assert sql_res["acq_reps"] == 23
+        assert sql_res["ret_reps"] == 8
+        assert sql_res["lapses"] == 2        
+        assert sql_res["acq_reps_since_lapse"] == 0
+        assert sql_res["ret_reps_since_lapse"] == 0
+        assert sql_res["scheduled_interval"] == 89 * 24 * 60 * 60
+        assert sql_res["actual_interval"] == 0 # No last rep data.
+        assert sql_res["new_interval"] == 0
+        assert sql_res["thinking_time"] == 5     
+
+    def test_logs_act_interval(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "actinterval_1.txt")
+        TxtLogParser(self.database()).parse(filename)             
+        assert self.database().con.execute(\
+            """select actual_interval from log where event=? and object_id='f1300e5a'
+            order by _id desc limit 1""",
+            (self.database().REPETITION, )).fetchone()[0] == 5
+        
+    def test_logs_deleted(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "delete_1.txt")
+        TxtLogParser(self.database()).parse(filename)             
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().DELETED_CARD, )).fetchone()[0] == 1
+        
+    def test_logs_corrupt(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "corrupt_1.txt")
+        TxtLogParser(self.database()).parse(filename)
         
     def teardown(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "a.png")

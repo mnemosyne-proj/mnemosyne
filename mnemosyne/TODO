@@ -1,15 +1,12 @@
--WM test and benchmark
+-test importing 2 mem files sharing same logs
+-get full coverage
+-review all files
 
--test lapses non zero (in restored 1)
--test import 2.x files, for 2 grade classes
--test actual interval in secs
--how does export and reimport pre 2.0 affect logs
--when importing an item from a backup, don't generate two new card events
--import 2 mem files sharing same logs
--remove print statements from tests
+-flush 2.o history to text logs before import
+-make sure imported history does not get reexported to txt logs
 
--import upon upgrade
--heart beat schdedule
+
+--------
 don't dump log to log.txt
 include log.txt in import
 move partnership index forward (looses program start event)
@@ -33,14 +30,16 @@ move partnership index forward
 -do dump log to log.txt
 -include log.txt in different dir, filter will ignore event from cards already in database
 -move partnership index forward
+---------------
 
-
--import history
--review all files
--flush 2.o history to text logs before import
--make sure imported history does not get reexported to txt logs
 -remove initial creation log
+-related: when importing an item from a backup, don't generate two new card events
+ (only do import if card not yet in database?)
+
+-import upon upgrade
+
 -memory score
+
 
 -time WM: history in same DB?
 
@@ -125,6 +124,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -activating cards
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
+-how to prevent different instantiations from uploading logs twice
 
 -corrupt icon
 

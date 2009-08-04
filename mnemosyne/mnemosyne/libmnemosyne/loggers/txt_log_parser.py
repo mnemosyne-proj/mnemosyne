@@ -7,7 +7,8 @@ import os
 import sys
 import bz2
 import time
-import traceback
+
+from mnemosyne.libmnemosyne.utils import traceback_string
 
 DAY = 24 * 60 * 60 # Seconds in a day.
 
@@ -100,11 +101,12 @@ class TxtLogParser(object):
                                                                  
     """
 
-    versions_phase_1 = ["0.1", "0.9", "0.9.1", "0.9.2", "0.9.3", "0.9.4",
-                        "0.9.5","0.9.6","0.9.7"]
+    versions_1_x_phase_1 = ["0.1", "0.9", "0.9.1", "0.9.2", "0.9.3", "0.9.4",
+                            "0.9.5","0.9.6","0.9.7"]
 
-    versions_phase_2 = ["0.9.8", "0.9.8.1", "0.9.9", "0.9.10", "1.0", "1.0.1",
-                        "1.0.1.1", "1.0.2", "1.1", "1.1.1", "1.2", "1.2.1"]
+    versions_1_x_phase_2 = ["0.9.8", "0.9.8.1", "0.9.9", "0.9.10", "1.0",
+                            "1.0.1", "1.0.1.1", "1.0.2", "1.1", "1.1.1", "1.2",
+                            "1.2.1"]
 
     def __init__(self, database, ids_to_parse=None):
 
@@ -140,13 +142,13 @@ class TxtLogParser(object):
                 self._parse_line(line)
             except:
                 print "Ignoring error while parsing line:\n%s" % line
-                traceback.print_exc()
+                print traceback_string()
                 sys.stdout.flush()                
         
     def _parse_line(self, line):      
         parts = line.rstrip().rsplit(" : ")           
-        self.timestamp = time.mktime(time.strptime(parts[0],
-                                     "%Y-%m-%d %H:%M:%S"))
+        self.timestamp = int(time.mktime(time.strptime(parts[0],
+                                         "%Y-%m-%d %H:%M:%S")))
         if not self.lower_timestamp_limit < self.timestamp < \
                self.upper_timestamp_limit:
             raise TypeError, "Ignoring impossible date %s" % parts[0]
@@ -191,15 +193,15 @@ class TxtLogParser(object):
         if self.ids_to_parse and id not in self.ids_to_parse:
             return
         offset = 0
-        if grade >= 2 and self.version_number in self.versions_phase_1:
+        if grade >= 2 and self.version_number in self.versions_1_x_phase_1:
             offset = 1
-        elif grade < 2 and self.version_number in self.versions_phase_2:
+        elif grade < 2 and self.version_number in self.versions_1_x_phase_2:
             offset = -1
         self.database.log_added_card(self.timestamp, id)
         self.database.set_offset_last_rep(id, offset, last_rep=0)
         self.database.update_card_after_log_import(id, self.timestamp, offset)
         if grade >= 2 and self.version_number in \
-           self.versions_phase_1 + self.versions_phase_2:
+           self.versions_1_x_phase_1 + self.versions_1_x_phase_2:
             self.database.log_repetition(self.timestamp, id, grade,
                 easiness=2.5, acq_reps=1, ret_reps=0, lapses=0,
                 acq_reps_since_lapse=1, ret_reps_since_lapse=0,
@@ -231,34 +233,40 @@ class TxtLogParser(object):
         lapses = int(lapses)
         acq_reps_since_lapse = int(acq_reps_since_lapse)
         ret_reps_since_lapse = int(ret_reps_since_lapse)  
-        scheduled_interval, actual_interval_not_used = blocks[2].split(" ")
+        scheduled_interval, actual_interval = blocks[2].split(" ")
         scheduled_interval = int(scheduled_interval)
+        actual_interval = int(actual_interval)
         new_interval, noise = blocks[3].split(" ")
         new_interval = int(new_interval) + int(noise)
         thinking_time = int(float(blocks[4]))
-        # Deal with offset and last_rep stored in database. 'last_rep' is the
-        # time the card was graded, not when it was shown.
-        try:
-            offset, last_rep = self.database.get_offset_last_rep(id)
-            if last_rep:
-                actual_interval = self.previous_timestamp - last_rep               
-            else:
-                actual_interval = 0
-            self.database.set_offset_last_rep(id, offset, self.timestamp)
-        except TypeError:
-            # Make sure the card exists (e.g. due to missing logs).
-            offset = 0
-            actual_interval = 0
-            self.database.set_offset_last_rep(id, offset=offset, last_rep=0)
-        # Convert days to seconds if necessary.
+        # Deal with interval data for pre 2.0 logs.
         if self.version_number in \
-          self.versions_phase_1 + self.versions_phase_2:
+          self.versions_1_x_phase_1 + self.versions_1_x_phase_2:
+            try:
+                # Calculate 'actual_interval' and update 'last_rep'.
+                # (Note: 'last_rep' is the time the card was graded, not when
+                # it was shown.)
+                offset, last_rep = self.database.get_offset_last_rep(id)
+                if last_rep:
+                    actual_interval = self.previous_timestamp - last_rep               
+                else:
+                    actual_interval = 0
+                self.database.set_offset_last_rep(id, offset, self.timestamp)
+            except TypeError:
+                # Make sure the card exists (e.g. due to missing logs).
+                offset = 0
+                actual_interval = 0
+                self.database.log_added_card(self.timestamp, id)
+                self.database.set_offset_last_rep(id, offset=offset, last_rep=0)
+                self.database.update_card_after_log_import(id, self.timestamp, offset)
+            # Convert days to seconds.
             scheduled_interval *= DAY
-            new_interval *= DAY            
-        # Log repetition.      
-        acq_reps += offset
-        if lapses == 0:
-            acq_reps_since_lapse += offset
+            new_interval *= DAY
+            # Take offset into account.      
+            acq_reps += offset
+            if lapses == 0:
+                acq_reps_since_lapse += offset
+        # Log repetititon.
         self.database.log_repetition(self.timestamp, id, grade, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
