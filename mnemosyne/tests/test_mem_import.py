@@ -502,6 +502,15 @@ class TestMemImport(MnemosyneTest):
             "select acq_reps_since_lapse from log where event=? and object_id='14670f10'",
             (self.database().REPETITION, )).fetchone()[0] == 1
         
+    def test_logs_imported_3(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "imported_3.txt")
+        TxtLogParser(self.database()).parse(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+        
     def test_restored_1(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
@@ -526,8 +535,17 @@ class TestMemImport(MnemosyneTest):
         assert sql_res["scheduled_interval"] == 89 * 24 * 60 * 60
         assert sql_res["actual_interval"] == 0 # No last rep data.
         assert sql_res["new_interval"] == 0
-        assert sql_res["thinking_time"] == 5     
-
+        assert sql_res["thinking_time"] == 5
+        
+    def test_restored_2(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "restored_2.txt")
+        TxtLogParser(self.database()).parse(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+        
     def test_logs_act_interval(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
@@ -556,6 +574,20 @@ class TestMemImport(MnemosyneTest):
         filename = os.path.join(os.getcwd(), "tests", "files", "corrupt_1.txt")
         TxtLogParser(self.database()).parse(filename)
         
+    def test_two_mem_files_sharing_same_logs(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_2_mem",
+                                "deck1.mem")
+        self.get_mem_importer().do_import(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().REPETITION, )).fetchone()[0] == 1
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_2_mem",
+                                "deck2.mem")
+        self.get_mem_importer().do_import(filename)        
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().REPETITION, )).fetchone()[0] == 2
+
     def teardown(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "a.png")
         if os.path.exists(filename):

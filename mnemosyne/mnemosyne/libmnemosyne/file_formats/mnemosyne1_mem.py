@@ -90,11 +90,18 @@ class Mnemosyne1Mem(FileFormat):
                 plugin.activate()
     
     def do_import(self, filename, tag_name=None, reset_learning_data=False):
-        self.database().before_mem_import()
+        # The events that we import from the txt logs obviously should not be
+        # reexported to txt logs. So, before the import, we flush the SQL logs
+        # to the txt logs, and after import we update the partership index.
+        db = self.database()       
+        db.before_mem_import()
         result = self._import_mem_file(filename, tag_name, reset_learning_data)
+        db.dump_to_txt_log() 
         if result != -1:
             self._import_logs(filename)
-        self.database().after_mem_import()
+        db.after_mem_import()
+        db.bring_txt_log_partnership_index_forward()
+        db.save()        
             
     def _import_mem_file(self, filename, tag_name=None,
                          reset_learning_data=False):        
@@ -223,23 +230,26 @@ class Mnemosyne1Mem(FileFormat):
         progress = self.component_manager.get_current("progress_dialog")\
                    (self.component_manager)
         progress.set_text(_("Importing history..."))
-        db = self.database().dump_to_txt_log()
-        parser = TxtLogParser(db, ids_to_parse=self.items_by_id)
+        parser = TxtLogParser(self.database(), ids_to_parse=self.items_by_id)
         log_dir = os.path.join(os.path.dirname(filename), "history")
         if not os.path.exists(log_dir):
             self.main_widget().information_box(\
                 _("No history found to import."))
             return
-        filenames = [os.path.join(log_dir, filename) for filename in \
-            sorted(os.listdir(log_dir)) if filename.endswith(".bz2")]
+        filenames = [os.path.join(log_dir, logname) for logname in \
+            sorted(os.listdir(log_dir)) if logname.endswith(".bz2")]       
+        # log.txt can also contain data we need to import, especially on the
+        # initial upgrade from 1.x. 'ids_to_parse' will make sure we only pick
+        # up the relevant events. (If we do the importing after having used
+        # 2.x for a while, there could be duplicate load events, etc, but these
+        # don't matter.)
         filenames.append(os.path.join(os.path.dirname(filename), "log.txt"))
         progress.set_range(0, len(filenames))
         for count, filename in enumerate(filenames):
-            progress.set_value(count) 
+            progress.set_value(count)
             try:
                 parser.parse(filename)
             except:
                 self.main_widget().information_box(\
                     _("Ignoring unparsable file:") + " " + filename)
-        db.save()
         progress.set_value(len(filenames))

@@ -37,7 +37,7 @@ SCHEMA = """
     );
 
     create table parsed_logs(
-        log_name text
+        log_name text primary key
     );
     
     commit;

@@ -1,40 +1,9 @@
--test importing 2 mem files sharing same logs
+-duplicates for fact speedup
+-id vs _id
+
+-remove initial creation and updating log event
+
 -get full coverage
--review all files
-
--flush 2.o history to text logs before import
--make sure imported history does not get reexported to txt logs
-
-
---------
-don't dump log to log.txt
-include log.txt in import
-move partnership index forward (looses program start event)
-
-or
-
-do dump to log.txt
-include log.txt in import (duplicates program start event)
-move partnership index forward
-
-
--later import from same basedir
-
--do dump log to log.txt
--include log.txt, filter will ignore event from cards already in database
--move partnership index forward
-
-
--later import from different basedir
-
--do dump log to log.txt
--include log.txt in different dir, filter will ignore event from cards already in database
--move partnership index forward
----------------
-
--remove initial creation log
--related: when importing an item from a backup, don't generate two new card events
- (only do import if card not yet in database?)
 
 -import upon upgrade
 
@@ -68,6 +37,8 @@ move partnership index forward
 -default tag needed?
 -need to store parent of tag?
 -implement duplicate checking
+-explain check for duplicates after import of 1.x? Also give a hint of it's working in
+the GUI function itself?
 -card preview
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 

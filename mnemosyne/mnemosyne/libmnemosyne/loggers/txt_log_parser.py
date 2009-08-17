@@ -20,16 +20,15 @@ class TxtLogParser(object):
 
     This is complicated by several idiosyncrasies.
 
-    First, before 2.0, dates where only stored with a resolution of a day.
+    First, before 2.0, dates were only stored with a resolution of a day.
     However, the timestamps of the logs make it possible to determine e.g.
     the actual interval with a resolution of a second. This however requires
     holding on to the exact time of the previous repetition of each card,
     while parsing the logs.
     
     A second, more thorny idiosyncrasy is the matter of the first grading of a
-    card. When adding cards manually through the UI, there is an option to set
-    an initial grade there. For cards that are imported, there is no such
-    possibility.
+    card. When adding cards manually through the UI, users set an initial
+    grade there. For cards that are imported, there is no such possibility.
     
     Throughout the history of Mnemosyne, several approaches have been taken
     to deal with this issue.
@@ -44,14 +43,14 @@ class TxtLogParser(object):
     already 1. For cards imported, 'acq_reps' stayed zero.
 
     When later on Mnemosyne acquired the possibility to learn new cards in
-    random order, a new card attribute 'unseen' was introduced, keeping track
-    of whether the card was already seen in the interactive review process.
-    This hack complicated the code, and therefore, starting with Mnemosyne
-    2.0, a different approach was taken. The initial grading of a card in the
-    'add cards' dialog was only counted as an acquisition repetition (and
-    explicitly logged as an 'R' event) when the grade was 2 or higher. In
-    other cases, the grade got set to -1 (signifying unseen), just as for
-    imported cards.
+    random order, a new card attribute 'unseen' needed to be introduced,
+    keeping track of whether the card was already seen in the interactive
+    review process. This hack complicated the code, and therefore, starting
+    with Mnemosyne 2.0, a different approach was taken. The initial grading
+    of a card in the 'add cards' dialog was only counted as an acquisition
+    repetition (and explicitly logged as an 'R' event) when the grade was 2
+    or higher. In other cases, the grade got set to -1 (signifying unseen),
+    just as for imported cards.
 
     When parsing old logs, the data needs to be adjusted to fit the latest
     scheme. To clarify what needs to be done, the following table shows a
@@ -80,9 +79,8 @@ class TxtLogParser(object):
     0.9.8 <= version < 2.0  decrease acq_reps    add R at creation
 
     Since there is no grading on import, we don't need to do anything special
-    for imported cards. We can even ignore the import events, since the card
-    will be created anyway later on during the next repetition.
-
+    for imported cards.
+    
     The database object should implement the following API:
 
         def log_started_program(self, timestamp, program_name_version)
@@ -121,14 +119,14 @@ class TxtLogParser(object):
         
     def parse(self, filename):
         # Open file.
-        before_extension = filename.split(".")[0]
-        self.user_id, self.log_number = \
-            os.path.basename(before_extension).split('_')
-        self.log_number = int(self.log_number)
+        if os.path.basename(filename) != "log.txt":
+            before_extension = os.path.basename(filename).split(".")[0]
+            self.user_id, self.log_number = before_extension.split('_')
+            self.log_number = int(self.log_number)
         if filename.endswith(".bz2"):
-            self.log_file = bz2.BZ2File(filename)
+            self.logfile = bz2.BZ2File(filename)
         else:
-            self.log_file = file(filename)
+            self.logfile = file(filename)
         # For pre-2.0 logs, we need to hang on to the previous timestamp, as
         # this will be used as the time the card was shown, in order to
         # calculate the actual interval. (The timestamps for repetitions are
@@ -137,7 +135,7 @@ class TxtLogParser(object):
         self.previous_timestamp = None
         self.lower_timestamp_limit = 1121021345 # 2005-07-10 21:49:05.
         self.upper_timestamp_limit = time.time()
-        for line in self.log_file:
+        for line in self.logfile:
             try:
                 self._parse_line(line)
             except:
@@ -167,8 +165,8 @@ class TxtLogParser(object):
         elif parts[1].startswith("Loaded database"):
             Loaded, database, scheduled, non_memorised, active = \
                 parts[1].split(" ")
-            self.database.log_loaded_database(self.timestamp, scheduled,
-                                              non_memorised, active)
+            self.database.log_loaded_database(self.timestamp, int(scheduled),
+                                              int(non_memorised), int(active))
         elif parts[1].startswith("New item"):
             self._parse_new_item(parts[1])
         elif parts[1].startswith("Imported item"):
@@ -181,17 +179,17 @@ class TxtLogParser(object):
         elif parts[1].startswith("Saved database"):
             Saved, database, scheduled, non_memorised, active = \
                 parts[1].split(" ")
-            self.database.log_saved_database(self.timestamp, scheduled,
-                                             non_memorised, active)
+            self.database.log_saved_database(self.timestamp, int(scheduled),
+                                             int(non_memorised), int(active))
         elif parts[1].startswith("Program stopped"):
             self.database.log_stopped_program(self.timestamp)
         self.previous_timestamp = self.timestamp
 
     def _parse_new_item(self, new_item_chunck):
         New, item, id, grade, new_interval = new_item_chunck.split(" ")
-        grade = int(grade)
         if self.ids_to_parse and id not in self.ids_to_parse:
             return
+        grade = int(grade)
         offset = 0
         if grade >= 2 and self.version_number in self.versions_1_x_phase_1:
             offset = 1
@@ -213,11 +211,17 @@ class TxtLogParser(object):
             = imported_item_chunck.split(" ")
         if self.ids_to_parse and id not in self.ids_to_parse:
             return
-        offset = 0
-        last_rep = 0
-        self.database.log_added_card(self.timestamp, id)
-        self.database.set_offset_last_rep(id, offset, last_rep)
-        self.database.update_card_after_log_import(id, self.timestamp, offset)
+        # Check if we've seen this card before. If so, we are restoring from a
+        # backup and don't need to update the database.
+        try:
+            offset, last_rep = self.database.get_offset_last_rep(id)
+        except:
+            offset = 0
+            last_rep = 0
+            self.database.log_added_card(self.timestamp, id)
+            self.database.set_offset_last_rep(id, offset, last_rep)
+            self.database.update_card_after_log_import(id, self.timestamp,
+                                                       offset)
 
     def _parse_repetition(self, repetition_chunck):
         # Parse chunck.
@@ -252,12 +256,12 @@ class TxtLogParser(object):
                 else:
                     actual_interval = 0
                 self.database.set_offset_last_rep(id, offset, self.timestamp)
-            except TypeError:
+            except:
                 # Make sure the card exists (e.g. due to missing logs).
                 offset = 0
                 actual_interval = 0
                 self.database.log_added_card(self.timestamp, id)
-                self.database.set_offset_last_rep(id, offset=offset, last_rep=0)
+                self.database.set_offset_last_rep(id, offset, last_rep=0)
                 self.database.update_card_after_log_import(id, self.timestamp, offset)
             # Convert days to seconds.
             scheduled_interval *= DAY
