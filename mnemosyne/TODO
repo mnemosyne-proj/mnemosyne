@@ -1,10 +1,6 @@
 -duplicates for fact speedup
 -id vs _id
 
--remove initial creation and updating log event
-
--get full coverage
-
 -import upon upgrade
 
 -memory score
@@ -96,6 +92,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
 -how to prevent different instantiations from uploading logs twice
+-check if updated_card event without added card event works
 
 -corrupt icon
 

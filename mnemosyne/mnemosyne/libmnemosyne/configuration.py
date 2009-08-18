@@ -229,3 +229,4 @@ class Configuration(Component, dict):
                 last = history_files[-1]
                 user, index = last.split('_')
                 index = int(index.split('.')[0]) + 1
+

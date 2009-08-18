@@ -144,8 +144,17 @@ class Mnemosyne(Component):
         if sys.platform == "win32":
             error_log = os.path.join(self.config().basedir, "error_log.txt")
             sys.stderr = file(error_log, "a")
-
+                    
     def execute_user_plugin_dir(self):
+        # When updating from 1.x, move the plugin directory.
+        if self.config()["path"].endswith(".mem"):       
+            plugin_dir = os.path.join(self.config().basedir, "plugins")
+            new_plugin_dir = os.path.join(self.config().basedir, "plugins_1.x")            
+            if os.path.exists(plugin_dir):
+                import shutil
+                shutil.move(plugin_dir, new_plugin_dir)
+                return
+        # Else, proceed nomally. 
         basedir = self.config().basedir
         plugindir = unicode(os.path.join(basedir, "plugins"))
         sys.path.insert(0, plugindir)
@@ -171,14 +180,20 @@ class Mnemosyne(Component):
                 msg = _("Error when running plugin:") \
                       + "\n" + traceback_string()
                 self.main_widget().error_box(msg)
-                
-    def load_database(self, filename):        
+
+    def load_database(self, filename):
         if not filename:
             filename = self.config()["path"]
         filename = expand_path(filename, self.config().basedir)
         try:
             if not os.path.exists(filename):
                 self.database().new(filename)
+            elif filename.endswith(".mem"):  # Do upgrade.
+                new_filename = filename.replace(".mem", ".db")
+                self.database().new(new_filename)
+                for format in self.component_manager.get_all("file_format"):
+                    if format.__class__.__name__ == "Mnemosyne1Mem":
+                        format.do_import(filename)
             else:
                 self.database().load(filename)
         except RuntimeError, e:

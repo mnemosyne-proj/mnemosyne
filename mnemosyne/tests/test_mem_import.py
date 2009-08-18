@@ -11,12 +11,6 @@ from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
-class SeenBeforeError(Exception):
-    pass
-
-class FileNotFoundError(Exception):
-    pass
-
 class Widget(MainWidget):
 
     def information_box(self, message):
@@ -24,13 +18,15 @@ class Widget(MainWidget):
             return 0
         if message.startswith("No history found to import."):
             return 0
+        if message.startswith("Ignoring unparsable file"):
+            return 0        
         raise NotImplementedError
 
     def error_box(self, message):
         if message.startswith("This file seems to have been imported before"):
-            raise SeenBeforeError
+            return
         if message.startswith("Unable to open"):
-            raise FileNotFoundError
+            return
         raise NotImplementedError
 
 
@@ -57,10 +53,9 @@ class TestMemImport(MnemosyneTest):
             if format.__class__.__name__ == "Mnemosyne1Mem":
                 return format
 
-    @raises(FileNotFoundError)
     def test_file_not_found(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "nothere.mem")
-        self.get_mem_importer().do_import(filename)
+        assert self.get_mem_importer().do_import(filename) == -1
         
     def test_card_type_1(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
@@ -96,7 +91,6 @@ class TestMemImport(MnemosyneTest):
         assert card.last_rep == -1
         assert card.next_rep == -1
         
-    @raises(SeenBeforeError)
     def test_card_type_1_updated(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
         self.get_mem_importer().do_import(filename)
@@ -106,7 +100,7 @@ class TestMemImport(MnemosyneTest):
         assert card.id == "9cff728f"
         assert "question" in card.question()
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
-        self.get_mem_importer().do_import(filename)      
+        assert self.get_mem_importer().do_import(filename) == -2      
         
     def test_card_type_2(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "2sided.mem")
@@ -587,7 +581,21 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event=?",
             (self.database().REPETITION, )).fetchone()[0] == 2
-
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 2
+        
+    def test_bz2(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
+                                "default.mem")
+        self.get_mem_importer().do_import(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().REPETITION, )).fetchone()[0] == 0      
+        assert self.database().con.execute(\
+            "select count() from log where event=?",
+            (self.database().ADDED_CARD, )).fetchone()[0] == 1
+        
     def teardown(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "a.png")
         if os.path.exists(filename):

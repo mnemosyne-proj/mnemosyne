@@ -260,14 +260,16 @@ class SQLiteLogging(object):
             modification_time=? where _id=?""",
             (creation_time, creation_time, sql_res["_fact_id"]))
 
-    def erase_last_log_event(self):
-        highest_index = self.con.execute(\
+    def get_log_index(self):
+        return self.con.execute(\
             "select _id from log order by _id desc limit 1").fetchone()[0]
-        self.con.execute("delete from log where _id=?", (highest_index, ))
 
+    def remove_added_card_events_since(self, index):
+        self.con.execute("delete from log where _id>? and event=?",
+            (index, self.ADDED_CARD))
+        self.con.execute("vacuum")
+        
     def bring_txt_log_partnership_index_forward(self):
-        highest_index = self.con.execute(\
-            "select _id from log order by _id desc limit 1").fetchone()[0]
         self.con.execute(\
             "update partnerships set _last_log_id=? where partner=?",
-            (highest_index, "log.txt"))       
+            (self.get_log_index(), "log.txt"))       
