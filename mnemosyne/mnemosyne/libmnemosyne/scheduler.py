@@ -12,13 +12,13 @@ class Scheduler(Component):
             
     def reset(self):
 
-        "Called when starting the scheduler for the first time."
+        """Called when starting the scheduler for the first time."""
         
         raise NotImplementedError
     
     def heartbeat(self):
 
-        "For code that needs to run periodically."
+        """For code that needs to run periodically."""
         
         pass
     
@@ -72,7 +72,7 @@ class Scheduler(Component):
     
     def get_next_card_id(self, learn_ahead=False):
 
-        "Avoids creating a card object, which enables certain shortcuts."
+        """Avoids creating a card object, which enables certain shortcuts."""
         
         raise NotImplementedError
     
@@ -97,8 +97,8 @@ class Scheduler(Component):
     def active_count(self):
         raise NotImplementedError
     
-    def card_count_scheduled_between(self, start, end):
+    def card_count_scheduled_n_days_from_now(self, n):
 
-        "Arguments are in days from today, i.e. today=0, tomorrow=1, ..."
+        """Yesterday: n=-1, today: n=0, tomorrow: n=1, ..."""
         
         raise NotImplementedError        

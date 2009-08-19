@@ -78,24 +78,40 @@ class ScheduleWdgt(PlotStatisticsWdgt):
         if not self.page.y:
             self.display_message(_("No stats available."))
             return
-        ticklabels = lambda i, j, k: map(lambda x: "+%d" % x, range(i, j, k))        
+        ticklabels_pos = lambda i, j, k: map(lambda x: "+%d" % x, range(i, j, k))
+        ticklabels_neg = lambda i, j, k: map(lambda x: "%d" % x, range(i, j, k)) 
         if variant == self.page.NEXT_WEEK:
             xticks = range(1, 8, 1)
-            xticklabels = ticklabels(1, 8, 1)
+            xticklabels = ticklabels_pos(1, 8, 1)
             show_text_value = True
             linewidth = 1 
         elif variant == self.page.NEXT_MONTH:   
             xticks = [1] + range(5, 32, 5)
-            xticklabels = ["+1"] + ticklabels(5, 32, 5)
+            xticklabels = ["+1"] + ticklabels_pos(5, 32, 5)
             show_text_value = False
             linewidth = 1        
         elif variant == self.page.NEXT_YEAR:
             xticks = [1] + range(60, 365, 60)            
-            xticklabels = ["+1"] + ticklabels(60, 365, 60)
+            xticklabels = ["+1"] + ticklabels_pos(60, 365, 60)
+            show_text_value = False
+            linewidth = 0
+        elif variant == self.page.LAST_WEEK:
+            xticks = range(-7, 1, 1)
+            xticklabels = ticklabels_neg(-7, 1, 1)
+            show_text_value = True
+            linewidth = 1 
+        elif variant == self.page.LAST_MONTH:   
+            xticks = range(-30, -4, 5) + [0]
+            xticklabels = ticklabels_neg(-30, -4, 5) + ["0"]
+            show_text_value = False
+            linewidth = 1        
+        elif variant == self.page.LAST_YEAR:
+            xticks = range(-360, -59, 60) + [0]          
+            xticklabels = ticklabels_neg(-360, -59, 60) + ["0"]
             show_text_value = False
             linewidth = 0
         else:
-            raise AttributeError, "Invalid variant"      
+            raise AttributeError, "Invalid variant"
         # Plot data.
         self.axes.bar(self.page.x, self.page.y, width=1, align="center",
                       linewidth=linewidth, color="blue", alpha=0.75)

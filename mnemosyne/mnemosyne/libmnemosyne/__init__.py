@@ -80,6 +80,7 @@ class Mnemosyne(Component):
           "Mnemosyne1Mem")]
         self.extra_components_for_plugin = {}
         self.resource_limited = resource_limited
+        self.upgrade_needed = False
 
     def initialise(self, basedir, filename=None):
         self.component_manager = new_component_manager()
@@ -99,9 +100,14 @@ class Mnemosyne(Component):
         self.log().started_program()
         self.log().started_scheduler()
         self.log().loaded_database()
-        # Finally, we can activate the main widget.
+        # Finally, we can activate the main widget and upgrade if needed.
         self.main_widget().activate()
-
+        if self.upgrade_needed:
+            for format in self.component_manager.get_all("file_format"):
+                if format.__class__.__name__ == "Mnemosyne1Mem":
+                    format.do_import(self.file_to_upgrade)
+                    self.review_controller().reset()
+                    
     def register_components(self):
 
         """We register all components, but don't activate them yet, because in
@@ -185,15 +191,13 @@ class Mnemosyne(Component):
         if not filename:
             filename = self.config()["path"]
         filename = expand_path(filename, self.config().basedir)
+        if filename.endswith(".mem"):
+            self.file_to_upgrade = filename
+            filename = filename.replace(".mem", ".db")
+            self.upgrade_needed = True
         try:
             if not os.path.exists(filename):
                 self.database().new(filename)
-            elif filename.endswith(".mem"):  # Do upgrade.
-                new_filename = filename.replace(".mem", ".db")
-                self.database().new(new_filename)
-                for format in self.component_manager.get_all("file_format"):
-                    if format.__class__.__name__ == "Mnemosyne1Mem":
-                        format.do_import(filename)
             else:
                 self.database().load(filename)
         except RuntimeError, e:

@@ -270,6 +270,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             where key=?""", ("times_loaded", )).fetchone()
         times_loaded = int(sql_res["value"]) + 1
         if times_loaded >= 5 and not self.config().resource_limited:
+            print "vacuum"
             self.con.execute("vacuum")
             times_loaded = 0
         self.con.execute("""update global_variables set value=? where

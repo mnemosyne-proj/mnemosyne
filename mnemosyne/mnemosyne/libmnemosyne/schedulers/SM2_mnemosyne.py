@@ -10,7 +10,8 @@ import datetime
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 
-DAY = 24 * 60 * 60 # Seconds in a day.
+HOUR = 60 * 60 # Seconds in an hour 
+DAY = 24 * HOUR # Seconds in a day.
 
 
 class SM2Mnemosyne(Scheduler):
@@ -40,12 +41,11 @@ class SM2Mnemosyne(Scheduler):
     def adjusted_now(self):
 
         """Adjust now such that the cross-over point of h:00 local time
-        (with h being 'day_starts_at') to midnight UTC.
+        (with h being 'day_starts_at') becomes midnight UTC.
 
         """
 
-        now = time.time()
-        now -= self.config()["day_starts_at"] * 60 * 60            
+        now = time.time() - self.config()["day_starts_at"] * HOUR           
         if time.daylight:
             now -= time.altzone
         else:
@@ -63,7 +63,7 @@ class SM2Mnemosyne(Scheduler):
         interval = card.next_rep - card.last_rep
         if card.grade < 2:
             return interval
-        interval += self.config()["day_starts_at"] * 60 * 60            
+        interval += self.config()["day_starts_at"] * HOUR            
         if time.daylight:
             interval += time.altzone
         else:
@@ -462,10 +462,20 @@ class SM2Mnemosyne(Scheduler):
     def active_count(self):
         return self.database().active_count()
 
-    def card_count_scheduled_between(self, start, end):
+    def card_count_scheduled_n_days_from_now(self, n):
 
-        "Arguments are in days from today, i.e. today=0, tomorrow=1, ..."
-        
-        now = self.adjusted_now()
-        return self.database().card_count_scheduled_between\
-                (now + start * DAY, now + end * DAY)
+        """Yesterday: n=-1, today: n=0, tomorrow: n=1, ..."""
+
+        if n > 0:
+            now = self.adjusted_now()
+            return self.database().future_card_count_scheduled_between\
+                    (now + (n - 1) * DAY, now + n * DAY)
+        else:
+            # We can only take local time into account here.
+            timestamp = time.time() + n * DAY \
+                        - self.config()["day_starts_at"] * HOUR 
+            date_only = datetime.date.fromtimestamp(timestamp)
+            start_of_day = int(time.mktime(date_only.timetuple()))
+            start_of_day += self.config()["day_starts_at"] * HOUR 
+            return self.database().past_card_count_scheduled_at\
+                    (start_of_day)

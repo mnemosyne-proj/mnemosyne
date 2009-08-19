@@ -4,6 +4,8 @@
 -added option to control whether media (sound/video) gets started automatically when displaying a card.
 -added option to display a media control (play/pause/slider)
 -improved backup scheme. Users can now restore from backups using the File - Open menu, as opposed to first decompressing a file outside of Mnemosyne.
+-your entire collected logs are now imported in the sql database
+-automatic upgrade of the last 1.x database you used
 	
 	
 MNEMOSYNE 2.0

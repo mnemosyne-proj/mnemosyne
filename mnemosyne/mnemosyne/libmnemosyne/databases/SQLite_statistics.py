@@ -4,6 +4,8 @@
 
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
+DAY = 24 * 60 * 60 # Seconds in a day.
+
 
 class SQLiteStatistics(object):
 
@@ -40,8 +42,18 @@ class SQLiteStatistics(object):
              and tags_for_card._tag_id=? and grade=?""",
              (_tag_id, grade)).fetchone()[0]
 
-    def card_count_scheduled_between(self, start, stop):
+    def future_card_count_scheduled_between(self, start, stop):
         return self.con.execute(\
             """select count() from cards where active=1 and grade>=2
             and ?<next_rep and next_rep<=?""",
             (start, stop)).fetchone()[0]
+    
+    def past_card_count_scheduled_at(self, start_of_day):
+        result = self.con.execute(\
+            """select acq_reps from log where ?<=timestamp and timestamp<?
+            and event=? order by timestamp limit 1""",
+            (start_of_day, start_of_day + DAY, self.LOADED_DATABASE)).fetchone()
+        if result:
+            return result[0]
+        else:
+            return 0 # Unknown.

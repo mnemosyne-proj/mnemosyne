@@ -12,6 +12,9 @@ from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
+        
+    def activate(self):
+        self.review_controller().reset()
 
     def information_box(self, message):
         if message.startswith("Missing media file"):
@@ -595,6 +598,24 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event=?",
             (self.database().ADDED_CARD, )).fetchone()[0] == 1
+
+    def test_upgrade(self):
+        os.system("rm -fr dot_test")
+        basedir = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2")
+        shutil.copytree(basedir, "dot_test")
+        self.mnemosyne = Mnemosyne()
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))        
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_mem_import", "Widget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"))
+        self.review_controller().reset()       
         
     def teardown(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "a.png")
