@@ -2,9 +2,13 @@
 # SQLite_statistics.py <Peter.Bienstman@UGent.be>
 #
 
+import time
+import datetime
+
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
-DAY = 24 * 60 * 60 # Seconds in a day.
+HOUR = 60 * 60 # Seconds in an hour. 
+DAY = 24 * HOUR # Seconds in a day.
 
 
 class SQLiteStatistics(object):
@@ -47,8 +51,17 @@ class SQLiteStatistics(object):
             """select count() from cards where active=1 and grade>=2
             and ?<next_rep and next_rep<=?""",
             (start, stop)).fetchone()[0]
-    
-    def past_card_count_scheduled_at(self, start_of_day):
+
+    def _start_of_day_n_days_ago(self, n):
+        timestamp = time.time() - n * DAY \
+                    - self.config()["day_starts_at"] * HOUR 
+        date_only = datetime.date.fromtimestamp(timestamp)
+        start_of_day = int(time.mktime(date_only.timetuple()))
+        start_of_day += self.config()["day_starts_at"] * HOUR
+        return start_of_day
+
+    def card_count_scheduled_n_days_ago(self, n):
+        start_of_day = self._start_of_day_n_days_ago(n)
         result = self.con.execute(\
             """select acq_reps from log where ?<=timestamp and timestamp<?
             and event=? order by timestamp limit 1""",
@@ -57,3 +70,11 @@ class SQLiteStatistics(object):
             return result[0]
         else:
             return 0 # Unknown.
+
+    def card_count_added_n_days_ago(self, n):
+        start_of_day = self._start_of_day_n_days_ago(n)
+        return self.con.execute(\
+            """select count() from log where ?<=timestamp and timestamp<?
+            and event=?""",
+            (start_of_day, start_of_day + DAY, self.ADDED_CARD)).fetchone()[0]
+    

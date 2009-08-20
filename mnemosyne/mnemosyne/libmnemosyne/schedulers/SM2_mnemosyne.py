@@ -10,7 +10,7 @@ import datetime
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.scheduler import Scheduler
 
-HOUR = 60 * 60 # Seconds in an hour 
+HOUR = 60 * 60 # Seconds in an hour. 
 DAY = 24 * HOUR # Seconds in a day.
 
 
@@ -471,11 +471,5 @@ class SM2Mnemosyne(Scheduler):
             return self.database().future_card_count_scheduled_between\
                     (now + (n - 1) * DAY, now + n * DAY)
         else:
-            # We can only take local time into account here.
-            timestamp = time.time() + n * DAY \
-                        - self.config()["day_starts_at"] * HOUR 
-            date_only = datetime.date.fromtimestamp(timestamp)
-            start_of_day = int(time.mktime(date_only.timetuple()))
-            start_of_day += self.config()["day_starts_at"] * HOUR 
-            return self.database().past_card_count_scheduled_at\
-                    (start_of_day)
+            return self.database().card_count_scheduled_n_days_ago(-n)
+        

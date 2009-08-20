@@ -74,6 +74,8 @@ class Mnemosyne(Component):
           "Grades"),
          ("mnemosyne.libmnemosyne.statistics_pages.easiness",
           "Easiness"),
+         ("mnemosyne.libmnemosyne.statistics_pages.cards_added",
+          "CardsAdded"),         
          ("mnemosyne.libmnemosyne.statistics_pages.current_card",
           "CurrentCard"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",

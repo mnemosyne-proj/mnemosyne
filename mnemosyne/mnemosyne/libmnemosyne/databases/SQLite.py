@@ -245,7 +245,6 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         if self.is_loaded():
             self.unload()
         self._path = expand_path(path, self.config().basedir)
-
         # Check database version.
         try:
             sql_res = self.con.execute("""select value from global_variables
@@ -264,7 +263,6 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             self.load_failed = True
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
-
         # Vacuum database from time to time.
         sql_res = self.con.execute("""select value from global_variables
             where key=?""", ("times_loaded", )).fetchone()
@@ -272,16 +270,15 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         if times_loaded >= 5 and not self.config().resource_limited:
             print "vacuum"
             self.con.execute("vacuum")
+            print "done"
             times_loaded = 0
         self.con.execute("""update global_variables set value=? where
             key=?""", (str(times_loaded), "times_loaded"))
-
         # Instantiate card types stored in this database.
         for cursor in self.con.execute("select id from card_types"):
             id = cursor[0]
             card_type = self.get_card_type(id, id_is_internal=-1)
             self.component_manager.register(card_type)
-
         # Identify missing plugins for card types and their parents.       
         plugin_needed = set()
         active_ids = set(card_type.id for card_type in self.card_types())

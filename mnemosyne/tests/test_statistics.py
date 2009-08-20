@@ -2,7 +2,13 @@
 # test_statistics.py <Peter.Bienstman@UGent.be>
 #
 
+import os
+import datetime
+
+from nose.tools import raises
+
 from mnemosyne_test import MnemosyneTest
+from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
 
 
 class TestStatistics(MnemosyneTest):
@@ -39,8 +45,50 @@ class TestStatistics(MnemosyneTest):
         page = Easiness(self.mnemosyne.component_manager)
         
         page.prepare_statistics(-1)
-        print page.data
         assert page.data == [2.5]
         page.prepare_statistics(page.variants[1][0])
-        print page.data
-        assert page.data == [2.5]   
+        assert page.data == [2.5]
+
+    def test_past_schedule(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "schedule_1.txt")
+        TxtLogParser(self.database()).parse(filename)
+        days_elapsed = datetime.date.today() - datetime.date(2009, 8, 15)
+        assert self.scheduler().card_count_scheduled_n_days_from_now(\
+            -days_elapsed.days) == 124
+        assert self.scheduler().card_count_scheduled_n_days_from_now(-1) == 0
+
+    def test_schedule_page(self):
+        from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
+        page = Schedule(self.mnemosyne.component_manager)
+        for i in range(1, 7):
+            page.prepare_statistics(i)
+
+    @raises(AttributeError)
+    def test_schedule_page_2(self):
+        from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
+        page = Schedule(self.mnemosyne.component_manager)
+        page.prepare_statistics(8)
+
+    def test_added_cards(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "added_1.txt")
+        TxtLogParser(self.database()).parse(filename)
+        days_elapsed = datetime.date.today() - datetime.date(2009, 8, 19)
+        assert self.database().card_count_added_n_days_ago(days_elapsed.days) \
+               == 2
+        assert self.scheduler().card_count_scheduled_n_days_from_now(1) == 0
+        
+    def test_added_cards_page(self):
+        from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
+        page = CardsAdded(self.mnemosyne.component_manager)
+        for i in range(1, 4):
+            page.prepare_statistics(i)
+            
+    @raises(AttributeError)
+    def test_added_cards_page_2(self):
+        from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
+        page = CardsAdded(self.mnemosyne.component_manager)
+        page.prepare_statistics(0)

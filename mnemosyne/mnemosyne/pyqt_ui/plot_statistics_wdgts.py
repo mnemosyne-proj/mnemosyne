@@ -12,6 +12,7 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
 from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
 from mnemosyne.libmnemosyne.statistics_pages.easiness import Easiness
+from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
 from mnemosyne.libmnemosyne.ui_components.statistics_widget import StatisticsWidget
 
 
@@ -69,9 +70,9 @@ class PlotStatisticsWdgt(FigureCanvas, StatisticsWidget):
             return map(lambda x: x / 255.0, (r, g, b))
 
 
-class ScheduleWdgt(PlotStatisticsWdgt):
+class BarChartDaysWdgt(PlotStatisticsWdgt):
 
-    used_for = Schedule
+    colour = "blue"
     
     def show_statistics(self, variant):
         # Determine variant-dependent formatting.
@@ -80,32 +81,38 @@ class ScheduleWdgt(PlotStatisticsWdgt):
             return
         ticklabels_pos = lambda i, j, k: map(lambda x: "+%d" % x, range(i, j, k))
         ticklabels_neg = lambda i, j, k: map(lambda x: "%d" % x, range(i, j, k)) 
-        if variant == self.page.NEXT_WEEK:
+        if hasattr(self.page, "NEXT_WEEK") and \
+               variant == self.page.NEXT_WEEK:
             xticks = range(1, 8, 1)
             xticklabels = ticklabels_pos(1, 8, 1)
             show_text_value = True
             linewidth = 1 
-        elif variant == self.page.NEXT_MONTH:   
+        elif hasattr(self.page, "NEXT_MONTH") and \
+                 variant == self.page.NEXT_MONTH:   
             xticks = [1] + range(5, 32, 5)
             xticklabels = ["+1"] + ticklabels_pos(5, 32, 5)
             show_text_value = False
             linewidth = 1        
-        elif variant == self.page.NEXT_YEAR:
+        elif hasattr(self.page, "NEXT_YEAR") and \
+                 variant == self.page.NEXT_YEAR:
             xticks = [1] + range(60, 365, 60)            
             xticklabels = ["+1"] + ticklabels_pos(60, 365, 60)
             show_text_value = False
             linewidth = 0
-        elif variant == self.page.LAST_WEEK:
+        elif hasattr(self.page, "LAST_WEEK") and \
+                 variant == self.page.LAST_WEEK:
             xticks = range(-7, 1, 1)
             xticklabels = ticklabels_neg(-7, 1, 1)
             show_text_value = True
             linewidth = 1 
-        elif variant == self.page.LAST_MONTH:   
+        elif hasattr(self.page, "LAST_MONTH") and \
+                 variant == self.page.LAST_MONTH:   
             xticks = range(-30, -4, 5) + [0]
             xticklabels = ticklabels_neg(-30, -4, 5) + ["0"]
             show_text_value = False
             linewidth = 1        
-        elif variant == self.page.LAST_YEAR:
+        elif hasattr(self.page, "LAST_YEAR") and \
+                 variant == self.page.LAST_YEAR:
             xticks = range(-360, -59, 60) + [0]          
             xticklabels = ticklabels_neg(-360, -59, 60) + ["0"]
             show_text_value = False
@@ -114,8 +121,8 @@ class ScheduleWdgt(PlotStatisticsWdgt):
             raise AttributeError, "Invalid variant"
         # Plot data.
         self.axes.bar(self.page.x, self.page.y, width=1, align="center",
-                      linewidth=linewidth, color="blue", alpha=0.75)
-        self.axes.set_title(_("Number of cards scheduled"))
+                      linewidth=linewidth, color=self.colour, alpha=0.75)
+        self.axes.set_title(self.title)
         self.axes.set_xlabel(_("Days")) 
         self.axes.set_xticks(xticks)
         self.axes.set_xticklabels(xticklabels)
@@ -144,6 +151,18 @@ class ScheduleWdgt(PlotStatisticsWdgt):
             self.axes.text(self.page.x[i], height + pad, "%d" % height,
                            ha="center", va="bottom", fontsize="small")
 
+
+class ScheduleWdgt(BarChartDaysWdgt):
+
+    used_for = Schedule
+    title = _("Number of cards scheduled")
+
+
+class CardsAddedWdgt(BarChartDaysWdgt):
+
+    used_for = CardsAdded
+    title = _("Number of cards added")
+    
 
 class GradesWdgt(PlotStatisticsWdgt):
 

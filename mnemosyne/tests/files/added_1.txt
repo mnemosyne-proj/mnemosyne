@@ -1,0 +1,5 @@
+2009-08-17 07:32:41 : Program started : Mnemosyne 1.2.1 posix linux2
+2009-08-18 09:27:15 : New item 074fc32f 0 0
+2009-08-19 09:03:57 : New item a58a8ebb 5 5
+2009-08-19 09:21:57 : New item c6d1d965 5 6
+

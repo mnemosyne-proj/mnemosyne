@@ -9,8 +9,6 @@ from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
 class Schedule(PlotStatisticsPage):
 
     name = _("Schedule")
-
-    # TODO: add schedule for last week, last month and last year.
     
     NEXT_WEEK = 1
     NEXT_MONTH = 2
