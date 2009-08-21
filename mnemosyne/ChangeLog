@@ -6,6 +6,7 @@
 -improved backup scheme. Users can now restore from backups using the File - Open menu, as opposed to first decompressing a file outside of Mnemosyne.
 -your entire collected logs are now imported in the sql database
 -automatic upgrade of the last 1.x database you used
+-past schedule, cards added, retention score, total  and avg thinking time for card
 	
 	
 MNEMOSYNE 2.0

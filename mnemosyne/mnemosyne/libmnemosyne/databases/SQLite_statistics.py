@@ -78,3 +78,36 @@ class SQLiteStatistics(object):
             and event=?""",
             (start_of_day, start_of_day + DAY, self.ADDED_CARD)).fetchone()[0]
     
+    def retention_score_n_days_ago(self, n):
+        start_of_day = self._start_of_day_n_days_ago(n)
+        scheduled_cards_seen = self.con.execute(\
+            """select count() from log where ?<=timestamp and timestamp<?
+            and event=? and scheduled_interval!=0""",
+            (start_of_day, start_of_day + DAY, self.REPETITION)).fetchone()[0]
+        if scheduled_cards_seen == 0:
+            return 0
+        scheduled_cards_correct = self.con.execute(\
+            """select count() from log where ?<=timestamp and timestamp<?
+            and event=? and scheduled_interval!=0 and grade>=2""",
+            (start_of_day, start_of_day + DAY, self.REPETITION)).fetchone()[0]
+        return 100.0 * scheduled_cards_correct / scheduled_cards_seen
+    
+    def average_thinking_time(self, card):
+        result = self.con.execute(\
+            """select avg(thinking_time) from log where object_id=?
+            and event=?""",
+            (card.id, self.REPETITION)).fetchone()[0]
+        if result:
+            return result
+        else:
+            return 0
+
+    def total_thinking_time(self, card):
+        result = self.con.execute(\
+            """select sum(thinking_time) from log where object_id=?
+            and event=?""",
+            (card.id, self.REPETITION)).fetchone()[0]
+        if result:
+            return result
+        else:
+            return 0

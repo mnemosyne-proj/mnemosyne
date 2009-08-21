@@ -13,6 +13,7 @@ from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
 from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
 from mnemosyne.libmnemosyne.statistics_pages.easiness import Easiness
 from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
+from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
 from mnemosyne.libmnemosyne.ui_components.statistics_widget import StatisticsWidget
 
 
@@ -27,7 +28,7 @@ class PlotStatisticsWdgt(FigureCanvas, StatisticsWidget):
         StatisticsWidget.__init__(self, component_manager)
         self.page = page
         colour = self._background_colour(parent)
-        fig = Figure(figsize=(5, 4), facecolor=colour, edgecolor=colour)
+        fig = Figure(figsize=(6.5, 5.2), facecolor=colour, edgecolor=colour)
         FigureCanvas.__init__(self, fig)
         FigureCanvas.setSizePolicy(self, QtGui.QSizePolicy.MinimumExpanding, 
                                    QtGui.QSizePolicy.MinimumExpanding)
@@ -158,9 +159,17 @@ class ScheduleWdgt(BarChartDaysWdgt):
     title = _("Number of cards scheduled")
 
 
+class RetentionScoreWdgt(BarChartDaysWdgt):
+
+    used_for = RetentionScore
+    colour = "green"
+    title = _("Retention score (%)")
+
+    
 class CardsAddedWdgt(BarChartDaysWdgt):
 
     used_for = CardsAdded
+    colour = "red"
     title = _("Number of cards added")
     
 
@@ -173,7 +182,7 @@ class GradesWdgt(PlotStatisticsWdgt):
             self.display_message(_("No stats available."))
             return
         self.axes.bar(self.page.x, self.page.y, width=0.7, align="center",
-            color="green", alpha=0.75)
+            color="blue", alpha=0.75)
         self.axes.set_title(_("Number of cards"))
         self.axes.set_xlabel(_("Grades"))
         self.axes.set_xticks(self.page.x)

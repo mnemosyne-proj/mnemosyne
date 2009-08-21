@@ -88,6 +88,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.generic_card_type_widget",
 mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",
                              "ScheduleWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",
+                             "RetentionScoreWdgt"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",
                              "GradesWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.plot_statistics_wdgts",
                              "EasinessWdgt"))

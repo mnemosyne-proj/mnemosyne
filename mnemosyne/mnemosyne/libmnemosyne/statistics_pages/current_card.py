@@ -37,7 +37,13 @@ class CurrentCard(HtmlStatisticsPage):
                 % (card.acq_reps + card.ret_reps)
             self.html += _("Lapses") + ": %d<br>" % card.lapses
             self.html += _("Interval") + ": %d<br>" \
-                % (card.interval / DAY)            
+                % (card.interval / DAY)
+            self.html += _("Last repetition") + ": %s<br>" \
+                % time.strftime("%B %d, %Y", time.gmtime(card.last_rep))           
             self.html += _("Next repetition") + ": %s<br>" \
                 % time.strftime("%B %d, %Y", time.gmtime(card.next_rep))
+            self.html += _("Average thinking time (secs)") + ": %d<br>" \
+                % self.database().average_thinking_time(card)
+            self.html += _("Total thinking time (secs)") + ": %d<br>" \
+                % self.database().total_thinking_time(card)
         self.html += "</td></tr></table></body></html>"

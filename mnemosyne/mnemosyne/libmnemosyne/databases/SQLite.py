@@ -4,6 +4,7 @@
 
 import os
 import re
+import sys
 import time
 import shutil
 import sqlite3
@@ -208,8 +209,6 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         self.con.executescript(SCHEMA)
         self.con.execute("insert into global_variables(key, value) values(?,?)",
                         ("version", self.version))
-        self.con.execute("insert into global_variables(key, value) values(?,?)",
-                        ("times_loaded", 0))
         self.con.execute("""insert into partnerships(partner, _last_log_id)
                          values(?,?)""", ("log.txt", 0))
         self.con.commit()
@@ -263,17 +262,6 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             self.load_failed = True
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
-        # Vacuum database from time to time.
-        sql_res = self.con.execute("""select value from global_variables
-            where key=?""", ("times_loaded", )).fetchone()
-        times_loaded = int(sql_res["value"]) + 1
-        if times_loaded >= 5 and not self.config().resource_limited:
-            print "vacuum"
-            self.con.execute("vacuum")
-            print "done"
-            times_loaded = 0
-        self.con.execute("""update global_variables set value=? where
-            key=?""", (str(times_loaded), "times_loaded"))
         # Instantiate card types stored in this database.
         for cursor in self.con.execute("select id from card_types"):
             id = cursor[0]

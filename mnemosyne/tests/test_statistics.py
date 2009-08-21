@@ -92,3 +92,13 @@ class TestStatistics(MnemosyneTest):
         from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
         page = CardsAdded(self.mnemosyne.component_manager)
         page.prepare_statistics(0)
+
+    def test_score(self):
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "score_1.txt")        
+        TxtLogParser(self.database()).parse(filename)
+        days_elapsed = datetime.date.today() - datetime.date(2009, 8, 17)
+        assert self.database().retention_score_n_days_ago(days_elapsed.days) \
+               == 5/7.*100
+        assert self.database().retention_score_n_days_ago(0) == 0

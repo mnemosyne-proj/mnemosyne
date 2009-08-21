@@ -37,7 +37,7 @@ the GUI function itself?
 -card preview
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 
--don't auto vacuum?
+-don't auto vacuum? what for WM?
 
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
