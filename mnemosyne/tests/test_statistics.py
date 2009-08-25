@@ -102,3 +102,15 @@ class TestStatistics(MnemosyneTest):
         assert self.database().retention_score_n_days_ago(days_elapsed.days) \
                == 5/7.*100
         assert self.database().retention_score_n_days_ago(0) == 0
+        from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
+        page = RetentionScore(self.mnemosyne.component_manager)
+        page.prepare_statistics(1)
+        page.prepare_statistics(2)
+        page.prepare_statistics(3)
+                
+    @raises(AttributeError)
+    def test_score_page(self):
+        from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
+        page = RetentionScore(self.mnemosyne.component_manager)
+        page.prepare_statistics(0)
+        

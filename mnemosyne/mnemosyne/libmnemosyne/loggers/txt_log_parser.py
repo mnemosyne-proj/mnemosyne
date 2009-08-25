@@ -242,7 +242,7 @@ class TxtLogParser(object):
         actual_interval = int(actual_interval)
         new_interval, noise = blocks[3].split(" ")
         new_interval = int(new_interval) + int(noise)
-        thinking_time = int(float(blocks[4]))
+        thinking_time = round(float(blocks[4]))
         # Deal with interval data for pre 2.0 logs.
         if self.version_number in \
           self.versions_1_x_phase_1 + self.versions_1_x_phase_2:

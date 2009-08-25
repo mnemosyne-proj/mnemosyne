@@ -583,11 +583,22 @@ class TestMemImport(MnemosyneTest):
         self.get_mem_importer().do_import(filename)        
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 2
+            (self.database().REPETITION, )).fetchone()[0] == 3
         assert self.database().con.execute(\
             "select count() from log where event=?",
             (self.database().ADDED_CARD, )).fetchone()[0] == 2
-        
+        card = self.database().get_card("4c8fff73", id_is_internal=False)
+        assert self.database().average_thinking_time(card) == 1.5
+        assert self.database().total_thinking_time(card) == 3.0
+        assert self.database().card_count_for_grade(0) == 2
+        assert self.database().card_count_for_grade_and__tag_id(0, 666) == 0
+        from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
+        page = Grades(self.mnemosyne.component_manager)
+        page.prepare_statistics(0)
+        assert page.y == [0, 0, 0, 0, 0, 0, 0]
+        page.prepare_statistics(-1)
+        assert page.y == [0, 2, 0, 0, 0, 0, 0]
+     
     def test_bz2(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
                                 "default.mem")
