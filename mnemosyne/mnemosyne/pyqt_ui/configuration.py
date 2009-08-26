@@ -18,11 +18,13 @@ class PyQtConfiguration(Hook):
              "sort_column": None,
              "sort_order": None,
              "last_statistics_page": 0,
+             "last_configuration_wdgt": 0,
              "last_variant_for_statistics_page": {}, # dict[page] = variant
              "main_window_size": (0, 0),
              "add_widget_size": (0, 0),
              "edit_widget_size": (0, 0),
-             "plugins_widget_size": (0, 0),
-             "statistics_widget_size": (0, 0)
+             "plugins_dlg_size": (0, 0),
+             "statistics_dlg_size": (0, 0),
+             "configuration_dlg_size": (0, 0)             
             }.items():
             self.config().setdefault(key, value)

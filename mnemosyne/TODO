@@ -1,20 +1,16 @@
 -duplicates for fact speedup
 -id vs _id
 
--retention score
--number of reps
-
-
 -time WM: history in same DB?
+
 
 -more tests
 -docstring formatting: """ everywhere
 -update_cards --> modify cards?
 
 -hook up config screen
--move option to always randomise queue to config screen
--ditto for learn new related cards in same session
--autostart/controls
+-post config issues?
+-migrate settings from 1.x
 
 -activate cards, belonging to these card types, having any of these tags, but non of these, ro just none of these
 -add 'update_card_active' (or something like that) to be called when
@@ -38,10 +34,13 @@ the GUI function itself?
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 
 -don't auto vacuum? what for WM?
+-more fine grained resource_limited
 
+-delete 1.99 logs
+-reenable upload
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
- activate cards, configuration 
+ activate cards
 
 -upgrade from 1.x to 2.0 migration code: convert deck,
   move latex configuration files?, import user id and config, ...
@@ -71,8 +70,6 @@ the GUI function itself?
  T.<fixed card id for all pupils>.<pupil user id>?
 -when resetting learning data on export, can we export facts only? Tags are on
  a per card basis.
-
--delete 1.99 logs
 
 -tips (both on startup and on use): right click to add cards or sound, comma to 
  separate tag names, :: to separate hierarchies
@@ -107,8 +104,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
  remember size
 
 -make distrib
-
--reenable upload
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
@@ -176,6 +171,8 @@ pylint:
 
 -better supermemo import
 
+-get rid of mp3 clip prevention?
+
 -plugin to store backups on dropbox
 
 -detect wrong current date (last review in the future or way past)
@@ -198,8 +195,6 @@ http://pythoscope.org/
 -chinese pod plugin
 
 -"reschedule" cheating plugin
-
--more fine grained resource_limited?
 
 
 Windows Mobile client:

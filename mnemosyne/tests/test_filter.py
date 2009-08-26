@@ -20,20 +20,20 @@ class TestFilter(MnemosyneTest):
 
         f = Html5Media(self.mnemosyne.component_manager)
 
-        self.config()["autoplay"] = True
-        self.config()["controls"] = True        
+        self.config()["media_autoplay"] = True
+        self.config()["media_controls"] = True        
 
         assert f.run("""<audio src="a">""") == \
               """<audio src="a" autoplay=1 controls=1>"""
 
-        self.config()["autoplay"] = True
-        self.config()["controls"] = False
+        self.config()["media_autoplay"] = True
+        self.config()["media_controls"] = False
 
         assert f.run("""<video src="a">""") == \
               """<video src="a" autoplay=1>"""
     
-        self.config()["autoplay"] = False
-        self.config()["controls"] = True
+        self.config()["media_autoplay"] = False
+        self.config()["media_controls"] = True
 
         assert f.run("""<video src="a">""") == \
               """<video src="a" controls=1>"""

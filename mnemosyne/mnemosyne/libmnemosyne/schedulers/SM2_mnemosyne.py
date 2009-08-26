@@ -79,7 +79,7 @@ class SM2Mnemosyne(Scheduler):
         which is needed to make sure that no related cards can be together in
         the queue at any time.
         
-        '_fact_ids_learned' has a different function and persists over the
+        '_fact_ids_memorised' has a different function and persists over the
         different stages of the queue building. It can be used to control
         whether or not memorising a card will prevent a related card from
         being pulled out of the 'unseen' pile, even after the queue has been
@@ -94,15 +94,15 @@ class SM2Mnemosyne(Scheduler):
         
         self._card_ids_in_queue = []
         self._fact_ids_in_queue = []
-        self._fact_ids_learned = []
-        self._fact_ids_learned_expires_at = int(time.time()) + DAY
+        self._fact_ids_memorised = []
+        self._fact_ids_memorised_expires_at = int(time.time()) + DAY
         self.last_card = None
         self.stage = 1
 
     def heartbeat(self):
-        if time.time() > self._fact_ids_learned_expires_at:
-            self._fact_ids_learned = []
-            self._fact_ids_learned_expires_at = int(time.time()) + DAY            
+        if time.time() > self._fact_ids_memorised_expires_at:
+            self._fact_ids_memorised = []
+            self._fact_ids_memorised_expires_at = int(time.time()) + DAY            
         
     def set_initial_grade(self, card, grade):
 
@@ -181,7 +181,7 @@ class SM2Mnemosyne(Scheduler):
         # Now rememorise the cards that we got wrong during the last stage.
         # Concentrate on only a limited number of grade 0 cards, in order to
         # avoid too long intervals between repetitions.
-        limit = self.config()["grade_0_cards_at_once"]
+        limit = self.config()["grade_0_cards_in_hand"]
         grade_0_in_queue = 0
         if self.stage == 2:
             if limit != 0:
@@ -245,14 +245,15 @@ class SM2Mnemosyne(Scheduler):
                 sort_key = "random"
             else:
                 sort_key = ""
-            related_together = self.config()["learn_related_cards_together"]
+            related_together = \
+                             self.config()["memorise_related_cards_on_same_day"]
             for _card_id, _fact_id in db.cards_unseen(sort_key=sort_key,
                                                       limit=min(limit, 50)):
                 if (    related_together and _fact_id not \
                                             in self._fact_ids_in_queue) or \
                    (not related_together and _fact_id not \
                                             in self._fact_ids_in_queue \
-                          and _fact_id not in self._fact_ids_learned):
+                          and _fact_id not in self._fact_ids_memorised):
                     self._card_ids_in_queue.append(_card_id)
                     self._fact_ids_in_queue.append(_fact_id)
                     grade_0_in_queue += 1
@@ -348,7 +349,7 @@ class SM2Mnemosyne(Scheduler):
         # If we memorise a card, keep track of its fact, so that we can avoid
         # pulling a related card from the 'unseen' pile.
         if not dry_run and card.grade < 2 and new_grade >= 2:
-            self._fact_ids_learned.append(card.fact._id)   
+            self._fact_ids_memorised.append(card.fact._id)   
         if card.grade == -1: # Unseen card.
             actual_interval = 0
         else:
@@ -439,9 +440,9 @@ class SM2Mnemosyne(Scheduler):
             card.next_rep = int(time.time())
             new_interval = 0
         # Warn if we learned a lot of new cards.
-        if len(self._fact_ids_learned) == 15:
+        if len(self._fact_ids_memorised) == 15:
             self.main_widget().information_box(\
-        _("You've learned 15 new cards.") + " " +\
+        _("You've memorised 15 new cards.") + " " +\
         _("If you do this for many days, you could get a big workload later."))
         # Run hooks.
         card.fact.card_type.after_repetition(card)

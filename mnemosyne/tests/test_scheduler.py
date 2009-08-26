@@ -74,7 +74,7 @@ class TestScheduler(MnemosyneTest):
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.config()["grade_0_cards_at_once"] = 0
+        self.config()["grade_0_cards_in_hand"] = 0
         
         assert self.scheduler().get_next_card() is None
         
@@ -84,7 +84,7 @@ class TestScheduler(MnemosyneTest):
             fact_data = {"q": str(i), "a": "a"}
             self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]    
-        self.config()["grade_0_cards_at_once"] = 3
+        self.config()["grade_0_cards_in_hand"] = 3
         cards = set()
         for i in range(10):
             card = self.scheduler().get_next_card()
@@ -202,7 +202,7 @@ class TestScheduler(MnemosyneTest):
         assert self.review_controller().scheduled_count == 0
                     
     def test_learn_related_together(self):
-        self.config()["learn_related_cards_together"] = True
+        self.config()["memorise_related_cards_on_same_day"] = True
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
@@ -221,7 +221,7 @@ class TestScheduler(MnemosyneTest):
         assert card_2._id in cards
         
     def test_learn_related_together_2(self):
-        self.config()["learn_related_cards_together"] = False
+        self.config()["memorise_related_cards_on_same_day"] = False
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
@@ -241,7 +241,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_learn_related_together_3(self):
         # Relax requirements if there are not enough cards.
-        self.config()["learn_related_cards_together"] = False
+        self.config()["memorise_related_cards_on_same_day"] = False
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,

@@ -86,7 +86,7 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg, ActivatePluginsDi
         self.plugins.setTextElideMode(QtCore.Qt.ElideNone)
         self.plugins.setRootIsDecorated(False)
         self.plugins.setItemsExpandable(False)
-        width, height = self.config()["plugins_widget_size"]
+        width, height = self.config()["plugins_dlg_size"]
         if width:
             self.resize(width, height)
         
@@ -94,8 +94,8 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg, ActivatePluginsDi
         self.exec_()
         
     def closeEvent(self, event):
-        self.config()["plugins_widget_size"] = (self.width(), self.height())
+        self.config()["plugins_dlg_size"] = (self.width(), self.height())
         
     def accept(self):
-        self.config()["plugins_widget_size"] = (self.width(), self.height())
+        self.config()["plugins_dlg_size"] = (self.width(), self.height())
         return QtGui.QDialog.accept(self)       

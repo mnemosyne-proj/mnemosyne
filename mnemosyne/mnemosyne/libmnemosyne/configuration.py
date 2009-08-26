@@ -89,13 +89,13 @@ class Configuration(Component, dict):
              "background_colour": {}, # [card_type.id]             
              "font_colour": {}, # [card_type.id][fact_key]
              "alignment": {}, # [card_type.id]
-             "grade_0_cards_at_once": 10,
+             "grade_0_cards_in_hand": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
-             "learn_related_cards_together": False, 
+             "memorise_related_cards_on_same_day": False, 
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
-             "locale": None,
+             "language": None,
              "show_daily_tips": True,
              "tip": 0,
              "backups_to_keep": 5,
@@ -106,8 +106,8 @@ class Configuration(Component, dict):
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
              "active_plugins": set(), # Plugin classes, not instances.
-             "autoplay": True,
-             "controls": True
+             "media_autoplay": True,
+             "media_controls": True
             }.items():
 
             self.setdefault(key, value)

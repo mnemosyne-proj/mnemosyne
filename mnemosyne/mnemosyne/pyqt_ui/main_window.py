@@ -119,6 +119,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
     def export_file(self):
         self.controller().export_file()
 
+    def configure(self):
+        self.controller().configure()      
+
     def editCards(self):
         stopwatch.pause()
         dlg = EditCardsDlg(self)
@@ -142,28 +145,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.updateDialog()
         stopwatch.unpause()
 
-    def showStatistics(self):
-        stopwatch.pause()
-        dlg = StatisticsDlg(self)
-        dlg.exec_()
-        stopwatch.unpause()
-
     def activateCategories(self):
         stopwatch.pause()
         dlg = ActivateCategoriesDlg(self)
         dlg.exec_()
-        rebuild_queue()
-        if not in_queue(self.card):
-            self.newQuestion()
-        else:
-            remove_from_queue(self.card) # It's already being asked.
-        self.updateDialog()
-        stopwatch.unpause()
-
-    def configuration(self):
-        stopwatch.pause()
-        dlg = ConfigurationDlg(self)
-        dlg.exec_loop()
         rebuild_queue()
         if not in_queue(self.card):
             self.newQuestion()

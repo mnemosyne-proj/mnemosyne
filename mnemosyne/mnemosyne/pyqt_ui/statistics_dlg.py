@@ -47,10 +47,10 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
         self.exec_()
 
     def closeEvent(self, event):
-        self.config()["statistics_widget_size"] = (self.width(), self.height())
+        self.config()["statistics_dlg_size"] = (self.width(), self.height())
         
     def accept(self):
-        self.config()["statistics_widget_size"] = (self.width(), self.height())
+        self.config()["statistics_dlg_size"] = (self.width(), self.height())
         return QtGui.QDialog.accept(self)        
         
     def display_page(self, page_index):
@@ -64,7 +64,7 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
         self.config()["last_statistics_page"] = page_index
 
         # TODO: suffers from screen corruption
-        #width, height = self.config()["main_window_size"]
+        #width, height = self.config()["statistics_dlg_size"]
         #if width:
         #    self.resize(width, height)
 

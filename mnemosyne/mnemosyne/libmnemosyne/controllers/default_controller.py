@@ -457,8 +457,15 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.component_manager.get_current("configuration_dialog")\
             (self.component_manager).activate()
+        # TODO: needs to change, as we don't build the entire queue at once.
+        review_controller = self.review_controller()
+        review_controller.reset()
+        if not self.scheduler().in_queue(review_controller.card):
+            review_controller.new_question()
+        else: # It's already being asked.
+            self.scheduler.remove_from_queue(review_controller.card)
         self.stopwatch().unpause()
-
+        
     def import_file(self):
         self.stopwatch().pause()
         path = expand_path(self.config()["import_dir"], self.config().basedir)

@@ -15,9 +15,9 @@ class Html5Media(Filter):
 
     def run(self, text):
         options = ""
-        if self.config()["autoplay"]:
+        if self.config()["media_autoplay"]:
             options += " autoplay=1"
-        if self.config()["controls"]:
+        if self.config()["media_controls"]:
             options += " controls=1"
         return re.sub(re_media, r"<\1\2" + options + ">", text)
     
