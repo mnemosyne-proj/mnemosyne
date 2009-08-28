@@ -313,16 +313,20 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         backupdir = os.path.join(self.config().basedir, "backups")
         # Make a copy. Create only a single file per day.
         db_name = os.path.basename(self._path).rsplit(".", 1)[0]
-        backup_file = db_name + "-" + \
+        backupfile = db_name + "-" + \
                    datetime.date.today().strftime("%Y%m%d") + ".db"
-        backup_file = os.path.join(backupdir, backup_file)
-        shutil.copy(self._path, backup_file)
+        backupfile = os.path.join(backupdir, backupfile)
+        shutil.copy(self._path, backupfile)
+        if not os.path.exists(backupfile) or not os.stat(backupfile).st_size:
+            self.main_widget().information_box(\
+                _("Warning: backup creation failed for") + " " +  backupfile)
         for f in self.component_manager.get_all("hook", "after_backup"):
-            f.run(backup_file)
+            f.run(backupfile)
         # Only keep the last logs.
         if self.config()["backups_to_keep"] < 0:
             return
-        files = [f for f in os.listdir(backupdir) if f.startswith(db_name + "-")]
+        files = [f for f in os.listdir(backupdir) \
+                if f.startswith(db_name + "-")]
         files.sort()
         if len(files) > self.config()["backups_to_keep"]:
             surplus = len(files) - self.config()["backups_to_keep"]
