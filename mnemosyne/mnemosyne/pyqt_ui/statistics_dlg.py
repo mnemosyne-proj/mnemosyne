@@ -19,6 +19,7 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
     def __init__(self, component_manager):
         StatisticsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
+        self.setWindowTitle(_("Statistics"))
         self.vbox_layout = QtGui.QVBoxLayout(self)
         self.tab_widget = QtGui.QTabWidget(self.main_widget())
         page_index = 0

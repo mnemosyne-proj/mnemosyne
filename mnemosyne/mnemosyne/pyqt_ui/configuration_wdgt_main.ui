@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>ConfigurationWdgtMain</class>
+ <widget class="QWidget" name="ConfigurationWdgtMain">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -57,7 +57,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="memorised_cards">
+           <widget class="QComboBox" name="scheduled_cards">
             <item>
              <property name="text">
               <string>most urgent first</string>

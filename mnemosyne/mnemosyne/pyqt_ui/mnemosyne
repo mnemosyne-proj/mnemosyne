@@ -103,6 +103,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.mp3_clip_prevention",
                              "Mp3ClipPrevention"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_dlg",
                              "ConfigurationDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_main",
+                             "ConfigurationWdgtMain"))
 mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                             [("mnemosyne.pyqt_ui.review_wdgt_cramming",
                              "ReviewWdgtCramming")]
