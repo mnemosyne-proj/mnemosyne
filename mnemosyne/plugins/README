@@ -17,6 +17,9 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * backup.py: moving your backups to a safe place
 
+ * settings.py: how to store extra settings for your plugin and set them
+   through the GUI.
+
 
 Note that if you write plugins which require extra modules, the Windows user
 should add those to library.zip.

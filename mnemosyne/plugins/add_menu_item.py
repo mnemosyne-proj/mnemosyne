@@ -13,7 +13,7 @@ class HelloWorldPlugin(Plugin):
     description = "Add a menu item to the help menu"
 
     def __init__(self, component_manager):
-        Plugin.__init__(self, component_manager)        
+        Plugin.__init__(self, component_manager)
         self.action_hello = None
 
     def activate(self):

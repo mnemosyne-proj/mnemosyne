@@ -1,22 +1,57 @@
-#
-# configuration_wdgt_main.py <Peter.Bienstman@UGent.be>
+ 
+# configuration.py <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtCore, QtGui
 
+from mnemosyne.libmnemosyne.hook import Hook
+from mnemosyne.libmnemosyne.plugin import Plugin
+
+
+# Hook to set default configuration values.
+
+class MyPluginConfiguration(Hook):
+
+    used_for = "configuration_defaults"
+
+    def run(self):
+        self.config().setdefault("my_value", 10)
+        
+
+# The actual plugin.
+
+class SettingsExamplePlugin(Plugin):
+    
+    name = "Settings example"
+    description = "Example on how to store settings for your plugin"
+    components = [MyPluginConfiguration]
+    
+    def __init__(self, component_manager):
+        Plugin.__init__(self, component_manager)
+        
+    def activate(self):
+        Plugin.activate(self)
+        self.main_widget().information_box("My value is %d" % \
+                                           self.config()["my_value"]) 
+
+
+# Register plugin.
+
+from mnemosyne.libmnemosyne.plugin import register_user_plugin
+register_user_plugin(SettingsExamplePlugin)
+
+
+# Widget to edit the configuration values.
+
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
-from mnemosyne.pyqt_ui.ui_configuration_wdgt_main import \
-     Ui_ConfigurationWdgtMain
 
-
-class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
-                  ConfigurationWidget):
+class MyConfigurationWdgt(QtGui.QWidget, ConfigurationWidget):
 
     def __init__(self, component_manager):
         ConfigurationWidget.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
-        self.setupUi(self)
+        
 
     def display(self):
         if self.config()["randomise_new_cards"] == True:
@@ -67,21 +102,3 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         else:
             self.config()["randomise_scheduled_cards"] = False
         self.config()["grade_0_cards_in_hand"] = self.grade_0_cards.value()
-        if self.memorise_related_cards_on_same_day.checkState() == \
-           QtCore.Qt.Checked:
-            self.config()["memorise_related_cards_on_same_day"] = True
-        else:
-            self.config()["memorise_related_cards_on_same_day"] = False
-        if self.media_autoplay.checkState() == QtCore.Qt.Checked:
-            self.config()["media_autoplay"] = True
-        else:
-            self.config()["media_autoplay"] = False
-        if self.media_controls.checkState() == QtCore.Qt.Checked:
-            self.config()["media_controls"] = True
-        else:
-            self.config()["media_controls"] = False
-        if self.upload_logs.checkState() == QtCore.Qt.Checked:
-            self.config()["upload_logs"] = True
-        else:
-            self.config()["upload_logs"] = False
-            

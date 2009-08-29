@@ -121,6 +121,9 @@
           <property name="text">
            <string>Show controls (pause, ...)</string>
           </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
        </layout>

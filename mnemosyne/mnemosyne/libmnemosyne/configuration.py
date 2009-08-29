@@ -107,7 +107,7 @@ class Configuration(Component, dict):
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
              "active_plugins": set(), # Plugin classes, not instances.
              "media_autoplay": True,
-             "media_controls": True
+             "media_controls": False
             }.items():
 
             self.setdefault(key, value)

@@ -11,8 +11,9 @@
 -hook up config screen
 -post config issues?
 -migrate settings from 1.x
+-check on empty database
 
--activate cards, belonging to these card types, having any of these tags, but non of these, ro just none of these
+-activate cards, belonging to these card types, having any of these tags, but none of these, ro just none of these
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
  Make the mechanism customisible with hooks, and document this in 
@@ -70,6 +71,7 @@ the GUI function itself?
  T.<fixed card id for all pupils>.<pupil user id>?
 -when resetting learning data on export, can we export facts only? Tags are on
  a per card basis.
+-make sure all grades are shown on first revision of imported card. Adapt button group title
 
 -tips (both on startup and on use): right click to add cards or sound, comma to 
  separate tag names, :: to separate hierarchies
