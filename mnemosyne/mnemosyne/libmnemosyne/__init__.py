@@ -107,10 +107,9 @@ class Mnemosyne(Component):
         # Finally, we can activate the main widget and upgrade if needed.
         self.main_widget().activate()
         if self.upgrade_needed:
-            for format in self.component_manager.get_all("file_format"):
-                if format.__class__.__name__ == "Mnemosyne1Mem":
-                    format.do_import(self.file_to_upgrade)
-                    self.review_controller().reset()
+            from mnemosyne.libmnemosyne.upgrades.upgrade_database \
+                 import UpgradeDatabase
+            UpgradeDatabase(self.component_manager).run(self.file_to_upgrade)
                     
     def register_components(self):
 
@@ -156,14 +155,12 @@ class Mnemosyne(Component):
             sys.stderr = file(error_log, "a")
                     
     def execute_user_plugin_dir(self):
-        # When updating from 1.x, move the plugin directory.
-        if self.config()["path"].endswith(".mem"):       
-            plugin_dir = os.path.join(self.config().basedir, "plugins")
-            new_plugin_dir = os.path.join(self.config().basedir, "plugins_1.x")            
-            if os.path.exists(plugin_dir):
-                import shutil
-                shutil.move(plugin_dir, new_plugin_dir)
-                return
+        # Coming from 1.x, upgrade the config and don't run the old plugins.
+        if self.config()["path"].endswith(".mem"):
+            from mnemosyne.libmnemosyne.upgrades.upgrade_config \
+                 import UpgradeConfig
+            UpgradeConfig(self.component_manager).run()
+            return
         # Else, proceed nomally. 
         basedir = self.config().basedir
         plugindir = unicode(os.path.join(basedir, "plugins"))

@@ -59,6 +59,9 @@ class Plugin(Component):
                 self.component_manager.register(component)
                 self.registered_components.append(component)
         # Make necessary side effects happen.
+        for component in self.components:
+            if component.used_for == "configuration_defaults":
+                component(self.component_manager).run()
         if self.database().is_loaded() and self.review_reset_needed:
             self.review_controller().reset()
             self.log().started_scheduler()

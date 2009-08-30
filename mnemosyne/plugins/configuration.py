@@ -16,7 +16,38 @@ class MyPluginConfiguration(Hook):
 
     def run(self):
         self.config().setdefault("my_value", 10)
+
+
+# Widget to edit the configuration values.
+
+from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
+     ConfigurationWidget
+
+class MyConfigurationWdgt(QtGui.QWidget, ConfigurationWidget):
+
+    name = "My plugin"
+
+    def __init__(self, component_manager):
+        ConfigurationWidget.__init__(self, component_manager)
+        QtGui.QDialog.__init__(self, self.main_widget())
+        self.vlayout = QtGui.QVBoxLayout(self)
+        self.hlayout = QtGui.QHBoxLayout()
+        self.label = QtGui.QLabel("My value")
+        self.hlayout.addWidget(self.label)
+        self.my_value = QtGui.QSpinBox(self)
+        self.my_value.setProperty("value", QtCore.QVariant(10))
+        self.hlayout.addWidget(self.my_value)
+        self.vlayout.addLayout(self.hlayout)
         
+    def display(self):
+        self.my_value.setValue(self.config()["my_value"])
+            
+    def reset_to_defaults(self):
+        self.my_value.setValue(10)
+        
+    def apply(self):
+        self.config()["my_value"] = self.my_value.value()
+
 
 # The actual plugin.
 
@@ -24,7 +55,7 @@ class SettingsExamplePlugin(Plugin):
     
     name = "Settings example"
     description = "Example on how to store settings for your plugin"
-    components = [MyPluginConfiguration]
+    components = [MyPluginConfiguration, MyConfigurationWdgt]
     
     def __init__(self, component_manager):
         Plugin.__init__(self, component_manager)
@@ -39,66 +70,3 @@ class SettingsExamplePlugin(Plugin):
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(SettingsExamplePlugin)
-
-
-# Widget to edit the configuration values.
-
-from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
-     ConfigurationWidget
-
-class MyConfigurationWdgt(QtGui.QWidget, ConfigurationWidget):
-
-    def __init__(self, component_manager):
-        ConfigurationWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
-        
-
-    def display(self):
-        if self.config()["randomise_new_cards"] == True:
-            self.new_cards.setCurrentIndex(1)
-        else:
-            self.new_cards.setCurrentIndex(0)
-        if self.config()["randomise_scheduled_cards"] == True:
-            self.scheduled_cards.setCurrentIndex(1)
-        else:
-            self.scheduled_cards.setCurrentIndex(0)
-        self.grade_0_cards.setValue(self.config()["grade_0_cards_in_hand"])
-        if self.config()["memorise_related_cards_on_same_day"] == True:
-            self.memorise_related_cards_on_same_day.setCheckState(\
-                QtCore.Qt.Checked)
-        else:
-            self.memorise_related_cards_on_same_day.setCheckState(\
-                QtCore.Qt.Unchecked)
-        if self.config()["media_autoplay"] == True:
-            self.media_autoplay.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.media_autoplay.setCheckState(QtCore.Qt.Unchecked)        
-        if self.config()["media_controls"] == True:
-            self.media_controls.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.media_controls.setCheckState(QtCore.Qt.Unchecked)
-        if self.config()["upload_logs"] == True:
-            self.upload_logs.setCheckState(QtCore.Qt.Checked)
-        else:
-            self.upload_logs.setCheckState(QtCore.Qt.Unchecked)
-            
-    def reset_to_defaults(self):
-        self.new_cards.setCurrentIndex(0)
-        self.scheduled_cards.setCurrentIndex(0)
-        self.grade_0_cards.setValue(10)
-        self.memorise_related_cards_on_same_day.setCheckState(\
-                QtCore.Qt.Unchecked)
-        self.media_autoplay.setCheckState(QtCore.Qt.Checked)
-        self.media_controls.setCheckState(QtCore.Qt.Unchecked)
-        self.upload_logs.setCheckState(QtCore.Qt.Checked)
-        
-    def apply(self):
-        if self.new_cards.currentIndex() == 1:
-            self.config()["randomise_new_cards"] = True
-        else:
-            self.config()["randomise_new_cards"] = False
-        if self.scheduled_cards.currentIndex() == 1:
-            self.config()["randomise_scheduled_cards"] = True
-        else:
-            self.config()["randomise_scheduled_cards"] = False
-        self.config()["grade_0_cards_in_hand"] = self.grade_0_cards.value()

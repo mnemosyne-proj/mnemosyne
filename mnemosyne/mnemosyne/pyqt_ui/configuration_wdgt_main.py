@@ -13,6 +13,8 @@ from mnemosyne.pyqt_ui.ui_configuration_wdgt_main import \
 class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
                   ConfigurationWidget):
 
+    name = "General"
+
     def __init__(self, component_manager):
         ConfigurationWidget.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())

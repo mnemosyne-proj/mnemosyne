@@ -34,7 +34,7 @@ class ConfigurationDlg(QtGui.QDialog, ConfigurationDialog):
             if widget_index >= self.tab_widget.count():
                 widget_index = 0
             self.tab_widget.setCurrentIndex(widget_index)
-            self.display_widget(widget_index)
+            self.change_widget(widget_index)
             self.vbox_layout.addWidget(self.tab_widget)
             self.connect(self.tab_widget, QtCore.SIGNAL("currentChanged(int)"),
                          self.change_widget)
@@ -74,7 +74,7 @@ class ConfigurationDlg(QtGui.QDialog, ConfigurationDialog):
         if hasattr(self, "widget"):
             self.widget.apply()
         else:
-            for index in self.tab_widget.count():
+            for index in range(self.tab_widget.count()):
                 self.tab_widget.widget(index).apply()
         self.config()["configuration_dlg_size"] = (self.width(), self.height())
         return QtGui.QDialog.accept(self)
