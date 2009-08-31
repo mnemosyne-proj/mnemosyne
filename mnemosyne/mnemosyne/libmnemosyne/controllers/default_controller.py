@@ -421,6 +421,12 @@ class DefaultController(Controller):
             filename = copy_file_to_dir(filename, mediadir)
             return filename
         
+    def activate_cards(self):
+        self.stopwatch().pause()
+        self.component_manager.get_current("activate_cards_dialog")\
+            (self.component_manager).activate()
+        self.stopwatch().unpause()
+        
     def browse_cards(self):
         self.stopwatch().pause()
         self.component_manager.get_current("browse_cards_dialog")\

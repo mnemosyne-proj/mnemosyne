@@ -1,18 +1,17 @@
--duplicates for fact speedup
+-activate cards
+-add 'update_card_active' (or something like that) to be called when
+ adding cards or editing a card, so that 'active' is set correctly.
+-rebuild queue afterwards
+-Make the mechanism customisible with hooks?, and document this in 
+ card.py.
 -id vs _id
 
 -time WM: history in same DB?
-
 
 -more tests
 -docstring formatting: """ everywhere
 -update_cards --> modify cards?
 
--activate cards, belonging to these card types, having any of these tags, but none of these, ro just none of these
--add 'update_card_active' (or something like that) to be called when
- adding cards or editing a card, so that 'active' is set correctly.
- Make the mechanism customisible with hooks, and document this in 
- card.py.
 
 -card browser
 -make sure searching for a single unicode character works
@@ -30,6 +29,8 @@ the GUI function itself?
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 
 -need for scheduler in_queue, remove_from_queue?
+
+-duplicates for fact speedup
 
 -don't auto vacuum? what for WM?
 -more fine grained resource_limited

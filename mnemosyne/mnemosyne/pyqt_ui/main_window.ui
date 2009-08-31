@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>245</width>
-    <height>207</height>
+    <width>248</width>
+    <height>201</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>245</width>
+     <width>248</width>
      <height>24</height>
     </rect>
    </property>
@@ -520,6 +520,22 @@
     <hint type="destinationlabel">
      <x>109</x>
      <y>92</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionActivateCards</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>activate_cards()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>100</y>
     </hint>
    </hints>
   </connection>

@@ -24,6 +24,11 @@ class EditFactDialog(Dialog):
         pass
 
 
+class ActivateCardsDialog(Dialog):
+    
+    component_type = "activate_cards_dialog"
+
+    
 class BrowseCardsDialog(Dialog):
     
     component_type = "browse_cards_dialog"

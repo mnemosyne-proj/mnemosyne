@@ -89,6 +89,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
     def delete_current_fact(self):
         self.controller().delete_current_fact()
         
+    def activate_cards(self):
+        self.controller().activate_cards()
+        
     def file_new(self):
         self.controller().file_new()
 
