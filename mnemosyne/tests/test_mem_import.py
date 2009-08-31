@@ -626,6 +626,14 @@ class TestMemImport(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_mem_import", "Widget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
+        assert self.config()["grade_0_cards_in_hand"] == 7
+        assert "grade_0_items_at_once" not in self.config()
+        assert self.config()["dvipng"].rstrip() == \
+               "dvipng -D 300 -T tight tmp.dvi\necho"
+        assert "14pt" in self.config()["latex_preamble"]
+        assert os.path.exists(os.path.join("dot_test", "latex",
+                                           "dvipng.NO_LONGER_USED"))
+        assert not os.path.exists(os.path.join("dot_test", "latex", "dvipng"))
         self.review_controller().reset()       
         
     def teardown(self):

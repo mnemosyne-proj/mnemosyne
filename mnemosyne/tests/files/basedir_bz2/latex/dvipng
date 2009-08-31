@@ -1,0 +1,2 @@
+dvipng -D 300 -T tight tmp.dvi
+echo

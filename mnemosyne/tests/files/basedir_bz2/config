@@ -87,7 +87,7 @@ sS'sort_column'
 p36
 NsS'left_align'
 p37
-I00
+I01
 sS'first_run'
 p38
 I00
@@ -99,7 +99,7 @@ sS'column_0_width'
 p41
 NsS'grade_0_items_at_once'
 p42
-I5
+I7
 sS'column_2_width'
 p43
 NsS'import_dir'

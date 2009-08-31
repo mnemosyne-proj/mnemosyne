@@ -1,3 +1,7 @@
+-implemented config dialog
+-extended plugin mechanism to encompass config dialog
+
+
 MNEMOSYNE 2.0
 
 (Note that for Windows users we recommend uninstalling the previous

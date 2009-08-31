@@ -58,7 +58,9 @@ class SM2Controller(ReviewController):
     def heartbeat(self):
 
         """To be called several times during the day, to make sure that
-        the data gets updated when a new day starts."""
+        the data gets updated when a new day starts.
+
+        """
             
         self.reload_counters()
         self.widget.update_status_bar()
