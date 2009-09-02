@@ -12,23 +12,43 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                        ActivateCardsDialog):
 
     def __init__(self, component_manager):
-        # TODO: compact
         ActivateCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        # Fill card type tree widget.
         for card_type in self.card_types():
-            a = QtGui.QTreeWidgetItem(0)
-            a.setFlags(a.flags() | QtCore.Qt.ItemIsUserCheckable)
-            a.setText(0, card_type.name)
-            a.setCheckState(0, QtCore.Qt.Checked)
+            card_type_item = QtGui.QTreeWidgetItem(self.card_types_tree,
+                                                   [card_type.name], 0)
+            card_type_item.setFlags(card_type_item.flags() | \
+                QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
+            card_type_item.setCheckState(0, QtCore.Qt.Checked)
             for fact_view in card_type.fact_views:
-                b = QtGui.QTreeWidgetItem(0)
-                b.setFlags(b.flags() | QtCore.Qt.ItemIsUserCheckable)
-                b.setText(0, fact_view.name)
-                b.setCheckState(0, QtCore.Qt.Checked)
-                a.addChild(b)
-            self.card_types_tree.addTopLevelItem(a)
+                fact_view_item = QtGui.QTreeWidgetItem(card_type_item,
+                                                       [fact_view.name], 0)
+                fact_view_item.setFlags(fact_view_item.flags() | \
+                    QtCore.Qt.ItemIsUserCheckable)
+                fact_view_item.setCheckState(0, QtCore.Qt.Checked)
         self.card_types_tree.expandAll()
+        # Fill tags tree widget.
+        nodes_at_level = {} # TODO: rename + document + remove level
+        for tag in ["a", "b", "a::b", "a::c", "b::c::d"]:
+            parent = self.tags_tree
+            partial_tag = ""
+            for level, node in enumerate(tag.split("::")):
+                node += "::"
+                partial_tag += node
+                if level not in nodes_at_level:
+                    nodes_at_level[level] = {}
+                if node not in nodes_at_level[level]:
+                    node_item = QtGui.QTreeWidgetItem(parent, [node[:-2]], 0)
+                    node_item.setFlags(node_item.flags() | \
+                        QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
+                    node_item.setCheckState(0, QtCore.Qt.Checked)
+                    nodes_at_level[level][partial_tag] = node_item
+                parent = nodes_at_level[level][partial_tag]
+        self.tags_tree.expandAll()
+        # TODO: sort
+                
         
     def activate(self):
         self.exec_()
