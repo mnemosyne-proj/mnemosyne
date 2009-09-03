@@ -1,5 +1,5 @@
 -activate cards
--super parent
+-splitters
 -empty tags
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.

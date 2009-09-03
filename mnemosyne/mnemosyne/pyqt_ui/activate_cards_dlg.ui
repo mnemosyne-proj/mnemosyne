@@ -6,134 +6,144 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
-    <height>425</height>
+    <width>523</width>
+    <height>408</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Activate cards</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
+  <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Saved sets:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QListView" name="saved_sets">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>1</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="Line" name="line">
+      <widget class="QSplitter" name="splitter_2">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Vertical</enum>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Activate cards...</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
+       <widget class="QWidget" name="">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QComboBox" name="comboBox">
-           <item>
-            <property name="text">
-             <string>from these card types:</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>not from these card types:</string>
-            </property>
-           </item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Saved sets:</string>
+           </property>
           </widget>
          </item>
          <item>
-          <widget class="QTreeWidget" name="card_types_tree">
+          <widget class="QListView" name="saved_sets">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
-             <verstretch>8</verstretch>
+             <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="headerHidden">
-            <bool>true</bool>
-           </property>
-           <property name="expandsOnDoubleClick">
-            <bool>false</bool>
-           </property>
-           <column>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QComboBox" name="comboBox_2">
-           <item>
-            <property name="text">
-             <string>with these tags:</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>without these tags:</string>
-            </property>
-           </item>
           </widget>
          </item>
          <item>
-          <widget class="QTreeWidget" name="tags_tree">
-           <property name="sortingEnabled">
-            <bool>true</bool>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Activate cards...</string>
            </property>
-           <property name="headerHidden">
-            <bool>true</bool>
-           </property>
-           <attribute name="headerVisible">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="headerVisible">
-            <bool>false</bool>
-           </attribute>
-           <column>
-            <property name="text">
-             <string notr="true">1</string>
-            </property>
-           </column>
           </widget>
          </item>
         </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
+       </widget>
+       <widget class="QSplitter" name="splitter">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <widget class="QWidget" name="">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QComboBox" name="comboBox">
+            <item>
+             <property name="text">
+              <string>from these card types:</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>not from these card types:</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTreeWidget" name="card_types_tree">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>200</height>
+             </size>
+            </property>
+            <property name="headerHidden">
+             <bool>true</bool>
+            </property>
+            <property name="expandsOnDoubleClick">
+             <bool>false</bool>
+            </property>
+            <column>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QComboBox" name="comboBox_2">
+            <item>
+             <property name="text">
+              <string>with these tags:</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>without these tags:</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTreeWidget" name="tags_tree">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <property name="headerHidden">
+             <bool>true</bool>
+            </property>
+            <attribute name="headerVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="headerVisible">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </widget>
      </item>
      <item>
