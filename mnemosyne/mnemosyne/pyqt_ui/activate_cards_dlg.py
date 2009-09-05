@@ -16,7 +16,16 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         ActivateCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
-        self.splitter.setSizes([100, 350])   
+        # Restore sizes.
+        config = self.config()
+        width, height = config["activate_cards_dlg_size"]
+        if width:
+            self.resize(width, height)
+        splitter_sizes = config["activate_cards_dlg_splitter"]
+        if not splitter_sizes:
+            self.splitter.setSizes([100, 350])
+        else:
+            self.splitter.setSizes(splitter_sizes)
         # Fill card type tree widget.
         root_item = QtGui.QTreeWidgetItem(self.card_types_tree,
             [_("All card types")], 0)
@@ -62,3 +71,17 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
     def activate(self):
         self.exec_()
 
+    def _store_layout(self):
+        self.config()["activate_cards_dlg_size"] = (self.width(), self.height())
+        self.config()["activate_cards_dlg_splitter"] = self.splitter.sizes()
+        
+    def closeEvent(self, event):
+        self._store_layout()
+        
+    def accept(self):
+        self._store_layout()
+        return QtGui.QDialog.accept(self)
+
+    def reject(self):
+        self._store_layout()
+        QtGui.QDialog.reject(self)

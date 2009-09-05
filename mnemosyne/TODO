@@ -1,7 +1,10 @@
 -activate cards
--splitters
+
+-add criterion to docs
+-pickle or not?
+
 -empty tags
--delete saved sets
+-delete / rename saved sets
 -add 'update_card_active' (or something like that) to be called when
  adding cards or editing a card, so that 'active' is set correctly.
 -rebuild queue afterwards
@@ -12,6 +15,8 @@
 -id vs _id
 
 -time WM: history in same DB?
+
+-SM2sync -> openSM2sync?
 
 -more tests
 -docstring formatting: """ everywhere

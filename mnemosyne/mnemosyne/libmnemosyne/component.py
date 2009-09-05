@@ -10,7 +10,8 @@ class Component(object):
     scheduler, stopwatch, translator, filter, card_type, card_type_converter,
     card_type_widget, generic_card_type_widget, ui_component, renderer,
     controller, main_widget, review_controller, review_widget, file format,
-    plugin, hook, statistics_page, all the abstract dialogs, ...      
+    plugin, hook, activity_criterion, criterion_applier, statistics_page,
+    all the abstract dialogs, ...      
 
     'used_for' can store certain relationships between components, e.g.
     a card type widget is used for a certain card type.
@@ -99,9 +100,13 @@ class Component(object):
 
     def statistics_pages(self):
         return self.component_manager.get_all("statistics_page")
+
+    def activity_criterion(self):
+        return self.component_manager.get_current("activity_criterion")
     
     def configuration_widgets(self):
         return self.component_manager.get_all("configuration_widget")
     
+
     def card_type_by_id(self, id):
         return self.component_manager.card_type_by_id[id]

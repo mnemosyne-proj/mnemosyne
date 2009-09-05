@@ -356,6 +356,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         return not self.load_failed
 
     def _repr_extra_data(self, extra_data):
+        # Use simply repr(), as pickle is overkill for a simple dictionary.
         if extra_data == {}:
             return "" # Save space.
         else:
