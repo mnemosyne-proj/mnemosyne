@@ -36,7 +36,10 @@ the Hook mechanism.
 
 Before the data is passed to the Renderer, Filters can be applied to it. This
 is an extra level of flexibility, and can be used to generate LaTeX, convert
-relative paths to absolute paths, etc ..
+relative paths to absolute paths, etc ...
+
+To determine which cards are active (i.e.) participate in the review process,
+a mechanism of ActivityCriterion and CriterionApplier is used.
 
 In order to make it easier for other GUI frontends to be written, all the logic
 typically needed for GUIs, but that is independent of the actual GUI toolkit
@@ -77,6 +80,7 @@ Contents
     modules/scheduler
     modules/stopwatch
     modules/statistics_page
+    modules/activity_criterion
 
     modules/how_to_write_a_new_frontend
     

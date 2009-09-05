@@ -106,27 +106,7 @@ class Database(Component):
         raise NotImplementedError
 
     def delete_card_type(self, card_type):
-        raise NotImplementedError
-    
-    # Activate or put cards in view.
-
-    def set_cards_active(self, card_types_fact_views, categories):
-
-        """card_types_fact_views is a list of tuples containing (card_type,
-        fact_view).
-
-        """
-        
-        raise NotImplementedError
-
-    def set_cards_in_view(self, card_types_fact_views, categories):
-
-        """card_types_fact_views is a list of tuples containing (card_type,
-        fact_view).
-
-        """
-        
-        raise NotImplementedError    
+        raise NotImplementedError  
     
     # Queries.
 

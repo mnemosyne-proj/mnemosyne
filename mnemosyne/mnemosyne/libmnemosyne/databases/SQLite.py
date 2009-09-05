@@ -1,5 +1,5 @@
 #
-# sqlite.py - Ed Bartosh <bartosh@gmail.com>, <Peter.Bienstman@UGent.be>
+# SQLite.py - Ed Bartosh <bartosh@gmail.com>, <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -716,43 +716,6 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                 int(os.path.getmtime(os.path.join(mediadir, filename)))))
             self.log().added_media(filename, fact)
 
-    #
-    # Activate cards.
-    #
-    
-    def set_cards_active(self, card_types_fact_views, tags):
-        return self._turn_on_cards("active", card_types_fact_views,
-                                   tags)
-    
-    def set_cards_in_view(self, card_types_fact_views, tags):
-        return self._turn_on_cards("in_view", card_types_fact_views,
-                                   tags)
-    
-    def _turn_on_cards(self, attr, card_types_fact_views, tags):
-        # Turn off everything.
-        self.con.execute("update cards set active=0")
-        # Turn on as soon as there is one active tag.
-        command = """update cards set %s=1 where _id in (select cards._id
-            from cards, tags, tags_for_card where
-            tags_for_card._card_id=cards._id and
-            tags_for_card._tag_id=tags._id and """ % attr
-        args = []
-        for tag in tags:
-            command += "tags.id=? or "
-            args.append(tag.id)
-        command = command.rsplit("or ", 1)[0] + ")"
-        self.con.execute(command, args)
-        # Turn off inactive card types and views.
-        command = """update cards set %s=0 where _id in (select cards._id
-            from cards, facts where cards._fact_id=facts._id and """ % attr
-        args = []        
-        for card_type, fact_view in card_types_fact_views:
-            command += "not (cards.fact_view_id=? and facts.card_type_id=?)"
-            command += " and "
-            args.append(fact_view.id)  
-            args.append(card_type.id)          
-        command = command.rsplit("and ", 1)[0] + ")"
-        self.con.execute(command, args)
 
     #
     # Queries.

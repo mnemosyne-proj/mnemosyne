@@ -68,7 +68,9 @@ and applies a CSS for formatting.</p>
 the Hook mechanism.</p>
 <p>Before the data is passed to the Renderer, Filters can be applied to it. This
 is an extra level of flexibility, and can be used to generate LaTeX, convert
-relative paths to absolute paths, etc ..</p>
+relative paths to absolute paths, etc ...</p>
+<p>To determine which cards are active (i.e.) participate in the review process,
+a mechanism of ActivityCriterion and CriterionApplier is used.</p>
 <p>In order to make it easier for other GUI frontends to be written, all the logic
 typically needed for GUIs, but that is independent of the actual GUI toolkit
 used, is abstracted in controllers. In order to get more flexibility, there
@@ -147,6 +149,9 @@ statistics in an integrated way.</p>
 <li class="toctree-l1"><a class="reference external" href="modules/statistics_page.html"><tt class="docutils literal"><span class="pre">StatisticsPage</span></tt></a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference external" href="modules/activity_criterion.html"><tt class="docutils literal"><span class="pre">ActivityCriterion</span></tt></a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference external" href="modules/how_to_write_a_new_frontend.html">How to write a new frontend</a></li>
 </ul>
 </div>
@@ -207,7 +212,7 @@ statistics in an integrated way.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 26, 2009.
+      Last updated on Sep 05, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

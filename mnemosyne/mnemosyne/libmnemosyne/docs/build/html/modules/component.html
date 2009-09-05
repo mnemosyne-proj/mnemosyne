@@ -56,7 +56,8 @@ manager. This is a list of component types: config, log, database,
 scheduler, stopwatch, translator, filter, card_type, card_type_converter,
 card_type_widget, generic_card_type_widget, ui_component, renderer,
 controller, main_widget, review_controller, review_widget, file format,
-plugin, hook, statistics_page, all the abstract dialogs, ...</p>
+plugin, hook, activity_criterion, criterion_applier, statistics_page,
+all the abstract dialogs, ...</p>
 <p>&#8216;used_for&#8217; can store certain relationships between components, e.g.
 a card type widget is used for a certain card type.</p>
 <p>Most of the time, instances are stored here, apart from widgets when
@@ -80,6 +81,11 @@ work, and which can&#8217;t happen in the constructor, e.g. because
 components on which it relies have not yet been registered.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.activity_criterion">
+<!--[mnemosyne.libmnemosyne.component.Component.activity_criterion]--><tt class="descname">activity_criterion</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.activity_criterion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.component.Component.card_type_by_id">
 <!--[mnemosyne.libmnemosyne.component.Component.card_type_by_id]--><tt class="descname">card_type_by_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.card_type_by_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -92,6 +98,11 @@ components on which it relies have not yet been registered.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component.Component.config">
 <!--[mnemosyne.libmnemosyne.component.Component.config]--><tt class="descname">config</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.configuration_widgets">
+<!--[mnemosyne.libmnemosyne.component.Component.configuration_widgets]--><tt class="descname">configuration_widgets</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.configuration_widgets" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -197,7 +208,7 @@ components on which it relies have not yet been registered.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 26, 2009.
+      Last updated on Sep 05, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

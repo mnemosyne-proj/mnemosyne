@@ -31,8 +31,8 @@ class Pickle(Database):
     * It is wasteful in memory during queries.
     
     Also, it does not have all the features of the SQL database. Notably,
-    it is missing review history, and the handling of media files and card
-    types.
+    it is missing activity criteria, review history, and the handling
+    of media files and card types.
     
     """
 
@@ -271,31 +271,6 @@ class Pickle(Database):
             self.remove_tag_if_unused(cat)    
         self.log().deleted_card(card)
         del card
-
-    # Activate and set cards in view.
-
-    def set_cards_active(self, card_types_fact_views, tags):
-        return self._turn_on_cards("active", card_types_fact_views,
-                                   tags)
-    
-    def set_cards_in_view(self, card_types_fact_views, tags):
-        return self._turn_on_cards("in_view", card_types_fact_views,
-                                   tags)    
-    
-    def _turn_on_cards(self, attr, card_types_fact_views, tags):
-        # Turn off everything.
-        for card in self.cards:
-            setattr(card, attr, False)
-        # Turn on active tags.                    
-        for card in self.cards:        
-            if set(card.tags).intersection(set(tags)):
-                card.active = True
-                setattr(card, attr, True)
-        # Turn off inactive card types and views.
-        for card in self.cards:
-            if (card.fact.card_type, card.fact_view) not in \
-              card_types_fact_views:
-                setattr(card, attr, False)
         
     # Queries.
 

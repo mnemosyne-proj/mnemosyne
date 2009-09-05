@@ -13,13 +13,13 @@ class ActivityCriterion(Component):
 
     """
 
-    type = ""
+    criterion_type = ""
 
-    def apply_for_card(self, card):
+    def apply_to_card(self, card):
 
         """Set the card active or not depending on the criterion. Does not
         write to the database. Called after creating or updating cards, to
-        see whether they should start out their life as active or not.
+        see whether these cards should start out their life as active or not.
 
         """
         
@@ -50,6 +50,8 @@ class CriterionApplier(Component):
     the database backend.
 
     """
+
+    component_type = "criterion_applier"
 
     def apply_to_database(self):
         raise NotImplementedError        
