@@ -18,7 +18,8 @@ class ActivityCriterion(Component):
     def apply_for_card(self, card):
 
         """Set the card active or not depending on the criterion. Does not
-        write to the database.
+        write to the database. Called after creating or updating cards, to
+        see whether they should start out their life as active or not.
 
         """
         
@@ -27,7 +28,11 @@ class ActivityCriterion(Component):
     def to_string(self):
 
         """Convert variables to a string for storage in the database. We don't
-        use pickle here as that is more heavy weight an
+        use pickle here as that would make it difficult for non-Python programs
+        to read the database.
+
+        """
+        
         raise NotImplementedError
 
     def from_string(self):
@@ -40,6 +45,9 @@ class CriterionApplier(Component):
     bulk to all the cards in the database. Is much faster than fetching each
     card from the database, calling ActivityCriterion.apply_to_card, and
     storing it back in the database.
+
+    This code is not part of ActivityCriterion, because it is dependent on
+    the database backend.
 
     """
 

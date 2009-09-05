@@ -1,15 +1,7 @@
--activate cards
-
 -add criterion to docs
--pickle or not?
-
 -empty tags
 -delete / rename saved sets
--add 'update_card_active' (or something like that) to be called when
- adding cards or editing a card, so that 'active' is set correctly.
 -rebuild queue afterwards
--Make the mechanism customisible with hooks?, and document this in 
- card.py.
 
 
 -id vs _id
