@@ -16,6 +16,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         ActivateCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.splitter.setSizes([100, 350])   
         # Fill card type tree widget.
         root_item = QtGui.QTreeWidgetItem(self.card_types_tree,
             [_("All card types")], 0)
@@ -56,10 +57,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                     widget_for_partial_tag[partial_tag] = node_item
                 parent = widget_for_partial_tag[partial_tag]
         self.tags_tree.sortItems(0, QtCore.Qt.AscendingOrder)
-        self.tags_tree.expandAll()
-                
+        self.tags_tree.expandAll()                
         
     def activate(self):
         self.exec_()
-        
 
