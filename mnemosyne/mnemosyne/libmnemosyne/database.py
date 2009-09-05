@@ -110,6 +110,9 @@ class Database(Component):
     
     # Queries.
 
+    def activity_criteria(self):
+        raise NotImplementedError        
+
     def tag_names(self):
         raise NotImplementedError
 

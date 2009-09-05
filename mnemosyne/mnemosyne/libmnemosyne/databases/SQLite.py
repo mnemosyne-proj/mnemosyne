@@ -720,6 +720,9 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
     #
     # Queries.
     #
+
+    def activity_criteria(self):
+        raise NotImplementedError
     
     def tag_names(self):
         return list(cursor[0] for cursor in \
