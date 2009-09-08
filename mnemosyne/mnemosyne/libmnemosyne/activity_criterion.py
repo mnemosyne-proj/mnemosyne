@@ -41,7 +41,10 @@ class ActivityCriterion(Component):
 
     def card_type_deleted(self, card_type):
         pass
-
+    
+    def card_reviewed(self, card):
+        pass
+    
     def to_string(self):
 
         """Convert variables to a string for storage in the database. We don't
@@ -63,6 +66,10 @@ class CriterionApplier(Component):
     card from the database, calling ActivityCriterion.apply_to_card, and
     storing it back in the database.
 
+    'active_or_in_view' is 'ACTIVE' or 'IN_VIEW', depending on whether the
+    criterion needs to be applied to the review process, or just the temporary
+    display of cards in the 'Browse cards' dialog.
+
     This code is not part of ActivityCriterion, because it is dependent on
     the database backend.
 
@@ -70,5 +77,8 @@ class CriterionApplier(Component):
 
     component_type = "criterion_applier"
 
-    def apply_to_database(self):
+    ACTIVE = 0
+    IN_VIEW = 1
+
+    def apply_to_database(self, active_or_in_view):
         raise NotImplementedError        

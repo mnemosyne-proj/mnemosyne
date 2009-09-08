@@ -491,7 +491,6 @@ class DefaultController(Controller):
 
         self.stopwatch().unpause()
 
-
     def download_source(self):
 
         """The following code is here to be able to enforce the AGPL licence.
@@ -513,6 +512,6 @@ class DefaultController(Controller):
         
         self.stopwatch().pause()
         self.self.main_widget().information_box(\
-            _"For instructions on how to download Mnemosyne's source," + \
-            + " " + "go to http://www.mnemosyne-proj.org")
+            _("For instructions on how to download Mnemosyne's source,") + \
+            + " " + _("go to http://www.mnemosyne-proj.org"))
         self.stopwatch().unpause()        

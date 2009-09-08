@@ -91,14 +91,6 @@ class TestDatabaseStub:
         self.database.get_card(None, True)
 
     @raises(NotImplementedError)
-    def test_set_cards_active(self):
-        self.database.set_cards_active(None, None)
-        
-    @raises(NotImplementedError)
-    def test_set_cards_in_view(self):
-        self.database.set_cards_in_view(None, None)
-        
-    @raises(NotImplementedError)
     def test_tag_names(self):
         self.database.tag_names()
            

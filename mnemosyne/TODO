@@ -1,7 +1,10 @@
+-get info from frontend
+-database applier, test short cuts
+-test when adding a new card
+-call backs when creating / deleting tags / card types
 -empty tags
 -delete / rename saved sets
 -rebuild queue afterwards
-
 
 -id vs _id
 
