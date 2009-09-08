@@ -67,7 +67,8 @@ easily, which allows plugin writers maximum flexibility.
  have to call a category 'Lesson 01' instead of 'Lesson '1 to get the correct
  ordering (Mike Appleby).
 -Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
-
+	
+-Updated German translation by Dimitri Scheftner
 -Updated French translation by Christophe Méalarès and Yannick Voglaire.
 -Hungarian translation by bkil
 
