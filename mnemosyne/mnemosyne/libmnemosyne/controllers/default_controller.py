@@ -490,3 +490,29 @@ class DefaultController(Controller):
         self.stopwatch().pause()
 
         self.stopwatch().unpause()
+
+
+    def download_source(self):
+
+        """The following code is here to be able to enforce the AGPL licence.
+        
+        If you run Mnemosyne as a service over the network, you need to provide
+        users the option to download your modified version of libmnemosyne and
+        the Mnemosyne HTML server.
+
+        The recommended way to do this is to provide a link at the bottom of
+        the webpage saying "Flash cards by Mnemosyne", with "Mnemosyne" a link
+        taking you to a page with download instructions for the copy of
+        Mnemosyne you are using.
+
+        Even if you are using an unmodified version of Mnemosyne, you should
+        still host a copy of that source code on your site, in order to set an
+        example for people who do modify the source.
+
+        """
+        
+        self.stopwatch().pause()
+        self.self.main_widget().information_box(\
+            _"For instructions on how to download Mnemosyne's source," + \
+            + " " + "go to http://www.mnemosyne-proj.org")
+        self.stopwatch().unpause()        
