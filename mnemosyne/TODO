@@ -1,12 +1,14 @@
--get info from frontend
+-save and load current criterion
 -database applier, test short cuts
 -test when adding a new card
 -call backs when creating / deleting tags / card types
 -empty tags
 -delete / rename saved sets
 -rebuild queue afterwards
+-test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 
 -id vs _id
+-is it worth keeping database.tag_names?
 
 -time WM: history in same DB?
 
@@ -247,6 +249,8 @@ Multiuser statistics analysis:
 
 -language text based card types, with 'graduating' from word cards once they are learned enough,
  and only keeping sentence cards (mail by querido, scheduler feedback needed)
+
+-scheduler with minute granularity?
 
 
 * Miscellaneous:

@@ -12,7 +12,7 @@ class DefaultCriterion(ActivityCriterion):
     def __init__(self, component_manager):
         ActivityCriterion.__init__(self, component_manager)
         self.name = ""
-        self.deactivated_card_type_fact_views = [] # [(card_type, fact_view)]
+        self.deactivated_card_type_fact_views = set() # (card_type, fact_view)
         self.required_tags = set()
         self.forbidden_tags = set()
 

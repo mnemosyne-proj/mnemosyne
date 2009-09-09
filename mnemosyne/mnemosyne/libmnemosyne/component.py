@@ -100,9 +100,6 @@ class Component(object):
 
     def statistics_pages(self):
         return self.component_manager.get_all("statistics_page")
-
-    def activity_criterion(self):
-        return self.component_manager.get_current("activity_criterion")
     
     def configuration_widgets(self):
         return self.component_manager.get_all("configuration_widget")    

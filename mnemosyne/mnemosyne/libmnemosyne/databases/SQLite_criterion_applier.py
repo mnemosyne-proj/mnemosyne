@@ -17,7 +17,7 @@ class DefaultCriterionApplier(CriterionApplier):
         elif active_or_in_view == self.IN_VIEW:
             field_name = "in_view"
         db = self.database()
-        criterion = self.activity_criterion()
+        criterion = db.current_activity_criterion()
         # If every tag is required, take a short cut.
         if len(criterion.required_tags) == len(db.tag_names()):
             db.con.execute("update cards set active=1")

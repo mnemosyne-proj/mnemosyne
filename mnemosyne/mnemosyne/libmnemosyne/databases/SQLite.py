@@ -81,6 +81,12 @@ SCHEMA = """
     );
     create index i_tags_for_card on tags_for_card (_card_id);
 
+    create table activity_criteria(
+       name text primary key,
+       type text,
+       data text
+    );
+
     create table global_variables(
         key text,
         value text
@@ -418,7 +424,15 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             tags_for_card as cat_c where cat_c._tag_id=cat._id and
             cat._id=?""", (tag._id, )).fetchone()[0] == 0:
             self.delete_tag(tag)
-
+            
+    def tags(self):
+        return (self.get_tag(cursor[0], id_is_internal=True) for cursor in \
+            self.con.execute("select _id from tags"))
+    
+    def tag_names(self):
+        return list(cursor[0] for cursor in \
+            self.con.execute("select name from tags"))
+    
     #
     # Facts.
     #
@@ -716,17 +730,27 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                 int(os.path.getmtime(os.path.join(mediadir, filename)))))
             self.log().added_media(filename, fact)
 
+    #
+    # Activity criteria.
+    #
+    
+    def set_current_activity_criterion(self, criterion):
+        self.con.execute("""insert or replace into activity_criteria
+            (name, type, data) values(?,?,?)""",
+            ("__CURRENT__", criterion.type, criterion.to_string())
 
+    def current_activity_criterion(self):
+        raise NotImplementedError
+    
+    def save_activity_criterion(self):
+        raise NotImplementedError
+    
+    def saved_activity_criteria(self):
+        raise NotImplementedError
+    
     #
     # Queries.
     #
-
-    def activity_criteria(self):
-        raise NotImplementedError
-    
-    def tag_names(self):
-        return list(cursor[0] for cursor in \
-            self.con.execute("select name from tags"))
 
     def cards_from_fact(self, fact):
         return list(self.get_card(cursor[0], id_is_internal=True) for cursor

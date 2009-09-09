@@ -65,7 +65,13 @@ class Database(Component):
 
     def remove_tag_if_unused(self, tag):
         raise NotImplementedError
-
+    
+    def tags(self):
+        raise NotImplementedError
+    
+    def tag_names(self):
+        raise NotImplementedError
+    
     # Facts.
     
     def add_fact(self, fact):
@@ -106,15 +112,23 @@ class Database(Component):
         raise NotImplementedError
 
     def delete_card_type(self, card_type):
-        raise NotImplementedError  
+        raise NotImplementedError
+
+    # Activity criteria.
+
+    def set_current_activity_criterion(self, criterion):
+        raise NotImplementedError        
+    
+    def current_activity_criterion(self):
+        raise NotImplementedError
+    
+    def save_activity_criterion(self):
+        raise NotImplementedError
+    
+    def saved_activity_criteria(self):
+        raise NotImplementedError    
     
     # Queries.
-
-    def activity_criteria(self):
-        raise NotImplementedError        
-
-    def tag_names(self):
-        raise NotImplementedError
 
     def cards_from_fact(self, fact):
         
