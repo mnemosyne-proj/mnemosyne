@@ -87,7 +87,7 @@ class AddEditCards(Component):
     def update_tags_combobox(self, current_tag_name):
         self.tags.clear()
         self.tags.addItem(_("<default>"))
-        sorted_tags = sorted(self.database().tag_names(),
+        sorted_tags = sorted(self.database().get_tag_names(),
                              cmp=numeric_string_cmp)
         for name in sorted_tags:
             if name != _("<default>"):

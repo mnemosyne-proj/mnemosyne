@@ -425,11 +425,11 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             cat._id=?""", (tag._id, )).fetchone()[0] == 0:
             self.delete_tag(tag)
             
-    def tags(self):
+    def get_tags(self):
         return (self.get_tag(cursor[0], id_is_internal=True) for cursor in \
             self.con.execute("select _id from tags"))
     
-    def tag_names(self):
+    def get_tag_names(self):
         return list(cursor[0] for cursor in \
             self.con.execute("select name from tags"))
     
@@ -736,11 +736,25 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
     
     def set_current_activity_criterion(self, criterion):
         self.con.execute("""insert or replace into activity_criteria
-            (name, type, data) values(?,?,?)""",
-            ("__CURRENT__", criterion.type, criterion.to_string())
+            (name, type, data) values(?,?,?)""", ("__CURRENT__",
+            criterion.criterion_type, criterion.data_to_string()))
+        applier = self.component_manager.get_current("criterion_applier",
+            used_for=criterion.__class__)
+        applier.apply_to_database(criterion, active_or_in_view=applier.ACTIVE)
+
+    def _get_activity_criterion(self, name):
+        sql_res = self.con.execute(\
+            "select * from activity_criteria where name=?",
+            (name, )).fetchone()
+        for criterion_class in \
+            self.component_manager.get_all("activity_criterion"):
+            if criterion_class.criterion_type == sql_res["type"]:
+                criterion = criterion_class()
+                criterion.data_from_string(sql_res["data"])
+                return criterion
 
     def current_activity_criterion(self):
-        raise NotImplementedError
+        return self._get_activity_criterion("__CURRENT__")
     
     def save_activity_criterion(self):
         raise NotImplementedError

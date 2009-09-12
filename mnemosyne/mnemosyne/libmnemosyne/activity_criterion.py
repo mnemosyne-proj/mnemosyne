@@ -10,10 +10,17 @@ class ActivityCriterion(Component):
     """Used to determine which cards are currently active, i.e. included in
     the review process.
 
+    The available Criteria are stored as classes in the component_manager.
+
+    The actual instances together with their data are stored in the database.
+
 
     """
 
+    component_type = "activity_criterion"
+    
     criterion_type = ""
+
 
     def apply_to_card(self, card):
 
@@ -45,7 +52,7 @@ class ActivityCriterion(Component):
     def card_reviewed(self, card):
         pass
     
-    def to_string(self):
+    def data_to_string(self):
 
         """Convert variables to a string for storage in the database. We don't
         use pickle here as that would make it difficult for non-Python programs
@@ -55,7 +62,7 @@ class ActivityCriterion(Component):
         
         raise NotImplementedError
 
-    def from_string(self):
+    def data_from_string(self, data):
         raise NotImplementedError        
 
 
@@ -80,5 +87,5 @@ class CriterionApplier(Component):
     ACTIVE = 0
     IN_VIEW = 1
 
-    def apply_to_database(self, active_or_in_view):
+    def apply_to_database(self, criterion, active_or_in_view):
         raise NotImplementedError        

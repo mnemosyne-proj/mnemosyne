@@ -102,7 +102,7 @@ class Component(object):
         return self.component_manager.get_all("statistics_page")
     
     def configuration_widgets(self):
-        return self.component_manager.get_all("configuration_widget")    
+        return self.component_manager.get_all("configuration_widget")
 
     def card_type_by_id(self, id):
         return self.component_manager.card_type_by_id[id]

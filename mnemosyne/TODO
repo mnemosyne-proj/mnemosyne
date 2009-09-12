@@ -1,3 +1,11 @@
+-test suite
+-merge rebuild_queue with reset_but_try_to_keep current card
+-unifiy counter reset code
+-deactivate card type
+-post import file and post configure
+-test taking of diverse short cuts
+
+-test deactivating tag of current card
 -save and load current criterion
 -database applier, test short cuts
 -test when adding a new card
@@ -6,9 +14,12 @@
 -delete / rename saved sets
 -rebuild queue afterwards
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
+-add update after import
 
 -id vs _id
 -is it worth keeping database.tag_names?
+
+-number of unmemorised cards to hold in your hand?
 
 -time WM: history in same DB?
 
@@ -33,8 +44,6 @@
 the GUI function itself?
 -card preview
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
-
--need for scheduler in_queue, remove_from_queue?
 
 -duplicates for fact speedup
 

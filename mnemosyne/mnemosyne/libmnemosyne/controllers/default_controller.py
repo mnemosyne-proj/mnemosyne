@@ -425,6 +425,10 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.component_manager.get_current("activate_cards_dialog")\
             (self.component_manager).activate()
+        review_controller = self.review_controller()
+        review_controller.reset_but_try_to_keep_current_card()
+        review_controller.reload_counters()
+        review_controller.update_status_bar()
         self.stopwatch().unpause()
         
     def browse_cards(self):
@@ -463,7 +467,7 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.component_manager.get_current("configuration_dialog")\
             (self.component_manager).activate()
-        self.scheduler().reset() # This will hold on to the current card.
+        self.review_controller().reset_but_try_to_keep_current_card()
         self.stopwatch().unpause()
         
     def import_file(self):

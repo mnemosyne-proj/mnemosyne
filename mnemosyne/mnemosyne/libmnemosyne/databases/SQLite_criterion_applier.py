@@ -11,28 +11,28 @@ class DefaultCriterionApplier(CriterionApplier):
 
     used_for = DefaultCriterion
 
-    def apply_to_database(self, active_or_in_view):
+    def apply_to_database(self, criterion, active_or_in_view):
+        import time
+        t1 = time.time()
         if active_or_in_view == self.ACTIVE:
             field_name = "active"
         elif active_or_in_view == self.IN_VIEW:
             field_name = "in_view"
         db = self.database()
-        criterion = db.current_activity_criterion()
         # If every tag is required, take a short cut.
-        if len(criterion.required_tags) == len(db.tag_names()):
+        tag_count = db.con.execute("select count() from tags").fetchone()
+        if len(criterion.required_tags) == tag_count:
             db.con.execute("update cards set active=1")
         else:     
             # Turn off everything.
             db.con.execute("update cards set active=0")
             # Turn on required tags.
-            command = """update cards set %s=1 where _id in (select cards._id
-                from cards, tags, tags_for_card where
-                tags_for_card._card_id=cards._id and
-                tags_for_card._tag_id=tags._id and """ % field_name
+            command = """update cards set %s=1 where _id in (select _card_id
+                from tags_for_card where """ % field_name
             args = []
             for tag in criterion.required_tags:
-                command += "tags.id=? or "
-                args.append(tag.id)
+                command += "_tag_id=? or "
+                args.append(tag._id)
             command = command.rsplit("or ", 1)[0] + ")"
             if criterion.required_tags:
                 db.con.execute(command, args)          
@@ -41,23 +41,24 @@ class DefaultCriterionApplier(CriterionApplier):
             from cards, facts where cards._fact_id=facts._id and """ \
             % field_name
         args = []        
-        for card_type, fact_view in criterion.inactive_card_types_fact_views:
+        for card_type, fact_view in \
+                criterion.deactivated_card_type_fact_views:
             command += "not (cards.fact_view_id=? and facts.card_type_id=?)"
             command += " and "
             args.append(fact_view.id)  
             args.append(card_type.id)          
         command = command.rsplit("and ", 1)[0] + ")"
-        if criterion.inactive_card_types_fact_views:
+        if criterion.deactivated_card_type_fact_views:
             db.con.execute(command, args)
         # Turn off forbidden tags.
-        command = """update cards set %s=0 where _id in (select cards._id
-            from cards, tags, tags_for_card where
-            tags_for_card._card_id=cards._id and
-            tags_for_card._tag_id=tags._id and """ % field_name       
+        command = """update cards set %s=0 where _id in (select _card_id
+            from tags_for_card where """  % field_name       
         args = []
         for tag in criterion.forbidden_tags:
-            command += "tags.id=? or "
-            args.append(tag.id)
+            command += "_tag_id=? or "
+            args.append(tag._id)
         command = command.rsplit("or ", 1)[0] + ")"
         if criterion.forbidden_tags:
             db.con.execute(command, args)
+        t2 = time.time()
+        print 'activate', t2-t1

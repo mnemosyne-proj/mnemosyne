@@ -53,7 +53,34 @@ class SM2Controller(ReviewController):
                       (self.component_manager)
         self.widget.activate()
         self.scheduler().reset()
-        self.new_question() 
+        self.new_question()
+
+    def reset_but_try_to_keep_current_card(self):
+
+        """This is typically called after activities which invalidate the
+        current queue, like 'Activate cards' or 'Configure'. For the best user
+        experience, we try to keep the card that is currently being asked if
+        possible.
+
+        """
+        
+        self.learning_ahead = False
+        self.non_memorised_count = None
+        self.scheduled_count = None
+        self.active_count = None
+        sch = self.scheduler()
+        sch.reset()
+        if self.card is None:
+            self.new_question()
+            return
+        # Reload the card, as its 'active' flag might have changed.
+        self.card = self.database().get_card(self.card._id,
+            id_is_internal=True)
+        if not self.card.active:
+            self.new_question()
+        else:
+            if sch.in_queue(self.card):
+                sch.remove_from_queue(card)
 
     def heartbeat(self):
 
@@ -81,6 +108,7 @@ class SM2Controller(ReviewController):
             else:
                 self.state = "SELECT AHEAD"
         self.update_dialog()
+        print self.card.id
         self.stopwatch().start()
 
     def show_answer(self):

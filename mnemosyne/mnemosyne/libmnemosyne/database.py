@@ -66,10 +66,10 @@ class Database(Component):
     def remove_tag_if_unused(self, tag):
         raise NotImplementedError
     
-    def tags(self):
+    def get_tags(self):
         raise NotImplementedError
     
-    def tag_names(self):
+    def get_tag_names(self):
         raise NotImplementedError
     
     # Facts.

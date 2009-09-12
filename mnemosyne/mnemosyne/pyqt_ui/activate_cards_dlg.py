@@ -90,7 +90,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self._store_layout()
         
     def accept(self):
-        criterion = DefaultCriterion()
+        criterion = DefaultCriterion(self.component_manager)
         # Card types and fact views.
         for item, card_type_fact_view in \
                 self.card_type_fact_view_for_item.iteritems():

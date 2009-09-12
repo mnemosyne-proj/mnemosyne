@@ -39,11 +39,12 @@ class DefaultCriterion(ActivityCriterion):
     def card_type_deleted(self, card_type):
         pass
 
-    def card_reviewed(self, card):
-        pass
-
-    def to_string(self):
-        pass
+    def data_to_string(self):
+        return repr((self.deactivated_card_type_fact_views, self.required_tags,
+               self.forbidden_tags))
     
-    def from_string(self):
-        pass
+    def data_from_string(self, data):
+        data = eval(data)
+        self.deactivated_card_type_fact_views = data[0]
+        self.required_tags = data[1]
+        self.forbidden_tags = data[2]

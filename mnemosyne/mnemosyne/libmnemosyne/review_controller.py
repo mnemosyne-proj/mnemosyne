@@ -20,7 +20,18 @@ class ReviewController(Component):
 
     def reset(self):
         raise NotImplementedError
+    
+    def reset_but_try_to_keep_current_card(self):
 
+        """This is typically called after activities which invalidate the
+        current queue, like 'Activate cards' or 'Configure'. For the best user
+        experience, we try to keep the card that is currently being asked if
+        possible.
+
+        """
+        
+        raise NotImplementedError
+    
     def heartbeat(self):
 
         """For code that needs to run periodically, e.g. to react to a change
