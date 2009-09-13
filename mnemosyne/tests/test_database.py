@@ -17,10 +17,10 @@ class TestDatabase(MnemosyneTest):
     def test_tags(self):
         cat = Tag("test")
         self.database().add_tag(cat)
-        assert self.database().tag_names() == [u"test"]
+        assert self.database().get_tag_names() == [u"test"]
         cat.name = "test2"
         self.database().update_tag(cat)
-        assert self.database().tag_names() == [u"test2"]        
+        assert self.database().get_tag_names() == [u"test2"]        
 
     def test_new_cards(self):
         fact_data = {"q": "question",
@@ -195,7 +195,7 @@ class TestDatabase(MnemosyneTest):
         self.database().delete_fact_and_related_data(fact)
         
         assert self.database().fact_count() == 0
-        assert len(self.database().tag_names()) == 0
+        assert len(self.database().get_tag_names()) == 0
         
     @raises(RuntimeError)
     def test_missing_plugin(self):
@@ -366,69 +366,7 @@ class TestDatabase(MnemosyneTest):
             self.database().save()
             self.database().unload()
             self.database().load(self.config()["path"])
-            
-    def test_activate_cards(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
-        card_type_1 = self.card_type_by_id("1")
-        self.controller().create_new_cards(fact_data, card_type_1,
-                                              grade=-1, tag_names=["default"])
-        assert self.database().active_count() == 1
-        
-        fact_data = {"q": "question",
-                     "a": "answer"}
-        card_type_2 = self.card_type_by_id("2")
-        self.controller().create_new_cards(fact_data, card_type_2,
-                                              grade=-1, tag_names=["default"])
-        assert self.database().active_count() == 3
-
-        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[1])],
-            [self.database().get_or_create_tag_with_name("default")])
-        assert self.database().active_count() == 3
-
-        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[1])],
-            [self.database().get_or_create_tag_with_name("default")])
-        assert self.database().active_count() == 2
-        
-        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[1])],
-            [self.database().get_or_create_tag_with_name("default2")])
-        assert self.database().active_count() == 0
-        
-        fact_data = {"q": "question2",
-                     "a": "answer2"}
-        self.controller().create_new_cards(fact_data, card_type_2,
-                                              grade=-1, tag_names=["default2"])
-        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[1])],
-            [self.database().get_or_create_tag_with_name("default2")])        
-        assert self.database().active_count() == 2
-
-        fact_data = {"q": "question3",
-                     "a": "answer3"}
-        self.controller().create_new_cards(fact_data, card_type_2,
-                                              grade=-1, tag_names=["default3",
-                                                                  "default4"])
-        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[1])],
-            [self.database().get_or_create_tag_with_name("default3")])
-        assert self.database().active_count() == 2
-
-        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0]),
-                                   (card_type_2, card_type_2.fact_views[1])],
-            [self.database().get_or_create_tag_with_name("default3")])
-        assert self.database().active_count() == 1
-
-        self.database().set_cards_active([(card_type_1, card_type_1.fact_views[0])],
-            [self.database().get_or_create_tag_with_name("default3")])
-        assert self.database().active_count() == 0        
-        
+                    
     def test_schedule_on_same_day(self):
         fact_data = {"q": "question",
                      "a": "answer"}

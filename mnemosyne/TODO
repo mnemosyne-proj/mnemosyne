@@ -1,7 +1,8 @@
--test suite
+-test deactivating card types
+-speed up deactivating card types (change order)?
+-test forbidden tag overriding required tag
 -merge rebuild_queue with reset_but_try_to_keep current card
 -unifiy counter reset code
--deactivate card type
 -post import file and post configure
 -test taking of diverse short cuts
 
@@ -129,9 +130,11 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -draw answer, make configurable by card type
 
 -more plugin examples: file format, custom tag, activate all cards,
- last grade filter, always_shuffle?
+ last grade filter
 
 -leech detection (mod 15)
+
+-ask people about biggest gripe in Mnemosyne, things that did not behave as expected
 
 
 -also add option to download source in the info box

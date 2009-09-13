@@ -43,11 +43,12 @@ class DefaultCriterionApplier(CriterionApplier):
         args = []        
         for card_type, fact_view in \
                 criterion.deactivated_card_type_fact_views:
-            command += "not (cards.fact_view_id=? and facts.card_type_id=?)"
-            command += " and "
+            command += "(cards.fact_view_id=? and facts.card_type_id=?)"
+            command += " or "
             args.append(fact_view.id)  
             args.append(card_type.id)          
-        command = command.rsplit("and ", 1)[0] + ")"
+        command = command.rsplit("or ", 1)[0] + ")"
+        print command, args
         if criterion.deactivated_card_type_fact_views:
             db.con.execute(command, args)
         # Turn off forbidden tags.

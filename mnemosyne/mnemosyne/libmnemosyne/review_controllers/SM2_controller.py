@@ -108,7 +108,6 @@ class SM2Controller(ReviewController):
             else:
                 self.state = "SELECT AHEAD"
         self.update_dialog()
-        print self.card.id
         self.stopwatch().start()
 
     def show_answer(self):

@@ -89,10 +89,14 @@ class TestDatabaseStub:
     @raises(NotImplementedError)
     def test_get_card(self):
         self.database.get_card(None, True)
-
+        
     @raises(NotImplementedError)
-    def test_tag_names(self):
-        self.database.tag_names()
+    def test_get_tags(self):
+        self.database.get_tags()
+        
+    @raises(NotImplementedError)
+    def test_get_tag_names(self):
+        self.database.get_tag_names()
            
     @raises(NotImplementedError)       
     def test_cards_from_fact(self):        

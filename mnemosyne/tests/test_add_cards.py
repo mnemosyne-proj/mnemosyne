@@ -19,7 +19,6 @@ class Widget(MainWidget):
 
 class TestAddCards(MnemosyneTest):
 
-
     def setup(self):
         os.system("rm -fr dot_test")
         
