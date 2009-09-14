@@ -1,19 +1,16 @@
--test deactivating card types
--speed up deactivating card types (change order)?
--test forbidden tag overriding required tag
+-higher level set activity criterion in review controller? not SM2
 -merge rebuild_queue with reset_but_try_to_keep current card
+-where else to call remove from queue
 -unifiy counter reset code
 -post import file and post configure
--test taking of diverse short cuts
+-test coverage of review controller
 
--test deactivating tag of current card
 -save and load current criterion
--database applier, test short cuts
--test when adding a new card
--call backs when creating / deleting tags / card types
+-call backs when creating / deleting tags / card types + tests
 -empty tags
 -delete / rename saved sets
--rebuild queue afterwards
+-test coverage of sqlite.py
+-default set of all cards
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
 

@@ -286,8 +286,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             if id not in active_ids:
                 plugin_needed.add(id)
         for card_type_id in plugin_needed:
-            self._find_plugin_for_card_type(card_type_id)        
-       
+            self._find_plugin_for_card_type(card_type_id)            
         self.config()["path"] = contract_path(path, self.config().basedir)
         for f in self.component_manager.get_all("hook", "after_load"):
             f.run()

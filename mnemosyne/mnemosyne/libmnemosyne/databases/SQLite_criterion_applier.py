@@ -20,7 +20,7 @@ class DefaultCriterionApplier(CriterionApplier):
             field_name = "in_view"
         db = self.database()
         # If every tag is required, take a short cut.
-        tag_count = db.con.execute("select count() from tags").fetchone()
+        tag_count = db.con.execute("select count() from tags").fetchone()[0]
         if len(criterion.required_tags) == tag_count:
             db.con.execute("update cards set active=1")
         else:     
@@ -38,7 +38,7 @@ class DefaultCriterionApplier(CriterionApplier):
                 db.con.execute(command, args)          
         # Turn off inactive card types and views.
         command = """update cards set %s=0 where _id in (select cards._id
-            from cards, facts where cards._fact_id=facts._id and """ \
+            from cards, facts where cards._fact_id=facts._id and (""" \
             % field_name
         args = []        
         for card_type, fact_view in \
@@ -47,8 +47,7 @@ class DefaultCriterionApplier(CriterionApplier):
             command += " or "
             args.append(fact_view.id)  
             args.append(card_type.id)          
-        command = command.rsplit("or ", 1)[0] + ")"
-        print command, args
+        command = command.rsplit("or ", 1)[0] + "))"
         if criterion.deactivated_card_type_fact_views:
             db.con.execute(command, args)
         # Turn off forbidden tags.
