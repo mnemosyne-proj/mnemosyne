@@ -64,12 +64,10 @@ class SM2Controller(ReviewController):
 
         """
         
-        self.learning_ahead = False
-        self.non_memorised_count = None
-        self.scheduled_count = None
-        self.active_count = None
         sch = self.scheduler()
         sch.reset()
+        sch.rebuild_queue()
+        # If previously there was no card active, perhaps there is one now.
         if self.card is None:
             self.new_question()
             return
@@ -80,7 +78,7 @@ class SM2Controller(ReviewController):
             self.new_question()
         else:
             if sch.in_queue(self.card):
-                sch.remove_from_queue(card)
+                sch.remove_from_queue(self.card)
 
     def heartbeat(self):
 

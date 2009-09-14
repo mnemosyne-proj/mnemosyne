@@ -62,8 +62,7 @@ class DefaultController(Controller):
                                      id_is_internal=True)
         review_controller.reload_counters()
         if review_controller.card is None:
-            review_controller.update_status_bar()
-            review_controller.new_question()         
+            review_controller.new_question()
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
@@ -246,9 +245,7 @@ class DefaultController(Controller):
         db.delete_fact_and_related_data(fact)
         db.save()
         review_controller.reload_counters()
-        review_controller.rebuild_queue()
         review_controller.new_question()
-        review_controller.update_status_bar()
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 

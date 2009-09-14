@@ -48,22 +48,7 @@ class ReviewController(Component):
         raise NotImplementedError
 
     def grade_answer(self, grade):
-        raise NotImplementedError     
-
-    def rebuild_queue(self):
-
-        """Called when something in the GUI could have invalidated the queue.
-        (e.g. card deletion).
-
-        """
-
-        sch = self.scheduler()
-        sch.reset()
-        sch.rebuild_queue()
-        if not sch.in_queue(self.card):
-            self.new_question()
-        else:
-            sch.remove_from_queue(self.card)
+        raise NotImplementedError
 
     def get_counters(self):
 

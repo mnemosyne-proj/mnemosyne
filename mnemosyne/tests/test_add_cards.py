@@ -94,9 +94,7 @@ class TestAddCards(MnemosyneTest):
         self.review_controller().new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(0)
-        self.database().delete_fact_and_related_data(card_3.fact)
-        self.review_controller().rebuild_queue()
-        self.review_controller().new_question() 
+        self.database().delete_fact_and_related_data(card_3.fact) 
         for i in range(6):
             assert self.review_controller().card != card_3
             self.review_controller().grade_answer(0)        

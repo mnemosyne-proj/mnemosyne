@@ -465,7 +465,9 @@ class SM2Mnemosyne(Scheduler):
 
     def card_count_scheduled_n_days_from_now(self, n):
 
-        """Yesterday: n=-1, today: n=0, tomorrow: n=1, ..."""
+        """Yesterday: n=-1, today: n=0, tomorrow: n=1, ...
+
+        """
 
         if n > 0:
             now = self.adjusted_now()
