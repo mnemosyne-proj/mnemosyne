@@ -16,6 +16,10 @@ class Widget(MainWidget):
             return 0
         raise NotImplementedError
 
+    def question_box(self, question, a, b, c):
+        if question.startswith("Delete"):
+            return 0
+        raise NotImplementedError        
 
 class TestAddCards(MnemosyneTest):
 
@@ -94,11 +98,35 @@ class TestAddCards(MnemosyneTest):
         self.review_controller().new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(0)
-        self.database().delete_fact_and_related_data(card_3.fact) 
+        self.database().delete_fact_and_related_data(card_3.fact)
+        self.review_controller().reset()
         for i in range(6):
             assert self.review_controller().card != card_3
-            self.review_controller().grade_answer(0)        
-
+            self.review_controller().grade_answer(0)
+            
+    def test_delete_2(self):
+        fact_data = {"q": "question1",
+                     "a": "answer1"}
+        card_type = self.card_type_by_id("1")
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
+                              grade=-1, tag_names=["default"])[0]
+        fact_data = {"q": "question2",
+                     "a": "answer2"}
+        card_2 = self.controller().create_new_cards(fact_data, card_type,
+                              grade=-1, tag_names=["default"])[0]
+        assert set(tag.name for tag in card_1.tags) == \
+               set(tag.name for tag in card_2.tags)
+        fact_data = {"q": "question3",
+                     "a": "answer3"}
+        card_3 = self.controller().create_new_cards(fact_data, card_type,
+                              grade=-1, tag_names=["default"])[0]
+        self.review_controller().new_question()
+        assert self.review_controller().card == card_1
+        self.controller().delete_current_fact()
+        for i in range(6):
+            assert self.review_controller().card != card_1
+            self.review_controller().grade_answer(0)
+            
     def test_change_tag(self):
         fact_data = {"q": "question",
                      "a": "answer"}

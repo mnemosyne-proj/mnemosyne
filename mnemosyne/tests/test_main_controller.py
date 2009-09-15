@@ -14,7 +14,6 @@ class Widget(MainWidget):
 
     def save_file_dialog(self, path, filter, caption=""):
         return os.path.join(os.getcwd(), "dot_test", "copy.db")
-        return "test2.sql"
     
     def open_file_dialog(self, path, filter, caption=""):
         return os.path.join(os.getcwd(), "dot_test", "default.db")

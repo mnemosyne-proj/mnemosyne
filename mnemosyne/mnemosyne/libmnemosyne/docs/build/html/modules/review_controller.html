@@ -61,7 +61,8 @@ interface.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.grade_answer">
 <!--[mnemosyne.libmnemosyne.review_controller.ReviewController.grade_answer]--><tt class="descname">grade_answer</tt><big>(</big><em>grade</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.grade_answer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd>All the code that needs to run after the user grades the answer.
+Note that this also incluse pulling in a new question.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.heartbeat">
@@ -85,12 +86,6 @@ of date.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.rebuild_queue">
-<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.rebuild_queue]--><tt class="descname">rebuild_queue</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.rebuild_queue" title="Permalink to this definition">¶</a></dt>
-<dd>Called when something in the GUI could have invalidated the queue.
-(e.g. card deletion).</dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters">
 <!--[mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters]--><tt class="descname">reload_counters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters" title="Permalink to this definition">¶</a></dt>
 <dd>To be called when counters need to be reloaded from the database.</dd></dl>
@@ -99,6 +94,14 @@ of date.</dd></dl>
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.reset">
 <!--[mnemosyne.libmnemosyne.review_controller.ReviewController.reset]--><tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.reset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.reset_but_try_to_keep_current_card">
+<!--[mnemosyne.libmnemosyne.review_controller.ReviewController.reset_but_try_to_keep_current_card]--><tt class="descname">reset_but_try_to_keep_current_card</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.reset_but_try_to_keep_current_card" title="Permalink to this definition">¶</a></dt>
+<dd>This is typically called after activities which invalidate the
+current queue, like &#8216;Activate cards&#8217; or &#8216;Configure&#8217;. For the best user
+experience, we try to keep the card that is currently being asked if
+possible.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.show_answer">
@@ -126,9 +129,9 @@ of date.</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="controller.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Controller</span></tt></a></p>
+            <p class="topless"><a href="controller.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Controller</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="configuration.html" title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+            <p class="topless"><a href="configuration.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/review_controller.txt">Show Source</a></li>
@@ -163,7 +166,7 @@ of date.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 05, 2009.
+      Last updated on Sep 15, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

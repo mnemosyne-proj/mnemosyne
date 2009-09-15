@@ -78,7 +78,7 @@ class SM2Controller(ReviewController):
             self.new_question()
         else:
             if sch.in_queue(self.card):
-                sch.remove_from_queue(self.card)
+                sch.remove_from_queue(self.card)   # It's already being asked.
 
     def heartbeat(self):
 
@@ -118,6 +118,9 @@ class SM2Controller(ReviewController):
         self.update_dialog()
 
     def grade_answer(self, grade):
+
+        """Note that this also pulls in a new question. """
+        
         card_to_grade = self.card
         old_grade = card_to_grade.grade
         self.update_counters(old_grade, grade)

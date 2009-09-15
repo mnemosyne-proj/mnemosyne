@@ -1,38 +1,31 @@
--fix delete test, grade answer --> grade answer and get next question?
-
+-fix test suite
+-check if we need to call remove from queue somewhere else? 
+ In update related cards upon deletion?
 -higher level set activity criterion in review controller? not SM2
 -call sch.reset inside sch.rebuild_queue?
--check if we need to call remove from queue somewhere else
--unifiy counter reset code
--post import file and post configure
--test coverage of review controller
--none check in edit card
+-rebuild_queue --> build_queue?
 
-
-add
-        review_controller = self.review_controller()
+add:
         review_controller.reload_counters()
         if review_controller.card is None:
             review_controller.new_question()
         else:
             review_controller.update_status_bar()
 
-edit: TODO: none check
-        review_controller.card = \
-            self.database().get_card(review_controller.card._id,
-                                     id_is_internal=True)
+edit:
         review_controller.reload_counters()
         if review_controller.card is None:
             review_controller.new_question()
-        review_controller.update_dialog(redraw_all=True)
+        else:
+            review_controller.card = self.database().get_card(\
+                review_controller.card._id, id_is_internal=True)
+            review_controller.update_dialog(redraw_all=True)
 
-delete
+delete current:
         review_controller.reload_counters()
         review_controller.new_question()
-        review_controller.update_dialog(redraw_all=True)        
 
 activate:
-        review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
         review_controller.reload_counters()
         review_controller.update_status_bar()
@@ -41,14 +34,13 @@ configure
         self.review_controller().reset_but_try_to_keep_current_card()
 
 import:
-        review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:
             review_controller.new_question()
         else:
             review_controller.update_status_bar()
 
-
+-test coverage of review controller
 -save and load current criterion
 -call backs when creating / deleting tags / card types + tests
 -empty tags

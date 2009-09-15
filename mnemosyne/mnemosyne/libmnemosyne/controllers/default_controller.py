@@ -57,13 +57,16 @@ class DefaultController(Controller):
         fact = review_controller.card.fact
         self.component_manager.get_current("edit_fact_dialog")\
             (fact, self.component_manager).activate()
-        review_controller.card = \
-            self.database().get_card(review_controller.card._id,
-                                     id_is_internal=True)
         review_controller.reload_counters()
+        # Our current card could have disappeared from the database here,
+        # e.g. when converting a front-to-back card to a cloze card, which
+        # deletes the old cards and their learning history.
         if review_controller.card is None:
             review_controller.new_question()
-        review_controller.update_dialog(redraw_all=True)
+        else:
+            review_controller.card = self.database().get_card(\
+                review_controller.card._id, id_is_internal=True)
+            review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
     def create_new_cards(self, fact_data, card_type, grade, tag_names,
@@ -131,7 +134,7 @@ class DefaultController(Controller):
             db.save()
         if self.review_controller().learning_ahead == True:
             self.review_controller().reset()
-        return cards # For testability.
+        return cards
 
     def update_related_cards(self, fact, new_fact_data, new_card_type, \
                              new_tag_names, correspondence):
@@ -154,12 +157,13 @@ class DefaultController(Controller):
          _("Can't preserve history when converting between these card types.")\
                  + " " + _("The learning history of the cards will be reset."),
                       _("&OK"), _("&Cancel"), "")
-                    if answer == 1: # Cancel.
+                    if answer == 1:   # Cancel.
                         return -1
                     else:
                         db.delete_fact_and_related_data(fact)
-                        self.create_new_cards(new_fact_data, new_card_type,
-                                         grade=-1, tag_names=new_tag_names)
+                        card = self.create_new_cards(new_fact_data,
+                          new_card_type, grade=-1, tag_names=new_tag_names)[0]
+                        self.review_controller().card = card
                         return 0
             else:
                 # Make sure the converter operates on card objects which
@@ -182,6 +186,9 @@ class DefaultController(Controller):
                     if answer == 1: # Cancel.
                         return -1
                 for card in deleted_cards:
+                    if self.review_controller().card and \
+                           self.review_controller().card == card:
+                        self.review_controller().card = None
                     db.delete_card(card)
                 for card in new_cards:
                     db.add_card(card)
@@ -197,6 +204,9 @@ class DefaultController(Controller):
         fact.data = new_fact_data
         db.update_fact(fact)
         for card in deleted_cards:
+            if self.review_controller().card and \
+                   self.review_controller().card == card:
+                self.review_controller().card = None
             db.delete_card(card)
         for card in new_cards:
             db.add_card(card)
@@ -246,7 +256,6 @@ class DefaultController(Controller):
         db.save()
         review_controller.reload_counters()
         review_controller.new_question()
-        review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
     def clone_card_type(self, card_type, clone_name):

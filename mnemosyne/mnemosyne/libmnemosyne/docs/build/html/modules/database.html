@@ -143,6 +143,11 @@ a database can also implement functions for logging and statistics
 &#8216;next_rep&#8217;. Note that there is no need that next_rep == card.next_rep.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.current_activity_criterion">
+<!--[mnemosyne.libmnemosyne.database.Database.current_activity_criterion]--><tt class="descname">current_activity_criterion</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.current_activity_criterion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.deactivate">
 <!--[mnemosyne.libmnemosyne.database.Database.deactivate]--><tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.deactivate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -203,6 +208,16 @@ a database can also implement functions for logging and statistics
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.get_tag_names">
+<!--[mnemosyne.libmnemosyne.database.Database.get_tag_names]--><tt class="descname">get_tag_names</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_tag_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.get_tags">
+<!--[mnemosyne.libmnemosyne.database.Database.get_tags]--><tt class="descname">get_tags</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.is_loaded">
 <!--[mnemosyne.libmnemosyne.database.Database.is_loaded]--><tt class="descname">is_loaded</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.is_loaded" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -233,6 +248,16 @@ a database can also implement functions for logging and statistics
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.save_activity_criterion">
+<!--[mnemosyne.libmnemosyne.database.Database.save_activity_criterion]--><tt class="descname">save_activity_criterion</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.save_activity_criterion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.saved_activity_criteria">
+<!--[mnemosyne.libmnemosyne.database.Database.saved_activity_criteria]--><tt class="descname">saved_activity_criteria</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.saved_activity_criteria" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.scheduled_count">
 <!--[mnemosyne.libmnemosyne.database.Database.scheduled_count]--><tt class="descname">scheduled_count</tt><big>(</big><em>days=0</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.scheduled_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -243,25 +268,13 @@ a database can also implement functions for logging and statistics
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.set_cards_active">
-<!--[mnemosyne.libmnemosyne.database.Database.set_cards_active]--><tt class="descname">set_cards_active</tt><big>(</big><em>card_types_fact_views</em>, <em>categories</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_cards_active" title="Permalink to this definition">¶</a></dt>
-<dd>card_types_fact_views is a list of tuples containing (card_type,
-fact_view).</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.set_cards_in_view">
-<!--[mnemosyne.libmnemosyne.database.Database.set_cards_in_view]--><tt class="descname">set_cards_in_view</tt><big>(</big><em>card_types_fact_views</em>, <em>categories</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_cards_in_view" title="Permalink to this definition">¶</a></dt>
-<dd>card_types_fact_views is a list of tuples containing (card_type,
-fact_view).</dd></dl>
+<dt id="mnemosyne.libmnemosyne.database.Database.set_current_activity_criterion">
+<!--[mnemosyne.libmnemosyne.database.Database.set_current_activity_criterion]--><tt class="descname">set_current_activity_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_current_activity_criterion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.set_scheduler_data">
 <!--[mnemosyne.libmnemosyne.database.Database.set_scheduler_data]--><tt class="descname">set_scheduler_data</tt><big>(</big><em>scheduler_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_scheduler_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.tag_names">
-<!--[mnemosyne.libmnemosyne.database.Database.tag_names]--><tt class="descname">tag_names</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tag_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -300,7 +313,7 @@ fact_view).</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="configuration.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+            <p class="topless"><a href="configuration.html" title="previous chapter"><tt class="docutils literal"><span class="pre">Configuration</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="file_format.html" title="next chapter"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></p>
             <h3>This Page</h3>
@@ -337,7 +350,7 @@ fact_view).</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 05, 2009.
+      Last updated on Sep 15, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

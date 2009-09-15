@@ -48,17 +48,23 @@ class ReviewController(Component):
         raise NotImplementedError
 
     def grade_answer(self, grade):
+
+        """All the code that needs to run after the user grades the answer.
+        Note that this also incluse pulling in a new question.
+
+        """
+        
         raise NotImplementedError
 
     def get_counters(self):
 
-        "Returns tuple (scheduled_count, non_memorised_count, active_count). "
+        """Returns tuple (scheduled_count, non_memorised_count, active_count). """
         
         raise NotImplementedError
 
     def reload_counters(self):
         
-        "To be called when counters need to be reloaded from the database. "
+        """To be called when counters need to be reloaded from the database. """
         
         raise NotImplementedError       
     
