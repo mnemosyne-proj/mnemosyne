@@ -11,7 +11,7 @@ re_media = re.compile(r"""<(audio|video)( src=\".+?\")>""", re.DOTALL | re.IGNOR
 
 class Html5Media(Filter):
 
-    "Add autoplay and control tags to html5 media tags."
+    """Add autoplay and control tags to html5 media tags."""
 
     def run(self, text):
         options = ""

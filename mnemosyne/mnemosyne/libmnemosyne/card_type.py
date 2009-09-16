@@ -3,10 +3,11 @@
 #
 
 from mnemosyne.libmnemosyne.card import Card
+from mnemosyne.libmnemosyne.utils import CompareOnId
 from mnemosyne.libmnemosyne.component import Component
 
 
-class CardType(Component):
+class CardType(Component, CompareOnId):
 
     """A card type groups a number of fact views on a certain fact, thereby
     forming a set of related cards.
@@ -61,10 +62,7 @@ class CardType(Component):
     required_fields = None
     keyboard_shortcuts = {}
     extra_data = {}
-    
-    def __eq__(self, other):
-        return self.id == other.id
-        
+
     def keys(self):
         return set(fact_key for (fact_key, fact_key_name) in self.fields)
 

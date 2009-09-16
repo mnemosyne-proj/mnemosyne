@@ -14,13 +14,10 @@ class ActivityCriterion(Component):
 
     The actual instances together with their data are stored in the database.
 
-
     """
 
-    component_type = "activity_criterion"
-    
+    component_type = "activity_criterion"   
     criterion_type = ""
-
 
     def apply_to_card(self, card):
 

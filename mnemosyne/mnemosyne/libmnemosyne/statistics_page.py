@@ -52,7 +52,10 @@ class PlotStatisticsPage(StatisticsPage):
 
 class HtmlStatisticsPage(StatisticsPage):
 
-    "A statistics page which generates html to displayed in a browser widget."
+    """A statistics page which generates html to displayed in a browser
+    widget.
+
+    """
         
     def __init__(self, component_manager):
         StatisticsPage.__init__(self, component_manager)

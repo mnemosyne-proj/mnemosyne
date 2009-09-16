@@ -1,46 +1,6 @@
--fix test suite
--check if we need to call remove from queue somewhere else? 
- In update related cards upon deletion?
--higher level set activity criterion in review controller? not SM2
--call sch.reset inside sch.rebuild_queue?
--rebuild_queue --> build_queue?
-
-add:
-        review_controller.reload_counters()
-        if review_controller.card is None:
-            review_controller.new_question()
-        else:
-            review_controller.update_status_bar()
-
-edit:
-        review_controller.reload_counters()
-        if review_controller.card is None:
-            review_controller.new_question()
-        else:
-            review_controller.card = self.database().get_card(\
-                review_controller.card._id, id_is_internal=True)
-            review_controller.update_dialog(redraw_all=True)
-
-delete current:
-        review_controller.reload_counters()
-        review_controller.new_question()
-
-activate:
-        review_controller.reset_but_try_to_keep_current_card()
-        review_controller.reload_counters()
-        review_controller.update_status_bar()
-
-configure
-        self.review_controller().reset_but_try_to_keep_current_card()
-
-import:
-        review_controller.reload_counters()
-        if review_controller.card is None:
-            review_controller.new_question()
-        else:
-            review_controller.update_status_bar()
-
+-fact_view comparison?
 -test coverage of review controller
+
 -save and load current criterion
 -call backs when creating / deleting tags / card types + tests
 -empty tags
@@ -49,6 +9,7 @@ import:
 -default set of all cards
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
+-sync adding sets
 
 -id vs _id
 -is it worth keeping database.tag_names?
@@ -60,7 +21,6 @@ import:
 -SM2sync -> openSM2sync?
 
 -more tests
--docstring formatting: """ everywhere
 -update_cards --> modify cards?
 
 
@@ -247,6 +207,8 @@ http://pythoscope.org/
 -chinese pod plugin
 
 -"reschedule" cheating plugin
+
+-improve learn ahead, by learing ahead per day and prioritising within each day
 
 
 Windows Mobile client:

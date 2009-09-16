@@ -36,7 +36,7 @@ class MainWidget(UiComponent):
     
     def save_file_dialog(self, path, filter, caption=""):
 
-        "Should ask for confirmation on overwrite."
+        """Should ask for confirmation on overwrite."""
         
         pass
     

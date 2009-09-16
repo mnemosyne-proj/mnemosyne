@@ -116,7 +116,7 @@ class DefaultController(Controller):
                       (fact, self.component_manager, allow_cancel=False).\
                       activate()
                     return
-                if answer == 2: # Don't add.
+                if answer == 2:  # Don't add.
                     return
         db.add_fact(fact)
         tags = set()
@@ -140,6 +140,7 @@ class DefaultController(Controller):
                              new_tag_names, correspondence):
         # Change card type.
         db = self.database()
+        sch = self.scheduler()
         old_card_type = fact.card_type
         if old_card_type != new_card_type:
             converter = self.component_manager.get_current\
@@ -183,12 +184,12 @@ class DefaultController(Controller):
           _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?"),
                       _("&Proceed and delete"), _("&Cancel"), "")
-                    if answer == 1: # Cancel.
+                    if answer == 1:  # Cancel.
                         return -1
                 for card in deleted_cards:
-                    if self.review_controller().card and \
-                           self.review_controller().card == card:
+                    if self.review_controller().card == card:
                         self.review_controller().card = None
+                    sch.remove_from_queue_if_present(card)
                     db.delete_card(card)
                 for card in new_cards:
                     db.add_card(card)
@@ -204,9 +205,9 @@ class DefaultController(Controller):
         fact.data = new_fact_data
         db.update_fact(fact)
         for card in deleted_cards:
-            if self.review_controller().card and \
-                   self.review_controller().card == card:
+            if self.review_controller().card == card:
                 self.review_controller().card = None
+            sch.remove_from_queue_if_present(card)
             db.delete_card(card)
         for card in new_cards:
             db.add_card(card)
@@ -249,7 +250,7 @@ class DefaultController(Controller):
           _("and not just deactivate cards in the 'Activate cards' dialog?")
         answer = self.main_widget().question_box(question, _("&Delete"),
                                           _("&Cancel"), "")
-        if answer == 1: # Cancel.
+        if answer == 1:  # Cancel.
             self.stopwatch().unpause()
             return
         db.delete_fact_and_related_data(fact)
@@ -287,7 +288,7 @@ class DefaultController(Controller):
             filename += suffix
         db.backup()
         db.unload()
-        # Confirmation on overwrite has happened in the file dialog code,
+        # Confirmation on overwrite has happened in the file dialog code.
         if os.path.exists(filename):
             import shutil
             shutil.rmtree(filename + "_media")
@@ -313,7 +314,7 @@ class DefaultController(Controller):
             result = self.main_widget().question_box(\
                 _("Do you want to restore from this backup?"),
                 _("Yes"), _("No"), "")
-            if result == 0: # Yes
+            if result == 0:  # Yes.
                 db.abandon()
                 db_path = expand_path(self.config()["path"], basedir)
                 import shutil

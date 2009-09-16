@@ -40,13 +40,13 @@ class ReviewWidget(UiComponent):
 
     def enable_grades(self, enabled):
 
-        "Enable whole grade area, including title"
+        """Enable whole grade area, including title."""
         
         pass
     
     def enable_grade(self, grade, enabled):
 
-        "Enable just a single grade button"
+        """Enable just a single grade button."""
         
         pass
     

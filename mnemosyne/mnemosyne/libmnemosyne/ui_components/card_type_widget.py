@@ -34,7 +34,6 @@ class CardTypeWidget(UiComponent):
         """Put fact data in the widget. Used e.g. when converting facts to
         different card types.
 
-
         """
 
         raise NotImplementedError

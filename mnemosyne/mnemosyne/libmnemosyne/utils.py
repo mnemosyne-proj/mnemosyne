@@ -101,7 +101,7 @@ def numeric_string_cmp(s1, s2):
 
 def traceback_string():
     
-    "Like traceback.print_exc(), but returns a string."
+    """Like traceback.print_exc(), but returns a string."""
 
     type, value, tb = sys.exc_info()
     body = "\nTraceback (innermost last):\n"
@@ -113,7 +113,7 @@ def traceback_string():
 
 def mangle(string):
 
-    "Massage string such that it can be used as an identifier"
+    """Massage string such that it can be used as an identifier."""
 
     string = cgi.escape(string).encode("ascii", "xmlcharrefreplace")
     if string[0].isdigit():
@@ -123,4 +123,27 @@ def mangle(string):
         if char.isalnum() or char == "_":
             new_string += char    
     return new_string
+
+
+class CompareOnId(object):
+
+    """When pulling the same object twice from an SQL database, the resulting
+    Python objects will be separate entities. That's why we need to compare
+    them on id.
+
+    """
+  
+    def __eq__(self, other):
+        if isinstance(other, CompareOnId):
+            return self.id == other.id
+        return NotImplemented  # So Python can try other.__eq__(self)
+    
+    def __ne__(self, other):
+
+        """Not automatically overridden by overriding __eq__!"""
+        
+        result = self.__eq__(other)
+        if result is NotImplemented:
+            return result
+        return not result
 

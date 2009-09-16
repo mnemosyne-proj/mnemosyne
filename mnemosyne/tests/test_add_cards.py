@@ -40,12 +40,33 @@ class TestAddCards(MnemosyneTest):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
-        self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["default"])
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
         self.controller().file_save()
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
+    def test_comparisons(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+        self.controller().file_save()    
+        assert card == card
+        assert card.fact == card.fact
+        assert card.fact_view == card.fact_view
+
+        class A(object):
+            pass
+        a = A()
+        assert card != a
+        assert card.fact != a
+        assert card.fact_view != a
+        tag = card.tags.pop()
+        assert tag == tag
+        assert tag != a
+        
     def test_1_duplicates(self):
         fact_data = {"q": "question",
                      "a": "answer"}

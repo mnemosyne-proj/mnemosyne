@@ -17,7 +17,7 @@ class Controller(Component):
 
     def heartbeat(self):
 
-        "For code that needs to run periodically."
+        """For code that needs to run periodically."""
         
         pass
         
@@ -52,13 +52,19 @@ class Controller(Component):
 
     def insert_img(self, filter):
 
-        "Filter contains the file dialog filter with the supported filetypes."
+        """Filter contains the file dialog filter with the supported
+        filetypes.
+
+        """
         
         raise NotImplementedError
 
     def insert_sound(self, filter):
 
-        "Filter contains the file dialog filter with the supported filetypes."
+        """Filter contains the file dialog filter with the supported
+        filetypes.
+
+        """
         
         raise NotImplementedError    
 

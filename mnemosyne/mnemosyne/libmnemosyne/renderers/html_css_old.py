@@ -6,18 +6,18 @@ import os
 
 from mnemosyne.libmnemosyne.renderer import Renderer
 
-"""Modified version of html_css.py to work better with older, nono-standard
-compliant browsers. It has been tweaked specifically for the html widget in
-Windows Mobile.
-
-Changes:
-  - table height is 95% instead of 100% to avoid spurious scrollbars.
-  - centering is done in html as opposed to only in css.
-
-"""
-
 
 class HtmlCssOld(Renderer):
+
+      """Modified version of html_css.py to work better with older,
+      non-standard compliant browsers. It has been tweaked specifically for
+      the html widget in Windows Mobile.
+
+      Changes:
+      - table height is 95% instead of 100% to avoid spurious scrollbars.
+      - centering is done in html as opposed to only in css.
+      
+      """
       
     def __init__(self, component_manager):
         Renderer.__init__(self, component_manager)

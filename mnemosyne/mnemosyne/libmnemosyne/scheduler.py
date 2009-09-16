@@ -12,7 +12,7 @@ class Scheduler(Component):
             
     def reset(self):
 
-        """Called when starting the scheduler for the first time. """
+        """Called when starting the scheduler for the first time."""
         
         raise NotImplementedError
     
@@ -64,7 +64,7 @@ class Scheduler(Component):
         
         raise NotImplementedError
 
-    def remove_from_queue(self, card):
+    def remove_from_queue_if_present(self, card):
         raise NotImplementedError        
 
     def get_next_card(self, learn_ahead=False):
@@ -72,7 +72,7 @@ class Scheduler(Component):
     
     def get_next_card_id(self, learn_ahead=False):
 
-        """Avoids creating a card object, which enables certain shortcuts. """
+        """Avoids creating a card object, which enables certain shortcuts."""
         
         raise NotImplementedError
     
@@ -99,6 +99,6 @@ class Scheduler(Component):
     
     def card_count_scheduled_n_days_from_now(self, n):
 
-        """Yesterday: n=-1, today: n=0, tomorrow: n=1, ... """
+        """Yesterday: n=-1, today: n=0, tomorrow: n=1, ... ."""
         
         raise NotImplementedError        

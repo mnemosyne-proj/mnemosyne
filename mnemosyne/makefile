@@ -2,8 +2,8 @@ install-and-run-virtual-env: install-virtual-env
 	./bin/mnemosyne -d dot_mnemosyne2
 
 install-virtual-env:
-	cd mnemosyne/pyqt_ui ; make
-	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd mnemosyne/pyqt_ui && make
+	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	./bin/python setup.py develop
 
 setup:
@@ -12,9 +12,9 @@ setup:
 	./bin/easy_install coverage
 
 install-system:
-	cd mnemosyne/pyqt_ui ; make clean
-	cd mnemosyne/pyqt_ui ; make
-	cd mnemosyne/pyqt_ui ; pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
+	cd mnemosyne/pyqt_ui && make clean
+	cd mnemosyne/pyqt_ui && make
+	cd mnemosyne/pyqt_ui && pyrcc4 -o mnemosyne_rc.py mnemosyne.qrc
 	python setup.py install
 	rm -f -R build
 
@@ -39,7 +39,7 @@ wm: install-virtual-env
 	./bin/python mnemosyne/ppygui_ui/ppygui_ui/Mnemosyne\ Mobile.py -d dot_mnemosyne2
 
 docs:
-	cd mnemosyne/libmnemosyne/docs ; make html
+	cd mnemosyne/libmnemosyne/docs && make html
 
 windows:
 	rmdir /S /Q dist
@@ -51,7 +51,7 @@ clean:
 	rm -f *~ *.pyc *.tgz process_profile.py
 	rm -f -R distrib build bin lib include dot_mnemosyne2 dot_test 
 	rm -f -R dot_benchmark dist
-	cd mnemosyne/pyqt_ui ; make clean
+	cd mnemosyne/pyqt_ui && make clean
 	rm -f mnemosyne/*~ mnemosyne/*.pyc
 	rm -f mnemosyne/libmnemosyne/*~ mnemosyne/libmnemosyne/*.pyc
 
@@ -60,7 +60,7 @@ distrib: FORCE
 
 	# Unix.
 
-	cd mnemosyne/pyqt_ui ; make
+	cd mnemosyne/pyqt_ui && make
 
 	mkdir distrib
 	cp setup.py README LICENSE AUTHORS ChangeLog mnemosyne.desktop distrib

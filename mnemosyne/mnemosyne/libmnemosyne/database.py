@@ -132,7 +132,7 @@ class Database(Component):
 
     def cards_from_fact(self, fact):
         
-        """Return a list of the cards deriving from a fact. """
+        """Return a list of the cards deriving from a fact."""
         
         raise NotImplementedError
     

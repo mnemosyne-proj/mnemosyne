@@ -12,8 +12,6 @@ class DefaultCriterionApplier(CriterionApplier):
     used_for = DefaultCriterion
 
     def apply_to_database(self, criterion, active_or_in_view):
-        import time
-        t1 = time.time()
         if active_or_in_view == self.ACTIVE:
             field_name = "active"
         elif active_or_in_view == self.IN_VIEW:
@@ -60,5 +58,3 @@ class DefaultCriterionApplier(CriterionApplier):
         command = command.rsplit("or ", 1)[0] + ")"
         if criterion.forbidden_tags:
             db.con.execute(command, args)
-        t2 = time.time()
-        print 'activate', t2-t1

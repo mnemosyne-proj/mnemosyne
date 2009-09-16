@@ -23,7 +23,7 @@ class LogUploader(Thread, Component):
     def upload(self, filename):
         
         """Upload a single file to our serverside CGI script.
-        Based on code by Jeff Bauer, Aaron Watters, Jim Fulton
+        Based on code by Jeff Bauer, Aaron Watters, Jim Fulton.
         
         """
 

@@ -58,13 +58,13 @@ class ReviewController(Component):
 
     def get_counters(self):
 
-        """Returns tuple (scheduled_count, non_memorised_count, active_count). """
+        """Returns tuple (scheduled_count, non_memorised_count, active_count)."""
         
         raise NotImplementedError
 
     def reload_counters(self):
         
-        """To be called when counters need to be reloaded from the database. """
+        """To be called when counters need to be reloaded from the database."""
         
         raise NotImplementedError       
     

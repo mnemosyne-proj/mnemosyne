@@ -73,12 +73,12 @@ class SM2Controller(ReviewController):
             return
         # Reload the card, as its 'active' flag might have changed.
         self.card = self.database().get_card(self.card._id,
-            id_is_internal=True)
+                                             id_is_internal=True)
         if not self.card.active:
             self.new_question()
         else:
-            if sch.in_queue(self.card):
-                sch.remove_from_queue(self.card)   # It's already being asked.
+            # It's already being asked.
+            sch.remove_from_queue_if_present(self.card)
 
     def heartbeat(self):
 
@@ -119,7 +119,7 @@ class SM2Controller(ReviewController):
 
     def grade_answer(self, grade):
 
-        """Note that this also pulls in a new question. """
+        """Note that this also pulls in a new question."""
         
         card_to_grade = self.card
         old_grade = card_to_grade.grade

@@ -4,8 +4,10 @@
 
 import time
 
+from mnemosyne.libmnemosyne.utils import CompareOnId
 
-class Fact(object):
+
+class Fact(CompareOnId):
 
     """Basic unit of information from which several cards can be derived.
 
@@ -46,12 +48,6 @@ class Fact(object):
             id = str(uuid.uuid4())
         self.id = id
         self._id = None
-
-    def __eq__(self, other):
-        try:
-            return self.id == other.id
-        except:
-            return False
     
     def __getitem__(self, key):
         return self.data[key]

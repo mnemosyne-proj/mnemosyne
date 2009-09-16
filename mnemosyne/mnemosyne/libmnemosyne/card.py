@@ -2,8 +2,10 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.utils import CompareOnId
 
-class Card(object):
+
+class Card(CompareOnId):
 
     """A card has a question and an answer, based on a fact view operating on
     a fact. It also stores repetition data.
@@ -48,9 +50,6 @@ class Card(object):
         self.in_view = True
         self.reset_learning_data()
         
-    def __eq__(self, other):
-        return self.id == other.id
-
     def reset_learning_data(self):
 
         """Used when creating a card for the first time, or when choosing

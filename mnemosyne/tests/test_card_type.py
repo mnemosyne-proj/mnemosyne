@@ -10,6 +10,8 @@ class TestCardType(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         assert card_type.key_with_name("Question") == "q"
         assert card_type.is_data_valid({"q": "foo"}) == True
+        assert self.card_type_by_id("1") == self.card_type_by_id("1")
+        assert self.card_type_by_id("1") != None        
 
     def test_database(self):
         card_type = self.card_type_by_id("1")

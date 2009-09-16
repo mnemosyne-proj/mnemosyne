@@ -116,7 +116,7 @@ class TestActivateCards(MnemosyneTest):
         
         fact_data = {"q": "question2",
                      "a": "answer2"}
-        card_type_2 = self.card_type_by_id("1")
+        card_type_2 = self.card_type_by_id("2")
         cards = self.controller().create_new_cards(fact_data, card_type_2,
            grade=-1, tag_names=["tag2"])
         
@@ -126,6 +126,7 @@ class TestActivateCards(MnemosyneTest):
         c.forbidden_tags = set()
         self.database().set_current_activity_criterion(c)
         self.review_controller().reset_but_try_to_keep_current_card()
+        self.review_controller().reload_counters()
         
         assert self.review_controller().card != card
         assert self.review_controller().get_counters() == (0, 2, 2)
@@ -147,6 +148,8 @@ class TestActivateCards(MnemosyneTest):
         c.forbidden_tags = set()
         self.database().set_current_activity_criterion(c)
         self.review_controller().reset_but_try_to_keep_current_card()
+        self.review_controller().reload_counters()
+                
         assert self.review_controller().card is None       
         assert self.review_controller().get_counters() == (0, 0, 0)
 
@@ -156,6 +159,7 @@ class TestActivateCards(MnemosyneTest):
         c.forbidden_tags = set()
         self.database().set_current_activity_criterion(c)
         self.review_controller().reset_but_try_to_keep_current_card()
+        self.review_controller().reload_counters()
         
         assert self.review_controller().card == card
         assert self.review_controller().get_counters() == (0, 1, 1)

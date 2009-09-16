@@ -2,8 +2,10 @@
 # tag.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.utils import CompareOnId
 
-class Tag(object):
+
+class Tag(CompareOnId):
     
     """The tag name is the full name, including all levels of the hierarchy
     separated by two colons.
@@ -23,5 +25,3 @@ class Tag(object):
         self.name = name
         self.extra_data = {}
 
-    def __eq__(self, other):
-        return self.id == other.id
