@@ -1,9 +1,9 @@
--fact_view comparison?
 -test coverage of review controller
+-restore current state in dialog
 
--save and load current criterion
 -call backs when creating / deleting tags / card types + tests
 -empty tags
+-save and load current criterion
 -delete / rename saved sets
 -test coverage of sqlite.py
 -default set of all cards

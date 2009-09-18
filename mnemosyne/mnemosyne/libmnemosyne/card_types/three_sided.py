@@ -20,12 +20,12 @@ class ThreeSided(CardType):
               ("t", _("Translation"))]
 
     # Recognition.
-    v1 = FactView("1", _("Recognition"))
+    v1 = FactView("3::1", _("Recognition"))
     v1.q_fields = ["f"]
     v1.a_fields = ["p", "t"]
 
     # Production.
-    v2 = FactView("2", _("Production"))
+    v2 = FactView("3::2", _("Production"))
     v2.q_fields = ["t"]
     v2.a_fields = ["f", "p"]
     

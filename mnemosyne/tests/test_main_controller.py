@@ -46,6 +46,8 @@ class TestMainController(MnemosyneTest):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "StatisticsDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ConfigurationDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ActivateCardsDialog"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"))
         self.review_controller().reset()
         
@@ -67,7 +69,8 @@ class TestMainController(MnemosyneTest):
         self.controller().browse_cards()
         self.controller().configure()
         self.controller().show_statistics()
-
+        self.controller().activate_cards()
+        
     def test_2(self):
         self.controller().file_save_as()
-        self.controller().file_open()        
+        self.controller().file_open()

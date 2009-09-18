@@ -2,14 +2,17 @@
 # fact_view.py <Peter.Bienstman@UGent.be>
 #
 
-class FactView(object):
+from mnemosyne.libmnemosyne.utils import CompareOnId
 
-    # Note: we don't inherit from CompareOnId here, as fact_view.ids are not
-    # unique.
+
+class FactView(CompareOnId):
 
     """Sequence of fields from a fact to form a question and an answer.
     A fact view needs an id string as well as a name, because the name can
-    change for different translations. 
+    change for different translations.
+
+    Note that id's should be unique, so a good naming convention is
+    'card_type_id::fact_view_id'.
     
     """
 
