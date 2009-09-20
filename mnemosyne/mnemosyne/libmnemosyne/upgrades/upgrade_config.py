@@ -11,7 +11,7 @@ class UpgradeConfig(Component):
 
     def run(self):
 
-        """Upgrade from 1.x to 2.0. """
+        """Upgrade from 1.x to 2.0."""
 
         config = self.config()
         
