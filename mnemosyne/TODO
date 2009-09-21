@@ -1,3 +1,5 @@
+-merge sync
+
 -test coverage of review controller
 -restore current state in dialog
 
@@ -15,6 +17,8 @@
 -is it worth keeping database.tag_names?
 
 -number of unmemorised cards to hold in your hand?
+
+-rework give initial grade dialog
 
 -time WM: history in same DB?
 
@@ -132,6 +136,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -leech detection (mod 15)
 
 -ask people about biggest gripe in Mnemosyne, things that did not behave as expected
+
+-improve download section
 
 
 -also add option to download source in the info box
