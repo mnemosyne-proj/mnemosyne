@@ -151,7 +151,7 @@ class Mnemosyne(Component):
             try:
                 self.component_manager.get_current(component).activate()
             except RuntimeError, e:
-                self.main_widget().error_box(str(e))
+                self.main_widget().error_box(unicode(e))
 
     def initialise_error_handling(self):
         if sys.platform == "win32":
@@ -211,7 +211,7 @@ class Mnemosyne(Component):
             # corner case anyhow. So, as workaround, we create a temporary
             # database.
             from mnemosyne.libmnemosyne.translator import _
-            self.main_widget().error_box(str(e))
+            self.main_widget().error_box(unicode(e))
             self.main_widget().error_box(_("Creating temporary database."))
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + self.database().suffix)

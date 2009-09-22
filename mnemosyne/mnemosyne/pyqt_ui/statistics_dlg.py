@@ -95,7 +95,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
         for variant_id, variant_name in variants:
             self.variant_ids.append(variant_id)
             self.variant_widgets.append(None)
-            self.combobox.addItem(str(variant_name))
+            self.combobox.addItem(unicode(variant_name))
         if len(self.variant_ids) <= 1 or \
            self.statistics_page.show_variants_in_combobox == False:
             self.combobox.hide()

@@ -329,7 +329,7 @@ class DefaultController(Controller):
             db.backup()
             db.unload()
         except RuntimeError, error:
-            self.main_widget().error_box(str(error))
+            self.main_widget().error_box(unicode(error))
             self.stopwatch().unpause()
             return            
         try:
@@ -349,7 +349,7 @@ class DefaultController(Controller):
             self.database().save()
             self.log().saved_database()
         except RuntimeError, error:
-            self.main_widget().error_box(str(error))
+            self.main_widget().error_box(unicode(error))
         self.stopwatch().unpause()
 
     def file_save_as(self):
@@ -367,7 +367,7 @@ class DefaultController(Controller):
             self.database().save(filename)
             self.log().saved_database()
         except RuntimeError, error:
-            self.main_widget().error_box(str(error))
+            self.main_widget().error_box(unicode(error))
             self.stopwatch().unpause()
             return
         self.review_controller().update_dialog()
