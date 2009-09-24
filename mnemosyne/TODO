@@ -1,7 +1,4 @@
--merge sync
-
--test coverage of review controller
--restore current state in dialog
+-restore tag state in dialog
 
 -call backs when creating / deleting tags / card types + tests
 -empty tags
@@ -12,6 +9,8 @@
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
 -sync adding sets
+
+-merge sync
 
 -id vs _id
 -is it worth keeping database.tag_names?

@@ -29,6 +29,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         else:
             self.splitter.setSizes(splitter_sizes)
         # Fill card types tree widget.
+        criterion = self.database().current_activity_criterion()
         self.card_type_fact_view_for_item = {}
         root_item = QtGui.QTreeWidgetItem(self.card_types_tree,
             [_("All card types")], 0)
@@ -40,13 +41,22 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 [card_type.name], 0)
             card_type_item.setFlags(card_type_item.flags() | \
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
+            
             card_type_item.setCheckState(0, QtCore.Qt.Checked)
             for fact_view in card_type.fact_views:
                 fact_view_item = QtGui.QTreeWidgetItem(card_type_item,
                                                        [fact_view.name], 0)
                 fact_view_item.setFlags(fact_view_item.flags() | \
                     QtCore.Qt.ItemIsUserCheckable)
-                fact_view_item.setCheckState(0, QtCore.Qt.Checked)
+                if criterion is None:
+                    check_state = QtCore.Qt.Checked
+                else:
+                    if (card_type, fact_view) in \
+                        criterion.deactivated_card_type_fact_views:
+                        check_state = QtCore.Qt.Unchecked
+                    else:
+                        check_state = QtCore.Qt.Checked
+                fact_view_item.setCheckState(0, check_state)
                 self.card_type_fact_view_for_item[fact_view_item] = \
                     (card_type, fact_view)
         self.card_types_tree.expandAll()
@@ -75,7 +85,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 parent = item_for_partial_tag[partial_tag]
             self.tag_for_item[node_item] = tag
         self.tags_tree.sortItems(0, QtCore.Qt.AscendingOrder)
-        self.tags_tree.expandAll()                
+        self.tags_tree.expandAll()
         
     def activate(self):
         self.exec_()

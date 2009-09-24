@@ -741,19 +741,21 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             used_for=criterion.__class__)
         applier.apply_to_database(criterion, active_or_in_view=applier.ACTIVE)
 
-    def _get_activity_criterion(self, name):
+    def _activity_criterion(self, name):
         sql_res = self.con.execute(\
             "select * from activity_criteria where name=?",
             (name, )).fetchone()
+        if not sql_res:
+            return None
         for criterion_class in \
             self.component_manager.get_all("activity_criterion"):
             if criterion_class.criterion_type == sql_res["type"]:
-                criterion = criterion_class()
+                criterion = criterion_class(self.component_manager)
                 criterion.data_from_string(sql_res["data"])
                 return criterion
 
     def current_activity_criterion(self):
-        return self._get_activity_criterion("__CURRENT__")
+        return self._activity_criterion("__CURRENT__")
     
     def save_activity_criterion(self):
         raise NotImplementedError

@@ -18,6 +18,7 @@ class ActivityCriterion(Component):
 
     component_type = "activity_criterion"   
     criterion_type = ""
+    instantiate = Component.LATER
 
     def apply_to_card(self, card):
 
