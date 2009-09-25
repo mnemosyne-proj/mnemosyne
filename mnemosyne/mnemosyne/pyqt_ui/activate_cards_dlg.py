@@ -14,6 +14,11 @@ from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
 class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                        ActivateCardsDialog):
 
+    """Note that this dialog can support required tags and forbidden tags,
+    but not at the same time, in order to keep the interface compact.
+
+    """
+
     def __init__(self, component_manager):
         ActivateCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
@@ -86,7 +91,30 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.tag_for_item[node_item] = tag
         self.tags_tree.sortItems(0, QtCore.Qt.AscendingOrder)
         self.tags_tree.expandAll()
-        
+        # Set forbidden tags.
+        if criterion is None:
+            return
+        if len(criterion.forbidden_tags):
+            print "forbidden", criterion.forbidden_tags
+            self.required_or_forbidden.setCurrentIndex(1)
+            for item, tag in self.tag_for_item.iteritems():
+                print item, tag.name, tag, criterion.forbidden_tags
+                if tag in criterion.forbidden_tags:
+                    item.checkState(0) == QtCore.Qt.Checked
+                else:
+                    item.checkState(0) == QtCore.Qt.Unchecked  
+        # Set required tags.
+        elif len(criterion.required_tags):
+            #print criterion.required_tags
+            print "----"
+            self.required_or_forbidden.setCurrentIndex(0)
+            for item, tag in self.tag_for_item.iteritems():
+                print tag.name, tag in criterion.required_tags
+                if tag in criterion.required_tags:
+                    item.checkState(0) == QtCore.Qt.Checked
+                else:
+                    item.checkState(0) == QtCore.Qt.Unchecked
+                    
     def activate(self):
         self.exec_()
 
@@ -108,9 +136,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 criterion.deactivated_card_type_fact_views.add(\
                     card_type_fact_view)
         # Tag tree contains required tags.
-        # (Note that we don't expose the functionality in the GUI to set
-        # required and forbidden tags separately.)
-        if self.combobox.currentIndex() == 0: 
+        if self.required_or_forbidden.currentIndex() == 0: 
             for item, tag in self.tag_for_item.iteritems():
                 if item.checkState(0) == QtCore.Qt.Checked:
                     criterion.required_tags.add(tag)
