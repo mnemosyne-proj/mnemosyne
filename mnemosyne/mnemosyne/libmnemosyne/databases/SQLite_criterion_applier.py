@@ -19,7 +19,7 @@ class DefaultCriterionApplier(CriterionApplier):
         db = self.database()
         # If every tag is required, take a short cut.
         tag_count = db.con.execute("select count() from tags").fetchone()[0]
-        if len(criterion.required_tags) == tag_count:
+        if len(criterion.required_tag__ids) == tag_count:
             db.con.execute("update cards set active=1")
         else:     
             # Turn off everything.
@@ -28,33 +28,33 @@ class DefaultCriterionApplier(CriterionApplier):
             command = """update cards set %s=1 where _id in (select _card_id
                 from tags_for_card where """ % field_name
             args = []
-            for tag in criterion.required_tags:
+            for _tag_id in criterion.required_tag__ids:
                 command += "_tag_id=? or "
-                args.append(tag._id)
+                args.append(_tag_id)
             command = command.rsplit("or ", 1)[0] + ")"
-            if criterion.required_tags:
+            if criterion.required_tag__ids:
                 db.con.execute(command, args)          
         # Turn off inactive card types and views.
         command = """update cards set %s=0 where _id in (select cards._id
             from cards, facts where cards._fact_id=facts._id and (""" \
             % field_name
         args = []        
-        for card_type, fact_view in \
-                criterion.deactivated_card_type_fact_views:
+        for card_type_id, fact_view_id in \
+                criterion.deactivated_card_type_fact_view_ids:
             command += "(cards.fact_view_id=? and facts.card_type_id=?)"
             command += " or "
-            args.append(fact_view.id)  
-            args.append(card_type.id)          
+            args.append(fact_view_id)  
+            args.append(card_type_id)          
         command = command.rsplit("or ", 1)[0] + "))"
-        if criterion.deactivated_card_type_fact_views:
+        if criterion.deactivated_card_type_fact_view_ids:
             db.con.execute(command, args)
         # Turn off forbidden tags.
         command = """update cards set %s=0 where _id in (select _card_id
             from tags_for_card where """  % field_name       
         args = []
-        for tag in criterion.forbidden_tags:
+        for _tag_id in criterion.forbidden_tag__ids:
             command += "_tag_id=? or "
-            args.append(tag._id)
+            args.append(_tag_id)
         command = command.rsplit("or ", 1)[0] + ")"
-        if criterion.forbidden_tags:
+        if criterion.forbidden_tag__ids:
             db.con.execute(command, args)

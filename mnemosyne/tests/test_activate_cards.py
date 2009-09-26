@@ -25,23 +25,23 @@ class TestActivateCards(MnemosyneTest):
         assert self.database().active_count() == 3
         
         c = DefaultCriterion(self.mnemosyne.component_manager)
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("default")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("default")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)
         assert self.database().active_count() == 3
 
-        c.deactivated_card_type_fact_views = \
-            set([(card_type_2, card_type_2.fact_views[0])])
-        c.required_tags = set([self.database().get_or_create_tag_with_name("default")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = \
+            set([(card_type_2.id, card_type_2.fact_views[0].id)])
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("default")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)    
         assert self.database().active_count() == 2
 
         c = DefaultCriterion(self.mnemosyne.component_manager)
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("default2")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("default2")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)
         assert self.database().active_count() == 0
         
@@ -49,9 +49,9 @@ class TestActivateCards(MnemosyneTest):
                      "a": "answer2"}
         self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default2"])
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("default2")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("default2")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)    
         assert self.database().active_count() == 2
 
@@ -60,24 +60,24 @@ class TestActivateCards(MnemosyneTest):
         self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default3",
                                                                   "default4"])
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("default3")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("default3")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c) 
         assert self.database().active_count() == 2
 
-        c.deactivated_card_type_fact_views = \
-            set([(card_type_2, card_type_2.fact_views[0])])
-        c.required_tags = set([self.database().get_or_create_tag_with_name("default3")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = \
+            set([(card_type_2.id, card_type_2.fact_views[0].id)])
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("default3")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c) 
         assert self.database().active_count() == 1
 
-        c.deactivated_card_type_fact_views = \
-            set([(card_type_2, card_type_2.fact_views[0]),
-                 (card_type_2, card_type_2.fact_views[1])])
-        c.required_tags = set([self.database().get_or_create_tag_with_name("default3")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = \
+            set([(card_type_2.id, card_type_2.fact_views[0].id),
+                 (card_type_2.id, card_type_2.fact_views[1].id)])
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("default3")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)
         assert self.database().active_count() == 0
         
@@ -90,16 +90,16 @@ class TestActivateCards(MnemosyneTest):
         assert self.database().active_count() == 1
         
         c = DefaultCriterion(self.mnemosyne.component_manager)
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("required")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("required")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)
         assert self.database().active_count() == 1
 
         c = DefaultCriterion(self.mnemosyne.component_manager)
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("required")])
-        c.forbidden_tags = set([self.database().get_or_create_tag_with_name("forbidden")])
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("required")._id])
+        c.forbidden_tag__ids = set([self.database().get_or_create_tag_with_name("forbidden")._id])
         self.database().set_current_activity_criterion(c)
         assert self.database().active_count() == 0
 
@@ -121,9 +121,9 @@ class TestActivateCards(MnemosyneTest):
            grade=-1, tag_names=["tag2"])
         
         c = DefaultCriterion(self.mnemosyne.component_manager)
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("tag2")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("tag2")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().reload_counters()
@@ -143,9 +143,9 @@ class TestActivateCards(MnemosyneTest):
         assert self.review_controller().get_counters() == (0, 1, 1)
         
         c = DefaultCriterion(self.mnemosyne.component_manager)
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("tag2")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("tag2")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().reload_counters()
@@ -154,9 +154,9 @@ class TestActivateCards(MnemosyneTest):
         assert self.review_controller().get_counters() == (0, 0, 0)
 
         c = DefaultCriterion(self.mnemosyne.component_manager)
-        c.deactivated_card_type_fact_views = set()
-        c.required_tags = set([self.database().get_or_create_tag_with_name("tag")])
-        c.forbidden_tags = set()
+        c.deactivated_card_type_fact_view_ids = set()
+        c.required_tag__ids = set([self.database().get_or_create_tag_with_name("tag")._id])
+        c.forbidden_tags__ids = set()
         self.database().set_current_activity_criterion(c)
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().reload_counters()

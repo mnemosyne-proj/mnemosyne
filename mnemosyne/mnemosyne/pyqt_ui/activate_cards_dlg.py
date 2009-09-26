@@ -35,7 +35,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.splitter.setSizes(splitter_sizes)
         # Fill card types tree widget.
         criterion = self.database().current_activity_criterion()
-        self.card_type_fact_view_for_item = {}
+        self.card_type_fact_view_ids_for_node_item = {}
         root_item = QtGui.QTreeWidgetItem(self.card_types_tree,
             [_("All card types")], 0)
         root_item.setFlags(root_item.flags() | \
@@ -45,8 +45,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             card_type_item = QtGui.QTreeWidgetItem(root_item,
                 [card_type.name], 0)
             card_type_item.setFlags(card_type_item.flags() | \
-                QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
-            
+                QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)            
             card_type_item.setCheckState(0, QtCore.Qt.Checked)
             for fact_view in card_type.fact_views:
                 fact_view_item = QtGui.QTreeWidgetItem(card_type_item,
@@ -56,23 +55,23 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 if criterion is None:
                     check_state = QtCore.Qt.Checked
                 else:
-                    if (card_type, fact_view) in \
-                        criterion.deactivated_card_type_fact_views:
+                    if (card_type.id, fact_view.id) in \
+                        criterion.deactivated_card_type_fact_view_ids:
                         check_state = QtCore.Qt.Unchecked
                     else:
                         check_state = QtCore.Qt.Checked
                 fact_view_item.setCheckState(0, check_state)
-                self.card_type_fact_view_for_item[fact_view_item] = \
-                    (card_type, fact_view)
+                self.card_type_fact_view_ids_for_node_item[fact_view_item] = \
+                    (card_type.id, fact_view.id)
         self.card_types_tree.expandAll()
         # Fill tags tree widget.
-        self.tag_for_item = {}
+        self.tag_for_node_item = {}
         root_item = QtGui.QTreeWidgetItem(self.tags_tree, [_("All tags")], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
-        self.tag_for_item = {}
-        item_for_partial_tag = {}
+        self.tag_for_node_item = {}
+        node_item_for_partial_tag = {}
         for tag in self.database().get_tags():
             parent = root_item
             partial_tag = ""
@@ -80,40 +79,35 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             for node in tag.name.split("::"):
                 node += "::"
                 partial_tag += node
-                if partial_tag not in item_for_partial_tag:
+                if partial_tag not in node_item_for_partial_tag:
                     node_item = QtGui.QTreeWidgetItem(parent, [node[:-2]], 0)
                     node_item.setFlags(node_item.flags() | \
                         QtCore.Qt.ItemIsUserCheckable | \
                         QtCore.Qt.ItemIsTristate)
-                    node_item.setCheckState(0, QtCore.Qt.Checked)
-                    item_for_partial_tag[partial_tag] = node_item
-                parent = item_for_partial_tag[partial_tag]
-            self.tag_for_item[node_item] = tag
-        self.tags_tree.sortItems(0, QtCore.Qt.AscendingOrder)
-        self.tags_tree.expandAll()
+                    node_item_for_partial_tag[partial_tag] = node_item
+                parent = node_item_for_partial_tag[partial_tag]
+            self.tag_for_node_item[node_item] = tag
         # Set forbidden tags.
         if criterion is None:
             return
-        if len(criterion.forbidden_tags):
-            print "forbidden", criterion.forbidden_tags
+        if len(criterion.forbidden_tag__ids):
             self.required_or_forbidden.setCurrentIndex(1)
-            for item, tag in self.tag_for_item.iteritems():
-                print item, tag.name, tag, criterion.forbidden_tags
-                if tag in criterion.forbidden_tags:
-                    item.checkState(0) == QtCore.Qt.Checked
+            for node_item, tag in self.tag_for_node_item.iteritems():
+                if tag._id in criterion.forbidden_tag__ids:
+                    node_item.setCheckState(0, QtCore.Qt.Checked)
                 else:
-                    item.checkState(0) == QtCore.Qt.Unchecked  
+                    node_item.setCheckState(0, QtCore.Qt.Unchecked)  
         # Set required tags.
-        elif len(criterion.required_tags):
-            #print criterion.required_tags
-            print "----"
+        elif len(criterion.required_tag__ids):
             self.required_or_forbidden.setCurrentIndex(0)
-            for item, tag in self.tag_for_item.iteritems():
-                print tag.name, tag in criterion.required_tags
-                if tag in criterion.required_tags:
-                    item.checkState(0) == QtCore.Qt.Checked
+            for node_item, tag in self.tag_for_node_item.iteritems():
+                if tag._id in criterion.required_tag__ids:
+                    node_item.setCheckState(0, QtCore.Qt.Checked)
                 else:
-                    item.checkState(0) == QtCore.Qt.Unchecked
+                    node_item.setCheckState(0, QtCore.Qt.Unchecked)
+        # Finalise.
+        self.tags_tree.sortItems(0, QtCore.Qt.AscendingOrder)
+        self.tags_tree.expandAll()
                     
     def activate(self):
         self.exec_()
@@ -130,23 +124,23 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
     def accept(self):
         criterion = DefaultCriterion(self.component_manager)
         # Card types and fact views.
-        for item, card_type_fact_view in \
-                self.card_type_fact_view_for_item.iteritems():
+        for item, card_type_fact_view_ids in \
+                self.card_type_fact_view_ids_for_node_item.iteritems():
             if item.checkState(0) == QtCore.Qt.Unchecked:
-                criterion.deactivated_card_type_fact_views.add(\
-                    card_type_fact_view)
+                criterion.deactivated_card_type_fact_view_ids.add(\
+                    card_type_fact_view_ids)
         # Tag tree contains required tags.
         if self.required_or_forbidden.currentIndex() == 0: 
-            for item, tag in self.tag_for_item.iteritems():
+            for item, tag in self.tag_for_node_item.iteritems():
                 if item.checkState(0) == QtCore.Qt.Checked:
-                    criterion.required_tags.add(tag)
+                    criterion.required_tag__ids.add(tag._id)
             criterion.forbidden_tags = set()
         # Tag tree contains forbidden tags.
         else:
-            for item, tag in self.tag_for_item.iteritems():
+            for item, tag in self.tag_for_node_item.iteritems():
                 if item.checkState(0) == QtCore.Qt.Checked:
-                    criterion.forbidden_tags.add(tag)
-            criterion.required_tags = set(self.tag_for_item.values())
+                    criterion.forbidden_tag__ids.add(tag._id)
+            criterion.required_tags = set(self.tag_for_node_item.values())
         # Apply.
         self.database().set_current_activity_criterion(criterion)
         self._store_layout()

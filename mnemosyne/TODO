@@ -13,6 +13,7 @@
 -merge sync
 
 -id vs _id
+-tag.id in criteria?
 -is it worth keeping database.tag_names?
 
 -number of unmemorised cards to hold in your hand?

@@ -12,11 +12,13 @@ class DefaultCriterion(ActivityCriterion):
     def __init__(self, component_manager):
         ActivityCriterion.__init__(self, component_manager)
         self.name = ""
-        self.deactivated_card_type_fact_views = set() # (card_type, fact_view)
-        self.required_tags = set()
-        self.forbidden_tags = set()
+        # (card_type.id, fact_view.id):
+        self.deactivated_card_type_fact_view_ids = set()
+        self.required_tag__ids = set()
+        self.forbidden_tag__ids = set()
 
     def apply_to_card(self, card):
+        # TODO: update
         card.active = False
         if card.tags.intersection(self.required_tags):
             card.active = True
@@ -27,11 +29,11 @@ class DefaultCriterion(ActivityCriterion):
             card.active = False
     
     def tag_created(self, tag):
-        self.required_tags.add(tag)
+        self.required_tag__ids.add(tag._id)
 
     def tag_deleted(self, tag):
-        self.required_tags.discard(tag)
-        self.forbidden_tags.discard(tag)
+        self.required_tag__idss.discard(tag._id)
+        self.forbidden_tag__ids.discard(tag._id)
 
     def card_type_created(self, card_type):
         pass
@@ -40,24 +42,12 @@ class DefaultCriterion(ActivityCriterion):
         pass
 
     def data_to_string(self):
-        return repr(([(card_type_fact_view[0].id, card_type_fact_view[1].id) \
-                      for card_type_fact_view in self.deactivated_card_type_fact_views],
-                     [tag.name for tag in self.required_tags],
-                     [tag.name for tag in self.forbidden_tags]))
+        return repr((self.deactivated_card_type_fact_view_ids,
+                     self.required_tag__ids,
+                     self.forbidden_tag__ids))
     
     def data_from_string(self, data):
         data = eval(data)
-        self.deactivated_card_type_fact_views = set()
-        for card_type_id_fact_view_id in data[0]:
-            card_type_id, fact_view_id = card_type_id_fact_view_id
-            card_type = self.card_type_by_id(card_type_id)
-            for fact_view in card_type.fact_views:
-                if fact_view.id == fact_view_id:
-                    self.deactivated_card_type_fact_views.add(\
-                        (card_type, fact_view))
-                    break
-        db = self.database()
-        self.required_tags = \
-            set([db.get_or_create_tag_with_name(name) for name in data[1]])
-        self.forbidden_tags = \
-            set([db.get_or_create_tag_with_name(name) for name in data[2]])
+        self.deactivated_card_type_fact_view_ids = data[0]
+        self.required_tag__ids = data[1]
+        self.forbidden_tag__ids = data[2]
