@@ -38,7 +38,7 @@ class Fact(CompareOnId):
 
     def __init__(self, data, card_type, creation_time=None, id=None):
         if creation_time is None:
-            creation_time = time.time()
+            creation_time = int(time.time())
         self.creation_time = creation_time
         self.modification_time = self.creation_time
         self.data = data

@@ -17,22 +17,22 @@ class DefaultCriterionApplier(CriterionApplier):
         elif active_or_in_view == self.IN_VIEW:
             field_name = "in_view"
         db = self.database()
-        # If every tag is required, take a short cut.
+        # If every tag is active, take a short cut.
         tag_count = db.con.execute("select count() from tags").fetchone()[0]
-        if len(criterion.required_tag__ids) == tag_count:
+        if len(criterion.active_tag__ids) == tag_count:
             db.con.execute("update cards set active=1")
         else:     
             # Turn off everything.
             db.con.execute("update cards set active=0")
-            # Turn on required tags.
+            # Turn on active tags.
             command = """update cards set %s=1 where _id in (select _card_id
                 from tags_for_card where """ % field_name
             args = []
-            for _tag_id in criterion.required_tag__ids:
+            for _tag_id in criterion.active_tag__ids:
                 command += "_tag_id=? or "
                 args.append(_tag_id)
             command = command.rsplit("or ", 1)[0] + ")"
-            if criterion.required_tag__ids:
+            if criterion.active_tag__ids:
                 db.con.execute(command, args)          
         # Turn off inactive card types and views.
         command = """update cards set %s=0 where _id in (select cards._id

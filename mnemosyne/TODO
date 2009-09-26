@@ -1,11 +1,10 @@
--restore tag state in dialog
-
+-reenable tests
+-call back when adding/editing cards
 -call backs when creating / deleting tags / card types + tests
 -empty tags
 -save and load current criterion
 -delete / rename saved sets
 -test coverage of sqlite.py
--default set of all cards
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
 -sync adding sets

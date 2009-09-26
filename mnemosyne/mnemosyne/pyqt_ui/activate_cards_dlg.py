@@ -14,7 +14,7 @@ from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
 class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                        ActivateCardsDialog):
 
-    """Note that this dialog can support required tags and forbidden tags,
+    """Note that this dialog can support active tags and forbidden tags,
     but not at the same time, in order to keep the interface compact.
 
     """
@@ -91,17 +91,17 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if criterion is None:
             return
         if len(criterion.forbidden_tag__ids):
-            self.required_or_forbidden.setCurrentIndex(1)
+            self.active_or_forbidden.setCurrentIndex(1)
             for node_item, tag in self.tag_for_node_item.iteritems():
                 if tag._id in criterion.forbidden_tag__ids:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
                 else:
                     node_item.setCheckState(0, QtCore.Qt.Unchecked)  
-        # Set required tags.
-        elif len(criterion.required_tag__ids):
-            self.required_or_forbidden.setCurrentIndex(0)
+        # Set active tags.
+        elif len(criterion.active_tag__ids):
+            self.active_or_forbidden.setCurrentIndex(0)
             for node_item, tag in self.tag_for_node_item.iteritems():
-                if tag._id in criterion.required_tag__ids:
+                if tag._id in criterion.active_tag__ids:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
                 else:
                     node_item.setCheckState(0, QtCore.Qt.Unchecked)
@@ -129,18 +129,18 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             if item.checkState(0) == QtCore.Qt.Unchecked:
                 criterion.deactivated_card_type_fact_view_ids.add(\
                     card_type_fact_view_ids)
-        # Tag tree contains required tags.
-        if self.required_or_forbidden.currentIndex() == 0: 
+        # Tag tree contains active tags.
+        if self.active_or_forbidden.currentIndex() == 0: 
             for item, tag in self.tag_for_node_item.iteritems():
                 if item.checkState(0) == QtCore.Qt.Checked:
-                    criterion.required_tag__ids.add(tag._id)
+                    criterion.active_tag__ids.add(tag._id)
             criterion.forbidden_tags = set()
         # Tag tree contains forbidden tags.
         else:
             for item, tag in self.tag_for_node_item.iteritems():
                 if item.checkState(0) == QtCore.Qt.Checked:
                     criterion.forbidden_tag__ids.add(tag._id)
-            criterion.required_tags = set(self.tag_for_node_item.values())
+            criterion.active_tags = set(self.tag_for_node_item.values())
         # Apply.
         self.database().set_current_activity_criterion(criterion)
         self._store_layout()

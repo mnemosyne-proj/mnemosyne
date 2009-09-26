@@ -123,11 +123,14 @@ class DefaultController(Controller):
         for tag_name in tag_names:
             tags.add(db.get_or_create_tag_with_name(tag_name))
         cards = []
+        criterion = db.current_activity_criterion()
         for card in card_type.create_related_cards(fact):
             self.log().added_card(card)
             if grade >= 2:
                 self.scheduler().set_initial_grade(card, grade)
             card.tags = tags
+            if criterion:
+                criterion.apply_to_card(card)
             db.add_card(card)
             cards.append(card)
         if save:
@@ -201,7 +204,7 @@ class DefaultController(Controller):
         # Update facts and cards.
         new_cards, updated_cards, deleted_cards = \
             fact.card_type.update_related_cards(fact, new_fact_data)
-        fact.modification_time = time.time()
+        fact.modification_time = int(time.time())
         fact.data = new_fact_data
         db.update_fact(fact)
         for card in deleted_cards:
@@ -229,6 +232,13 @@ class DefaultController(Controller):
             db.remove_tag_if_unused(tag)
         db.save()
 
+        # Update active flags.
+        criterion = db.current_activity_criterion()
+        if criterion:
+            for card in self.database().cards_from_fact(fact):
+                criterion.apply_to_card(card)
+                db.update_card(card)
+                
         return 0
 
     def delete_current_fact(self):
