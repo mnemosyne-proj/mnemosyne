@@ -1,8 +1,6 @@
--reenable tests
--call back when adding/editing cards
+-save and load current criterion
 -call backs when creating / deleting tags / card types + tests
 -empty tags
--save and load current criterion
 -delete / rename saved sets
 -test coverage of sqlite.py
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
@@ -75,6 +73,7 @@ the GUI function itself?
 -save import dir
 -make sure enter does not close the import dialog
 -make sure we log new card creation on import
+-make sure to detect media and do slash normalisation from importing text files
 -'teacher mode' on export, which allows pupils to update previously imported
  cards, as opposed to adding new cards. Implemented through id's of the form
  T.<fixed card id for all pupils>.<pupil user id>?
