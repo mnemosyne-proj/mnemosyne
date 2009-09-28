@@ -90,11 +90,11 @@ class Database(Component):
     
     def add_card(self, card):
         raise NotImplementedError
-
-    def update_card(self, card, repetition_only=False):
-        raise NotImplementedError
         
     def get_card(self, id, id_is_internal):
+        raise NotImplementedError
+    
+    def update_card(self, card, repetition_only=False):
         raise NotImplementedError
 
     def delete_card(self, card):
@@ -105,27 +105,36 @@ class Database(Component):
     def add_card_type(self, card_type):
         raise NotImplementedError
 
-    def update_card_type(self, card_type):
-        raise NotImplementedError
-        
     def get_card_type(self, id, id_is_internal):
+        raise NotImplementedError
+    
+    def update_card_type(self, card_type):
         raise NotImplementedError
 
     def delete_card_type(self, card_type):
         raise NotImplementedError
 
     # Activity criteria.
+    
+    def add_activity_criterion(self, criterion):
+        raise NotImplementedError
 
+    def get_activity_criterion(self, id, id_is_internal):
+        raise NotImplementedError
+    
+    def update_activity_criterion(self, criterion):
+        raise NotImplementedError
+
+    def delete_activity_criterion(self, criterion):
+        raise NotImplementedError
+    
     def set_current_activity_criterion(self, criterion):
         raise NotImplementedError        
     
     def current_activity_criterion(self):
         raise NotImplementedError
     
-    def save_activity_criterion(self):
-        raise NotImplementedError
-    
-    def saved_activity_criteria(self):
+    def get_activity_criteria(self):
         raise NotImplementedError    
     
     # Queries.

@@ -1,3 +1,4 @@
+-default criterion
 -save and load current criterion
 -call backs when creating / deleting tags / card types + tests
 -empty tags

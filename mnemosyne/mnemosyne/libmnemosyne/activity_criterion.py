@@ -19,7 +19,16 @@ class ActivityCriterion(Component):
     component_type = "activity_criterion"   
     criterion_type = ""
     instantiate = Component.LATER
-
+    
+    def __init__(self, component_manager, id=None):
+        Component.__init__(self, component_manager)
+        self.name = ""
+        if id is None:
+            import uuid
+            id = str(uuid.uuid4())
+        self.id = id
+        self._id = None
+            
     def apply_to_card(self, card):
 
         """Set the card active or not depending on the criterion. Does not

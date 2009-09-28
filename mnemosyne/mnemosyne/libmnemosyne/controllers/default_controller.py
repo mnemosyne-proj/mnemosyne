@@ -129,8 +129,7 @@ class DefaultController(Controller):
             if grade >= 2:
                 self.scheduler().set_initial_grade(card, grade)
             card.tags = tags
-            if criterion:
-                criterion.apply_to_card(card)
+            criterion.apply_to_card(card)
             db.add_card(card)
             cards.append(card)
         if save:
@@ -234,10 +233,9 @@ class DefaultController(Controller):
 
         # Update active flags.
         criterion = db.current_activity_criterion()
-        if criterion:
-            for card in self.database().cards_from_fact(fact):
-                criterion.apply_to_card(card)
-                db.update_card(card)
+        for card in self.database().cards_from_fact(fact):
+            criterion.apply_to_card(card)
+            db.update_card(card)
                 
         return 0
 

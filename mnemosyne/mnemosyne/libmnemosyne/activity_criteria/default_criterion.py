@@ -9,9 +9,8 @@ class DefaultCriterion(ActivityCriterion):
 
     criterion_type = "default"
 
-    def __init__(self, component_manager):
-        ActivityCriterion.__init__(self, component_manager)
-        self.name = ""
+    def __init__(self, component_manager, id=None):
+        ActivityCriterion.__init__(self, component_manager, id)
         # (card_type.id, fact_view.id):
         self.deactivated_card_type_fact_view_ids = set()
         self.active_tag__ids = set()

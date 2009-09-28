@@ -52,14 +52,11 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                                                        [fact_view.name], 0)
                 fact_view_item.setFlags(fact_view_item.flags() | \
                     QtCore.Qt.ItemIsUserCheckable)
-                if criterion is None:
-                    check_state = QtCore.Qt.Checked
+                if (card_type.id, fact_view.id) in \
+                    criterion.deactivated_card_type_fact_view_ids:
+                    check_state = QtCore.Qt.Unchecked
                 else:
-                    if (card_type.id, fact_view.id) in \
-                        criterion.deactivated_card_type_fact_view_ids:
-                        check_state = QtCore.Qt.Unchecked
-                    else:
-                        check_state = QtCore.Qt.Checked
+                    check_state = QtCore.Qt.Checked
                 fact_view_item.setCheckState(0, check_state)
                 self.card_type_fact_view_ids_for_node_item[fact_view_item] = \
                     (card_type.id, fact_view.id)
@@ -88,8 +85,6 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 parent = node_item_for_partial_tag[partial_tag]
             self.tag_for_node_item[node_item] = tag
         # Set forbidden tags.
-        if criterion is None:
-            return
         if len(criterion.forbidden_tag__ids):
             self.active_or_forbidden.setCurrentIndex(1)
             for node_item, tag in self.tag_for_node_item.iteritems():

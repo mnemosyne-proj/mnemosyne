@@ -81,8 +81,14 @@ SCHEMA = """
     );
     create index i_tags_for_card on tags_for_card (_card_id);
 
+    /* _id=0 is reserved for the currently active criteria, which could be a
+    copy of another saved criterion or a completely different, unnamend
+    criterion. */
+    
     create table activity_criteria(
-       name text primary key,
+       _id int primary key,
+       id text,
+       name text,
        type text,
        data text
     );
@@ -219,6 +225,11 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                          values(?,?)""", ("log.txt", 0))
         self.con.commit()
         self.config()["path"] = contract_path(self._path, self.config().basedir)
+        # Create default criterion.
+        from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
+             DefaultCriterion
+        criterion = DefaultCriterion(self.component_manager)
+        self.add_activity_criterion(criterion)
         # Create media directory.
         mediadir = self.config().mediadir()
         if not os.path.exists(mediadir):
@@ -395,6 +406,9 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
         self.log().added_tag(tag)
+        for criterion in self.get_activity_criteria():
+            criterion.tag_created(tag)
+            self.update_activity_criterion(criterion)
 
     def get_tag(self, id, id_is_internal):
         if id_is_internal:
@@ -406,17 +420,20 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         tag = Tag(sql_res["name"], sql_res["id"])
         tag._id = sql_res["_id"]
         return tag
-    
-    def delete_tag(self, tag):
-        self.con.execute("delete from tags where _id=?", (tag._id,))
-        self.log().deleted_tag(tag)
-        del tag
-        
+
     def update_tag(self, tag):
         self.con.execute("update tags set name=?, extra_data=? where _id=?",
             (tag.name, self._repr_extra_data(tag.extra_data),
              tag._id))
         self.log().updated_tag(tag)
+    
+    def delete_tag(self, tag):
+        self.con.execute("delete from tags where _id=?", (tag._id,))
+        self.log().deleted_tag(tag)
+        for criterion in self.get_activity_criteria():
+            criterion.tag_deleted(tag)
+            self.update_activity_criterion(criterion)
+        del tag
         
     def remove_tag_if_unused(self, tag):
         if self.con.execute("""select count() from tags as cat,
@@ -429,8 +446,8 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             self.con.execute("select _id from tags"))
     
     def get_tag_names(self):
-        return list(cursor[0] for cursor in \
-            self.con.execute("select name from tags"))
+        return [cursor[0] for cursor in \
+                self.con.execute("select name from tags")]
     
     #
     # Facts.
@@ -682,8 +699,63 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             card_type_id=?""", (card_type.id, ))
         self.con.execute("delete from card_types where id=?",
             (card_type.id, ))
-        self.log().deleted_card_type(card_type)
+        self.log().deleted_card_type(card_type)       
 
+    #
+    # Activity criteria.
+    #
+
+    def add_activity_criterion(self, criterion):
+        _id = self.con.execute("""insert into activity_criteria
+            (id, name, type, data) values(?,?,?,?)""", (criterion.id,
+            criterion.name, criterion.criterion_type,
+            criterion.data_to_string())).lastrowid
+        criterion._id = _id
+
+    def get_activity_criterion(self, id, id_is_internal):
+        if id_is_internal:
+            sql_res = self.con.execute(\
+                "select * from activity_criteria where _id=?",
+                (id, )).fetchone()
+        else:
+            sql_res = self.con.execute(\
+                "select * from activity_criteria where id=?",
+                (id, )).fetchone()
+        for criterion_class in \
+            self.component_manager.get_all("activity_criterion"):
+            if criterion_class.criterion_type == sql_res["type"]:
+                criterion = criterion_class(sql_res["id"],
+                    self.component_manager)
+                criterion._id = sql_res["_id"]
+                criterion.data_from_string(sql_res["data"])
+                return criterion
+    
+    def update_activity_criterion(self, criterion):
+        self.con.execute("""update activity_criteria set id=?, name=?, type=?,
+            data=? where _id=?""", (criterion.id, criterion.name,
+            criterion.criterion_type, criterion.data_to_string(),
+            criterion._id))
+ 
+    def delete_activity_criterion(self, criterion):
+        self.con.execute("delete from activity_criteria where _id=?",
+            (criterion._id, ))
+        del criterion
+    
+    def set_current_activity_criterion(self, criterion):
+        self.con.execute("""update activity_criteria set type=?, data=?
+            where _id=0""", (criterion.criterion_type, criterion.data_to_string()))
+        applier = self.component_manager.get_current("criterion_applier",
+            used_for=criterion.__class__)
+        applier.apply_to_database(criterion, active_or_in_view=applier.ACTIVE)
+
+    def current_activity_criterion(self):
+        return self.get_activity_criterion(0, id_is_internal=True) 
+    
+    def get_activity_criteria(self):
+        return (self.get_activity_criterion(cursor[0], id_is_internal=True) \
+            for cursor in self.con.execute(\
+                "select _id from activity_criteria"))
+    
     #
     # Process media files in fact data.
     #
@@ -728,41 +800,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                 last_modified) values(?,?,?)""", (filename, fact._id,
                 int(os.path.getmtime(os.path.join(mediadir, filename)))))
             self.log().added_media(filename, fact)
-
-    #
-    # Activity criteria.
-    #
-    
-    def set_current_activity_criterion(self, criterion):
-        self.con.execute("""insert or replace into activity_criteria
-            (name, type, data) values(?,?,?)""", ("__CURRENT__",
-            criterion.criterion_type, criterion.data_to_string()))
-        applier = self.component_manager.get_current("criterion_applier",
-            used_for=criterion.__class__)
-        applier.apply_to_database(criterion, active_or_in_view=applier.ACTIVE)
-
-    def _activity_criterion(self, name):
-        sql_res = self.con.execute(\
-            "select * from activity_criteria where name=?",
-            (name, )).fetchone()
-        if not sql_res:
-            return None
-        for criterion_class in \
-            self.component_manager.get_all("activity_criterion"):
-            if criterion_class.criterion_type == sql_res["type"]:
-                criterion = criterion_class(self.component_manager)
-                criterion.data_from_string(sql_res["data"])
-                return criterion
-
-    def current_activity_criterion(self):
-        return self._activity_criterion("__CURRENT__")
-    
-    def save_activity_criterion(self):
-        raise NotImplementedError
-    
-    def saved_activity_criteria(self):
-        raise NotImplementedError
-    
+            
     #
     # Queries.
     #
