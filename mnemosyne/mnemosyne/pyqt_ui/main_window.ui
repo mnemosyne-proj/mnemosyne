@@ -301,7 +301,7 @@
  <connections>
   <connection>
    <sender>actionAddCards</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>add_cards</slot>
    <hints>
@@ -317,7 +317,7 @@
   </connection>
   <connection>
    <sender>actionFileNew</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>file_new</slot>
    <hints>
@@ -333,7 +333,7 @@
   </connection>
   <connection>
    <sender>actionFileOpen</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>file_open</slot>
    <hints>
@@ -349,7 +349,7 @@
   </connection>
   <connection>
    <sender>actionFileSave</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>file_save</slot>
    <hints>
@@ -365,7 +365,7 @@
   </connection>
   <connection>
    <sender>actionFileSaveAs</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>file_save_as</slot>
    <hints>
@@ -381,7 +381,7 @@
   </connection>
   <connection>
    <sender>actionFileExit</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
@@ -397,7 +397,7 @@
   </connection>
   <connection>
    <sender>actionEditCurrentCard</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>edit_current_card</slot>
    <hints>
@@ -413,7 +413,7 @@
   </connection>
   <connection>
    <sender>actionDeleteCurrentFact</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>delete_current_fact</slot>
    <hints>
@@ -429,7 +429,7 @@
   </connection>
   <connection>
    <sender>actionCardAppearance</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>card_appearance</slot>
    <hints>
@@ -445,7 +445,7 @@
   </connection>
   <connection>
    <sender>actionActivatePlugins</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>activate_plugins</slot>
    <hints>
@@ -461,7 +461,7 @@
   </connection>
   <connection>
    <sender>actionCloneCardTypes</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>manage_card_types</slot>
    <hints>
@@ -477,7 +477,7 @@
   </connection>
   <connection>
    <sender>actionShowStatistics</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>show_statistics</slot>
    <hints>
@@ -493,7 +493,7 @@
   </connection>
   <connection>
    <sender>actionImport</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>import_file</slot>
    <hints>
@@ -509,7 +509,7 @@
   </connection>
   <connection>
    <sender>actionConfigure</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>configure()</slot>
    <hints>
