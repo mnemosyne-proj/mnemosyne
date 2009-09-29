@@ -1,11 +1,10 @@
--default criterion
+-call backs when activating / deactivating card types + tests
 -save and load current criterion
--call backs when creating / deleting tags / card types + tests
 -empty tags
 -delete / rename saved sets
--test coverage of sqlite.py
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
+-hook after card grading
 -sync adding sets
 
 -merge sync
@@ -103,6 +102,7 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -make sure all events make it to the sync protocol + formats
 -how to prevent different instantiations from uploading logs twice
 -check if updated_card event without added card event works
+-mechanism to have plugin settings synced?
 
 -corrupt icon
 
@@ -267,6 +267,8 @@ Multiuser statistics analysis:
  and only keeping sentence cards (mail by querido, scheduler feedback needed)
 
 -scheduler with minute granularity?
+
+-widget to create new card types. Makes sure the criteria updating code gets called.
 
 
 * Miscellaneous:

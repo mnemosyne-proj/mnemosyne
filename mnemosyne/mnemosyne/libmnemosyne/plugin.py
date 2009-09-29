@@ -62,15 +62,23 @@ class Plugin(Component):
         for component in self.components:
             if component.used_for == "configuration_defaults":
                 component(self.component_manager).run()
+        db = self.database()
+        if db and db.is_loaded():
+            for component in self.instantiated_components:
+                if component.component_type == "card_type":
+                    for criterion in db.get_activity_criteria():
+                        criterion.card_type_created(component)
+                        db.update_activity_criterion(criterion)
         if self.database().is_loaded() and self.review_reset_needed:
             self.review_controller().reset()
             self.log().started_scheduler()
         # Use names instead of instances here in order to survive pickling.  
         self.config()["active_plugins"].add(self.__class__.__name__)
-
+                    
     def deactivate(self):
+        db = self.database()
         # Check if we are allowed to deactivate a card type.
-        if self.database() and self.database().is_loaded():
+        if db and  db.is_loaded():
             for component in self.instantiated_components:
                 if component.component_type == "card_type":
                     for card_type in self.database().card_types_in_use():
@@ -79,6 +87,10 @@ class Plugin(Component):
                             self.main_widget().information_box(\
           _("Cannot deactivate, this card type or a clone of it is in use."))
                             return False
+                        else:
+                            for criterion in db.get_activity_criteria():
+                                criterion.card_type_deleted(component)
+                                db.update_activity_criterion(criterion)                            
         # Deactivate and unregister components.  
         for component in self.instantiated_components:
             component.deactivate()

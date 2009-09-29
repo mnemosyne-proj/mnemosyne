@@ -81,12 +81,12 @@ SCHEMA = """
     );
     create index i_tags_for_card on tags_for_card (_card_id);
 
-    /* _id=0 is reserved for the currently active criteria, which could be a
+    /* _id=1 is reserved for the currently active criteria, which could be a
     copy of another saved criterion or a completely different, unnamend
     criterion. */
     
     create table activity_criteria(
-       _id int primary key,
+       _id integer primary key,
        id text,
        name text,
        type text,
@@ -600,10 +600,6 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         self.log().deleted_card(card)
         del card
 
-    def has_card_with_external_id(self, id):
-        return self.con.execute("select count() from cards where id=?",
-                                (id, )).fetchone()[0]
-
     #
     # Fact views.
     #
@@ -711,7 +707,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             criterion.name, criterion.criterion_type,
             criterion.data_to_string())).lastrowid
         criterion._id = _id
-
+            
     def get_activity_criterion(self, id, id_is_internal):
         if id_is_internal:
             sql_res = self.con.execute(\
@@ -724,8 +720,8 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         for criterion_class in \
             self.component_manager.get_all("activity_criterion"):
             if criterion_class.criterion_type == sql_res["type"]:
-                criterion = criterion_class(sql_res["id"],
-                    self.component_manager)
+                criterion = criterion_class(self.component_manager,
+                                            sql_res["id"])
                 criterion._id = sql_res["_id"]
                 criterion.data_from_string(sql_res["data"])
                 return criterion
@@ -743,13 +739,13 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
     
     def set_current_activity_criterion(self, criterion):
         self.con.execute("""update activity_criteria set type=?, data=?
-            where _id=0""", (criterion.criterion_type, criterion.data_to_string()))
+            where _id=1""", (criterion.criterion_type, criterion.data_to_string()))
         applier = self.component_manager.get_current("criterion_applier",
             used_for=criterion.__class__)
         applier.apply_to_database(criterion, active_or_in_view=applier.ACTIVE)
 
     def current_activity_criterion(self):
-        return self.get_activity_criterion(0, id_is_internal=True) 
+        return self.get_activity_criterion(1, id_is_internal=True) 
     
     def get_activity_criteria(self):
         return (self.get_activity_criterion(cursor[0], id_is_internal=True) \

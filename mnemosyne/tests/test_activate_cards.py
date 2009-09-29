@@ -228,3 +228,8 @@ class TestActivateCards(MnemosyneTest):
         self.controller().update_related_cards(card.fact, card.fact.data,
                card_type_2, new_tag_names=["allowed"], correspondence=[])
         assert self.database().active_count() == 2
+
+        c = list(self.database().get_activity_criteria())[0]
+        assert len(c.forbidden_tag__ids) == 0
+        assert len(c.active_tag__ids) == 1
+        
