@@ -232,4 +232,33 @@ class TestActivateCards(MnemosyneTest):
         c = list(self.database().get_activity_criteria())[0]
         assert len(c.forbidden_tag__ids) == 0
         assert len(c.active_tag__ids) == 1
+
+    def test_card_type(self):
+        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
+        for plugin in self.plugins():
+            if isinstance(plugin, ClozePlugin):
+                cloze_plugin = plugin
+                plugin.activate()
+                break
+        
+        fact_data = {"text": "[foo]"}
+        card_type_1 = self.card_type_by_id("5")
+        card = self.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["default"])[0]
+        assert self.database().active_count() == 1
+
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = \
+            set([(card_type_1.id, card_type_1.fact_views[0].id)])
+        c.active_tag__ids = set()
+        c.forbidden_tag__ids = set()
+        self.database().set_current_activity_criterion(c)
+        assert self.database().active_count() == 0
+
+        self.database().delete_fact_and_related_data(card.fact)
+        plugin.deactivate()
+        c = self.database().current_activity_criterion()
+        assert len(c.deactivated_card_type_fact_view_ids) == 0
+        
+
         

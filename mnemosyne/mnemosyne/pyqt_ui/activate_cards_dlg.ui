@@ -171,5 +171,37 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>save_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ActivateCardsDlg</receiver>
+   <slot>save()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>485</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancel_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ActivateCardsDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>564</x>
+     <y>485</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

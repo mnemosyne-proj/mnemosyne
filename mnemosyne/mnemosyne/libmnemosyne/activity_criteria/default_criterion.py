@@ -41,7 +41,9 @@ class DefaultCriterion(ActivityCriterion):
         pass
 
     def card_type_deleted(self, card_type):
-        pass
+        for fact_view in card_type.fact_views:
+            self.deactivated_card_type_fact_view_ids.discard(\
+                (card_type.id, fact_view.id))
 
     def data_to_string(self):
         return repr((self.deactivated_card_type_fact_view_ids,

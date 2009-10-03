@@ -78,7 +78,7 @@ class Plugin(Component):
     def deactivate(self):
         db = self.database()
         # Check if we are allowed to deactivate a card type.
-        if db and  db.is_loaded():
+        if db and db.is_loaded():
             for component in self.instantiated_components:
                 if component.component_type == "card_type":
                     for card_type in self.database().card_types_in_use():
@@ -87,10 +87,9 @@ class Plugin(Component):
                             self.main_widget().information_box(\
           _("Cannot deactivate, this card type or a clone of it is in use."))
                             return False
-                        else:
-                            for criterion in db.get_activity_criteria():
-                                criterion.card_type_deleted(component)
-                                db.update_activity_criterion(criterion)                            
+                    for criterion in db.get_activity_criteria():
+                        criterion.card_type_deleted(component)
+                        db.update_activity_criterion(criterion)                            
         # Deactivate and unregister components.  
         for component in self.instantiated_components:
             component.deactivate()

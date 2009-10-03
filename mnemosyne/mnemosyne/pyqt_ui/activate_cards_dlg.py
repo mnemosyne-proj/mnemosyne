@@ -116,7 +116,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
     def closeEvent(self, event):
         self._store_layout()
         
-    def accept(self):
+    def _criterion(self):
         criterion = DefaultCriterion(self.component_manager)
         # Card types and fact views.
         for item, card_type_fact_view_ids in \
@@ -136,10 +136,17 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                 if item.checkState(0) == QtCore.Qt.Checked:
                     criterion.forbidden_tag__ids.add(tag._id)
             criterion.active_tags = set(self.tag_for_node_item.values())
-        # Apply.
-        self.database().set_current_activity_criterion(criterion)
+        return criterion
+            
+    def accept(self):
+        self.database().set_current_activity_criterion(self._criterion())
         self._store_layout()
         return QtGui.QDialog.accept(self)
+
+    def save(self):
+        from mnemosyne.pyqt_ui.card_set_name_dlg import CardSetNameDlg
+        return CardSetNameDlg(\
+            self.component_manager, self._criterion()).exec_()
 
     def reject(self):
         self._store_layout()

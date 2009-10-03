@@ -1,7 +1,8 @@
--call backs when activating / deactivating card types + tests
 -save and load current criterion
--empty tags
+-warn when overwriting name
 -delete / rename saved sets
+-hide saved sets dialog when empty
+-empty tags
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
 -hook after card grading
