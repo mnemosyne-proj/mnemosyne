@@ -272,7 +272,7 @@ class DefaultController(Controller):
         
         clone_id = card_type.id + "::" + clone_name
         if clone_id in [card_t.id for card_t in self.card_types()]:
-            self.main_widget.error_box(_("Card type name already exists."))
+            self.main_widget().error_box(_("Card type name already exists."))
             return None
         card_type_class = type(mangle(clone_name), (card_type.__class__, ),
             {"name": clone_name, "id": clone_id})

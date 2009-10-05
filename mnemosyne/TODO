@@ -1,8 +1,10 @@
--save and load current criterion
--warn when overwriting name
--delete / rename saved sets
--hide saved sets dialog when empty
+-generalise
+-unselect active criterion when data changes
+-ask when navigating away from current selection
+
+
 -empty tags
+-convert default tags on import
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
 -hook after card grading
@@ -13,6 +15,7 @@
 -id vs _id
 -tag.id in criteria?
 -is it worth keeping database.tag_names?
+-get rid of 'get_'
 
 -number of unmemorised cards to hold in your hand?
 
@@ -173,6 +176,8 @@ pylint:
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev
 
 -Faq about how to pronounce Mnemosyne
+
+-delete key shortcut for saved sets
 
 
 * After 2.0:

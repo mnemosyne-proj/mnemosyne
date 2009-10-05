@@ -20,10 +20,10 @@ class DefaultCriterionApplier(CriterionApplier):
         # If every tag is active, take a short cut.
         tag_count = db.con.execute("select count() from tags").fetchone()[0]
         if len(criterion.active_tag__ids) == tag_count:
-            db.con.execute("update cards set active=1")
+            db.con.execute("update cards set %s=1" % field_name)
         else:     
             # Turn off everything.
-            db.con.execute("update cards set active=0")
+            db.con.execute("update cards set %s=0" % field_name)
             # Turn on active tags.
             command = """update cards set %s=1 where _id in (select _card_id
                 from tags_for_card where """ % field_name

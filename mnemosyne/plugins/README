@@ -11,15 +11,17 @@ illustrating to plugin writers on how to achieve certain functionality.
  * after_repetition.py: illustration of function hooks, in this case
    running code after a repetition was performed.
 
- * html_statistics.py: adding an extra page with html statistics
+ * html_statistics.py: adding an extra page with html statistics.
 
- * plot_statistics.py: adding an extra page with plotted statistics
+ * plot_statistics.py: adding an extra page with plotted statistics.
 
- * backup.py: moving your backups to a safe place
+ * backup.py: moving your backups to a safe place.
 
  * settings.py: how to store extra settings for your plugin and set them
    through the GUI.
 
+ * grades_activity_criterion.py: adding a new activity criterion based on
+   grades.
 
 Note that if you write plugins which require extra modules, the Windows user
 should add those to library.zip.

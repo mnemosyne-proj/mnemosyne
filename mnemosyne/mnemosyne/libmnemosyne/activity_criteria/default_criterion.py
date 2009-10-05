@@ -7,8 +7,8 @@ from mnemosyne.libmnemosyne.activity_criterion import ActivityCriterion
 
 class DefaultCriterion(ActivityCriterion):
 
-    criterion_type = "default"
-
+    criterion_type = "Default"
+    
     def __init__(self, component_manager, id=None):
         ActivityCriterion.__init__(self, component_manager, id)
         # (card_type.id, fact_view.id):

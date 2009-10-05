@@ -20,16 +20,16 @@
       <enum>Qt::Vertical</enum>
      </property>
      <widget class="QWidget" name="layoutWidget">
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="saved_sets_layout">
        <item>
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="saved_sets_label">
          <property name="text">
           <string>Saved sets:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QListView" name="saved_sets"/>
+        <widget class="QListWidget" name="saved_sets"/>
        </item>
       </layout>
      </widget>
@@ -196,6 +196,22 @@
     <hint type="sourcelabel">
      <x>564</x>
      <y>485</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saved_sets</sender>
+   <signal>itemActivated(QListWidgetItem*)</signal>
+   <receiver>ActivateCardsDlg</receiver>
+   <slot>load_set()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>303</x>
+     <y>125</y>
     </hint>
     <hint type="destinationlabel">
      <x>303</x>

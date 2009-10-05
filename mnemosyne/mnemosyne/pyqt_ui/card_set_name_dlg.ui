@@ -65,5 +65,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>set_name</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>CardSetNameDlg</receiver>
+   <slot>text_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>17</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>155</x>
+     <y>17</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

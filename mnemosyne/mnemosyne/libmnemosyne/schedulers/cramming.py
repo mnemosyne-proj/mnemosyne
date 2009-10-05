@@ -19,13 +19,12 @@ class Cramming(SM2Mnemosyne):
             self.database().set_scheduler_data(self.UNSEEN)
 
     def rebuild_queue(self, learn_ahead=False):
-        self.card__ids_in_queue = []
-        self.fact__ids_in_queue = []
         db = self.database()
-
         if not db.is_loaded() or not db.active_count():
             return
-
+        self.card__ids_in_queue = []
+        self.fact__ids_in_queue = []
+        self.criterion = db.current_activity_criterion()
         # Stage 1 : do all the unseen cards.     
         if self.stage == 1:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.UNSEEN,
@@ -36,7 +35,6 @@ class Cramming(SM2Mnemosyne):
             if len(self.card__ids_in_queue):
                 return
             self.stage = 2
-
         # Stage 2: do the cards we got wrong.
         if self.stage == 2:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.WRONG,
@@ -45,8 +43,7 @@ class Cramming(SM2Mnemosyne):
                     self.card__ids_in_queue.append(_card_id)
                     self.fact__ids_in_queue.append(_fact_id)
             if len(self.card__ids_in_queue):
-                return
-            
+                return           
         # Start again.
         self.reset()
         self.rebuild_queue()
@@ -67,6 +64,7 @@ class Cramming(SM2Mnemosyne):
             card.scheduler_data = self.RIGHT
         # Run hooks.
         card.fact.card_type.after_repetition(card)
+        self.criterion.card_reviewed(card)
         for f in self.component_manager.get_all("hook", "after_repetition"):
             f.run(card)
         return 0

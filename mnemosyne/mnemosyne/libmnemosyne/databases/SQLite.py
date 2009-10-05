@@ -723,6 +723,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                 criterion = criterion_class(self.component_manager,
                                             sql_res["id"])
                 criterion._id = sql_res["_id"]
+                criterion.name = sql_res["name"]
                 criterion.data_from_string(sql_res["data"])
                 return criterion
     

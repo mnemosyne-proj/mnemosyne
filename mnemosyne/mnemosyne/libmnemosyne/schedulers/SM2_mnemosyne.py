@@ -150,11 +150,12 @@ class SM2Mnemosyne(Scheduler):
         return noise
 
     def rebuild_queue(self, learn_ahead=False):
-        self.card__ids_in_queue = []
-        self.fact__ids_in_queue = []
         db = self.database()
         if not db.is_loaded() or not db.active_count():
             return
+        self.card__ids_in_queue = []
+        self.fact__ids_in_queue = []
+        self.criterion = db.current_activity_criterion()
         
         # Stage 1
         #
@@ -447,6 +448,7 @@ class SM2Mnemosyne(Scheduler):
         _("If you do this for many days, you could get a big workload later."))
         # Run hooks.
         card.fact.card_type.after_repetition(card)
+        self.criterion.card_reviewed(card)
         for f in self.component_manager.get_all("hook", "after_repetition"):
             f.run(card)
         # Create log entry.
