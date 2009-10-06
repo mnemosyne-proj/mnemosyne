@@ -1,5 +1,5 @@
 #
-# plot_statistics_wdgts.py <mike@peacecorps.org.cv>, <Peter.Bienstman@UGent.be>
+# statistics_wdgts_plotting.py <mike@peacecorps.org.cv>, <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtGui
@@ -24,7 +24,7 @@ class PlotStatisticsWdgt(FigureCanvas, StatisticsWidget):
 
     """
     
-    def __init__(self, parent, component_manager, page):
+    def __init__(self, component_manager, parent, page):
         StatisticsWidget.__init__(self, component_manager)
         self.page = page
         colour = self._background_colour(parent)

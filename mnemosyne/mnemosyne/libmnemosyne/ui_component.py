@@ -10,5 +10,4 @@ class UiComponent(Component):
     component_type = "ui_component"
 
     instantiate = Component.LATER
-    
 

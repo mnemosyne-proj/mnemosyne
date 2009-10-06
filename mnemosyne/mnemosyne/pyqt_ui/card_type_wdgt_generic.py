@@ -1,5 +1,5 @@
 #
-# generic_card_type_widget.py <Peter.Bienstman@UGent.be>
+# card_type_wdgt_generic.py <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtCore, QtGui
@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.ui_components.card_type_widget \
 
 class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
 
-    def __init__(self, card_type, parent, component_manager):
+    def __init__(self, component_manager, parent, card_type):
         QtGui.QWidget.__init__(self, parent)
         GenericCardTypeWidget.__init__(self, component_manager)
         self.card_type = card_type
@@ -47,9 +47,9 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             except:
                 pass            
             if len(self.card_type.fields) > 2:
-                t.setMinimumSize(QtCore.QSize(0,60))
+                t.setMinimumSize(QtCore.QSize(0, 60))
             else:
-                t.setMinimumSize(QtCore.QSize(0,106))
+                t.setMinimumSize(QtCore.QSize(0, 106))
             self.vboxlayout.addWidget(t)
             self.edit_boxes[t] = fact_key
             if not self.top_edit_box:

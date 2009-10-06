@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from mnemosyne.pyqt_ui.ui_add_cards_dlg import Ui_AddCardsDlg
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import AddCardsDialog
-from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
+from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
                                                     ConvertCardTypeFieldsDlg
 
@@ -41,7 +41,7 @@ class AddEditCards(Component):
         self.card_types_widget.setCurrentIndex(self.card_type_index)
         self.connect(self.card_types_widget, QtCore.SIGNAL(\
             "currentIndexChanged(QString)"), self.card_type_changed)
-        self.correspondence = {} # Used when changing card types.
+        self.correspondence = {}  # Used when changing card types.
         self.update_card_widget()
         
     def update_card_widget(self):
@@ -49,17 +49,16 @@ class AddEditCards(Component):
         # code between the 'add' and the 'edit' dialogs, we put the reference
         # to self.fact (which only exists in the 'edit' dialog) inside a try
         # statement.
-        if self.card_type_widget: # Get data from previous card widget.
+        if self.card_type_widget:  # Get data from previous card widget.
             prefill_data = \
                      self.card_type_widget.get_data()
             self.card_type_widget.close()
             self.card_type_widget = None
         else:
-            try: # Get data from fact passed to the 'edit' dialog.
+            try:  # Get data from fact passed to the 'edit' dialog.
                 prefill_data = self.fact.data
-            except: # Start from scratch in the 'add' dialog.
-                prefill_data = None
-                
+            except:  # Start from scratch in the 'add' dialog.
+                prefill_data = None          
         # Transform keys in dictionary if the card type has changed, but don't
         # update the fact just yet.
         if prefill_data:
@@ -67,19 +66,18 @@ class AddEditCards(Component):
                 if key in self.correspondence:
                     value = prefill_data.pop(key)
                     prefill_data[self.correspondence[key]] = value
-    
         # Show new card type widget.
         card_type_name = unicode(self.card_types_widget.currentText())
         self.card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
             self.card_type_widget = self.component_manager.get_current\
                     ("card_type_widget", used_for=self.card_type.__class__)\
-                          (self, self.component_manager)
+                          (self.component_manager, parent=self)
         except:
             if not self.card_type_widget:
                 self.card_type_widget = self.component_manager.get_current\
-                    ("generic_card_type_widget")\
-                      (self.card_type, self, self.component_manager)
+                    ("generic_card_type_widget")(self.component_manager,
+                        parent=self, card_type=self.card_type)
         self.card_type_widget.set_data(prefill_data)
         self.card_type_widget.show()
         self.vbox_layout.insertWidget(1, self.card_type_widget)
@@ -109,7 +107,7 @@ class AddEditCards(Component):
             return
         dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
                                        self.correspondence, self)
-        if dlg.exec_() == 0: # Reject.
+        if dlg.exec_() == 0:  # Reject.
             self.card_types_widget.setCurrentIndex(self.card_type_index)
             return
         else:          

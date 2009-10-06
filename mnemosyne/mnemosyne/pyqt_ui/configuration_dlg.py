@@ -22,13 +22,14 @@ class ConfigurationDlg(QtGui.QDialog, ConfigurationDialog):
         self.setWindowTitle(_("Configuration"))
         self.vbox_layout = QtGui.QVBoxLayout(self)
         if len(self.configuration_widgets()) == 1:
-            self.widget = self.configuration_widgets()[0](self.component_manager)
+            self.widget = self.configuration_widgets()[0](\
+                self.component_manager, parent=self)
             self.vbox_layout.addWidget(self.widget)
             self.widget.display()
         else:  
             self.tab_widget = QtGui.QTabWidget(self.main_widget())
             for widget in self.configuration_widgets():
-                widget = widget(self.component_manager)
+                widget = widget(self.component_manager, parent=self)
                 self.tab_widget.addTab(widget, widget.name)
             widget_index = self.config()["last_configuration_wdgt"]
             if widget_index >= self.tab_widget.count():

@@ -8,32 +8,41 @@ from PyQt4 import QtGui
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
-from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
+from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
+
 
 # Don't forget to inherit from CardTypeWidget located in
 # mnemosyne.libmnemosyne.ui_components.card_type_widget!
 # (Here this is already fullfilled because GenericCardTypeWdgt itself inherits
-# from CardTypeWidget)
+# from CardTypeWidget.)
+# We inherit from GenericCardTypeWdgt purely for implementation reasons.
+# What we are building here is a CardTypeWidget (specific for the FrontToBack
+# card type), not a GenericCardTypeWidget, so we need to respecify the
+# component_type.
 
-class RedGenericCardTypeWdgt(GenericCardTypeWdgt):
+class RedCardTypeWdgt(GenericCardTypeWdgt):
 
+    component_type = "card_type_widget"
     used_for = FrontToBack
 
-    def __init__(self, parent, component_manager):
-        GenericCardTypeWdgt.__init__(self, FrontToBack,
-                                     parent, component_manager)
+    def __init__(self, component_manager, parent):
+        card_type = FrontToBack(component_manager)
+        GenericCardTypeWdgt.__init__(self, component_manager,
+                                     parent, card_type)
         for edit_box in self.edit_boxes:
             p = QtGui.QPalette()
             p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base, \
                        QtGui.QColor("red"))
             edit_box.setPalette(p)
 
+
 # Wrap it into a Plugin and then register the Plugin.
 
 class RedPlugin(Plugin):
+    
     name = "Red"
     description = "Red widget for front-to-back cards"
-    components = [RedGenericCardTypeWdgt]
+    components = [RedCardTypeWdgt]
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(RedPlugin)

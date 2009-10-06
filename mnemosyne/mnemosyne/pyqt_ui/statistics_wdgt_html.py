@@ -1,5 +1,5 @@
 #
-# html_statistics_wdgt.py <Peter.Bienstman@UGent.be>
+# statistics_wdgt_html.py <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtCore, QtWebKit
@@ -13,7 +13,7 @@ class HtmlStatisticsWdgt(QtWebKit.QWebView, StatisticsWidget):
 
     used_for = HtmlStatisticsPage
     
-    def __init__(self, parent, component_manager, page):
+    def __init__(self, component_manager, parent, page):
         StatisticsWidget.__init__(self, component_manager)
         QtWebKit.QWebView.__init__(self, parent)
         self.page = page

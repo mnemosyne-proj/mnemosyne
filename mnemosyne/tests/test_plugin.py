@@ -102,15 +102,15 @@ class TestPlugin(MnemosyneTest):
    
         from mnemosyne.libmnemosyne.plugin import Plugin
         from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
-        from mnemosyne.pyqt_ui.generic_card_type_widget import GenericCardTypeWdgt
+        from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
 
         class RedGenericCardTypeWdgt(GenericCardTypeWdgt):
 
             used_for = FrontToBack
 
             def __init__(self, parent, component_manager):
-                GenericCardTypeWdgt.__init__(self, FrontToBack,
-                                             parent, component_manager)
+                GenericCardTypeWdgt.__init__(self, component_manager,
+                                             parent, FrontToBack())
 
         class RedPlugin(Plugin):
             name = "Red"

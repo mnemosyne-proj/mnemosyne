@@ -25,7 +25,7 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
         page_index = 0
         for page in self.statistics_pages():
             page = page(self.component_manager)
-            self.tab_widget.addTab(StatisticsPageWdgt(self, component_manager,
+            self.tab_widget.addTab(StatisticsPageWdgt(component_manager, self,
                 page, page_index), page.name)
             page_index += 1
         self.vbox_layout.addWidget(self.tab_widget)       
@@ -79,7 +79,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
 
     """
 
-    def __init__(self, parent, component_manager, statistics_page, page_index):
+    def __init__(self, component_manager, parent, statistics_page, page_index):
         Component.__init__(self, component_manager)        
         QtGui.QWidget.__init__(self, parent)
         self.statistics_page = statistics_page
@@ -105,7 +105,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
         
     def display_variant(self, variant_index):
 
-        "Lazy creation of the actual widget that displays the statistics."
+        """Lazy creation of the actual widget that displays the statistics."""
 
         # Hide the previous widget if there was once.
         if self.current_variant_widget:
@@ -117,7 +117,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
                 (self.variant_ids[variant_index])
             widget_class = self.component_manager.get_current(\
                 "statistics_widget", used_for=self.statistics_page.__class__)
-            widget = widget_class(self, self.component_manager,
+            widget = widget_class(self.component_manager, self,
                 self.statistics_page)
             widget.show_statistics(self.variant_ids[variant_index])
             self.variant_widgets[variant_index] = widget

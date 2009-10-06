@@ -15,9 +15,9 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
 
     name = "General"
 
-    def __init__(self, component_manager):
+    def __init__(self, component_manager, parent):
         ConfigurationWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, self.main_widget())
+        QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
 
     def display(self):

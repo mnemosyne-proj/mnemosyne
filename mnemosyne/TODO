@@ -1,4 +1,5 @@
--generalise
+-grade criterion plugin
+-what if no criterion of that type exists?
 -unselect active criterion when data changes
 -ask when navigating away from current selection
 
@@ -9,6 +10,8 @@
 -add update after import
 -hook after card grading
 -sync adding sets
+
+-need component.statisticspages and configuration widgets?
 
 -merge sync
 
@@ -39,10 +42,10 @@
 -don't show inactive card types, but do show inactive tags
 -card.in_view needed?
 -make card browser remember its size
--default tag needed?
--need to store parent of tag?
+
+
 -implement duplicate checking
--explain check for duplicates after import of 1.x? Also give a hint of it's working in
+-explain check for duplicates after import of 1.x? Also give a hint of its working in
 the GUI function itself?
 -card preview
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
@@ -140,7 +143,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 
 -ask people about biggest gripe in Mnemosyne, things that did not behave as expected
 
--improve download section
 
 
 -also add option to download source in the info box

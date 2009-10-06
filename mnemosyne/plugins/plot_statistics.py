@@ -4,7 +4,7 @@
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 from mnemosyne.libmnemosyne.statistics_page import PlotStatisticsPage
-from mnemosyne.pyqt_ui.plot_statistics_wdgts import PlotStatisticsWdgt
+from mnemosyne.pyqt_ui.statistics_wdgts_plotting import PlotStatisticsWdgt
 
 # The piechart statistics page.
 
