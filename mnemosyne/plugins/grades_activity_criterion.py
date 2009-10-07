@@ -42,7 +42,7 @@ class GradesCriterionApplier(CriterionApplier):
         db = self.database()
         db.con.execute("update cards set %s=0" % field_name)
         db.con.execute("update cards set %s=1 where grade<=?" % field_name,
-                       (self.threshold, ))
+                       (criterion.threshold, ))
 
 
 # The UI widget to set the threshold.
@@ -52,7 +52,7 @@ from mnemosyne.libmnemosyne.ui_components.activity_criterion_widget \
 
 from PyQt4 import QtCore, QtGui
 
-class GradesCriterionWdgt(QtGui.QDialog, ActivityCriterionWidget)
+class GradesCriterionWdgt(QtGui.QDialog, ActivityCriterionWidget):
 
     used_for = GradesCriterion
 
@@ -68,12 +68,15 @@ class GradesCriterionWdgt(QtGui.QDialog, ActivityCriterionWidget)
         self.horizontalLayout.addWidget(self.threshold)
         self.verticalLayout.addLayout(self.horizontalLayout)
 
+    def display_default_criterion(self):
+        self.threshold.setValue(5)
+
     def display_criterion(self, criterion):
         self.threshold.setValue(criterion.threshold)
 
     def get_criterion(self):
-        criterion = GradesCriterion()
-        criterion.threshold = shelf.threshold.value()
+        criterion = GradesCriterion(self.component_manager)
+        criterion.threshold = self.threshold.value()
         return criterion
 
 

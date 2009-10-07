@@ -27,7 +27,7 @@ class ConfigurationDlg(QtGui.QDialog, ConfigurationDialog):
             self.vbox_layout.addWidget(self.widget)
             self.widget.display()
         else:  
-            self.tab_widget = QtGui.QTabWidget(self.main_widget())
+            self.tab_widget = QtGui.QTabWidget(self)
             for widget in self.configuration_widgets():
                 widget = widget(self.component_manager, parent=self)
                 self.tab_widget.addTab(widget, widget.name)

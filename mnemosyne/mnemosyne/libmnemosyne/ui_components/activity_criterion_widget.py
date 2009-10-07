@@ -10,6 +10,9 @@ class ActivityCriterionWidget(UiComponent):
     component_type = "activity_criterion_widget"
     instantiate = UiComponent.LATER
 
+    def display_default_criterion(self):
+        raise NotImplementedError        
+
     def display_criterion(self, criterion):
         raise NotImplementedError
 

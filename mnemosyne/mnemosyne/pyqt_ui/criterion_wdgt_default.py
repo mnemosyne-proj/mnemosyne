@@ -26,7 +26,13 @@ class DefaultCriterionWdgt(QtGui.QDialog, Ui_DefaultCriterionWdgt,
         ActivityCriterionWidget.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
-            
+
+    def display_default_criterion(self):
+        criterion = DefaultCriterion(self.component_manager)
+        for tag in self.database().get_tags():
+            criterion.active_tag__ids.add(tag._id)
+        self.display_criterion(criterion)
+    
     def display_criterion(self, criterion):
         # Fill card types tree widget.
         self.card_types_tree.clear()

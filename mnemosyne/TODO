@@ -1,27 +1,24 @@
 -grade criterion plugin
--what if no criterion of that type exists?
 -unselect active criterion when data changes
--ask when navigating away from current selection
 
 
 -empty tags
 -convert default tags on import
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
--hook after card grading
 -sync adding sets
 
 -need component.statisticspages and configuration widgets?
 
 -merge sync
 
+-duplicates for fact speedup
 -id vs _id
 -tag.id in criteria?
 -is it worth keeping database.tag_names?
 -get rid of 'get_'
 
--number of unmemorised cards to hold in your hand?
-
+-number of unmemorised cards to hold in your hand? (i.e. grade 0 + 1)
 -rework give initial grade dialog
 
 -time WM: history in same DB?
@@ -39,7 +36,6 @@
 -make sure searching for a single unicode character works
 -qsortfilter proxy
 -show number of cards selected
--don't show inactive card types, but do show inactive tags
 -card.in_view needed?
 -make card browser remember its size
 
@@ -50,7 +46,6 @@ the GUI function itself?
 -card preview
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 
--duplicates for fact speedup
 
 -don't auto vacuum? what for WM?
 -more fine grained resource_limited
@@ -58,10 +53,9 @@ the GUI function itself?
 -delete 1.99 logs
 -reenable upload
 
--do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates, 
- activate cards
+-do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 
--Hungarian translation by bkil (announce on website)
+-Hungarian translation by bkil + others (announce on website)
 -hang on Spanish translation?
 -new translation infrastructure
 -handle deferred translation
