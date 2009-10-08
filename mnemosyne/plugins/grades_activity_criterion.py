@@ -52,13 +52,13 @@ from mnemosyne.libmnemosyne.ui_components.activity_criterion_widget \
 
 from PyQt4 import QtCore, QtGui
 
-class GradesCriterionWdgt(QtGui.QDialog, ActivityCriterionWidget):
+class GradesCriterionWdgt(QtGui.QWidget, ActivityCriterionWidget):
 
     used_for = GradesCriterion
 
     def __init__(self, component_manager, parent):
         ActivityCriterionWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)        
+        QtGui.QWidget.__init__(self, parent)        
         self.verticalLayout = QtGui.QVBoxLayout(self)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.label = QtGui.QLabel("Activate cards with grade <=", self)
@@ -67,7 +67,10 @@ class GradesCriterionWdgt(QtGui.QDialog, ActivityCriterionWidget):
         self.threshold.setMaximum(5)
         self.horizontalLayout.addWidget(self.threshold)
         self.verticalLayout.addLayout(self.horizontalLayout)
-
+        self.parent_saved_sets = parent.saved_sets
+        self.connect(self.threshold, QtCore.SIGNAL("valueChanged(int)"),
+                     self.criterion_changed)
+        
     def display_default_criterion(self):
         self.threshold.setValue(5)
 
@@ -78,7 +81,9 @@ class GradesCriterionWdgt(QtGui.QDialog, ActivityCriterionWidget):
         criterion = GradesCriterion(self.component_manager)
         criterion.threshold = self.threshold.value()
         return criterion
-
+    
+    def criterion_changed(self):
+        self.parent_saved_sets.clearSelection()
 
 # Wrap it into a Plugin and then register the Plugin.
 

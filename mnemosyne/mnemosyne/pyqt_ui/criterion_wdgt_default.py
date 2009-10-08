@@ -9,10 +9,10 @@ from mnemosyne.libmnemosyne.ui_components.activity_criterion_widget \
      import ActivityCriterionWidget
 from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
      DefaultCriterion
-from mnemosyne.pyqt_ui.ui_default_criterion_wdgt import Ui_DefaultCriterionWdgt
+from mnemosyne.pyqt_ui.ui_criterion_wdgt_default import Ui_DefaultCriterionWdgt
 
 
-class DefaultCriterionWdgt(QtGui.QDialog, Ui_DefaultCriterionWdgt,
+class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
                            ActivityCriterionWidget):
 
     """Note that this dialog can support active tags and forbidden tags,
@@ -24,8 +24,9 @@ class DefaultCriterionWdgt(QtGui.QDialog, Ui_DefaultCriterionWdgt,
 
     def __init__(self, component_manager, parent):
         ActivityCriterionWidget.__init__(self, component_manager)
-        QtGui.QDialog.__init__(self, parent)
+        QtGui.QWidget.__init__(self, parent)
         self.setupUi(self)
+        self.parent_saved_sets = parent.saved_sets
 
     def display_default_criterion(self):
         criterion = DefaultCriterion(self.component_manager)
@@ -135,14 +136,5 @@ class DefaultCriterionWdgt(QtGui.QDialog, Ui_DefaultCriterionWdgt,
             criterion.active_tags = set(self.tag_for_node_item.values())
         return criterion
 
-    def entered_criterion_changed(self):
-        
-        """Called whenever the user updates the criterion information in the
-        lower pane (not when loading a new criterion by clicking one in the
-        upper pane.
-
-        """
-
-        pass
-
-
+    def criterion_changed(self):
+        self.parent_saved_sets.clearSelection()

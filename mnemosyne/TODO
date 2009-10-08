@@ -1,5 +1,4 @@
--grade criterion plugin
--unselect active criterion when data changes
+-current active set not marked upon entering
 
 
 -empty tags

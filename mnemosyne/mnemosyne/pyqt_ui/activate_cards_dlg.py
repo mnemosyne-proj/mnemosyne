@@ -146,9 +146,10 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
     def load_set(self, item):
         name = unicode(item.text())
         criterion = self.criteria_by_name[name]
-        self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
+        if len(self.criterion_classes) != 1:
+            self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
                                              [criterion.criterion_type])
-        self.widget = self.tab_widget.currentWidget()
+            self.widget = self.tab_widget.currentWidget()
         self.widget.display_criterion(criterion)
         # Restore the selection that got cleared in change_widget.
         item = self.saved_sets.findItems(criterion.name,
