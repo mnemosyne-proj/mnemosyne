@@ -797,7 +797,53 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                 last_modified) values(?,?,?)""", (filename, fact._id,
                 int(os.path.getmtime(os.path.join(mediadir, filename)))))
             self.log().added_media(filename, fact)
-            
+
+    #
+    # Synchronization.
+    #
+    
+    def get_history_events(self, partner):
+        _id = self.get_last_sync_event(partner)
+        return self.con.execute("""select event, timestamp, object_id,
+           scheduled_interval, actual_interval, new_interval, thinking_time
+           from log where _id>%s""" % _id).fetchall()
+    
+    def get_media_history_events(self, partner):
+        _id = self.get_last_sync_event(partner)
+        return self.con.execute("""select event, object_id from log where
+           _id>? and event in (?,?)""", (_id, self.ADDED_MEDIA, \
+           self.DELETED_MEDIA)).fetchall()
+
+    def get_sync_media_count(self, partner):
+        _id = self.get_last_sync_event(partner)
+        return self.con.execute("""select count() from log where 
+           _id>? and event=?""", (_id, self.ADDED_MEDIA)).fetchone()[0]
+   
+    def get_sync_history_length(self, partner):
+        _id = self.get_last_sync_event(partner)
+        return self.con.execute("""select count() from log where
+           _id>? and event in (?,?,?,?,?,?,?,?)""", (_id, self.ADDED_FACT, \
+           self.UPDATED_FACT, self.DELETED_FACT, self.ADDED_TAG, \
+           self.UPDATED_TAG, self.ADDED_CARD, self.UPDATED_CARD, \
+           self.REPETITION)).fetchone()[0]
+
+    def update_partnerships(self, partner):
+        sql_res = self.con.execute("""select partner from partnerships 
+           where partner=?""", (partner, )).fetchone()
+        if not sql_res:
+            self.con.execute("""insert into partnerships(partner, 
+               _last_log_id) values(?,?)""", (partner, 0))
+ 
+    def get_last_sync_event(self, partner):
+        sql_res = self.con.execute("""select _last_log_id from partnerships 
+           where partner=?""", (partner, )).fetchone()
+        return sql_res["_last_log_id"]
+ 
+    def update_last_sync_event(self, partner):
+        _id = self.con.execute("""select _id from log""").fetchall()[-1][0]
+        self.con.execute("""update partnerships set _last_log_id=? 
+           where partner=?""", (_id, partner))
+        
     #
     # Queries.
     #

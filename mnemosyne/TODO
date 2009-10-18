@@ -9,9 +9,27 @@
 
 -need component.statisticspages and configuration widgets?
 
--merge sync
 
 -duplicates for fact speedup
+>         """Return fact with the same 'unique_fields' data as 'fact'."""
+>         
+>         query = "select _id from facts where card_type_id=?"
+>         args = (fact.card_type.id,)
+>         if fact._id:
+>             query += " and not _id=?"
+>             args = (fact.card_type.id, fact._id)
+>         duplicates = []            
+>         for cursor in self.con.execute(query, args):
+>             data = dict([(cursor2["key"], cursor2["value"]) for cursor2 in \
+>                 self.con.execute("""select * from data_for_fact where
+>                 _fact_id=?""", (cursor[0], ))])
+>             for field in fact.card_type.unique_fields:
+>                 if data[field] == fact[field]:
+>                     duplicates.append(\
+>                         self.get_fact(cursor[0], id_is_internal=True))
+>                     break
+>         return duplicates
+
 -id vs _id
 -tag.id in criteria?
 -is it worth keeping database.tag_names?
@@ -21,8 +39,6 @@
 -rework give initial grade dialog
 
 -time WM: history in same DB?
-
--SM2sync -> openSM2sync?
 
 -more tests
 -update_cards --> modify cards?
@@ -54,8 +70,6 @@ the GUI function itself?
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 
--Hungarian translation by bkil + others (announce on website)
--hang on Spanish translation?
 -new translation infrastructure
 -handle deferred translation
 -different translators for different users?
@@ -104,7 +118,6 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -check if updated_card event without added card event works
 -mechanism to have plugin settings synced?
 
--corrupt icon
 
 -have hierarchy in plugin names
 
