@@ -1,10 +1,7 @@
-# vim: sw=4 ts=4 expandtab ai
 #
-# sync.py
-#
-# Max Usachev <maxusachev@gmail.com>, 
-# Ed Bartosh <bartosh@gmail.com>, 
-# Peter Bienstman <Peter.Bienstman@UGent.be>
+# sync.py - Max Usachev <maxusachev@gmail.com>
+#             Ed Bartosh <bartosh@gmail.com>
+#            <Peter.Bienstman@UGent.be>
 
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
@@ -20,25 +17,17 @@ N_SIDED_CARD_TYPE = 3
 
 
 class SyncError(Exception):
-    """Sync exception class."""
     pass
 
 
 class DictClass:
-    """Class for creating custom objects."""
-    
+        
     def __init__(self, attributes=None):
-        # just for pylint
-        self.timestamp = self.grade = self.easiness = self.lapses = \
-        self.acq_reps = self.ret_reps = self.acq_reps_since_lapse = \
-        self.ret_reps_since_lapse = self.scheduled_interval = self.id = \
-        self.actual_interval = self.new_interval = self.thinking_time = None
         for attr in attributes.keys():
             setattr(self, attr, attributes[attr])
 
 
 class UIMessenger:
-    """UI wrapper class."""
 
     def __init__(self, messenger, events_updater, status_updater, \
         show_progressbar, progress_updater, hide_progressbar):
@@ -51,10 +40,11 @@ class UIMessenger:
 
 
 class EventManager:
-    """
-    Class for manipulatig with client/server database:
+    
+    """ Class for manipulatig with client/server database:
     reading/writing history events, generating/parsing
     XML representation of history events.
+    
     """
 
     def __init__(self, database, log, controller, mediadir, get_media, \
@@ -78,66 +68,51 @@ class EventManager:
         self.allow_update_card = True
 
     def make_backup(self):
-        """Creates backup for current database."""
-
         return self.database.make_sync_backup()
 
     def restore_backup(self):
-        """Resotre backuped database."""
-
         self.database.restore_sync_backup()
 
     def remove_backup(self):
-        """Remove backup."""
-
         self.database.remove_sync_backup()
 
     def replace_database(self, backup_file):
+
         """Temporary replace current database by backuped."""
 
         self.database.unload()
         self.database.load(backup_file)
 
     def return_databases(self):
+
         """Replace current backuped database by native database."""
 
         self.database.abandon()
         self.database.load(self.db_path)
 
     def stop(self):
-        """Stops any work."""
-
         self.stopped = True
 
-    def set_sync_params(self, partner_params):
-        """Sets other side specific params."""
-
+    def set_sync_params(self, partner_params): 
         params = cElementTree.fromstring(partner_params).getchildren()[0]
         self.partner['role'] = params.tag
         for key in params.keys():
             self.partner[key] = params.get(key)
 
     def update_partnerships_table(self):
-        """Checks existence of partner in partnerships table."""
-
         self.database.update_partnerships(self.partner['id'])
 
     def update_last_sync_event(self):
-        """Updates last sync event for partner."""
-
         self.database.update_last_sync_event(self.partner['id'])
 
     def get_media_count(self):
-        """Returns number of media files in sync history."""
-
         return self.database.get_sync_media_count(self.partner['id'])
 
     def get_history_length(self):
-        """Returns number of events in sync history."""
-
         return self.database.get_sync_history_length(self.partner['id'])
 
     def get_history(self):
+
         """Creates history in XML."""
        
         yield str("<history>")
@@ -153,6 +128,7 @@ class EventManager:
         yield str("</history>")
 
     def get_media_history(self):
+
         """Creates media history in XML."""
 
         history = "<history>"
@@ -167,8 +143,6 @@ class EventManager:
         return history
 
     def create_event_element(self, event):
-        """Creates XML representation of event."""
-
         event_id = event['event']
         if event_id in (events.ADDED_TAG, events.UPDATED_TAG, \
             events.DELETED_TAG):
@@ -186,10 +160,8 @@ class EventManager:
             return None   # No need XML for others events. ?
 
     def create_tag_xml_element(self, event):
-        """Creates Tag XML representation."""
-
         if event['event'] == events.DELETED_TAG:
-            # we only transfer tag id, that should be deleted.
+            # We only transfer tag id, that should be deleted.
             return "<i><t>tag</t><ev>%s</ev><id>%s</id></i>" % \
                 (event['event'], event['id'])
         tag = self.database.get_tag(event['id'], False)
@@ -199,10 +171,8 @@ class EventManager:
             (event['event'], tag.id, tag.name)
 
     def create_fact_xml_element(self, event):
-        """Creates Fact XML representation."""
-
         if event['event'] == events.DELETED_FACT:
-            # we only transfer fact id, that should be deleted.
+            # We only transfer fact id, that should be deleted.
             return "<i><t>fact</t><ev>%s</ev><id>%s</id></i>" % \
                 (event['event'], event['id'])
         fact = self.database.get_fact(event['id'], False)
@@ -217,10 +187,8 @@ class EventManager:
                 fact.card_type.id, dkeys, dvalues, event['time'])
 
     def create_card_xml_element(self, event):
-        """Creates Card XML representation."""
-
         if event['event'] == events.DELETED_CARD:
-            # we only transfer card id, that shoild be deleted.
+            # We only transfer card id, that shoild be deleted.
             return "<i><t>card</t><ev>%s</ev><id>%s</id></i>" % \
                 (event['event'], event['id'])
         if not self.database.has_card_with_external_id(event['id']):
@@ -238,8 +206,6 @@ class EventManager:
                 event['t_time'], event['time'], card._id)
         
     def create_card_type_xml_element(self, event):
-        """Creates CardType XML representation."""
-
         cardtype = self.database.get_card_type(event['id'], False)
         fields = [key for key, value in cardtype.fields]
         return "<i><t>ctype</t><ev>%s</ev><id>%s</id><name>%s</name><f>%s</f>"\
@@ -248,8 +214,6 @@ class EventManager:
         ','.join(cardtype.unique_fields), '', '')
 
     def create_media_xml_element(self, event):
-        """Creates Media XML representation."""
-
         fname = event['id'].split('__for__')[0]
         if os.path.exists(os.path.join(self.mediadir, fname)):
             return "<i><t>media</t><ev>%s</ev><id>%s</id></i>" % \
@@ -258,13 +222,9 @@ class EventManager:
             return ""
 
     def create_tag_object(self, item):
-        """Creates Tag object from XML representation."""
-
         return Tag(item.find('name').text, item.find('id').text)
 
     def create_fact_object(self, item):
-        """Creates Fact object from XML representation."""
-
         dkeys = item.find('dk').text.split(',')
         dvals = [item.find("dv%s" % num).text for num in range(len(dkeys))]
         fact_data = dict([(key, dvals[dkeys.index(key)]) for key in dkeys])
@@ -276,12 +236,8 @@ class EventManager:
         return fact
 
     def create_card_object(self, item):
-        """Creates Card object from XML representation."""
-
         def get_rep_value(value):
             """Return value for repetition event."""
-            #try: return int(value)
-            #except: return ''
             if value == "None":
                 return ''
             else:
@@ -303,22 +259,16 @@ class EventManager:
             item.find('_id').text})
 
     def create_cardtype_object(self, item):
-        """Creates CardType object from XML representation."""
-
         return DictClass({'id': item.find('id').text, 'name': \
             item.find('name').text, 'fields': item.find('f').text.split(','), \
             'keyboard_shortcuts': {}, 'extra_data': {}, 'unique_fields': \
             item.find('uf').text.split(',')})
 
     def create_media_object(self, item):
-        """Creates Media object from XML representation."""
-
         # Media object = mediafile
         return None
 
     def apply_media(self, history, media_count):
-        """Parses media XML-history and apllys media to database."""
-
         count = 0
         hsize = float(media_count)
         self.ui_controller.show_progressbar()
@@ -328,9 +278,7 @@ class EventManager:
             self.ui_controller.update_progressbar(count / hsize)
         self.ui_controller.hide_progressbar()
 
-    def apply_event(self, item):
-        """Applys XML-event to database."""
-       
+    def apply_event(self, item):       
         if self.stopped:
             return
         child = cElementTree.fromstring(item)

@@ -1,6 +1,7 @@
-"""
-Server.
-"""
+#
+# server.py - Max Usachev <maxusachev@gmail.com>
+#             Ed Bartosh <bartosh@gmail.com>
+#            <Peter.Bienstman@UGent.be>
 
 import os
 import cgi
@@ -16,7 +17,6 @@ from sync import N_SIDED_CARD_TYPE
 
 
 class MyWSGIServer(WSGIServer):
-    """Redefined WSGIServer class."""
 
     def __init__(self, host, port, app, handler_class=WSGIRequestHandler):
         WSGIServer.__init__(self, (host, port), handler_class)
@@ -26,13 +26,9 @@ class MyWSGIServer(WSGIServer):
         self.timeout = 1
 
     def stop(self):
-        """Stops server."""
-
         self.stopped = True
         
     def serve_forever(self):
-        """Starts  request handling."""
-
         while not self.stopped:
             self.update_events()
             if select.select([self.socket], [], [], self.timeout)[0]:
@@ -42,7 +38,6 @@ class MyWSGIServer(WSGIServer):
        
 
 class Server:
-    """Base server class for syncing."""
 
     DEFAULT_MIME = "xml/text"
 
@@ -69,16 +64,13 @@ class Server:
         self.read_only = False
 
     def set_user(self, login, passwd):
-        """Sets server login and password."""
-
         self.login = login
         self.passwd = passwd
 
     def get_method(self, environ):
-        """
-        Checks for method existence in service
-        and checks for right request params.
-        """
+
+        """Checks for method existence in service and checks for right request
+        params. """
 
         def compare_args(list1, list2):
             """Compares two lists or tuples."""
@@ -114,8 +106,6 @@ class Server:
                 return '404 Not Found', "text/plain", None, None
 
     def wsgi_app(self, environ, start_response):
-        """Simple Server wsgi application."""
-
         status, mime, method, args = self.get_method(environ)
         headers = [('Content-type', mime)]
         start_response(status, headers)
@@ -125,27 +115,19 @@ class Server:
             return status
     
     def start(self):
-        """Activate server."""
-
         self.ui_controller.update_status("Waiting for client connection...")
         print "Server started at HOST:%s, PORT:%s" % (self.host, self.port)
         self.httpd.serve_forever()
 
     def stop(self):
-        """Stops Server."""
-
         self.httpd.stop()
         self.eman.stop()
 
     def set_params(self, params):
-        """Uses for setting non-default params."""
-
         for key in params.keys():
             setattr(self, key, params[key])
 
     def get_sync_server_params(self, environ):
-        """Gets server specific params and sends it to client."""
-
         self.ui_controller.update_status(\
             "Sending server params to the client. Please, wait...")
         return "<params><server id='%s' name='%s' ver='%s' protocol='%s' " \
@@ -154,8 +136,6 @@ class Server:
             self.cardtypes, self.upload_media, self.read_only)
 
     def put_sync_client_params(self, environ):
-        """Gets client specific params."""
-
         self.ui_controller.update_status(\
             "Receiving client params. Please, wait...")
         try:
@@ -169,18 +149,12 @@ class Server:
             return "OK"
 
     def get_sync_server_history_media_count(self, environ):
-        """Gets self media files count."""
-
         return str(self.eman.get_media_count())
 
     def get_sync_server_history_length(self, environ):
-        """Gets length of self history."""
-
         return str(self.eman.get_history_length())
 
     def get_sync_server_history(self, environ):
-        """Gets self history events."""
-
         self.ui_controller.update_status(\
             "Sending history to the client. Please, wait...")
         count = 0
@@ -197,19 +171,15 @@ class Server:
             yield (chunk + '\n')
 
     def get_sync_server_mediahistory(self, environ):
-        """Gets self. media history."""
-
         self.ui_controller.update_status(\
             "Sending media history to client. Please, wait...")
         return self.eman.get_media_history()
 
     def put_sync_client_history(self, environ):
-        """Gets client history and applys to self."""
-       
         socket = environ['wsgi.input']
 
         count = 0
-        # gets client history size
+        # Gets client history size.
         hsize = float(socket.readline()) + 2
 
         self.eman.make_backup()
@@ -231,8 +201,6 @@ class Server:
         return "OK"
 
     def get_sync_finish(self, environ):
-        """Finishes syncing."""
-
         self.eman.remove_backup()
         self.ui_controller.update_status(\
             "Waiting for the client complete. Please, wait...")
@@ -242,8 +210,6 @@ class Server:
         return "OK"
 
     def get_sync_server_media(self, environ, fname):
-        """Gets server media file and sends it to client."""
-
         self.ui_controller.update_status(\
             "Sending media to the client. Please, wait...")
         try:
@@ -256,8 +222,6 @@ class Server:
             return data
 
     def put_sync_client_media(self, environ, fname):
-        """Gets client media and applys to self."""
-
         self.ui_controller.update_status(\
             "Receiving client media. Please, wait...")
         try:

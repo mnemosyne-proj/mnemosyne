@@ -30,6 +30,9 @@
 >                     break
 >         return duplicates
 
+-rework interface of database.py to include syncing events.
+
+
 -id vs _id
 -tag.id in criteria?
 -is it worth keeping database.tag_names?

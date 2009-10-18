@@ -1,6 +1,7 @@
-"""
-Client.
-"""
+#
+# client.py - Max Usachev <maxusachev@gmail.com>
+#             Ed Bartosh <bartosh@gmail.com>
+#            <Peter.Bienstman@UGent.be>
 
 import mnemosyne.version
 import base64
@@ -13,14 +14,14 @@ from sync import PROTOCOL_VERSION, N_SIDED_CARD_TYPE
 from xml.etree import cElementTree
 
 
-#Overrides get_method method for using PUT request in urllib2
+#Overrides get_method method for using PUT request in urllib2.
+
 class PutRequest(urllib2.Request):
     def get_method(self):
         return "PUT"
 
 
 class Client:
-    """Base client class for syncing."""
 
     def __init__(self, host, port, uri, database, controller, config, log, \
         ui_controller):
@@ -44,13 +45,9 @@ class Client:
         self.stopped = False
 
     def set_user(self, login, passwd):
-        """Sets user login and password."""
-
         self.login, self.passwd = login, passwd
 
-    def start(self):
-        """Start syncing."""
-       
+    def start(self):       
         try:
             self.ui_controller.update_status("Authorization. Please, wait...")
             self.login_()
@@ -81,8 +78,8 @@ class Client:
                     "Applying server history. Please, wait...")
                 self.get_server_history(server_history_length)
 
-            # save current database and open backuped database
-            # to get history for server
+            # Save current database and open backuped database
+            # to get history for server.
             self.eman.replace_database(backup_file)
             
             client_history_length = self.eman.get_history_length()
@@ -92,7 +89,7 @@ class Client:
                 self.send_client_history(self.eman.get_history(), \
                     client_history_length)
 
-            # close temp database and return worked database
+            # Close temp database and return worked database.
             self.eman.return_databases()
 
             self.ui_controller.update_status(\
@@ -110,14 +107,10 @@ class Client:
             self.ui_controller.show_message("Sync finished!")
 
     def stop(self):
-        """Stops syncing."""
-
         self.stopped = True
         self.eman.stop()
 
     def login_(self):
-        """Logs on the server."""
-        
         self.ui_controller.update_events()
         base64string = base64.encodestring("%s:%s" % \
             (self.login, self.passwd))[:-1]
@@ -135,8 +128,6 @@ class Client:
                 raise SyncError(str(error.reason))
 
     def handshake(self):
-        """Handshaking with server."""
-    
         if self.stopped:
             return
         self.ui_controller.update_events()
@@ -157,14 +148,10 @@ class Client:
             self.eman.update_partnerships_table()
 
     def set_params(self, params):
-        """Uses for setting non-default params."""
-
         for key in params.keys():
             setattr(self, key, params[key])
 
     def get_server_media_count(self):
-        """Gets number of media files to recieve."""
-
         if self.stopped:
             return
         self.ui_controller.update_events()
@@ -175,8 +162,6 @@ class Client:
             raise SyncError("Getting server media count: " + str(error))
 
     def get_server_history_length(self):
-        """Gets server history length."""
-
         if self.stopped:
             return
         self.ui_controller.update_events()
@@ -187,8 +172,6 @@ class Client:
             raise SyncError("Getting server history length: " + str(error))
 
     def get_server_history(self, history_length):
-        """Connects to server and gets server history."""
-
         if self.stopped:
             return
         self.ui_controller.update_events()
@@ -212,8 +195,6 @@ class Client:
             raise SyncError("Getting server history: " + str(error))
 
     def get_media_history(self):
-        """Gets media history from server."""
-
         if self.stopped:
             return
         self.ui_controller.update_events()
@@ -224,8 +205,6 @@ class Client:
             raise SyncError("Getting server media history: " + str(error))
        
     def send_client_history(self, history, history_length):
-        """Sends client history to server."""
-
         #if self.stopped:
         #    return
         #self.update_events()
@@ -255,7 +234,7 @@ class Client:
         count = 0
         hsize = float(history_length + 2)
 
-        # send client history length
+        # Send client history length.
         conn.send(str(history_length) + '\r\n')
         self.ui_controller.show_progressbar()
         for chunk in history:
@@ -269,12 +248,10 @@ class Client:
         self.ui_controller.update_status(\
             "Waiting for the server complete. Please, wait...")
         response = conn.getresponse()
-        #FIXME: analize response for complete on serer side
+        #FIXME: analyze response for complete on server side.
         response.read()
 
     def send_client_media(self, history, media_count):
-        """Sends client media to server."""
-
         if self.stopped:
             return
         count = 0
@@ -287,8 +264,6 @@ class Client:
         self.ui_controller.hide_progressbar()
 
     def send_finish_request(self):
-        """Say to server thar sync is finished."""
-
         if self.stopped:
             return
         try:
@@ -300,8 +275,6 @@ class Client:
             self.eman.update_last_sync_event()
 
     def get_media_file(self, fname):
-        """Gets media from server."""
-
         try:
             response = urllib2.urlopen(\
                 self.uri + '/sync/server/media?fname=%s' % fname)
@@ -314,12 +287,9 @@ class Client:
             raise SyncError("Getting server media: " + str(error))
 
     def send_media_file(self, fname):
-        """Sends media to server."""
-
         mfile = open(os.path.join(self.config.mediadir(), fname), 'r')
         data = mfile.read()
         mfile.close()
-
         try:
             request = PutRequest(self.uri + '/sync/client/media?fname=%s' % \
                 os.path.basename(fname), data)
