@@ -1,5 +1,5 @@
 #
-# default_criterion.py - <Peter.Bienstman@UGent.be>
+# default_criterion.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.activity_criterion import ActivityCriterion

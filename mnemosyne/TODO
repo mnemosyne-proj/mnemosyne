@@ -1,3 +1,12 @@
+-update_events
+-event-->log
+-reuse current backup mechanism
+-DictClass
+-UiMessenger better created through inheritance as opposed to
+-<>
+-rename history by log
+-media
+
 -current active set not marked upon entering
 
 

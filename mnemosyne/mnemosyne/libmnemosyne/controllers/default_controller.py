@@ -442,7 +442,6 @@ class DefaultController(Controller):
             (self.component_manager).activate()
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
-        review_controller.reload_counters()
         review_controller.update_status_bar()
         self.stopwatch().unpause()
         

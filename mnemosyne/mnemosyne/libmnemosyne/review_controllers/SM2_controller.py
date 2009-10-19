@@ -67,6 +67,7 @@ class SM2Controller(ReviewController):
         sch = self.scheduler()
         sch.reset()
         sch.rebuild_queue()
+        self.reload_counters()
         # If previously there was no card active, perhaps there is one now.
         if self.card is None:
             self.new_question()

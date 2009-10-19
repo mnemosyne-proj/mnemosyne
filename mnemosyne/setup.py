@@ -172,7 +172,8 @@ setup (name = "Mnemosyne",
                    "mnemosyne.libmnemosyne.controllers",
                    "mnemosyne.libmnemosyne.ui_components",
                    "mnemosyne.libmnemosyne.statistics_pages",  
-                   "mnemosyne.libmnemosyne.review_controllers"
+                   "mnemosyne.libmnemosyne.review_controllers",
+                   "openSM2sync"
                    ],
        package_data = {"mnemosyne.pyqt_ui": ['locale/*.qm', 'mnemosyne.qrc'],
                        "mnemosyne": ['mnemosyne.qrc']},

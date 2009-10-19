@@ -64,7 +64,7 @@ class Cramming(SM2Mnemosyne):
             card.scheduler_data = self.RIGHT
         # Run hooks.
         card.fact.card_type.after_repetition(card)
-        self.criterion.card_reviewed(card)
+        self.criterion.apply_to_card(card)
         for f in self.component_manager.get_all("hook", "after_repetition"):
             f.run(card)
         return 0

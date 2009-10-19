@@ -96,7 +96,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
                 else:
                     node_item.setCheckState(0, QtCore.Qt.Unchecked)  
         # Set active tags.
-        elif len(criterion.active_tag__ids):
+        else:
             self.active_or_forbidden.setCurrentIndex(0)
             for node_item, tag in self.tag_for_node_item.iteritems():
                 if tag._id in criterion.active_tag__ids:

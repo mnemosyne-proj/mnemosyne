@@ -260,5 +260,22 @@ class TestActivateCards(MnemosyneTest):
         c = self.database().current_activity_criterion()
         assert len(c.deactivated_card_type_fact_view_ids) == 0
         
+    def test_cached_scheduler_count(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type_1 = self.card_type_by_id("1")
+        self.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["tag"])
+        assert self.database().active_count() == 1
+        self.review_controller().new_question()
+        assert self.review_controller().active_count == 1        
 
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c.active_tag__ids = set()
+        c.forbidden_tag__ids = set()
+        self.database().set_current_activity_criterion(c)
+        self.review_controller().reset_but_try_to_keep_current_card()
+        assert self.database().active_count() == 0
+        assert self.review_controller().active_count == 0        
         

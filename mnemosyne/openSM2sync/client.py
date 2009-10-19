@@ -1,7 +1,8 @@
 #
 # client.py - Max Usachev <maxusachev@gmail.com>
 #             Ed Bartosh <bartosh@gmail.com>
-#            <Peter.Bienstman@UGent.be>
+#             Peter Bienstman <Peter.Bienstman@UGent.be>
+#
 
 import mnemosyne.version
 import base64
@@ -14,7 +15,7 @@ from sync import PROTOCOL_VERSION, N_SIDED_CARD_TYPE
 from xml.etree import cElementTree
 
 
-#Overrides get_method method for using PUT request in urllib2.
+# Overrides get_method method for using PUT request in urllib2.
 
 class PutRequest(urllib2.Request):
     def get_method(self):

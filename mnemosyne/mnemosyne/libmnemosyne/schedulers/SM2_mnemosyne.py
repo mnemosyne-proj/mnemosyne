@@ -448,7 +448,7 @@ class SM2Mnemosyne(Scheduler):
         _("If you do this for many days, you could get a big workload later."))
         # Run hooks.
         card.fact.card_type.after_repetition(card)
-        self.criterion.card_reviewed(card)
+        self.criterion.apply_to_card(card)
         for f in self.component_manager.get_all("hook", "after_repetition"):
             f.run(card)
         # Create log entry.

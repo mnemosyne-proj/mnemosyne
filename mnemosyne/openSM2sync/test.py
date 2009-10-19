@@ -1,14 +1,55 @@
-import sys
 import os
-sys.path.insert(0, '../../')
-sys.path.insert(0, "../")
-from libSM2sync.server import Server
-from libSM2sync.client import Client
-from maemo_ui.factory import app_factory
+from openSM2sync.server import Server
+from openSM2sync.client import Client
+from threading import Thread
+from mnemosyne.libmnemosyne import Mnemosyne
 
-def main(argv):
-    """Main."""
+uri = "127.0.0.1:8024"
 
+class ServerThread(Thread):
+
+    def run(self):
+        self.mnemosyne = Mnemosyne()
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
+        self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(), "dot_mnemosyne_server")))
+        server = Server(uri, self.mnemosyne.database(), self.mnemosyne.config(),
+                        self.mnemosyne.log(), self.mnemosyne.main_widget())
+        server.start()
+        #mnemosyne.finalise()
+
+class ClientThread(Thread):
+
+    def run(self):
+        self.mnemosyne = Mnemosyne()
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
+        self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(), "dot_mnemosyne_client")))
+        client = Client(uri, self.mnemosyne.database(), self.mnemosyne.config(),
+                        self.mnemosyne.log(), self.mnemosyne.main_widget())
+        client.start()
+        #mnemosyne.finalise()                             
+
+if __name__ == "__main__":
+    server_thread = ServerThread()
+    server_thread.start()
+    client_thread = ClientThread()
+    client_thread.start()    
+    #server_thread.join()
+
+def main2(argv):
     if len(argv) < 3:
         print "USAGE: %s MODE HOST:PORT" % argv[0]
     else:
@@ -34,11 +75,8 @@ def main(argv):
             print "unknown mode"
 
 
-if __name__ == "__main__":
-    sys.exit(main(sys.argv))
 
-
-def TODO:
+def TODO():
     
     def start_client_sync_cb(self, widget):
         """Starts syncing as Client."""
