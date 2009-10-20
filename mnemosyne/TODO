@@ -1,4 +1,7 @@
+-statusbar
+
 -update_events
+-self.stopped
 -event-->log
 -reuse current backup mechanism
 -DictClass

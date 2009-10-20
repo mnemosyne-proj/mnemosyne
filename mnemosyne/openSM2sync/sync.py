@@ -1,7 +1,7 @@
 #
 # sync.py - Max Usachev <maxusachev@gmail.com>
-#             Ed Bartosh <bartosh@gmail.com>
-#            <Peter.Bienstman@UGent.be>
+#           Ed Bartosh <bartosh@gmail.com>
+#           Peter Bienstman <Peter.Bienstman@UGent.be>
 
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
@@ -27,16 +27,7 @@ class DictClass:
             setattr(self, attr, attributes[attr])
 
 
-class UIMessenger:
 
-    def __init__(self, messenger, events_updater, status_updater, \
-        show_progressbar, progress_updater, hide_progressbar):
-        self.show_message = messenger               #Show UI message
-        self.update_events = events_updater         #Update GTK UI
-        self.update_status = status_updater         #Update UI status label
-        self.show_progressbar = show_progressbar    #Shows UI ProgressBar
-        self.update_progressbar = progress_updater  #UI PorgressBar
-        self.hide_progressbar = hide_progressbar    #Hides UI ProgressBar
 
 
 class EventManager:
@@ -306,29 +297,25 @@ class EventManager:
         elif event == events.UPDATED_TAG:
             self.database.update_tag(self.create_tag_object(child))
         elif event == events.ADDED_CARD:
-            if not self.database.has_card_with_external_id(\
-                child.find('id').text):
-                card = self.create_card_object(child)
-                #print "adding new card with fact.data=", card.fact.data
-                self.database.add_card(card)
-                self.log.added_card(card)
+            card = self.create_card_object(child)
+            #print "adding new card with fact.data=", card.fact.data
+            self.database.add_card(card)
+            self.log.added_card(card)
         elif event == events.UPDATED_CARD:
             if self.allow_update_card:
                 #print "updating card..."
                 self.database.update_card(self.create_card_object(child))
             self.allow_update_card = True
         elif event == events.REPETITION:
-            if self.database.has_card_with_external_id(\
-                child.find('id').text):
-                old_card = self.database.get_card(child.find('id').text, False)
-                new_card = self.create_card_object(child)
-                if new_card.timestamp > old_card.last_rep:
-                    #print "repetition"
-                    self.database.update_card(new_card)
-                    self.database.log_repetition(new_card.timestamp, \
-                    new_card.id, new_card.grade, new_card.easiness, \
-                    new_card.acq_reps, new_card.ret_reps, new_card.lapses, \
-                    new_card.acq_reps_since_lapse, \
-                    new_card.ret_reps_since_lapse, new_card.scheduled_interval,\
-                    new_card.actual_interval, new_card.new_interval, \
-                    new_card.thinking_time)
+            old_card = self.database.get_card(child.find('id').text, False)
+            new_card = self.create_card_object(child)
+            if new_card.timestamp > old_card.last_rep:
+                #print "repetition"
+                self.database.update_card(new_card)
+                self.database.log_repetition(new_card.timestamp, \
+                new_card.id, new_card.grade, new_card.easiness, \
+                new_card.acq_reps, new_card.ret_reps, new_card.lapses, \
+                new_card.acq_reps_since_lapse, \
+                new_card.ret_reps_since_lapse, new_card.scheduled_interval,\
+                new_card.actual_interval, new_card.new_interval, \
+                new_card.thinking_time)

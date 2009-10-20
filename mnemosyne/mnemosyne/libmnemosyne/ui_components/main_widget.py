@@ -25,6 +25,9 @@ class MainWidget(UiComponent):
     def error_box(self, message):
         raise NotImplementedError
 
+    def status_bar_message(self, message):
+        pass
+
     def enable_edit_current_card(self, enabled):
         pass
         
