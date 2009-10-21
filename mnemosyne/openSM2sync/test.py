@@ -4,7 +4,7 @@ from openSM2sync.client import Client
 from threading import Thread
 from mnemosyne.libmnemosyne import Mnemosyne
 
-uri = "127.0.0.1:8024"
+url = "127.0.0.1:8024"
 
 class ServerThread(Thread):
 
@@ -19,7 +19,7 @@ class ServerThread(Thread):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(), "dot_mnemosyne_server")))
-        server = Server(uri, self.mnemosyne.database(), self.mnemosyne.config(),
+        server = Server(url, self.mnemosyne.database(), self.mnemosyne.config(),
                         self.mnemosyne.log(), self.mnemosyne.main_widget())
         server.start()
         #mnemosyne.finalise()
@@ -37,8 +37,8 @@ class ClientThread(Thread):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(), "dot_mnemosyne_client")))
-        client = Client(uri, self.mnemosyne.database(), self.mnemosyne.config(),
-                        self.mnemosyne.log(), self.mnemosyne.main_widget())
+        client = Client("user:pass@" + url, self.mnemosyne.database(),
+                        self.mnemosyne.main_widget())
         client.start()
         #mnemosyne.finalise()                             
 

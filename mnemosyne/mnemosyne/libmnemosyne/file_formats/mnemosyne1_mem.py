@@ -138,8 +138,7 @@ class Mnemosyne1Mem(FileFormat):
             return -1
             
         # Convert to 2.x data structures.
-        progress = self.component_manager.get_current("progress_dialog")\
-                   (self.component_manager)
+        progress = self.main_widget().get_progress_dialog()
         progress.set_text(_("Importing cards..."))
         progress.set_range(0, len(self.items))
         update_interval = int(len(self.items)/50)
@@ -236,8 +235,7 @@ class Mnemosyne1Mem(FileFormat):
         progress.set_value(len(self.items))
                         
     def _import_logs(self, filename):
-        progress = self.component_manager.get_current("progress_dialog")\
-                   (self.component_manager)
+        progress = self.main_widget().get_progress_dialog()
         progress.set_text(_("Importing history..."))
         parser = TxtLogParser(self.database(), ids_to_parse=self.items_by_id)
         log_dir = os.path.join(os.path.dirname(filename), "history")

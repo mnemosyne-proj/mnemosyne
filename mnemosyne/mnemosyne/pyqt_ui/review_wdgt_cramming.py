@@ -21,13 +21,13 @@ class ReviewWdgtCramming(ReviewWdgt):
         self.grade_5_button.setText(_("&Right"))
         self.grade_5_button.setFocus()
         parent = self.parent()
-        self.wrong = QtGui.QLabel("", parent.statusbar)
-        self.unseen = QtGui.QLabel("", parent.statusbar)
-        self.active = QtGui.QLabel("", parent.statusbar)
-        parent.clear_statusbar()
-        parent.add_to_statusbar(self.wrong)
-        parent.add_to_statusbar(self.unseen)
-        parent.add_to_statusbar(self.active)
+        self.wrong = QtGui.QLabel("", parent.status_bar)
+        self.unseen = QtGui.QLabel("", parent.status_bar)
+        self.active = QtGui.QLabel("", parent.status_bar)
+        parent.clear_status_bar()
+        parent.add_to_status_bar(self.wrong)
+        parent.add_to_status_bar(self.unseen)
+        parent.add_to_status_bar(self.active)
 
     def update_status_bar(self, message=None):
         wrong_count, unseen_count, active_count = \
@@ -36,4 +36,4 @@ class ReviewWdgtCramming(ReviewWdgt):
         self.unseen.setText(_("Unseen: %d ") % unseen_count)
         self.active.setText(_("Active: %d ") % active_count)
         if message:
-            self.parent().statusBar().showMessage(message)         
+            self.main_widget().status_bar_message(message)

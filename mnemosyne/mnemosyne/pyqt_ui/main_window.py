@@ -21,7 +21,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         MainWidget.__init__(self, component_manager)
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
-        self.statusbar_widgets = []
+        self.status_bar_widgets = []
 
     def closeEvent(self, event):
         self.config()["main_window_size"] = (self.width(), self.height())
@@ -39,15 +39,18 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
                      self.controller().heartbeat)
         self.timer_2.start(1000 * 60 * 60 * 24)
         self.review_controller().reset()
-        
-    def add_to_statusbar(self, widget):
-        self.statusbar_widgets.append(widget)
-        self.statusbar.addPermanentWidget(widget)
 
-    def clear_statusbar(self):
-        for widget in self.statusbar_widgets:
-            self.statusbar.removeWidget(widget)
-        self.statusbar_widgets = []
+    def status_bar_message(self, message):
+        self.status_bar().showMessage(message)
+
+    def add_to_status_bar(self, widget):
+        self.status_bar_widgets.append(widget)
+        self.status_bar.addPermanentWidget(widget)
+
+    def clear_status_bar(self):
+        for widget in self.status_bar_widgets:
+            self.status_bar.removeWidget(widget)
+        self.status_bar_widgets = []
 
     def information_box(self, message):
         QtGui.QMessageBox.information(None, _("Mnemosyne"), message, _("&OK"))
@@ -140,7 +143,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
 
     def cleanDuplicates(self):
         stopwatch.pause()
-        self.statusbar.message(_("Please wait..."))
+        self.status_bar.message(_("Please wait..."))
         clean_duplicates(self)
         rebuild_queue()
         if not in_queue(self.card):

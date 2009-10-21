@@ -1,14 +1,12 @@
--statusbar
-
 -update_events
 -self.stopped
 -event-->log
 -reuse current backup mechanism
 -DictClass
--UiMessenger better created through inheritance as opposed to
 -<>
 -rename history by log
 -media
+-ui: pass or notImplemented?
 
 -current active set not marked upon entering
 

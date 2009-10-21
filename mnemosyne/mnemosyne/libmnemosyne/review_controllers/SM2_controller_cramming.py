@@ -25,7 +25,7 @@ class SM2ControllerCramming(SM2Controller):
             self.database().save()
             self.new_question()
         self.widget.update_status_bar()
-        if self.config()["show_intervals"] == "statusbar":
+        if self.config()["show_intervals"] == "status_bar":
             self.review_widget().update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
 

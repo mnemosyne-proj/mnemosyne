@@ -28,6 +28,12 @@ class MainWidget(UiComponent):
     def status_bar_message(self, message):
         pass
 
+    def add_to_status_bar(self, widget):
+        pass
+
+    def clear_status_bar(self):
+        pass
+
     def enable_edit_current_card(self, enabled):
         pass
         
@@ -48,3 +54,14 @@ class MainWidget(UiComponent):
 
     def set_window_title(self, title):
         pass
+
+    def get_progress_dialog(self):
+
+        """Convenience function to be able to use main_widget in libraries
+        which don't know about libmnemosyne (like openSM2sync.
+
+        """
+        
+        return self.component_manager.get_current("progress_dialog")\
+                   (self.component_manager)
+        

@@ -18,8 +18,14 @@ class UI(object):
     def error_box(self, message):
         raise NotImplementedError
 
-    def update_status_bar(self, message=None):
-        pass 
+    def status_bar_message(self, message):
+        pass
+
+    def get_progress_dialog(self):
+
+        """Returns a new progress dialog with the interface specified below."""
+        
+        pass        
 
 
 

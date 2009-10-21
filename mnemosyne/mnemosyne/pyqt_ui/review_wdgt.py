@@ -39,14 +39,14 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.addButton(self.grade_5_button, 5)
         self.connect(self.grade_buttons, QtCore.SIGNAL("buttonClicked(int)"),\
                      self.grade_answer)
-        self.sched = QtGui.QLabel("", parent.statusbar)
-        self.notmem = QtGui.QLabel("", parent.statusbar)
-        self.act = QtGui.QLabel("", parent.statusbar)
-        parent.clear_statusbar()
-        parent.add_to_statusbar(self.sched)
-        parent.add_to_statusbar(self.notmem)
-        parent.add_to_statusbar(self.act)
-        parent.statusbar.setSizeGripEnabled(0)
+        self.sched = QtGui.QLabel("", parent.status_bar)
+        self.notmem = QtGui.QLabel("", parent.status_bar)
+        self.act = QtGui.QLabel("", parent.status_bar)
+        parent.clear_status_bar()
+        parent.add_to_status_bar(self.sched)
+        parent.add_to_status_bar(self.notmem)
+        parent.add_to_status_bar(self.act)
+        parent.status_bar.setSizeGripEnabled(0)
 
     def show_answer(self):
         self.review_controller().show_answer()
@@ -120,4 +120,3 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.act.setText(_("Active: %d ") % active_count)
         if message:
             self.main_widget().status_bar_message(message)
-            #self.parent().statusBar().showMessage(message)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>248</width>
-    <height>201</height>
+    <width>234</width>
+    <height>177</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,12 +24,12 @@
     <normaloff>:/mnemosyne/pixmaps/mnemosyne.png</normaloff>:/mnemosyne/pixmaps/mnemosyne.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QMenuBar" name="menu_bar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>248</width>
+     <width>234</width>
      <height>24</height>
     </rect>
    </property>
@@ -84,8 +84,8 @@
    <addaction name="menu_Settings"/>
    <addaction name="menu_Help"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="QStatusBar" name="status_bar"/>
+  <widget class="QToolBar" name="tool_bar">
    <property name="windowTitle">
     <string>toolBar</string>
    </property>

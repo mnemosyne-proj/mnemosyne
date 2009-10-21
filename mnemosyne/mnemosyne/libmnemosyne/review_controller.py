@@ -71,7 +71,7 @@ class ReviewController(Component):
     def update_dialog(self):
         raise NotImplementedError
 
-    def update_statusbar(self, message=None):
+    def update_status_bar(self, message=None):
         raise NotImplementedError 
 
     def is_question_showing(self):
