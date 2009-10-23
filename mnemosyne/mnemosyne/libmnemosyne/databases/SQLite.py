@@ -27,7 +27,7 @@ re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 # database. All other id's correspond to the id's used in libmnemosyne.
 # We don't use libmnemosyne id's as primary keys for speed reasons.
 
-# All times are Posix timestamps
+# All times are Posix timestamps.
 
 SCHEMA = """
     begin;
@@ -324,13 +324,14 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         # every review.
 
     def backup(self):
+        self.save()
         if self.config()["backups_to_keep"] == 0:
             return
         backupdir = os.path.join(self.config().basedir, "backups")
         # Make a copy. Create only a single file per day.
         db_name = os.path.basename(self._path).rsplit(".", 1)[0]
         backupfile = db_name + "-" + \
-                   datetime.date.today().strftime("%Y%m%d") + ".db"
+                   datetime.datetime.today().strftime("%Y%m%d-%H:%M.db")
         backupfile = os.path.join(backupdir, backupfile)
         shutil.copy(self._path, backupfile)
         if not os.path.exists(backupfile) or not os.stat(backupfile).st_size:
@@ -340,7 +341,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             f.run(backupfile)
         # Only keep the last logs.
         if self.config()["backups_to_keep"] < 0:
-            return
+            return backupfile
         files = [f for f in os.listdir(backupdir) \
                 if f.startswith(db_name + "-")]
         files.sort()
@@ -348,6 +349,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
             surplus = len(files) - self.config()["backups_to_keep"]
             for file in files[0:surplus]:
                 os.remove(os.path.join(backupdir, file))
+        return backupfile
 
     def unload(self):
         for f in self.component_manager.get_all("hook", "before_unload"):
@@ -843,7 +845,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
         _id = self.con.execute("""select _id from log""").fetchall()[-1][0]
         self.con.execute("""update partnerships set _last_log_id=? 
            where partner=?""", (_id, partner))
-        
+            
     #
     # Queries.
     #

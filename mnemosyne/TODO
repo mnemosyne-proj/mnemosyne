@@ -1,11 +1,12 @@
--update_events
--self.stopped
+-self.stopped, timeouts
 -event-->log
 -reuse current backup mechanism
 -DictClass
 -<>
 -rename history by log
 -media
+-get media file
+-sql roll back?
 -ui: pass or notImplemented?
 
 -current active set not marked upon entering

@@ -30,17 +30,15 @@ class DictClass:
 
 class EventManager:
     
-    """ Class for manipulatig with client/server database:
+    """Class for manipulatig with client/server database:
     reading/writing history events, generating/parsing
     XML representation of history events.
     
     """
 
     def __init__(self, database, mediadir, get_media, ui):
-        self.controller = controller
         self.database = database
         self.db_path = database._path
-        self.log = log
         self.object_factory = {"tag": self.create_tag_object, "fact": \
             self.create_fact_object, "card": self.create_card_object, \
             "cardtype": self.create_cardtype_object, "media": \
@@ -53,29 +51,6 @@ class EventManager:
         self.ui = ui
         self.stopped = False
         self.allow_update_card = True
-
-    def make_backup(self):
-        return self.database.make_sync_backup()
-
-    def restore_backup(self):
-        self.database.restore_sync_backup()
-
-    def remove_backup(self):
-        self.database.remove_sync_backup()
-
-    def replace_database(self, backup_file):
-
-        """Temporary replace current database by backuped."""
-
-        self.database.unload()
-        self.database.load(backup_file)
-
-    def return_databases(self):
-
-        """Replace current backuped database by native database."""
-
-        self.database.abandon()
-        self.database.load(self.db_path)
 
     def stop(self):
         self.stopped = True

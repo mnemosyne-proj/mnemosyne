@@ -98,7 +98,7 @@ class Configuration(Component, dict):
              "language": None,
              "show_daily_tips": True,
              "tip": 0,
-             "backups_to_keep": 5,
+             "backups_to_keep": 10,
              "day_starts_at": 3, 
              "latex_preamble": "\\documentclass[12pt]{article}\n"+
                               "\\pagestyle{empty}\n\\begin{document}",

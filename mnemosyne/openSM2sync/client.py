@@ -22,16 +22,16 @@ class PutRequest(urllib2.Request):
         return "PUT"
 
 
-class Client:
+class Client(object):
 
     def __init__(self, url, database, ui):
 
         """Note: URL contains user and password as well."""
 
         self.url = urlparse.urlparse(url)
+        self.database = database
         self.ui = ui
-        self.eman = EventManager(database, \
-            self.config.mediadir(), self.get_media_file, ui)
+        self.eman = EventManager(database, "mediadir", self.get_media_file, ui)
         self.id = "TODO"
         self.name = "TODO"
         self.version = "TODO"
@@ -43,73 +43,59 @@ class Client:
 
     def start(self):       
         try:
-            self.ui.status_bar_message("Authorization. Please wait...")
-            self.login_()
-
-            self.ui.status_bar_message("Handshaking. Please wait...")
+            backup_file = self.database.backup()
+            
+            self.ui.status_bar_message("Logging in...")
+            self.login()
+            self.ui.status_bar_message("Handshaking...")
             self.handshake()
+            self.ui.status_bar_message("Creating backup...")
 
-            self.ui.status_bar_message("Creating backup. Please wait...")
-            backup_file = self.eman.make_backup()
-
+            client_history_length = self.eman.get_history_length()
+            if client_history_length:
+                self.ui.status_bar_message(\
+                    "Sending client history to the server...")
+                self.send_client_history(self.eman.get_history(), \
+                    client_history_length)
+                
             server_media_count = self.get_server_media_count()
             if server_media_count:
-                self.ui.status_bar_message(\
-                    "Applying server media. Please wait...")
+                self.ui.status_bar_message("Applying server media...")
                 self.eman.apply_media(self.get_media_history(), \
                     server_media_count)
 
             client_media_count = self.eman.get_media_count()
             if client_media_count:
                 self.ui.status_bar_message(\
-                    "Sending client media to the server. Please wait...")
+                    "Sending client media to the server...")
                 self.send_client_media(self.eman.get_media_history(), \
                     client_media_count)
 
             server_history_length = self.get_server_history_length()
             if server_history_length:
-                self.ui.status_bar_message(\
-                    "Applying server history. Please wait...")
+                self.ui.status_bar_message("Applying server history...")
                 self.get_server_history(server_history_length)
 
-            # Save current database and open backuped database
-            # to get history for server.
-            self.eman.replace_database(backup_file)
-            
-            client_history_length = self.eman.get_history_length()
-            if client_history_length:
-                self.ui.status_bar_message(\
-                    "Sending client history to the server. Please wait...")
-                self.send_client_history(self.eman.get_history(), \
-                    client_history_length)
-
-            # Close temp database and return worked database.
-            self.eman.return_databases()
-
-            self.ui.status_bar_message(\
-                "Waiting for the server complete. Please, wait...")
-    
+            self.ui.status_bar_message("Waiting for the server to complete...")
             self.send_finish_request()
-
             if self.stopped:
                 raise SyncError("Aborted!")
         except SyncError, exception:
-            self.eman.restore_backup()
-            self.ui.show_message("Error: " + str(exception))
+            self.database.load(backup_file) # TODO: use SQL rollback?
+            self.ui.error_box("Error: " + str(exception))
         else:
-            self.eman.remove_backup()
-            self.ui.show_message("Sync finished!")
+            self.ui.information_box("Sync finished!")
 
     def stop(self):
         self.stopped = True
         self.eman.stop()
 
-    def login_(self):
-        #self.ui.update_events()
+    def login(self):
         base64string = base64.encodestring("%s:%s" % \
-            (self.url.username, self.passwordd))[:-1]
-        authheader =  "Basic %s" % base64string
-        request = urllib2.Request(self.url)
+            (self.url.username, self.url.password))[:-1]
+        authheader = "Basic %s" % base64string
+        request = urllib2.Request("http://%s:%d" % \
+                                  (self.url.hostname, self.url.port))
         request.add_header("AUTHORIZATION", authheader)
         try:
             urllib2.urlopen(request).read()
@@ -124,7 +110,6 @@ class Client:
     def handshake(self):
         if self.stopped:
             return
-        #self.ui.update_events()
         cparams = "<params><client id='%s' name='%s' ver='%s' protocol='%s'" \
             " deck='%s' cardtypes='%s' extra='%s'/></params>\n" % (self.id, \
             self.name, self.version, self.protocol, self.deck, self.cardtypes, \
@@ -148,7 +133,6 @@ class Client:
     def get_server_media_count(self):
         if self.stopped:
             return
-        #self.ui.update_events()
         try:
             return int(urllib2.urlopen(\
                 self.url + "/sync/server/history/media/count").read())
@@ -158,7 +142,6 @@ class Client:
     def get_server_history_length(self):
         if self.stopped:
             return
-        #self.ui.update_events()
         try:
             return int(urllib2.urlopen(\
                 self.url + "/sync/server/history/length").read())
@@ -168,7 +151,6 @@ class Client:
     def get_server_history(self, history_length):
         if self.stopped:
             return
-        #self.ui.update_events()
         count = 0
         hsize = float(history_length)
         try:
@@ -189,9 +171,8 @@ class Client:
             raise SyncError("Getting server history: " + str(error))
 
     def get_media_history(self):
-        #if self.stopped:
-        #    return
-        #self.ui.update_events()
+        if self.stopped:
+            return
         try:
             return urllib2.urlopen(self.url + "/sync/server/mediahistory"). \
                 readline()
@@ -201,7 +182,6 @@ class Client:
     def send_client_history(self, history, history_length):
         #if self.stopped:
         #    return
-        #self.update_events()
         #chistory = ''
         #for chunk in history:
         #    chistory += chunk
@@ -246,8 +226,8 @@ class Client:
         response.read()
 
     def send_client_media(self, history, media_count):
-        #if self.stopped:
-        #    return
+        if self.stopped:
+            return
         count = 0
         hsize = float(media_count)
         self.ui.show_progressbar()
@@ -258,8 +238,8 @@ class Client:
         self.ui.hide_progressbar()
 
     def send_finish_request(self):
-        #if self.stopped:
-        #    return
+        if self.stopped:
+            return
         try:
             if urllib2.urlopen(self.url + "/sync/finish").read() != "OK":
                 raise SyncError("Finishing sync: error on server side.")
