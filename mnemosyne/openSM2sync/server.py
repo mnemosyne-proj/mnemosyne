@@ -20,9 +20,8 @@ from sync import N_SIDED_CARD_TYPE
 
 class MyWSGIServer(WSGIServer):
 
-    def __init__(self, host, port, app, handler_class=WSGIRequestHandler):
-        WSGIServer.__init__(self, (host, port), handler_class)
-        self.set_app(app)
+    def __init__(self, server_address, app):
+        WSGIServer.__init__(self, server_address, app)
         self.stopped = False
         self.update_events = None
         self.timeout = 1
@@ -41,14 +40,11 @@ class Server(object):
 
     DEFAULT_MIME = "xml/text"
 
-    def __init__(self, url, database, ui):
-        self.url = urlparse(url)
+    def __init__(self, host, port, database, ui):
         self.ui = ui
         self.eman = EventManager(database, "mediadir_TODO", None, ui)
-        self.httpd = MyWSGIServer(self.url.hostname, self.url.port, self.wsgi_app)
-        self.login = None
-        self.passwd = None
-        self.logged = False
+        self.httpd = MyWSGIServer((host, port), self.wsgi_app)
+        self.logged_in = False
         self.machine_id = hex(uuid.getnode())
         self.name = "Mnemosyne"
         self.version = mnemosyne.version.version
@@ -56,6 +52,12 @@ class Server(object):
         self.cardtypes = N_SIDED_CARD_TYPE
         self.upload_media = True
         self.read_only = False
+
+    def authorise(self, login, password):
+
+        """Returns true if password correct for login."""
+
+        raise NotImplementedError
 
     def get_method(self, environ):
 
@@ -74,16 +76,17 @@ class Server(object):
             return True
 
         if environ.has_key("HTTP_AUTHORIZATION"):
-            clogin, cpasswd = base64.decodestring(\
+            login, password = base64.decodestring(\
                 environ["HTTP_AUTHORIZATION"].split(" ")[-1]).split(":")
-            if clogin == self.login and cpasswd == self.passwd:
-                self.logged = True
+            if self.authorise(login, password):
+                self.logged_in = True
                 status = "200 OK"
             else:
+                self.logged_in = False
                 status = "403 Forbidden"
             return status, "text/plain", None, None
         else:
-            if not self.logged:
+            if not self.logged_in:
                 return "403 Forbidden", "text/plain", None, None
             method = (environ["REQUEST_METHOD"] + \
                 "_".join(environ["PATH_INFO"].split("/"))).lower()
@@ -110,7 +113,6 @@ class Server(object):
     
     def start(self):
         self.ui.status_bar_message("Waiting for client connection...")
-        print "Server started at HOST:%s, PORT:%s" % (self.url.hostname, self.url.port)
         self.httpd.serve_forever()
 
     def stop(self):
@@ -188,10 +190,9 @@ class Server(object):
         return "OK"
 
     def get_sync_finish(self, environ):
-        self.eman.remove_backup()
         self.ui.status_bar_message("Waiting for client to finish..")
         self.eman.update_last_sync_event()
-        self.logged = False
+        self.logged_in = False
         self.stop()
         return "OK"
 

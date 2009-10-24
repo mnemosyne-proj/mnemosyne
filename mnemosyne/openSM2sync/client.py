@@ -7,7 +7,6 @@
 import os
 import base64
 import urllib2
-import urlparse
 from xml.etree import cElementTree
 
 from sync import SyncError
@@ -24,11 +23,7 @@ class PutRequest(urllib2.Request):
 
 class Client(object):
 
-    def __init__(self, url, database, ui):
-
-        """Note: URL contains user and password as well."""
-
-        self.url = urlparse.urlparse(url)
+    def __init__(self, database, ui):
         self.database = database
         self.ui = ui
         self.eman = EventManager(database, "mediadir", self.get_media_file, ui)
@@ -41,15 +36,15 @@ class Client(object):
         self.extra = ""
         self.stopped = False
 
-    def start(self):       
+    def sync(self, url, username, password):       
         try:
+            self.url = url
+            
+            self.ui.status_bar_message("Creating backup...")
             backup_file = self.database.backup()
             
-            self.ui.status_bar_message("Logging in...")
-            self.login()
-            self.ui.status_bar_message("Handshaking...")
+            self.login(username, password)
             self.handshake()
-            self.ui.status_bar_message("Creating backup...")
 
             client_history_length = self.eman.get_history_length()
             if client_history_length:
@@ -90,24 +85,22 @@ class Client(object):
         self.stopped = True
         self.eman.stop()
 
-    def login(self):
-        base64string = base64.encodestring("%s:%s" % \
-            (self.url.username, self.url.password))[:-1]
-        authheader = "Basic %s" % base64string
-        request = urllib2.Request("http://%s:%d" % \
-                                  (self.url.hostname, self.url.port))
-        request.add_header("AUTHORIZATION", authheader)
+    def login(self, username, password):
+        self.ui.status_bar_message("Logging in...")
+        request = urllib2.Request(self.url)
+        base64string = base64.encodestring("%s:%s" % (username, password))
+        # Add header and strip off trailing \n in base64string.
+        request.add_header("AUTHORIZATION", "Basic %s" % base64string[:-1])
         try:
             urllib2.urlopen(request).read()
         except urllib2.URLError, error:
-            if hasattr(error, "code"):
-                if error.code == 403:
-                    raise SyncError(\
-                        "Authentification failed: wrong login or password!")
+            if hasattr(error, "code") and error.code == 403:
+                raise SyncError("Wrong login or password.")
             else:
                 raise SyncError(str(error.reason))
 
     def handshake(self):
+        self.ui.status_bar_message("Handshaking...")
         if self.stopped:
             return
         cparams = "<params><client id='%s' name='%s' ver='%s' protocol='%s'" \

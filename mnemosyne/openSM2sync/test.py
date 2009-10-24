@@ -11,6 +11,9 @@ class Widget(MainWidget):
     def status_bar_message(self, message):
         print message
         
+    def information_box(self, info):
+        print info
+        
     def error_box(self, error):
         print error
         
@@ -22,36 +25,46 @@ class Widget(MainWidget):
         
 class ServerThread(Thread):
 
+    def authorise(self, login, password):
+        return login == "user" and password == "pass"
+
     def run(self):
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(("test", "Widget"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(), "dot_mnemosyne_server")))
-        url = "http://127.0.0.1:8024"
-        server = Server(url, self.mnemosyne.database(), self.mnemosyne.main_widget())
-        server.start()
+        self.server = Server("127.0.0.1", 8024,
+                             self.mnemosyne.database(), self.mnemosyne.main_widget())
+        self.server.authorise = self.authorise
+        self.server.start()
         self.mnemosyne.finalise()
 
 
-class ClientThread(Thread):
+class ClientObject(object):
 
-    def run(self):
+    def start(self):
 
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(("test", "Widget"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(), "dot_mnemosyne_client")))
-        url = "http://user:pass@127.0.0.1:8024"
-        client = Client(url, self.mnemosyne.database(),
-                        self.mnemosyne.main_widget())
-        client.start()
+        url = "http://127.0.0.1:8024"
+        client = Client(self.mnemosyne.database(), self.mnemosyne.main_widget())
+        client.sync(url, "user", "pass")
         self.mnemosyne.finalise()                             
 
 if __name__ == "__main__":
-    server_thread = ServerThread()
-    server_thread.start()
-    client_thread = ClientThread()
-    client_thread.start()    
-    #server_thread.join()
+    try:
+        server_thread = ServerThread()
+        server_thread.start()
+        client = ClientObject()
+        client.start()
+    except:
+        import traceback, sys
+        traceback.print_exc(file=sys.stdout)
+    server_thread.server.httpd.stop()
+    server_thread.join(0)
+    print 'closing down server'
+    server_thread.server.httpd.socket.close() 
