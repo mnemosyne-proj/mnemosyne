@@ -1,3 +1,9 @@
+-insert or ignore
+-partner.id --> name
+-merge create partnership with set sync params
+
+-group partership code from mem import
+
 -self.stopped, timeouts
 -event-->log
 -reuse current backup mechanism
@@ -8,6 +14,31 @@
 -get media file
 -sql roll back?
 -ui: pass or notImplemented?
+-rename server, client -> openSM2syncserver?
+
+
+I looked further into it, using BaseHTTPServer.
+
+- the output stream of the server was unbuffered by default. buffering
+it saves a bit of time, eg
+
+        wfile = self.connection.makefile("wb", 4096)
+        for chunk in generate_JSON(cards):
+            wfile.write(chunk)
+
+- looking at the source code of httplib (which urllib uses), it also
+uses an unbuffered file by default. performance nearly as good as the
+tcp server can be achieved by fetching the data in one go using
+urlretrieve() and then iterating over the retrieved file, and the same
+performance as the socket implementation can be achieved by using a
+buffered file instead:
+
+def parse_JSON(fileobj):
+   import simplejson, time
+   fp = os.fdopen(fileobj.fileno(), 'rb', -1)
+   for data in fp:
+      simplejson.loads(data) 
+
 
 -current active set not marked upon entering
 

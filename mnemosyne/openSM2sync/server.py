@@ -5,10 +5,8 @@
 
 import os
 import cgi
-import uuid
 import base64
 import select
-from urlparse import urlparse
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
 import mnemosyne.version
@@ -18,34 +16,18 @@ from sync import PROTOCOL_VERSION
 from sync import N_SIDED_CARD_TYPE
 
 
-class MyWSGIServer(WSGIServer):
-
-    def __init__(self, server_address, app):
-        WSGIServer.__init__(self, server_address, app)
-        self.stopped = False
-        self.update_events = None
-        self.timeout = 1
-
-    def stop(self):
-        self.stopped = True
-        
-    def serve_forever(self):
-        while not self.stopped:
-            if select.select([self.socket], [], [], self.timeout)[0]:
-                self.handle_request()
-        self.socket.close()
-        
-
-class Server(object):
-
-    DEFAULT_MIME = "xml/text"
+class Server(WSGIServer):
 
     def __init__(self, host, port, database, ui):
+        WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
+        self.set_app(self.wsgi_app)
+        self.database = database
         self.ui = ui
         self.eman = EventManager(database, "mediadir_TODO", None, ui)
-        self.httpd = MyWSGIServer((host, port), self.wsgi_app)
+        self.stopped = False
         self.logged_in = False
-        self.machine_id = hex(uuid.getnode())
+        self.machine_id = "TODO"
+        
         self.name = "Mnemosyne"
         self.version = mnemosyne.version.version
         self.protocol = PROTOCOL_VERSION
@@ -53,11 +35,26 @@ class Server(object):
         self.upload_media = True
         self.read_only = False
 
-    def authorise(self, login, password):
+    def wsgi_app(self, environ, start_response):
+        status, mime, method, args = self.get_method(environ)
+        response_headers = [("Content-type", mime)]
+        start_response(status, response_headers)
+        if method:
+            return getattr(self, method)(environ, **args)
+        else:
+            return status
 
-        """Returns true if password correct for login."""
+    def serve_forever(self):
+        self.ui.status_bar_message("Waiting for client connection...")
+        timeout = 1
+        while not self.stopped:
+            if select.select([self.socket], [], [], timeout)[0]:
+                self.handle_request()
+        self.socket.close()
 
-        raise NotImplementedError
+    def stop(self):
+        self.stopped = True
+        self.eman.stop()
 
     def get_method(self, environ):
 
@@ -96,32 +93,22 @@ class Server(object):
                 if getattr(self, method).func_code.co_argcount-2 == len(args) \
                     and compare_args(args.keys(), getattr(self, method). \
                         func_code.co_varnames):                
-                    return "200 OK", self.DEFAULT_MIME, method, args
+                    return "200 OK", "xml/text", method, args
                 else:
                     return "400 Bad Request", "text/plain", None, None
             else:
                 return "404 Not Found", "text/plain", None, None
 
-    def wsgi_app(self, environ, start_response):
-        status, mime, method, args = self.get_method(environ)
-        headers = [("Content-type", mime)]
-        start_response(status, headers)
-        if method:
-            return getattr(self, method)(environ, **args)
-        else:
-            return status
-    
-    def start(self):
-        self.ui.status_bar_message("Waiting for client connection...")
-        self.httpd.serve_forever()
+    def authorise(self, login, password):
 
-    def stop(self):
-        self.httpd.stop()
-        self.eman.stop()
+        """Returns true if password correct for login."""
 
-    def set_params(self, params):
-        for key in params.keys():
-            setattr(self, key, params[key])
+        raise NotImplementedError
+
+    # The following are methods that are supported by the server through GET
+    # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo/bar'
+    # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo/bar'
+    # request.
 
     def get_sync_server_params(self, environ):
         self.ui.status_bar_message("Sending server params to the client...")
@@ -139,7 +126,7 @@ class Server(object):
             return "CANCEL"
         else:
             self.eman.set_sync_params(client_params)
-            self.eman.update_partnerships_table()
+            self.eman.create_partnership_if_needed()
             return "OK"
 
     def get_sync_server_history_media_count(self, environ):
@@ -190,7 +177,7 @@ class Server(object):
         return "OK"
 
     def get_sync_finish(self, environ):
-        self.ui.status_bar_message("Waiting for client to finish..")
+        self.ui.status_bar_message("Waiting for client to finish...")
         self.eman.update_last_sync_event()
         self.logged_in = False
         self.stop()

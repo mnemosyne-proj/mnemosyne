@@ -27,7 +27,6 @@ class DictClass:
             setattr(self, attr, attributes[attr])
 
 
-
 class EventManager:
     
     """Class for manipulatig with client/server database:
@@ -38,6 +37,7 @@ class EventManager:
 
     def __init__(self, database, mediadir, get_media, ui):
         self.database = database
+        self.ui = ui
         self.db_path = database._path
         self.object_factory = {"tag": self.create_tag_object, "fact": \
             self.create_fact_object, "card": self.create_card_object, \
@@ -48,7 +48,6 @@ class EventManager:
             None, "deck": None, "upload": True, "readonly": False}
         self.mediadir = mediadir
         self.get_media = get_media
-        self.ui = ui
         self.stopped = False
         self.allow_update_card = True
 
@@ -61,8 +60,8 @@ class EventManager:
         for key in params.keys():
             self.partner[key] = params.get(key)
 
-    def update_partnerships_table(self):
-        self.database.update_partnerships(self.partner["id"])
+    def create_partnership_if_needed(self):
+        self.database.create_partnership_if_needed(self.partner["id"])
 
     def update_last_sync_event(self):
         self.database.update_last_sync_event(self.partner["id"])

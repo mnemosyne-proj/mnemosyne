@@ -14,9 +14,10 @@ from sync import EventManager
 from sync import PROTOCOL_VERSION, N_SIDED_CARD_TYPE
 
 
-# Overrides get_method method for using PUT request in urllib2.
-
 class PutRequest(urllib2.Request):
+
+    """Implement PUT request in urllib2, as needed by the RESTful API."""
+    
     def get_method(self):
         return "PUT"
 
@@ -117,7 +118,7 @@ class Client(object):
             raise SyncError("Handshaking: " + str(error))
         else:
             self.eman.set_sync_params(sparams)
-            self.eman.update_partnerships_table()
+            self.eman.create_partnership_if_needed()
 
     def set_params(self, params):
         for key in params.keys():

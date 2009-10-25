@@ -37,7 +37,7 @@ class ServerThread(Thread):
         self.server = Server("127.0.0.1", 8024,
                              self.mnemosyne.database(), self.mnemosyne.main_widget())
         self.server.authorise = self.authorise
-        self.server.start()
+        self.server.serve_forever()
         self.mnemosyne.finalise()
 
 
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     except:
         import traceback, sys
         traceback.print_exc(file=sys.stdout)
-    server_thread.server.httpd.stop()
+    server_thread.server.stop()
     server_thread.join(0)
     print 'closing down server'
-    server_thread.server.httpd.socket.close() 
+    server_thread.server.socket.close() 

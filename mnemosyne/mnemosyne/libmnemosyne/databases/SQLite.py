@@ -829,7 +829,7 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
            self.UPDATED_TAG, self.ADDED_CARD, self.UPDATED_CARD, \
            self.REPETITION)).fetchone()[0]
 
-    def update_partnerships(self, partner):
+    def create_partnership_if_needed(self, partner):
         sql_res = self.con.execute("""select partner from partnerships 
            where partner=?""", (partner, )).fetchone()
         if not sql_res:
