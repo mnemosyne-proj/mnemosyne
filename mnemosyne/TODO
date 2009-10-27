@@ -1,6 +1,4 @@
--insert or ignore
--partner.id --> name
--merge create partnership with set sync params
+-cdata for deck name
 
 -group partership code from mem import
 
@@ -155,6 +153,7 @@ the GUI function itself?
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 -be sure to truncate time to int if it comes from other SRS systems
+-make sure we do progressive parsing
 -make sure active gets updated too
 -activating cards
 -make sure to convert int(time.time()) to integer
@@ -162,6 +161,8 @@ http://www.linuxtopia.org/online_books/programming_books/python_programming/pyth
 -how to prevent different instantiations from uploading logs twice
 -check if updated_card event without added card event works
 -mechanism to have plugin settings synced?
+-pull in user id on first sync
+-compare deck name
 
 
 -have hierarchy in plugin names

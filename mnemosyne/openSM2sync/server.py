@@ -111,9 +111,9 @@ class Server(WSGIServer):
     # request.
 
     def get_sync_server_params(self, environ):
-        self.ui.status_bar_message("Sending server params to the client...")
-        return "<params><server id='%s' name='%s' ver='%s' protocol='%s' " \
-            "cardtypes='%s' upload='%s' readonly='%s'/></params>" % (\
+        self.ui.status_bar_message("Sending server info to the client...")
+        return "<server id='%s' name='%s' ver='%s' protocol='%s' " \
+            "cardtypes='%s' upload='%s' readonly='%s'></server>" % (\
             self.machine_id, self.name, self.version, self.protocol, \
             self.cardtypes, self.upload_media, self.read_only)
 
@@ -125,7 +125,7 @@ class Server(WSGIServer):
         except:
             return "CANCEL"
         else:
-            self.eman.set_sync_params(client_params)
+            self.eman.set_partner_params(client_params)
             self.eman.create_partnership_if_needed()
             return "OK"
 

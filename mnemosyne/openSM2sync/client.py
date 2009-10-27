@@ -34,7 +34,6 @@ class Client(object):
         self.deck = "default"
         self.protocol = PROTOCOL_VERSION
         self.cardtypes = N_SIDED_CARD_TYPE
-        self.extra = ""
         self.stopped = False
 
     def sync(self, url, username, password):       
@@ -104,20 +103,19 @@ class Client(object):
         self.ui.status_bar_message("Handshaking...")
         if self.stopped:
             return
-        cparams = "<params><client id='%s' name='%s' ver='%s' protocol='%s'" \
-            " deck='%s' cardtypes='%s' extra='%s'/></params>\n" % (self.id, \
-            self.name, self.version, self.protocol, self.deck, self.cardtypes, \
-            self.extra)
+        client_params = "<client id='%s' name='%s' ver='%s' protocol='%s'" \
+            " deck='%s' cardtypes='%s'></client>\n" % (self.id,
+            self.name, self.version, self.protocol, self.deck, self.cardtypes)
         try:
-            sparams = urllib2.urlopen(self.url + '/sync/server/params').read()
+            server_params = urllib2.urlopen(self.url + '/sync/server/params').read()
             response = urllib2.urlopen(PutRequest(\
-                self.url + '/sync/client/params', cparams))
+                self.url + '/sync/client/params', client_params))
             if response.read() != "OK":
                 raise SyncError("Handshaking: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Handshaking: " + str(error))
         else:
-            self.eman.set_sync_params(sparams)
+            self.eman.set_partner_params(server_params)
             self.eman.create_partnership_if_needed()
 
     def set_params(self, params):

@@ -43,20 +43,18 @@ class EventManager:
             self.create_fact_object, "card": self.create_card_object, \
             "cardtype": self.create_cardtype_object, "media": \
             self.create_media_object}
-        self.partner = {"role": None, "id": None, "name": "Mnemosyne", \
-            "ver": None, "protocol": None, "cardtypes": None, "extra": \
-            None, "deck": None, "upload": True, "readonly": False}
+        self.partner = {"id": None, "protocol_version": None, "software": None,
+            "version": None, "capabilities": None, "db_name": None,
+            "read_only": None, "upload_media": None} # The last 2 are server params
         self.mediadir = mediadir
         self.get_media = get_media
         self.stopped = False
-        self.allow_update_card = True
 
     def stop(self):
         self.stopped = True
 
-    def set_sync_params(self, partner_params): 
-        params = cElementTree.fromstring(partner_params).getchildren()[0]
-        self.partner["role"] = params.tag
+    def set_partner_params(self, partner_params):
+        params = cElementTree.fromstring(partner_params) 
         for key in params.keys():
             self.partner[key] = params.get(key)
 

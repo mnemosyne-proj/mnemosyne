@@ -803,7 +803,14 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
     #
     # Synchronization.
     #
-    
+
+    def create_partnership_if_needed(self, partner):
+        sql_res = self.con.execute("""select partner from partnerships 
+           where partner=?""", (partner, )).fetchone()
+        if not sql_res:
+            self.con.execute("""insert into partnerships(partner, 
+               _last_log_id) values(?,?)""", (partner, 0))
+            
     def get_history_events(self, partner):
         _id = self.get_last_sync_event(partner)
         return self.con.execute("""select event, timestamp, object_id,
@@ -828,13 +835,6 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
            self.UPDATED_FACT, self.DELETED_FACT, self.ADDED_TAG, \
            self.UPDATED_TAG, self.ADDED_CARD, self.UPDATED_CARD, \
            self.REPETITION)).fetchone()[0]
-
-    def create_partnership_if_needed(self, partner):
-        sql_res = self.con.execute("""select partner from partnerships 
-           where partner=?""", (partner, )).fetchone()
-        if not sql_res:
-            self.con.execute("""insert into partnerships(partner, 
-               _last_log_id) values(?,?)""", (partner, 0))
  
     def get_last_sync_event(self, partner):
         sql_res = self.con.execute("""select _last_log_id from partnerships 
