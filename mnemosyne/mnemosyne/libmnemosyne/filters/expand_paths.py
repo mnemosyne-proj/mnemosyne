@@ -15,7 +15,7 @@ class ExpandPaths(Filter):
         while i != -1:
             start = text.find("\"", i)
             end = text.find("\"", start+1)
-            if end == -1:
+            if start == -1 or end == -1:
                 break
             old_path = text[start+1:end]
             text = text[:start+1] + "file:\\\\" + expand_path(old_path,

@@ -67,11 +67,22 @@ easily, which allows plugin writers maximum flexibility.
  have to call a category 'Lesson 01' instead of 'Lesson '1 to get the correct
  ordering (Mike Appleby).
 -Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
-	
--Updated German translation by Dimitri Scheftner
--Updated French translation by Christophe Méalarès and Yannick Voglaire.
--Hungarian translation by bkil
 
+	
+Mnemosyne 1.2.2 : 2009-xx-xx
+	
+(Note that for Windows users we recommend uninstalling the previous 
+version before doing an upgrade.)
+
+-Added support routines to enable Tim Bourke's plugin to review cards on
+ Java phones.
+-fix rare hang in preprocessing paths (reported by LooM).
+-Remove hidden limit on grade 1 cardse.
+-Updated German translation by Dimitri Scheftner.
+-Updated French translation by Christophe Mealares and Yannick Voglaire.
+-Hungarian translation by bkile.
+
+	
 MNEMOSYNE 1.2.1 : 2009-04-11
 
 -Fix bug so that vice versa cards now always start with grade 0.
