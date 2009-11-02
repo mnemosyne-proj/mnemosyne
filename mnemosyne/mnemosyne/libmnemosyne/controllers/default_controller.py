@@ -31,9 +31,8 @@ class DefaultController(Controller):
         self.log().activate()
         
     def update_title(self):
-        database_name = os.path.basename(self.config()["path"]).\
-            split(self.database().suffix)[0]
         title = _("Mnemosyne")
+        database_name = self.database().database_name()
         if database_name != _("default"):
             title += " - " + database_name
         self.main_widget().set_window_title(title)

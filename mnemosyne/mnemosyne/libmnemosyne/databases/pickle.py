@@ -46,7 +46,14 @@ class Pickle(Database):
         self.cards = []
         self.global_variables = {"version": self.version}
         self.load_failed = False
-
+        
+    def database_name(self):
+        if not self.is_loaded():
+            return None
+        else:
+            return os.path.basename(self.config()["path"]).\
+                   split(self.database().suffix)[0]
+        
     def new(self, path):
         if self.is_loaded():
             self.unload()
@@ -55,7 +62,7 @@ class Pickle(Database):
         self.save(contract_path(path, self.config().basedir))
         self.config()["path"] = contract_path(path, self.config().basedir)
         self.log().new_database()
-
+        
     def load(self, path):
         if self.is_loaded():
             self.unload()

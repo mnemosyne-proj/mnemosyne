@@ -4,16 +4,17 @@
 
 -self.stopped, timeouts
 -event-->log
--reuse current backup mechanism
 -DictClass
 -<>
 -rename history by log
 -media
 -get media file
 -sql roll back?
+-multiuser server, token?
 -ui: pass or notImplemented?
 -rename server, client -> openSM2syncserver?
 
+http://www.dev-explorer.com/articles/using-python-httplib
 
 I looked further into it, using BaseHTTPServer.
 

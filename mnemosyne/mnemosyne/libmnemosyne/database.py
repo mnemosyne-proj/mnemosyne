@@ -22,11 +22,20 @@ class Database(Component):
     def deactivate(self):
         self.backup()
         self.unload()
+        
+    def database_name(self):
 
+        """Returns bare name of the database, without parent paths and
+        suffixes.
+
+        """
+        
+        raise NotImplementedError
+    
     # File operations.
 
     def new(self, path):
-        raise NotImplementedError
+        raise NotImplementedError       
 
     def save(self, path=None):
         raise NotImplementedError

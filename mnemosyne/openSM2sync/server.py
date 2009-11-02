@@ -13,27 +13,29 @@ import mnemosyne.version
 
 from sync import EventManager
 from sync import PROTOCOL_VERSION
-from sync import N_SIDED_CARD_TYPE
 
 
 class Server(WSGIServer):
 
-    def __init__(self, host, port, database, ui):
+    """Note that the current implementation of the server can only handle one
+    sync request at the time. it is *NOT* yet suited to deploy in a multiuser
+    context over the internet, as simultaneous requests from different users
+    could get mixed up.
+
+    """
+    
+    program_name = "unknown-SRS-app"
+    program_version = "unknown"
+    capabilities = None  # TODO: list possibilies.
+
+    def __init__(self, host, port, ui):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
-        self.database = database
         self.ui = ui
-        self.eman = EventManager(database, "mediadir_TODO", None, ui)
+        self.eman = EventManager("mediadir_TODO", None, ui)
         self.stopped = False
         self.logged_in = False
-        self.machine_id = "TODO"
-        
-        self.name = "Mnemosyne"
-        self.version = mnemosyne.version.version
-        self.protocol = PROTOCOL_VERSION
-        self.cardtypes = N_SIDED_CARD_TYPE
-        self.upload_media = True
-        self.read_only = False
+        self.id = "TODO"
 
     def wsgi_app(self, environ, start_response):
         status, mime, method, args = self.get_method(environ)
@@ -105,6 +107,15 @@ class Server(WSGIServer):
 
         raise NotImplementedError
 
+    def open_database(self, database_name):
+
+        """Sets self.database to a database object for the database named
+        'database_name'.
+
+        """
+
+        raise NotImplementedError        
+
     # The following are methods that are supported by the server through GET
     # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo/bar'
     # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo/bar'
@@ -112,13 +123,15 @@ class Server(WSGIServer):
 
     def get_sync_server_params(self, environ):
         self.ui.status_bar_message("Sending server info to the client...")
-        return "<server id='%s' name='%s' ver='%s' protocol='%s' " \
-            "cardtypes='%s' upload='%s' readonly='%s'></server>" % (\
-            self.machine_id, self.name, self.version, self.protocol, \
-            self.cardtypes, self.upload_media, self.read_only)
+        return ("<server id='%s' program_name='%s' " + \
+            "program_version='%s' protocol_version='%s' capabilities='%s' " + \
+            "server_deck_read_only='false' " + \
+            "server_allows_media_upload='true'></server>") % (self.id,
+            self.program_name, self.program_version, PROTOCOL_VERSION,
+            self.capabilities)        
 
     def put_sync_client_params(self, environ):
-        self.ui.status_bar_message("Receiving client params...")
+        self.ui.status_bar_message("Receiving client info...")
         try:
             socket = environ["wsgi.input"]
             client_params = socket.readline()
@@ -126,6 +139,8 @@ class Server(WSGIServer):
             return "CANCEL"
         else:
             self.eman.set_partner_params(client_params)
+            self.open_database(self.eman.partner["database_name"])
+            self.eman.database = self.database
             self.eman.create_partnership_if_needed()
             return "OK"
 

@@ -71,13 +71,15 @@ Different phases in the protocol:
 
 The user sets up an account (user chosen id / password) on the server machine, which can be either a single user instance of the SRS program running on a desktop, or a multi-user webserver.
 
-1) handshaking
+1) login
+
+Client sends user chosen id and password to the server. If the server does not know the user id, or the password is wrong, abort.
+
+2) handshaking
 
 Client sends:
 - the name of the application and its version number
 - the version number of the libSM2sync protocol it is speaking
-- user chosen user id
-- password
 - an (anonymous but unique) id identifying the client machine, needed to set up the partnership at the server side
 - a deck name
 - what card types it supports: Q/A only, vice-versa cards only, general N-sided cards (fact/card model), ...
@@ -85,9 +87,7 @@ Client sends:
 (e.g. on a mobile device, we are unlikely to have done editing of media files, so the sync of media files would only need to happen from the server to the client.
 - the index in the shared history of the moment of the last sync
 
-If the server does not know the user id, or the password is wrong, abort.
-
-Going on, if the server does not know the client id, create a new partership between the server and the client's machine.
+Going on, if the server does not know the client id and deck name, create a new partership between the server and the client's machine.
 
 Server sends:
 - the name of the application and its version number
@@ -106,7 +106,7 @@ If the index in the shared history of client and server does not match, it means
 Question: is this robust enough?
 
 
-2) change determination
+3) change determination
 
 The server sends to the client a summary of the changes it recorded since the last sync, e.g. graded those 20 cards, edited these 2 card, deleted those 2, etc, ...
 The client locally constructs a similar summary of the changes, and a dialog box with this information is presented to the user for final verification. If the client changes conflict with the server changes, the user is given the option to either have the client or the server changes take precedence, or to cancel.
@@ -114,7 +114,7 @@ The client locally constructs a similar summary of the changes, and a dialog box
 It is highly advisable that both client and server take a backup of the database at this point.
 
 
-3) The actual sync 
+4) The actual sync 
 
 The bulk of the sync consists of exchanging a sequence of events from the history:
 

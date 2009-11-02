@@ -28,15 +28,21 @@ class ServerThread(Thread):
     def authorise(self, login, password):
         return login == "user" and password == "pass"
 
+    def open_database(self, database_name):
+        self.server.database = self.mnemosyne.database()
+
     def run(self):
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(("test", "Widget"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(), "dot_mnemosyne_server")))
-        self.server = Server("127.0.0.1", 8024,
-                             self.mnemosyne.database(), self.mnemosyne.main_widget())
+        self.server = Server("127.0.0.1", 8024, self.mnemosyne.main_widget())
+        self.server.program_name = "Mnemosyne"
+        self.server._program_version = "test"
+        self.server.capabilities = "TODO"        
         self.server.authorise = self.authorise
+        self.server.open_database = self.open_database
         self.server.serve_forever()
         self.mnemosyne.finalise()
 
@@ -45,6 +51,7 @@ class ClientObject(object):
 
     def start(self):
 
+
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
@@ -52,6 +59,9 @@ class ClientObject(object):
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(), "dot_mnemosyne_client")))
         url = "http://127.0.0.1:8024"
         client = Client(self.mnemosyne.database(), self.mnemosyne.main_widget())
+        client.program_name = "Mnemosyne"
+        client._program_version = "test"
+        client.capabilities = "TODO"
         client.sync(url, "user", "pass")
         self.mnemosyne.finalise()                             
 

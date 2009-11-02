@@ -35,17 +35,16 @@ class EventManager:
     
     """
 
-    def __init__(self, database, mediadir, get_media, ui):
-        self.database = database
+    def __init__(self, mediadir, get_media, ui):
         self.ui = ui
-        self.db_path = database._path
         self.object_factory = {"tag": self.create_tag_object, "fact": \
             self.create_fact_object, "card": self.create_card_object, \
             "cardtype": self.create_cardtype_object, "media": \
             self.create_media_object}
-        self.partner = {"id": None, "protocol_version": None, "software": None,
-            "version": None, "capabilities": None, "db_name": None,
-            "read_only": None, "upload_media": None} # The last 2 are server params
+        self.partner = {"id": None, "program_name": None,
+            "program_version": None, "protocol_version": None,
+            "capabilities": None, "database_name": None,
+            "server_deck_read_only": None, "server_allows_media_upload": None}
         self.mediadir = mediadir
         self.get_media = get_media
         self.stopped = False
@@ -56,7 +55,12 @@ class EventManager:
     def set_partner_params(self, partner_params):
         params = cElementTree.fromstring(partner_params) 
         for key in params.keys():
-            self.partner[key] = params.get(key)
+            value = params.get(key)
+            if value == "true":
+                value = True
+            if value == "false":
+                value = False
+            self.partner[key] = value
 
     def create_partnership_if_needed(self):
         self.database.create_partnership_if_needed(self.partner["id"])

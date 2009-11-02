@@ -209,7 +209,14 @@ class SQLite(Database, SQLiteLogging, SQLiteStatistics):
                                isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
         return self._connection
-
+    
+    def database_name(self):
+        if not self.is_loaded():
+            return None
+        else:
+            return os.path.basename(self.config()["path"]).\
+                   split(self.database().suffix)[0]
+    
     def new(self, path):
         if self.is_loaded():
             self.unload()
