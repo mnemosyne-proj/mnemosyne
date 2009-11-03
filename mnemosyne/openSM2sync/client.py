@@ -7,6 +7,8 @@
 import os
 import base64
 import urllib2
+import httplib
+from urlparse import urlparse
 from xml.etree import cElementTree
 
 from sync import SyncError
@@ -38,40 +40,22 @@ class Client(object):
 
     def sync(self, url, username, password):       
         try:
-            self.url = url
-            
+            self.url = url           
             self.ui.status_bar_message("Creating backup...")
-            backup_file = self.database.backup()
-            
+            backup_file = self.database.backup()           
             self.login(username, password)
             self.handshake()
-
-            client_history_length = self.eman.get_history_length()
-            if client_history_length:
-                self.ui.status_bar_message(\
-                    "Sending client history to the server...")
-                self.send_client_history(self.eman.get_history(), \
-                    client_history_length)
-                
+            self.send_client_history()     
             server_media_count = self.get_server_media_count()
             if server_media_count:
                 self.ui.status_bar_message("Applying server media...")
                 self.eman.apply_media(self.get_media_history(), \
                     server_media_count)
-
             client_media_count = self.eman.get_media_count()
             if client_media_count:
-                self.ui.status_bar_message(\
-                    "Sending client media to the server...")
                 self.send_client_media(self.eman.get_media_history(), \
-                    client_media_count)
-
-            server_history_length = self.get_server_history_length()
-            if server_history_length:
-                self.ui.status_bar_message("Applying server history...")
-                self.get_server_history(server_history_length)
-
-            self.ui.status_bar_message("Waiting for the server to complete...")
+                    client_media_count)          
+            self.get_server_history()
             self.send_finish_request()
             if self.stopped:
                 raise SyncError("Aborted!")
@@ -100,9 +84,9 @@ class Client(object):
                 raise SyncError(str(error.reason))
 
     def handshake(self):
-        self.ui.status_bar_message("Handshaking...")
         if self.stopped:
             return
+        self.ui.status_bar_message("Handshaking...")
         client_params = ("<client id='%s' program_name='%s' " + \
             "program_version='%s' protocol_version='%s' capabilities='%s' " + \
             "database_name='%s'></client>\n") % (self.id, self.program_name,
@@ -121,9 +105,15 @@ class Client(object):
             self.eman.set_partner_params(server_params)
             self.eman.create_partnership_if_needed()
             
-    def send_client_history(self, history, history_length):
+    def send_client_history(self):
         if self.stopped:
             return
+        self.ui.status_bar_message("Sending client history to the server...")
+        history_length = self.eman.get_history_length()
+        if history_length == 0:
+            return
+        history = self.eman.get_history()
+        
         #chistory = ''
         #for chunk in history:
         #    chistory += chunk
@@ -135,8 +125,9 @@ class Client(object):
         #        raise SyncError("Sending client history: error on server side.")
         #except urllib2.URLError, error:
         #    raise SyncError("Sending client history: " + str(error))
-        import httplib
-        conn = httplib.HTTPConnection(url.hostname, url.port)
+
+        parsed_url = urlparse(self.url) 
+        conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
         conn.putrequest("PUT", "/sync/client/history")
         conn.putheader("User-Agent", "gzip")
         conn.putheader("Accept-Encoding", "gzip")
@@ -146,21 +137,21 @@ class Client(object):
         conn.putheader("Expect", "100-continue")
         conn.putheader("Accept", "*/*")
         conn.endheaders()
-       
-        count = 0
-        hsize = float(history_length + 2)
 
         # Send client history length.
         conn.send(str(history_length) + "\r\n")
-        self.ui.show_progressbar()
+        
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, history_length)
+        progress_dialog.set_text("Sending client history to the server...")
+        count = 0
         for chunk in history:
             if self.stopped:
                 return
             conn.send(chunk + "\r\n")
             count += 1
-            self.ui.update_progressbar(count / hsize)
-
-        self.ui.hide_progressbar()
+            progress_dialog.set_value(count)
+        progress_dialog.set_value(history_length)
         self.ui.status_bar_message("Waiting for the server to complete...")
         response = conn.getresponse()
         #FIXME: analyze response for complete on server side.
@@ -184,25 +175,28 @@ class Client(object):
         except urllib2.URLError, error:
             raise SyncError("Getting server history length: " + str(error))
 
-    def get_server_history(self, history_length):
+    def get_server_history(self):
         if self.stopped:
             return
+        history_length = self.get_server_history_length()
+        self.ui.status_bar_message("Applying server history...")
         count = 0
-        hsize = float(history_length)
         try:
             #return urllib2.urlopen(self.url + '/sync/server/history')
             response = urllib2.urlopen(self.url + "/sync/server/history")
             response.readline() # get "<history>"
             chunk = response.readline() # get the first item.
-            self.ui.show_progressbar()
+            progress_dialog = self.ui.get_progress_dialog()
+            progress_dialog.set_range(0, history_length)
+            progress_dialog.set_text("Applying server history...")
             while chunk != "</history>\n":
                 if self.stopped:
                     return
                 self.eman.apply_event(chunk)
                 chunk = response.readline()
                 count += 1
-                self.ui.update_progressbar(count / hsize)
-            self.ui.hide_progressbar()
+                progress_dialog.set_value(count)
+            progress_dialog.set_value(history_length)
         except urllib2.URLError, error:
             raise SyncError("Getting server history: " + str(error))
 
@@ -218,6 +212,7 @@ class Client(object):
     def send_client_media(self, history, media_count):
         if self.stopped:
             return
+        self.ui.status_bar_message("Sending client media to the server...")
         count = 0
         hsize = float(media_count)
         self.ui.show_progressbar()
@@ -226,17 +221,6 @@ class Client(object):
             count += 1
             self.ui.update_progressbar(count / hsize)
         self.ui.hide_progressbar()
-
-    def send_finish_request(self):
-        if self.stopped:
-            return
-        try:
-            if urllib2.urlopen(self.url + "/sync/finish").read() != "OK":
-                raise SyncError("Finishing sync: error on server side.")
-        except urllib2.URLError, error:
-            raise SyncError("Finishing syncing: " + str(error))
-        else:
-            self.eman.update_last_sync_event()
 
     def get_media_file(self, fname):
         try:
@@ -263,3 +247,15 @@ class Client(object):
                 raise SyncError("Sending client media: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Sending client media: " + str(error))
+
+    def send_finish_request(self):
+        if self.stopped:
+            return
+        self.ui.status_bar_message("Waiting for the server to complete...")
+        try:
+            if urllib2.urlopen(self.url + "/sync/finish").read() != "OK":
+                raise SyncError("Finishing sync: error on server side.")
+        except urllib2.URLError, error:
+            raise SyncError("Finishing syncing: " + str(error))
+        else:
+            self.eman.update_last_sync_event()

@@ -1,20 +1,39 @@
+-factor out startup code in test
 -cdata for deck name
-
+-backup on server side
+-create new database on server side if needed
 -group partership code from mem import
-
 -self.stopped, timeouts
 -event-->log
 -DictClass
 -<>
+-make sure the actual sync events get updated too
 -rename history by log
 -media
 -get media file
 -sql roll back?
+-conflict resolution
+-benchmarks
 -multiuser server, token?
 -ui: pass or notImplemented?
 -rename server, client -> openSM2syncserver?
-
+-incremental elementree parsinc
+-import of event ids identifiers from openSM2sync
+-server can report can refuse large files
+-streaming compression
+http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 http://www.dev-explorer.com/articles/using-python-httplib
+-be sure to truncate time to int if it comes from other SRS systems
+-make sure we do progressive parsing
+-make sure active gets updated too
+-activating cards
+-make sure to convert int(time.time()) to integer
+-make sure all events make it to the sync protocol + formats
+-how to prevent different instantiations from uploading logs twice
+-check if updated_card event without added card event works
+-mechanism to have plugin settings synced?
+-pull in user id on first sync
+-make sure after import all sync events fire
 
 I looked further into it, using BaseHTTPServer.
 
@@ -146,24 +165,6 @@ the GUI function itself?
  one sitting
 -upgrade docs on duplicate checking
 -update tooltips, inform Patrick
-
--sync protocol:
--deck name
--import
--server can report can refuse large files
--streaming compression
-http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
--be sure to truncate time to int if it comes from other SRS systems
--make sure we do progressive parsing
--make sure active gets updated too
--activating cards
--make sure to convert int(time.time()) to integer
--make sure all events make it to the sync protocol + formats
--how to prevent different instantiations from uploading logs twice
--check if updated_card event without added card event works
--mechanism to have plugin settings synced?
--pull in user id on first sync
--compare deck name
 
 
 -have hierarchy in plugin names

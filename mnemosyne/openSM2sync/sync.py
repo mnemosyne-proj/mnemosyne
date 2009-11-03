@@ -3,12 +3,14 @@
 #           Ed Bartosh <bartosh@gmail.com>
 #           Peter Bienstman <Peter.Bienstman@UGent.be>
 
+import os
+from xml.etree import cElementTree
+
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.databases.SQLite_logging \
     import SQLiteLogging as events
-from xml.etree import cElementTree
-import os
+
 
 PROTOCOL_VERSION = 0.1
 QA_CARD_TYPE = 1
@@ -19,14 +21,11 @@ N_SIDED_CARD_TYPE = 3
 class SyncError(Exception):
     pass
 
-
 class DictClass:
-        
     def __init__(self, attributes=None):
         for attr in attributes.keys():
             setattr(self, attr, attributes[attr])
-
-
+            
 class EventManager:
     
     """Class for manipulatig with client/server database:
@@ -37,10 +36,6 @@ class EventManager:
 
     def __init__(self, mediadir, get_media, ui):
         self.ui = ui
-        self.object_factory = {"tag": self.create_tag_object, "fact": \
-            self.create_fact_object, "card": self.create_card_object, \
-            "cardtype": self.create_cardtype_object, "media": \
-            self.create_media_object}
         self.partner = {"id": None, "program_name": None,
             "program_version": None, "protocol_version": None,
             "capabilities": None, "database_name": None,
@@ -151,22 +146,19 @@ class EventManager:
 
     def create_card_xml_element(self, event):
         if event["event"] == events.DELETED_CARD:
-            # We only transfer card id, that shoild be deleted.
+            # We only transfer card id, that should be deleted.
             return "<i><t>card</t><ev>%s</ev><id>%s</id></i>" % \
                 (event["event"], event["id"])
-        if not self.database.has_card_with_external_id(event["id"]):
-            return ""
-        else:
-            card = self.database.get_card(event["id"], False)
-            return "<i><t>card</t><ev>%s</ev><id>%s</id><ctid>%s</ctid><fid>" \
-                "%s</fid><fvid>%s</fvid><tags>%s</tags><gr>%s</gr><e>%s</e>" \
-                "<lr>%s</lr><nr>%s</nr><si>%s</si><ai>%s</ai><ni>%s</ni>" \
-                "<ttm>%s</ttm><tm>%s</tm><_id>%s</_id></i>" % (event["event"], \
-                card.id, card.fact.card_type.id, card.fact.id, \
-                card.fact_view.id, ",".join([item.name for item in card.tags]),\
-                card.grade, card.easiness, card.last_rep, card.next_rep, \
-                event["s_int"], event["a_int"], event["n_int"], \
-                event["t_time"], event["time"], card._id)
+        card = self.database.get_card(event["id"], False)
+        return "<i><t>card</t><ev>%s</ev><id>%s</id><ctid>%s</ctid><fid>" \
+            "%s</fid><fvid>%s</fvid><tags>%s</tags><gr>%s</gr><e>%s</e>" \
+            "<lr>%s</lr><nr>%s</nr><si>%s</si><ai>%s</ai><ni>%s</ni>" \
+            "<ttm>%s</ttm><tm>%s</tm><_id>%s</_id></i>" % (event["event"], \
+            card.id, card.fact.card_type.id, card.fact.id, \
+            card.fact_view.id, ",".join([item.name for item in card.tags]),\
+            card.grade, card.easiness, card.last_rep, card.next_rep, \
+            event["s_int"], event["a_int"], event["n_int"], \
+            event["t_time"], event["time"], card._id)
         
     def create_card_type_xml_element(self, event):
         cardtype = self.database.get_card_type(event["id"], False)
@@ -247,7 +239,6 @@ class EventManager:
         event = int(child.find("ev").text)
         if event == events.ADDED_FACT:
             fact = self.create_fact_object(child)
-            #print "adding fact with fact.data=", fact.data
             self.database.add_fact(fact)
         elif event == events.UPDATED_FACT:
             fact = self.database.get_fact(child.find("id").text, False)
@@ -261,14 +252,14 @@ class EventManager:
                 self.database.delete_fact_and_related_data(fact)
         elif event == events.ADDED_TAG:
             tag = self.create_tag_object(child)
-            if not tag.name in self.database.tag_names():
+            if not tag.name in self.database.get_tag_names():
                 self.database.add_tag(tag)
         elif event == events.UPDATED_TAG:
             self.database.update_tag(self.create_tag_object(child))
         elif event == events.ADDED_CARD:
             card = self.create_card_object(child)
             self.database.add_card(card)
-            self.database.log_added_card(timestamp, card.id)
+            self.database.log_added_card(int(child.find("tm").text), card.id)
         elif event == events.UPDATED_CARD:
             if self.allow_update_card:
                 self.database.update_card(self.create_card_object(child))

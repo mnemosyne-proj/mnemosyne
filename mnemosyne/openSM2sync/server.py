@@ -28,6 +28,8 @@ class Server(WSGIServer):
     program_version = "unknown"
     capabilities = None  # TODO: list possibilies.
 
+    stop_after_sync = False # Setting this True is useful for the testsuite. 
+
     def __init__(self, host, port, ui):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
@@ -101,6 +103,9 @@ class Server(WSGIServer):
             else:
                 return "404 Not Found", "text/plain", None, None
 
+    # The following functions are to be overridden by the actual server code,
+    # to implement e.g. authorisation and storage.
+
     def authorise(self, login, password):
 
         """Returns true if password correct for login."""
@@ -114,7 +119,7 @@ class Server(WSGIServer):
 
         """
 
-        raise NotImplementedError        
+        raise NotImplementedError
 
     # The following are methods that are supported by the server through GET
     # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo/bar'
@@ -140,6 +145,7 @@ class Server(WSGIServer):
         else:
             self.eman.set_partner_params(client_params)
             self.open_database(self.eman.partner["database_name"])
+            self.database.backup()
             self.eman.database = self.database
             self.eman.create_partnership_if_needed()
             return "OK"
@@ -152,15 +158,17 @@ class Server(WSGIServer):
 
     def get_sync_server_history(self, environ):
         self.ui.status_bar_message("Sending history to the client...")
+        history_length = self.eman.get_history_length()
+
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, history_length)
+        progress_dialog.set_text("Sending history to the client...")
+        
         count = 0
-        hsize = float(self.eman.get_history_length() + 2)
-        self.ui.show_progressbar()
         for chunk in self.eman.get_history():
             count += 1
-            fraction = count / hsize
-            self.ui.update_progressbar(fraction)
-            if fraction == 1.0:
-                self.ui.hide_progressbar()
+            progress_dialog.set_value(count)
+            if count == history_length:
                 self.ui.status_bar_message("Waiting for client to complete...")
             yield (chunk + "\n")
 
@@ -170,24 +178,23 @@ class Server(WSGIServer):
 
     def put_sync_client_history(self, environ):
         socket = environ["wsgi.input"]
-
-        count = 0
         # Gets client history size.
-        hsize = float(socket.readline()) + 2
-
-        self.eman.make_backup()
+        history_length = float(socket.readline())
         self.ui.status_bar_message("Applying client history...")
-
         socket.readline()  # get "<history>".
         chunk = socket.readline()  # get first xml-event.
-        self.ui.show_progressbar()
+        
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, history_length)
+        progress_dialog.set_text("Applying client history...")
+        
+        count = 0
         while chunk != "</history>\r\n":
             self.eman.apply_event(chunk)
             chunk = socket.readline()
             count += 1
-            self.ui.update_progressbar(count / hsize)
-
-        self.ui.hide_progressbar()
+            progress_dialog.set_value(count)
+        progress_dialog.set_value(history_length)
         self.ui.status_bar_message("Waiting for client to finish...")
         return "OK"
 
@@ -195,7 +202,8 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         self.eman.update_last_sync_event()
         self.logged_in = False
-        self.stop()
+        if self.stop_after_sync:
+            self.stop()
         return "OK"
 
     def get_sync_server_media(self, environ, fname):
