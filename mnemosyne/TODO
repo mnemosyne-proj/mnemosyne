@@ -4,7 +4,7 @@
 -create new database on server side if needed
 -group partership code from mem import
 -self.stopped, timeouts
--event-->log
+-synchroniser --> xml formatter?
 -DictClass
 -<>
 -make sure the actual sync events get updated too
@@ -16,9 +16,7 @@
 -benchmarks
 -multiuser server, token?
 -ui: pass or notImplemented?
--rename server, client -> openSM2syncserver?
 -incremental elementree parsinc
--import of event ids identifiers from openSM2sync
 -server can report can refuse large files
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
@@ -213,8 +211,6 @@ the GUI function itself?
 
 -make file handling more robust, detect all errors (see mail by
  OldGrantonian)
-
--centralise event type codes
 
 -reenable datadir in setup.py
 

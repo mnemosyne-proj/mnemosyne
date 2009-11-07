@@ -8,6 +8,7 @@ from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
+from openSM2sync.log_event import EventCodes as Event
 from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
@@ -165,7 +166,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_MEDIA, )).fetchone()[0] == 3      
+            (Event.ADDED_MEDIA, )).fetchone()[0] == 3      
 
     def test_media_missing(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
@@ -183,7 +184,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_MEDIA, )).fetchone()[0] == 2        
+            (Event.ADDED_MEDIA, )).fetchone()[0] == 2
 
     def test_media_slashes(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
@@ -204,7 +205,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_MEDIA, )).fetchone()[0] == 3  
+            (Event.ADDED_MEDIA, )).fetchone()[0] == 3  
 
     def test_sound(self):
         soundname = os.path.join(os.path.join(\
@@ -216,7 +217,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "a.ogg"))
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_MEDIA, )).fetchone()[0] == 1
+            (Event.ADDED_MEDIA, )).fetchone()[0] == 1
         self.review_controller().reset()
         card = self.review_controller().card
         assert card.fact["q"] == """<audio src="a.ogg">"""
@@ -248,48 +249,48 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 10       
+            (Event.REPETITION, )).fetchone()[0] == 10       
         assert self.database().con.execute(\
             "select acq_reps from log where event=? and object_id='9525224f'",
-            (self.database().REPETITION, )).fetchone()[0] == 1  
+            (Event.REPETITION, )).fetchone()[0] == 1  
         assert self.database().con.execute(\
             "select acq_reps_since_lapse from log where event=? and object_id='9525224f'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select scheduled_interval from log where event=? and object_id='9525224f'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == (6)*60*60*24
+            (Event.REPETITION, )).fetchone()[0] == (6)*60*60*24
         assert self.database().con.execute(\
             """select actual_interval from log where event=? and object_id='9525224f'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 0 # This is an artificial log.
+            (Event.REPETITION, )).fetchone()[0] == 0 # This is an artificial log.
         assert self.database().con.execute(\
             """select new_interval from log where event=? and object_id='9525224f'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == (14-3)*60*60*24
+            (Event.REPETITION, )).fetchone()[0] == (14-3)*60*60*24
         assert self.database().con.execute(\
             "select count() from log").fetchone()[0] == 18
         assert self.database().con.execute(\
             "select acq_reps from log where event=? order by _id desc limit 1",
-            (self.database().LOADED_DATABASE, )).fetchone()[0] == 0
+            (Event.LOADED_DATABASE, )).fetchone()[0] == 0
         assert self.database().con.execute(\
             "select ret_reps from log where event=? order by _id desc limit 1",
-            (self.database().LOADED_DATABASE, )).fetchone()[0] == 7
+            (Event.LOADED_DATABASE, )).fetchone()[0] == 7
         assert self.database().con.execute(\
             "select lapses from log where event=? order by _id desc limit 1",
-            (self.database().LOADED_DATABASE, )).fetchone()[0] == 336
+            (Event.LOADED_DATABASE, )).fetchone()[0] == 336
         assert self.database().con.execute(\
             "select acq_reps from log where event=? order by _id desc limit 1",
-            (self.database().SAVED_DATABASE, )).fetchone()[0] == 0
+            (Event.SAVED_DATABASE, )).fetchone()[0] == 0
         assert self.database().con.execute(\
             "select ret_reps from log where event=? order by _id desc limit 1",
-            (self.database().SAVED_DATABASE, )).fetchone()[0] == 12
+            (Event.SAVED_DATABASE, )).fetchone()[0] == 12
         assert self.database().con.execute(\
             "select lapses from log where event=? order by _id desc limit 1",
-            (self.database().SAVED_DATABASE, )).fetchone()[0] == 341
+            (Event.SAVED_DATABASE, )).fetchone()[0] == 341
 
     def test_logs_new_2(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -298,16 +299,16 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 1       
+            (Event.REPETITION, )).fetchone()[0] == 1       
         assert self.database().con.execute(\
             "select acq_reps from log where event=? and object_id='8da62cfb'",
-            (self.database().REPETITION, )).fetchone()[0] == 1  
+            (Event.REPETITION, )).fetchone()[0] == 1  
         assert self.database().con.execute(\
             "select acq_reps_since_lapse from log where event=? and object_id='8da62cfb'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
 
     def test_logs_new_3(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -316,24 +317,24 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 4       
+            (Event.REPETITION, )).fetchone()[0] == 4       
         assert self.database().con.execute(\
             "select acq_reps from log where event=? and object_id='5106b621'",
-            (self.database().REPETITION, )).fetchone()[0] == 1  
+            (Event.REPETITION, )).fetchone()[0] == 1  
         assert self.database().con.execute(\
             "select acq_reps_since_lapse from log where event=? and object_id='5106b621'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select acq_reps from log where event=? and object_id='5106b621'
              order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 1  
+            (Event.REPETITION, )).fetchone()[0] == 1  
         assert self.database().con.execute(\
             """select acq_reps_since_lapse from log where event=? and object_id='5106b621'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         
     def test_logs_new_4(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -342,31 +343,31 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 2       
+            (Event.REPETITION, )).fetchone()[0] == 2       
         assert self.database().con.execute(\
             "select acq_reps from log where event=? and object_id='b7601e0c'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             "select ret_reps from log where event=? and object_id='b7601e0c'",
-            (self.database().REPETITION, )).fetchone()[0] == 0   
+            (Event.REPETITION, )).fetchone()[0] == 0   
         assert self.database().con.execute(\
             "select acq_reps_since_lapse from log where event=? and object_id='b7601e0c'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select acq_reps from log where event=? and object_id='b7601e0c'
              order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select ret_reps from log where event=? and object_id='b7601e0c'
              order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 1  
+            (Event.REPETITION, )).fetchone()[0] == 1  
         assert self.database().con.execute(\
             """select acq_reps_since_lapse from log where event=? and object_id='b7601e0c'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         
     def test_logs_new_5(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -375,34 +376,34 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 2       
+            (Event.REPETITION, )).fetchone()[0] == 2       
         assert self.database().con.execute(\
             "select acq_reps from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             "select ret_reps from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'",
-            (self.database().REPETITION, )).fetchone()[0] == 0   
+            (Event.REPETITION, )).fetchone()[0] == 0   
         assert self.database().con.execute(\
             "select acq_reps_since_lapse from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select acq_reps from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
              order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 2
+            (Event.REPETITION, )).fetchone()[0] == 2
         assert self.database().con.execute(\
             """select ret_reps from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
              order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 0  
+            (Event.REPETITION, )).fetchone()[0] == 0  
         assert self.database().con.execute(\
             """select acq_reps_since_lapse from log where event=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 2
+            (Event.REPETITION, )).fetchone()[0] == 2
         assert self.database().con.execute(\
             """select object_id from log where event=?""",
-            (self.database().STARTED_SCHEDULER, )).fetchone()[0] == "SM2 Mnemosyne"
+            (Event.STARTED_SCHEDULER, )).fetchone()[0] == "SM2 Mnemosyne"
         
     def test_logs_new_6(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -411,13 +412,13 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 2       
+            (Event.REPETITION, )).fetchone()[0] == 2       
         sql_res = self.database().con.execute(\
             "select * from log where event=? and object_id='4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1'",
-            (self.database().REPETITION, )).fetchone()
+            (Event.REPETITION, )).fetchone()
         assert sql_res["grade"] == 5
         assert sql_res["easiness"] == 2.5
         assert sql_res["acq_reps"] == 1
@@ -432,7 +433,7 @@ class TestMemImport(MnemosyneTest):
         sql_res = self.database().con.execute(\
             """select * from log where event=? and object_id='4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()
+            (Event.REPETITION, )).fetchone()
         assert sql_res["grade"] == 2
         assert sql_res["easiness"] == 2.5
         assert sql_res["acq_reps"] == 1
@@ -452,31 +453,31 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 3       
+            (Event.REPETITION, )).fetchone()[0] == 3       
         assert self.database().con.execute(\
             "select acq_reps from log where event=? and object_id='f5d9bbe7'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             "select ret_reps from log where event=? and object_id='f5d9bbe7'",
-            (self.database().REPETITION, )).fetchone()[0] == 0   
+            (Event.REPETITION, )).fetchone()[0] == 0   
         assert self.database().con.execute(\
             "select acq_reps_since_lapse from log where event=? and object_id='f5d9bbe7'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select acq_reps from log where event=? and object_id='f5d9bbe7'
              order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select ret_reps from log where event=? and object_id='f5d9bbe7'
              order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 2  
+            (Event.REPETITION, )).fetchone()[0] == 2  
         assert self.database().con.execute(\
             """select acq_reps_since_lapse from log where event=? and object_id='f5d9bbe7'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
 
     def test_logs_imported_2(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -485,19 +486,19 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 1       
+            (Event.REPETITION, )).fetchone()[0] == 1       
         assert self.database().con.execute(\
             "select acq_reps from log where event=? and object_id='14670f10'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             "select ret_reps from log where event=? and object_id='14670f10'",
-            (self.database().REPETITION, )).fetchone()[0] == 0   
+            (Event.REPETITION, )).fetchone()[0] == 0   
         assert self.database().con.execute(\
             "select acq_reps_since_lapse from log where event=? and object_id='14670f10'",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         
     def test_logs_imported_3(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -506,7 +507,7 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         
     def test_restored_1(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -515,13 +516,13 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 1       
+            (Event.REPETITION, )).fetchone()[0] == 1       
         sql_res = self.database().con.execute(\
             "select * from log where event=?",
-            (self.database().REPETITION, )).fetchone()
+            (Event.REPETITION, )).fetchone()
         assert sql_res["grade"] == 1
         assert sql_res["easiness"] == 2.36
         assert sql_res["acq_reps"] == 23
@@ -541,7 +542,7 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1           
+            (Event.ADDED_CARD, )).fetchone()[0] == 1           
         
     def test_logs_act_interval(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -551,7 +552,7 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             """select actual_interval from log where event=? and object_id='f1300e5a'
             order by _id desc limit 1""",
-            (self.database().REPETITION, )).fetchone()[0] == 5
+            (Event.REPETITION, )).fetchone()[0] == 5
         
     def test_logs_deleted(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -560,10 +561,10 @@ class TestMemImport(MnemosyneTest):
         TxtLogParser(self.database()).parse(filename)             
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1
+            (Event.ADDED_CARD, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().DELETED_CARD, )).fetchone()[0] == 1
+            (Event.DELETED_CARD, )).fetchone()[0] == 1
         
     def test_logs_corrupt(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -577,16 +578,16 @@ class TestMemImport(MnemosyneTest):
         self.get_mem_importer().do_import(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 1
+            (Event.REPETITION, )).fetchone()[0] == 1
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_2_mem",
                                 "deck2.mem")
         self.get_mem_importer().do_import(filename)        
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 3
+            (Event.REPETITION, )).fetchone()[0] == 3
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 2
+            (Event.ADDED_CARD, )).fetchone()[0] == 2
         card = self.database().get_card("4c8fff73", id_is_internal=False)
         assert self.database().average_thinking_time(card) == 1.5
         assert self.database().total_thinking_time(card) == 3.0
@@ -605,10 +606,10 @@ class TestMemImport(MnemosyneTest):
         self.get_mem_importer().do_import(filename)
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().REPETITION, )).fetchone()[0] == 0      
+            (Event.REPETITION, )).fetchone()[0] == 0      
         assert self.database().con.execute(\
             "select count() from log where event=?",
-            (self.database().ADDED_CARD, )).fetchone()[0] == 1
+            (Event.ADDED_CARD, )).fetchone()[0] == 1
 
     def test_upgrade(self):
         os.system("rm -fr dot_test")

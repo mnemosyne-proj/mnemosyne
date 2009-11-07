@@ -5,6 +5,7 @@
 import time
 import datetime
 
+from openSM2sync.log_event import EventCodes as Event
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
 HOUR = 60 * 60 # Seconds in an hour. 
@@ -65,7 +66,7 @@ class SQLiteStatistics(object):
         result = self.con.execute(\
             """select acq_reps from log where ?<=timestamp and timestamp<?
             and event=? order by timestamp limit 1""",
-            (start_of_day, start_of_day + DAY, self.LOADED_DATABASE)).fetchone()
+            (start_of_day, start_of_day + DAY, Event.LOADED_DATABASE)).fetchone()
         if result:
             return result[0]
         else:
@@ -76,27 +77,27 @@ class SQLiteStatistics(object):
         return self.con.execute(\
             """select count() from log where ?<=timestamp and timestamp<?
             and event=?""",
-            (start_of_day, start_of_day + DAY, self.ADDED_CARD)).fetchone()[0]
+            (start_of_day, start_of_day + DAY, Event.ADDED_CARD)).fetchone()[0]
     
     def retention_score_n_days_ago(self, n):
         start_of_day = self._start_of_day_n_days_ago(n)
         scheduled_cards_seen = self.con.execute(\
             """select count() from log where ?<=timestamp and timestamp<?
             and event=? and scheduled_interval!=0""",
-            (start_of_day, start_of_day + DAY, self.REPETITION)).fetchone()[0]
+            (start_of_day, start_of_day + DAY, Event.REPETITION)).fetchone()[0]
         if scheduled_cards_seen == 0:
             return 0
         scheduled_cards_correct = self.con.execute(\
             """select count() from log where ?<=timestamp and timestamp<?
             and event=? and scheduled_interval!=0 and grade>=2""",
-            (start_of_day, start_of_day + DAY, self.REPETITION)).fetchone()[0]
+            (start_of_day, start_of_day + DAY, Event.REPETITION)).fetchone()[0]
         return 100.0 * scheduled_cards_correct / scheduled_cards_seen
     
     def average_thinking_time(self, card):
         result = self.con.execute(\
             """select avg(thinking_time) from log where object_id=?
             and event=?""",
-            (card.id, self.REPETITION)).fetchone()[0]
+            (card.id, Event.REPETITION)).fetchone()[0]
         if result:
             return result
         else:
@@ -106,7 +107,7 @@ class SQLiteStatistics(object):
         result = self.con.execute(\
             """select sum(thinking_time) from log where object_id=?
             and event=?""",
-            (card.id, self.REPETITION)).fetchone()[0]
+            (card.id, Event.REPETITION)).fetchone()[0]
         if result:
             return result
         else:

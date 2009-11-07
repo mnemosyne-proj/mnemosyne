@@ -6,6 +6,7 @@ import os
 import sys
 import sqlite3
 
+from openSM2sync.log_event import EventCodes as Event
 from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
 
 
@@ -46,19 +47,6 @@ SCHEMA = """
 
 class LogDatabase(object):
 
-    # A subset of the codes from
-    # mnemosyne.libmnemosyne.databases.SQLite_logging.py
-
-    STARTED_PROGRAM = 1
-    STOPPED_PROGRAM = 2
-    STARTED_SCHEDULER = 3
-    LOADED_DATABASE = 4
-    SAVED_DATABASE = 5
-    ADDED_CARD = 12
-    UPDATED_CARD = 13
-    DELETED_CARD = 14
-    REPETITION = 18
-   
     def __init__(self, log_dir):
         self.log_dir = log_dir
         self._connection = None
@@ -115,19 +103,19 @@ class LogDatabase(object):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, object_id)
             values(?,?,?,?)""",
-            (self.parser.user_id, self.STARTED_PROGRAM, int(timestamp),
+            (self.parser.user_id, Event.STARTED_PROGRAM, int(timestamp),
              program_name_version)) 
 
     def log_stopped_program(self, timestamp):
         self.con.execute(\
             "insert into log(user_id, event, timestamp) values(?,?,?)",
-            (self.parser.user_id, self.STOPPED_PROGRAM, int(timestamp)))
+            (self.parser.user_id, Event.STOPPED_PROGRAM, int(timestamp)))
 
     def log_started_scheduler(self, timestamp, scheduler_name):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, object_id)
             values(?,?,?,?)""",
-            (self.parser.user_id, self.STARTED_SCHEDULER, int(timestamp),
+            (self.parser.user_id, Event.STARTED_SCHEDULER, int(timestamp),
             scheduler_name))
     
     def log_loaded_database(self, timestamp, scheduled_count,
@@ -135,7 +123,7 @@ class LogDatabase(object):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, acq_reps, ret_reps,
             lapses) values(?,?,?,?,?,?)""",
-            (self.parser.user_id, self.LOADED_DATABASE, int(timestamp),
+            (self.parser.user_id, Event.LOADED_DATABASE, int(timestamp),
             scheduled_count, non_memorised_count, active_count))
         
     def log_saved_database(self, timestamp, scheduled_count,
@@ -143,20 +131,20 @@ class LogDatabase(object):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, acq_reps, ret_reps,
             lapses) values(?,?,?,?,?,?)""",
-            (self.parser.user_id, self.SAVED_DATABASE, int(timestamp),
+            (self.parser.user_id, Event.SAVED_DATABASE, int(timestamp),
             scheduled_count, non_memorised_count, active_count))
         
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, object_id)
             values(?,?,?,?)""",
-            (self.parser.user_id, self.ADDED_CARD, int(timestamp), card_id))
+            (self.parser.user_id, Event.ADDED_CARD, int(timestamp), card_id))
         
     def log_deleted_card(self, timestamp, card_id):
         self.con.execute(\
             """insert into log(user_id, event, timestamp, object_id)
             values(?,?,?,?)""",
-            (self.parser.user_id, self.DELETED_CARD, int(timestamp), card_id))
+            (self.parser.user_id, Event.DELETED_CARD, int(timestamp), card_id))
      
     def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
         ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
@@ -167,7 +155,7 @@ class LogDatabase(object):
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, thinking_time)
             values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            (self.parser.user_id, self.REPETITION, int(timestamp), card_id,
+            (self.parser.user_id, Event.REPETITION, int(timestamp), card_id,
             grade, easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, int(thinking_time)))

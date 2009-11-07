@@ -11,9 +11,9 @@ import httplib
 from urlparse import urlparse
 from xml.etree import cElementTree
 
-from sync import SyncError
-from sync import EventManager
-from sync import PROTOCOL_VERSION
+from synchroniser import SyncError
+from synchroniser import Synchroniser
+from synchroniser import PROTOCOL_VERSION
 
 
 class PutRequest(urllib2.Request):
@@ -33,10 +33,9 @@ class Client(object):
     def __init__(self, database, ui):
         self.database = database
         self.ui = ui
-        self.eman = EventManager("mediadir", self.get_media_file, ui)
-        self.eman.database = database
+        self.synchroniser = Synchroniser("mediadir", self.get_media_file, ui)
+        self.synchroniser.database = database
         self.id = "TODO"
-        self.stopped = False
 
     def sync(self, url, username, password):       
         try:
@@ -46,28 +45,22 @@ class Client(object):
             self.login(username, password)
             self.handshake()
             self.send_client_history()     
-            server_media_count = self.get_server_media_count()
+            server_media_count = self.get_number_of_server_media_files_to_sync()
             if server_media_count:
                 self.ui.status_bar_message("Applying server media...")
-                self.eman.apply_media(self.get_media_history(), \
+                self.synchroniser.apply_media(self.get_media_history(), \
                     server_media_count)
-            client_media_count = self.eman.get_media_count()
+            client_media_count = self.database.number_of_media_to_sync_for(self.server_id)
             if client_media_count:
-                self.send_client_media(self.eman.get_media_history(), \
+                self.send_client_media(self.synchroniser.get_media_history(), \
                     client_media_count)          
             self.get_server_history()
             self.send_finish_request()
-            if self.stopped:
-                raise SyncError("Aborted!")
         except SyncError, exception:
             self.database.load(backup_file) # TODO: use SQL rollback?
             self.ui.error_box("Error: " + str(exception))
         else:
             self.ui.information_box("Sync finished!")
-
-    def stop(self):
-        self.stopped = True
-        self.eman.stop()
 
     def login(self, username, password):
         self.ui.status_bar_message("Logging in...")
@@ -84,8 +77,6 @@ class Client(object):
                 raise SyncError(str(error.reason))
 
     def handshake(self):
-        if self.stopped:
-            return
         self.ui.status_bar_message("Handshaking...")
         client_params = ("<client id='%s' program_name='%s' " + \
             "program_version='%s' protocol_version='%s' capabilities='%s' " + \
@@ -102,22 +93,22 @@ class Client(object):
         except urllib2.URLError, error:
             raise SyncError("Handshaking: " + str(error))
         else:
-            self.eman.set_partner_params(server_params)
-            self.eman.create_partnership_if_needed()
+            self.synchroniser.set_partner_params(server_params)
+            self.server_id = self.synchroniser.partner["id"]
+            self.database.create_partnership_if_needed(self.server_id)
             
     def send_client_history(self):
-        if self.stopped:
-            return
         self.ui.status_bar_message("Sending client history to the server...")
-        history_length = self.eman.get_history_length()
-        if history_length == 0:
+        log_entries = self.database.number_of_log_entries_to_sync_for(\
+            self.server_id)
+        if log_entries == 0:
             return
-        history = self.eman.get_history()
+        history = self.synchroniser.get_history()
         
         #chistory = ''
         #for chunk in history:
         #    chistory += chunk
-        #data = str(history_length) + '\n' + chistory + '\n'
+        #data = str(log_entries) + '\n' + chistory + '\n'
         #try:
         #    response = urllib2.urlopen(PutRequest(\
         #        self.url + '/sync/client/history', data))
@@ -139,46 +130,40 @@ class Client(object):
         conn.endheaders()
 
         # Send client history length.
-        conn.send(str(history_length) + "\r\n")
+        conn.send(str(log_entries) + "\r\n")
         
         progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, history_length)
+        progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Sending client history to the server...")
         count = 0
         for chunk in history:
-            if self.stopped:
-                return
             conn.send(chunk + "\r\n")
             count += 1
             progress_dialog.set_value(count)
-        progress_dialog.set_value(history_length)
+        progress_dialog.set_value(log_entries)
         self.ui.status_bar_message("Waiting for the server to complete...")
         response = conn.getresponse()
         #FIXME: analyze response for complete on server side.
         response.read()
 
-    def get_server_media_count(self):
-        if self.stopped:
-            return
+    def get_number_of_server_media_files_to_sync(self):
         try:
             return int(urllib2.urlopen(\
-                self.url + "/sync/server/history/media/count").read())
+                self.url + "/number/of/server/media/files/to/sync").read())
         except urllib2.URLError, error:
-            raise SyncError("Getting server media count: " + str(error))
+            raise SyncError("Gett number of server media files to sync: " \
+                + str(error))
 
-    def get_server_history_length(self):
-        if self.stopped:
-            return
+    def get_number_of_server_log_entries_to_sync(self):
         try:
             return int(urllib2.urlopen(\
-                self.url + "/sync/server/history/length").read())
+                self.url + "/number/of/server/log/entries/to/sync").read())
         except urllib2.URLError, error:
-            raise SyncError("Getting server history length: " + str(error))
+            raise SyncError("Get number of server log entries to sync: " \
+                + str(error))
 
     def get_server_history(self):
-        if self.stopped:
-            return
-        history_length = self.get_server_history_length()
+        log_entries = self.get_number_of_server_log_entries_to_sync()
         self.ui.status_bar_message("Applying server history...")
         count = 0
         try:
@@ -187,22 +172,18 @@ class Client(object):
             response.readline() # get "<history>"
             chunk = response.readline() # get the first item.
             progress_dialog = self.ui.get_progress_dialog()
-            progress_dialog.set_range(0, history_length)
+            progress_dialog.set_range(0, log_entries)
             progress_dialog.set_text("Applying server history...")
             while chunk != "</history>\n":
-                if self.stopped:
-                    return
-                self.eman.apply_event(chunk)
+                self.synchroniser.apply_log_entry(chunk)
                 chunk = response.readline()
                 count += 1
                 progress_dialog.set_value(count)
-            progress_dialog.set_value(history_length)
+            progress_dialog.set_value(log_entries)
         except urllib2.URLError, error:
             raise SyncError("Getting server history: " + str(error))
 
     def get_media_history(self):
-        if self.stopped:
-            return
         try:
             return urllib2.urlopen(self.url + "/sync/server/mediahistory"). \
                 readline()
@@ -210,8 +191,6 @@ class Client(object):
             raise SyncError("Getting server media history: " + str(error))
        
     def send_client_media(self, history, media_count):
-        if self.stopped:
-            return
         self.ui.status_bar_message("Sending client media to the server...")
         count = 0
         hsize = float(media_count)
@@ -249,8 +228,6 @@ class Client(object):
             raise SyncError("Sending client media: " + str(error))
 
     def send_finish_request(self):
-        if self.stopped:
-            return
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
             if urllib2.urlopen(self.url + "/sync/finish").read() != "OK":
@@ -258,4 +235,5 @@ class Client(object):
         except urllib2.URLError, error:
             raise SyncError("Finishing syncing: " + str(error))
         else:
-            self.eman.update_last_sync_event()
+            self.database.update_last_sync_log_entry(self.server_id)
+            

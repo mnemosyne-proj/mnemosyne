@@ -9,10 +9,8 @@ import base64
 import select
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
-import mnemosyne.version
-
-from sync import EventManager
-from sync import PROTOCOL_VERSION
+from synchroniser import Synchroniser
+from synchroniser import PROTOCOL_VERSION
 
 
 class Server(WSGIServer):
@@ -34,7 +32,7 @@ class Server(WSGIServer):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.ui = ui
-        self.eman = EventManager("mediadir_TODO", None, ui)
+        self.synchroniser = Synchroniser("mediadir_TODO", None, ui)
         self.stopped = False
         self.logged_in = False
         self.id = "TODO"
@@ -58,7 +56,7 @@ class Server(WSGIServer):
 
     def stop(self):
         self.stopped = True
-        self.eman.stop()
+        self.synchroniser.stop()
 
     def get_method(self, environ):
 
@@ -143,64 +141,66 @@ class Server(WSGIServer):
         except:
             return "CANCEL"
         else:
-            self.eman.set_partner_params(client_params)
-            self.open_database(self.eman.partner["database_name"])
+            self.synchroniser.set_partner_params(client_params)
+            self.client_id = self.synchroniser.partner["id"]
+            self.open_database(self.synchroniser.partner["database_name"])
             self.database.backup()
-            self.eman.database = self.database
-            self.eman.create_partnership_if_needed()
+            self.synchroniser.database = self.database
+            self.database.create_partnership_if_needed(self.client_id)
             return "OK"
-
-    def get_sync_server_history_media_count(self, environ):
-        return str(self.eman.get_media_count())
-
-    def get_sync_server_history_length(self, environ):
-        return str(self.eman.get_history_length())
+        
+    def get_number_of_server_log_entries_to_sync(self, environ):
+        return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
+    
+    def get_number_of_server_media_files_to_sync(self, environ):
+        return str(self.database.number_of_media_to_sync_for(self.client_id))
 
     def get_sync_server_history(self, environ):
         self.ui.status_bar_message("Sending history to the client...")
-        history_length = self.eman.get_history_length()
+        log_entries = self.database.number_of_log_entries_to_sync_for(\
+            self.client_id)
 
         progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, history_length)
+        progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Sending history to the client...")
         
         count = 0
-        for chunk in self.eman.get_history():
+        for chunk in self.synchroniser.get_history():
             count += 1
             progress_dialog.set_value(count)
-            if count == history_length:
+            if count == log_entries:
                 self.ui.status_bar_message("Waiting for client to complete...")
             yield (chunk + "\n")
 
     def get_sync_server_mediahistory(self, environ):
         self.ui.status_bar_message("Sending media history to client...")
-        return self.eman.get_media_history()
+        return self.synchroniser.get_media_history()
 
     def put_sync_client_history(self, environ):
         socket = environ["wsgi.input"]
-        # Gets client history size.
-        history_length = float(socket.readline())
+        # Get number of client log entries to sync.
+        log_entries = float(socket.readline())
         self.ui.status_bar_message("Applying client history...")
         socket.readline()  # get "<history>".
-        chunk = socket.readline()  # get first xml-event.
+        chunk = socket.readline()  # get first xml-log_entry.
         
         progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, history_length)
+        progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Applying client history...")
         
         count = 0
         while chunk != "</history>\r\n":
-            self.eman.apply_event(chunk)
+            self.synchroniser.apply_log_entry(chunk)
             chunk = socket.readline()
             count += 1
             progress_dialog.set_value(count)
-        progress_dialog.set_value(history_length)
+        progress_dialog.set_value(log_entries)
         self.ui.status_bar_message("Waiting for client to finish...")
         return "OK"
 
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")
-        self.eman.update_last_sync_event()
+        self.database.update_last_sync_log_entry(self.client_id)
         self.logged_in = False
         if self.stop_after_sync:
             self.stop()
