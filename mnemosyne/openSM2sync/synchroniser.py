@@ -4,7 +4,7 @@
 #                   Peter Bienstman <Peter.Bienstman@UGent.be>
 
 from xml.etree import cElementTree
-from openSM2sync.log_event import EventTypes as Event
+from openSM2sync.log_entry import EventTypes
 
 PROTOCOL_VERSION = 1.0
 
@@ -76,30 +76,30 @@ class Synchroniser:
             if self.stopped:
                 break
             log_entry = {"log_entry": item[0], "id": item[1]}
-            if log_entry["log_entry"] in (Event.ADDED_MEDIA, Event.DELETED_MEDIA):
+            if log_entry["log_entry"] in (EventTypes.ADDED_MEDIA, EventTypes.DELETED_MEDIA):
                 history += str(self.create_media_xml_element(log_entry))
         history += "</history>"
         return history
 
     def create_log_entry_element(self, log_entry):
         log_entry_id = log_entry["log_entry"]
-        if log_entry_id in (Event.ADDED_TAG, Event.UPDATED_TAG, \
-            Event.DELETED_TAG):
+        if log_entry_id in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG, \
+            EventTypes.DELETED_TAG):
             return self.create_tag_xml_element(log_entry)
-        elif log_entry_id in (Event.ADDED_FACT, Event.UPDATED_FACT, \
-            Event.DELETED_FACT):
+        elif log_entry_id in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT, \
+            EventTypes.DELETED_FACT):
             return self.create_fact_xml_element(log_entry)
-        elif log_entry_id in (Event.ADDED_CARD, Event.UPDATED_CARD, \
-            Event.DELETED_CARD):
+        elif log_entry_id in (EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD, \
+            EventTypes.DELETED_CARD):
             return self.create_card_xml_element(log_entry)
-        elif log_entry_id in (Event.ADDED_CARD_TYPE, Event.UPDATED_CARD_TYPE, \
-            Event.DELETED_CARD_TYPE, Event.REPETITION):
+        elif log_entry_id in (EventTypes.ADDED_CARD_TYPE, EventTypes.UPDATED_CARD_TYPE, \
+            EventTypes.DELETED_CARD_TYPE, EventTypes.REPETITION):
             return self.create_card_xml_element(log_entry)
         else:
             return None   # No need XML for others entries ?
 
     def create_tag_xml_element(self, log_entry):
-        if log_entry["log_entry"] == Event.DELETED_TAG:
+        if log_entry["log_entry"] == EventTypes.DELETED_TAG:
             # We only transfer tag id, that should be deleted.
             return "<i><t>tag</t><ev>%s</ev><id>%s</id></i>" % \
                 (log_entry["log_entry"], log_entry["id"])
@@ -110,7 +110,7 @@ class Synchroniser:
             (log_entry["log_entry"], tag.id, tag.name)
 
     def create_fact_xml_element(self, log_entry):
-        if log_entry["log_entry"] == Event.DELETED_FACT:
+        if log_entry["log_entry"] == EventTypes.DELETED_FACT:
             # We only transfer fact id, that should be deleted.
             return "<i><t>fact</t><ev>%s</ev><id>%s</id></i>" % \
                 (log_entry["log_entry"], log_entry["id"])
@@ -126,7 +126,7 @@ class Synchroniser:
                 fact.card_type.id, dkeys, dvalues, log_entry["time"])
 
     def create_card_xml_element(self, log_entry):
-        if log_entry["log_entry"] == Event.DELETED_CARD:
+        if log_entry["log_entry"] == EventTypes.DELETED_CARD:
             # We only transfer card id, that should be deleted.
             return "<i><t>card</t><ev>%s</ev><id>%s</id></i>" % \
                 (log_entry["log_entry"], log_entry["id"])
@@ -225,34 +225,34 @@ class Synchroniser:
             return
         child = cElementTree.fromstring(item)
         log_entry = int(child.find("ev").text)
-        if log_entry == Event.ADDED_FACT:
+        if log_entry == EventTypes.ADDED_FACT:
             fact = self.create_fact_object(child)
             self.database.add_fact(fact)
-        elif log_entry == Event.UPDATED_FACT:
+        elif log_entry == EventTypes.UPDATED_FACT:
             fact = self.database.get_fact(child.find("id").text, False)
             if fact:
                 self.database.update_fact(self.create_fact_object(child))
             else:
                 self.allow_update_card = False
-        elif log_entry == Event.DELETED_FACT:
+        elif log_entry == EventTypes.DELETED_FACT:
             fact = self.database.get_fact(child.find("id").text, False)
             if fact:
                 self.database.delete_fact_and_related_data(fact)
-        elif log_entry == Event.ADDED_TAG:
+        elif log_entry == EventTypes.ADDED_TAG:
             tag = self.create_tag_object(child)
             if not tag.name in self.database.get_tag_names():
                 self.database.add_tag(tag)
-        elif log_entry == Event.UPDATED_TAG:
+        elif log_entry == EventTypes.UPDATED_TAG:
             self.database.update_tag(self.create_tag_object(child))
-        elif log_entry == Event.ADDED_CARD:
+        elif log_entry == EventTypes.ADDED_CARD:
             card = self.create_card_object(child)
             self.database.add_card(card)
             self.database.log_added_card(int(child.find("tm").text), card.id)
-        elif log_entry == Event.UPDATED_CARD:
+        elif log_entry == EventTypes.UPDATED_CARD:
             if self.allow_update_card:
                 self.database.update_card(self.create_card_object(child))
             self.allow_update_card = True
-        elif log_entry == Event.REPETITION:
+        elif log_entry == EventTypes.REPETITION:
             old_card = self.database.get_card(child.find("id").text, False)
             new_card = self.create_card_object(child)
             if new_card.timestamp > old_card.last_rep:

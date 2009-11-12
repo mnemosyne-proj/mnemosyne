@@ -5,7 +5,7 @@
 import os
 import time
 
-from openSM2sync.log_event import EventTypes
+from openSM2sync.log_entry import EventTypes
 
 
 class SQLiteLogging(object):

@@ -4,8 +4,8 @@
 #                  Peter Bienstman <Peter.Bienstman@UGent.be>
 #
 
-from openSM2sync.log_event import LogEvent
-from openSM2sync.log_event import EventTypes
+from openSM2sync.log_entry import LogEntry
+from openSM2sync.log_entry import EventTypes
 
 
 class SQLiteSync(object):
@@ -35,16 +35,17 @@ class SQLiteSync(object):
     def _log_entry(self, sql_res):
 
         """Create log entry object in the form openSM2sync expects."""
-        
+
+        log_entry = LogEntry()
         for attr in ("event_type", "timestamp", "object_id"):
-            setattr(log_event, attr, sql_res[attr])
-        log_event.data = {}
-        if log_event.event_type == EventTypes.REPETITION:
+            setattr(log_entry, attr, sql_res[attr])
+        log_entry.data = {}
+        if log_entry.event_type == EventTypes.REPETITION:
             for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
                 "acq_reps_since_lapse", "ret_reps_since_lapse",
                 "scheduled_interval", "actual_interval", "new_interval",
                 "thinking_time"):
-                setattr(log_event.data, attr, sql_res[attr])      
+                setattr(log_entry.data, attr, sql_res[attr])      
     
     def get_log_entries_to_sync_for(self, partner):
 

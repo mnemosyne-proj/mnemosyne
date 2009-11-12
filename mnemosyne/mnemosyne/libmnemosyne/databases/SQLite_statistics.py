@@ -5,7 +5,7 @@
 import time
 import datetime
 
-from openSM2sync.log_event import EventTypes
+from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
 HOUR = 60 * 60 # Seconds in an hour. 

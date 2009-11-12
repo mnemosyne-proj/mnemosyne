@@ -8,7 +8,7 @@ from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
-from openSM2sync.log_event import EventTypes
+from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 

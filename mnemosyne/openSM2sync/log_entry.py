@@ -1,5 +1,5 @@
 #
-# log_event.py <Peter.Bienstman@UGent.be>
+# log_entry.py <Peter.Bienstman@UGent.be>
 #
 
 class EventTypes(object):
@@ -28,7 +28,7 @@ class EventTypes(object):
     DELETED_MEDIA = 20
 
 
-class LogEvent(object):
+class LogEntry(object):
 
     event_type = None
     timestamp = None
