@@ -97,17 +97,17 @@ class Mnemosyne1Mem(FileFormat):
         # should filter out afterwards, so as not to upset the 'cards added per
         # day' statistics. We do keep the updated card events for the benefit
         # of the syncing algorithm.
-        log_index = db.get_log_index()
+        log_index = db.get_last_log_entry_index()
         result = self._import_mem_file(filename, tag_name, reset_learning_data)
         if result:
             return result
-        db.remove_added_card_events_since(log_index)
+        db.remove_added_card_log_entries_since(log_index)
         # The events that we import from the txt logs obviously should not be
         # reexported to txt logs. So, before the import, we flush the SQL logs
         # to the txt logs, and after the import we update the partership index.
         db.dump_to_txt_log() 
         self._import_logs(filename)
-        db.bring_txt_log_partnership_index_forward()
+        db.update_last_sync_log_entry_for("log.txt")
         # Mananage database indices.
         db.after_mem_import()
         db.save()

@@ -95,7 +95,7 @@ class Client(object):
         else:
             self.synchroniser.set_partner_params(server_params)
             self.server_id = self.synchroniser.partner["id"]
-            self.database.create_partnership_if_needed(self.server_id)
+            self.database.create_partnership_if_needed_for(self.server_id)
             
     def send_client_history(self):
         self.ui.status_bar_message("Sending client history to the server...")

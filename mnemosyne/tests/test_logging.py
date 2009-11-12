@@ -6,7 +6,7 @@ import os
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
-from openSM2sync.log_event import EventCodes as Event
+from openSM2sync.log_event import EventTypes
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
@@ -55,37 +55,37 @@ class TestLogging(MnemosyneTest):
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=1").fetchone()
-        assert sql_res["event"] == Event.STARTED_PROGRAM
+        assert sql_res["event_type"] == EventTypes.STARTED_PROGRAM
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=2").fetchone()
-        assert sql_res["event"] == Event.STARTED_SCHEDULER
+        assert sql_res["event_type"] == EventTypes.STARTED_SCHEDULER
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=3").fetchone()
-        assert sql_res["event"] == Event.LOADED_DATABASE
+        assert sql_res["event_type"] == EventTypes.LOADED_DATABASE
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 0
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=4").fetchone()
-        assert sql_res["event"] == Event.ADDED_FACT
+        assert sql_res["event_type"] == EventTypes.ADDED_FACT
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=5").fetchone()
-        assert sql_res["event"] == Event.ADDED_TAG
+        assert sql_res["event_type"] == EventTypes.ADDED_TAG
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=6").fetchone()
-        assert sql_res["event"] == Event.ADDED_CARD
+        assert sql_res["event_type"] == EventTypes.ADDED_CARD
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=7").fetchone()
-        assert sql_res["event"] == Event.REPETITION
+        assert sql_res["event_type"] == EventTypes.REPETITION
         assert sql_res["acq_reps"] == 1
         assert sql_res["ret_reps"] == 0
         assert sql_res["scheduled_interval"] == 0
@@ -96,7 +96,7 @@ class TestLogging(MnemosyneTest):
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=8").fetchone()
-        assert sql_res["event"] == Event.REPETITION
+        assert sql_res["event_type"] == EventTypes.REPETITION
         assert sql_res["acq_reps"] == 2
         assert sql_res["ret_reps"] == 0
         assert sql_res["scheduled_interval"] == 0
@@ -106,7 +106,7 @@ class TestLogging(MnemosyneTest):
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=9").fetchone()
-        assert sql_res["event"] == Event.REPETITION
+        assert sql_res["event_type"] == EventTypes.REPETITION
         assert sql_res["acq_reps"] == 3
         assert sql_res["ret_reps"] == 0
         assert sql_res["scheduled_interval"] == 0
@@ -116,45 +116,45 @@ class TestLogging(MnemosyneTest):
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=10").fetchone()
-        assert sql_res["event"] == Event.SAVED_DATABASE
+        assert sql_res["event_type"] == EventTypes.SAVED_DATABASE
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 1
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=11").fetchone()
-        assert sql_res["event"] == Event.STOPPED_PROGRAM
+        assert sql_res["event_type"] == EventTypes.STOPPED_PROGRAM
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=12").fetchone()
-        assert sql_res["event"] == Event.STARTED_PROGRAM
+        assert sql_res["event_type"] == EventTypes.STARTED_PROGRAM
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=13").fetchone()
-        assert sql_res["event"] == Event.STARTED_SCHEDULER
+        assert sql_res["event_type"] == EventTypes.STARTED_SCHEDULER
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=14").fetchone()
-        assert sql_res["event"] == Event.LOADED_DATABASE
+        assert sql_res["event_type"] == EventTypes.LOADED_DATABASE
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 1
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=15").fetchone()
-        assert sql_res["event"] == Event.ADDED_FACT        
+        assert sql_res["event_type"] == EventTypes.ADDED_FACT        
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=16").fetchone()
-        assert sql_res["event"] == Event.ADDED_CARD
+        assert sql_res["event_type"] == EventTypes.ADDED_CARD
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=17").fetchone()
-        assert sql_res["event"] == Event.DELETED_CARD       
+        assert sql_res["event_type"] == EventTypes.DELETED_CARD       
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=18").fetchone()
-        assert sql_res["event"] == Event.DELETED_FACT
+        assert sql_res["event_type"] == EventTypes.DELETED_FACT
         assert sql_res["object_id"] is not None

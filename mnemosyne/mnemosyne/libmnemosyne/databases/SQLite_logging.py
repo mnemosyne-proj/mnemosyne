@@ -5,7 +5,7 @@
 import os
 import time
 
-from openSM2sync.log_event import EventCodes as Event
+from openSM2sync.log_event import EventTypes
 
 
 class SQLiteLogging(object):
@@ -22,119 +22,120 @@ class SQLiteLogging(object):
                             
     def log_started_program(self, timestamp, program_name_version):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.STARTED_PROGRAM, int(timestamp), program_name_version)) 
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.STARTED_PROGRAM, int(timestamp),
+             program_name_version))
 
     def log_stopped_program(self, timestamp):
         self.con.execute(\
-            "insert into log(event, timestamp) values(?,?)",
-            (Event.STOPPED_PROGRAM, int(timestamp)))
+            "insert into log(event_type, timestamp) values(?,?)",
+            (EventTypes.STOPPED_PROGRAM, int(timestamp)))
 
     def log_started_scheduler(self, timestamp, scheduler_name):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.STARTED_SCHEDULER, int(timestamp), scheduler_name))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.STARTED_SCHEDULER, int(timestamp), scheduler_name))
     
     def log_loaded_database(self, timestamp, scheduled_count,
         non_memorised_count, active_count):
         self.con.execute(\
-            """insert into log(event, timestamp, acq_reps, ret_reps,
+            """insert into log(event_type, timestamp, acq_reps, ret_reps,
             lapses) values(?,?,?,?,?)""",
-            (Event.LOADED_DATABASE, int(timestamp), scheduled_count,
+            (EventTypes.LOADED_DATABASE, int(timestamp), scheduled_count,
             non_memorised_count, active_count))
         
     def log_saved_database(self, timestamp, scheduled_count,
         non_memorised_count, active_count):
         self.con.execute(\
-            """insert into log(event, timestamp, acq_reps, ret_reps,
+            """insert into log(event_type, timestamp, acq_reps, ret_reps,
             lapses) values(?,?,?,?,?)""",
-            (Event.SAVED_DATABASE, int(timestamp), scheduled_count,
+            (EventTypes.SAVED_DATABASE, int(timestamp), scheduled_count,
             non_memorised_count, active_count))
         
     def log_added_tag(self, timestamp, tag_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.ADDED_TAG, int(timestamp), tag_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_TAG, int(timestamp), tag_id))
         
     def log_updated_tag(self, timestamp, tag_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.UPDATED_TAG, int(timestamp), tag_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_TAG, int(timestamp), tag_id))
         
     def log_deleted_tag(self, timestamp, tag_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.DELETED_TAG, int(timestamp), tag_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_TAG, int(timestamp), tag_id))
         
     def log_added_fact(self, timestamp, fact_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.ADDED_FACT, int(timestamp), fact_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_FACT, int(timestamp), fact_id))
         
     def log_updated_fact(self, timestamp, fact_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.UPDATED_FACT, int(timestamp), fact_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_FACT, int(timestamp), fact_id))
         
     def log_deleted_fact(self, timestamp, fact_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.DELETED_FACT, int(timestamp), fact_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_FACT, int(timestamp), fact_id))
         
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.ADDED_CARD, int(timestamp), card_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_CARD, int(timestamp), card_id))
         
     def log_updated_card(self, timestamp, card_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.UPDATED_CARD, int(timestamp), card_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_CARD, int(timestamp), card_id))
         
     def log_deleted_card(self, timestamp, card_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.DELETED_CARD, int(timestamp), card_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_CARD, int(timestamp), card_id))
         
     def log_added_card_type(self, timestamp, card_type_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.ADDED_CARD_TYPE, int(timestamp), card_type_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_CARD_TYPE, int(timestamp), card_type_id))
         
     def log_updated_card_type(self, timestamp, card_type_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.UPDATED_CARD_TYPE, int(timestamp), card_type_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_CARD_TYPE, int(timestamp), card_type_id))
         
     def log_deleted_card_type(self, timestamp, card_type_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.DELETED_CARD_TYPE, int(timestamp), card_type_id))
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_CARD_TYPE, int(timestamp), card_type_id))
         
     def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
         ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
         scheduled_interval, actual_interval, new_interval, thinking_time):
         self.con.execute(\
-            """insert into log(event, timestamp, object_id, grade,
+            """insert into log(event_type, timestamp, object_id, grade,
             easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, thinking_time)
             values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            (Event.REPETITION, int(timestamp), card_id, grade, easiness,
+            (EventTypes.REPETITION, int(timestamp), card_id, grade, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, int(thinking_time)))
 
     def log_added_media(self, timestamp, filename, fact_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.ADDED_MEDIA, int(timestamp),
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_MEDIA, int(timestamp),
              filename + "__for__" + fact_id))       
 
     def log_deleted_media(self, timestamp, filename, fact_id):
         self.con.execute(\
-            "insert into log(event, timestamp, object_id) values(?,?,?)",
-            (Event.DELETED_MEDIA, int(timestamp),
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_MEDIA, int(timestamp),
              filename + "__for__" + fact_id))
     
     def dump_to_txt_log(self):
@@ -150,32 +151,32 @@ class SQLiteLogging(object):
         for cursor in self.con.execute(\
             "select * from log where _id>?", (last_index, )):
             index = int(cursor["_id"])
-            event = cursor["event"]
+            event_type = cursor["event_type"]
             timestamp = time.strftime("%Y-%m-%d %H:%M:%S",
                 time.localtime(cursor["timestamp"]))
-            if event == Event.STARTED_PROGRAM:
+            if event_type == EventTypes.STARTED_PROGRAM:
                 print >> logfile, "%s : Program started : %s" \
                       % (timestamp, cursor["object_id"])
-            elif event == Event.STARTED_SCHEDULER:
+            elif event_type == EventTypes.STARTED_SCHEDULER:
                 print >> logfile, "%s : Scheduler : %s" \
                       % (timestamp, cursor["object_id"])
-            elif event == Event.LOADED_DATABASE:
+            elif event_type == EventTypes.LOADED_DATABASE:
                 print >> logfile, "%s : Loaded database %d %d %d" \
                       % (timestamp, cursor["acq_reps"], cursor["ret_reps"],
                          cursor["lapses"])                              
-            elif event == Event.SAVED_DATABASE:
+            elif event_type == EventTypes.SAVED_DATABASE:
                 print >> logfile, "%s : Saved database %d %d %d" \
                       % (timestamp, cursor["acq_reps"], cursor["ret_reps"],
                          cursor["lapses"])
-            elif event == Event.ADDED_CARD:
+            elif event_type == EventTypes.ADDED_CARD:
                 # Use dummy grade and interval, We log the first repetition
                 # separately anyhow.
                 print >> logfile, "%s : New item %s -1 -1" \
                       % (timestamp, cursor["object_id"])
-            elif event == Event.DELETED_CARD:
+            elif event_type == EventTypes.DELETED_CARD:
                 print >> logfile, "%s : Deleted item %s" \
                       % (timestamp, cursor["object_id"])
-            elif event == Event.REPETITION:
+            elif event_type == EventTypes.REPETITION:
                 print >> logfile, \
               "%s : R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f" %\
                          (timestamp, cursor["object_id"], cursor["grade"],
@@ -186,7 +187,7 @@ class SQLiteLogging(object):
                           cursor["scheduled_interval"],
                           cursor["actual_interval"], cursor["new_interval"],
                           0, cursor["thinking_time"])
-            elif event == Event.STOPPED_PROGRAM:
+            elif event_type == EventTypes.STOPPED_PROGRAM:
                 print >> logfile, "%s : Program stopped" % (timestamp, )               
         # Update partnership index.
         self.con.execute(\
@@ -241,16 +242,8 @@ class SQLiteLogging(object):
             modification_time=? where _id=?""",
             (creation_time, creation_time, sql_res["_fact_id"]))
 
-    def get_log_index(self):
-        return self.con.execute(\
-            "select _id from log order by _id desc limit 1").fetchone()[0]
-
-    def remove_added_card_events_since(self, index):
-        self.con.execute("delete from log where _id>? and event=?",
-            (index, Event.ADDED_CARD))
+    def remove_added_card_log_entries_since(self, index):
+        self.con.execute("delete from log where _id>? and event_type=?",
+            (index, EventTypes.ADDED_CARD))
         self.con.execute("vacuum")
         
-    def bring_txt_log_partnership_index_forward(self):
-        self.con.execute(\
-            "update partnerships set _last_log_id=? where partner=?",
-            (self.get_log_index(), "log.txt"))       

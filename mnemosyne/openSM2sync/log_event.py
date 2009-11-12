@@ -2,7 +2,7 @@
 # log_event.py <Peter.Bienstman@UGent.be>
 #
 
-class EventCodes(object):
+class EventTypes(object):
 
     """Codes to identify event types."""
 
@@ -30,4 +30,7 @@ class EventCodes(object):
 
 class LogEvent(object):
 
-    pass
+    event_type = None
+    timestamp = None
+    object_id = None
+    data = {}

@@ -106,7 +106,7 @@ SCHEMA = """
        
     create table log(
         _id integer primary key,
-        event integer,
+        event_type integer,
         timestamp integer,
         object_id text,
         grade integer,

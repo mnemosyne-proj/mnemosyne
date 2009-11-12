@@ -1,10 +1,10 @@
 #
-# synchrconiser.py - Max Usachev <maxusachev@gmail.com>
-#                    Ed Bartosh <bartosh@gmail.com>
-#                    Peter Bienstman <Peter.Bienstman@UGent.be>
+# synchroniser.py - Max Usachev <maxusachev@gmail.com>
+#                   Ed Bartosh <bartosh@gmail.com>
+#                   Peter Bienstman <Peter.Bienstman@UGent.be>
 
 from xml.etree import cElementTree
-from openSM2sync.log_event import EventCodes as Event
+from openSM2sync.log_event import EventTypes as Event
 
 PROTOCOL_VERSION = 1.0
 

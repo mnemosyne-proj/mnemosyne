@@ -146,7 +146,7 @@ class Server(WSGIServer):
             self.open_database(self.synchroniser.partner["database_name"])
             self.database.backup()
             self.synchroniser.database = self.database
-            self.database.create_partnership_if_needed(self.client_id)
+            self.database.create_partnership_if_needed_for(self.client_id)
             return "OK"
         
     def get_number_of_server_log_entries_to_sync(self, environ):

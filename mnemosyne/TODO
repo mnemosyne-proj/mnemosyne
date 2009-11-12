@@ -1,16 +1,17 @@
 -factor out startup code in test
 -cdata for deck name
--backup on server side
+-check if get_log_entries_to_sync_for really return iterator
 -create new database on server side if needed
--group partership code from mem import
 -self.stopped, timeouts
 -synchroniser --> xml formatter?
 -DictClass
+-repetition: don't send stuff we can calculate
 -<>
 -make sure the actual sync events get updated too
 -rename history by log
 -media
 -get media file
+-document Event structure
 -sql roll back?
 -conflict resolution
 -benchmarks
@@ -114,6 +115,8 @@ def parse_JSON(fileobj):
 -show number of cards selected
 -card.in_view needed?
 -make card browser remember its size
+
+-do better numeric sort on card browser and activate cards
 
 
 -implement duplicate checking
