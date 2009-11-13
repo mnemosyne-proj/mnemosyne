@@ -33,7 +33,7 @@ class Client(object):
     def __init__(self, database, ui):
         self.database = database
         self.ui = ui
-        self.synchroniser = Synchroniser("mediadir", self.get_media_file, ui)
+        self.synchroniser = Synchroniser()
         self.synchroniser.database = database
         self.id = "TODO"
 
@@ -44,16 +44,7 @@ class Client(object):
             backup_file = self.database.backup()           
             self.login(username, password)
             self.handshake()
-            self.send_client_history()     
-            server_media_count = self.get_number_of_server_media_files_to_sync()
-            if server_media_count:
-                self.ui.status_bar_message("Applying server media...")
-                self.synchroniser.apply_media(self.get_media_history(), \
-                    server_media_count)
-            client_media_count = self.database.number_of_media_to_sync_for(self.server_id)
-            if client_media_count:
-                self.send_client_media(self.synchroniser.get_media_history(), \
-                    client_media_count)          
+            self.send_client_history()       
             self.get_server_history()
             self.send_finish_request()
         except SyncError, exception:
@@ -92,10 +83,9 @@ class Client(object):
                 raise SyncError("Handshaking: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Handshaking: " + str(error))
-        else:
-            self.synchroniser.set_partner_params(server_params)
-            self.server_id = self.synchroniser.partner["id"]
-            self.database.create_partnership_if_needed_for(self.server_id)
+        self.synchroniser.set_partner_params(server_params)
+        self.server_id = self.synchroniser.partner["id"]
+        self.database.create_partnership_if_needed_for(self.server_id)
             
     def send_client_history(self):
         self.ui.status_bar_message("Sending client history to the server...")
@@ -103,19 +93,6 @@ class Client(object):
             self.server_id)
         if log_entries == 0:
             return
-        history = self.synchroniser.get_history()
-        
-        #chistory = ''
-        #for chunk in history:
-        #    chistory += chunk
-        #data = str(log_entries) + '\n' + chistory + '\n'
-        #try:
-        #    response = urllib2.urlopen(PutRequest(\
-        #        self.url + '/sync/client/history', data))
-        #    if response.read() != "OK":
-        #        raise SyncError("Sending client history: error on server side.")
-        #except urllib2.URLError, error:
-        #    raise SyncError("Sending client history: " + str(error))
 
         parsed_url = urlparse(self.url) 
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
@@ -136,23 +113,16 @@ class Client(object):
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Sending client history to the server...")
         count = 0
-        for chunk in history:
-            conn.send(chunk + "\r\n")
+        for log_entry in self.database.get_log_entries_to_sync_for(\
+            self.server_id):
+            conn.send(self.synchroniser.log_entry_XML(log_entry) + "\r\n")
             count += 1
             progress_dialog.set_value(count)
         progress_dialog.set_value(log_entries)
         self.ui.status_bar_message("Waiting for the server to complete...")
         response = conn.getresponse()
-        #FIXME: analyze response for complete on server side.
+        # TODO: analyze response from server side.
         response.read()
-
-    def get_number_of_server_media_files_to_sync(self):
-        try:
-            return int(urllib2.urlopen(\
-                self.url + "/number/of/server/media/files/to/sync").read())
-        except urllib2.URLError, error:
-            raise SyncError("Gett number of server media files to sync: " \
-                + str(error))
 
     def get_number_of_server_log_entries_to_sync(self):
         try:
@@ -165,42 +135,21 @@ class Client(object):
     def get_server_history(self):
         log_entries = self.get_number_of_server_log_entries_to_sync()
         self.ui.status_bar_message("Applying server history...")
-        count = 0
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, log_entries)
+        progress_dialog.set_text("Applying server history...")
         try:
-            #return urllib2.urlopen(self.url + '/sync/server/history')
             response = urllib2.urlopen(self.url + "/sync/server/history")
-            response.readline() # get "<history>"
-            chunk = response.readline() # get the first item.
-            progress_dialog = self.ui.get_progress_dialog()
-            progress_dialog.set_range(0, log_entries)
-            progress_dialog.set_text("Applying server history...")
-            while chunk != "</history>\n":
-                self.synchroniser.apply_log_entry(chunk)
+            count = 0
+            while count != log_entries:
                 chunk = response.readline()
+                self.synchroniser.apply_log_entry(chunk)
                 count += 1
                 progress_dialog.set_value(count)
-            progress_dialog.set_value(log_entries)
         except urllib2.URLError, error:
             raise SyncError("Getting server history: " + str(error))
-
-    def get_media_history(self):
-        try:
-            return urllib2.urlopen(self.url + "/sync/server/mediahistory"). \
-                readline()
-        except urllib2.URLError, error:
-            raise SyncError("Getting server media history: " + str(error))
-       
-    def send_client_media(self, history, media_count):
-        self.ui.status_bar_message("Sending client media to the server...")
-        count = 0
-        hsize = float(media_count)
-        self.ui.show_progressbar()
-        for child in cElementTree.fromstring(history):
-            self.send_media_file(child.find("id").text.split("__for__")[0])
-            count += 1
-            self.ui.update_progressbar(count / hsize)
-        self.ui.hide_progressbar()
-
+        progress_dialog.set_value(log_entries)
+            
     def get_media_file(self, fname):
         try:
             response = urllib2.urlopen(\
@@ -234,6 +183,5 @@ class Client(object):
                 raise SyncError("Finishing sync: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Finishing syncing: " + str(error))
-        else:
-            self.database.update_last_sync_log_entry(self.server_id)
+        self.database.update_last_sync_log_entry(self.server_id)
             

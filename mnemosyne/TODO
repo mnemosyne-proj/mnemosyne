@@ -5,13 +5,23 @@
 -self.stopped, timeouts
 -synchroniser --> xml formatter?
 -DictClass
+-add error handling on send client history
+-more elegant error handling
+-check if count of log entries is OK, both on client and on server side
+-sending length from server to client is different than from client to server
 -repetition: don't send stuff we can calculate
 -<>
+-add modulo to progress dialogs
+-more code sharing between client and server? Send history, e.g.
+-add streaming connection to server side too.
+-\r client / vs server?
 -make sure the actual sync events get updated too
 -rename history by log
 -media
 -get media file
+-check for updated media files outside of the program
 -document Event structure
+-same connection throughout?
 -sql roll back?
 -conflict resolution
 -benchmarks

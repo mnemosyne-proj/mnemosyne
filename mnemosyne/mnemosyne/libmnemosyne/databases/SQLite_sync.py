@@ -55,7 +55,7 @@ class SQLiteSync(object):
         """
         
         _id = self.get_last_synced_log_entry_for(partner)
-        return (_log_entry(cursor) for cursor in self.con.execute(\
+        return (self._log_entry(cursor) for cursor in self.con.execute(\
             "select * from log where _id>?", (_id, )))
 
     def get_last_log_entry_index(self):

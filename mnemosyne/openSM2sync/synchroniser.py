@@ -22,24 +22,16 @@ class DictClass:
             
 class Synchroniser:
     
-    """Class for manipulatig with client/server database:
-    reading/writing history log_entries, generating/parsing
-    XML representation of history log_entries.
-    
-    """
+    """Class handling the conversion from LogEntry objects to XML streams and
+    vice versa.
 
-    def __init__(self, mediadir, get_media, ui):
-        self.ui = ui
+    """
+    
+    def __init__(self):
         self.partner = {"id": None, "program_name": None,
             "program_version": None, "protocol_version": None,
             "capabilities": None, "database_name": None,
             "server_deck_read_only": None, "server_allows_media_upload": None}
-        self.mediadir = mediadir
-        self.get_media = get_media
-        self.stopped = False
-
-    def stop(self):
-        self.stopped = True
 
     def set_partner_params(self, partner_params):
         params = cElementTree.fromstring(partner_params) 
@@ -51,54 +43,12 @@ class Synchroniser:
                 value = False
             self.partner[key] = value
 
-    def get_history(self):
+    def log_entry_XML(self, log_entry):
+        chunk = """<log type="%d" time="%d" o_id="%s">""" % \
+            (log_entry.event_type, log_entry.timestamp, log_entry.object_id)
+        return chunck
 
-        """Creates history in XML."""
-       
-        yield str("<history>")
-        for item in self.database.get_history_log_entries(self.partner["id"]):
-            if self.stopped:
-                break
-            log_entry = {"log_entry": item[0], "time": item[1], "id": item[2], \
-                "s_int": item[3], "a_int": item[4], "n_int": item[5], \
-                "t_time": item[6]}
-            item = self.create_log_entry_element(log_entry)
-            if item:
-                yield str(item)
-        yield str("</history>")
-
-    def get_media_history(self):
-
-        """Creates media history in XML."""
-
-        history = "<history>"
-        for item in self.database.get_media_history_log_entries(self.partner["id"]):
-            if self.stopped:
-                break
-            log_entry = {"log_entry": item[0], "id": item[1]}
-            if log_entry["log_entry"] in (EventTypes.ADDED_MEDIA, EventTypes.DELETED_MEDIA):
-                history += str(self.create_media_xml_element(log_entry))
-        history += "</history>"
-        return history
-
-    def create_log_entry_element(self, log_entry):
-        log_entry_id = log_entry["log_entry"]
-        if log_entry_id in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG, \
-            EventTypes.DELETED_TAG):
-            return self.create_tag_xml_element(log_entry)
-        elif log_entry_id in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT, \
-            EventTypes.DELETED_FACT):
-            return self.create_fact_xml_element(log_entry)
-        elif log_entry_id in (EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD, \
-            EventTypes.DELETED_CARD):
-            return self.create_card_xml_element(log_entry)
-        elif log_entry_id in (EventTypes.ADDED_CARD_TYPE, EventTypes.UPDATED_CARD_TYPE, \
-            EventTypes.DELETED_CARD_TYPE, EventTypes.REPETITION):
-            return self.create_card_xml_element(log_entry)
-        else:
-            return None   # No need XML for others entries ?
-
-    def create_tag_xml_element(self, log_entry):
+    def tag_log_entry_XML(self, log_entry):
         if log_entry["log_entry"] == EventTypes.DELETED_TAG:
             # We only transfer tag id, that should be deleted.
             return "<i><t>tag</t><ev>%s</ev><id>%s</id></i>" % \

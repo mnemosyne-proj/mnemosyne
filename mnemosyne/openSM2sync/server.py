@@ -32,7 +32,7 @@ class Server(WSGIServer):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.ui = ui
-        self.synchroniser = Synchroniser("mediadir_TODO", None, ui)
+        self.synchroniser = Synchroniser()
         self.stopped = False
         self.logged_in = False
         self.id = "TODO"
@@ -151,9 +151,6 @@ class Server(WSGIServer):
         
     def get_number_of_server_log_entries_to_sync(self, environ):
         return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
-    
-    def get_number_of_server_media_files_to_sync(self, environ):
-        return str(self.database.number_of_media_to_sync_for(self.client_id))
 
     def get_sync_server_history(self, environ):
         self.ui.status_bar_message("Sending history to the client...")
@@ -165,29 +162,24 @@ class Server(WSGIServer):
         progress_dialog.set_text("Sending history to the client...")
         
         count = 0
-        for chunk in self.synchroniser.get_history():
+        for log_entry in self.database.get_log_entries_to_sync_for(\
+            self.cliend_id):
             count += 1
             progress_dialog.set_value(count)
-            if count == log_entries:
-                self.ui.status_bar_message("Waiting for client to complete...")
-            yield (chunk + "\n")
-
-    def get_sync_server_mediahistory(self, environ):
-        self.ui.status_bar_message("Sending media history to client...")
-        return self.synchroniser.get_media_history()
+            yield self.synchroniser.log_entry_XML(log_entry) + "\r\n"
 
     def put_sync_client_history(self, environ):
         socket = environ["wsgi.input"]
         # Get number of client log entries to sync.
         log_entries = float(socket.readline())
-        self.ui.status_bar_message("Applying client history...")
-        socket.readline()  # get "<history>".
-        chunk = socket.readline()  # get first xml-log_entry.
         
+        self.ui.status_bar_message("Applying client history...")
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Applying client history...")
         
+        socket.readline()  # get "<history>".
+        chunk = socket.readline()  # get first xml-log_entry.        
         count = 0
         while chunk != "</history>\r\n":
             self.synchroniser.apply_log_entry(chunk)
