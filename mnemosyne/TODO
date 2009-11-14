@@ -10,7 +10,7 @@
 -check if count of log entries is OK, both on client and on server side
 -sending length from server to client is different than from client to server
 -repetition: don't send stuff we can calculate
--<>
+-o_id sometimes none, don't sync then
 -add modulo to progress dialogs
 -more code sharing between client and server? Send history, e.g.
 -add streaming connection to server side too.
@@ -29,6 +29,7 @@
 -ui: pass or notImplemented?
 -incremental elementree parsinc
 -server can report can refuse large files
+-extra data
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 http://www.dev-explorer.com/articles/using-python-httplib

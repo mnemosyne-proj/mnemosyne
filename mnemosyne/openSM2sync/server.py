@@ -124,7 +124,7 @@ class Server(WSGIServer):
     # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo/bar'
     # request.
 
-    def get_sync_server_params(self, environ):
+    def get_server_params(self, environ):
         self.ui.status_bar_message("Sending server info to the client...")
         return ("<server id='%s' program_name='%s' " + \
             "program_version='%s' protocol_version='%s' capabilities='%s' " + \
@@ -133,7 +133,7 @@ class Server(WSGIServer):
             self.program_name, self.program_version, PROTOCOL_VERSION,
             self.capabilities)        
 
-    def put_sync_client_params(self, environ):
+    def put_client_params(self, environ):
         self.ui.status_bar_message("Receiving client info...")
         try:
             socket = environ["wsgi.input"]
@@ -152,7 +152,7 @@ class Server(WSGIServer):
     def get_number_of_server_log_entries_to_sync(self, environ):
         return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
 
-    def get_sync_server_history(self, environ):
+    def get_server_history(self, environ):
         self.ui.status_bar_message("Sending history to the client...")
         log_entries = self.database.number_of_log_entries_to_sync_for(\
             self.client_id)
@@ -163,12 +163,14 @@ class Server(WSGIServer):
         
         count = 0
         for log_entry in self.database.get_log_entries_to_sync_for(\
-            self.cliend_id):
+            self.client_id):
             count += 1
             progress_dialog.set_value(count)
-            yield self.synchroniser.log_entry_XML(log_entry) + "\r\n"
+            import sys
+            sys.stderr.write(self.synchroniser.log_entry_to_XML(log_entry))
+            yield self.synchroniser.log_entry_to_XML(log_entry) + "\r\n"
 
-    def put_sync_client_history(self, environ):
+    def put_client_history(self, environ):
         socket = environ["wsgi.input"]
         # Get number of client log entries to sync.
         log_entries = float(socket.readline())
@@ -177,13 +179,12 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Applying client history...")
-        
-        socket.readline()  # get "<history>".
-        chunk = socket.readline()  # get first xml-log_entry.        
+
         count = 0
-        while chunk != "</history>\r\n":
-            self.synchroniser.apply_log_entry(chunk)
+        while count != log_entries:
             chunk = socket.readline()
+            self.database.apply_log_entry(\
+                    self.synchroniser.XML_to_log_entry(chunk))
             count += 1
             progress_dialog.set_value(count)
         progress_dialog.set_value(log_entries)
@@ -198,7 +199,7 @@ class Server(WSGIServer):
             self.stop()
         return "OK"
 
-    def get_sync_server_media(self, environ, fname):
+    def get_server_media(self, environ, fname):
         self.ui.status_bar_message("Sending media to the client...")
         try:
             mediafile = open(os.path.join(self.config.mediadir(), fname))
@@ -209,7 +210,7 @@ class Server(WSGIServer):
         else:
             return data
 
-    def put_sync_client_media(self, environ, fname):
+    def put_client_media(self, environ, fname):
         self.ui.status_bar_message("Receiving client media...")
         try:
             socket = environ["wsgi.input"]

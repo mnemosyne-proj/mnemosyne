@@ -75,10 +75,9 @@ class Client(object):
             self.program_version, PROTOCOL_VERSION, self.capabilities,
             self.database.database_name())
         try:
-            server_params = urllib2.urlopen(self.url + \
-                '/sync/server/params').read()
+            server_params = urllib2.urlopen(self.url + '/server/params').read()
             response = urllib2.urlopen(PutRequest(\
-                self.url + '/sync/client/params', client_params))
+                self.url + '/client/params', client_params))
             if response.read() != "OK":
                 raise SyncError("Handshaking: error on server side.")
         except urllib2.URLError, error:
@@ -96,7 +95,7 @@ class Client(object):
 
         parsed_url = urlparse(self.url) 
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
-        conn.putrequest("PUT", "/sync/client/history")
+        conn.putrequest("PUT", "/client/history")
         conn.putheader("User-Agent", "gzip")
         conn.putheader("Accept-Encoding", "gzip")
         conn.putheader("Connection", "keep-alive")
@@ -115,7 +114,7 @@ class Client(object):
         count = 0
         for log_entry in self.database.get_log_entries_to_sync_for(\
             self.server_id):
-            conn.send(self.synchroniser.log_entry_XML(log_entry) + "\r\n")
+            conn.send(self.synchroniser.log_entry_to_XML(log_entry) + "\r\n")
             count += 1
             progress_dialog.set_value(count)
         progress_dialog.set_value(log_entries)
@@ -139,11 +138,12 @@ class Client(object):
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Applying server history...")
         try:
-            response = urllib2.urlopen(self.url + "/sync/server/history")
+            response = urllib2.urlopen(self.url + "/server/history")
             count = 0
             while count != log_entries:
                 chunk = response.readline()
-                self.synchroniser.apply_log_entry(chunk)
+                self.database.apply_log_entry(\
+                    self.synchroniser.XML_to_log_entry(chunk))
                 count += 1
                 progress_dialog.set_value(count)
         except urllib2.URLError, error:
@@ -153,7 +153,7 @@ class Client(object):
     def get_media_file(self, fname):
         try:
             response = urllib2.urlopen(\
-                self.url + "/sync/server/media?fname=%s" % fname)
+                self.url + "/server/media?fname=%s" % fname)
             data = response.read()
             if data != "CANCEL":
                 fobj = open(os.path.join(self.config.mediadir(), fname), "w")
@@ -167,7 +167,7 @@ class Client(object):
         data = mfile.read()
         mfile.close()
         try:
-            request = PutRequest(self.url + "/sync/client/media?fname=%s" % \
+            request = PutRequest(self.url + "/client/media?fname=%s" % \
                 os.path.basename(fname), data)
             request.add_header("CONTENT_LENGTH", len(data))
             response = urllib2.urlopen(request)

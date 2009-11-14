@@ -4,7 +4,7 @@
 #                   Peter Bienstman <Peter.Bienstman@UGent.be>
 
 from xml.etree import cElementTree
-from openSM2sync.log_entry import EventTypes
+from openSM2sync.log_entry import LogEntry, EventTypes
 
 PROTOCOL_VERSION = 1.0
 
@@ -43,22 +43,24 @@ class Synchroniser:
                 value = False
             self.partner[key] = value
 
-    def log_entry_XML(self, log_entry):
-        chunk = """<log type="%d" time="%d" o_id="%s">""" % \
+    def log_entry_to_XML(self, log_entry):
+        chunk = """<log type="%d" time="%d" o_id="%s\"""" % \
             (log_entry.event_type, log_entry.timestamp, log_entry.object_id)
-        return chunck
+        for key, value in log_entry.data.iteritems():
+            chunk += """ %s="%s\"""" % (key, value)
+        chunk += "></log>"
+        return chunk
 
-    def tag_log_entry_XML(self, log_entry):
-        if log_entry["log_entry"] == EventTypes.DELETED_TAG:
-            # We only transfer tag id, that should be deleted.
-            return "<i><t>tag</t><ev>%s</ev><id>%s</id></i>" % \
-                (log_entry["log_entry"], log_entry["id"])
-        tag = self.database.get_tag(log_entry["id"], False)
-        if not tag:
-            return ""
-        return "<i><t>tag</t><ev>%s</ev><id>%s</id><name>%s</name></i>" % \
-            (log_entry["log_entry"], tag.id, tag.name)
-
+    def XML_to_log_entry(self, chunk):
+        import sys
+        sys.stderr.write(chunk)
+        
+        attrib = cElementTree.fromstring(chunk).attrib
+        log_entry = LogEntry()
+        log_entry.event_type = attrib["type"]
+        log_entry.time_stamp = int(attrib["time"])
+        log_entry.object_id = attrib["o_id"]
+        
     def create_fact_xml_element(self, log_entry):
         if log_entry["log_entry"] == EventTypes.DELETED_FACT:
             # We only transfer fact id, that should be deleted.
@@ -170,47 +172,5 @@ class Synchroniser:
             self.ui.update_progressbar(count / hsize)
         self.ui.hide_progressbar()
 
-    def apply_log_entry(self, item):       
-        if self.stopped:
-            return
-        child = cElementTree.fromstring(item)
-        log_entry = int(child.find("ev").text)
-        if log_entry == EventTypes.ADDED_FACT:
-            fact = self.create_fact_object(child)
-            self.database.add_fact(fact)
-        elif log_entry == EventTypes.UPDATED_FACT:
-            fact = self.database.get_fact(child.find("id").text, False)
-            if fact:
-                self.database.update_fact(self.create_fact_object(child))
-            else:
-                self.allow_update_card = False
-        elif log_entry == EventTypes.DELETED_FACT:
-            fact = self.database.get_fact(child.find("id").text, False)
-            if fact:
-                self.database.delete_fact_and_related_data(fact)
-        elif log_entry == EventTypes.ADDED_TAG:
-            tag = self.create_tag_object(child)
-            if not tag.name in self.database.get_tag_names():
-                self.database.add_tag(tag)
-        elif log_entry == EventTypes.UPDATED_TAG:
-            self.database.update_tag(self.create_tag_object(child))
-        elif log_entry == EventTypes.ADDED_CARD:
-            card = self.create_card_object(child)
-            self.database.add_card(card)
-            self.database.log_added_card(int(child.find("tm").text), card.id)
-        elif log_entry == EventTypes.UPDATED_CARD:
-            if self.allow_update_card:
-                self.database.update_card(self.create_card_object(child))
-            self.allow_update_card = True
-        elif log_entry == EventTypes.REPETITION:
-            old_card = self.database.get_card(child.find("id").text, False)
-            new_card = self.create_card_object(child)
-            if new_card.timestamp > old_card.last_rep:
-                self.database.update_card(new_card)
-                self.database.log_repetition(new_card.timestamp, \
-                new_card.id, new_card.grade, new_card.easiness, \
-                new_card.acq_reps, new_card.ret_reps, new_card.lapses, \
-                new_card.acq_reps_since_lapse, \
-                new_card.ret_reps_since_lapse, new_card.scheduled_interval,\
-                new_card.actual_interval, new_card.new_interval, \
-                new_card.thinking_time)
+
+
