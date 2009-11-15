@@ -183,5 +183,5 @@ class Client(object):
                 raise SyncError("Finishing sync: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Finishing syncing: " + str(error))
-        self.database.update_last_sync_log_entry(self.server_id)
+        self.database.update_last_sync_log_entry_for(self.server_id)
             

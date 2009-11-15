@@ -95,9 +95,9 @@ class MyClient(Client):
         self.mnemosyne.finalise()
 
 
-def test_add_cards():
+def test_tags():
 
-    def test_server(self):
+    def test_add_cards(self):
         db = self.mnemosyne.database()
         assert db.fact_count() == 1
         assert db.card_count() == 1

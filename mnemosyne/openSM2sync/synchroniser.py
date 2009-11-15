@@ -44,16 +44,27 @@ class Synchroniser:
             self.partner[key] = value
 
     def log_entry_to_XML(self, log_entry):
+
+        """Note that this function should return a regular string, not a
+        unicode object, as unicode is not supported by the html standard.
+
+        """
+        
         chunk = """<log type="%d" time="%d" o_id="%s\"""" % \
             (log_entry.event_type, log_entry.timestamp, log_entry.object_id)
         for key, value in log_entry.data.iteritems():
             chunk += """ %s="%s\"""" % (key, value)
         chunk += "></log>"
-        return chunk
+        import sys
+        sys.stderr.write("O" + chunk + "\n")
+        
+        return chunk.encode("utf-8")
 
     def XML_to_log_entry(self, chunk):
+        chunk = chunk.decode("utf-8")
+        
         import sys
-        sys.stderr.write(chunk)
+        sys.stderr.write("I" + chunk)
         
         attrib = cElementTree.fromstring(chunk).attrib
         log_entry = LogEntry()

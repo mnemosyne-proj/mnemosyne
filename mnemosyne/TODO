@@ -1,10 +1,11 @@
--factor out startup code in test
+-factor out startup code in test, allways assert in prime thread?
 -cdata for deck name
--check if get_log_entries_to_sync_for really return iterator
+-check if get_log_entries_to_sync_for really returns iterator
 -create new database on server side if needed
 -self.stopped, timeouts
 -synchroniser --> xml formatter?
 -DictClass
+-test unicode, embedded <> xml.sax.saxutils.escape
 -add error handling on send client history
 -more elegant error handling
 -check if count of log entries is OK, both on client and on server side
@@ -16,7 +17,6 @@
 -add streaming connection to server side too.
 -\r client / vs server?
 -make sure the actual sync events get updated too
--rename history by log
 -media
 -get media file
 -check for updated media files outside of the program
@@ -27,15 +27,13 @@
 -benchmarks
 -multiuser server, token?
 -ui: pass or notImplemented?
--incremental elementree parsinc
+-incremental elementree parsing?
 -server can report can refuse large files
 -extra data
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 http://www.dev-explorer.com/articles/using-python-httplib
 -be sure to truncate time to int if it comes from other SRS systems
--make sure we do progressive parsing
--make sure active gets updated too
 -activating cards
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats

@@ -56,7 +56,6 @@ class Server(WSGIServer):
 
     def stop(self):
         self.stopped = True
-        self.synchroniser.stop()
 
     def get_method(self, environ):
 
@@ -166,8 +165,6 @@ class Server(WSGIServer):
             self.client_id):
             count += 1
             progress_dialog.set_value(count)
-            import sys
-            sys.stderr.write(self.synchroniser.log_entry_to_XML(log_entry))
             yield self.synchroniser.log_entry_to_XML(log_entry) + "\r\n"
 
     def put_client_history(self, environ):
@@ -193,7 +190,7 @@ class Server(WSGIServer):
 
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")
-        self.database.update_last_sync_log_entry(self.client_id)
+        self.database.update_last_sync_log_entry_for(self.client_id)
         self.logged_in = False
         if self.stop_after_sync:
             self.stop()
