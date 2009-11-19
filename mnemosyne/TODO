@@ -129,6 +129,7 @@ def parse_JSON(fileobj):
 
 
 -implement duplicate checking
+-confirmation dialog for deleted cards
 -explain check for duplicates after import of 1.x? Also give a hint of its working in
 the GUI function itself?
 -card preview
@@ -140,6 +141,8 @@ the GUI function itself?
 
 -delete 1.99 logs
 -reenable upload
+
+-... after menu options that open a dialog
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 
