@@ -59,8 +59,13 @@ class MyServer(Server, Thread):
         self.serve_forever()
         # Also running the actual tests we need to do inside this thread and
         # not in the main thread, again because of sqlite access restrictions.
+        # However, if the asserts fail in this thread, nose won't flag them as
+        # failures in the main thread, so we communicate failure back to the
+        # main thread using self.passed_tests.
+        self.passed_tests = False
         self.test_server(self)
-
+        self.passed_tests = True
+        
     def fill_server_database(self):
         pass
 
@@ -95,25 +100,50 @@ class MyClient(Client):
         self.mnemosyne.finalise()
 
 
-def test_tags():
+class TestSync(object):
 
-    def test_add_cards(self):
-        db = self.mnemosyne.database()
-        assert db.fact_count() == 1
-        assert db.card_count() == 1
-        card = db.get_card(self.client_card.id, id_is_internal=False)
-        assert card.question() == self.client_card.question()
-    
-    server = MyServer()
-    server.test_server = test_server
-    server.start()
-    
-    client = MyClient()
-    fact_data = {"q": "question",
-                 "a": "answer"}
-    card_type = client.mnemosyne.card_type_by_id("1")
-    card = client.mnemosyne.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["default"])[0]
-    server.client_card = card
-    client.mnemosyne.controller().file_save()
-    client.do_sync()
+    def teardown(self):
+        assert self.server.passed_tests == True
+        
+    def test_add_tag(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            tag = db.get_or_create_tag_with_name("my_tag")
+            assert tag.id == self.client_tag_id
+            assert tag.name == "my_tag"
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name("my_tag")
+        self.server.client_tag_id = tag.id
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        
+    #def test_add_cards(self):
+
+    #    def test_server(self):
+    #        db = self.mnemosyne.database()
+    #        assert db.fact_count() == 1
+    #        assert db.card_count() == 1
+    #        card = db.get_card(self.client_card.id, id_is_internal=False)
+    #        assert card.question() == self.client_card.question()
+
+    #    self.server = MyServer()
+    #    self.server.test_server = test_server
+    #    self.server.start()
+
+    #    self.client = MyClient()
+    #    fact_data = {"q": "question",
+    #                 "a": "answer"}
+    #    card_type = self.client.mnemosyne.card_type_by_id("1")
+    #    card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+    #        card_type, grade=-1, tag_names=["default"])[0]
+    #    self.server.client_card = card
+    #    self.client.mnemosyne.controller().file_save()
+    #    self.client.do_sync()
+

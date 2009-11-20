@@ -26,6 +26,8 @@ class Synchroniser:
     vice versa.
 
     """
+
+    attribs = [] # The list of keys to be passed on as attributes.
     
     def __init__(self):
         self.partner = {"id": None, "program_name": None,
@@ -52,9 +54,15 @@ class Synchroniser:
         
         chunk = """<log type="%d" time="%d" o_id="%s\"""" % \
             (log_entry.event_type, log_entry.timestamp, log_entry.object_id)
+            
         for key, value in log_entry.data.iteritems():
-            chunk += """ %s="%s\"""" % (key, value)
-        chunk += "></log>"
+            if key in self.attribs:
+                chunk += """ %s="%s\"""" % (key, value)
+        chunk += ">"
+        for key, value in log_entry.data.iteritems():
+            if key not in self.attribs:
+                chunk += "<%s>%s</%s>" % (key, value, key)
+        chunk += "</log>"
         import sys
         sys.stderr.write("O" + chunk + "\n")
         
@@ -65,12 +73,18 @@ class Synchroniser:
         
         import sys
         sys.stderr.write("I" + chunk)
-        
-        attrib = cElementTree.fromstring(chunk).attrib
+
+        xml = cElementTree.fromstring(chunk)
+
         log_entry = LogEntry()
-        log_entry.event_type = attrib["type"]
-        log_entry.time_stamp = int(attrib["time"])
-        log_entry.object_id = attrib["o_id"]
+        log_entry.event_type = xml.attrib["type"]
+        log_entry.time_stamp = int(xml.attrib["time"])
+        log_entry.object_id = xml.attrib["o_id"]
+
+        for child in xml:
+            sys.stderr.write(child.tag + "\n")
+            sys.stderr.write(child.text + "\n")
+            log_entry.data[child.tag] = child.text
         
     def create_fact_xml_element(self, log_entry):
         if log_entry["log_entry"] == EventTypes.DELETED_FACT:

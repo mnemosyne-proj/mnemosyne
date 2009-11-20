@@ -1,5 +1,7 @@
--factor out startup code in test, allways assert in prime thread?
--cdata for deck name
+-reenable test
+-object id vs program name
+-cdata, encode for deck name, unicode + test
+-extra data
 -check if get_log_entries_to_sync_for really returns iterator
 -create new database on server side if needed
 -self.stopped, timeouts
@@ -29,7 +31,6 @@
 -ui: pass or notImplemented?
 -incremental elementree parsing?
 -server can report can refuse large files
--extra data
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 http://www.dev-explorer.com/articles/using-python-httplib

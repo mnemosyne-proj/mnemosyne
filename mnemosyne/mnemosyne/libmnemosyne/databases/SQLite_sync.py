@@ -41,15 +41,15 @@ class SQLiteSync(object):
             setattr(log_entry, attr, sql_res[attr])
         log_entry.data = {}
         event_type = log_entry.event_type
+        if event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
+            tag = self.get_tag(log_entry.object_id, id_is_internal=False)
+            log_entry.data["name"] = tag.name
         if event_type == EventTypes.REPETITION:
             for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
                 "acq_reps_since_lapse", "ret_reps_since_lapse",
                 "scheduled_interval", "actual_interval", "new_interval",
                 "thinking_time"):
                 setattr(log_entry.data, attr, sql_res[attr])
-        if event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
-            tag = self.get_tag(log_entry.object_id, id_is_internal=False)
-            log_entry.data["name"] = tag.name
         return log_entry
     
     def get_log_entries_to_sync_for(self, partner):
