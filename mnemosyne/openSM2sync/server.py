@@ -170,8 +170,7 @@ class Server(WSGIServer):
     def put_client_history(self, environ):
         socket = environ["wsgi.input"]
         # Get number of client log entries to sync.
-        log_entries = float(socket.readline())
-        
+        log_entries = int(socket.readline())
         self.ui.status_bar_message("Applying client history...")
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)

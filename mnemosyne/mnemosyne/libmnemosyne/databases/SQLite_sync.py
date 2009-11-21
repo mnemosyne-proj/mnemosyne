@@ -7,6 +7,12 @@
 from openSM2sync.log_entry import LogEntry
 from openSM2sync.log_entry import EventTypes
 
+from mnemosyne.libmnemosyne.tag import Tag
+from mnemosyne.libmnemosyne.fact import Fact
+from mnemosyne.libmnemosyne.card import Card
+from mnemosyne.libmnemosyne.card_type import CardType
+from mnemosyne.libmnemosyne.fact_view import FactView
+
 
 class SQLiteSync(object):
 
@@ -64,7 +70,10 @@ class SQLiteSync(object):
             "select * from log where _id>?", (_id, )))
 
     def apply_log_entry(self, log_entry):
-
+        if log_entry.event_type == EventTypes.ADDED_TAG:
+            tag = Tag(log_entry.data["name"], log_entry.object_id)
+            self.add_tag(tag, log_entry.timestamp)
+            
         return
         
         if log_entry == EventTypes.ADDED_FACT:

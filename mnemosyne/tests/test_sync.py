@@ -6,6 +6,7 @@ import os
 from threading import Thread
 from openSM2sync.server import Server
 from openSM2sync.client import Client
+from openSM2sync.log_entry import EventTypes
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
@@ -107,20 +108,28 @@ class TestSync(object):
         
     def test_add_tag(self):
 
+        self.tag_name = unichr(40960) + u"abcd"
+
         def test_server(self):
             db = self.mnemosyne.database()
-            tag = db.get_or_create_tag_with_name("my_tag")
+            tag = db.get_or_create_tag_with_name(unichr(40960) + u'>&<abcd')
             assert tag.id == self.client_tag_id
-            assert tag.name == "my_tag"
-            
+            assert tag.name == unichr(40960) + u">&<abcd"
+            sql_res = db.con.execute("select * from log where event_type=?",
+               (EventTypes.ADDED_TAG, )).fetchone()
+            assert self.tag_added_timestamp == sql_res["timestamp"]            
         self.server = MyServer()
         self.server.test_server = test_server
         self.server.start()
 
         self.client = MyClient()
         tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name("my_tag")
+              get_or_create_tag_with_name(unichr(40960) + u">&<abcd")
         self.server.client_tag_id = tag.id
+        sql_res = self.client.mnemosyne.database().con.execute(\
+            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()
+        self.server.tag_added_timestamp = sql_res["timestamp"]
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         

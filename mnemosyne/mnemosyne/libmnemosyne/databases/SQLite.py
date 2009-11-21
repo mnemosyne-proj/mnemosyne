@@ -410,12 +410,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.add_tag(tag)
         return tag
 
-    def add_tag(self, tag):
+    def add_tag(self, tag, timestamp=None):
         _id = self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
-        self.log().added_tag(tag)
+        if not timestamp:
+            timestamp = time.time()
+        self.log_added_tag(timestamp, tag.id)
         for criterion in self.get_activity_criteria():
             criterion.tag_created(tag)
             self.update_activity_criterion(criterion)

@@ -1,14 +1,13 @@
 -reenable test
 -object id vs program name
+-stuff gets synced twice?
 -cdata, encode for deck name, unicode + test
 -extra data
 -check if get_log_entries_to_sync_for really returns iterator
 -create new database on server side if needed
 -self.stopped, timeouts
 -synchroniser --> xml formatter?
--DictClass
--test unicode, embedded <> xml.sax.saxutils.escape
--add error handling on send client history
+--add error handling on send client history
 -more elegant error handling
 -check if count of log entries is OK, both on client and on server side
 -sending length from server to client is different than from client to server
@@ -43,6 +42,8 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -mechanism to have plugin settings synced?
 -pull in user id on first sync
 -make sure after import all sync events fire
+-rework logging
+-add timestamp argument to database.py
 
 I looked further into it, using BaseHTTPServer.
 
