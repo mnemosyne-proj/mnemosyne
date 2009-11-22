@@ -1,5 +1,4 @@
--move timestamp, event and object id to data_dict too?
--document Event structure
+-id vs _id
 -sending length from server to client is different than from client to server
 -extra data
 -cdata, encode for deck name, unicode + test
@@ -39,6 +38,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -make sure after import all sync events fire
 -rework logging? still need for high-level interface
 -add timestamp argument to database.py
+-make sure Event structure is completely documented
 
 I looked further into it, using BaseHTTPServer.
 

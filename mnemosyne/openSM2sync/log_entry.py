@@ -28,9 +28,28 @@ class EventTypes(object):
     DELETED_MEDIA = 20
 
 
-class LogEntry(object):
+class LogEntry(dict):
 
-    event_type = None
-    timestamp = None
-    object_id = None
-    data = {}
+    """A dictionary consisting of (key, value) pairs to sync.
+
+    type (int): event type from list above
+    time (int): timestamp for log entry
+    o_id (string): id of object involved in log entry (e.g. tag id for
+        ADDED_TAG, string with name and version for STARTED_PROGRAM,
+        STARTED_SCHEDULER, ...
+
+    sch, n_mem, act (int): optional, but suggested for compatibility with
+        Mnemosyne. The number of scheduled, non memorised and active cards in
+        the database in a LOADED_DATABASE and SAVED_DATABASE event.
+
+    name (unicode): tag name
+
+
+    Note the difference between a string and a unicode type is that a string
+    should be useable directly as an attribute or tag name in XML. A unicode
+    object can be arbitrary and will be encoded/escaped as appropriate.
+
+    """
+    
+    pass
+

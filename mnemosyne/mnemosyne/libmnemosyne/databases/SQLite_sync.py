@@ -40,27 +40,29 @@ class SQLiteSync(object):
 
     def _log_entry(self, sql_res):
 
-        """Create log entry object in the form openSM2sync expects."""
+        """Create log entry object in the format openSM2sync expects."""
 
         log_entry = LogEntry()
-        for attr in ("event_type", "timestamp", "object_id"):
-            setattr(log_entry, attr, sql_res[attr])
-        log_entry.data = {}
-        event_type = log_entry.event_type
+        log_entry["type"] = sql_res["event_type"]
+        log_entry["time"] = sql_res["timestamp"]
+        o_id = sql_res["object_id"]
+        if o_id:
+            log_entry["o_id"] = o_id        
+        event_type = log_entry["type"]
         if event_type in (EventTypes.LOADED_DATABASE,
            EventTypes.SAVED_DATABASE):
-            log_entry.data["sch"] = sql_res["acq_reps"]
-            log_entry.data["n_mem"] = sql_res["ret_reps"]
-            log_entry.data["act"] = sql_res["lapses"]            
+            log_entry["sch"] = sql_res["acq_reps"]
+            log_entry["n_mem"] = sql_res["ret_reps"]
+            log_entry["act"] = sql_res["lapses"]            
         elif event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
-            tag = self.get_tag(log_entry.object_id, id_is_internal=False)
-            log_entry.data["name"] = tag.name
+            tag = self.get_tag(log_entry["o_id"], id_is_internal=False)
+            log_entry["name"] = tag.name
         elif event_type == EventTypes.REPETITION:
             for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
                 "acq_reps_since_lapse", "ret_reps_since_lapse",
                 "scheduled_interval", "actual_interval", "new_interval",
                 "thinking_time"):
-                setattr(log_entry.data, attr, sql_res[attr])
+                log_entry[attr] = sql_res[attr]
         return log_entry
     
     def get_log_entries_to_sync_for(self, partner):
@@ -75,21 +77,21 @@ class SQLiteSync(object):
             "select * from log where _id>?", (_id, )))
 
     def apply_log_entry(self, log_entry):
-        event_type = log_entry.event_type
+        event_type = log_entry["type"]
         if event_type in (EventTypes.STARTED_PROGRAM,
            EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER):
             self.con.execute("""insert into log(event_type, timestamp,
-               object_id) values(?,?,?)""", (event_type, log_entry.timestamp,
-               log_entry.object_id))
+               object_id) values(?,?,?)""", (event_type, log_entry["time"],
+               log_entry["o_id"]))
         elif event_type in (EventTypes.LOADED_DATABASE,
            EventTypes.SAVED_DATABASE):
             self.con.execute("""insert into log(event_type, timestamp,
             acq_reps, ret_reps, lapses) values(?,?,?,?,?)""", (event_type,
-            log_entry.timestamp, log_entry.data["sch"],
-            log_entry.data["n_mem"], log_entry.data["act"]))
+            log_entry["time"], log_entry["sch"], log_entry["n_mem"],
+            log_entry["act"]))
         elif event_type == EventTypes.ADDED_TAG:
-            tag = Tag(log_entry.data["name"], log_entry.object_id)
-            self.add_tag(tag, log_entry.timestamp)
+            tag = Tag(log_entry["name"], log_entry["o_id"])
+            self.add_tag(tag, log_entry["time"])
                 
     def get_last_log_entry_index(self):
         return self.con.execute(\

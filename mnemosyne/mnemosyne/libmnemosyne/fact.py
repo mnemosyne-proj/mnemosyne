@@ -13,15 +13,16 @@ class Fact(CompareOnId):
 
     The fields are stored in a dictionary called 'data', and can be get and 
     set using the standard dictionary syntax.
-    
-    Note that a dynamic data field can be defined by defining a data_foo method
-    for a card_type that accepts a datafields dictonary.
 
     Creating and modification dates are POSIX timestamps stored as integers.
 
     'id' is used to identify this object to the external world (logs, xml
     files, ...), whereas '_id' is an internal id that could be different and
     that can be used by the database for efficiency reasons.
+
+    The keys in data should be in the latin charset for the sake of the
+    syncing procedure, but they can be given more descriptive names inside the
+    CardType class.
 
     When making new card types, it is best to reuse the keys below as much
     as possible, to facilitate conversion between card types:

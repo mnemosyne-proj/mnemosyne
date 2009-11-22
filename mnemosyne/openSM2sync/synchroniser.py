@@ -24,7 +24,9 @@ class Synchroniser:
 
     """
 
-    attribs = ["sch", "n_mem", "act"] # The list of keys to be passed on as attributes.
+    # The list of keys to be passed on as attributes.
+    keys_in_attribs = ["type", "time", "o_id", "sch", "n_mem", "act"]
+    int_keys = ["type", "time", "sch", "n_mem", "act"]
     
     def __init__(self):
         self.partner = {"id": None, "program_name": None,
@@ -49,35 +51,28 @@ class Synchroniser:
 
         """
         
-        chunk = """<log type="%d" time="%d\"""" % \
-            (log_entry.event_type, log_entry.timestamp)
-        if log_entry.object_id:
-            chunk += """ o_id="%s\"""" % log_entry.object_id        
-        for key, value in log_entry.data.iteritems():
-            if key in self.attribs:
-                chunk += """ %s="%s\"""" % (key, value)
-        chunk += ">"
-        for key, value in log_entry.data.iteritems():
-            if key not in self.attribs:
-                chunk += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
-        chunk += "</log>"
+        attribs, tags = "", ""
+        for key, value in log_entry.iteritems():
+            if key in self.keys_in_attribs:
+                attribs += " %s=\"%s\"" % (key, value)
+            else:
+                tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
+        xml = "<log%s>%s</log>" % (attribs, tags)
+    
         import sys
-        sys.stderr.write(chunk.encode("utf-8") + "\n")
+        sys.stderr.write(xml.encode("utf-8") + "\n")
         
-        return chunk.encode("utf-8")
+        return xml.encode("utf-8")
 
     def XML_to_log_entry(self, chunk):
         xml = cElementTree.XML(chunk)
         log_entry = LogEntry()
-        log_entry.event_type = int(xml.attrib["type"])
-        log_entry.timestamp = int(xml.attrib["time"])
-        if "o_id" in xml.attrib:
-            log_entry.object_id = xml.attrib["o_id"]
-        for attrib in ("sch", "n_mem", "act"):
-            if attrib in xml.attrib:
-                log_entry.data[attrib] = int(xml.attrib[attrib])
+        for key, value in xml.attrib.iteritems():
+            if key in self.int_keys:
+                value = int(value)
+            log_entry[key] = value
         for child in xml:
-            log_entry.data[child.tag] = child.text
+            log_entry[child.tag] = child.text
         return log_entry
         
     def create_media_xml_element(self, log_entry):
