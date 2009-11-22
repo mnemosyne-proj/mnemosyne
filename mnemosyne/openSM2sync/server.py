@@ -175,20 +175,23 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Applying client history...")
-
+        # In order to do conflict resolution easily, one of the sync partners
+        # has to have both logs in memory. We do this at the server side, as
+        # the client could be resource-limited mobile device.
+        self.client_log = []
         count = 0
         while count != log_entries:
             chunk = socket.readline()
-            self.database.apply_log_entry(\
-                    self.synchroniser.XML_to_log_entry(chunk))
+            self.client_log.append(self.synchroniser.XML_to_log_entry(chunk))
             count += 1
             progress_dialog.set_value(count)
-        progress_dialog.set_value(log_entries)
         self.ui.status_bar_message("Waiting for client to finish...")
         return "OK"
 
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")
+        for log_entry in self.client_log:
+            self.database.apply_log_entry(log_entry)
         self.database.update_last_sync_log_entry_for(self.client_id)
         self.logged_in = False
         if self.stop_after_sync:

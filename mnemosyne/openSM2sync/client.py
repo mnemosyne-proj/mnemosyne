@@ -117,7 +117,6 @@ class Client(object):
             conn.send(self.synchroniser.log_entry_to_XML(log_entry) + "\r\n")
             count += 1
             progress_dialog.set_value(count)
-        progress_dialog.set_value(log_entries)
         self.ui.status_bar_message("Waiting for the server to complete...")
         response = conn.getresponse()
         # TODO: analyze response from server side.

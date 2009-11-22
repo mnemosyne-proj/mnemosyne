@@ -66,6 +66,7 @@ class MyServer(Server, Thread):
         self.passed_tests = False
         self.test_server(self)
         self.passed_tests = True
+        self.mnemosyne.finalise()
         
     def fill_server_database(self):
         pass
@@ -98,12 +99,12 @@ class MyClient(Client):
         
     def do_sync(self):
         self.sync("http://127.0.0.1:8000", "user", "pass")
-        self.mnemosyne.finalise()
 
 
 class TestSync(object):
 
     def teardown(self):
+        self.client.mnemosyne.finalise()
         assert self.server.passed_tests == True
         
     def test_add_tag(self):
@@ -117,7 +118,10 @@ class TestSync(object):
             assert tag.name == unichr(40960) + u">&<abcd"
             sql_res = db.con.execute("select * from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
-            assert self.tag_added_timestamp == sql_res["timestamp"]            
+            assert self.tag_added_timestamp == sql_res["timestamp"]
+            assert type(sql_res["timestamp"]) == int
+            assert db.con.execute("select count() from log").fetchone()[0] == 8 
+            
         self.server = MyServer()
         self.server.test_server = test_server
         self.server.start()
@@ -130,8 +134,14 @@ class TestSync(object):
             "select * from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()
         self.server.tag_added_timestamp = sql_res["timestamp"]
+        assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()[0] == 1
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 8
         
     #def test_add_cards(self):
 

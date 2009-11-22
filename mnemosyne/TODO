@@ -1,39 +1,33 @@
--reenable test
--object id vs program name
--stuff gets synced twice?
--cdata, encode for deck name, unicode + test
+-move timestamp, event and object id to data_dict too?
+-document Event structure
+-sending length from server to client is different than from client to server
 -extra data
+-cdata, encode for deck name, unicode + test
+-test scheduled, active count sync on load/save + type
 -check if get_log_entries_to_sync_for really returns iterator
 -create new database on server side if needed
 -self.stopped, timeouts
 -synchroniser --> xml formatter?
---add error handling on send client history
+-add error handling on send client history
 -more elegant error handling
--check if count of log entries is OK, both on client and on server side
--sending length from server to client is different than from client to server
 -repetition: don't send stuff we can calculate
--o_id sometimes none, don't sync then
 -add modulo to progress dialogs
 -more code sharing between client and server? Send history, e.g.
 -add streaming connection to server side too.
 -\r client / vs server?
--make sure the actual sync events get updated too
 -media
--get media file
 -check for updated media files outside of the program
--document Event structure
 -same connection throughout?
 -sql roll back?
+-last sync in partnership: _id or timestamp? Timezone?
 -conflict resolution
 -benchmarks
 -multiuser server, token?
 -ui: pass or notImplemented?
--incremental elementree parsing?
 -server can report can refuse large files
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 http://www.dev-explorer.com/articles/using-python-httplib
--be sure to truncate time to int if it comes from other SRS systems
 -activating cards
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
@@ -41,8 +35,9 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -check if updated_card event without added card event works
 -mechanism to have plugin settings synced?
 -pull in user id on first sync
+-just copy database on initial sync
 -make sure after import all sync events fire
--rework logging
+-rework logging? still need for high-level interface
 -add timestamp argument to database.py
 
 I looked further into it, using BaseHTTPServer.

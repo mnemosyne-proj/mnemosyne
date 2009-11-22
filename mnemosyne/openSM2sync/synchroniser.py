@@ -24,7 +24,7 @@ class Synchroniser:
 
     """
 
-    attribs = [] # The list of keys to be passed on as attributes.
+    attribs = ["sch", "n_mem", "act"] # The list of keys to be passed on as attributes.
     
     def __init__(self):
         self.partner = {"id": None, "program_name": None,
@@ -49,9 +49,10 @@ class Synchroniser:
 
         """
         
-        chunk = """<log type="%d" time="%d" o_id="%s\"""" % \
-            (log_entry.event_type, log_entry.timestamp, log_entry.object_id)
-            
+        chunk = """<log type="%d" time="%d\"""" % \
+            (log_entry.event_type, log_entry.timestamp)
+        if log_entry.object_id:
+            chunk += """ o_id="%s\"""" % log_entry.object_id        
         for key, value in log_entry.data.iteritems():
             if key in self.attribs:
                 chunk += """ %s="%s\"""" % (key, value)
@@ -70,7 +71,11 @@ class Synchroniser:
         log_entry = LogEntry()
         log_entry.event_type = int(xml.attrib["type"])
         log_entry.timestamp = int(xml.attrib["time"])
-        log_entry.object_id = xml.attrib["o_id"]
+        if "o_id" in xml.attrib:
+            log_entry.object_id = xml.attrib["o_id"]
+        for attrib in ("sch", "n_mem", "act"):
+            if attrib in xml.attrib:
+                log_entry.data[attrib] = int(xml.attrib[attrib])
         for child in xml:
             log_entry.data[child.tag] = child.text
         return log_entry
