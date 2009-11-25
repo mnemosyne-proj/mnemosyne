@@ -77,7 +77,8 @@ version before doing an upgrade.)
 -Added support routines to enable Tim Bourke's plugin to review cards on
  Java phones.
 -fix rare hang in preprocessing paths (reported by LooM).
--Remove hidden limit on grade 1 cardse.
+-Remove hidden limit on grade 1 cards.
+-Turkish translation by Sercan Oruc.
 -Updated German translation by Dimitri Scheftner.
 -Updated French translation by Christophe Mealares and Yannick Voglaire.
 -Hungarian translation by bkile.

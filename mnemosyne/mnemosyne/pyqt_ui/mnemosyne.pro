@@ -44,11 +44,11 @@ TRANSLATIONS = locale/mnemosyne_XX.ts \
 	locale/mnemosyne_es.ts \
 	locale/mnemosyne_cs.ts \
 	locale/mnemosyne_nl.ts \
-        locale/mnemosyne_zh_CN.ts \
-        locale/mnemosyne_zh_HK.ts \
-        locale/mnemosyne_zh_SG.ts \
-        locale/mnemosyne_zh_TW.ts \
-        locale/mnemosyne_fr.ts \
+    locale/mnemosyne_zh_CN.ts \
+    locale/mnemosyne_zh_HK.ts \
+    locale/mnemosyne_zh_SG.ts \
+    locale/mnemosyne_zh_TW.ts \
+    locale/mnemosyne_fr.ts \
 	locale/mnemosyne_pl.ts \
 	locale/mnemosyne_fa.ts \
 	locale/mnemosyne_ja.ts \
@@ -57,4 +57,5 @@ TRANSLATIONS = locale/mnemosyne_XX.ts \
 	locale/mnemosyne_nb_no.ts \
 	locale/mnemosyne_da.ts \
     locale/mnemosyne_eo.ts \
-    locale/mnemosyne_hu.ts
+    locale/mnemosyne_hu.ts \
+    locale/mnemosyne_tr.ts \
