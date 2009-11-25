@@ -2,12 +2,12 @@
 
 import os
 import time
-import cProfile
 import pstats
+import cProfile
 
 from mnemosyne.libmnemosyne import Mnemosyne
 
-number_of_calls = 15
+number_of_calls = 15 # Number of calls to display in profile
 number_of_facts = 6000
 
 mnemosyne = None
@@ -35,7 +35,9 @@ def startup():
         ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
          "SM2Mnemosyne"),
         ("mnemosyne.libmnemosyne.stopwatch",
-          "Stopwatch"),
+         "Stopwatch"),
+        ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
+         "DefaultCriterion"),
         ("mnemosyne.libmnemosyne.card_types.front_to_back",
          "FrontToBack"),
         ("mnemosyne.libmnemosyne.card_types.both_ways",
@@ -73,6 +75,7 @@ def startup():
     
 def create_database():    
     mnemosyne.config()["upload_logs"] = False
+    mnemosyne.database().new(mnemosyne.config()["path"])
     for i in range(number_of_facts):
         fact_data = {"q": "question" + str(i),
                      "a": "answer" + str(i)}
@@ -81,11 +84,12 @@ def create_database():
         else:
             card_type = mnemosyne.card_type_by_id("2")            
         card = mnemosyne.controller().create_new_cards(\
-            fact_data, card_type, grade=4, tag_names=["default"])[0]
+            fact_data, card_type, grade=4, tag_names=["default"],
+            check_for_duplicates=False, save=False)[0]
         card.next_rep = time.time() - 24 * 60 * 60
         card.last_rep = card.next_rep - i * 24 * 60 * 60
         mnemosyne.database().update_card(card)
-    mnemosyne.database().save(mnemosyne.config()["path"])
+    mnemosyne.database().save()
     
 def queue():
     mnemosyne.review_controller().reset()
@@ -115,9 +119,14 @@ def count_not_memorised():
     mnemosyne.scheduler().non_memorised_count()
     
 def activate():
-    mnemosyne.database().set_cards_active([(mnemosyne.card_type_by_id("1"),
-        mnemosyne.card_type_by_id("1").fact_views[0])],
-        [mnemosyne.database().get_or_create_tag_with_name("default1")])
+    c = DefaultCriterion(self.mnemosyne.component_manager)
+    c.active_tags__ids = set([self.database().get_or_create_tag_with_name("default")._id])
+    c.forbidden_tag__ids = set()
+    c.deactivated_card_type_fact_view_ids = \
+        set([(card_type_2.id, card_type_2.fact_views[0].id)])
+    c.active_tag__ids = set([self.database().get_or_create_tag_with_name("default")._id])
+    c.forbidden_tags__ids = set()
+    self.database().set_current_activity_criterion(c)  
 
 def finalise():
     mnemosyne.config()["upload_logs"] = False
@@ -135,8 +144,8 @@ def do_import():
 #    "grade()", "activate()", "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "finalise()"]
-tests = ["startup()", "create_database()"]
-tests = ["startup()", "do_import()", "finalise()"]
+tests = ["startup()", "create_database()", "activate"]
+#tests = ["startup()", "do_import()", "finalise()"]
 #tests = ["startup()", "queue()", "finalise()"]
 
 for test in tests:  

@@ -17,7 +17,7 @@ class DefaultCriterionApplier(CriterionApplier):
         elif active_or_in_view == self.IN_VIEW:
             field_name = "in_view"
         db = self.database()
-        # If every tag is active, take a short cut.
+        # If every tag is active, take a shortcut.
         tag_count = db.con.execute("select count() from tags").fetchone()[0]
         if len(criterion.active_tag__ids) == tag_count:
             db.con.execute("update cards set %s=1" % field_name)
