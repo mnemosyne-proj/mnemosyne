@@ -82,7 +82,7 @@ SCHEMA = """
     create index i_tags_for_card on tags_for_card (_card_id);
 
     /* _id=1 is reserved for the currently active criteria, which could be a
-    copy of another saved criterion or a completely different, unnamend
+    copy of another saved criterion or a completely different, unnamed
     criterion. */
     
     create table activity_criteria(
@@ -195,6 +195,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
         self.load_failed = True
+        self._current_criterion = None # Cached for performance reasons.
 
     #
     # File operations
@@ -236,8 +237,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Create default criterion.
         from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
              DefaultCriterion
-        criterion = DefaultCriterion(self.component_manager)
-        self.add_activity_criterion(criterion)
+        self._current_criterion = DefaultCriterion(self.component_manager)
+        self.add_activity_criterion(self._current_criterion)
         # Create media directory.
         mediadir = self.config().mediadir()
         if not os.path.exists(mediadir):
@@ -305,7 +306,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             if id not in active_ids:
                 plugin_needed.add(id)
         for card_type_id in plugin_needed:
-            self._find_plugin_for_card_type(card_type_id)            
+            self._find_plugin_for_card_type(card_type_id)
+        self._current_criterion = self.get_activity_criterion\
+            (1, id_is_internal=True)
         self.config()["path"] = contract_path(path, self.config().basedir)
         for f in self.component_manager.get_all("hook", "after_load"):
             f.run()
@@ -744,6 +747,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             data=? where _id=?""", (criterion.id, criterion.name,
             criterion.criterion_type, criterion.data_to_string(),
             criterion._id))
+        if criterion._id == 1:
+            self._current_criterion = criterion
  
     def delete_activity_criterion(self, criterion):
         self.con.execute("delete from activity_criteria where _id=?",
@@ -753,12 +758,13 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     def set_current_activity_criterion(self, criterion):
         self.con.execute("""update activity_criteria set type=?, data=?
             where _id=1""", (criterion.criterion_type, criterion.data_to_string()))
+        self._current_criterion = criterion
         applier = self.component_manager.get_current("criterion_applier",
             used_for=criterion.__class__)
         applier.apply_to_database(criterion, active_or_in_view=applier.ACTIVE)
 
     def current_activity_criterion(self):
-        return self.get_activity_criterion(1, id_is_internal=True) 
+        return self._current_criterion
     
     def get_activity_criteria(self):
         return (self.get_activity_criterion(cursor[0], id_is_internal=True) \

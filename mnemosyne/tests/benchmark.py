@@ -38,6 +38,8 @@ def startup():
          "Stopwatch"),
         ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
          "DefaultCriterion"),
+        ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
+         "DefaultCriterionApplier"),  
         ("mnemosyne.libmnemosyne.card_types.front_to_back",
          "FrontToBack"),
         ("mnemosyne.libmnemosyne.card_types.both_ways",
@@ -119,14 +121,17 @@ def count_not_memorised():
     mnemosyne.scheduler().non_memorised_count()
     
 def activate():
-    c = DefaultCriterion(self.mnemosyne.component_manager)
-    c.active_tags__ids = set([self.database().get_or_create_tag_with_name("default")._id])
+    from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
+     DefaultCriterion
+    card_type_2 = mnemosyne.card_type_by_id("2")
+    c = DefaultCriterion(mnemosyne.component_manager)
+    c.active_tags__ids = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
     c.forbidden_tag__ids = set()
     c.deactivated_card_type_fact_view_ids = \
         set([(card_type_2.id, card_type_2.fact_views[0].id)])
-    c.active_tag__ids = set([self.database().get_or_create_tag_with_name("default")._id])
+    c.active_tag__ids = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
     c.forbidden_tags__ids = set()
-    self.database().set_current_activity_criterion(c)  
+    mnemosyne.database().set_current_activity_criterion(c)  
 
 def finalise():
     mnemosyne.config()["upload_logs"] = False
@@ -144,7 +149,7 @@ def do_import():
 #    "grade()", "activate()", "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "finalise()"]
-tests = ["startup()", "create_database()", "activate"]
+tests = ["startup()", "create_database()", "activate()"]
 #tests = ["startup()", "do_import()", "finalise()"]
 #tests = ["startup()", "queue()", "finalise()"]
 
