@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="1.1" language="tr_TR">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -296,7 +298,7 @@ tmp dosyası oluşturuluyor.</translation>
     </message>
     <message>
         <source>Add &amp;vice versa too</source>
-        <translation>Karşılığını da &amp;ekle</translation>
+        <translation>Karşılıklı olarak &amp;ekle</translation>
     </message>
     <message>
         <source>Alt+V</source>
@@ -462,7 +464,7 @@ tmp dosyası oluşturuluyor.</translation>
     </message>
     <message>
         <source>Sometimes complex glyphs are hard to read at the default latin font size</source>
-        <translation>Karmaşık kabartmaların varsayılan latin yazı tipi büyüklüğünde okunması bazen zordur</translation>
+        <translation>Karmaşık karakterlerin, varsayılan latin yazı tipi büyüklüğünde okunması bazen zordur</translation>
     </message>
     <message>
         <source>point(s)</source>
@@ -470,11 +472,11 @@ tmp dosyası oluşturuluyor.</translation>
     </message>
     <message>
         <source>Log uploading</source>
-        <translation>Kayıt defteri karşıya yükleniyor</translation>
+        <translation>Kayıt defterinin karşıya yüklenmesi</translation>
     </message>
     <message>
         <source>Upload anonymous logs</source>
-        <translation>İsimsiz kayıt defterlerini karşıya yükle</translation>
+        <translation>İsimsiz kayıt defterlerini karşıya yükleyebilirsin</translation>
     </message>
     <message>
         <source>Share anonymous statistics to contribute to memory research</source>
@@ -506,7 +508,7 @@ tmp dosyası oluşturuluyor.</translation>
     </message>
     <message>
         <source>Learn new cards in random order</source>
-        <translation>Rast gele bir sırayla yeni kart öğren</translation>
+        <translation>Rastgele bir sırayla yeni kart öğren</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -592,11 +594,11 @@ tmp dosyası oluşturuluyor.</translation>
     </message>
     <message>
         <source>S&amp;tatistics</source>
-        <translation>İs&amp;tatistikler</translation>
+        <translation>İ&amp;statistikler</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -833,7 +835,7 @@ bu yüzden daha sonra </translation>
     </message>
     <message>
         <source>Note: all cards will be added to the current database.</source>
-        <translation>Not: bütün kartlar şu anki veritabanına eklenecek.</translation>
+        <translation>Not: Bütün kartlar şu anki veritabanına eklenecek.</translation>
     </message>
     <message>
         <source>Reset learning data on import</source>
@@ -1071,11 +1073,11 @@ bu yüzden daha sonra </translation>
     </message>
     <message>
         <source>Activate cate&amp;gories</source>
-        <translation>Kate&amp;gorileri etkinleştir</translation>
+        <translation>Kategorileri &amp;etkinleştir</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
+        <translation>Ctrl+E</translation>
     </message>
     <message>
         <source>Edit deck</source>
@@ -1091,7 +1093,7 @@ bu yüzden daha sonra </translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;İçe aktar</translation>
+        <translation>&amp;İçe Aktar</translation>
     </message>
     <message>
         <source>&amp;Export</source>
@@ -1127,7 +1129,7 @@ bu yüzden daha sonra </translation>
     </message>
     <message>
         <source>&amp;Clean duplicates</source>
-        <translation>Çift kopyaları &amp;temizle</translation>
+        <translation>&amp;Çift kopyaları temizle</translation>
     </message>
     <message>
         <source>&amp;Configure Mnemosyne</source>
@@ -1167,11 +1169,11 @@ bu yüzden daha sonra </translation>
     </message>
     <message>
         <source>Show s&amp;tatistics</source>
-        <translation>İs&amp;tatistikleri göster</translation>
+        <translation>İ&amp;statistikleri göster</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <source>Tip of the day</source>
@@ -1256,7 +1258,7 @@ Let&apos;s look at the meaning of these ratings now.</source>
 
 Ben Mnemosyne, Yunan hafıza tanrıçasından adını almış bir tür kelebeğim. 
 
-Unutmaya meğilli olduğunuz kartlara odaklanmanızı yardımcı olarak ve iyi bildiğiniz şeylerle zamanınızı harcamamanızı sağlayarak, soruların yanıtlarını ezberlemenizi ve hatırlamanızı daha verimli hale getirebilirim. 
+Unutmaya meyilli olduğunuz kartlara odaklanmanızı yardımcı olarak ve iyi bildiğiniz şeylerle zamanınızı harcamamanızı sağlayarak, soruların yanıtlarını ezberlemenizi ve hatırlamanızı daha verimli hale getirebilirim. 
 
 Bunun için, ben soruların ne zaman sorulacağına karar vereceğim ve siz ise yanıtları hangi ölçüde hatırladığınızı derecelendirmelisiniz. 
 
@@ -1276,9 +1278,9 @@ I will keep on asking you these questions until you give them a grade 2 or highe
 I will schedule this card at some future date, when I think you&apos;ll still be able to remember it with some effort, without having forgotten it completely. This is the most efficient for the learning process.</source>
         <translation>Dereceler 0&apos;dan 5&apos;e kadar değişmekte. 
 
-Derece 0 ve 1 yanıtı henüz öğrenmediğinizde ya da unuttuğunuzda kullanılır. Derece 0 olan bir kart derece 1 olan bir karta göre daha tanıdıklaşmıştır ve daha az sıklıkla tekrarlanır. 
+Derece 0 ve 1, yanıtı henüz öğrenmediğinizde ya da unuttuğunuzda kullanılır. Derece 0 olan bir kart, derece 1 olan bir karta göre daha tanıdıklaşmıştır ve daha az sıklıkla tekrarlanır. 
 
-Siz derece 2 ya da daha fazla(derecenin tam olduğunun bir önemi yok) diyene kadar, bu soruları sormaya devam edeceğim. Derece 2 temel olarak, kartı en az bir iki gün hatırlayacağınız anlamına gelir. Bu, kısa ve uzun süreli hafızalarınız arasındaki geçişi işaret eder. 
+Siz derece 2 ya da daha fazla (derecenin tam olarak ne olduğunun bir önemi yok) diyene kadar, bu soruları sormaya devam edeceğim. Derece 2 temel olarak, kartı en az bir iki gün hatırlayacağınız anlamına gelir. Bu, kısa ve uzun süreli hafızalarınız arasındaki geçişi işaret eder. 
 
 Kartı tamamen unutmadığınızı, biraz çabayla hatırlayabileceğinizi düşündüğüm ilerideki bir zaman için bu karta program vereceğim. En verimli öğrenme süreci bu şekilde olur.  </translation>
     </message>
@@ -1296,11 +1298,11 @@ If on the other hand it takes you significant effort to remember the answer, and
 If you fail to remember it altogether, rate it either 0 or 1, and I&apos;ll keep on asking you this question until you think you&apos;ll be able to remember it again for a few days.</source>
         <translation>Eğer ileride ben soruyu çok erken sorarsam ve her hangi bir çaba göstermeden hatırlayabilirseniz, kartı 5 ile derecelendirin. Ben bunu hesaba katıp soruyu tekrar sormadan önce çok daha uzun bekleteceğim
 
-Eğer tam zamanında karşına getirirsem, böylece az bir çabayla hatırlayabilirseniz, 4 ile derecelendirin. 
+Eğer tam zamanında karşınıza getirirsem ve böylece az bir çabayla hatırlayabilirseniz, 4 ile derecelendirin. 
 
-Diğer bir yandan eğer yanıtı hatırlamanız için belirgin bir çaba gerekiyorsa ve bu soruyu sormak için çok beklediğimi düşünüyorsanız, kartı 3 ile derecelendirin. 
+Diğer bir yandan eğer yanıtı hatırlamanız için belirgin bir çaba gerekiyorsa ve bu soruyu sormak için çok beklediğimi düşünüyorsanız kartı 3 ile derecelendirin. 
 
-Hatırlama konusunda başarısızlığa uğrarsanız 0 ya da 1 ile derecelendirin ve  soruyu bir kaç gün daha hatırlayacağınızı düşünene kadar ben size bu soruyu sormaya devam edeceğim. </translation>
+Hatırlama konusunda başarısızlığa uğrarsanız 0 ya da 1 ile derecelendirin ve  soruyu bir kaç gün daha hatırlayacağınızı düşünene kadar ben size bu soruyu sormaya devam edeyim. </translation>
     </message>
     <message>
         <source>Grades 3-5</source>
@@ -1312,9 +1314,9 @@ Hatırlama konusunda başarısızlığa uğrarsanız 0 ya da 1 ile derecelendiri
 Not only that, but if you want, I can upload transparently a completely anonymous version of these logs to a central site for analysis, so that you can help making me better. In this way, you also contribute to scientific research on long-term memory.
 
 Uncheck the following box if you do not want to do this.</source>
-        <translation>Eğer istatistiğe meraklı iseniz, tekrarlarınızı kayıt defterlerini saklayabilirim.
+        <translation>Eğer istatistiğe meraklı iseniz, tekrarlarınızın kayıt defterlerini saklayabilirim.
 
-Sadece bu değil, ayrıca eğer isterseniz, benim daha iyi olmama yardımcı olmak adına kayıt defterlerinin tamamen isimsiz versiyonunu merkez siteye yükleyebilirim. Böylece uzun zamanlı hafıza üzerine olan bilimsel çalışmaya katkıda bulunmuş olursunuz. 
+Sadece bu değil, ayrıca eğer isterseniz, benim daha iyi olmama yardımcı olmak adına kayıt defterlerinin tamamen isimsiz sürümünü merkez siteye yükleyebilirim. Böylece uzun zamanlı hafıza üzerine olan bilimsel çalışmaya katkıda bulunmuş olursunuz. 
 
 Bunu istemiyorsanız aşağıdaki kutudaki işareti kaldırın. </translation>
     </message>
@@ -1324,7 +1326,7 @@ Bunu istemiyorsanız aşağıdaki kutudaki işareti kaldırın. </translation>
     </message>
     <message>
         <source>(You can always change this setting later using the &apos;Configure Mnemosyne&apos; menu option.)</source>
-        <translation>(Bu ayarlamayı daha sonra &apos;Mnemosyne&apos;i ayarla&apos; menüsün seçeneğiyle değiştirebilirsiniz. )</translation>
+        <translation>(Bu ayarlamayı daha sonra &apos;Mnemosyne&apos;i ayarla&apos; menü seçeneğiyle değiştirebilirsiniz. )</translation>
     </message>
     <message>
         <source>Statistics</source>
@@ -1346,9 +1348,9 @@ Happy learning!</source>
 &lt;p&gt;
 Sol üstteki &apos;artı&apos; işaretli tuşa basarak yeni kart ekleyiniz.
 &lt;p&gt;
-Unutmayın ki çalışmalarınızı kaydetmek için endişelenmenize gerek yok. Otomatik olarak ben yapacağım. 
+Unutmayın ki çalışmalarınızı kaydetmek için endişelenmenize gerek yok. Kayıt işini otomatik olarak ben yapacağım. 
 &lt;p&gt;
-Çalışmalarınızı ertelediğinizde ya da programın ilerisinde gitmek istedeğinizden üstesinden gelmek için elimden gelenin en iyisini yapacak olsam da,  en iyi sonuç için tekrarlarınızı her gün yapmanızı öneririm.
+Çalışmalarınızı ertelediğinizde ya da programın ilerisinde gitmek istedeğinizde üstesinden gelmek için elimden gelenin en iyisini yapacak olsam da,  en iyi sonuç için tekrarlarınızı her gün yapmanızı öneririm.
 &lt;p&gt;
 Daha fazla dosya için, http://www.mnemosyne-proj.sourceforge.net&apos;e bakın. 
 &lt;p&gt;
@@ -1500,11 +1502,11 @@ Mutlu öğrenmeler!</translation>
     </message>
     <message>
         <source>If you&apos;ve been away for a few days, don&apos;t worry about your backlog. Do as many cards as you feel like to catch up, the rest will be automatically rescheduled to the future.</source>
-        <translation>Eğer bir kaç gün uzak kaldıysanız, biriken işleriniz için endişelenmeyin. Yakalamak istediğiniz kadar kart ile ilgilenin ve geri kalanı otomatik olarak gelecek günlere programlanacaktır. </translation>
+        <translation>Eğer bir kaç gün uzak kaldıysanız, biriken işleriniz için endişelenmeyin. Yakalamak istediğiniz kadar kart ile ilgilenin, geri kalanı otomatik olarak gelecek günlere programlanacaktır. </translation>
     </message>
     <message>
         <source>The &apos;number of grade 0 cards to learn at once&apos; setting determines how many new cards you are trying to learn at the same time. It does &lt;b&gt;not&lt;/b&gt; tell you how many new cards you need to learn per day. You are the judge of that: you can learn more cards or less cards, depending on how you feel.</source>
-        <translation>&apos;Bir seferde öğrenilecek derece 0 kart sayısı&apos; seçeneği, bir seferde kaç tane kart &lt;b&gt;öğrenmeye çalıştığınızı belirler&lt;/b&gt;. Bir günde kaç tane yeni kart &lt;b&gt;öğrenmeniz gerektiğini söylemez&lt;b/&gt;. Nasıl hissettiğinize bağlı olarak daha çok ya da daha az kart öğrenme kararı verebilirsiniz.</translation>
+        <translation>&apos;Bir seferde öğrenilecek derece 0 kart sayısı&apos; seçeneği, bir seferde kaç tane kart &lt;b&gt;öğrenmeye çalıştığınızı belirler&lt;/b&gt;. Bir günde kaç tane yeni kart &lt;b&gt;öğrenmeniz gerektiğini söylemez &lt;/b&gt;.  Nasıl hissettiğinize bağlı olarak daha çok ya da daha az kart öğrenme kararı verebilirsiniz.</translation>
     </message>
     <message>
         <source>In summary, try to do your repetitions every day, but don&apos;t worry too much about getting the &apos;scheduled&apos; counter to zero, and certainly not about getting the &apos;Not memorised&apos; counter to zero.</source>
@@ -1556,11 +1558,11 @@ Mutlu öğrenmeler!</translation>
     </message>
     <message>
         <source>When adding a three-sided card, two regular cards will be created. One with as question the written form and as answer the pronunciation and the translation, and one with as question the translation and as answer the written form and the pronunciation.</source>
-        <translation>Üç-yüzlü kart eklerken iki sıradan kart oluşturulur. Birinin soru kısmında yazılışı, yanıt kısmında ise telaffuzu ve çevirisi; bir diğerinde ise soru kısmında çevirisi, yanıt kısmında yazılı şekli ve telaffuzu olur.</translation>
+        <translation>Üç-yüzlü kart eklerken iki sıradan kart oluşturulur. Birinin soru kısmında yazılışı, yanıt kısmında ise telaffuzu ve çevirisi; bir diğerinde ise soru kısmında çevirisi, yanıt kısmında yazışı ve telaffuzu olur.</translation>
     </message>
     <message>
         <source>You can use basic HTML tags in your cards to control their appearance.</source>
-        <translation>Görünümlerini kontrol edebilmek için kartlarınızda temel HTML etiketlerini kullanabilirsiniz. </translation>
+        <translation>Görünümlerini değiştirmek için kartlarınızda temel HTML etiketlerini kullanabilirsiniz. </translation>
     </message>
     <message>
         <source>Mnemosyne can use LaTeX to render mathematical formulas, e.g. &lt;$&gt;x^2+y^2=z^2&lt;/$&gt;. (For this, you need LaTeX and dvipng installed.)</source>
