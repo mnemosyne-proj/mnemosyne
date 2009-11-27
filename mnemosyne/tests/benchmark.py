@@ -152,6 +152,7 @@ def do_import():
 tests = ["startup()", "create_database()", "activate()"]
 #tests = ["startup()", "do_import()", "finalise()"]
 #tests = ["startup()", "queue()", "finalise()"]
+#tests = ["startup()", "activate()"]
 
 for test in tests:  
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
@@ -160,3 +161,5 @@ for test in tests:
     print
     p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
     p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
+
+# 5.2 0.92

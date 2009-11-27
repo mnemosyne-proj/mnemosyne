@@ -36,6 +36,7 @@ class Server(WSGIServer):
         self.stopped = False
         self.logged_in = False
         self.id = "TODO"
+        self.number_of_client_log_entries_to_sync = None
 
     def wsgi_app(self, environ, start_response):
         status, mime, method, args = self.get_method(environ)
@@ -139,15 +140,23 @@ class Server(WSGIServer):
             client_params = socket.readline()
         except:
             return "CANCEL"
-        else:
-            self.synchroniser.set_partner_params(client_params)
-            self.client_id = self.synchroniser.partner["id"]
-            self.open_database(self.synchroniser.partner["database_name"])
-            self.database.backup()
-            self.synchroniser.database = self.database
-            self.database.create_partnership_if_needed_for(self.client_id)
-            return "OK"
+        self.synchroniser.set_partner_params(client_params)
+        self.client_id = self.synchroniser.partner["id"]
+        self.open_database(self.synchroniser.partner["database_name"])
+        self.database.backup()
+        self.synchroniser.database = self.database
+        self.database.create_partnership_if_needed_for(self.client_id)
+        return "OK"
         
+    def put_number_of_client_log_entries_to_sync(self, environ):
+        try:
+            socket = environ["wsgi.input"]
+            self.number_of_client_log_entries_to_sync = int(socket.readline())
+        except:
+            return "CANCEL"
+        else:
+            return "OK"
+    
     def get_number_of_server_log_entries_to_sync(self, environ):
         return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
 
@@ -155,11 +164,9 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Sending history to the client...")
         log_entries = self.database.number_of_log_entries_to_sync_for(\
             self.client_id)
-
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
-        progress_dialog.set_text("Sending history to the client...")
-        
+        progress_dialog.set_text("Sending history to the client...")      
         count = 0
         for log_entry in self.database.get_log_entries_to_sync_for(\
             self.client_id):
@@ -169,18 +176,16 @@ class Server(WSGIServer):
 
     def put_client_history(self, environ):
         socket = environ["wsgi.input"]
-        # Get number of client log entries to sync.
-        log_entries = int(socket.readline())
         self.ui.status_bar_message("Applying client history...")
         progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, log_entries)
+        progress_dialog.set_range(0, self.number_of_client_log_entries_to_sync)
         progress_dialog.set_text("Applying client history...")
         # In order to do conflict resolution easily, one of the sync partners
         # has to have both logs in memory. We do this at the server side, as
         # the client could be resource-limited mobile device.
         self.client_log = []
         count = 0
-        while count != log_entries:
+        while count != self.number_of_client_log_entries_to_sync:
             chunk = socket.readline()
             self.client_log.append(self.synchroniser.XML_to_log_entry(chunk))
             count += 1

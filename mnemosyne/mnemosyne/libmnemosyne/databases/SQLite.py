@@ -25,7 +25,9 @@ re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 
 # All id's beginning with an underscore refer to primary keys in the SQL
 # database. All other id's correspond to the id's used in libmnemosyne.
-# We don't use libmnemosyne id's as primary keys for speed reasons.
+# We don't use libmnemosyne id's as primary keys for speed reasons
+# (100 times slowdown in joins). We add indices on id's as well, since
+# the is the only handle we have during the sync process.
 
 # All times are Posix timestamps.
 
@@ -40,7 +42,8 @@ SCHEMA = """
         modification_time integer,
         extra_data text default ""
     );
-
+    create index i_facts on facts (id);
+    
     create table data_for_fact(
         _fact_id integer,
         key text,
@@ -67,6 +70,7 @@ SCHEMA = """
         active boolean default 1,
         in_view boolean default 1
     );
+    create index i_cards on cards (id);
     
     create table tags(
         _id integer primary key,
@@ -74,6 +78,7 @@ SCHEMA = """
         name text,
         extra_data text default ""
     );
+    create index i_tags on tags (id);
     
     create table tags_for_card(
         _card_id integer,

@@ -75,9 +75,9 @@ class Client(object):
             self.program_version, PROTOCOL_VERSION, self.capabilities,
             self.database.database_name())
         try:
-            server_params = urllib2.urlopen(self.url + '/server/params').read()
+            server_params = urllib2.urlopen(self.url + "/server/params").read()
             response = urllib2.urlopen(PutRequest(\
-                self.url + '/client/params', client_params))
+                self.url + "/client/params", client_params))
             if response.read() != "OK":
                 raise SyncError("Handshaking: error on server side.")
         except urllib2.URLError, error:
@@ -88,11 +88,16 @@ class Client(object):
             
     def send_client_history(self):
         self.ui.status_bar_message("Sending client history to the server...")
+        # History length.
         log_entries = self.database.number_of_log_entries_to_sync_for(\
             self.server_id)
         if log_entries == 0:
             return
-
+        response = urllib2.urlopen(PutRequest(self.url + \
+            "/number/of/client/log/entries/to/sync", str(log_entries) + "\n"))
+        if response.read() != "OK":
+            raise SyncError("Error sending history length to server.")
+        # Actual history.    
         parsed_url = urlparse(self.url) 
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
         conn.putrequest("PUT", "/client/history")
@@ -104,10 +109,6 @@ class Client(object):
         conn.putheader("Expect", "100-continue")
         conn.putheader("Accept", "*/*")
         conn.endheaders()
-
-        # Send client history length.
-        conn.send(str(log_entries) + "\r\n")
-        
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Sending client history to the server...")
@@ -122,17 +123,14 @@ class Client(object):
         # TODO: analyze response from server side.
         response.read()
 
-    def get_number_of_server_log_entries_to_sync(self):
+    def get_server_history(self):
+        self.ui.status_bar_message("Applying server history...")
         try:
-            return int(urllib2.urlopen(\
+            log_entries = int(urllib2.urlopen(\
                 self.url + "/number/of/server/log/entries/to/sync").read())
         except urllib2.URLError, error:
             raise SyncError("Get number of server log entries to sync: " \
-                + str(error))
-
-    def get_server_history(self):
-        log_entries = self.get_number_of_server_log_entries_to_sync()
-        self.ui.status_bar_message("Applying server history...")
+                + str(error))        
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Applying server history...")

@@ -54,7 +54,7 @@ class Synchroniser:
         attribs, tags = "", ""
         for key, value in log_entry.iteritems():
             if key in self.keys_in_attribs:
-                attribs += " %s=\"%s\"" % (key, value)
+                attribs += " %s='%s'" % (key, value)
             else:
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>" % (attribs, tags)

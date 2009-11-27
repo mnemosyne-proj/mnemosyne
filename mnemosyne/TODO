@@ -1,5 +1,3 @@
--id vs _id
--sending length from server to client is different than from client to server
 -extra data
 -cdata, encode for deck name, unicode + test
 -test scheduled, active count sync on load/save + type
@@ -13,12 +11,11 @@
 -add modulo to progress dialogs
 -more code sharing between client and server? Send history, e.g.
 -add streaming connection to server side too.
--\r client / vs server?
+-\r client /n vs server?
 -media
 -check for updated media files outside of the program
 -same connection throughout?
 -sql roll back?
--last sync in partnership: _id or timestamp? Timezone?
 -conflict resolution
 -benchmarks
 -multiuser server, token?
