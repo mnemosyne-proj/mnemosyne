@@ -45,6 +45,8 @@ class LogEntry(dict):
     name (unicode): tag name
 
 
+    extra (unicode): extra data for objects. Optional.
+
     Note the difference between a string and a unicode type is that a string
     should be useable directly as an attribute or tag name in XML. A unicode
     object can be arbitrary and will be encoded/escaped as appropriate.

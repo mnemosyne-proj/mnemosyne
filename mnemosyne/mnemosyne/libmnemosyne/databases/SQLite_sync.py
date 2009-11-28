@@ -55,8 +55,14 @@ class SQLiteSync(object):
             log_entry["n_mem"] = sql_res["ret_reps"]
             log_entry["act"] = sql_res["lapses"]            
         elif event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
-            tag = self.get_tag(log_entry["o_id"], id_is_internal=False)
-            log_entry["name"] = tag.name
+            try:
+                tag = self.get_tag(log_entry["o_id"], id_is_internal=False)
+                log_entry["name"] = tag.name
+                if tag.extra_data:
+                    log_entry["extra"] = repr(tag.extra_data)
+            except TypeError:
+                # The object has been deleted at a later stage.
+                log_entry["name"] = "DELETED"           
         elif event_type == EventTypes.REPETITION:
             for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
                 "acq_reps_since_lapse", "ret_reps_since_lapse",
@@ -89,9 +95,18 @@ class SQLiteSync(object):
             acq_reps, ret_reps, lapses) values(?,?,?,?,?)""", (event_type,
             log_entry["time"], log_entry["sch"], log_entry["n_mem"],
             log_entry["act"]))
-        elif event_type == EventTypes.ADDED_TAG:
+        elif event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
             tag = Tag(log_entry["name"], log_entry["o_id"])
-            self.add_tag(tag, log_entry["time"])
+            if "extra" in log_entry:
+                tag.extra_data = eval(log_entry["extra"])
+            if event_type == EventTypes.ADDED_TAG:
+                self.add_tag(tag, log_entry["time"])
+            else:
+                self.update_tag(tag, log_entry["time"])
+        elif event_type == EventTypes.DELETED_TAG:
+            self.con.execute("delete from tags where id=?",
+                (log_entry["o_id"], ))
+            self.log_deleted_tag(log_entry["time"], log_entry["o_id"])
                 
     def get_last_log_entry_index(self):
         return self.con.execute(\

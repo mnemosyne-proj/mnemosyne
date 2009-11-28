@@ -54,7 +54,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
                                   "dot_sync_server")))
         self.fill_server_database()
-        Server.__init__(self, "127.0.0.1", 8002, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8006, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -98,7 +98,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8002", "user", "pass")
+        self.sync("http://127.0.0.1:8006", "user", "pass")
 
 
 class TestSync(object):
@@ -108,8 +108,6 @@ class TestSync(object):
         assert self.server.passed_tests == True
         
     def test_add_tag(self):
-
-        self.tag_name = unichr(40960) + u"abcd"
 
         def test_server(self):
             db = self.mnemosyne.database()
@@ -142,6 +140,57 @@ class TestSync(object):
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 8
+
+
+    def test_update_tag(self):
+ 
+        def test_server(self):
+            db = self.mnemosyne.database()
+            tag = db.get_tag(self.client_tag_id, id_is_internal=False)
+            assert tag.extra_data["A"] == "<a>"
+            assert db.con.execute("select count() from log").\
+                   fetchone()[0] == 9
+        
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name("tag")
+        tag.extra_data = {"A": "<a>"}
+        self.client.mnemosyne.database().update_tag(tag)
+        self.server.client_tag_id = tag.id
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 9
+        
+    def test_delete_tag(self):
+        def test_server(self):
+            db = self.mnemosyne.database()
+            try:
+                tag = db.get_tag(self.client_tag_id, id_is_internal=False)
+                assert 1 == 0
+            except TypeError:
+                pass
+            assert db.con.execute("select count() from log").\
+                   fetchone()[0] == 10
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name("tag")
+        self.client.mnemosyne.controller().file_save()
+        self.client.mnemosyne.database().delete_tag(tag)
+        self.server.client_tag_id = tag.id
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+                "select count() from log").fetchone()[0] == 10
         
     #def test_add_cards(self):
 

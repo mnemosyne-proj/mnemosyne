@@ -424,7 +424,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
         if not timestamp:
-            timestamp = time.time()
+            timestamp = int(time.time())
         self.log_added_tag(timestamp, tag.id)
         for criterion in self.get_activity_criteria():
             criterion.tag_created(tag)
@@ -439,13 +439,18 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                                        (id, )).fetchone()            
         tag = Tag(sql_res["name"], sql_res["id"])
         tag._id = sql_res["_id"]
+        self._get_extra_data(sql_res, tag)
         return tag
 
-    def update_tag(self, tag):
-        self.con.execute("update tags set name=?, extra_data=? where _id=?",
+    def update_tag(self, tag, timestamp=None):
+        # We search on id, not on _id, because during sync, this is the only
+        # info we have.
+        self.con.execute("update tags set name=?, extra_data=? where id=?",
             (tag.name, self._repr_extra_data(tag.extra_data),
-             tag._id))
-        self.log().updated_tag(tag)
+             tag.id))
+        if not timestamp:
+            timestamp = time.time()
+        self.log_updated_tag(timestamp, tag.id)
     
     def delete_tag(self, tag):
         self.con.execute("delete from tags where _id=?", (tag._id,))
@@ -507,9 +512,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             creation_time=sql_res["creation_time"], id=sql_res["id"])
         fact._id = sql_res["_id"]
         fact.modification_time = sql_res["modification_time"]
+        self._get_extra_data(sql_res, fact)
         return fact
     
     def update_fact(self, fact):
+
+        f = self.get_fact(fact._id, id_is_internal=True)
+        assert f.id == fact.id 
+        
         # Update fact.
         self.con.execute("""update facts set id=?, card_type_id=?,
             creation_time=?, modification_time=? where _id=?""",
@@ -588,6 +598,12 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return card
     
     def update_card(self, card, repetition_only=False):
+
+        c = self.get_card(card._id, id_is_internal=True)
+        if c.id != card.id:
+            print c.id, card.id
+        assert c.id == card.id
+            
         self.con.execute("""update cards set id=?, _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
