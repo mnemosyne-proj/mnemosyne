@@ -82,7 +82,17 @@ class SQLiteSync(object):
         return (self._log_entry(cursor) for cursor in self.con.execute(\
             "select * from log where _id>?", (_id, )))
 
+    def tag_from_log_entry(log_entry, fetch__id):
+        tag = Tag(log_entry["name"], log_entry["o_id"])
+        if "extra" in log_entry:
+            tag.extra_data = eval(log_entry["extra"])
+        if fetch__id:
+            tag._id = self.con.execute("select _id from tags where id=?",
+                (tag.id, )).fetchone()[0]
+        return tag
+
     def apply_log_entry(self, log_entry):
+        # Be sure to create _id fields when updating or deleting objects!
         event_type = log_entry["type"]
         if event_type in (EventTypes.STARTED_PROGRAM,
            EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER):
@@ -95,18 +105,15 @@ class SQLiteSync(object):
             acq_reps, ret_reps, lapses) values(?,?,?,?,?)""", (event_type,
             log_entry["time"], log_entry["sch"], log_entry["n_mem"],
             log_entry["act"]))
-        elif event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
-            tag = Tag(log_entry["name"], log_entry["o_id"])
-            if "extra" in log_entry:
-                tag.extra_data = eval(log_entry["extra"])
-            if event_type == EventTypes.ADDED_TAG:
-                self.add_tag(tag, log_entry["time"])
-            else:
-                self.update_tag(tag, log_entry["time"])
+        elif event_type == EventTypes.ADDED_TAG:
+            tag = self.tag_from_log_entry(log_entry, fetch__id=False)
+            self.add_tag(tag, log_entry["time"])
+        elif event_type == EventTypes.UPDATED_TAG:
+            tag = self.tag_from_log_entry(log_entry, fetch__id=True)
+            self.update_tag(tag, log_entry["time"])
         elif event_type == EventTypes.DELETED_TAG:
-            self.con.execute("delete from tags where id=?",
-                (log_entry["o_id"], ))
-            self.log_deleted_tag(log_entry["time"], log_entry["o_id"])
+            tag = self.tag_from_log_entry(log_entry, fetch__id=True)
+            self.delete_tag(tag, log_entry["time"])
                 
     def get_last_log_entry_index(self):
         return self.con.execute(\

@@ -204,8 +204,6 @@ class SQLiteLogging(object):
                 id text primary key,
                 offset int,
                 last_rep int);""")
-        # This is a useful index to have when importing.
-        self.con.execute("create index i_cards_id on cards (id);")
         # Having these indices in place while importing takes too long.
         self.con.execute("drop index if exists i_log_timestamp;")
         self.con.execute("drop index if exists i_log_object_id;")
@@ -213,7 +211,6 @@ class SQLiteLogging(object):
     def after_mem_import(self):
         self.con.execute("drop table _cards")
         # Restore index situation.
-        self.con.execute("drop index i_cards_id;")
         self.con.execute("create index i_log_timestamp on log (timestamp);")
         self.con.execute("create index i_log_object_id on log (object_id);")
 
@@ -226,6 +223,10 @@ class SQLiteLogging(object):
         sql_res = self.con.execute("""select offset, last_rep
            from _cards where _cards.id=?""", (card_id, )).fetchone()
         return sql_res["offset"], sql_res["last_rep"]
+
+    def change_card_id(self, card, new_id):
+        self.con.execute("update cards set id=? where _id=?",
+            (new_id, card._id))       
 
     def update_card_after_log_import(self, id, creation_time, offset):
         sql_res = self.con.execute("""select _id, _fact_id, acq_reps,

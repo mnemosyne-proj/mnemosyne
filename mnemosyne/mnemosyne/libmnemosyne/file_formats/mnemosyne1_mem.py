@@ -31,8 +31,9 @@ class Mnemosyne1Mem(FileFormat):
         return int(calendar.timegm(date_only.timetuple()))
     
     def _set_card_attributes(self, card, item):
+        self.database().change_card_id(card, item.id)
         for attr in ["id", "grade", "easiness", "acq_reps", "ret_reps",
-                "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse"]:
+            "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse"]:
             setattr(card, attr, getattr(item, attr))    
         DAY = 24 * 60 * 60 # Seconds in a day.
         card.last_rep = \

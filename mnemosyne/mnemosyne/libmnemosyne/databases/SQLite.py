@@ -443,18 +443,18 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return tag
 
     def update_tag(self, tag, timestamp=None):
-        # We search on id, not on _id, because during sync, this is the only
-        # info we have.
-        self.con.execute("update tags set name=?, extra_data=? where id=?",
+        self.con.execute("update tags set name=?, extra_data=? where _id=?",
             (tag.name, self._repr_extra_data(tag.extra_data),
-             tag.id))
+             tag._id))
         if not timestamp:
             timestamp = time.time()
         self.log_updated_tag(timestamp, tag.id)
     
-    def delete_tag(self, tag):
-        self.con.execute("delete from tags where _id=?", (tag._id,))
-        self.log().deleted_tag(tag)
+    def delete_tag(self, tag, timestamp=None):
+        self.con.execute("delete from tags where _id=?", (tag._id, ))
+        if not timestamp:
+            timestamp = time.time()
+        self.log_deleted_tag(timestamp, tag.id)
         for criterion in self.get_activity_criteria():
             criterion.tag_deleted(tag)
             self.update_activity_criterion(criterion)
@@ -516,18 +516,13 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return fact
     
     def update_fact(self, fact):
-
-        f = self.get_fact(fact._id, id_is_internal=True)
-        assert f.id == fact.id 
-        
         # Update fact.
-        self.con.execute("""update facts set id=?, card_type_id=?,
-            creation_time=?, modification_time=? where _id=?""",
-            (fact.id, fact.card_type.id, fact.creation_time,
-             fact.modification_time, fact._id))
+        self.con.execute("""update facts set card_type_id=?, creation_time=?,
+            modification_time=? where _id=?""", (fact.card_type.id,
+            fact.creation_time, fact.modification_time, fact._id))
         # Delete data_for_fact and recreate it.
         self.con.execute("delete from data_for_fact where _fact_id=?",
-                (fact._id, ))
+            (fact._id, ))
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
                 for key, value in fact.data.items()))
@@ -598,19 +593,13 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return card
     
     def update_card(self, card, repetition_only=False):
-
-        c = self.get_card(card._id, id_is_internal=True)
-        if c.id != card.id:
-            print c.id, card.id
-        assert c.id == card.id
-            
-        self.con.execute("""update cards set id=?, _fact_id=?, fact_view_id=?,
+        self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
             next_rep=?, extra_data=?, scheduler_data=?, active=?,
             in_view=? where _id=?""",
-            (card.id, card.fact._id, card.fact_view.id, card.grade,
-            card.easiness, card.acq_reps, card.ret_reps, card.lapses,
+            (card.fact._id, card.fact_view.id, card.grade, card.easiness,
+            card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
@@ -764,10 +753,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 return criterion
     
     def update_activity_criterion(self, criterion):
-        self.con.execute("""update activity_criteria set id=?, name=?, type=?,
-            data=? where _id=?""", (criterion.id, criterion.name,
-            criterion.criterion_type, criterion.data_to_string(),
-            criterion._id))
+        self.con.execute("""update activity_criteria set name=?, type=?, data=?
+            where id=?""", (criterion.name, criterion.criterion_type,
+            criterion.data_to_string(), criterion.id))
         if criterion._id == 1:
             self._current_criterion = criterion
  
@@ -800,7 +788,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         mediadir = self.config().mediadir()
         # Determine new media files for this fact. Copy them to the media dir
         # if needed. (The user could have typed in the full path directly
-        # withouh going through the add_img or add_sound callback.)
+        # without going through the add_img or add_sound callback.)
         matches = re_src.finditer("".join(fact.data.values()))
         if not matches:
             return
