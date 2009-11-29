@@ -82,7 +82,9 @@ class SQLiteSync(object):
         return (self._log_entry(cursor) for cursor in self.con.execute(\
             "select * from log where _id>?", (_id, )))
 
-    def tag_from_log_entry(log_entry, fetch__id):
+    def tag_from_log_entry(self, log_entry, fetch__id):
+        if not "name" in log_entry:
+            log_entry["name"] = "DELETED"
         tag = Tag(log_entry["name"], log_entry["o_id"])
         if "extra" in log_entry:
             tag.extra_data = eval(log_entry["extra"])
