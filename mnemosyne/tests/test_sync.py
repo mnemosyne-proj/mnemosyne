@@ -9,6 +9,7 @@ from openSM2sync.client import Client
 from openSM2sync.log_entry import EventTypes
 
 from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
@@ -54,7 +55,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
                                   "dot_sync_server")))
         self.fill_server_database()
-        Server.__init__(self, "127.0.0.1", 8008, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8012, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -98,7 +99,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8008", "user", "pass")
+        self.sync("http://127.0.0.1:8012", "user", "pass")
 
 
 class TestSync(object):
@@ -191,6 +192,32 @@ class TestSync(object):
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
                 "select count() from log").fetchone()[0] == 10
+
+    def test_add_fact(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            fact = db.get_fact(self.client_fact_id, id_is_internal=False)
+            assert fact.data == {"q": "Q", "a": "A"}
+            assert fact.card_type == self.mnemosyne.card_type_by_id("1")
+            assert fact.creation_time == self.client_creation_time
+            assert fact.modification_time == self.client_creation_time
+            assert db.con.execute("select count() from log").fetchone()[0] == 8 
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        fact = Fact({"q": "Q", "a": "A"}, card_type)
+        self.client.mnemosyne.database().add_fact(fact)
+        self.server.client_fact_id = fact.id
+        self.server.client_creation_time = fact.creation_time
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 8
         
     #def test_add_cards(self):
 

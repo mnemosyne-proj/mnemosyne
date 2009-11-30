@@ -60,9 +60,18 @@ class SQLiteSync(object):
                 log_entry["name"] = tag.name
                 if tag.extra_data:
                     log_entry["extra"] = repr(tag.extra_data)
-            except TypeError:
-                # The object has been deleted at a later stage.
-                log_entry["name"] = "DELETED"           
+            except TypeError: # The object has been deleted at a later stage.
+                log_entry["name"] = "DELETED"
+        elif event_type in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT):
+            try:
+                fact = self.get_fact(log_entry["o_id"], id_is_internal=False)
+                log_entry["c_time"] = fact.creation_time
+                log_entry["m_time"] = fact.modification_time
+                log_entry["card_t"] = fact.card_type.id
+                for key, value in fact.data.iteritems():
+                    log_entry[key] = value
+            except TypeError: # The object has been deleted at a later stage.
+                pass
         elif event_type == EventTypes.REPETITION:
             for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
                 "acq_reps_since_lapse", "ret_reps_since_lapse",

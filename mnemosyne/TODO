@@ -1,3 +1,4 @@
+-document events
 -be sure to create _id fields when updating or deleting objects!
 -cdata, encode for deck name, unicode + test
 -test scheduled, active count sync on load/save + type
@@ -12,6 +13,7 @@
 -more code sharing between client and server? Send history, e.g.
 -add streaming connection to server side too.
 -\r client /n vs server?
+-exchange card types
 -media
 -check for updated media files outside of the program
 -same connection throughout?

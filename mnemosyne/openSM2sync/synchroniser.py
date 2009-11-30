@@ -25,8 +25,9 @@ class Synchroniser:
     """
 
     # The list of keys to be passed on as attributes.
-    keys_in_attribs = ["type", "time", "o_id", "sch", "n_mem", "act"]
-    int_keys = ["type", "time", "sch", "n_mem", "act"]
+    keys_in_attribs = ["type", "time", "o_id", "sch", "n_mem", "act", "c_time",
+        "m_time", "card_t"]
+    int_keys = ["type", "time", "sch", "n_mem", "act", "c_time", "m_time"]
     
     def __init__(self):
         self.partner = {"id": None, "program_name": None,
@@ -64,7 +65,7 @@ class Synchroniser:
         
         return xml.encode("utf-8")
 
-    def XML_to_log_entry(self, chunk):
+    def XML_to_log_entry(self, chunk):      
         xml = cElementTree.XML(chunk)
         log_entry = LogEntry()
         for key, value in xml.attrib.iteritems():

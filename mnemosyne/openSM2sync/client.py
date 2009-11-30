@@ -71,13 +71,13 @@ class Client(object):
         self.ui.status_bar_message("Handshaking...")
         client_params = ("<client id='%s' program_name='%s' " + \
             "program_version='%s' protocol_version='%s' capabilities='%s' " + \
-            "database_name='%s'></client>\n") % (self.id, self.program_name,
+            "database_name='%s'></client>") % (self.id, self.program_name,
             self.program_version, PROTOCOL_VERSION, self.capabilities,
             self.database.database_name())
         try:
             server_params = urllib2.urlopen(self.url + "/server/params").read()
             response = urllib2.urlopen(PutRequest(\
-                self.url + "/client/params", client_params))
+                self.url + "/client/params", client_params + "\n"))
             if response.read() != "OK":
                 raise SyncError("Handshaking: error on server side.")
         except urllib2.URLError, error:
@@ -115,7 +115,7 @@ class Client(object):
         count = 0
         for log_entry in self.database.get_log_entries_to_sync_for(\
             self.server_id):
-            conn.send(self.synchroniser.log_entry_to_XML(log_entry) + "\r\n")
+            conn.send(self.synchroniser.log_entry_to_XML(log_entry) + "\n")
             count += 1
             progress_dialog.set_value(count)
         self.ui.status_bar_message("Waiting for the server to complete...")
