@@ -219,6 +219,64 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 8
         
+    def test_update_fact(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            fact = db.get_fact(self.client_fact_id, id_is_internal=False)
+            assert fact.data == {"q": "Q", "a": "AA"}
+            assert fact.card_type == self.mnemosyne.card_type_by_id("1")
+            assert fact.creation_time == self.client_creation_time
+            assert fact.modification_time == self.client_creation_time
+            assert db.con.execute("select count() from log").fetchone()[0] == 9
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        fact = Fact({"q": "Q", "a": "A"}, card_type)
+        self.client.mnemosyne.database().add_fact(fact)
+        fact.data = {"q": "Q", "a": "AA"}
+        self.client.mnemosyne.database().update_fact(fact)        
+        self.server.client_fact_id = fact.id
+        self.server.client_creation_time = fact.creation_time
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 9
+        
+    def test_delete_fact(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            try:
+                fact = db.get_fact(self.client_fact_id, id_is_internal=False)
+                assert 1 == 0
+            except TypeError:
+                pass
+            assert db.con.execute("select count() from log").fetchone()[0] == 10
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        fact = Fact({"q": "Q", "a": "A"}, card_type)
+        self.client.mnemosyne.database().add_fact(fact)
+        self.client.mnemosyne.controller().file_save()
+        self.client.mnemosyne.database().delete_fact_and_related_data(fact)        
+        self.server.client_fact_id = fact.id
+        self.server.client_creation_time = fact.creation_time
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        print self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0]
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 10
+        
     #def test_add_cards(self):
 
     #    def test_server(self):

@@ -61,7 +61,7 @@ class SQLiteSync(object):
                 if tag.extra_data:
                     log_entry["extra"] = repr(tag.extra_data)
             except TypeError: # The object has been deleted at a later stage.
-                log_entry["name"] = "DELETED"
+                pass
         elif event_type in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT):
             try:
                 fact = self.get_fact(log_entry["o_id"], id_is_internal=False)
@@ -91,19 +91,49 @@ class SQLiteSync(object):
         return (self._log_entry(cursor) for cursor in self.con.execute(\
             "select * from log where _id>?", (_id, )))
 
-    def tag_from_log_entry(self, log_entry, fetch__id):
-        if not "name" in log_entry:
-            log_entry["name"] = "DELETED"
+    def tag_from_log_entry(self, log_entry):
+        # When deleting, the log entry only contains the tag's id, so we pull
+        # the object from the database. This is a bit slower than just filling
+        # in harmless missing fields, but it is more robust against future
+        # side effects of tag deletion.
+        if log_entry["type"] == EventTypes.DELETED_TAG:
+            return self.get_tag(log_entry["o_id"], id_is_internal=False)
+        # If we are creating a tag that will be deleted at a later stage
+        # during the sync, we are missing some (irrelevant) information
+        # needed to properly create a tag object.
+        if "name" not in log_entry:
+            log_entry["name"] = "irrelevant"
         tag = Tag(log_entry["name"], log_entry["o_id"])
         if "extra" in log_entry:
             tag.extra_data = eval(log_entry["extra"])
-        if fetch__id:
+        # Make sure to create _id fields as well, otherwise database
+        # operations or their side effects could fail.
+        if log_entry["type"] != EventTypes.ADDED_TAG:
             tag._id = self.con.execute("select _id from tags where id=?",
                 (tag.id, )).fetchone()[0]
         return tag
+    
+    def fact_from_log_entry(self, log_entry):
+        if log_entry["type"] == EventTypes.DELETED_FACT:
+            return self.get_fact(log_entry["o_id"], id_is_internal=False)
+        if "card_t" not in log_entry:
+            log_entry["card_t"] = "1"
+            log_entry["c_time"] = "-1"
+            log_entry["m_time"] = "-1"
+        data = {}
+        for key, value in log_entry.iteritems():
+            if key not in ["time", "type", "o_id", "c_time", "m_time",
+                "card_t"]:
+                data[key] = value
+        card_type = self.card_type_by_id(log_entry["card_t"])
+        fact = Fact(data, card_type, log_entry["c_time"], log_entry["o_id"])
+        fact.modification_time = log_entry["m_time"]
+        if log_entry["type"] != EventTypes.ADDED_FACT:
+            fact._id = self.con.execute("select _id from facts where id=?",
+                (fact.id, )).fetchone()[0]
+        return fact
 
     def apply_log_entry(self, log_entry):
-        # Be sure to create _id fields when updating or deleting objects!
         event_type = log_entry["type"]
         if event_type in (EventTypes.STARTED_PROGRAM,
            EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER):
@@ -117,15 +147,24 @@ class SQLiteSync(object):
             log_entry["time"], log_entry["sch"], log_entry["n_mem"],
             log_entry["act"]))
         elif event_type == EventTypes.ADDED_TAG:
-            tag = self.tag_from_log_entry(log_entry, fetch__id=False)
+            tag = self.tag_from_log_entry(log_entry)
             self.add_tag(tag, log_entry["time"])
         elif event_type == EventTypes.UPDATED_TAG:
-            tag = self.tag_from_log_entry(log_entry, fetch__id=True)
+            tag = self.tag_from_log_entry(log_entry)
             self.update_tag(tag, log_entry["time"])
         elif event_type == EventTypes.DELETED_TAG:
-            tag = self.tag_from_log_entry(log_entry, fetch__id=True)
+            tag = self.tag_from_log_entry(log_entry)
             self.delete_tag(tag, log_entry["time"])
-                
+        elif event_type == EventTypes.ADDED_FACT:
+            fact = self.fact_from_log_entry(log_entry)
+            self.add_fact(fact, log_entry["time"])
+        elif event_type == EventTypes.UPDATED_FACT:
+            fact = self.fact_from_log_entry(log_entry)
+            self.update_fact(fact, log_entry["time"])
+        elif event_type == EventTypes.DELETED_FACT:
+            fact = self.fact_from_log_entry(log_entry)
+            self.delete_fact_and_related_data(fact,log_entry["time"])
+            
     def get_last_log_entry_index(self):
         return self.con.execute(\
             "select _id from log order by _id desc limit 1").fetchone()[0]

@@ -1,3 +1,4 @@
+-review factory objects, add documentation
 -document events
 -be sure to create _id fields when updating or deleting objects!
 -cdata, encode for deck name, unicode + test

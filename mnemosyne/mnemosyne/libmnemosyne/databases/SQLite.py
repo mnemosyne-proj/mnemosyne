@@ -419,6 +419,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return tag
 
     def add_tag(self, tag, timestamp=None):
+        # We can specify the timestamp at which this event happened.
+        # Needed during synchronisation process.
         _id = self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
@@ -478,7 +480,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     # Facts.
     #
     
-    def add_fact(self, fact):
+    def add_fact(self, fact, timestamp=None):
         self.load_failed = False
         # Add fact to facts table.
         _fact_id = self.con.execute("""insert into facts(id, card_type_id,
@@ -490,7 +492,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((_fact_id, key, value)
                 for key, value in fact.data.items()))
-        self.log().added_fact(fact)
+        if not timestamp:
+            timestamp = time.time()
+        self.log_added_fact(timestamp, fact.id)
         # Process media files.
         self._process_media(fact)
 
@@ -515,7 +519,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, fact)
         return fact
     
-    def update_fact(self, fact):
+    def update_fact(self, fact, timestamp=None):
         # Update fact.
         self.con.execute("""update facts set card_type_id=?, creation_time=?,
             modification_time=? where _id=?""", (fact.card_type.id,
@@ -526,17 +530,21 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
                 for key, value in fact.data.items()))
-        self.log().updated_fact(fact)
+        if not timestamp:
+            timestamp = time.time()
+        self.log_updated_fact(timestamp, fact.id)
         # Process media files.
         self._process_media(fact)        
 
-    def delete_fact_and_related_data(self, fact):
+    def delete_fact_and_related_data(self, fact, timestamp=None):
         for card in self.cards_from_fact(fact):
             self.delete_card(card)
         self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
                          (fact._id, ))
-        self.log().deleted_fact(fact)
+        if not timestamp:
+            timestamp = time.time()
+        self.log_deleted_fact(timestamp, fact.id)
         # Process media files.
         fact.data = {}
         self._process_media(fact)
