@@ -32,20 +32,57 @@ class LogEntry(dict):
 
     """A dictionary consisting of (key, value) pairs to sync.
 
-    type (int): event type from list above
-    time (int): timestamp for log entry
-    o_id (string): id of object involved in log entry (e.g. tag id for
-        ADDED_TAG, string with name and version for STARTED_PROGRAM,
-        STARTED_SCHEDULER, ...
+    General keys:
+        type (int): event type from list above.
+        time (int): Unix timestamp for log entry.
+        o_id (string): id of object involved in log entry (e.g. tag id for
+            ADDED_TAG, string with name and version for STARTED_PROGRAM,
+            STARTED_SCHEDULER, ... .
+            Object ids should not contain commas.
+        extra (unicode): extra data for tags, cards and card_types, typically
+            the representation of a Python dictionary. Optional.
+        
+    Keys specific to LOADED_DATABASE and SAVED_DATABASE:
+        sch, n_mem, act (int): optional, but suggested for compatibility with
+            Mnemosyne. The number of scheduled, non memorised and active cards
+            in the database.
+        
+    Keys specific to ADDED_TAG, UPDATED_TAG:
+        name (unicode): tag name
 
-    sch, n_mem, act (int): optional, but suggested for compatibility with
-        Mnemosyne. The number of scheduled, non memorised and active cards in
-        the database in a LOADED_DATABASE and SAVED_DATABASE event.
+    Keys specific to ADDED_FACT, UPDATED_FACT:
+        card_t (string), c_time (int), m_time (int): card type id,
+            creation time, modification time (Unix timestamp).
 
-    name (unicode): tag name
+        <fact_key> (unicode): any different key name than the ones above will
+            be treated as belonging to the fact's data dictionary.
+            
+    Keys specific to ADDED_CARD, UPDATED_CARD:
+        fact (string), fact_v (string): fact id and fact view id
+        tags (string): comma separated list of tag ids
+        act (int): card active?
+        gr (int): grade (-1 through 5, -1 meaning unseen)
+        e (float): easiness
+        l_rp (int): last repetiton, Unix timestamp
+        n_rp (int): next repetition, Unix timestamp
+
+        Optional, but suggested for compatibility with Mnemosyne:
+        
+                log_entry["ac_rp"] = card.acq_reps
+                log_entry["rt_rp"] = card.ret_reps
+                log_entry["lps"] = card.lapses
+                log_entry["ac_rp_l"] = card.acq_reps_since_lapse
+                log_entry["rt_rp_l"] = card.ret_reps_since_lapse
+                log_entry["sch_data"] = card.scheduler_data
 
 
-    extra (unicode): extra data for objects. Optional.
+
+    
+    Any other keys in LogEntry that don't appear in the list above will be
+    synced as unicode.
+
+    Events like DELETED_TAG, DELETED_FACT, etc only pass on the object id as
+    data.
 
     Note the difference between a string and a unicode type is that a string
     should be useable directly as an attribute or tag name in XML. A unicode

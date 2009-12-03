@@ -28,6 +28,7 @@ class Synchroniser:
     keys_in_attribs = ["type", "time", "o_id", "sch", "n_mem", "act", "c_time",
         "m_time", "card_t"]
     int_keys = ["type", "time", "sch", "n_mem", "act", "c_time", "m_time"]
+    float_keys = ["e"]
     
     def __init__(self):
         self.partner = {"id": None, "program_name": None,
@@ -71,6 +72,8 @@ class Synchroniser:
         for key, value in xml.attrib.iteritems():
             if key in self.int_keys:
                 value = int(value)
+            elif key in self.float_keys:
+                values = float(value)
             log_entry[key] = value
         for child in xml:
             log_entry[child.tag] = child.text

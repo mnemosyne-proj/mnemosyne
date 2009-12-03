@@ -85,9 +85,6 @@ class Card(CompareOnId):
         return self.fact.card_type.answer(self)
 
     def tag_string(self):
-        tag_string = ""
-        for tag in self.tags:
-            tag_string += tag.name + ", "
-        return tag_string[:-2]
+        return ", ".join([tag.name for tag in self.tags])
         
     interval = property(lambda self : self.next_rep - self.last_rep)

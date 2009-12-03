@@ -72,6 +72,27 @@ class SQLiteSync(object):
                     log_entry[key] = value
             except TypeError: # The object has been deleted at a later stage.
                 pass
+        elif event_type in (EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD):
+            try:
+                card = self.get_card(log_entry["o_id"], id_is_internal=False)
+                log_entry["fact"] = card.fact.id
+                log_entry["fact_v"] = card.fact_view.id
+                log_entry["tags"] = ",".join([tag.id for tag in card.tags]) 
+                log_entry["act"] = int(card.active)
+                log_entry["gr"] = card.grade
+                log_entry["e"] = card.easiness
+                log_entry["l_rp"] = card.last_repetition
+                log_entry["n_rp"] = card.next_repetition
+                log_entry["ac_rp"] = card.acq_reps
+                log_entry["rt_rp"] = card.ret_reps
+                log_entry["lps"] = card.lapses
+                log_entry["ac_rp_l"] = card.acq_reps_since_lapse
+                log_entry["rt_rp_l"] = card.ret_reps_since_lapse
+                log_entry["sch_data"] = card.scheduler_data
+                if card.extra_data:
+                    log_entry["extra"] = repr(card.extra_data)              
+            except TypeError: # The object has been deleted at a later stage.
+                pass        
         elif event_type == EventTypes.REPETITION:
             for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
                 "acq_reps_since_lapse", "ret_reps_since_lapse",
@@ -79,7 +100,28 @@ class SQLiteSync(object):
                 "thinking_time"):
                 log_entry[attr] = sql_res[attr]
         return log_entry
+
     
+        #self.fact = fact
+        #self.fact_view = fact_view
+
+        #self.tags = set()
+        #self.active = True
+        #self.grade = -1
+        #self.easiness = -1
+        #self.last_rep = -1
+        #self.next_rep = -1
+        
+        # Optional
+        #self.extra_data = {}
+        #self.scheduler_data = 0
+
+        #self.acq_reps = 0
+        #self.ret_reps = 0
+        #self.lapses = 0
+        #self.acq_reps_since_lapse = 0
+        #self.ret_reps_since_lapse = 0
+        
     def get_log_entries_to_sync_for(self, partner):
 
         """Note that we return an iterator here to be able to stream
@@ -99,10 +141,11 @@ class SQLiteSync(object):
         if log_entry["type"] == EventTypes.DELETED_TAG:
             return self.get_tag(log_entry["o_id"], id_is_internal=False)
         # If we are creating a tag that will be deleted at a later stage
-        # during the sync, we are missing some (irrelevant) information
+        # during this sync, we are missing some (irrelevant) information
         # needed to properly create a tag object.
         if "name" not in log_entry:
             log_entry["name"] = "irrelevant"
+        # Create tag object. 
         tag = Tag(log_entry["name"], log_entry["o_id"])
         if "extra" in log_entry:
             tag.extra_data = eval(log_entry["extra"])
@@ -114,12 +157,16 @@ class SQLiteSync(object):
         return tag
     
     def fact_from_log_entry(self, log_entry):
+        # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
             return self.get_fact(log_entry["o_id"], id_is_internal=False)
+        # Make sure we can create a fact object that will be deleted later
+        # during this sync.
         if "card_t" not in log_entry:
             log_entry["card_t"] = "1"
             log_entry["c_time"] = "-1"
             log_entry["m_time"] = "-1"
+        # Create fact object.
         data = {}
         for key, value in log_entry.iteritems():
             if key not in ["time", "type", "o_id", "c_time", "m_time",
@@ -132,7 +179,31 @@ class SQLiteSync(object):
             fact._id = self.con.execute("select _id from facts where id=?",
                 (fact.id, )).fetchone()[0]
         return fact
-
+    
+    def card_from_log_entry(self, log_entry):
+        # Get card object to be deleted now.
+        if log_entry["type"] == EventTypes.DELETED_CARD:
+            return self.get_card(log_entry["o_id"], id_is_internal=False)
+        # Make sure we can create a card object that will be deleted later
+        # during this sync.
+        if "card_t" not in log_entry:
+            log_entry["card_t"] = "1"
+            log_entry["c_time"] = "-1"
+            log_entry["m_time"] = "-1"
+        # Create card object.
+        data = {}
+        for key, value in log_entry.iteritems():
+            if key not in ["time", "type", "o_id", "c_time", "m_time",
+                "card_t"]:
+                data[key] = value
+        card_type = self.card_type_by_id(log_entry["card_t"])
+        card = Card(data, card_type, log_entry["c_time"], log_entry["o_id"])
+        card.modification_time = log_entry["m_time"]
+        if log_entry["type"] != EventTypes.ADDED_CARD:
+            card._id = self.con.execute("select _id from cards where id=?",
+                (card.id, )).fetchone()[0]
+        return card
+    
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]
         if event_type in (EventTypes.STARTED_PROGRAM,
