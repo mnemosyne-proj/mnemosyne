@@ -1,5 +1,7 @@
--o i.o. o_id
 -test card with multiple tags
+-test card extra data
+-order of first repetition of card
+-o i.o. o_id
 -document events
 -be sure to create _id fields when updating or deleting objects!
 -cdata, encode for deck name, unicode + test
@@ -77,6 +79,8 @@ def parse_JSON(fileobj):
 -sync adding sets
 
 -need component.statisticspages and configuration widgets?
+
+-post nose 0.11: add cover branches
 
 
 -duplicates for fact speedup

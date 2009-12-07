@@ -55,7 +55,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
                                   "dot_sync_server")))
         self.fill_server_database()
-        Server.__init__(self, "127.0.0.1", 8012, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8013, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -99,7 +99,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8012", "user", "pass")
+        self.sync("http://127.0.0.1:8013", "user", "pass")
 
 
 class TestSync(object):
@@ -277,26 +277,41 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 10
         
-    #def test_add_cards(self):
+    def test_add_cards(self):
 
-    #    def test_server(self):
-    #        db = self.mnemosyne.database()
-    #        assert db.fact_count() == 1
-    #        assert db.card_count() == 1
-    #        card = db.get_card(self.client_card.id, id_is_internal=False)
-    #        assert card.question() == self.client_card.question()
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.fact_count() == 1
+            assert db.card_count() == 1
+            card = db.get_card(self.client_card.id, id_is_internal=False)
+            assert card.question() == self.client_card.question()
+            assert db.get_or_create_tag_with_name("tag_1") in card.tags
+            assert db.get_or_create_tag_with_name("tag_2") in card.tags
+            assert len.card.tags == 2
+            assert card.scheduler_data == 0
+            assert card.active == True
+            assert card.in_view == True
+            assert card.grade == 4
+            assert card.easiness == 2.5
+            assert card.acq_reps == 1
+            assert card.ret_reps == 0
+            assert card.lapses == 0
+            assert card.acq_reps_since_lapse == 1
+            assert card.ret_reps_since_lapse == 0
+            assert card.last_rep != -1
+            assert card.next_rep != -1
 
-    #    self.server = MyServer()
-    #    self.server.test_server = test_server
-    #    self.server.start()
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
 
-    #    self.client = MyClient()
-    #    fact_data = {"q": "question",
-    #                 "a": "answer"}
-    #    card_type = self.client.mnemosyne.card_type_by_id("1")
-    #    card = self.client.mnemosyne.controller().create_new_cards(fact_data,
-    #        card_type, grade=-1, tag_names=["default"])[0]
-    #    self.server.client_card = card
-    #    self.client.mnemosyne.controller().file_save()
-    #    self.client.do_sync()
+        self.client = MyClient()
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.server.client_card = card
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
 

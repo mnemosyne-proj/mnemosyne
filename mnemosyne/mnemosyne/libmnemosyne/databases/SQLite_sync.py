@@ -81,8 +81,8 @@ class SQLiteSync(object):
                 log_entry["act"] = int(card.active)
                 log_entry["gr"] = card.grade
                 log_entry["e"] = card.easiness
-                log_entry["l_rp"] = card.last_repetition
-                log_entry["n_rp"] = card.next_repetition
+                log_entry["l_rp"] = card.last_rep
+                log_entry["n_rp"] = card.next_rep
                 log_entry["ac_rp"] = card.acq_reps
                 log_entry["rt_rp"] = card.ret_reps
                 log_entry["lps"] = card.lapses
@@ -93,34 +93,13 @@ class SQLiteSync(object):
                     log_entry["extra"] = repr(card.extra_data)              
             except TypeError: # The object has been deleted at a later stage.
                 pass        
-        elif event_type == EventTypes.REPETITION:
-            for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
-                "acq_reps_since_lapse", "ret_reps_since_lapse",
-                "scheduled_interval", "actual_interval", "new_interval",
-                "thinking_time"):
-                log_entry[attr] = sql_res[attr]
+        #elif event_type == EventTypes.REPETITION:
+        #    for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
+        #        "acq_reps_since_lapse", "ret_reps_since_lapse",
+        #        "scheduled_interval", "actual_interval", "new_interval",
+        #        "thinking_time"):
+        #        log_entry[attr] = sql_res[attr]
         return log_entry
-
-    
-        #self.fact = fact
-        #self.fact_view = fact_view
-
-        #self.tags = set()
-        #self.active = True
-        #self.grade = -1
-        #self.easiness = -1
-        #self.last_rep = -1
-        #self.next_rep = -1
-        
-        # Optional
-        #self.extra_data = {}
-        #self.scheduler_data = 0
-
-        #self.acq_reps = 0
-        #self.ret_reps = 0
-        #self.lapses = 0
-        #self.acq_reps_since_lapse = 0
-        #self.ret_reps_since_lapse = 0
         
     def get_log_entries_to_sync_for(self, partner):
 
@@ -184,21 +163,31 @@ class SQLiteSync(object):
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
             return self.get_card(log_entry["o_id"], id_is_internal=False)
-        # Make sure we can create a card object that will be deleted later
+        # Create an empty shell of card object that will be deleted later
         # during this sync.
-        if "card_t" not in log_entry:
-            log_entry["card_t"] = "1"
-            log_entry["c_time"] = "-1"
-            log_entry["m_time"] = "-1"
+        if "tags" not in log_entry:
+            card_type = self.card_type_by_id("1")
+            fact = Fact({}, card_type, creation_time=0, id="")
+            return Card(fact, card_type.fact_views[0])
         # Create card object.
-        data = {}
-        for key, value in log_entry.iteritems():
-            if key not in ["time", "type", "o_id", "c_time", "m_time",
-                "card_t"]:
-                data[key] = value
-        card_type = self.card_type_by_id(log_entry["card_t"])
-        card = Card(data, card_type, log_entry["c_time"], log_entry["o_id"])
-        card.modification_time = log_entry["m_time"]
+        fact = self.get_fact(log_entry["fact"], id_is_internal=False)
+        fact_view = self.get_fact(log_entry["fact_v"], id_is_internal=False)        
+        card = Card(fact, fact_view)
+        for tag_id in log_entry["tags"].split(","):
+            card.tags.add(self.get_tag(tag_id, id_is_internal=False))
+        card.active = bool(log_entry["act"])
+        card.grade = log_entry["gr"]
+        card.easiness = log_entry["e"]
+        card.last_rep = log_entry["l_rp"]
+        card.next_rep = log_entry["n_rp"]
+        card.acq_reps = log_entry["ac_rp"]
+        card.lapses = log_entry["lps"]
+        card.acq_reps_since_lapse = log_entry["ac_rp_l"]
+        card.ret_reps_since_lapse = log_entry["rt_rp_l"]
+        if "sch_data" in log_entry:
+            card.scheduler_data = log_entry["sch_data"]   
+        if "extra" in log_entry:
+            card.extra_data = eval(log_entry["extra"])
         if log_entry["type"] != EventTypes.ADDED_CARD:
             card._id = self.con.execute("select _id from cards where id=?",
                 (card.id, )).fetchone()[0]
@@ -234,7 +223,17 @@ class SQLiteSync(object):
             self.update_fact(fact, log_entry["time"])
         elif event_type == EventTypes.DELETED_FACT:
             fact = self.fact_from_log_entry(log_entry)
-            self.delete_fact_and_related_data(fact,log_entry["time"])
+            self.delete_fact_and_related_data(fact, log_entry["time"])
+        elif event_type == EventTypes.ADDED_CARD:
+            card = self.card_from_log_entry(log_entry)
+            self.add_card(card, log_entry["time"]) # Does not log.
+            self.log_added_card(card, log_entry["time"])
+        elif event_type == EventTypes.UPDATED_CARD:
+            card = self.card_from_log_entry(log_entry)
+            self.update_card(card, log_entry["time"])
+        elif event_type == EventTypes.DELETED_CARD:
+            card = self.card_from_log_entry(log_entry)
+            self.delete_card(card, log_entry["time"])
             
     def get_last_log_entry_index(self):
         return self.con.execute(\

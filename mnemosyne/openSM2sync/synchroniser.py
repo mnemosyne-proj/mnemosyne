@@ -26,10 +26,13 @@ class Synchroniser:
 
     # The list of keys to be passed on as attributes.
     keys_in_attribs = ["type", "time", "o_id", "sch", "n_mem", "act", "c_time",
-        "m_time", "card_t"]
-    int_keys = ["type", "time", "sch", "n_mem", "act", "c_time", "m_time"]
+        "m_time", "card_t", "fact", "fact_v", "tags", "act", "gr", "e", "l_rp",
+        "n_rp", "ac_rp", "rt_rp", "lps", "ac_rp_l", "rt_rp_l", "sch_data" ]
+    int_keys = ["type", "time", "sch", "n_mem", "act", "c_time", "m_time",
+        "act", "gr", "l_rp", "n_rp", "ac_rp", "rt_rp", "lps", "ac_rp_l",
+        "rt_rp_l", "sch_data"]
     float_keys = ["e"]
-    
+                
     def __init__(self):
         self.partner = {"id": None, "program_name": None,
             "program_version": None, "protocol_version": None,
@@ -57,7 +60,7 @@ class Synchroniser:
         for key, value in log_entry.iteritems():
             if key in self.keys_in_attribs:
                 attribs += " %s='%s'" % (key, value)
-            else:
+            else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>" % (attribs, tags)
     

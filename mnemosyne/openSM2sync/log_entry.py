@@ -68,15 +68,11 @@ class LogEntry(dict):
 
         Optional, but suggested for compatibility with Mnemosyne:
         
-                log_entry["ac_rp"] = card.acq_reps
-                log_entry["rt_rp"] = card.ret_reps
-                log_entry["lps"] = card.lapses
-                log_entry["ac_rp_l"] = card.acq_reps_since_lapse
-                log_entry["rt_rp_l"] = card.ret_reps_since_lapse
-                log_entry["sch_data"] = card.scheduler_data
-
-
-
+        ac_rp (int): number of acquisition repetitions (gr < 2)
+        rt_rp (int): number of retention repetitions (gr >= 2)
+        lps (int): number of lapses (new grade < 2 if old grade >= 2)
+        ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse.
+        sch_data (int): extra scheduler data
     
     Any other keys in LogEntry that don't appear in the list above will be
     synced as unicode.
