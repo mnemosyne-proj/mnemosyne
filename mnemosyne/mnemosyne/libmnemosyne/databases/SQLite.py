@@ -586,9 +586,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             sql_res = self.con.execute("select * from cards where id=?",
                                        (id, )).fetchone()            
         fact = self.get_fact(sql_res["_fact_id"], id_is_internal=True)
-        for view in fact.card_type.fact_views:
-            if view.id == sql_res["fact_view_id"]:
-                card = Card(fact, view)
+        for fact_view in fact.card_type.fact_views:
+            if fact_view.id == sql_res["fact_view_id"]:
+                card = Card(fact, fact_view)
                 break
         for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",

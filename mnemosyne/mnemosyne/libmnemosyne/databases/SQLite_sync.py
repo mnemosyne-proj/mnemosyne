@@ -171,8 +171,10 @@ class SQLiteSync(object):
             return Card(fact, card_type.fact_views[0])
         # Create card object.
         fact = self.get_fact(log_entry["fact"], id_is_internal=False)
-        fact_view = self.get_fact(log_entry["fact_v"], id_is_internal=False)        
-        card = Card(fact, fact_view)
+        for fact_view in fact.card_type.fact_views:
+            if fact_view.id == log_entry["fact_v"]:
+                card = Card(fact, fact_view)
+                break
         for tag_id in log_entry["tags"].split(","):
             card.tags.add(self.get_tag(tag_id, id_is_internal=False))
         card.active = bool(log_entry["act"])
@@ -226,8 +228,8 @@ class SQLiteSync(object):
             self.delete_fact_and_related_data(fact, log_entry["time"])
         elif event_type == EventTypes.ADDED_CARD:
             card = self.card_from_log_entry(log_entry)
-            self.add_card(card, log_entry["time"]) # Does not log.
-            self.log_added_card(card, log_entry["time"])
+            self.add_card(card) # Does not log.
+            self.log_added_card(log_entry["time"], card.id)
         elif event_type == EventTypes.UPDATED_CARD:
             card = self.card_from_log_entry(log_entry)
             self.update_card(card, log_entry["time"])

@@ -1,8 +1,9 @@
--test card with multiple tags
 -test card extra data
--order of first repetition of card
+-order of first repetition of card (reenbale test in add cards and friends)
 -o i.o. o_id
 -document events
+-media
+-add q and a to cards if facts are not present
 -be sure to create _id fields when updating or deleting objects!
 -cdata, encode for deck name, unicode + test
 -test scheduled, active count sync on load/save + type
@@ -18,8 +19,8 @@
 -add streaming connection to server side too.
 -\r client /n vs server?
 -exchange card types
--media
 -check for updated media files outside of the program
+-http://live.gnome.org/Tomboy/Synchronization/REST
 -same connection throughout?
 -sql roll back?
 -conflict resolution
@@ -79,6 +80,9 @@ def parse_JSON(fileobj):
 -sync adding sets
 
 -need component.statisticspages and configuration widgets?
+
+-move ~/.mnemosyne to .config/mnemosyne as per freedesktop standard?
+https://bugzilla.gnome.org/show_bug.cgi?id=518585
 
 -post nose 0.11: add cover branches
 

@@ -272,8 +272,6 @@ class TestSync(object):
         self.server.client_creation_time = fact.creation_time
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
-        print self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0]
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 10
         
@@ -285,9 +283,10 @@ class TestSync(object):
             assert db.card_count() == 1
             card = db.get_card(self.client_card.id, id_is_internal=False)
             assert card.question() == self.client_card.question()
-            assert db.get_or_create_tag_with_name("tag_1") in card.tags
-            assert db.get_or_create_tag_with_name("tag_2") in card.tags
-            assert len.card.tags == 2
+            tag_ids = [tag.id for tag in card.tags]
+            assert db.get_or_create_tag_with_name("tag_1").id in tag_ids
+            assert db.get_or_create_tag_with_name("tag_2").id in tag_ids
+            assert len(card.tags) == 2
             assert card.scheduler_data == 0
             assert card.active == True
             assert card.in_view == True
@@ -300,7 +299,8 @@ class TestSync(object):
             assert card.ret_reps_since_lapse == 0
             assert card.last_rep != -1
             assert card.next_rep != -1
-
+            #assert db.con.execute("select count() from log").fetchone()[0] == 12
+            
         self.server = MyServer()
         self.server.test_server = test_server
         self.server.start()
@@ -314,4 +314,59 @@ class TestSync(object):
         self.server.client_card = card
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 12
 
+    def test_edit_cards(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            card = db.get_card(self.client_card.id, id_is_internal=False)
+            assert card.extra_data == {"A": "B"}       
+            #assert db.con.execute("select count() from log").fetchone()[0] == 13
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.server.client_card = card
+        card.extra_data = {"A": "B"}
+        self.client.database.update_card(card)
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 13
+        
+    def test_delete_cards(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            try:
+                card = db.get_card(self.client_card.id, id_is_internal=False)
+                assert 1 == 0
+            except TypeError:
+                pass
+            #assert db.con.execute("select count() from log").fetchone()[0] == 13
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.server.client_card = card
+        self.client.database.delete_card(card)
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 13
