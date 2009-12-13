@@ -1,10 +1,10 @@
--test card extra data
--order of first repetition of card (reenbale test in add cards and friends)
--o i.o. o_id
+-test if scheduler data gets logged
+-order of first repetition of card (reenable test in add cards and friends)
 -document events
 -media
 -add q and a to cards if facts are not present
 -be sure to create _id fields when updating or deleting objects!
+
 -cdata, encode for deck name, unicode + test
 -test scheduled, active count sync on load/save + type
 -check if get_log_entries_to_sync_for really returns iterator
@@ -13,12 +13,11 @@
 -synchroniser --> xml formatter?
 -add error handling on send client history
 -more elegant error handling
--repetition: don't send stuff we can calculate
 -add modulo to progress dialogs
 -more code sharing between client and server? Send history, e.g.
--add streaming connection to server side too.
+-add streaming connection to server side too
 -\r client /n vs server?
--exchange card types
+-exchange card types between different SRS, add support for card type events
 -check for updated media files outside of the program
 -http://live.gnome.org/Tomboy/Synchronization/REST
 -same connection throughout?
@@ -40,10 +39,9 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -pull in user id on first sync
 -just copy database on initial sync
 -make sure after import all sync events fire
--rework logging? still need for high-level interface
+-rework logging? still need for high-level interface?
 -add timestamp argument to database.py
--make sure Event structure is completely documented
--openSM2sync.database
+-create openSM2sync.database interface
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on
 

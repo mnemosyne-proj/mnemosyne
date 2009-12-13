@@ -124,7 +124,8 @@ SCHEMA = """
         scheduled_interval integer,
         actual_interval integer,
         new_interval integer,
-        thinking_time integer
+        thinking_time integer,
+        scheduler_data integer
     );
     create index i_log_timestamp on log (timestamp);
     create index i_log_object_id on log (object_id);
@@ -600,7 +601,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             card.tags.add(self.get_tag(cursor["_tag_id"], id_is_internal=True))
         return card
     
-    def update_card(self, card, repetition_only=False):
+    def update_card(self, card, repetition_only=False, timestamp=None):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
@@ -622,15 +623,19 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         for tag in card.tags:
             self.con.execute("""insert into tags_for_card(_tag_id,
                 _card_id) values(?,?)""", (tag._id, card._id))
-        self.log().updated_card(card)
+        if not timestamp:
+            timestamp = time.time()
+        self.log_updated_card(timestamp, card.id)
         
-    def delete_card(self, card):
+    def delete_card(self, card, timestamp=None):
         self.con.execute("delete from cards where _id=?", (card._id, ))
         self.con.execute("delete from tags_for_card where _card_id=?",
                          (card._id, ))
         for tag in card.tags:
-            self.remove_tag_if_unused(tag)      
-        self.log().deleted_card(card)
+            self.remove_tag_if_unused(tag)
+        if not timestamp:
+            timestamp = time.time()     
+        self.log_deleted_card(timestamp, card.id)
         del card
 
     #

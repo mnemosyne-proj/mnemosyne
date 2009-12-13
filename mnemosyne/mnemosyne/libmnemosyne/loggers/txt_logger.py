@@ -70,7 +70,7 @@ class TxtLogger(Logger):
         self.logger.info("Deleted item %s", card.id)
         
     def repetition(self, card, scheduled_interval, actual_interval,
-                   new_interval, thinking_time):
+                   new_interval, thinking_time, scheduler_data=0):
         self.logger.info("R %s %d %1.2f | %d %d %d %d %d | %d %d | %d %d | %1.1f",
                          card.id, card.grade, card.easiness,
                          card.acq_reps, card.ret_reps, card.lapses,

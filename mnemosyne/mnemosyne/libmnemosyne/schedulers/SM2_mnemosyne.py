@@ -451,6 +451,9 @@ class SM2Mnemosyne(Scheduler):
         for f in self.component_manager.get_all("hook", "after_repetition"):
             f.run(card)
         # Create log entry.
+        # Note: if your custom scheduler updates 'extra_data', make sure to
+        # explictly log an 'updated_card' here, so that 'extra_data' gets sent
+        # across during sync.
         self.log().repetition(card, scheduled_interval, actual_interval,
                               new_interval,
                               thinking_time=self.stopwatch().time())

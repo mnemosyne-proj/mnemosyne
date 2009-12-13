@@ -16,7 +16,11 @@ class Card(CompareOnId):
     objects.
 
     'scheduler_data' is a variable that can be used by a scheduler to save
-    state.
+    state. It is an integer as opposed to a complex datatype to to allow for
+    fast sql queries. If a scheduler needs additional data, it can be stored
+    in 'extra_data', but then the custom scheduler needs to make sure it
+    explicitly logs an 'updated_card' event so that 'extra data' gets sent
+    across during sync.
 
     'active' is used to determine whether a card is included in the review
     process. Currently, the UI allows setting cards active when then belong to

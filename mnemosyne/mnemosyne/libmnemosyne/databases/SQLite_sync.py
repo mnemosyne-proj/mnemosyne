@@ -1,7 +1,7 @@
 #
-# SQLite_sync.py - Max Usachev <maxusachev@gmail.com>
+# SQLite_sync.py - Peter Bienstman <Peter.Bienstman@UGent.be>
+#                  Max Usachev <maxusachev@gmail.com>
 #                  Ed Bartosh <bartosh@gmail.com>
-#                  Peter Bienstman <Peter.Bienstman@UGent.be>
 #
 
 from openSM2sync.log_entry import LogEntry
@@ -90,15 +90,26 @@ class SQLiteSync(object):
                 log_entry["rt_rp_l"] = card.ret_reps_since_lapse
                 log_entry["sch_data"] = card.scheduler_data
                 if card.extra_data:
-                    log_entry["extra"] = repr(card.extra_data)              
+                    log_entry["extra"] = repr(card.extra_data)
+                    
             except TypeError: # The object has been deleted at a later stage.
-                pass        
-        #elif event_type == EventTypes.REPETITION:
-        #    for attr in ("grade", "easiness", "acq_reps", "ret_reps", "lapses",
-        #        "acq_reps_since_lapse", "ret_reps_since_lapse",
-        #        "scheduled_interval", "actual_interval", "new_interval",
-        #        "thinking_time"):
-        #        log_entry[attr] = sql_res[attr]
+                pass
+        elif event_type in (EventTypes.ADDED_CARD_TYPE,
+            EventTypes.UPDATED_CARD_TYPE, EventTypes.DELETED_CARD_TYPE):
+            raise NotImplementedError
+        elif event_type == EventTypes.REPETITION:
+                log_entry["gr"] = sql_res["grade"]
+                log_entry["e"] = sql_res["easiness"]
+                log_entry["sch_i"] = sql_res["scheduled_interval"]
+                log_entry["act_i"] = sql_res["actual_interval"]
+                log_entry["new_i"] = sql_res["new_interval"]
+                log_entry["th_t"] = sql_res["thinking_time"]
+                log_entry["ac_rp"] = sql_res["acq_reps"]
+                log_entry["rt_rp"] = sql_res["ret_reps"]
+                log_entry["lps"] = sql_res["lapses"]
+                log_entry["ac_rp_l"] = sql_res["acq_reps_since_lapse"]
+                log_entry["rt_rp_l"] = sql_res["ret_reps_since_lapse"]
+                log_entry["sch_data"] = sql_res["scheduler_data"]
         return log_entry
         
     def get_log_entries_to_sync_for(self, partner):
@@ -162,13 +173,31 @@ class SQLiteSync(object):
     def card_from_log_entry(self, log_entry):
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
-            return self.get_card(log_entry["o_id"], id_is_internal=False)
+            try:
+                # More future-proof version of code in the except stamement.
+                # However, this will fail if after the last sync the other
+                # partner created and deleted this card, so that there is no
+                # fact information.
+                return self.get_card(log_entry["o_id"], id_is_internal=False)
+            except TypeError:
+                # Less future-proof version which just returns an empty shell.
+                # Make sure to set _id, though, as that will be used in
+                # actually deleting the card.
+                sql_res = self.con.execute("select * from cards where id=?",
+                    (log_entry["o_id"], )).fetchone()
+                card_type = self.card_type_by_id("1")
+                fact = Fact({}, card_type, creation_time=0, id="")
+                card = Card(fact, card_type.fact_views[0])
+                card._id = sql_res["_id"]
+                return card
         # Create an empty shell of card object that will be deleted later
         # during this sync.
         if "tags" not in log_entry:
             card_type = self.card_type_by_id("1")
             fact = Fact({}, card_type, creation_time=0, id="")
-            return Card(fact, card_type.fact_views[0])
+            card = Card(fact, card_type.fact_views[0])
+            card.id = log_entry["o_id"]
+            return card
         # Create card object.
         fact = self.get_fact(log_entry["fact"], id_is_internal=False)
         for fact_view in fact.card_type.fact_views:
@@ -194,6 +223,32 @@ class SQLiteSync(object):
             card._id = self.con.execute("select _id from cards where id=?",
                 (card.id, )).fetchone()[0]
         return card
+
+    def apply_repetition(self, log_entry):
+        self.con.execute("""update cards set 
+            grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
+            acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
+            next_rep=?, extra_data=?, scheduler_data=?, where id=?""",
+            (log_entry["gr"], log_entry["e"], log_entry["ac_rp"],
+            log_entry["rt_rp"],log_entry["lps"] , log_entry["ac_rp_l"],
+            log_entry["rt_rp_l"],
+             
+            card.last_rep, card.next_rep,
+            self._repr_extra_data(card.extra_data),
+             
+            log_entry["sch_data"], log_entry["o_id"]))
+
+        # Run hooks.
+        card.fact.card_type.after_repetition(card)
+        self.database().current_activity_criterion().apply_to_card(card)
+        for f in self.component_manager.get_all("hook", "after_repetition"):
+            f.run(card)
+        
+        self.log_repetition(log_entry["time"], log_entry["o_id"],
+            log_entry["gr"], log_entry["e"], log_entry["ac_rp"],
+            log_entry["rt_rp"], log_entry["lps"], log_entry["ac_rp_l"],
+            log_entry["rt_rp_l"], log_entry["sch_i"], log_entry["act_i"],
+            log_entry["new_i"], log_entry["th_t"])
     
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]
@@ -236,6 +291,8 @@ class SQLiteSync(object):
         elif event_type == EventTypes.DELETED_CARD:
             card = self.card_from_log_entry(log_entry)
             self.delete_card(card, log_entry["time"])
+        elif event_type == EventTypes.REPETITION:
+            self.apply_repetition(log_entry)
             
     def get_last_log_entry_index(self):
         return self.con.execute(\
