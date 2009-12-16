@@ -1,6 +1,6 @@
--test if scheduler data gets logged
--order of first repetition of card (reenable test in add cards and friends)
+-test repetition
 -document events
+
 -media
 -add q and a to cards if facts are not present
 -be sure to create _id fields when updating or deleting objects!
@@ -43,7 +43,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -add timestamp argument to database.py
 -create openSM2sync.database interface
 -update readme. Mention how clients should deal with update events of cards that were deleted
- later on
+ later on. Mention that rep needs update card event too.
 
 I looked further into it, using BaseHTTPServer.
 

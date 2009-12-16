@@ -90,8 +90,7 @@ class SQLiteSync(object):
                 log_entry["rt_rp_l"] = card.ret_reps_since_lapse
                 log_entry["sch_data"] = card.scheduler_data
                 if card.extra_data:
-                    log_entry["extra"] = repr(card.extra_data)
-                    
+                    log_entry["extra"] = repr(card.extra_data)                    
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type in (EventTypes.ADDED_CARD_TYPE,
@@ -109,7 +108,6 @@ class SQLiteSync(object):
                 log_entry["lps"] = sql_res["lapses"]
                 log_entry["ac_rp_l"] = sql_res["acq_reps_since_lapse"]
                 log_entry["rt_rp_l"] = sql_res["ret_reps_since_lapse"]
-                log_entry["sch_data"] = sql_res["scheduler_data"]
         return log_entry
         
     def get_log_entries_to_sync_for(self, partner):
@@ -225,25 +223,8 @@ class SQLiteSync(object):
         return card
 
     def apply_repetition(self, log_entry):
-        self.con.execute("""update cards set 
-            grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
-            acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
-            next_rep=?, extra_data=?, scheduler_data=?, where id=?""",
-            (log_entry["gr"], log_entry["e"], log_entry["ac_rp"],
-            log_entry["rt_rp"],log_entry["lps"] , log_entry["ac_rp_l"],
-            log_entry["rt_rp_l"],
-             
-            card.last_rep, card.next_rep,
-            self._repr_extra_data(card.extra_data),
-             
-            log_entry["sch_data"], log_entry["o_id"]))
-
-        # Run hooks.
-        card.fact.card_type.after_repetition(card)
-        self.database().current_activity_criterion().apply_to_card(card)
-        for f in self.component_manager.get_all("hook", "after_repetition"):
-            f.run(card)
-        
+        # Note that the corresponding changing of the card properties is
+        # handled by a separate UPDATED_CARD event.
         self.log_repetition(log_entry["time"], log_entry["o_id"],
             log_entry["gr"], log_entry["e"], log_entry["ac_rp"],
             log_entry["rt_rp"], log_entry["lps"], log_entry["ac_rp_l"],

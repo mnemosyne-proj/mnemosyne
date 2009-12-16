@@ -71,12 +71,12 @@ class SqlLogger(Logger):
         self.database().log_deleted_card_type(time.time(), card_type.id)
         
     def repetition(self, card, scheduled_interval, actual_interval,
-                   new_interval, thinking_time, scheduler_data=0):
+                   new_interval, thinking_time):
         self.database().log_repetition(time.time(), card.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             scheduled_interval, actual_interval, new_interval,                                              
-            thinking_time, scheduler_data)
+            thinking_time)
 
     def added_media(self, filename, fact):
         self.database().log_added_media(time.time(), filename, fact.id)

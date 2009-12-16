@@ -114,18 +114,17 @@ class SQLiteLogging(object):
         
     def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
         ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
-        scheduled_interval, actual_interval, new_interval, thinking_time,
-        scheduler_data):
+        scheduled_interval, actual_interval, new_interval, thinking_time):
         self.con.execute(\
             """insert into log(event_type, timestamp, object_id, grade,
             easiness, acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
-            new_interval, thinking_time, scheduler_data)
-            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            new_interval, thinking_time)
+            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (EventTypes.REPETITION, int(timestamp), card_id, grade, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
-            new_interval, int(thinking_time), scheduler_data))
+            new_interval, int(thinking_time)))
 
     def log_added_media(self, timestamp, filename, fact_id):
         self.con.execute(\

@@ -613,6 +613,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.active, card.in_view, card._id))
+        if not timestamp:
+            timestamp = time.time()
+        self.log_updated_card(timestamp, card.id)
         if repetition_only:
             return
         # Link card to its tags. The tags themselves have already been created
@@ -623,9 +626,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         for tag in card.tags:
             self.con.execute("""insert into tags_for_card(_tag_id,
                 _card_id) values(?,?)""", (tag._id, card._id))
-        if not timestamp:
-            timestamp = time.time()
-        self.log_updated_card(timestamp, card.id)
+
         
     def delete_card(self, card, timestamp=None):
         self.con.execute("delete from cards where _id=?", (card._id, ))

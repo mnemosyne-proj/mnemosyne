@@ -299,7 +299,7 @@ class TestSync(object):
             assert card.ret_reps_since_lapse == 0
             assert card.last_rep != -1
             assert card.next_rep != -1
-            #assert db.con.execute("select count() from log").fetchone()[0] == 12
+            assert db.con.execute("select count() from log").fetchone()[0] == 12
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -323,7 +323,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             card = db.get_card(self.client_card.id, id_is_internal=False)
             assert card.extra_data == {"A": "B"}       
-            #assert db.con.execute("select count() from log").fetchone()[0] == 13
+            assert db.con.execute("select count() from log").fetchone()[0] == 13
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -352,7 +352,7 @@ class TestSync(object):
                 assert 1 == 0
             except TypeError:
                 pass
-            #assert db.con.execute("select count() from log").fetchone()[0] == 15
+            assert db.con.execute("select count() from log").fetchone()[0] == 15
             
         self.server = MyServer()
         self.server.test_server = test_server

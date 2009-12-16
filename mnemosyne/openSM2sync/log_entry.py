@@ -4,7 +4,14 @@
 
 class EventTypes(object):
 
-    """Codes to identify event types."""
+    """Codes to identify event types.
+
+    Note that a REPETITION event needs to be accompanied by a corresponding
+    UPDATED_CARD event, as the main purpose of the REPETITION event is to be
+    able to do quick statistics on your learning history without needing to
+    know the contents of the card.
+    
+    """
 
     STARTED_PROGRAM = 1
     STOPPED_PROGRAM = 2

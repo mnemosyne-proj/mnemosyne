@@ -27,12 +27,13 @@ class Synchroniser:
     # The list of keys to be passed on as attributes.
     keys_in_attribs = ["type", "time", "o_id", "sch", "n_mem", "act", "c_time",
         "m_time", "card_t", "fact", "fact_v", "tags", "act", "gr", "e", "l_rp",
-        "n_rp", "ac_rp", "rt_rp", "lps", "ac_rp_l", "rt_rp_l", "sch_data" ]
+        "n_rp", "ac_rp", "rt_rp", "lps", "ac_rp_l", "rt_rp_l", "sch_data",
+        "sch_i", "act_i", "new_i", "th_t"]
     int_keys = ["type", "time", "sch", "n_mem", "act", "c_time", "m_time",
         "act", "gr", "l_rp", "n_rp", "ac_rp", "rt_rp", "lps", "ac_rp_l",
-        "rt_rp_l", "sch_data"]
+        "rt_rp_l", "sch_data", "sch_i", "act_i", "new_i", "th_t"]
     float_keys = ["e"]
-                
+
     def __init__(self):
         self.partner = {"id": None, "program_name": None,
             "program_version": None, "protocol_version": None,
