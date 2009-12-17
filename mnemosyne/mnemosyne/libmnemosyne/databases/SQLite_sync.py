@@ -210,6 +210,7 @@ class SQLiteSync(object):
         card.last_rep = log_entry["l_rp"]
         card.next_rep = log_entry["n_rp"]
         card.acq_reps = log_entry["ac_rp"]
+        card.ret_reps = log_entry["rt_rp"]
         card.lapses = log_entry["lps"]
         card.acq_reps_since_lapse = log_entry["ac_rp_l"]
         card.ret_reps_since_lapse = log_entry["rt_rp_l"]

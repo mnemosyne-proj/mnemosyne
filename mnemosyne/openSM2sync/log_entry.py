@@ -78,8 +78,23 @@ class LogEntry(dict):
         ac_rp (int): number of acquisition repetitions (gr < 2)
         rt_rp (int): number of retention repetitions (gr >= 2)
         lps (int): number of lapses (new grade < 2 if old grade >= 2)
-        ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse.
+        ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse
         sch_data (int): extra scheduler data
+
+    Keys specific to REPETITION:
+        gr (int): grade (-1 through 5, -1 meaning unseen)
+        e (float): easiness
+        sch_i (int): scheduled interval in seconds
+        act_i (int): actual interval in seconds
+        new_i (int): new interval in seconds
+        th_t (int): thinking time in seconds
+        
+        Optional, but suggested for compatibility with Mnemosyne:
+        
+        ac_rp (int): number of acquisition repetitions (gr < 2)
+        rt_rp (int): number of retention repetitions (gr >= 2)
+        lps (int): number of lapses (new grade < 2 if old grade >= 2)
+        ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse
     
     Any other keys in LogEntry that don't appear in the list above will be
     synced as unicode.

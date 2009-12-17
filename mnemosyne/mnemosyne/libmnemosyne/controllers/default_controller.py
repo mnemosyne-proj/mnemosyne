@@ -101,6 +101,9 @@ class DefaultController(Controller):
                 if answer == 0: # Merge and edit.
                     db.add_fact(fact)
                     for card in card_type.create_related_cards(fact):
+                        # Make sure the log entry for adding the card comes
+                        # before the one with the initial repetition.
+                        self.log().added_card(card)
                         if grade >= 2:
                             self.scheduler().set_initial_grade(card, grade)
                         db.add_card(card)  
@@ -124,6 +127,8 @@ class DefaultController(Controller):
         cards = []
         criterion = db.current_activity_criterion()
         for card in card_type.create_related_cards(fact):
+            # Make sure the log entry for adding the card comes before the one
+            # with the initial repetition.
             self.log().added_card(card)
             if grade >= 2:
                 self.scheduler().set_initial_grade(card, grade)

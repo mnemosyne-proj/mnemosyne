@@ -627,7 +627,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.con.execute("""insert into tags_for_card(_tag_id,
                 _card_id) values(?,?)""", (tag._id, card._id))
 
-        
     def delete_card(self, card, timestamp=None):
         self.con.execute("delete from cards where _id=?", (card._id, ))
         self.con.execute("delete from tags_for_card where _card_id=?",

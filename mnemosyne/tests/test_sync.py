@@ -370,3 +370,49 @@ class TestSync(object):
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 15
+
+    def test_repetition(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            card = db.get_card(self.client_card.id, id_is_internal=False)
+            assert card.grade == self.client_card.grade
+            assert card.easiness == self.client_card.easiness
+            assert card.acq_reps == self.client_card.acq_reps            
+            assert card.ret_reps == self.client_card.ret_reps
+            assert card.lapses == self.client_card.lapses
+            assert card.acq_reps_since_lapse == self.client_card.acq_reps_since_lapse
+            assert card.ret_reps_since_lapse == self.client_card.ret_reps_since_lapse
+            
+        #sch_i (int): scheduled interval in seconds
+        #act_i (int): actual interval in seconds
+        #new_i (int): new interval in seconds
+        #th_t (int): thinking time in seconds
+        
+        #ac_rp (int): number of acquisition repetitions (gr < 2)
+        #rt_rp (int): number of retention repetitions (gr >= 2)
+        #lps (int): number of lapses (new grade < 2 if old grade >= 2)
+        #ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse
+    
+            assert db.con.execute("select count() from log").fetchone()[0] == 14
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.client.mnemosyne.review_controller().learning_ahead = True
+        self.client.mnemosyne.review_controller().new_question()
+        self.client.mnemosyne.review_controller().grade_answer(5)
+        self.client.mnemosyne.controller().file_save()
+        self.server.client_card = self.client.mnemosyne.database().\
+           get_card(card.id, id_is_internal=False)        
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 14
+
