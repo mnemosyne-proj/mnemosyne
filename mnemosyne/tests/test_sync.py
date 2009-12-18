@@ -383,16 +383,21 @@ class TestSync(object):
             assert card.lapses == self.client_card.lapses
             assert card.acq_reps_since_lapse == self.client_card.acq_reps_since_lapse
             assert card.ret_reps_since_lapse == self.client_card.ret_reps_since_lapse
-            
-        #sch_i (int): scheduled interval in seconds
-        #act_i (int): actual interval in seconds
-        #new_i (int): new interval in seconds
-        #th_t (int): thinking time in seconds
-        
-        #ac_rp (int): number of acquisition repetitions (gr < 2)
-        #rt_rp (int): number of retention repetitions (gr >= 2)
-        #lps (int): number of lapses (new grade < 2 if old grade >= 2)
-        #ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse
+
+            rep =  db.con.execute("""select * from log where event_type=? order by
+                _id desc limit 1""", (EventTypes.REPETITION, )).fetchone()
+            assert rep["grade"] == 5
+            assert rep["easiness"] == 2.5
+            assert rep["acq_reps"] == 1
+            assert rep["ret_reps"] == 1
+            assert rep["lapses"] == 0
+            assert rep["ret_reps_since_lapse"] == 1
+            assert rep["ret_reps_since_lapse"] == 1
+            assert rep["scheduled_interval"] > 60*60
+            assert rep["actual_interval"] < 10
+            assert rep["new_interval"] > 60*60
+            assert rep["thinking_time"] < 10
+            assert rep["timestamp"] > 0
     
             assert db.con.execute("select count() from log").fetchone()[0] == 14
             

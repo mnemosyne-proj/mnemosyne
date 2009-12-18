@@ -1,8 +1,8 @@
--test repetition
 -media
 -add q and a to cards if facts are not present
 -be sure to create _id fields when updating or deleting objects!
 
+-history --> log entries
 -cdata, encode for deck name, unicode + test
 -test scheduled, active count sync on load/save + type
 -check if get_log_entries_to_sync_for really returns iterator

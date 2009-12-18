@@ -44,7 +44,9 @@ class Client(object):
             backup_file = self.database.backup()           
             self.login(username, password)
             self.handshake()
-            self.send_client_history()       
+            self.send_client_media_files()
+            self.send_client_history()
+            self.get_server_media_files()
             self.get_server_history()
             self.send_finish_request()
         except SyncError, exception:
@@ -85,9 +87,21 @@ class Client(object):
         self.synchroniser.set_partner_params(server_params)
         self.server_id = self.synchroniser.partner["id"]
         self.database.create_partnership_if_needed_for(self.server_id)
+
+    def send_client_media_files(self):
+        self.ui.status_bar_message("Sending media files to server...")
+        # Number of files.
+        number_of_files = self.database.number_of_media_files_to_sync_for(\
+            self.server_id)
+        if number_of_files == 0:
+            return
+        response = urllib2.urlopen(PutRequest(self.url + \
+            "/number/of/client/media/files/to/sync", str(number_of_files) + "\n"))
+        if response.read() != "OK":
+            raise SyncError("Error sending number of media files to server.")
             
     def send_client_history(self):
-        self.ui.status_bar_message("Sending client history to the server...")
+        self.ui.status_bar_message("Sending history to server...")
         # History length.
         log_entries = self.database.number_of_log_entries_to_sync_for(\
             self.server_id)
@@ -111,17 +125,20 @@ class Client(object):
         conn.endheaders()
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
-        progress_dialog.set_text("Sending client history to the server...")
+        progress_dialog.set_text("Sending history to the server...")
         count = 0
         for log_entry in self.database.get_log_entries_to_sync_for(\
             self.server_id):
             conn.send(self.synchroniser.log_entry_to_XML(log_entry) + "\n")
             count += 1
             progress_dialog.set_value(count)
-        self.ui.status_bar_message("Waiting for the server to complete...")
+        self.ui.status_bar_message("Waiting for server to complete...")
         response = conn.getresponse()
         # TODO: analyze response from server side.
         response.read()
+
+    def get_server_media_files(self):
+        pass
 
     def get_server_history(self):
         self.ui.status_bar_message("Applying server history...")
@@ -169,7 +186,7 @@ class Client(object):
             request.add_header("CONTENT_LENGTH", len(data))
             response = urllib2.urlopen(request)
             if response.read() != "OK":
-                raise SyncError("Sending client media: error on server side.")
+                raise SyncError("Sending media: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Sending client media: " + str(error))
 
