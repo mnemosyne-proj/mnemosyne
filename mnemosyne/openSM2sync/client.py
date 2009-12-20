@@ -45,9 +45,9 @@ class Client(object):
             self.login(username, password)
             self.handshake()
             self.send_client_media_files()
-            self.send_client_history()
+            self.send_client_log_entries()
             self.get_server_media_files()
-            self.get_server_history()
+            self.get_server_log_entries()
             self.send_finish_request()
         except SyncError, exception:
             self.database.load(backup_file) # TODO: use SQL rollback?
@@ -99,22 +99,37 @@ class Client(object):
             "/number/of/client/media/files/to/sync", str(number_of_files) + "\n"))
         if response.read() != "OK":
             raise SyncError("Error sending number of media files to server.")
+        # Actual media files.
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, number_of_files)
+        progress_dialog.set_text("Sending media files to server...")
+        count = 0
+        for filename in self.database.get_media_filenames_to_sync_for(\
+            self.server_id):
+            self._put_media_file(filename)
+            count += 1
+            progress_dialog.set_value(count)
+        self.ui.status_bar_message("Waiting for server to complete...")
+        response = conn.getresponse()
+        # TODO: analyze response from server side.
+        response.read()        
             
-    def send_client_history(self):
-        self.ui.status_bar_message("Sending history to server...")
-        # History length.
-        log_entries = self.database.number_of_log_entries_to_sync_for(\
+    def send_client_log_entries(self):
+        self.ui.status_bar_message("Sending log entries to server...")
+        # Number of Log entries.
+        number_of_entries = self.database.number_of_log_entries_to_sync_for(\
             self.server_id)
-        if log_entries == 0:
+        if number_of_entries == 0:
             return
         response = urllib2.urlopen(PutRequest(self.url + \
-            "/number/of/client/log/entries/to/sync", str(log_entries) + "\n"))
+            "/number/of/client/log/entries/to/sync",
+            str(number_of_entries) + "\n"))
         if response.read() != "OK":
-            raise SyncError("Error sending history length to server.")
-        # Actual history.    
+            raise SyncError("Error sending log_entries length to server.")
+        # Actual log entries.    
         parsed_url = urlparse(self.url) 
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
-        conn.putrequest("PUT", "/client/history")
+        conn.putrequest("PUT", "/client/log_entries")
         conn.putheader("User-Agent", "gzip")
         conn.putheader("Accept-Encoding", "gzip")
         conn.putheader("Connection", "keep-alive")
@@ -124,8 +139,8 @@ class Client(object):
         conn.putheader("Accept", "*/*")
         conn.endheaders()
         progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, log_entries)
-        progress_dialog.set_text("Sending history to the server...")
+        progress_dialog.set_range(0, number_of_entries)
+        progress_dialog.set_text("Sending log entries to server...")
         count = 0
         for log_entry in self.database.get_log_entries_to_sync_for(\
             self.server_id):
@@ -140,8 +155,8 @@ class Client(object):
     def get_server_media_files(self):
         pass
 
-    def get_server_history(self):
-        self.ui.status_bar_message("Applying server history...")
+    def get_server_log_entries(self):
+        self.ui.status_bar_message("Applying server log_entries...")
         try:
             log_entries = int(urllib2.urlopen(\
                 self.url + "/number/of/server/log/entries/to/sync").read())
@@ -150,9 +165,9 @@ class Client(object):
                 + str(error))        
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
-        progress_dialog.set_text("Applying server history...")
+        progress_dialog.set_text("Applying server log_entries...")
         try:
-            response = urllib2.urlopen(self.url + "/server/history")
+            response = urllib2.urlopen(self.url + "/server/log_entries")
             count = 0
             while count != log_entries:
                 chunk = response.readline()
@@ -161,34 +176,31 @@ class Client(object):
                 count += 1
                 progress_dialog.set_value(count)
         except urllib2.URLError, error:
-            raise SyncError("Getting server history: " + str(error))
+            raise SyncError("Getting server log_entries: " + str(error))
         progress_dialog.set_value(log_entries)
-            
-    def get_media_file(self, fname):
-        try:
-            response = urllib2.urlopen(\
-                self.url + "/server/media?fname=%s" % fname)
-            data = response.read()
-            if data != "CANCEL":
-                fobj = open(os.path.join(self.config.mediadir(), fname), "w")
-                fobj.write(data)
-                fobj.close()
-        except urllib2.URLError, error:
-            raise SyncError("Getting server media: " + str(error))
 
-    def send_media_file(self, fname):
-        mfile = open(os.path.join(self.config.mediadir(), fname), "r")
-        data = mfile.read()
-        mfile.close()
+    def _put_media_file(self, filename):
+        data = file(os.path.join(self.config.mediadir(), filename), "rb").read()
         try:
-            request = PutRequest(self.url + "/client/media?fname=%s" % \
-                os.path.basename(fname), data)
+            request = PutRequest(self.url + "/client/media/file?filename=%s" % \
+                os.path.basename(filename), data)
             request.add_header("CONTENT_LENGTH", len(data))
             response = urllib2.urlopen(request)
             if response.read() != "OK":
                 raise SyncError("Sending media: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Sending client media: " + str(error))
+        
+    def _get_media_file(self, filename):
+        try:
+            response = urllib2.urlopen(\
+                self.url + "/server/media/file?filename=%s" % filename)
+            data = response.read()
+            if data != "CANCEL":
+                file(os.path.join(self.config.mediadir(), filename), "wb").\
+                                                          write(data)
+        except urllib2.URLError, error:
+            raise SyncError("Getting server media: " + str(error))
 
     def send_finish_request(self):
         self.ui.status_bar_message("Waiting for the server to complete...")

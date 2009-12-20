@@ -421,3 +421,23 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 14
 
+    def test_add_media(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            card = db.get_card(self.client_card.id, id_is_internal=False)
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+        
+        self.client = MyClient()
+        file("a.ogg", "w")
+        filename = os.path.abspath("a.ogg")
+        fact_data = {"q": "question <img src=\"%s\">" % (filename),
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()

@@ -156,17 +156,26 @@ class Server(WSGIServer):
             return "CANCEL"
         else:
             return "OK"
-    
+        
+    def put_number_of_client_media_files_to_sync(self, environ):
+        try:
+            socket = environ["wsgi.input"]
+            self.number_of_client_media_files_to_sync = int(socket.readline())
+        except:
+            return "CANCEL"
+        else:
+            return "OK"
+        
     def get_number_of_server_log_entries_to_sync(self, environ):
         return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
 
-    def get_server_history(self, environ):
-        self.ui.status_bar_message("Sending history to the client...")
+    def get_server_log_entries(self, environ):
+        self.ui.status_bar_message("Sending log entries to the client...")
         log_entries = self.database.number_of_log_entries_to_sync_for(\
             self.client_id)
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
-        progress_dialog.set_text("Sending history to the client...")      
+        progress_dialog.set_text("Sending log entries to the client...")      
         count = 0
         for log_entry in self.database.get_log_entries_to_sync_for(\
             self.client_id):
@@ -174,12 +183,12 @@ class Server(WSGIServer):
             progress_dialog.set_value(count)
             yield self.synchroniser.log_entry_to_XML(log_entry) + "\r\n"
 
-    def put_client_history(self, environ):
+    def put_client_log_entries(self, environ):
         socket = environ["wsgi.input"]
-        self.ui.status_bar_message("Applying client history...")
+        self.ui.status_bar_message("Applying client log entries...")
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, self.number_of_client_log_entries_to_sync)
-        progress_dialog.set_text("Applying client history...")
+        progress_dialog.set_text("Applying client log entries...")
         # In order to do conflict resolution easily, one of the sync partners
         # has to have both logs in memory. We do this at the server side, as
         # the client could be resource-limited mobile device.
@@ -193,6 +202,25 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         return "OK"
 
+    def get_server_media_file(self, environ, filename):
+        self.ui.status_bar_message("Sending media file to the client...")
+        try:
+            return file(os.path.join(self.config.mediadir(), filename)).read()
+        except IOError:
+            return "CANCEL"
+
+    def put_client_media_file(self, environ, filename):
+        self.ui.status_bar_message("Receiving client media file...")
+        try:
+            socket = environ["wsgi.input"]
+            size = int(environ["CONTENT_LENGTH"])
+            data = socket.read(size)
+        except:
+            return "CANCEL"
+        else:
+            file(os.path.join(self.config.mediadir(), filename), "wb").write(data)
+            return "OK"
+
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")
         for log_entry in self.client_log:
@@ -202,29 +230,3 @@ class Server(WSGIServer):
         if self.stop_after_sync:
             self.stop()
         return "OK"
-
-    def get_server_media(self, environ, fname):
-        self.ui.status_bar_message("Sending media to the client...")
-        try:
-            mediafile = open(os.path.join(self.config.mediadir(), fname))
-            data = mediafile.read()
-            mediafile.close()
-        except IOError:
-            return "CANCEL"
-        else:
-            return data
-
-    def put_client_media(self, environ, fname):
-        self.ui.status_bar_message("Receiving client media...")
-        try:
-            socket = environ["wsgi.input"]
-            size = int(environ["CONTENT_LENGTH"])
-            data = socket.read(size)
-        except:
-            return "CANCEL"
-        else:
-            mfile = open(os.path.join(self.config.mediadir(), fname), "w")
-            mfile.write(data)
-            mfile.close()
-            return "OK"
-

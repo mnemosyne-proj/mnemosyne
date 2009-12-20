@@ -822,7 +822,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Update the media table and log additions or deletions. We record
         # the modification date so that we can detect if media files have
         # been modified outside of Mnemosyne. (Although less robust,
-        # modifaction dates are faster to lookup then calculating a hash,
+        # modification dates are faster to lookup then calculating a hash,
         # especially on mobile devices.
         for filename in old_files - new_files:
             self.con.execute("""delete from media where filename=?
