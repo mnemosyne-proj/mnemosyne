@@ -11,6 +11,7 @@ import httplib
 from urlparse import urlparse
 from xml.etree import cElementTree
 
+from utils import create_subdirs
 from synchroniser import SyncError
 from synchroniser import Synchroniser
 from synchroniser import PROTOCOL_VERSION
@@ -44,8 +45,8 @@ class Client(object):
             backup_file = self.database.backup()           
             self.login(username, password)
             self.handshake()
-            self.send_client_media_files()
-            self.send_client_log_entries()
+            self.put_client_media_files()
+            self.put_client_log_entries()
             self.get_server_media_files()
             self.get_server_log_entries()
             self.send_finish_request()
@@ -88,7 +89,7 @@ class Client(object):
         self.server_id = self.synchroniser.partner["id"]
         self.database.create_partnership_if_needed_for(self.server_id)
 
-    def send_client_media_files(self):
+    def put_client_media_files(self):
         self.ui.status_bar_message("Sending media files to server...")
         # Number of files.
         number_of_files = self.database.number_of_media_files_to_sync_for(\
@@ -104,7 +105,7 @@ class Client(object):
         progress_dialog.set_range(0, number_of_files)
         progress_dialog.set_text("Sending media files to server...")
         count = 0
-        for filename in self.database.get_media_filenames_to_sync_for(\
+        for filename in self.database.media_filenames_to_sync_for(\
             self.server_id):
             self._put_media_file(filename)
             count += 1
@@ -114,7 +115,7 @@ class Client(object):
         # TODO: analyze response from server side.
         response.read()        
             
-    def send_client_log_entries(self):
+    def put_client_log_entries(self):
         self.ui.status_bar_message("Sending log entries to server...")
         # Number of Log entries.
         number_of_entries = self.database.number_of_log_entries_to_sync_for(\
@@ -142,7 +143,7 @@ class Client(object):
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to server...")
         count = 0
-        for log_entry in self.database.get_log_entries_to_sync_for(\
+        for log_entry in self.database.log_entries_to_sync_for(\
             self.server_id):
             conn.send(self.synchroniser.log_entry_to_XML(log_entry) + "\n")
             count += 1
@@ -180,7 +181,8 @@ class Client(object):
         progress_dialog.set_value(log_entries)
 
     def _put_media_file(self, filename):
-        data = file(os.path.join(self.config.mediadir(), filename), "rb").read()
+        data = file(os.path.join(self.database.mediadir(), filename),
+            "rb").read()
         try:
             request = PutRequest(self.url + "/client/media/file?filename=%s" % \
                 os.path.basename(filename), data)
@@ -192,13 +194,14 @@ class Client(object):
             raise SyncError("Sending client media: " + str(error))
         
     def _get_media_file(self, filename):
+        create_subdirs(self.database.mediadir(), filename)
         try:
             response = urllib2.urlopen(\
                 self.url + "/server/media/file?filename=%s" % filename)
             data = response.read()
             if data != "CANCEL":
-                file(os.path.join(self.config.mediadir(), filename), "wb").\
-                                                          write(data)
+                file(os.path.join(self.database.mediadir(), filename), "wb").\
+                    write(data)
         except urllib2.URLError, error:
             raise SyncError("Getting server media: " + str(error))
 

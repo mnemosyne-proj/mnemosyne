@@ -184,10 +184,6 @@ class Configuration(Component, dict):
             print >> f, config_py
             f.close()
 
-    def mediadir(self):
-        return os.path.join(self.config().basedir,
-                            os.path.basename(self["path"]) + "_media")
-
     def load_user_config(self):
         sys.path.insert(0, self.basedir)
         config_file_c = os.path.join(self.basedir, "config.pyc")

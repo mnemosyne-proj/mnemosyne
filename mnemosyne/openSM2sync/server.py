@@ -9,6 +9,7 @@ import base64
 import select
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
+from utils import create_subdirs
 from synchroniser import Synchroniser
 from synchroniser import PROTOCOL_VERSION
 
@@ -170,14 +171,14 @@ class Server(WSGIServer):
         return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
 
     def get_server_log_entries(self, environ):
-        self.ui.status_bar_message("Sending log entries to the client...")
+        self.ui.status_bar_message("Sending log entries to client...")
         log_entries = self.database.number_of_log_entries_to_sync_for(\
             self.client_id)
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
-        progress_dialog.set_text("Sending log entries to the client...")      
+        progress_dialog.set_text("Sending log entries to client...")      
         count = 0
-        for log_entry in self.database.get_log_entries_to_sync_for(\
+        for log_entry in self.database.log_entries_to_sync_for(\
             self.client_id):
             count += 1
             progress_dialog.set_value(count)
@@ -203,9 +204,10 @@ class Server(WSGIServer):
         return "OK"
 
     def get_server_media_file(self, environ, filename):
-        self.ui.status_bar_message("Sending media file to the client...")
+        self.ui.status_bar_message("Sending media file to client...")
         try:
-            return file(os.path.join(self.config.mediadir(), filename)).read()
+            return file(os.path.join(self.database.mediadir(),
+                filename)).read()
         except IOError:
             return "CANCEL"
 
@@ -218,7 +220,9 @@ class Server(WSGIServer):
         except:
             return "CANCEL"
         else:
-            file(os.path.join(self.config.mediadir(), filename), "wb").write(data)
+            create_subdirs(self.database.mediadir(), filename)
+            file(os.path.join(self.database.mediadir(), filename),
+                 "wb").write(data)
             return "OK"
 
     def get_sync_finish(self, environ):

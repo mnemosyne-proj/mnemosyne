@@ -17,7 +17,7 @@ class SyncError(Exception):
     pass
 
             
-class Synchroniser:
+class Synchroniser(object):
     
     """Class handling the conversion from LogEntry objects to XML streams and
     vice versa.
@@ -82,25 +82,4 @@ class Synchroniser:
         for child in xml:
             log_entry[child.tag] = child.text
         return log_entry
-        
-    def create_media_xml_element(self, log_entry):
-        import os
-        fname = log_entry["id"].split("__for__")[0]
-        if os.path.exists(os.path.join(self.mediadir, fname)):
-            return "<i><t>media</t><ev>%s</ev><id>%s</id></i>" % \
-                (log_entry["log_entry"], log_entry["id"])
-        else:
-            return ""
-
-    def apply_media(self, history, media_count):
-        count = 0
-        hsize = float(media_count)
-        self.ui.show_progressbar()
-        for child in cElementTree.fromstring(history):
-            self.get_media(child.find("id").text.split("__for__")[0])
-            count += 1
-            self.ui.update_progressbar(count / hsize)
-        self.ui.hide_progressbar()
-
-
 

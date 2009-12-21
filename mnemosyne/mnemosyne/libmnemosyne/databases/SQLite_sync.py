@@ -28,13 +28,13 @@ class SQLiteSync(object):
             self.con.execute("""insert into partnerships(partner, 
                _last_log_id) values(?,?)""", (partner, 0))
 
-    def get_last_synced_log_entry_for(self, partner):
+    def last_synced_log_entry_for(self, partner):
         sql_res = self.con.execute("""select _last_log_id from partnerships 
            where partner=?""", (partner, )).fetchone()
         return sql_res["_last_log_id"]
     
     def number_of_log_entries_to_sync_for(self, partner):
-        _id = self.get_last_synced_log_entry_for(partner)
+        _id = self.last_synced_log_entry_for(partner)
         return self.con.execute("select count() from log where _id>?",
             (_id, )).fetchone()[0]
     
@@ -46,11 +46,18 @@ class SQLiteSync(object):
 
         # TODO.
         
-        _id = self.get_last_synced_log_entry_for(partner)
+        _id = self.last_synced_log_entry_for(partner)
         return self.con.execute("""select count() from log where _id>? and
             (event_type=? or event_type=? or event_type=?)""", (_id,
             EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA,
             EventTypes.DELETED_MEDIA)).fetchone()[0]
+
+    def media_filenames_to_sync_for(self, partner):
+        _id = self.last_synced_log_entry_for(partner)
+        return (cursor[0].rsplit("__for__", 1) for cursor in self.con.execute(\
+            """select object_id from log where _id>? and (event_type=? or
+            event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
+            EventTypes.UPDATED_MEDIA)))       
     
     def _log_entry(self, sql_res):
 
@@ -130,14 +137,14 @@ class SQLiteSync(object):
             
         return log_entry
         
-    def get_log_entries_to_sync_for(self, partner):
+    def log_entries_to_sync_for(self, partner):
 
         """Note that we return an iterator here to be able to stream
         efficiently.
 
         """
         
-        _id = self.get_last_synced_log_entry_for(partner)
+        _id = self.last_synced_log_entry_for(partner)
         return (self._log_entry(cursor) for cursor in self.con.execute(\
             "select * from log where _id>?", (_id, )))
 
@@ -296,11 +303,11 @@ class SQLiteSync(object):
         elif event_type == EventTypes.REPETITION:
             self.apply_repetition(log_entry)
             
-    def get_last_log_entry_index(self):
+    def last_log_entry_index(self):
         return self.con.execute(\
             "select _id from log order by _id desc limit 1").fetchone()[0]
     
     def update_last_sync_log_entry_for(self, partner):
         self.con.execute(\
             "update partnerships set _last_log_id=? where partner=?",
-            (self.get_last_log_entry_index(), partner))
+            (self.last_log_entry_index(), partner))

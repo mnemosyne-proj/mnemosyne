@@ -1,4 +1,5 @@
 -where do we update the media table during sync?
+-add comment on / vs \
 -subdirectories in media files
 -media modified outside of Mnemosyne
 -add q and a to cards if facts are not present

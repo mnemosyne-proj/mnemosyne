@@ -74,7 +74,7 @@ def copy_file_to_dir(filename, dirname):
             if not os.path.exists(dest_path):
                 break
     shutil.copy(filename, dest_path)
-    return contract_path(dest_path, dirname)
+    return contract_path(dest_path, dirname).replace("\\", "/")
 
 
 def numeric_string_cmp(s1, s2):

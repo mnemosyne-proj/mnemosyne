@@ -425,7 +425,6 @@ class TestSync(object):
         
         def test_server(self):
             db = self.mnemosyne.database()
-            card = db.get_card(self.client_card.id, id_is_internal=False)
             
         self.server = MyServer()
         self.server.test_server = test_server
