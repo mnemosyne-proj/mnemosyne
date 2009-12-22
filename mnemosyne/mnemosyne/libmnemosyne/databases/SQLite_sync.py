@@ -54,9 +54,9 @@ class SQLiteSync(object):
 
     def media_filenames_to_sync_for(self, partner):
         _id = self.last_synced_log_entry_for(partner)
-        return (cursor[0].rsplit("__for__", 1) for cursor in self.con.execute(\
-            """select object_id from log where _id>? and (event_type=? or
-            event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
+        return (cursor[0].rsplit("__for__", 1)[0] for cursor in \
+            self.con.execute("""select object_id from log where _id>? and
+            (event_type=? or event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
             EventTypes.UPDATED_MEDIA)))       
     
     def _log_entry(self, sql_res):

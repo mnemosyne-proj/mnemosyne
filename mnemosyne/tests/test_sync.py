@@ -41,6 +41,8 @@ class MyServer(Server, Thread):
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
      
     def authorise(self, login, password):
         return login == "user" and password == "pass"
@@ -54,7 +56,8 @@ class MyServer(Server, Thread):
         # single thread.
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
                                   "dot_sync_server")))
-        self.fill_server_database()
+        self.mnemosyne.review_controller().reset() 
+        self.fill_server_database(self)
         Server.__init__(self, "127.0.0.1", 8014, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
@@ -422,16 +425,35 @@ class TestSync(object):
             "select count() from log").fetchone()[0] == 14
 
     def test_add_media(self):
+
+        def fill_server_database(self):
+            f = file("b.ogg", "w")
+            f.write("B")
+            f.close()
+            filename = os.path.abspath("b.ogg")
+            fact_data = {"q": "question <img src=\"%s\">" % (filename),
+                         "a": "answer"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.controller().file_save()
         
         def test_server(self):
             db = self.mnemosyne.database()
+            filename = os.path.join("dot_sync_server", "default.db_media",
+                                    "a.ogg")
+            assert os.path.exists(filename)
+            assert file(filename).read() == "A"
             
         self.server = MyServer()
         self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
         self.server.start()
         
         self.client = MyClient()
-        file("a.ogg", "w")
+        f = file("a.ogg", "w")
+        f.write("A")
+        f.close()
         filename = os.path.abspath("a.ogg")
         fact_data = {"q": "question <img src=\"%s\">" % (filename),
                      "a": "answer"}
@@ -440,3 +462,8 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
+
+        filename = os.path.join("dot_sync_client", "default.db_media",
+                                "b.ogg")
+        assert os.path.exists(filename)
+        assert file(filename).read() == "B"

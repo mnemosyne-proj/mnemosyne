@@ -165,8 +165,11 @@ class Server(WSGIServer):
         except:
             return "CANCEL"
         else:
-            return "OK"
-        
+            return "OK
+            "
+    def get_number_of_server_media_files_to_sync(self, environ):
+        return str(self.database.number_of_media_files_to_sync_for(self.client_id))
+    
     def get_number_of_server_log_entries_to_sync(self, environ):
         return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
 
@@ -219,11 +222,10 @@ class Server(WSGIServer):
             data = socket.read(size)
         except:
             return "CANCEL"
-        else:
-            create_subdirs(self.database.mediadir(), filename)
-            file(os.path.join(self.database.mediadir(), filename),
-                 "wb").write(data)
-            return "OK"
+        create_subdirs(self.database.mediadir(), filename)     
+        file(os.path.join(self.database.mediadir(), filename), "wb").\
+            write(data)
+        return "OK"
 
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")

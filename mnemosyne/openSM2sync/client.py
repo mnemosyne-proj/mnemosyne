@@ -49,7 +49,7 @@ class Client(object):
             self.put_client_log_entries()
             self.get_server_media_files()
             self.get_server_log_entries()
-            self.send_finish_request()
+            self.finish_request()
         except SyncError, exception:
             self.database.load(backup_file) # TODO: use SQL rollback?
             self.ui.error_box("Error: " + str(exception))
@@ -111,9 +111,6 @@ class Client(object):
             count += 1
             progress_dialog.set_value(count)
         self.ui.status_bar_message("Waiting for server to complete...")
-        response = conn.getresponse()
-        # TODO: analyze response from server side.
-        response.read()        
             
     def put_client_log_entries(self):
         self.ui.status_bar_message("Sending log entries to server...")
@@ -205,7 +202,7 @@ class Client(object):
         except urllib2.URLError, error:
             raise SyncError("Getting server media: " + str(error))
 
-    def send_finish_request(self):
+    def finish_request(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
             if urllib2.urlopen(self.url + "/sync/finish").read() != "OK":
