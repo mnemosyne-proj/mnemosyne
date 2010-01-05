@@ -45,7 +45,13 @@ class SQLiteStatistics(object):
              tags_for_card._card_id=cards._id and cards.active=1
              and tags_for_card._tag_id=? and grade=?""",
              (_tag_id, grade)).fetchone()[0]
-
+    
+    def total_card_count_for__tag_id(self, _tag_id):
+        return self.con.execute(\
+             """select count() from cards, tags_for_card where
+             tags_for_card._card_id=cards._id and tags_for_card._tag_id=?""",
+             (_tag_id, )).fetchone()[0]
+    
     def future_card_count_scheduled_between(self, start, stop):
         return self.con.execute(\
             """select count() from cards where active=1 and grade>=2
