@@ -111,6 +111,34 @@ class Client(object):
             count += 1
             progress_dialog.set_value(count)
         self.ui.status_bar_message("Waiting for server to complete...")
+
+    def send_client_files(self, filenames):
+
+        """'filenames' is a list of filenames relative to the basedir."""
+
+        parsed_url = urlparse(self.url)
+        conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
+        conn.putrequest("PUT", "/client/files")
+        conn.putheader("Connection", "keep-alive")
+        conn.putheader("Content-Type", "application/x-tar")
+        conn.putheader("Transfer-Encoding", "chunked")
+        conn.putheader("Expect", "100-continue")
+        conn.putheader("Accept", "*/*")
+        conn.endheaders()
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, log_entries)
+        progress_dialog.set_text("Sending history to the server...")
+        count = 0
+        for log_entry in self.database.get_log_entries_to_sync_for(\
+            self.server_id):
+            conn.send(self.synchroniser.log_entry_to_XML(log_entry) + "\n")
+            count += 1
+            progress_dialog.set_value(count)
+
+        tar_pipe = tarfile.open(mode="w|", fileobj=req)
+        for filename in filenames:
+            tar_pipe.add(expand_path(filename, basedir))
+        tar_pipe.close()
             
     def put_client_log_entries(self):
         self.ui.status_bar_message("Sending log entries to server...")
