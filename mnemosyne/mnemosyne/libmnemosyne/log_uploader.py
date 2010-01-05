@@ -35,7 +35,7 @@ class LogUploader(Thread, Component):
         uri = '/cgi-bin/cgiupload.py'
         boundary = '%s%s_%s_%s' % \
                     ('-----', int(time.time()), os.getpid(),
-                     random.randint(1,10000))
+                     random.randint(1, 10000))
         f = file(filename, 'rb')
         data = f.read()
         f.close()
