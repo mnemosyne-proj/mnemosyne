@@ -32,7 +32,8 @@ class EventTypes(object):
     DELETED_CARD_TYPE = 17
     REPETITION = 18
     ADDED_MEDIA = 19
-    DELETED_MEDIA = 20
+    UPDATED_MEDIA = 20
+    DELETED_MEDIA = 21
 
 
 class LogEntry(dict):

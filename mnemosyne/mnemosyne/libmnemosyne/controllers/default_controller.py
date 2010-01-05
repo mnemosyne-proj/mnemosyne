@@ -397,7 +397,7 @@ class DefaultController(Controller):
         """
 
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        basedir, mediadir = self.config().basedir, self.config().mediadir()
+        basedir, mediadir = self.config().basedir, self.database().mediadir()
         path = expand_path(self.config()["import_img_dir"], basedir)
         filter = _("Image files") + " " + filter
         filename = self.main_widget().open_file_dialog(\
@@ -412,7 +412,7 @@ class DefaultController(Controller):
         
     def insert_sound(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        basedir, mediadir = self.config().basedir, self.config().mediadir()
+        basedir, mediadir = self.config().basedir, self.database().mediadir()
         path = expand_path(self.config()["import_sound_dir"], basedir)
         filter = _("Sound files") + " " + filter
         filename = self.main_widget().open_file_dialog(\
@@ -427,7 +427,7 @@ class DefaultController(Controller):
         
     def insert_video(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        basedir, mediadir = self.config().basedir, self.config().mediadir()
+        basedir, mediadir = self.config().basedir, self.database().mediadir()
         path = expand_path(self.config()["import_video_dir"], basedir)
         filter = _("Video files") + " " + filter
         filename = self.main_widget().open_file_dialog(\

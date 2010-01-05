@@ -204,7 +204,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._current_criterion = None # Cached for performance reasons.
 
     #
-    # File operations
+    # File operations.
     #
     
     @property
@@ -224,6 +224,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         else:
             return os.path.basename(self.config()["path"]).\
                    split(self.database().suffix)[0]
+        
+    def mediadir(self):
+        return os.path.join(self.config().basedir,
+            os.path.basename(self.config()["path"]) + "_media")
     
     def new(self, path):
         if self.is_loaded():
@@ -246,7 +250,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._current_criterion = DefaultCriterion(self.component_manager)
         self.add_activity_criterion(self._current_criterion)
         # Create media directory.
-        mediadir = self.config().mediadir()
+        mediadir = self.mediadir()
         if not os.path.exists(mediadir):
             os.mkdir(mediadir)
 
@@ -798,7 +802,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
     
     def _process_media(self, fact):
-        mediadir = self.config().mediadir()
+        mediadir = self.mediadir()
         # Determine new media files for this fact. Copy them to the media dir
         # if needed. (The user could have typed in the full path directly
         # without going through the add_img or add_sound callback.)
@@ -822,7 +826,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Update the media table and log additions or deletions. We record
         # the modification date so that we can detect if media files have
         # been modified outside of Mnemosyne. (Although less robust,
-        # modifaction dates are faster to lookup then calculating a hash,
+        # modification dates are faster to lookup then calculating a hash,
         # especially on mobile devices.
         for filename in old_files - new_files:
             self.con.execute("""delete from media where filename=?

@@ -49,7 +49,7 @@ class Mnemosyne1Mem(FileFormat):
         self.database().update_card(card)
 
     def _preprocess_media(self, fact_data):        
-        mediadir = self.config().mediadir()
+        mediadir = self.database().mediadir()
         # os.path.normpath does not convert Windows separators to Unix
         # separators, so we need to make sure we internally store Unix paths.
         for key in fact_data:
@@ -98,7 +98,7 @@ class Mnemosyne1Mem(FileFormat):
         # should filter out afterwards, so as not to upset the 'cards added per
         # day' statistics. We do keep the updated card events for the benefit
         # of the syncing algorithm.
-        log_index = db.get_last_log_entry_index()
+        log_index = db.last_log_entry_index()
         result = self._import_mem_file(filename, tag_name, reset_learning_data)
         if result:
             return result
