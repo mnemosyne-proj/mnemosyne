@@ -165,8 +165,8 @@ class Server(WSGIServer):
         except:
             return "CANCEL"
         else:
-            return "OK
-            "
+            return "OK"
+        
     def get_number_of_server_media_files_to_sync(self, environ):
         return str(self.database.number_of_media_files_to_sync_for(self.client_id))
     
@@ -216,10 +216,22 @@ class Server(WSGIServer):
 
     def put_client_media_file(self, environ, filename):
         self.ui.status_bar_message("Receiving client media file...")
+        import sys;
+        #sys.stderr.write(str(environ))
         try:
             socket = environ["wsgi.input"]
-            size = int(environ["CONTENT_LENGTH"])
-            data = socket.read(size)
+            #sys.stderr.write("|" + str(environ["CONTENT_LENGTH"] + "A"))
+            #size = int(environ["CONTENT_LENGTH"])
+            #data = socket.read(size)
+            while True:
+                sys.stderr.write("before")
+                chunk = socket.read(4096)
+                sys.stderr.write("after")                
+                if len(chunk) == 0:
+                    sys.stderr.write("done")
+                    break
+                sys.stderr.write(chunk)
+                #fp.write(chunk)
         except:
             return "CANCEL"
         create_subdirs(self.database.mediadir(), filename)     

@@ -56,9 +56,10 @@ class MyServer(Server, Thread):
         # single thread.
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
                                   "dot_sync_server")))
-        self.mnemosyne.review_controller().reset() 
-        self.fill_server_database(self)
-        Server.__init__(self, "127.0.0.1", 8014, self.mnemosyne.main_widget())
+        self.mnemosyne.review_controller().reset()
+        if hasattr(self, "fill_server_database"):
+            self.fill_server_database(self)
+        Server.__init__(self, "127.0.0.1", 8033, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -71,12 +72,6 @@ class MyServer(Server, Thread):
         self.test_server(self)
         self.passed_tests = True
         self.mnemosyne.finalise()
-        
-    def fill_server_database(self):
-        pass
-
-    def test(self):
-        raise NotImplementedError
 
 
 class MyClient(Client):
@@ -102,7 +97,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8014", "user", "pass")
+        self.sync("http://127.0.0.1:8033", "user", "pass")
 
 
 class TestSync(object):

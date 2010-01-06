@@ -1,4 +1,8 @@
--stream binary files in a tar file
+-test if sending is really chunked
+
+-socket.makefile buffer size
+
+-make recieving chunked:
 
 req = urllib2.urlopen(url)
 CHUNK = 16 * 1024
@@ -8,12 +12,13 @@ with open(file, 'wb') as fp:
     if not chunk: break
     fp.write(chunk)
 
-
+-iterable in send?
 -media files from server to client
 -where do we update the media table during sync?
 -add comment on / vs \
 -subdirectories in media files
 -media modified outside of Mnemosyne
+
 -linebreak in fact data upsetting get history?
 -add q and a to cards if facts are not present
 
@@ -55,6 +60,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -rework logging? still need for high-level interface?
 -add timestamp argument to database.py
 -create openSM2sync.database interface
+-chunk reading history events in larger blocks?
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
 
