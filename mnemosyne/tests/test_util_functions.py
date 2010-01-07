@@ -6,7 +6,6 @@ import os
 import shutil
 
 from mnemosyne.libmnemosyne.utils import *
-from openSM2sync.utils import *
 
 class TestUtilFunctions(object):
 
@@ -61,17 +60,4 @@ class TestUtilFunctions(object):
         assert copy_file_to_dir("/home/joe/a/test.py", "/home/joe") == "a/test.py"
         assert copy_file_to_dir("/home/joe/a/test.py", "/home/joe/") == "a/test.py"
 
-    def test_create_subdirs(self):
-        if os.path.exists("a"):
-            shutil.rmtree("a")
-        create_subdirs(".", "a/b/c")
-        assert os.path.exists(os.path.join(".", "a"))
-        assert os.path.exists(os.path.join(".", "a", "b"))
-        assert not os.path.exists(os.path.join(".", "a", "b", "c"))
-        shutil.rmtree("a")
-        create_subdirs(".", "a\\b\\c")
-        assert os.path.exists(os.path.join(".", "a"))
-        assert os.path.exists(os.path.join(".", "a", "b"))
-        assert not os.path.exists(os.path.join(".", "a", "b", "c"))
-        shutil.rmtree("a")   
         

@@ -59,7 +59,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "127.0.0.1", 8033, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8036, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -97,7 +97,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8033", "user", "pass")
+        self.sync("http://127.0.0.1:8036", "user", "pass")
 
 
 class TestSync(object):

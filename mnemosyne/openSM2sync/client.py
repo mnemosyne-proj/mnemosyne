@@ -5,6 +5,7 @@
 #
 
 import os
+import socket
 import base64
 import tarfile
 import urllib2
@@ -12,60 +13,17 @@ import httplib
 from urlparse import urlparse
 from xml.etree import cElementTree
 
-from utils import create_subdirs
 from synchroniser import SyncError
 from synchroniser import Synchroniser
 from synchroniser import PROTOCOL_VERSION
 
-
-# Override the send method from httplib. The following code is lifted straight
-# from the standard library of Python 2.6, with the addition of code to update
-# a progress dialog. Apart from being able to indicate progress when sending
-# large files, its main advantage is being able to do a streaming send in order
-# to save memory on systems which don't have Python 2.6 (e.g. Windows Mobile).
-
-send_progress_dialog = None
-
-def _send(self, str):
-    if self.sock is None:
-        if self.auto_open:
-            self.connect()
-        else:
-            raise NotConnected()
-    try:
-        blocksize = 8192
-        bytes_sent = 0
-        if hasattr(str, "read") and not isinstance(str, array):
-            data = str.read(blocksize)
-            while data:
-                self.sock.sendall(data)
-                bytes_sent += len(data)
-                if send_progress_dialog:
-                    send_progress_dialog.set_value(bytes_sent)
-                data = str.read(blocksize)
-        #http://mail.python.org/pipermail/python-dev/2008-June/080858.html
-        #elif hasattr(str, "next"):
-        #    for data in str:
-        #        self.sock.sendall(data)
-        else:
-            self.sock.sendall(str)
-    except socket.error, v:
-        if v[0] == 32:      # Broken pipe.
-            self.close()
-        raise
-    
-httplib.HTTPConnection.send = _send
-
-
-# Implement PUT request in urllib2, as needed by the RESTful API.
-
 class PutRequest(urllib2.Request):
+    
+    """Implement PUT request in urllib2, as needed by the RESTful API."""
     
     def get_method(self):
         return "PUT"
 
-
-# The actual client.
 
 class Client(object):
     
@@ -168,28 +126,26 @@ class Client(object):
 
         parsed_url = urlparse(self.url)
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
-        conn.putrequest("PUT", "/client/media/file?filename=b.ogg")
-        #conn.putheader("Connection", "keep-alive")
-        #conn.putheader("Content-Type", "application/x-tar")
-        #conn.putheader("Transfer-Encoding", "chunked")
-        #conn.putheader("Expect", "100-continue")
-        #conn.putheader("Accept", "*/*")
+        conn.putrequest("PUT", "/client/media/file")
         conn.endheaders()
+        
         #progress_dialog = self.ui.get_progress_dialog()
         #progress_dialog.set_range(0, log_entries)
-        f = conn.sock.makefile()
-        tar_pipe = tarfile.open(mode="w|", fileobj=f)
+        
+        # Note that this bypasses httplib.HTTPConnection.send. 
+        tar_pipe = tarfile.open(mode="w|",
+            fileobj=conn.sock.makefile("wb", bufsize=4096))
         for filename in filenames:
             tar_pipe.add(filename)
         tar_pipe.close()
-        
-        #conn.request('PUT', '/client/files', stream, {})
-        #conn.getresponse()
+        import sys; sys.stderr.write(str(conn.getresponse().status))
+        #if conn.getresponse().read() != "OK":
+        #    print 'failed'
 
             
     def put_client_log_entries(self):
         self.ui.status_bar_message("Sending log entries to server...")
-        # Number of Log entries.
+        # Number of log entries.
         number_of_entries = self.database.number_of_log_entries_to_sync_for(\
             self.server_id)
         if number_of_entries == 0:

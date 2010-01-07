@@ -7,9 +7,9 @@ import os
 import cgi
 import base64
 import select
+import tarfile
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
-from utils import create_subdirs
 from synchroniser import Synchroniser
 from synchroniser import PROTOCOL_VERSION
 
@@ -214,29 +214,20 @@ class Server(WSGIServer):
         except IOError:
             return "CANCEL"
 
-    def put_client_media_file(self, environ, filename):
+    def put_client_media_file(self, environ):
         self.ui.status_bar_message("Receiving client media file...")
-        import sys;
-        #sys.stderr.write(str(environ))
         try:
             socket = environ["wsgi.input"]
-            #sys.stderr.write("|" + str(environ["CONTENT_LENGTH"] + "A"))
-            #size = int(environ["CONTENT_LENGTH"])
-            #data = socket.read(size)
-            while True:
-                sys.stderr.write("before")
-                chunk = socket.read(4096)
-                sys.stderr.write("after")                
-                if len(chunk) == 0:
-                    sys.stderr.write("done")
-                    break
-                sys.stderr.write(chunk)
-                #fp.write(chunk)
+            tar_pipe = tarfile.open(mode="r|", fileobj=socket)
+            tar_pipe.extractall(self.database.mediadir())
+            
+            #while True:
+            #    chunk = socket.read(4096)
+            #    if not chunk:
+            #        break
+            #    import sys; sys.stderr.write(chunk)
         except:
             return "CANCEL"
-        create_subdirs(self.database.mediadir(), filename)     
-        file(os.path.join(self.database.mediadir(), filename), "wb").\
-            write(data)
         return "OK"
 
     def get_sync_finish(self, environ):
