@@ -205,6 +205,8 @@ the GUI function itself?
 
 -make distrib
 
+-http://www.mblondel.org/journal/2008/08/01/web-canvas/
+
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
 
