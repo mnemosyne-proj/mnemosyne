@@ -113,6 +113,11 @@ The client locally constructs a similar summary of the changes, and a dialog box
 
 It is highly advisable that both client and server take a backup of the database at this point.
 
+3b) media file sync
+
+Both client and server send each other the media files that have been added or changed since the last sync. This needs to happen at this stage, as later on, during the actual sync, the software can expect these files to be already in place. The media files are bundled in a streaming tar file, so that all files can be sent across in a single connection. The tar file is not compressed, as most media files are already compressed by themselves.
+
+TODO: say something about subdirs and media dir.
 
 4) The actual sync 
 

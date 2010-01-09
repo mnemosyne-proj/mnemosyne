@@ -1,12 +1,12 @@
--return values from server
--refactor sending routines. basedir?
--media files from server to client
+-don't extract tar file if no files need to be sent
+-wsgi streaming send
+-tar cd to relative dir first
+-make sure that cancelling sync does not update media files
 -where do we update the media table during sync?
--add comment on / vs \
 -test subdirectories in media files
 -media modified outside of Mnemosyne
--when sending from WM to server, do we need to backport 2.6 httpconnection.send?
 -unicode in filenames for tar archive
+
 -linebreak in fact data upsetting get history?
 -add q and a to cards if facts are not present
 -cdata, encode for deck name, unicode + test
@@ -47,7 +47,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -make sure after import all sync events fire
 -rework logging? still need for high-level interface?
 -add timestamp argument to database.py
--create openSM2sync.database interface
+-create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -chunk reading history events in larger blocks?
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states

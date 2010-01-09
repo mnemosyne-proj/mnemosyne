@@ -5,7 +5,6 @@
 #
 
 import os
-import socket
 import base64
 import tarfile
 import urllib2
@@ -16,6 +15,7 @@ from xml.etree import cElementTree
 from synchroniser import SyncError
 from synchroniser import Synchroniser
 from synchroniser import PROTOCOL_VERSION
+
 
 class PutRequest(urllib2.Request):
     
@@ -90,58 +90,23 @@ class Client(object):
         self.database.create_partnership_if_needed_for(self.server_id)
 
     def put_client_media_files(self):
-
-        self.put_client_files(self.database.media_filenames_to_sync_for(\
-            self.server_id))
-
-        return
-                            
-
-        
         self.ui.status_bar_message("Sending media files to server...")
-        # Number of files.
-        number_of_files = self.database.number_of_media_files_to_sync_for(\
-            self.server_id)
-        if number_of_files == 0:
-            return
-        response = urllib2.urlopen(PutRequest(self.url + \
-            "/number/of/client/media/files/to/sync", str(number_of_files) + "\n"))
-        if response.read() != "OK":
-            raise SyncError("Error sending number of media files to server.")
-        # Actual media files.
-        progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, number_of_files)
-        progress_dialog.set_text("Sending media files to server...")
-        count = 0
-        for filename in self.database.media_filenames_to_sync_for(\
-            self.server_id):
-            self._put_media_file(filename)
-            count += 1
-            progress_dialog.set_value(count)
-        self.ui.status_bar_message("Waiting for server to complete...")
-
-    def put_client_files(self, filenames):
-
-        """'filenames' is a list of filenames relative to the basedir."""
-
         parsed_url = urlparse(self.url)
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
-        conn.putrequest("PUT", "/client/media/file")
+        conn.putrequest("PUT", "/client/media/files")
         conn.endheaders()
-        
-        #progress_dialog = self.ui.get_progress_dialog()
-        #progress_dialog.set_range(0, log_entries)
-        
+        # Stream the tar file over a buffered socket in order to save memory.
         # Note that this bypasses httplib.HTTPConnection.send. 
-        tar_pipe = tarfile.open(mode="w|",
+        tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
             fileobj=conn.sock.makefile("wb", bufsize=4096))
-        for filename in filenames:
+        for filename in self.database.media_filenames_to_sync_for(\
+            self.server_id):
             tar_pipe.add(filename)
         tar_pipe.close()
+        
         import sys; sys.stderr.write(str(conn.getresponse().status))
         #if conn.getresponse().read() != "OK":
         #    print 'failed'
-
             
     def put_client_log_entries(self):
         self.ui.status_bar_message("Sending log entries to server...")
@@ -159,8 +124,6 @@ class Client(object):
         parsed_url = urlparse(self.url) 
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
         conn.putrequest("PUT", "/client/log_entries")
-        conn.putheader("User-Agent", "gzip")
-        conn.putheader("Accept-Encoding", "gzip")
         conn.putheader("Connection", "keep-alive")
         conn.putheader("Content-Type", "text/plain")
         conn.putheader("Transfer-Encoding", "chunked")
@@ -182,7 +145,13 @@ class Client(object):
         response.read()
 
     def get_server_media_files(self):
-        pass
+        self.ui.status_bar_message("Receiving server media files...")
+        try:
+            response = urllib2.urlopen(self.url + "/server/media/files")
+            tar_pipe = tarfile.open(mode="r|", fileobj=response)
+            tar_pipe.extractall(self.database.mediadir())
+        except Exception, error:
+            raise SyncError("Getting server media files: " + str(error))            
 
     def get_server_log_entries(self):
         self.ui.status_bar_message("Applying server log_entries...")
@@ -207,31 +176,6 @@ class Client(object):
         except urllib2.URLError, error:
             raise SyncError("Getting server log_entries: " + str(error))
         progress_dialog.set_value(log_entries)
-
-    def _put_media_file(self, filename):
-        data = file(os.path.join(self.database.mediadir(), filename),
-            "rb").read()
-        try:
-            request = PutRequest(self.url + "/client/media/file?filename=%s" % \
-                os.path.basename(filename), data)
-            request.add_header("CONTENT_LENGTH", len(data))
-            response = urllib2.urlopen(request)
-            if response.read() != "OK":
-                raise SyncError("Sending media: error on server side.")
-        except urllib2.URLError, error:
-            raise SyncError("Sending client media: " + str(error))
-        
-    def _get_media_file(self, filename):
-        create_subdirs(self.database.mediadir(), filename)
-        try:
-            response = urllib2.urlopen(\
-                self.url + "/server/media/file?filename=%s" % filename)
-            data = response.read()
-            if data != "CANCEL":
-                file(os.path.join(self.database.mediadir(), filename), "wb").\
-                    write(data)
-        except urllib2.URLError, error:
-            raise SyncError("Getting server media: " + str(error))
 
     def finish_request(self):
         self.ui.status_bar_message("Waiting for the server to complete...")

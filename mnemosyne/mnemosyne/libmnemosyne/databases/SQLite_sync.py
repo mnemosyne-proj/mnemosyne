@@ -37,20 +37,6 @@ class SQLiteSync(object):
         _id = self.last_synced_log_entry_for(partner)
         return self.con.execute("select count() from log where _id>?",
             (_id, )).fetchone()[0]
-    
-    def number_of_media_files_to_sync_for(self, partner):
-        # Check if the media files have been updated outside of Mnemosyne.
-        # (We don't check for deletions, because if a media file was deleted
-        # outside of editing or deletting facts, it's probably a user error.)
-
-
-        # TODO.
-        
-        _id = self.last_synced_log_entry_for(partner)
-        return self.con.execute("""select count() from log where _id>? and
-            (event_type=? or event_type=? or event_type=?)""", (_id,
-            EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA,
-            EventTypes.DELETED_MEDIA)).fetchone()[0]
 
     def media_filenames_to_sync_for(self, partner):
         _id = self.last_synced_log_entry_for(partner)

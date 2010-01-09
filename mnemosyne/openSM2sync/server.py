@@ -157,18 +157,6 @@ class Server(WSGIServer):
             return "CANCEL"
         else:
             return "OK"
-        
-    def put_number_of_client_media_files_to_sync(self, environ):
-        try:
-            socket = environ["wsgi.input"]
-            self.number_of_client_media_files_to_sync = int(socket.readline())
-        except:
-            return "CANCEL"
-        else:
-            return "OK"
-        
-    def get_number_of_server_media_files_to_sync(self, environ):
-        return str(self.database.number_of_media_files_to_sync_for(self.client_id))
     
     def get_number_of_server_log_entries_to_sync(self, environ):
         return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
@@ -206,29 +194,34 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         return "OK"
 
-    def get_server_media_file(self, environ, filename):
-        self.ui.status_bar_message("Sending media file to client...")
-        try:
-            return file(os.path.join(self.database.mediadir(),
-                filename)).read()
-        except IOError:
-            return "CANCEL"
-
-    def put_client_media_file(self, environ):
-        self.ui.status_bar_message("Receiving client media file...")
+    def put_client_media_files(self, environ):
+        self.ui.status_bar_message("Receiving client media files...")
         try:
             socket = environ["wsgi.input"]
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             tar_pipe.extractall(self.database.mediadir())
-            
-            #while True:
-            #    chunk = socket.read(4096)
-            #    if not chunk:
-            #        break
-            #    import sys; sys.stderr.write(chunk)
         except:
             return "CANCEL"
         return "OK"
+
+    def get_server_media_files(self, environ):
+        self.ui.status_bar_message("Sending media files to client...")
+        filenames = [self.database.media_filenames_to_sync_for(\
+                self.client_id)]
+        if len(filenames) == 0:
+            return "OK"
+        # TODO: get rid of temporary file and make this streaming.
+        try:
+            #tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
+            #    fileobj=conn.sock.makefile("wb", bufsize=4096))
+            tar_pipe = tarfile.open("__TMP__", mode="w")
+            for filename in self.database.media_filenames_to_sync_for(\
+                self.client_id):
+                tar_pipe.add(filename)
+            tar_pipe.close()
+            return file("__TMP__").read()
+        except IOError:
+            return "CANCEL"
 
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")
