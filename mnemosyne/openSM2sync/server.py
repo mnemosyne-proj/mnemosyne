@@ -194,6 +194,15 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         return "OK"
 
+    def put_client_media_files_size(self, environ):
+        try:
+            socket = environ["wsgi.input"]
+            self.client_media_files_size = int(socket.readline())
+        except:
+            return "CANCEL"
+        else:
+            return "OK"
+        
     def put_client_media_files(self, environ):
         self.ui.status_bar_message("Receiving client media files...")
         try:
@@ -212,15 +221,17 @@ class Server(WSGIServer):
             return "OK"
         # TODO: get rid of temporary file and make this streaming.
         try:
-            #tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
-            #    fileobj=conn.sock.makefile("wb", bufsize=4096))
-            tar_pipe = tarfile.open("__TMP__", mode="w")
+            import tempfile
+            tmp_file = tempfile.NamedTemporaryFile(delete=False)
+            tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file, bufsize=4096)
             for filename in self.database.media_filenames_to_sync_for(\
                 self.client_id):
                 tar_pipe.add(filename)
             tar_pipe.close()
-            return file("__TMP__").read()
-        except IOError:
+            result = file(tmp_file.name).read()
+            os.remove(tmp_file.name)
+            return result
+        except:
             return "CANCEL"
 
     def get_sync_finish(self, environ):

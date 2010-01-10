@@ -91,6 +91,17 @@ class Client(object):
 
     def put_client_media_files(self):
         self.ui.status_bar_message("Sending media files to server...")
+        # Size of tar archive.
+        number_of_entries = self.database.number_of_log_entries_to_sync_for(\
+            self.server_id)
+        if number_of_entries == 0:
+            return
+        response = urllib2.urlopen(PutRequest(self.url + \
+            "/number/of/client/log/entries/to/sync",
+            str(number_of_entries) + "\n"))
+        if response.read() != "OK":
+            raise SyncError("Error sending log_entries length to server.")
+        # Actual media files in a tar archive.
         parsed_url = urlparse(self.url)
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
         conn.putrequest("PUT", "/client/media/files")

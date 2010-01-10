@@ -82,4 +82,3 @@ class Synchroniser(object):
         for child in xml:
             log_entry[child.tag] = child.text
         return log_entry
-

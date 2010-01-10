@@ -1,4 +1,5 @@
 -don't extract tar file if no files need to be sent
+-true tempfile
 -wsgi streaming send
 -tar cd to relative dir first
 -make sure that cancelling sync does not update media files
