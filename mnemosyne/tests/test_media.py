@@ -46,6 +46,18 @@ class TestMedia(MnemosyneTest):
         filename = os.path.join(self.database().mediadir(), "a.ogg")
         self.controller().insert_sound("")
         assert os.path.exists(os.path.join(self.database().mediadir(), "a.ogg"))
+
+    def test_sound_2_unicode(self):
+        global filename
+        
+        file(unichr(40960) + u"a.ogg", "w")
+        filename = os.path.abspath(unichr(40960) + u"a.ogg")
+        self.controller().insert_sound("")
+        assert os.path.exists(os.path.join(self.database().mediadir(), unichr(40960) + u"a.ogg"))
+
+        filename = os.path.join(self.database().mediadir(), unichr(40960) + u"a.ogg")
+        self.controller().insert_sound("")
+        assert os.path.exists(os.path.join(self.database().mediadir(), unichr(40960) + u"a.ogg"))        
         
     def test_sound_3(self):
         global filename
@@ -280,6 +292,8 @@ class TestMedia(MnemosyneTest):
         if os.path.exists("a.ogg"):
             os.remove("a.ogg")
         if os.path.exists("b.ogg"):
-            os.remove("b.ogg")            
+            os.remove("b.ogg")
+        if os.path.exists(unichr(40960) + u"a.ogg"):
+            os.remove(unichr(40960) + u"a.ogg")
         MnemosyneTest.teardown(self)
         

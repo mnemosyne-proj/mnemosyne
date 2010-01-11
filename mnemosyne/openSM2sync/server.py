@@ -10,6 +10,7 @@ import select
 import tarfile
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
+from utils import tar_file_size
 from synchroniser import Synchroniser
 from synchroniser import PROTOCOL_VERSION
 
@@ -213,6 +214,12 @@ class Server(WSGIServer):
             return "CANCEL"
         return "OK"
 
+    def get_server_media_files_size(self, environ):
+        filenames = list(self.database.media_filenames_to_sync_for(\
+            self.client_id))
+        size = tar_file_size(self.database.mediadir(), filenames)
+        return str(size)
+    
     def get_server_media_files(self, environ):
         self.ui.status_bar_message("Sending media files to client...")
         filenames = [self.database.media_filenames_to_sync_for(\

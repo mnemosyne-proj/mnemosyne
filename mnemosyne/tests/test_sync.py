@@ -422,10 +422,10 @@ class TestSync(object):
     def test_add_media(self):
 
         def fill_server_database(self):
-            f = file("b.ogg", "w")
+            f = file(unichr(40960) + u"b.ogg", "w")
             f.write("B")
             f.close()
-            filename = os.path.abspath("b.ogg")
+            filename = os.path.abspath(unichr(40960) + u"b.ogg")
             fact_data = {"q": "question <img src=\"%s\">" % (filename),
                          "a": "answer"}
             card_type = self.mnemosyne.card_type_by_id("1")
@@ -436,7 +436,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             filename = os.path.join("dot_sync_server", "default.db_media",
-                                    "a.ogg")
+                                    unichr(40960) + u"a.ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
             
@@ -446,10 +446,10 @@ class TestSync(object):
         self.server.start()
         
         self.client = MyClient()
-        f = file("a.ogg", "w")
+        f = file(unichr(40960) + u"a.ogg", "w")
         f.write("A")
         f.close()
-        filename = os.path.abspath("a.ogg")
+        filename = os.path.abspath(unichr(40960) + u"a.ogg")
         fact_data = {"q": "question <img src=\"%s\">" % (filename),
                      "a": "answer"}
         card_type = self.client.mnemosyne.card_type_by_id("1")
@@ -459,6 +459,6 @@ class TestSync(object):
         self.client.do_sync()
 
         filename = os.path.join("dot_sync_client", "default.db_media",
-                                "b.ogg")
+                                unichr(40960) + u"b.ogg")
         assert os.path.exists(filename)
         assert file(filename).read() == "B"

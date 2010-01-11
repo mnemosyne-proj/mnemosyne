@@ -12,6 +12,7 @@ import httplib
 from urlparse import urlparse
 from xml.etree import cElementTree
 
+from utils import tar_file_size
 from synchroniser import SyncError
 from synchroniser import Synchroniser
 from synchroniser import PROTOCOL_VERSION
@@ -92,15 +93,15 @@ class Client(object):
     def put_client_media_files(self):
         self.ui.status_bar_message("Sending media files to server...")
         # Size of tar archive.
-        number_of_entries = self.database.number_of_log_entries_to_sync_for(\
-            self.server_id)
-        if number_of_entries == 0:
+        filenames = list(self.database.media_filenames_to_sync_for(\
+            self.server_id))
+        size = tar_file_size(self.database.mediadir(), filenames)
+        if size == 0:
             return
         response = urllib2.urlopen(PutRequest(self.url + \
-            "/number/of/client/log/entries/to/sync",
-            str(number_of_entries) + "\n"))
+            "/client/media/files/size", str(size) + "\n"))
         if response.read() != "OK":
-            raise SyncError("Error sending log_entries length to server.")
+            raise SyncError("Error sending media files size to server.")
         # Actual media files in a tar archive.
         parsed_url = urlparse(self.url)
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
@@ -109,9 +110,9 @@ class Client(object):
         # Stream the tar file over a buffered socket in order to save memory.
         # Note that this bypasses httplib.HTTPConnection.send. 
         tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
-            fileobj=conn.sock.makefile("wb", bufsize=4096))
-        for filename in self.database.media_filenames_to_sync_for(\
-            self.server_id):
+             format=tarfile.PAX_FORMAT,
+             fileobj=conn.sock.makefile("wb", bufsize=4096))
+        for filename in filenames:
             tar_pipe.add(filename)
         tar_pipe.close()
         
@@ -158,6 +159,9 @@ class Client(object):
     def get_server_media_files(self):
         self.ui.status_bar_message("Receiving server media files...")
         try:
+            response = urllib2.urlopen(self.url + "/server/media/files/size")
+            if response.read() == "0":
+                return
             response = urllib2.urlopen(self.url + "/server/media/files")
             tar_pipe = tarfile.open(mode="r|", fileobj=response)
             tar_pipe.extractall(self.database.mediadir())

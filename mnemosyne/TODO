@@ -1,12 +1,9 @@
--don't extract tar file if no files need to be sent
--true tempfile
--wsgi streaming send
+-unicode in filenames for tar archive. PAX_FORMAT needed? Start by doing unicode tarfile outside of Mnemosyne
 -tar cd to relative dir first
 -make sure that cancelling sync does not update media files
 -where do we update the media table during sync?
 -test subdirectories in media files
 -media modified outside of Mnemosyne
--unicode in filenames for tar archive
 
 -linebreak in fact data upsetting get history?
 -add q and a to cards if facts are not present
@@ -43,6 +40,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -check if updated_card event without added card event works
 -mechanism to have plugin settings synced?
 -pull in user id on first sync
+-wsgi streaming send for media tar archive
 -hack tarfile to add progress bar?
 -just copy database on initial sync
 -make sure after import all sync events fire
