@@ -207,7 +207,7 @@ class Server(WSGIServer):
     def put_client_media_files(self, environ):
         self.ui.status_bar_message("Receiving client media files...")
         try:
-            socket = environ["wsgi.input"]
+            socket = environ["wsgi.input"]           
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             tar_pipe.extractall(self.database.mediadir())
         except:
@@ -230,7 +230,8 @@ class Server(WSGIServer):
         try:
             import tempfile
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
-            tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file, bufsize=4096)
+            tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file, bufsize=4096,
+                                    format=tarfile.PAX_FORMAT)
             for filename in self.database.media_filenames_to_sync_for(\
                 self.client_id):
                 tar_pipe.add(filename)

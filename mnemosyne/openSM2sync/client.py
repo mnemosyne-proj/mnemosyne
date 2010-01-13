@@ -115,8 +115,11 @@ class Client(object):
         for filename in filenames:
             tar_pipe.add(filename)
         tar_pipe.close()
+
+        #conn.sock.close()
+        #del conn.sock
         
-        import sys; sys.stderr.write(str(conn.getresponse().status))
+        #import sys; sys.stderr.write(str(conn.getresponse().status))
         #if conn.getresponse().read() != "OK":
         #    print 'failed'
             
