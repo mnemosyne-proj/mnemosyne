@@ -1,10 +1,6 @@
--unicode in filenames for tar archive. PAX_FORMAT needed? Seems to be related
- to fact that basedir is unicode as opposed to string
--different file size for PAX? test.
--tar cd to relative dir first
+-test subdirectories in media files (test goes wrong at the level of creating the database)
 -make sure that cancelling sync does not update media files
 -where do we update the media table during sync?
--test subdirectories in media files
 -media modified outside of Mnemosyne
 
 -linebreak in fact data upsetting get history?
@@ -44,6 +40,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -pull in user id on first sync
 -wsgi streaming send for media tar archive (mmap?)
 -hack tarfile to add progress bar?
+-add tests with unicode in basedir
 -just copy database on initial sync
 -make sure after import all sync events fire
 -rework logging? still need for high-level interface?
@@ -193,6 +190,7 @@ the GUI function itself?
  one sitting
 -upgrade docs on duplicate checking
 -update tooltips, inform Patrick
+-tar file size estimate sometimes off by one record.
 
 
 -have hierarchy in plugin names

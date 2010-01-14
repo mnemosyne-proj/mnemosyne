@@ -209,7 +209,8 @@ class Server(WSGIServer):
         try:
             socket = environ["wsgi.input"]           
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
-            tar_pipe.extractall(self.database.mediadir())
+            # Work around http://bugs.python.org/issue7693.
+            tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
         except:
             return "CANCEL"
         return "OK"
@@ -230,6 +231,8 @@ class Server(WSGIServer):
         try:
             import tempfile
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
+            saved_path = os.getcwd()
+            os.chdir(self.database.mediadir())
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file, bufsize=4096,
                                     format=tarfile.PAX_FORMAT)
             for filename in self.database.media_filenames_to_sync_for(\
@@ -238,6 +241,7 @@ class Server(WSGIServer):
             tar_pipe.close()
             result = file(tmp_file.name).read()
             os.remove(tmp_file.name)
+            os.chdir(saved_path)
             return result
         except:
             return "CANCEL"

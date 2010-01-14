@@ -108,13 +108,16 @@ class Client(object):
         conn.putrequest("PUT", "/client/media/files")
         conn.endheaders()
         # Stream the tar file over a buffered socket in order to save memory.
-        # Note that this bypasses httplib.HTTPConnection.send. 
+        # Note that this bypasses httplib.HTTPConnection.send.
+        saved_path = os.getcwd()
+        os.chdir(self.database.mediadir())
         tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
              format=tarfile.PAX_FORMAT,
              fileobj=conn.sock.makefile("wb", bufsize=4096))
         for filename in filenames:
             tar_pipe.add(filename)
         tar_pipe.close()
+        os.chdir(saved_path)
 
         #conn.sock.close()
         #del conn.sock
@@ -167,7 +170,8 @@ class Client(object):
                 return
             response = urllib2.urlopen(self.url + "/server/media/files")
             tar_pipe = tarfile.open(mode="r|", fileobj=response)
-            tar_pipe.extractall(self.database.mediadir())
+            # Work around http://bugs.python.org/issue7693.
+            tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
         except Exception, error:
             raise SyncError("Getting server media files: " + str(error))            
 
