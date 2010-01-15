@@ -836,7 +836,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             if self.con.execute("select count() from media where filename=?",
                                 (filename, )).fetchone()[0] == 0:
                 os.remove(os.path.join(mediadir, filename))
-        for filename in new_files - old_files:
+        for filename in new_files - old_files:          
             self.con.execute("""insert into media(filename, _fact_id,
                 last_modified) values(?,?,?)""", (filename, fact._id,
                 int(os.path.getmtime(os.path.join(mediadir, filename)))))

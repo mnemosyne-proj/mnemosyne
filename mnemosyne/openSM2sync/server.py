@@ -231,7 +231,7 @@ class Server(WSGIServer):
         try:
             import tempfile
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
-            saved_path = os.getcwd()
+            saved_path = os.getcwdu()
             os.chdir(self.database.mediadir())
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file, bufsize=4096,
                                     format=tarfile.PAX_FORMAT)

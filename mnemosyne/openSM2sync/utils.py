@@ -15,6 +15,8 @@ def tar_file_size(basedir, relative_paths):
     # TODO: estimate only.
 
     size = 0
+    if len(relative_paths) == 0:
+        return 0
     for path in relative_paths:
         raw_size = os.path.getsize(os.path.join(basedir, path))
         # 512 byte header plus file content in blocks of 512 bytes.

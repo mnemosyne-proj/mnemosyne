@@ -1,6 +1,4 @@
--test subdirectories in media files (test goes wrong at the level of creating the database)
--make sure that cancelling sync does not update media files
--where do we update the media table during sync?
+-update media event
 -media modified outside of Mnemosyne
 
 -linebreak in fact data upsetting get history?
@@ -11,14 +9,12 @@
 -create new database on server side if needed
 -self.stopped, timeouts
 -synchroniser --> xml formatter?
--add error handling on send client history
--more elegant error handling
+-more elegant error handling?
 -add modulo to progress dialogs
--more code sharing between client and server? Send history, e.g.
+-more code sharing between client and server?
 -add streaming connection to server side too
 -\r client /n vs server?
 -exchange card types between different SRS, add support for card type events
--check for updated media files outside of the program
 -http://live.gnome.org/Tomboy/Synchronization/REST
 -same connection throughout?
 -sql roll back?
@@ -129,6 +125,8 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 -windows: slots
 -windows: upgrade config?
 -windows: HOME
+-test unicode filenames in sync protocol
+
 
 -card browser
 -make sure searching for a single unicode character works

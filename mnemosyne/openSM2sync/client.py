@@ -46,8 +46,11 @@ class Client(object):
             backup_file = self.database.backup()           
             self.login(username, password)
             self.handshake()
-            self.put_client_media_files()
             self.put_client_log_entries()
+            # Here, the server should send a summary of the sync and of
+            # conflicts encountered, so here the user will later get the
+            # opportunity to cancel the sync.
+            self.put_client_media_files()
             self.get_server_media_files()
             self.get_server_log_entries()
             self.finish_request()
@@ -109,7 +112,7 @@ class Client(object):
         conn.endheaders()
         # Stream the tar file over a buffered socket in order to save memory.
         # Note that this bypasses httplib.HTTPConnection.send.
-        saved_path = os.getcwd()
+        saved_path = os.getcwdu()
         os.chdir(self.database.mediadir())
         tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
              format=tarfile.PAX_FORMAT,
@@ -118,13 +121,8 @@ class Client(object):
             tar_pipe.add(filename)
         tar_pipe.close()
         os.chdir(saved_path)
-
-        #conn.sock.close()
-        #del conn.sock
-        
-        #import sys; sys.stderr.write(str(conn.getresponse().status))
-        #if conn.getresponse().read() != "OK":
-        #    print 'failed'
+        if conn.getresponse().read() != "OK":
+            raise SyncError("Error sending media files to server.")
             
     def put_client_log_entries(self):
         self.ui.status_bar_message("Sending log entries to server...")
@@ -158,9 +156,8 @@ class Client(object):
             count += 1
             progress_dialog.set_value(count)
         self.ui.status_bar_message("Waiting for server to complete...")
-        response = conn.getresponse()
-        # TODO: analyze response from server side.
-        response.read()
+        if conn.getresponse().read() != "OK":
+            raise SyncError("Error sending log entries to server.")
 
     def get_server_media_files(self):
         self.ui.status_bar_message("Receiving server media files...")

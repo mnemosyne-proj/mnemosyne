@@ -54,8 +54,7 @@ class MyServer(Server, Thread):
         # We only open the database connection inside the thread to prevent
         # access problems, as a single connection can only be used inside a
         # single thread.
-        self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
-                                  "dot_sync_server")))
+        self.mnemosyne.initialise(os.path.abspath("dot_sync_server"))
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
@@ -110,9 +109,9 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            tag = db.get_or_create_tag_with_name(unichr(40960) + u'>&<abcd')
+            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
             assert tag.id == self.client_tag_id
-            assert tag.name == unichr(40960) + u">&<abcd"
+            assert tag.name == unichr(0x628) + u">&<abcd"
             sql_res = db.con.execute("select * from log where event_type=?",
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res["timestamp"]
@@ -125,7 +124,7 @@ class TestSync(object):
 
         self.client = MyClient()
         tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(40960) + u">&<abcd")
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.server.client_tag_id = tag.id
         sql_res = self.client.mnemosyne.database().con.execute(\
             "select * from log where event_type=?", (EventTypes.ADDED_TAG,
@@ -422,10 +421,12 @@ class TestSync(object):
     def test_add_media(self):
 
         def fill_server_database(self):
-            os.mkdir(os.path.join("dot_sync_server", "default.db_media", "b"))
+            import sys; sys.stderr.write("home"+os.getcwd()+'\n')
+            os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b"))
                      
-            filename = os.path.join("dot_sync_server", "default.db_media", "b",
-                                    unichr(40960) + u"b.ogg")
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b", unichr(0x628) + u"b.ogg")
             f = file(filename, "w")
             f.write("B")
             f.close()
@@ -438,8 +439,8 @@ class TestSync(object):
         
         def test_server(self):
             db = self.mnemosyne.database()
-            filename = os.path.join("dot_sync_server", "default.db_media", "a",
-                                    unichr(40960) + u"a.ogg")
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "a", unichr(0x628) + u"a.ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
             
@@ -450,10 +451,11 @@ class TestSync(object):
         
         self.client = MyClient()
 
-        os.mkdir(os.path.join("dot_sync_server", "default.db_media", "a"))
+        os.mkdir(os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a"))
                      
-        filename = os.path.join("dot_sync_server", "default.db_media", "a",
-                                    unichr(40960) + u"a.ogg")        
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a", unichr(0x628) + u"a.ogg")        
         f = file(filename, "w")
         f.write("A")
         f.close()
@@ -465,7 +467,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
-        filename = os.path.join("dot_sync_client", "default.db_media", "b",
-                                unichr(40960) + u"b.ogg")
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "b", unichr(0x628) + u"b.ogg")
         assert os.path.exists(filename)
         assert file(filename).read() == "B"
