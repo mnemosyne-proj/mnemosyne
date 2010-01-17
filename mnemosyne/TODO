@@ -1,4 +1,5 @@
--update media event
+-o_id unicode?
+-log entry media to database
 -media modified outside of Mnemosyne
 
 -linebreak in fact data upsetting get history?

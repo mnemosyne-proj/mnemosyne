@@ -45,7 +45,7 @@ class LogEntry(dict):
         time (int): Unix timestamp for log entry.
         o_id (string): id of object involved in log entry (e.g. tag id for
             ADDED_TAG, string with name and version for STARTED_PROGRAM,
-            STARTED_SCHEDULER, ... .
+            STARTED_SCHEDULER, filename for MEDIA events, ... .
             Object ids should not contain commas.
         extra (unicode): extra data for tags, cards and card_types, typically
             the representation of a Python dictionary. Optional.
@@ -96,6 +96,10 @@ class LogEntry(dict):
         rt_rp (int): number of retention repetitions (gr >= 2)
         lps (int): number of lapses (new grade < 2 if old grade >= 2)
         ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse
+
+    Keys specific to ADDED_MEDIA, UPDATED_MEDIA, DELETED_MEDIA:
+        o_id (unicode): filename
+        fact (string): id of fact where filename is used 
     
     Any other keys in LogEntry that don't appear in the list above will be
     synced as unicode.

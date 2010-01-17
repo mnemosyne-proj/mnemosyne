@@ -144,7 +144,8 @@ SCHEMA = """
         _fact_id integer,
         last_modified integer
     );
-
+    create index i_media on media (filename); /* Should not be unique. */
+    
     /* Here, we store the card types that are created at run time by the user
        through the GUI, as opposed to those that are instantiated through a
        plugin. For columns containing lists, dicts, ...  like 'fields',
