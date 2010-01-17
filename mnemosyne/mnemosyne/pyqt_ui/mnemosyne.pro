@@ -59,3 +59,4 @@ TRANSLATIONS = locale/mnemosyne_XX.ts \
     locale/mnemosyne_eo.ts \
     locale/mnemosyne_hu.ts \
     locale/mnemosyne_tr.ts \
+    locale/mnemosyne_it.ts

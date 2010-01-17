@@ -69,7 +69,7 @@ easily, which allows plugin writers maximum flexibility.
 -Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
 
 	
-Mnemosyne 1.2.2 : 2009-xx-xx
+Mnemosyne 1.2.2 : 2010-xx-xx
 	
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
@@ -78,6 +78,7 @@ version before doing an upgrade.)
  Java phones.
 -fix rare hang in preprocessing paths (reported by LooM).
 -Remove hidden limit on grade 1 cards.
+-Italian translation by Enrico Leoni.
 -Turkish translation by Sercan Oruc.
 -Updated German translation by Dimitri Scheftner.
 -Updated French translation by Christophe Mealares and Yannick Voglaire.
