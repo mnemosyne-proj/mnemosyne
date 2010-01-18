@@ -20,10 +20,9 @@ class Fact(CompareOnId):
     files, ...), whereas '_id' is an internal id that could be different and
     that can be used by the database for efficiency reasons.
 
-    The keys in data should be in the latin charset for the sake of the
-    syncing procedure, but they can be given more descriptive names inside the
-    CardType class.
-
+    The keys in data should not contain characters like <, >, &, ..., as they
+    are used as unescaped tag names during sync.
+    
     When making new card types, it is best to reuse the keys below as much
     as possible, to facilitate conversion between card types:
 

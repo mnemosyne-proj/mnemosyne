@@ -44,17 +44,23 @@ class Synchroniser(object):
         params = cElementTree.fromstring(partner_params) 
         for key in params.keys():
             value = params.get(key)
-            if value == "true":
+            if value.lower() == "true":
                 value = True
-            if value == "false":
+            elif value.lower() == "false":
                 value = False
             self.partner[key] = value
 
     def log_entry_to_XML(self, log_entry):
 
-        """Note that this function should return a regular string, not a
-        unicode object, as unicode is not supported by the html standard.
+        """Converts LogEntry to XML.
 
+        For efficiency reasons we require tag names and attribute values to be
+        useable without escaping them with saxutils.quoteattr, so they should
+        not contain <, >, &, ... .
+
+        Note that the returned XML is a unicode object, and in order to send it
+        across a socket e.g., we still need to encode it first.
+        
         """
         
         attribs, tags = "", ""
@@ -63,12 +69,9 @@ class Synchroniser(object):
                 attribs += " %s='%s'" % (key, value)
             else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
-        xml = "<log%s>%s</log>" % (attribs, tags)
-    
-        import sys
-        sys.stderr.write(xml.encode("utf-8") + "\n")
-        
-        return xml.encode("utf-8")
+        xml = "<log%s>%s</log>" % (attribs, tags)   
+        import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
+        return xml
 
     def XML_to_log_entry(self, chunk):      
         xml = cElementTree.XML(chunk)

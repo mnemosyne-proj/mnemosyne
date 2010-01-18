@@ -174,7 +174,8 @@ class Server(WSGIServer):
             self.client_id):
             count += 1
             progress_dialog.set_value(count)
-            yield self.synchroniser.log_entry_to_XML(log_entry) + "\r\n"
+            yield self.synchroniser.log_entry_to_XML(log_entry).\
+                encode("utf-8") + "\r\n"
 
     def put_client_log_entries(self, environ):
         socket = environ["wsgi.input"]

@@ -118,7 +118,7 @@ class SQLiteSync(object):
         elif event_type in (EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA,
             EventTypes.DELETED_MEDIA):
             filename, fact_id = sql_res["object_id"].rsplit("__for__", 1)
-            log_entry["o_id"] = filename
+            log_entry["fname"] = filename
             log_entry["fact"] = fact_id
             # Note: for consistency reasons, we don't send across the
             # modification time here, but determine it on the other side from

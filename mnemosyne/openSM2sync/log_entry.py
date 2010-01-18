@@ -43,11 +43,11 @@ class LogEntry(dict):
     General keys:
         type (int): event type from list above.
         time (int): Unix timestamp for log entry.
-        o_id (string): id of object involved in log entry (e.g. tag id for
+        o_id (nice_string): id of object involved in log entry (e.g. tag id for
             ADDED_TAG, string with name and version for STARTED_PROGRAM,
-            STARTED_SCHEDULER, filename for MEDIA events, ... .
+            STARTED_SCHEDULER, ... .
             Object ids should not contain commas.
-        extra (unicode): extra data for tags, cards and card_types, typically
+        extra (string): extra data for tags, cards and card_types, typically
             the representation of a Python dictionary. Optional.
         
     Keys specific to LOADED_DATABASE and SAVED_DATABASE:
@@ -56,18 +56,18 @@ class LogEntry(dict):
             in the database.
         
     Keys specific to ADDED_TAG, UPDATED_TAG:
-        name (unicode): tag name
+        name (string): tag name
 
     Keys specific to ADDED_FACT, UPDATED_FACT:
-        card_t (string), c_time (int), m_time (int): card type id,
+        card_t (nice_string), c_time (int), m_time (int): card type id,
             creation time, modification time (Unix timestamp).
 
-        <fact_key> (unicode): any different key name than the ones above will
+        <fact_key> (string): any different key name than the ones above will
             be treated as belonging to the fact's data dictionary.
             
     Keys specific to ADDED_CARD, UPDATED_CARD:
-        fact (string), fact_v (string): fact id and fact view id
-        tags (string): comma separated list of tag ids
+        fact (nice_string), fact_v (nice_string): fact id and fact view id
+        tags (nice_string): comma separated list of tag ids
         act (int): card active?
         gr (int): grade (-1 through 5, -1 meaning unseen)
         e (float): easiness
@@ -98,18 +98,19 @@ class LogEntry(dict):
         ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse
 
     Keys specific to ADDED_MEDIA, UPDATED_MEDIA, DELETED_MEDIA:
-        o_id (unicode): filename
-        fact (string): id of fact where filename is used 
+        fname (string): filename
+        fact (nice_string): id of fact where filename is used 
     
     Any other keys in LogEntry that don't appear in the list above will be
-    synced as unicode.
+    synced as string.
 
     Events like DELETED_TAG, DELETED_FACT, etc only pass on the object id as
     data.
 
-    Note the difference between a string and a unicode type is that a string
-    should be useable directly as an attribute or tag name in XML. A unicode
-    object can be arbitrary and will be encoded/escaped as appropriate.
+    The difference between nice_string and string is that nice_string can be
+    used directly as an attribute or tag name in XML, i.e. it should not
+    contain <, >, &, ... . A normal string can be arbitrary and will be
+    encoded/escaped as appropriate.
 
     """
     

@@ -1,5 +1,4 @@
--o_id unicode?
--log entry media to database
+-media xml to database
 -media modified outside of Mnemosyne
 
 -linebreak in fact data upsetting get history?
@@ -24,6 +23,7 @@
 -test where buffering makes a difference
 -multiuser server, token?
 -ui: pass or notImplemented?
+-time saxutils.escape attr
 -server can report can refuse large files
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html

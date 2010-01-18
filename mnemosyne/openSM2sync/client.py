@@ -152,7 +152,8 @@ class Client(object):
         count = 0
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_id):
-            conn.send(self.synchroniser.log_entry_to_XML(log_entry) + "\n")
+            conn.send(self.synchroniser.log_entry_to_XML(log_entry).\
+                encode("utf-8") + "\n")
             count += 1
             progress_dialog.set_value(count)
         self.ui.status_bar_message("Waiting for server to complete...")
