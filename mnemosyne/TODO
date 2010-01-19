@@ -1,5 +1,8 @@
--media xml to database
--media modified outside of Mnemosyne
+-write tests for media and log table
+-media modified outside of Mnemosyne. generate update events for each fact that uses the media? (add to opensm2sync docs)
+ generalise to other different hashing schemes possible?
+-/ vs \ in filenames, os.path.normcase relative path in mediadir, add comments to utils,
+ _process_media: path that don't come in through copy_...
 
 -linebreak in fact data upsetting get history?
 -add q and a to cards if facts are not present
@@ -20,6 +23,7 @@
 -sql roll back?
 -conflict resolution
 -benchmarks
+-think about sending across cards as pictures
 -test where buffering makes a difference
 -multiuser server, token?
 -ui: pass or notImplemented?
@@ -182,6 +186,8 @@ the GUI function itself?
  a per card basis.
 -utf16?
 -make sure all grades are shown on first revision of imported card. Adapt button group title
+-http://gitorious.org/hooq/hooq? Qt4 testing
+ http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
 
 -tips (both on startup and on use): right click to add cards or sound, comma to 
  separate tag names, :: to separate hierarchies
