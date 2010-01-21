@@ -498,13 +498,12 @@ class TestSync(object):
             assert not os.path.exists(filename)
             assert db.con.execute("""select count() from media""").fetchone()[0] == 0
 
-            return
-            assert db.con.execute("select count() from log").fetchone()[0] == 20
+            # Since the media was added and deleted since the last sync, the
+            # DELETED_MEDIA event got "optimised away".
+            assert db.con.execute("select count() from log").fetchone()[0] == 15
             assert db.con.execute("select count() from log where event_type=?",
-                (EventTypes.DELETED_MEDIA, )).fetchone()[0] == 1      
-            assert db.con.execute("""select object_id from log where event_type=?
-                order by _id desc limit 1""", (EventTypes.DELETED_MEDIA, )).\
-                fetchone()[0].startswith("a")
+                (EventTypes.DELETED_MEDIA, )).fetchone()[0] == 0      
+
             
         self.server = MyServer()
         self.server.test_server = test_server

@@ -142,7 +142,7 @@ SCHEMA = """
     create table media(
         filename text,
         _fact_id integer,
-        last_modified integer
+        _hash integer
     );
     create index i_media on media (filename); /* Should not be unique. */
     
@@ -801,6 +801,26 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
     # Process media files in fact data.
     #
+
+    def _media_hash(self, filename):
+
+        """A hash function that will be used to determine whether or not a
+        media file has been modified outside of Mnemosyne.
+
+        'filename' is a relative path inside the media dir.
+
+        In the current implementation, we use the modification date for this.
+        Although less robust, modification dates are faster to lookup then
+        calculating a hash, especially on mobile devices.
+
+        In principle, you could have different hash implementations on
+        different systems, as the hash is considered something internal and is
+        not sent across during sync e.g.
+
+        """
+
+        return int(os.path.getmtime(os.path.join(self.mediadir(),
+            os.path.normcase(filename))))
     
     def _process_media(self, fact, timestamp):
         mediadir = self.mediadir()
@@ -824,11 +844,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Determine old media files for this fact.
         old_files = set((cursor["filename"] for cursor in self.con.execute(\
             "select filename from media where _fact_id=?", (fact._id, ))))
-        # Update the media table and log additions or deletions. We record
-        # the modification date so that we can detect if media files have
-        # been modified outside of Mnemosyne. (Although less robust,
-        # modification dates are faster to lookup then calculating a hash,
-        # especially on mobile devices.
+        # Update the media table and log additions or deletions.
         for filename in old_files - new_files:
             self.con.execute("""delete from media where filename=?
                 and _fact_id=?""", (filename, fact._id))
@@ -836,11 +852,11 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             # Delete the media file if it's not used by other facts.
             if self.con.execute("select count() from media where filename=?",
                                 (filename, )).fetchone()[0] == 0:
-                os.remove(os.path.join(mediadir, filename))
+                os.remove(os.path.join(mediadir, os.path.normcase(filename)))
         for filename in new_files - old_files:          
-            self.con.execute("""insert into media(filename, _fact_id,
-                last_modified) values(?,?,?)""", (filename, fact._id,
-                int(os.path.getmtime(os.path.join(mediadir, filename)))))
+            self.con.execute("""insert into media(filename, _fact_id, _hash)
+                values(?,?,?)""", (filename, fact._id,
+                self._media_hash(filename)))
             self.log_added_media(timestamp, filename, fact.id)
 
     #

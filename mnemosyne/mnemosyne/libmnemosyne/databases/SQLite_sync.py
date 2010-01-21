@@ -4,7 +4,7 @@
 #                  Ed Bartosh <bartosh@gmail.com>
 #
 
-import os
+import time
 
 from openSM2sync.log_entry import LogEntry
 from openSM2sync.log_entry import EventTypes
@@ -41,6 +41,20 @@ class SQLiteSync(object):
             (_id, )).fetchone()[0]
 
     def media_filenames_to_sync_for(self, partner):
+        # See if media was updated outside of Mnemosyne. No need to log
+        # corresponding fact ids in the update event, as it does not bring
+        # anything, would require an extra _id to id lookup, and one media
+        # file could be used in several facts as well.
+        new_hashes = {}
+        for sql_res in self.con.execute("select * from media"):
+            new_hash = self._media_hash(sql_res["filename"])
+            if sql_res["_hash"] != new_hash:
+                new_hashes[sql_res["filename"]] = new_hash
+        for filename, new_hash in new_hashes.iteritems():
+            self.con.execute("update media set _hash=? where filename=?",
+                (new_hash, filename))
+            self.log_updated_media(int(time.time()), filename, "")
+        # Collect media files to be sent across.
         _id = self.last_synced_log_entry_for(partner)
         added_updated = set(cursor[0].rsplit("__for__", 1)[0] for cursor in \
             self.con.execute("""select object_id from log where _id>? and
@@ -87,6 +101,11 @@ class SQLiteSync(object):
                 pass
         elif event_type in (EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD):
             try:
+                # Note that some of these values (e.g. the repetition count) we
+                # could in theory calculate from the previous state and the
+                # grade. However, we send the entire state of the card across
+                # because it could be that there is no valid previous state
+                # because of conflict resolution.
                 card = self.get_card(log_entry["o_id"], id_is_internal=False)
                 log_entry["fact"] = card.fact.id
                 log_entry["fact_v"] = card.fact_view.id
@@ -123,9 +142,6 @@ class SQLiteSync(object):
             log_entry["rt_rp_l"] = sql_res["ret_reps_since_lapse"]
         elif event_type in (EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA,
             EventTypes.DELETED_MEDIA):
-            # Note: for consistency reasons, we don't send across the
-            # modification time here, but determine it on the other side from
-            # the filesystem.
             log_entry["fname"], log_entry["fact"] = sql_res["object_id"].\
                 rsplit("__for__", 1)
             del log_entry["o_id"]
@@ -254,20 +270,10 @@ class SQLiteSync(object):
             log_entry["new_i"], log_entry["th_t"])
 
     def updated_media(self, log_entry):
-
-        """At this stage, the media files themselves have already been sent
-        across. To maintain internal consistency within each device, we
-        get the modification date from the local filesystem as opposed to
-        getting it from the sync partner.
-
-        """
-        
         filename = log_entry["fname"]
-        full_filename = os.path.join(self.mediadir(),
-            os.path.normcase(filename))
-        self.con.execute("""update media set last_modified=? where
-            filename=?""", (int(os.path.getmtime(full_filename)), filename))
-        self.log_updated_media(log_entry["time"], filename, log_entry["fact"])
+        self.con.execute("update media set _hash=? where filename=?",
+            (self._media_hash(filename), filename))
+        self.log_updated_media(log_entry["time"], filename, "")
     
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]
@@ -314,8 +320,10 @@ class SQLiteSync(object):
             self.apply_repetition(log_entry)
         elif event_type == EventTypes.UPDATED_MEDIA:
             # For ADDED_MEDIA and DELETED_MEDIA events, we don't need to do
-            # anything special here, as that will be taken care of by
-            # _process_media.
+            # anything special here. If they are still relevant, they will be
+            # taken care of by _process_media. If they are no longer relevant
+            # (e.g. adding and subsequently deleting media) they won't make it
+            # to the other side, but that's no big deal.
             self.updated_media(log_entry)
             
     def last_log_entry_index(self):

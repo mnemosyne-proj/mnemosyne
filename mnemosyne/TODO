@@ -1,6 +1,4 @@
--deleted media: document possible missing delete event
--media modified outside of Mnemosyne. generate update events for each fact that uses the media? (add to opensm2sync docs)
- generalise to other different hashing schemes possible?
+-modified media: review, test, revisit need to store fact id, update opensm2sync docs
 -/ vs \ in filenames, os.path.normcase relative path in mediadir, add comments to utils,
  _process_media: path that don't come in through copy_...
 
