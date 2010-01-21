@@ -421,7 +421,6 @@ class TestSync(object):
     def test_add_media(self):
 
         def fill_server_database(self):
-            import sys; sys.stderr.write("home"+os.getcwd()+'\n')
             os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
                 "default.db_media", "b"))
                      
@@ -443,6 +442,14 @@ class TestSync(object):
                 "default.db_media", "a", unichr(0x628) + u"a.ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
+            assert db.con.execute("select count() from log").fetchone()[0] == 20
+            assert db.con.execute("select count() from log where event_type=?",
+                (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2      
+            assert db.con.execute("""select object_id from log where event_type=?
+                order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
+                fetchone()[0].startswith("a/")
+            assert db.con.execute("""select filename from media order by _fact_id
+                desc limit 1""").fetchone()[0].startswith("a/")
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -471,3 +478,58 @@ class TestSync(object):
             "default.db_media", "b", unichr(0x628) + u"b.ogg")
         assert os.path.exists(filename)
         assert file(filename).read() == "B"
+        db = self.client.mnemosyne.database()
+        assert db.con.execute("select count() from log").fetchone()[0] == 20
+        assert db.con.execute("select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2      
+        assert db.con.execute("""select object_id from log where event_type=?
+            order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
+            fetchone()[0].startswith("b/")
+        assert db.con.execute("""select filename from media order by _fact_id
+            desc limit 1""").fetchone()[0].startswith("b/")
+
+    def test_delete_media(self):
+
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "a")
+            assert not os.path.exists(filename)
+            assert db.con.execute("""select count() from media""").fetchone()[0] == 0
+
+            return
+            assert db.con.execute("select count() from log").fetchone()[0] == 20
+            assert db.con.execute("select count() from log where event_type=?",
+                (EventTypes.DELETED_MEDIA, )).fetchone()[0] == 1      
+            assert db.con.execute("""select object_id from log where event_type=?
+                order by _id desc limit 1""", (EventTypes.DELETED_MEDIA, )).\
+                fetchone()[0].startswith("a")
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+        
+        self.client = MyClient()
+                     
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a.ogg")        
+        f = file(filename, "w")
+        f.write("A")
+        f.close()
+        fact_data = {"q": "question <img src=\"%s\">" % (filename),
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.client.mnemosyne.controller().file_save()
+
+        new_fact_data = {"q": "question", "a": "answer"}
+        self.client.mnemosyne.controller().update_related_cards(card.fact,
+            new_fact_data, card_type, new_tag_names=["tag_1", "tag_2"],
+            correspondence={})
+        self.client.do_sync()
+
+        db = self.client.mnemosyne.database()
+        assert db.con.execute("select count() from log").fetchone()[0] == 17
+        assert db.con.execute("""select count() from media""").fetchone()[0] == 0

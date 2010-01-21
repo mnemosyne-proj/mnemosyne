@@ -502,7 +502,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             timestamp = time.time()
         self.log_added_fact(timestamp, fact.id)
         # Process media files.
-        self._process_media(fact)
+        self._process_media(fact, timestamp)
 
     def get_fact(self, id, id_is_internal):
         if id_is_internal:
@@ -540,7 +540,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             timestamp = time.time()
         self.log_updated_fact(timestamp, fact.id)
         # Process media files.
-        self._process_media(fact)        
+        self._process_media(fact, timestamp)        
 
     def delete_fact_and_related_data(self, fact, timestamp=None):
         for card in self.cards_from_fact(fact):
@@ -553,7 +553,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.log_deleted_fact(timestamp, fact.id)
         # Process media files.
         fact.data = {}
-        self._process_media(fact)
+        self._process_media(fact, timestamp)
         del fact
 
     #
@@ -802,7 +802,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     # Process media files in fact data.
     #
     
-    def _process_media(self, fact):
+    def _process_media(self, fact, timestamp):
         mediadir = self.mediadir()
         # Determine new media files for this fact. Copy them to the media dir
         # if needed. (The user could have typed in the full path directly
@@ -832,7 +832,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         for filename in old_files - new_files:
             self.con.execute("""delete from media where filename=?
                 and _fact_id=?""", (filename, fact._id))
-            self.log().deleted_media(filename, fact)
+            self.log_deleted_media(timestamp, filename, fact.id)
             # Delete the media file if it's not used by other facts.
             if self.con.execute("select count() from media where filename=?",
                                 (filename, )).fetchone()[0] == 0:
@@ -841,7 +841,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.con.execute("""insert into media(filename, _fact_id,
                 last_modified) values(?,?,?)""", (filename, fact._id,
                 int(os.path.getmtime(os.path.join(mediadir, filename)))))
-            self.log().added_media(filename, fact)
+            self.log_added_media(timestamp, filename, fact.id)
 
     #
     # Queries.

@@ -42,11 +42,15 @@ class SQLiteSync(object):
 
     def media_filenames_to_sync_for(self, partner):
         _id = self.last_synced_log_entry_for(partner)
-        return (cursor[0].rsplit("__for__", 1)[0] for cursor in \
+        added_updated = set(cursor[0].rsplit("__for__", 1)[0] for cursor in \
             self.con.execute("""select object_id from log where _id>? and
             (event_type=? or event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
-            EventTypes.UPDATED_MEDIA)))       
-    
+            EventTypes.UPDATED_MEDIA)))
+        deleted = set(cursor[0].rsplit("__for__", 1)[0] for cursor in \
+            self.con.execute("""select object_id from log where _id>? and
+            event_type=?""", (_id, EventTypes.DELETED_MEDIA)))
+        return list(added_updated - deleted)
+        
     def _log_entry(self, sql_res):
 
         """Create log entry object in the format openSM2sync expects."""
@@ -124,6 +128,7 @@ class SQLiteSync(object):
             # the filesystem.
             log_entry["fname"], log_entry["fact"] = sql_res["object_id"].\
                 rsplit("__for__", 1)
+            del log_entry["o_id"]
         return log_entry
         
     def log_entries_to_sync_for(self, partner):
@@ -248,7 +253,7 @@ class SQLiteSync(object):
             log_entry["rt_rp_l"], log_entry["sch_i"], log_entry["act_i"],
             log_entry["new_i"], log_entry["th_t"])
 
-    def apply_media(self, log_entry):
+    def updated_media(self, log_entry):
 
         """At this stage, the media files themselves have already been sent
         across. To maintain internal consistency within each device, we
@@ -260,26 +265,9 @@ class SQLiteSync(object):
         filename = log_entry["fname"]
         full_filename = os.path.join(self.mediadir(),
             os.path.normcase(filename))
-        fact_id = log_entry["fact"]
-        _fact_id = self.con.execute("select _id from facts where id=?",
-            (fact_id, )).fetchone()[0]
-        if log_entry["type"] == EventTypes.ADDED_MEDIA:
-            self.con.execute("""insert into media(filename, _fact_id,
-                last_modified) values(?,?,?)""", (filename, _fact_id,
-                int(os.path.getmtime(full_filename))))
-            self.log_added_media(log_entry["time"], filename, fact_id)
-        elif log_entry["type"] == EventTypes.UPDATED_MEDIA:
-            self.con.execute("""update media set last_modified=? where
+        self.con.execute("""update media set last_modified=? where
             filename=?""", (int(os.path.getmtime(full_filename)), filename))
-            self.log_updated_media(log_entry["time"], filename, fact_id)
-        elif log_entry["type"] == EventTypes.DELETED_MEDIA:
-            self.con.execute("""delete from media where filename=?
-                and _fact_id=?""", (filename, _fact_id))
-            self.log_deleted_media(log_entry["time"], filename, fact_id)
-            # Delete the media file if it's not used by other facts.
-            if self.con.execute("select count() from media where filename=?",
-              (filename, )).fetchone()[0] == 0:
-                os.remove(full_filename)
+        self.log_updated_media(log_entry["time"], filename, log_entry["fact"])
     
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]
@@ -324,9 +312,11 @@ class SQLiteSync(object):
             self.delete_card(card, log_entry["time"])
         elif event_type == EventTypes.REPETITION:
             self.apply_repetition(log_entry)
-        elif event_type in (EventTypes.ADDED_MEDIA, 
-           EventTypes.UPDATED_MEDIA, EventTypes.DELETED_MEDIA):
-            self.apply_media(log_entry)
+        elif event_type == EventTypes.UPDATED_MEDIA:
+            # For ADDED_MEDIA and DELETED_MEDIA events, we don't need to do
+            # anything special here, as that will be taken care of by
+            # _process_media.
+            self.updated_media(log_entry)
             
     def last_log_entry_index(self):
         return self.con.execute(\

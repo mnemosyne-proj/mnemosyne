@@ -224,8 +224,7 @@ class Server(WSGIServer):
     
     def get_server_media_files(self, environ):
         self.ui.status_bar_message("Sending media files to client...")
-        filenames = [self.database.media_filenames_to_sync_for(\
-                self.client_id)]
+        filenames = self.database.media_filenames_to_sync_for(self.client_id)
         if len(filenames) == 0:
             return "OK"
         # TODO: get rid of temporary file and make this streaming.

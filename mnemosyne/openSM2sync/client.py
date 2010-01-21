@@ -96,8 +96,7 @@ class Client(object):
     def put_client_media_files(self):
         self.ui.status_bar_message("Sending media files to server...")
         # Size of tar archive.
-        filenames = list(self.database.media_filenames_to_sync_for(\
-            self.server_id))
+        filenames = self.database.media_filenames_to_sync_for(self.server_id)
         size = tar_file_size(self.database.mediadir(), filenames)
         if size == 0:
             return
