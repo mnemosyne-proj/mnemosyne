@@ -46,6 +46,10 @@ class Client(object):
             backup_file = self.database.backup()           
             self.login(username, password)
             self.handshake()
+            # We let the client check if files were updated outside of the
+            # program. This can generate MEDIA_UPDATED log entries, so it
+            # should be done first.
+            self.database.check_for_updated_media_files()
             self.put_client_log_entries()
             # Here, the server should send a summary of the sync and of
             # conflicts encountered, so here the user will later get the

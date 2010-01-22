@@ -40,11 +40,11 @@ class SQLiteSync(object):
         return self.con.execute("select count() from log where _id>?",
             (_id, )).fetchone()[0]
 
-    def media_filenames_to_sync_for(self, partner):
+    def check_for_updated_media_files(self):
         # See if media was updated outside of Mnemosyne. No need to log
-        # corresponding fact ids in the update event, as it does not bring
-        # anything, would require an extra _id to id lookup, and one media
-        # file could be used in several facts as well.
+        # corresponding fact ids in the UPDATED_MEDIA log entry, as it does
+        # not bring anything, would require an extra _id to id lookup, and one
+        # media file could be used in several facts as well.
         new_hashes = {}
         for sql_res in self.con.execute("select * from media"):
             new_hash = self._media_hash(sql_res["filename"])
@@ -54,7 +54,8 @@ class SQLiteSync(object):
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
             self.log_updated_media(int(time.time()), filename, "")
-        # Collect media files to be sent across.
+            
+    def media_filenames_to_sync_for(self, partner):
         _id = self.last_synced_log_entry_for(partner)
         added_updated = set(cursor[0].rsplit("__for__", 1)[0] for cursor in \
             self.con.execute("""select object_id from log where _id>? and

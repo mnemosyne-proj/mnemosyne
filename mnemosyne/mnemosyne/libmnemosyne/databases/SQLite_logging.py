@@ -130,8 +130,14 @@ class SQLiteLogging(object):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.ADDED_MEDIA, int(timestamp),
-             filename + "__for__" + fact_id))       
-
+             filename + "__for__" + fact_id))
+        
+    def log_updated_media(self, timestamp, filename, fact_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_MEDIA, int(timestamp),
+             filename + "__for__" + fact_id))
+        
     def log_deleted_media(self, timestamp, filename, fact_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",

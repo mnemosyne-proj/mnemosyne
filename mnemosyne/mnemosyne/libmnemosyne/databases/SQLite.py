@@ -139,10 +139,15 @@ SCHEMA = """
         _last_log_id integer
     );
 
+    /* Media files in use. The reason we track the corresponding fact, is to
+       be able to safely delete the media file once no fact needs it anymore.
+       (A media file could be used in more than one fact.)
+    */
+    
     create table media(
         filename text,
         _fact_id integer,
-        _hash integer
+        _hash text
     );
     create index i_media on media (filename); /* Should not be unique. */
     
@@ -818,8 +823,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         not sent across during sync e.g.
 
         """
-
-        return int(os.path.getmtime(os.path.join(self.mediadir(),
+        
+        return str(os.path.getmtime(os.path.join(self.mediadir(),
             os.path.normcase(filename))))
     
     def _process_media(self, fact, timestamp):

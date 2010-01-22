@@ -1,4 +1,5 @@
--modified media: review, test, revisit need to store fact id, update opensm2sync docs
+-test delete 2?
+-modified media: revisit need to autodelete media, update opensm2sync docs
 -/ vs \ in filenames, os.path.normcase relative path in mediadir, add comments to utils,
  _process_media: path that don't come in through copy_...
 

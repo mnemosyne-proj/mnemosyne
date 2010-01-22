@@ -224,6 +224,7 @@ class Server(WSGIServer):
     
     def get_server_media_files(self, environ):
         self.ui.status_bar_message("Sending media files to client...")
+        self.database.check_for_updated_media_files()
         filenames = self.database.media_filenames_to_sync_for(self.client_id)
         if len(filenames) == 0:
             return "OK"
