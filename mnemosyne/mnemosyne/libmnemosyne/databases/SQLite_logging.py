@@ -126,23 +126,20 @@ class SQLiteLogging(object):
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, int(thinking_time)))
 
-    def log_added_media(self, timestamp, filename, fact_id):
+    def log_added_media(self, timestamp, filename):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.ADDED_MEDIA, int(timestamp),
-             filename + "__for__" + fact_id))
+            (EventTypes.ADDED_MEDIA, int(timestamp), filename))
         
-    def log_updated_media(self, timestamp, filename, fact_id):
+    def log_updated_media(self, timestamp, filename):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.UPDATED_MEDIA, int(timestamp),
-             filename + "__for__" + fact_id))
+            (EventTypes.UPDATED_MEDIA, int(timestamp), filename))
         
-    def log_deleted_media(self, timestamp, filename, fact_id):
+    def log_deleted_media(self, timestamp, filename):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.DELETED_MEDIA, int(timestamp),
-             filename + "__for__" + fact_id))
+            (EventTypes.DELETED_MEDIA, int(timestamp), filename))
     
     def dump_to_txt_log(self):
         # Open log file and get starting index.

@@ -78,11 +78,14 @@ class SqlLogger(Logger):
             scheduled_interval, actual_interval, new_interval,                                              
             thinking_time)
 
-    def added_media(self, filename, fact):
-        self.database().log_added_media(time.time(), filename, fact.id)
-
-    def deleted_media(self, filename, fact):
-        self.database().log_deleted_media(time.time(), filename, fact.id)
+    def added_media(self, filename):
+        self.database().log_added_media(time.time(), filename)
+        
+    def updated_media(self, filename):
+        self.database().log_updated_media(time.time(), filename)
+        
+    def deleted_media(self, filename):
+        self.database().log_deleted_media(time.time(), filename)
             
     def dump_to_txt_log(self):
         self.database().dump_to_txt_log()

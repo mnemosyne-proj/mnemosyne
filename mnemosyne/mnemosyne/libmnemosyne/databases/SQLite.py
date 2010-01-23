@@ -138,18 +138,11 @@ SCHEMA = """
         partner text,
         _last_log_id integer
     );
-
-    /* Media files in use. The reason we track the corresponding fact, is to
-       be able to safely delete the media file once no fact needs it anymore.
-       (A media file could be used in more than one fact.)
-    */
     
     create table media(
-        filename text,
-        _fact_id integer,
+        filename text primary key,
         _hash text
     );
-    create index i_media on media (filename); /* Should not be unique. */
     
     /* Here, we store the card types that are created at run time by the user
        through the GUI, as opposed to those that are instantiated through a
@@ -828,42 +821,34 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             os.path.normcase(filename))))
     
     def _process_media(self, fact, timestamp):
-        mediadir = self.mediadir()
+
+        """Copy the media files to the media directory and update the media
+        table. We don't keep track of which facts use which media and delete
+        a media file if it's no longer in use. The reason for this is that some
+        people use the media directory as their only location to store their
+        media files, and also use these files for other purposes.
+
+        """
+        
         # Determine new media files for this fact. Copy them to the media dir
         # if needed. (The user could have typed in the full path directly
         # without going through the add_img or add_sound callback.)
-        matches = re_src.finditer("".join(fact.data.values()))
-        if not matches:
-            return
-        new_files = set()
-        for match in matches:
+        
+        for match in re_src.finditer("".join(fact.data.values())):
             filename = match.group(1)
             if os.path.isabs(filename):
-                filename = copy_file_to_dir(filename, mediadir)
+                filename = copy_file_to_dir(filename, self.mediadir())
                 for key, value in fact.data.iteritems():
                     fact.data[key] = value.replace(match.group(1), filename)
                     self.con.execute("""update data_for_fact set value=?
                         where _fact_id=? and key=?""",
                         (fact.data[key], fact._id, key))
-            new_files.add(filename)               
-        # Determine old media files for this fact.
-        old_files = set((cursor["filename"] for cursor in self.con.execute(\
-            "select filename from media where _fact_id=?", (fact._id, ))))
-        # Update the media table and log additions or deletions.
-        for filename in old_files - new_files:
-            self.con.execute("""delete from media where filename=?
-                and _fact_id=?""", (filename, fact._id))
-            self.log_deleted_media(timestamp, filename, fact.id)
-            # Delete the media file if it's not used by other facts.
             if self.con.execute("select count() from media where filename=?",
                                 (filename, )).fetchone()[0] == 0:
-                os.remove(os.path.join(mediadir, os.path.normcase(filename)))
-        for filename in new_files - old_files:          
-            self.con.execute("""insert into media(filename, _fact_id, _hash)
-                values(?,?,?)""", (filename, fact._id,
-                self._media_hash(filename)))
-            self.log_added_media(timestamp, filename, fact.id)
-
+                self.con.execute("""insert into media(filename, _hash)
+                    values(?,?)""", (filename, self._media_hash(filename)))
+                self.log_added_media(timestamp, filename)
+    
     #
     # Queries.
     #

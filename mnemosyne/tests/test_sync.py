@@ -450,8 +450,7 @@ class TestSync(object):
             assert db.con.execute("""select object_id from log where event_type=?
                 order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
                 fetchone()[0].startswith("a/")
-            assert db.con.execute("""select filename from media order by _fact_id
-                desc limit 1""").fetchone()[0].startswith("a/")
+            assert db.con.execute("select count() from media").fetchone()[0] == 2
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -483,58 +482,11 @@ class TestSync(object):
         db = self.client.mnemosyne.database()
         assert db.con.execute("select count() from log").fetchone()[0] == 20
         assert db.con.execute("select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2      
+            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2
+        assert db.con.execute("select count() from media").fetchone()[0] == 2  
         assert db.con.execute("""select object_id from log where event_type=?
             order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
             fetchone()[0].startswith("b/")
-        assert db.con.execute("""select filename from media order by _fact_id
-            desc limit 1""").fetchone()[0].startswith("b/")
-
-    def test_delete_media(self):
-
-        # Not that this test does not delete media on the server side; the file
-        # just never gets sends across in the first place, because it was
-        # created and deleted since the last sync.
-     
-        def test_server(self):
-            db = self.mnemosyne.database()
-            filename = os.path.join(os.path.abspath("dot_sync_server"),
-                "default.db_media", "a.ogg")
-            assert not os.path.exists(filename)
-            assert db.con.execute("""select count() from media""").fetchone()[0] == 0
-            # Since the media was added and deleted since the last sync, the
-            # DELETED_MEDIA log entry got "optimised away".
-            assert db.con.execute("select count() from log").fetchone()[0] == 15
-            assert db.con.execute("select count() from log where event_type=?",
-                (EventTypes.DELETED_MEDIA, )).fetchone()[0] == 0      
-         
-        self.server = MyServer()
-        self.server.test_server = test_server
-        self.server.start()
-        
-        self.client = MyClient()
-                     
-        filename = os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "a.ogg")        
-        f = file(filename, "w")
-        f.write("A")
-        f.close()
-        fact_data = {"q": "question <img src=\"%s\">" % (filename),
-                     "a": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
-        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
-            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-        self.client.mnemosyne.controller().file_save()
-
-        new_fact_data = {"q": "question", "a": "answer"}
-        self.client.mnemosyne.controller().update_related_cards(card.fact,
-            new_fact_data, card_type, new_tag_names=["tag_1", "tag_2"],
-            correspondence={})
-        self.client.do_sync()
-
-        db = self.client.mnemosyne.database()
-        assert db.con.execute("select count() from log").fetchone()[0] == 17
-        assert db.con.execute("""select count() from media""").fetchone()[0] == 0
 
     def test_update_media(self):
      

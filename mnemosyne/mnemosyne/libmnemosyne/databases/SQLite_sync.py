@@ -41,10 +41,6 @@ class SQLiteSync(object):
             (_id, )).fetchone()[0]
 
     def check_for_updated_media_files(self):
-        # See if media was updated outside of Mnemosyne. No need to log
-        # corresponding fact ids in the UPDATED_MEDIA log entry, as it does
-        # not bring anything, would require an extra _id to id lookup, and one
-        # media file could be used in several facts as well.
         new_hashes = {}
         for sql_res in self.con.execute("select * from media"):
             new_hash = self._media_hash(sql_res["filename"])
@@ -53,18 +49,15 @@ class SQLiteSync(object):
         for filename, new_hash in new_hashes.iteritems():
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
-            self.log_updated_media(int(time.time()), filename, "")
+            self.log_updated_media(int(time.time()), filename)
             
     def media_filenames_to_sync_for(self, partner):
+        # Not that Mnemosyne does not delete media files on its own, so
+        # DELETED_MEDIA log entries are irrelevant/ignored.
         _id = self.last_synced_log_entry_for(partner)
-        added_updated = set(cursor[0].rsplit("__for__", 1)[0] for cursor in \
-            self.con.execute("""select object_id from log where _id>? and
-            (event_type=? or event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
-            EventTypes.UPDATED_MEDIA)))
-        deleted = set(cursor[0].rsplit("__for__", 1)[0] for cursor in \
-            self.con.execute("""select object_id from log where _id>? and
-            event_type=?""", (_id, EventTypes.DELETED_MEDIA)))
-        return list(added_updated - deleted)
+        return [cursor[0] for cursor in self.con.execute("""select object_id
+            from log where _id>? and (event_type=? or event_type=?)""",
+            (_id, EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA))]
         
     def _log_entry(self, sql_res):
 
@@ -78,7 +71,7 @@ class SQLiteSync(object):
             log_entry["o_id"] = o_id        
         event_type = log_entry["type"]
         if event_type in (EventTypes.LOADED_DATABASE,
-           EventTypes.SAVED_DATABASE):
+          EventTypes.SAVED_DATABASE):
             log_entry["sch"] = sql_res["acq_reps"]
             log_entry["n_mem"] = sql_res["ret_reps"]
             log_entry["act"] = sql_res["lapses"]            
@@ -143,8 +136,7 @@ class SQLiteSync(object):
             log_entry["rt_rp_l"] = sql_res["ret_reps_since_lapse"]
         elif event_type in (EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA,
             EventTypes.DELETED_MEDIA):
-            log_entry["fname"], log_entry["fact"] = sql_res["object_id"].\
-                rsplit("__for__", 1)
+            log_entry["fname"] = sql_res["object_id"]
             del log_entry["o_id"]
         return log_entry
         
@@ -274,7 +266,7 @@ class SQLiteSync(object):
         filename = log_entry["fname"]
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
-        self.log_updated_media(log_entry["time"], filename, "")
+        self.log_updated_media(log_entry["time"], filename)
     
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]

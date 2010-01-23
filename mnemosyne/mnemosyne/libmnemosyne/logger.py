@@ -79,10 +79,13 @@ class Logger(Component):
                    new_interval, thinking_time):
         pass
 
-    def added_media(self, filename, fact):
+    def added_media(self, filename):
         pass
-
-    def deleted_media(self, filename, fact):
+    
+    def updated_media(self, filename):
+        pass
+    
+    def deleted_media(self, filename):
         pass
 
     def dump_to_txt_log(self):
