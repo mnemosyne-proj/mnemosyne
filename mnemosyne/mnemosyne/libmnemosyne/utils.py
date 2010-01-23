@@ -9,48 +9,57 @@ import sys
 import shutil
 import traceback
 
-def expand_path(p, prefix):
+def _abs_path(path):
 
-    """Make relative path 'p' absolute having prefix 'prefix' and normalise
-    slashes.
-
+    """Our own version of os.path.abspath, which does not check for platform.
+    In this way, we can test Windows paths even when running the testsuite
+    under Linux.
+    
     """
 
-    # normpath does not convert Windows separators to Unix separators, so we
-    # need to do that here.
-    p = p.replace("\\", "/")
-    prefix = prefix.replace("\\", "/")
-    # We write our own code to do os.path.isabs, so that the testsuite can run
-    # under Linux as well.
-    if (    ( (len(p) > 1) and p[0] == "/") \
-         or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
-        return os.path.normpath(p)
-    else:  
-        return os.path.normpath(os.path.join(prefix, p))
+    return    ((len(path) > 1) and path[0] == "/") \
+           or ((len(path) > 2) and path[1] == ":")
 
 
-def contract_path(p, prefix):
+def contract_path(path, start):
 
-    """Make absolute path 'p' relative to prefix 'prefix' and normalise
-    slashes.
+    """Return relative path to 'path' from the directory 'start'.
+    
+    All paths in Mnemosyne are internally stored with Unix separators /.
 
     """
 
     # Normalise paths and convert everything to lowercase on Windows.
-    p = os.path.normpath(p)
-    prefix = os.path.normpath(prefix)
-    if ( (len(p) > 2) and p[1] == ":"):
-        p = p.lower()
-        prefix = prefix.lower()       
+    # We avoid os.path.normcase here, so that we can test Windows paths
+    # even when running the testsuite under Linux.
+    path = os.path.normpath(path)
+    start = os.path.normpath(start)
+    if ( (len(path) > 2) and path[1] == ":"):
+        path = path.lower()
+        start = start.lower()
     # Do the actual detection.
-    if (    ( (len(p) > 1) and p[0] == "/") \
-         or ( (len(p) > 2) and p[1] == ":") ): # Unix or Windows absolute path.
+    if _abs_path(path):
         try:
-            return p.split(prefix)[1][1:]
+            rel_path = path.split(start)[1][1:]
         except:
-            return p            
+            rel_path = path   
     else:
-        return p
+        rel_path = path
+    return rel_path.replace("\\", "/")
+
+
+def expand_path(path, start):
+
+    """Make 'path' absolute starting from 'start'.
+
+    Also convert Unix separators to Windows separators on that platform.
+
+    """
+
+    if _abs_path(path):
+        return os.path.normcase(path)
+    else:  
+        return os.path.normcase(os.path.join(start, path))
 
 
 def copy_file_to_dir(filename, dirname):
@@ -63,9 +72,9 @@ def copy_file_to_dir(filename, dirname):
     filename = os.path.abspath(filename)
     dirname = os.path.abspath(dirname)
     if filename.startswith(dirname):
-        return filename.replace(dirname, "")[1:]
+        return contract_path(filename, dirname)
     dest_path = os.path.join(dirname, os.path.basename(filename))
-    if os.path.exists(dest_path):
+    if os.path.exists(dest_path):  # Rename it to something unique.
         prefix, suffix = dest_path.rsplit(".", 1)
         count = 0
         while True:
@@ -74,7 +83,7 @@ def copy_file_to_dir(filename, dirname):
             if not os.path.exists(dest_path):
                 break
     shutil.copy(filename, dest_path)
-    return contract_path(dest_path, dirname).replace("\\", "/")
+    return contract_path(dest_path, dirname)
 
 
 def numeric_string_cmp(s1, s2):

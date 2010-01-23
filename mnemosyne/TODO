@@ -1,3 +1,4 @@
+-review path handling in util code.
 -/ vs \ in filenames, os.path.normcase relative path in mediadir, add comments to utils,
  _process_media: path that don't come in through copy_...
 
