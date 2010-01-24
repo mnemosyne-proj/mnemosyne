@@ -230,9 +230,11 @@ Note that it is actually only at this stage that client and server can decide wh
 
 * media
 
-Since media can be modified outside of the program, it makes no sense to use the history to track media. Rather, each instance should keep track of which media files are associated with a deck, and what the last know modification date or checksum is was in order to determine which media files need syncing. Question: do we track timestamps or checksums? Checksums could be expensive on a mobile device. OTOH, the mobile device could specify that it is never used to update media files, and hence only needs to read info from the server.
+Since media can be modified outside of the program, it makes no sense to use the history to track media. Rather, each instance should keep track of which media files are associated with a deck, and what the last know modification date or checksum is was in order to determine which media files need syncing. This timestamp or checksum is considered internal to the program, and not sent across during sync, to allow for the fact that different programs can use different methods to track file updates. E.g., checksums could be more expensive that timestapms on a mobile device.
 
-Contrary to the other datastreams, the media should not be compressed as it is already compressed by itself.
+Contrary to the other datastreams, the media should not be compressed as most of the time media files are already compressed by itself.
+
+Media could be nested in subdirectories. All the media to be updated during sync is bundled in a single PAX format tar file.
 
 
 * Mnemosyne specific data

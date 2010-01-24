@@ -829,20 +829,20 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         media files, and also use these files for other purposes.
 
         """
-        
-        # Determine new media files for this fact. Copy them to the media dir
-        # if needed. (The user could have typed in the full path directly
-        # without going through the add_img or add_sound callback.)
-        
+                
         for match in re_src.finditer("".join(fact.data.values())):
             filename = match.group(1)
+            # If needed, copy file to the media dir. Normally this happens when
+            # the user clicks 'Add image' e.g., but he could have typed in the
+            # full path directly.
             if os.path.isabs(filename):
                 filename = copy_file_to_dir(filename, self.mediadir())
-                for key, value in fact.data.iteritems():
-                    fact.data[key] = value.replace(match.group(1), filename)
-                    self.con.execute("""update data_for_fact set value=?
-                        where _fact_id=? and key=?""",
-                        (fact.data[key], fact._id, key))
+            else:  # We always store Unix paths internally.
+                filename = filename.replace("\\", "/")
+            for key, value in fact.data.iteritems():
+                fact.data[key] = value.replace(match.group(1), filename)
+                self.con.execute("""update data_for_fact set value=? where
+                    _fact_id=? and key=?""", (fact.data[key], fact._id, key))
             if self.con.execute("select count() from media where filename=?",
                                 (filename, )).fetchone()[0] == 0:
                 self.con.execute("""insert into media(filename, _hash)

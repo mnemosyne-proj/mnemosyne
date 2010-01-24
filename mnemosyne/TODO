@@ -1,8 +1,3 @@
--review path handling in util code.
--/ vs \ in filenames, os.path.normcase relative path in mediadir, add comments to utils,
- _process_media: path that don't come in through copy_...
-
--linebreak in fact data upsetting get history?
 -add q and a to cards if facts are not present
 -cdata, encode for deck name, unicode + test
 -test scheduled, active count sync on load/save + type
@@ -23,6 +18,7 @@
 -benchmarks
 -think about sending across cards as pictures
 -test where buffering makes a difference
+-linebreak in fact data upsetting get history
 -multiuser server, token?
 -ui: pass or notImplemented?
 -time saxutils.escape attr
