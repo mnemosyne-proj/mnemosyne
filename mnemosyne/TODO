@@ -1,3 +1,5 @@
+-benchmark and test sync on realistic database
+
 -add q and a to cards if facts are not present
 -cdata, encode for deck name, unicode + test
 -test scheduled, active count sync on load/save + type
