@@ -69,13 +69,14 @@ easily, which allows plugin writers maximum flexibility.
 -Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
 
 	
-Mnemosyne 1.2.2 : 2010-xx-xx
+Mnemosyne 1.2.2 : 2010-01-29
 	
 (Note that for Windows users we recommend uninstalling the previous 
 version before doing an upgrade.)
 
--Added support routines to enable Tim Bourke's plugin to review cards on
- Java phones.
+-Added support for Tim Bourke's Mnemogogo plugin, which enables you
+ to review cards on Java-based phones. See
+ http://www.tbrk.org/software/mnemogogo.html
 -fix rare hang in preprocessing paths (reported by LooM).
 -Remove hidden limit on grade 1 cards.
 -Italian translation by Enrico Leoni.
