@@ -1,3 +1,6 @@
+-syncing a database that was imported from 1.x gives problems, because we changed
+ the card ids behind libmnemosyne's back.
+-reenable media sync
 -benchmark and test sync on realistic database
 
 -add q and a to cards if facts are not present

@@ -52,6 +52,11 @@ class SQLiteSync(object):
             self.log_updated_media(int(time.time()), filename)
             
     def media_filenames_to_sync_for(self, partner):
+
+        #TMP
+        return []
+
+        
         # Not that Mnemosyne does not delete media files on its own, so
         # DELETED_MEDIA log entries are irrelevant/ignored.
         _id = self.last_synced_log_entry_for(partner)
@@ -271,10 +276,13 @@ class SQLiteSync(object):
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]
         if event_type in (EventTypes.STARTED_PROGRAM,
-           EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER):
+            EventTypes.STARTED_SCHEDULER):
             self.con.execute("""insert into log(event_type, timestamp,
-               object_id) values(?,?,?)""", (event_type, log_entry["time"],
-               log_entry["o_id"]))
+                object_id) values(?,?,?)""", (event_type, log_entry["time"],
+                log_entry["o_id"]))
+        elif event_type == EventTypes.STOPPED_PROGRAM:
+            self.con.execute("""insert into log(event_type, timestamp)
+                values(?,?)""", (event_type, log_entry["time"]))            
         elif event_type in (EventTypes.LOADED_DATABASE,
            EventTypes.SAVED_DATABASE):
             self.con.execute("""insert into log(event_type, timestamp,

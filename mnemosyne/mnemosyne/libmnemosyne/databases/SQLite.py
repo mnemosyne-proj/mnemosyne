@@ -549,9 +549,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         if not timestamp:
             timestamp = time.time()
         self.log_deleted_fact(timestamp, fact.id)
-        # Process media files.
-        fact.data = {}
-        self._process_media(fact, timestamp)
         del fact
 
     #

@@ -270,6 +270,7 @@ class TestSync(object):
         self.server.client_fact_id = fact.id
         self.server.client_creation_time = fact.creation_time
         self.client.mnemosyne.controller().file_save()
+        self.client.mnemosyne.log().stopped_program()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 10
