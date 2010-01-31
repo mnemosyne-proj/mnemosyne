@@ -49,15 +49,10 @@ class SQLiteSync(object):
         for filename, new_hash in new_hashes.iteritems():
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
-            self.log_updated_media(int(time.time()), filename)
+            self.log().updated_media(filename)
             
-    def media_filenames_to_sync_for(self, partner):
-
-        #TMP
-        return []
-
-        
-        # Not that Mnemosyne does not delete media files on its own, so
+    def media_filenames_to_sync_for(self, partner):        
+        # Note that Mnemosyne does not delete media files on its own, so
         # DELETED_MEDIA log entries are irrelevant/ignored.
         _id = self.last_synced_log_entry_for(partner)
         return [cursor[0] for cursor in self.con.execute("""select object_id
@@ -267,22 +262,21 @@ class SQLiteSync(object):
             log_entry["rt_rp_l"], log_entry["sch_i"], log_entry["act_i"],
             log_entry["new_i"], log_entry["th_t"])
 
-    def updated_media(self, log_entry):
+    def update_media(self, log_entry):
         filename = log_entry["fname"]
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
-        self.log_updated_media(log_entry["time"], filename)
+        self.log().updated_media(filename)
     
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]
-        if event_type in (EventTypes.STARTED_PROGRAM,
-            EventTypes.STARTED_SCHEDULER):
-            self.con.execute("""insert into log(event_type, timestamp,
-                object_id) values(?,?,?)""", (event_type, log_entry["time"],
-                log_entry["o_id"]))
+        self.log().timestamp = int(log_entry["time"])
+        if event_type == EventTypes.STARTED_PROGRAM:
+            self.log().started_program(log_entry["o_id"])
         elif event_type == EventTypes.STOPPED_PROGRAM:
-            self.con.execute("""insert into log(event_type, timestamp)
-                values(?,?)""", (event_type, log_entry["time"]))            
+            self.log().stopped_program()
+        elif event_type == EventTypes.STARTED_SCHEDULER:
+            self.log().started_scheduler(log_entry["o_id"])
         elif event_type in (EventTypes.LOADED_DATABASE,
            EventTypes.SAVED_DATABASE):
             self.con.execute("""insert into log(event_type, timestamp,
@@ -290,33 +284,26 @@ class SQLiteSync(object):
             log_entry["time"], log_entry["sch"], log_entry["n_mem"],
             log_entry["act"]))
         elif event_type == EventTypes.ADDED_TAG:
-            tag = self.tag_from_log_entry(log_entry)
-            self.add_tag(tag, log_entry["time"])
+            self.add_tag(self.tag_from_log_entry(log_entry))
         elif event_type == EventTypes.UPDATED_TAG:
-            tag = self.tag_from_log_entry(log_entry)
-            self.update_tag(tag, log_entry["time"])
+            self.update_tag(self.tag_from_log_entry(log_entry))
         elif event_type == EventTypes.DELETED_TAG:
-            tag = self.tag_from_log_entry(log_entry)
-            self.delete_tag(tag, log_entry["time"])
+            self.delete_tag(self.tag_from_log_entry(log_entry))
         elif event_type == EventTypes.ADDED_FACT:
-            fact = self.fact_from_log_entry(log_entry)
-            self.add_fact(fact, log_entry["time"])
+            self.add_fact(self.fact_from_log_entry(log_entry))
         elif event_type == EventTypes.UPDATED_FACT:
-            fact = self.fact_from_log_entry(log_entry)
-            self.update_fact(fact, log_entry["time"])
+            self.update_fact(self.fact_from_log_entry(log_entry))
         elif event_type == EventTypes.DELETED_FACT:
             fact = self.fact_from_log_entry(log_entry)
-            self.delete_fact_and_related_data(fact, log_entry["time"])
+            self.delete_fact_and_related_data(fact)
         elif event_type == EventTypes.ADDED_CARD:
             card = self.card_from_log_entry(log_entry)
-            self.add_card(card) # Does not log.
-            self.log_added_card(log_entry["time"], card.id)
+            self.add_card(card) # Does not log, so we need to do it ourselves.
+            self.log().added_card(card)
         elif event_type == EventTypes.UPDATED_CARD:
-            card = self.card_from_log_entry(log_entry)
-            self.update_card(card, log_entry["time"])
+            self.update_card(self.card_from_log_entry(log_entry))
         elif event_type == EventTypes.DELETED_CARD:
-            card = self.card_from_log_entry(log_entry)
-            self.delete_card(card, log_entry["time"])
+            self.delete_card(self.card_from_log_entry(log_entry))
         elif event_type == EventTypes.REPETITION:
             self.apply_repetition(log_entry)
         elif event_type == EventTypes.UPDATED_MEDIA:
@@ -325,7 +312,8 @@ class SQLiteSync(object):
             # taken care of by _process_media. If they are no longer relevant
             # (e.g. adding and subsequently deleting media) they won't make it
             # to the other side, but that's no big deal.
-            self.updated_media(log_entry)
+            self.update_media(log_entry)
+        self.log().timestamp = None
             
     def last_log_entry_index(self):
         return self.con.execute(\

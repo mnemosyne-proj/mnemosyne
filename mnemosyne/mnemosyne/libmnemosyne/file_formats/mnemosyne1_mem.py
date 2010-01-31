@@ -31,6 +31,8 @@ class Mnemosyne1Mem(FileFormat):
         return int(calendar.timegm(date_only.timetuple()))
     
     def _set_card_attributes(self, card, item):
+        # Note that we cannot give cards a new idea, otherwise the log server
+        # would not know it was the same card.
         self.database().change_card_id(card, item.id)
         for attr in ["id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse"]:

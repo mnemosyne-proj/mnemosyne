@@ -255,7 +255,7 @@ class TestSync(object):
                 assert 1 == 0
             except TypeError:
                 pass
-            assert db.con.execute("select count() from log").fetchone()[0] == 10
+            assert db.con.execute("select count() from log").fetchone()[0] == 11
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -273,7 +273,7 @@ class TestSync(object):
         self.client.mnemosyne.log().stopped_program()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 10
+            "select count() from log").fetchone()[0] == 11
         
     def test_add_cards(self):
 

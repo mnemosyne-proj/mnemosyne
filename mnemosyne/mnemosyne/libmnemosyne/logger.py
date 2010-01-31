@@ -3,6 +3,7 @@
 #
 
 import os
+import time
 
 from mnemosyne.libmnemosyne.component import Component
 
@@ -12,6 +13,7 @@ class Logger(Component):
     component_type = "log"
 
     def activate(self):
+        self._timestamp = None
         self.upload_thread = None
         self.archive_old_log()
         self.start_logging()
@@ -20,17 +22,36 @@ class Logger(Component):
             from mnemosyne.libmnemosyne.log_uploader import LogUploader
             self.upload_thread = LogUploader(self.component_manager)
             self.upload_thread.start()
+
+    def get_timestamp(self):
+
+        """If self._timestamp == None (the default), then the timestamp will
+        be the current time. It is useful to be able to override this, e.g.
+        during database import or syncing, when you need to add log entries
+        to the database that happened in the past.
+
+        """
+        
+        if self._timestamp == None:
+            return time.time()
+        else:
+            return self._timestamp
+        
+    def set_timestamp(self, timestamp):
+        self._timestamp = timestamp
+
+    timestamp = property(get_timestamp, set_timestamp)
     
     def start_logging(self):
         pass
     
-    def started_program(self):
+    def started_program(self, version_string=None):
         pass
         
     def stopped_program(self):
         pass
     
-    def started_scheduler(self):
+    def started_scheduler(self, scheduler_name=None):
         pass
 
     def loaded_database(self):

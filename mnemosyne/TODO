@@ -1,6 +1,17 @@
+-make all logging go through logger interface
+-loaded database, saved_database, repetition
+-grep -r --include=*.py '\.log_' .
+-"insert into log" sql statement only happens through logging interface
+
+-rename sql logger to database logger?
+-make sure setting the logger timestamp to None always occurs, even when having exceptions
+
+-rewrite import 1.x routines so that card creation happens at the time it happened in the past.
+ take missing logs into account.
+
 -syncing a database that was imported from 1.x gives problems, because we changed
  the card ids behind libmnemosyne's back.
--reenable media sync
+-rename media files-> external files?
 -benchmark and test sync on realistic database
 
 -add q and a to cards if facts are not present
@@ -44,7 +55,6 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -just copy database on initial sync
 -make sure after import all sync events fire
 -rework logging? still need for high-level interface?
--add timestamp argument to database.py
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -chunk reading history events in larger blocks?
 -update readme. Mention how clients should deal with update events of cards that were deleted
@@ -82,6 +92,7 @@ def parse_JSON(fileobj):
 -add update after import
 -sync adding sets
 
+-where to move txt_log_parser
 -need component.statisticspages and configuration widgets?
 
 -move ~/.mnemosyne to .config/mnemosyne as per freedesktop standard?

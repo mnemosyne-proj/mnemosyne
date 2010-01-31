@@ -422,16 +422,12 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.add_tag(tag)
         return tag
 
-    def add_tag(self, tag, timestamp=None):
-        # We can specify the timestamp at which this event happened.
-        # Needed during synchronisation process.
+    def add_tag(self, tag):
         _id = self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
-        if not timestamp:
-            timestamp = int(time.time())
-        self.log_added_tag(timestamp, tag.id)
+        self.log().added_tag(tag)
         for criterion in self.get_activity_criteria():
             criterion.tag_created(tag)
             self.update_activity_criterion(criterion)
@@ -448,19 +444,15 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, tag)
         return tag
 
-    def update_tag(self, tag, timestamp=None):
+    def update_tag(self, tag):
         self.con.execute("update tags set name=?, extra_data=? where _id=?",
             (tag.name, self._repr_extra_data(tag.extra_data),
              tag._id))
-        if not timestamp:
-            timestamp = time.time()
-        self.log_updated_tag(timestamp, tag.id)
+        self.log().updated_tag(tag)
     
-    def delete_tag(self, tag, timestamp=None):
+    def delete_tag(self, tag):
         self.con.execute("delete from tags where _id=?", (tag._id, ))
-        if not timestamp:
-            timestamp = time.time()
-        self.log_deleted_tag(timestamp, tag.id)
+        self.log().deleted_tag(tag)
         for criterion in self.get_activity_criteria():
             criterion.tag_deleted(tag)
             self.update_activity_criterion(criterion)
@@ -484,7 +476,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     # Facts.
     #
     
-    def add_fact(self, fact, timestamp=None):
+    def add_fact(self, fact):
         self.load_failed = False
         # Add fact to facts table.
         _fact_id = self.con.execute("""insert into facts(id, card_type_id,
@@ -496,11 +488,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((_fact_id, key, value)
                 for key, value in fact.data.items()))
-        if not timestamp:
-            timestamp = time.time()
-        self.log_added_fact(timestamp, fact.id)
+        self.log().added_fact(fact)
         # Process media files.
-        self._process_media(fact, timestamp)
+        self._process_media(fact)
 
     def get_fact(self, id, id_is_internal):
         if id_is_internal:
@@ -523,7 +513,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, fact)
         return fact
     
-    def update_fact(self, fact, timestamp=None):
+    def update_fact(self, fact):
         # Update fact.
         self.con.execute("""update facts set card_type_id=?, creation_time=?,
             modification_time=? where _id=?""", (fact.card_type.id,
@@ -534,21 +524,17 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
                 for key, value in fact.data.items()))
-        if not timestamp:
-            timestamp = time.time()
-        self.log_updated_fact(timestamp, fact.id)
+        self.log().updated_fact(fact)
         # Process media files.
-        self._process_media(fact, timestamp)        
+        self._process_media(fact)
 
-    def delete_fact_and_related_data(self, fact, timestamp=None):
+    def delete_fact_and_related_data(self, fact):
         for card in self.cards_from_fact(fact):
             self.delete_card(card)
         self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
                          (fact._id, ))
-        if not timestamp:
-            timestamp = time.time()
-        self.log_deleted_fact(timestamp, fact.id)
+        self.log().deleted_fact(fact)
         del fact
 
     #
@@ -601,7 +587,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             card.tags.add(self.get_tag(cursor["_tag_id"], id_is_internal=True))
         return card
     
-    def update_card(self, card, repetition_only=False, timestamp=None):
+    def update_card(self, card, repetition_only=False):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
@@ -613,9 +599,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.active, card.in_view, card._id))
-        if not timestamp:
-            timestamp = time.time()
-        self.log_updated_card(timestamp, card.id)
+        self.log().updated_card(card)
         if repetition_only:
             return
         # Link card to its tags. The tags themselves have already been created
@@ -627,15 +611,13 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.con.execute("""insert into tags_for_card(_tag_id,
                 _card_id) values(?,?)""", (tag._id, card._id))
 
-    def delete_card(self, card, timestamp=None):
+    def delete_card(self, card):
         self.con.execute("delete from cards where _id=?", (card._id, ))
         self.con.execute("delete from tags_for_card where _card_id=?",
                          (card._id, ))
         for tag in card.tags:
             self.remove_tag_if_unused(tag)
-        if not timestamp:
-            timestamp = time.time()     
-        self.log_deleted_card(timestamp, card.id)
+        self.log().deleted_card(card)
         del card
 
     #
@@ -817,7 +799,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return str(os.path.getmtime(os.path.join(self.mediadir(),
             os.path.normcase(filename))))
     
-    def _process_media(self, fact, timestamp):
+    def _process_media(self, fact):
 
         """Copy the media files to the media directory and update the media
         table. We don't keep track of which facts use which media and delete
@@ -844,7 +826,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                                 (filename, )).fetchone()[0] == 0:
                 self.con.execute("""insert into media(filename, _hash)
                     values(?,?)""", (filename, self._media_hash(filename)))
-                self.log_added_media(timestamp, filename)
+                self.log().added_media(filename)
     
     #
     # Queries.

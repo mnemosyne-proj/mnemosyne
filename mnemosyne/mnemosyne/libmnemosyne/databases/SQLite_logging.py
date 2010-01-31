@@ -20,11 +20,10 @@ class SQLiteLogging(object):
 
     """
                             
-    def log_started_program(self, timestamp, program_name_version):
+    def log_started_program(self, timestamp, version_string):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.STARTED_PROGRAM, int(timestamp),
-             program_name_version))
+            (EventTypes.STARTED_PROGRAM, int(timestamp), version_string))
 
     def log_stopped_program(self, timestamp):
         self.con.execute(\
