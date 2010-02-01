@@ -25,17 +25,23 @@ class SqlLogger(Logger):
             scheduler_name = self.scheduler().name
         self.database().log_started_scheduler(self.timestamp, scheduler_name)
             
-    def loaded_database(self):
-        sch = self.scheduler()
-        self.database().log_loaded_database(self.timestamp,
-            sch.scheduled_count(), sch.non_memorised_count(),
-            sch.active_count())
+    def loaded_database(self, scheduled_count=None, non_memorised_count=None,
+        active_count=None):
+        if scheduled_count == None:
+            scheduled_count = self.scheduler().scheduled_count()
+            non_memorised_count = self.scheduler().non_memorised_count()
+            active_count = self.scheduler().active_count()
+        self.database().log_loaded_database(self.timestamp, scheduled_count,
+            non_memorised_count, active_count)
         
-    def saved_database(self):
-        sch = self.scheduler()
-        self.database().log_saved_database(self.timestamp,
-            sch.scheduled_count(), sch.non_memorised_count(),
-            sch.active_count())
+    def saved_database(self, scheduled_count=None, non_memorised_count=None,
+        active_count=None):
+        if scheduled_count == None:
+            scheduled_count = self.scheduler().scheduled_count()
+            non_memorised_count = self.scheduler().non_memorised_count()
+            active_count = self.scheduler().active_count()
+        self.database().log_saved_database(self.timestamp, scheduled_count,
+            non_memorised_count, active_count)
         
     def added_tag(self, tag):
         self.database().log_added_tag(self.timestamp, tag.id)

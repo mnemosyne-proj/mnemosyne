@@ -15,6 +15,13 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 
+# Simple named-tuple like class, to avoid the expensive creation a full card
+# object. (Python 2.5 does not yet have a named tuple.)
+
+class Bunch:
+    def __init__(self, **kwds):
+        self.__dict__.update(kwds)
+
 
 class SQLiteSync(object):
 
@@ -256,11 +263,13 @@ class SQLiteSync(object):
     def apply_repetition(self, log_entry):
         # Note that the corresponding changing of the card properties is
         # handled by a separate UPDATED_CARD event.
-        self.log_repetition(log_entry["time"], log_entry["o_id"],
-            log_entry["gr"], log_entry["e"], log_entry["ac_rp"],
-            log_entry["rt_rp"], log_entry["lps"], log_entry["ac_rp_l"],
-            log_entry["rt_rp_l"], log_entry["sch_i"], log_entry["act_i"],
-            log_entry["new_i"], log_entry["th_t"])
+        card = Bunch(id=log_entry["o_id"], grade=log_entry["gr"],
+            easiness=log_entry["e"], acq_reps=log_entry["ac_rp"],
+            ret_reps=log_entry["rt_rp"], lapses=log_entry["lps"],
+            acq_reps_since_lapse=log_entry["ac_rp_l"],
+            ret_reps_since_lapse=log_entry["rt_rp_l"])
+        self.log().repetition(card, log_entry["sch_i"], log_entry["act_i"],
+                   log_entry["new_i"], log_entry["th_t"])
 
     def update_media(self, log_entry):
         filename = log_entry["fname"]
@@ -271,49 +280,52 @@ class SQLiteSync(object):
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]
         self.log().timestamp = int(log_entry["time"])
-        if event_type == EventTypes.STARTED_PROGRAM:
-            self.log().started_program(log_entry["o_id"])
-        elif event_type == EventTypes.STOPPED_PROGRAM:
-            self.log().stopped_program()
-        elif event_type == EventTypes.STARTED_SCHEDULER:
-            self.log().started_scheduler(log_entry["o_id"])
-        elif event_type in (EventTypes.LOADED_DATABASE,
-           EventTypes.SAVED_DATABASE):
-            self.con.execute("""insert into log(event_type, timestamp,
-            acq_reps, ret_reps, lapses) values(?,?,?,?,?)""", (event_type,
-            log_entry["time"], log_entry["sch"], log_entry["n_mem"],
-            log_entry["act"]))
-        elif event_type == EventTypes.ADDED_TAG:
-            self.add_tag(self.tag_from_log_entry(log_entry))
-        elif event_type == EventTypes.UPDATED_TAG:
-            self.update_tag(self.tag_from_log_entry(log_entry))
-        elif event_type == EventTypes.DELETED_TAG:
-            self.delete_tag(self.tag_from_log_entry(log_entry))
-        elif event_type == EventTypes.ADDED_FACT:
-            self.add_fact(self.fact_from_log_entry(log_entry))
-        elif event_type == EventTypes.UPDATED_FACT:
-            self.update_fact(self.fact_from_log_entry(log_entry))
-        elif event_type == EventTypes.DELETED_FACT:
-            fact = self.fact_from_log_entry(log_entry)
-            self.delete_fact_and_related_data(fact)
-        elif event_type == EventTypes.ADDED_CARD:
-            card = self.card_from_log_entry(log_entry)
-            self.add_card(card) # Does not log, so we need to do it ourselves.
-            self.log().added_card(card)
-        elif event_type == EventTypes.UPDATED_CARD:
-            self.update_card(self.card_from_log_entry(log_entry))
-        elif event_type == EventTypes.DELETED_CARD:
-            self.delete_card(self.card_from_log_entry(log_entry))
-        elif event_type == EventTypes.REPETITION:
-            self.apply_repetition(log_entry)
-        elif event_type == EventTypes.UPDATED_MEDIA:
-            # For ADDED_MEDIA and DELETED_MEDIA events, we don't need to do
-            # anything special here. If they are still relevant, they will be
-            # taken care of by _process_media. If they are no longer relevant
-            # (e.g. adding and subsequently deleting media) they won't make it
-            # to the other side, but that's no big deal.
-            self.update_media(log_entry)
-        self.log().timestamp = None
+        try:
+            if event_type == EventTypes.STARTED_PROGRAM:
+                self.log().started_program(log_entry["o_id"])
+            elif event_type == EventTypes.STOPPED_PROGRAM:
+                self.log().stopped_program()
+            elif event_type == EventTypes.STARTED_SCHEDULER:
+                self.log().started_scheduler(log_entry["o_id"])
+            elif event_type == EventTypes.LOADED_DATABASE:
+                self.log().loaded_database(log_entry["sch"],
+                    log_entry["n_mem"], log_entry["act"])
+            elif event_type == EventTypes.SAVED_DATABASE:
+                self.log().saved_database(log_entry["sch"],
+                    log_entry["n_mem"], log_entry["act"])
+            elif event_type == EventTypes.ADDED_TAG:
+                self.add_tag(self.tag_from_log_entry(log_entry))
+            elif event_type == EventTypes.UPDATED_TAG:
+                self.update_tag(self.tag_from_log_entry(log_entry))
+            elif event_type == EventTypes.DELETED_TAG:
+                self.delete_tag(self.tag_from_log_entry(log_entry))
+            elif event_type == EventTypes.ADDED_FACT:
+                self.add_fact(self.fact_from_log_entry(log_entry))
+            elif event_type == EventTypes.UPDATED_FACT:
+                self.update_fact(self.fact_from_log_entry(log_entry))
+            elif event_type == EventTypes.DELETED_FACT:
+                fact = self.fact_from_log_entry(log_entry)
+                self.delete_fact_and_related_data(fact)
+            elif event_type == EventTypes.ADDED_CARD:
+                card = self.card_from_log_entry(log_entry)
+                # 'add_card' does not log, so we need to do it ourselves.
+                self.add_card(card)
+                self.log().added_card(card)
+            elif event_type == EventTypes.UPDATED_CARD:
+                self.update_card(self.card_from_log_entry(log_entry))
+            elif event_type == EventTypes.DELETED_CARD:
+                self.delete_card(self.card_from_log_entry(log_entry))
+            elif event_type == EventTypes.REPETITION:
+                self.apply_repetition(log_entry)
+            elif event_type == EventTypes.UPDATED_MEDIA:
+                # For ADDED_MEDIA and DELETED_MEDIA, we don't need to do
+                # anything special here. If they are still relevant, they will
+                # be taken care of by _process_media. If they are no longer
+                # relevant (e.g. adding and subsequently deleting media) they
+                # won't make it to the other side, but that's no big deal.
+                self.update_media(log_entry)
+        finally:
+            self.log().timestamp = None
             
     def last_log_entry_index(self):
         return self.con.execute(\

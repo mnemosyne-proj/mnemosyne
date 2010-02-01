@@ -1,10 +1,9 @@
 -make all logging go through logger interface
--loaded database, saved_database, repetition
+-make more use of Bunch in deleted_ events
 -grep -r --include=*.py '\.log_' .
 -"insert into log" sql statement only happens through logging interface
 
 -rename sql logger to database logger?
--make sure setting the logger timestamp to None always occurs, even when having exceptions
 
 -rewrite import 1.x routines so that card creation happens at the time it happened in the past.
  take missing logs into account.
@@ -26,6 +25,7 @@
 -more code sharing between client and server?
 -add streaming connection to server side too
 -\r client /n vs server?
+-don't have separate connection to get number of entries
 -exchange card types between different SRS, add support for card type events
 -http://live.gnome.org/Tomboy/Synchronization/REST
 -same connection throughout?
@@ -241,6 +241,7 @@ the GUI function itself?
 -ask people about biggest gripe in Mnemosyne, things that did not behave as expected
 
 
+-copy card and create a new one that way
 
 -also add option to download source in the info box
 

@@ -121,7 +121,7 @@ class TxtLogParser(object):
         # Open file.
         if os.path.basename(filename) != "log.txt":
             before_extension = os.path.basename(filename).split(".")[0]
-            self.user_id, self.log_number = before_extension.split('_')
+            self.user_id, self.log_number = before_extension.split("_", 1)
             self.log_number = int(self.log_number)
         if filename.endswith(".bz2"):
             self.logfile = bz2.BZ2File(filename)

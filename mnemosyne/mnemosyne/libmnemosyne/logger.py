@@ -54,10 +54,12 @@ class Logger(Component):
     def started_scheduler(self, scheduler_name=None):
         pass
 
-    def loaded_database(self):
+    def loaded_database(self, scheduled_count=None, non_memorised_count=None,
+        active_count=None):
         pass
         
-    def saved_database(self):
+    def saved_database(self, scheduled_count=None, non_memorised_count=None,
+        active_count=None):
         pass
 
     def added_tag(self, tag):
