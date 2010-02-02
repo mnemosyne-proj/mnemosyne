@@ -197,7 +197,7 @@ class SQLiteLogging(object):
             (index, "log.txt"))
 
     # The following functions are only used when importing pre-2.0 cards and
-    # logs. They are needed to store temporary data about cards whis is used
+    # logs. They are needed to store temporary data about cards which is used
     # during the parsing process.
 
     def before_mem_import(self):

@@ -96,6 +96,10 @@ class TxtLogParser(object):
         def set_offset_last_rep(self, card_id, offset, last_rep)
         def get_offset_last_rep(self, card_id)
         def update_card_after_log_import(id, creation_time, offset)
+
+    Note that we don't go through the log() level of abstraction here, as this
+    code is also used outside libmnemosyne for parsing logs in the statistics
+    server.
                                                                  
     """
 

@@ -58,7 +58,11 @@ class SQLiteSync(object):
                 (new_hash, filename))
             self.log().updated_media(filename)
             
-    def media_filenames_to_sync_for(self, partner):        
+    def media_filenames_to_sync_for(self, partner):
+
+        return []
+
+        
         # Note that Mnemosyne does not delete media files on its own, so
         # DELETED_MEDIA log entries are irrelevant/ignored.
         _id = self.last_synced_log_entry_for(partner)
@@ -209,7 +213,7 @@ class SQLiteSync(object):
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
             try:
-                # More future-proof version of code in the except stamement.
+                # More future-proof version of code in the except statement.
                 # However, this will fail if after the last sync the other
                 # partner created and deleted this card, so that there is no
                 # fact information.

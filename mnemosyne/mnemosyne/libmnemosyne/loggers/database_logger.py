@@ -1,5 +1,5 @@
 #
-# sql_logger.py <Peter.Bienstman@UGent.be>
+# database_logger.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -9,7 +9,9 @@ import mnemosyne.version
 from mnemosyne.libmnemosyne.logger import Logger
 
 
-class SqlLogger(Logger):
+class DatabaseLogger(Logger):
+
+    """Stores all the log events in the database."""
 
     def started_program(self, version_string=None):
         if version_string == None:

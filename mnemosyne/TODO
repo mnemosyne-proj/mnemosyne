@@ -1,15 +1,17 @@
--make all logging go through logger interface
--make more use of Bunch in deleted_ events
--grep -r --include=*.py '\.log_' .
--"insert into log" sql statement only happens through logging interface
-
--rename sql logger to database logger?
-
+-don't log card creation nor update in initial stage, (option to turn off logger?, extra db remove function?)
+-afterwards, log creation of cards that were not mentioned in the logs
+-can't happen at the very end: what if there are missing logs so that the first event is a rep?
+ no problem, is taken care of by the importer
 -rewrite import 1.x routines so that card creation happens at the time it happened in the past.
  take missing logs into account.
+-don't go through controller, this will create extra review events (add test)
+-update fact creation time in log?
+-related: avoid updated_card event without added card event
+-make all logging go through logger interface
+-make more use of Bunch in deleted_ events
 
--syncing a database that was imported from 1.x gives problems, because we changed
- the card ids behind libmnemosyne's back.
+-cards truncate easiness?
+
 -rename media files-> external files?
 -benchmark and test sync on realistic database
 
@@ -46,7 +48,6 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
 -how to prevent different instantiations from uploading logs twice
--check if updated_card event without added card event works
 -mechanism to have plugin settings synced?
 -pull in user id on first sync
 -wsgi streaming send for media tar archive (mmap?)
@@ -54,7 +55,6 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -add tests with unicode in basedir
 -just copy database on initial sync
 -make sure after import all sync events fire
--rework logging? still need for high-level interface?
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -chunk reading history events in larger blocks?
 -update readme. Mention how clients should deal with update events of cards that were deleted
