@@ -189,8 +189,8 @@ class TxtLogParser(object):
             self.database.log_stopped_program(self.timestamp)
         self.previous_timestamp = self.timestamp
 
-    def _parse_new_item(self, new_item_chunck):
-        New, item, id, grade, new_interval = new_item_chunck.split(" ")
+    def _parse_new_item(self, new_item_chunk):
+        New, item, id, grade, new_interval = new_item_chunk.split(" ")
         if self.ids_to_parse and id not in self.ids_to_parse:
             return
         grade = int(grade)
@@ -210,9 +210,9 @@ class TxtLogParser(object):
                 scheduled_interval=0, actual_interval=0, new_interval=\
                 int(new_interval), thinking_time=0)
 
-    def _parse_imported_item(self, imported_item_chunck):
+    def _parse_imported_item(self, imported_item_chunk):
         Imported, item, id, grade, ret_reps, last_rep, next_rep, interval \
-            = imported_item_chunck.split(" ")
+            = imported_item_chunk.split(" ")
         if self.ids_to_parse and id not in self.ids_to_parse:
             return
         # Check if we've seen this card before. If so, we are restoring from a
@@ -227,9 +227,9 @@ class TxtLogParser(object):
             self.database.update_card_after_log_import(id, self.timestamp,
                                                        offset)
 
-    def _parse_repetition(self, repetition_chunck):
-        # Parse chunck.
-        blocks = repetition_chunck.split(" | ")
+    def _parse_repetition(self, repetition_chunk):
+        # Parse chunk.
+        blocks = repetition_chunk.split(" | ")
         R, id, grade, easiness = blocks[0].split(" ")
         if self.ids_to_parse and id not in self.ids_to_parse:
             return

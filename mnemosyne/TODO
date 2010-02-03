@@ -1,12 +1,5 @@
--don't log card creation nor update in initial stage, (option to turn off logger?, extra db remove function?)
--afterwards, log creation of cards that were not mentioned in the logs
--can't happen at the very end: what if there are missing logs so that the first event is a rep?
- no problem, is taken care of by the importer
--rewrite import 1.x routines so that card creation happens at the time it happened in the past.
- take missing logs into account.
--don't go through controller, this will create extra review events (add test)
--update fact creation time in log?
--related: avoid updated_card event without added card event
+-grep -r 82f2ed0d * : misses import event
+-deleted card which is no longer in database
 -make all logging go through logger interface
 -make more use of Bunch in deleted_ events
 
@@ -14,6 +7,8 @@
 
 -rename media files-> external files?
 -benchmark and test sync on realistic database
+
+-remove \n hack
 
 -add q and a to cards if facts are not present
 -cdata, encode for deck name, unicode + test
@@ -59,6 +54,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -chunk reading history events in larger blocks?
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
+-example 'miniclient' supporting sync
 
 I looked further into it, using BaseHTTPServer.
 

@@ -94,6 +94,9 @@ class TestMemImport(MnemosyneTest):
         assert card.ret_reps_since_lapse == 0
         assert card.last_rep == -1
         assert card.next_rep == -1
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
         
     def test_card_type_1_updated(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
@@ -121,6 +124,9 @@ class TestMemImport(MnemosyneTest):
             card_2 = cards[0]
         assert "question" in card_2.answer()
         assert "answer" in card_2.question()
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_CARD, )).fetchone()[0] == 2 
         
     def test_card_type_3(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "3sided.mem")
@@ -129,7 +135,10 @@ class TestMemImport(MnemosyneTest):
         assert self.database().card_count() == 2
         card_1 = self.review_controller().card
         assert card_1.fact.data == {"f": "f", "p": "p", "t": "t"}
-
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
+        
     def test_card_type_3_corrupt(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "3sided_corrupt.mem")
         self.get_mem_importer().do_import(filename)
@@ -137,6 +146,9 @@ class TestMemImport(MnemosyneTest):
         assert self.database().card_count() == 2
         card_1 = self.review_controller().card
         assert card_1.fact.data == {"f": "f", "p": "", "t": "t"}
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
         
     def test_card_type_3_missing(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "3sided_missing.mem")
@@ -146,7 +158,10 @@ class TestMemImport(MnemosyneTest):
         card_1 = self.review_controller().card
         print card_1.fact.data
         assert card_1.fact.data == {"q": "t", "a": "f\np"}
-
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
+        
     def test_media(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       

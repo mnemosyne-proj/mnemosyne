@@ -245,8 +245,19 @@ class SQLiteLogging(object):
             modification_time=? where _id=?""",
             (creation_time, creation_time, sql_res["_fact_id"]))
 
-    def remove_added_card_log_entries_since(self, index):
-        self.con.execute("delete from log where _id>? and event_type=?",
-            (index, EventTypes.ADDED_CARD))
+    def remove_card_log_entries_since(self, index):
+        self.con.execute("""delete from log where _id>? and
+            (event_type=? or event_type=?)""",
+            (index, EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD))
         self.con.execute("vacuum")
+
+    def add_missing_added_card_log_entries(self, id_set):
+
+        """Make sure all ids in 'id_set' have a card creation log entry."""
+        
+        for id in id_set - set(cursor[0] for cursor in self.con.execute(\
+          "select distinct object_id from log where event_type=?",
+          (EventTypes.ADDED_CARD, ))):
+            self.log_added_card(int(time.time()), id)
+            
         

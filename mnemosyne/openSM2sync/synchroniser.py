@@ -71,9 +71,10 @@ class Synchroniser(object):
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>" % (attribs, tags)   
         #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
-        return xml
+        return xml.replace("\n", "<br/>")
 
     def XML_to_log_entry(self, chunk):
+        import sys; sys.stderr.write(chunk)
         xml = cElementTree.XML(chunk)
         log_entry = LogEntry()
         for key, value in xml.attrib.iteritems():
@@ -83,5 +84,8 @@ class Synchroniser(object):
                 values = float(value)
             log_entry[key] = value
         for child in xml:
-            log_entry[child.tag] = child.text
+            if child.text:
+                log_entry[child.tag] = child.text
+            else:
+                log_entry[child.tag] = "" # Should be string instead of None.               
         return log_entry

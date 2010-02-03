@@ -60,7 +60,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "127.0.0.1", 8044, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8040, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -98,7 +98,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8044", "user", "pass")
+        self.sync("http://127.0.0.1:8040", "user", "pass")
 
 
 class TestSync(object):
@@ -197,7 +197,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             fact = db.get_fact(self.client_fact_id, id_is_internal=False)
-            assert fact.data == {"q": "Q", "a": "A"}
+            assert fact.data == {"q": "Q", "a": ""}
             assert fact.card_type == self.mnemosyne.card_type_by_id("1")
             assert fact.creation_time == self.client_creation_time
             assert fact.modification_time == self.client_creation_time
@@ -209,7 +209,7 @@ class TestSync(object):
 
         self.client = MyClient()
         card_type = self.client.mnemosyne.card_type_by_id("1")
-        fact = Fact({"q": "Q", "a": "A"}, card_type)
+        fact = Fact({"q": "Q", "a": ""}, card_type)
         self.client.mnemosyne.database().add_fact(fact)
         self.server.client_fact_id = fact.id
         self.server.client_creation_time = fact.creation_time
