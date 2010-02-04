@@ -3,7 +3,7 @@ How to write a new frontend
 
 libmnemosyne is designed in such a way that writing a new front is as painless as possible. All the code for running a GUI which is actually GUI toolkit independent is grouped in two controllers: the main ui controller and the review ui controller. In order to build a new frontend, you need to create a main widget which inherits from ``MainWidget`` and implements its interface, and similarly a review widget which inherits from ``ReviewWidget``.
 
-In order to get a feel for how this works, it's best by starting to study the code for the ppygui_ui Windows Mobile client, which is the simplest possible frontend, a it only supports reviewing cards.
+In order to get a feel for how this works, it's best by starting to study the code for the ppygui_ui Windows Mobile client, which is the simplest possible frontend, as it only supports reviewing cards.
 
 There a three files in that frontend:
 
