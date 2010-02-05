@@ -148,7 +148,7 @@ class TxtLogParser(object):
                 sys.stdout.flush()                
         
     def _parse_line(self, line):      
-        parts = line.rstrip().rsplit(" : ")           
+        parts = line.rstrip().rsplit(" : ")
         self.timestamp = int(time.mktime(time.strptime(parts[0],
                                          "%Y-%m-%d %H:%M:%S")))
         if not self.lower_timestamp_limit < self.timestamp < \
@@ -176,8 +176,7 @@ class TxtLogParser(object):
         elif parts[1].startswith("Imported item"):
             self._parse_imported_item(parts[1])
         elif parts[1].startswith("Deleted item"):
-            Deleted, item, id = parts[1].split(" ")
-            self.database.log_deleted_card(self.timestamp, id)
+            self._parse_deleted_item(parts[1])
         elif parts[1].startswith("R "):
             self._parse_repetition(parts[1])
         elif parts[1].startswith("Saved database"):
@@ -226,6 +225,12 @@ class TxtLogParser(object):
             self.database.set_offset_last_rep(id, offset, last_rep)
             self.database.update_card_after_log_import(id, self.timestamp,
                                                        offset)
+
+    def _parse_deleted_item(self, deleted_item_chunk):
+        Deleted, item, id = deleted_item_chunk.split(" ")
+        if self.ids_to_parse and id not in self.ids_to_parse:
+            return        
+        self.database.log_deleted_card(self.timestamp, id)        
 
     def _parse_repetition(self, repetition_chunk):
         # Parse chunk.

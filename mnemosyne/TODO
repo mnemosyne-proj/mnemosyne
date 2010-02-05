@@ -1,5 +1,29 @@
--grep -r 82f2ed0d * : misses import event
--deleted card which is no longer in database
+         10676105 function calls (10675974 primitive calls) in 65.932 CPU seconds
+
+   Ordered by: cumulative time
+   List reduced from 505 to 150 due to restriction <150>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   66.072   66.072 benchmark_sync.py:102(sync)
+        1    0.000    0.000   65.370   65.370 benchmark_sync.py:98(do_sync)
+        1    0.000    0.000   64.160   64.160 client.py:42(sync)           
+        1    1.684    1.684   63.387   63.387 client.py:179(get_server_log_entries)
+   264744    2.808    0.000   40.793    0.000 SQLite_sync.py:284(apply_log_entry)  
+   320589   26.483    0.000   26.483    0.000 {method 'execute' of 'sqlite3.Connection' objects}
+   224969    2.414    0.000   25.376    0.000 SQLite_sync.py:267(apply_repetition)              
+   224969    0.729    0.000   21.615    0.000 database_logger.py:84(repetition)                 
+   224969    0.828    0.000   20.226    0.000 SQLite_logging.py:114(log_repetition)             
+   264744    8.859    0.000   15.182    0.000 synchroniser.py:76(XML_to_log_entry)              
+   264790    1.581    0.000    6.406    0.000 socket.py:375(readline)                           
+   264745    0.746    0.000    6.223    0.000 <string>:83(XML)                                  
+   264745    4.040    0.000    4.040    0.000 {built-in method feed}                            
+     6661    2.924    0.000    2.924    0.000 {method 'recv' of '_socket.socket' objects}   
+
+-card id's don't make it across sync: find root cause, test
+-two missing media files (Dark field)
+-fix txt imported when encountring deleted card which is no longer in database:
+ add added card entry first? Don't log?
+-data does not make it across?
 -make all logging go through logger interface
 -make more use of Bunch in deleted_ events
 

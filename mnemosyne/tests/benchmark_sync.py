@@ -66,7 +66,7 @@ class MyServer(Server, Thread):
         # single thread.
         self.mnemosyne.initialise(os.path.abspath("sync_from_here"))
         self.mnemosyne.review_controller().reset()
-        Server.__init__(self, "127.0.0.1", 8176, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8181, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -96,8 +96,8 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8176", "user", "pass")
-
+        self.sync("http://127.0.0.1:8181", "user", "pass")
+        self.mnemosyne.database().save()
 
 def sync():
     server = MyServer()    
@@ -106,11 +106,11 @@ def sync():
     client.do_sync()
 
 
-sync()
+#sync()
 
 tests = ["sync()"]
 
-for test in []:#tests:  
+for test in tests:  
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
     print
     print "*** ", test, " ***"

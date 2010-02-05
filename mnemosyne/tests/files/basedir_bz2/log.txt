@@ -1,3 +1,6 @@
+2005-11-01 09:29:08 : Imported item 82f2ed0d 0 0 0 0 0
+2005-11-04 16:39:36 : R 82f2ed0d 3 2.36 | 14 2 1 6 1 | 1 1 | 6 1 | 2.0
+2005-11-07 21:44:16 : Deleted item 82f2ed0d  
 2009-08-18 14:44:45 : Program started : Mnemosyne 1.2.1 posix linux2
 2009-08-18 14:44:45 : Loaded database 0 0 0
 2009-08-18 14:44:49 : New item 803651d2 0 0

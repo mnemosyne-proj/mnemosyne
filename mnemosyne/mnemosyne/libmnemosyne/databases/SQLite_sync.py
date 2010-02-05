@@ -245,6 +245,7 @@ class SQLiteSync(object):
                 break
         for tag_id in log_entry["tags"].split(","):
             card.tags.add(self.get_tag(tag_id, id_is_internal=False))
+        card.id = log_entry["o_id"]
         card.active = bool(log_entry["act"])
         card.grade = log_entry["gr"]
         card.easiness = log_entry["e"]

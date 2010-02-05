@@ -625,7 +625,10 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
-
+        assert self.database().con.execute(\
+            "select count() from log where object_id=?",
+            ("82f2ed0d", )).fetchone()[0] == 0
+        
     def test_upgrade(self):
         os.system("rm -fr dot_test")
         basedir = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2")

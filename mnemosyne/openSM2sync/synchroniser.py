@@ -74,7 +74,7 @@ class Synchroniser(object):
         return xml.replace("\n", "<br/>")
 
     def XML_to_log_entry(self, chunk):
-        import sys; sys.stderr.write(chunk)
+        #import sys; sys.stderr.write(chunk)
         xml = cElementTree.XML(chunk)
         log_entry = LogEntry()
         for key, value in xml.attrib.iteritems():
@@ -87,5 +87,5 @@ class Synchroniser(object):
             if child.text:
                 log_entry[child.tag] = child.text
             else:
-                log_entry[child.tag] = "" # Should be string instead of None.               
+                log_entry[child.tag] = "" # Should be string instead of None.
         return log_entry
