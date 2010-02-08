@@ -60,7 +60,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "127.0.0.1", 8039, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8036, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -98,7 +98,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8039", "user", "pass")
+        self.sync("http://127.0.0.1:8036", "user", "pass")
 
 
 class TestSync(object):
@@ -300,6 +300,7 @@ class TestSync(object):
             assert card.last_rep != -1
             assert card.next_rep != -1
             assert db.con.execute("select count() from log").fetchone()[0] == 12
+            assert card.id == self.client_card.id
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -322,7 +323,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             card = db.get_card(self.client_card.id, id_is_internal=False)
-            assert card.extra_data == {"A": "B"}       
+            assert card.extra_data == {"A": "B"}
             assert db.con.execute("select count() from log").fetchone()[0] == 13
             
         self.server = MyServer()
@@ -342,7 +343,7 @@ class TestSync(object):
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 13
-        
+            
     def test_delete_cards(self):
 
         def test_server(self):
@@ -432,7 +433,7 @@ class TestSync(object):
             f = file(filename, "w")
             f.write("B")
             f.close()
-            fact_data = {"q": "question <img src=\"%s\">" % (filename),
+            fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
                          "a": "answer"}
             card_type = self.mnemosyne.card_type_by_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
@@ -468,7 +469,7 @@ class TestSync(object):
         f = file(filename, "w")
         f.write("A")
         f.close()
-        fact_data = {"q": "question <img src=\"%s\">" % (filename),
+        fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
                      "a": "answer"}
         card_type = self.client.mnemosyne.card_type_by_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
@@ -541,3 +542,38 @@ class TestSync(object):
         assert db.con.execute("select count() from log where event_type=?",
             (EventTypes.UPDATED_MEDIA, )).fetchone()[0] == 1
         assert db.con.execute("select count() from log").fetchone()[0] == 14
+
+    def test_mem_import(self):
+            
+        def fill_server_database(self):
+            filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
+            for format in self.mnemosyne.component_manager.get_all("file_format"):
+                if format.__class__.__name__ == "Mnemosyne1Mem":
+                    format.do_import(filename)
+            self.mnemosyne.controller().file_save()
+                    
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        import time; time.sleep(0.5) # Poor man's locking.
+        
+        self.client = MyClient()
+        self.client.do_sync()
+    
+        card = self.client.database.get_card("9cff728f", id_is_internal=False)
+        assert card.grade == 2
+        assert card.easiness == 2.5
+        assert card.acq_reps == 1
+        assert card.ret_reps == 0
+        assert card.lapses == 0
+        assert card.acq_reps_since_lapse == 1
+        assert card.ret_reps_since_lapse == 0
+        assert [tag.name for tag in card.tags] == ["<default>"]
+        assert card.last_rep == 1247529600
+        assert card.next_rep == 1247616000
+        assert card.id == "9cff728f"

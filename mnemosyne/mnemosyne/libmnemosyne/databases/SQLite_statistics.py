@@ -81,7 +81,7 @@ class SQLiteStatistics(object):
         start_of_day = self._start_of_day_n_days_ago(n)
         result = self.con.execute(\
             """select acq_reps from log where ?<=timestamp and timestamp<?
-            and event_type=? order by timestamp limit 1""",
+            and event_type=? order by timestamp limit 1""", # by acq_reps desc?
             (start_of_day, start_of_day + DAY, EventTypes.LOADED_DATABASE)).\
             fetchone()
         if result:

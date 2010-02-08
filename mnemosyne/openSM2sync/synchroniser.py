@@ -69,9 +69,9 @@ class Synchroniser(object):
                 attribs += " %s='%s'" % (key, value)
             else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
-        xml = "<log%s>%s</log>" % (attribs, tags)   
+        xml = "<log%s>%s</log>" % (attribs, tags)
         #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
-        return xml.replace("\n", "<br/>")
+        return xml.replace("\n", "&lt;br/%gt;")
 
     def XML_to_log_entry(self, chunk):
         #import sys; sys.stderr.write(chunk)

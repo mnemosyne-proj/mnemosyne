@@ -19,11 +19,10 @@
    264745    4.040    0.000    4.040    0.000 {built-in method feed}                            
      6661    2.924    0.000    2.924    0.000 {method 'recv' of '_socket.socket' objects}   
 
--card id's don't make it across sync: find root cause, test
--two missing media files (Dark field)
+-bug in past schedule: cards scheduled today don't show up in synced version. Also happens with import?
+ sort on max value? + test
 -fix txt imported when encountring deleted card which is no longer in database:
  add added card entry first? Don't log?
--data does not make it across?
 -make all logging go through logger interface
 -make more use of Bunch in deleted_ events
 
@@ -188,6 +187,7 @@ the GUI function itself?
 -reenable upload
 
 -... after menu options that open a dialog
+-suppress autorepeat on review dialog
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 
