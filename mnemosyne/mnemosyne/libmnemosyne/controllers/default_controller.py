@@ -500,6 +500,7 @@ class DefaultController(Controller):
             return
         self.component_manager.get_current("file_format").do_import(filename)
         self.database().save()
+        self.log().saved_database()
         review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:

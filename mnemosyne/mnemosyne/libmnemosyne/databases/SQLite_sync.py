@@ -58,10 +58,7 @@ class SQLiteSync(object):
                 (new_hash, filename))
             self.log().updated_media(filename)
             
-    def media_filenames_to_sync_for(self, partner):
-
-        return []
-    
+    def media_filenames_to_sync_for(self, partner):    
         # Note that Mnemosyne does not delete media files on its own, so
         # DELETED_MEDIA log entries are irrelevant/ignored.
         _id = self.last_synced_log_entry_for(partner)

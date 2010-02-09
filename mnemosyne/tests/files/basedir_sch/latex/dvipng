@@ -1,0 +1,1 @@
+dvipng -D 200 -T tight tmp.dvi

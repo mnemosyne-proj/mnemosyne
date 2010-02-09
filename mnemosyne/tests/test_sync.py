@@ -55,12 +55,14 @@ class MyServer(Server, Thread):
     def run(self):
         # We only open the database connection inside the thread to prevent
         # access problems, as a single connection can only be used inside a
-        # single thread.
+        # single thread. Problem is that this can cause race conditions if
+        # fill_server_database takes too long. We solve this in a quick and
+        # dirty way by adding some sleep statements here and there.
         self.mnemosyne.initialise(os.path.abspath("dot_sync_server"))
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "127.0.0.1", 8036, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8035, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -98,7 +100,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8036", "user", "pass")
+        self.sync("http://127.0.0.1:8035", "user", "pass")
 
 
 class TestSync(object):
@@ -556,8 +558,8 @@ class TestSync(object):
             pass
             
         self.server = MyServer()
-        self.server.test_server = test_server
         self.server.fill_server_database = fill_server_database
+        self.server.test_server = test_server
         self.server.start()
 
         import time; time.sleep(0.5) # Poor man's locking.

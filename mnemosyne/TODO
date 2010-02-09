@@ -19,10 +19,6 @@
    264745    4.040    0.000    4.040    0.000 {built-in method feed}                            
      6661    2.924    0.000    2.924    0.000 {method 'recv' of '_socket.socket' objects}   
 
--bug in past schedule: cards scheduled today don't show up in synced version. Also happens with import?
- sort on max value? + test
--fix txt imported when encountring deleted card which is no longer in database:
- add added card entry first? Don't log?
 -make all logging go through logger interface
 -make more use of Bunch in deleted_ events
 
@@ -78,6 +74,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
 -example 'miniclient' supporting sync
+-log save event after import and sync in the default controller. Add tests
 
 I looked further into it, using BaseHTTPServer.
 
@@ -201,6 +198,7 @@ the GUI function itself?
 -on import don't add cards for which card type is not present
 -warn when not importing a duplicate card
 -xml import tests (wcu, memaid, plconv)
+-rewrite test_mem_import test_sch to go through the controller
 -option to detect and mark inverses on import?
 -update XML import/export to new database format
 -warn when importing card type with duplicate id

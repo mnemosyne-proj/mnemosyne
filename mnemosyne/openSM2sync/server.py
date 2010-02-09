@@ -228,6 +228,7 @@ class Server(WSGIServer):
         filenames = self.database.media_filenames_to_sync_for(self.client_id)
         if len(filenames) == 0:
             return "OK"
+        
         # TODO: get rid of temporary file and make this streaming.
         try:
             import tempfile

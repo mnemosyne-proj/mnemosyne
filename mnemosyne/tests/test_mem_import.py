@@ -581,11 +581,29 @@ class TestMemImport(MnemosyneTest):
             "select count() from log where event_type=?",
             (EventTypes.DELETED_CARD, )).fetchone()[0] == 1
         
-    def test_logs_corrupt(self):
+    def test_logs_corrupt_1(self): # Wrong data, missing creation event.
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "corrupt_1.txt")
         TxtLogParser(self.database()).parse(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            "select count() from log where object_id=?",
+            ("4b59b830", )).fetchone()[0] == 3
+        
+    def test_logs_corrupt_2(self): # Wrong data, isolated deletion event.
+        self.database().update_card_after_log_import = (lambda x, y, z: 0)
+        self.database().before_mem_import()
+        filename = os.path.join(os.getcwd(), "tests", "files", "corrupt_2.txt")
+        TxtLogParser(self.database()).parse(filename)
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_CARD, )).fetchone()[0] == 0
+        assert self.database().con.execute(\
+            "select count() from log where object_id=?",
+            ("4b59b830", )).fetchone()[0] == 0
         
     def test_two_mem_files_sharing_same_logs(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_2_mem",
@@ -628,6 +646,17 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where object_id=?",
             ("82f2ed0d", )).fetchone()[0] == 0
+        
+    def test_sch(self):
+        # TODO: rewrite this so that this goes through the import controller
+        # and remove log event here, so that we can check if the log event
+        # happens in the controller
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_sch",
+                                "default.mem")
+        self.get_mem_importer().do_import(filename)
+        self.database().save()
+        self.log().saved_database()
+        assert self.database().card_count_scheduled_n_days_ago(0) == 1
         
     def test_upgrade(self):
         os.system("rm -fr dot_test")

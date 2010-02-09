@@ -79,11 +79,12 @@ class SQLiteStatistics(object):
 
     def card_count_scheduled_n_days_ago(self, n):
         start_of_day = self._start_of_day_n_days_ago(n)
+        print start_of_day
         result = self.con.execute(\
             """select acq_reps from log where ?<=timestamp and timestamp<?
-            and event_type=? order by timestamp limit 1""", # by acq_reps desc?
-            (start_of_day, start_of_day + DAY, EventTypes.LOADED_DATABASE)).\
-            fetchone()
+            and (event_type=? or event_type=?) order by acq_reps desc
+            limit 1""", (start_of_day, start_of_day + DAY,
+            EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE)).fetchone()
         if result:
             return result[0]
         else:

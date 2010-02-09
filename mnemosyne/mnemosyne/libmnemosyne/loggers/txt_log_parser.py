@@ -108,7 +108,7 @@ class TxtLogParser(object):
 
     versions_1_x_phase_2 = ["0.9.8", "0.9.8.1", "0.9.9", "0.9.10", "1.0",
                             "1.0.1", "1.0.1.1", "1.0.2", "1.1", "1.1.1", "1.2",
-                            "1.2.1"]
+                            "1.2.1", "1.2.2"]
 
     def __init__(self, database, ids_to_parse=None):
 
@@ -120,6 +120,7 @@ class TxtLogParser(object):
         
         self.database = database
         self.ids_to_parse = ids_to_parse
+        self.version_number = "1.2.2" # Default guess for missing logs.
         
     def parse(self, filename):
         # Open file.
@@ -230,7 +231,13 @@ class TxtLogParser(object):
         Deleted, item, id = deleted_item_chunk.split(" ")
         if self.ids_to_parse and id not in self.ids_to_parse:
             return        
-        self.database.log_deleted_card(self.timestamp, id)        
+        # Only log the deletion if we've seen the card before, as a safeguard
+        # against corrupt logs.
+        try:
+            offset, last_rep = self.database.get_offset_last_rep(id)
+            self.database.log_deleted_card(self.timestamp, id)
+        except:
+            pass
 
     def _parse_repetition(self, repetition_chunk):
         # Parse chunk.
