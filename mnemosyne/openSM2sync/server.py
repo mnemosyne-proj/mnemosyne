@@ -179,10 +179,10 @@ class Server(WSGIServer):
 
     def put_client_log_entries(self, environ):
         socket = environ["wsgi.input"]
-        self.ui.status_bar_message("Applying client log entries...")
+        self.ui.status_bar_message("Receiving client log entries...")
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, self.number_of_client_log_entries_to_sync)
-        progress_dialog.set_text("Applying client log entries...")
+        progress_dialog.set_text("Receiving client log entries...")
         # In order to do conflict resolution easily, one of the sync partners
         # has to have both logs in memory. We do this at the server side, as
         # the client could be resource-limited mobile device.
@@ -227,26 +227,38 @@ class Server(WSGIServer):
         self.database.check_for_updated_media_files()
         filenames = self.database.media_filenames_to_sync_for(self.client_id)
         if len(filenames) == 0:
-            return "OK"
-        
-        # TODO: get rid of temporary file and make this streaming.
+            yield "OK"
+            return
         try:
+            BUFFER_SIZE = 4096
             import tempfile
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
+            tmp_file_name = tmp_file.name
             saved_path = os.getcwdu()
             os.chdir(self.database.mediadir())
-            tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file, bufsize=4096,
-                                    format=tarfile.PAX_FORMAT)
+            tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
+                bufsize=BUFFER_SIZE, format=tarfile.PAX_FORMAT)
             for filename in self.database.media_filenames_to_sync_for(\
                 self.client_id):
                 tar_pipe.add(filename)
             tar_pipe.close()
-            result = file(tmp_file.name).read()
-            os.remove(tmp_file.name)
+            tmp_file = file(tmp_file_name, "rb")
+            file_size = os.path.getsize(tmp_file_name)
+            progress_dialog = self.ui.get_progress_dialog()
+            progress_dialog.set_range(0, file_size)
+            progress_dialog.set_text("Sending media files to client...")
+            buffer = tmp_file.read(BUFFER_SIZE)
+            count = BUFFER_SIZE
+            while buffer:
+                progress_dialog.set_value(count)
+                yield buffer
+                buffer = tmp_file.read(BUFFER_SIZE)
+                count += BUFFER_SIZE
+            progress_dialog.set_value(file_size)
+            os.remove(tmp_file_name)
             os.chdir(saved_path)
-            return result
         except:
-            return "CANCEL"
+            yield "CANCEL"
 
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")

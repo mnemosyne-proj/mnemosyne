@@ -7,7 +7,7 @@ import cProfile
 
 from mnemosyne.libmnemosyne import Mnemosyne
 
-number_of_calls = 150 # Number of calls to display in profile
+number_of_calls = 20 # Number of calls to display in profile
 number_of_facts = 6000
 
 mnemosyne = None
@@ -80,7 +80,7 @@ class MyClient(Client):
     capabilities = "TODO"
     
     def __init__(self):
-        #os.system("rm -fr dot_benchmark")
+        os.system("rm -fr dot_benchmark")
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
@@ -106,9 +106,6 @@ def sync():
 
     import time; time.sleep(0.5)
     client.do_sync()
-
-
-#sync()
 
 tests = ["sync()"]
 

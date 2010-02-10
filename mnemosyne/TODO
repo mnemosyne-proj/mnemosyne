@@ -1,3 +1,4 @@
+Big server:
          10676105 function calls (10675974 primitive calls) in 65.932 CPU seconds
 
    Ordered by: cumulative time
@@ -19,15 +20,45 @@
    264745    4.040    0.000    4.040    0.000 {built-in method feed}                            
      6661    2.924    0.000    2.924    0.000 {method 'recv' of '_socket.socket' objects}   
 
+Big client:
+Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
+
+         3606012 function calls (3605956 primitive calls) in 78.224 CPU seconds
+
+   Ordered by: cumulative time
+   List reduced from 495 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   78.240   78.240 benchmark_sync.py:102(sync)
+        1    0.000    0.000   77.516   77.516 benchmark_sync.py:98(do_sync)
+        1    0.000    0.000   77.492   77.492 client.py:42(sync)
+        1    2.016    2.016   58.574   58.574 client.py:130(put_client_log_entries)
+   265647   32.239    0.000   38.501    0.000 SQLite_sync.py:158(<genexpr>)
+       11    0.000    0.000   16.825    1.530 httplib.py:940(getresponse)
+       11    0.000    0.000   16.825    1.530 httplib.py:384(begin)
+       60    0.002    0.000   16.823    0.280 socket.py:375(readline)
+     1353   16.821    0.012   16.821    0.012 {method 'recv' of '_socket.socket' objects}
+       11    0.000    0.000   16.820    1.529 httplib.py:347(_read_status)
+        9    0.000    0.000   16.784    1.865 urllib2.py:120(urlopen)
+        9    0.000    0.000   16.783    1.865 urllib2.py:371(open)
+        9    0.000    0.000   16.781    1.865 urllib2.py:399(_open)
+       18    0.000    0.000   16.781    0.932 urllib2.py:359(_call_chain)
+        9    0.000    0.000   16.781    1.865 urllib2.py:1145(http_open)
+        9    0.000    0.000   16.781    1.865 urllib2.py:1085(do_open)
+        1    0.000    0.000   16.765   16.765 client.py:203(finish_request)
+   265646   10.300    0.000   10.990    0.000 synchroniser.py:53(log_entry_to_XML)
+   265646    3.427    0.000    6.261    0.000 SQLite_sync.py:69(_log_entry)
+   265660    0.931    0.000    6.227    0.000 httplib.py:719(send)
+
+
 -make all logging go through logger interface
 -make more use of Bunch in deleted_ events
 
 -cards truncate easiness?
 
 -rename media files-> external files?
--benchmark and test sync on realistic database
 
--remove \n hack
+-remove \n hack, streaming XML decompression
 
 -add q and a to cards if facts are not present
 -cdata, encode for deck name, unicode + test
@@ -150,10 +181,11 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 
 -time WM: history in same DB?
 
+-rework progress bar API
+
 -more tests
 -update_cards --> modify cards?
 
--windows: slots
 -windows: upgrade config?
 -windows: HOME
 -test unicode filenames in sync protocol
