@@ -651,7 +651,7 @@ Ik creëer tmp bestand.</translation>
     <message>
         <location filename="add_items_frm.ui" line="210"/>
         <source>Like &apos;0&apos;, but the item is getting more familiar.</source>
-        <translation type="obsolete">Als &apos;1&apos;, maar de kaart wordt enigszins bekender.</translation>
+        <translation type="obsolete">Als &apos;0&apos;, maar de kaart wordt enigszins bekender.</translation>
     </message>
     <message>
         <location filename="add_items_frm.ui" line="218"/>
