@@ -90,6 +90,7 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 http://www.dev-explorer.com/articles/using-python-httplib
 -activating cards
+-latex
 -make sure to convert int(time.time()) to integer
 -make sure all events make it to the sync protocol + formats
 -how to prevent different instantiations from uploading logs twice
