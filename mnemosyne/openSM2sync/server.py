@@ -168,15 +168,17 @@ class Server(WSGIServer):
             self.client_id)
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
-        progress_dialog.set_text("Sending log entries to client...")      
+        progress_dialog.set_text("Sending log entries to client...")
+        yield "<openSM2sync>"
         count = 0
         for log_entry in self.database.log_entries_to_sync_for(\
             self.client_id):
             count += 1
             progress_dialog.set_value(count)
             yield self.synchroniser.log_entry_to_XML(log_entry).\
-                encode("utf-8") + "\r\n"
-
+                encode("utf-8")
+        yield "</openSM2sync>"
+        
     def put_client_log_entries(self, environ):
         socket = environ["wsgi.input"]
         self.ui.status_bar_message("Receiving client log entries...")
@@ -188,9 +190,8 @@ class Server(WSGIServer):
         # the client could be resource-limited mobile device.
         self.client_log = []
         count = 0
-        while count != self.number_of_client_log_entries_to_sync:
-            chunk = socket.readline()
-            self.client_log.append(self.synchroniser.XML_to_log_entry(chunk))
+        for log_entry in self.synchroniser.XML_to_log_entries(socket):
+            self.client_log.append(log_entry)
             count += 1
             progress_dialog.set_value(count)
         self.ui.status_bar_message("Waiting for client to finish...")

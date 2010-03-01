@@ -153,15 +153,17 @@ class Client(object):
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to server...")
         count = 0
+        conn.send("<openSM2sync>")
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_id):
             conn.send(self.synchroniser.log_entry_to_XML(log_entry).\
-                encode("utf-8") + "\n")
+                encode("utf-8"))
             count += 1
             progress_dialog.set_value(count)
+        conn.send("</openSM2sync>\n")
         self.ui.status_bar_message("Waiting for server to complete...")
-        if conn.getresponse().read() != "OK":
-            raise SyncError("Error sending log entries to server.")
+        #if conn.getresponse().read() != "OK":
+        #    raise SyncError("Error sending log entries to server.")
 
     def get_server_media_files(self):
         self.ui.status_bar_message("Receiving server media files...")
@@ -190,10 +192,8 @@ class Client(object):
         try:
             response = urllib2.urlopen(self.url + "/server/log_entries")
             count = 0
-            while count != log_entries:
-                chunk = response.readline()
-                self.database.apply_log_entry(\
-                    self.synchroniser.XML_to_log_entry(chunk))
+            for log_entry in self.synchroniser.XML_to_log_entries(response):
+                self.database.apply_log_entry(log_entry)
                 count += 1
                 progress_dialog.set_value(count)
         except urllib2.URLError, error:

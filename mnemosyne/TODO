@@ -51,16 +51,18 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
    265660    0.931    0.000    6.227    0.000 httplib.py:719(send)
 
 
--make all logging go through logger interface
--make more use of Bunch in deleted_ events
 
--cards truncate easiness?
 
--rename media files-> external files?
+-line ending needed?
+-reenable end check
 
--remove \n hack, streaming XML decompression
+
+-remove \n hack, streaming XML parsing
+-buffering client send of events?
+
 
 -add q and a to cards if facts are not present
+-number of entries in same connection?
 -cdata, encode for deck name, unicode + test
 -test scheduled, active count sync on load/save + type
 -check if get_log_entries_to_sync_for really returns iterator
@@ -81,7 +83,6 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
 -benchmarks
 -think about sending across cards as pictures
 -test where buffering makes a difference
--linebreak in fact data upsetting get history
 -multiuser server, token?
 -ui: pass or notImplemented?
 -time saxutils.escape attr
@@ -107,6 +108,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
  later on. Mention that only final state is same, not intermediate states
 -example 'miniclient' supporting sync
 -log save event after import and sync in the default controller. Add tests
+-rename media files-> external files?
 
 I looked further into it, using BaseHTTPServer.
 

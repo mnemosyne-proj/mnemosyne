@@ -70,10 +70,13 @@ class Synchroniser(object):
             else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>" % (attribs, tags)
-        #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
-        return xml.replace("\n", "&lt;br/%gt;")
+        import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
+        return xml
 
     def XML_to_log_entry(self, chunk):
+
+        # TODO: remove
+        
         #import sys; sys.stderr.write(chunk)
         xml = cElementTree.XML(chunk)
         log_entry = LogEntry()
@@ -89,3 +92,32 @@ class Synchroniser(object):
             else:
                 log_entry[child.tag] = "" # Should be string instead of None.
         return log_entry
+
+    def XML_to_log_entries(self, xml):
+        # Do incremental parsing of the xml stream.
+        context = iter(cElementTree.iterparse(xml, events=("start", "end")))
+        # Get the root element
+        event, root = context.next()
+        for event, elem in context:
+            if event == "end":
+                log_entry = LogEntry()
+
+                for key, value in elem.attrib.iteritems():
+                    if key in self.int_keys:
+                        value = int(value)
+                    elif key in self.float_keys:
+                        values = float(value)
+                    log_entry[key] = value
+                for child in elem:
+                    print 'child', child
+                    if child.text:
+                        log_entry[child.tag] = child.text
+                    else:
+                        log_entry[child.tag] = "" # Should be string instead of None.
+                
+                print elem
+                print elem.attrib.iteritems()
+                print log_entry
+                # Free memory.
+                root.clear()
+                yield log_entry
