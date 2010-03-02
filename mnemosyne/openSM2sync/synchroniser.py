@@ -99,9 +99,8 @@ class Synchroniser(object):
         # Get the root element
         event, root = context.next()
         for event, elem in context:
-            if event == "end":
+            if event == "end" and elem.tag == "log":
                 log_entry = LogEntry()
-
                 for key, value in elem.attrib.iteritems():
                     if key in self.int_keys:
                         value = int(value)
@@ -109,15 +108,10 @@ class Synchroniser(object):
                         values = float(value)
                     log_entry[key] = value
                 for child in elem:
-                    print 'child', child
                     if child.text:
                         log_entry[child.tag] = child.text
                     else:
                         log_entry[child.tag] = "" # Should be string instead of None.
-                
-                print elem
-                print elem.attrib.iteritems()
-                print log_entry
                 # Free memory.
                 root.clear()
                 yield log_entry

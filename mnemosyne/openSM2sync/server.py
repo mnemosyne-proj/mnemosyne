@@ -180,6 +180,7 @@ class Server(WSGIServer):
         yield "</openSM2sync>"
         
     def put_client_log_entries(self, environ):
+        import sys; sys.stderr.write("Enter server")
         socket = environ["wsgi.input"]
         self.ui.status_bar_message("Receiving client log entries...")
         progress_dialog = self.ui.get_progress_dialog()
@@ -191,10 +192,16 @@ class Server(WSGIServer):
         self.client_log = []
         count = 0
         for log_entry in self.synchroniser.XML_to_log_entries(socket):
+            import sys; sys.stderr.write(str(log_entry))
             self.client_log.append(log_entry)
             count += 1
             progress_dialog.set_value(count)
+        #p = socket.read()
+        #while p:
+        #    import sys; sys.stderr.write(p)
+        #    p = socket.read()
         self.ui.status_bar_message("Waiting for client to finish...")
+        sys.stderr.write("Server done")
         return "OK"
 
     def put_client_media_files_size(self, environ):

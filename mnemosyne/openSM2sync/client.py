@@ -156,11 +156,13 @@ class Client(object):
         conn.send("<openSM2sync>")
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_id):
+            import sys; sys.stderr.write(str(log_entry))
             conn.send(self.synchroniser.log_entry_to_XML(log_entry).\
                 encode("utf-8"))
             count += 1
             progress_dialog.set_value(count)
-        conn.send("</openSM2sync>\n")
+        conn.send("</openSM2sync>")       
+        import sys; sys.stderr.write("Client done")
         self.ui.status_bar_message("Waiting for server to complete...")
         #if conn.getresponse().read() != "OK":
         #    raise SyncError("Error sending log entries to server.")

@@ -52,9 +52,8 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
 
 
 
-
--line ending needed?
--reenable end check
+-response check
+-line ending needed? \r\n
 
 
 -remove \n hack, streaming XML parsing
@@ -74,6 +73,7 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
 -more code sharing between client and server?
 -add streaming connection to server side too
 -\r client /n vs server?
+-same connection throughout?
 -don't have separate connection to get number of entries
 -exchange card types between different SRS, add support for card type events
 -http://live.gnome.org/Tomboy/Synchronization/REST
