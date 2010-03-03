@@ -70,7 +70,7 @@ class Synchroniser(object):
             else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>" % (attribs, tags)
-        import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
+        #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
         return xml
 
     def XML_to_log_entry(self, chunk):
@@ -95,11 +95,14 @@ class Synchroniser(object):
 
     def XML_to_log_entries(self, xml):
         # Do incremental parsing of the xml stream.
-        context = iter(cElementTree.iterparse(xml, events=("start", "end")))
+        context = iter(cElementTree.iterparse(xml, events=("end", )))
         # Get the root element
         event, root = context.next()
         for event, elem in context:
-            if event == "end" and elem.tag == "log":
+            if elem.tag == "openSM2sync": # Needed?
+                import sys; sys.stderr.write("done xml")
+                return
+            if elem.tag == "log":
                 log_entry = LogEntry()
                 for key, value in elem.attrib.iteritems():
                     if key in self.int_keys:

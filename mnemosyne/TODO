@@ -52,7 +52,9 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
 
 
 
--response check
+-try download logs first?
+
+-client does not signal end of transmission? Server show know when to stop, no whiles.
 -line ending needed? \r\n
 
 

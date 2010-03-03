@@ -143,11 +143,11 @@ class Client(object):
         parsed_url = urlparse(self.url) 
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
         conn.putrequest("PUT", "/client/log_entries")
-        conn.putheader("Connection", "keep-alive")
-        conn.putheader("Content-Type", "text/plain")
-        conn.putheader("Transfer-Encoding", "chunked")
-        conn.putheader("Expect", "100-continue")
-        conn.putheader("Accept", "*/*")
+        #conn.putheader("Connection", "keep-alive")
+        #conn.putheader("Content-Type", "text/plain")
+        #conn.putheader("Transfer-Encoding", "chunked")
+        #conn.putheader("Expect", "100-continue")
+        #conn.putheader("Accept", "*/*")
         conn.endheaders()
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
@@ -156,16 +156,14 @@ class Client(object):
         conn.send("<openSM2sync>")
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_id):
-            import sys; sys.stderr.write(str(log_entry))
             conn.send(self.synchroniser.log_entry_to_XML(log_entry).\
                 encode("utf-8"))
             count += 1
             progress_dialog.set_value(count)
-        conn.send("</openSM2sync>")       
-        import sys; sys.stderr.write("Client done")
+        conn.send("</openSM2sync>\n\r")       
         self.ui.status_bar_message("Waiting for server to complete...")
-        #if conn.getresponse().read() != "OK":
-        #    raise SyncError("Error sending log entries to server.")
+        if conn.getresponse().read() != "OK":
+            raise SyncError("Error sending log entries to server.")
 
     def get_server_media_files(self):
         self.ui.status_bar_message("Receiving server media files...")
