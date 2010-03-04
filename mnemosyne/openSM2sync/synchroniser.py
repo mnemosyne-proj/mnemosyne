@@ -98,10 +98,9 @@ class Synchroniser(object):
         context = iter(cElementTree.iterparse(xml, events=("end", )))
         # Get the root element
         event, root = context.next()
+        import sys; sys.stderr.write(elem.tag)
         for event, elem in context:
-            if elem.tag == "openSM2sync": # Needed?
-                import sys; sys.stderr.write("done xml")
-                return
+            import sys; sys.stderr.write(elem.tag)
             if elem.tag == "log":
                 log_entry = LogEntry()
                 for key, value in elem.attrib.iteritems():
