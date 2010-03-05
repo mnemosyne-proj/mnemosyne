@@ -51,7 +51,7 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
    265660    0.931    0.000    6.227    0.000 httplib.py:719(send)
 
 
-
+-try correctly formulated chunks
 -try download logs first?
 
 -client does not signal end of transmission? Server show know when to stop, no whiles.
@@ -202,6 +202,9 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 -show number of cards selected
 -card.in_view needed?
 -make card browser remember its size
+
+-time how long it takes to extract all media from a set of cards. If it takes too
+ long, consider adding a media field to the fact table
 
 -do better numeric sort on card browser and activate cards
 

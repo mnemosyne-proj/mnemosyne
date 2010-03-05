@@ -192,6 +192,15 @@ class Server(WSGIServer):
         # For simplicity, we also keep the entire stream in memory, as the
         # server is not expected to be resource limited.
         socket = environ["wsgi.input"]
+        
+        line = socket.readline()
+        while line:
+            import sys; sys.stderr.write(line)
+            line = socket.readline()
+        return OK
+        
+
+        
         lines = []
         line = socket.readline()
         lines.append(line)

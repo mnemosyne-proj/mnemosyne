@@ -149,24 +149,37 @@ class Client(object):
         conn.putheader("Expect", "100-continue")
         conn.putheader("Accept", "*/*")
         conn.endheaders()
+        #http://mail.python.org/pipermail/web-sig/2008-January/003171.html
+
+        #http://stackoverflow.com/questions/284741/processing-chunked-encoded-http-post-requests-in-python-or-generic-cgi-under-apa
+        #http://code.google.com/p/modwsgi/issues/detail?id=1
+        
+        #'%x\r\n%s\r\n' % (len(chunk), chunk) for every chunk
+        #of data except the last which should be '0\r\n\r\n'.
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to server...")
         count = 0        
-        conn.send("<openSM2sync>")
+        #conn.send("<openSM2sync>")
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_id):
-            conn.send(self.synchroniser.log_entry_to_XML(log_entry).\
-                encode("utf-8"))
+            chunk = self.synchroniser.log_entry_to_XML(log_entry).\
+                encode("utf-8")
+            conn.send("%x\r\n%s\r\n\r\n" % (len(chunk), chunk))
             count += 1
             progress_dialog.set_value(count)
+        
         # Since the client does not set Content-Length in order to be able to
         # stream the log entries, we need to provide the server with a sentinel
         # so that it is able to consume the entire stream, nothing more and
         # nothing less. For that we use the closing tag on a separate line.
         # (Note that we don't add new lines after each log entry in order to
         # improve server performance.)
-        conn.send("\n</openSM2sync>\n")     
+        
+        #conn.send("\n</openSM2sync>\n")
+
+        conn.send("0\r\n\r\n")
+
         self.ui.status_bar_message("Waiting for server to complete...")
         if conn.getresponse().read() != "OK":
             raise SyncError("Error sending log entries to server.")
