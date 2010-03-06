@@ -73,35 +73,18 @@ class Synchroniser(object):
         #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
         return xml
 
-    def XML_to_log_entry(self, chunk):
-
-        # TODO: remove
-        
-        #import sys; sys.stderr.write(chunk)
-        xml = cElementTree.XML(chunk)
-        log_entry = LogEntry()
-        for key, value in xml.attrib.iteritems():
-            if key in self.int_keys:
-                value = int(value)
-            elif key in self.float_keys:
-                values = float(value)
-            log_entry[key] = value
-        for child in xml:
-            if child.text:
-                log_entry[child.tag] = child.text
-            else:
-                log_entry[child.tag] = "" # Should be string instead of None.
-        return log_entry
-
     def XML_to_log_entries(self, xml):
-        # Do incremental parsing of the xml stream.
-        context = iter(cElementTree.iterparse(xml, events=("end", )))
-        # Get the root element
-        event, root = context.next()
-        import sys; sys.stderr.write(elem.tag)
+
+        """Do incremental parsing of the xml stream.
+
+        See http://effbot.org/zone/element-iterparse.htm
+
+        """
+        
+        context = iter(cElementTree.iterparse(xml, events=("start", "end")))
+        event, root = context.next() # 'start' event on openSM2 tag.
         for event, elem in context:
-            import sys; sys.stderr.write(elem.tag)
-            if elem.tag == "log":
+            if event == "end" and elem.tag == "log":
                 log_entry = LogEntry()
                 for key, value in elem.attrib.iteritems():
                     if key in self.int_keys:
@@ -113,7 +96,7 @@ class Synchroniser(object):
                     if child.text:
                         log_entry[child.tag] = child.text
                     else:
-                        log_entry[child.tag] = "" # Should be string instead of None.
-                # Free memory.
-                root.clear()
+                        # Should be string instead of None.
+                        log_entry[child.tag] = ""
+                root.clear() # Avoid taking up unnecessary memory.
                 yield log_entry

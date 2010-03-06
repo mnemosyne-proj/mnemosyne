@@ -50,15 +50,8 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
    265646    3.427    0.000    6.261    0.000 SQLite_sync.py:69(_log_entry)
    265660    0.931    0.000    6.227    0.000 httplib.py:719(send)
 
-
--try correctly formulated chunks
--try download logs first?
-
--client does not signal end of transmission? Server show know when to stop, no whiles.
--line ending needed? \r\n
-
-
--remove \n hack, streaming XML parsing
+-don't rely on newline for sentinel?
+-comment abount \n after log entry, throughput
 -buffering client send of events?
 
 
@@ -70,6 +63,7 @@ Wed Feb 10 10:49:28 2010    mnemosyne_profile.sync
 -create new database on server side if needed
 -self.stopped, timeouts
 -synchroniser --> xml formatter?
+-line ending needed? \r\n
 -more elegant error handling?
 -add modulo to progress dialogs
 -more code sharing between client and server?

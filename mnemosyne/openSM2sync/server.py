@@ -185,22 +185,14 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, self.number_of_client_log_entries_to_sync)
         progress_dialog.set_text("Receiving client log entries...")
-        # Since the client does not set Content-Length in order to be able to
-        # stream the log entries, it is our responsability that we consume the
-        # entire stream, nothing more and nothing less. For that, we use the
-        # closing openSM2sync tag on a separate line as a sentinel.
+        # Since chunked requests are not supported by the WSGI 1.x standard,
+        # the client does not set Content-Length in order to be able to
+        # stream the log entries. Therefore, it is our responsability that we
+        # consume the entire stream, nothing more and nothing less. For that,
+        # we use the closing openSM2sync tag on a separate line as a sentinel.
         # For simplicity, we also keep the entire stream in memory, as the
         # server is not expected to be resource limited.
-        socket = environ["wsgi.input"]
-        
-        line = socket.readline()
-        while line:
-            import sys; sys.stderr.write(line)
-            line = socket.readline()
-        return OK
-        
-
-        
+        socket = environ["wsgi.input"]        
         lines = []
         line = socket.readline()
         lines.append(line)
@@ -213,10 +205,8 @@ class Server(WSGIServer):
         self.client_log = []
         count = 0
         data_stream = cStringIO.StringIO("".join(lines))
-        import sys; sys.stderr.write(str(data_stream.read(100000)))
         for log_entry in self.synchroniser.XML_to_log_entries(data_stream):
             self.client_log.append(log_entry)
-            import sys; sys.stderr.write(str(log_entry)+"\n")
             count += 1
             progress_dialog.set_value(count)
         self.ui.status_bar_message("Waiting for client to finish...")
