@@ -119,7 +119,7 @@ class Client(object):
         os.chdir(self.database.mediadir())
         tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
              format=tarfile.PAX_FORMAT,
-             fileobj=conn.sock.makefile("wb", bufsize=4096))
+             fileobj=conn.sock.makefile("wb", bufsize=8192))
         for filename in filenames:
             tar_pipe.add(filename)
         tar_pipe.close()
@@ -154,13 +154,17 @@ class Client(object):
         progress_dialog.set_text("Sending log entries to server...")
         count = 0        
         conn.send("<openSM2sync>")
+        chunk = ""
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_id):
-            chunk = self.synchroniser.log_entry_to_XML(log_entry).\
-                encode("utf-8")
-            conn.send(chunk)
+            chunk += self.synchroniser.log_entry_to_XML(log_entry).\
+                encode("utf-8")  # Don't add \n to improve throughput.
+            if len(chunk) > 8192:
+                conn.send(chunk)
+                chunk = ""
             count += 1
             progress_dialog.set_value(count)
+        conn.send(chunk)
         conn.send("\n</openSM2sync>\n")
         self.ui.status_bar_message("Waiting for server to complete...")
         if conn.getresponse().read() != "OK":

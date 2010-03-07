@@ -170,15 +170,19 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Sending log entries to client...")
-        yield "<openSM2sync>"
+        chunk = "<openSM2sync>"
         count = 0
         for log_entry in self.database.log_entries_to_sync_for(\
             self.client_id):
             count += 1
             progress_dialog.set_value(count)
-            yield self.synchroniser.log_entry_to_XML(log_entry).\
+            chunk += self.synchroniser.log_entry_to_XML(log_entry).\
                 encode("utf-8")
-        yield "</openSM2sync>"
+            if len(chunk) > 8192:
+                yield chunk
+                chunk = ""
+        chunk += "</openSM2sync>"
+        yield chunk
         
     def put_client_log_entries(self, environ):
         self.ui.status_bar_message("Receiving client log entries...")
@@ -246,7 +250,7 @@ class Server(WSGIServer):
             yield "OK"
             return
         try:
-            BUFFER_SIZE = 4096
+            BUFFER_SIZE = 8192
             import tempfile
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
             tmp_file_name = tmp_file.name
@@ -263,12 +267,12 @@ class Server(WSGIServer):
             progress_dialog = self.ui.get_progress_dialog()
             progress_dialog.set_range(0, file_size)
             progress_dialog.set_text("Sending media files to client...")
-            buffer = tmp_file.read(BUFFER_SIZE)
+            chunk = tmp_file.read(BUFFER_SIZE)
             count = BUFFER_SIZE
-            while buffer:
+            while chunk:
                 progress_dialog.set_value(count)
-                yield buffer
-                buffer = tmp_file.read(BUFFER_SIZE)
+                yield chunk
+                chunk = tmp_file.read(BUFFER_SIZE)
                 count += BUFFER_SIZE
             progress_dialog.set_value(file_size)
             os.remove(tmp_file_name)
