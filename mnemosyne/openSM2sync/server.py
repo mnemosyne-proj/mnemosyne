@@ -193,14 +193,14 @@ class Server(WSGIServer):
         # the client does not set Content-Length in order to be able to
         # stream the log entries. Therefore, it is our responsability that we
         # consume the entire stream, nothing more and nothing less. For that,
-        # we use the closing openSM2sync tag on a separate line as a sentinel.
+        # we use the closing openSM2sync tag followed by \n as a sentinel.
         # For simplicity, we also keep the entire stream in memory, as the
         # server is not expected to be resource limited.
         socket = environ["wsgi.input"]        
         lines = []
         line = socket.readline()
         lines.append(line)
-        while line != "</openSM2sync>\n":
+        while not line.endswith("</openSM2sync>\n"):
             line = socket.readline()
             lines.append(line)
         # In order to do conflict resolution easily, one of the sync partners

@@ -118,8 +118,9 @@ iterparse:
    268608    0.662    0.000    4.339    0.000 httplib.py:719(send)
 
 
--don't rely on newline for sentinel?
 -rebenchmark on shulgi
+-typical use case on WM, benchmark
+-streaming compression
 
 -add q and a to cards if facts are not present
 -number of entries in same connection?
@@ -133,22 +134,17 @@ iterparse:
 -more elegant error handling?
 -add modulo to progress dialogs
 -more code sharing between client and server?
--add streaming connection to server side too
 -\r client /n vs server?
 -same connection throughout?
--don't have separate connection to get number of entries
 -exchange card types between different SRS, add support for card type events
 -http://live.gnome.org/Tomboy/Synchronization/REST
--same connection throughout?
 -sql roll back?
 -conflict resolution
 -think about sending across cards as pictures
--test where buffering makes a difference
 -multiuser server, token?
 -ui: pass or notImplemented?
 -time saxutils.escape attr
 -server can report can refuse large files
--streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 http://www.dev-explorer.com/articles/using-python-httplib
 -activating cards

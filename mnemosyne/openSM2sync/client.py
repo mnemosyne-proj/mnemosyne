@@ -144,7 +144,7 @@ class Client(object):
         # chunked requests are not supported by the WSGI 1.x standard.
         # However, it seems we can get around sending a Content-Length header
         # if the server knows when the datastream ends. We use the closing
-        # openSM2sync tag on a separate line as a sentinel for that.
+        # openSM2sync tag followed by \n as a sentinel for that.
         parsed_url = urlparse(self.url) 
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
         conn.putrequest("PUT", "/client/log_entries")
@@ -165,7 +165,7 @@ class Client(object):
             count += 1
             progress_dialog.set_value(count)
         conn.send(chunk)
-        conn.send("\n</openSM2sync>\n")
+        conn.send("</openSM2sync>\n")
         self.ui.status_bar_message("Waiting for server to complete...")
         if conn.getresponse().read() != "OK":
             raise SyncError("Error sending log entries to server.")
