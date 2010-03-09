@@ -23,7 +23,7 @@ class Database(Component):
         self.backup()
         self.unload()
         
-    def database_name(self):
+    def name(self):
 
         """Returns bare name of the database, without parent paths and
         suffixes.

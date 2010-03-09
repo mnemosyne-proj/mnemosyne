@@ -12,8 +12,7 @@ import cStringIO
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
 from utils import tar_file_size
-from synchroniser import Synchroniser
-from synchroniser import PROTOCOL_VERSION
+from data_format import DataFormat
 
 
 class Server(WSGIServer):
@@ -35,10 +34,11 @@ class Server(WSGIServer):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.ui = ui
-        self.synchroniser = Synchroniser()
+        self.data_format = DataFormat()
         self.stopped = False
         self.logged_in = False
         self.id = "TODO"
+        self.client_info = {}
         self.number_of_client_log_entries_to_sync = None
 
     def wsgi_app(self, environ, start_response):
@@ -127,28 +127,24 @@ class Server(WSGIServer):
     # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo/bar'
     # request.
 
-    def get_server_params(self, environ):
+    def get_server_info(self, environ):
         self.ui.status_bar_message("Sending server info to the client...")
-        return ("<server id='%s' program_name='%s' " + \
-            "program_version='%s' protocol_version='%s' capabilities='%s' " + \
-            "server_deck_read_only='false' " + \
-            "server_allows_media_upload='true'></server>") % (self.id,
-            self.program_name, self.program_version, PROTOCOL_VERSION,
-            self.capabilities)        
+        server_info = {"id": self.id, "program_name": self.program_name,
+            "program_version": self.program_version,
+            "capabilities": self.capabilities}
+        return self.data_format.repr_partner_info(server_info)
 
-    def put_client_params(self, environ):
+    def put_client_info(self, environ):
         self.ui.status_bar_message("Receiving client info...")
         try:
-            socket = environ["wsgi.input"]
-            client_params = socket.readline()
+            client_info_repr = environ["wsgi.input"].readline()
         except:
             return "CANCEL"
-        self.synchroniser.set_partner_params(client_params)
-        self.client_id = self.synchroniser.partner["id"]
-        self.open_database(self.synchroniser.partner["database_name"])
+        self.client_info = \
+            self.data_format.parse_partner_info(client_info_repr)
+        self.open_database(self.client_info["database_name"])
         self.database.backup()
-        self.synchroniser.database = self.database
-        self.database.create_partnership_if_needed_for(self.client_id)
+        self.database.create_partnership_if_needed_for(self.client_info["id"])
         return "OK"
         
     def put_number_of_client_log_entries_to_sync(self, environ):
@@ -161,22 +157,23 @@ class Server(WSGIServer):
             return "OK"
     
     def get_number_of_server_log_entries_to_sync(self, environ):
-        return str(self.database.number_of_log_entries_to_sync_for(self.client_id))
+        return str(self.database.number_of_log_entries_to_sync_for(\
+            self.client_info["id"]))
 
     def get_server_log_entries(self, environ):
         self.ui.status_bar_message("Sending log entries to client...")
         log_entries = self.database.number_of_log_entries_to_sync_for(\
-            self.client_id)
+            self.client_info["id"])
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Sending log entries to client...")
         chunk = "<openSM2sync>"
         count = 0
         for log_entry in self.database.log_entries_to_sync_for(\
-            self.client_id):
+            self.client_info["id"]):
             count += 1
             progress_dialog.set_value(count)
-            chunk += self.synchroniser.log_entry_to_XML(log_entry).\
+            chunk += self.data_format.repr_log_entry(log_entry).\
                 encode("utf-8")
             if len(chunk) > 8192:
                 yield chunk
@@ -209,7 +206,7 @@ class Server(WSGIServer):
         self.client_log = []
         count = 0
         data_stream = cStringIO.StringIO("".join(lines))
-        for log_entry in self.synchroniser.XML_to_log_entries(data_stream):
+        for log_entry in self.data_format.parse_log_entries(data_stream):
             self.client_log.append(log_entry)
             count += 1
             progress_dialog.set_value(count)
@@ -238,14 +235,15 @@ class Server(WSGIServer):
 
     def get_server_media_files_size(self, environ):
         filenames = list(self.database.media_filenames_to_sync_for(\
-            self.client_id))
+            self.client_info["id"]))
         size = tar_file_size(self.database.mediadir(), filenames)
         return str(size)
     
     def get_server_media_files(self, environ):
         self.ui.status_bar_message("Sending media files to client...")
         self.database.check_for_updated_media_files()
-        filenames = self.database.media_filenames_to_sync_for(self.client_id)
+        filenames = self.database.media_filenames_to_sync_for(\
+            self.client_info["id"])
         if len(filenames) == 0:
             yield "OK"
             return
@@ -259,7 +257,7 @@ class Server(WSGIServer):
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
                 bufsize=BUFFER_SIZE, format=tarfile.PAX_FORMAT)
             for filename in self.database.media_filenames_to_sync_for(\
-                self.client_id):
+                self.client_info["id"]):
                 tar_pipe.add(filename)
             tar_pipe.close()
             tmp_file = file(tmp_file_name, "rb")
@@ -284,7 +282,7 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         for log_entry in self.client_log:
             self.database.apply_log_entry(log_entry)
-        self.database.update_last_sync_log_entry_for(self.client_id)
+        self.database.update_last_sync_log_entry_for(self.client_info["id"])
         self.logged_in = False
         if self.stop_after_sync:
             self.stop()

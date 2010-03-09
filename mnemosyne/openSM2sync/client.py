@@ -13,9 +13,11 @@ from urlparse import urlparse
 from xml.etree import cElementTree
 
 from utils import tar_file_size
-from synchroniser import SyncError
-from synchroniser import Synchroniser
-from synchroniser import PROTOCOL_VERSION
+from data_format import DataFormat
+
+
+class SyncError(Exception):
+    pass
 
 
 class PutRequest(urllib2.Request):
@@ -35,21 +37,21 @@ class Client(object):
     def __init__(self, database, ui):
         self.database = database
         self.ui = ui
-        self.synchroniser = Synchroniser()
-        self.synchroniser.database = database
+        self.data_format = DataFormat()
         self.id = "TODO"
+        self.server_info = {}
 
     def sync(self, url, username, password):       
         try:
             self.url = url           
             self.ui.status_bar_message("Creating backup...")
-            backup_file = self.database.backup()           
-            self.login(username, password)
-            self.handshake()
+            backup_file = self.database.backup()
             # We let the client check if files were updated outside of the
             # program. This can generate MEDIA_UPDATED log entries, so it
             # should be done first.
             self.database.check_for_updated_media_files()
+            self.login(username, password)
+            self.handshake()
             self.put_client_log_entries()
             # Here, the server should send a summary of the sync and of
             # conflicts encountered, so here the user will later get the
@@ -80,27 +82,27 @@ class Client(object):
 
     def handshake(self):
         self.ui.status_bar_message("Handshaking...")
-        client_params = ("<client id='%s' program_name='%s' " + \
-            "program_version='%s' protocol_version='%s' capabilities='%s' " + \
-            "database_name='%s'></client>") % (self.id, self.program_name,
-            self.program_version, PROTOCOL_VERSION, self.capabilities,
-            self.database.database_name())
         try:
-            server_params = urllib2.urlopen(self.url + "/server/params").read()
-            response = urllib2.urlopen(PutRequest(\
-                self.url + "/client/params", client_params + "\n"))
+            server_info_repr = \
+                urllib2.urlopen(self.url + "/server/info").read()
+            client_info = {"id": self.id, "program_name": self.program_name,
+                "program_version": self.program_version,
+                "capabilities": self.capabilities,
+                "database_name": self.database.name()}
+            response = urllib2.urlopen(PutRequest(self.url + "/client/info",
+                self.data_format.repr_partner_info(client_info) + "\n"))
             if response.read() != "OK":
                 raise SyncError("Handshaking: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Handshaking: " + str(error))
-        self.synchroniser.set_partner_params(server_params)
-        self.server_id = self.synchroniser.partner["id"]
-        self.database.create_partnership_if_needed_for(self.server_id)
+        self.server_info = self.data_format.parse_partner_info(server_info_repr)
+        self.database.create_partnership_if_needed_for(self.server_info["id"])
 
     def put_client_media_files(self):
         self.ui.status_bar_message("Sending media files to server...")
         # Size of tar archive.
-        filenames = self.database.media_filenames_to_sync_for(self.server_id)
+        filenames = self.database.media_filenames_to_sync_for(\
+            self.server_info["id"])
         size = tar_file_size(self.database.mediadir(), filenames)
         if size == 0:
             return
@@ -131,7 +133,7 @@ class Client(object):
         self.ui.status_bar_message("Sending log entries to server...")
         # Number of log entries.
         number_of_entries = self.database.number_of_log_entries_to_sync_for(\
-            self.server_id)
+            self.server_info["id"])
         if number_of_entries == 0:
             return
         response = urllib2.urlopen(PutRequest(self.url + \
@@ -156,8 +158,8 @@ class Client(object):
         conn.send("<openSM2sync>")
         chunk = ""
         for log_entry in self.database.log_entries_to_sync_for(\
-            self.server_id):
-            chunk += self.synchroniser.log_entry_to_XML(log_entry).\
+            self.server_info["id"]):
+            chunk += self.data_format.repr_log_entry(log_entry).\
                 encode("utf-8")  # Don't add \n to improve throughput.
             if len(chunk) > 8192:
                 conn.send(chunk)
@@ -197,7 +199,7 @@ class Client(object):
         try:
             response = urllib2.urlopen(self.url + "/server/log_entries")
             count = 0
-            for log_entry in self.synchroniser.XML_to_log_entries(response):
+            for log_entry in self.data_format.parse_log_entries(response):
                 self.database.apply_log_entry(log_entry)
                 count += 1
                 progress_dialog.set_value(count)
@@ -212,5 +214,5 @@ class Client(object):
                 raise SyncError("Finishing sync: error on server side.")
         except urllib2.URLError, error:
             raise SyncError("Finishing syncing: " + str(error))
-        self.database.update_last_sync_log_entry_for(self.server_id)
+        self.database.update_last_sync_log_entry_for(self.server_info["id"])
             

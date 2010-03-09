@@ -1,30 +1,40 @@
 #
-# synchroniser.py - Max Usachev <maxusachev@gmail.com>
-#                   Ed Bartosh <bartosh@gmail.com>
-#                   Peter Bienstman <Peter.Bienstman@UGent.be>
+# data_format.py - Peter Bienstman <Peter.Bienstman@UGent.be>
+#
 
 from xml.sax import saxutils
 from xml.etree import cElementTree
-from openSM2sync.log_entry import LogEntry, EventTypes
+from openSM2sync.log_entry import LogEntry
 
-PROTOCOL_VERSION = 1.0
+PROTOCOL_VERSION = "openSM2sync 1.0"
 
-QA_CARD_TYPE = 1
-VICE_VERSA_CARD_TYPE = 2
-N_SIDED_CARD_TYPE = 3
-
-class SyncError(Exception):
-    pass
-
-            
-class Synchroniser(object):
+              
+class DataFormat(object):
     
-    """Class handling the conversion from LogEntry objects to XML streams and
-    vice versa.
+    """Class handling the conversion from data to XML streams and vice versa.
 
     """
 
-    # The list of keys to be passed on as attributes.
+    def repr_partner_info(self, info):
+        repr_info = " <partner "
+        for key, value in info.iteritems():
+            repr_info += "%s='%s' " % (key, value)
+        repr_info += "protocol_version='%s'></partner>" % (PROTOCOL_VERSION, )
+        return repr_info
+
+    def parse_partner_info(self, xml):
+        parsed_xml = cElementTree.fromstring(xml)
+        partner_info = {}
+        for key in parsed_xml.keys():
+            value = parsed_xml.get(key)
+            if value.lower() == "true":
+                value = True
+            elif value.lower() == "false":
+                value = False
+            partner_info[key] = value
+        return partner_info
+
+    # The list of LogEntry keys to be passed on as attributes.
     keys_in_attribs = ["type", "time", "o_id", "sch", "n_mem", "act", "c_time",
         "m_time", "card_t", "fact", "fact_v", "tags", "act", "gr", "e", "l_rp",
         "n_rp", "ac_rp", "rt_rp", "lps", "ac_rp_l", "rt_rp_l", "sch_data",
@@ -34,23 +44,7 @@ class Synchroniser(object):
         "rt_rp_l", "sch_data", "sch_i", "act_i", "new_i", "th_t"]
     float_keys = ["e"]
 
-    def __init__(self):
-        self.partner = {"id": None, "program_name": None,
-            "program_version": None, "protocol_version": None,
-            "capabilities": None, "database_name": None,
-            "server_deck_read_only": None, "server_allows_media_upload": None}
-
-    def set_partner_params(self, partner_params):
-        params = cElementTree.fromstring(partner_params) 
-        for key in params.keys():
-            value = params.get(key)
-            if value.lower() == "true":
-                value = True
-            elif value.lower() == "false":
-                value = False
-            self.partner[key] = value
-
-    def log_entry_to_XML(self, log_entry):
+    def repr_log_entry(self, log_entry):
 
         """Converts LogEntry to XML.
 
@@ -73,9 +67,9 @@ class Synchroniser(object):
         #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
         return xml
 
-    def XML_to_log_entries(self, xml):
+    def parse_log_entries(self, xml):
 
-        """Do incremental parsing of the xml stream.
+        """Do incremental parsing of the XML stream.
 
         See http://effbot.org/zone/element-iterparse.htm
 

@@ -217,7 +217,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self._connection.row_factory = sqlite3.Row
         return self._connection
     
-    def database_name(self):
+    def name(self):
         if not self.is_loaded():
             return None
         else:
