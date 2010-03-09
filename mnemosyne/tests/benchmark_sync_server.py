@@ -10,11 +10,6 @@ from mnemosyne.libmnemosyne import Mnemosyne
 number_of_calls = 20 # Number of calls to display in profile
 number_of_facts = 6000
 
-mnemosyne = None
-
-
-from threading import Thread
-
 from openSM2sync.server import Server
 from openSM2sync.client import Client
 from openSM2sync.log_entry import EventTypes
@@ -35,7 +30,7 @@ class Widget(MainWidget):
         print error
 
         
-class MyServer(Server, Thread):
+class MyServer(Server):
 
     program_name = "Mnemosyne"
     program_version = "test"
@@ -44,7 +39,7 @@ class MyServer(Server, Thread):
     stop_after_sync = True
 
     def __init__(self):
-        Thread.__init__(self)
+        os.system("rm -rf sync_from_here")
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
@@ -53,6 +48,16 @@ class MyServer(Server, Thread):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("sync_from_here"))
+        self.mnemosyne.review_controller().reset()
+        # Add 20 cards to database.
+        card_type = self.mnemosyne.card_type_by_id("1")
+        for i in range (20):
+            fact_data = {"q": "question %d" % (i,),
+                         "a": "answer"}
+            self.mnemosyne.controller().create_new_cards(fact_data, card_type,
+                grade=-1, tag_names=["default"])[0]
+        self.mnemosyne.database().save()
      
     def authorise(self, login, password):
         return login == "user" and password == "pass"
@@ -61,53 +66,24 @@ class MyServer(Server, Thread):
         self.database = self.mnemosyne.database()
 
     def run(self):
-        # We only open the database connection inside the thread to prevent
-        # access problems, as a single connection can only be used inside a
-        # single thread.
-        self.mnemosyne.initialise(os.path.abspath("sync_from_here"))
-        self.mnemosyne.review_controller().reset()
         Server.__init__(self, "127.0.0.1", 8185, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
         self.mnemosyne.finalise()
 
+server = MyServer()
 
-class MyClient(Client):
-    
-    program_name = "Mnemosyne"
-    program_version = "test"
-    capabilities = "TODO"
-    
-    def __init__(self):
-        os.system("rm -fr dot_benchmark")
-        self.mnemosyne = Mnemosyne()
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
-        self.mnemosyne.components.append(("test_sync", "Widget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
-        self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
-                                  "dot_benchmark")))
-        self.mnemosyne.review_controller().reset()        
-        Client.__init__(self, self.mnemosyne.database(),
-                        self.mnemosyne.main_widget())
-        
-    def do_sync(self):
-        self.sync("http://127.0.0.1:8185", "user", "pass")
-        self.mnemosyne.database().save()
+import time
+t1 = time.time()
+               
+def run():  
+    server.run()
 
-def sync():
-    server = MyServer()    
-    server.start()
-    client = MyClient()
+run()
+print time.time() - t1
 
-    import time; time.sleep(0.5)
-    client.do_sync()
-
-tests = ["sync()"]
+tests = [] #["run()"]
 
 for test in tests:  
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
