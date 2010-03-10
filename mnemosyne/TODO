@@ -1,56 +1,59 @@
 -rebenchmark on shulgi: big server: 65 sec --> 55 sec, big client: 80 --> 50 sec
 
+-WM benchmark non sync
 
--typical use case on WM, benchmark
+-benchmark on WM sync
+
 -streaming compression
-
-
--refactoring pass
-
--add q and a to cards if facts are not present
--number of entries in same connection? or put it in handshaking?
--cdata, encode for deck name, unicode + test
--test scheduled, active count sync on load/save + type
--check if get_log_entries_to_sync_for really returns iterator
--create new database on server side if needed
--self.stopped, timeouts
--synchroniser --> xml formatter?
--line ending needed? \r\n
--more elegant error handling?
--add modulo to progress dialogs
--more code sharing between client and server?
--\r client /n vs server?
--same connection throughout?
--exchange card types between different SRS, add support for card type events
--http://live.gnome.org/Tomboy/Synchronization/REST
--sql roll back?
--conflict resolution
--think about sending across cards as pictures
--multiuser server, token?
--ui: pass or notImplemented?
--time saxutils.escape attr
--server can report can refuse large files
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
 http://www.dev-explorer.com/articles/using-python-httplib
--activating cards
--latex
--make sure to convert int(time.time()) to integer
--make sure all events make it to the sync protocol + formats
--how to prevent different instantiations from uploading logs twice
--mechanism to have plugin settings synced?
+
+-multiuser server, token
+
+-number of entries in same connection? or put it in handshaking?
+-same connection throughout?
+
+-cdata, encode for deck name, unicode + test
+-create new database on server side if needed
 -pull in user id on first sync
--hack tarfile to add progress bar?
--add tests with unicode in basedir
 -just copy database on initial sync
+
+-add q and a to cards if facts are not present
+-option not to download old history
+
+-test scheduled, active count sync on load/save + type
+
+-self.stopped, timeouts
+-more elegant error handling?
+-sql roll back?
+
+-conflict resolution
+
+-think about sending across cards as pictures
+-latex
+
+-ui: pass or notImplemented?
+-time saxutils.escape attr
+-activating cards
+
+-client not interested in past events
+
+-how to prevent different instantiations from uploading logs twice
+
+-hack tarfile to add progress bar?
+-add modulo to progress dialogs
+
 -make sure after import all sync events fire
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
 -example 'miniclient' supporting sync
 -log save event after import and sync in the default controller. Add tests
+
 -rename media files-> external files?
-
-
+-add tests with unicode in basedir
+-mechanism to have plugin settings synced?
+-exchange card types between different SRS, add support for card type events
 
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI

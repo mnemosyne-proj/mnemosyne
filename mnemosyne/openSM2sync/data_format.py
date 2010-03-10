@@ -13,6 +13,19 @@ class DataFormat(object):
     
     """Class handling the conversion from data to XML streams and vice versa.
 
+    Example of typical XML for log entries:
+
+    <openSM2sync>
+    <log type='1' o_id='Mnemosyne 2.0-pre posix linux2' time='1268213369'>
+    </log>
+    <log type='3' o_id='SM2 Mnemosyne' time='1268213369'></log>
+    <log n_mem='0' act='0' type='4' sch='0' time='1268213369'></log>
+    <log type='6' o_id='068c2472-b1f7-424d-aefa-ae723437702e'
+    time='1268213369'><name>abcd</name></log>
+    <log n_mem='0' act='0' type='5' sch='0' time='1268213369'></log>
+    </openSM2sync>
+    
+
     """
 
     def repr_partner_info(self, info):
@@ -44,6 +57,9 @@ class DataFormat(object):
         "rt_rp_l", "sch_data", "sch_i", "act_i", "new_i", "th_t"]
     float_keys = ["e"]
 
+    log_entries_header = "<openSM2sync>"
+    log_entries_footer = "</openSM2sync>\n"    
+
     def repr_log_entry(self, log_entry):
 
         """Converts LogEntry to XML.
@@ -64,8 +80,8 @@ class DataFormat(object):
             else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>" % (attribs, tags)
-        #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
-        return xml
+        import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
+        return xml  # Don't add \n to improve throughput.
 
     def parse_log_entries(self, xml):
 
@@ -76,7 +92,7 @@ class DataFormat(object):
         """
         
         context = iter(cElementTree.iterparse(xml, events=("start", "end")))
-        event, root = context.next() # 'start' event on openSM2 tag.
+        event, root = context.next()  # 'start' event on openSM2 tag.
         for event, elem in context:
             if event == "end" and elem.tag == "log":
                 log_entry = LogEntry()
@@ -92,5 +108,5 @@ class DataFormat(object):
                     else:
                         # Should be string instead of None.
                         log_entry[child.tag] = ""
-                root.clear() # Avoid taking up unnecessary memory.
+                root.clear()  # Avoid taking up unnecessary memory.
                 yield log_entry

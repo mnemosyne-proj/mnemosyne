@@ -8,6 +8,7 @@ import cgi
 import base64
 import select
 import tarfile
+import tempfile
 import cStringIO
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
@@ -17,13 +18,6 @@ from data_format import DataFormat
 
 class Server(WSGIServer):
 
-    """Note that the current implementation of the server can only handle one
-    sync request at the time. it is *NOT* yet suited to deploy in a multiuser
-    context over the internet, as simultaneous requests from different users
-    could get mixed up.
-
-    """
-    
     program_name = "unknown-SRS-app"
     program_version = "unknown"
     capabilities = None  # TODO: list possibilies.
@@ -58,25 +52,7 @@ class Server(WSGIServer):
                 self.handle_request()
         self.socket.close()
 
-    def stop(self):
-        self.stopped = True
-
     def get_method(self, environ):
-
-        """Checks for method existence in service and checks for right request
-        params.
-
-        """
-
-        def compare_args(list1, list2):
-            
-            """Compares two lists or tuples."""
-            
-            for item in list1:
-                if not item in list2:
-                    return False
-            return True
-
         if environ.has_key("HTTP_AUTHORIZATION"):
             login, password = base64.decodestring(\
                 environ["HTTP_AUTHORIZATION"].split(" ")[-1]).split(":")
@@ -90,19 +66,21 @@ class Server(WSGIServer):
         else:
             if not self.logged_in:
                 return "403 Forbidden", "text/plain", None, None
+            # Convert e.g. GET /foo/bar into get_foo_bar.
             method = (environ["REQUEST_METHOD"] + \
                 "_".join(environ["PATH_INFO"].split("/"))).lower()
             if hasattr(self, method) and callable(getattr(self, method)):
                 args = cgi.parse_qs(environ["QUERY_STRING"])
                 args = dict([(key, val[0]) for key, val in args.iteritems()])
-                if getattr(self, method).func_code.co_argcount-2 == len(args) \
-                    and compare_args(args.keys(), getattr(self, method). \
-                        func_code.co_varnames):                
+                if len(args) == 0:               
                     return "200 OK", "xml/text", method, args
                 else:
                     return "400 Bad Request", "text/plain", None, None
             else:
                 return "404 Not Found", "text/plain", None, None
+
+    def stop(self):
+        self.stopped = True
 
     # The following functions are to be overridden by the actual server code,
     # to implement e.g. authorisation and storage.
@@ -149,12 +127,11 @@ class Server(WSGIServer):
         
     def put_number_of_client_log_entries_to_sync(self, environ):
         try:
-            socket = environ["wsgi.input"]
-            self.number_of_client_log_entries_to_sync = int(socket.readline())
+            self.number_of_client_log_entries_to_sync = \
+                int(environ["wsgi.input"].readline())
         except:
             return "CANCEL"
-        else:
-            return "OK"
+        return "OK"
     
     def get_number_of_server_log_entries_to_sync(self, environ):
         return str(self.database.number_of_log_entries_to_sync_for(\
@@ -167,19 +144,19 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, log_entries)
         progress_dialog.set_text("Sending log entries to client...")
-        chunk = "<openSM2sync>"
+        chunk = self.data_format.log_entries_header
+        BUFFER_SIZE = 8192
         count = 0
         for log_entry in self.database.log_entries_to_sync_for(\
             self.client_info["id"]):
             count += 1
             progress_dialog.set_value(count)
-            chunk += self.data_format.repr_log_entry(log_entry).\
-                encode("utf-8")
-            if len(chunk) > 8192:
-                yield chunk
+            chunk += self.data_format.repr_log_entry(log_entry)
+            if len(chunk) > BUFFER_SIZE:
+                yield chunk.encode("utf-8")
                 chunk = ""
-        chunk += "</openSM2sync>"
-        yield chunk
+        chunk += self.data_format.log_entries_footer
+        yield chunk.encode("utf-8")
         
     def put_client_log_entries(self, environ):
         self.ui.status_bar_message("Receiving client log entries...")
@@ -190,14 +167,15 @@ class Server(WSGIServer):
         # the client does not set Content-Length in order to be able to
         # stream the log entries. Therefore, it is our responsability that we
         # consume the entire stream, nothing more and nothing less. For that,
-        # we use the closing openSM2sync tag followed by \n as a sentinel.
+        # we use the file format footer as a sentinel.
         # For simplicity, we also keep the entire stream in memory, as the
         # server is not expected to be resource limited.
+        sentinel = self.data_format.log_entries_footer
         socket = environ["wsgi.input"]        
         lines = []
         line = socket.readline()
         lines.append(line)
-        while not line.endswith("</openSM2sync>\n"):
+        while not line.endswith(sentinel):
             line = socket.readline()
             lines.append(line)
         # In order to do conflict resolution easily, one of the sync partners
@@ -215,18 +193,16 @@ class Server(WSGIServer):
 
     def put_client_media_files_size(self, environ):
         try:
-            socket = environ["wsgi.input"]
-            self.client_media_files_size = int(socket.readline())
+            self.client_media_files_size = \
+                int(environ["wsgi.input"].readline())
         except:
             return "CANCEL"
-        else:
-            return "OK"
+        return "OK"
         
     def put_client_media_files(self, environ):
         self.ui.status_bar_message("Receiving client media files...")
-        try:
-            socket = environ["wsgi.input"]           
-            tar_pipe = tarfile.open(mode="r|", fileobj=socket)
+        try:         
+            tar_pipe = tarfile.open(mode="r|", fileobj=environ["wsgi.input"])
             # Work around http://bugs.python.org/issue7693.
             tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
         except:
@@ -249,7 +225,6 @@ class Server(WSGIServer):
             return
         try:
             BUFFER_SIZE = 8192
-            import tempfile
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
             tmp_file_name = tmp_file.name
             saved_path = os.getcwdu()

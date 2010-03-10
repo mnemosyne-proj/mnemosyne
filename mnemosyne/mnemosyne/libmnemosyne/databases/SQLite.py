@@ -353,8 +353,13 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         backupfile = db_name + "-" + \
                    datetime.datetime.today().strftime("%Y%m%d-%H:%M.db")
         backupfile = os.path.join(backupdir, backupfile)
-        shutil.copy(self._path, backupfile)
-        if not os.path.exists(backupfile) or not os.stat(backupfile).st_size:
+        failed = False
+        try:
+            shutil.copy(self._path, backupfile)
+        except:
+            failed = True
+        if failed or not os.path.exists(backupfile) or \
+          not os.stat(backupfile).st_size:
             self.main_widget().information_box(\
                 _("Warning: backup creation failed for") + " " +  backupfile)
         for f in self.component_manager.get_all("hook", "after_backup"):

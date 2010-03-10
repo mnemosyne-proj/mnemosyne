@@ -61,7 +61,7 @@ class Client(object):
             self.get_server_log_entries()
             self.finish_request()
         except SyncError, exception:
-            self.database.load(backup_file) # TODO: use SQL rollback?
+            self.database.load(backup_file)
             self.ui.error_box("Error: " + str(exception))
         else:
             self.ui.information_box("Sync finished!")
@@ -70,8 +70,7 @@ class Client(object):
         self.ui.status_bar_message("Logging in...")
         request = urllib2.Request(self.url)
         base64string = base64.encodestring("%s:%s" % (username, password))
-        # Add header and strip off trailing \n in base64string.
-        request.add_header("AUTHORIZATION", "Basic %s" % base64string[:-1])
+        request.add_header("AUTHORIZATION", "Basic %s" % base64string)
         try:
             urllib2.urlopen(request).read()
         except urllib2.URLError, error:
@@ -145,8 +144,8 @@ class Client(object):
         # Normally, one would use "Transfer-Encoding: chunked" for that, but
         # chunked requests are not supported by the WSGI 1.x standard.
         # However, it seems we can get around sending a Content-Length header
-        # if the server knows when the datastream ends. We use the closing
-        # openSM2sync tag followed by \n as a sentinel for that.
+        # if the server knows when the datastream ends. We use the data format
+        # footer  as a sentinel for that.
         parsed_url = urlparse(self.url) 
         conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
         conn.putrequest("PUT", "/client/log_entries")
@@ -154,20 +153,19 @@ class Client(object):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to server...")
-        count = 0        
-        conn.send("<openSM2sync>")
-        chunk = ""
+        count = 0
+        BUFFER_SIZE = 8192
+        chunk = self.data_format.log_entries_header        
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_info["id"]):
-            chunk += self.data_format.repr_log_entry(log_entry).\
-                encode("utf-8")  # Don't add \n to improve throughput.
-            if len(chunk) > 8192:
-                conn.send(chunk)
+            chunk += self.data_format.repr_log_entry(log_entry)
+            if len(chunk) > BUFFER_SIZE:
+                conn.send(chunk.encode("utf-8"))
                 chunk = ""
             count += 1
             progress_dialog.set_value(count)
-        conn.send(chunk)
-        conn.send("</openSM2sync>\n")
+        chunk += self.data_format.log_entries_footer
+        conn.send(chunk.encode("utf-8"))
         self.ui.status_bar_message("Waiting for server to complete...")
         if conn.getresponse().read() != "OK":
             raise SyncError("Error sending log entries to server.")
