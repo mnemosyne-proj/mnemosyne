@@ -1,6 +1,7 @@
 -rebenchmark on shulgi: big server: 65 sec --> 55 sec, big client: 80 --> 50 sec
 
--WM benchmark non sync
+
+-WM benchmark non sync: 98 sec, reverse lookup, time server?
 
 -benchmark on WM sync
 

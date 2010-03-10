@@ -80,7 +80,7 @@ class MyClient(Client):
              "DefaultCriterionApplier"), 
             ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
              "CrammingPlugin") ]
-        self.mnemosyne.components.append(("benchmark_sync_client", "Widget"))
+        self.mnemosyne.components.append(("benchmark_sync_client_WM", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.components.append(\
@@ -103,27 +103,31 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://192.168.2.54:8185", "user", "pass")
+        self.sync("http://192.168.2.54:8186", "user", "pass")
         self.mnemosyne.database().save()
 
-client = MyClient()
+if __name__== '__main__':
+     
+    client = MyClient()
 
-import time
-t1 = time.time()
+    import time
+    t1 = time.time()
     
-def sync():
-    client.do_sync()
+    def sync():
+        client.do_sync()
 
-sync()
-print time.time() - t1
+    #sync()
+    print time.time() - t1
 
-tests = []#["sync()"]
+    tests = ["sync()"]
 
-for test in tests:
-    cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
-    print
-    print "*** ", test, " ***"
-    print
-    p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
-    p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
-    
+    for test in tests:
+        cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
+        print
+        print "*** ", test, " ***"
+        print
+        p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
+        p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
+
+
+# 98 sec

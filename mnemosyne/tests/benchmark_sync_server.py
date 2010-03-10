@@ -66,7 +66,7 @@ class MyServer(Server):
         self.database = self.mnemosyne.database()
 
     def run(self):
-        Server.__init__(self, "127.0.0.1", 8185, self.mnemosyne.main_widget())
+        Server.__init__(self, "192.168.2.54", 8186, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
