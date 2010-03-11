@@ -6,7 +6,7 @@
 
 -benchmark on WM sync: 98 sec, no  reverse lookup: 51 sec, no fqdn: 10 sec
 
--don't use get card
+-don't use get card, update logentry docs
 
 
 -streaming compression
@@ -24,6 +24,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -just copy database on initial sync
 
 -add q and a to cards if facts are not present
+-convert fact events to card events than
 -option not to download old history
 
 -test scheduled, active count sync on load/save + type
@@ -36,6 +37,8 @@ http://www.dev-explorer.com/articles/using-python-httplib
 
 -think about sending across cards as pictures
 -latex
+
+-does loopback adress work?
 
 -ui: pass or notImplemented?
 -time saxutils.escape attr
@@ -132,6 +135,8 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
  long, consider adding a media field to the fact table
 
 -do better numeric sort on card browser and activate cards
+
+-mobile client: even more agressive prefetch?
 
 
 -implement duplicate checking
