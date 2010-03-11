@@ -16,6 +16,23 @@ from utils import tar_file_size
 from data_format import DataFormat
 
 
+# Work around http://bugs.python.org/issue6085.
+
+def not_insane_address_string(self):
+    host, port = self.client_address[:2]
+    return "%s (no getfqdn)" % host
+
+WSGIRequestHandler.address_string = not_insane_address_string
+
+
+# Don't pollute our testsuite output.
+
+def dont_log(*kwargs):
+    pass
+
+WSGIRequestHandler.log_message = dont_log
+
+
 class Server(WSGIServer):
 
     program_name = "unknown-SRS-app"

@@ -74,16 +74,10 @@ class MyServer(Server):
 
 server = MyServer()
 
-import time
-t1 = time.time()
-               
 def run():  
     server.run()
 
-run()
-print time.time() - t1
-
-tests = [] #["run()"]
+tests = ["run()"]
 
 for test in tests:  
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))

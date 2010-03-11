@@ -1,9 +1,13 @@
+
+
 -rebenchmark on shulgi: big server: 65 sec --> 55 sec, big client: 80 --> 50 sec
 
+-WM benchmark non sync
 
--WM benchmark non sync: 98 sec, reverse lookup, time server?
+-benchmark on WM sync: 98 sec, no  reverse lookup: 51 sec, no fqdn: 10 sec
 
--benchmark on WM sync
+-don't use get card
+
 
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html

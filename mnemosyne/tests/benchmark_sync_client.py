@@ -38,11 +38,49 @@ class MyClient(Client):
     capabilities = "TODO"
     
     def __init__(self):
-        os.system("rm -fr dot_benchmark")
         self.mnemosyne = Mnemosyne()
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
-        self.mnemosyne.components.append(("test_sync", "Widget"))
+        self.mnemosyne.components = [
+            ("mnemosyne.libmnemosyne.translator",
+             "NoTranslation"),    
+            ("mnemosyne.libmnemosyne.databases.SQLite",
+             "SQLite"), 
+            ("mnemosyne.libmnemosyne.configuration",
+             "Configuration"), 
+            ("mnemosyne.libmnemosyne.loggers.database_logger",
+             "DatabaseLogger"),          
+            ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
+             "SM2Mnemosyne"),
+            ("mnemosyne.libmnemosyne.stopwatch",
+             "Stopwatch"), 
+            ("mnemosyne.libmnemosyne.card_types.front_to_back",
+             "FrontToBack"),
+            ("mnemosyne.libmnemosyne.card_types.both_ways",
+             "BothWays"),
+            ("mnemosyne.libmnemosyne.card_types.three_sided",
+             "ThreeSided"),
+            ("mnemosyne.libmnemosyne.renderers.html_css_old",
+             "HtmlCssOld"),
+            ("mnemosyne.libmnemosyne.filters.escape_to_html",
+             "EscapeToHtml"),
+            ("mnemosyne.libmnemosyne.filters.expand_paths",
+             "ExpandPaths"),
+            ("mnemosyne.libmnemosyne.filters.latex",
+             "Latex"),
+            ("mnemosyne.libmnemosyne.controllers.default_controller",
+             "DefaultController"),
+            ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
+             "SM2Controller"),
+            ("mnemosyne.libmnemosyne.card_types.map",
+             "MapPlugin"),
+            ("mnemosyne.libmnemosyne.card_types.cloze",
+             "ClozePlugin"),
+            ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
+             "DefaultCriterion"),
+            ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
+             "DefaultCriterionApplier"), 
+            ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
+             "CrammingPlugin") ]
+        self.mnemosyne.components.append(("benchmark_sync_client", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.components.append(\
@@ -65,27 +103,23 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8185", "user", "pass")
+        self.sync("http://192.168.2.54:8186", "user", "pass")
         self.mnemosyne.database().save()
 
-client = MyClient()
-
-import time
-t1 = time.time()
+if __name__== '__main__':
+     
+    client = MyClient()
     
-def sync():
-    client.do_sync()
+    def sync():
+        client.do_sync()
 
-sync()
-print time.time() - t1
+    tests = ["sync()"]
 
-tests = []#["sync()"]
+    for test in tests:
+        cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
+        print
+        print "*** ", test, " ***"
+        print
+        p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
+        p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
 
-for test in tests:
-    cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
-    print
-    print "*** ", test, " ***"
-    print
-    p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
-    p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
-    
