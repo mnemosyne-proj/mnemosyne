@@ -351,7 +351,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Make a copy. Create only a single file per day.
         db_name = os.path.basename(self._path).rsplit(".", 1)[0]
         backupfile = db_name + "-" + \
-                   datetime.datetime.today().strftime("%Y%m%d-%H:%M.db")
+                   datetime.datetime.today().strftime("%Y%m%d-%H%M.db")
         backupfile = os.path.join(backupdir, backupfile)
         failed = False
         try:
