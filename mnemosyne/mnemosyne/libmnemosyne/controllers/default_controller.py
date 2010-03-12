@@ -204,7 +204,7 @@ class DefaultController(Controller):
                 if new_cards and self.review_controller().learning_ahead:
                     self.review_controller().reset()
                     
-        # Update facts and cards.
+        # Update fact and create or delete cards.
         new_cards, updated_cards, deleted_cards = \
             fact.card_type.update_related_cards(fact, new_fact_data)
         fact.modification_time = int(time.time())
@@ -217,29 +217,28 @@ class DefaultController(Controller):
             db.delete_card(card)
         for card in new_cards:
             db.add_card(card)
-        for card in updated_cards:
-            db.update_card(card)
         if new_cards and self.review_controller().learning_ahead == True:
             self.review_controller().reset()
             
-        # Update tags.
-        old_tags = set()
+        # Create new tags if needed and fetch the updated activity criterion.
         tags = set()
         for tag_name in new_tag_names:
             tags.add(db.get_or_create_tag_with_name(tag_name))
+        criterion = db.current_activity_criterion()
+
+        # Apply new tags and activity criterion to cards and save cards back
+        # to the database. Note that this makes sure there is an UPDATED_CARD
+        # event for each related card, which is needed when syncing with a
+        # partner that does not have the concept of facts.
+        old_tags = set()
         for card in self.database().cards_from_fact(fact):
             old_tags = old_tags.union(card.tags)
             card.tags = tags
+            criterion.apply_to_card(card)
             db.update_card(card)
         for tag in old_tags:
             db.remove_tag_if_unused(tag)
         db.save()
-
-        # Update active flags.
-        criterion = db.current_activity_criterion()
-        for card in self.database().cards_from_fact(fact):
-            criterion.apply_to_card(card)
-            db.update_card(card)
                 
         return 0
 

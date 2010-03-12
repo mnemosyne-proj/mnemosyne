@@ -106,6 +106,8 @@ class TestDatabase(MnemosyneTest):
         tag_names = [tag.name for tag in new_card.tags]
         assert len(tag_names) == 1
         assert "default1" in tag_names
+        assert self.database().con.execute(\
+            "select count() from log where event_type=13").fetchone()[0] == 1
         
     def test_clones(self):
         fact_data = {"q": "question",

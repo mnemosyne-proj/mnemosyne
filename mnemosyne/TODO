@@ -1,6 +1,4 @@
-
-
--rebenchmark on shulgi: big server: 65 sec --> 55 sec, big client: 80 --> 50 sec
+-shulgi: big server: 65 sec --> 55 sec, big client: 80 --> 50 sec
 
 -WM benchmark non sync
 
@@ -8,6 +6,8 @@
 
 -don't use get card, update logentry docs
 
+-number of entries in same connection? or put it in handshaking?
+-same connection throughout?
 
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
@@ -15,16 +15,12 @@ http://www.dev-explorer.com/articles/using-python-httplib
 
 -multiuser server, token
 
--number of entries in same connection? or put it in handshaking?
--same connection throughout?
-
 -cdata, encode for deck name, unicode + test
 -create new database on server side if needed
 -pull in user id on first sync
 -just copy database on initial sync
 
 -add q and a to cards if facts are not present
--convert fact events to card events than
 -option not to download old history
 
 -test scheduled, active count sync on load/save + type
@@ -33,8 +29,6 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -more elegant error handling?
 -sql roll back?
 
--conflict resolution
-
 -think about sending across cards as pictures
 -latex
 
@@ -42,16 +36,17 @@ http://www.dev-explorer.com/articles/using-python-httplib
 
 -ui: pass or notImplemented?
 -time saxutils.escape attr
+
 -activating cards
 
--client not interested in past events
-
--how to prevent different instantiations from uploading logs twice
+-mechanism to prevent different instantiations from uploading logs twice
 
 -hack tarfile to add progress bar?
 -add modulo to progress dialogs
 
--make sure after import all sync events fire
+
+-conflict resolution, triangular sync. In 2.0?
+
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
@@ -62,6 +57,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -add tests with unicode in basedir
 -mechanism to have plugin settings synced?
 -exchange card types between different SRS, add support for card type events
+
 
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI
@@ -111,8 +107,6 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 
 -number of unmemorised cards to hold in your hand? (i.e. grade 0 + 1)
 -rework give initial grade dialog
-
--time WM: history in same DB?
 
 -rework progress bar API
 
@@ -174,6 +168,7 @@ the GUI function itself?
 -warn when importing card type with duplicate id
 -option to add tags on import
 -save import dir
+-make sure after import all sync events fire
 -make sure enter does not close the import dialog
 -make sure we log new card creation on import
 -make sure to detect media and do slash normalisation from importing text files
@@ -310,6 +305,8 @@ http://pythoscope.org/
 -"reschedule" cheating plugin
 
 -improve learn ahead, by learing ahead per day and prioritising within each day
+
+http://lost-theory.org/python/ltchinese/
 
 
 Windows Mobile client:
