@@ -87,7 +87,7 @@ class DatabaseLogger(Logger):
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             scheduled_interval, actual_interval, new_interval,                                              
-            thinking_time)
+            thinking_time, card.last_rep, card.next_rep, card.scheduler_data)
 
     def added_media(self, filename):
         self.database().log_added_media(self.timestamp, filename)

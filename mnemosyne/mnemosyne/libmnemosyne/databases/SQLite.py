@@ -125,6 +125,8 @@ SCHEMA = """
         actual_interval integer,
         new_interval integer,
         thinking_time integer,
+        last_rep integer,
+        next_rep integer,
         scheduler_data integer
     );
     create index i_log_timestamp on log (timestamp);
@@ -604,9 +606,12 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
             card.scheduler_data, card.active, card.in_view, card._id))
-        self.log().updated_card(card)
         if repetition_only:
             return
+        # If repetition_only is True, there is no need to log an UPDATED_CARD
+        # entry here, as the REPETITION log entry will contain all the data to
+        # update the card.
+        self.log().updated_card(card)
         # Link card to its tags. The tags themselves have already been created
         # by default_controller calling get_or_create_tag_with_name.
         # Unused tags will also be cleaned up there.

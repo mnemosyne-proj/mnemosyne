@@ -141,6 +141,9 @@ class SQLiteSync(object):
             log_entry["lps"] = sql_res["lapses"]
             log_entry["ac_rp_l"] = sql_res["acq_reps_since_lapse"]
             log_entry["rt_rp_l"] = sql_res["ret_reps_since_lapse"]
+            log_entry["l_rp"] = sql_res["last_rep"]
+            log_entry["n_rp"] = sql_res["next_rep"]
+            log_entry["sch_data"] = sql_res["scheduler_data"]
         elif event_type in (EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA,
             EventTypes.DELETED_MEDIA):
             log_entry["fname"] = sql_res["object_id"]
@@ -245,13 +248,13 @@ class SQLiteSync(object):
         card.active = bool(log_entry["act"])
         card.grade = log_entry["gr"]
         card.easiness = log_entry["e"]
-        card.last_rep = log_entry["l_rp"]
-        card.next_rep = log_entry["n_rp"]
         card.acq_reps = log_entry["ac_rp"]
         card.ret_reps = log_entry["rt_rp"]
         card.lapses = log_entry["lps"]
         card.acq_reps_since_lapse = log_entry["ac_rp_l"]
         card.ret_reps_since_lapse = log_entry["rt_rp_l"]
+        card.last_rep = log_entry["l_rp"]
+        card.next_rep = log_entry["n_rp"]
         if "sch_data" in log_entry:
             card.scheduler_data = log_entry["sch_data"]   
         if "extra" in log_entry:
@@ -264,13 +267,26 @@ class SQLiteSync(object):
     def apply_repetition(self, log_entry):
         # Note that the corresponding changing of the card properties is
         # handled by a separate UPDATED_CARD event.
+        if "sch_data" in log_entry:
+            sch_data = log_entry["sch_data"]
+        else:
+            sch_data = None
         card = Bunch(id=log_entry["o_id"], grade=log_entry["gr"],
             easiness=log_entry["e"], acq_reps=log_entry["ac_rp"],
             ret_reps=log_entry["rt_rp"], lapses=log_entry["lps"],
             acq_reps_since_lapse=log_entry["ac_rp_l"],
-            ret_reps_since_lapse=log_entry["rt_rp_l"])
+            ret_reps_since_lapse=log_entry["rt_rp_l"],
+            last_rep=log_entry["l_rp"], next_rep=log_entry["n_rp"],
+            scheduler_data=sch_data)
         self.log().repetition(card, log_entry["sch_i"], log_entry["act_i"],
                    log_entry["new_i"], log_entry["th_t"])
+        self.con.execute("""update cards set grade=?, easiness=?, acq_reps=?,
+            ret_reps=?, lapses=?, acq_reps_since_lapse=?,
+            ret_reps_since_lapse=?, last_rep=?, next_rep=?, scheduler_data=?
+            where id=?""", (card.grade, card.easiness, card.acq_reps,
+            card.ret_reps, card.lapses, card.acq_reps_since_lapse,
+            card.ret_reps_since_lapse, card.last_rep, card.next_rep,
+            card.scheduler_data, card.id))
 
     def update_media(self, log_entry):
         filename = log_entry["fname"]

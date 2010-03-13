@@ -386,7 +386,10 @@ class TestSync(object):
             assert card.lapses == self.client_card.lapses
             assert card.acq_reps_since_lapse == self.client_card.acq_reps_since_lapse
             assert card.ret_reps_since_lapse == self.client_card.ret_reps_since_lapse
-
+            assert card.last_rep == self.client_card.last_rep
+            assert card.next_rep == self.client_card.next_rep
+            assert card.scheduler_data == self.client_card.scheduler_data
+            
             rep =  db.con.execute("""select * from log where event_type=? order by
                 _id desc limit 1""", (EventTypes.REPETITION, )).fetchone()
             assert rep["grade"] == 5
@@ -402,7 +405,7 @@ class TestSync(object):
             assert rep["thinking_time"] < 10
             assert rep["timestamp"] > 0
     
-            assert db.con.execute("select count() from log").fetchone()[0] == 14
+            assert db.con.execute("select count() from log").fetchone()[0] == 13
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -422,7 +425,7 @@ class TestSync(object):
            get_card(card.id, id_is_internal=False)        
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 14
+            "select count() from log").fetchone()[0] == 13
 
     def test_add_media(self):
 

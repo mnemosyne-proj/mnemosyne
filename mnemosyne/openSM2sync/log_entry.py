@@ -5,11 +5,6 @@
 class EventTypes(object):
 
     """Codes to identify event types.
-
-    Note that a REPETITION event needs to be accompanied by a corresponding
-    UPDATED_CARD event, as the main purpose of the REPETITION event is to be
-    able to do quick statistics on your learning history without needing to
-    know the contents of the card.
     
     """
 
@@ -89,13 +84,22 @@ class LogEntry(dict):
         act_i (int): actual interval in seconds
         new_i (int): new interval in seconds
         th_t (int): thinking time in seconds
+        l_rp (int): last repetiton, Unix timestamp
+        n_rp (int): next repetition, Unix timestamp
         
         Optional, but suggested for compatibility with Mnemosyne:
-        
+
         ac_rp (int): number of acquisition repetitions (gr < 2)
         rt_rp (int): number of retention repetitions (gr >= 2)
         lps (int): number of lapses (new grade < 2 if old grade >= 2)
         ac_rp_l, rt_rp_l (int): number of ac_rp, rt_rp since last lapse
+        sch_data (int): extra scheduler data
+
+        Note that a repetition entry serves two purposes: on one hand it
+        contains the info needed to create the anonymous logs to send to the
+        science server and to have some data available locally for statistics
+        plugins to work with. On the other hand, it contains all the info
+        needed to update the corresponding card in the database.
 
     Keys specific to ADDED_MEDIA, UPDATED_MEDIA, DELETED_MEDIA:
         fname (string): filename

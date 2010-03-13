@@ -76,7 +76,7 @@ class </em><tt class="descclassname">mnemosyne.libmnemosyne.logger.</tt><tt clas
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.added_media">
-<tt class="descname">added_media</tt><big>(</big><em>filename</em>, <em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.added_media" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">added_media</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.added_media" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -111,7 +111,7 @@ class </em><tt class="descclassname">mnemosyne.libmnemosyne.logger.</tt><tt clas
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.deleted_media">
-<tt class="descname">deleted_media</tt><big>(</big><em>filename</em>, <em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.deleted_media" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">deleted_media</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.deleted_media" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -126,8 +126,16 @@ class </em><tt class="descclassname">mnemosyne.libmnemosyne.logger.</tt><tt clas
 collected logs to such a file from time to time for uploading.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.get_timestamp">
+<tt class="descname">get_timestamp</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.get_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd>If self._timestamp == None (the default), then the timestamp will
+be the current time. It is useful to be able to override this, e.g.
+during database import or syncing, when you need to add log entries
+to the database that happened in the past.</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.loaded_database">
-<tt class="descname">loaded_database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.loaded_database" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">loaded_database</tt><big>(</big><em>scheduled_count=None</em>, <em>non_memorised_count=None</em>, <em>active_count=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.loaded_database" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -137,7 +145,12 @@ collected logs to such a file from time to time for uploading.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.saved_database">
-<tt class="descname">saved_database</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.saved_database" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">saved_database</tt><big>(</big><em>scheduled_count=None</em>, <em>non_memorised_count=None</em>, <em>active_count=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.saved_database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.set_timestamp">
+<tt class="descname">set_timestamp</tt><big>(</big><em>timestamp</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.set_timestamp" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -147,18 +160,26 @@ collected logs to such a file from time to time for uploading.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.started_program">
-<tt class="descname">started_program</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.started_program" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">started_program</tt><big>(</big><em>version_string=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.started_program" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.started_scheduler">
-<tt class="descname">started_scheduler</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.started_scheduler" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">started_scheduler</tt><big>(</big><em>scheduler_name=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.started_scheduler" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.stopped_program">
 <tt class="descname">stopped_program</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.stopped_program" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.timestamp">
+<tt class="descname">timestamp</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.timestamp" title="Permalink to this definition">¶</a></dt>
+<dd>If self._timestamp == None (the default), then the timestamp will
+be the current time. It is useful to be able to override this, e.g.
+during database import or syncing, when you need to add log entries
+to the database that happened in the past.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.updated_card">
@@ -173,6 +194,11 @@ collected logs to such a file from time to time for uploading.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.logger.Logger.updated_fact">
 <tt class="descname">updated_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.updated_fact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.logger.Logger.updated_media">
+<tt class="descname">updated_media</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.logger.Logger.updated_media" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -238,7 +264,7 @@ collected logs to such a file from time to time for uploading.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Dec 11, 2009.
+      Last updated on Mar 13, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
     </div>
   </body>

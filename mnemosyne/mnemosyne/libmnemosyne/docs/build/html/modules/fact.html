@@ -61,9 +61,8 @@ set using the standard dictionary syntax.</p>
 <p>&#8216;id&#8217; is used to identify this object to the external world (logs, xml
 files, ...), whereas &#8216;_id&#8217; is an internal id that could be different and
 that can be used by the database for efficiency reasons.</p>
-<p>The keys in data should be in the latin charset for the sake of the
-syncing procedure, but they can be given more descriptive names inside the
-CardType class.</p>
+<p>The keys in data should not contain characters like &lt;, &gt;, &amp;, ..., as they
+are used as unescaped tag names during sync.</p>
 <p>When making new card types, it is best to reuse the keys below as much
 as possible, to facilitate conversion between card types:</p>
 <table border="1" class="docutils">
@@ -147,7 +146,7 @@ as possible, to facilitate conversion between card types:</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Dec 11, 2009.
+      Last updated on Mar 13, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
     </div>
   </body>
