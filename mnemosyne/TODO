@@ -2,12 +2,13 @@
 
 -WM benchmark non sync
 
--benchmark on WM sync: 98 sec, no  reverse lookup: 51 sec, no fqdn: 10 sec
+-benchmark on WM sync: 98 sec, no  reverse lookup: 51 sec, no fqdn: 10 sec, no update card: 5 s
 
--don't use get card, update logentry docs
-
--number of entries in same connection? or put it in handshaking?
--same connection throughout?
+-test compression
+-why is handshake so slow?
+-number of entries in same request? or put it in handshaking (no:chicken egg)?
+-same connection throughout? seems slightly slower
+-update docs to say which optimisations did not work
 
 -streaming compression
 http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
@@ -45,7 +46,7 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -add modulo to progress dialogs
 
 
--conflict resolution, triangular sync. In 2.0?
+-conflict resolution, triangular sync, sync complete partnership status
 
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -update readme. Mention how clients should deal with update events of cards that were deleted
