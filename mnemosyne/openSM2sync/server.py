@@ -180,26 +180,6 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, self.number_of_client_log_entries_to_sync)
         progress_dialog.set_text("Receiving client log entries...")
-
-        socket = environ["wsgi.input"]
-        import zlib
-        data = ""
-        l = socket.readline()
-        while l != "END\n":
-            data += l
-            l = socket.readline()
-        data = zlib.decompress(data[:-1])     
-        self.client_log = []
-        count = 0
-        data_stream = cStringIO.StringIO(data)
-        for log_entry in self.data_format.parse_log_entries(data_stream):
-            self.client_log.append(log_entry)
-            count += 1
-            progress_dialog.set_value(count)
-        self.ui.status_bar_message("Waiting for client to finish...")
-        return "OK"
-        
-     
         # Since chunked requests are not supported by the WSGI 1.x standard,
         # the client does not set Content-Length in order to be able to
         # stream the log entries. Therefore, it is our responsability that we

@@ -139,25 +139,7 @@ class Client(object):
             "/number/of/client/log/entries/to/sync",
             str(number_of_entries) + "\n"))
         if response.read() != "OK":
-            raise SyncError("Error sending log_entries length to server.")
-
-
-        import zlib
-        data = self.data_format.log_entries_header 
-        for log_entry in self.database.log_entries_to_sync_for(\
-            self.server_info["id"]):
-            data += self.data_format.repr_log_entry(log_entry)
-        data += self.data_format.log_entries_footer
-        print len(data)
-        data = zlib.compress(data.encode("utf-8"))
-        print len(data)
-        response = urllib2.urlopen(PutRequest(self.url + \
-            "/client/log_entries", data + "\nEND\n"))
-        if response.read() != "OK":
-            raise SyncError("Error sending log entries to server.")
-        return
-
-        
+            raise SyncError("Error sending log_entries length to server.")        
         # Send actual log entries across in a streaming manner.
         # Normally, one would use "Transfer-Encoding: chunked" for that, but
         # chunked requests are not supported by the WSGI 1.x standard.
