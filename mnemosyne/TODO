@@ -1,4 +1,4 @@
--shulgi: big server: 65 sec --> 55 sec, big client: 80 --> 50 sec
+-shulgi: big server: 65 sec
 
 -WM benchmark non sync
 
@@ -25,6 +25,8 @@ http://www.dev-explorer.com/articles/using-python-httplib
 -option not to download old history
 
 -test scheduled, active count sync on load/save + type
+
+-put port in string or not?
 
 -self.stopped, timeouts
 -more elegant error handling?
@@ -324,8 +326,8 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -set basedir in registry key
 -install only pyc files
 -mark card
--play around with MW5torage for easier sync and document this if it works.
 -button color
+-sonud: http://watersprite.awardspace.com/python/
 
 Multiuser statistics analysis:
 

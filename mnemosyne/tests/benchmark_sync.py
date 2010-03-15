@@ -64,9 +64,9 @@ class MyServer(Server, Thread):
         # We only open the database connection inside the thread to prevent
         # access problems, as a single connection can only be used inside a
         # single thread.
-        self.mnemosyne.initialise(os.path.abspath("sync_from_here"))
+        self.mnemosyne.initialise(os.path.abspath("dot_benchmark"))
         self.mnemosyne.review_controller().reset()
-        Server.__init__(self, "127.0.0.1", 8185, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 8190, self.mnemosyne.main_widget())
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -90,13 +90,13 @@ class MyClient(Client):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
-                                  "dot_benchmark")))
+                                  "sync_from_here")))
         self.mnemosyne.review_controller().reset()        
         Client.__init__(self, self.mnemosyne.database(),
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8185", "user", "pass")
+        self.sync("http://127.0.0.1:8190", "user", "pass")
         self.mnemosyne.database().save()
 
 def sync():

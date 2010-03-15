@@ -208,8 +208,8 @@ class TxtLogParser(object):
                 easiness=2.5, acq_reps=1, ret_reps=0, lapses=0,
                 acq_reps_since_lapse=1, ret_reps_since_lapse=0,
                 scheduled_interval=0, actual_interval=0, new_interval=\
-                int(new_interval), thinking_time=0, last_rep=None,
-                next_rep=None, scheduler_data=None)
+                int(new_interval), thinking_time=0, last_rep=0,
+                next_rep=0, scheduler_data=0)
 
     def _parse_imported_item(self, imported_item_chunk):
         Imported, item, id, grade, ret_reps, last_rep, next_rep, interval \
@@ -291,6 +291,6 @@ class TxtLogParser(object):
         self.database.log_repetition(self.timestamp, id, grade, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,
             ret_reps_since_lapse, scheduled_interval, actual_interval,
-            new_interval, thinking_time, last_rep=None, next_rep=None,
-            scheduler_data=None)
+            new_interval, thinking_time, last_rep=0, next_rep=0,
+            scheduler_data=0)
         
