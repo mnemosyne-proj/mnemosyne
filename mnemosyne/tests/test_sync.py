@@ -3,8 +3,7 @@
 #
 
 import os
-import time
-from threading import Thread
+from threading import Thread, Lock
 
 from openSM2sync.server import Server
 from openSM2sync.client import Client
@@ -13,6 +12,8 @@ from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+
+server_lock = Lock()
 
 class Widget(MainWidget):
     
@@ -55,14 +56,17 @@ class MyServer(Server, Thread):
     def run(self):
         # We only open the database connection inside the thread to prevent
         # access problems, as a single connection can only be used inside a
-        # single thread. Problem is that this can cause race conditions if
-        # fill_server_database takes too long. We solve this in a quick and
-        # dirty way by adding some sleep statements here and there.
+        # single thread.
+        # We use a lock here to prevent the client from accessing the server
+        # until the server is ready.
+        global server_lock
+        server_lock.acquire()
         self.mnemosyne.initialise(os.path.abspath("dot_sync_server"))
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "127.0.0.1", 8099, self.mnemosyne.main_widget())
+        Server.__init__(self, "127.0.0.1", 9116, self.mnemosyne.main_widget())
+        server_lock.release()
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()
@@ -100,7 +104,10 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://127.0.0.1:8099", "user", "pass")
+        global server_lock
+        server_lock.acquire()
+        self.sync("http://127.0.0.1:9116", "user", "pass")
+        server_lock.release()
 
 
 class TestSync(object):
@@ -514,13 +521,13 @@ class TestSync(object):
 
             sql_res = db.con.execute("select * from media").fetchone()
             assert sql_res["_hash"] == db._media_hash(sql_res["filename"])
-         
+
         self.server = MyServer()
         self.server.test_server = test_server
         self.server.start()
-        
+            
         self.client = MyClient()
-                     
+
         filename = os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "a.ogg")        
         f = file(filename, "w")
@@ -538,7 +545,9 @@ class TestSync(object):
         sql_res = db.con.execute("select * from media").fetchone()
         assert sql_res["_hash"] == db._media_hash(sql_res["filename"])
 
-        time.sleep(1)
+        # Sleep 1 sec to make sure the timestamp detection mechanism works.
+        import time; time.sleep(1)
+        
         f = file(filename, "w")
         f.write("B")
         f.close()
@@ -568,8 +577,6 @@ class TestSync(object):
         self.server.fill_server_database = fill_server_database
         self.server.test_server = test_server
         self.server.start()
-
-        import time; time.sleep(0.5) # Poor man's locking.
         
         self.client = MyClient()
         self.client.do_sync()

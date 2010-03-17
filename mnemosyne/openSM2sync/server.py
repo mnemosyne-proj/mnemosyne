@@ -5,7 +5,6 @@
 
 import os
 import cgi
-import base64
 import select
 import tarfile
 import tempfile
@@ -16,6 +15,17 @@ from utils import tar_file_size
 from data_format import DataFormat
 
 
+# Avoid delays caused by Nagle's algorithm.
+# http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
+
+import socket
+realsocket = socket.socket
+def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
+    sockobj = realsocket(family, type, proto)
+    sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+    return sockobj
+socket.socket = socketwrap
+
 # Work around http://bugs.python.org/issue6085.
 
 def not_insane_address_string(self):
@@ -23,7 +33,6 @@ def not_insane_address_string(self):
     return "%s (no getfqdn)" % host
 
 WSGIRequestHandler.address_string = not_insane_address_string
-
 
 # Don't pollute our testsuite output.
 
@@ -50,7 +59,6 @@ class Server(WSGIServer):
         self.logged_in = False
         self.id = "TODO"
         self.client_info = {}
-        self.number_of_client_log_entries_to_sync = None
 
     def wsgi_app(self, environ, start_response):
         status, mime, method, args = self.get_method(environ)
@@ -70,31 +78,20 @@ class Server(WSGIServer):
         self.socket.close()
 
     def get_method(self, environ):
-        if environ.has_key("HTTP_AUTHORIZATION"):
-            login, password = base64.decodestring(\
-                environ["HTTP_AUTHORIZATION"].split(" ")[-1]).split(":")
-            if self.authorise(login, password):
-                self.logged_in = True
-                status = "200 OK"
-            else:
-                self.logged_in = False
-                status = "403 Forbidden"
-            return status, "text/plain", None, None
-        else:
-            if not self.logged_in:
-                return "403 Forbidden", "text/plain", None, None
-            # Convert e.g. GET /foo/bar into get_foo_bar.
-            method = (environ["REQUEST_METHOD"] + \
+        # Convert e.g. GET /foo/bar into get_foo_bar.
+        method = (environ["REQUEST_METHOD"] + \
                 "_".join(environ["PATH_INFO"].split("/"))).lower()
-            if hasattr(self, method) and callable(getattr(self, method)):
-                args = cgi.parse_qs(environ["QUERY_STRING"])
-                args = dict([(key, val[0]) for key, val in args.iteritems()])
-                if len(args) == 0:               
-                    return "200 OK", "xml/text", method, args
-                else:
-                    return "400 Bad Request", "text/plain", None, None
+        if method != "put_login" and not self.logged_in:
+            return "403 Forbidden", "text/plain", None, None
+        if hasattr(self, method) and callable(getattr(self, method)):
+            args = cgi.parse_qs(environ["QUERY_STRING"])
+            args = dict([(key, val[0]) for key, val in args.iteritems()])
+            if len(args) == 0:               
+                return "200 OK", "xml/text", method, args
             else:
-                return "404 Not Found", "text/plain", None, None
+                return "400 Bad Request", "text/plain", None, None
+        else:
+            return "404 Not Found", "text/plain", None, None
 
     def stop(self):
         self.stopped = True
@@ -102,9 +99,9 @@ class Server(WSGIServer):
     # The following functions are to be overridden by the actual server code,
     # to implement e.g. authorisation and storage.
 
-    def authorise(self, login, password):
+    def authorise(self, username, password):
 
-        """Returns true if password correct for login."""
+        """Returns true if password correct for username."""
 
         raise NotImplementedError
 
@@ -122,64 +119,26 @@ class Server(WSGIServer):
     # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo/bar'
     # request.
 
-    def get_server_info(self, environ):
-        self.ui.status_bar_message("Sending server info to the client...")
+    def put_login(self, environ):
+        self.ui.status_bar_message("Client logging in...")
+        client_info_repr = environ["wsgi.input"].readline()
+        self.client_info = \
+            self.data_format.parse_partner_info(client_info_repr)
+        if not self.authorise(self.client_info["username"],
+            self.client_info["password"]):
+            self.logged_in = False
+            return "403 Forbidden"
+        self.logged_in = True
+        self.open_database(self.client_info["database_name"])
+        self.database.backup()
+        self.database.create_partnership_if_needed_for(self.client_info["id"])
         server_info = {"id": self.id, "program_name": self.program_name,
             "program_version": self.program_version,
             "capabilities": self.capabilities}
         return self.data_format.repr_partner_info(server_info)
 
-    def put_client_info(self, environ):
-        self.ui.status_bar_message("Receiving client info...")
-        try:
-            client_info_repr = environ["wsgi.input"].readline()
-        except:
-            return "CANCEL"
-        self.client_info = \
-            self.data_format.parse_partner_info(client_info_repr)
-        self.open_database(self.client_info["database_name"])
-        self.database.backup()
-        self.database.create_partnership_if_needed_for(self.client_info["id"])
-        return "OK"
-        
-    def put_number_of_client_log_entries_to_sync(self, environ):
-        try:
-            self.number_of_client_log_entries_to_sync = \
-                int(environ["wsgi.input"].readline())
-        except:
-            return "CANCEL"
-        return "OK"
-    
-    def get_number_of_server_log_entries_to_sync(self, environ):
-        return str(self.database.number_of_log_entries_to_sync_for(\
-            self.client_info["id"]))
-
-    def get_server_log_entries(self, environ):
-        self.ui.status_bar_message("Sending log entries to client...")
-        log_entries = self.database.number_of_log_entries_to_sync_for(\
-            self.client_info["id"])
-        progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, log_entries)
-        progress_dialog.set_text("Sending log entries to client...")
-        chunk = self.data_format.log_entries_header
-        BUFFER_SIZE = 8192
-        count = 0
-        for log_entry in self.database.log_entries_to_sync_for(\
-            self.client_info["id"]):
-            count += 1
-            progress_dialog.set_value(count)
-            chunk += self.data_format.repr_log_entry(log_entry)
-            if len(chunk) > BUFFER_SIZE:
-                yield chunk.encode("utf-8")
-                chunk = ""
-        chunk += self.data_format.log_entries_footer
-        yield chunk.encode("utf-8")
-        
     def put_client_log_entries(self, environ):
         self.ui.status_bar_message("Receiving client log entries...")
-        progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, self.number_of_client_log_entries_to_sync)
-        progress_dialog.set_text("Receiving client log entries...")
         # Since chunked requests are not supported by the WSGI 1.x standard,
         # the client does not set Content-Length in order to be able to
         # stream the log entries. Therefore, it is our responsability that we
@@ -188,7 +147,10 @@ class Server(WSGIServer):
         # For simplicity, we also keep the entire stream in memory, as the
         # server is not expected to be resource limited.
         sentinel = self.data_format.log_entries_footer
-        socket = environ["wsgi.input"]        
+        socket = environ["wsgi.input"]
+        number_of_entries = int(socket.readline())
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, number_of_entries)
         lines = []
         line = socket.readline()
         lines.append(line)
@@ -208,61 +170,74 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         return "OK"
 
-    def put_client_media_files_size(self, environ):
-        try:
-            self.client_media_files_size = \
-                int(environ["wsgi.input"].readline())
-        except:
-            return "CANCEL"
-        return "OK"
+    def get_server_log_entries(self, environ):
+        self.ui.status_bar_message("Sending log entries to client...")
+        number_of_entries = self.database.number_of_log_entries_to_sync_for(\
+            self.client_info["id"])
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, number_of_entries)
+        progress_dialog.set_text("Sending log entries to client...")
+        buffer = str(number_of_entries) + "\n"
+        buffer += self.data_format.log_entries_header
+        BUFFER_SIZE = 8192
+        count = 0
+        for log_entry in self.database.log_entries_to_sync_for(\
+            self.client_info["id"]):
+            count += 1
+            progress_dialog.set_value(count)
+            buffer += self.data_format.repr_log_entry(log_entry)
+            if len(buffer) > BUFFER_SIZE:
+                yield buffer.encode("utf-8")
+                buffer = ""
+        buffer += self.data_format.log_entries_footer
+        yield buffer.encode("utf-8")
         
     def put_client_media_files(self, environ):
         self.ui.status_bar_message("Receiving client media files...")
-        try:         
-            tar_pipe = tarfile.open(mode="r|", fileobj=environ["wsgi.input"])
+        try:
+            socket = environ["wsgi.input"]
+            size = int(socket.readline())
+            tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             # Work around http://bugs.python.org/issue7693.
             tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
         except:
             return "CANCEL"
         return "OK"
-
-    def get_server_media_files_size(self, environ):
-        filenames = list(self.database.media_filenames_to_sync_for(\
-            self.client_info["id"]))
-        size = tar_file_size(self.database.mediadir(), filenames)
-        return str(size)
     
     def get_server_media_files(self, environ):
         self.ui.status_bar_message("Sending media files to client...")
-        self.database.check_for_updated_media_files()
-        filenames = self.database.media_filenames_to_sync_for(\
-            self.client_info["id"])
-        if len(filenames) == 0:
-            yield "OK"
-            return
         try:
-            BUFFER_SIZE = 8192
+            # Determine files to send across.
+            self.database.check_for_updated_media_files()
+            filenames = list(self.database.media_filenames_to_sync_for(\
+                self.client_info["id"]))
+            if len(filenames) == 0:
+                yield "0\n"
+                return
+            # Create a temporary tar file with the files.
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
             tmp_file_name = tmp_file.name
             saved_path = os.getcwdu()
             os.chdir(self.database.mediadir())
+            BUFFER_SIZE = 8192
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
                 bufsize=BUFFER_SIZE, format=tarfile.PAX_FORMAT)
-            for filename in self.database.media_filenames_to_sync_for(\
-                self.client_info["id"]):
+            for filename in filenames:
                 tar_pipe.add(filename)
             tar_pipe.close()
+            # Determine tar file size.
             tmp_file = file(tmp_file_name, "rb")
             file_size = os.path.getsize(tmp_file_name)
             progress_dialog = self.ui.get_progress_dialog()
             progress_dialog.set_range(0, file_size)
+            # Send tar file across.
             progress_dialog.set_text("Sending media files to client...")
-            chunk = tmp_file.read(BUFFER_SIZE)
+            buffer = str(file_size) + "\n" + tmp_file.read(BUFFER_SIZE)
             count = BUFFER_SIZE
-            while chunk:
+            while buffer:
                 progress_dialog.set_value(count)
-                yield chunk
-                chunk = tmp_file.read(BUFFER_SIZE)
+                yield buffer
+                buffer = tmp_file.read(BUFFER_SIZE)
                 count += BUFFER_SIZE
             progress_dialog.set_value(file_size)
             os.remove(tmp_file_name)
