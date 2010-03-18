@@ -71,9 +71,8 @@ class Server(WSGIServer):
 
     def serve_forever(self):
         self.ui.status_bar_message("Waiting for client connection...")
-        timeout = 1
         while not self.stopped:
-            if select.select([self.socket], [], [], timeout)[0]:
+            if select.select([self.socket], [], [])[0]:
                 self.handle_request()
         self.socket.close()
 
