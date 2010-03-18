@@ -1,8 +1,6 @@
 -WM benchmark non sync
 -benchmark sync starting from bigger database
 
--test server timeout
-
 -multiuser server, token
 -make sure client can't be logged in twice
 -close hanging connections on shutdown
