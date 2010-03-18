@@ -25,19 +25,16 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
     return sockobj
 socket.socket = socketwrap
 
-
 # Buffer the response socket.
 # http://mail.python.org/pipermail/python-bugs-list/2006-September/035156.html
 
-#class HTTPResponse(httplib.HTTPResponse):
+class HTTPResponse(httplib.HTTPResponse):
                
-#    def __init__(self, sock, **kw):
-#        httplib.HTTPResponse.__init__(self, sock, **kw)
-#        self.fp = sock.makefile('rb') # Was unbuffered: sock.makefile('rb', 0)
+    def __init__(self, sock, **kw):
+        httplib.HTTPResponse.__init__(self, sock, **kw)
+        self.fp = sock.makefile('rb') # Was unbuffered: sock.makefile('rb', 0)
 
-
-#httplib.HTTPConnection.response_class = HTTPResponse
-
+httplib.HTTPConnection.response_class = HTTPResponse
 
 class SyncError(Exception):
     pass
