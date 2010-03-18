@@ -70,7 +70,7 @@ class Client(object):
             self.put_client_media_files()
             self.get_server_media_files()
             self.get_server_log_entries()
-            self.finish_request()
+            self.get_sync_finish()
         except SyncError, exception:
             self.database.load(backup_file)
             self.ui.error_box("Error: " + str(exception))
@@ -116,6 +116,8 @@ class Client(object):
         # entries, so that the other side can track progress.
         # We also buffer the stream until we have sufficient data to send, in
         # order to improve throughput.
+        # We also tried compression here, but for typical scenarios that is
+        # slightly slower on a WLAN and mobile phone.
         self.conn.putrequest("PUT", "/client/log_entries")
         self.conn.endheaders()
         progress_dialog = self.ui.get_progress_dialog()
@@ -197,7 +199,7 @@ class Client(object):
         except Exception, exception:
             raise SyncError("Getting server media files: " + str(exception))
 
-    def finish_request(self):
+    def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
             self.conn.request("GET", "/sync/finish")
