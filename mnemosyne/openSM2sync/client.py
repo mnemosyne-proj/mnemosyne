@@ -124,21 +124,6 @@ class Client(object):
         count = 0
         BUFFER_SIZE = 8192
         buffer = str(number_of_entries) + "\n"
-
-        #import zlib
-        #buffer2 = self.data_format.log_entries_header 
-        #for log_entry in self.database.log_entries_to_sync_for(\
-        #    self.server_info["id"]):
-        #    buffer2 += self.data_format.repr_log_entry(log_entry)
-        #buffer2 += self.data_format.log_entries_footer
-        #buffer2 = zlib.compress(buffer2.encode("utf-8"))
-        #self.conn.send(buffer + buffer2 + "\nEND\n")
-        #self.ui.status_bar_message("Waiting for server to complete...")
-        #if self.conn.getresponse().read() != "OK":
-        #    raise SyncError("Error sending log entries to server.")
-        #return
-
-        
         buffer += self.data_format.log_entries_header        
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_info["id"]):
