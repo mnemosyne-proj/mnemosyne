@@ -191,6 +191,11 @@ class Server(WSGIServer):
                 buffer = ""
         buffer += self.data_format.log_entries_footer
         yield buffer.encode("utf-8")
+        # Now that all the data is underway to the client, we can start
+        # applying the client log entries.
+        for log_entry in self.client_log:
+            self.database.apply_log_entry(log_entry)
+        self.database.update_last_sync_log_entry_for(self.client_info["id"])
         
     def put_client_media_files(self, environ):
         self.ui.status_bar_message("Receiving client media files...")
@@ -247,9 +252,6 @@ class Server(WSGIServer):
 
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")
-        for log_entry in self.client_log:
-            self.database.apply_log_entry(log_entry)
-        self.database.update_last_sync_log_entry_for(self.client_info["id"])
         self.logged_in = False
         if self.stop_after_sync:
             self.stop()
