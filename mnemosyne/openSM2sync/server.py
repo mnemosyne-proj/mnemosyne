@@ -86,7 +86,7 @@ class Server(WSGIServer):
         if hasattr(self, method) and callable(getattr(self, method)):
             args = cgi.parse_qs(environ["QUERY_STRING"])
             args = dict([(key, val[0]) for key, val in args.iteritems()])
-            if len(args) == 0:               
+            if len(args) == 0:
                 return "200 OK", "xml/text", method, args
             else:
                 return "400 Bad Request", "text/plain", None, None
@@ -151,6 +151,24 @@ class Server(WSGIServer):
         number_of_entries = int(socket.readline())
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
+
+        #import zlib
+        #data = ""
+        #l = socket.readline()
+        #while l != "END\n":
+        #    data += l
+        #    l = socket.readline()
+        #data = zlib.decompress(data[:-1])
+        #self.client_log = []
+        #count = 0
+        #data_stream = cStringIO.StringIO(data)
+        #for log_entry in self.data_format.parse_log_entries(data_stream):
+        #    self.client_log.append(log_entry)
+        #    count += 1
+        #    progress_dialog.set_value(count)
+        #self.ui.status_bar_message("Waiting for client to finish...")
+        #return "OK"
+        
         lines = []
         line = socket.readline()
         lines.append(line)

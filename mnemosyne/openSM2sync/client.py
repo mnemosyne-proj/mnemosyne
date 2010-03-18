@@ -6,7 +6,6 @@
 
 import os
 import tarfile
-import urllib2
 import httplib
 from urlparse import urlparse
 from xml.etree import cElementTree
@@ -27,14 +26,18 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
 socket.socket = socketwrap
 
 
-# Implement PUT request in urllib2, as needed by the RESTful API.
+# Buffer the response socket.
+# http://mail.python.org/pipermail/python-bugs-list/2006-September/035156.html
 
-class PutRequest(urllib2.Request):
-    
-    """Implement PUT request in urllib2, as needed by the RESTful API."""
-    
-    def get_method(self):
-        return "PUT"
+#class HTTPResponse(httplib.HTTPResponse):
+               
+#    def __init__(self, sock, **kw):
+#        httplib.HTTPResponse.__init__(self, sock, **kw)
+#        self.fp = sock.makefile('rb') # Was unbuffered: sock.makefile('rb', 0)
+
+
+#httplib.HTTPConnection.response_class = HTTPResponse
+
 
 class SyncError(Exception):
     pass
@@ -85,12 +88,18 @@ class Client(object):
                 "program_version": self.program_version,
                 "capabilities": self.capabilities,
                 "database_name": self.database.name()}
-            response = urllib2.urlopen(PutRequest(self.url + "/login",
-                self.data_format.repr_partner_info(client_info) + "\n")).read()
-            if response == "403 Forbidden":
+            parsed_url = urlparse(self.url) 
+            self.conn = httplib.HTTPConnection(parsed_url.hostname,
+                parsed_url.port)
+            self.conn.request("PUT", "/login",
+                self.data_format.repr_partner_info(client_info) + "\n")
+            response = self.conn.getresponse()
+            if response.status == httplib.FORBIDDEN:
                 raise SyncError("Wrong username or password.")
-            self.server_info = self.data_format.parse_partner_info(response)
-            self.database.create_partnership_if_needed_for(self.server_info["id"])
+            self.server_info = self.data_format.parse_partner_info(\
+                response.read())
+            self.database.create_partnership_if_needed_for(\
+                self.server_info["id"])
         except Exception, exception:
             raise SyncError("login: " + str(exception))
         
@@ -110,36 +119,50 @@ class Client(object):
         # entries, so that the other side can track progress.
         # We also buffer the stream until we have sufficient data to send, in
         # order to improve throughput.
-        parsed_url = urlparse(self.url) 
-        conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
-        conn.putrequest("PUT", "/client/log_entries")
-        conn.endheaders()
+        self.conn.putrequest("PUT", "/client/log_entries")
+        self.conn.endheaders()
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to server...")  
         count = 0
         BUFFER_SIZE = 8192
         buffer = str(number_of_entries) + "\n"
+
+        #import zlib
+        #buffer2 = self.data_format.log_entries_header 
+        #for log_entry in self.database.log_entries_to_sync_for(\
+        #    self.server_info["id"]):
+        #    buffer2 += self.data_format.repr_log_entry(log_entry)
+        #buffer2 += self.data_format.log_entries_footer
+        #buffer2 = zlib.compress(buffer2.encode("utf-8"))
+        #self.conn.send(buffer + buffer2 + "\nEND\n")
+        #self.ui.status_bar_message("Waiting for server to complete...")
+        #if self.conn.getresponse().read() != "OK":
+        #    raise SyncError("Error sending log entries to server.")
+        #return
+
+        
         buffer += self.data_format.log_entries_header        
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_info["id"]):
             buffer += self.data_format.repr_log_entry(log_entry)
             if len(buffer) > BUFFER_SIZE:
-                conn.send(buffer.encode("utf-8"))
+                self.conn.send(buffer.encode("utf-8"))
                 buffer = ""
             count += 1
             progress_dialog.set_value(count)
         buffer += self.data_format.log_entries_footer
-        conn.send(buffer.encode("utf-8"))
+        self.conn.send(buffer.encode("utf-8"))
         self.ui.status_bar_message("Waiting for server to complete...")
-        if conn.getresponse().read() != "OK":
+        if self.conn.getresponse().read() != "OK":
             raise SyncError("Error sending log entries to server.")
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")       
         try:
-            response = urllib2.urlopen(self.url + "/server/log_entries")
-            number_of_entries = int(response.readline())
+            self.conn.request("GET", "/server/log_entries")
+            response = self.conn.getresponse()
+            number_of_entries = int(response.fp.readline())
             progress_dialog = self.ui.get_progress_dialog()
             progress_dialog.set_range(0, number_of_entries)
             progress_dialog.set_text("Getting server log entries...")            
@@ -149,8 +172,8 @@ class Client(object):
                 count += 1
                 progress_dialog.set_value(count)
             progress_dialog.set_value(number_of_entries)
-        except urllib2.URLError, error:
-            raise SyncError("Getting server log entries: " + str(error))
+        except Exception, exception:
+            raise SyncError("Getting server log entries: " + str(exception))
         
     def put_client_media_files(self):
         self.ui.status_bar_message("Sending media files to server...")
@@ -160,11 +183,9 @@ class Client(object):
         size = tar_file_size(self.database.mediadir(), filenames)
         if size == 0:
             return
-        parsed_url = urlparse(self.url)
-        conn = httplib.HTTPConnection(parsed_url.hostname, parsed_url.port)
-        conn.putrequest("PUT", "/client/media/files")
-        conn.endheaders()     
-        socket = conn.sock.makefile("wb", bufsize=8192)
+        self.conn.putrequest("PUT", "/client/media/files")
+        self.conn.endheaders()     
+        socket = self.conn.sock.makefile("wb", bufsize=8192)
         socket.write(str(size) + "\n")
         # Bundle the media files in a single tar stream, and send it over a
         # buffered socket in order to save memory. Note that this bypasses
@@ -177,28 +198,31 @@ class Client(object):
             tar_pipe.add(filename)
         tar_pipe.close()
         os.chdir(saved_path)
-        if conn.getresponse().read() != "OK":
+        if self.conn.getresponse().read() != "OK":
             raise SyncError("Error sending media files to server.")
 
     def get_server_media_files(self):
         self.ui.status_bar_message("Receiving server media files...")
         try:
-            response = urllib2.urlopen(self.url + "/server/media/files")
-            size = int(response.readline())
+            self.conn.request("GET", "/server/media_files")
+            response = self.conn.getresponse()
+            size = int(response.fp.readline())
             if size == 0:
                 return
             tar_pipe = tarfile.open(mode="r|", fileobj=response)
             # Work around http://bugs.python.org/issue7693.
             tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
-        except Exception, error:
-            raise SyncError("Getting server media files: " + str(error))
+        except Exception, exception:
+            raise SyncError("Getting server media files: " + str(exception))
 
     def finish_request(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
-            if urllib2.urlopen(self.url + "/sync/finish").read() != "OK":
+            self.conn.request("GET", "/sync/finish")
+            response = self.conn.getresponse()
+            if response.read() != "OK":
                 raise SyncError("Sync finish: error on server side.")
-        except urllib2.URLError, error:
-            raise SyncError("Sync finish: " + str(error))
+        except Exception, exception:
+            raise SyncError("Sync finish: " + str(exception))
         self.database.update_last_sync_log_entry_for(self.server_info["id"])
             

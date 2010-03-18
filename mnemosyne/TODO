@@ -1,3 +1,7 @@
+-single connection
+-buffer response socket
+-compression
+
 -shulgi: big server: 65 sec
 
 -WM benchmark non sync
@@ -5,28 +9,23 @@
 -benchmark on WM sync: 98 sec, no  reverse lookup: 51 sec, no fqdn: 10 sec, no update card: 5 s
 -benchmark starting from bigger database
 
+-experiment with http://bugs.python.org/issue508157
+-http://mail.python.org/pipermail/python-bugs-list/2006-September/035156.html
 -test compression: little bit slower
 -why is handshake so slow?
 -same connection throughout? seems slightly slower. Revisit + keepalive
 -update docs to say which optimisations did not work
 
-
 -test server timeout
--server.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-
-realsocket = socket.socket
-def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
-    sockobj = realsocket(family, type, proto)
-    sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-    return sockobj
-socket.socket = socketwrap
-
 
 -try with 1 rep and 1 card to measure overhead
 
 -optimise finish request
 
 -multiuser server, token
+-make sure client can't be logged in twice
+-close hanging connections on shutdown
+
 
 -cdata, encode for deck name, unicode + test
 -create new database on server side if needed
