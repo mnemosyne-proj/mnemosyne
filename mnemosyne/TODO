@@ -1,13 +1,14 @@
 -WM benchmark non sync
 -benchmark sync starting from bigger database
 
--multiuser server, token
+-make test
+-token
+-multiuser server
 -make sure client can't be logged in twice
 -close hanging connections on shutdown
 
 -cdata, encode for deck name, unicode + test
--create new database on server side if needed
--pull in user id on first sync
+
 -just copy database on initial sync
 
 -add q and a to cards if facts are not present
@@ -15,15 +16,11 @@
 
 -test scheduled, active count sync on load/save + type
 
--put port in string or not?
-
 -self.stopped, timeouts
 -more elegant error handling? Uniform naming error vs exception
+-restore from backup (factor out code from default controller)
 -sql roll back?
 
--make sure empty sync goes well
-
--think about sending across cards as pictures
 -latex
 
 -does loopback adress work?
@@ -34,14 +31,16 @@
 -activating cards
 
 -mechanism to prevent different instantiations from uploading logs twice
+-store machine id in log_name too
+-fix 'correct_config', log parser
 
 -hack tarfile to add progress bar?
 -add modulo to progress dialogs
 
-
 -conflict resolution, triangular sync, sync complete partnership status
 
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
+-rework interface of database.py to include syncing events.
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
 -example 'miniclient' supporting sync
@@ -51,6 +50,10 @@
 -add tests with unicode in basedir
 -mechanism to have plugin settings synced?
 -exchange card types between different SRS, add support for card type events
+-send across cards as pictures (see stubs in client.py and server.py)
+
+-integrate openSM2sync with GUI
+-server.open_database: create new database on server side if needed
 
 
 -current active set not marked upon entering
@@ -60,7 +63,6 @@
 -convert default tags on import
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
--sync adding sets
 
 -where to move txt_log_parser
 -need component.statisticspages and configuration widgets?
@@ -91,7 +93,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 >                     break
 >         return duplicates
 
--rework interface of database.py to include syncing events.
+
 
 
 -id vs _id
@@ -133,7 +135,6 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 the GUI function itself?
 -card preview
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
-
 
 -don't auto vacuum? what for WM?
 -more fine grained resource_limited

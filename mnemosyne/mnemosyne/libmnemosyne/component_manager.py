@@ -134,4 +134,10 @@ def register_component_manager(component_manager, user_id):
     
 def unregister_component_manager(user_id):
     global _component_managers
-    del _component_managers[user_id]
+    if user_id in _component_managers:
+        del _component_managers[user_id]
+
+def migrate_component_manager(old_user_id, new_user_id):
+    global _component_managers
+    _component_managers[new_user_id] = _component_managers[old_user_id]
+    del _component_managers[old_user_id]

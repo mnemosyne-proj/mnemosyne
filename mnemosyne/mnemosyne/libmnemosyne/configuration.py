@@ -71,7 +71,7 @@ class Configuration(Component, dict):
         
         for key, value in \
             {"first_run": True, 
-             "path": _("default") + self.database().suffix,
+             "path": self.database().default_name + self.database().suffix,
              "import_dir": self.basedir, 
              "import_format": "XML",
              "reset_learning_data_import": False,
@@ -183,6 +183,15 @@ class Configuration(Component, dict):
             f = file(configfile, "w")
             print >> f, config_py
             f.close()
+        # Create machine_id. Do this in a separate file, so that people can
+        # copy their other config files over to a different machine without
+        # problems.
+        machine_id_file = join(self.basedir, "machine.id")
+        if not exists(machine_id_file):
+            import uuid
+            f = file(machine_id_file, "w")
+            print >> f, str(uuid.uuid4())
+            f.close()
 
     def load_user_config(self):
         sys.path.insert(0, self.basedir)
@@ -223,4 +232,24 @@ class Configuration(Component, dict):
                 last = history_files[-1]
                 user, index = last.split('_')
                 index = int(index.split('.')[0]) + 1
+
+    def change_user_id(self, new_user_id):
+
+        """When a client syncs for the first time with a server, we need to
+        set the client's user_id identical to the one of the server, in order
+        for the uploaded anonymous logs to be consistent. However, we should only
+        do this on a 'virgin' client.
+
+        """
+        
+        db = self.database()
+        if self["log_index"] > 1 or db.name() != db.default_name \
+            or not db.is_empty():
+            raise RuntimeError
+        old_user_id = self["user_id"]
+        self["user_id"] = new_user_id
+        from mnemosyne.libmnemosyne.component_manager import \
+             migrate_component_manager
+        migrate_component_manager(old_user_id, new_user_id)
+
 

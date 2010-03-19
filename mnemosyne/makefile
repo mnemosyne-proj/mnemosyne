@@ -23,7 +23,8 @@ test: install-virtual-env
 
 coverage: install-virtual-env
 	# nose post 0.11: add --cover-branches
-	./bin/nosetests --with-coverage --cover-erase --cover-html --cover-package=mnemosyne.libmnemosyne,openSM2sync
+	./bin/nosetests --with-coverage --cover-erase --cover-html \
+	--cover-package=mnemosyne.libmnemosyne,openSM2sync
 	firefox cover/index.html
 
 profile: install-virtual-env

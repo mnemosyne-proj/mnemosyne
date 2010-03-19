@@ -49,6 +49,7 @@ class MyServer(Server):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("sync_from_here"))
+        self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
         # Add 20 cards to database.
         card_type = self.mnemosyne.card_type_by_id("1")
@@ -66,7 +67,8 @@ class MyServer(Server):
         self.database = self.mnemosyne.database()
 
     def run(self):
-        Server.__init__(self, "192.168.2.54", 8186, self.mnemosyne.main_widget())
+        Server.__init__(self, "client_machine_id", "192.168.2.54", 8186,
+                        self.mnemosyne.main_widget())                
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
         self.serve_forever()

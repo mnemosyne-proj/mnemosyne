@@ -7,7 +7,6 @@
 import os
 import tarfile
 import httplib
-from urlparse import urlparse
 from xml.etree import cElementTree
 
 from utils import tar_file_size
@@ -32,7 +31,7 @@ class HTTPResponse(httplib.HTTPResponse):
                
     def __init__(self, sock, **kw):
         httplib.HTTPResponse.__init__(self, sock, **kw)
-        self.fp = sock.makefile('rb') # Was unbuffered: sock.makefile('rb', 0)
+        self.fp = sock.makefile("rb") # Was unbuffered: sock.makefile("rb", 0)
 
 httplib.HTTPConnection.response_class = HTTPResponse
 
@@ -46,23 +45,22 @@ class Client(object):
     program_version = "unknown"
     capabilities = None  # TODO: list possibilies.
     
-    def __init__(self, database, ui):
+    def __init__(self, machine_id, database, ui):
+        self.machine_id = machine_id
         self.database = database
         self.ui = ui
         self.data_format = DataFormat()
-        self.id = "TODO"
         self.server_info = {}
 
-    def sync(self, url, username, password):       
-        try:
-            self.url = url           
+    def sync(self, hostname, port, username, password):       
+        try:    
             self.ui.status_bar_message("Creating backup...")
             backup_file = self.database.backup()
             # We let the client check if files were updated outside of the
             # program. This can generate MEDIA_UPDATED log entries, so it
             # should be done first.
             self.database.check_for_updated_media_files()
-            self.login(username, password)
+            self.login(hostname, port, username, password)
             self.put_client_log_entries()
             # Here, the server should send a summary of the sync and of
             # conflicts encountered, so here the user will later get the
@@ -72,38 +70,49 @@ class Client(object):
             self.get_server_log_entries()
             self.get_sync_finish()
         except SyncError, exception:
+            # TODO: restore from backup_file, i.o. simply opening it.
             self.database.load(backup_file)
             self.ui.error_box("Error: " + str(exception))
         else:
             self.ui.information_box("Sync finished!")
 
-    def login(self, username, password):
+    def login(self, hostname, port, username, password):
         self.ui.status_bar_message("Logging in...")
         try:
-            client_info = {"username": username, "password": password,
-                "id": self.id, "program_name": self.program_name,
-                "program_version": self.program_version,
-                "capabilities": self.capabilities,
-                "database_name": self.database.name()}
-            parsed_url = urlparse(self.url) 
-            self.conn = httplib.HTTPConnection(parsed_url.hostname,
-                parsed_url.port)
-            self.conn.request("PUT", "/login",
+            client_info["username"] = username
+            client_info["password"] = password
+            client_info["user_id"] = self.database.user_id()
+            client_info["machine_id"] = self.machine_id
+            client_info["program_name"] = self.program_name
+            client_info["program_version"] = self.program_version
+            client_info["capabilities"] = self.capabilities
+            client_info["database_name"] = self.database.name()
+            # Not yet implemented: downloading cards as pictures.
+            client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
+            client_info["cards_pictures_res"] = "320x200"
+            client_info["reset_cards_as_pictures"] = "no" # "yes" redownloads.
+            self.con = httplib.HTTPConnection(hostname, port)
+            self.con.request("PUT", "/login",
                 self.data_format.repr_partner_info(client_info) + "\n")
-            response = self.conn.getresponse()
-            if response.status == httplib.FORBIDDEN:
+            response = self.con.getresponse().read()
+            if response == "403 Forbidden":
                 raise SyncError("Wrong username or password.")
-            self.server_info = self.data_format.parse_partner_info(\
-                response.read())
+            self.server_info = self.data_format.parse_partner_info(response)
+            if self.server_info["user_id"] != client_info["user_id"]:
+                try:
+                    # This should only work on an empty default database.
+                    self.database.set_user_id(self.server_info["user_id"])
+                except:
+                    raise SyncError("mismatched user_ids.")
             self.database.create_partnership_if_needed_for(\
-                self.server_info["id"])
+                self.server_info["machine_id"])
         except Exception, exception:
             raise SyncError("login: " + str(exception))
         
     def put_client_log_entries(self):
         self.ui.status_bar_message("Sending log entries to server...")
         number_of_entries = self.database.number_of_log_entries_to_sync_for(\
-            self.server_info["id"])
+            self.server_info["machine_id"])
         if number_of_entries == 0:
             return
         # Send actual log entries across in a streaming manner.
@@ -118,8 +127,8 @@ class Client(object):
         # order to improve throughput.
         # We also tried compression here, but for typical scenarios that is
         # slightly slower on a WLAN and mobile phone.
-        self.conn.putrequest("PUT", "/client/log_entries")
-        self.conn.endheaders()
+        self.con.putrequest("PUT", "/client/log_entries")
+        self.con.endheaders()
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to server...")  
@@ -128,25 +137,27 @@ class Client(object):
         buffer = str(number_of_entries) + "\n"
         buffer += self.data_format.log_entries_header        
         for log_entry in self.database.log_entries_to_sync_for(\
-            self.server_info["id"]):
+            self.server_info["machine_id"]):
             buffer += self.data_format.repr_log_entry(log_entry)
             if len(buffer) > BUFFER_SIZE:
-                self.conn.send(buffer.encode("utf-8"))
+                self.con.send(buffer.encode("utf-8"))
                 buffer = ""
             count += 1
             progress_dialog.set_value(count)
         buffer += self.data_format.log_entries_footer
-        self.conn.send(buffer.encode("utf-8"))
+        self.con.send(buffer.encode("utf-8"))
         self.ui.status_bar_message("Waiting for server to complete...")
-        if self.conn.getresponse().read() != "OK":
+        if self.con.getresponse().read() != "OK":
             raise SyncError("Error sending log entries to server.")
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")       
         try:
-            self.conn.request("GET", "/server/log_entries")
-            response = self.conn.getresponse()
+            self.con.request("GET", "/server/log_entries")
+            response = self.con.getresponse()
             number_of_entries = int(response.fp.readline())
+            if number_of_entries == 0:
+                return
             progress_dialog = self.ui.get_progress_dialog()
             progress_dialog.set_range(0, number_of_entries)
             progress_dialog.set_text("Getting server log entries...")            
@@ -163,13 +174,13 @@ class Client(object):
         self.ui.status_bar_message("Sending media files to server...")
         # Size of tar archive.
         filenames = self.database.media_filenames_to_sync_for(\
-            self.server_info["id"])
+            self.server_info["machine_id"])
         size = tar_file_size(self.database.mediadir(), filenames)
         if size == 0:
             return
-        self.conn.putrequest("PUT", "/client/media/files")
-        self.conn.endheaders()     
-        socket = self.conn.sock.makefile("wb", bufsize=8192)
+        self.con.putrequest("PUT", "/client/media/files")
+        self.con.endheaders()     
+        socket = self.con.sock.makefile("wb", bufsize=8192)
         socket.write(str(size) + "\n")
         # Bundle the media files in a single tar stream, and send it over a
         # buffered socket in order to save memory. Note that this bypasses
@@ -182,14 +193,14 @@ class Client(object):
             tar_pipe.add(filename)
         tar_pipe.close()
         os.chdir(saved_path)
-        if self.conn.getresponse().read() != "OK":
+        if self.con.getresponse().read() != "OK":
             raise SyncError("Error sending media files to server.")
 
     def get_server_media_files(self):
         self.ui.status_bar_message("Receiving server media files...")
         try:
-            self.conn.request("GET", "/server/media_files")
-            response = self.conn.getresponse()
+            self.con.request("GET", "/server/media_files")
+            response = self.con.getresponse()
             size = int(response.fp.readline())
             if size == 0:
                 return
@@ -202,11 +213,12 @@ class Client(object):
     def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
-            self.conn.request("GET", "/sync/finish")
-            response = self.conn.getresponse()
+            self.con.request("GET", "/sync/finish")
+            response = self.con.getresponse()
             if response.read() != "OK":
                 raise SyncError("Sync finish: error on server side.")
         except Exception, exception:
             raise SyncError("Sync finish: " + str(exception))
-        self.database.update_last_sync_log_entry_for(self.server_info["id"])
+        self.database.update_last_sync_log_entry_for(\
+            self.server_info["machine_id"])
             

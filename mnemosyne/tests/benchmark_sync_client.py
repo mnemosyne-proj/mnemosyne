@@ -87,6 +87,7 @@ class MyClient(Client):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
                                   "dot_benchmark")))
+        self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
         # Do 200 reviews.
         card_type = self.mnemosyne.card_type_by_id("1")
@@ -99,11 +100,11 @@ class MyClient(Client):
         for i in range(200):
             self.mnemosyne.review_controller().show_answer()
             self.mnemosyne.review_controller().grade_answer(0)
-        Client.__init__(self, self.mnemosyne.database(),
+        Client.__init__(self, "client_machine_id", self.mnemosyne.database(),
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("http://192.168.2.54:8186", "user", "pass")
+        self.sync("192.168.2.54", 8186, "user", "pass")
         self.mnemosyne.database().save()
 
 if __name__== '__main__':

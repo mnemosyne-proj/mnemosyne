@@ -11,7 +11,6 @@ import tempfile
 import cStringIO
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
-from utils import tar_file_size
 from data_format import DataFormat
 
 
@@ -50,14 +49,14 @@ class Server(WSGIServer):
 
     stop_after_sync = False # Setting this True is useful for the testsuite. 
 
-    def __init__(self, host, port, ui):
+    def __init__(self, machine_id, host, port, ui):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.ui = ui
         self.data_format = DataFormat()
         self.stopped = False
         self.logged_in = False
-        self.id = "TODO"
+        self.machine_id = machine_id
         self.client_info = {}
 
     def wsgi_app(self, environ, start_response):
@@ -100,14 +99,14 @@ class Server(WSGIServer):
 
     def authorise(self, username, password):
 
-        """Returns true if password correct for username."""
-
+        """Returs True if 'password' is correct for 'username'."""
+        
         raise NotImplementedError
 
     def open_database(self, database_name):
 
         """Sets self.database to a database object for the database named
-        'database_name'.
+        'database_name'. Should create the database if it does not exist yet.
 
         """
 
@@ -130,8 +129,14 @@ class Server(WSGIServer):
         self.logged_in = True
         self.open_database(self.client_info["database_name"])
         self.database.backup()
-        self.database.create_partnership_if_needed_for(self.client_info["id"])
-        server_info = {"id": self.id, "program_name": self.program_name,
+        self.database.create_partnership_if_needed_for(\
+            self.client_info["machine_id"])
+        # Note that we need to send 'user_id' to the client as well, so that the
+        # client can make sure the 'user_id's (used to label the anynymous
+        # uploaded logs) are consistent across machines.
+        server_info = {"user_id": self.database.user_id(),
+            "machine_id": self.machine_id,
+            "program_name": self.program_name,
             "program_version": self.program_version,
             "capabilities": self.capabilities}
         return self.data_format.repr_partner_info(server_info)
@@ -158,7 +163,7 @@ class Server(WSGIServer):
             lines.append(line)
         # In order to do conflict resolution easily, one of the sync partners
         # has to have both logs in memory. We do this at the server side, as
-        # the client could be resource-limited mobile device.
+        # the client could be a resource-limited mobile device.
         self.client_log = []
         count = 0
         data_stream = cStringIO.StringIO("".join(lines))
@@ -172,7 +177,7 @@ class Server(WSGIServer):
     def get_server_log_entries(self, environ):
         self.ui.status_bar_message("Sending log entries to client...")
         number_of_entries = self.database.number_of_log_entries_to_sync_for(\
-            self.client_info["id"])
+            self.client_info["machine_id"])
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to client...")
@@ -181,7 +186,7 @@ class Server(WSGIServer):
         BUFFER_SIZE = 8192
         count = 0
         for log_entry in self.database.log_entries_to_sync_for(\
-            self.client_info["id"]):
+            self.client_info["machine_id"]):
             count += 1
             progress_dialog.set_value(count)
             buffer += self.data_format.repr_log_entry(log_entry)
@@ -194,7 +199,8 @@ class Server(WSGIServer):
         # applying the client log entries.
         for log_entry in self.client_log:
             self.database.apply_log_entry(log_entry)
-        self.database.update_last_sync_log_entry_for(self.client_info["id"])
+        self.database.update_last_sync_log_entry_for(\
+            self.client_info["machine_id"])
         
     def put_client_media_files(self, environ):
         self.ui.status_bar_message("Receiving client media files...")
@@ -214,7 +220,10 @@ class Server(WSGIServer):
             # Determine files to send across.
             self.database.check_for_updated_media_files()
             filenames = list(self.database.media_filenames_to_sync_for(\
-                self.client_info["id"]))
+                self.client_info["machine_id"]))
+            # TODO: implement creating pictures from cards, based on the
+            # following client_info fields: "cards_as_pictures",
+            # "cards_pictures_res", "reset_cards_as_pictures".
             if len(filenames) == 0:
                 yield "0\n"
                 return

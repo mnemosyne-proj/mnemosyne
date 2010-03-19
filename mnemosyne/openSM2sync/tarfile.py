@@ -34,7 +34,6 @@
 # 2.6 features.
 
 
-
 """Read from and write to tar format archives.
 """
 

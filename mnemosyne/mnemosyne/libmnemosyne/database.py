@@ -17,6 +17,8 @@ class Database(Component):
     """
 
     version = ""
+    default_name = "default"  # Without suffix, should not be translated.
+    suffix = ""
     component_type = "database"
 
     def deactivate(self):
@@ -31,7 +33,7 @@ class Database(Component):
         """
         
         raise NotImplementedError
-    
+        
     # File operations.
 
     def new(self, path):
@@ -54,7 +56,18 @@ class Database(Component):
 
     def is_loaded(self):
         raise NotImplementedError
+    
+    def is_empty(self):
+        raise NotImplementedError
 
+    # Functions to conform to openSM2sync API.
+
+    def user_id(self):
+        return self.config()["user_id"]
+
+    def set_user_id(self, user_id):
+        self.config().change_user_id(user_id)
+    
     # Tags.
 
     def add_tag(self, tag):

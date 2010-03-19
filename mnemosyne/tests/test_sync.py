@@ -33,6 +33,8 @@ class MyServer(Server, Thread):
     program_version = "test"
     capabilities = "TODO"
 
+    user_id = "user_id"
+
     stop_after_sync = True
 
     def __init__(self):
@@ -62,10 +64,12 @@ class MyServer(Server, Thread):
         global server_lock
         server_lock.acquire()
         self.mnemosyne.initialise(os.path.abspath("dot_sync_server"))
+        self.mnemosyne.config().change_user_id(self.user_id)
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "127.0.0.1", 9120, self.mnemosyne.main_widget())
+        Server.__init__(self, "server_machine_id", "127.0.0.1", 9130,
+                        self.mnemosyne.main_widget())
         server_lock.release()
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
@@ -86,6 +90,8 @@ class MyClient(Client):
     program_name = "Mnemosyne"
     program_version = "test"
     capabilities = "TODO"
+    user = "user"
+    password = "pass"
     
     def __init__(self):
         os.system("rm -fr dot_sync_client")
@@ -99,14 +105,15 @@ class MyClient(Client):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
                                   "dot_sync_client")))
+        self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()        
-        Client.__init__(self, self.mnemosyne.database(),
+        Client.__init__(self, "client_machine_id", self.mnemosyne.database(),
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
         global server_lock
         server_lock.acquire()
-        self.sync("http://127.0.0.1:9120", "user", "pass")
+        self.sync("127.0.0.1", 9130, self.user, self.password)
         server_lock.release()
 
 
@@ -593,3 +600,51 @@ class TestSync(object):
         assert card.last_rep == 1247529600
         assert card.next_rep == 1247616000
         assert card.id == "9cff728f"
+        
+    def test_user_id_update(self):
+            
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.user_id = "new_user_id"
+        self.server.test_server = test_server
+        self.server.start()
+        
+        self.client = MyClient()
+        assert self.client.mnemosyne.config()["user_id"] == "user_id"
+        self.client.do_sync()
+        assert self.client.mnemosyne.config()["user_id"] == "new_user_id"    
+
+    def test_bad_password(self):
+
+        def fill_server_database(self):
+            fact_data = {"q": "question",
+                         "a": "answer"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.controller().file_save()
+          
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.password = "wrong"
+        self.client.do_sync()
+        assert self.client.database.card_count() == 0
+
+        # Server is still running now, we need to shut it down for the next
+        # test.
+
+        self.client.password = "pass"
+        self.client.do_sync()
+        assert self.client.database.card_count() == 1
+        
+        
+        

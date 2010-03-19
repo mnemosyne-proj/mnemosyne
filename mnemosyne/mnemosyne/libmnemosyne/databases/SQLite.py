@@ -400,6 +400,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     def is_loaded(self):
         return not self.load_failed
 
+    def is_empty(self):
+        return self.fact_count() == 0
+        
     def _repr_extra_data(self, extra_data):
         # Use simply repr(), as pickle is overkill for a simple dictionary.
         if extra_data == {}:
@@ -411,7 +414,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         if sql_res["extra_data"] == "":
             obj.extra_data = {}
         else:
-            obj.extra_data = eval(sql_res["extra_data"])        
+            obj.extra_data = eval(sql_res["extra_data"])
 
     #
     # Tags.
