@@ -68,6 +68,9 @@ easily, which allows plugin writers maximum flexibility.
  ordering (Mike Appleby).
 -Uses Phonon as sound backend instead of PyGame (Louis Cyphre).
 
+
+-Croatian translation by Ilija Pavlic
+
 	
 Mnemosyne 1.2.2 : 2010-01-29
 	
