@@ -1,6 +1,9 @@
 -WM benchmark from 27 Mb database
 -benchmark sync starting from bigger database
 -GUI run from bigger database, test subjective review experience
+-sync/GUI from truncated database
+
+-add test on index reuse when vacuuming
 
 -make test
 -token
