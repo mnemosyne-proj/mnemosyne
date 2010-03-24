@@ -1,5 +1,6 @@
--WM benchmark non sync
+-WM benchmark from 27 Mb database
 -benchmark sync starting from bigger database
+-GUI run from bigger database, test subjective review experience
 
 -make test
 -token
@@ -12,7 +13,7 @@
 -just copy database on initial sync
 
 -add q and a to cards if facts are not present
--option not to download old history
+-option not to download old history, purge history
 
 -test scheduled, active count sync on load/save + type
 

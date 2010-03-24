@@ -30,8 +30,8 @@ def startup():
          "SQLite"),               
         ("mnemosyne.libmnemosyne.configuration",
          "Configuration"),          
-        ("mnemosyne.libmnemosyne.loggers.sql_logger",
-         "SqlLogger"),          
+        ("mnemosyne.libmnemosyne.loggers.database_logger",
+         "DatabaseLogger"),          
         ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
          "SM2Mnemosyne"),
         ("mnemosyne.libmnemosyne.stopwatch",
@@ -64,8 +64,12 @@ def startup():
          "ClozePlugin"),
         ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
          "CrammingPlugin"),
-        ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
-          "Mnemosyne1Mem"),
+        ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
+         "DefaultCriterion"),
+        ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
+         "DefaultCriterionApplier"),  
+        #("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
+        #  "Mnemosyne1Mem"),
         ("mnemosyne.libmnemosyne.ui_components.dialogs",
          "ProgressDialog") ]    
 
@@ -143,13 +147,13 @@ def do_import():
 
 #tests = ["startup()", "create_database()", "queue()", "new_question()", "display()", "grade_only()",
 #         "grade()", "count_active()", "count_scheduled()", "count_not_memorised()"]
-#tests = ["startup()", "new_question()", "display()", "grade()", "activate()",
-#    "finalise()"]
+tests = ["startup()", "new_question()", "display()", "grade()", "activate()",
+    "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "finalise()"]
-tests = ["startup()", "create_database()", "activate()"]
+#tests = ["startup()", "create_database()", "activate()"]
 #tests = ["startup()", "do_import()", "finalise()"]
 #tests = ["startup()", "queue()", "finalise()"]
 #tests = ["startup()", "activate()"]
