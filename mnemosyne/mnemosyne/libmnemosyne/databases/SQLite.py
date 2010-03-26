@@ -110,7 +110,7 @@ SCHEMA = """
     */
        
     create table log(
-        _id integer primary key,
+        _id integer primary key, /* Should never be reused. */
         event_type integer,
         timestamp integer,
         object_id text,
@@ -134,7 +134,7 @@ SCHEMA = """
     
     /* We track the last _id as opposed to the last timestamp, as importing
        another database could add log events with earlier dates, but
-       which still need to be synced. */
+       which still need to be synced. Also avoids issues with clock drift. */
     
     create table partnerships(
         partner text,

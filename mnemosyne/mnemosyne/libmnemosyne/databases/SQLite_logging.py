@@ -248,6 +248,11 @@ class SQLiteLogging(object):
             (creation_time, creation_time, sql_res["_fact_id"]))
 
     def remove_card_log_entries_since(self, index):
+
+        # Note that it is only safe to use this in case theses entries have
+        # never been exposed to a sync. Their use during the import procedure
+        # is therefore OK.
+        
         self.con.execute("""delete from log where _id>? and
             (event_type=? or event_type=?)""",
             (index, EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD))

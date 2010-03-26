@@ -158,3 +158,27 @@ class TestLogging(MnemosyneTest):
             "select * from log where _id=18").fetchone()
         assert sql_res["event_type"] == EventTypes.DELETED_FACT
         assert sql_res["object_id"] is not None
+
+    def test_unique_index(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type_2 = self.card_type_by_id("2")
+        card_1, card_2 = self.controller().create_new_cards(fact_data, card_type_2,
+                                              grade=-1, tag_names=["default"])
+        log_index = self.database().con.execute(\
+            """select _id from log order by _id desc limit 1""").fetchone()[0]
+        # Note: we need to keep the last log entry intact, otherwise indices
+        # start again at 1 and mess up the sync.
+        self.database().con.execute("""delete from log where _id <?""", (log_index,))
+        self.database().con.execute("""vacuum""")        
+        self.database().save()
+        fact_data = {"q": "question2",
+                     "a": "answer2"}
+        card_type_2 = self.card_type_by_id("1")
+        card_1  = self.controller().create_new_cards(fact_data, card_type_2,
+                                              grade=-1, tag_names=["default"])        
+        assert self.database().con.execute(\
+            """select _id from log order by _id limit 1""").fetchone()[0] \
+            == log_index      
+        
+

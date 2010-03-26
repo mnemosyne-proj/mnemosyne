@@ -79,6 +79,7 @@ class Client(object):
     def login(self, hostname, port, username, password):
         self.ui.status_bar_message("Logging in...")
         try:
+            client_info = {}
             client_info["username"] = username
             client_info["password"] = password
             client_info["user_id"] = self.database.user_id()

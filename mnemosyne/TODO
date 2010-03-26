@@ -3,9 +3,8 @@
 -GUI run from bigger database, test subjective review experience
 -sync/GUI from truncated database
 
--add test on index reuse when vacuuming
+-benchmark autoincrement
 
--make test
 -token
 -multiuser server
 -make sure client can't be logged in twice
@@ -16,7 +15,8 @@
 -just copy database on initial sync
 
 -add q and a to cards if facts are not present
--option not to download old history, purge history
+-option not to download old history
+-option purge history, refactor logging test
 
 -test scheduled, active count sync on load/save + type
 
@@ -75,6 +75,8 @@
 https://bugzilla.gnome.org/show_bug.cgi?id=518585
 
 -post nose 0.11: add cover branches
+
+-eliminate double save on finalise
 
 
 -duplicates for fact speedup
@@ -177,6 +179,8 @@ the GUI function itself?
 -when resetting learning data on export, can we export facts only? Tags are on
  a per card basis.
 -utf16?
+-make sure there is an error message to the user if xml import fails.
+-mention Mnemosyne XML instead of XML
 -make sure all grades are shown on first revision of imported card. Adapt button group title
 -http://gitorious.org/hooq/hooq? Qt4 testing
  http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
