@@ -1,8 +1,3 @@
--WM benchmark from 27 Mb database
--benchmark sync starting from bigger database
--GUI run from bigger database, test subjective review experience
--sync/GUI from truncated database
-
 -benchmark autoincrement
 
 -token
@@ -10,16 +5,13 @@
 -make sure client can't be logged in twice
 -close hanging connections on shutdown
 
--cdata, encode for deck name, unicode + test
-
 -just copy database on initial sync
-
-
--add q and a to cards if facts are not present
-
 -option not to download old history
 -option purge history, refactor logging test
 -add check in 'log_entries_to_sync' for missing entries
+-cdata, encode for deck name, unicode + test
+
+-add q and a to cards if facts are not present
 
 -test scheduled, active count sync on load/save + type
 

@@ -17,7 +17,7 @@ class MainWidget(UiComponent):
     instantiate = UiComponent.IMMEDIATELY
     
     def activate(self):
-        raise NotImplementedError
+        pass
         
     def information_box(self, message):
         raise NotImplementedError
