@@ -6,7 +6,7 @@ import os
 if os.name == "ce":
 	import ppygui.api as gui
 else:
-	import emulator.api as gui
+	import mnemosyne.ppygui_ui.emulator.api as gui
 
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
@@ -16,7 +16,10 @@ class MainFrame(gui.CeFrame, MainWidget):
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
         gui.CeFrame.__init__(self, title="Mnemosyne")
-
+        
+    def activate(self):
+        self.review_controller().reset()
+        
     def set_central_widget(self, widget):
         sizer = gui.VBox()
         sizer.add(widget)

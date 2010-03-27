@@ -8,7 +8,7 @@ import os
 if os.name == "ce":
 	import ppygui.api as gui
 else:
-	import emulator.api as gui
+	import mnemosyne.ppygui_ui.emulator.api as gui
 
 from mnemosyne.libmnemosyne import Mnemosyne
 
