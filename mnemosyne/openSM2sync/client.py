@@ -43,7 +43,7 @@ class Client(object):
     
     program_name = "unknown-SRS-app"
     program_version = "unknown"
-    capabilities = None  # TODO: list possibilies.
+    capabilities = "mnemosyne_dynamic_cards"  # "facts", "cards"
     
     def __init__(self, machine_id, database, ui):
         self.machine_id = machine_id
@@ -99,6 +99,7 @@ class Client(object):
             if response == "403 Forbidden":
                 raise SyncError("Wrong username or password.")
             self.server_info = self.data_format.parse_partner_info(response)
+            self.database.set_sync_partner_info(self.server_info)
             if self.server_info["user_id"] != client_info["user_id"]:
                 try:
                     # This should only work on an empty default database.

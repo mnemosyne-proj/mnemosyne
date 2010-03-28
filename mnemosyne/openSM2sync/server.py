@@ -45,7 +45,7 @@ class Server(WSGIServer):
 
     program_name = "unknown-SRS-app"
     program_version = "unknown"
-    capabilities = None  # TODO: list possibilies.
+    capabilities = "mnemosyne_dynamic_cards"  # "facts", "cards"
 
     stop_after_sync = False # Setting this True is useful for the testsuite. 
 
@@ -128,6 +128,7 @@ class Server(WSGIServer):
             return "403 Forbidden"
         self.logged_in = True
         self.open_database(self.client_info["database_name"])
+        self.database.set_sync_partner_info(self.client_info)
         self.database.backup()
         self.database.create_partnership_if_needed_for(\
             self.client_info["machine_id"])

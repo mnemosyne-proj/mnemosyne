@@ -10,8 +10,8 @@
 -option purge history, refactor logging test
 -add check in 'log_entries_to_sync' for missing entries
 -cdata, encode for deck name, unicode + test
-
--add q and a to cards if facts are not present
+-option to skip backup before sync
+-option to only save after every N repetitions
 
 -test scheduled, active count sync on load/save + type
 

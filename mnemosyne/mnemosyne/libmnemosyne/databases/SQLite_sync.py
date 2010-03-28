@@ -37,6 +37,9 @@ class SQLiteSync(object):
             self.con.execute("""insert into partnerships(partner, 
                _last_log_id) values(?,?)""", (partner, 0))
 
+    def set_sync_partner_info(self, info):
+        self.sync_partner_info = info
+
     def last_synced_log_entry_for(self, partner):
         sql_res = self.con.execute("""select _last_log_id from partnerships 
            where partner=?""", (partner, )).fetchone()
@@ -108,8 +111,12 @@ class SQLiteSync(object):
                 # because it could be that there is no valid previous state
                 # because of conflict resolution.
                 card = self.get_card(log_entry["o_id"], id_is_internal=False)
-                log_entry["fact"] = card.fact.id
-                log_entry["fact_v"] = card.fact_view.id
+                if self.sync_partner_info["capabilities"] == "cards":
+                    log_entry["q"] = card.question()
+                    log_entry["a"] = card.answer()
+                else:
+                    log_entry["fact"] = card.fact.id
+                    log_entry["fact_v"] = card.fact_view.id
                 log_entry["tags"] = ",".join([tag.id for tag in card.tags]) 
                 log_entry["act"] = int(card.active)
                 log_entry["gr"] = card.grade
@@ -123,7 +130,7 @@ class SQLiteSync(object):
                 log_entry["rt_rp_l"] = card.ret_reps_since_lapse
                 log_entry["sch_data"] = card.scheduler_data
                 if card.extra_data:
-                    log_entry["extra"] = repr(card.extra_data)                    
+                    log_entry["extra"] = repr(card.extra_data)                   
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type in (EventTypes.ADDED_CARD_TYPE,
@@ -209,6 +216,11 @@ class SQLiteSync(object):
         return fact
     
     def card_from_log_entry(self, log_entry):
+        # We should not accept cards with question and answer data, only cards
+        # based on facts. For the time being, stop with an error message.
+        # Can be refined later on if the need arises.
+        if "q" in log_entry:
+            raise NotImplementedError
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
             try:
@@ -265,8 +277,6 @@ class SQLiteSync(object):
         return card
 
     def apply_repetition(self, log_entry):
-        # Note that the corresponding changing of the card properties is
-        # handled by a separate UPDATED_CARD event.
         if "sch_data" in log_entry:
             sch_data = log_entry["sch_data"]
         else:
