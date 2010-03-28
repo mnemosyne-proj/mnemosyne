@@ -72,7 +72,9 @@ class DataFormat(object):
         across a socket e.g., we still need to encode it first.
         
         """
-        
+
+        if log_entry is None:
+            return ""
         attribs, tags = "", ""
         for key, value in log_entry.iteritems():
             if key in self.keys_in_attribs:

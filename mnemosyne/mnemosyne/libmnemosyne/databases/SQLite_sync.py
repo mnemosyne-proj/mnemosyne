@@ -94,6 +94,8 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT):
+            if self.sync_partner_info["capabilities"] == "cards":
+                return None
             try:
                 fact = self.get_fact(log_entry["o_id"], id_is_internal=False)
                 log_entry["c_time"] = fact.creation_time
