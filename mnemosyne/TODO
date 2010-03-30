@@ -1,5 +1,7 @@
 -benchmark autoincrement
 
+-stub out phase for card type negotiations?
+
 -token
 -multiuser server
 -make sure client can't be logged in twice
@@ -36,7 +38,10 @@
 -hack tarfile to add progress bar?
 -add modulo to progress dialogs
 
--conflict resolution, triangular sync, sync complete partnership status
+-conflict resolution
+-can we do triangular sync if internal log ids are different? Partnership index
+ local or global?
+-sync complete partnership status? local + global? or only enough to avoid/allow triple sync.
 
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -rework interface of database.py to include syncing events.

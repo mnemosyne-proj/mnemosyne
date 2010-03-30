@@ -45,7 +45,6 @@ class Server(WSGIServer):
 
     program_name = "unknown-SRS-app"
     program_version = "unknown"
-    capabilities = "mnemosyne_dynamic_cards"  # "facts", "cards"
 
     stop_after_sync = False # Setting this True is useful for the testsuite. 
 
@@ -138,8 +137,7 @@ class Server(WSGIServer):
         server_info = {"user_id": self.database.user_id(),
             "machine_id": self.machine_id,
             "program_name": self.program_name,
-            "program_version": self.program_version,
-            "capabilities": self.capabilities}
+            "program_version": self.program_version}
         return self.data_format.repr_partner_info(server_info)
 
     def put_client_log_entries(self, environ):

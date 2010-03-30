@@ -43,6 +43,8 @@ class Client(object):
     
     program_name = "unknown-SRS-app"
     program_version = "unknown"
+    # The capabilities supported by the client. Note that we assume that the
+    # server supports "mnemosyne_dynamic_cards".
     capabilities = "mnemosyne_dynamic_cards"  # "facts", "cards"
     
     def __init__(self, machine_id, database, ui):
