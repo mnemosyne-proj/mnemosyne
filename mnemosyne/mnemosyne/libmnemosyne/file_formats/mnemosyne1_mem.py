@@ -41,7 +41,7 @@ class Mnemosyne1Mem(FileFormat):
         # The events that we import from the txt logs obviously should not be
         # reexported to txt logs. So, before the import, we flush the SQL logs
         # to the txt logs, and after the import we update the partership index.
-        db.dump_to_txt_log() 
+        db.dump_to_txt_log()
         self._import_logs(filename)
         db.update_last_sync_log_entry_for("log.txt")
         # Force an ADDED_CARD log entry for those cards that did not figure in

@@ -110,7 +110,7 @@ SCHEMA = """
     */
        
     create table log(
-        _id integer primary key, /* Should never be reused. */
+        _id integer primary key autoincrement, /* Should never be reused. */
         event_type integer,
         timestamp integer,
         object_id text,
