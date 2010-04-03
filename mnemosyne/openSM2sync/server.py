@@ -6,6 +6,7 @@
 import os
 import cgi
 import uuid
+import time
 import select
 import tarfile
 import tempfile
@@ -42,6 +43,16 @@ def dont_log(*kwargs):
 WSGIRequestHandler.log_message = dont_log
 
 
+class Session(object):
+
+    def __init__(self, client_info, database):
+        self.client_info = client_info
+        self.database = database
+        self.client_log = []
+        self.data_format = DataFormat()
+        self.expires = time.time() + 60*60
+
+
 class Server(WSGIServer):
 
     program_name = "unknown-SRS-app"
@@ -53,10 +64,11 @@ class Server(WSGIServer):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.ui = ui
-        self.data_format = DataFormat()
+        self.data_format = DataFormat() ###
         self.stopped = False
         self.machine_id = machine_id
-        self.client_info = {}
+        self.client_info = {} ###
+        self.sessions = {} # {session_token: session}
 
     def wsgi_app(self, environ, start_response):
         status, mime, method, args = self.get_method(environ)
@@ -83,10 +95,11 @@ class Server(WSGIServer):
         # See if the token matches.
         if method != "put_login":
             if not "session_token" in args or args["session_token"] \
-                != self.session_token:
+                != self.session_token: ###
                 return "403 Forbidden", "text/plain", None, None
             else:
                 del args["session_token"]
+                ### add session to args
         # Call the method.
         if hasattr(self, method) and callable(getattr(self, method)):
             if len(args) == 0:
@@ -126,7 +139,7 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Client logging in...")
         client_info_repr = environ["wsgi.input"].readline()
         self.client_info = \
-            self.data_format.parse_partner_info(client_info_repr)
+            self.data_format.parse_partner_info(client_info_repr) ###
         if not self.authorise(self.client_info["username"],
             self.client_info["password"]):
             return "403 Forbidden"
