@@ -1,4 +1,3 @@
--token
 -multiuser server
 -make sure client can't be logged in twice
 -close hanging connections on shutdown

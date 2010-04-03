@@ -94,7 +94,8 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT):
-            if self.sync_partner_info["capabilities"] == "cards":
+            if "capabilities" in self.sync_partner_info and \
+                self.sync_partner_info["capabilities"] == "cards":
                 return None
             try:
                 fact = self.get_fact(log_entry["o_id"], id_is_internal=False)
@@ -113,7 +114,8 @@ class SQLiteSync(object):
                 # because it could be that there is no valid previous state
                 # because of conflict resolution.
                 card = self.get_card(log_entry["o_id"], id_is_internal=False)
-                if self.sync_partner_info["capabilities"] == "cards":
+                if "capabilities" in self.sync_partner_info and \
+                    self.sync_partner_info["capabilities"] == "cards":
                     log_entry["q"] = card.question()
                     log_entry["a"] = card.answer()
                 else:

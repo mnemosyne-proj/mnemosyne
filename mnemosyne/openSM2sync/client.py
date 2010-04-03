@@ -131,7 +131,8 @@ class Client(object):
         # order to improve throughput.
         # We also tried compression here, but for typical scenarios that is
         # slightly slower on a WLAN and mobile phone.
-        self.con.putrequest("PUT", "/client/log_entries")
+        self.con.putrequest("PUT", "/client/log_entries?session_token=%s" \
+            % (self.server_info["session_token"], ))
         self.con.endheaders()
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
@@ -157,7 +158,8 @@ class Client(object):
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")       
         try:
-            self.con.request("GET", "/server/log_entries")
+            self.con.request("GET", "/server/log_entries?session_token=%s" \
+                % (self.server_info["session_token"], ))
             response = self.con.getresponse()
             number_of_entries = int(response.fp.readline())
             if number_of_entries == 0:
@@ -182,7 +184,8 @@ class Client(object):
         size = tar_file_size(self.database.mediadir(), filenames)
         if size == 0:
             return
-        self.con.putrequest("PUT", "/client/media/files")
+        self.con.putrequest("PUT", "/client/media/files?session_token=%s" \
+            % (self.server_info["session_token"], ))
         self.con.endheaders()     
         socket = self.con.sock.makefile("wb", bufsize=8192)
         socket.write(str(size) + "\n")
@@ -203,7 +206,8 @@ class Client(object):
     def get_server_media_files(self):
         self.ui.status_bar_message("Receiving server media files...")
         try:
-            self.con.request("GET", "/server/media_files")
+            self.con.request("GET", "/server/media_files?session_token=%s" \
+                % (self.server_info["session_token"], ))
             response = self.con.getresponse()
             size = int(response.fp.readline())
             if size == 0:
@@ -217,7 +221,8 @@ class Client(object):
     def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
-            self.con.request("GET", "/sync/finish")
+            self.con.request("GET", "/sync/finish?session_token=%s" \
+                % (self.server_info["session_token"], ))
             response = self.con.getresponse()
             if response.read() != "OK":
                 raise SyncError("Sync finish: error on server side.")

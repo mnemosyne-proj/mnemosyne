@@ -5,6 +5,7 @@
 
 import os
 import cgi
+import uuid
 import select
 import tarfile
 import tempfile
@@ -54,7 +55,6 @@ class Server(WSGIServer):
         self.ui = ui
         self.data_format = DataFormat()
         self.stopped = False
-        self.logged_in = False
         self.machine_id = machine_id
         self.client_info = {}
 
@@ -78,11 +78,17 @@ class Server(WSGIServer):
         # Convert e.g. GET /foo/bar into get_foo_bar.
         method = (environ["REQUEST_METHOD"] + \
                 "_".join(environ["PATH_INFO"].split("/"))).lower()
-        if method != "put_login" and not self.logged_in:
-            return "403 Forbidden", "text/plain", None, None
+        args = cgi.parse_qs(environ["QUERY_STRING"])
+        args = dict([(key, val[0]) for key, val in args.iteritems()])
+        # See if the token matches.
+        if method != "put_login":
+            if not "session_token" in args or args["session_token"] \
+                != self.session_token:
+                return "403 Forbidden", "text/plain", None, None
+            else:
+                del args["session_token"]
+        # Call the method.
         if hasattr(self, method) and callable(getattr(self, method)):
-            args = cgi.parse_qs(environ["QUERY_STRING"])
-            args = dict([(key, val[0]) for key, val in args.iteritems()])
             if len(args) == 0:
                 return "200 OK", "xml/text", method, args
             else:
@@ -123,9 +129,7 @@ class Server(WSGIServer):
             self.data_format.parse_partner_info(client_info_repr)
         if not self.authorise(self.client_info["username"],
             self.client_info["password"]):
-            self.logged_in = False
             return "403 Forbidden"
-        self.logged_in = True
         self.open_database(self.client_info["database_name"])
         self.database.set_sync_partner_info(self.client_info)
         self.database.backup()
@@ -134,10 +138,12 @@ class Server(WSGIServer):
         # Note that we need to send 'user_id' to the client as well, so that the
         # client can make sure the 'user_id's (used to label the anynymous
         # uploaded logs) are consistent across machines.
+        self.session_token = str(uuid.uuid4())
         server_info = {"user_id": self.database.user_id(),
             "machine_id": self.machine_id,
             "program_name": self.program_name,
-            "program_version": self.program_version}
+            "program_version": self.program_version,
+            "session_token": self.session_token}
         return self.data_format.repr_partner_info(server_info)
 
     def put_client_log_entries(self, environ):
@@ -259,7 +265,6 @@ class Server(WSGIServer):
 
     def get_sync_finish(self, environ):
         self.ui.status_bar_message("Waiting for client to finish...")
-        self.logged_in = False
         if self.stop_after_sync:
             self.stop()
         return "OK"
