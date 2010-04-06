@@ -64,7 +64,7 @@ class MyServer(Server):
         return login == "user" and password == "pass"
 
     def open_database(self, database_name):
-        self.database = self.mnemosyne.database()
+        return self.mnemosyne.database()
 
     def run(self):
         Server.__init__(self, "client_machine_id", "192.168.2.54", 8186,

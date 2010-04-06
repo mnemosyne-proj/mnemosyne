@@ -72,8 +72,7 @@ class Client(object):
             self.get_server_log_entries()
             self.get_sync_finish()
         except SyncError, exception:
-            # TODO: restore from backup_file, i.o. simply opening it.
-            self.database.load(backup_file)
+            self.database.restore(backup_file)
             self.ui.error_box("Error: " + str(exception))
         else:
             self.ui.information_box("Sync finished!")

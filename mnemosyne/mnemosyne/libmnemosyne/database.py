@@ -45,6 +45,9 @@ class Database(Component):
     def backup(self):
         raise NotImplementedError
 
+    def restore(self, path):
+        raise NotImplementedError        
+
     def load(self, path):
         raise NotImplementedError
 

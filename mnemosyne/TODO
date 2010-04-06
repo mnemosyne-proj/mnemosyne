@@ -1,4 +1,6 @@
 -multiuser server
+-active flag?
+-username vs userid
 -make sure client can't be logged in twice
 -close hanging connections on shutdown
 
@@ -14,7 +16,7 @@
 
 -self.stopped, timeouts
 -more elegant error handling? Uniform naming error vs exception
--restore from backup (factor out code from default controller)
+-restore from backup, both client and server (factor out code from default controller)
 -sql roll back?
 
 -latex
@@ -78,6 +80,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 -post nose 0.11: add cover branches
 
 -eliminate double save on finalise
+-compression on backup to reduce write time to SD card?
 
 
 -duplicates for fact speedup

@@ -378,6 +378,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 os.remove(os.path.join(backupdir, file))
         return backupfile
 
+    def restore(self, path):
+        ## TODO: implement properly
+        self.load(path)
+
     def unload(self):
         for f in self.component_manager.get_all("hook", "before_unload"):
             f.run()

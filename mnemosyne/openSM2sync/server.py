@@ -46,11 +46,24 @@ WSGIRequestHandler.log_message = dont_log
 class Session(object):
 
     def __init__(self, client_info, database):
+        self.token = str(uuid.uuid4())
         self.client_info = client_info
         self.database = database
         self.client_log = []
-        self.data_format = DataFormat()
         self.expires = time.time() + 60*60
+        self.backup_file = self.database.backup()
+        self.database.set_sync_partner_info(client_info)
+        self.database.create_partnership_if_needed_for(client_info["machine_id"])
+
+    def close(self):
+        self.database.update_last_sync_log_entry_for(self.client_info["machine_id"])
+        self.database.save()
+
+    def terminate(self):
+
+        """Restore from backup if the session failed to close normally."""
+
+        self.database.restore(self.backup_file)
 
 
 class Server(WSGIServer):
@@ -64,11 +77,11 @@ class Server(WSGIServer):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.ui = ui
-        self.data_format = DataFormat() ###
+        self.data_format = DataFormat()
         self.stopped = False
         self.machine_id = machine_id
-        self.client_info = {} ###
         self.sessions = {} # {session_token: session}
+        self.session_token_for_user = {} # {user_id: session_token}
 
     def wsgi_app(self, environ, start_response):
         status, mime, method, args = self.get_method(environ)
@@ -92,23 +105,47 @@ class Server(WSGIServer):
                 "_".join(environ["PATH_INFO"].split("/"))).lower()
         args = cgi.parse_qs(environ["QUERY_STRING"])
         args = dict([(key, val[0]) for key, val in args.iteritems()])
-        # See if the token matches.
-        if method != "put_login":
-            if not "session_token" in args or args["session_token"] \
-                != self.session_token: ###
-                return "403 Forbidden", "text/plain", None, None
+        # Login method.
+        if method == "put_login":
+            if len(args) == 0:
+                return "200 OK", "xml/text", method, args
             else:
-                del args["session_token"]
-                ### add session to args
+                return "400 Bad Request", "text/plain", None, None                
+        # See if the token matches.
+        if not "session_token" in args or args["session_token"] \
+            not in self.sessions:
+            return "403 Forbidden", "text/plain", None, None
         # Call the method.
         if hasattr(self, method) and callable(getattr(self, method)):
-            if len(args) == 0:
+            if len(args) == 1:
                 return "200 OK", "xml/text", method, args
             else:
                 return "400 Bad Request", "text/plain", None, None
         else:
             return "404 Not Found", "text/plain", None, None
 
+    def create_session(self, client_info):
+        database =  self.open_database(client_info["database_name"])
+        session = Session(client_info, database)
+        self.sessions[session.token] = session
+        self.session_token_for_user[client_info["username"]] = session.token
+        return session
+        
+    def terminate_session_with_token(self, session_token):
+
+        """Clean up a session which failed to close normally."""
+
+        self.sessions[session_token].terminate()
+        del self.session_token_for_user[\
+            self.sessions[session_token].client_info["username"]]
+        del self.sessions[session_token]
+
+    def close_session_with_token(self, session_token):
+        self.sessions[session_token].close()        
+        del self.session_token_for_user[\
+            self.sessions[session_token].client_info["username"]]
+        del self.sessions[session_token]
+        
     def stop(self):
         self.stopped = True
 
@@ -117,14 +154,14 @@ class Server(WSGIServer):
 
     def authorise(self, username, password):
 
-        """Returs True if 'password' is correct for 'username'."""
+        """Returns True if 'password' is correct for 'username'."""
         
         raise NotImplementedError
 
     def open_database(self, database_name):
 
-        """Sets self.database to a database object for the database named
-        'database_name'. Should create the database if it does not exist yet.
+        """Returns a database object for the database named 'database_name'.
+        Should create the database if it does not exist yet.
 
         """
 
@@ -138,29 +175,29 @@ class Server(WSGIServer):
     def put_login(self, environ):
         self.ui.status_bar_message("Client logging in...")
         client_info_repr = environ["wsgi.input"].readline()
-        self.client_info = \
-            self.data_format.parse_partner_info(client_info_repr) ###
-        if not self.authorise(self.client_info["username"],
-            self.client_info["password"]):
+        client_info = self.data_format.parse_partner_info(client_info_repr)
+        if not self.authorise(client_info["username"],
+            client_info["password"]):
             return "403 Forbidden"
-        self.open_database(self.client_info["database_name"])
-        self.database.set_sync_partner_info(self.client_info)
-        self.database.backup()
-        self.database.create_partnership_if_needed_for(\
-            self.client_info["machine_id"])
+        # Close old session if it failed to finish properly.
+        old_running_session_token = self.session_token_for_user.\
+            get(client_info["username"])
+        if old_running_session_token:
+            self.terminate_session_with_token(old_running_session_token)
+        session = self.create_session(client_info)
         # Note that we need to send 'user_id' to the client as well, so that the
         # client can make sure the 'user_id's (used to label the anynymous
         # uploaded logs) are consistent across machines.
-        self.session_token = str(uuid.uuid4())
-        server_info = {"user_id": self.database.user_id(),
+        server_info = {"user_id": session.database.user_id(),
             "machine_id": self.machine_id,
             "program_name": self.program_name,
             "program_version": self.program_version,
-            "session_token": self.session_token}
+            "session_token": session.token}
         return self.data_format.repr_partner_info(server_info)
 
-    def put_client_log_entries(self, environ):
+    def put_client_log_entries(self, environ, session_token):
         self.ui.status_bar_message("Receiving client log entries...")
+        session = self.sessions[session_token]
         # Since chunked requests are not supported by the WSGI 1.x standard,
         # the client does not set Content-Length in order to be able to
         # stream the log entries. Therefore, it is our responsability that we
@@ -182,20 +219,22 @@ class Server(WSGIServer):
         # In order to do conflict resolution easily, one of the sync partners
         # has to have both logs in memory. We do this at the server side, as
         # the client could be a resource-limited mobile device.
-        self.client_log = []
+        session.client_log = []
         count = 0
         data_stream = cStringIO.StringIO("".join(lines))
         for log_entry in self.data_format.parse_log_entries(data_stream):
-            self.client_log.append(log_entry)
+            session.client_log.append(log_entry)
             count += 1
             progress_dialog.set_value(count)
         self.ui.status_bar_message("Waiting for client to finish...")
         return "OK"
 
-    def get_server_log_entries(self, environ):
+    def get_server_log_entries(self, environ, session_token):
         self.ui.status_bar_message("Sending log entries to client...")
-        number_of_entries = self.database.number_of_log_entries_to_sync_for(\
-            self.client_info["machine_id"])
+        session = self.sessions[session_token]
+        number_of_entries = session.database.\
+            number_of_log_entries_to_sync_for(\
+            session.client_info["machine_id"])
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to client...")
@@ -203,8 +242,8 @@ class Server(WSGIServer):
         buffer += self.data_format.log_entries_header
         BUFFER_SIZE = 8192
         count = 0
-        for log_entry in self.database.log_entries_to_sync_for(\
-            self.client_info["machine_id"]):
+        for log_entry in session.database.log_entries_to_sync_for(\
+            session.client_info["machine_id"]):
             count += 1
             progress_dialog.set_value(count)
             buffer += self.data_format.repr_log_entry(log_entry)
@@ -215,30 +254,30 @@ class Server(WSGIServer):
         yield buffer.encode("utf-8")
         # Now that all the data is underway to the client, we can start
         # applying the client log entries.
-        for log_entry in self.client_log:
-            self.database.apply_log_entry(log_entry)
-        self.database.update_last_sync_log_entry_for(\
-            self.client_info["machine_id"])
+        for log_entry in session.client_log:
+            session.database.apply_log_entry(log_entry)
         
-    def put_client_media_files(self, environ):
+    def put_client_media_files(self, environ, session_token):
         self.ui.status_bar_message("Receiving client media files...")
         try:
+            session = self.sessions[session_token]
             socket = environ["wsgi.input"]
             size = int(socket.readline())
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             # Work around http://bugs.python.org/issue7693.
-            tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
+            tar_pipe.extractall(session.database.mediadir().encode("utf-8"))
         except:
             return "CANCEL"
         return "OK"
     
-    def get_server_media_files(self, environ):
+    def get_server_media_files(self, environ, session_token):
         self.ui.status_bar_message("Sending media files to client...")
         try:
             # Determine files to send across.
-            self.database.check_for_updated_media_files()
-            filenames = list(self.database.media_filenames_to_sync_for(\
-                self.client_info["machine_id"]))
+            session = self.sessions[session_token]
+            session.database.check_for_updated_media_files()
+            filenames = list(session.database.media_filenames_to_sync_for(\
+                session.client_info["machine_id"]))
             # TODO: implement creating pictures from cards, based on the
             # following client_info fields: "cards_as_pictures",
             # "cards_pictures_res", "reset_cards_as_pictures".
@@ -249,7 +288,7 @@ class Server(WSGIServer):
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
             tmp_file_name = tmp_file.name
             saved_path = os.getcwdu()
-            os.chdir(self.database.mediadir())
+            os.chdir(session.database.mediadir())
             BUFFER_SIZE = 8192
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
                 bufsize=BUFFER_SIZE, format=tarfile.PAX_FORMAT)
@@ -276,8 +315,9 @@ class Server(WSGIServer):
         except:
             yield "CANCEL"
 
-    def get_sync_finish(self, environ):
+    def get_sync_finish(self, environ, session_token):
         self.ui.status_bar_message("Waiting for client to finish...")
+        self.close_session_with_token(session_token)
         if self.stop_after_sync:
             self.stop()
         return "OK"

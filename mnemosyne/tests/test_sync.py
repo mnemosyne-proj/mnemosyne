@@ -54,7 +54,7 @@ class MyServer(Server, Thread):
         return login == "user" and password == "pass"
 
     def open_database(self, database_name):
-        self.database = self.mnemosyne.database()
+        return self.mnemosyne.database()
 
     def run(self):
         # We only open the database connection inside the thread to prevent
