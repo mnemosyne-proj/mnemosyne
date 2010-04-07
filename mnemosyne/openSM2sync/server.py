@@ -55,6 +55,9 @@ class Session(object):
         self.database.set_sync_partner_info(client_info)
         self.database.create_partnership_if_needed_for(client_info["machine_id"])
 
+    def is_expired(self):
+        return time.time() > self.expired
+
     def close(self):
         self.database.update_last_sync_log_entry_for(self.client_info["machine_id"])
         self.database.save()
@@ -74,14 +77,14 @@ class Server(WSGIServer):
     stop_after_sync = False # Setting this True is useful for the testsuite. 
 
     def __init__(self, machine_id, host, port, ui):
+        self.machine_id = machine_id
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.ui = ui
         self.data_format = DataFormat()
         self.stopped = False
-        self.machine_id = machine_id
         self.sessions = {} # {session_token: session}
-        self.session_token_for_user = {} # {user_id: session_token}
+        self.session_token_for_user = {} # {user_name: session_token}
 
     def wsgi_app(self, environ, start_response):
         status, mime, method, args = self.get_method(environ)
@@ -125,25 +128,25 @@ class Server(WSGIServer):
             return "404 Not Found", "text/plain", None, None
 
     def create_session(self, client_info):
-        database =  self.open_database(client_info["database_name"])
+        database = self.open_database(client_info["database_name"])
         session = Session(client_info, database)
         self.sessions[session.token] = session
         self.session_token_for_user[client_info["username"]] = session.token
         return session
+
+    def close_session_with_token(self, session_token):
+        session = self.sessions[session_token]
+        session.close()        
+        del self.session_token_for_user[session.client_info["username"]]
+        del self.sessions[session_token]
         
     def terminate_session_with_token(self, session_token):
 
         """Clean up a session which failed to close normally."""
 
-        self.sessions[session_token].terminate()
-        del self.session_token_for_user[\
-            self.sessions[session_token].client_info["username"]]
-        del self.sessions[session_token]
-
-    def close_session_with_token(self, session_token):
-        self.sessions[session_token].close()        
-        del self.session_token_for_user[\
-            self.sessions[session_token].client_info["username"]]
+        session = self.sessions[session_token]
+        session.terminate()        
+        del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
         
     def stop(self):
@@ -318,6 +321,10 @@ class Server(WSGIServer):
     def get_sync_finish(self, environ, session_token):
         self.ui.status_bar_message("Waiting for client to finish...")
         self.close_session_with_token(session_token)
+        # Now is a good time to garbage-collect dangling sessions.
+        for session in self.sessions:
+            if session.is_expired():
+                self.terminate_session_with_token(session.token)                
         if self.stop_after_sync:
             self.stop()
         return "OK"

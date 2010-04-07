@@ -1,8 +1,4 @@
--multiuser server
 -active flag?
--username vs userid
--make sure client can't be logged in twice
--close hanging connections on shutdown
 
 -just copy database on initial sync
 -option not to download old history
