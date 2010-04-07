@@ -228,7 +228,7 @@ class DefaultController(Controller):
 
         # Apply new tags and activity criterion to cards and save cards back
         # to the database. Note that this makes sure there is an UPDATED_CARD
-        # event for each related card, which is needed when syncing with a
+        # log entry for each related card, which is needed when syncing with a
         # partner that does not have the concept of facts.
         old_tags = set()
         for card in self.database().cards_from_fact(fact):

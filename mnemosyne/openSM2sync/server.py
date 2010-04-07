@@ -169,7 +169,7 @@ class Server(WSGIServer):
         """
 
         raise NotImplementedError
-
+    
     # The following are methods that are supported by the server through GET
     # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo/bar'
     # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo/bar'

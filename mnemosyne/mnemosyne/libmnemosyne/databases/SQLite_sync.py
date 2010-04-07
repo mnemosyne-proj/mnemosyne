@@ -81,7 +81,7 @@ class SQLiteSync(object):
             log_entry["o_id"] = o_id        
         event_type = log_entry["type"]
         if event_type in (EventTypes.LOADED_DATABASE,
-          EventTypes.SAVED_DATABASE):
+            EventTypes.SAVED_DATABASE):
             log_entry["sch"] = sql_res["acq_reps"]
             log_entry["n_mem"] = sql_res["ret_reps"]
             log_entry["act"] = sql_res["lapses"]            
@@ -94,8 +94,8 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT):
-            if "capabilities" in self.sync_partner_info and \
-                self.sync_partner_info["capabilities"] == "cards":
+            if self.sync_partner_info.get("capabilities") == "cards":
+                # The accompanying ADDED_CARD and UPDATED_CARD events suffice.
                 return None
             try:
                 fact = self.get_fact(log_entry["o_id"], id_is_internal=False)
@@ -114,8 +114,7 @@ class SQLiteSync(object):
                 # because it could be that there is no valid previous state
                 # because of conflict resolution.
                 card = self.get_card(log_entry["o_id"], id_is_internal=False)
-                if "capabilities" in self.sync_partner_info and \
-                    self.sync_partner_info["capabilities"] == "cards":
+                if self.sync_partner_info.get("capabilities") == "cards":
                     log_entry["q"] = card.question()
                     log_entry["a"] = card.answer()
                 else:
@@ -260,6 +259,9 @@ class SQLiteSync(object):
         for tag_id in log_entry["tags"].split(","):
             card.tags.add(self.get_tag(tag_id, id_is_internal=False))
         card.id = log_entry["o_id"]
+        if log_entry["type"] != EventTypes.ADDED_CARD:
+            card._id = self.con.execute("select _id from cards where id=?",
+                (card.id, )).fetchone()[0]      
         card.active = True
         card.grade = log_entry["gr"]
         card.easiness = log_entry["e"]
@@ -274,9 +276,6 @@ class SQLiteSync(object):
             card.scheduler_data = log_entry["sch_data"]   
         if "extra" in log_entry:
             card.extra_data = eval(log_entry["extra"])
-        if log_entry["type"] != EventTypes.ADDED_CARD:
-            card._id = self.con.execute("select _id from cards where id=?",
-                (card.id, )).fetchone()[0]
         return card
 
     def apply_repetition(self, log_entry):

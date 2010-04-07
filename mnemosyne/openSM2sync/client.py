@@ -92,7 +92,7 @@ class Client(object):
             # Not yet implemented: downloading cards as pictures.
             client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
             client_info["cards_pictures_res"] = "320x200"
-            client_info["reset_cards_as_pictures"] = "no" # "yes" redownloads.
+            client_info["reset_cards_as_pictures"] = False # True redownloads.
             self.con = httplib.HTTPConnection(hostname, port)
             self.con.request("PUT", "/login",
                 self.data_format.repr_partner_info(client_info) + "\n")
