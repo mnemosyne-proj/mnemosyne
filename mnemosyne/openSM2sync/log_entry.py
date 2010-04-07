@@ -64,7 +64,6 @@ class LogEntry(dict):
         fact (nice_string), fact_v (nice_string): fact id and fact view id
         q, a (string): question and answer, if partner does not support facts.
         tags (nice_string): comma separated list of tag ids
-        act (int): card active?
         gr (int): grade (-1 through 5, -1 meaning unseen)
         e (float): easiness
         l_rp (int): last repetiton, Unix timestamp

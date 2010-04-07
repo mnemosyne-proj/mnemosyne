@@ -121,8 +121,7 @@ class SQLiteSync(object):
                 else:
                     log_entry["fact"] = card.fact.id
                     log_entry["fact_v"] = card.fact_view.id
-                log_entry["tags"] = ",".join([tag.id for tag in card.tags]) 
-                log_entry["act"] = int(card.active)
+                log_entry["tags"] = ",".join([tag.id for tag in card.tags])
                 log_entry["gr"] = card.grade
                 log_entry["e"] = card.easiness
                 log_entry["l_rp"] = card.last_rep
@@ -261,7 +260,7 @@ class SQLiteSync(object):
         for tag_id in log_entry["tags"].split(","):
             card.tags.add(self.get_tag(tag_id, id_is_internal=False))
         card.id = log_entry["o_id"]
-        card.active = bool(log_entry["act"])
+        card.active = True
         card.grade = log_entry["gr"]
         card.easiness = log_entry["e"]
         card.acq_reps = log_entry["ac_rp"]

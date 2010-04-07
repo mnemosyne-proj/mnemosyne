@@ -1,5 +1,3 @@
--active flag?
-
 -just copy database on initial sync
 -option not to download old history
 -option purge history, refactor logging test
