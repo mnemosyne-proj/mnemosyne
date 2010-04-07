@@ -1,3 +1,10 @@
+-think about 'shared' tags. What if cards loose this tag between two uploads?
+  Always do fresh upload/download on shared deck (mention in server.py)? What about deleted cards?
+  don't pass through the logs, but rather run through the cards?
+ what about card creation events for which there already is a card? Should become an update
+-in client: differentiate between upload and download, don't do partnership thing
+ advertise on website, last update
+
 -just copy database on initial sync
 -option not to download old history
 -option purge history, refactor logging test
@@ -27,16 +34,12 @@
 -store machine id in log_name too
 -fix 'correct_config', log parser
 
--hack tarfile to add progress bar?
--add modulo to progress dialogs
-
 -conflict resolution
 -rather than deleting history, mark it as undone in order to keep id ordering
  consistent
 -can we do triangular sync if internal log ids are different? Partnership index
  local or global?
 -sync complete partnership status? local + global? or only enough to avoid/allow triple sync.
-
 
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -rework interface of database.py to include syncing events.
@@ -45,6 +48,9 @@
  later on. Mention that only final state is same, not intermediate states
 -example 'miniclient' supporting sync
 -log save event after import and sync in the default controller. Add tests
+
+-hack tarfile to add progress bar?
+-add modulo to progress dialogs
 
 -rename media files-> external files?
 -add tests with unicode in basedir
@@ -171,11 +177,6 @@ the GUI function itself?
 -make sure enter does not close the import dialog
 -make sure we log new card creation on import
 -make sure to detect media and do slash normalisation from importing text files
--'teacher mode' on export, which allows pupils to update previously imported
- cards, as opposed to adding new cards. Implemented through id's of the form
- T.<fixed card id for all pupils>.<pupil user id>?
--when resetting learning data on export, can we export facts only? Tags are on
- a per card basis.
 -utf16?
 -make sure there is an error message to the user if xml import fails.
 -mention Mnemosyne XML instead of XML
@@ -263,6 +264,73 @@ pylint:
 
 
 * After 2.0:
+
+-'shared deck' export
+-is 'client_info["shared_dack"] the best way to signal this? Or have entirely new
+ server API functions?
+-make sure not send across learning data, e.g. by calling reset_learning_data on
+ a copy in _log_entry() for card
+-server.py
+    def open_shared_database(self, database_name, username):
+
+        """A shared database only contains log entries to specify the card
+        contents, not the learning data. Make sure this is read-only for
+        everybody except the original author. Can have side effects like
+        listing the shared deck on a website, ... .
+
+        """
+-client.py
+
+    def upload_shared_database(self):
+        raise NotImplementedError
+
+        # client_info["shared_deck"] = True
+        # self.login(hostname, port, username, password)
+        # self.put_client_log_entries()
+        # self.put_client_media_files()
+        # no self.get_sync_finish(), no partnership update.
+    
+        # Refactor put_client_log_entries to have arguments number_of_entries,
+        # entries, where entries is an iterator that does not pass through the
+        # log put rather only creates new cards and facts events.     
+        # Ditto for media files.
+
+        # An upload always overrides the previous one. The alternative would be
+        # to have to generate artificial deletion events for cards which are
+        # still in the original author's database, but which he no longer wants
+        # to share.
+
+    def download_shared_database(self):
+        raise NotImplementedError
+    
+        # client_info["shared_deck"] = True
+        # backup_file = self.database.backup()
+        # self.login(hostname, port, username, password)
+        # self.get_client_log_entries()
+        # self.get_client_media_files()
+
+        # download will never delete cards, even if they were in a previous
+        # version of the shared deck. TODO: is this good or bad? If we do want
+        # this, we do need to complicate the protocol and worry about creating
+        # artificial deletion events?
+
+-    def card_from_log_entry(self, log_entry):
+        # When syncing from a shared deck, don't update repetition data, but do
+        # update fact views, card types, tags. (TODO: think about changing card
+        # types more carefully.) (TODO: make sure we don't override our own
+        # existing tags.)
+        # Note that shared cards do have the same id's across all users, this
+        # will give extra info for the science server (but means that in this
+        # case the science server will need to look at user_ids too to
+        # differentiate the cards.
+-    def apply_log_entry(self, log_entry):
+        # When (re)downloading shared decks, there will be only ADDED_ events,
+        # not UPDATED_events. Convert the former to the latter if the objects
+        # were already in the database.
+-make sure to enforce read-only, preferable through server itself, not through
+ open_shared_database
+
+
 
 -website redesign? like http://hanzim.com/download.php
 
