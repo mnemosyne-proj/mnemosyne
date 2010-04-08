@@ -514,6 +514,54 @@ class TestSync(object):
             order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
             fetchone()[0].startswith("b/")
 
+    def test_delete_card_with_media(self):
+
+        def fill_server_database(self):
+            os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b"))
+                     
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b", unichr(0x628) + u"b.ogg")
+            f = file(filename, "w")
+            f.write("B")
+            f.close()
+            fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
+                         "a": "answer"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.database().delete_fact_and_related_data(card.fact)
+            os.remove(filename)
+            self.mnemosyne.controller().file_save()
+        
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+
+        os.mkdir(os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a"))
+                     
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a", unichr(0x628) + u"a.ogg")        
+        f = file(filename, "w")
+        f.write("A")
+        f.close()
+        fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.client.mnemosyne.database().delete_fact_and_related_data(card.fact)
+        os.remove(filename)
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+
     def test_update_media(self):
      
         def test_server(self):
