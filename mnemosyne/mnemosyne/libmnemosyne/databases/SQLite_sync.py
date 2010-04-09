@@ -16,6 +16,7 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
+from mnemosyne.libmnemosyne.filters.latex import Latex
 
 # Simple named-tuple like class, to avoid the expensive creation a full card
 # object. (Python 2.5 does not yet have a named tuple.)
@@ -53,6 +54,7 @@ class SQLiteSync(object):
             (_id, )).fetchone()[0]
 
     def check_for_updated_media_files(self):
+        # Regular media files.
         new_hashes = {}
         for sql_res in self.con.execute("select * from media"):
             filename = sql_res["filename"]
@@ -65,6 +67,11 @@ class SQLiteSync(object):
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
             self.log().updated_media(filename)
+        # Latex files.
+        latex = Latex(self.component_manager)
+        for cursor in self.con.execute("select * from data_for_fact"):
+            for filename in latex.latex_img_files(cursor[0]):
+                self.log().added_media(filename)               
             
     def media_filenames_to_sync_for(self, partner):    
         # Note that Mnemosyne does not delete media files on its own, so

@@ -254,6 +254,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         mediadir = self.mediadir()
         if not os.path.exists(mediadir):
             os.mkdir(mediadir)
+            os.mkdir(os.path.join(mediadir, "latex"))
 
     def _find_plugin_for_card_type(self, card_type_id):
         found = False
@@ -825,7 +826,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         media files, and also use these files for other purposes.
 
         """
-                
+        
         for match in re_src.finditer("".join(fact.data.values())):
             filename = match.group(1)
             # If needed, copy file to the media dir. Normally this happens when

@@ -171,7 +171,7 @@ class Configuration(Component, dict):
         # Create paths.
         if not exists(self.basedir):
             os.mkdir(self.basedir)
-        for directory in ["history", "latex", "css", "plugins", "backups"]:
+        for directory in ["history", "css", "plugins", "backups"]:
             if not exists(join(self.basedir, directory)):
                 os.mkdir(join(self.basedir, directory))
         # Create default configuration.

@@ -58,6 +58,8 @@ class UpgradeConfig(Component):
                 for line in file(full_filename):
                     config[setting] += line
                 os.rename(full_filename, full_filename + ".NO_LONGER_USED")
+            os.rename(os.path.join(config.basedir, "latex"),
+                      os.path.join(config.basedir, "latex.NO_LONGER_USED")
             
                      
             
