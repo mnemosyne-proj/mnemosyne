@@ -1,8 +1,11 @@
 -latex check for updated media: only generate events if there was an actual change.
 -time latex check
--add tests
+-add tests, including no dupes
+-why do we need extra sync in 'card_only' test?
 
--number of elements Ullrich?
+-number of elements Ullrich
+
+-separate filter chain for q and a on export
 
 -just copy database on initial sync
 -option not to download old history
@@ -55,7 +58,7 @@
 -add tests with unicode in basedir
 -mechanism to have plugin settings synced?
 -exchange card types between different SRS, add support for card type events
--send across cards as pictures (see stubs in client.py and server.py)
+-send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 
 -integrate openSM2sync with GUI
 -reload database after sync to create new card type clones
@@ -376,6 +379,7 @@ http://pythoscope.org/
 
 http://lost-theory.org/python/ltchinese/
 
+-control B format character in supermemo import?
 
 Windows Mobile client:
 

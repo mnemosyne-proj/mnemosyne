@@ -36,18 +36,20 @@ class Latex(Filter):
 
     def latex_img_file(self, latex_command):
 
-        """Creates png file from latex command if needed. Returns path name
+        """Creates png file from a latex command if needed. Returns path name
         relative to the media dir, to be stored in the media database (hence
-        with the linux path name convention).
+        with the linux path name convention). Also returns a boolean saying
+        whether the img file was newly created or still in the cache (needed
+        to speed up syncing).
 
         """
-        
-        latex_command = latex_command.replace("&lt;", "<")
-        latex_command = latex_command.replace("&gt;", ">")        
-        latex_dir = os.path.join(self.database().mediadir(), "latex")
+
+        newly_created = False       
         img_name = md5(latex_command.encode("utf-8")).hexdigest() + ".png"
-        img_file = os.path.join(latex_dir, img_name)
-        if not os.path.exists(img_file):
+        latex_dir = os.path.join(self.database().mediadir(), "latex")
+        filename = os.path.join(latex_dir, img_name)
+        rel_filename = "latex" + "/" + img_name # To be stored in database.
+        if not os.path.exists(filename):
             os.chdir(latex_dir)
             if os.path.exists("tmp1.png"):
                 os.remove("tmp1.png")
@@ -59,45 +61,24 @@ class Latex(Filter):
             os.system(self.config()["latex"] + " tmp.tex 2>&1 1>latex_out.txt")
             os.system(self.config()["dvipng"].rstrip())
             if not os.path.exists("tmp1.png"):
-                return None
+                return None, newly_created
             shutil.copy("tmp1.png", img_name)
-        return "latex" + "/" img_file
-
-    def latex_img_files(self, text):
-
-        """Processes all the latex tags in a string and returns the resulting
-        filenames relative to the media dir.
-
-        """
-        
-        filenames = []
-        # Process <latex>...</latex> tags.
-        for match in re1.finditer(text):   
-            filenames.append(self.latex_img_file(match.group(1)))
-        # Process <$>...</$> (equation) tags.
-        for match in re2.finditer(text):
-            filename.append(self.latex_img_file("$" + match.group(1) + "$"))
-        # Process <$$>...</$$> (displaymath) tags.
-        for match in re3.finditer(text):
-            filenames.append(self.latex_img_file("\\begin{displaymath}" \
-               + match.group(1) + "\\end{displaymath}"))
-        if None in filenames:
-            return []
-        else:
-            return filenames
+            newly_created = True
+            self.log().added_media(rel_filename)
+        return rel_filename, newly_created
 
     def process_latex_img_tag(self, latex_command):
 
         """Transform the latex tags to image tags."""
         
-        img_file = self.latex_img_file(latex_command)
+        img_file, newly_created = self.latex_img_file(latex_command)
         if not img_file:
             return "<b>" + \
             _("Problem with latex. Are latex and dvipng installed?") + "</b>"
         # Note: the expanding of paths could happen in the expand_paths plugin
         # as well, but then we'd have to rely on the fact that the latex filter
         # runs first.
-        img_file = os.path.join(self.database().mediadir, img_file)
+        img_file = os.path.join(self.database().mediadir(), img_file)
         return "<img src=\"file:\\\\" + img_file + "\" align=middle>"
     
     def run(self, text):
@@ -119,4 +100,31 @@ class Latex(Filter):
             text = text.replace(match.group(), "<center>" \
                        + img_tag + "</center>")
         return text
+
+    def new_latex_img_files(self, text):
+
+        """Processes all the latex tags in a string and returns the resulting
+        newly created filenames relative to the media dir. Used when checking
+        for updated media files by the syncing algorithm.
+
+        """
+        
+        filenames = []
+        # Process <latex>...</latex> tags.
+        for match in re1.finditer(text):
+            filename, newly_created = self.latex_img_file(match.group(1))
+            if newly_created:
+                filenames.append(filename)
+        # Process <$>...</$> (equation) tags.
+        for match in re2.finditer(text):
+            filename, newly_created = self.latex_img_file("$" + match.group(1) + "$")
+            if newly_created:
+                filenames.append(filename)
+        # Process <$$>...</$$> (displaymath) tags.
+        for match in re3.finditer(text):
+            filename, newly_created = self.latex_img_file("\\begin{displaymath}" \
+               + match.group(1) + "\\end{displaymath}")
+            if newly_created:
+                filenames.append(filename)
+        return filenames
         

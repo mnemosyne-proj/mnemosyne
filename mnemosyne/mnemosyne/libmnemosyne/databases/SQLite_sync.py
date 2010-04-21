@@ -69,8 +69,8 @@ class SQLiteSync(object):
             self.log().updated_media(filename)
         # Latex files.
         latex = Latex(self.component_manager)
-        for cursor in self.con.execute("select * from data_for_fact"):
-            for filename in latex.latex_img_files(cursor[0]):
+        for cursor in self.con.execute("select value from data_for_fact"):
+            for filename in latex.new_latex_img_files(cursor[0]):
                 self.log().added_media(filename)               
             
     def media_filenames_to_sync_for(self, partner):    

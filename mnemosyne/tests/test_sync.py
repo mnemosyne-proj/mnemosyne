@@ -69,7 +69,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "server_machine_id", "127.0.0.1", 9133,
+        Server.__init__(self, "server_machine_id", "127.0.0.1", 9135,
                         self.mnemosyne.main_widget())
         server_lock.release()
         # Because we stop_after_sync is True, serve_forever will actually stop
@@ -114,7 +114,7 @@ class MyClient(Client):
     def do_sync(self):
         global server_lock
         server_lock.acquire()
-        self.sync("127.0.0.1", 9133, self.user, self.password)
+        self.sync("127.0.0.1", 9135, self.user, self.password)
         server_lock.release()
 
 
@@ -724,4 +724,29 @@ class TestSync(object):
 
         self.client.capabilities = "mnemosyne_dynamic_cards"
         self.client.do_sync()
+
+
+    def test_latex(self):
         
+        # Coverage only test.
+
+        def fill_server_database(self):
+            fact_data = {"q": "<latex>a^2</latex><$>b^2</$><$$>c^2</$$>",
+                         "a": "answer"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.controller().file_save()
+          
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.capabilities = "cards"
+        self.client.do_sync()
+      
