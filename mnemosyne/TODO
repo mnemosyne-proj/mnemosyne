@@ -1,7 +1,5 @@
--latex check for updated media: only generate events if there was an actual change.
+-fix latex tests, improve coverage
 -time latex check
--add tests, including no dupes
--why do we need extra sync in 'card_only' test?
 
 -number of elements Ullrich
 

@@ -161,7 +161,7 @@ class Client(object):
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")       
-        try:
+        if 1:
             self.con.request("GET", "/server/log_entries?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
@@ -177,7 +177,7 @@ class Client(object):
                 count += 1
                 progress_dialog.set_value(count)
             progress_dialog.set_value(number_of_entries)
-        except Exception, exception:
+        else: #cept Exception, exception:
             raise SyncError("Getting server log entries: " + str(exception))
         
     def put_client_media_files(self):

@@ -237,11 +237,10 @@ class SQLiteSync(object):
         return fact
     
     def card_from_log_entry(self, log_entry):
-        # We should not accept cards with question and answer data, only cards
-        # based on facts. For the time being, stop with an error message.
-        # Can be refined later on if the need arises.
+        # We should not receive cards with question and answer data, only
+        # cards based on facts.
         if "q" in log_entry:
-            raise NotImplementedError
+            raise AttributeError
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
             try:

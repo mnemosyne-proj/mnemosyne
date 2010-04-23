@@ -82,7 +82,7 @@ class DataFormat(object):
             else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>" % (attribs, tags)
-        #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
+        import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
         return xml  # Don't add \n to improve throughput.
 
     def parse_log_entries(self, xml):

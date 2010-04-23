@@ -50,6 +50,7 @@ class Latex(Filter):
         filename = os.path.join(latex_dir, img_name)
         rel_filename = "latex" + "/" + img_name # To be stored in database.
         if not os.path.exists(filename):
+            previous_dir = os.getcwd()
             os.chdir(latex_dir)
             if os.path.exists("tmp1.png"):
                 os.remove("tmp1.png")
@@ -65,6 +66,7 @@ class Latex(Filter):
             shutil.copy("tmp1.png", img_name)
             newly_created = True
             self.log().added_media(rel_filename)
+            os.chdir(previous_dir)            
         return rel_filename, newly_created
 
     def process_latex_img_tag(self, latex_command):
