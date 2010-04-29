@@ -275,7 +275,13 @@ class SQLiteSync(object):
                 card = Card(fact, fact_view)
                 break
         for tag_id in log_entry["tags"].split(","):
-            card.tags.add(self.get_tag(tag_id, id_is_internal=False))
+            try:
+                card.tags.add(self.get_tag(tag_id, id_is_internal=False))
+            except TypeError:
+                # The tag has been later later during the log. Don't worry
+                # about it now, this will be corrected by a later
+                # UPDATED_CARD event.
+                pass
         card.id = log_entry["o_id"]
         if log_entry["type"] != EventTypes.ADDED_CARD:
             card._id = self.con.execute("select _id from cards where id=?",

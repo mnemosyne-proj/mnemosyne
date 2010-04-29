@@ -764,13 +764,13 @@ class TestSync(object):
             fact_data = {"q": "<latex>a^2</latex>",
                          "a": "<latex>c^2</latex>"}
             card_type = self.mnemosyne.card_type_by_id("1")
-            card = self.mnemosyne.controller().create_new_cards(fact_data,
+            self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-            card.question()
+            self.card.question()
             self.mnemosyne.controller().file_save()
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
-            self.mnemosyne.controller().update_related_cards(card.fact,
+            self.mnemosyne.controller().update_related_cards(self.card.fact,
               new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()            
@@ -785,6 +785,10 @@ class TestSync(object):
         
         self.client = MyClient()
         self.client.do_sync()
+
+        card = self.client.database.get_card(self.server.card.id, id_is_internal=False)
+        assert len(card.tags) == 1
+        assert list(card.tags)[0].name == "default1"
 
         assert self.client.database.con.execute("select count() from log where event_type=?",
             (EventTypes.UPDATED_MEDIA, )).fetchone()[0] == 3
