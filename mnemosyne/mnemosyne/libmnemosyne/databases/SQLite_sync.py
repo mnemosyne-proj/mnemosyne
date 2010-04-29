@@ -70,8 +70,7 @@ class SQLiteSync(object):
         # Latex files.
         latex = Latex(self.component_manager)
         for cursor in self.con.execute("select value from data_for_fact"):
-            for filename in latex.new_latex_img_files(cursor[0]):
-                self.log().added_media(filename)               
+            latex.run(cursor[0])
             
     def media_filenames_to_sync_for(self, partner):    
         # Note that Mnemosyne does not delete media files on its own, so
@@ -323,12 +322,12 @@ class SQLiteSync(object):
             card.ret_reps, card.lapses, card.acq_reps_since_lapse,
             card.ret_reps_since_lapse, card.last_rep, card.next_rep,
             card.scheduler_data, card.id))
-
+        
     def update_media(self, log_entry):
         filename = log_entry["fname"]
+        self.log().updated_media(filename)
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
-        self.log().updated_media(filename)
     
     def apply_log_entry(self, log_entry):
         event_type = log_entry["type"]
@@ -370,12 +369,12 @@ class SQLiteSync(object):
                 self.delete_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.REPETITION:
                 self.apply_repetition(log_entry)
+            # For ADDED_MEDIA and DELETED_MEDIA, we don't need to do anything
+            # special here. If they are still relevant, they will be taken
+            # care of by _process_media. If they are no longer relevant (e.g.
+            # adding and subsequently deleting media) they won't make it to
+            # the other side, but that's no big deal.
             elif event_type == EventTypes.UPDATED_MEDIA:
-                # For ADDED_MEDIA and DELETED_MEDIA, we don't need to do
-                # anything special here. If they are still relevant, they will
-                # be taken care of by _process_media. If they are no longer
-                # relevant (e.g. adding and subsequently deleting media) they
-                # won't make it to the other side, but that's no big deal.
                 self.update_media(log_entry)
         finally:
             self.log().timestamp = None

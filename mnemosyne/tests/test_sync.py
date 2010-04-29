@@ -69,7 +69,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "server_machine_id", "127.0.0.1", 9138,
+        Server.__init__(self, "server_machine_id", "127.0.0.1", 9139,
                         self.mnemosyne.main_widget())
         server_lock.release()
         # Because we stop_after_sync is True, serve_forever will actually stop
@@ -114,7 +114,7 @@ class MyClient(Client):
     def do_sync(self):
         global server_lock
         server_lock.acquire()
-        self.sync("127.0.0.1", 9138, self.user, self.password)
+        self.sync("127.0.0.1", 9139, self.user, self.password)
         server_lock.release()
 
 
@@ -767,6 +767,7 @@ class TestSync(object):
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.card.question()
+            self.card.answer()
             self.mnemosyne.controller().file_save()
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
@@ -791,4 +792,4 @@ class TestSync(object):
         assert list(card.tags)[0].name == "default1"
 
         assert self.client.database.con.execute("select count() from log where event_type=?",
-            (EventTypes.UPDATED_MEDIA, )).fetchone()[0] == 3
+            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 3

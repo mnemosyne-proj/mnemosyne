@@ -826,7 +826,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         media files, and also use these files for other purposes.
 
         """
-        
+
         for match in re_src.finditer("".join(fact.data.values())):
             filename = match.group(1)
             # If needed, copy file to the media dir. Normally this happens when
@@ -845,7 +845,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 self.con.execute("""insert into media(filename, _hash)
                     values(?,?)""", (filename, self._media_hash(filename)))
                 self.log().added_media(filename)
-    
+
     #
     # Queries.
     #

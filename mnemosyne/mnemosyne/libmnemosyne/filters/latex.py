@@ -34,7 +34,7 @@ class Latex(Filter):
     # 'rebuild latex cache' menu option, which would complicate the GUI for
     # the casual user.
 
-    def latex_img_file(self, latex_command):
+    def create_latex_img_file(self, latex_command):
 
         """Creates png file from a latex command if needed. Returns path name
         relative to the media dir, to be stored in the media database (hence
@@ -43,8 +43,7 @@ class Latex(Filter):
         to speed up syncing).
 
         """
-
-        newly_created = False       
+     
         img_name = md5(latex_command.encode("utf-8")).hexdigest() + ".png"
         latex_dir = os.path.join(self.database().mediadir(), "latex")
         filename = os.path.join(latex_dir, img_name)
@@ -62,18 +61,17 @@ class Latex(Filter):
             os.system(self.config()["latex"] + " tmp.tex 2>&1 1>latex_out.txt")
             os.system(self.config()["dvipng"].rstrip())
             if not os.path.exists("tmp1.png"):
-                return None, newly_created
+                return None
             shutil.copy("tmp1.png", img_name)
-            newly_created = True
             self.log().added_media(rel_filename)
             os.chdir(previous_dir)            
-        return rel_filename, newly_created
+        return rel_filename
 
     def process_latex_img_tag(self, latex_command):
 
         """Transform the latex tags to image tags."""
         
-        img_file, newly_created = self.latex_img_file(latex_command)
+        img_file = self.create_latex_img_file(latex_command)
         if not img_file:
             return "<b>" + \
             _("Problem with latex. Are latex and dvipng installed?") + "</b>"
@@ -102,31 +100,3 @@ class Latex(Filter):
             text = text.replace(match.group(), "<center>" \
                        + img_tag + "</center>")
         return text
-
-    def new_latex_img_files(self, text):
-
-        """Processes all the latex tags in a string and returns the resulting
-        newly created filenames relative to the media dir. Used when checking
-        for updated media files by the syncing algorithm.
-
-        """
-        
-        filenames = []
-        # Process <latex>...</latex> tags.
-        for match in re1.finditer(text):
-            filename, newly_created = self.latex_img_file(match.group(1))
-            if newly_created:
-                filenames.append(filename)
-        # Process <$>...</$> (equation) tags.
-        for match in re2.finditer(text):
-            filename, newly_created = self.latex_img_file("$" + match.group(1) + "$")
-            if newly_created:
-                filenames.append(filename)
-        # Process <$$>...</$$> (displaymath) tags.
-        for match in re3.finditer(text):
-            filename, newly_created = self.latex_img_file("\\begin{displaymath}" \
-               + match.group(1) + "\\end{displaymath}")
-            if newly_created:
-                filenames.append(filename)
-        return filenames
-        
