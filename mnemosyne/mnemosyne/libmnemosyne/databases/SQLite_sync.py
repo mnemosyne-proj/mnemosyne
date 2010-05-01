@@ -65,8 +65,9 @@ class SQLiteSync(object):
         # Note that Mnemosyne does not delete media files on its own, so
         # DELETED_MEDIA log entries are irrelevant/ignored.
         _id = self.last_synced_log_entry_for(partner)
-        return [cursor[0] for cursor in self.con.execute("""select object_id
-            from log where _id>? and (event_type=? or event_type=?)""",
+        return [cursor[0] for cursor in self.con.execute("""select distinct
+            object_id from log where _id>? and (event_type=? or
+            event_type=?)""",
             (_id, EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA))]
         
     def _log_entry(self, sql_res):
@@ -299,7 +300,22 @@ class SQLiteSync(object):
             card.ret_reps, card.lapses, card.acq_reps_since_lapse,
             card.ret_reps_since_lapse, card.last_rep, card.next_rep,
             card.scheduler_data, card.id))
+        
+    def add_media(self, log_entry):
 
+        """ADDED_MEDIA events get created in several places:
+        database._process_media, database.check_for_updated_media_files,
+        latex, ... . In order to make sure that all of these are treated
+        in the same way, we generate an ADDED_MEDIA event here, and prevent
+        _process_media from generating this event through self.syncing = True.
+
+        """
+        
+        filename = log_entry["fname"]
+        self.con.execute("""insert into media(filename, _hash) values(?,?)""",
+            (filename, self._media_hash(filename)))
+        self.log().added_media(filename)
+        
     def update_media(self, log_entry):
         filename = log_entry["fname"]
         self.con.execute("update media set _hash=? where filename=?",
@@ -307,6 +323,7 @@ class SQLiteSync(object):
         self.log().updated_media(filename)
     
     def apply_log_entry(self, log_entry):
+        self.syncing = True
         event_type = log_entry["type"]
         self.log().timestamp = int(log_entry["time"])
         try:
@@ -346,15 +363,13 @@ class SQLiteSync(object):
                 self.delete_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.REPETITION:
                 self.apply_repetition(log_entry)
+            elif event_type == EventTypes.ADDED_MEDIA:
+                self.add_media(log_entry)
             elif event_type == EventTypes.UPDATED_MEDIA:
-                # For ADDED_MEDIA and DELETED_MEDIA, we don't need to do
-                # anything special here. If they are still relevant, they will
-                # be taken care of by _process_media. If they are no longer
-                # relevant (e.g. adding and subsequently deleting media) they
-                # won't make it to the other side, but that's no big deal.
                 self.update_media(log_entry)
         finally:
             self.log().timestamp = None
+            self.syncing = False
             
     def last_log_entry_index(self):
         return self.con.execute(\
