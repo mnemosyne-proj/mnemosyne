@@ -4,6 +4,7 @@
 #                  Ed Bartosh <bartosh@gmail.com>
 #
 
+import os
 import time
 
 from openSM2sync.log_entry import LogEntry
@@ -12,8 +13,10 @@ from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
+from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
+from mnemosyne.libmnemosyne.filters.latex import Latex
 
 # Simple named-tuple like class, to avoid the expensive creation a full card
 # object. (Python 2.5 does not yet have a named tuple.)
@@ -51,24 +54,38 @@ class SQLiteSync(object):
             (_id, )).fetchone()[0]
 
     def check_for_updated_media_files(self):
+        # Regular media files.
         new_hashes = {}
         for sql_res in self.con.execute("select * from media"):
-            new_hash = self._media_hash(sql_res["filename"])
+            filename = sql_res["filename"]
+            if not os.path.exists(expand_path(filename, self.mediadir())):
+                continue
+            new_hash = self._media_hash(filename)
             if sql_res["_hash"] != new_hash:
-                new_hashes[sql_res["filename"]] = new_hash
+                new_hashes[filename] = new_hash
         for filename, new_hash in new_hashes.iteritems():
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
             self.log().updated_media(filename)
+        # Latex files.
+        latex = Latex(self.component_manager)
+        for cursor in self.con.execute("select value from data_for_fact"):
+            latex.run(cursor[0])
             
     def media_filenames_to_sync_for(self, partner):    
         # Note that Mnemosyne does not delete media files on its own, so
         # DELETED_MEDIA log entries are irrelevant/ignored.
+        # We do have to make sure we don't return any files that have been
+        # deleted, though.
         _id = self.last_synced_log_entry_for(partner)
-        return [cursor[0] for cursor in self.con.execute("""select distinct
-            object_id from log where _id>? and (event_type=? or
-            event_type=?)""",
-            (_id, EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA))]
+        filenames = []
+        for filename in [cursor[0] for cursor in self.con.execute(\
+            """select object_id from log where _id>? and (event_type=? or
+            event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
+            EventTypes.UPDATED_MEDIA))]:
+            if os.path.exists(expand_path(filename, self.mediadir())):
+                filenames.append(filename)
+        return filenames
         
     def _log_entry(self, sql_res):
 
@@ -219,11 +236,10 @@ class SQLiteSync(object):
         return fact
     
     def card_from_log_entry(self, log_entry):
-        # We should not accept cards with question and answer data, only cards
-        # based on facts. For the time being, stop with an error message.
-        # Can be refined later on if the need arises.
+        # We should not receive cards with question and answer data, only
+        # cards based on facts.
         if "q" in log_entry:
-            raise NotImplementedError
+            raise AttributeError
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
             try:
@@ -258,7 +274,13 @@ class SQLiteSync(object):
                 card = Card(fact, fact_view)
                 break
         for tag_id in log_entry["tags"].split(","):
-            card.tags.add(self.get_tag(tag_id, id_is_internal=False))
+            try:
+                card.tags.add(self.get_tag(tag_id, id_is_internal=False))
+            except TypeError:
+                # The tag has been later later during the log. Don't worry
+                # about it now, this will be corrected by a later
+                # UPDATED_CARD event.
+                pass
         card.id = log_entry["o_id"]
         if log_entry["type"] != EventTypes.ADDED_CARD:
             card._id = self.con.execute("select _id from cards where id=?",
@@ -318,9 +340,9 @@ class SQLiteSync(object):
         
     def update_media(self, log_entry):
         filename = log_entry["fname"]
+        self.log().updated_media(filename)
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
-        self.log().updated_media(filename)
     
     def apply_log_entry(self, log_entry):
         self.syncing = True

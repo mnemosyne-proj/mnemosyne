@@ -679,9 +679,11 @@ class TestMemImport(MnemosyneTest):
         assert self.config()["dvipng"].rstrip() == \
                "dvipng -D 300 -T tight tmp.dvi\necho"
         assert "14pt" in self.config()["latex_preamble"]
-        assert os.path.exists(os.path.join("dot_test", "latex",
+        assert os.path.exists(os.path.join("dot_test", "latex.NO_LONGER_USED",
                                            "dvipng.NO_LONGER_USED"))
-        assert not os.path.exists(os.path.join("dot_test", "latex", "dvipng"))
+        assert not os.path.exists(os.path.join("dot_test", "latex"))
+        assert not os.path.exists(os.path.join("dot_test", "latex.NO_LONGER_USED",
+                                               "dvipng"))
         self.review_controller().reset()       
         
     def teardown(self):

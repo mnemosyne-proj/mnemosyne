@@ -1,9 +1,13 @@
--think about 'shared' tags. What if cards loose this tag between two uploads?
-  Always do fresh upload/download on shared deck (mention in server.py)? What about deleted cards?
-  don't pass through the logs, but rather run through the cards?
- what about card creation events for which there already is a card? Should become an update
--in client: differentiate between upload and download, don't do partnership thing
- advertise on website, last update
+-avoid duplicate add_media events, but make sure add_media events from latex are
+ replicated at the other side.
+-check_for_updated_media files only relevant when deleting latex dir. Add test for this too.
+-improve coverage
+-time latex check
+
+-number of elements Ullrich
+
+-separate filter chain for q and a on export
+-don't expand paths in latex filter
 
 -just copy database on initial sync
 -option not to download old history
@@ -20,7 +24,7 @@
 -restore from backup, both client and server (factor out code from default controller)
 -sql roll back?
 
--latex
+
 
 -does loopback adress work?
 
@@ -56,7 +60,7 @@
 -add tests with unicode in basedir
 -mechanism to have plugin settings synced?
 -exchange card types between different SRS, add support for card type events
--send across cards as pictures (see stubs in client.py and server.py)
+-send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 
 -integrate openSM2sync with GUI
 -reload database after sync to create new card type clones
@@ -377,6 +381,7 @@ http://pythoscope.org/
 
 http://lost-theory.org/python/ltchinese/
 
+-control B format character in supermemo import?
 
 Windows Mobile client:
 

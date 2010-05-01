@@ -255,6 +255,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         mediadir = self.mediadir()
         if not os.path.exists(mediadir):
             os.mkdir(mediadir)
+            os.mkdir(os.path.join(mediadir, "latex"))
 
     def _find_plugin_for_card_type(self, card_type_id):
         found = False
@@ -832,7 +833,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         were modified outside of Mnemosyne.
 
         """
-                
+
         for match in re_src.finditer("".join(fact.data.values())):
             filename = match.group(1)
             # If needed, copy file to the media dir. Normally this happens when
@@ -852,7 +853,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                     values(?,?)""", (filename, self._media_hash(filename)))
                 if not self.syncing:
                     self.log().added_media(filename)
-    
+
     #
     # Queries.
     #

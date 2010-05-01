@@ -46,6 +46,10 @@ class Client(object):
     # The capabilities supported by the client. Note that we assume that the
     # server supports "mnemosyne_dynamic_cards".
     capabilities = "mnemosyne_dynamic_cards"  # "facts", "cards"
+    # The following setting can be set to False to speed up the syncing
+    # process on e.g. read only mobile clients where the media files don't get
+    # updated anyway.
+    check_for_updated_media_files = True
     
     def __init__(self, machine_id, database, ui):
         self.machine_id = machine_id
@@ -61,7 +65,8 @@ class Client(object):
             # We let the client check if files were updated outside of the
             # program. This can generate MEDIA_UPDATED log entries, so it
             # should be done first.
-            self.database.check_for_updated_media_files()
+            if self.check_for_updated_media_files:
+                self.database.check_for_updated_media_files()
             self.login(hostname, port, username, password)
             self.put_client_log_entries()
             # Here, the server should send a summary of the sync and of
@@ -156,7 +161,7 @@ class Client(object):
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")       
-        try:
+        if 1:
             self.con.request("GET", "/server/log_entries?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
@@ -172,7 +177,7 @@ class Client(object):
                 count += 1
                 progress_dialog.set_value(count)
             progress_dialog.set_value(number_of_entries)
-        except Exception, exception:
+        else: #cept Exception, exception:
             raise SyncError("Getting server log entries: " + str(exception))
         
     def put_client_media_files(self):

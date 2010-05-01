@@ -69,7 +69,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "server_machine_id", "127.0.0.1", 9133,
+        Server.__init__(self, "server_machine_id", "127.0.0.1", 9139,
                         self.mnemosyne.main_widget())
         server_lock.release()
         # Because we stop_after_sync is True, serve_forever will actually stop
@@ -114,7 +114,7 @@ class MyClient(Client):
     def do_sync(self):
         global server_lock
         server_lock.acquire()
-        self.sync("127.0.0.1", 9133, self.user, self.password)
+        self.sync("127.0.0.1", 9139, self.user, self.password)
         server_lock.release()
 
 
@@ -514,6 +514,54 @@ class TestSync(object):
             order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
             fetchone()[0].startswith("b/")
 
+    def test_delete_card_with_media(self):
+
+        def fill_server_database(self):
+            os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b"))
+                     
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b", unichr(0x628) + u"b.ogg")
+            f = file(filename, "w")
+            f.write("B")
+            f.close()
+            fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
+                         "a": "answer"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.database().delete_fact_and_related_data(card.fact)
+            os.remove(filename)
+            self.mnemosyne.controller().file_save()
+        
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+
+        os.mkdir(os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a"))
+                     
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a", unichr(0x628) + u"a.ogg")        
+        f = file(filename, "w")
+        f.write("A")
+        f.close()
+        fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.client.mnemosyne.database().delete_fact_and_related_data(card.fact)
+        os.remove(filename)
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+
     def test_update_media(self):
      
         def test_server(self):
@@ -671,9 +719,77 @@ class TestSync(object):
         self.client.capabilities = "cards"
         self.client.do_sync()
 
-        # Server is still running now, we need to shut it down for the next
-        # test.
+        # Note: the sync above will not finish cleanly, as we are not prepared
+        # to deal with non-fact based card data. This means that the server is
+        # still running now, we need to shut it down for the next test.
 
         self.client.capabilities = "mnemosyne_dynamic_cards"
         self.client.do_sync()
+
+
+    def test_latex(self):
         
+        def fill_server_database(self):
+            fact_data = {"q": "<latex>a^2</latex><$>b^2</$><$$>c^2</$$>",
+                         "a": "answer"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.controller().file_save()
+          
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+
+        self.client.do_sync()
+        assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "latex",
+            "28ec9eac8abe468caee402926546d10f.png"))
+        assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "latex",
+            "44e557b2680adf90a549e62a6f79a50c.png"))
+        assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "latex",
+            "ebc3d7bedc1f11e08895c3124001cbb5.png"))
+        
+    def test_latex_edit(self):
+        
+        def fill_server_database(self):
+            fact_data = {"q": "<latex>a^2</latex>",
+                         "a": "<latex>c^2</latex>"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            self.card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.card.question()
+            self.card.answer()
+            self.mnemosyne.controller().file_save()
+            new_fact_data = {"q": "<latex>b^2</latex>",
+                             "a": "<latex>c^2</latex>"}            
+            self.mnemosyne.controller().update_related_cards(self.card.fact,
+              new_fact_data, card_type,
+            new_tag_names=["default1"], correspondence=[])
+            self.mnemosyne.controller().file_save()            
+          
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.do_sync()
+
+        card = self.client.database.get_card(self.server.card.id, id_is_internal=False)
+        assert len(card.tags) == 1
+        assert list(card.tags)[0].name == "default1"
+
+        assert self.client.database.con.execute("select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 3
