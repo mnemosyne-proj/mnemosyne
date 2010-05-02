@@ -208,11 +208,8 @@ class Server(WSGIServer):
         # we use the file format footer as a sentinel.
         # For simplicity, we also keep the entire stream in memory, as the
         # server is not expected to be resource limited.
-        sentinel = self.data_format.log_entries_footer
-        socket = environ["wsgi.input"]
-        number_of_entries = int(socket.readline())
-        progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, number_of_entries)        
+        sentinel = self.data_format.log_entries_footer()
+        socket = environ["wsgi.input"]      
         lines = []
         line = socket.readline()
         lines.append(line)
@@ -223,9 +220,13 @@ class Server(WSGIServer):
         # has to have both logs in memory. We do this at the server side, as
         # the client could be a resource-limited mobile device.
         session.client_log = []
-        count = 0
         data_stream = cStringIO.StringIO("".join(lines))
-        for log_entry in self.data_format.parse_log_entries(data_stream):
+        element_loop = self.data_format.parse_log_entries(data_stream)
+        number_of_entries = element_loop.next()
+        count = 0
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, number_of_entries)  
+        for log_entry in element_loop:
             session.client_log.append(log_entry)
             count += 1
             progress_dialog.set_value(count)
@@ -241,8 +242,7 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to client...")
-        buffer = str(number_of_entries) + "\n"
-        buffer += self.data_format.log_entries_header
+        buffer = self.data_format.log_entries_header(number_of_entries)
         BUFFER_SIZE = 8192
         count = 0
         for log_entry in session.database.log_entries_to_sync_for(\
@@ -253,7 +253,7 @@ class Server(WSGIServer):
             if len(buffer) > BUFFER_SIZE:
                 yield buffer.encode("utf-8")
                 buffer = ""
-        buffer += self.data_format.log_entries_footer
+        buffer += self.data_format.log_entries_footer()
         yield buffer.encode("utf-8")
         # Now that all the data is underway to the client, we can start
         # applying the client log entries.

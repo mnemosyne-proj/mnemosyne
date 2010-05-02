@@ -15,7 +15,7 @@ class DataFormat(object):
 
     Example of typical XML for log entries:
 
-    <openSM2sync>
+    <openSM2sync number_of_entries='5'>
     <log type='1' o_id='Mnemosyne 2.0-pre posix linux2' time='1268213369'>
     </log>
     <log type='3' o_id='SM2 Mnemosyne' time='1268213369'></log>
@@ -57,8 +57,11 @@ class DataFormat(object):
         "rt_rp_l", "sch_data", "sch_i", "act_i", "new_i", "th_t"]
     float_keys = ["e"]
 
-    log_entries_header = "<openSM2sync>"
-    log_entries_footer = "</openSM2sync>\n"    
+    def log_entries_header(self, number_of_entries):
+        return "<openSM2sync number_of_entries='%d'>" % (number_of_entries, )
+
+    def log_entries_footer(self):
+        return "</openSM2sync>\n"    
 
     def repr_log_entry(self, log_entry):
 
@@ -95,6 +98,9 @@ class DataFormat(object):
         
         context = iter(cElementTree.iterparse(xml, events=("start", "end")))
         event, root = context.next()  # 'start' event on openSM2 tag.
+        for key, value in root.attrib.iteritems():
+            if key == "number_of_entries":
+                yield value 
         for event, elem in context:
             if event == "end" and elem.tag == "log":
                 log_entry = LogEntry()

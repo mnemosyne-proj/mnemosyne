@@ -143,8 +143,7 @@ class Client(object):
         progress_dialog.set_text("Sending log entries to server...")  
         count = 0
         BUFFER_SIZE = 8192
-        buffer = str(number_of_entries) + "\n"
-        buffer += self.data_format.log_entries_header        
+        buffer = self.data_format.log_entries_header(number_of_entries)        
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_info["machine_id"]):
             buffer += self.data_format.repr_log_entry(log_entry)
@@ -153,31 +152,32 @@ class Client(object):
                 buffer = ""
             count += 1
             progress_dialog.set_value(count)
-        buffer += self.data_format.log_entries_footer
+        buffer += self.data_format.log_entries_footer()
         self.con.send(buffer.encode("utf-8"))
         self.ui.status_bar_message("Waiting for server to complete...")
         if self.con.getresponse().read() != "OK":
             raise SyncError("Error sending log entries to server.")
         
     def get_server_log_entries(self):
-        self.ui.status_bar_message("Getting server log entries...")       
-        if 1:
+        self.ui.status_bar_message("Getting server log entries...")
+        try:
             self.con.request("GET", "/server/log_entries?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
-            number_of_entries = int(response.fp.readline())
+            element_loop = self.data_format.parse_log_entries(response)
+            number_of_entries = element_loop.next()
             if number_of_entries == 0:
                 return
             progress_dialog = self.ui.get_progress_dialog()
             progress_dialog.set_range(0, number_of_entries)
             progress_dialog.set_text("Getting server log entries...")            
             count = 0
-            for log_entry in self.data_format.parse_log_entries(response):
+            for log_entry in element_loop:
                 self.database.apply_log_entry(log_entry)
                 count += 1
                 progress_dialog.set_value(count)
             progress_dialog.set_value(number_of_entries)
-        else: #cept Exception, exception:
+        except Exception, exception:
             raise SyncError("Getting server log entries: " + str(exception))
         
     def put_client_media_files(self):
