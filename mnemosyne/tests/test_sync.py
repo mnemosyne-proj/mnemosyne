@@ -69,7 +69,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "server_machine_id", "127.0.0.1", 9139,
+        Server.__init__(self, "server_machine_id", "127.0.0.1", 9152,
                         self.mnemosyne.main_widget())
         server_lock.release()
         # Because we stop_after_sync is True, serve_forever will actually stop
@@ -114,7 +114,7 @@ class MyClient(Client):
     def do_sync(self):
         global server_lock
         server_lock.acquire()
-        self.sync("127.0.0.1", 9139, self.user, self.password)
+        self.sync("127.0.0.1", 9152, self.user, self.password)
         server_lock.release()
 
 
@@ -717,6 +717,7 @@ class TestSync(object):
         
         self.client = MyClient()
         self.client.capabilities = "cards"
+        self.client.database.apply_log_entry = test_server # ignore errors
         self.client.do_sync()
 
         # Note: the sync above will not finish cleanly, as we are not prepared

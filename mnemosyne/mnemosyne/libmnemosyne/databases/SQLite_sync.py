@@ -67,7 +67,7 @@ class SQLiteSync(object):
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
             self.log().updated_media(filename)
-        # Latex files.
+        # Latex files (takes 0.10 sec on 8000 card database).
         latex = Latex(self.component_manager)
         for cursor in self.con.execute("select value from data_for_fact"):
             latex.run(cursor[0])
@@ -334,8 +334,9 @@ class SQLiteSync(object):
         """
         
         filename = log_entry["fname"]
-        self.con.execute("""insert into media(filename, _hash) values(?,?)""",
-            (filename, self._media_hash(filename)))
+        if os.path.exists(expand_path(filename, self.mediadir())):
+            self.con.execute("""insert or replace into media(filename, _hash)
+                values(?,?)""", (filename, self._media_hash(filename)))
         self.log().added_media(filename)
         
     def update_media(self, log_entry):
