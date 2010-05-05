@@ -1,5 +1,5 @@
 #
-# data_format.py - Peter Bienstman <Peter.Bienstman@UGent.be>
+# data_format.py <Peter.Bienstman@UGent.be>
 #
 
 from xml.sax import saxutils

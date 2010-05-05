@@ -74,7 +74,11 @@ class Client(object):
             # opportunity to cancel the sync.
             self.put_client_media_files()
             self.get_server_media_files()
-            self.get_server_log_entries()
+            if self.database.is_empty() and \
+               self.server_info["supports_binary_log_download"]:
+                self.get_server_log_entries_binary()
+            else:
+                self.get_server_log_entries()
             self.get_sync_finish()
         except SyncError, exception:
             self.database.restore(backup_file)
@@ -106,12 +110,10 @@ class Client(object):
                 raise SyncError("Wrong username or password.")
             self.server_info = self.data_format.parse_partner_info(response)
             self.database.set_sync_partner_info(self.server_info)
+            if self.database.is_empty():
+                self.database.set_user_id(self.server_info["user_id"])
             if self.server_info["user_id"] != client_info["user_id"]:
-                try:
-                    # This should only work on an empty default database.
-                    self.database.set_user_id(self.server_info["user_id"])
-                except:
-                    raise SyncError("mismatched user_ids.")
+                raise SyncError("mismatched user_ids.")
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
         except Exception, exception:
@@ -179,6 +181,18 @@ class Client(object):
             progress_dialog.set_value(number_of_entries)
         except Exception, exception:
             raise SyncError("Getting server log entries: " + str(exception))
+        
+    def get_server_log_entries_binary(self):
+        self.ui.status_bar_message("Getting binary server log entries...")
+        try:
+            self.con.request("GET", "/server/binary_log_entries?" + \
+                "session_token=%s" % (self.server_info["session_token"], ))
+            response = self.con.getresponse()
+
+
+
+        except Exception, exception:
+            raise SyncError("Getting server binary log entries: " + str(exception))
         
     def put_client_media_files(self):
         self.ui.status_bar_message("Sending media files to server...")

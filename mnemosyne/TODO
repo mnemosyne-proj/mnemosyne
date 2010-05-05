@@ -1,3 +1,7 @@
+-move binary formats to folder
+-filesize
+-extract binary file server for reuse
+
 -just copy database on initial sync
 -option not to download old history
 -option purge history, refactor logging test

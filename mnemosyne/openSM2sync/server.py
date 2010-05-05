@@ -43,6 +43,13 @@ def dont_log(*kwargs):
 WSGIRequestHandler.log_message = dont_log
 
 
+# Register binary file formats to send to clients on first sync.
+
+from binary_formats.mnemosyne import MnemosyneBinaryFileFormat
+binary_formats = [MnemosyneBinaryFileFormat()]
+
+
+
 class Session(object):
 
     def __init__(self, client_info, database):
@@ -152,6 +159,13 @@ class Server(WSGIServer):
     def stop(self):
         self.stopped = True
 
+    def supports_binary_file_download(self, program_name, program_version):
+        result = False
+        for format in binary_formats:
+            if format.supports(program_name, program_version):
+                result = True
+        return result
+
     # The following functions are to be overridden by the actual server code,
     # to implement e.g. authorisation and storage.
 
@@ -195,7 +209,9 @@ class Server(WSGIServer):
             "machine_id": self.machine_id,
             "program_name": self.program_name,
             "program_version": self.program_version,
-            "session_token": session.token}
+            "session_token": session.token,
+            "supports_binary_log_download": self.supports_binary_log_download\
+                (client_info["program_name"], client_info["program_version"])}
         return self.data_format.repr_partner_info(server_info)
 
     def put_client_log_entries(self, environ, session_token):
@@ -259,7 +275,34 @@ class Server(WSGIServer):
         # applying the client log entries.
         for log_entry in session.client_log:
             session.database.apply_log_entry(log_entry)
-        
+            
+    def get_server_binary_log_entries(self, environ, session_token):
+        self.ui.status_bar_message("Sending binary log entries to client...")
+        # Construct binary file.
+        session = self.sessions[session_token]
+        for binary_format in binary_formats:
+            if binary_format.supports(session.client_info["program_name"],
+                                      session.client_info["program_version"]):
+                binary_format = binary_format(session.database)
+                filename = binary_format.binary_filename()
+                break
+        # Send it across.                       
+        progress_dialog.set_text("Sending media files to client...")
+        file_size = os.path.getsize(filename)
+        progress_dialog.set_range(0, file_size)        
+        BUFFER_SIZE = 8192
+        buffer = binary_file.read(BUFFER_SIZE)
+        count = BUFFER_SIZE
+        while buffer:
+            progress_dialog.set_value(count)
+            yield buffer
+            buffer = binary_file.read(BUFFER_SIZE)
+            count += BUFFER_SIZE
+        progress_dialog.set_value(file_size)
+        # Clean up if needed.
+        binary_format.cleanup()
+        # This is the initial sync, we don't need to apply client log entries.
+            
     def put_client_media_files(self, environ, session_token):
         self.ui.status_bar_message("Receiving client media files...")
         try:
