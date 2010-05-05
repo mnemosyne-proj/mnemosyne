@@ -7,7 +7,7 @@ from mnemosyne.libmnemosyne.renderer import Renderer
 
 class PlainText(Renderer):
             
-    def render_card_fields(self, fact, fields):
+    def render_card_fields(self, fact, fields, exporting):
         text = ""
         for field in fields:
             key = field[0]
@@ -17,6 +17,6 @@ class PlainText(Renderer):
             text += s + "\n"
         return text
     
-    def render_text(self, text, field_name, card_type):
+    def render_text(self, text, field_name, card_type, exporting):
         return text
     

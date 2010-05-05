@@ -52,12 +52,19 @@
 <h1><tt class="xref docutils literal"><span class="pre">Configuration</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.configuration" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration">
-<em class="property">
-class </em><tt class="descclassname">mnemosyne.libmnemosyne.configuration.</tt><tt class="descname">Configuration</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.configuration.</tt><tt class="descname">Configuration</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.activate">
 <tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.activate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.change_user_id">
+<tt class="descname">change_user_id</tt><big>(</big><em>new_user_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.change_user_id" title="Permalink to this definition">¶</a></dt>
+<dd>When a client syncs for the first time with a server, we need to
+set the client&#8217;s user_id identical to the one of the server, in order
+for the uploaded anonymous logs to be consistent. However, we should only
+do this on a &#8216;virgin&#8217; client.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.correct_config">
@@ -155,8 +162,8 @@ since a new version of Mnemosyne might have introduced new keys.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 13, 2010.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+      Last updated on May 05, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
 </html>

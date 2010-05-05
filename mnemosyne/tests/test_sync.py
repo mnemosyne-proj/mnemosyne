@@ -737,6 +737,7 @@ class TestSync(object):
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.mnemosyne.controller().file_save()
+            assert "_media" not in card.question(exporting=True)
           
         def test_server(self):
             pass

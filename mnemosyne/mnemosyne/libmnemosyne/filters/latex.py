@@ -75,10 +75,10 @@ class Latex(Filter):
         if not img_file:
             return "<b>" + \
             _("Problem with latex. Are latex and dvipng installed?") + "</b>"
-        # Note: the expanding of paths could happen in the expand_paths plugin
-        # as well, but then we'd have to rely on the fact that the latex filter
-        # runs first.
-        img_file = os.path.join(self.database().mediadir(), img_file)
+        # Note that we leave the the expanding of paths to the expand_paths
+        # plugin, as during export, we should not do this and we disable the
+        # expand_paths plugin. This means however that the expand_paths plugin
+        # should always run at the end.
         return "<img src=\"file:\\\\" + img_file + "\" align=middle>"
     
     def run(self, text):

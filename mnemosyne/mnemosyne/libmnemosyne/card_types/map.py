@@ -34,10 +34,10 @@ class Map(CardType):
     unique_fields = ["loc"]
     required_fields = ["loc", "blank", "marked"]
     
-    def question(self, card):
+    def question(self, card, exporting):
         # Insert a blank line to improve layout.
         card.fact["_"] = "<br>"
-        return CardType.question(self, card)
+        return CardType.question(self, card, exporting)
 
 
 class MapPlugin(Plugin):

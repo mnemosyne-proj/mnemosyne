@@ -1,6 +1,3 @@
--separate filter chain for q and a on export
--don't expand paths in latex filter
-
 -just copy database on initial sync
 -option not to download old history
 -option purge history, refactor logging test
@@ -15,7 +12,6 @@
 -more elegant error handling? Uniform naming error vs exception
 -restore from backup, both client and server (factor out code from default controller)
 -sql roll back?
-
 
 
 -does loopback adress work?

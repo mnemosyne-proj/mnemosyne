@@ -52,8 +52,7 @@
 <h1><tt class="xref docutils literal"><span class="pre">Card</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.card.Card">
-<em class="property">
-class </em><tt class="descclassname">mnemosyne.libmnemosyne.card.</tt><tt class="descname">Card</tt><big>(</big><em>fact</em>, <em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.card.</tt><tt class="descname">Card</tt><big>(</big><em>fact</em>, <em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card" title="Permalink to this definition">¶</a></dt>
 <dd><p>A card has a question and an answer, based on a fact view operating on
 a fact. It also stores repetition data.</p>
 <p>For card types which need extra information (e.g. cloze deletion), the
@@ -82,8 +81,9 @@ files, ...), whereas &#8216;_id&#8217; is an internal id that could be different
 that can be used by the database for efficiency reasons.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card.Card.answer">
-<tt class="descname">answer</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.answer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descname">answer</tt><big>(</big><em>exporting=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.answer" title="Permalink to this definition">¶</a></dt>
+<dd>When &#8216;exporting&#8217; is True, filters that have &#8216;run_on_export&#8217; set to
+False are not run.</dd></dl>
 
 <dl class="attribute">
 <dt id="mnemosyne.libmnemosyne.card.Card.interval">
@@ -92,8 +92,9 @@ that can be used by the database for efficiency reasons.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card.Card.question">
-<tt class="descname">question</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.question" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descname">question</tt><big>(</big><em>exporting=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card.Card.question" title="Permalink to this definition">¶</a></dt>
+<dd>When &#8216;exporting&#8217; is True, filters that have &#8216;run_on_export&#8217; set to
+False are not run.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card.Card.reset_learning_data">
@@ -173,8 +174,8 @@ scheduling. Storing them as int makes it very efficient in SQL.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 13, 2010.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+      Last updated on May 05, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
 </html>

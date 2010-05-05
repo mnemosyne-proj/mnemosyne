@@ -52,22 +52,27 @@
 <h1><tt class="xref docutils literal"><span class="pre">Renderer</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.renderer" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer">
-<em class="property">
-class </em><tt class="descclassname">mnemosyne.libmnemosyne.renderer.</tt><tt class="descname">Renderer</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.renderer.</tt><tt class="descname">Renderer</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the contents of the Fact behind a Card to a suitable format.</p>
 <p>&#8220;used_for&#8221; = card_type class</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields">
-<tt class="descname">render_card_fields</tt><big>(</big><em>card</em>, <em>fields</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields" title="Permalink to this definition">¶</a></dt>
-<dd>Renders a sequence of fields from a card, e.g. by generating html 
+<tt class="descname">render_card_fields</tt><big>(</big><em>card</em>, <em>fields</em>, <em>exporting</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_card_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders a sequence of fields from a card, e.g. by generating html 
 for them.  &#8216;fields&#8217; is typically either fact_view.q_fields or 
-fact_view.a_fields.</dd></dl>
+fact_view.a_fields.</p>
+<p>When &#8216;exporting&#8217; is True, filters that have &#8216;run_on_export&#8217; set to
+False are not run.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.render_text">
-<tt class="descname">render_text</tt><big>(</big><em>text</em>, <em>field_name</em>, <em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_text" title="Permalink to this definition">¶</a></dt>
-<dd>A lower lever renderer, rendering &#8216;text&#8217; from a field with name
-&#8216;field_name&#8217; from &#8216;card_type&#8217;.</dd></dl>
+<tt class="descname">render_text</tt><big>(</big><em>text</em>, <em>field_name</em>, <em>card_type</em>, <em>exporting</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>A lower lever renderer, rendering &#8216;text&#8217; from a field with name
+&#8216;field_name&#8217; from &#8216;card_type&#8217;.</p>
+<p>When &#8216;exporting&#8217; is True, filters that have &#8216;run_on_export&#8217; set to
+False are not run.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.set_property">
@@ -138,8 +143,8 @@ If fact_key is None, then this will be applied to all fact keys.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 13, 2010.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+      Last updated on May 05, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
 </html>

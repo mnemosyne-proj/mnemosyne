@@ -80,13 +80,24 @@ class CardType(Component, CompareOnId):
                 return False
         return True
         
-    def question(self, card):
-        return self.get_renderer().render_card_fields(card.fact,
-                                                      card.fact_view.q_fields)
+    def question(self, card, exporting):
 
-    def answer(self, card):
+        """When 'exporting' is True, filters that have 'run_on_export' set to
+        False are not run. 
+        
+        """
+        
         return self.get_renderer().render_card_fields(card.fact,
-                                                      card.fact_view.a_fields)
+            card.fact_view.q_fields, exporting)
+
+    def answer(self, card, exporting):
+
+        """When 'exporting' is True, filters that have 'run_on_export' set to
+        False are not run. 
+        
+        """
+        return self.get_renderer().render_card_fields(card.fact,
+            card.fact_view.a_fields, exporting)
         
     def get_renderer(self):
         if self.renderer:

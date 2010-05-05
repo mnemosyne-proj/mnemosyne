@@ -45,20 +45,26 @@ class Renderer(Component):
         for key in keys:
             self.config()[property_name][card_type.id][key] = property
         
-    def render_card_fields(self, card, fields):
+    def render_card_fields(self, card, fields, exporting):
         
         """Renders a sequence of fields from a card, e.g. by generating html 
         for them.  'fields' is typically either fact_view.q_fields or 
         fact_view.a_fields.
+
+        When 'exporting' is True, filters that have 'run_on_export' set to
+        False are not run. 
         
         """
         
         raise NotImplementedError
 
-    def render_text(self, text, field_name, card_type):
+    def render_text(self, text, field_name, card_type, exporting):
 
         """A lower lever renderer, rendering 'text' from a field with name
         'field_name' from 'card_type'.
+        
+        When 'exporting' is True, filters that have 'run_on_export' set to
+        False are not run. 
 
         """
 

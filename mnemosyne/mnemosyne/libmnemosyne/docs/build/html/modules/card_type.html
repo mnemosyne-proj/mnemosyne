@@ -52,8 +52,7 @@
 <h1><tt class="xref docutils literal"><span class="pre">CardType</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.card_type" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType">
-<em class="property">
-class </em><tt class="descclassname">mnemosyne.libmnemosyne.card_type.</tt><tt class="descname">CardType</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.card_type.</tt><tt class="descname">CardType</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType" title="Permalink to this definition">¶</a></dt>
 <dd><p>A card type groups a number of fact views on a certain fact, thereby
 forming a set of related cards.</p>
 <p>A card type needs an id as well as a name, because the name can change
@@ -89,8 +88,9 @@ views with card specific data.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.answer">
-<tt class="descname">answer</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.answer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descname">answer</tt><big>(</big><em>card</em>, <em>exporting</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.answer" title="Permalink to this definition">¶</a></dt>
+<dd>When &#8216;exporting&#8217; is True, filters that have &#8216;run_on_export&#8217; set to
+False are not run.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.before_repetition">
@@ -129,8 +129,9 @@ views with card specific data.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.question">
-<tt class="descname">question</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.question" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descname">question</tt><big>(</big><em>card</em>, <em>exporting</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.question" title="Permalink to this definition">¶</a></dt>
+<dd>When &#8216;exporting&#8217; is True, filters that have &#8216;run_on_export&#8217; set to
+False are not run.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.update_related_cards">
@@ -198,8 +199,8 @@ account in the database storage.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 13, 2010.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+      Last updated on May 05, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
 </html>

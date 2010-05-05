@@ -45,17 +45,17 @@ class Cloze(CardType):
     def is_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
         
-    def question(self, card):
+    def question(self, card, exporting):
         cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
         question = question.replace(cloze, "[...]",  1)
         return self.get_renderer().render_text(question, "text",
-                                               card.fact.card_type)
+            card.fact.card_type, exporting)
 
-    def answer(self, card):
+    def answer(self, card, exporting):
         cloze = card.extra_data["cloze"]
         return self.get_renderer().render_text(cloze, "text",
-                                               card.fact.card_type)
+            card.fact.card_type, exporting)
 
     def create_related_cards(self, fact):
         cards = []

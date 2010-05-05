@@ -100,7 +100,7 @@ class HtmlCssOld(Renderer):
             self.update(card_type)
         return self._css[card_type.id] 
                 
-    def render_card_fields(self, fact, fields):
+    def render_card_fields(self, fact, fields, exporting):
         html = "<html><head>" + self.css(fact.card_type) + \
             "</head><body><table  "
         try:
@@ -117,12 +117,13 @@ class HtmlCssOld(Renderer):
         for field in fields:
             s = fact[field]
             for f in self.filters():
-                s = f.run(s)
+                if not exporting or (exporting and f.run_on_export):
+                    s = f.run(s)
             html += "<div id=\"%s\">%s</div>" % (field, s)
         html += "</td></tr></table></body></html>"
         return html
     
-    def render_text(self, text, field_name, card_type):
+    def render_text(self, text, field_name, card_type, exporting):
         html = "<html><head>" + self.css(card_type) + \
             "</head><body><table "
         try:
@@ -139,4 +140,7 @@ class HtmlCssOld(Renderer):
         html += "><tr><td><div id=\"%s\">"
         html += "<div id=\"%s\">%s</div>" % (field_name, text)
         html += "</td></tr></table></body></html>"
+        for f in self.filters():
+            if not exporting or (exporting and f.run_on_export):
+                html = f.run(html)   
         return html
