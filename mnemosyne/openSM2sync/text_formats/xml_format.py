@@ -1,5 +1,5 @@
 #
-# data_format.py <Peter.Bienstman@UGent.be>
+# xml_format.py <Peter.Bienstman@UGent.be>
 #
 
 from xml.sax import saxutils
@@ -9,7 +9,7 @@ from openSM2sync.log_entry import LogEntry
 PROTOCOL_VERSION = "openSM2sync 1.0"
 
               
-class DataFormat(object):
+class XMLFormat(object):
     
     """Class handling the conversion from data to XML streams and vice versa.
 

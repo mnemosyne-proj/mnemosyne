@@ -326,11 +326,7 @@ class DefaultController(Controller):
                 _("Do you want to restore from this backup?"),
                 _("Yes"), _("No"), "")
             if result == 0:  # Yes.
-                db.abandon()
-                db_path = expand_path(self.config()["path"], basedir)
-                import shutil
-                shutil.copy(filename, db_path)
-                db.load(db_path)
+                db.restore(filename)
                 self.review_controller().reset()
                 self.update_title()
             self.stopwatch().unpause()

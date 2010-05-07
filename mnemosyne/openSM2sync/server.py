@@ -13,7 +13,7 @@ import tempfile
 import cStringIO
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
-from data_format import DataFormat
+from text_formats.xml_format import XMLFormat
 
 
 # Avoid delays caused by Nagle's algorithm.
@@ -45,8 +45,8 @@ WSGIRequestHandler.log_message = dont_log
 
 # Register binary file formats to send to clients on first sync.
 
-from binary_formats.mnemosyne import MnemosyneBinaryFileFormat
-binary_formats = [MnemosyneBinaryFileFormat()]
+from binary_formats.mnemosyne_format import MnemosyneFormat
+binary_formats = [MnemosyneFormat]
 
 
 
@@ -88,7 +88,7 @@ class Server(WSGIServer):
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.ui = ui
-        self.data_format = DataFormat()
+        self.text_format = XMLFormat()
         self.stopped = False
         self.sessions = {} # {session_token: session}
         self.session_token_for_user = {} # {user_name: session_token}
@@ -159,7 +159,7 @@ class Server(WSGIServer):
     def stop(self):
         self.stopped = True
 
-    def supports_binary_file_download(self, program_name, program_version):
+    def supports_binary_log_download(self, program_name, program_version):
         result = False
         for format in binary_formats:
             if format.supports(program_name, program_version):
@@ -192,7 +192,7 @@ class Server(WSGIServer):
     def put_login(self, environ):
         self.ui.status_bar_message("Client logging in...")
         client_info_repr = environ["wsgi.input"].readline()
-        client_info = self.data_format.parse_partner_info(client_info_repr)
+        client_info = self.text_format.parse_partner_info(client_info_repr)
         if not self.authorise(client_info["username"],
             client_info["password"]):
             return "403 Forbidden"
@@ -212,7 +212,7 @@ class Server(WSGIServer):
             "session_token": session.token,
             "supports_binary_log_download": self.supports_binary_log_download\
                 (client_info["program_name"], client_info["program_version"])}
-        return self.data_format.repr_partner_info(server_info)
+        return self.text_format.repr_partner_info(server_info)
 
     def put_client_log_entries(self, environ, session_token):
         self.ui.status_bar_message("Receiving client log entries...")
@@ -224,7 +224,7 @@ class Server(WSGIServer):
         # we use the file format footer as a sentinel.
         # For simplicity, we also keep the entire stream in memory, as the
         # server is not expected to be resource limited.
-        sentinel = self.data_format.log_entries_footer()
+        sentinel = self.text_format.log_entries_footer()
         socket = environ["wsgi.input"]      
         lines = []
         line = socket.readline()
@@ -237,7 +237,7 @@ class Server(WSGIServer):
         # the client could be a resource-limited mobile device.
         session.client_log = []
         data_stream = cStringIO.StringIO("".join(lines))
-        element_loop = self.data_format.parse_log_entries(data_stream)
+        element_loop = self.text_format.parse_log_entries(data_stream)
         number_of_entries = element_loop.next()
         count = 0
         progress_dialog = self.ui.get_progress_dialog()
@@ -258,18 +258,18 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to client...")
-        buffer = self.data_format.log_entries_header(number_of_entries)
+        buffer = self.text_format.log_entries_header(number_of_entries)
         BUFFER_SIZE = 8192
         count = 0
         for log_entry in session.database.log_entries_to_sync_for(\
             session.client_info["machine_id"]):
             count += 1
             progress_dialog.set_value(count)
-            buffer += self.data_format.repr_log_entry(log_entry)
+            buffer += self.text_format.repr_log_entry(log_entry)
             if len(buffer) > BUFFER_SIZE:
                 yield buffer.encode("utf-8")
                 buffer = ""
-        buffer += self.data_format.log_entries_footer()
+        buffer += self.text_format.log_entries_footer()
         yield buffer.encode("utf-8")
         # Now that all the data is underway to the client, we can start
         # applying the client log entries.
@@ -284,11 +284,11 @@ class Server(WSGIServer):
             if binary_format.supports(session.client_info["program_name"],
                                       session.client_info["program_version"]):
                 binary_format = binary_format(session.database)
-                filename = binary_format.binary_filename()
+                binary_file, file_size = binary_format.binary_file_and_size()
                 break
-        # Send it across.                       
-        progress_dialog.set_text("Sending media files to client...")
-        file_size = os.path.getsize(filename)
+        # Send it across.
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_text("Sending binary log entries to client...")
         progress_dialog.set_range(0, file_size)        
         BUFFER_SIZE = 8192
         buffer = binary_file.read(BUFFER_SIZE)

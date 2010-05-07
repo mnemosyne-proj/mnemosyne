@@ -10,7 +10,7 @@ import httplib
 from xml.etree import cElementTree
 
 from utils import tar_file_size
-from data_format import DataFormat
+from text_formats.xml_format import XMLFormat
 
 
 # Avoid delays caused by Nagle's algorithm.
@@ -55,7 +55,7 @@ class Client(object):
         self.machine_id = machine_id
         self.database = database
         self.ui = ui
-        self.data_format = DataFormat()
+        self.text_format = XMLFormat()
         self.server_info = {}
 
     def sync(self, hostname, port, username, password):       
@@ -88,7 +88,7 @@ class Client(object):
 
     def login(self, hostname, port, username, password):
         self.ui.status_bar_message("Logging in...")
-        try:
+        if 1:
             client_info = {}
             client_info["username"] = username
             client_info["password"] = password
@@ -104,19 +104,19 @@ class Client(object):
             client_info["reset_cards_as_pictures"] = False # True redownloads.
             self.con = httplib.HTTPConnection(hostname, port)
             self.con.request("PUT", "/login",
-                self.data_format.repr_partner_info(client_info) + "\n")
+                self.text_format.repr_partner_info(client_info) + "\n")
             response = self.con.getresponse().read()
             if response == "403 Forbidden":
                 raise SyncError("Wrong username or password.")
-            self.server_info = self.data_format.parse_partner_info(response)
+            self.server_info = self.text_format.parse_partner_info(response)
             self.database.set_sync_partner_info(self.server_info)
             if self.database.is_empty():
                 self.database.set_user_id(self.server_info["user_id"])
-            if self.server_info["user_id"] != client_info["user_id"]:
+            elif self.server_info["user_id"] != client_info["user_id"]:
                 raise SyncError("mismatched user_ids.")
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
-        except Exception, exception:
+        else: # Exception, exception:
             raise SyncError("login: " + str(exception))
         
     def put_client_log_entries(self):
@@ -145,16 +145,16 @@ class Client(object):
         progress_dialog.set_text("Sending log entries to server...")  
         count = 0
         BUFFER_SIZE = 8192
-        buffer = self.data_format.log_entries_header(number_of_entries)        
+        buffer = self.text_format.log_entries_header(number_of_entries)        
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_info["machine_id"]):
-            buffer += self.data_format.repr_log_entry(log_entry)
+            buffer += self.text_format.repr_log_entry(log_entry)
             if len(buffer) > BUFFER_SIZE:
                 self.con.send(buffer.encode("utf-8"))
                 buffer = ""
             count += 1
             progress_dialog.set_value(count)
-        buffer += self.data_format.log_entries_footer()
+        buffer += self.text_format.log_entries_footer()
         self.con.send(buffer.encode("utf-8"))
         self.ui.status_bar_message("Waiting for server to complete...")
         if self.con.getresponse().read() != "OK":
@@ -166,7 +166,7 @@ class Client(object):
             self.con.request("GET", "/server/log_entries?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
-            element_loop = self.data_format.parse_log_entries(response)
+            element_loop = self.text_format.parse_log_entries(response)
             number_of_entries = element_loop.next()
             if number_of_entries == 0:
                 return

@@ -1,6 +1,4 @@
--move binary formats to folder
--filesize
--extract binary file server for reuse
+-fix tests
 
 -just copy database on initial sync
 -option not to download old history
@@ -14,9 +12,8 @@
 
 -self.stopped, timeouts
 -more elegant error handling? Uniform naming error vs exception
--restore from backup, both client and server (factor out code from default controller)
 -sql roll back?
-
+-test restore from backup
 
 -does loopback adress work?
 
@@ -47,6 +44,7 @@
 
 -hack tarfile to add progress bar?
 -add modulo to progress dialogs
+-extract binary file server for reuse?
 
 -rename media files-> external files?
 -add tests with unicode in basedir

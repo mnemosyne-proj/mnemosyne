@@ -241,8 +241,8 @@ class Configuration(Component, dict):
         do this on a 'virgin' client.
 
         """
-        
-        db = self.database()
+
+        db = self.database()        
         if self["log_index"] > 1 or db.name() != db.default_name \
             or not db.is_empty():
             raise RuntimeError

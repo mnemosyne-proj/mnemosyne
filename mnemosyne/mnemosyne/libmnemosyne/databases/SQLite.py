@@ -381,8 +381,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return backupfile
 
     def restore(self, path):
-        ## TODO: implement properly.
-        self.load(path)
+        self.abandon()
+        db_path = expand_path(self.config()["path"], self.config().basedir)
+        shutil.copy(path, db_path)
+        self.load(db_path)
 
     def unload(self):
         for f in self.component_manager.get_all("hook", "before_unload"):
