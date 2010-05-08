@@ -24,6 +24,13 @@ class Database(Component):
     def deactivate(self):
         self.backup()
         self.unload()
+
+    def path(self):
+
+        """Returns full path of the database."""
+        
+        raise NotImplementedError
+        
         
     def name(self):
 

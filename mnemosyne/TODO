@@ -1,5 +1,4 @@
--fix tests
-
+-fix testsuite
 -just copy database on initial sync
 -option not to download old history
 -option purge history, refactor logging test
@@ -7,6 +6,8 @@
 -cdata, encode for deck name, unicode + test
 -option to skip backup before sync
 -option to only save after every N repetitions
+
+-factor out binary file transfer, apply to media too.
 
 -test scheduled, active count sync on load/save + type
 

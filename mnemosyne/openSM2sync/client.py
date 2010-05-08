@@ -39,6 +39,9 @@ class SyncError(Exception):
     pass
 
 
+BUFFER_SIZE = 8192
+
+
 class Client(object):
     
     program_name = "unknown-SRS-app"
@@ -62,9 +65,8 @@ class Client(object):
         try:    
             self.ui.status_bar_message("Creating backup...")
             backup_file = self.database.backup()
-            # We let the client check if files were updated outside of the
-            # program. This can generate MEDIA_UPDATED log entries, so it
-            # should be done first.
+            # We check if files were updated outside of the program. This can
+            # generate MEDIA_UPDATED log entries, so it should be done first.
             if self.check_for_updated_media_files:
                 self.database.check_for_updated_media_files()
             self.login(hostname, port, username, password)
@@ -144,7 +146,6 @@ class Client(object):
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to server...")  
         count = 0
-        BUFFER_SIZE = 8192
         buffer = self.text_format.log_entries_header(number_of_entries)        
         for log_entry in self.database.log_entries_to_sync_for(\
             self.server_info["machine_id"]):
@@ -185,12 +186,28 @@ class Client(object):
     def get_server_log_entries_binary(self):
         self.ui.status_bar_message("Getting binary server log entries...")
         try:
+            filename = self.database.path()
+            self.database.abandon()
+            new_database = file(filename, "wb")
             self.con.request("GET", "/server/binary_log_entries?" + \
                 "session_token=%s" % (self.server_info["session_token"], ))
             response = self.con.getresponse()
-
-
-
+            file_size = int(response.fp.readline())
+            progress_dialog = self.ui.get_progress_dialog()
+            progress_dialog.set_text("Getting binary log entries...")
+            progress_dialog.set_range(0, file_size)
+            remaining = file_size
+            while remaining:
+                if remaining < BUFFER_SIZE:
+                    new_database.write(response.read(remaining))
+                    remaining = 0
+                else:
+                    new_database.write(response.read(BUFFER_SIZE))
+                    remaining -= BUFFER_SIZE
+                progress_dialog.set_value(file_size - remaining)
+            progress_dialog.set_value(file_size)
+            new_database.close()
+            self.database.load(filename)
         except Exception, exception:
             raise SyncError("Getting server binary log entries: " + str(exception))
         
@@ -205,7 +222,7 @@ class Client(object):
         self.con.putrequest("PUT", "/client/media/files?session_token=%s" \
             % (self.server_info["session_token"], ))
         self.con.endheaders()     
-        socket = self.con.sock.makefile("wb", bufsize=8192)
+        socket = self.con.sock.makefile("wb", bufsize=BUFFER_SIZE)
         socket.write(str(size) + "\n")
         # Bundle the media files in a single tar stream, and send it over a
         # buffered socket in order to save memory. Note that this bypasses

@@ -49,6 +49,8 @@ from binary_formats.mnemosyne_format import MnemosyneFormat
 binary_formats = [MnemosyneFormat]
 
 
+BUFFER_SIZE = 8192
+        
 
 class Session(object):
 
@@ -212,6 +214,9 @@ class Server(WSGIServer):
             "session_token": session.token,
             "supports_binary_log_download": self.supports_binary_log_download\
                 (client_info["program_name"], client_info["program_version"])}
+        # We check if files were updated outside of the program. This can
+        # generate MEDIA_UPDATED log entries, so it should be done first.
+        session.database.check_for_updated_media_files()
         return self.text_format.repr_partner_info(server_info)
 
     def put_client_log_entries(self, environ, session_token):
@@ -259,7 +264,6 @@ class Server(WSGIServer):
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to client...")
         buffer = self.text_format.log_entries_header(number_of_entries)
-        BUFFER_SIZE = 8192
         count = 0
         for log_entry in session.database.log_entries_to_sync_for(\
             session.client_info["machine_id"]):
@@ -290,8 +294,7 @@ class Server(WSGIServer):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_text("Sending binary log entries to client...")
         progress_dialog.set_range(0, file_size)        
-        BUFFER_SIZE = 8192
-        buffer = binary_file.read(BUFFER_SIZE)
+        buffer = str(file_size) + "\n" + binary_file.read(BUFFER_SIZE)
         count = BUFFER_SIZE
         while buffer:
             progress_dialog.set_value(count)
@@ -300,7 +303,7 @@ class Server(WSGIServer):
             count += BUFFER_SIZE
         progress_dialog.set_value(file_size)
         # Clean up if needed.
-        binary_format.cleanup()
+        binary_format.clean_up()
         # This is the initial sync, we don't need to apply client log entries.
             
     def put_client_media_files(self, environ, session_token):
@@ -321,7 +324,6 @@ class Server(WSGIServer):
         try:
             # Determine files to send across.
             session = self.sessions[session_token]
-            session.database.check_for_updated_media_files()
             filenames = list(session.database.media_filenames_to_sync_for(\
                 session.client_info["machine_id"]))
             # TODO: implement creating pictures from cards, based on the
@@ -335,7 +337,6 @@ class Server(WSGIServer):
             tmp_file_name = tmp_file.name
             saved_path = os.getcwdu()
             os.chdir(session.database.mediadir())
-            BUFFER_SIZE = 8192
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
                 bufsize=BUFFER_SIZE, format=tarfile.PAX_FORMAT)
             for filename in filenames:
