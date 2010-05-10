@@ -1,13 +1,20 @@
--fix testsuite
--just copy database on initial sync
--option not to download old history
--option purge history, refactor logging test
--add check in 'log_entries_to_sync' for missing entries
--cdata, encode for deck name, unicode + test
+-benchmark initial database copy on WM
+
 -option to skip backup before sync
 -option to only save after every N repetitions
 
--factor out binary file transfer, apply to media too.
+-cdata, encode for deck name, unicode + test
+
+-mechanism to prevent different instantiations from uploading logs twice
+-store machine id in log_name too
+-fix 'correct_config', log parser
+
+-conflict resolution
+-rather than deleting history, mark it as undone in order to keep id ordering
+ consistent
+-can we do triangular sync if internal log ids are different? Partnership index
+ local or global?
+-sync complete partnership status? local + global? or only enough to avoid/allow triple sync.
 
 -test scheduled, active count sync on load/save + type
 
@@ -21,20 +28,6 @@
 -ui: pass or notImplemented?
 -time saxutils.escape attr
 
--sync activity criteria
--sync card types (needed for clones)
-
--mechanism to prevent different instantiations from uploading logs twice
--store machine id in log_name too
--fix 'correct_config', log parser
-
--conflict resolution
--rather than deleting history, mark it as undone in order to keep id ordering
- consistent
--can we do triangular sync if internal log ids are different? Partnership index
- local or global?
--sync complete partnership status? local + global? or only enough to avoid/allow triple sync.
-
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -rework interface of database.py to include syncing events.
 -document internal vs external card types
@@ -43,15 +36,19 @@
 -example 'miniclient' supporting sync
 -log save event after import and sync in the default controller. Add tests
 
+-sync activity criteria
+-sync card types (needed for clones)
+
 -hack tarfile to add progress bar?
 -add modulo to progress dialogs
--extract binary file server for reuse?
+-extract binary file server for reuse, apply to initial sync and media
 
 -rename media files-> external files?
 -add tests with unicode in basedir
 -mechanism to have plugin settings synced?
--exchange card types between different SRS, add support for card type events
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
+-option purge history, refactor logging test. Should only happen in no other sync partners are
+ interested in it
 
 -integrate openSM2sync with GUI
 -reload database after sync to create new card type clones

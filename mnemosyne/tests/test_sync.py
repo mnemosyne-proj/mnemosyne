@@ -69,7 +69,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "server_machine_id", "127.0.0.1", 9177,
+        Server.__init__(self, "server_machine_id", "127.0.0.1", 9179,
                         self.mnemosyne.main_widget())
         if not self.binary_download:
             self.supports_binary_log_download = lambda x,y : False
@@ -116,7 +116,7 @@ class MyClient(Client):
     def do_sync(self):
         global server_lock
         server_lock.acquire()
-        self.sync("127.0.0.1", 9177, self.user, self.password)
+        self.sync("127.0.0.1", 9179, self.user, self.password)
         server_lock.release()
 
 
@@ -805,7 +805,7 @@ class TestSync(object):
             self.mnemosyne.controller().update_related_cards(self.card.fact,
               new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
-            self.mnemosyne.controller().file_save()            
+            self.mnemosyne.controller().file_save()
           
         def test_server(self):
             pass
@@ -824,3 +824,94 @@ class TestSync(object):
 
         assert self.client.database.con.execute("select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 3
+        
+    def test_binary_download_no_old_reps(self):
+        
+        def fill_server_database(self):
+            fact_data = {"q": "<latex>a^2</latex>",
+                         "a": "<latex>c^2</latex>"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            self.card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.card.question()
+            self.card.answer()
+            self.mnemosyne.review_controller().learning_ahead = True
+            self.mnemosyne.review_controller().new_question()
+            self.mnemosyne.review_controller().grade_answer(5)
+            self.mnemosyne.controller().file_save()
+            new_fact_data = {"q": "<latex>b^2</latex>",
+                             "a": "<latex>c^2</latex>"}            
+            self.mnemosyne.controller().update_related_cards(self.card.fact,
+              new_fact_data, card_type,
+            new_tag_names=["default1"], correspondence=[])
+            self.mnemosyne.controller().file_save()
+          
+        def test_server(self):
+            assert self.mnemosyne.database().con.execute(\
+                "select count() from log where event_type=?",
+                (EventTypes.REPETITION, )).fetchone()[0] == 2
+            
+        self.server = MyServer(binary_download=True)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.interested_in_old_reps = False
+        self.client.do_sync()
+
+        card = self.client.database.get_card(self.server.card.id, id_is_internal=False)
+        assert len(card.tags) == 1
+        assert list(card.tags)[0].name == "default1"
+
+        assert self.client.database.con.execute("select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 3
+        
+        assert self.client.database.con.execute("select count() from log where event_type=?",
+            (EventTypes.REPETITION, )).fetchone()[0] == 0
+        
+    def test_xml_download_no_old_reps(self):
+        
+        def fill_server_database(self):
+            fact_data = {"q": "<latex>a^2</latex>",
+                         "a": "<latex>c^2</latex>"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            self.card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.card.question()
+            self.card.answer()
+            self.mnemosyne.review_controller().learning_ahead = True
+            self.mnemosyne.review_controller().new_question()
+            self.mnemosyne.review_controller().grade_answer(5)
+            self.mnemosyne.controller().file_save()
+            new_fact_data = {"q": "<latex>b^2</latex>",
+                             "a": "<latex>c^2</latex>"}            
+            self.mnemosyne.controller().update_related_cards(self.card.fact,
+              new_fact_data, card_type,
+            new_tag_names=["default1"], correspondence=[])
+            self.mnemosyne.controller().file_save()
+          
+        def test_server(self):
+            assert self.mnemosyne.database().con.execute(\
+                "select count() from log where event_type=?",
+                (EventTypes.REPETITION, )).fetchone()[0] == 2
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.interested_in_old_reps = False
+        self.client.do_sync()
+
+        card = self.client.database.get_card(self.server.card.id, id_is_internal=False)
+        assert len(card.tags) == 1
+        assert list(card.tags)[0].name == "default1"
+
+        assert self.client.database.con.execute("select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 3
+        
+        assert self.client.database.con.execute("select count() from log where event_type=?",
+            (EventTypes.REPETITION, )).fetchone()[0] == 0
+        

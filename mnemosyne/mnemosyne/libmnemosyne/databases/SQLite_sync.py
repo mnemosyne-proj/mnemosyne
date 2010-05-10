@@ -48,10 +48,15 @@ class SQLiteSync(object):
            where partner=?""", (partner, )).fetchone()
         return sql_res["_last_log_id"]
     
-    def number_of_log_entries_to_sync_for(self, partner):
+    def number_of_log_entries_to_sync_for(self, partner,
+            interested_in_old_reps=True):
         _id = self.last_synced_log_entry_for(partner)
-        return self.con.execute("select count() from log where _id>?",
-            (_id, )).fetchone()[0]
+        if interested_in_old_reps:
+            return self.con.execute("select count() from log where _id>?",
+                (_id, )).fetchone()[0]
+        else:
+            return self.con.execute("""select count() from log where _id>? and
+                event_type!=?""", (_id, EventTypes.REPETITION)).fetchone()[0]            
 
     def check_for_updated_media_files(self):
         # Regular media files.
@@ -177,7 +182,7 @@ class SQLiteSync(object):
             del log_entry["o_id"]
         return log_entry
         
-    def log_entries_to_sync_for(self, partner):
+    def log_entries_to_sync_for(self, partner, interested_in_old_reps=True):
 
         """Note that we return an iterator here to be able to stream
         efficiently.
@@ -185,8 +190,13 @@ class SQLiteSync(object):
         """
         
         _id = self.last_synced_log_entry_for(partner)
-        return (self._log_entry(cursor) for cursor in self.con.execute(\
-            "select * from log where _id>?", (_id, )))
+        if interested_in_old_reps:
+            return (self._log_entry(cursor) for cursor in self.con.execute(\
+                "select * from log where _id>?", (_id, )))
+        else:
+            return (self._log_entry(cursor) for cursor in self.con.execute(\
+                "select * from log where _id>? and event_type!=?",
+                (_id, EventTypes.REPETITION)))
 
     def tag_from_log_entry(self, log_entry):
         # When deleting, the log entry only contains the tag's id, so we pull

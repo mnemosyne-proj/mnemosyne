@@ -53,6 +53,10 @@ class Client(object):
     # process on e.g. read only mobile clients where the media files don't get
     # updated anyway.
     check_for_updated_media_files = True
+    # Setting the following to False will speed up the initial sync, but in that
+    # case the client will not have access to all of the review history in order
+    # to e.g. display statistics.
+    interested_in_old_reps = True
     
     def __init__(self, machine_id, database, ui):
         self.machine_id = machine_id
@@ -100,6 +104,7 @@ class Client(object):
             client_info["program_version"] = self.program_version
             client_info["capabilities"] = self.capabilities
             client_info["database_name"] = self.database.name()
+            client_info["interested_in_old_reps"] = self.interested_in_old_reps
             # Not yet implemented: downloading cards as pictures.
             client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
             client_info["cards_pictures_res"] = "320x200"

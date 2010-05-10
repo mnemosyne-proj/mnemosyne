@@ -259,14 +259,16 @@ class Server(WSGIServer):
         session = self.sessions[session_token]
         number_of_entries = session.database.\
             number_of_log_entries_to_sync_for(\
-            session.client_info["machine_id"])
+            session.client_info["machine_id"],
+            session.client_info["interested_in_old_reps"])
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to client...")
         buffer = self.text_format.log_entries_header(number_of_entries)
         count = 0
         for log_entry in session.database.log_entries_to_sync_for(\
-            session.client_info["machine_id"]):
+            session.client_info["machine_id"],
+            session.client_info["interested_in_old_reps"]):
             count += 1
             progress_dialog.set_value(count)
             buffer += self.text_format.repr_log_entry(log_entry)
@@ -288,7 +290,8 @@ class Server(WSGIServer):
             if binary_format.supports(session.client_info["program_name"],
                                       session.client_info["program_version"]):
                 binary_format = binary_format(session.database)
-                binary_file, file_size = binary_format.binary_file_and_size()
+                binary_file, file_size = binary_format.binary_file_and_size(\
+                    session.client_info["interested_in_old_reps"])
                 break
         # Send it across.
         progress_dialog = self.ui.get_progress_dialog()
