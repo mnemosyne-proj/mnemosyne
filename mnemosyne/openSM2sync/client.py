@@ -57,6 +57,9 @@ class Client(object):
     # case the client will not have access to all of the review history in order
     # to e.g. display statistics.
     interested_in_old_reps = True
+    # On SD cards copying a large database for the backup before sync can take
+    # a long time, so we offer reckless users the possibility to skip this.
+    do_backup = True
     
     def __init__(self, machine_id, database, ui):
         self.machine_id = machine_id
@@ -68,7 +71,8 @@ class Client(object):
     def sync(self, hostname, port, username, password):       
         try:    
             self.ui.status_bar_message("Creating backup...")
-            backup_file = self.database.backup()
+            if self.do_backup:
+                backup_file = self.database.backup()
             # We check if files were updated outside of the program. This can
             # generate MEDIA_UPDATED log entries, so it should be done first.
             if self.check_for_updated_media_files:
@@ -87,14 +91,15 @@ class Client(object):
                 self.get_server_log_entries()
             self.get_sync_finish()
         except SyncError, exception:
-            self.database.restore(backup_file)
+            if self.do_backup:
+                self.database.restore(backup_file)
             self.ui.error_box("Error: " + str(exception))
         else:
             self.ui.information_box("Sync finished!")
 
     def login(self, hostname, port, username, password):
         self.ui.status_bar_message("Logging in...")
-        if 1:
+        try:
             client_info = {}
             client_info["username"] = username
             client_info["password"] = password
@@ -123,7 +128,7 @@ class Client(object):
                 raise SyncError("mismatched user_ids.")
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
-        else: # Exception, exception:
+        except Exception, exception:
             raise SyncError("login: " + str(exception))
         
     def put_client_log_entries(self):
