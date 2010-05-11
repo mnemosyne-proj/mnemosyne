@@ -217,7 +217,7 @@ class Server(WSGIServer):
         # We check if files were updated outside of the program. This can
         # generate MEDIA_UPDATED log entries, so it should be done first.
         session.database.check_for_updated_media_files()
-        return self.text_format.repr_partner_info(server_info)
+        return self.text_format.repr_partner_info(server_info).encode("utf-8")
 
     def put_client_log_entries(self, environ, session_token):
         self.ui.status_bar_message("Receiving client log entries...")

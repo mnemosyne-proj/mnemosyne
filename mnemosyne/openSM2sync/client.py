@@ -99,7 +99,7 @@ class Client(object):
 
     def login(self, hostname, port, username, password):
         self.ui.status_bar_message("Logging in...")
-        try:
+        if 1:
             client_info = {}
             client_info["username"] = username
             client_info["password"] = password
@@ -116,7 +116,8 @@ class Client(object):
             client_info["reset_cards_as_pictures"] = False # True redownloads.
             self.con = httplib.HTTPConnection(hostname, port)
             self.con.request("PUT", "/login",
-                self.text_format.repr_partner_info(client_info) + "\n")
+                self.text_format.repr_partner_info(client_info).\
+                    encode("utf-8") + "\n")
             response = self.con.getresponse().read()
             if response == "403 Forbidden":
                 raise SyncError("Wrong username or password.")
@@ -128,7 +129,7 @@ class Client(object):
                 raise SyncError("mismatched user_ids.")
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
-        except Exception, exception:
+        else:# Exception, exception:
             raise SyncError("login: " + str(exception))
         
     def put_client_log_entries(self):

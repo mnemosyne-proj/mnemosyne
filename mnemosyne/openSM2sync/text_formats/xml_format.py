@@ -25,10 +25,13 @@ class XMLFormat(object):
     <log n_mem='0' act='0' type='5' sch='0' time='1268213369'></log>
     </openSM2sync>
     
-
+    
+    Note that the returned XML is a unicode object, and in order to send it
+    across a socket e.g., we still need to encode it first.
+        
     """
 
-    def repr_partner_info(self, info):
+    def repr_partner_info(self, info):          
         repr_info = " <partner "
         for key, value in info.iteritems():
             repr_info += "%s='%s' " % (key, value)
@@ -70,9 +73,6 @@ class XMLFormat(object):
         For efficiency reasons we require tag names and attribute values to be
         useable without escaping them with saxutils.quoteattr, so they should
         not contain <, >, &, ... .
-
-        Note that the returned XML is a unicode object, and in order to send it
-        across a socket e.g., we still need to encode it first.
         
         """
 

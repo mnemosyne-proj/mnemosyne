@@ -6,12 +6,13 @@
 -store machine id in log_name too
 -fix 'correct_config', log parser
 
--conflict resolution
--rather than deleting history, mark it as undone in order to keep id ordering
- consistent
 -can we do triangular sync if internal log ids are different? Partnership index
  local or global?
 -sync complete partnership status? local + global? or only enough to avoid/allow triple sync.
+
+-conflict resolution
+-rather than deleting history, mark it as undone in order to keep id ordering
+ consistent
 
 -test scheduled, active count sync on load/save + type
 

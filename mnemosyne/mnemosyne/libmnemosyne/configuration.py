@@ -248,13 +248,10 @@ class Configuration(Component, dict):
         """
 
         db = self.database()        
-        if self["log_index"] > 1 or db.name() != db.default_name \
-            or not db.is_empty():
-            raise RuntimeError
+        if self["log_index"] > 1 or not db.is_empty():
+            raise RuntimeError, "Unable to change user id"
         old_user_id = self["user_id"]
         self["user_id"] = new_user_id
         from mnemosyne.libmnemosyne.component_manager import \
              migrate_component_manager
         migrate_component_manager(old_user_id, new_user_id)
-
-
