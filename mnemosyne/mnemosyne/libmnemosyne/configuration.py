@@ -29,6 +29,10 @@ backups_to_keep = 5
 # minutes, and midnight corresponds to 0.
 day_starts_at = 3
 
+# The number of repetitions that need to happen before autosave.
+# Setting this to 1 means saving after every repetition.
+save_after_n_reps = 1
+
 # Latex preamble. Note that for the pre- and postamble you need to
 # use double slashes instead of single slashes here, to have them
 # escaped when Python reads them in.
@@ -99,7 +103,8 @@ class Configuration(Component, dict):
              "show_daily_tips": True,
              "tip": 0,
              "backups_to_keep": 10,
-             "day_starts_at": 3, 
+             "day_starts_at": 3,
+             "save_after_n_reps": 1,
              "latex_preamble": "\\documentclass[12pt]{article}\n"+
                               "\\pagestyle{empty}\n\\begin{document}",
              "latex_postamble": "\\end{document}", 

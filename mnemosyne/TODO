@@ -1,8 +1,5 @@
 -benchmark initial database copy on WM
 
--option to skip backup before sync
--option to only save after every N repetitions
-
 -cdata, encode for deck name, unicode + test
 
 -mechanism to prevent different instantiations from uploading logs twice
@@ -377,6 +374,7 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 
 -better way of making default actions visible? Call layout()?
 -hook up scheduler rollover
+-document save after n rep
 -cramming widget, cache counters
 -implement hide question
 -icon

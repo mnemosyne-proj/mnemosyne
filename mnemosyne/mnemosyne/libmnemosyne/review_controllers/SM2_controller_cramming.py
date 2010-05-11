@@ -14,15 +14,18 @@ class SM2ControllerCramming(SM2Controller):
         card_to_grade = self.card
         old_grade = card_to_grade.grade
         self.update_counters(old_grade, grade)
+        self.rep_count += 1
         if self.scheduler().allow_prefetch():
             self.new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)
-            self.database().save()
+            if self.rep_count % self.config()["save_after_n_reps"] == 0:
+                self.database().save()
         else:
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)
-            self.database().save()
+            if self.rep_count % self.config()["save_after_n_reps"] == 0:
+                self.database().save()
             self.new_question()
         self.widget.update_status_bar()
         if self.config()["show_intervals"] == "status_bar":
