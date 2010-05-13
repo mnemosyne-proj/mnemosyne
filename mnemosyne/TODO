@@ -1,5 +1,7 @@
 -benchmark initial database copy on WM
 
+-factor out binary streaming
+
 -mechanism to prevent different instantiations from uploading logs twice
 -store machine id in log_name too
 -fix 'correct_config', log parser

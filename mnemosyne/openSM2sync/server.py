@@ -281,21 +281,10 @@ class Server(WSGIServer):
         # applying the client log entries.
         for log_entry in session.client_log:
             session.database.apply_log_entry(log_entry)
-            
-    def get_server_binary_log_entries(self, environ, session_token):
-        self.ui.status_bar_message("Sending binary log entries to client...")
-        # Construct binary file.
-        session = self.sessions[session_token]
-        for binary_format in binary_formats:
-            if binary_format.supports(session.client_info["program_name"],
-                                      session.client_info["program_version"]):
-                binary_format = binary_format(session.database)
-                binary_file, file_size = binary_format.binary_file_and_size(\
-                    session.client_info["interested_in_old_reps"])
-                break
-        # Send it across.
+
+    def _stream_binary_file(self, binary_file, file_size):
         progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_text("Sending binary log entries to client...")
+        progress_dialog.set_text("Sending binary file to client...")
         progress_dialog.set_range(0, file_size)        
         buffer = str(file_size) + "\n" + binary_file.read(BUFFER_SIZE)
         count = BUFFER_SIZE
@@ -304,8 +293,20 @@ class Server(WSGIServer):
             yield buffer
             buffer = binary_file.read(BUFFER_SIZE)
             count += BUFFER_SIZE
-        progress_dialog.set_value(file_size)
-        # Clean up if needed.
+        progress_dialog.set_value(file_size)        
+            
+    def get_server_binary_log_entries(self, environ, session_token):
+        self.ui.status_bar_message("Sending binary log entries to client...")
+        session = self.sessions[session_token]
+        for binary_format in binary_formats:
+            if binary_format.supports(session.client_info["program_name"],
+                                      session.client_info["program_version"]):
+                binary_format = binary_format(session.database)
+                binary_file, file_size = binary_format.binary_file_and_size(\
+                    session.client_info["interested_in_old_reps"])
+                break
+        for buffer in self._stream_binary_file(binary_file, file_size):
+            yield buffer
         binary_format.clean_up()
         # This is the initial sync, we don't need to apply client log entries.
             
@@ -345,21 +346,11 @@ class Server(WSGIServer):
             for filename in filenames:
                 tar_pipe.add(filename)
             tar_pipe.close()
-            # Determine tar file size.
+            # Stream tar file across.
             tmp_file = file(tmp_file_name, "rb")
             file_size = os.path.getsize(tmp_file_name)
-            progress_dialog = self.ui.get_progress_dialog()
-            progress_dialog.set_range(0, file_size)
-            # Send tar file across.
-            progress_dialog.set_text("Sending media files to client...")
-            buffer = str(file_size) + "\n" + tmp_file.read(BUFFER_SIZE)
-            count = BUFFER_SIZE
-            while buffer:
-                progress_dialog.set_value(count)
-                yield buffer
-                buffer = tmp_file.read(BUFFER_SIZE)
-                count += BUFFER_SIZE
-            progress_dialog.set_value(file_size)
+            for buffer in self._stream_binary_file(tmp_file, file_size):
+                yield buffer            
             os.remove(tmp_file_name)
             os.chdir(saved_path)
         except:

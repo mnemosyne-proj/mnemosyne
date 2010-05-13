@@ -27,6 +27,7 @@ class Widget(MainWidget):
     def error_box(self, error):
         print error
 
+PORT = 9191
         
 class MyServer(Server, Thread):
 
@@ -71,7 +72,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "server_machine_id", "127.0.0.1", 9183,
+        Server.__init__(self, "server_machine_id", "127.0.0.1", PORT,
                         self.mnemosyne.main_widget())
         if not self.binary_download:
             self.supports_binary_log_download = lambda x,y : False
@@ -118,7 +119,7 @@ class MyClient(Client):
     def do_sync(self):
         global server_lock
         server_lock.acquire()
-        self.sync("127.0.0.1", 9183, self.user, self.password)
+        self.sync("127.0.0.1", PORT, self.user, self.password)
         server_lock.release()
 
 
