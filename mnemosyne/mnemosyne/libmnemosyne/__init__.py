@@ -169,7 +169,7 @@ class Mnemosyne(Component):
         basedir = self.config().basedir
         plugindir = unicode(os.path.join(basedir, "plugins"))
         sys.path.insert(0, plugindir)
-        for component in os.listdir(plugindir):
+        for component in os.listdir(unicode(plugindir)):
             if component.endswith(".py"):
                 try:
                     __import__(component[:-3])

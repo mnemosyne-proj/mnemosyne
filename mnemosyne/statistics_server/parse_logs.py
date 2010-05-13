@@ -62,7 +62,8 @@ class LogDatabase(object):
         self.parser = TxtLogParser(database=self)
         self._delete_indices()  # Takes too long while parsing.
         filenames = [os.path.join(self.log_dir, filename) for filename in \
-            sorted(os.listdir(self.log_dir)) if filename.endswith(".bz2")]
+            sorted(os.listdir(unicode(self.log_dir))) if \
+            filename.endswith(".bz2")]
         filenames_count = len(filenames)
         for counter, filename in enumerate(filenames):
             sys.stdout.flush()

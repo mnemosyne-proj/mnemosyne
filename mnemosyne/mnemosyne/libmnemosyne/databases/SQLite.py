@@ -374,7 +374,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Only keep the last logs.
         if self.config()["backups_to_keep"] < 0:
             return backupfile
-        files = [f for f in os.listdir(backupdir) \
+        files = [f for f in os.listdir(unicode(backupdir)) \
                 if f.startswith(db_name + "-")]
         files.sort()
         if len(files) > self.config()["backups_to_keep"]:

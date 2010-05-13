@@ -119,7 +119,7 @@ class Mnemosyne1Mem(FileFormat):
                 _("No history found to import."))
             return
         filenames = [os.path.join(log_dir, logname) for logname in \
-            sorted(os.listdir(log_dir)) if logname.endswith(".bz2")]       
+            sorted(os.listdir(unicode(log_dir))) if logname.endswith(".bz2")]       
         # log.txt can also contain data we need to import, especially on the
         # initial upgrade from 1.x. 'ids_to_parse' will make sure we only pick
         # up the relevant events. (If we do the importing after having used

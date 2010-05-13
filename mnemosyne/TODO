@@ -1,7 +1,5 @@
 -benchmark initial database copy on WM
 
--cdata, encode for deck name, unicode + test
-
 -mechanism to prevent different instantiations from uploading logs twice
 -store machine id in log_name too
 -fix 'correct_config', log parser
