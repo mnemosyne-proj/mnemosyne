@@ -1,7 +1,5 @@
 -benchmark initial database copy on WM
 
--factor out binary streaming
-
 -mechanism to prevent different instantiations from uploading logs twice
 -store machine id in log_name too
 -fix 'correct_config', log parser
@@ -39,7 +37,6 @@
 
 -hack tarfile to add progress bar?
 -add modulo to progress dialogs
--extract binary file server for reuse, apply to initial sync and media
 
 -rename media files-> external files?
 -add tests with unicode in basedir
