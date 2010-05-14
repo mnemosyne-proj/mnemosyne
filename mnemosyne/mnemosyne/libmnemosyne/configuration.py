@@ -198,6 +198,9 @@ class Configuration(Component, dict):
             print >> f, str(uuid.uuid4())
             f.close()
 
+    def machine_id(self):
+        return file(os.path.join(self.basedir, "machine.id")).readline()
+
     def load_user_config(self):
         sys.path.insert(0, self.basedir)
         config_file_c = os.path.join(self.basedir, "config.pyc")
@@ -235,7 +238,7 @@ class Configuration(Component, dict):
             history_files.sort()
             if history_files:
                 last = history_files[-1]
-                user, index = last.split('_')
+                user, index = last.rsplit('_', 1)
                 index = int(index.split('.')[0]) + 1
 
     def change_user_id(self, new_user_id):

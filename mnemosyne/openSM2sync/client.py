@@ -60,6 +60,10 @@ class Client(object):
     # On SD cards copying a large database for the backup before sync can take
     # a long time, so we offer reckless users the possibility to skip this.
     do_backup = True
+    # Setting this to False will leave all the uploading of anonymous science
+    # logs to the sync server. Recommended to set this to False for mobile
+    # clients, which are not always guaranteed to have internet connection.
+    uploads_anonymous_logs = True
     
     def __init__(self, machine_id, database, ui):
         self.machine_id = machine_id
@@ -99,7 +103,7 @@ class Client(object):
 
     def login(self, hostname, port, username, password):
         self.ui.status_bar_message("Logging in...")
-        if 1:
+        try:
             client_info = {}
             client_info["username"] = username
             client_info["password"] = password
@@ -110,6 +114,7 @@ class Client(object):
             client_info["capabilities"] = self.capabilities
             client_info["database_name"] = self.database.name()
             client_info["interested_in_old_reps"] = self.interested_in_old_reps
+            client_info["uploads_anonymous_logs"] = self.uploads_anonymous_logs            
             # Not yet implemented: downloading cards as pictures.
             client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
             client_info["cards_pictures_res"] = "320x200"
@@ -129,7 +134,7 @@ class Client(object):
                 raise SyncError("mismatched user_ids.")
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
-        else:# Exception, exception:
+        except Exception, exception:
             raise SyncError("login: " + str(exception))
         
     def put_client_log_entries(self):
@@ -276,4 +281,7 @@ class Client(object):
             raise SyncError("Sync finish: " + str(exception))
         self.database.update_last_sync_log_entry_for(\
             self.server_info["machine_id"])
+        if not self.uploads_anonymous_logs:
+            self.database.skip_txt_log() # The server will upload those.
+            
             

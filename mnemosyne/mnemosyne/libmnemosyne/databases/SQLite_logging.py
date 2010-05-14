@@ -143,6 +143,8 @@ class SQLiteLogging(object):
             (EventTypes.DELETED_MEDIA, int(timestamp), filename))
     
     def dump_to_txt_log(self):
+        if self.config()["upload_logs"] == False:
+            return
         # Open log file and get starting index.
         logname = os.path.join(self.config().basedir, "log.txt")
         logfile = file(logname, "a")
@@ -194,6 +196,19 @@ class SQLiteLogging(object):
             elif event_type == EventTypes.STOPPED_PROGRAM:
                 print >> logfile, "%s : Program stopped" % (timestamp, )               
         # Update partnership index.
+        self.con.execute(\
+            "update partnerships set _last_log_id=? where partner=?",
+            (index, "log.txt"))
+
+    def skip_txt_log(self):
+
+        """Bring forward the last_log_id for the log.txt partnership, e.g.
+        because some other machine took care of uploading these logs.
+
+        """
+        
+        index = self.con.execute(\
+            "select _id from log order by _id desc limit 1").fetchone()[0] 
         self.con.execute(\
             "update partnerships set _last_log_id=? where partner=?",
             (index, "log.txt"))

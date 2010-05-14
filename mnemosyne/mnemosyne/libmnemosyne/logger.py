@@ -17,8 +17,7 @@ class Logger(Component):
         self.upload_thread = None
         self.archive_old_log()
         self.start_logging()
-        if self.config()["upload_logs"] and \
-               not self.config().resource_limited:
+        if self.config()["upload_logs"]:
             from mnemosyne.libmnemosyne.log_uploader import LogUploader
             self.upload_thread = LogUploader(self.component_manager)
             self.upload_thread.start()
@@ -123,7 +122,9 @@ class Logger(Component):
     def archive_old_log(self):
         
         """Archive log to history folder if it's large enough."""
-        
+
+        if not self.config()["upload_logs"]:
+            return
         basedir = self.config().basedir
         log_name = os.path.join(basedir, "log.txt")
         try:
@@ -132,8 +133,9 @@ class Logger(Component):
             log_size = 0
         if log_size > 64000:
             user = self.config()["user_id"]
+            machine = self.config().machine_id()
             index = self.config()["log_index"]
-            archive_name = "%s_%05d.bz2" % (user, index)
+            archive_name = "%s_%s_%05d.bz2" % (user, machine, index)
             if not self.config().resource_limited:
                 import bz2
                 f = bz2.BZ2File(os.path.join(basedir, "history",

@@ -1,8 +1,6 @@
 -benchmark initial database copy on WM
 
--mechanism to prevent different instantiations from uploading logs twice
--store machine id in log_name too
--fix 'correct_config', log parser
+-add tests for mechanism to prevent different instantiations from uploading logs twice
 
 -can we do triangular sync if internal log ids are different? Partnership index
  local or global?
@@ -77,7 +75,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 >         args = (fact.card_type.id,)
 >         if fact._id:
 >             query += " and not _id=?"
->             args = (fact.card_type.id, fact._id)
+ >             args = (fact.card_type.id, fact._id)
 >         duplicates = []            
 >         for cursor in self.con.execute(query, args):
 >             data = dict([(cursor2["key"], cursor2["value"]) for cursor2 in \
@@ -330,6 +328,9 @@ pylint:
 -card type with prefilled fields
 
 -update ohloh?
+
+-synchronise history folder to guard against mobile clients not uploading their
+ logs, even though they set upload_logs=True?
 
 -skritter/cpod interop mail
 

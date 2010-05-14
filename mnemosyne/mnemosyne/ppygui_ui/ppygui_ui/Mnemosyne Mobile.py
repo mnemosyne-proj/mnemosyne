@@ -74,6 +74,7 @@ mnemosyne.components = [
 
 # Run Mnemosyne.
 mnemosyne.initialise(basedir=basedir)
+mnemosyne.config()["upload_logs"] = False
 app.mainframe = mnemosyne.main_widget()
 app.run()
 mnemosyne.finalise()
