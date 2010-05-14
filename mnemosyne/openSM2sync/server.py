@@ -217,7 +217,7 @@ class Server(WSGIServer):
         # We check if files were updated outside of the program. This can
         # generate MEDIA_UPDATED log entries, so it should be done first.
         session.database.check_for_updated_media_files()
-        if client_info["uploads_anonymous_logs"]:
+        if client_info["upload_science_logs"]:
             session.database.dump_to_txt_log()
             # Now, we can safely skip over the client log entries after sync.
         return self.text_format.repr_partner_info(server_info).encode("utf-8")
@@ -363,7 +363,7 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         # Skip over the logs that the client promised to upload.
         session = self.sessions[session_token]
-        if session.client_info["uploads_anonymous_logs"]:
+        if session.client_info["upload_science_logs"]:
             session.database.skip_txt_log()
         self.close_session_with_token(session_token)
         # Now is a good time to garbage-collect dangling sessions.

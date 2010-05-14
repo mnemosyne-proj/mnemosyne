@@ -17,7 +17,7 @@ class Logger(Component):
         self.upload_thread = None
         self.archive_old_log()
         self.start_logging()
-        if self.config()["upload_logs"]:
+        if self.config()["upload_science_logs"]:
             from mnemosyne.libmnemosyne.log_uploader import LogUploader
             self.upload_thread = LogUploader(self.component_manager)
             self.upload_thread.start()
@@ -123,7 +123,7 @@ class Logger(Component):
         
         """Archive log to history folder if it's large enough."""
 
-        if not self.config()["upload_logs"]:
+        if not self.config()["upload_science_logs"]:
             return
         basedir = self.config().basedir
         log_name = os.path.join(basedir, "log.txt")

@@ -48,6 +48,9 @@ class UpgradeConfig(Component):
             del config["sort_column"]            
             del config["sort_order"]
             del config["locale"]
+            config["upload_science_logs"] = config["upload_logs"]
+            del config["upload_logs"]
+            del config["upload_server"]
             # Migrate latex settings.
             setting_for_file = {"dvipng": "dvipng",
                                 "preamble": "latex_preamble",

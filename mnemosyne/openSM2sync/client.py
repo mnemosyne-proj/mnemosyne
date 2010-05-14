@@ -63,7 +63,7 @@ class Client(object):
     # Setting this to False will leave all the uploading of anonymous science
     # logs to the sync server. Recommended to set this to False for mobile
     # clients, which are not always guaranteed to have internet connection.
-    uploads_anonymous_logs = True
+    upload_science_logs = True
     
     def __init__(self, machine_id, database, ui):
         self.machine_id = machine_id
@@ -114,7 +114,7 @@ class Client(object):
             client_info["capabilities"] = self.capabilities
             client_info["database_name"] = self.database.name()
             client_info["interested_in_old_reps"] = self.interested_in_old_reps
-            client_info["uploads_anonymous_logs"] = self.uploads_anonymous_logs            
+            client_info["upload_science_logs"] = self.upload_science_logs            
             # Not yet implemented: downloading cards as pictures.
             client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
             client_info["cards_pictures_res"] = "320x200"
@@ -281,7 +281,7 @@ class Client(object):
             raise SyncError("Sync finish: " + str(exception))
         self.database.update_last_sync_log_entry_for(\
             self.server_info["machine_id"])
-        if not self.uploads_anonymous_logs:
+        if not self.upload_science_logs:
             self.database.skip_txt_log() # The server will upload those.
             
             

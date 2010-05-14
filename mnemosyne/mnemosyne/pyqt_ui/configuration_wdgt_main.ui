@@ -132,13 +132,13 @@
      <item>
       <widget class="QGroupBox" name="groupBox_3">
        <property name="title">
-        <string>Log uploading</string>
+        <string>Science</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QCheckBox" name="upload_logs">
+         <widget class="QCheckBox" name="upload_science_logs">
           <property name="text">
-           <string>Upload anonymous logs</string>
+           <string>Upload anonymous science logs</string>
           </property>
           <property name="checked">
            <bool>true</bool>

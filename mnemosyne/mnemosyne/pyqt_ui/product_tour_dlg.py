@@ -42,7 +42,7 @@ class ProductTourDlg(ProductTourFrm):
 
     def accept(self):
 
-        set_config("upload_logs", self.uploadLogs.isOn())
+        set_config("upload_science_logs", self.uploadLogs.isOn())
 
         update_logging_status()             
 

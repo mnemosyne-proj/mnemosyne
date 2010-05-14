@@ -80,7 +80,7 @@ def startup():
 
     
 def create_database():    
-    mnemosyne.config()["upload_logs"] = False
+    mnemosyne.config()["upload_science_logs"] = False
     mnemosyne.database().new(mnemosyne.config()["path"])
     for i in range(number_of_facts):
         fact_data = {"q": "question" + str(i),
@@ -138,7 +138,7 @@ def activate():
     mnemosyne.database().set_current_activity_criterion(c)  
 
 def finalise():
-    mnemosyne.config()["upload_logs"] = False
+    mnemosyne.config()["upload_science_logs"] = False
     mnemosyne.finalise()
 
 def do_import():

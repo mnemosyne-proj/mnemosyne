@@ -44,10 +44,10 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.media_controls.setCheckState(QtCore.Qt.Checked)
         else:
             self.media_controls.setCheckState(QtCore.Qt.Unchecked)
-        if self.config()["upload_logs"] == True:
-            self.upload_logs.setCheckState(QtCore.Qt.Checked)
+        if self.config()["upload_science_logs"] == True:
+            self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         else:
-            self.upload_logs.setCheckState(QtCore.Qt.Unchecked)
+            self.upload_science_logs.setCheckState(QtCore.Qt.Unchecked)
             
     def reset_to_defaults(self):
         self.new_cards.setCurrentIndex(0)
@@ -57,7 +57,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
                 QtCore.Qt.Unchecked)
         self.media_autoplay.setCheckState(QtCore.Qt.Checked)
         self.media_controls.setCheckState(QtCore.Qt.Unchecked)
-        self.upload_logs.setCheckState(QtCore.Qt.Checked)
+        self.upload_science_logs.setCheckState(QtCore.Qt.Checked)
         
     def apply(self):
         if self.new_cards.currentIndex() == 1:
@@ -82,8 +82,8 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.config()["media_controls"] = True
         else:
             self.config()["media_controls"] = False
-        if self.upload_logs.checkState() == QtCore.Qt.Checked:
-            self.config()["upload_logs"] = True
+        if self.upload_science_logs.checkState() == QtCore.Qt.Checked:
+            self.config()["upload_science_logs"] = True
         else:
-            self.config()["upload_logs"] = False
+            self.config()["upload_science_logs"] = False
             

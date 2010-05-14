@@ -14,8 +14,8 @@ from mnemosyne.libmnemosyne.utils import traceback_string
 config_py = \
 """# Mnemosyne configuration file.
 
-# Upload server. Only change when prompted by the developers.
-upload_server = "mnemosyne-proj.dyndns.org:80"
+# Science server. Only change when prompted by the developers.
+science_server = "mnemosyne-proj.dyndns.org:80"
 
 # Set to True to prevent you from accidentally revealing the answer
 # when clicking the edit button.
@@ -86,8 +86,8 @@ class Configuration(Component, dict):
              "import_sound_dir": self.basedir,
              "import_video_dir": self.basedir,
              "user_id": None,
-             "upload_logs": False, 
-             "upload_server": "mnemosyne-proj.dyndns.org:80",
+             "upload_science_logs": False, 
+             "science_server": "mnemosyne-proj.dyndns.org:80",
              "log_index": 1, 
              "font": {}, # [card_type.id][fact_key]
              "background_colour": {}, # [card_type.id]             

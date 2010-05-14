@@ -143,7 +143,7 @@ class SQLiteLogging(object):
             (EventTypes.DELETED_MEDIA, int(timestamp), filename))
     
     def dump_to_txt_log(self):
-        if self.config()["upload_logs"] == False:
+        if self.config()["upload_science_logs"] == False:
             return
         # Open log file and get starting index.
         logname = os.path.join(self.config().basedir, "log.txt")

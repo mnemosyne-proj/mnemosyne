@@ -1,5 +1,7 @@
 -benchmark initial database copy on WM
 
+-rename dump_to_txt_log science log
+
 -add tests for mechanism to prevent different instantiations from uploading logs twice
 
 -can we do triangular sync if internal log ids are different? Partnership index
