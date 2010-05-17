@@ -142,7 +142,7 @@ class SQLiteLogging(object):
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_MEDIA, int(timestamp), filename))
     
-    def dump_to_txt_log(self):
+    def dump_to_science_log(self):
         if self.config()["upload_science_logs"] == False:
             return
         # Open log file and get starting index.
@@ -200,7 +200,7 @@ class SQLiteLogging(object):
             "update partnerships set _last_log_id=? where partner=?",
             (index, "log.txt"))
 
-    def skip_txt_log(self):
+    def skip_science_log(self):
 
         """Bring forward the last_log_id for the log.txt partnership, e.g.
         because some other machine took care of uploading these logs.

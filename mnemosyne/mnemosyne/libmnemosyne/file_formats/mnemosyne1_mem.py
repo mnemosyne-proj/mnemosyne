@@ -13,7 +13,7 @@ import calendar
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.file_format import FileFormat
-from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
+from mnemosyne.libmnemosyne.loggers.science_log_parser import ScienceLogParser
         
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
@@ -38,10 +38,11 @@ class Mnemosyne1Mem(FileFormat):
         if result:
             return result
         db.remove_card_log_entries_since(log_index)
-        # The events that we import from the txt logs obviously should not be
-        # reexported to txt logs. So, before the import, we flush the SQL logs
-        # to the txt logs, and after the import we update the partership index.
-        db.dump_to_txt_log()
+        # The events that we import from the science logs obviously should not
+        # be reexported to these logs. So, before the import, we flush the SQL
+        # logs to the science logs, and after the import we update the
+        # partership index.
+        db.dump_to_science_log()
         self._import_logs(filename)
         db.update_last_sync_log_entry_for("log.txt")
         # Force an ADDED_CARD log entry for those cards that did not figure in
@@ -112,7 +113,8 @@ class Mnemosyne1Mem(FileFormat):
     def _import_logs(self, filename):
         progress = self.main_widget().get_progress_dialog()
         progress.set_text(_("Importing history..."))
-        parser = TxtLogParser(self.database(), ids_to_parse=self.items_by_id)
+        parser = ScienceLogParser(self.database(),
+            ids_to_parse=self.items_by_id)
         log_dir = os.path.join(os.path.dirname(filename), "history")
         if not os.path.exists(log_dir):
             self.main_widget().information_box(\

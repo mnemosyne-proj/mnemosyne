@@ -392,7 +392,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     def unload(self):
         for f in self.component_manager.get_all("hook", "before_unload"):
             f.run()
-        self.log().dump_to_txt_log()
+        self.log().dump_to_science_log()
         if self._connection:
             self.save()
             self._connection.close()

@@ -1,5 +1,5 @@
 #
-# txt_log_parser.py <Peter.Bienstman@UGent.be> starting from code of
+# science_log_parser.py <Peter.Bienstman@UGent.be> starting from code of
 # Ryan Michael <kerinin@gmail.com> and Joonatan Kaartinen <jkaartinen@iki.fi>
 #
 
@@ -13,7 +13,7 @@ from mnemosyne.libmnemosyne.utils import traceback_string
 DAY = 24 * 60 * 60 # Seconds in a day.
 
 
-class TxtLogParser(object):
+class ScienceLogParser(object):
 
     """Parse the txt logs and write the info it contains to a database
     object.

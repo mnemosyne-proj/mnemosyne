@@ -51,7 +51,7 @@ class TestLogging(MnemosyneTest):
         self.review_controller().new_question()        
         self.controller().delete_current_fact()
 
-        self.log().dump_to_txt_log()
+        self.log().dump_to_science_log()
 
         sql_res = self.database().con.execute(\
             "select * from log where _id=1").fetchone()

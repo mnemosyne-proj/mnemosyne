@@ -218,7 +218,7 @@ class Server(WSGIServer):
         # generate MEDIA_UPDATED log entries, so it should be done first.
         session.database.check_for_updated_media_files()
         if client_info["upload_science_logs"]:
-            session.database.dump_to_txt_log()
+            session.database.dump_to_science_log()
             # Now, we can safely skip over the client log entries after sync.
         return self.text_format.repr_partner_info(server_info).encode("utf-8")
 
@@ -364,7 +364,7 @@ class Server(WSGIServer):
         # Skip over the logs that the client promised to upload.
         session = self.sessions[session_token]
         if session.client_info["upload_science_logs"]:
-            session.database.skip_txt_log()
+            session.database.skip_science_log()
         self.close_session_with_token(session_token)
         # Now is a good time to garbage-collect dangling sessions.
         for session in self.sessions:

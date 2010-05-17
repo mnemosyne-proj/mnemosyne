@@ -9,8 +9,8 @@ from nose.tools import raises
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from openSM2sync.log_entry import EventTypes
-from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+from mnemosyne.libmnemosyne.loggers.science_log_parser import ScienceLogParser
 
 class Widget(MainWidget):
         
@@ -261,7 +261,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_1.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -311,7 +311,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_2.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -329,7 +329,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_3.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -355,7 +355,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_4.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -388,7 +388,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_5.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -424,7 +424,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "new_6.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -465,7 +465,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "imported_1.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -498,7 +498,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "imported_2.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -519,7 +519,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "imported_3.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -528,7 +528,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "restored_1.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -554,7 +554,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "restored_2.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1           
@@ -563,7 +563,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "actinterval_1.txt")
-        TxtLogParser(self.database()).parse(filename)             
+        ScienceLogParser(self.database()).parse(filename)             
         assert self.database().con.execute(\
             """select actual_interval from log where event_type=? and object_id='f1300e5a'
             order by _id desc limit 1""",
@@ -573,7 +573,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "delete_1.txt")
-        TxtLogParser(self.database()).parse(filename)             
+        ScienceLogParser(self.database()).parse(filename)             
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
@@ -585,7 +585,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "corrupt_1.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
@@ -597,7 +597,7 @@ class TestMemImport(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "corrupt_2.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 0

@@ -110,13 +110,7 @@ class Logger(Component):
     def deleted_media(self, filename):
         pass
 
-    def dump_to_txt_log(self):
-
-        """If we're not logging to a standard text file, we need to dump the
-        collected logs to such a file from time to time for uploading.
-
-        """
-        
+    def dump_to_science_log(self):
         pass
         
     def archive_old_log(self):

@@ -98,6 +98,6 @@ class DatabaseLogger(Logger):
     def deleted_media(self, filename):
         self.database().log_deleted_media(self.timestamp, filename)
             
-    def dump_to_txt_log(self):
-        self.database().dump_to_txt_log()
+    def dump_to_science_log(self):
+        self.database().dump_to_science_log()
         

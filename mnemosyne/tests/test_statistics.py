@@ -8,7 +8,7 @@ import datetime
 from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
-from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
+from mnemosyne.libmnemosyne.loggers.science_log_parser import ScienceLogParser
 
 
 class TestStatistics(MnemosyneTest):
@@ -53,7 +53,7 @@ class TestStatistics(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "schedule_1.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         days_elapsed = datetime.date.today() - datetime.date(2009, 8, 15)
         assert self.scheduler().card_count_scheduled_n_days_from_now(\
             -days_elapsed.days) == 124
@@ -75,7 +75,7 @@ class TestStatistics(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "added_1.txt")
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         days_elapsed = datetime.date.today() - datetime.date(2009, 8, 19)
         assert self.database().card_count_added_n_days_ago(days_elapsed.days) \
                == 2
@@ -97,7 +97,7 @@ class TestStatistics(MnemosyneTest):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
         self.database().before_mem_import()
         filename = os.path.join(os.getcwd(), "tests", "files", "score_1.txt")        
-        TxtLogParser(self.database()).parse(filename)
+        ScienceLogParser(self.database()).parse(filename)
         days_elapsed = datetime.date.today() - datetime.date(2009, 8, 17)
         assert self.database().retention_score_n_days_ago(days_elapsed.days) \
                == 5/7.*100

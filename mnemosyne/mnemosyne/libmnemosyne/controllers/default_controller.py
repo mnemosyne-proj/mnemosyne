@@ -26,7 +26,7 @@ class DefaultController(Controller):
         self.database().backup()
         self.log().saved_database()
         self.log().loaded_database()        
-        self.log().dump_to_txt_log()
+        self.log().dump_to_science_log()
         self.log().deactivate()
         self.log().activate()
         

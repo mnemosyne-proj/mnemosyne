@@ -7,7 +7,7 @@ import sys
 import sqlite3
 
 from openSM2sync.log_event import EventCodes as Event
-from mnemosyne.libmnemosyne.loggers.txt_log_parser import TxtLogParser
+from mnemosyne.libmnemosyne.loggers.science_log_parser import ScienceLogParser
 
 
 SCHEMA = """
@@ -59,7 +59,7 @@ class LogDatabase(object):
             self.con.executescript(SCHEMA)
 
     def parse_directory(self):       
-        self.parser = TxtLogParser(database=self)
+        self.parser = ScienceLogParser(database=self)
         self._delete_indices()  # Takes too long while parsing.
         filenames = [os.path.join(self.log_dir, filename) for filename in \
             sorted(os.listdir(unicode(self.log_dir))) if \

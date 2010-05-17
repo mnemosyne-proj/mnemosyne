@@ -282,6 +282,6 @@ class Client(object):
         self.database.update_last_sync_log_entry_for(\
             self.server_info["machine_id"])
         if not self.upload_science_logs:
-            self.database.skip_txt_log() # The server will upload those.
+            self.database.skip_science_log() # The server will upload those.
             
             
