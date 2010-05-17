@@ -27,7 +27,7 @@ class Widget(MainWidget):
     def error_box(self, error):
         print error
 
-PORT = 9193
+PORT = 9194
         
 class MyServer(Server, Thread):
 
@@ -951,4 +951,47 @@ class TestSync(object):
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 8
+
+
+    def test_dont_upload_science_logs(self):
+
+        def fill_server_database(self):
+            self.mnemosyne.config()["upload_science_logs"] = True  
+            fact_data = {"q": "a^2",
+                         "a": "c^2"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            self.card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["my_tag"])[0]
+            self.mnemosyne.review_controller().learning_ahead = True
+            self.mnemosyne.review_controller().new_question()
+            self.mnemosyne.review_controller().grade_answer(5)
+            self.mnemosyne.controller().file_save()
+            self.i = self.mnemosyne.database().last_synced_log_entry_for("log.txt")
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.con.execute("select count() from log where event_type=?",
+               (EventTypes.REPETITION, )).fetchone()[0] == 2
+            import sys; sys.stderr.write(str(self.i) + " " + str(self.mnemosyne.database().last_synced_log_entry_for("log.txt")))
+            assert self.i == self.mnemosyne.database().last_synced_log_entry_for("log.txt")
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.interested_in_old_reps = False
+        self.client.upload_science_logs = False        
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.server.client_tag_id = tag.id
+        self.client.mnemosyne.controller().file_save()
+        self.i = self.client.database.last_synced_log_entry_for("log.txt")
+        self.client.do_sync()
+        db = self.client.database
+        assert db.con.execute("select count() from log where event_type=?",
+               (EventTypes.REPETITION, )).fetchone()[0] == 0
+        import sys; sys.stderr.write(str(self.i) + " " + str(self.client.database.last_synced_log_entry_for("log.txt")))
+        assert self.i < self.client.database.last_synced_log_entry_for("log.txt")
         
