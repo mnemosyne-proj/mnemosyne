@@ -180,6 +180,8 @@ class Client(object):
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")
         try:
+            if self.upload_science_logs:
+                self.database.dump_to_science_log()
             self.con.request("GET", "/server/log_entries?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
@@ -196,6 +198,9 @@ class Client(object):
                 count += 1
                 progress_dialog.set_value(count)
             progress_dialog.set_value(number_of_entries)
+            # The server will always upload the science logs of the log events
+            # which originated at the server side.
+            self.database.skip_science_log()
         except Exception, exception:
             raise SyncError("Getting server log entries: " + str(exception))
         
@@ -281,7 +286,5 @@ class Client(object):
             raise SyncError("Sync finish: " + str(exception))
         self.database.update_last_sync_log_entry_for(\
             self.server_info["machine_id"])
-        if not self.upload_science_logs:
-            self.database.skip_science_log() # The server will upload those.
             
             

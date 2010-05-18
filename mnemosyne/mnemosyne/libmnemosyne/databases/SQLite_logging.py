@@ -196,9 +196,10 @@ class SQLiteLogging(object):
             elif event_type == EventTypes.STOPPED_PROGRAM:
                 print >> logfile, "%s : Program stopped" % (timestamp, )               
         # Update partnership index.
-        self.con.execute(\
+        if index:
+            self.con.execute(\
             "update partnerships set _last_log_id=? where partner=?",
-            (index, "log.txt"))
+                (index, "log.txt"))
 
     def skip_science_log(self):
 
@@ -212,7 +213,7 @@ class SQLiteLogging(object):
         self.con.execute(\
             "update partnerships set _last_log_id=? where partner=?",
             (index, "log.txt"))
-
+        
     # The following functions are only used when importing pre-2.0 cards and
     # logs. They are needed to store temporary data about cards which is used
     # during the parsing process.

@@ -27,7 +27,7 @@ class Widget(MainWidget):
     def error_box(self, error):
         print error
 
-PORT = 9194
+PORT = 9196
         
 class MyServer(Server, Thread):
 
@@ -966,15 +966,15 @@ class TestSync(object):
             self.mnemosyne.review_controller().new_question()
             self.mnemosyne.review_controller().grade_answer(5)
             self.mnemosyne.controller().file_save()
-            self.i = self.mnemosyne.database().last_synced_log_entry_for("log.txt")
 
         def test_server(self):
             db = self.mnemosyne.database()
             assert db.con.execute("select count() from log where event_type=?",
-               (EventTypes.REPETITION, )).fetchone()[0] == 2
-            import sys; sys.stderr.write(str(self.i) + " " + str(self.mnemosyne.database().last_synced_log_entry_for("log.txt")))
-            assert self.i == self.mnemosyne.database().last_synced_log_entry_for("log.txt")
-
+               (EventTypes.REPETITION, )).fetchone()[0] == 3
+            db.dump_to_science_log()
+            f = file(os.path.join(os.path.abspath("dot_sync_server"), "log.txt"))
+            assert len(f.readlines()) == 13
+            
         self.server = MyServer()
         self.server.test_server = test_server
         self.server.fill_server_database = fill_server_database
@@ -982,16 +982,68 @@ class TestSync(object):
 
         self.client = MyClient()
         self.client.interested_in_old_reps = False
-        self.client.upload_science_logs = False        
-        tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
-        self.server.client_tag_id = tag.id
+        self.client.upload_science_logs = False
+        self.client.mnemosyne.config()["upload_science_logs"] = False
+        fact_data = {"q": "a^2",
+                     "a": "b^2"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["my_tag"])[0]
         self.client.mnemosyne.controller().file_save()
         self.i = self.client.database.last_synced_log_entry_for("log.txt")
         self.client.do_sync()
+        self.client.database.dump_to_science_log()
+        
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
-               (EventTypes.REPETITION, )).fetchone()[0] == 0
-        import sys; sys.stderr.write(str(self.i) + " " + str(self.client.database.last_synced_log_entry_for("log.txt")))
+               (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.i < self.client.database.last_synced_log_entry_for("log.txt")
+        assert not os.path.exists(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
+        
+    def test_do_upload_science_logs(self):
+
+        def fill_server_database(self):
+            self.mnemosyne.config()["upload_science_logs"] = True  
+            fact_data = {"q": "a^2",
+                         "a": "c^2"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            self.card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["my_tag"])[0]
+            self.mnemosyne.review_controller().learning_ahead = True
+            self.mnemosyne.review_controller().new_question()
+            self.mnemosyne.review_controller().grade_answer(5)
+            self.mnemosyne.controller().file_save()
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.con.execute("select count() from log where event_type=?",
+               (EventTypes.REPETITION, )).fetchone()[0] == 3
+            db.dump_to_science_log()
+            f = file(os.path.join(os.path.abspath("dot_sync_server"), "log.txt"))
+            assert len(f.readlines()) == 7
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.interested_in_old_reps = False
+        self.client.upload_science_logs = True
+        self.client.mnemosyne.config()["upload_science_logs"] = True
+        fact_data = {"q": "a^2",
+                     "a": "b^2"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["my_tag"])[0]
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.database.dump_to_science_log()
+        assert self.client.database.last_synced_log_entry_for("log.txt") != 0        
+        
+        db = self.client.database
+        assert db.con.execute("select count() from log where event_type=?",
+               (EventTypes.REPETITION, )).fetchone()[0] == 1
+        f = file(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
+        assert len(f.readlines()) == 6       
         

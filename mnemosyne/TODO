@@ -1,5 +1,3 @@
--add tests for mechanism to prevent different instantiations from uploading logs twice
-
 -can we do triangular sync if internal log ids are different? Partnership index
  local or global?
 -sync complete partnership status? local + global? or only enough to avoid/allow triple sync.

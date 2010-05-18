@@ -217,9 +217,6 @@ class Server(WSGIServer):
         # We check if files were updated outside of the program. This can
         # generate MEDIA_UPDATED log entries, so it should be done first.
         session.database.check_for_updated_media_files()
-        if client_info["upload_science_logs"]:
-            session.database.dump_to_science_log()
-            # Now, we can safely skip over the client log entries after sync.
         return self.text_format.repr_partner_info(server_info).encode("utf-8")
 
     def put_client_log_entries(self, environ, session_token):
@@ -282,8 +279,14 @@ class Server(WSGIServer):
         yield buffer.encode("utf-8")
         # Now that all the data is underway to the client, we can start
         # applying the client log entries.
+        # First, dump to the science log, so that we can skip over the new
+        # logs in case the client uploads them.
+        session.database.dump_to_science_log()
         for log_entry in session.client_log:
             session.database.apply_log_entry(log_entry)
+        # Skip over the logs that the client promised to upload.
+        if session.client_info["upload_science_logs"]:
+            session.database.skip_science_log()     
 
     def _stream_binary_file(self, binary_file, file_size):
         progress_dialog = self.ui.get_progress_dialog()
@@ -361,15 +364,11 @@ class Server(WSGIServer):
 
     def get_sync_finish(self, environ, session_token):
         self.ui.status_bar_message("Waiting for client to finish...")
-        # Skip over the logs that the client promised to upload.
-        session = self.sessions[session_token]
-        if session.client_info["upload_science_logs"]:
-            session.database.skip_science_log()
-        self.close_session_with_token(session_token)
+        self.close_session_with_token(session_token) 
         # Now is a good time to garbage-collect dangling sessions.
         for session in self.sessions:
             if session.is_expired():
-                self.terminate_session_with_token(session.token)                
+                self.terminate_session_with_token(session.token)  
         if self.stop_after_sync:
             self.stop()
         return "OK"
