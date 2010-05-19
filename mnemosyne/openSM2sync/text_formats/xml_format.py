@@ -34,20 +34,28 @@ class XMLFormat(object):
     def repr_partner_info(self, info):          
         repr_info = " <partner "
         for key, value in info.iteritems():
-            repr_info += "%s='%s' " % (key, value)
+            if key.lower() == "partnerships":
+                for partner, last_log_id in value.iteritems():
+                    repr_info += "partner_%s='%s' " % (partner, last_log_id)
+            else:
+                repr_info += "%s='%s' " % (key, value)
         repr_info += "protocol_version='%s'></partner>" % (PROTOCOL_VERSION, )
         return repr_info
 
     def parse_partner_info(self, xml):
         parsed_xml = cElementTree.fromstring(xml)
-        partner_info = {}
+        partner_info = {"partnerships": {}}
         for key in parsed_xml.keys():
             value = parsed_xml.get(key)
             if value.lower() == "true":
                 value = True
             elif value.lower() == "false":
                 value = False
-            partner_info[key] = value
+            if key.lower().startswith("partner_"):
+                partner = key.split("_", 1)[1]
+                partner_info["partnerships"][partner] = int(value)
+            else:
+                partner_info[key] = value
         return partner_info
 
     # The list of LogEntry keys to be passed on as attributes.

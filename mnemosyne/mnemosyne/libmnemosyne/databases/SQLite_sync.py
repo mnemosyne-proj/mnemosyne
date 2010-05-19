@@ -40,6 +40,22 @@ class SQLiteSync(object):
             self.con.execute("""insert into partnerships(partner, 
                _last_log_id) values(?,?)""", (partner, 0))
 
+    def partnerships(self):
+        partnerships = {}
+        for sql_res in self.con.execute("""select * from partnerships where
+            partner!=?""", ("log.txt", )):
+            partnerships[sql_res["partner"]] = sql_res["_last_log_id"]
+        return partnerships
+
+    def last_log_entry_index(self):
+        return self.con.execute(\
+            "select _id from log order by _id desc limit 1").fetchone()[0]
+    
+    def update_last_sync_log_entry_for(self, partner):
+        self.con.execute(\
+            "update partnerships set _last_log_id=? where partner=?",
+            (self.last_log_entry_index(), partner))        
+
     def set_sync_partner_info(self, info):
         self.sync_partner_info = info
 
@@ -404,11 +420,3 @@ class SQLiteSync(object):
             self.log().timestamp = None
             self.syncing = False
             
-    def last_log_entry_index(self):
-        return self.con.execute(\
-            "select _id from log order by _id desc limit 1").fetchone()[0]
-    
-    def update_last_sync_log_entry_for(self, partner):
-        self.con.execute(\
-            "update partnerships set _last_log_id=? where partner=?",
-            (self.last_log_entry_index(), partner))

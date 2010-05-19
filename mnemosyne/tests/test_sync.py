@@ -26,8 +26,8 @@ class Widget(MainWidget):
         
     def error_box(self, error):
         print error
-
-PORT = 9196
+        
+PORT = 9219
         
 class MyServer(Server, Thread):
 
@@ -89,7 +89,8 @@ class MyServer(Server, Thread):
         self.test_server(self)
         self.passed_tests = True
         self.mnemosyne.finalise()
-
+        self.stop()
+        
 
 class MyClient(Client):
     

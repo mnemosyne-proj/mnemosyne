@@ -1,6 +1,5 @@
--can we do triangular sync if internal log ids are different? Partnership index
- local or global?
--sync complete partnership status? local + global? or only enough to avoid/allow triple sync.
+-_last_log_id --> last_log_id
+-multipartner sync
 
 -conflict resolution
 -rather than deleting history, mark it as undone in order to keep id ordering

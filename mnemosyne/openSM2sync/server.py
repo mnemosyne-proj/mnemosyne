@@ -211,6 +211,7 @@ class Server(WSGIServer):
             "machine_id": self.machine_id,
             "program_name": self.program_name,
             "program_version": self.program_version,
+            "partnerships": session.database.partnerships(),
             "session_token": session.token,
             "supports_binary_log_download": self.supports_binary_log_download\
                 (client_info["program_name"], client_info["program_version"])}
@@ -364,11 +365,15 @@ class Server(WSGIServer):
 
     def get_sync_finish(self, environ, session_token):
         self.ui.status_bar_message("Waiting for client to finish...")
+        session = self.sessions[session_token]
+        socket = environ["wsgi.input"]
+        client_last_log_entry_index = int(socket.readline())
+        server_last_log_entry_index = session.database.last_log_entry_index()
         self.close_session_with_token(session_token) 
         # Now is a good time to garbage-collect dangling sessions.
         for session in self.sessions:
             if session.is_expired():
-                self.terminate_session_with_token(session.token)  
+                self.terminate_session_with_token(session.token)
         if self.stop_after_sync:
-            self.stop()
-        return "OK"
+            self.stopped = True
+        return str(server_last_log_entry_index)

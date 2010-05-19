@@ -113,6 +113,7 @@ class Client(object):
             client_info["program_version"] = self.program_version
             client_info["capabilities"] = self.capabilities
             client_info["database_name"] = self.database.name()
+            client_info["partnerships"] = self.database.partnerships()
             client_info["interested_in_old_reps"] = self.interested_in_old_reps
             client_info["upload_science_logs"] = self.upload_science_logs            
             # Not yet implemented: downloading cards as pictures.
@@ -278,10 +279,10 @@ class Client(object):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
             self.con.request("GET", "/sync/finish?session_token=%s" \
-                % (self.server_info["session_token"], ))
+                % (self.server_info["session_token"], ), 
+                str(self.database.last_log_entry_index()) + "\n")
             response = self.con.getresponse()
-            if response.read() != "OK":
-                raise SyncError("Sync finish: error on server side.")
+            server_last_log_entry_index = int(response.fp.readline())
         except Exception, exception:
             raise SyncError("Sync finish: " + str(exception))
         self.database.update_last_sync_log_entry_for(\
