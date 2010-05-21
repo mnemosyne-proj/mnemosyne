@@ -27,7 +27,7 @@ class Widget(MainWidget):
     def error_box(self, error):
         print error
         
-PORT = 9219
+PORT = 9237
         
 class MyServer(Server, Thread):
 
@@ -72,8 +72,8 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
-        Server.__init__(self, "server_machine_id", "127.0.0.1", PORT,
-                        self.mnemosyne.main_widget())
+        Server.__init__(self, self.mnemosyne.config().machine_id(),
+                        "127.0.0.1", PORT, self.mnemosyne.main_widget())
         if not self.binary_download:
             self.supports_binary_log_download = lambda x,y : False
         server_lock.release()
@@ -114,8 +114,8 @@ class MyClient(Client):
                                   "dot_sync_client")), filename)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()        
-        Client.__init__(self, "client_machine_id", self.mnemosyne.database(),
-                        self.mnemosyne.main_widget())
+        Client.__init__(self, self.mnemosyne.config().machine_id(),
+                        self.mnemosyne.database(), self.mnemosyne.main_widget())
         
     def do_sync(self):
         global server_lock
@@ -411,7 +411,7 @@ class TestSync(object):
             assert card.scheduler_data == self.client_card.scheduler_data
             
             rep =  db.con.execute("""select * from log where event_type=? order by
-                _id desc limit 1""", (EventTypes.REPETITION, )).fetchone()
+                id desc limit 1""", (EventTypes.REPETITION, )).fetchone()
             assert rep["grade"] == 5
             assert rep["easiness"] == 2.5
             assert rep["acq_reps"] == 1
@@ -475,7 +475,7 @@ class TestSync(object):
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2      
             assert db.con.execute("""select object_id from log where event_type=?
-                order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
+                order by id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
                 fetchone()[0].startswith("a/")
             assert db.con.execute("select count() from media").fetchone()[0] == 2
             card = db.get_card(self.client_card.id, id_is_internal=False)
@@ -516,7 +516,7 @@ class TestSync(object):
             (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2
         assert db.con.execute("select count() from media").fetchone()[0] == 2  
         assert db.con.execute("""select object_id from log where event_type=?
-            order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
+            order by id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
             fetchone()[0].startswith("b/")
 
     def test_delete_card_with_media(self):
@@ -991,14 +991,18 @@ class TestSync(object):
         self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["my_tag"])[0]
         self.client.mnemosyne.controller().file_save()
-        self.i = self.client.database.last_synced_log_entry_for("log.txt")
+        self.i = self.client.database.con.execute(\
+            "select last_log_id from partnerships where partner=?",
+            ("log.txt", )).fetchone()[0]
         self.client.do_sync()
         self.client.database.dump_to_science_log()
         
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 1
-        assert self.i < self.client.database.last_synced_log_entry_for("log.txt")
+        assert self.i < self.client.database.con.execute(\
+            "select last_log_id from partnerships where partner=?",
+            ("log.txt", )).fetchone()[0]
         assert not os.path.exists(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
         
     def test_do_upload_science_logs(self):
@@ -1040,7 +1044,9 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.database.dump_to_science_log()
-        assert self.client.database.last_synced_log_entry_for("log.txt") != 0        
+        assert self.client.database.con.execute(\
+            "select last_log_id from partnerships where partner=?",
+            ("log.txt", )).fetchone()[0]  != 0        
         
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",

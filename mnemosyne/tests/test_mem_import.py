@@ -276,35 +276,35 @@ class TestMemImport(MnemosyneTest):
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select scheduled_interval from log where event_type=? and object_id='9525224f'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == (6)*60*60*24
         assert self.database().con.execute(\
             """select actual_interval from log where event_type=? and object_id='9525224f'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 0 # This is an artificial log.
         assert self.database().con.execute(\
             """select new_interval from log where event_type=? and object_id='9525224f'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == (14-3)*60*60*24
         assert self.database().con.execute(\
             "select count() from log").fetchone()[0] == 18
         assert self.database().con.execute(\
-            "select acq_reps from log where event_type=? order by _id desc limit 1",
+            "select acq_reps from log where event_type=? order by id desc limit 1",
             (EventTypes.LOADED_DATABASE, )).fetchone()[0] == 0
         assert self.database().con.execute(\
-            "select ret_reps from log where event_type=? order by _id desc limit 1",
+            "select ret_reps from log where event_type=? order by id desc limit 1",
             (EventTypes.LOADED_DATABASE, )).fetchone()[0] == 7
         assert self.database().con.execute(\
-            "select lapses from log where event_type=? order by _id desc limit 1",
+            "select lapses from log where event_type=? order by id desc limit 1",
             (EventTypes.LOADED_DATABASE, )).fetchone()[0] == 336
         assert self.database().con.execute(\
-            "select acq_reps from log where event_type=? order by _id desc limit 1",
+            "select acq_reps from log where event_type=? order by id desc limit 1",
             (EventTypes.SAVED_DATABASE, )).fetchone()[0] == 0
         assert self.database().con.execute(\
-            "select ret_reps from log where event_type=? order by _id desc limit 1",
+            "select ret_reps from log where event_type=? order by id desc limit 1",
             (EventTypes.SAVED_DATABASE, )).fetchone()[0] == 12
         assert self.database().con.execute(\
-            "select lapses from log where event_type=? order by _id desc limit 1",
+            "select lapses from log where event_type=? order by id desc limit 1",
             (EventTypes.SAVED_DATABASE, )).fetchone()[0] == 341
 
     def test_logs_new_2(self):
@@ -344,11 +344,11 @@ class TestMemImport(MnemosyneTest):
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select acq_reps from log where event_type=? and object_id='5106b621'
-             order by _id desc limit 1""",
+             order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 1  
         assert self.database().con.execute(\
             """select acq_reps_since_lapse from log where event_type=? and object_id='5106b621'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         
     def test_logs_new_4(self):
@@ -373,15 +373,15 @@ class TestMemImport(MnemosyneTest):
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select acq_reps from log where event_type=? and object_id='b7601e0c'
-             order by _id desc limit 1""",
+             order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select ret_reps from log where event_type=? and object_id='b7601e0c'
-             order by _id desc limit 1""",
+             order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 1  
         assert self.database().con.execute(\
             """select acq_reps_since_lapse from log where event_type=? and object_id='b7601e0c'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         
     def test_logs_new_5(self):
@@ -406,15 +406,15 @@ class TestMemImport(MnemosyneTest):
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select acq_reps from log where event_type=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
-             order by _id desc limit 1""",
+             order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 2
         assert self.database().con.execute(\
             """select ret_reps from log where event_type=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
-             order by _id desc limit 1""",
+             order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 0  
         assert self.database().con.execute(\
             """select acq_reps_since_lapse from log where event_type=? and object_id='9c8ce28e-1a4b-4148-8287-b8a7790d86d0.1.1'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 2
         assert self.database().con.execute(\
             """select object_id from log where event_type=?""",
@@ -447,7 +447,7 @@ class TestMemImport(MnemosyneTest):
         assert sql_res["thinking_time"] == 0   
         sql_res = self.database().con.execute(\
             """select * from log where event_type=? and object_id='4c53e29a-f9e9-498b-8beb-d3a494f61bca.1.1'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()
         assert sql_res["grade"] == 2
         assert sql_res["easiness"] == 2.5
@@ -483,15 +483,15 @@ class TestMemImport(MnemosyneTest):
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select acq_reps from log where event_type=? and object_id='f5d9bbe7'
-             order by _id desc limit 1""",
+             order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             """select ret_reps from log where event_type=? and object_id='f5d9bbe7'
-             order by _id desc limit 1""",
+             order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 2  
         assert self.database().con.execute(\
             """select acq_reps_since_lapse from log where event_type=? and object_id='f5d9bbe7'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 1
 
     def test_logs_imported_2(self):
@@ -566,7 +566,7 @@ class TestMemImport(MnemosyneTest):
         ScienceLogParser(self.database()).parse(filename)             
         assert self.database().con.execute(\
             """select actual_interval from log where event_type=? and object_id='f1300e5a'
-            order by _id desc limit 1""",
+            order by id desc limit 1""",
             (EventTypes.REPETITION, )).fetchone()[0] == 5
         
     def test_logs_deleted(self):

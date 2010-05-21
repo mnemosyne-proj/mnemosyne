@@ -54,37 +54,37 @@ class TestLogging(MnemosyneTest):
         self.log().dump_to_science_log()
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=1").fetchone()
+            "select * from log where id=1").fetchone()
         assert sql_res["event_type"] == EventTypes.STARTED_PROGRAM
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=2").fetchone()
+            "select * from log where id=2").fetchone()
         assert sql_res["event_type"] == EventTypes.STARTED_SCHEDULER
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=3").fetchone()
+            "select * from log where id=3").fetchone()
         assert sql_res["event_type"] == EventTypes.LOADED_DATABASE
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 0
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=4").fetchone()
+            "select * from log where id=4").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_FACT
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=5").fetchone()
+            "select * from log where id=5").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_TAG
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=6").fetchone()
+            "select * from log where id=6").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_CARD
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=7").fetchone()
+            "select * from log where id=7").fetchone()
         assert sql_res["event_type"] == EventTypes.REPETITION
         assert sql_res["acq_reps"] == 1
         assert sql_res["ret_reps"] == 0
@@ -95,7 +95,7 @@ class TestLogging(MnemosyneTest):
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=8").fetchone()
+            "select * from log where id=8").fetchone()
         assert sql_res["event_type"] == EventTypes.REPETITION
         assert sql_res["acq_reps"] == 2
         assert sql_res["ret_reps"] == 0
@@ -105,7 +105,7 @@ class TestLogging(MnemosyneTest):
         assert sql_res["thinking_time"] == 0
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=9").fetchone()
+            "select * from log where id=9").fetchone()
         assert sql_res["event_type"] == EventTypes.REPETITION
         assert sql_res["acq_reps"] == 3
         assert sql_res["ret_reps"] == 0
@@ -115,47 +115,47 @@ class TestLogging(MnemosyneTest):
         assert sql_res["thinking_time"] == 0
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=10").fetchone()
+            "select * from log where id=10").fetchone()
         assert sql_res["event_type"] == EventTypes.SAVED_DATABASE
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 1
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=11").fetchone()
+            "select * from log where id=11").fetchone()
         assert sql_res["event_type"] == EventTypes.STOPPED_PROGRAM
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=12").fetchone()
+            "select * from log where id=12").fetchone()
         assert sql_res["event_type"] == EventTypes.STARTED_PROGRAM
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=13").fetchone()
+            "select * from log where id=13").fetchone()
         assert sql_res["event_type"] == EventTypes.STARTED_SCHEDULER
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=14").fetchone()
+            "select * from log where id=14").fetchone()
         assert sql_res["event_type"] == EventTypes.LOADED_DATABASE
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 1
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=15").fetchone()
+            "select * from log where id=15").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_FACT        
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=16").fetchone()
+            "select * from log where id=16").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_CARD
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=17").fetchone()
+            "select * from log where id=17").fetchone()
         assert sql_res["event_type"] == EventTypes.DELETED_CARD       
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=18").fetchone()
+            "select * from log where id=18").fetchone()
         assert sql_res["event_type"] == EventTypes.DELETED_FACT
         assert sql_res["object_id"] is not None
 
@@ -166,10 +166,10 @@ class TestLogging(MnemosyneTest):
         card_1, card_2 = self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default"])
         log_index = self.database().con.execute(\
-            """select _id from log order by _id desc limit 1""").fetchone()[0]
+            """select id from log order by id desc limit 1""").fetchone()[0]
         # Note: we need to keep the last log entry intact, otherwise indices
         # start again at 1 and mess up the sync.
-        self.database().con.execute("""delete from log where _id <?""", (log_index,))
+        self.database().con.execute("""delete from log where id <?""", (log_index,))
         self.database().con.execute("""vacuum""")        
         self.database().save()
         fact_data = {"q": "question2",
@@ -178,7 +178,7 @@ class TestLogging(MnemosyneTest):
         card_1  = self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default"])        
         assert self.database().con.execute(\
-            """select _id from log order by _id limit 1""").fetchone()[0] \
+            """select id from log order by id limit 1""").fetchone()[0] \
             == log_index      
         
 

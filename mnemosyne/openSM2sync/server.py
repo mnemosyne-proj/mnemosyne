@@ -68,7 +68,8 @@ class Session(object):
         return time.time() > self.expired
 
     def close(self):
-        self.database.update_last_sync_log_entry_for(self.client_info["machine_id"])
+        self.database.update_partnership(self.client_info["machine_id"],
+            self.client_last_log_index)
         self.database.save()
 
     def terminate(self):
@@ -367,8 +368,8 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         session = self.sessions[session_token]
         socket = environ["wsgi.input"]
-        client_last_log_entry_index = int(socket.readline())
-        server_last_log_entry_index = session.database.last_log_entry_index()
+        session.client_last_log_index = int(socket.readline())
+        server_last_log_index = session.database.last_log_index()
         self.close_session_with_token(session_token) 
         # Now is a good time to garbage-collect dangling sessions.
         for session in self.sessions:
@@ -376,4 +377,4 @@ class Server(WSGIServer):
                 self.terminate_session_with_token(session.token)
         if self.stop_after_sync:
             self.stopped = True
-        return str(server_last_log_entry_index)
+        return str(server_last_log_index)

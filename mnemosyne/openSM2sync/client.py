@@ -280,12 +280,12 @@ class Client(object):
         try:
             self.con.request("GET", "/sync/finish?session_token=%s" \
                 % (self.server_info["session_token"], ), 
-                str(self.database.last_log_entry_index()) + "\n")
+                str(self.database.last_log_index()) + "\n")
             response = self.con.getresponse()
-            server_last_log_entry_index = int(response.fp.readline())
+            server_last_log_index = int(response.fp.readline())
+            self.database.update_partnership(self.server_info["machine_id"],
+                server_last_log_index)
         except Exception, exception:
             raise SyncError("Sync finish: " + str(exception))
-        self.database.update_last_sync_log_entry_for(\
-            self.server_info["machine_id"])
-            
+
             

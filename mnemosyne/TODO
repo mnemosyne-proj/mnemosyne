@@ -1,5 +1,5 @@
--_last_log_id --> last_log_id
--multipartner sync
+-write test for multipartner sync
+-update partnership table after sync
 
 -conflict resolution
 -rather than deleting history, mark it as undone in order to keep id ordering

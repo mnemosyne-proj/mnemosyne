@@ -33,7 +33,7 @@ class Mnemosyne1Mem(FileFormat):
         # The import process generates card log entries, which we will delete
         # in favour of those events that are recorded in the logs and which
         # capture the true timestamps.
-        log_index = db.last_log_entry_index()
+        log_index = db.last_log_index()
         result = self._import_mem_file(filename, tag_name, reset_learning_data)
         if result:
             return result
@@ -44,7 +44,7 @@ class Mnemosyne1Mem(FileFormat):
         # partership index.
         db.dump_to_science_log()
         self._import_logs(filename)
-        db.update_last_sync_log_entry_for("log.txt")
+        db.skip_science_log()
         # Force an ADDED_CARD log entry for those cards that did not figure in
         # the txt logs, e.g. due to missing or corrupt logs.
         db.add_missing_added_card_log_entries(\

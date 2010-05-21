@@ -199,7 +199,8 @@ class Configuration(Component, dict):
             f.close()
 
     def machine_id(self):
-        return file(os.path.join(self.basedir, "machine.id")).readline()
+        return file(os.path.join(self.basedir, "machine.id")).\
+            readline().rstrip()
 
     def load_user_config(self):
         sys.path.insert(0, self.basedir)

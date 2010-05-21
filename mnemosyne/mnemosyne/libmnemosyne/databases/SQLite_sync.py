@@ -32,48 +32,83 @@ class SQLiteSync(object):
     so that SQLite.py does not becomes too large.
 
     """
+
+    def set_sync_partner_info(self, info):
+        self.sync_partner_info = info
     
     def create_partnership_if_needed_for(self, partner):
+
+        """Note that partnerships store the last log index in the other,
+        remote database, in order to allow sync with multiple partners.
+
+        """
+        
         sql_res = self.con.execute("""select partner from partnerships 
            where partner=?""", (partner, )).fetchone()
         if not sql_res:
             self.con.execute("""insert into partnerships(partner, 
-               _last_log_id) values(?,?)""", (partner, 0))
+               last_log_id) values(?,?)""", (partner, 0))
 
     def partnerships(self):
         partnerships = {}
         for sql_res in self.con.execute("""select * from partnerships where
             partner!=?""", ("log.txt", )):
-            partnerships[sql_res["partner"]] = sql_res["_last_log_id"]
+            partnerships[sql_res["partner"]] = sql_res["last_log_id"]
         return partnerships
 
-    def last_log_entry_index(self):
-        return self.con.execute(\
-            "select _id from log order by _id desc limit 1").fetchone()[0]
-    
-    def update_last_sync_log_entry_for(self, partner):
+    def update_partnership(self, partner, last_remote_log_index):
         self.con.execute(\
-            "update partnerships set _last_log_id=? where partner=?",
-            (self.last_log_entry_index(), partner))        
+            "update partnerships set last_log_id=? where partner=?",
+            (last_remote_log_index, partner))
 
-    def set_sync_partner_info(self, info):
-        self.sync_partner_info = info
+    def last_log_index(self):
 
-    def last_synced_log_entry_for(self, partner):
-        sql_res = self.con.execute("""select _last_log_id from partnerships 
-           where partner=?""", (partner, )).fetchone()
-        return sql_res["_last_log_id"]
-    
+        """The last index in the local log."""
+        
+        return self.con.execute(\
+            "select id from log order by id desc limit 1").fetchone()[0]
+
+    def last_log_index_synced_for(self, partner):
+
+        """The last index in the local log that was synced with the remote
+        partner. This information was not stored locally, but with the
+        partner.
+
+        """
+
+        if self.config().machine_id() not in \
+           self.sync_partner_info["partnerships"]:
+            return 0
+        else:
+            return self.sync_partner_info["partnerships"]\
+                [self.config().machine_id()]
+
     def number_of_log_entries_to_sync_for(self, partner,
             interested_in_old_reps=True):
-        _id = self.last_synced_log_entry_for(partner)
+        id = self.last_log_index_synced_for(partner)
         if interested_in_old_reps:
-            return self.con.execute("select count() from log where _id>?",
-                (_id, )).fetchone()[0]
+            return self.con.execute("select count() from log where id>?",
+                (id, )).fetchone()[0]
         else:
-            return self.con.execute("""select count() from log where _id>? and
-                event_type!=?""", (_id, EventTypes.REPETITION)).fetchone()[0]            
+            return self.con.execute("""select count() from log where id>? and
+                event_type!=?""", (id, EventTypes.REPETITION)).fetchone()[0]
+        
+    def log_entries_to_sync_for(self, partner, interested_in_old_reps=True):
 
+        """Note that we return an iterator here to be able to stream
+        efficiently.
+
+        """
+        
+        id = self.last_log_index_synced_for(partner)
+        if interested_in_old_reps:
+            return (self._log_entry(cursor) for cursor in self.con.execute(\
+                "select * from log where id>?", (id, )))
+        else:
+            return (self._log_entry(cursor) for cursor in self.con.execute(\
+                "select * from log where id>? and event_type!=?",
+                (id, EventTypes.REPETITION)))
+        
     def check_for_updated_media_files(self):
         # Regular media files.
         new_hashes = {}
@@ -98,11 +133,11 @@ class SQLiteSync(object):
         # DELETED_MEDIA log entries are irrelevant/ignored.
         # We do have to make sure we don't return any files that have been
         # deleted, though.
-        _id = self.last_synced_log_entry_for(partner)
+        id = self.last_log_index_synced_for(partner)
         filenames = []
         for filename in [cursor[0] for cursor in self.con.execute(\
-            """select object_id from log where _id>? and (event_type=? or
-            event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
+            """select object_id from log where id>? and (event_type=? or
+            event_type=?)""", (id, EventTypes.ADDED_MEDIA,
             EventTypes.UPDATED_MEDIA))]:
             if os.path.exists(expand_path(filename, self.mediadir())):
                 filenames.append(filename)
@@ -197,22 +232,6 @@ class SQLiteSync(object):
             log_entry["fname"] = sql_res["object_id"]
             del log_entry["o_id"]
         return log_entry
-        
-    def log_entries_to_sync_for(self, partner, interested_in_old_reps=True):
-
-        """Note that we return an iterator here to be able to stream
-        efficiently.
-
-        """
-        
-        _id = self.last_synced_log_entry_for(partner)
-        if interested_in_old_reps:
-            return (self._log_entry(cursor) for cursor in self.con.execute(\
-                "select * from log where _id>?", (_id, )))
-        else:
-            return (self._log_entry(cursor) for cursor in self.con.execute(\
-                "select * from log where _id>? and event_type!=?",
-                (_id, EventTypes.REPETITION)))
 
     def tag_from_log_entry(self, log_entry):
         # When deleting, the log entry only contains the tag's id, so we pull
