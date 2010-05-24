@@ -251,6 +251,8 @@ class Configuration(Component, dict):
 
         """
 
+        if new_user_id == self["user_id"]:
+            return
         db = self.database()        
         if self["log_index"] > 1 or not db.is_empty():
             raise RuntimeError, "Unable to change user id."

@@ -283,6 +283,7 @@ class Client(object):
                 str(self.database.last_log_index()) + "\n")
             response = self.con.getresponse()
             server_last_log_index = int(response.fp.readline())
+            self.database.merge_partnerships(self.server_info["partnerships"])
             self.database.update_partnership(self.server_info["machine_id"],
                 server_last_log_index)
         except Exception, exception:

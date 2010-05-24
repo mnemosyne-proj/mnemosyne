@@ -27,22 +27,23 @@ class Widget(MainWidget):
     def error_box(self, error):
         print error
         
-PORT = 9237
+PORT = 9252
         
 class MyServer(Server, Thread):
 
     program_name = "Mnemosyne"
     program_version = "test"
-
     user_id = "user_id"
-
     stop_after_sync = True
 
-    def __init__(self, binary_download=False, filename="default.db"):
+    def __init__(self, basedir=os.path.abspath("dot_sync_server"),
+            filename="default.db", binary_download=False, erase_previous=True):
         self.binary_download = binary_download
+        self.basedir = basedir
         self.filename = filename
         Thread.__init__(self)
-        os.system("rm -fr dot_sync_server")
+        if erase_previous:
+            os.system("rm -fr " + basedir)
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
@@ -66,8 +67,7 @@ class MyServer(Server, Thread):
         # until the server is ready.
         global server_lock
         server_lock.acquire()
-        self.mnemosyne.initialise(os.path.abspath("dot_sync_server"),
-            filename=self.filename)
+        self.mnemosyne.initialise(self.basedir, self.filename)
         self.mnemosyne.config().change_user_id(self.user_id)
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
@@ -100,8 +100,10 @@ class MyClient(Client):
     user = "user"
     password = "pass"
     
-    def __init__(self, filename="default.db"):
-        os.system("rm -fr dot_sync_client")
+    def __init__(self, basedir=os.path.abspath("dot_sync_client"),
+            filename="default.db", erase_previous=True):
+        if erase_previous:
+            os.system("rm -fr " + basedir)
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
@@ -110,8 +112,7 @@ class MyClient(Client):
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
-        self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
-                                  "dot_sync_client")), filename)
+        self.mnemosyne.initialise(basedir, filename)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()        
         Client.__init__(self, self.mnemosyne.config().machine_id(),
@@ -1053,4 +1054,67 @@ class TestSync(object):
                (EventTypes.REPETITION, )).fetchone()[0] == 1
         f = file(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
         assert len(f.readlines()) == 6       
+
+    def test_triple_sync(self):
+
+        # A --> B
+
+        def test_server(self):
+            pass
+                    
+        self.server = MyServer(os.path.abspath("dot_sync_B"))
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_A"))
+        fact_data = {"q": "a^2",
+                     "a": "b^2"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["my_tag"])[0]
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
         
+        # B --> C
+
+        def test_server(self):
+            pass
+                    
+        self.server = MyServer(os.path.abspath("dot_sync_C"))
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_B"), erase_previous=False)
+        self.client.mnemosyne.review_controller().reset()
+        self.client.mnemosyne.review_controller().learning_ahead = True
+        self.client.mnemosyne.review_controller().new_question()
+        self.client.mnemosyne.review_controller().grade_answer(5)
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+        
+        # C --> A
+
+        def test_server(self):
+            pass
+        
+        self.server = MyServer(os.path.abspath("dot_sync_A"), erase_previous=False)
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_C"), erase_previous=False)
+        self.client.mnemosyne.review_controller().reset()
+        self.client.mnemosyne.review_controller().learning_ahead = True
+        self.client.mnemosyne.review_controller().new_question()
+        self.client.mnemosyne.review_controller().grade_answer(5)
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+        
+        # Test that A has all the reps and no duplicates.
+        
+        self.client = MyClient(os.path.abspath("dot_sync_A"), erase_previous=False)
+        db = self.client.database
+        assert db.con.execute("select count() from log where event_type=?",
+               (EventTypes.REPETITION, )).fetchone()[0] == 3

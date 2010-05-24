@@ -68,6 +68,7 @@ class Session(object):
         return time.time() > self.expired
 
     def close(self):
+        self.database.merge_partnerships(self.client_info["partnerships"])
         self.database.update_partnership(self.client_info["machine_id"],
             self.client_last_log_index)
         self.database.save()

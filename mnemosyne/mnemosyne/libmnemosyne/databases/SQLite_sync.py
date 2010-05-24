@@ -61,6 +61,17 @@ class SQLiteSync(object):
             "update partnerships set last_log_id=? where partner=?",
             (last_remote_log_index, partner))
 
+    def merge_partnerships(self, remote_partnerships):
+        for partner, last_log_index in remote_partnerships:
+            if partner != self.config().machine_id():
+                self.create_partnership_if_needed_for(partner)
+                previous_last_log_index = self.con.execute(
+                    "select last_log_id from partnerships where partner=?",
+                    (partner, )).fetchone()[0]
+                self.con.execute(\
+                    "update partnerships set last_log_id=? where partner=?",
+                    (max(previous_last_log_index, last_log_index), partner))
+
     def last_log_index(self):
 
         """The last index in the local log."""
