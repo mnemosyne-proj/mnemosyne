@@ -27,7 +27,7 @@ class Widget(MainWidget):
     def error_box(self, error):
         print error
         
-PORT = 9257
+PORT = 9258
         
 class MyServer(Server, Thread):
 

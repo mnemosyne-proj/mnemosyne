@@ -237,7 +237,7 @@ class Server(WSGIServer):
         lines = []
         line = socket.readline()
         lines.append(line)
-        while not line.endswith(sentinel):
+        while not line.rstrip().endswith(sentinel.rstrip()):
             line = socket.readline()
             lines.append(line)
         # In order to do conflict resolution easily, one of the sync partners
