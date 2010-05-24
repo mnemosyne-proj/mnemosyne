@@ -62,7 +62,7 @@ class SQLiteSync(object):
             (last_remote_log_index, partner))
 
     def merge_partnerships(self, remote_partnerships):
-        for partner, last_log_index in remote_partnerships:
+        for partner, last_log_index in remote_partnerships.iteritems():
             if partner != self.config().machine_id():
                 self.create_partnership_if_needed_for(partner)
                 previous_last_log_index = self.con.execute(

@@ -365,7 +365,7 @@ class Server(WSGIServer):
         except:
             yield "CANCEL"
 
-    def get_sync_finish(self, environ, session_token):
+    def put_sync_finish(self, environ, session_token):
         self.ui.status_bar_message("Waiting for client to finish...")
         session = self.sessions[session_token]
         socket = environ["wsgi.input"]
