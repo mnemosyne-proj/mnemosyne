@@ -1112,9 +1112,14 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         
-        # Test that A has all the reps and no duplicates.
+        # Test that A and C have all the reps and no duplicates.
         
         self.client = MyClient(os.path.abspath("dot_sync_A"), erase_previous=False)
+        db = self.client.database
+        assert db.con.execute("select count() from log where event_type=?",
+               (EventTypes.REPETITION, )).fetchone()[0] == 3
+
+        self.client = MyClient(os.path.abspath("dot_sync_C"), erase_previous=False)
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 3

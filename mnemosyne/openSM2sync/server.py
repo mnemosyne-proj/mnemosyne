@@ -63,12 +63,12 @@ class Session(object):
         self.backup_file = self.database.backup()
         self.database.set_sync_partner_info(client_info)
         self.database.create_partnership_if_needed_for(client_info["machine_id"])
+        self.database.merge_partnerships(self.client_info["partnerships"])
 
     def is_expired(self):
         return time.time() > self.expired
 
     def close(self):
-        self.database.merge_partnerships(self.client_info["partnerships"])
         self.database.update_partnership(self.client_info["machine_id"],
             self.client_last_log_index)
         self.database.save()

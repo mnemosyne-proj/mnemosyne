@@ -1,4 +1,7 @@
 -update partnership table after sync
+-partnerships: both internal and external ids
+-insert sync points in event stream to convert local indices
+-before sync, see if reverse partnership exists
 
 -conflict resolution
 -rather than deleting history, mark it as undone in order to keep id ordering
