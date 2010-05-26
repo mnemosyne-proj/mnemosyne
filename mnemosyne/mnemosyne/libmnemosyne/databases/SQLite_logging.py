@@ -141,6 +141,10 @@ class SQLiteLogging(object):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_MEDIA, int(timestamp), filename))
+        
+    def current_log_index(self):
+        return self.con.execute(\
+            "select id from log order by id desc limit 1").fetchone()[0]
     
     def dump_to_science_log(self):
         if self.config()["upload_science_logs"] == False:
@@ -149,9 +153,9 @@ class SQLiteLogging(object):
         logname = os.path.join(self.config().basedir, "log.txt")
         logfile = file(logname, "a")
         sql_res = self.con.execute(\
-            "select last_log_id from partnerships where partner=?",
+            "select local_index from partnerships where partner=?",
             ("log.txt", )).fetchone()
-        last_index = int(sql_res["last_log_id"])
+        last_index = int(sql_res["local_index"])
         index = 0
         # Loop over log entries and dump them to text file.
         for cursor in self.con.execute(\
@@ -198,21 +202,18 @@ class SQLiteLogging(object):
         # Update partnership index.
         if index:
             self.con.execute(\
-            "update partnerships set last_log_id=? where partner=?",
+            "update partnerships set local_index=? where partner=?",
                 (index, "log.txt"))
 
     def skip_science_log(self):
 
-        """Bring forward the last_log_id for the log.txt partnership, e.g.
+        """Bring forward the local_index for the log.txt partnership, e.g.
         because some other machine took care of uploading these logs.
 
         """
-        
-        index = self.con.execute(\
-            "select id from log order by id desc limit 1").fetchone()[0] 
         self.con.execute(\
-            "update partnerships set last_log_id=? where partner=?",
-            (index, "log.txt"))
+            "update partnerships set local_index=? where partner=?",
+            (self.current_log_index(), "log.txt"))
         
     # The following functions are only used when importing pre-2.0 cards and
     # logs. They are needed to store temporary data about cards which is used

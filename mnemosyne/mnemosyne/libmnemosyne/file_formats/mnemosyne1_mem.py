@@ -33,7 +33,7 @@ class Mnemosyne1Mem(FileFormat):
         # The import process generates card log entries, which we will delete
         # in favour of those events that are recorded in the logs and which
         # capture the true timestamps.
-        log_index = db.last_log_index()
+        log_index = db.current_log_index()
         result = self._import_mem_file(filename, tag_name, reset_learning_data)
         if result:
             return result

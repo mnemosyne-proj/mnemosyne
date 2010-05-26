@@ -37,31 +37,34 @@ class SQLiteSync(object):
         self.sync_partner_info = info
     
     def create_partnership_if_needed_for(self, partner):
-
-        """Note that partnerships store the last log index in the other,
-        remote database, in order to allow sync with multiple partners.
-
-        """
-        
+        # Needed? could be folded in pre sync merge partnerships?
         sql_res = self.con.execute("""select partner from partnerships 
            where partner=?""", (partner, )).fetchone()
         if not sql_res:
             self.con.execute("""insert into partnerships(partner, 
-               last_log_id) values(?,?)""", (partner, 0))
+               local_index, remote_index) values(?,?,?)""", (partner, 0, 0))
 
     def partnerships(self):
         partnerships = {}
         for sql_res in self.con.execute("""select * from partnerships where
             partner!=?""", ("log.txt", )):
-            partnerships[sql_res["partner"]] = sql_res["last_log_id"]
+            partnerships[sql_res["partner"]] = \
+                Bunch(local_index=sql_res["local_index"],
+                remote_index=sql_res["remote_index"])
         return partnerships
 
-    def update_partnership(self, partner, last_remote_log_index):
-        self.con.execute(\
-            "update partnerships set last_log_id=? where partner=?",
-            (last_remote_log_index, partner))
+    def update_partnership(self, partner, local_index, remote_index):
+        # TODO: fold in post sync merge stage?
+        self.con.execute("""update partnerships set local_index=?,
+            remote_index=? where partner=?""",
+            (local_index, remote_index, partner))
 
     def merge_partnerships(self, remote_partnerships):
+
+        return
+
+        # TODO
+        
         for partner, last_log_index in remote_partnerships.iteritems():
             if partner != self.config().machine_id():
                 self.create_partnership_if_needed_for(partner)
@@ -72,27 +75,29 @@ class SQLiteSync(object):
                     "update partnerships set last_log_id=? where partner=?",
                     (max(previous_last_log_index, last_log_index), partner))
 
-    def last_log_index(self):
-
-        """The last index in the local log."""
-        
-        return self.con.execute(\
-            "select id from log order by id desc limit 1").fetchone()[0]
-
     def last_log_index_synced_for(self, partner):
 
         """The last index in the local log that was synced with the remote
-        partner. This information was not stored locally, but with the
-        partner.
+        partner. At this point in time the partnerships should have been
+        merged, so that both the local information and the remote information
+        are the same.
 
         """
 
+        # TODO: needed?
+        
         if self.config().machine_id() not in \
            self.sync_partner_info["partnerships"]:
             return 0
-        else:
-            return self.sync_partner_info["partnerships"]\
-                [self.config().machine_id()]
+
+        # TODO: move this check so that it runs only once? Clean up.
+        
+        assert self.sync_partner_info["partnerships"]\
+            [self.config().machine_id()].remote_index == \
+            self.partnerships()[partner].local_index
+
+        return self.sync_partner_info["partnerships"]\
+            [self.config().machine_id()].remote_index
 
     def number_of_log_entries_to_sync_for(self, partner,
             interested_in_old_reps=True):

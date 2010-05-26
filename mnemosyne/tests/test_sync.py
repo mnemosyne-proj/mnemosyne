@@ -27,7 +27,7 @@ class Widget(MainWidget):
     def error_box(self, error):
         print error
         
-PORT = 9258
+PORT = 9263
         
 class MyServer(Server, Thread):
 
@@ -954,7 +954,6 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 8
 
-
     def test_dont_upload_science_logs(self):
 
         def fill_server_database(self):
@@ -993,7 +992,7 @@ class TestSync(object):
                card_type, grade=4, tag_names=["my_tag"])[0]
         self.client.mnemosyne.controller().file_save()
         self.i = self.client.database.con.execute(\
-            "select last_log_id from partnerships where partner=?",
+            "select local_index from partnerships where partner=?",
             ("log.txt", )).fetchone()[0]
         self.client.do_sync()
         self.client.database.dump_to_science_log()
@@ -1002,7 +1001,7 @@ class TestSync(object):
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.i < self.client.database.con.execute(\
-            "select last_log_id from partnerships where partner=?",
+            "select local_index from partnerships where partner=?",
             ("log.txt", )).fetchone()[0]
         assert not os.path.exists(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
         
@@ -1046,7 +1045,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.database.dump_to_science_log()
         assert self.client.database.con.execute(\
-            "select last_log_id from partnerships where partner=?",
+            "select local_index from partnerships where partner=?",
             ("log.txt", )).fetchone()[0]  != 0        
         
         db = self.client.database

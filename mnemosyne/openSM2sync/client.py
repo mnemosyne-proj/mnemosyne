@@ -281,11 +281,11 @@ class Client(object):
         try:
             self.con.request("PUT", "/sync/finish?session_token=%s" \
                 % (self.server_info["session_token"], ), 
-                str(self.database.last_log_index()) + "\n")
+                str(self.database.current_log_index()) + "\n")
             response = self.con.getresponse()
-            server_last_log_index = int(response.fp.readline())
+            server_current_log_index = int(response.fp.readline())
             self.database.update_partnership(self.server_info["machine_id"],
-                server_last_log_index)
+                self.database.current_log_index(), server_current_log_index)
         except Exception, exception:
             raise SyncError("Sync finish: " + str(exception))
 

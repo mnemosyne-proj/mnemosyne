@@ -8,7 +8,14 @@ from openSM2sync.log_entry import LogEntry
 
 PROTOCOL_VERSION = "openSM2sync 1.0"
 
-              
+# Simple named-tuple like class, to avoid the expensive creation a full card
+# object. (Python 2.5 does not yet have a named tuple.)
+
+class Bunch:
+    def __init__(self, **kwds):
+        self.__dict__.update(kwds)
+
+        
 class XMLFormat(object):
     
     """Class handling the conversion from data to XML streams and vice versa.
@@ -35,11 +42,14 @@ class XMLFormat(object):
         repr_info = " <partner "
         for key, value in info.iteritems():
             if key.lower() == "partnerships":
-                for partner, last_log_id in value.iteritems():
-                    repr_info += "partner_%s='%s' " % (partner, last_log_id)
+                for partner in value:
+                    repr_info += "partner_%s='%d,%d' " % (partner,
+                        value[partner].local_index,
+                        value[partner].remote_index)
             else:
                 repr_info += "%s='%s' " % (key, value)
         repr_info += "protocol_version='%s'></partner>" % (PROTOCOL_VERSION, )
+        #import sys; sys.stderr.write(repr_info)
         return repr_info
 
     def parse_partner_info(self, xml):
@@ -53,9 +63,13 @@ class XMLFormat(object):
                 value = False
             if key.lower().startswith("partner_"):
                 partner = key.split("_", 1)[1]
-                partner_info["partnerships"][partner] = int(value)
+                local_index, remote_index = value.split(",")
+                partner_info["partnerships"][partner] = \
+                    Bunch(local_index=int(local_index),
+                    remote_index=int(remote_index))
             else:
                 partner_info[key] = value
+        #import sys; sys.stderr.write(repr(partner_info))
         return partner_info
 
     # The list of LogEntry keys to be passed on as attributes.

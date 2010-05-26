@@ -1,5 +1,6 @@
--update partnership table after sync
+-update partnership table after sync or only before?
 -partnerships: both internal and external ids
+-check TODOs
 -insert sync points in event stream to convert local indices
 -before sync, see if reverse partnership exists
 

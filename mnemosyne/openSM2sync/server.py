@@ -62,7 +62,8 @@ class Session(object):
         self.expires = time.time() + 60*60
         self.backup_file = self.database.backup()
         self.database.set_sync_partner_info(client_info)
-        self.database.create_partnership_if_needed_for(client_info["machine_id"])
+        self.database.create_partnership_if_needed_for(\
+            client_info["machine_id"])
         self.database.merge_partnerships(self.client_info["partnerships"])
 
     def is_expired(self):
@@ -70,7 +71,7 @@ class Session(object):
 
     def close(self):
         self.database.update_partnership(self.client_info["machine_id"],
-            self.client_last_log_index)
+            self.database.current_log_index(), self.client_current_log_index)
         self.database.save()
 
     def terminate(self):
@@ -369,8 +370,8 @@ class Server(WSGIServer):
         self.ui.status_bar_message("Waiting for client to finish...")
         session = self.sessions[session_token]
         socket = environ["wsgi.input"]
-        session.client_last_log_index = int(socket.readline())
-        server_last_log_index = session.database.last_log_index()
+        session.client_current_log_index = int(socket.readline())
+        server_current_log_index = session.database.current_log_index()
         self.close_session_with_token(session_token) 
         # Now is a good time to garbage-collect dangling sessions.
         for session in self.sessions:
@@ -378,4 +379,4 @@ class Server(WSGIServer):
                 self.terminate_session_with_token(session.token)
         if self.stop_after_sync:
             self.stopped = True
-        return str(server_last_log_index)
+        return str(server_current_log_index)
