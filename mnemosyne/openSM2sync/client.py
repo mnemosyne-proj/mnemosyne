@@ -135,7 +135,8 @@ class Client(object):
                 raise SyncError("mismatched user_ids.")
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
-            self.database.merge_partnerships(self.server_info["partnerships"])
+            self.database.merge_partnerships_before_sync\
+                (self.server_info["partnerships"])
         except Exception, exception:
             raise SyncError("login: " + str(exception))
         

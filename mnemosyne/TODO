@@ -1,4 +1,5 @@
 -update partnership table after sync or only before?
+-can this be factored out to openSM2sync code?
 -partnerships: both internal and external ids
 -check TODOs
 -insert sync points in event stream to convert local indices
@@ -25,9 +26,10 @@
 -document internal vs external card types
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
+-document multipartner sync
 -example 'miniclient' supporting sync
--log save event after import and sync in the default controller. Add tests
 
+-log save event after import and sync in the default controller. Add tests
 -sync activity criteria
 -sync card types (needed for clones)
 

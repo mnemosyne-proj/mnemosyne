@@ -64,7 +64,8 @@ class Session(object):
         self.database.set_sync_partner_info(client_info)
         self.database.create_partnership_if_needed_for(\
             client_info["machine_id"])
-        self.database.merge_partnerships(self.client_info["partnerships"])
+        self.database.merge_partnerships_before_sync\
+           (self.client_info["partnerships"])
 
     def is_expired(self):
         return time.time() > self.expired

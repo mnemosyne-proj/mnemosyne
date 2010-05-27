@@ -53,27 +53,37 @@ class SQLiteSync(object):
                 remote_index=sql_res["remote_index"])
         return partnerships
 
-    def update_partnership(self, partner, local_index, remote_index):
-        # TODO: fold in post sync merge stage?
-        self.con.execute("""update partnerships set local_index=?,
-            remote_index=? where partner=?""",
-            (local_index, remote_index, partner))
-
-    def merge_partnerships(self, remote_partnerships):
-
-        return
-
-        # TODO
-        
-        for partner, last_log_index in remote_partnerships.iteritems():
-            if partner != self.config().machine_id():
+    def merge_partnerships_before_sync(self, remote_partnerships):
+        local_partnerships = self.partnerships()
+        for partner in remote_partnerships:
+            # Determine local and remote indices, but from our viewpoint, not
+            # from the viewpoint of the remote partner.
+            local_index = remote_partnerships[partner].remote_index
+            remote_index = remote_partnerships[partner].local_index            
+            # Our local changes have been synced to a remote partner, and then
+            # from that remote partner on to a third partner. This third
+            # partner now syncs with us for the first time.
+            if partner == self.config().machine_id() and \
+                   partner not in local_partnerships:
                 self.create_partnership_if_needed_for(partner)
+                self.update_partnership(partner, local_index, remote_index):
+            # Normal case.
+            else:
+                self.create_partnership_if_needed_for(partner)
+                new_local_index = 
                 previous_last_log_index = self.con.execute(
                     "select last_log_id from partnerships where partner=?",
                     (partner, )).fetchone()[0]
                 self.con.execute(\
                     "update partnerships set last_log_id=? where partner=?",
                     (max(previous_last_log_index, last_log_index), partner))
+
+
+    def update_partnership(self, partner, local_index, remote_index):
+        # TODO: fold in post sync merge stage?
+        self.con.execute("""update partnerships set local_index=?,
+            remote_index=? where partner=?""",
+            (local_index, remote_index, partner))
 
     def last_log_index_synced_for(self, partner):
 
