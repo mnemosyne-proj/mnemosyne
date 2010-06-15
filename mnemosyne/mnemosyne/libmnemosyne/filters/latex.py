@@ -79,7 +79,7 @@ class Latex(Filter):
         # plugin, as during export, we should not do this and we disable the
         # expand_paths plugin. This means however that the expand_paths plugin
         # should always run at the end.
-        return "<img src=\"file:\\\\" + img_file + "\" align=middle>"
+        return "<img src=\"" + img_file + "\" align=middle>"
     
     def run(self, text):
 
