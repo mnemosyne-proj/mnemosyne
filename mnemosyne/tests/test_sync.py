@@ -27,7 +27,7 @@ class Widget(MainWidget):
     def error_box(self, error):
         print error
         
-PORT = 9263
+PORT = 9278
         
 class MyServer(Server, Thread):
 
@@ -46,7 +46,7 @@ class MyServer(Server, Thread):
             os.system("rm -fr " + basedir)
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
+            "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
@@ -412,7 +412,7 @@ class TestSync(object):
             assert card.scheduler_data == self.client_card.scheduler_data
             
             rep =  db.con.execute("""select * from log where event_type=? order by
-                id desc limit 1""", (EventTypes.REPETITION, )).fetchone()
+                _id desc limit 1""", (EventTypes.REPETITION, )).fetchone()
             assert rep["grade"] == 5
             assert rep["easiness"] == 2.5
             assert rep["acq_reps"] == 1
@@ -476,7 +476,7 @@ class TestSync(object):
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2      
             assert db.con.execute("""select object_id from log where event_type=?
-                order by id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
+                order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
                 fetchone()[0].startswith("a/")
             assert db.con.execute("select count() from media").fetchone()[0] == 2
             card = db.get_card(self.client_card.id, id_is_internal=False)
@@ -517,7 +517,7 @@ class TestSync(object):
             (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2
         assert db.con.execute("select count() from media").fetchone()[0] == 2  
         assert db.con.execute("""select object_id from log where event_type=?
-            order by id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
+            order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
             fetchone()[0].startswith("b/")
 
     def test_delete_card_with_media(self):
@@ -735,6 +735,7 @@ class TestSync(object):
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.mnemosyne.controller().file_save()
+            assert card.question().count("file") == 1
             assert "_media" not in card.question(exporting=True)
           
         def test_server(self):
@@ -992,7 +993,7 @@ class TestSync(object):
                card_type, grade=4, tag_names=["my_tag"])[0]
         self.client.mnemosyne.controller().file_save()
         self.i = self.client.database.con.execute(\
-            "select local_index from partnerships where partner=?",
+            "select _last_log_id from partnerships where partner=?",
             ("log.txt", )).fetchone()[0]
         self.client.do_sync()
         self.client.database.dump_to_science_log()
@@ -1001,7 +1002,7 @@ class TestSync(object):
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 1
         assert self.i < self.client.database.con.execute(\
-            "select local_index from partnerships where partner=?",
+            "select _last_log_id from partnerships where partner=?",
             ("log.txt", )).fetchone()[0]
         assert not os.path.exists(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
         
@@ -1045,7 +1046,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.database.dump_to_science_log()
         assert self.client.database.con.execute(\
-            "select local_index from partnerships where partner=?",
+            "select _last_log_id from partnerships where partner=?",
             ("log.txt", )).fetchone()[0]  != 0        
         
         db = self.client.database

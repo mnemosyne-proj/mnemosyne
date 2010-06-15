@@ -93,7 +93,7 @@ class Client(object):
                 self.get_server_log_entries_binary()
             else:
                 self.get_server_log_entries()
-            self.put_sync_finish()
+            self.get_sync_finish()
         except SyncError, exception:
             if self.do_backup:
                 self.database.restore(backup_file)
@@ -277,16 +277,16 @@ class Client(object):
         except Exception, exception:
             raise SyncError("Getting server media files: " + str(exception))
 
-    def put_sync_finish(self):
+    def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
-            self.con.request("PUT", "/sync/finish?session_token=%s" \
-                % (self.server_info["session_token"], ), 
-                str(self.database.current_log_index()) + "\n")
+            self.con.request("GET", "/sync/finish?session_token=%s" \
+                % (self.server_info["session_token"], ))
             response = self.con.getresponse()
-            server_current_log_index = int(response.fp.readline())
-            self.database.update_partnership(self.server_info["machine_id"],
-                self.database.current_log_index(), server_current_log_index)
+            if response.read() != "OK":
+                raise SyncError("Sync finish: error on server side.")
+            self.database.update_last_log_index_synced_for(\
+                self.server_info["machine_id"])
         except Exception, exception:
             raise SyncError("Sync finish: " + str(exception))
 

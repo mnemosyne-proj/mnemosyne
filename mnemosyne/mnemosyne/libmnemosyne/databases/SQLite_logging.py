@@ -144,7 +144,7 @@ class SQLiteLogging(object):
         
     def current_log_index(self):
         return self.con.execute(\
-            "select id from log order by id desc limit 1").fetchone()[0]
+            "select _id from log order by _id desc limit 1").fetchone()[0]
     
     def dump_to_science_log(self):
         if self.config()["upload_science_logs"] == False:
@@ -153,14 +153,14 @@ class SQLiteLogging(object):
         logname = os.path.join(self.config().basedir, "log.txt")
         logfile = file(logname, "a")
         sql_res = self.con.execute(\
-            "select local_index from partnerships where partner=?",
+            "select _last_log_id from partnerships where partner=?",
             ("log.txt", )).fetchone()
-        last_index = int(sql_res["local_index"])
+        last_index = int(sql_res["_last_log_id"])
         index = 0
         # Loop over log entries and dump them to text file.
         for cursor in self.con.execute(\
-            "select * from log where id>?", (last_index, )):
-            index = int(cursor["id"])
+            "select * from log where _id>?", (last_index, )):
+            index = int(cursor["_id"])
             event_type = cursor["event_type"]
             timestamp = time.strftime("%Y-%m-%d %H:%M:%S",
                 time.localtime(cursor["timestamp"]))
@@ -202,17 +202,17 @@ class SQLiteLogging(object):
         # Update partnership index.
         if index:
             self.con.execute(\
-            "update partnerships set local_index=? where partner=?",
+            "update partnerships set _last_log_id=? where partner=?",
                 (index, "log.txt"))
 
     def skip_science_log(self):
 
-        """Bring forward the local_index for the log.txt partnership, e.g.
+        """Bring forward the _last_log_id for the log.txt partnership, e.g.
         because some other machine took care of uploading these logs.
 
         """
         self.con.execute(\
-            "update partnerships set local_index=? where partner=?",
+            "update partnerships set _last_log_id=? where partner=?",
             (self.current_log_index(), "log.txt"))
         
     # The following functions are only used when importing pre-2.0 cards and
@@ -270,7 +270,7 @@ class SQLiteLogging(object):
         # never been exposed to a sync. Their use during the import procedure
         # is therefore OK.
         
-        self.con.execute("""delete from log where id>? and
+        self.con.execute("""delete from log where _id>? and
             (event_type=? or event_type=?)""",
             (index, EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD))
         self.con.execute("vacuum")

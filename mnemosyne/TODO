@@ -1,9 +1,8 @@
--update partnership table after sync or only before?
--can this be factored out to openSM2sync code?
--partnerships: both internal and external ids
+-only exchange sync partners before sync, not indices
+-if common sync partner, refuse
 -check TODOs
--insert sync points in event stream to convert local indices
--before sync, see if reverse partnership exists
+-document why triple sync does not work
+-add A->C, B->C, A->B test
 
 -conflict resolution
 -rather than deleting history, mark it as undone in order to keep id ordering
@@ -155,6 +154,7 @@ the GUI function itself?
 -rewrite test_mem_import test_sch to go through the controller
 -option to detect and mark inverses on import?
 -update XML import/export to new database format
+-make XML import tolerant to extra new lines in header
 -warn when importing card type with duplicate id
 -option to add tags on import
 -save import dir

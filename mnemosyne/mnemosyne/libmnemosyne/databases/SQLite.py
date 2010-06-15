@@ -110,7 +110,7 @@ SCHEMA = """
     */
        
     create table log(
-        id integer primary key autoincrement, /* Should never be reused. */
+        _id integer primary key autoincrement, /* Should never be reused. */
         event_type integer,
         timestamp integer,
         object_id text,
@@ -132,17 +132,13 @@ SCHEMA = """
     create index i_log_timestamp on log (timestamp);
     create index i_log_object_id on log (object_id);
     
-    /* The log indices corresponding to the last sync of this database with a
-       remote partner. The local index in this database is stored, as well as
-       the remote index in the other partner's database.
-       We track the last ids as opposed to timestamps, as importing another
-       database could add log events with earlier dates, but which still need
-       to be synced. Also avoids issues with clock drift. */
+    /* We track the last _id as opposed to the last timestamp, as importing
+       another database could add log events with earlier dates, but which
+       still need to be synced. Also avoids issues with clock drift. */
     
     create table partnerships(
         partner text,
-        local_index integer,
-        remote_index integer
+        _last_log_id integer
     );
     
     create table media(
@@ -249,8 +245,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.executescript(SCHEMA)
         self.con.execute("insert into global_variables(key, value) values(?,?)",
             ("version", self.version))
-        self.con.execute("""insert into partnerships(partner, local_index,
-            remote_index) values(?,?,?)""", ("log.txt", 0, -1))
+        self.con.execute("""insert into partnerships(partner, _last_log_id)
+            values(?,?)""", ("log.txt", 0))
         self.con.commit()
         self.config()["path"] = contract_path(self._path, self.config().basedir)
         # Create default criterion.

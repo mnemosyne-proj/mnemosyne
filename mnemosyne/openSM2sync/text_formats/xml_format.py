@@ -8,13 +8,6 @@ from openSM2sync.log_entry import LogEntry
 
 PROTOCOL_VERSION = "openSM2sync 1.0"
 
-# Simple named-tuple like class, to avoid the expensive creation a full card
-# object. (Python 2.5 does not yet have a named tuple.)
-
-class Bunch:
-    def __init__(self, **kwds):
-        self.__dict__.update(kwds)
-
         
 class XMLFormat(object):
     
@@ -43,9 +36,7 @@ class XMLFormat(object):
         for key, value in info.iteritems():
             if key.lower() == "partnerships":
                 for partner in value:
-                    repr_info += "partner_%s='%d,%d' " % (partner,
-                        value[partner].local_index,
-                        value[partner].remote_index)
+                    repr_info += "partner_%s='%d' " % (partner, value[partner])
             else:
                 repr_info += "%s='%s' " % (key, value)
         repr_info += "protocol_version='%s'></partner>" % (PROTOCOL_VERSION, )
@@ -63,10 +54,8 @@ class XMLFormat(object):
                 value = False
             if key.lower().startswith("partner_"):
                 partner = key.split("_", 1)[1]
-                local_index, remote_index = value.split(",")
-                partner_info["partnerships"][partner] = \
-                    Bunch(local_index=int(local_index),
-                    remote_index=int(remote_index))
+                local_index = int(value)
+                partner_info["partnerships"][partner] = local_index
             else:
                 partner_info[key] = value
         #import sys; sys.stderr.write(repr(partner_info))

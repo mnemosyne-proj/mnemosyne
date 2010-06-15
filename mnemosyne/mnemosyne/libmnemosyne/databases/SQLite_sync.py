@@ -42,82 +42,36 @@ class SQLiteSync(object):
            where partner=?""", (partner, )).fetchone()
         if not sql_res:
             self.con.execute("""insert into partnerships(partner, 
-               local_index, remote_index) values(?,?,?)""", (partner, 0, 0))
+               _last_log_id) values(?,?)""", (partner, 0))
 
     def partnerships(self):
         partnerships = {}
         for sql_res in self.con.execute("""select * from partnerships where
             partner!=?""", ("log.txt", )):
-            partnerships[sql_res["partner"]] = \
-                Bunch(local_index=sql_res["local_index"],
-                remote_index=sql_res["remote_index"])
+            partnerships[sql_res["partner"]] = sql_res["_last_log_id"]
         return partnerships
 
     def merge_partnerships_before_sync(self, remote_partnerships):
-        local_partnerships = self.partnerships()
-        for partner in remote_partnerships:
-            # Determine local and remote indices, but from our viewpoint, not
-            # from the viewpoint of the remote partner.
-            local_index = remote_partnerships[partner].remote_index
-            remote_index = remote_partnerships[partner].local_index            
-            # Our local changes have been synced to a remote partner, and then
-            # from that remote partner on to a third partner. This third
-            # partner now syncs with us for the first time.
-            if partner == self.config().machine_id() and \
-                   partner not in local_partnerships:
-                self.create_partnership_if_needed_for(partner)
-                self.update_partnership(partner, local_index, remote_index):
-            # Normal case.
-            else:
-                self.create_partnership_if_needed_for(partner)
-                new_local_index = 
-                previous_last_log_index = self.con.execute(
-                    "select last_log_id from partnerships where partner=?",
-                    (partner, )).fetchone()[0]
-                self.con.execute(\
-                    "update partnerships set last_log_id=? where partner=?",
-                    (max(previous_last_log_index, last_log_index), partner))
-
-
-    def update_partnership(self, partner, local_index, remote_index):
-        # TODO: fold in post sync merge stage?
-        self.con.execute("""update partnerships set local_index=?,
-            remote_index=? where partner=?""",
-            (local_index, remote_index, partner))
+        return
 
     def last_log_index_synced_for(self, partner):
+        return self.con.execute("""select _last_log_id from partnerships 
+           where partner=?""", (partner, )).fetchone()[0]
 
-        """The last index in the local log that was synced with the remote
-        partner. At this point in time the partnerships should have been
-        merged, so that both the local information and the remote information
-        are the same.
-
-        """
-
-        # TODO: needed?
-        
-        if self.config().machine_id() not in \
-           self.sync_partner_info["partnerships"]:
-            return 0
-
-        # TODO: move this check so that it runs only once? Clean up.
-        
-        assert self.sync_partner_info["partnerships"]\
-            [self.config().machine_id()].remote_index == \
-            self.partnerships()[partner].local_index
-
-        return self.sync_partner_info["partnerships"]\
-            [self.config().machine_id()].remote_index
+    def update_last_log_index_synced_for(self, partner):
+        self.con.execute(\
+            "update partnerships set _last_log_id=? where partner=?",
+            (self.current_log_index(), partner))
 
     def number_of_log_entries_to_sync_for(self, partner,
             interested_in_old_reps=True):
-        id = self.last_log_index_synced_for(partner)
+        _id = self.last_log_index_synced_for(partner)
         if interested_in_old_reps:
-            return self.con.execute("select count() from log where id>?",
-                (id, )).fetchone()[0]
+            return self.con.execute("select count() from log where _id>?",
+                (_id, )).fetchone()[0]
         else:
-            return self.con.execute("""select count() from log where id>? and
-                event_type!=?""", (id, EventTypes.REPETITION)).fetchone()[0]
+            return self.con.execute("""select count() from log where _id>? and
+                event_type!=?""", (_id, EventTypes.REPETITION)).fetchone()[0]
         
     def log_entries_to_sync_for(self, partner, interested_in_old_reps=True):
 
@@ -126,14 +80,14 @@ class SQLiteSync(object):
 
         """
         
-        id = self.last_log_index_synced_for(partner)
+        _id = self.last_log_index_synced_for(partner)
         if interested_in_old_reps:
             return (self._log_entry(cursor) for cursor in self.con.execute(\
-                "select * from log where id>?", (id, )))
+                "select * from log where _id>?", (_id, )))
         else:
             return (self._log_entry(cursor) for cursor in self.con.execute(\
-                "select * from log where id>? and event_type!=?",
-                (id, EventTypes.REPETITION)))
+                "select * from log where _id>? and event_type!=?",
+                (_id, EventTypes.REPETITION)))
         
     def check_for_updated_media_files(self):
         # Regular media files.
@@ -159,11 +113,11 @@ class SQLiteSync(object):
         # DELETED_MEDIA log entries are irrelevant/ignored.
         # We do have to make sure we don't return any files that have been
         # deleted, though.
-        id = self.last_log_index_synced_for(partner)
+        _id = self.last_log_index_synced_for(partner)
         filenames = []
         for filename in [cursor[0] for cursor in self.con.execute(\
-            """select object_id from log where id>? and (event_type=? or
-            event_type=?)""", (id, EventTypes.ADDED_MEDIA,
+            """select object_id from log where _id>? and (event_type=? or
+            event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
             EventTypes.UPDATED_MEDIA))]:
             if os.path.exists(expand_path(filename, self.mediadir())):
                 filenames.append(filename)
