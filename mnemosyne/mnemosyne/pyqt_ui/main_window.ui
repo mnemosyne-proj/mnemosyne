@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>234</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -112,7 +112,7 @@
     <string>(De)a&amp;ctivate cards</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="actionAddCards">

@@ -189,6 +189,9 @@ http://pysnippet.blogspot.com/2010/02/qtabwidget-hiding-bar.html
 
 -make distrib
 
+-in add card window with custum font size, typing text and then deleting it reverts the font size to
+ the UI default instead of the card type default.
+
 -http://www.mblondel.org/journal/2008/08/01/web-canvas/
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
