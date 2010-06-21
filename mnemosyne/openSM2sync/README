@@ -262,44 +262,18 @@ Deck sharing servers:
 These are special servers to hold premade decks people can download into their own database. They follow the same protocol, but they only sync facts, tags and card types, not repetition or cards. (They don't sync cards so that different people who download the same deck still generate cards with unique ids to be able to distinguish then in the statistics). Modifying fact data should only be possible by the original author. 
 
 
+Cycles in the syncing graph:
 
-Miscellaneous:
+Cycles in the syncing graph are not allowed. E.g., A can sync with B, and B can sync with C, but then A and C are no longer allowed to sync directly, without going through C.
 
-* we need to investige compression, either at the html level, or as a streaming compression implemented in our own protocol. See e.g.
-http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch33s08.html
-* preserving data integrity is of the utmost importance. Therefore, apart from taking backups before sync, we should strive to make sure all syncing code is adequately covered by unit tests, and that no bugixes get checked into the tree without a corresponding new unit test.
-* in order to get traction for the openSM2sync protocol, we propose to use the LGPL licence for it
-* the first implementation will be in Python, but we welcome implementations in other langagues in our tree
+To detect this, each sync partner not only keeps a list a partnerships resulting from a direct sync, but also from an indirect sync. I.e., if A sync with B and then B with C, afterwards A should figure in the partnerships of C (but with e.g. a dummy index). 
 
+Therefore, upon login, the list of all the partnerships is sent to the sync partner. It is then the server that will check for the existence of cycles.
 
+Getting rid of this limitation would be possible, but costly in terms of extra storage and processing power. Consider e.g. the following scenario:
 
-Class design:
+-A and B sync, and afterwards both make separate local changes
+-B and C sync, and afterwards C makes local changes
+-A and B sync, and afterwards A makes local changes
 
-Some first ideas on how to organise the functionality into classes:
-
-* client.py
-
-class Client(object):
-
-    def __init__(self, bridge):
-        self.bridge = bridge
-
-* server.py
-
-class Server(object):
-
-    def __init__(self, bridge):
-        self.bridge = bridge
-
-
-* bridge.py: basically an interface class that specifies which functions the SRS system has to implement in order to plug into the openSM2sync protocol
-
-class Bridge(object):
-
-    def send_history_event(..):
-        pass
-
-    def recieve_history_event(...):
-        pass
-
-(Inside of libmnemosyne, we will need to implentend a SyncBridge class inheriting from this to deal with the Mnemosyne specific aspects
+Upon the following sync between A and C, the changes of A to be sent across to C are no longer continuous in A's log. To be able to correctly determine with log entries should be synced, each log entry should have a UUID as opposed to local id, but this will cost much more storage and processing time. 

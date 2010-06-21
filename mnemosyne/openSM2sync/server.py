@@ -65,7 +65,7 @@ class Session(object):
         self.database.create_partnership_if_needed_for(\
             client_info["machine_id"])
         self.database.merge_partnerships_before_sync\
-           (self.client_info["partnerships"])
+           (self.client_info["partners"])
 
     def is_expired(self):
         return time.time() > self.expired
@@ -215,7 +215,7 @@ class Server(WSGIServer):
             "machine_id": self.machine_id,
             "program_name": self.program_name,
             "program_version": self.program_version,
-            "partnerships": session.database.partnerships(),
+            "partners": session.database.partners(),
             "session_token": session.token,
             "supports_binary_log_download": self.supports_binary_log_download\
                 (client_info["program_name"], client_info["program_version"])}

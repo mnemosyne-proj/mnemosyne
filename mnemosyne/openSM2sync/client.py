@@ -113,7 +113,7 @@ class Client(object):
             client_info["program_version"] = self.program_version
             client_info["capabilities"] = self.capabilities
             client_info["database_name"] = self.database.name()
-            client_info["partnerships"] = self.database.partnerships()
+            client_info["partners"] = self.database.partners()
             client_info["interested_in_old_reps"] = self.interested_in_old_reps
             client_info["upload_science_logs"] = self.upload_science_logs            
             # Not yet implemented: downloading cards as pictures.
@@ -136,7 +136,7 @@ class Client(object):
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
             self.database.merge_partnerships_before_sync\
-                (self.server_info["partnerships"])
+                (self.server_info["partners"])
         except Exception, exception:
             raise SyncError("login: " + str(exception))
         

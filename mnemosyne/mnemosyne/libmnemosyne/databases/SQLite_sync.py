@@ -44,12 +44,17 @@ class SQLiteSync(object):
             self.con.execute("""insert into partnerships(partner, 
                _last_log_id) values(?,?)""", (partner, 0))
 
-    def partnerships(self):
+    # TODO: delete?
+    def partnerships_old(self):
         partnerships = {}
         for sql_res in self.con.execute("""select * from partnerships where
             partner!=?""", ("log.txt", )):
             partnerships[sql_res["partner"]] = sql_res["_last_log_id"]
         return partnerships
+    
+    def partners(self):
+        return [cursor[0] for cursor in self.con.execute("""select partner
+            from partnerships where partner!=?""", ("log.txt", ))]
 
     def merge_partnerships_before_sync(self, remote_partnerships):
         return

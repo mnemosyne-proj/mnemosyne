@@ -31,12 +31,12 @@ class XMLFormat(object):
         
     """
 
-    def repr_partner_info(self, info):          
+    def repr_partner_info(self, info):
         repr_info = " <partner "
         for key, value in info.iteritems():
-            if key.lower() == "partnerships":
-                for partner in value:
-                    repr_info += "partner_%s='%d' " % (partner, value[partner])
+            if key.lower() == "partners":
+                if value:
+                    repr_info += "%s='%s' " % (key, ",".join(value))
             else:
                 repr_info += "%s='%s' " % (key, value)
         repr_info += "protocol_version='%s'></partner>" % (PROTOCOL_VERSION, )
@@ -45,19 +45,17 @@ class XMLFormat(object):
 
     def parse_partner_info(self, xml):
         parsed_xml = cElementTree.fromstring(xml)
-        partner_info = {"partnerships": {}}
+        partner_info = {}
+        partner_info["partners"] = ()
         for key in parsed_xml.keys():
             value = parsed_xml.get(key)
             if value.lower() == "true":
                 value = True
             elif value.lower() == "false":
                 value = False
-            if key.lower().startswith("partner_"):
-                partner = key.split("_", 1)[1]
-                local_index = int(value)
-                partner_info["partnerships"][partner] = local_index
-            else:
-                partner_info[key] = value
+            if key.lower() == "partners":
+                value = value.split(",")
+            partner_info[key] = value
         #import sys; sys.stderr.write(repr(partner_info))
         return partner_info
 
