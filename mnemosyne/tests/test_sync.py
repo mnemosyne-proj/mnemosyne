@@ -16,6 +16,8 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 server_lock = Lock()
 
+last_error = None
+
 class Widget(MainWidget):
     
     def status_bar_message(self, message):
@@ -25,9 +27,11 @@ class Widget(MainWidget):
         print info
         
     def error_box(self, error):
+        global last_error
+        last_error = error
         print error
         
-PORT = 9294
+PORT = 9311
         
 class MyServer(Server, Thread):
 
@@ -692,14 +696,7 @@ class TestSync(object):
         self.client = MyClient()
         self.client.password = "wrong"
         self.client.do_sync()
-        assert self.client.database.card_count() == 0
-
-        # Server is still running now, we need to shut it down for the next
-        # test.
-
-        self.client.password = "pass"
-        self.client.do_sync()
-        assert self.client.database.card_count() == 1    
+        assert self.client.database.card_count() == 0  
 
     def test_card_only(self):
 
@@ -1053,9 +1050,9 @@ class TestSync(object):
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 1
         f = file(os.path.join(os.path.abspath("dot_sync_client"), "log.txt"))
-        assert len(f.readlines()) == 6       
+        assert len(f.readlines()) == 6
 
-    def test_triple_sync(self):
+    def test_sync_cycle(self):
 
         # A --> B
 
@@ -1102,6 +1099,7 @@ class TestSync(object):
         self.server = MyServer(os.path.abspath("dot_sync_A"), erase_previous=False)
         self.server.test_server = test_server
         self.server.start()
+        self.server.passed_tests = True
 
         self.client = MyClient(os.path.abspath("dot_sync_C"), erase_previous=False)
         self.client.mnemosyne.review_controller().reset()
@@ -1110,16 +1108,10 @@ class TestSync(object):
         self.client.mnemosyne.review_controller().grade_answer(5)
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
-        self.client.mnemosyne.finalise()
-        
-        # Test that A and C have all the reps and no duplicates.
-        
-        self.client = MyClient(os.path.abspath("dot_sync_A"), erase_previous=False)
-        db = self.client.database
-        assert db.con.execute("select count() from log where event_type=?",
-               (EventTypes.REPETITION, )).fetchone()[0] == 3
 
-        self.client = MyClient(os.path.abspath("dot_sync_C"), erase_previous=False)
-        db = self.client.database
-        assert db.con.execute("select count() from log where event_type=?",
-               (EventTypes.REPETITION, )).fetchone()[0] == 3
+        self.server.stopped = True
+
+        global last_error
+        assert "cycle" in last_error
+        last_error = None
+        

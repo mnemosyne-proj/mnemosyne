@@ -127,6 +127,9 @@ class Client(object):
             response = self.con.getresponse().read()
             if response == "403 Forbidden":
                 raise SyncError("Wrong username or password.")
+            if "cycle" in response.lower():
+                raise SyncError(\
+                    "Sync cycle detected. Sync through intermediate partner.")             
             self.server_info = self.text_format.parse_partner_info(response)
             self.database.set_sync_partner_info(self.server_info)
             if self.database.is_empty():
@@ -135,8 +138,7 @@ class Client(object):
                 raise SyncError("mismatched user_ids.")
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
-            self.database.merge_partnerships_before_sync\
-                (self.server_info["partners"])
+            self.database.merge_partners(self.server_info["partners"])
         except Exception, exception:
             raise SyncError("login: " + str(exception))
         

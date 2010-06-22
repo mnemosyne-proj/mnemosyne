@@ -62,10 +62,6 @@ class Session(object):
         self.expires = time.time() + 60*60
         self.backup_file = self.database.backup()
         self.database.set_sync_partner_info(client_info)
-        self.database.create_partnership_if_needed_for(\
-            client_info["machine_id"])
-        self.database.merge_partnerships_before_sync\
-           (self.client_info["partners"])
 
     def is_expired(self):
         return time.time() > self.expired
@@ -201,6 +197,8 @@ class Server(WSGIServer):
         client_info = self.text_format.parse_partner_info(client_info_repr)
         if not self.authorise(client_info["username"],
             client_info["password"]):
+            if self.stop_after_sync:
+                self.stopped = True
             return "403 Forbidden"
         # Close old session if it failed to finish properly.
         old_running_session_token = self.session_token_for_user.\
@@ -208,6 +206,19 @@ class Server(WSGIServer):
         if old_running_session_token:
             self.terminate_session_with_token(old_running_session_token)
         session = self.create_session(client_info)
+        # Make sure there are no cycles in the sync graph.
+        server_in_client_partners = self.machine_id in \
+            session.client_info["partners"]
+        client_in_server_partners = session.client_info["machine_id"] in \
+            session.database.partners()      
+        if (server_in_client_partners and not client_in_server_partners) or \
+           (client_in_server_partners and not server_in_client_partners):
+            if self.stop_after_sync:
+                self.stopped = True
+            return "Cycle detected"
+        session.database.create_partnership_if_needed_for(\
+            client_info["machine_id"])
+        session.database.merge_partners(client_info["partners"])
         # Note that we need to send 'user_id' to the client as well, so that the
         # client can make sure the 'user_id's (used to label the anynymous
         # uploaded logs) are consistent across machines.

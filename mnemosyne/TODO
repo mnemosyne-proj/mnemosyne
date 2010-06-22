@@ -1,7 +1,3 @@
--only exchange sync partners before sync, not indices
--don't do self.database.create_partnership_if_needed_for in session init
--if common sync partner, refuse (should work both ways)
-
 -conflict resolution
 -rather than deleting history, mark it as undone in order to keep id ordering
  consistent

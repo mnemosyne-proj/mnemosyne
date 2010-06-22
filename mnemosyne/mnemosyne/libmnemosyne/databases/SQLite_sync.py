@@ -36,28 +36,30 @@ class SQLiteSync(object):
     def set_sync_partner_info(self, info):
         self.sync_partner_info = info
     
+    def partners(self):
+        return [cursor[0] for cursor in self.con.execute("""select partner
+            from partnerships where partner!=?""", ("log.txt", ))]
+    
     def create_partnership_if_needed_for(self, partner):
-        # Needed? could be folded in pre sync merge partnerships?
         sql_res = self.con.execute("""select partner from partnerships 
            where partner=?""", (partner, )).fetchone()
         if not sql_res:
             self.con.execute("""insert into partnerships(partner, 
                _last_log_id) values(?,?)""", (partner, 0))
 
-    # TODO: delete?
-    def partnerships_old(self):
-        partnerships = {}
-        for sql_res in self.con.execute("""select * from partnerships where
-            partner!=?""", ("log.txt", )):
-            partnerships[sql_res["partner"]] = sql_res["_last_log_id"]
-        return partnerships
-    
-    def partners(self):
-        return [cursor[0] for cursor in self.con.execute("""select partner
-            from partnerships where partner!=?""", ("log.txt", ))]
+    def merge_partners(self, remote_partners):
 
-    def merge_partnerships_before_sync(self, remote_partnerships):
-        return
+        """Remember the indirect sync partners. Since we don't need their
+        _last_log_id, we set it -1.
+
+        """
+        
+        local_partners = self.partners()
+        for partner in remote_partners:
+            if partner not in local_partners and \
+               partner != self.sync_partner_info["machine_id"]:
+                self.con.execute("""insert into partnerships(partner, 
+                     _last_log_id) values(?,?)""", (partner, -1))
 
     def last_log_index_synced_for(self, partner):
         return self.con.execute("""select _last_log_id from partnerships 
