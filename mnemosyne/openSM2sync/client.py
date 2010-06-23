@@ -179,8 +179,12 @@ class Client(object):
         buffer += self.text_format.log_entries_footer()
         self.con.send(buffer.encode("utf-8"))
         self.ui.status_bar_message("Waiting for server to complete...")
-        if self.con.getresponse().read() != "OK":
-            raise SyncError("Error sending log entries to server.")
+        response = self.con.getresponse().read().lower()
+        if "conflict" in response:
+            result = self.ui.question_box("Conflicts detected during sync!",
+               "Keep local version", "Keep remote version", "Cancel")
+            if result == 2: # cancel
+                
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")

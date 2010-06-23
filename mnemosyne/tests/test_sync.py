@@ -31,7 +31,7 @@ class Widget(MainWidget):
         last_error = error
         print error
         
-PORT = 9311
+PORT = 9316
         
 class MyServer(Server, Thread):
 
@@ -1115,3 +1115,41 @@ class TestSync(object):
         assert "cycle" in last_error
         last_error = None
         
+    def test_update_tag_conflict(self):
+
+        # First sync.
+
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+
+        # Second sync.
+
+        def fill_server_database(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag.name = "server"
+            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().save
+            
+        self.server = MyServer(erase_previous=False)
+        self.server.tag_id = tag.id
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag.name = "client"
+        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().save
+        self.client.do_sync()

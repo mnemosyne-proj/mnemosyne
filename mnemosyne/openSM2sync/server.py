@@ -262,12 +262,26 @@ class Server(WSGIServer):
         number_of_entries = element_loop.next()
         count = 0
         progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, number_of_entries)  
+        progress_dialog.set_range(0, number_of_entries)
+        client_o_ids = []        
         for log_entry in element_loop:
             session.client_log.append(log_entry)
+            if log_entry["type"] > 5: # not STARTED_PROGRAM, STOPPED_PROGRAM,
+                # STARTED_SCHEDULER, LOADED_DATABASE, SAVED_DATABASE
+                if "fname" in log_entry:
+                    log_entry["o_id"] = log_entry["fname"]
+                client_o_ids.append(log_entry["o_id"])  
             count += 1
             progress_dialog.set_value(count)
-        self.ui.status_bar_message("Waiting for client to finish...")
+        # Now we can determine whether there are conflicts.
+        for log_entry in session.database.log_entries_to_sync_for(\
+            session.client_info["machine_id"]):
+            if not log_entry: # Irrelevent entry for card-based clients.
+                continue
+            if "fname" in log_entry:
+                log_entry["o_id"] = log_entry["fname"]
+            if log_entry["type"] > 5 and log_entry["o_id"] in client_o_ids:
+                return "Conflict"
         return "OK"
 
     def get_server_log_entries(self, environ, session_token):

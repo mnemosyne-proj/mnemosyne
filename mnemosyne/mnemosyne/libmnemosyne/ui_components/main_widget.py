@@ -23,6 +23,9 @@ class MainWidget(UiComponent):
         raise NotImplementedError
             
     def question_box(self, question, option0, option1, option2):
+
+        """Returns 0, 1 or 2"""
+        
         raise NotImplementedError
     
     def error_box(self, message):
