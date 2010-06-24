@@ -277,3 +277,18 @@ Getting rid of this limitation would be possible, but costly in terms of extra s
 -A and B sync, and afterwards A makes local changes
 
 Upon the following sync between A and C, the changes of A to be sent across to C are no longer continuous in A's log. To be able to correctly determine with log entries should be synced, each log entry should have a UUID as opposed to local id, but this will cost much more storage and processing time. 
+
+
+Conflicts:
+
+Upon detecting conflicts, the full database from either the client or the server is copied to the other side, the direction depending on the user's indication. After doing so, the partnership table of the database that was copied over is adapted such that client and server id's are reversed.
+
+The initial plan was to do something faster by doing incremental changes to the database: erasing the parts of the logs that need to be discarded, and constructing a stream of log entries to undo the changes based on information from the other side (e.g. a DELETED_TAG entry would be converted to an ADDED_TAG entry). However, this is not full proof in the case of multiple partners (for similar reasons as the cycle problem). Consider e.g. the following scenario:
+
+-A, B, C are in sync
+-A and B make conflicting changes
+-B and C sync
+-C makes non conflicting changes
+-A and B sync, conficts are detected and A wins
+
+When now B and C sync, the part of C's log that needs to be undone is no longer last in its log, so there is no easy way for B to tell C which parts need to be discarded. Also here, a way around would be UUIDs for each log entry, but that would be very costly.

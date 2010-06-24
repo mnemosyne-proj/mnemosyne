@@ -1,9 +1,8 @@
--deleting tag both in client and server
+-implement + test get_server_entire_database
+-do same at client side, see if we can factor out stuff
 -how does conflict resolution affect third party partnerships?
 -full sync resolution media files?
--conflict resolution
--rather than deleting history, mark it as undone in order to keep id ordering
- consistent
+-test for conflict resolution and triple sync, make sure indirect partnerships are correct
 
 -test scheduled, active count sync on load/save + type
 

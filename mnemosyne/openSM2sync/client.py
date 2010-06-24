@@ -90,7 +90,7 @@ class Client(object):
             self.get_server_media_files()
             if self.database.is_empty() and \
                self.server_info["supports_binary_log_download"]:
-                self.get_server_log_entries_binary()
+                self.get_server_entire_database_binary()
             else:
                 self.get_server_log_entries()
             self.get_sync_finish()
@@ -184,7 +184,7 @@ class Client(object):
             result = self.ui.question_box("Conflicts detected during sync!",
                "Keep local version", "Keep remote version", "Cancel")
             if result == 2: # cancel
-                
+                pass
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")
@@ -213,18 +213,18 @@ class Client(object):
         except Exception, exception:
             raise SyncError("Getting server log entries: " + str(exception))
         
-    def get_server_log_entries_binary(self):
-        self.ui.status_bar_message("Getting binary server log entries...")
+    def get_server_entire_database_binary(self):
+        self.ui.status_bar_message("Getting entire binary server database...")
         try:
             filename = self.database.path()
             self.database.abandon()
             new_database = file(filename, "wb")
-            self.con.request("GET", "/server/binary_log_entries?" + \
+            self.con.request("GET", "/server/entire_database_binary?" + \
                 "session_token=%s" % (self.server_info["session_token"], ))
             response = self.con.getresponse()
             file_size = int(response.fp.readline())
             progress_dialog = self.ui.get_progress_dialog()
-            progress_dialog.set_text("Getting binary log entries...")
+            progress_dialog.set_text("Getting entire binary database...")
             progress_dialog.set_range(0, file_size)
             remaining = file_size
             while remaining:
@@ -239,7 +239,8 @@ class Client(object):
             new_database.close()
             self.database.load(filename)
         except Exception, exception:
-            raise SyncError("Getting server binary log entries: " + str(exception))
+            raise SyncError("Getting entire binary server database: " \
+                + str(exception))
         
     def put_client_media_files(self):
         self.ui.status_bar_message("Sending media files to server...")

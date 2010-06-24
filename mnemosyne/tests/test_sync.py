@@ -31,7 +31,7 @@ class Widget(MainWidget):
         last_error = error
         print error
         
-PORT = 9316
+PORT = 9321
         
 class MyServer(Server, Thread):
 

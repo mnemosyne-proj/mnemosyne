@@ -284,21 +284,13 @@ class Server(WSGIServer):
                 return "Conflict"
         return "OK"
 
-    def get_server_log_entries(self, environ, session_token):
-        self.ui.status_bar_message("Sending log entries to client...")
-        session = self.sessions[session_token]
-        number_of_entries = session.database.\
-            number_of_log_entries_to_sync_for(\
-            session.client_info["machine_id"],
-            session.client_info["interested_in_old_reps"])
+    def _stream_log_entries(self, log_entries, number_of_entries):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_range(0, number_of_entries)
         progress_dialog.set_text("Sending log entries to client...")
         buffer = self.text_format.log_entries_header(number_of_entries)
         count = 0
-        for log_entry in session.database.log_entries_to_sync_for(\
-            session.client_info["machine_id"],
-            session.client_info["interested_in_old_reps"]):
+        for log_entry in log_entries:
             count += 1
             progress_dialog.set_value(count)
             buffer += self.text_format.repr_log_entry(log_entry)
@@ -307,17 +299,7 @@ class Server(WSGIServer):
                 buffer = ""
         buffer += self.text_format.log_entries_footer()
         yield buffer.encode("utf-8")
-        # Now that all the data is underway to the client, we can start
-        # applying the client log entries.
-        # First, dump to the science log, so that we can skip over the new
-        # logs in case the client uploads them.
-        session.database.dump_to_science_log()
-        for log_entry in session.client_log:
-            session.database.apply_log_entry(log_entry)
-        # Skip over the logs that the client promised to upload.
-        if session.client_info["upload_science_logs"]:
-            session.database.skip_science_log()     
-
+        
     def _stream_binary_file(self, binary_file, file_size):
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_text("Sending binary file to client...")
@@ -329,10 +311,35 @@ class Server(WSGIServer):
             yield buffer
             buffer = binary_file.read(BUFFER_SIZE)
             count += BUFFER_SIZE
-        progress_dialog.set_value(file_size)        
+        progress_dialog.set_value(file_size)
+        
+    def get_server_log_entries(self, environ, session_token):
+        self.ui.status_bar_message("Sending log entries to client...")
+        session = self.sessions[session_token]
+        log_entries = session.database.log_entries_to_sync_for(\
+            session.client_info["machine_id"],
+            session.client_info["interested_in_old_reps"])
+        number_of_entries = session.database.\
+            number_of_log_entries_to_sync_for(\
+            session.client_info["machine_id"],
+            session.client_info["interested_in_old_reps"])
+        for buffer in self._stream_log_entries(log_entries, number_of_entries):
+            yield buffer
+        # Now that all the data is underway to the client, we can start
+        # applying the client log entries.
+        # First, dump to the science log, so that we can skip over the new
+        # logs in case the client uploads them.
+        session.database.dump_to_science_log()
+        for log_entry in session.client_log:
+            session.database.apply_log_entry(log_entry)
+        # Skip over the logs that the client promised to upload.
+        if session.client_info["upload_science_logs"]:
+            session.database.skip_science_log()
+
+    def get_server_entire_database
             
-    def get_server_binary_log_entries(self, environ, session_token):
-        self.ui.status_bar_message("Sending binary log entries to client...")
+    def get_server_entire_database_binary(self, environ, session_token):
+        self.ui.status_bar_message("Sending entire binary database to client...")
         session = self.sessions[session_token]
         for binary_format in binary_formats:
             if binary_format.supports(session.client_info["program_name"],
@@ -344,7 +351,7 @@ class Server(WSGIServer):
         for buffer in self._stream_binary_file(binary_file, file_size):
             yield buffer
         binary_format.clean_up()
-        # This is the initial sync, we don't need to apply client log entries.
+        # This is a full sync, we don't need to apply client log entries here.
             
     def put_client_media_files(self, environ, session_token):
         self.ui.status_bar_message("Receiving client media files...")

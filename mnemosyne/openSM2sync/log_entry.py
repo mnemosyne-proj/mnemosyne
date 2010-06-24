@@ -103,7 +103,6 @@ class LogEntry(dict):
 
     Keys specific to ADDED_MEDIA, UPDATED_MEDIA, DELETED_MEDIA:
         fname (string): filename
-        fact (nice_string): id of fact where filename is used 
     
     Any other keys in LogEntry that don't appear in the list above will be
     synced as string.
