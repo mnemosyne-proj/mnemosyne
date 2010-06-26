@@ -47,6 +47,16 @@ class SQLiteSync(object):
             self.con.execute("""insert into partnerships(partner, 
                _last_log_id) values(?,?)""", (partner, 0))
 
+    def remove_partnership_with_self(self):
+
+        """Can happen after binary download of a full remote database after
+        confict resolution.
+
+        """
+        
+        self.con.execute("delete from partnerships where partner=?",
+            (self.config().machine_id(),))
+        
     def merge_partners(self, remote_partners):
 
         """Remember the indirect sync partners. Since we don't need their
@@ -57,7 +67,8 @@ class SQLiteSync(object):
         local_partners = self.partners()
         for partner in remote_partners:
             if partner not in local_partners and \
-               partner != self.sync_partner_info["machine_id"]:
+               partner != self.sync_partner_info["machine_id"] and\
+               partner != self.config().machine_id():
                 self.con.execute("""insert into partnerships(partner, 
                      _last_log_id) values(?,?)""", (partner, -1))
 

@@ -82,10 +82,22 @@ class Client(object):
             if self.check_for_updated_media_files:
                 self.database.check_for_updated_media_files()
             self.login(hostname, port, username, password)
-            self.put_client_log_entries()
-            # Here, the server should send a summary of the sync and of
-            # conflicts encountered, so here the user will later get the
-            # opportunity to cancel the sync.
+            result = self.put_client_log_entries()
+            # Deal with conflict resolution.
+            if result == "cancel":
+                self.get_sync_cancel()
+                return
+            elif result == "keep_local":
+                pass
+                return
+            elif result == "keep_remote":
+                if self.server_info["supports_binary_log_download"]:
+                    self.get_server_entire_database_binary()
+                else:
+                    self.get_server_entire_database()
+                self.get_sync_finish()
+                return
+            # Normal case.
             self.put_client_media_files()
             self.get_server_media_files()
             if self.database.is_empty() and \
@@ -183,8 +195,9 @@ class Client(object):
         if "conflict" in response:
             result = self.ui.question_box("Conflicts detected during sync!",
                "Keep local version", "Keep remote version", "Cancel")
-            if result == 2: # cancel
-                pass
+            results = {0: "keep_local", 1: "keep_remote", 2: "cancel"}
+            return results[result]
+        return "OK"
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")
@@ -238,6 +251,7 @@ class Client(object):
             progress_dialog.set_value(file_size)
             new_database.close()
             self.database.load(filename)
+            self.database.remove_partnership_with_self()
         except Exception, exception:
             raise SyncError("Getting entire binary server database: " \
                 + str(exception))
@@ -284,6 +298,17 @@ class Client(object):
         except Exception, exception:
             raise SyncError("Getting server media files: " + str(exception))
 
+    def get_sync_cancel(self):
+        self.ui.status_bar_message("Waiting for the server to complete...")
+        try:
+            self.con.request("GET", "/sync/cancel?session_token=%s" \
+                % (self.server_info["session_token"], ))
+            response = self.con.getresponse()
+            if response.read() != "OK":
+                raise SyncError("Sync finish: error on server side.")
+        except Exception, exception:
+            raise SyncError("Sync finish: " + str(exception))
+
     def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
@@ -295,6 +320,4 @@ class Client(object):
             self.database.update_last_log_index_synced_for(\
                 self.server_info["machine_id"])
         except Exception, exception:
-            raise SyncError("Sync finish: " + str(exception))
-
-            
+            raise SyncError("Sync finish: " + str(exception))            

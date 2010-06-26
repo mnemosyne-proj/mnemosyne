@@ -1,5 +1,8 @@
--implement + test get_server_entire_database
+-update partnership data after sync. More robust tests
+-log upload?
 -do same at client side, see if we can factor out stuff
+-put check for self.server_info["supports_binary_log_download"] deeper
+-send across mnemosyne database format to check, both in client and server case
 -how does conflict resolution affect third party partnerships?
 -full sync resolution media files?
 -test for conflict resolution and triple sync, make sure indirect partnerships are correct

@@ -148,6 +148,19 @@ class Server(WSGIServer):
         session.close()        
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
+
+
+    def cancel_session_with_token(self, session_token):
+
+        """Cancel a session at the user's request, e.g. after detecting
+        conflicts.
+
+        """
+        
+        session = self.sessions[session_token]       
+        del self.session_token_for_user[session.client_info["username"]]
+        del self.sessions[session_token]
+        
         
     def terminate_session_with_token(self, session_token):
 
@@ -336,7 +349,8 @@ class Server(WSGIServer):
         if session.client_info["upload_science_logs"]:
             session.database.skip_science_log()
 
-    def get_server_entire_database
+    def get_server_entire_database(self, environ, session_token):
+        pass
             
     def get_server_entire_database_binary(self, environ, session_token):
         self.ui.status_bar_message("Sending entire binary database to client...")
@@ -398,7 +412,14 @@ class Server(WSGIServer):
             os.chdir(saved_path)
         except:
             yield "CANCEL"
-
+            
+    def get_sync_cancel(self, environ, session_token):
+        self.ui.status_bar_message("Waiting for client to finish...")
+        self.cancel_session_with_token(session_token) 
+        if self.stop_after_sync:
+            self.stopped = True
+        return "OK"
+    
     def get_sync_finish(self, environ, session_token):
         self.ui.status_bar_message("Waiting for client to finish...")
         self.close_session_with_token(session_token) 
@@ -409,3 +430,4 @@ class Server(WSGIServer):
         if self.stop_after_sync:
             self.stopped = True
         return "OK"
+    
