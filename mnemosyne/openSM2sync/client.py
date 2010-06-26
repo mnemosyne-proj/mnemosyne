@@ -251,6 +251,8 @@ class Client(object):
             progress_dialog.set_value(file_size)
             new_database.close()
             self.database.load(filename)
+            self.database.create_partnership_if_needed_for(\
+                self.server_info["machine_id"])
             self.database.remove_partnership_with_self()
         except Exception, exception:
             raise SyncError("Getting entire binary server database: " \

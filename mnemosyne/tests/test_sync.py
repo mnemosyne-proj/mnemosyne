@@ -1199,7 +1199,8 @@ class TestSync(object):
 
             assert self.mnemosyne.config().machine_id() not in \
                    self.mnemosyne.database().partners()
-            
+            assert len(self.mnemosyne.database().partners()) == 1
+        
         self.server = MyServer(erase_previous=False, binary_download=True)
         self.server.tag_id = tag.id
         self.server.test_server = test_server
@@ -1221,3 +1222,4 @@ class TestSync(object):
 
         assert self.client.mnemosyne.config().machine_id() not in \
             self.client.mnemosyne.database().partners()
+        assert len(self.client.mnemosyne.database().partners()) == 1

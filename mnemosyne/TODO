@@ -1,4 +1,3 @@
--update partnership data after sync. More robust tests
 -log upload?
 -do same at client side, see if we can factor out stuff
 -put check for self.server_info["supports_binary_log_download"] deeper
@@ -93,6 +92,8 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 -tag.id in criteria?
 -is it worth keeping database.tag_names?
 -get rid of 'get_'
+
+-check if media files exist?
 
 -number of unmemorised cards to hold in your hand? (i.e. grade 0 + 1)
 -rework give initial grade dialog
