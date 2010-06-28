@@ -35,7 +35,7 @@ class Widget(MainWidget):
     def question_box(self, question, option0, option1, option2):
         return answer
         
-PORT = 9326
+PORT = 9337
         
 class MyServer(Server, Thread):
 
@@ -1208,6 +1208,119 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag.name = "client"
+        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().save()
+
+        global answer
+        answer = 1 # keep remote
+        self.client.do_sync()
+        
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        assert tag.name == "server"
+
+        assert self.client.mnemosyne.config().machine_id() not in \
+            self.client.mnemosyne.database().partners()
+        assert len(self.client.mnemosyne.database().partners()) == 1
+
+    def test_conflict_keep_remote(self):
+
+        # First sync.
+
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+
+        # Second sync.
+
+        def fill_server_database(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag.name = "server"
+            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().save
+
+        def test_server(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            assert tag.name == "server"
+
+            assert self.mnemosyne.config().machine_id() not in \
+                   self.mnemosyne.database().partners()
+            assert len(self.mnemosyne.database().partners()) == 1
+        
+        self.server = MyServer(erase_previous=False)
+        self.server.tag_id = tag.id
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag.name = "client"
+        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().save()
+
+        global answer
+        answer = 1 # keep remote
+        self.client.do_sync()
+        
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        assert tag.name == "server"
+
+        assert self.client.mnemosyne.config().machine_id() not in \
+            self.client.mnemosyne.database().partners()
+        assert len(self.client.mnemosyne.database().partners()) == 1
+
+    def test_conflict_keep_remote_no_old_reps(self):
+
+        # First sync.
+
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+
+        # Second sync.
+
+        def fill_server_database(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag.name = "server"
+            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().save
+
+        def test_server(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            assert tag.name == "server"
+
+            assert self.mnemosyne.config().machine_id() not in \
+                   self.mnemosyne.database().partners()
+            assert len(self.mnemosyne.database().partners()) == 1
+        
+        self.server = MyServer(erase_previous=False)
+        self.server.tag_id = tag.id
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        self.client.interested_in_old_reps = False
         tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)

@@ -281,7 +281,7 @@ Upon the following sync between A and C, the changes of A to be sent across to C
 
 Conflicts:
 
-Upon detecting conflicts, the full database from either the client or the server is copied to the other side, the direction depending on the user's indication. After doing so, the partnership table of the database that was copied over is adapted such that client and server id's are reversed. There are routines to either send across the database as xml (for non-Mnemosyne clients which have not implemented a binary extension to the server) or as binary.
+Upon detecting conflicts, the full database from either the client or the server is copied to the other side, the direction depending on the user's indication. After doing so, the partnership table of the database that was copied over is adapted such that client and server id's are reversed. There are routines to either send across the database as xml (for non-Mnemosyne clients which have not implemented a binary extension to the server) or as binary. Note that if a partner has sent logs to science server about events which are later revoked during conflict resolution, there is no way to undo these logs on the science server. This is somewhat unfortunate, but the sheer size of science database should mitigate this effect.
 
 The initial plan was to do something faster by doing incremental changes to the database: erasing the parts of the logs that need to be discarded, and constructing a stream of log entries to undo the changes based on information from the other side (e.g. a DELETED_TAG entry would be converted to an ADDED_TAG entry). However, this is not full proof in the case of multiple partners (for similar reasons as the cycle problem). Consider e.g. the following scenario:
 

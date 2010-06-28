@@ -90,6 +90,13 @@ class SQLiteSync(object):
         else:
             return self.con.execute("""select count() from log where _id>? and
                 event_type!=?""", (_id, EventTypes.REPETITION)).fetchone()[0]
+
+    def number_of_log_entries(self, interested_in_old_reps=True):
+        if interested_in_old_reps:
+            return self.con.execute("select count() from log").fetchone()[0]
+        else:
+            return self.con.execute("""select count() from log where 
+                event_type!=?""", (EventTypes.REPETITION,)).fetchone()[0]    
         
     def log_entries_to_sync_for(self, partner, interested_in_old_reps=True):
 
@@ -106,6 +113,15 @@ class SQLiteSync(object):
             return (self._log_entry(cursor) for cursor in self.con.execute(\
                 "select * from log where _id>? and event_type!=?",
                 (_id, EventTypes.REPETITION)))
+        
+    def all_log_entries(self, interested_in_old_reps=True):
+        if interested_in_old_reps:
+            return (self._log_entry(cursor) for cursor in self.con.execute(\
+                "select * from log"))
+        else:
+            return (self._log_entry(cursor) for cursor in self.con.execute(\
+                "select * from log where event_type!=?",
+                (EventTypes.REPETITION, )))
         
     def check_for_updated_media_files(self):
         # Regular media files.

@@ -1,5 +1,8 @@
+-see if we can homogeneize server and client for downloading log entries
+-move stuff to partner
+-move formats to partner?
+-say that media takes a short cut, both on client and server side
 -log upload? Take care that log.txt does not get overwritten from client.
--do same at client side, see if we can factor out stuff
 -put check for self.server_info["supports_binary_log_download"] deeper
 -send across mnemosyne database format to check, both in client and server case
 -how does conflict resolution affect third party partnerships?

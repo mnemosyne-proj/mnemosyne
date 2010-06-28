@@ -13,6 +13,7 @@ import tempfile
 import cStringIO
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
+from partner import Partner, BUFFER_SIZE
 from text_formats.xml_format import XMLFormat
 
 
@@ -49,9 +50,6 @@ from binary_formats.mnemosyne_format import MnemosyneFormat
 binary_formats = [MnemosyneFormat]
 
 
-BUFFER_SIZE = 8192
-        
-
 class Session(object):
 
     def __init__(self, client_info, database):
@@ -78,7 +76,7 @@ class Session(object):
         self.database.restore(self.backup_file)
 
 
-class Server(WSGIServer):
+class Server(WSGIServer, Partner):
 
     program_name = "unknown-SRS-app"
     program_version = "unknown"
@@ -89,7 +87,7 @@ class Server(WSGIServer):
         self.machine_id = machine_id
         WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
-        self.ui = ui
+        Partner.__init__(self, ui)
         self.text_format = XMLFormat()
         self.stopped = False
         self.sessions = {} # {session_token: session}
@@ -160,8 +158,7 @@ class Server(WSGIServer):
         session = self.sessions[session_token]       
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
-        
-        
+               
     def terminate_session_with_token(self, session_token):
 
         """Clean up a session which failed to close normally."""
@@ -296,35 +293,6 @@ class Server(WSGIServer):
             if log_entry["type"] > 5 and log_entry["o_id"] in client_o_ids:
                 return "Conflict"
         return "OK"
-
-    def _stream_log_entries(self, log_entries, number_of_entries):
-        progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, number_of_entries)
-        progress_dialog.set_text("Sending log entries to client...")
-        buffer = self.text_format.log_entries_header(number_of_entries)
-        count = 0
-        for log_entry in log_entries:
-            count += 1
-            progress_dialog.set_value(count)
-            buffer += self.text_format.repr_log_entry(log_entry)
-            if len(buffer) > BUFFER_SIZE:
-                yield buffer.encode("utf-8")
-                buffer = ""
-        buffer += self.text_format.log_entries_footer()
-        yield buffer.encode("utf-8")
-        
-    def _stream_binary_file(self, binary_file, file_size):
-        progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_text("Sending binary file to client...")
-        progress_dialog.set_range(0, file_size)        
-        buffer = str(file_size) + "\n" + binary_file.read(BUFFER_SIZE)
-        count = BUFFER_SIZE
-        while buffer:
-            progress_dialog.set_value(count)
-            yield buffer
-            buffer = binary_file.read(BUFFER_SIZE)
-            count += BUFFER_SIZE
-        progress_dialog.set_value(file_size)
         
     def get_server_log_entries(self, environ, session_token):
         self.ui.status_bar_message("Sending log entries to client...")
@@ -336,7 +304,8 @@ class Server(WSGIServer):
             number_of_log_entries_to_sync_for(\
             session.client_info["machine_id"],
             session.client_info["interested_in_old_reps"])
-        for buffer in self._stream_log_entries(log_entries, number_of_entries):
+        for buffer in self.stream_log_entries(log_entries, number_of_entries,
+            "Sending log entries to client..."):
             yield buffer
         # Now that all the data is underway to the client, we can start
         # applying the client log entries.
@@ -350,7 +319,16 @@ class Server(WSGIServer):
             session.database.skip_science_log()
 
     def get_server_entire_database(self, environ, session_token):
-        pass
+        self.ui.status_bar_message("Sending entire database to client...")
+        session = self.sessions[session_token]
+        session.database.dump_to_science_log()
+        log_entries = session.database.all_log_entries(\
+            session.client_info["interested_in_old_reps"])
+        number_of_entries = session.database.number_of_log_entries(\
+            session.client_info["interested_in_old_reps"])
+        for buffer in self.stream_log_entries(log_entries, number_of_entries,
+            "Sending entire database to client..."):
+            yield buffer
             
     def get_server_entire_database_binary(self, environ, session_token):
         self.ui.status_bar_message("Sending entire binary database to client...")
@@ -362,7 +340,8 @@ class Server(WSGIServer):
                 binary_file, file_size = binary_format.binary_file_and_size(\
                     session.client_info["interested_in_old_reps"])
                 break
-        for buffer in self._stream_binary_file(binary_file, file_size):
+        for buffer in self.stream_binary_file(binary_file, file_size,
+            "Sending binary file to client..."):
             yield buffer
         binary_format.clean_up()
         # This is a full sync, we don't need to apply client log entries here.
@@ -406,7 +385,8 @@ class Server(WSGIServer):
             # Stream tar file across.
             tmp_file = file(tmp_file_name, "rb")
             file_size = os.path.getsize(tmp_file_name)
-            for buffer in self._stream_binary_file(tmp_file, file_size):
+            for buffer in self.stream_binary_file(tmp_file, file_size,
+                "Sending media files to client..."):
                 yield buffer            
             os.remove(tmp_file_name)
             os.chdir(saved_path)

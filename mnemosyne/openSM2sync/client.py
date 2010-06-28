@@ -9,6 +9,7 @@ import tarfile
 import httplib
 from xml.etree import cElementTree
 
+from partner import Partner, BUFFER_SIZE
 from utils import tar_file_size
 from text_formats.xml_format import XMLFormat
 
@@ -38,11 +39,7 @@ httplib.HTTPConnection.response_class = HTTPResponse
 class SyncError(Exception):
     pass
 
-
-BUFFER_SIZE = 8192
-
-
-class Client(object):
+class Client(Partner):
     
     program_name = "unknown-SRS-app"
     program_version = "unknown"
@@ -66,9 +63,9 @@ class Client(object):
     upload_science_logs = True
     
     def __init__(self, machine_id, database, ui):
+        Partner.__init__(self, ui)
         self.machine_id = machine_id
         self.database = database
-        self.ui = ui
         self.text_format = XMLFormat()
         self.server_info = {}
 
@@ -88,7 +85,11 @@ class Client(object):
                 self.get_sync_cancel()
                 return
             elif result == "keep_local":
-                pass
+                if True: # TMP
+                    self.put_client_entire_database_binary()
+                else:
+                    self.put_client_entire_database()
+                self.get_sync_finish()
                 return
             elif result == "keep_remote":
                 if self.server_info["supports_binary_log_download"]:
@@ -160,36 +161,14 @@ class Client(object):
             self.server_info["machine_id"])
         if number_of_entries == 0:
             return
-        # Send actual log entries across in a streaming manner.
-        # Normally, one would use "Transfer-Encoding: chunked" for that, but
-        # chunked requests are not supported by the WSGI 1.x standard.
-        # However, it seems we can get around sending a Content-Length header
-        # if the server knows when the datastream ends. We use the data format
-        # footer as a sentinel for that.
-        # As the first line in the stream, we send across the number of log
-        # entries, so that the other side can track progress.
-        # We also buffer the stream until we have sufficient data to send, in
-        # order to improve throughput.
-        # We also tried compression here, but for typical scenarios that is
-        # slightly slower on a WLAN and mobile phone.
         self.con.putrequest("PUT", "/client/log_entries?session_token=%s" \
             % (self.server_info["session_token"], ))
         self.con.endheaders()
-        progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, number_of_entries)
-        progress_dialog.set_text("Sending log entries to server...")  
-        count = 0
-        buffer = self.text_format.log_entries_header(number_of_entries)        
-        for log_entry in self.database.log_entries_to_sync_for(\
-            self.server_info["machine_id"]):
-            buffer += self.text_format.repr_log_entry(log_entry)
-            if len(buffer) > BUFFER_SIZE:
-                self.con.send(buffer.encode("utf-8"))
-                buffer = ""
-            count += 1
-            progress_dialog.set_value(count)
-        buffer += self.text_format.log_entries_footer()
-        self.con.send(buffer.encode("utf-8"))
+        log_entries = self.database.log_entries_to_sync_for(\
+            self.server_info["machine_id"])
+        for buffer in self.stream_log_entries(log_entries, number_of_entries,
+            "Sending log entries to server..."):
+            self.con.send(buffer)        
         self.ui.status_bar_message("Waiting for server to complete...")
         response = self.con.getresponse().read().lower()
         if "conflict" in response:
@@ -198,6 +177,10 @@ class Client(object):
             results = {0: "keep_local", 1: "keep_remote", 2: "cancel"}
             return results[result]
         return "OK"
+
+    def put_client_entire_database(self):
+        self.ui.status_bar_message("Uploading entire binary database...")
+            
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")
@@ -226,30 +209,44 @@ class Client(object):
         except Exception, exception:
             raise SyncError("Getting server log entries: " + str(exception))
         
+    def get_server_entire_database(self):
+        self.ui.status_bar_message("Getting entire server database...")
+        try:
+            filename = self.database.path()
+            self.database.new(filename)
+            self.con.request("GET", "/server/entire_database?" + \
+                "session_token=%s" % (self.server_info["session_token"], ))            
+            response = self.con.getresponse()
+            element_loop = self.text_format.parse_log_entries(response)
+            number_of_entries = element_loop.next()
+            if number_of_entries == 0:
+                return
+            progress_dialog = self.ui.get_progress_dialog()
+            progress_dialog.set_range(0, number_of_entries)
+            progress_dialog.set_text("Getting entire server database...")            
+            count = 0
+            for log_entry in element_loop:
+                self.database.apply_log_entry(log_entry)
+                count += 1
+                progress_dialog.set_value(count)
+            progress_dialog.set_value(number_of_entries)
+            self.database.load(filename)
+            self.database.skip_science_log()
+            self.database.create_partnership_if_needed_for(\
+                self.server_info["machine_id"])
+        except Exception, exception:
+            raise SyncError("Getting entire server database: " \
+                + str(exception))
+        
     def get_server_entire_database_binary(self):
         self.ui.status_bar_message("Getting entire binary server database...")
         try:
             filename = self.database.path()
             self.database.abandon()
-            new_database = file(filename, "wb")
             self.con.request("GET", "/server/entire_database_binary?" + \
                 "session_token=%s" % (self.server_info["session_token"], ))
-            response = self.con.getresponse()
-            file_size = int(response.fp.readline())
-            progress_dialog = self.ui.get_progress_dialog()
-            progress_dialog.set_text("Getting entire binary database...")
-            progress_dialog.set_range(0, file_size)
-            remaining = file_size
-            while remaining:
-                if remaining < BUFFER_SIZE:
-                    new_database.write(response.read(remaining))
-                    remaining = 0
-                else:
-                    new_database.write(response.read(BUFFER_SIZE))
-                    remaining -= BUFFER_SIZE
-                progress_dialog.set_value(file_size - remaining)
-            progress_dialog.set_value(file_size)
-            new_database.close()
+            self.download_binary_file(filename, self.con.getresponse(),
+                "Getting entire binary database...")          
             self.database.load(filename)
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
@@ -272,8 +269,9 @@ class Client(object):
         socket = self.con.sock.makefile("wb", bufsize=BUFFER_SIZE)
         socket.write(str(size) + "\n")
         # Bundle the media files in a single tar stream, and send it over a
-        # buffered socket in order to save memory. Note that this bypasses
-        # httplib.HTTPConnection.send.
+        # buffered socket in order to save memory. Note that this is a short
+        # cut for efficiency reasons and bypasses the routines in Partner, and
+        # in fact even httplib.HTTPConnection.send.
         saved_path = os.getcwdu()
         os.chdir(self.database.mediadir())
         tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
