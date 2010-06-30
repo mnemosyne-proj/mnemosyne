@@ -39,6 +39,13 @@ httplib.HTTPConnection.response_class = HTTPResponse
 class SyncError(Exception):
     pass
 
+
+# Register binary file formats to send to server on full sync.
+
+from binary_formats.mnemosyne_format import MnemosyneFormat
+binary_formats = [MnemosyneFormat]
+
+
 class Client(Partner):
     
     program_name = "unknown-SRS-app"
@@ -82,34 +89,39 @@ class Client(Partner):
             if self.check_for_updated_media_files:
                 self.database.check_for_updated_media_files()
             self.login(hostname, port, username, password)
-            result = self.put_client_log_entries()
-            # Deal with conflict resolution.
-            if result == "cancel":
-                self.get_sync_cancel()
-                return
-            elif result == "keep_local":
-                if True: # TMP
-                    self.put_client_entire_database_binary()
-                else:
-                    self.put_client_entire_database()
-                self.get_sync_finish()
-                return
-            elif result == "keep_remote":
+            # First sync.
+            if self.database.is_empty():
+                self.get_server_media_files()
                 if self.server_info["supports_binary_log_download"]:
                     self.get_server_entire_database_binary()
                 else:
                     self.get_server_entire_database()
                 self.get_sync_finish()
                 return
-            # Normal case.
-            self.put_client_media_files()
-            self.get_server_media_files()
-            if self.database.is_empty() and \
-               self.server_info["supports_binary_log_download"]:
-                self.get_server_entire_database_binary()
-            else:
+            # Upload local changes and check for conflicts.
+            result = self.put_client_log_entries()
+            # No conflicts.
+            if result == "OK":
+                self.put_client_media_files()
+                self.get_server_media_files()
                 self.get_server_log_entries()
-            self.get_sync_finish()
+                self.get_sync_finish()
+            # Conflicts, keep remote.
+            elif result == "keep_remote":
+                if self.server_info["supports_binary_log_download"]:
+                    self.get_server_entire_database_binary()
+                else:
+                    self.get_server_entire_database()
+                self.get_sync_finish()
+            # Conflicts, keep local. Only becomes a valid option when binary
+            # transfer is possible too. All the conditions are checked in
+            # 'put_client_log_entries'.
+            elif result == "keep_local":
+                self.put_client_entire_database_binary()
+                self.get_sync_finish()
+            # Conflict, cancel.
+            elif result == "cancel":
+                self.get_sync_cancel()
         except SyncError, exception:
             if self.do_backup:
                 self.database.restore(backup_file)
@@ -175,25 +187,31 @@ class Client(Partner):
         self.ui.status_bar_message("Waiting for server to complete...")
         response = self.con.getresponse().read().lower()
         if "conflict" in response:
-            if not self.interested_in_old_reps:
-                result = self.ui.question_box(\
-                    "Conflicts detected during sync! Your client does not " +\
-                    "store the full repetitition history, so you can only " +\
-                    "keep the remote version.",
-                    "Keep remote version", "Cancel")
-                results = {0: "keep_remote", 1: "cancel"}
-                return results[result]                
-            else:
+            if self.capabilities == "mnemosyne_dynamic_cards" and \
+               self.interested_in_old_reps and \
+               self.program_name == self.server_info["program_name"] and \
+               self.program_version == self.server_info["program_version"] and\
+               self.server_info["supports_binary_log_download"]:
                 result = self.ui.question_box(\
                     "Conflicts detected during sync!",
                     "Keep local version", "Keep remote version", "Cancel")
                 results = {0: "keep_local", 1: "keep_remote", 2: "cancel"}
+                return results[result]
+            else:
+                result = self.ui.question_box(\
+                    "Conflicts detected during sync! Your client only " +\
+                    "stores part of the server database, so you can only " +\
+                    "keep the remote version.",
+                    "Keep remote version", "Cancel", "")
+                results = {0: "keep_remote", 1: "cancel"}
                 return results[result]
         return "OK"
 
     def put_client_entire_database_binary(self):
         self.ui.status_bar_message(\
             "Sending entire binary database to server...")
+        self.con.request("PUT", "/client/entire_database_binary?session_token=%s" \
+                % (self.server_info["session_token"], ))
         for binary_format in binary_formats:
             if binary_format.supports(self.server_info["program_name"],
                                       self.server_info["program_version"]):
@@ -201,9 +219,11 @@ class Client(Partner):
                 binary_file, file_size = binary_format.binary_file_and_size()
                 break
         for buffer in self.stream_binary_file(binary_file, file_size,
-            "Sending entire binary database to client..."):
+            "Sending entire binary database to server..."):
             self.con.send(buffer)
         binary_format.clean_up()
+        if self.con.getresponse().read() != "OK":
+            raise SyncError("Error sending full binary database to server.")
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")
@@ -252,7 +272,7 @@ class Client(Partner):
             self.database.abandon()
             self.con.request("GET", "/server/entire_database_binary?" + \
                 "session_token=%s" % (self.server_info["session_token"], ))
-            self.download_binary_file(filename, self.con.getresponse(),
+            self.download_binary_file(filename, self.con.getresponse().fp,
                 "Getting entire binary database...")          
             self.database.load(filename)
             self.database.create_partnership_if_needed_for(\
@@ -318,7 +338,7 @@ class Client(Partner):
 
     def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
-        try:
+        if 1:
             self.con.request("GET", "/sync/finish?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
@@ -326,5 +346,5 @@ class Client(Partner):
                 raise SyncError("Sync finish: error on server side.")
             self.database.update_last_log_index_synced_for(\
                 self.server_info["machine_id"])
-        except Exception, exception:
+        else: #except Exception, exception:
             raise SyncError("Sync finish: " + str(exception))            

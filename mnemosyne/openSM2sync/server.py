@@ -44,7 +44,7 @@ def dont_log(*kwargs):
 WSGIRequestHandler.log_message = dont_log
 
 
-# Register binary file formats to send to clients on first sync.
+# Register binary file formats to send to clients on full sync.
 
 from binary_formats.mnemosyne_format import MnemosyneFormat
 binary_formats = [MnemosyneFormat]
@@ -292,6 +292,19 @@ class Server(WSGIServer, Partner):
                 log_entry["o_id"] = log_entry["fname"]
             if log_entry["type"] > 5 and log_entry["o_id"] in client_o_ids:
                 return "Conflict"
+        return "OK"
+
+    def put_client_entire_database_binary(self, environ, session_token):
+        self.ui.status_bar_message("Getting entire binary client database...")
+        session = self.sessions[session_token] 
+        filename = session.database.path()
+        session.database.abandon()
+        self.download_binary_file(filename, environ["wsgi.input"],
+                "Getting entire binary database...")
+        session.database.load(filename)
+        session.database.create_partnership_if_needed_for(\
+            session.client_info["machine_id"])
+        session.database.remove_partnership_with_self()
         return "OK"
         
     def get_server_log_entries(self, environ, session_token):

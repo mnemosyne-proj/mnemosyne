@@ -72,7 +72,7 @@ class Partner(object):
 
     def download_binary_file(self, filename, stream, progress_message):
         downloaded_file = file(filename, "wb")            
-        file_size = int(stream.fp.readline())
+        file_size = int(stream.readline())
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_text(progress_message)
         progress_dialog.set_range(0, file_size)

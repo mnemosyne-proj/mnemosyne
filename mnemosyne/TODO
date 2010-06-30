@@ -1,13 +1,19 @@
 -fix testsuite
--implement keep local
--test for conflict and don't keep logs
--log upload? Take care that log.txt does not get overwritten from client.
+-document conflict resolution restrictions in readme
+
 -put check for self.server_info["supports_binary_log_download"] deeper
 -send across mnemosyne database format to check, both in client and server case? Use in binary format check?
--refactor client sync routine
+
+-log upload? Take care that log.txt does not get overwritten from client.
+
 -how does conflict resolution affect third party partnerships?
--full sync resolution media files
 -test for conflict resolution and triple sync, make sure indirect partnerships are correct
+
+-full sync resolution media files
+
+
+
+-/ vs _ in html api?
 
 -self.stopped, timeouts
 -more elegant error handling? Uniform naming error vs exception

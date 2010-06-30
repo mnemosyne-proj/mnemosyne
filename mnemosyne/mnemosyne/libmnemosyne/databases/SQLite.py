@@ -10,6 +10,8 @@ import shutil
 import sqlite3
 import datetime
 
+from openSM2sync.log_entry import EventTypes
+
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
@@ -412,7 +414,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return not self.load_failed
 
     def is_empty(self):
-        return self.fact_count() == 0
+        return self.tag_count() == 0 and self.fact_count() == 0 and \
+            self.con.execute("""select count() from log where event_type=? or
+            event_type=?""", (EventTypes.ADDED_TAG, EventTypes.ADDED_FACT)).\
+            fetchone()[0] == 0
         
     def _repr_extra_data(self, extra_data):
         # Use simply repr(), as pickle is overkill for a simple dictionary.
@@ -898,7 +903,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     def card_types_in_use(self):
         return [self.card_type_by_id(cursor[0]) for cursor in \
             self.con.execute ("select distinct card_type_id from facts")]
-
+    
+    def tag_count(self):
+        return self.con.execute("select count() from tags").fetchone()[0]
+    
     def fact_count(self):
         return self.con.execute("select count() from facts").fetchone()[0]
 
