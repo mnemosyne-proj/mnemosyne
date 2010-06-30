@@ -34,8 +34,8 @@ class Widget(MainWidget):
 
     def question_box(self, question, option0, option1, option2):
         return answer
-        
-PORT = 9337
+    
+PORT = 9349
         
 class MyServer(Server, Thread):
 

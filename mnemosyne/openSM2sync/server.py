@@ -245,9 +245,7 @@ class Server(WSGIServer, Partner):
         session.database.check_for_updated_media_files()
         return self.text_format.repr_partner_info(server_info).encode("utf-8")
 
-    def put_client_log_entries(self, environ, session_token):
-        self.ui.status_bar_message("Receiving client log entries...")
-        session = self.sessions[session_token]
+    def _read_unsized_log_entry_stream(self, stream):
         # Since chunked requests are not supported by the WSGI 1.x standard,
         # the client does not set Content-Length in order to be able to
         # stream the log entries. Therefore, it is our responsability that we
@@ -255,34 +253,36 @@ class Server(WSGIServer, Partner):
         # we use the file format footer as a sentinel.
         # For simplicity, we also keep the entire stream in memory, as the
         # server is not expected to be resource limited.
+        
         sentinel = self.text_format.log_entries_footer()
-        socket = environ["wsgi.input"]      
         lines = []
-        line = socket.readline()
+        line = stream.readline()
         lines.append(line)
         while not line.rstrip().endswith(sentinel.rstrip()):
-            line = socket.readline()
+            line = stream.readline()
             lines.append(line)
+        return cStringIO.StringIO("".join(lines))
+
+    def put_client_log_entries(self, environ, session_token):
+        self.ui.status_bar_message("Receiving client log entries...")
+        session = self.sessions[session_token]
+        socket = environ["wsgi.input"]
         # In order to do conflict resolution easily, one of the sync partners
         # has to have both logs in memory. We do this at the server side, as
         # the client could be a resource-limited mobile device.
         session.client_log = []
-        data_stream = cStringIO.StringIO("".join(lines))
-        element_loop = self.text_format.parse_log_entries(data_stream)
-        number_of_entries = element_loop.next()
-        count = 0
-        progress_dialog = self.ui.get_progress_dialog()
-        progress_dialog.set_range(0, number_of_entries)
-        client_o_ids = []        
-        for log_entry in element_loop:
-            session.client_log.append(log_entry)
+        client_o_ids = []
+        def callback(context, log_entry):
+            context["session_client_log"].append(log_entry)
             if log_entry["type"] > 5: # not STARTED_PROGRAM, STOPPED_PROGRAM,
                 # STARTED_SCHEDULER, LOADED_DATABASE, SAVED_DATABASE
                 if "fname" in log_entry:
                     log_entry["o_id"] = log_entry["fname"]
-                client_o_ids.append(log_entry["o_id"])  
-            count += 1
-            progress_dialog.set_value(count)
+                context["client_o_ids"].append(log_entry["o_id"])
+        context = {"session_client_log": session.client_log,
+                   "client_o_ids": client_o_ids}
+        self.download_log_entries(self._read_unsized_log_entry_stream(socket),
+            "Getting client log entries...", callback, context)        
         # Now we can determine whether there are conflicts.
         for log_entry in session.database.log_entries_to_sync_for(\
             session.client_info["machine_id"]):
@@ -341,7 +341,7 @@ class Server(WSGIServer, Partner):
                     session.client_info["interested_in_old_reps"])
                 break
         for buffer in self.stream_binary_file(binary_file, file_size,
-            "Sending binary file to client..."):
+            "Sending entire binary database to client..."):
             yield buffer
         binary_format.clean_up()
         # This is a full sync, we don't need to apply client log entries here.
@@ -360,6 +360,8 @@ class Server(WSGIServer, Partner):
         return "OK"
     
     def get_server_media_files(self, environ, session_token):
+        # Note that for media files, we use tar stream directy for efficiency
+        # reasons, and bypass the routines in Partner.
         self.ui.status_bar_message("Sending media files to client...")
         try:
             # Determine files to send across.

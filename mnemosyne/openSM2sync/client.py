@@ -52,7 +52,10 @@ class Client(Partner):
     check_for_updated_media_files = True
     # Setting the following to False will speed up the initial sync, but in that
     # case the client will not have access to all of the review history in order
-    # to e.g. display statistics.
+    # to e.g. display statistics. Also, it will not be possible to keep the
+    # local database when there are sync conflicts. If a client makes it
+    # possible for the user to change this value, doing so should result in
+    # redownloading the entire database from scratch.
     interested_in_old_reps = True
     # On SD cards copying a large database for the backup before sync can take
     # a long time, so we offer reckless users the possibility to skip this.
@@ -172,15 +175,35 @@ class Client(Partner):
         self.ui.status_bar_message("Waiting for server to complete...")
         response = self.con.getresponse().read().lower()
         if "conflict" in response:
-            result = self.ui.question_box("Conflicts detected during sync!",
-               "Keep local version", "Keep remote version", "Cancel")
-            results = {0: "keep_local", 1: "keep_remote", 2: "cancel"}
-            return results[result]
+            if not self.interested_in_old_reps:
+                result = self.ui.question_box(\
+                    "Conflicts detected during sync! Your client does not " +\
+                    "store the full repetitition history, so you can only " +\
+                    "keep the remote version.",
+                    "Keep remote version", "Cancel")
+                results = {0: "keep_remote", 1: "cancel"}
+                return results[result]                
+            else:
+                result = self.ui.question_box(\
+                    "Conflicts detected during sync!",
+                    "Keep local version", "Keep remote version", "Cancel")
+                results = {0: "keep_local", 1: "keep_remote", 2: "cancel"}
+                return results[result]
         return "OK"
 
-    def put_client_entire_database(self):
-        self.ui.status_bar_message("Uploading entire binary database...")
-            
+    def put_client_entire_database_binary(self):
+        self.ui.status_bar_message(\
+            "Sending entire binary database to server...")
+        for binary_format in binary_formats:
+            if binary_format.supports(self.server_info["program_name"],
+                                      self.server_info["program_version"]):
+                binary_format = binary_format(self.database)
+                binary_file, file_size = binary_format.binary_file_and_size()
+                break
+        for buffer in self.stream_binary_file(binary_file, file_size,
+            "Sending entire binary database to client..."):
+            self.con.send(buffer)
+        binary_format.clean_up()
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")
@@ -189,20 +212,10 @@ class Client(Partner):
                 self.database.dump_to_science_log()
             self.con.request("GET", "/server/log_entries?session_token=%s" \
                 % (self.server_info["session_token"], ))
-            response = self.con.getresponse()
-            element_loop = self.text_format.parse_log_entries(response)
-            number_of_entries = element_loop.next()
-            if number_of_entries == 0:
-                return
-            progress_dialog = self.ui.get_progress_dialog()
-            progress_dialog.set_range(0, number_of_entries)
-            progress_dialog.set_text("Getting server log entries...")            
-            count = 0
-            for log_entry in element_loop:
-                self.database.apply_log_entry(log_entry)
-                count += 1
-                progress_dialog.set_value(count)
-            progress_dialog.set_value(number_of_entries)
+            def callback(context, log_entry):
+                context.database.apply_log_entry(log_entry)
+            self.download_log_entries(self.con.getresponse(),
+                "Getting server log entries...", callback, context=self)            
             # The server will always upload the science logs of the log events
             # which originated at the server side.
             self.database.skip_science_log()
@@ -215,23 +228,17 @@ class Client(Partner):
             filename = self.database.path()
             self.database.new(filename)
             self.con.request("GET", "/server/entire_database?" + \
-                "session_token=%s" % (self.server_info["session_token"], ))            
-            response = self.con.getresponse()
-            element_loop = self.text_format.parse_log_entries(response)
-            number_of_entries = element_loop.next()
-            if number_of_entries == 0:
-                return
-            progress_dialog = self.ui.get_progress_dialog()
-            progress_dialog.set_range(0, number_of_entries)
-            progress_dialog.set_text("Getting entire server database...")            
-            count = 0
-            for log_entry in element_loop:
-                self.database.apply_log_entry(log_entry)
-                count += 1
-                progress_dialog.set_value(count)
-            progress_dialog.set_value(number_of_entries)
+                "session_token=%s" % (self.server_info["session_token"], ))
+            def callback(context, log_entry):
+                context.database.apply_log_entry(log_entry)
+            self.download_log_entries(self.con.getresponse(),
+                "Getting entire server database...", callback, context=self)            
             self.database.load(filename)
+            # The server will always upload the science logs of the log events
+            # which originated at the server side.
             self.database.skip_science_log()
+            # Since we start from a new database, we need to create the
+            # partnership again.
             self.database.create_partnership_if_needed_for(\
                 self.server_info["machine_id"])
         except Exception, exception:

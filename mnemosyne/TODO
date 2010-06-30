@@ -1,15 +1,13 @@
--see if we can homogeneize server and client for downloading log entries
--move stuff to partner
--move formats to partner?
--say that media takes a short cut, both on client and server side
+-fix testsuite
+-implement keep local
+-test for conflict and don't keep logs
 -log upload? Take care that log.txt does not get overwritten from client.
 -put check for self.server_info["supports_binary_log_download"] deeper
--send across mnemosyne database format to check, both in client and server case
+-send across mnemosyne database format to check, both in client and server case? Use in binary format check?
+-refactor client sync routine
 -how does conflict resolution affect third party partnerships?
 -full sync resolution media files
 -test for conflict resolution and triple sync, make sure indirect partnerships are correct
-
--test scheduled, active count sync on load/save + type
 
 -self.stopped, timeouts
 -more elegant error handling? Uniform naming error vs exception
@@ -19,14 +17,13 @@
 -does loopback adress work?
 
 -ui: pass or notImplemented?
--time saxutils.escape attr
 
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
 -rework interface of database.py to include syncing events.
 -document internal vs external card types
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
--document multipartner sync
+-document interaction between not keeping full history and conflict resolution
 -example 'miniclient' supporting sync
 
 -log save event after import and sync in the default controller. Add tests
@@ -36,7 +33,6 @@
 -hack tarfile to add progress bar?
 -add modulo to progress dialogs
 
--rename media files-> external files?
 -add tests with unicode in basedir
 -mechanism to have plugin settings synced?
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)

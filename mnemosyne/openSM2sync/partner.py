@@ -40,6 +40,22 @@ class Partner(object):
                 buffer = ""
         buffer += self.text_format.log_entries_footer()
         yield buffer.encode("utf-8")
+
+    def download_log_entries(self, stream, progress_message,
+                             callback, context):
+        element_loop = self.text_format.parse_log_entries(stream)
+        number_of_entries = element_loop.next()
+        if number_of_entries == 0:
+            return
+        progress_dialog = self.ui.get_progress_dialog()
+        progress_dialog.set_range(0, number_of_entries)
+        progress_dialog.set_text(progress_message)            
+        count = 0
+        for log_entry in element_loop:
+            callback(context, log_entry)
+            count += 1
+            progress_dialog.set_value(count)
+        progress_dialog.set_value(number_of_entries)
         
     def stream_binary_file(self, binary_file, file_size, progress_message):
         progress_dialog = self.ui.get_progress_dialog()
@@ -54,19 +70,19 @@ class Partner(object):
             count += BUFFER_SIZE
         progress_dialog.set_value(file_size)
 
-    def download_binary_file(self, filename, html_response, progress_message):
+    def download_binary_file(self, filename, stream, progress_message):
         downloaded_file = file(filename, "wb")            
-        file_size = int(html_response.fp.readline())
+        file_size = int(stream.fp.readline())
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_text(progress_message)
         progress_dialog.set_range(0, file_size)
         remaining = file_size
         while remaining:
             if remaining < BUFFER_SIZE:
-                downloaded_file.write(html_response.read(remaining))
+                downloaded_file.write(stream.read(remaining))
                 remaining = 0
             else:
-                downloaded_file.write(html_response.read(BUFFER_SIZE))
+                downloaded_file.write(stream.read(BUFFER_SIZE))
                 remaining -= BUFFER_SIZE
             progress_dialog.set_value(file_size - remaining)
         progress_dialog.set_value(file_size)
