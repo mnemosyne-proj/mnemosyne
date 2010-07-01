@@ -12,13 +12,13 @@ from openSM2sync.log_entry import EventTypes
 
 class MnemosyneFormat(object):
     
-    @staticmethod
-    def supports(program_name, program_version):
-        return program_name.lower() == "mnemosyne"
-
     def __init__(self, database):
         self.database = database
-
+        
+    def supports(self, program_name, program_version, database_version):
+        return program_name.lower() == "mnemosyne" and \
+            database_version == self.database.version
+    
     def binary_file_and_size(self, interested_in_old_reps=True):
         self.database.save()
         self.to_delete = None

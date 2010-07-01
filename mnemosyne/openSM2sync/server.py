@@ -43,11 +43,10 @@ def dont_log(*kwargs):
 
 WSGIRequestHandler.log_message = dont_log
 
-
-# Register binary file formats to send to clients on full sync.
+# Register binary formats.
 
 from binary_formats.mnemosyne_format import MnemosyneFormat
-binary_formats = [MnemosyneFormat]
+BinaryFormats = [MnemosyneFormat]
 
 
 class Session(object):
@@ -147,7 +146,6 @@ class Server(WSGIServer, Partner):
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
 
-
     def cancel_session_with_token(self, session_token):
 
         """Cancel a session at the user's request, e.g. after detecting
@@ -171,13 +169,15 @@ class Server(WSGIServer, Partner):
     def stop(self):
         self.stopped = True
 
-    def supports_binary_log_download(self, program_name, program_version):
-        result = False
-        for format in binary_formats:
-            if format.supports(program_name, program_version):
-                result = True
-        return result
-
+    def binary_format_for(self, session):
+        for BinaryFormat in BinaryFormats:
+            binary_format = BinaryFormat(session.database)
+            if binary_format.supports(session.client_info["program_name"],
+                session.client_info["program_version"],
+                session.client_info["database_version"]):
+                return binary_format
+        return None
+    
     # The following functions are to be overridden by the actual server code,
     # to implement e.g. authorisation and storage.
 
@@ -230,16 +230,17 @@ class Server(WSGIServer, Partner):
             client_info["machine_id"])
         session.database.merge_partners(client_info["partners"])
         # Note that we need to send 'user_id' to the client as well, so that the
-        # client can make sure the 'user_id's (used to label the anynymous
+        # client can make sure the 'user_id's (used to label the anonymous
         # uploaded logs) are consistent across machines.
         server_info = {"user_id": session.database.user_id(),
             "machine_id": self.machine_id,
             "program_name": self.program_name,
             "program_version": self.program_version,
+            "database_version": session.database.version,
             "partners": session.database.partners(),
             "session_token": session.token,
-            "supports_binary_log_download": self.supports_binary_log_download\
-                (client_info["program_name"], client_info["program_version"])}
+            "supports_binary_log_download": \
+                self.binary_format_for(session) is not None}
         # We check if files were updated outside of the program. This can
         # generate MEDIA_UPDATED log entries, so it should be done first.
         session.database.check_for_updated_media_files()
@@ -346,13 +347,9 @@ class Server(WSGIServer, Partner):
     def get_server_entire_database_binary(self, environ, session_token):
         self.ui.status_bar_message("Sending entire binary database to client...")
         session = self.sessions[session_token]
-        for binary_format in binary_formats:
-            if binary_format.supports(session.client_info["program_name"],
-                                      session.client_info["program_version"]):
-                binary_format = binary_format(session.database)
-                binary_file, file_size = binary_format.binary_file_and_size(\
-                    session.client_info["interested_in_old_reps"])
-                break
+        binary_format = self.binary_format_for(session)
+        binary_file, file_size = binary_format.binary_file_and_size(\
+            session.client_info["interested_in_old_reps"])
         for buffer in self.stream_binary_file(binary_file, file_size,
             "Sending entire binary database to client..."):
             yield buffer

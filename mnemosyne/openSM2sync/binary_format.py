@@ -9,11 +9,10 @@ class BinaryFormat(object):
 
     """
     
-    @staticmethod
-    def supports(program_name, program_version):
-        raise NotImplementedError
-
     def __init__(self, database):
+        raise NotImplementedError
+    
+    def supports(self, program_name, program_version, database_version):
         raise NotImplementedError
 
     def binary_file_and_size(self, interested_in_old_reps=True):

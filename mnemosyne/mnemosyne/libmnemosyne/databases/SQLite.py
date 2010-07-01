@@ -196,7 +196,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
 
     """
 
-    version = "SQL 1.0"
+    version = "Mnemosyne SQL 1.0"
     suffix = ".db"
 
     def __init__(self, component_manager):

@@ -35,7 +35,7 @@ class Widget(MainWidget):
     def question_box(self, question, option0, option1, option2):
         return answer
     
-PORT = 9376
+PORT = 9391
         
 class MyServer(Server, Thread):
 
@@ -83,7 +83,7 @@ class MyServer(Server, Thread):
         Server.__init__(self, self.mnemosyne.config().machine_id(),
                         "127.0.0.1", PORT, self.mnemosyne.main_widget())
         if not self.binary_download:
-            self.supports_binary_log_download = lambda x,y : False
+            self.supports_binary_log_download = lambda x : False
         server_lock.release()
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.

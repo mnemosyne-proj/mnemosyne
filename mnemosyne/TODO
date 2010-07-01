@@ -1,14 +1,3 @@
--fix testsuite
--document conflict resolution restrictions in readme
-
--put check for self.server_info["supports_binary_log_download"] deeper
--send across mnemosyne database format to check, both in client and server case? Use in binary format check?
-
--log upload? Take care that log.txt does not get overwritten from client.
-
--how does conflict resolution affect third party partnerships?
--test for conflict resolution and triple sync, make sure indirect partnerships are correct
-
 -full sync resolution media files
 
 
@@ -32,7 +21,6 @@
 -document interaction between not keeping full history and conflict resolution
 -example 'miniclient' supporting sync
 
--log save event after import and sync in the default controller. Add tests
 -sync activity criteria
 -sync card types (needed for clones)
 
@@ -40,12 +28,10 @@
 -add modulo to progress dialogs
 
 -add tests with unicode in basedir
--mechanism to have plugin settings synced?
--send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
--option purge history, refactor logging test. Should only happen in no other sync partners are
- interested in it
+
 
 -integrate openSM2sync with GUI
+-log save event after import and sync in the default controller. Add tests
 -reload database after sync to create new card type clones
 -server.open_database: create new database on server side if needed
 
@@ -324,6 +310,10 @@ pylint:
  open_shared_database
 
 
+-mechanism to have plugin settings synced?
+-send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
+-option purge history, refactor logging test. Should only happen in no other sync partners are
+ interested in it
 
 -website redesign? like http://hanzim.com/download.php
 

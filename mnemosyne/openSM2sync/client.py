@@ -39,11 +39,10 @@ httplib.HTTPConnection.response_class = HTTPResponse
 class SyncError(Exception):
     pass
 
-
-# Register binary file formats to send to server on full sync.
+# Register binary formats.
 
 from binary_formats.mnemosyne_format import MnemosyneFormat
-binary_formats = [MnemosyneFormat]
+BinaryFormats = [MnemosyneFormat]
 
 
 class Client(Partner):
@@ -108,6 +107,7 @@ class Client(Partner):
                 self.get_sync_finish()
             # Conflicts, keep remote.
             elif result == "keep_remote":
+                #self.get_server_all_media_files()                
                 if self.server_info["supports_binary_log_download"]:
                     self.get_server_entire_database_binary()
                 else:
@@ -117,6 +117,7 @@ class Client(Partner):
             # transfer is possible too. All the conditions are checked in
             # 'put_client_log_entries'.
             elif result == "keep_local":
+                #self.put_client_all_media_files() 
                 self.put_client_entire_database_binary()
                 self.get_sync_finish()
             # Conflict, cancel.
@@ -139,6 +140,7 @@ class Client(Partner):
             client_info["machine_id"] = self.machine_id
             client_info["program_name"] = self.program_name
             client_info["program_version"] = self.program_version
+            client_info["database_version"] = self.database.version
             client_info["capabilities"] = self.capabilities
             client_info["database_name"] = self.database.name()
             client_info["partners"] = self.database.partners()
@@ -190,8 +192,7 @@ class Client(Partner):
             if self.capabilities == "mnemosyne_dynamic_cards" and \
                self.interested_in_old_reps and \
                self.program_name == self.server_info["program_name"] and \
-               self.program_version == self.server_info["program_version"] and\
-               self.server_info["supports_binary_log_download"]:
+               self.program_version == self.server_info["program_version"]:
                 result = self.ui.question_box(\
                     "Conflicts detected during sync!",
                     "Keep local version", "Keep remote version", "Cancel")
@@ -212,10 +213,11 @@ class Client(Partner):
             "Sending entire binary database to server...")
         self.con.request("PUT", "/client/entire_database_binary?session_token=%s" \
                 % (self.server_info["session_token"], ))
-        for binary_format in binary_formats:
+        for BinaryFormat in BinaryFormats:
+            binary_format = BinaryFormat(self.database)
             if binary_format.supports(self.server_info["program_name"],
-                                      self.server_info["program_version"]):
-                binary_format = binary_format(self.database)
+                self.server_info["program_version"],
+                self.server_info["database_version"]):
                 binary_file, file_size = binary_format.binary_file_and_size()
                 break
         for buffer in self.stream_binary_file(binary_file, file_size,
@@ -246,6 +248,8 @@ class Client(Partner):
         self.ui.status_bar_message("Getting entire server database...")
         try:
             filename = self.database.path()
+            # Create a new database. Note that this also resets the
+            # partnerships, as required.
             self.database.new(filename)
             self.con.request("GET", "/server/entire_database?" + \
                 "session_token=%s" % (self.server_info["session_token"], ))
@@ -338,7 +342,7 @@ class Client(Partner):
 
     def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
-        if 1:
+        try:
             self.con.request("GET", "/sync/finish?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
@@ -346,5 +350,5 @@ class Client(Partner):
                 raise SyncError("Sync finish: error on server side.")
             self.database.update_last_log_index_synced_for(\
                 self.server_info["machine_id"])
-        else: #except Exception, exception:
+        except Exception, exception:
             raise SyncError("Sync finish: " + str(exception))            
