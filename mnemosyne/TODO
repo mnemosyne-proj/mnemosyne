@@ -1,9 +1,3 @@
--full sync resolution media files
-
-
-
--/ vs _ in html api?
-
 -self.stopped, timeouts
 -more elegant error handling? Uniform naming error vs exception
 -sql roll back?
@@ -27,7 +21,6 @@
 -hack tarfile to add progress bar?
 -add modulo to progress dialogs
 
--add tests with unicode in basedir
 
 
 -integrate openSM2sync with GUI
@@ -113,6 +106,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 
 -mobile client: even more agressive prefetch?
 
+-add tests with unicode in basedir
 
 -implement duplicate checking
 -confirmation dialog for deleted cards

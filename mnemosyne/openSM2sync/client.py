@@ -107,7 +107,7 @@ class Client(Partner):
                 self.get_sync_finish()
             # Conflicts, keep remote.
             elif result == "keep_remote":
-                #self.get_server_all_media_files()                
+                self.get_server_media_files(redownload_all=True)                
                 if self.server_info["supports_binary_log_download"]:
                     self.get_server_entire_database_binary()
                 else:
@@ -117,7 +117,7 @@ class Client(Partner):
             # transfer is possible too. All the conditions are checked in
             # 'put_client_log_entries'.
             elif result == "keep_local":
-                #self.put_client_all_media_files() 
+                self.put_client_media_files(reupload_all=True) 
                 self.put_client_entire_database_binary()
                 self.get_sync_finish()
             # Conflict, cancel.
@@ -178,7 +178,7 @@ class Client(Partner):
             self.server_info["machine_id"])
         if number_of_entries == 0:
             return
-        self.con.putrequest("PUT", "/client/log_entries?session_token=%s" \
+        self.con.putrequest("PUT", "/client_log_entries?session_token=%s" \
             % (self.server_info["session_token"], ))
         self.con.endheaders()
         log_entries = self.database.log_entries_to_sync_for(\
@@ -211,7 +211,7 @@ class Client(Partner):
     def put_client_entire_database_binary(self):
         self.ui.status_bar_message(\
             "Sending entire binary database to server...")
-        self.con.request("PUT", "/client/entire_database_binary?session_token=%s" \
+        self.con.request("PUT", "/client_entire_database_binary?session_token=%s" \
                 % (self.server_info["session_token"], ))
         for BinaryFormat in BinaryFormats:
             binary_format = BinaryFormat(self.database)
@@ -232,7 +232,7 @@ class Client(Partner):
         try:
             if self.upload_science_logs:
                 self.database.dump_to_science_log()
-            self.con.request("GET", "/server/log_entries?session_token=%s" \
+            self.con.request("GET", "/server_log_entries?session_token=%s" \
                 % (self.server_info["session_token"], ))
             def callback(context, log_entry):
                 context.database.apply_log_entry(log_entry)
@@ -251,7 +251,7 @@ class Client(Partner):
             # Create a new database. Note that this also resets the
             # partnerships, as required.
             self.database.new(filename)
-            self.con.request("GET", "/server/entire_database?" + \
+            self.con.request("GET", "/server_entire_database?" + \
                 "session_token=%s" % (self.server_info["session_token"], ))
             def callback(context, log_entry):
                 context.database.apply_log_entry(log_entry)
@@ -274,7 +274,7 @@ class Client(Partner):
         try:
             filename = self.database.path()
             self.database.abandon()
-            self.con.request("GET", "/server/entire_database_binary?" + \
+            self.con.request("GET", "/server_entire_database_binary?" + \
                 "session_token=%s" % (self.server_info["session_token"], ))
             self.download_binary_file(filename, self.con.getresponse().fp,
                 "Getting entire binary database...")          
@@ -286,15 +286,18 @@ class Client(Partner):
             raise SyncError("Getting entire binary server database: " \
                 + str(exception))
         
-    def put_client_media_files(self):
+    def put_client_media_files(self, reupload_all=False):
         self.ui.status_bar_message("Sending media files to server...")
         # Size of tar archive.
-        filenames = self.database.media_filenames_to_sync_for(\
-            self.server_info["machine_id"])
+        if reupload_all:
+            filenames = self.database.all_media_filenames()
+        else:
+            filenames = self.database.media_filenames_to_sync_for(\
+                self.server_info["machine_id"])
         size = tar_file_size(self.database.mediadir(), filenames)
         if size == 0:
             return
-        self.con.putrequest("PUT", "/client/media/files?session_token=%s" \
+        self.con.putrequest("PUT", "/client_media_files?session_token=%s" \
             % (self.server_info["session_token"], ))
         self.con.endheaders()     
         socket = self.con.sock.makefile("wb", bufsize=BUFFER_SIZE)
@@ -314,11 +317,14 @@ class Client(Partner):
         if self.con.getresponse().read() != "OK":
             raise SyncError("Error sending media files to server.")
 
-    def get_server_media_files(self):
+    def get_server_media_files(self, redownload_all=False):
         self.ui.status_bar_message("Receiving server media files...")
         try:
-            self.con.request("GET", "/server/media_files?session_token=%s" \
-                % (self.server_info["session_token"], ))
+            url = "/server_media_files?session_token=%s" \
+                % (self.server_info["session_token"], )
+            if redownload_all:
+                url += "&redownload_all=1"
+            self.con.request("GET", url)
             response = self.con.getresponse()
             size = int(response.fp.readline())
             if size == 0:
@@ -332,7 +338,7 @@ class Client(Partner):
     def get_sync_cancel(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
-            self.con.request("GET", "/sync/cancel?session_token=%s" \
+            self.con.request("GET", "/sync_cancel?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
             if response.read() != "OK":
@@ -343,7 +349,7 @@ class Client(Partner):
     def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
         try:
-            self.con.request("GET", "/sync/finish?session_token=%s" \
+            self.con.request("GET", "/sync_finish?session_token=%s" \
                 % (self.server_info["session_token"], ))
             response = self.con.getresponse()
             if response.read() != "OK":

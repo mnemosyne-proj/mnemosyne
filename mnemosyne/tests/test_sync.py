@@ -35,7 +35,7 @@ class Widget(MainWidget):
     def question_box(self, question, option0, option1, option2):
         return answer
     
-PORT = 9391
+PORT = 9401
         
 class MyServer(Server, Thread):
 
@@ -1117,7 +1117,7 @@ class TestSync(object):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
             self.mnemosyne.database().update_tag(tag)
-            self.mnemosyne.database().save
+            self.mnemosyne.database().save()
 
         def test_server(self):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
@@ -1166,7 +1166,7 @@ class TestSync(object):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
             self.mnemosyne.database().update_tag(tag)
-            self.mnemosyne.database().save
+            self.mnemosyne.database().save()
 
         def test_server(self):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
@@ -1222,7 +1222,7 @@ class TestSync(object):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
             self.mnemosyne.database().update_tag(tag)
-            self.mnemosyne.database().save
+            self.mnemosyne.database().save()
 
         def test_server(self):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
@@ -1278,7 +1278,7 @@ class TestSync(object):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
             self.mnemosyne.database().update_tag(tag)
-            self.mnemosyne.database().save
+            self.mnemosyne.database().save()
 
         def test_server(self):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
@@ -1335,7 +1335,7 @@ class TestSync(object):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
             self.mnemosyne.database().update_tag(tag)
-            self.mnemosyne.database().save
+            self.mnemosyne.database().save()
 
         def test_server(self):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
@@ -1392,7 +1392,7 @@ class TestSync(object):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
             self.mnemosyne.database().update_tag(tag)
-            self.mnemosyne.database().save
+            self.mnemosyne.database().save()
 
         def test_server(self):
             tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
@@ -1424,3 +1424,164 @@ class TestSync(object):
         assert self.client.mnemosyne.config().machine_id() not in \
             self.client.mnemosyne.database().partners()
         assert len(self.client.mnemosyne.database().partners()) == 1
+
+    def test_conflict_keep_remote_binary_media(self):
+
+        # First sync.
+        
+        def fill_server_database(self):                     
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b.ogg")
+            f = file(filename, "w")
+            f.write("B")
+            f.close()
+            fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
+                         "a": "answer"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+
+            self.mnemosyne.controller().file_save()
+            
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+
+        # Remove media.
+        
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+                "default.db_media", "b.ogg")
+        os.remove(filename)
+        assert not os.path.exists(filename)
+                
+        # Second sync.
+
+        def fill_server_database(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag.name = "server"
+            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().save()
+
+        def test_server(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            assert tag.name == "server"
+
+            assert self.mnemosyne.config().machine_id() not in \
+                   self.mnemosyne.database().partners()
+            assert len(self.mnemosyne.database().partners()) == 1
+        
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.tag_id = tag.id
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag.name = "client"
+        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().save()
+
+        global answer
+        answer = 1 # keep remote
+        self.client.do_sync()
+        
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        assert tag.name == "server"
+
+        assert self.client.mnemosyne.config().machine_id() not in \
+            self.client.mnemosyne.database().partners()
+        assert len(self.client.mnemosyne.database().partners()) == 1
+
+        assert os.path.exists(filename)
+        
+    def test_conflict_keep_local_binary_media(self):
+
+        # First sync.
+        
+        def fill_server_database(self):                     
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b.ogg")
+            f = file(filename, "w")
+            f.write("B")
+            f.close()
+            fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
+                         "a": "answer"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+
+            self.mnemosyne.controller().file_save()
+            
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+
+        # Remove media.
+        
+        filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b.ogg")
+        os.remove(filename)
+        assert not os.path.exists(filename)
+                
+        # Second sync.
+
+        def fill_server_database(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag.name = "server"
+            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().save()
+
+        def test_server(self):
+            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            assert tag.name == "client"
+
+            assert self.mnemosyne.config().machine_id() not in \
+                   self.mnemosyne.database().partners()
+            assert len(self.mnemosyne.database().partners()) == 1
+        
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.tag_id = tag.id
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag.name = "client"
+        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().save()
+
+        global answer
+        answer = 0 # keep local
+        self.client.do_sync()
+        
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        assert tag.name == "client"
+
+        assert self.client.mnemosyne.config().machine_id() not in \
+            self.client.mnemosyne.database().partners()
+        assert len(self.client.mnemosyne.database().partners()) == 1
+
+        assert os.path.exists(filename)
+        

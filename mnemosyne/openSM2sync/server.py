@@ -109,9 +109,9 @@ class Server(WSGIServer, Partner):
         self.socket.close()
 
     def get_method(self, environ):
-        # Convert e.g. GET /foo/bar into get_foo_bar.
+        # Convert e.g. GET /foo_bar into get_foo_bar.
         method = (environ["REQUEST_METHOD"] + \
-                "_".join(environ["PATH_INFO"].split("/"))).lower()
+                  environ["PATH_INFO"].replace("/", "_")).lower()
         args = cgi.parse_qs(environ["QUERY_STRING"])
         args = dict([(key, val[0]) for key, val in args.iteritems()])
         # Login method.
@@ -126,10 +126,7 @@ class Server(WSGIServer, Partner):
             return "403 Forbidden", "text/plain", None, None
         # Call the method.
         if hasattr(self, method) and callable(getattr(self, method)):
-            if len(args) == 1:
-                return "200 OK", "xml/text", method, args
-            else:
-                return "400 Bad Request", "text/plain", None, None
+            return "200 OK", "xml/text", method, args
         else:
             return "404 Not Found", "text/plain", None, None
 
@@ -177,6 +174,12 @@ class Server(WSGIServer, Partner):
                 session.client_info["database_version"]):
                 return binary_format
         return None
+
+    def supports_binary_log_download(self, session):
+
+        """For testability, can easily be overridden by testsuite. """
+        
+        return self.binary_format_for(session) is not None
     
     # The following functions are to be overridden by the actual server code,
     # to implement e.g. authorisation and storage.
@@ -197,8 +200,8 @@ class Server(WSGIServer, Partner):
         raise NotImplementedError
     
     # The following are methods that are supported by the server through GET
-    # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo/bar'
-    # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo/bar'
+    # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo_bar'
+    # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo_bar'
     # request.
 
     def put_login(self, environ):
@@ -240,7 +243,7 @@ class Server(WSGIServer, Partner):
             "partners": session.database.partners(),
             "session_token": session.token,
             "supports_binary_log_download": \
-                self.binary_format_for(session) is not None}
+                self.supports_binary_log_download(session)}
         # We check if files were updated outside of the program. This can
         # generate MEDIA_UPDATED log entries, so it should be done first.
         session.database.check_for_updated_media_files()
@@ -369,15 +372,19 @@ class Server(WSGIServer, Partner):
             return "CANCEL"
         return "OK"
     
-    def get_server_media_files(self, environ, session_token):
+    def get_server_media_files(self, environ, session_token,
+                               redownload_all=False):
         # Note that for media files, we use tar stream directy for efficiency
         # reasons, and bypass the routines in Partner.
         self.ui.status_bar_message("Sending media files to client...")
         try:
             # Determine files to send across.
             session = self.sessions[session_token]
-            filenames = list(session.database.media_filenames_to_sync_for(\
-                session.client_info["machine_id"]))
+            if redownload_all in ["1", "True", "true"]:
+                filenames = list(session.database.all_media_filenames())
+            else:
+                filenames = list(session.database.media_filenames_to_sync_for(\
+                    session.client_info["machine_id"]))
             # TODO: implement creating pictures from cards, based on the
             # following client_info fields: "cards_as_pictures",
             # "cards_pictures_res", "reset_cards_as_pictures".

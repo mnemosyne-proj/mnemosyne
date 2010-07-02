@@ -156,7 +156,17 @@ class SQLiteSync(object):
             if os.path.exists(expand_path(filename, self.mediadir())):
                 filenames.append(filename)
         return filenames
-        
+    
+    def all_media_filenames(self):    
+        filenames = []
+        for filename in [cursor[0] for cursor in self.con.execute(\
+            """select object_id from log where event_type=? or
+            event_type=?""", (EventTypes.ADDED_MEDIA,
+            EventTypes.UPDATED_MEDIA))]:
+            if os.path.exists(expand_path(filename, self.mediadir())):
+                filenames.append(filename)
+        return filenames
+    
     def _log_entry(self, sql_res):
 
         """Create log entry object in the format openSM2sync expects."""
