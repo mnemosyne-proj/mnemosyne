@@ -3,6 +3,7 @@
 #
 
 import os
+import socket
 from nose.tools import raises
 from threading import Thread, Lock
 
@@ -34,8 +35,9 @@ class Widget(MainWidget):
 
     def question_box(self, question, option0, option1, option2):
         return answer
-    
-PORT = 9401
+
+SERVER = socket.getfqdn()
+PORT = 9423
         
 class MyServer(Server, Thread):
 
@@ -81,7 +83,7 @@ class MyServer(Server, Thread):
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
         Server.__init__(self, self.mnemosyne.config().machine_id(),
-                        "127.0.0.1", PORT, self.mnemosyne.main_widget())
+                        SERVER, PORT, self.mnemosyne.main_widget())
         if not self.binary_download:
             self.supports_binary_log_download = lambda x : False
         server_lock.release()
@@ -129,7 +131,7 @@ class MyClient(Client):
     def do_sync(self):
         global server_lock
         server_lock.acquire()
-        self.sync("127.0.0.1", PORT, self.user, self.password)
+        self.sync(SERVER, PORT, self.user, self.password)
         server_lock.release()
 
 
@@ -1584,4 +1586,39 @@ class TestSync(object):
         assert len(self.client.mnemosyne.database().partners()) == 1
 
         assert os.path.exists(filename)
+ 
+    def test_dangling_session(self):
+
+        # First sync.
+
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
+        self.client.mnemosyne.controller().file_save()
+        self.client.put_client_log_entries = lambda x : 1/0
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+
+        # Second sync.
+
+        self.client = MyClient(erase_previous=False)
+        self.client.interested_in_old_reps = False
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag.name = "client"
+        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().save()
+    
+        self.client.do_sync()
         
+        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        assert tag.name == "client"
+
+        assert self.client.mnemosyne.config().machine_id() not in \
+            self.client.mnemosyne.database().partners()
+        assert len(self.client.mnemosyne.database().partners()) == 1

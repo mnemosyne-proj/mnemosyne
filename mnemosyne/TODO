@@ -1,14 +1,4 @@
--self.stopped, timeouts
--more elegant error handling? Uniform naming error vs exception
--sql roll back?
--test restore from backup
-
--does loopback adress work?
-
--ui: pass or notImplemented?
-
 -create openSM2sync.database interface. Add comment on mediadir relative, / vs \ in filenames
--rework interface of database.py to include syncing events.
 -document internal vs external card types
 -update readme. Mention how clients should deal with update events of cards that were deleted
  later on. Mention that only final state is same, not intermediate states
@@ -17,10 +7,6 @@
 
 -sync activity criteria
 -sync card types (needed for clones)
-
--hack tarfile to add progress bar?
--add modulo to progress dialogs
-
 
 
 -integrate openSM2sync with GUI
@@ -237,6 +223,9 @@ pylint:
 
 
 * After 2.0:
+
+-hack tarfile to add progress bar?
+-add modulo to progress dialogs
 
 -'shared deck' export
 -is 'client_info["shared_dack"] the best way to signal this? Or have entirely new

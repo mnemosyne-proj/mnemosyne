@@ -5,6 +5,7 @@
 #
 
 import os
+import socket
 import tarfile
 import httplib
 from xml.etree import cElementTree
@@ -13,11 +14,11 @@ from partner import Partner, BUFFER_SIZE
 from utils import tar_file_size
 from text_formats.xml_format import XMLFormat
 
+socket.setdefaulttimeout(10)
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
 
-import socket
 realsocket = socket.socket
 def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
     sockobj = realsocket(family, type, proto)
@@ -35,9 +36,6 @@ class HTTPResponse(httplib.HTTPResponse):
         self.fp = sock.makefile("rb") # Was unbuffered: sock.makefile("rb", 0)
 
 httplib.HTTPConnection.response_class = HTTPResponse
-
-class SyncError(Exception):
-    pass
 
 # Register binary formats.
 
@@ -79,7 +77,7 @@ class Client(Partner):
         self.server_info = {}
 
     def sync(self, hostname, port, username, password):       
-        try:    
+        try:
             self.ui.status_bar_message("Creating backup...")
             if self.do_backup:
                 backup_file = self.database.backup()
@@ -123,7 +121,7 @@ class Client(Partner):
             # Conflict, cancel.
             elif result == "cancel":
                 self.get_sync_cancel()
-        except SyncError, exception:
+        except Exception, exception:
             if self.do_backup:
                 self.database.restore(backup_file)
             self.ui.error_box("Error: " + str(exception))
@@ -132,45 +130,42 @@ class Client(Partner):
 
     def login(self, hostname, port, username, password):
         self.ui.status_bar_message("Logging in...")
-        try:
-            client_info = {}
-            client_info["username"] = username
-            client_info["password"] = password
-            client_info["user_id"] = self.database.user_id()
-            client_info["machine_id"] = self.machine_id
-            client_info["program_name"] = self.program_name
-            client_info["program_version"] = self.program_version
-            client_info["database_version"] = self.database.version
-            client_info["capabilities"] = self.capabilities
-            client_info["database_name"] = self.database.name()
-            client_info["partners"] = self.database.partners()
-            client_info["interested_in_old_reps"] = self.interested_in_old_reps
-            client_info["upload_science_logs"] = self.upload_science_logs            
-            # Not yet implemented: downloading cards as pictures.
-            client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
-            client_info["cards_pictures_res"] = "320x200"
-            client_info["reset_cards_as_pictures"] = False # True redownloads.
-            self.con = httplib.HTTPConnection(hostname, port)
-            self.con.request("PUT", "/login",
-                self.text_format.repr_partner_info(client_info).\
-                    encode("utf-8") + "\n")
-            response = self.con.getresponse().read()
-            if response == "403 Forbidden":
-                raise SyncError("Wrong username or password.")
-            if "cycle" in response.lower():
-                raise SyncError(\
-                    "Sync cycle detected. Sync through intermediate partner.")             
-            self.server_info = self.text_format.parse_partner_info(response)
-            self.database.set_sync_partner_info(self.server_info)
-            if self.database.is_empty():
-                self.database.set_user_id(self.server_info["user_id"])
-            elif self.server_info["user_id"] != client_info["user_id"]:
-                raise SyncError("mismatched user_ids.")
-            self.database.create_partnership_if_needed_for(\
-                self.server_info["machine_id"])
-            self.database.merge_partners(self.server_info["partners"])
-        except Exception, exception:
-            raise SyncError("login: " + str(exception))
+        client_info = {}
+        client_info["username"] = username
+        client_info["password"] = password
+        client_info["user_id"] = self.database.user_id()
+        client_info["machine_id"] = self.machine_id
+        client_info["program_name"] = self.program_name
+        client_info["program_version"] = self.program_version
+        client_info["database_version"] = self.database.version
+        client_info["capabilities"] = self.capabilities
+        client_info["database_name"] = self.database.name()
+        client_info["partners"] = self.database.partners()
+        client_info["interested_in_old_reps"] = self.interested_in_old_reps
+        client_info["upload_science_logs"] = self.upload_science_logs            
+        # Not yet implemented: downloading cards as pictures.
+        client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
+        client_info["cards_pictures_res"] = "320x200"
+        client_info["reset_cards_as_pictures"] = False # True redownloads.
+        self.con = httplib.HTTPConnection(hostname, port)
+        self.con.request("PUT", "/login",
+            self.text_format.repr_partner_info(client_info).\
+                encode("utf-8") + "\n")
+        response = self.con.getresponse().read()
+        if response == "403 Forbidden":
+            raise Exception("Wrong username or password.")
+        if "cycle" in response.lower():
+            raise Exception(\
+                "Sync cycle detected. Sync through intermediate partner.")             
+        self.server_info = self.text_format.parse_partner_info(response)
+        self.database.set_sync_partner_info(self.server_info)
+        if self.database.is_empty():
+            self.database.set_user_id(self.server_info["user_id"])
+        elif self.server_info["user_id"] != client_info["user_id"]:
+            raise Exception("mismatched user_ids.")
+        self.database.create_partnership_if_needed_for(\
+            self.server_info["machine_id"])
+        self.database.merge_partners(self.server_info["partners"])
         
     def put_client_log_entries(self):
         self.ui.status_bar_message("Sending log entries to server...")
@@ -225,66 +220,55 @@ class Client(Partner):
             self.con.send(buffer)
         binary_format.clean_up()
         if self.con.getresponse().read() != "OK":
-            raise SyncError("Error sending full binary database to server.")
+            raise Exception("Error sending full binary database to server.")
         
     def get_server_log_entries(self):
         self.ui.status_bar_message("Getting server log entries...")
-        try:
-            if self.upload_science_logs:
-                self.database.dump_to_science_log()
-            self.con.request("GET", "/server_log_entries?session_token=%s" \
-                % (self.server_info["session_token"], ))
-            def callback(context, log_entry):
-                context.database.apply_log_entry(log_entry)
-            self.download_log_entries(self.con.getresponse(),
-                "Getting server log entries...", callback, context=self)            
-            # The server will always upload the science logs of the log events
-            # which originated at the server side.
-            self.database.skip_science_log()
-        except Exception, exception:
-            raise SyncError("Getting server log entries: " + str(exception))
+        if self.upload_science_logs:
+            self.database.dump_to_science_log()
+        self.con.request("GET", "/server_log_entries?session_token=%s" \
+            % (self.server_info["session_token"], ))
+        def callback(context, log_entry):
+            context.database.apply_log_entry(log_entry)
+        self.download_log_entries(self.con.getresponse(),
+            "Getting server log entries...", callback, context=self)            
+        # The server will always upload the science logs of the log events
+        # which originated at the server side.
+        self.database.skip_science_log()
         
     def get_server_entire_database(self):
         self.ui.status_bar_message("Getting entire server database...")
-        try:
-            filename = self.database.path()
-            # Create a new database. Note that this also resets the
-            # partnerships, as required.
-            self.database.new(filename)
-            self.con.request("GET", "/server_entire_database?" + \
-                "session_token=%s" % (self.server_info["session_token"], ))
-            def callback(context, log_entry):
-                context.database.apply_log_entry(log_entry)
-            self.download_log_entries(self.con.getresponse(),
-                "Getting entire server database...", callback, context=self)            
-            self.database.load(filename)
-            # The server will always upload the science logs of the log events
-            # which originated at the server side.
-            self.database.skip_science_log()
-            # Since we start from a new database, we need to create the
-            # partnership again.
-            self.database.create_partnership_if_needed_for(\
-                self.server_info["machine_id"])
-        except Exception, exception:
-            raise SyncError("Getting entire server database: " \
-                + str(exception))
+        filename = self.database.path()
+        # Create a new database. Note that this also resets the
+        # partnerships, as required.
+        self.database.new(filename)
+        self.con.request("GET", "/server_entire_database?" + \
+            "session_token=%s" % (self.server_info["session_token"], ))
+        def callback(context, log_entry):
+            context.database.apply_log_entry(log_entry)
+        self.download_log_entries(self.con.getresponse(),
+            "Getting entire server database...", callback, context=self)            
+        self.database.load(filename)
+        # The server will always upload the science logs of the log events
+        # which originated at the server side.
+        self.database.skip_science_log()
+        # Since we start from a new database, we need to create the
+        # partnership again.
+        self.database.create_partnership_if_needed_for(\
+            self.server_info["machine_id"])
         
     def get_server_entire_database_binary(self):
         self.ui.status_bar_message("Getting entire binary server database...")
-        try:
-            filename = self.database.path()
-            self.database.abandon()
-            self.con.request("GET", "/server_entire_database_binary?" + \
-                "session_token=%s" % (self.server_info["session_token"], ))
-            self.download_binary_file(filename, self.con.getresponse().fp,
-                "Getting entire binary database...")          
-            self.database.load(filename)
-            self.database.create_partnership_if_needed_for(\
-                self.server_info["machine_id"])
-            self.database.remove_partnership_with_self()
-        except Exception, exception:
-            raise SyncError("Getting entire binary server database: " \
-                + str(exception))
+        filename = self.database.path()
+        self.database.abandon()
+        self.con.request("GET", "/server_entire_database_binary?" + \
+            "session_token=%s" % (self.server_info["session_token"], ))
+        self.download_binary_file(filename, self.con.getresponse().fp,
+            "Getting entire binary database...")          
+        self.database.load(filename)
+        self.database.create_partnership_if_needed_for(\
+            self.server_info["machine_id"])
+        self.database.remove_partnership_with_self()
         
     def put_client_media_files(self, reupload_all=False):
         self.ui.status_bar_message("Sending media files to server...")
@@ -315,46 +299,37 @@ class Client(Partner):
         tar_pipe.close()
         os.chdir(saved_path)
         if self.con.getresponse().read() != "OK":
-            raise SyncError("Error sending media files to server.")
+            raise Exception("Error sending media files to server.")
 
     def get_server_media_files(self, redownload_all=False):
         self.ui.status_bar_message("Receiving server media files...")
-        try:
-            url = "/server_media_files?session_token=%s" \
-                % (self.server_info["session_token"], )
-            if redownload_all:
-                url += "&redownload_all=1"
-            self.con.request("GET", url)
-            response = self.con.getresponse()
-            size = int(response.fp.readline())
-            if size == 0:
-                return
-            tar_pipe = tarfile.open(mode="r|", fileobj=response)
-            # Work around http://bugs.python.org/issue7693.
-            tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
-        except Exception, exception:
-            raise SyncError("Getting server media files: " + str(exception))
+        url = "/server_media_files?session_token=%s" \
+            % (self.server_info["session_token"], )
+        if redownload_all:
+            url += "&redownload_all=1"
+        self.con.request("GET", url)
+        response = self.con.getresponse()
+        size = int(response.fp.readline())
+        if size == 0:
+            return
+        tar_pipe = tarfile.open(mode="r|", fileobj=response)
+        # Work around http://bugs.python.org/issue7693.
+        tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
 
     def get_sync_cancel(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
-        try:
-            self.con.request("GET", "/sync_cancel?session_token=%s" \
-                % (self.server_info["session_token"], ))
-            response = self.con.getresponse()
-            if response.read() != "OK":
-                raise SyncError("Sync finish: error on server side.")
-        except Exception, exception:
-            raise SyncError("Sync finish: " + str(exception))
+        self.con.request("GET", "/sync_cancel?session_token=%s" \
+            % (self.server_info["session_token"], ))
+        response = self.con.getresponse()
+        if response.read() != "OK":
+            raise Exception("Sync finish: error on server side.")
 
     def get_sync_finish(self):
         self.ui.status_bar_message("Waiting for the server to complete...")
-        try:
-            self.con.request("GET", "/sync_finish?session_token=%s" \
-                % (self.server_info["session_token"], ))
-            response = self.con.getresponse()
-            if response.read() != "OK":
-                raise SyncError("Sync finish: error on server side.")
-            self.database.update_last_log_index_synced_for(\
-                self.server_info["machine_id"])
-        except Exception, exception:
-            raise SyncError("Sync finish: " + str(exception))            
+        self.con.request("GET", "/sync_finish?session_token=%s" \
+            % (self.server_info["session_token"], ))
+        response = self.con.getresponse()
+        if response.read() != "OK":
+            raise Exception("Sync finish: error on server side.")
+        self.database.update_last_log_index_synced_for(\
+            self.server_info["machine_id"])        
