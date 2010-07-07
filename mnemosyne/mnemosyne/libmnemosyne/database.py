@@ -11,8 +11,8 @@ class Database(Component):
     actual database classes.
 
     Apart from the basic interface defined here, depending on the situation
-    a database can also implement functions for logging and statistics
-    (see SQLite_logging.py and SQLite_statistics.py for the interface).
+    a database can also implement functions for logging, statistics and
+    syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).
 
     """
 

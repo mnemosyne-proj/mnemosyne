@@ -4,8 +4,8 @@
 
 class UI(object):
 
-    """Interface that needs to be implemented by the Ui object passed
-    to the constructer of the client.
+    """Interface that needs to be implemented by the Ui object used in the
+    Client and the Server.
 
     """
 

@@ -1,15 +1,5 @@
 MNEMOSYNE 2.0
 
-(Note that for Windows users we recommend uninstalling the previous
-version before doing an upgrade.)
-
-
-*** IMPORTANT UPGRADE NOTICE ***
-
-This version uses a different database format. Before upgrading, export your
-old data as xml. After upgrade, create a new database and import the old data
-from the xml file.
-
 This is essentially a complete rewrite of the old 1.x codebase, with a new,
 clean design, consisting of components that can be swapped in and out very
 easily, which allows plugin writers maximum flexibility.
@@ -22,6 +12,11 @@ easily, which allows plugin writers maximum flexibility.
  non-latin characters'. Background colour is also configurable per card type.
 -Whereas in Mnemosyne 1.x, a card could belong to only one category, now a card
  can have multiple tags.
+-Sync protocol, to synchronise a mobile device to your desktop client. Fully
+ bidirectional, i.e. you can add new cards on your desktop and review old
+ cards on your phone, and both sets of changes will be merged seamlessly.
+ Can sync with more than 1 partner. Optimised for speed and memory useage
+ on mobile devices. First implementation by Ed Bartosh and Max Usachev.
 -Added card type for maps, and for cloze deletion.
 -Plugins can now be turned on and off through the GUI.
 -Move from Qt3 to Qt4 as GUI toolkit, which has better performance and 
@@ -32,20 +27,20 @@ easily, which allows plugin writers maximum flexibility.
 -Move to SQL as the storage backend, resulting in improved speed and memory
  usage, as well as better scalability for large decks. Majority of work done
  by Ed Bartosh.
--when importing a sound or an image, a copy is made to the .mnemosyne directory. 
+-Vhen importing a sound or an image, a copy is made to the .mnemosyne directory. 
  This saves some confusing explaining to new users about the difference between 
  relative and absolute paths.
 -Mnemosyne now saves after each reviewed card.
 -'Activate cards' is completely revamped and is much more flexible. Also, sets of
  active cards can be now be saved for easier later recall.
 -Avoid showing the same card twice in a row.
--added option "learn new related cards in same session"
--warn if the user memorises over 15 new cards in a session.
--hooked up the machinery to allow embedding video in cards, but on my machine
+-Added option "learn new related cards in same session"
+-Varn if the user memorises over 15 new cards in a session.
+-Hooked up the machinery to allow embedding video in cards, but on my machine
  only the sound plays. Hopefully, later versions of Qt will fix this.
--added option to control whether media (sound/video) gets started automatically
+-Added option to control whether media (sound/video) gets started automatically
  when displaying a card.
--added option to display a media control (play/pause/slider)
+-Added option to display a media control (play/pause/slider)
 -improved backup scheme. Users can now restore from backups using the 
  File - Open menu, as opposed to first decompressing a file outside of Mnemosyne.
 -The learing history is now stored in an SQL database, allowing to calculate

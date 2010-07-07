@@ -56,8 +56,8 @@
 <dd><p>Interface class describing the functions to be implemented by the
 actual database classes.</p>
 <p>Apart from the basic interface defined here, depending on the situation
-a database can also implement functions for logging and statistics
-(see SQLite_logging.py and SQLite_statistics.py for the interface).</p>
+a database can also implement functions for logging, statistics and
+syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.abandon">
 <tt class="descname">abandon</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.abandon" title="Permalink to this definition">¶</a></dt>
@@ -271,6 +271,11 @@ suffixes.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.path">
+<tt class="descname">path</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.path" title="Permalink to this definition">¶</a></dt>
+<dd>Returns full path of the database.</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.remove_tag_if_unused">
 <tt class="descname">remove_tag_if_unused</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.remove_tag_if_unused" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -403,7 +408,7 @@ suffixes.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2010.
+      Last updated on Jul 07, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
