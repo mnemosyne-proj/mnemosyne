@@ -117,3 +117,5 @@ For the actual details of the syncing process itself, the code of the reference 
 -binary_format.py: in some cases, it's much faster to be able to send across a binary copy of the full database, e.g. on the initial sync. This of courses requires that the server is able to generate a binary database in the format that the client can read. Implement so far is binary_formats/mnemosyne_format.py, for clients based on libmnemosyne.
 -client.py: the syncing process as seen from the client side
 -server.py: the sycing process as seen from the server side
+
+It's also interesting to have a look at the testsuite in tests/test_sync.py, for inspriration on what corner cases to be prepared for :-)

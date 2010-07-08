@@ -13,6 +13,7 @@ class DefaultCriterion(ActivityCriterion):
         ActivityCriterion.__init__(self, component_manager, id)
         # (card_type.id, fact_view.id):
         self.deactivated_card_type_fact_view_ids = set()
+        # We work with _ids instead of ids for speed.
         self.active_tag__ids = set()
         self.forbidden_tag__ids = set()
 
@@ -50,8 +51,37 @@ class DefaultCriterion(ActivityCriterion):
                      self.active_tag__ids,
                      self.forbidden_tag__ids))
     
-    def data_from_string(self, data):
-        data = eval(data)
+    def data_from_string(self, data_string):
+        data = eval(data_string)
         self.deactivated_card_type_fact_view_ids = data[0]
         self.active_tag__ids = data[1]
         self.forbidden_tag__ids = data[2]
+
+    # To send the activity criteria across, we need to convert from _ids
+    # ids first.
+    
+    def data_to_sync_string(self):
+        active_tag_ids = set()
+        for tag__id in self.active_tag__ids:
+            tag = self.database().get_tag(tag__id, id_is_internal=True)
+            active_tag_ids.add(tag.id)
+        forbidden_tag_ids = set()
+        for tag__id in self.forbidden_tag__ids:
+            tag = self.database().get_tag(tag__id, id_is_internal=True)
+            forbidden_tag_ids.add(tag.id)
+        return repr((self.deactivated_card_type_fact_view_ids,
+                     active_tag_ids, forbidden_tag_ids))
+
+    def data_from_sync_string(self, data_string):
+        data = eval(data_string)
+        self.deactivated_card_type_fact_view_ids = data[0]
+        active_tag_ids = data[1]
+        forbidden_tag_ids = data[2]
+        self.active_tag__ids = set()
+        for tag_id in active_tag_ids:
+            tag = self.database().get_tag(tag_id, id_is_internal=False)
+            self.active_tag__ids.add(tag._id)        
+        self.forbidden_tag__ids = set()
+        for tag_id in forbidden_tag_ids:
+            tag = self.database().get_tag(tag_id, id_is_internal=False)
+            self.forbidden_tag__ids.add(tag._id)        

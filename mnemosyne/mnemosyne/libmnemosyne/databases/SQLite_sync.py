@@ -296,6 +296,8 @@ class SQLiteSync(object):
             if key not in ["time", "type", "o_id", "c_time", "m_time",
                 "card_t"]:
                 data[key] = value
+        if log_entry["card_t"] not in self.component_manager.card_type_by_id:
+            self._activate_plugin_for_card_type(log_entry["card_t"])
         card_type = self.card_type_by_id(log_entry["card_t"])
         fact = Fact(data, card_type, log_entry["c_time"], log_entry["o_id"])
         fact.modification_time = log_entry["m_time"]

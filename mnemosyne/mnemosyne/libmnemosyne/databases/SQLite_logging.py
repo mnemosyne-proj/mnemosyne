@@ -142,6 +142,24 @@ class SQLiteLogging(object):
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_MEDIA, int(timestamp), filename))
         
+    def log_added_activity_criterion(self, timestamp, activity_criterion_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_ACTIVITY_CRITERION, int(timestamp),
+            activity_criterion_id))
+        
+    def log_updated_activity_criterion(self, timestamp, activity_criterion_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_ACTIVITY_CRITERION, int(timestamp),
+            activity_criterion_id))
+        
+    def log_deleted_activity_criterion(self, timestamp, activity_criterion_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_ACTIVITY_CRITERION, int(timestamp),
+            activity_criterion_id))
+        
     def current_log_index(self):
         return self.con.execute(\
             "select _id from log order by _id desc limit 1").fetchone()[0]

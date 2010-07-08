@@ -262,7 +262,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             os.mkdir(mediadir)
             os.mkdir(os.path.join(mediadir, "latex"))
 
-    def _find_plugin_for_card_type(self, card_type_id):
+    def _activate_plugin_for_card_type(self, card_type_id):
         found = False
         for plugin in self.plugins():
             for component in plugin.components:
@@ -272,15 +272,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                     try:
                         plugin.activate()
                     except:
-                        self._connection.close()
-                        self._connection = None
-                        self.load_failed = True
                         raise RuntimeError, _("Error when running plugin:") \
                             + "\n" + traceback_string()
         if not found:
-            self._connection.close()
-            self._connection = None
-            self.load_failed = True
             raise RuntimeError, _("Missing plugin for card type with id:") \
                 + " " + card_type_id
 
@@ -324,7 +318,13 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             if id not in active_ids:
                 plugin_needed.add(id)
         for card_type_id in plugin_needed:
-            self._find_plugin_for_card_type(card_type_id)
+            try:
+                self._activate_plugin_for_card_type(card_type_id)
+            except RuntimeError, exception:
+                self._connection.close()
+                self._connection = None
+                self.load_failed = True
+                raise exception
         self._current_criterion = self.get_activity_criterion\
             (1, id_is_internal=True)
         self.config()["path"] = contract_path(path, self.config().basedir)
@@ -756,7 +756,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             criterion.name, criterion.criterion_type,
             criterion.data_to_string())).lastrowid
         criterion._id = _id
-            
+        # Only log the named criteria for syncing purposes.
+        if criterion.name:
+            self.log().added_activity_criterion(criterion)
+        
     def get_activity_criterion(self, id, id_is_internal):
         if id_is_internal:
             sql_res = self.con.execute(\
@@ -782,12 +785,16 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             criterion.data_to_string(), criterion.id))
         if criterion._id == 1:
             self._current_criterion = criterion
+        if criterion.name:
+            self.log().updated_activity_criterion(criterion)
  
     def delete_activity_criterion(self, criterion):
         self.con.execute("delete from activity_criteria where _id=?",
             (criterion._id, ))
         del criterion
-    
+        if criterion.name:
+            self.log().deleted_activity_criterion(criterion)
+        
     def set_current_activity_criterion(self, criterion):
         self.con.execute("""update activity_criteria set type=?, data=?
             where _id=1""", (criterion.criterion_type, criterion.data_to_string()))

@@ -14,6 +14,8 @@ from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
+     DefaultCriterion
 
 server_lock = Lock()
 
@@ -37,7 +39,7 @@ class Widget(MainWidget):
         return answer
 
 SERVER = socket.getfqdn()
-PORT = 9423
+PORT = 9429
         
 class MyServer(Server, Thread):
 
@@ -1622,3 +1624,89 @@ class TestSync(object):
         assert self.client.mnemosyne.config().machine_id() not in \
             self.client.mnemosyne.database().partners()
         assert len(self.client.mnemosyne.database().partners()) == 1
+    
+    def test_corrupt_plugin(self):
+
+        def fill_server_database(self):
+            # Artificially mutilate plugin.
+            for plugin in self.mnemosyne.plugins():
+                component = plugin.components[0]
+                if component.component_type == "card_type" and component.id == "5":
+                    plugin.deactivate()
+                    plugin.activate = lambda x : 1/0
+                    break
+            
+        def test_server(self):
+            assert self.mnemosyne.database().card_count() == 0
+        
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        
+        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
+        for plugin in self.client.mnemosyne.plugins():
+            if isinstance(plugin, ClozePlugin):
+                cloze_plugin = plugin
+                plugin.activate()
+                break
+        
+        fact_data = {"text": "[foo]"}
+        card_type_1 = self.client.mnemosyne.card_type_by_id("5")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["default"])[0]
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+
+        self.server.passed_tests = True
+
+    def test_add_activity_criterion(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
+        for plugin in self.client.mnemosyne.plugins():
+            if isinstance(plugin, ClozePlugin):
+                cloze_plugin = plugin
+                plugin.activate()
+                break
+        
+        fact_data = {"text": "[foo]"}
+        card_type_1 = self.client.mnemosyne.card_type_by_id("5")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["default"])[0]
+
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1"])[0]
+
+        fact_data = {"q": "question2",
+                     "a": "answer2"}
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_2"])[0]
+
+        c = DefaultCriterion(self.client.mnemosyne.component_manager)
+        c.name = "My criterion"
+        c.deactivated_card_type_fact_view_ids = \
+            set([(card_type_1.id, card_type_1.fact_views[0].id)])
+        c.active_tag__ids = set([self.client.mnemosyne.database().\
+            get_or_create_tag_with_name("tag_1")._id])
+        c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
+            get_or_create_tag_with_name("tag_2")._id])
+        self.client.mnemosyne.database().add_activity_criterion(c)
+        self.client.mnemosyne.database().set_current_activity_criterion(c)
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+

@@ -153,7 +153,7 @@ class Server(WSGIServer, Partner):
         session = self.sessions[session_token]       
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
-               
+            
     def terminate_session_with_token(self, session_token):
 
         """Clean up a session which failed to close normally."""
@@ -162,7 +162,7 @@ class Server(WSGIServer, Partner):
         session.terminate()        
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
-        
+            
     def stop(self):
         self.stopped = True
 
@@ -303,14 +303,19 @@ class Server(WSGIServer, Partner):
         session = self.sessions[session_token] 
         filename = session.database.path()
         session.database.abandon()
-        self.download_binary_file(filename, environ["wsgi.input"],
-                "Getting entire binary database...")
-        session.database.load(filename)
-        session.database.create_partnership_if_needed_for(\
-            session.client_info["machine_id"])
-        session.database.remove_partnership_with_self()
-        return "OK"
-        
+        try:
+            self.download_binary_file(filename, environ["wsgi.input"],
+                    "Getting entire binary database...")
+            session.database.load(filename)
+            session.database.create_partnership_if_needed_for(\
+                session.client_info["machine_id"])
+            session.database.remove_partnership_with_self()
+            return "OK"
+        except:
+            self.terminate_session_with_token(session_token)        
+            if self.stop_after_sync:
+                self.stopped = True
+            
     def get_server_log_entries(self, environ, session_token):
         self.ui.status_bar_message("Sending log entries to client...")
         session = self.sessions[session_token]
@@ -328,13 +333,18 @@ class Server(WSGIServer, Partner):
         # applying the client log entries.
         # First, dump to the science log, so that we can skip over the new
         # logs in case the client uploads them.
-        session.database.dump_to_science_log()
-        for log_entry in session.client_log:
-            session.database.apply_log_entry(log_entry)
-        # Skip over the logs that the client promised to upload.
-        if session.client_info["upload_science_logs"]:
-            session.database.skip_science_log()
-
+        try:
+            session.database.dump_to_science_log()
+            for log_entry in session.client_log:
+                session.database.apply_log_entry(log_entry)
+            # Skip over the logs that the client promised to upload.
+            if session.client_info["upload_science_logs"]:
+                session.database.skip_science_log()
+        except:
+            self.terminate_session_with_token(session_token)
+            if self.stop_after_sync:
+                self.stopped = True
+            
     def get_server_entire_database(self, environ, session_token):
         self.ui.status_bar_message("Sending entire database to client...")
         session = self.sessions[session_token]
@@ -414,7 +424,7 @@ class Server(WSGIServer, Partner):
             
     def get_sync_cancel(self, environ, session_token):
         self.ui.status_bar_message("Waiting for client to finish...")
-        self.cancel_session_with_token(session_token) 
+        self.cancel_session_with_token(session_token)
         if self.stop_after_sync:
             self.stopped = True
         return "OK"

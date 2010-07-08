@@ -109,7 +109,16 @@ class Logger(Component):
     
     def deleted_media(self, filename):
         pass
+    
+    def added_activity_criterion(self, activity_criterion):
+        pass
 
+    def updated_activity_criterion(self, activity_criterion):
+        pass
+    
+    def deleted_activity_criterion(self, activity_criterion):
+        pass
+    
     def dump_to_science_log(self):
         pass
         

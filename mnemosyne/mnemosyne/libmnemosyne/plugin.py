@@ -38,6 +38,7 @@ class Plugin(Component):
             "A plugin needs a name and a description."
         self.instantiated_components = []
         self.registered_components = []
+        self.review_reset_needed = False
             
     def activate(self):
         if self.instantiated_components or self.registered_components:

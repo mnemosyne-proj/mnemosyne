@@ -1,4 +1,7 @@
+-server should close dangling sessions on close
+-update logentry docs
 -sync activity criteria
+
 -sync card types (needed for clones)
 
 
@@ -18,6 +21,16 @@
 
 -where to move txt_log_parser
 -need component.statisticspages and configuration widgets?
+
+-id vs _id
+-tag.id in criteria?
+-is it worth keeping database.tag_names?
+-get rid of 'get_'
+
+-check if media files exist?
+
+-number of unmemorised cards to hold in your hand? (i.e. grade 0 + 1)
+-rework give initial grade dialog
 
 -move ~/.mnemosyne to .config/mnemosyne as per freedesktop standard?
 https://bugzilla.gnome.org/show_bug.cgi?id=518585
@@ -48,18 +61,6 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 >                     break
 >         return duplicates
 
-
-
-
--id vs _id
--tag.id in criteria?
--is it worth keeping database.tag_names?
--get rid of 'get_'
-
--check if media files exist?
-
--number of unmemorised cards to hold in your hand? (i.e. grade 0 + 1)
--rework give initial grade dialog
 
 -rework progress bar API
 

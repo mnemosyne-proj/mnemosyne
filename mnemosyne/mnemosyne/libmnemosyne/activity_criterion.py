@@ -68,8 +68,19 @@ class ActivityCriterion(Component):
         
         raise NotImplementedError
 
-    def data_from_string(self, data):
-        raise NotImplementedError        
+    def data_from_string(self, data_string):
+        raise NotImplementedError
+
+    def data_to_sync_string(self):
+
+        """Convert variables to a string for sending across during syncing.
+        Could be different from 'data_to_string', as it should use ids instead
+        of _ids."""
+
+        raise NotImplementedError
+    
+    def data_from_sync_string(self, data_string):
+        raise NotImplementedError
 
 
 class CriterionApplier(Component):

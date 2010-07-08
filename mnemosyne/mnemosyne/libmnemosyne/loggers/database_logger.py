@@ -97,6 +97,18 @@ class DatabaseLogger(Logger):
         
     def deleted_media(self, filename):
         self.database().log_deleted_media(self.timestamp, filename)
+
+    def added_activity_criterion(self, activity_criterion):
+        self.database().log_added_activity_criterion(\
+            self.timestamp, activity_criterion.id)
+
+    def updated_activity_criterion(self, activity_criterion):
+        self.database().log_updated_activity_criterion(\
+            self.timestamp, activity_criterion.id)
+    
+    def deleted_activity_criterion(self, activity_criterion):
+        self.database().log_deleted_activity_criterion(\
+            self.timestamp, activity_criterion.id)
             
     def dump_to_science_log(self):
         self.database().dump_to_science_log()
