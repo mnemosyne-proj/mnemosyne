@@ -4,6 +4,7 @@
 #             Peter Bienstman <Peter.Bienstman@UGent.be>
 
 import os
+import sys
 import cgi
 import uuid
 import time
@@ -165,6 +166,8 @@ class Server(WSGIServer, Partner):
             
     def stop(self):
         self.stopped = True
+        for session_token, session in self.sessions.iteritems():
+            self.terminate_session_with_token(session_token)
 
     def binary_format_for(self, session):
         for BinaryFormat in BinaryFormats:
@@ -228,6 +231,7 @@ class Server(WSGIServer, Partner):
            (client_in_server_partners and not server_in_client_partners):
             if self.stop_after_sync:
                 self.stopped = True
+                self.terminate_session_with_token(session.token)                
             return "Cycle detected"
         session.database.create_partnership_if_needed_for(\
             client_info["machine_id"])
@@ -311,7 +315,9 @@ class Server(WSGIServer, Partner):
                 session.client_info["machine_id"])
             session.database.remove_partnership_with_self()
             return "OK"
-        except:
+        except Exception, exception:
+            sys.stderr.write(str(exception))
+            self.ui.status_bar_message("Session terminated due to errors...")
             self.terminate_session_with_token(session_token)        
             if self.stop_after_sync:
                 self.stopped = True
@@ -340,7 +346,9 @@ class Server(WSGIServer, Partner):
             # Skip over the logs that the client promised to upload.
             if session.client_info["upload_science_logs"]:
                 session.database.skip_science_log()
-        except:
+        except Exception, exception:
+            sys.stderr.write(str(exception))
+            self.ui.status_bar_message("Session terminated due to errors...")
             self.terminate_session_with_token(session_token)
             if self.stop_after_sync:
                 self.stopped = True
@@ -433,9 +441,9 @@ class Server(WSGIServer, Partner):
         self.ui.status_bar_message("Waiting for client to finish...")
         self.close_session_with_token(session_token) 
         # Now is a good time to garbage-collect dangling sessions.
-        for session in self.sessions:
+        for session_token, session in self.sessions.iteritems():
             if session.is_expired():
-                self.terminate_session_with_token(session.token)
+                self.terminate_session_with_token(session_token)
         if self.stop_after_sync:
             self.stopped = True
         return "OK"

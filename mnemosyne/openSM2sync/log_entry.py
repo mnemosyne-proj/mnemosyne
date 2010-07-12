@@ -106,6 +106,15 @@ class LogEntry(dict):
 
     Keys specific to ADDED_MEDIA, UPDATED_MEDIA, DELETED_MEDIA:
         fname (string): filename
+       
+    Keys specific to ADDED_ACTIVITY_CRITERION, UPDATED_ACTIVITY_CRITERION,
+        DELETED_ACTIVITY_CRITERION:
+        name (string)
+        criterion_type (string)
+        data (string)
+        Note that these events are entirely optional and deal with criteria
+        to activity and deactivity certain cards. Consult libmnemosyne's
+        code for more details.
     
     Any other keys in LogEntry that don't appear in the list above will be
     synced as string.

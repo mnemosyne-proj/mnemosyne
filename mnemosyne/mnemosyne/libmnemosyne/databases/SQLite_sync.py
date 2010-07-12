@@ -255,6 +255,16 @@ class SQLiteSync(object):
             EventTypes.DELETED_MEDIA):
             log_entry["fname"] = sql_res["object_id"]
             del log_entry["o_id"]
+        elif event_type in (EventTypes.ADDED_ACTIVITY_CRITERION,
+            EventTypes.UPDATED_ACTIVITY_CRITERION):
+            try:
+                criterion = self.get_activity_criterion(log_entry["o_id"],
+                    id_is_internal=False)
+                log_entry["name"] = criterion.name
+                log_entry["criterion_type"] = criterion.criterion_type
+                log_entry["data"] = criterion.data_to_sync_string()
+            except TypeError: # The object has been deleted at a later stage.
+                pass
         return log_entry
 
     def tag_from_log_entry(self, log_entry):
@@ -415,6 +425,25 @@ class SQLiteSync(object):
         self.log().updated_media(filename)
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
+
+    def activity_criterion_from_log_entry(self, log_entry):
+        # Get criterion object to be deleted now.
+        if log_entry["type"] == EventTypes.DELETED_ACTIVITY_CRITERION:
+            return self.get_activity_criterion(log_entry["o_id"],
+                id_is_internal=False)
+        # Create criterion object.
+        for criterion_class in \
+            self.component_manager.get_all("activity_criterion"):
+            if criterion_class.criterion_type == log_entry["criterion_type"]:
+                criterion = criterion_class(self.component_manager,
+                                            log_entry["o_id"])
+                criterion.name = log_entry["name"]
+                criterion.set_data_from_sync_string(log_entry["data"])
+        if log_entry["type"] != EventTypes.ADDED_ACTIVITY_CRITERION:
+            criterion._id = self.con.execute("""select _id from
+                activity_criteria where id=?""",
+                (criterion.id, )).fetchone()[0]
+        return criterion
     
     def apply_log_entry(self, log_entry):
         self.syncing = True
@@ -461,6 +490,15 @@ class SQLiteSync(object):
                 self.add_media(log_entry)
             elif event_type == EventTypes.UPDATED_MEDIA:
                 self.update_media(log_entry)
+            elif event_type == EventTypes.ADDED_ACTIVITY_CRITERION:
+                self.add_activity_criterion(\
+                    self.activity_criterion_from_log_entry(log_entry))
+            elif event_type == EventTypes.UPDATED_ACTIVITY_CRITERION:
+                self.update_activity_criterion(\
+                    self.activity_criterion_from_log_entry(log_entry))
+            elif event_type == EventTypes.DELETED_ACTIVITY_CRITERION:
+                self.delete_activity_criterion(\
+                    self.activity_criterion_from_log_entry(log_entry))
         finally:
             self.log().timestamp = None
             self.syncing = False

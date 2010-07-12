@@ -776,7 +776,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                                             sql_res["id"])
                 criterion._id = sql_res["_id"]
                 criterion.name = sql_res["name"]
-                criterion.data_from_string(sql_res["data"])
+                criterion.set_data_from_string(sql_res["data"])
                 return criterion
     
     def update_activity_criterion(self, criterion):

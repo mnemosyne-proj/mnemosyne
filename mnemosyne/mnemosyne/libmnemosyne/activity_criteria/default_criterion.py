@@ -51,7 +51,7 @@ class DefaultCriterion(ActivityCriterion):
                      self.active_tag__ids,
                      self.forbidden_tag__ids))
     
-    def data_from_string(self, data_string):
+    def set_data_from_string(self, data_string):
         data = eval(data_string)
         self.deactivated_card_type_fact_view_ids = data[0]
         self.active_tag__ids = data[1]
@@ -72,7 +72,7 @@ class DefaultCriterion(ActivityCriterion):
         return repr((self.deactivated_card_type_fact_view_ids,
                      active_tag_ids, forbidden_tag_ids))
 
-    def data_from_sync_string(self, data_string):
+    def set_data_from_sync_string(self, data_string):
         data = eval(data_string)
         self.deactivated_card_type_fact_view_ids = data[0]
         active_tag_ids = data[1]

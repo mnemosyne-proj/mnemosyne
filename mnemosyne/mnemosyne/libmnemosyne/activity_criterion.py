@@ -68,7 +68,7 @@ class ActivityCriterion(Component):
         
         raise NotImplementedError
 
-    def data_from_string(self, data_string):
+    def set_data_from_string(self, data_string):
         raise NotImplementedError
 
     def data_to_sync_string(self):
@@ -79,7 +79,7 @@ class ActivityCriterion(Component):
 
         raise NotImplementedError
     
-    def data_from_sync_string(self, data_string):
+    def set_data_from_sync_string(self, data_string):
         raise NotImplementedError
 
 

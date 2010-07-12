@@ -1,6 +1,4 @@
--server should close dangling sessions on close
--update logentry docs
--sync activity criteria
+-test edit, delete activity criteria
 
 -sync card types (needed for clones)
 

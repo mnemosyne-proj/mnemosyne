@@ -39,7 +39,7 @@ class Widget(MainWidget):
         return answer
 
 SERVER = socket.getfqdn()
-PORT = 9429
+PORT = 9431
         
 class MyServer(Server, Thread):
 
@@ -1092,7 +1092,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
-        self.server.stopped = True
+        #self.server.stopped = True
 
         global last_error
         assert "cycle" in last_error
@@ -1666,6 +1666,9 @@ class TestSync(object):
         
         def test_server(self):
             db = self.mnemosyne.database()
+            criterion = db.get_activity_criterion(self.criterion_id,
+                id_is_internal=False)
+            assert criterion.data_to_string() == "(set([('5', '5::1')]), set([2]), set([3]))"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -1706,6 +1709,8 @@ class TestSync(object):
             get_or_create_tag_with_name("tag_2")._id])
         self.client.mnemosyne.database().add_activity_criterion(c)
         self.client.mnemosyne.database().set_current_activity_criterion(c)
+
+        self.server.criterion_id = c.id
 
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
