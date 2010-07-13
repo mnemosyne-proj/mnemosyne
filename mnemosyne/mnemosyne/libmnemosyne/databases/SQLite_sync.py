@@ -431,6 +431,12 @@ class SQLiteSync(object):
         if log_entry["type"] == EventTypes.DELETED_ACTIVITY_CRITERION:
             return self.get_activity_criterion(log_entry["o_id"],
                 id_is_internal=False)
+        # Create an empty shell of criterion object that will be deleted later
+        # during this sync.
+        if "criterion_type" not in log_entry:
+            from mnemosyne.libmnemosyne.activity_criteria.default_criterion \
+                 import DefaultCriterion
+            return DefaultCriterion(self.component_manager, log_entry["o_id"])
         # Create criterion object.
         for criterion_class in \
             self.component_manager.get_all("activity_criterion"):

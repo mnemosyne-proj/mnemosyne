@@ -791,9 +791,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     def delete_activity_criterion(self, criterion):
         self.con.execute("delete from activity_criteria where _id=?",
             (criterion._id, ))
-        del criterion
         if criterion.name:
             self.log().deleted_activity_criterion(criterion)
+        del criterion
         
     def set_current_activity_criterion(self, criterion):
         self.con.execute("""update activity_criteria set type=?, data=?

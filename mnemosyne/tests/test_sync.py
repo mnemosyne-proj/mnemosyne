@@ -39,7 +39,7 @@ class Widget(MainWidget):
         return answer
 
 SERVER = socket.getfqdn()
-PORT = 9431
+PORT = 9432
         
 class MyServer(Server, Thread):
 
@@ -1092,8 +1092,6 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
-        #self.server.stopped = True
-
         global last_error
         assert "cycle" in last_error
         last_error = None
@@ -1715,3 +1713,114 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
+    def test_edit_activity_criterion(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            criterion = db.get_activity_criterion(self.criterion_id,
+                id_is_internal=False)
+            assert criterion.data_to_string() == "(set([('5', '5::1')]), set([2]), set([]))"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
+        for plugin in self.client.mnemosyne.plugins():
+            if isinstance(plugin, ClozePlugin):
+                cloze_plugin = plugin
+                plugin.activate()
+                break
+        
+        fact_data = {"text": "[foo]"}
+        card_type_1 = self.client.mnemosyne.card_type_by_id("5")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["default"])[0]
+
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1"])[0]
+
+        fact_data = {"q": "question2",
+                     "a": "answer2"}
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_2"])[0]
+
+        c = DefaultCriterion(self.client.mnemosyne.component_manager)
+        c.name = "My criterion"
+        c.deactivated_card_type_fact_view_ids = \
+            set([(card_type_1.id, card_type_1.fact_views[0].id)])
+        c.active_tag__ids = set([self.client.mnemosyne.database().\
+            get_or_create_tag_with_name("tag_1")._id])
+        c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
+            get_or_create_tag_with_name("tag_2")._id])
+        self.client.mnemosyne.database().add_activity_criterion(c)
+        self.client.mnemosyne.database().set_current_activity_criterion(c)
+
+        c.forbidden_tag__ids = set()
+        self.client.mnemosyne.database().update_activity_criterion(c)        
+
+        self.server.criterion_id = c.id
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+
+    def test_delete_activity_criterion(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            try:
+                criterion = db.get_activity_criterion(self.criterion_id,
+                id_is_internal=False)
+                assert 1 == 0
+            except TypeError:
+                pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        from mnemosyne.libmnemosyne.card_types.cloze import ClozePlugin
+        for plugin in self.client.mnemosyne.plugins():
+            if isinstance(plugin, ClozePlugin):
+                cloze_plugin = plugin
+                plugin.activate()
+                break
+        
+        fact_data = {"text": "[foo]"}
+        card_type_1 = self.client.mnemosyne.card_type_by_id("5")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["default"])[0]
+
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1"])[0]
+
+        fact_data = {"q": "question2",
+                     "a": "answer2"}
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_2"])[0]
+
+        c = DefaultCriterion(self.client.mnemosyne.component_manager)
+        c.name = "My criterion"
+        c.deactivated_card_type_fact_view_ids = \
+            set([(card_type_1.id, card_type_1.fact_views[0].id)])
+        c.active_tag__ids = set([self.client.mnemosyne.database().\
+            get_or_create_tag_with_name("tag_1")._id])
+        c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
+            get_or_create_tag_with_name("tag_2")._id])
+        self.client.mnemosyne.database().add_activity_criterion(c)
+        self.client.mnemosyne.database().set_current_activity_criterion(c)
+        self.client.mnemosyne.database().delete_activity_criterion(c)
+        self.server.criterion_id = c.id
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()

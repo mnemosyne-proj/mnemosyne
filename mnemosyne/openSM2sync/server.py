@@ -339,14 +339,14 @@ class Server(WSGIServer, Partner):
         # applying the client log entries.
         # First, dump to the science log, so that we can skip over the new
         # logs in case the client uploads them.
-        try:
+        if 1:
             session.database.dump_to_science_log()
             for log_entry in session.client_log:
                 session.database.apply_log_entry(log_entry)
             # Skip over the logs that the client promised to upload.
             if session.client_info["upload_science_logs"]:
                 session.database.skip_science_log()
-        except Exception, exception:
+        else: #except Exception, exception:
             sys.stderr.write(str(exception))
             self.ui.status_bar_message("Session terminated due to errors...")
             self.terminate_session_with_token(session_token)
