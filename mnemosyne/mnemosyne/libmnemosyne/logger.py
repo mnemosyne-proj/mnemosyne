@@ -61,24 +61,6 @@ class Logger(Component):
         active_count=None):
         pass
 
-    def added_tag(self, tag):
-        pass
-
-    def updated_tag(self, tag):
-        pass
-    
-    def deleted_tag(self, tag):
-        pass
-    
-    def added_fact(self, fact):
-        pass
-
-    def updated_fact(self, fact):
-        pass
-    
-    def deleted_fact(self, fact):
-        pass
-    
     def added_card(self, card):
         pass
 
@@ -87,18 +69,18 @@ class Logger(Component):
     
     def deleted_card(self, card):
         pass
-    
-    def added_card_type(self, card_type):
-        pass
-
-    def updated_card_type(self, card_type):
-        pass
-    
-    def deleted_card_type(self, card_type):
-        pass
-    
+        
     def repetition(self, card, scheduled_interval, actual_interval,
                    new_interval, thinking_time):
+        pass
+
+    def added_tag(self, tag):
+        pass
+
+    def updated_tag(self, tag):
+        pass
+    
+    def deleted_tag(self, tag):
         pass
 
     def added_media(self, filename):
@@ -108,6 +90,24 @@ class Logger(Component):
         pass
     
     def deleted_media(self, filename):
+        pass
+ 
+    def added_fact(self, fact):
+        pass
+
+    def updated_fact(self, fact):
+        pass
+    
+    def deleted_fact(self, fact):
+        pass
+
+    def added_card_type(self, card_type):
+        pass
+
+    def updated_card_type(self, card_type):
+        pass
+    
+    def deleted_card_type(self, card_type):
         pass
     
     def added_activity_criterion(self, activity_criterion):

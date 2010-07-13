@@ -8,30 +8,44 @@ class EventTypes(object):
     
     """
 
+    # Relevant for all clients.
+
     STARTED_PROGRAM = 1
     STOPPED_PROGRAM = 2
     STARTED_SCHEDULER = 3
     LOADED_DATABASE = 4
     SAVED_DATABASE = 5
-    ADDED_TAG = 6
-    UPDATED_TAG = 7
-    DELETED_TAG = 8
-    ADDED_FACT = 9
-    UPDATED_FACT = 10
-    DELETED_FACT = 11
-    ADDED_CARD = 12
-    UPDATED_CARD = 13
-    DELETED_CARD = 14
-    ADDED_CARD_TYPE = 15
-    UPDATED_CARD_TYPE = 16
-    DELETED_CARD_TYPE = 17
-    REPETITION = 18
-    ADDED_MEDIA = 19
-    UPDATED_MEDIA = 20
-    DELETED_MEDIA = 21
-    ADDED_ACTIVITY_CRITERION = 22
-    UPDATED_ACTIVITY_CRITERION = 23
-    DELETED_ACTIVITY_CRITERION = 24
+    
+    ADDED_CARD = 6
+    UPDATED_CARD = 7
+    DELETED_CARD = 8
+    REPETITION = 9
+    
+    ADDED_TAG = 10
+    UPDATED_TAG = 11
+    DELETED_TAG = 12
+
+    ADDED_MEDIA = 13
+    UPDATED_MEDIA = 14
+    DELETED_MEDIA = 15
+
+    # Only relevant for fact-based clients.
+    
+    ADDED_FACT = 16
+    UPDATED_FACT = 17
+    DELETED_FACT = 18
+
+    ADDED_FACT_VIEW = 19
+    UPDATED_FACT_VIEW = 20
+    DELETED_FACT_VIEW = 21
+       
+    ADDED_CARD_TYPE = 22
+    UPDATED_CARD_TYPE = 23
+    DELETED_CARD_TYPE = 24
+
+    ADDED_ACTIVITY_CRITERION = 25
+    UPDATED_ACTIVITY_CRITERION = 26
+    DELETED_ACTIVITY_CRITERION = 27
 
 
 class LogEntry(dict):
@@ -52,16 +66,6 @@ class LogEntry(dict):
         sch, n_mem, act (int): optional, but suggested for compatibility with
             Mnemosyne. The number of scheduled, non memorised and active cards
             in the database.
-        
-    Keys specific to ADDED_TAG, UPDATED_TAG:
-        name (string): tag name
-
-    Keys specific to ADDED_FACT, UPDATED_FACT:
-        card_t (nice_string), c_time (int), m_time (int): card type id,
-            creation time, modification time (Unix timestamp).
-
-        <fact_key> (string): any different key name than the ones above will
-            be treated as belonging to the fact's data dictionary.
             
     Keys specific to ADDED_CARD, UPDATED_CARD:
         fact (nice_string), fact_v (nice_string): fact id and fact view id
@@ -103,9 +107,19 @@ class LogEntry(dict):
         science server and to have some data available locally for statistics
         plugins to work with. On the other hand, it contains all the info
         needed to update the corresponding card in the database.
+        
+    Keys specific to ADDED_TAG, UPDATED_TAG:
+        name (string): tag name
 
     Keys specific to ADDED_MEDIA, UPDATED_MEDIA, DELETED_MEDIA:
         fname (string): filename
+
+    Keys specific to ADDED_FACT, UPDATED_FACT:
+        card_t (nice_string), c_time (int), m_time (int): card type id,
+            creation time, modification time (Unix timestamp).
+
+        <fact_key> (string): any different key name than the ones above will
+            be treated as belonging to the fact's data dictionary.
        
     Keys specific to ADDED_ACTIVITY_CRITERION, UPDATED_ACTIVITY_CRITERION,
         DELETED_ACTIVITY_CRITERION:

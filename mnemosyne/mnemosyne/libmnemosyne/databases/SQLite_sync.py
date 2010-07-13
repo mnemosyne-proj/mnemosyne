@@ -183,27 +183,6 @@ class SQLiteSync(object):
             log_entry["sch"] = sql_res["acq_reps"]
             log_entry["n_mem"] = sql_res["ret_reps"]
             log_entry["act"] = sql_res["lapses"]            
-        elif event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
-            try:
-                tag = self.get_tag(log_entry["o_id"], id_is_internal=False)
-                log_entry["name"] = tag.name
-                if tag.extra_data:
-                    log_entry["extra"] = repr(tag.extra_data)
-            except TypeError: # The object has been deleted at a later stage.
-                pass
-        elif event_type in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT):
-            if self.sync_partner_info.get("capabilities") == "cards":
-                # The accompanying ADDED_CARD and UPDATED_CARD events suffice.
-                return None
-            try:
-                fact = self.get_fact(log_entry["o_id"], id_is_internal=False)
-                log_entry["c_time"] = fact.creation_time
-                log_entry["m_time"] = fact.modification_time
-                log_entry["card_t"] = fact.card_type.id
-                for key, value in fact.data.iteritems():
-                    log_entry[key] = value
-            except TypeError: # The object has been deleted at a later stage.
-                pass
         elif event_type in (EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD):
             try:
                 # Note that some of these values (e.g. the repetition count) we
@@ -233,9 +212,6 @@ class SQLiteSync(object):
                     log_entry["extra"] = repr(card.extra_data)                   
             except TypeError: # The object has been deleted at a later stage.
                 pass
-        elif event_type in (EventTypes.ADDED_CARD_TYPE,
-            EventTypes.UPDATED_CARD_TYPE, EventTypes.DELETED_CARD_TYPE):
-            raise NotImplementedError
         elif event_type == EventTypes.REPETITION:
             log_entry["gr"] = sql_res["grade"]
             log_entry["e"] = sql_res["easiness"]
@@ -251,10 +227,34 @@ class SQLiteSync(object):
             log_entry["l_rp"] = sql_res["last_rep"]
             log_entry["n_rp"] = sql_res["next_rep"]
             log_entry["sch_data"] = sql_res["scheduler_data"]
+        elif event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
+            try:
+                tag = self.get_tag(log_entry["o_id"], id_is_internal=False)
+                log_entry["name"] = tag.name
+                if tag.extra_data:
+                    log_entry["extra"] = repr(tag.extra_data)
+            except TypeError: # The object has been deleted at a later stage.
+                pass
         elif event_type in (EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA,
             EventTypes.DELETED_MEDIA):
             log_entry["fname"] = sql_res["object_id"]
             del log_entry["o_id"]
+        elif event_type in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT):
+            if self.sync_partner_info.get("capabilities") == "cards":
+                # The accompanying ADDED_CARD and UPDATED_CARD events suffice.
+                return None
+            try:
+                fact = self.get_fact(log_entry["o_id"], id_is_internal=False)
+                log_entry["c_time"] = fact.creation_time
+                log_entry["m_time"] = fact.modification_time
+                log_entry["card_t"] = fact.card_type.id
+                for key, value in fact.data.iteritems():
+                    log_entry[key] = value
+            except TypeError: # The object has been deleted at a later stage.
+                pass
+        elif event_type in (EventTypes.ADDED_CARD_TYPE,
+            EventTypes.UPDATED_CARD_TYPE, EventTypes.DELETED_CARD_TYPE):
+            raise NotImplementedError
         elif event_type in (EventTypes.ADDED_ACTIVITY_CRITERION,
             EventTypes.UPDATED_ACTIVITY_CRITERION):
             try:

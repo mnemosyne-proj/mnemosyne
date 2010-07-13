@@ -44,24 +44,6 @@ class DatabaseLogger(Logger):
             active_count = self.scheduler().active_count()
         self.database().log_saved_database(self.timestamp, scheduled_count,
             non_memorised_count, active_count)
-        
-    def added_tag(self, tag):
-        self.database().log_added_tag(self.timestamp, tag.id)
-        
-    def updated_tag(self, tag):
-        self.database().log_updated_tag(self.timestamp, tag.id)
-                
-    def deleted_tag(self, tag):
-        self.database().log_deleted_tag(self.timestamp, tag.id)
-                
-    def added_fact(self, fact):
-        self.database().log_added_fact(self.timestamp, fact.id)
-        
-    def updated_fact(self, fact):
-        self.database().log_updated_fact(self.timestamp, fact.id)
-        
-    def deleted_fact(self, fact):
-        self.database().log_deleted_fact(self.timestamp, fact.id)
                 
     def added_card(self, card):
         self.database().log_added_card(self.timestamp, card.id)
@@ -71,16 +53,7 @@ class DatabaseLogger(Logger):
         
     def deleted_card(self, card):
         self.database().log_deleted_card(self.timestamp, card.id)
-        
-    def added_card_type(self, card_type):
-        self.database().log_added_card_type(self.timestamp, card_type.id)
-                
-    def updated_card_type(self, card_type):
-        self.database().log_updated_card_type(self.timestamp, card_type.id)
-        
-    def deleted_card_type(self, card_type):
-        self.database().log_deleted_card_type(self.timestamp, card_type.id)
-        
+
     def repetition(self, card, scheduled_interval, actual_interval,
                    new_interval, thinking_time):
         self.database().log_repetition(self.timestamp, card.id, card.grade,
@@ -88,6 +61,15 @@ class DatabaseLogger(Logger):
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             scheduled_interval, actual_interval, new_interval,                                              
             thinking_time, card.last_rep, card.next_rep, card.scheduler_data)
+
+    def added_tag(self, tag):
+        self.database().log_added_tag(self.timestamp, tag.id)
+        
+    def updated_tag(self, tag):
+        self.database().log_updated_tag(self.timestamp, tag.id)
+                
+    def deleted_tag(self, tag):
+        self.database().log_deleted_tag(self.timestamp, tag.id)
 
     def added_media(self, filename):
         self.database().log_added_media(self.timestamp, filename)
@@ -97,7 +79,25 @@ class DatabaseLogger(Logger):
         
     def deleted_media(self, filename):
         self.database().log_deleted_media(self.timestamp, filename)
+        
+    def added_fact(self, fact):
+        self.database().log_added_fact(self.timestamp, fact.id)
+        
+    def updated_fact(self, fact):
+        self.database().log_updated_fact(self.timestamp, fact.id)
+        
+    def deleted_fact(self, fact):
+        self.database().log_deleted_fact(self.timestamp, fact.id)
 
+    def added_card_type(self, card_type):
+        self.database().log_added_card_type(self.timestamp, card_type.id)
+                
+    def updated_card_type(self, card_type):
+        self.database().log_updated_card_type(self.timestamp, card_type.id)
+        
+    def deleted_card_type(self, card_type):
+        self.database().log_deleted_card_type(self.timestamp, card_type.id)
+        
     def added_activity_criterion(self, activity_criterion):
         self.database().log_added_activity_criterion(\
             self.timestamp, activity_criterion.id)

@@ -6,6 +6,8 @@ import os
 
 from nose.tools import raises
 
+from openSM2sync.log_entry import EventTypes
+
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -107,7 +109,8 @@ class TestDatabase(MnemosyneTest):
         assert len(tag_names) == 1
         assert "default1" in tag_names
         assert self.database().con.execute(\
-            "select count() from log where event_type=13").fetchone()[0] == 1
+            "select count() from log where event_type=?",
+            (EventTypes.UPDATED_CARD, )).fetchone()[0] == 1
         
     def test_clones(self):
         fact_data = {"q": "question",

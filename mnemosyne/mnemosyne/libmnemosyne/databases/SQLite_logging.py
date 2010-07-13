@@ -51,36 +51,6 @@ class SQLiteLogging(object):
             (EventTypes.SAVED_DATABASE, int(timestamp), scheduled_count,
             non_memorised_count, active_count))
         
-    def log_added_tag(self, timestamp, tag_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.ADDED_TAG, int(timestamp), tag_id))
-        
-    def log_updated_tag(self, timestamp, tag_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.UPDATED_TAG, int(timestamp), tag_id))
-        
-    def log_deleted_tag(self, timestamp, tag_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.DELETED_TAG, int(timestamp), tag_id))
-        
-    def log_added_fact(self, timestamp, fact_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.ADDED_FACT, int(timestamp), fact_id))
-        
-    def log_updated_fact(self, timestamp, fact_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.UPDATED_FACT, int(timestamp), fact_id))
-        
-    def log_deleted_fact(self, timestamp, fact_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.DELETED_FACT, int(timestamp), fact_id))
-        
     def log_added_card(self, timestamp, card_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
@@ -95,21 +65,6 @@ class SQLiteLogging(object):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_CARD, int(timestamp), card_id))
-        
-    def log_added_card_type(self, timestamp, card_type_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.ADDED_CARD_TYPE, int(timestamp), card_type_id))
-        
-    def log_updated_card_type(self, timestamp, card_type_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.UPDATED_CARD_TYPE, int(timestamp), card_type_id))
-        
-    def log_deleted_card_type(self, timestamp, card_type_id):
-        self.con.execute(\
-            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.DELETED_CARD_TYPE, int(timestamp), card_type_id))
         
     def log_repetition(self, timestamp, card_id, grade, easiness, acq_reps,
         ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
@@ -126,6 +81,21 @@ class SQLiteLogging(object):
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, int(thinking_time), last_rep, next_rep,
             scheduler_data))
+              
+    def log_added_tag(self, timestamp, tag_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_TAG, int(timestamp), tag_id))
+        
+    def log_updated_tag(self, timestamp, tag_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_TAG, int(timestamp), tag_id))
+        
+    def log_deleted_tag(self, timestamp, tag_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_TAG, int(timestamp), tag_id))
 
     def log_added_media(self, timestamp, filename):
         self.con.execute(\
@@ -141,6 +111,36 @@ class SQLiteLogging(object):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_MEDIA, int(timestamp), filename))
+                
+    def log_added_fact(self, timestamp, fact_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_FACT, int(timestamp), fact_id))
+        
+    def log_updated_fact(self, timestamp, fact_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_FACT, int(timestamp), fact_id))
+        
+    def log_deleted_fact(self, timestamp, fact_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_FACT, int(timestamp), fact_id))
+
+    def log_added_card_type(self, timestamp, card_type_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_CARD_TYPE, int(timestamp), card_type_id))
+        
+    def log_updated_card_type(self, timestamp, card_type_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_CARD_TYPE, int(timestamp), card_type_id))
+        
+    def log_deleted_card_type(self, timestamp, card_type_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_CARD_TYPE, int(timestamp), card_type_id))
         
     def log_added_activity_criterion(self, timestamp, activity_criterion_id):
         self.con.execute(\
