@@ -39,7 +39,7 @@ class Widget(MainWidget):
         return answer
 
 SERVER = socket.getfqdn()
-PORT = 9432
+PORT = 9437
         
 class MyServer(Server, Thread):
 
@@ -1821,6 +1821,95 @@ class TestSync(object):
         self.client.mnemosyne.database().set_current_activity_criterion(c)
         self.client.mnemosyne.database().delete_activity_criterion(c)
         self.server.criterion_id = c.id
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+
+    def test_add_fact_view(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            fact_view = db.get_fact_view(self.fact_view_id,
+                id_is_internal=False)
+            assert fact_view.id == "1::1"
+            assert fact_view.name == "Front-to-back"
+            assert fact_view.q_fields == ['q']
+            assert fact_view.a_fields == ['a']
+            assert fact_view.a_on_top_of_q == False
+            assert type(fact_view.a_on_top_of_q) == type(False)
+            assert fact_view.type_answer == False
+            assert type(fact_view.type_answer) == type(False)
+            assert fact_view.extra_data["1"] == 2
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        
+        fact_view = card_type.fact_views[0]
+        fact_view.extra_data = {'1': 2}
+        self.client.mnemosyne.database().add_fact_view(fact_view)
+
+        self.server.fact_view_id = fact_view.id
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        
+    def test_edit_fact_view(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            fact_view = db.get_fact_view(self.fact_view_id,
+                id_is_internal=False)
+            assert fact_view.extra_data["1"] == 3
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        
+        fact_view = card_type.fact_views[0]
+        fact_view.extra_data = {'1': 2}
+        self.client.mnemosyne.database().add_fact_view(fact_view)
+
+        fact_view.extra_data = {'1': 3}
+        self.client.mnemosyne.database().update_fact_view(fact_view)        
+
+        self.server.fact_view_id = fact_view.id
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        
+    def test_delete_fact_view(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            try:
+                fact_view = db.get_fact_view(self.fact_view_id,
+                    id_is_internal=False)
+                assert 1 == 0
+            except TypeError:
+                pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        
+        fact_view = card_type.fact_views[0]
+        self.server.fact_view_id = fact_view.id
+        fact_view.extra_data = {'1': 2}
+        self.client.mnemosyne.database().add_fact_view(fact_view)
+        self.client.mnemosyne.database().delete_fact_view(fact_view)
 
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()

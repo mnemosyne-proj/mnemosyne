@@ -40,7 +40,7 @@ class Cloze(CardType):
 
     fields = [("text", _("Text"))]
     unique_fields = ["text"]
-    fact_views = [FactView("5::1", _("Cloze"))]
+    fact_views = [FactView(_("Cloze"), "5::1")]
 
     def is_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))

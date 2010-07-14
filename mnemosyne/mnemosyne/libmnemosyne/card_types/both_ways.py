@@ -19,12 +19,12 @@ class BothWays(CardType):
               ("a", _("Answer"))]
     
     # Front-to-back.
-    v1 = FactView("2::1", _("Front-to-back"))
+    v1 = FactView(_("Front-to-back"), "2::1")
     v1.q_fields = ["q"]
     v1.a_fields = ["a"]
 
     # Back-to-front.
-    v2 = FactView("2::2", _("Back-to-front"))
+    v2 = FactView(_("Back-to-front"), "2::2",)
     v2.q_fields = ["a"]
     v2.a_fields = ["q"]
     

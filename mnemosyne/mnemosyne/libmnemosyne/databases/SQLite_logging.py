@@ -126,7 +126,22 @@ class SQLiteLogging(object):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_FACT, int(timestamp), fact_id))
-
+        
+    def log_added_fact_view(self, timestamp, fact_view_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.ADDED_FACT_VIEW, int(timestamp), fact_view_id))
+        
+    def log_updated_fact_view(self, timestamp, fact_view_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.UPDATED_FACT_VIEW, int(timestamp), fact_view_id))
+        
+    def log_deleted_fact_view(self, timestamp, fact_view_id):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.DELETED_FACT_VIEW, int(timestamp), fact_view_id))
+        
     def log_added_card_type(self, timestamp, card_type_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",

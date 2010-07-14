@@ -1,3 +1,5 @@
+-testsuite
+-add docs to events
 -sync card types (needed for clones)
 
 
@@ -22,6 +24,7 @@
 -tag.id in criteria?
 -is it worth keeping database.tag_names?
 -get rid of 'get_'
+-update_cards --> modify cards, edit cards?
 
 -check if media files exist?
 
@@ -61,7 +64,6 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 -rework progress bar API
 
 -more tests
--update_cards --> modify cards?
 
 -windows: upgrade config?
 -windows: HOME

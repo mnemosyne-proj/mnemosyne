@@ -16,13 +16,15 @@ class FactView(CompareOnId):
     
     """
 
-    def __init__(self, id, name):
+    def __init__(self, name, id=None):
+        if id is None:
+            import uuid
+            id = str(uuid.uuid4())
         self.id = id
+        self._id = None
         self.name = name
         self.q_fields = []
         self.a_fields = []
         self.a_on_top_of_q = False
         self.type_answer = False
         self.extra_data = {}
-
-    

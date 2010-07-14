@@ -19,13 +19,13 @@ class Map(CardType):
               ("marked", _("Marked map"))]
 
     # Recognition.
-    v1 = FactView("4::1", _("Recognition"))
+    v1 = FactView(_("Recognition"), "4::1")
     v1.q_fields = ["_", "marked"]
     v1.a_fields = ["loc", "marked",]
     v1.a_on_top_of_q = True
     
     # Production.
-    v2 = FactView("4::2", _("Production"))
+    v2 = FactView(_("Production"), "4::2")
     v2.q_fields = ["loc", "blank"]
     v2.a_fields = ["loc", "marked"]
     v2.a_on_top_of_q = True

@@ -88,7 +88,16 @@ class DatabaseLogger(Logger):
         
     def deleted_fact(self, fact):
         self.database().log_deleted_fact(self.timestamp, fact.id)
-
+        
+    def added_fact_view(self, fact_view):
+        self.database().log_added_fact_view(self.timestamp, fact_view.id)
+                
+    def updated_fact_view(self, fact_view):
+        self.database().log_updated_fact_view(self.timestamp, fact_view.id)
+        
+    def deleted_fact_view(self, fact_view):
+        self.database().log_deleted_fact_view(self.timestamp, fact_view.id)
+        
     def added_card_type(self, card_type):
         self.database().log_added_card_type(self.timestamp, card_type.id)
                 

@@ -252,6 +252,20 @@ class SQLiteSync(object):
                     log_entry[key] = value
             except TypeError: # The object has been deleted at a later stage.
                 pass
+        elif event_type in (EventTypes.ADDED_FACT_VIEW,
+            EventTypes.UPDATED_FACT_VIEW, EventTypes.DELETED_FACT_VIEW):
+            try:
+                fact_view = self.get_fact_view(log_entry["o_id"],
+                    id_is_internal=False)
+                log_entry["name"] = fact_view.name
+                log_entry["q_fields"] = repr(fact_view.q_fields)
+                log_entry["a_fields"] = repr(fact_view.a_fields)
+                log_entry["a_on_top_of_q"] = repr(fact_view.a_on_top_of_q)
+                log_entry["type_answer"] = repr(fact_view.type_answer)
+                if fact_view.extra_data:
+                    log_entry["extra"] = repr(fact_view.extra_data)
+            except TypeError: # The object has been deleted at a later stage.
+                pass            
         elif event_type in (EventTypes.ADDED_CARD_TYPE,
             EventTypes.UPDATED_CARD_TYPE, EventTypes.DELETED_CARD_TYPE):
             raise NotImplementedError
@@ -426,6 +440,24 @@ class SQLiteSync(object):
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
 
+    def fact_view_from_log_entry(self, log_entry):
+        # Get fact view object to be deleted now.
+        if log_entry["type"] == EventTypes.DELETED_FACT_VIEW:
+            return self.get_fact_view(log_entry["o_id"], id_is_internal=False)
+        # Create an empty shell of fact view object that will be deleted later
+        # during this sync.
+        if "name" not in log_entry:
+            return FactView("irrelevant", log_entry["o_id"])
+        # Create fact view object.
+        fact_view = FactView(log_entry["name"], log_entry["o_id"])
+        fact_view.q_fields = eval(log_entry["q_fields"])
+        fact_view.a_fields = eval(log_entry["a_fields"])        
+        fact_view.a_on_top_of_q = bool(eval(log_entry["a_on_top_of_q"]))
+        fact_view.type_answer = bool(eval(log_entry["type_answer"]))
+        if "extra" in log_entry:
+            fact_view.extra_data = eval(log_entry["extra"])
+        return fact_view
+
     def activity_criterion_from_log_entry(self, log_entry):
         # Get criterion object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_ACTIVITY_CRITERION:
@@ -450,7 +482,7 @@ class SQLiteSync(object):
                 activity_criteria where id=?""",
                 (criterion.id, )).fetchone()[0]
         return criterion
-    
+
     def apply_log_entry(self, log_entry):
         self.syncing = True
         event_type = log_entry["type"]
@@ -496,6 +528,15 @@ class SQLiteSync(object):
                 self.add_media(log_entry)
             elif event_type == EventTypes.UPDATED_MEDIA:
                 self.update_media(log_entry)
+            elif event_type == EventTypes.ADDED_FACT_VIEW:
+                self.add_fact_view(\
+                    self.fact_view_from_log_entry(log_entry))
+            elif event_type == EventTypes.UPDATED_FACT_VIEW:
+                self.update_fact_view(\
+                    self.fact_view_from_log_entry(log_entry))
+            elif event_type == EventTypes.DELETED_FACT_VIEW:
+                self.delete_fact_view(\
+                    self.fact_view_from_log_entry(log_entry))              
             elif event_type == EventTypes.ADDED_ACTIVITY_CRITERION:
                 self.add_activity_criterion(\
                     self.activity_criterion_from_log_entry(log_entry))

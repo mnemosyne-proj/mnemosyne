@@ -131,7 +131,21 @@ class Database(Component):
 
     def delete_card(self, card):
         raise NotImplementedError
+    
+    # Fact views.
+    
+    def add_fact_view(self, fact_view):
+        raise NotImplementedError
 
+    def get_fact_view(self, id, id_is_internal):
+        raise NotImplementedError
+    
+    def update_fact_view(self, fact_view):
+        raise NotImplementedError
+
+    def delete_fact_view(self, fact_view):
+        raise NotImplementedError
+    
     # Card types.
     
     def add_card_type(self, card_type):

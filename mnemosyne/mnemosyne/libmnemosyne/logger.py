@@ -100,7 +100,16 @@ class Logger(Component):
     
     def deleted_fact(self, fact):
         pass
+    
+    def added_fact_view(self, fact_view):
+        pass
 
+    def updated_fact_view(self, fact_view):
+        pass
+    
+    def deleted_fact_view(self, fact_view):
+        pass
+    
     def added_card_type(self, card_type):
         pass
 
