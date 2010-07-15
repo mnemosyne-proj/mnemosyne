@@ -253,7 +253,7 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type in (EventTypes.ADDED_FACT_VIEW,
-            EventTypes.UPDATED_FACT_VIEW, EventTypes.DELETED_FACT_VIEW):
+            EventTypes.UPDATED_FACT_VIEW):
             try:
                 fact_view = self.get_fact_view(log_entry["o_id"],
                     id_is_internal=False)
@@ -267,8 +267,21 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass            
         elif event_type in (EventTypes.ADDED_CARD_TYPE,
-            EventTypes.UPDATED_CARD_TYPE, EventTypes.DELETED_CARD_TYPE):
-            raise NotImplementedError
+            EventTypes.UPDATED_CARD_TYPE):
+            try:
+                card_type = self.get_card_type(log_entry["o_id"],
+                    id_is_internal=False)
+                log_entry["name"] = card_type.name
+                log_entry["fields"] = repr(card_type.fields)
+                log_entry["fact_views"] = repr([fact_view.id for fact_view \
+                    in card_type.fact_views])                
+                log_entry["unique_fields"] = repr(card_type.unique_fields)
+                log_entry["required_fields"] = repr(card_type.required_fields)
+                log_entry["keyboard_shortcuts"] = repr(card_type.keyboard_shortcuts)
+                if card_type.extra_data:
+                    log_entry["extra"] = repr(card_type.extra_data)
+            except TypeError: # The object has been deleted at a later stage.
+                pass            
         elif event_type in (EventTypes.ADDED_ACTIVITY_CRITERION,
             EventTypes.UPDATED_ACTIVITY_CRITERION):
             try:
@@ -457,7 +470,34 @@ class SQLiteSync(object):
         if "extra" in log_entry:
             fact_view.extra_data = eval(log_entry["extra"])
         return fact_view
-
+    
+    def card_type_from_log_entry(self, log_entry):
+        # Get card type object to be deleted now.
+        if log_entry["type"] == EventTypes.DELETED_CARD_TYPE:
+            return self.get_card_type(log_entry["o_id"], id_is_internal=False)
+        # Create an empty shell of card type object that will be deleted later
+        # during this sync.
+        if "fact_views" not in log_entry:
+            card_type = CardType(self.component_manager)
+            card_type.id = log_entry["o_id"]
+            card_type.fact_views = []
+            return card_type
+        # Create card type object.
+        card_type = CardType(self.component_manager)
+        card_type.id = log_entry["o_id"]
+        card_type.name = log_entry["name"]
+        card_type.fields = eval(log_entry["fields"])
+        card_type.fact_views = []
+        for fact_view_id in eval(log_entry["fact_views"]):
+            card_type.fact_views.append(self.get_fact_view(fact_view_id,
+                id_is_internal=False))
+        card_type.unique_fields = eval(log_entry["unique_fields"])
+        card_type.required_fields = eval(log_entry["required_fields"])        
+        card_type.keyboard_shortcuts = eval(log_entry["keyboard_shortcuts"])                    
+        if "extra" in log_entry:
+            card_type.extra_data = eval(log_entry["extra"])
+        return card_type
+    
     def activity_criterion_from_log_entry(self, log_entry):
         # Get criterion object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_ACTIVITY_CRITERION:
@@ -529,14 +569,17 @@ class SQLiteSync(object):
             elif event_type == EventTypes.UPDATED_MEDIA:
                 self.update_media(log_entry)
             elif event_type == EventTypes.ADDED_FACT_VIEW:
-                self.add_fact_view(\
-                    self.fact_view_from_log_entry(log_entry))
+                self.add_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.UPDATED_FACT_VIEW:
-                self.update_fact_view(\
-                    self.fact_view_from_log_entry(log_entry))
+                self.update_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT_VIEW:
-                self.delete_fact_view(\
-                    self.fact_view_from_log_entry(log_entry))              
+                self.delete_fact_view(self.fact_view_from_log_entry(log_entry))
+            elif event_type == EventTypes.ADDED_CARD_TYPE:
+                self.add_card_type(self.card_type_from_log_entry(log_entry))
+            elif event_type == EventTypes.UPDATED_CARD_TYPE:
+                self.update_card_type(self.card_type_from_log_entry(log_entry))
+            elif event_type == EventTypes.DELETED_CARD_TYPE:
+                self.delete_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_ACTIVITY_CRITERION:
                 self.add_activity_criterion(\
                     self.activity_criterion_from_log_entry(log_entry))

@@ -39,7 +39,7 @@ class Widget(MainWidget):
         return answer
 
 SERVER = socket.getfqdn()
-PORT = 9437
+PORT = 9444
         
 class MyServer(Server, Thread):
 
@@ -1910,6 +1910,111 @@ class TestSync(object):
         fact_view.extra_data = {'1': 2}
         self.client.mnemosyne.database().add_fact_view(fact_view)
         self.client.mnemosyne.database().delete_fact_view(fact_view)
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+
+    def test_add_card_type(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
+            card_type = db.get_card_type(self.card_type_id, id_is_internal=False)
+            assert card_type.name == "1 cloned"
+            assert card_type.fields == [('q', 'Question'), ('a', 'Answer')]
+            assert card_type.unique_fields == ['q']
+            assert card_type.required_fields == ['q']
+            assert card_type.keyboard_shortcuts == {}
+            assert len(card_type.fact_views) == 1
+            fact_view = card_type.fact_views[0]
+            assert fact_view.id == "1::1"
+            assert fact_view.name == "Front-to-back"
+            assert fact_view.q_fields == ['q']
+            assert fact_view.a_fields == ['a']
+            assert fact_view.a_on_top_of_q == False
+            assert type(fact_view.a_on_top_of_q) == type(False)
+            assert fact_view.type_answer == False
+            assert type(fact_view.type_answer) == type(False)
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
+            card_type, "1 cloned")
+        self.server.card_type_id = card_type_1.id
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        
+    def test_edit_card_type(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
+            card_type = db.get_card_type(self.card_type_id, id_is_internal=False)
+            assert card_type.name == "1 cloned"
+            assert card_type.fields == [('q', 'Question'), ('a', 'Answer')]
+            assert card_type.unique_fields == ['q']
+            assert card_type.required_fields == ['q']
+            assert card_type.keyboard_shortcuts == {}
+            assert card_type.extra_data[1] == 1
+            assert len(card_type.fact_views) == 1
+            fact_view = card_type.fact_views[0]
+            assert fact_view.id == "1::1"
+            assert fact_view.name == "Front-to-back"
+            assert fact_view.q_fields == ['q']
+            assert fact_view.a_fields == ['a']
+            assert fact_view.a_on_top_of_q == False
+            assert type(fact_view.a_on_top_of_q) == type(False)
+            assert fact_view.type_answer == False
+            assert type(fact_view.type_answer) == type(False)
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
+            card_type, "1 cloned")
+        self.server.card_type_id = card_type_1.id
+
+        card_type_1.extra_data = {1: 1}
+        card_type_1 = self.client.mnemosyne.database().update_card_type(card_type_1)        
+
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+
+    def test_delete_card_type(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            try:
+                card_type = db.get_card_type(self.card_type_id,
+                    id_is_internal=False)
+                assert 1 == 0
+            except TypeError:
+                pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
+            card_type, "1 cloned")
+        self.server.card_type_id = card_type_1.id
+        
+        self.client.mnemosyne.controller().delete_card_type(card_type_1)
+        assert self.server.card_type_id not in \
+               self.client.mnemosyne.component_manager.card_type_by_id
 
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()

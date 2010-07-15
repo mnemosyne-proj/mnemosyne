@@ -120,15 +120,32 @@ class LogEntry(dict):
 
         <fact_key> (string): any different key name than the ones above will
             be treated as belonging to the fact's data dictionary.
-       
+
+    The following events are entirely optional, certainly for card-based
+    clients. Consult libmnemosyne's code for more details.
+    
+    Keys specific to ADDED_FACT_VIEW, UPDATED_FACT_VIEW, DELETED_FACT_VIEW:
+        name (string)
+        q_fields (string)
+        a_fields (string)
+        a_on_top_of_q (bool)
+        type_answer (bool)
+        extra (string)
+
+    Keys specific to ADDED_CARD_TYPE, UPDATED_CARD_TYPE, DELETED_CARD_TYPE:
+        name (string)
+        fields (string)
+        fact_views (string)
+        unique_fields (string)
+        required_fields (string)
+        keyboard_shortcuts (string)
+        extra (string)
+                
     Keys specific to ADDED_ACTIVITY_CRITERION, UPDATED_ACTIVITY_CRITERION,
         DELETED_ACTIVITY_CRITERION:
         name (string)
         criterion_type (string)
         data (string)
-        Note that these events are entirely optional and deal with criteria
-        to activity and deactivity certain cards. Consult libmnemosyne's
-        code for more details.
     
     Any other keys in LogEntry that don't appear in the list above will be
     synced as string.

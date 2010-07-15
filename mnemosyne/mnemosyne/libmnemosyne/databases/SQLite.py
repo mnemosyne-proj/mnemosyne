@@ -672,6 +672,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             sql_res = self.con.execute("select * from fact_views where id=?",
                  (id, )).fetchone()            
         fact_view = FactView(sql_res["name"], sql_res["id"])
+        fact_view._id = sql_res["_id"]
         for attr in ("q_fields", "a_fields"):
             setattr(fact_view, attr, eval(sql_res[attr]))
         for attr in ["a_on_top_of_q", "type_answer"]:
@@ -707,7 +708,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             repr(card_type.keyboard_shortcuts),
             self._repr_extra_data(card_type.extra_data)))
         for fact_view in card_type.fact_views:
-            self.add_fact_view(fact_view)
+            # The fact views themselves have been added by the controller.
+            # (Doing it here would upset the sync protocol.)
             self.con.execute("""insert into fact_views_for_card_type
                 (_fact_view_id, card_type_id) values(?,?)""",
                 (fact_view._id, card_type.id))
@@ -763,13 +765,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.log().updated_card_type(card_type)
 
     def delete_card_type(self, card_type):
-        for fact_view in card_type.fact_views:
-            self.delete_fact_view(fact_view)
+        # The deletion of the fact views should happen at the controller
+        # level, so as not to upset the sync protocol.
         self.con.execute("""delete from fact_views_for_card_type where
             card_type_id=?""", (card_type.id, ))
         self.con.execute("delete from card_types where id=?",
             (card_type.id, ))
-        self.log().deleted_card_type(card_type)       
+        self.log().deleted_card_type(card_type)
+        del card_type
 
     #
     # Activity criteria.

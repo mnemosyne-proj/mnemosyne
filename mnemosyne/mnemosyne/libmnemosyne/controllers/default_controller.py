@@ -271,8 +271,7 @@ class DefaultController(Controller):
         self.stopwatch().unpause()
 
     def clone_card_type(self, card_type, clone_name):
-        from mnemosyne.libmnemosyne.utils import mangle
-        
+        from mnemosyne.libmnemosyne.utils import mangle    
         clone_id = card_type.id + "::" + clone_name
         if clone_id in [card_t.id for card_t in self.card_types()]:
             self.main_widget().error_box(_("Card type name already exists."))
@@ -280,11 +279,23 @@ class DefaultController(Controller):
         card_type_class = type(mangle(clone_name), (card_type.__class__, ),
             {"name": clone_name, "id": clone_id})
         cloned_card_type = card_type_class(self.component_manager)
+        for fact_view in cloned_card_type.fact_views:
+            self.database().add_fact_view(fact_view)
         self.database().add_card_type(cloned_card_type)
         self.component_manager.register(cloned_card_type)
         self.database().save()
         return cloned_card_type
     
+    def delete_card_type(self, card_type):
+        fact_views = card_type.fact_views
+        self.database().delete_card_type(card_type)
+        # Correct ordering for the sync protocol is deleting the fact
+        # views last.
+        for fact_view in fact_views:
+            self.database().delete_fact_view(fact_view)
+        self.component_manager.unregister(card_type)
+        self.database().save()
+   
     def file_new(self):
         self.stopwatch().pause()
         db = self.database()
