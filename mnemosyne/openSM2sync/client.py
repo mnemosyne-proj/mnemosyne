@@ -76,7 +76,7 @@ class Client(Partner):
         self.text_format = XMLFormat()
         self.server_info = {}
 
-    def sync(self, hostname, port, username, password):       
+    def sync(self, server, port, username, password):       
         try:
             self.ui.status_bar_message("Creating backup...")
             if self.do_backup:
@@ -85,7 +85,7 @@ class Client(Partner):
             # generate MEDIA_UPDATED log entries, so it should be done first.
             if self.check_for_updated_media_files:
                 self.database.check_for_updated_media_files()
-            self.login(hostname, port, username, password)
+            self.login(server, port, username, password)
             # First sync.
             if self.database.is_empty():
                 self.get_server_media_files()
@@ -122,13 +122,13 @@ class Client(Partner):
             elif result == "cancel":
                 self.get_sync_cancel()
         except Exception, exception:
+            self.ui.error_box("Error: " + str(exception))
             if self.do_backup:
                 self.database.restore(backup_file)
-            self.ui.error_box("Error: " + str(exception))
         else:
             self.ui.information_box("Sync finished!")
 
-    def login(self, hostname, port, username, password):
+    def login(self, server, port, username, password):
         self.ui.status_bar_message("Logging in...")
         client_info = {}
         client_info["username"] = username
@@ -147,7 +147,7 @@ class Client(Partner):
         client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
         client_info["cards_pictures_res"] = "320x200"
         client_info["reset_cards_as_pictures"] = False # True redownloads.
-        self.con = httplib.HTTPConnection(hostname, port)
+        self.con = httplib.HTTPConnection(server, port)
         self.con.request("PUT", "/login",
             self.text_format.repr_partner_info(client_info).\
                 encode("utf-8") + "\n")

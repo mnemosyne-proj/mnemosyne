@@ -41,7 +41,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.review_controller().reset()
 
     def status_bar_message(self, message):
-        self.status_bar().showMessage(message)
+        self.status_bar.showMessage(message)
 
     def add_to_status_bar(self, widget):
         self.status_bar_widgets.append(widget)
@@ -124,6 +124,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         
     def export_file(self):
         self.controller().export_file()
+
+    def sync(self):
+        self.controller().sync()
 
     def configure(self):
         self.controller().configure()      

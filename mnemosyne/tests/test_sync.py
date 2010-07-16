@@ -39,7 +39,7 @@ class Widget(MainWidget):
         return answer
 
 SERVER = socket.getfqdn()
-PORT = 9444
+PORT = 9451
         
 class MyServer(Server, Thread):
 

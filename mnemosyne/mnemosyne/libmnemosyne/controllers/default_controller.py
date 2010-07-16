@@ -282,7 +282,6 @@ class DefaultController(Controller):
         for fact_view in cloned_card_type.fact_views:
             self.database().add_fact_view(fact_view)
         self.database().add_card_type(cloned_card_type)
-        self.component_manager.register(cloned_card_type)
         self.database().save()
         return cloned_card_type
     
@@ -293,7 +292,6 @@ class DefaultController(Controller):
         # views last.
         for fact_view in fact_views:
             self.database().delete_fact_view(fact_view)
-        self.component_manager.unregister(card_type)
         self.database().save()
    
     def file_new(self):
@@ -518,6 +516,21 @@ class DefaultController(Controller):
     def export_file(self):
         self.stopwatch().pause()
 
+        self.stopwatch().unpause()
+
+    def sync(self):
+        self.stopwatch().pause()
+        self.database().save()        
+        self.component_manager.get_current("sync_dialog")\
+            (self.component_manager).activate()
+        self.database().save()
+        self.log().saved_database()
+        review_controller = self.review_controller()
+        review_controller.reload_counters()
+        if review_controller.card is None:
+            review_controller.new_question()
+        else:
+            review_controller.update_status_bar()
         self.stopwatch().unpause()
 
     def download_source(self):

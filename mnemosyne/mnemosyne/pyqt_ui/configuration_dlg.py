@@ -5,7 +5,6 @@
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.ui_components.dialogs import ConfigurationDialog
 
 

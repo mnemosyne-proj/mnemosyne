@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>234</width>
-    <height>177</height>
+    <width>280</width>
+    <height>305</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,24 +29,10 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>234</width>
+     <width>280</width>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>&amp;File</string>
-    </property>
-    <addaction name="actionFileNew"/>
-    <addaction name="actionFileOpen"/>
-    <addaction name="actionFileSave"/>
-    <addaction name="actionFileSaveAs"/>
-    <addaction name="separator"/>
-    <addaction name="actionImport"/>
-    <addaction name="actionExport"/>
-    <addaction name="separator"/>
-    <addaction name="actionFileExit"/>
-   </widget>
    <widget class="QMenu" name="menu_Cards">
     <property name="title">
      <string>&amp;Cards</string>
@@ -78,6 +64,21 @@
     <addaction name="actionTip"/>
     <addaction name="separator"/>
     <addaction name="actionHelpAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionFileNew"/>
+    <addaction name="actionFileOpen"/>
+    <addaction name="actionFileSave"/>
+    <addaction name="actionFileSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport"/>
+    <addaction name="actionExport"/>
+    <addaction name="actionSync"/>
+    <addaction name="separator"/>
+    <addaction name="actionFileExit"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_Cards"/>
@@ -263,17 +264,6 @@
     <string>Ctrl+T</string>
    </property>
   </action>
-  <action name="actionShowToolbar">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Show &amp;toolbar</string>
-   </property>
-  </action>
   <action name="actionTip">
    <property name="text">
     <string>&amp;Tip of the day</string>
@@ -292,6 +282,14 @@
   <action name="actionCloneCardTypes">
    <property name="text">
     <string>C&amp;lone card types</string>
+   </property>
+  </action>
+  <action name="actionSync">
+   <property name="text">
+    <string>S&amp;ync</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
    </property>
   </action>
  </widget>
@@ -511,7 +509,7 @@
    <sender>actionConfigure</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>configure()</slot>
+   <slot>configure</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -525,9 +523,9 @@
   </connection>
   <connection>
    <sender>actionActivateCards</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>activate_cards()</slot>
+   <slot>activate_cards</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -536,6 +534,22 @@
     <hint type="destinationlabel">
      <x>123</x>
      <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSync</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>sync</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>152</y>
     </hint>
    </hints>
   </connection>

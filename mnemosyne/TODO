@@ -1,6 +1,5 @@
--integrate openSM2sync with GUI
+-test if mnemosyne version gets set alright
 -log save event after import and sync in the default controller. Add tests
--reload database after sync to create new card type clones
 -server.open_database: create new database on server side if needed
 
 
@@ -15,12 +14,12 @@
 -where to move txt_log_parser
 -need component.statisticspages and configuration widgets?
 
--id vs _id
--tag.id in criteria?
+
 -is it worth keeping database.tag_names?
 -get rid of 'get_'
 -update_cards --> modify cards, edit cards?
 -delete fact and related data,  --> related cards?
+-reload counters --> recalc counters
 
 -check if media files exist?
 
@@ -43,7 +42,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 >         args = (fact.card_type.id,)
 >         if fact._id:
 >             query += " and not _id=?"
- >             args = (fact.card_type.id, fact._id)
+>             args = (fact.card_type.id, fact._id)
 >         duplicates = []            
 >         for cursor in self.con.execute(query, args):
 >             data = dict([(cursor2["key"], cursor2["value"]) for cursor2 in \
@@ -147,6 +146,7 @@ http://pysnippet.blogspot.com/2010/02/qtabwidget-hiding-bar.html
  remember size
 
 -make distrib
+-http://blog.oak-tree.us/index.php/2010/05/27/pyqt-snow-leopard
 
 -in add card window with custum font size, typing text and then deleting it reverts the font size to
  the UI default instead of the card type default.

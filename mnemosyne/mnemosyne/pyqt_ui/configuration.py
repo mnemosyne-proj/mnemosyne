@@ -27,6 +27,11 @@ class PyQtConfiguration(Hook):
              "statistics_dlg_size": (0, 0),
              "configuration_dlg_size": (0, 0),
              "activate_cards_dlg_size": (0, 0),
-             "activate_cards_dlg_splitter": None
+             "activate_cards_dlg_splitter": None,
+             "sync_help_shown": False,
+             "sync_as_client_server": "",
+             "sync_as_client_port": 8512,
+             "sync_as_client_username": "",
+             "sync_as_client_password": ""
             }.items():
             self.config().setdefault(key, value)
