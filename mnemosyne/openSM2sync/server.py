@@ -9,6 +9,7 @@ import cgi
 import uuid
 import time
 import select
+import socket
 import tarfile
 import tempfile
 import cStringIO
@@ -21,7 +22,6 @@ from text_formats.xml_format import XMLFormat
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
 
-import socket
 realsocket = socket.socket
 def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
     sockobj = realsocket(family, type, proto)
@@ -74,6 +74,7 @@ class Session(object):
         """Restore from backup if the session failed to close normally."""
 
         self.database.restore(self.backup_file)
+        
 
 
 class Server(WSGIServer, Partner):
@@ -83,9 +84,9 @@ class Server(WSGIServer, Partner):
 
     stop_after_sync = False # Setting this True is useful for the testsuite. 
 
-    def __init__(self, machine_id, host, port, ui):
+    def __init__(self, machine_id, port, ui):
         self.machine_id = machine_id
-        WSGIServer.__init__(self, (host, port), WSGIRequestHandler)
+        WSGIServer.__init__(self, (socket.getfqdn(), port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         Partner.__init__(self, ui)
         self.text_format = XMLFormat()

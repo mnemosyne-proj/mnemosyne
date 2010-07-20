@@ -1,7 +1,9 @@
--test if mnemosyne version gets set alright
--log save event after import and sync in the default controller. Add tests
+-locks needed?
+-close database in server. At what level? database? controller?
+-controller interface
+-test if mnemosyne version gets set alright, both client and server
 -server.open_database: create new database on server side if needed
-
+-log save event after import and sync in the default controller. Add tests
 
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI
@@ -340,6 +342,7 @@ Windows Mobile client:
 
 If your phone has a touchscreen use the pocket pc version. Otherwise try the smartphone version. 
 
+-integrate sync
 -better way of making default actions visible? Call layout()?
 -hook up scheduler rollover
 -document save after n rep

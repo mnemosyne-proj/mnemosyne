@@ -218,7 +218,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
 
         if not self._connection:
             self._connection = sqlite3.connect(self._path, timeout=0.1,
-                               isolation_level="EXCLUSIVE")
+                               isolation_level="EXCLUSIVE",
+                               check_same_thread=False)
             self._connection.row_factory = sqlite3.Row
         return self._connection
     

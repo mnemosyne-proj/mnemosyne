@@ -88,3 +88,6 @@ class Controller(Component):
     
     def export_file(self):
         raise NotImplementedError
+    
+    def sync(self):
+        raise NotImplementedError

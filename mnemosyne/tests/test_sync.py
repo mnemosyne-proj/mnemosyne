@@ -38,7 +38,6 @@ class Widget(MainWidget):
     def question_box(self, question, option0, option1, option2):
         return answer
 
-SERVER = socket.getfqdn()
 PORT = 9451
         
 class MyServer(Server, Thread):
@@ -85,7 +84,7 @@ class MyServer(Server, Thread):
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
         Server.__init__(self, self.mnemosyne.config().machine_id(),
-                        SERVER, PORT, self.mnemosyne.main_widget())
+                        PORT, self.mnemosyne.main_widget())
         if not self.binary_download:
             self.supports_binary_log_download = lambda x : False
         server_lock.release()

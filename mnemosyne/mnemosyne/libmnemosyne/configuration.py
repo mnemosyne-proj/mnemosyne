@@ -112,7 +112,10 @@ class Configuration(Component, dict):
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
              "active_plugins": set(), # Plugin classes, not instances.
              "media_autoplay": True,
-             "media_controls": False
+             "media_controls": False,
+             "sync_server_port": 8512,
+             "sync_server_username": "",
+             "sync_server_password": ""
             }.items():
 
             self.setdefault(key, value)
