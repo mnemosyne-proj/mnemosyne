@@ -113,11 +113,11 @@ class Configuration(Component, dict):
              "active_plugins": set(), # Plugin classes, not instances.
              "media_autoplay": True,
              "media_controls": False,
-             "sync_server_port": 8512,
+             "run_sync_server": True,
+             "sync_server_port": 9013,
              "sync_server_username": "",
              "sync_server_password": ""
             }.items():
-
             self.setdefault(key, value)
 
         if not self["user_id"]:

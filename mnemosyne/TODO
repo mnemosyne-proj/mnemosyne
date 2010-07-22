@@ -1,4 +1,9 @@
+-set run sync server false
+-clean up dummy request
+-get rid of run once?
+-add test
 -locks needed?
+-fix port numbers
 -close database in server. At what level? database? controller?
 -controller interface
 -test if mnemosyne version gets set alright, both client and server

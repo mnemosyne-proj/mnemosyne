@@ -2,32 +2,37 @@
 # sync_server.py <Peter.Bienstman@UGent.be>
 #
 
-from threading import Thread, Lock
+import mnemosyne.version
+
+from threading import Thread
 from openSM2sync.server import Server
 from mnemosyne.libmnemosyne.component import Component
 
 
 class SyncServer(Thread, Component, Server):
 
+    component_type = "sync_server"
+
     def __init__(self, component_manager):
         Thread.__init__(self)
-        ComponentManager.__init__(self, component_manager)
-        Server.__init__(self.config().machine_id(),
-            self.config()["sync_server_port"], self.main_window())
+        Component.__init__(self, component_manager)
         self.rogram_name = "Mnemosyne"
         self.program_version = mnemosyne.version.version
-        self.lock = Lock()
 
     def activate(self):
-        self.start()
+        if self.config()["run_sync_server"]:
+            self.start()
 
     def run(self):
+        Server.__init__(self, self.config().machine_id(),
+            self.config()["sync_server_port"], self.main_widget())
         self.serve_forever()
-
+        
     def deactivate(self):
-        self.stop()
-        self.join()
-
+        if self.is_alive():
+            self.stop()
+            self.join()
+            
     def authorise(self, username, password):
         return username == self.config()["sync_server_username"] and \
                password == ["sync_server_password"]
@@ -42,3 +47,4 @@ class SyncServer(Thread, Component, Server):
         self.database().unload()
         self.lock.release()   
         self.controller().load_database_after_sync()
+

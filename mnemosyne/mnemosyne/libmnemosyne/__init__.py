@@ -69,7 +69,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
           "DefaultCriterion"),
          ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
-          "DefaultCriterionApplier"),         
+          "DefaultCriterionApplier"),
+         ("mnemosyne.libmnemosyne.sync_server",
+          "SyncServer"),     
          ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
           "CrammingPlugin"),
          ("mnemosyne.libmnemosyne.statistics_pages.schedule",
@@ -147,7 +149,7 @@ class Mnemosyne(Component):
         """
         
         for component in  ["config", "log", "database", "scheduler",
-                           "controller"]:
+                           "controller", "sync_server"]:
             try:
                 self.component_manager.get_current(component).activate()
             except RuntimeError, e:

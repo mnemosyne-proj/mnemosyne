@@ -533,21 +533,6 @@ class DefaultController(Controller):
             review_controller.update_status_bar()
         self.stopwatch().unpause()
 
-    def unload_database_before_sync():
-        self.component_manager.get_current("sync_server").lock.acquire()
-
-
-        self.component_manager.get_current("sync_server").lock.release()
-         
-        self.lock.acquire()
-        self.controller().load_database_to_sync(database_name)
-        return self.database()
-
-    def close_database(self):
-        self.database().unload()
-        self.lock.release()   
-        self.controller().load_database_after_sync()
-
     def download_source(self):
 
         """The following code is here to be able to enforce the AGPL licence.

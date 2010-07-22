@@ -84,7 +84,7 @@ class Server(WSGIServer, Partner):
 
     stop_after_sync = False # Setting this True is useful for the testsuite. 
 
-    def __init__(self, machine_id, port, ui):
+    def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
         WSGIServer.__init__(self, (socket.getfqdn(), port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
@@ -109,7 +109,7 @@ class Server(WSGIServer, Partner):
             if select.select([self.socket], [], [])[0]:
                 self.handle_request()
         self.socket.close()
-
+        
     def get_method(self, environ):
         # Convert e.g. GET /foo_bar into get_foo_bar.
         method = (environ["REQUEST_METHOD"] + \
@@ -166,9 +166,14 @@ class Server(WSGIServer, Partner):
         del self.sessions[session_token]
             
     def stop(self):
-        self.stopped = True
         for session_token, session in self.sessions.iteritems():
             self.terminate_session_with_token(session_token)
+        self.stopped = True
+        # Make dummy request for self.stopped to take effect.
+        import httplib
+        con = httplib.HTTPConnection("localhost:%d" % self.server_port)   
+        con.request("GET", "/sync_finish?session_token=0")
+        con.getresponse()
 
     def binary_format_for(self, session):
         for BinaryFormat in BinaryFormats:
