@@ -172,8 +172,8 @@ class Server(WSGIServer, Partner):
         # Make dummy request for self.stopped to take effect.
         import httplib
         con = httplib.HTTPConnection("localhost:%d" % self.server_port)   
-        con.request("GET", "/sync_finish?session_token=0")
-        con.getresponse()
+        con.request("GET", "dummy_request")
+        con.getresponse().read()
 
     def binary_format_for(self, session):
         for BinaryFormat in BinaryFormats:

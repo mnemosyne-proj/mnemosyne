@@ -28,14 +28,14 @@ class SyncServer(Thread, Component, Server):
             self.config()["sync_server_port"], self.main_widget())
         self.serve_forever()
         
-    def deactivate(self):
+    def deactivate(self):       
         if self.is_alive():
             self.stop()
             self.join()
             
     def authorise(self, username, password):
         return username == self.config()["sync_server_username"] and \
-               password == ["sync_server_password"]
+               password == self.config()["sync_server_password"]
 
     def open_database(self, database_name):
         self.controller().unload_database_before_sync()
