@@ -1,5 +1,3 @@
--set run sync server false
--get rid of run once?
 -locks needed?
 -fix port numbers
 -close database in server. At what level? database? controller?

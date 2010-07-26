@@ -11,6 +11,7 @@ import time
 import select
 import socket
 import tarfile
+import httplib
 import tempfile
 import cStringIO
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
@@ -82,8 +83,6 @@ class Server(WSGIServer, Partner):
     program_name = "unknown-SRS-app"
     program_version = "unknown"
 
-    stop_after_sync = False # Setting this True is useful for the testsuite. 
-
     def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
         WSGIServer.__init__(self, (socket.getfqdn(), port), WSGIRequestHandler)
@@ -121,7 +120,7 @@ class Server(WSGIServer, Partner):
             if len(args) == 0:
                 return "200 OK", "xml/text", method, args
             else:
-                return "400 Bad Request", "text/plain", None, None                
+                return "400 Bad Request", "text/plain", None, None             
         # See if the token matches.
         if not "session_token" in args or args["session_token"] \
             not in self.sessions:
@@ -152,7 +151,7 @@ class Server(WSGIServer, Partner):
 
         """
         
-        session = self.sessions[session_token]       
+        session = self.sessions[session_token]
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
             
@@ -166,12 +165,11 @@ class Server(WSGIServer, Partner):
         del self.sessions[session_token]
             
     def stop(self):
-        for session_token, session in self.sessions.iteritems():
+        for session_token in self.sessions.keys():
             self.terminate_session_with_token(session_token)
         self.stopped = True
         # Make dummy request for self.stopped to take effect.
-        import httplib
-        con = httplib.HTTPConnection("localhost:%d" % self.server_port)   
+        con = httplib.HTTPConnection(socket.getfqdn(), self.server_port)   
         con.request("GET", "dummy_request")
         con.getresponse().read()
 
@@ -219,8 +217,6 @@ class Server(WSGIServer, Partner):
         client_info = self.text_format.parse_partner_info(client_info_repr)
         if not self.authorise(client_info["username"],
             client_info["password"]):
-            if self.stop_after_sync:
-                self.stopped = True
             return "403 Forbidden"
         # Close old session if it failed to finish properly.
         old_running_session_token = self.session_token_for_user.\
@@ -235,9 +231,7 @@ class Server(WSGIServer, Partner):
             session.database.partners()      
         if (server_in_client_partners and not client_in_server_partners) or \
            (client_in_server_partners and not server_in_client_partners):
-            if self.stop_after_sync:
-                self.stopped = True
-                self.terminate_session_with_token(session.token)                
+            self.terminate_session_with_token(session.token)                
             return "Cycle detected"
         session.database.create_partnership_if_needed_for(\
             client_info["machine_id"])
@@ -325,8 +319,6 @@ class Server(WSGIServer, Partner):
             sys.stderr.write(str(exception))
             self.ui.status_bar_message("Session terminated due to errors...")
             self.terminate_session_with_token(session_token)        
-            if self.stop_after_sync:
-                self.stopped = True
             
     def get_server_log_entries(self, environ, session_token):
         self.ui.status_bar_message("Sending log entries to client...")
@@ -345,19 +337,17 @@ class Server(WSGIServer, Partner):
         # applying the client log entries.
         # First, dump to the science log, so that we can skip over the new
         # logs in case the client uploads them.
-        if 1:
+        try:
             session.database.dump_to_science_log()
             for log_entry in session.client_log:
                 session.database.apply_log_entry(log_entry)
             # Skip over the logs that the client promised to upload.
             if session.client_info["upload_science_logs"]:
                 session.database.skip_science_log()
-        else: #except Exception, exception:
+        except Exception, exception:
             sys.stderr.write(str(exception))
             self.ui.status_bar_message("Session terminated due to errors...")
             self.terminate_session_with_token(session_token)
-            if self.stop_after_sync:
-                self.stopped = True
             
     def get_server_entire_database(self, environ, session_token):
         self.ui.status_bar_message("Sending entire database to client...")
@@ -439,8 +429,6 @@ class Server(WSGIServer, Partner):
     def get_sync_cancel(self, environ, session_token):
         self.ui.status_bar_message("Waiting for client to finish...")
         self.cancel_session_with_token(session_token)
-        if self.stop_after_sync:
-            self.stopped = True
         return "OK"
     
     def get_sync_finish(self, environ, session_token):
@@ -450,7 +438,5 @@ class Server(WSGIServer, Partner):
         for session_token, session in self.sessions.iteritems():
             if session.is_expired():
                 self.terminate_session_with_token(session_token)
-        if self.stop_after_sync:
-            self.stopped = True
         return "OK"
     

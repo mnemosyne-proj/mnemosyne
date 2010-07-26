@@ -38,7 +38,7 @@ class Widget(MainWidget):
     def question_box(self, question, option0, option1, option2):
         return answer
 
-PORT = 9464
+PORT = 9493
 
         
 class MyServer(Server, Thread):
@@ -46,7 +46,6 @@ class MyServer(Server, Thread):
     program_name = "Mnemosyne"
     program_version = "test"
     user_id = "user_id"
-    #stop_after_sync = True
 
     def __init__(self, basedir=os.path.abspath("dot_sync_server"),
             filename="default.db", binary_download=False, erase_previous=True):
@@ -136,7 +135,7 @@ class MyClient(Client):
     def do_sync(self):
         server_lock.acquire()
         try:
-            self.sync("localhost", PORT, self.user, self.password)
+            self.sync(socket.getfqdn(), PORT, self.user, self.password)
         finally:
             server_lock.release()
 
@@ -1061,6 +1060,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
+        self.server.stop()
         
         # B --> C
 
@@ -1079,6 +1079,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
+        self.server.stop()
         
         # C --> A
 
@@ -1118,6 +1119,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
+        self.server.stop()
 
         # Second sync.
 
@@ -1167,7 +1169,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
-
+        self.server.stop()
+        
         # Second sync.
 
         def fill_server_database(self):
@@ -1223,7 +1226,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
-
+        self.server.stop()
+        
         # Second sync.
 
         def fill_server_database(self):
@@ -1279,7 +1283,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
-
+        self.server.stop()
+        
         # Second sync.
 
         def fill_server_database(self):
@@ -1336,7 +1341,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
-
+        self.server.stop()
+        
         # Second sync.
 
         def fill_server_database(self):
@@ -1393,7 +1399,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
-
+        self.server.stop()
+        
         # Second sync.
 
         def fill_server_database(self):
@@ -1464,7 +1471,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
-
+        self.server.stop()
+        
         # Remove media.
         
         filename = os.path.join(os.path.abspath("dot_sync_client"),
@@ -1544,7 +1552,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         self.client.mnemosyne.finalise()
-
+        self.server.stop()
+        
         # Remove media.
         
         filename = os.path.join(os.path.abspath("dot_sync_server"),
@@ -2054,10 +2063,10 @@ class TestSync(object):
                 self.passed_tests = True
                 self.mnemosyne.finalise()
 
-            def test_server(self):
+            def stop(self):
+                pass
 
-                return
-                
+            def test_server(self):
                 db = self.mnemosyne.database()
                 tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
                 assert tag.id == self.client_tag_id
