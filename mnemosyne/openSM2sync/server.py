@@ -140,6 +140,7 @@ class Server(WSGIServer, Partner):
 
     def close_session_with_token(self, session_token):
         session = self.sessions[session_token]
+        self.after_sync(session)
         session.close()        
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
@@ -152,6 +153,7 @@ class Server(WSGIServer, Partner):
         """
         
         session = self.sessions[session_token]
+        self.after_sync(session)
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
             
@@ -160,6 +162,7 @@ class Server(WSGIServer, Partner):
         """Clean up a session which failed to close normally."""
 
         session = self.sessions[session_token]
+        self.after_sync(session)
         session.terminate()        
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
@@ -189,7 +192,7 @@ class Server(WSGIServer, Partner):
         return self.binary_format_for(session) is not None
     
     # The following functions are to be overridden by the actual server code,
-    # to implement e.g. authorisation and storage.
+    # to implement e.g. authorisation, storage, ... .
 
     def authorise(self, username, password):
 
@@ -205,6 +208,9 @@ class Server(WSGIServer, Partner):
         """
 
         raise NotImplementedError
+
+    def after_sync(self, session):
+        pass
     
     # The following are methods that are supported by the server through GET
     # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo_bar'

@@ -31,11 +31,19 @@ class Database(Component):
         
         raise NotImplementedError
         
-        
     def name(self):
 
+        """Returns name of the database, without parent paths, but with
+        extensions.
+
+        """
+        
+        raise NotImplementedError
+    
+    def display_name(self):
+
         """Returns bare name of the database, without parent paths and
-        suffixes.
+        without extension.
 
         """
         

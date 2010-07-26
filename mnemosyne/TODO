@@ -1,10 +1,5 @@
--locks needed?
 -fix port numbers
--close database in server. At what level? database? controller?
--controller interface
 -test if mnemosyne version gets set alright, both client and server
--server.open_database: create new database on server side if needed
--log save event after import and sync in the default controller. Add tests
 
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI

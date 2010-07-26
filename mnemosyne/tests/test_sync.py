@@ -38,7 +38,7 @@ class Widget(MainWidget):
     def question_box(self, question, option0, option1, option2):
         return answer
 
-PORT = 9493
+PORT = 9903
 
         
 class MyServer(Server, Thread):
@@ -139,14 +139,53 @@ class MyClient(Client):
         finally:
             server_lock.release()
 
+
+class BuiltinServer(Thread):
+
+    def __init__(self, basedir=os.path.abspath("dot_sync_server"), filename="default.db"):
+        self.basedir = basedir
+        self.filename = filename
+        Thread.__init__(self)
+        os.system("rm -fr " + basedir)
+        self.mnemosyne = Mnemosyne()
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+            "GetTextTranslator"))
+        self.mnemosyne.components.append(("test_sync", "Widget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+
+    def run(self):
+        server_lock.acquire()
+        self.mnemosyne.initialise(self.basedir, self.filename)
+        self.mnemosyne.config().change_user_id("user_id")
+        if hasattr(self, "fill_server_database"):
+                self.fill_server_database(self)
+        self.mnemosyne.config()["run_sync_server"] = True
+        self.mnemosyne.review_controller().reset()
+        self.mnemosyne.component_manager.get_current("sync_server").deactivate()
+        self.mnemosyne.component_manager.get_current("sync_server").activate()
+        self.passed_tests = True
+        server_lock.release()
+
+    def stop(self):
+        pass
+
+    def test_server(self):
+        pass
+
+
 class TestSync(object):
 
     def teardown(self):
         self.server.stop()
         server_lock.acquire()
-        assert self.server.passed_tests == True
-        server_lock.release()
-        self.client.mnemosyne.finalise()
+        try:
+            assert self.server.passed_tests == True
+        finally:
+            server_lock.release()
+            self.client.mnemosyne.finalise()
         
     def test_add_tag(self):
 
@@ -2036,50 +2075,19 @@ class TestSync(object):
         
     def test_builtin_server(self):
 
-        class BuiltinServer(Thread):
+        def test_server(self):
+            db = self.mnemosyne.database()
+            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            assert tag.id == self.client_tag_id
+            assert tag.name == unichr(0x628) + u">&<abcd"
+            sql_res = db.con.execute("select * from log where event_type=?",
+               (EventTypes.ADDED_TAG, )).fetchone()
+            assert self.tag_added_timestamp == sql_res["timestamp"]
+            assert type(sql_res["timestamp"]) == int
+            assert db.con.execute("select count() from log").fetchone()[0] == 9
 
-            def __init__(self, basedir=os.path.abspath("dot_sync_server"), filename="default.db"):
-                self.basedir = basedir
-                self.filename = filename
-                Thread.__init__(self)
-                os.system("rm -fr " + basedir)
-                self.mnemosyne = Mnemosyne()
-                self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                    "GetTextTranslator"))
-                self.mnemosyne.components.append(("test_sync", "Widget"))
-                self.mnemosyne.components.append(\
-                    ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
-                self.mnemosyne.components.append(\
-                    ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-
-            def run(self):
-                self.mnemosyne.initialise(self.basedir, self.filename)
-                self.mnemosyne.config()["run_sync_server"] = True
-                self.mnemosyne.component_manager.get_current("sync_server").deactivate()
-                self.mnemosyne.component_manager.get_current("sync_server").activate()
-                self.mnemosyne.review_controller().reset()
-                self.passed_tests = False
-                self.test_server()
-                self.passed_tests = True
-                self.mnemosyne.finalise()
-
-            def stop(self):
-                pass
-
-            def test_server(self):
-                db = self.mnemosyne.database()
-                tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
-                assert tag.id == self.client_tag_id
-                assert tag.name == unichr(0x628) + u">&<abcd"
-                sql_res = db.con.execute("select * from log where event_type=?",
-                   (EventTypes.ADDED_TAG, )).fetchone()
-                assert self.tag_added_timestamp == sql_res["timestamp"]
-                assert type(sql_res["timestamp"]) == int
-                assert db.con.execute("select count() from log").fetchone()[0] == 8
-
-        return
-            
         self.server = BuiltinServer()
+        self.server.test_server = test_server
         self.server.start()
 
         self.client = MyClient()
@@ -2094,12 +2102,124 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
   
         config = self.server.mnemosyne.config()
-        self.client.sync("localhost", config["sync_server_port"],
-            config["sync_server_username"], config["sync_server_password"])
-
+        server_lock.acquire()
+        try:
+            self.client.sync(socket.getfqdn(), config["sync_server_port"],
+               config["sync_server_username"], config["sync_server_password"])
+        finally:
+            server_lock.release()
+        
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 8
+
+        try:
+            self.server.test_server(self.server)
+        finally:
+            self.server.mnemosyne.finalise()
+
+    def test_builtin_server_other(self):
+
+        def fill_server_database(self):
+            self.mnemosyne.database().new("new.db")
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.con.execute("select count() from tags").fetchone()[0] == 0
+            assert db.name() == "new.db"
+            db.load("default.db")
+            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            assert tag.id == self.client_tag_id
+            assert tag.name == unichr(0x628) + u">&<abcd"
+            sql_res = db.con.execute("select * from log where event_type=?",
+               (EventTypes.ADDED_TAG, )).fetchone()
+            assert self.tag_added_timestamp == sql_res["timestamp"]
+            assert type(sql_res["timestamp"]) == int
+            assert db.con.execute("select count() from log").fetchone()[0] == 8
+
+        self.server = BuiltinServer()
+        self.server.fill_server_database = fill_server_database
+        self.server.test_server = test_server       
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.server.client_tag_id = tag.id
+        sql_res = self.client.mnemosyne.database().con.execute(\
+            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()
+        self.server.tag_added_timestamp = sql_res["timestamp"]
+        assert type(self.server.tag_added_timestamp) == int
+        self.client.mnemosyne.controller().file_save()
+  
+        config = self.server.mnemosyne.config()
+        server_lock.acquire()
+        try:
+            self.client.sync(socket.getfqdn(), config["sync_server_port"],
+               config["sync_server_username"], config["sync_server_password"])
+        finally:
+            server_lock.release()
+        
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()[0] == 1
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 8
+
+        try:
+            self.server.test_server(self.server)
+        finally:
+            self.server.mnemosyne.finalise()
+
+    def test_builtin_server_new(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.con.execute("select count() from tags").fetchone()[0] == 0
+            db.load("new.db")
+            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            assert tag.id == self.client_tag_id
+            assert tag.name == unichr(0x628) + u">&<abcd"
+            sql_res = db.con.execute("select * from log where event_type=?",
+               (EventTypes.ADDED_TAG, )).fetchone()
+            assert self.tag_added_timestamp == sql_res["timestamp"]
+            assert type(sql_res["timestamp"]) == int
+            assert db.con.execute("select count() from log").fetchone()[0] == 5
+
+        self.server = BuiltinServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient(filename="new.db")
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.server.client_tag_id = tag.id
+        sql_res = self.client.mnemosyne.database().con.execute(\
+            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()
+        self.server.tag_added_timestamp = sql_res["timestamp"]
+        assert type(self.server.tag_added_timestamp) == int
+        self.client.mnemosyne.controller().file_save()
+  
+        config = self.server.mnemosyne.config()
+        server_lock.acquire()
+        try:
+            self.client.sync(socket.getfqdn(), config["sync_server_port"],
+               config["sync_server_username"], config["sync_server_password"])
+        finally:
+            server_lock.release()
+        
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()[0] == 1
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 5
+
+        try:
+            self.server.test_server(self.server)
+        finally:
+            self.server.mnemosyne.finalise()
 

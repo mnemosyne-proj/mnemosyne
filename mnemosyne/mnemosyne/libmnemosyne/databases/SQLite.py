@@ -225,8 +225,11 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     
     def path(self):
         return self._path
-        
+    
     def name(self):
+        return os.path.basename(self.config()["path"])
+        
+    def display_name(self):
         if not self.is_loaded():
             return None
         else:
