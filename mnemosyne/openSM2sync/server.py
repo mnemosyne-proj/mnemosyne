@@ -351,8 +351,7 @@ class Server(WSGIServer, Partner):
             if session.client_info["upload_science_logs"]:
                 session.database.skip_science_log()
         except Exception, exception:
-            sys.stderr.write(str(exception))
-            self.ui.status_bar_message("Session terminated due to errors...")
+            self.ui.error_box("Error: " + str(exception))
             self.terminate_session_with_token(session_token)
             
     def get_server_entire_database(self, environ, session_token):
@@ -388,7 +387,8 @@ class Server(WSGIServer, Partner):
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             # Work around http://bugs.python.org/issue7693.
             tar_pipe.extractall(session.database.mediadir().encode("utf-8"))
-        except:
+        except Exception, exception:
+            self.ui.error_box("Error: " + str(exception))
             return "CANCEL"
         return "OK"
     
@@ -429,7 +429,8 @@ class Server(WSGIServer, Partner):
                 yield buffer            
             os.remove(tmp_file_name)
             os.chdir(saved_path)
-        except:
+        except Exception, exception:
+            self.ui.error_box("Error: " + str(exception))
             yield "CANCEL"
             
     def get_sync_cancel(self, environ, session_token):

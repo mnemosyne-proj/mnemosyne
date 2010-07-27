@@ -14,7 +14,7 @@ from partner import Partner, BUFFER_SIZE
 from utils import tar_file_size
 from text_formats.xml_format import XMLFormat
 
-socket.setdefaulttimeout(10)
+socket.setdefaulttimeout(300)
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -126,7 +126,7 @@ class Client(Partner):
             if self.do_backup:
                 self.database.restore(backup_file)
         else:
-            self.ui.information_box("Sync finished!")
+            self.ui.information_box("Sync finished!")        
 
     def login(self, server, port, username, password):
         self.ui.status_bar_message("Logging in...")

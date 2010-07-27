@@ -1,4 +1,7 @@
--fix port numbers
+-erroneous sync cycle detection
+-rework design of server thread ui notifications and tests
+-make sure 'server running' message does not show if there is an error
+-display server status in configuration box
 -test if mnemosyne version gets set alright, both client and server
 
 -current active set not marked upon entering
