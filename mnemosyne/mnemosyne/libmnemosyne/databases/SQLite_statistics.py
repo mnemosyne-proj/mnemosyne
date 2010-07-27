@@ -79,7 +79,6 @@ class SQLiteStatistics(object):
 
     def card_count_scheduled_n_days_ago(self, n):
         start_of_day = self._start_of_day_n_days_ago(n)
-        print start_of_day
         result = self.con.execute(\
             """select acq_reps from log where ?<=timestamp and timestamp<?
             and (event_type=? or event_type=?) order by acq_reps desc

@@ -109,6 +109,8 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_dlg",
                              "ConfigurationDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.sync_dlg",
                              "SyncDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.sync_server",
+                             "SyncServer"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_main",
                              "ConfigurationWdgtMain"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_sync_server",
