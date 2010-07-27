@@ -147,7 +147,7 @@ class Mnemosyne(Component):
         """
         
         for component in  ["config", "log", "database", "scheduler",
-                           "controller", "sync_server"]:
+                           "controller"]:
             try:
                 self.component_manager.get_current(component).activate()
             except RuntimeError, e:
