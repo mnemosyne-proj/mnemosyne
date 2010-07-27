@@ -59,6 +59,7 @@ class Session(object):
         self.database = database
         self.client_log = []
         self.expires = time.time() + 60*60
+        import sys; sys.stderr.write("backup")
         self.backup_file = self.database.backup()
         self.database.set_sync_partner_info(client_info)
 
@@ -66,6 +67,7 @@ class Session(object):
         return time.time() > self.expired
 
     def close(self):
+        import sys; sys.stderr.write("update")
         self.database.update_last_log_index_synced_for(\
             self.client_info["machine_id"])
         self.database.save()
@@ -73,7 +75,7 @@ class Session(object):
     def terminate(self):
 
         """Restore from backup if the session failed to close normally."""
-
+        import sys; sys.stderr.write("rollback")
         self.database.restore(self.backup_file)
 
 
@@ -238,6 +240,7 @@ class Server(WSGIServer, Partner):
            (client_in_server_partners and not server_in_client_partners):
             self.terminate_session_with_token(session.token)                
             return "Cycle detected"
+        import sys; sys.stderr.write("create")
         session.database.create_partnership_if_needed_for(\
             client_info["machine_id"])
         session.database.merge_partners(client_info["partners"])

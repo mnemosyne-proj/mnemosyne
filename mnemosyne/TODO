@@ -1,9 +1,11 @@
--sync cycle
+-sync cycle: server partnership gets set due to backup that gets corrupted/overwritten on close
 -revisit UI object design, only use progress bars and no status bars
 -connect information box directly to main_widget?
 -make sure 'server running' message does not show if there is an error
 -display server status in configuration box
 -test if mnemosyne version gets set alright, both client and server
+-why does home pc start on localhost?
+-sync dialog: ok button not default
 
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI
@@ -15,6 +17,7 @@
 
 -where to move txt_log_parser
 -need component.statisticspages and configuration widgets?
+-pressing enter on configuration pages does not equal 'OK'
 
 
 -is it worth keeping database.tag_names?
