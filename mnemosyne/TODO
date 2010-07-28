@@ -1,7 +1,6 @@
--sync cycle: server partnership gets set due to backup that gets corrupted/overwritten on close
 -finish dangling sessions everytime we do a controller or a review controller action
 -don't repaint ui from server thread after sync
--revisit UI object design, only use progress bars and no status bars
+-revisit UI object design, only use progress bars and no status bars. Update server thread to reflect this.
 -connect information box directly to main_widget?
 -make sure 'server running' message does not show if there is an error, and not if the server is already running
 -display server status in configuration box

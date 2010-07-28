@@ -152,6 +152,9 @@ class Mnemosyne(Component):
                 self.component_manager.get_current(component).activate()
             except RuntimeError, e:
                 self.main_widget().error_box(unicode(e))
+        server = self.component_manager.get_current("sync_server")
+        if server:
+            server.activate()
 
     def initialise_error_handling(self):
         if sys.platform == "win32":
@@ -226,6 +229,11 @@ class Mnemosyne(Component):
         # We need to log before we unload the database.
         self.log().saved_database()
         self.log().stopped_program()
+        # Deactivate the sync server first, so that we make sure it reverts
+        # to the right backup file.
+        server = self.component_manager.get_current("sync_server")
+        if server:
+            server.deactivate()
         # Now deactivate the database, such that deactivating plugins with
         # card types does not raise an error about card types in use.
         self.database().deactivate()
@@ -233,5 +241,4 @@ class Mnemosyne(Component):
         # Then do the other components.
         self.component_manager.deactivate_all()
         unregister_component_manager(user_id)
-        
         

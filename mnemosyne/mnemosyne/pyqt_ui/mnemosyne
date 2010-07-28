@@ -121,7 +121,6 @@ mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
 
 # Run Mnemosyne.
 mnemosyne.initialise(basedir=basedir, filename=filename)
-mnemosyne.component_manager.get_current("sync_server").activate()
 mnemosyne.main_widget().show()
 mnemosyne.main_widget().raise_() # Needed for OSX.
 # TODO: check first run wizard.

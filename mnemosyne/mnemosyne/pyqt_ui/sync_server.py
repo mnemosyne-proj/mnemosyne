@@ -2,6 +2,8 @@
 # sync_server.py <Peter.Bienstman@UGent.be>
 #
 
+import socket
+
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
@@ -41,22 +43,25 @@ class SyncServer(Component, QtCore.QObject):
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
         self.thread = None
-        
-    def information_box(self, error):
-        # TODO: can we skip this?
-        self.main_widget().information_box(error)
-        
-    def error_box(self, error):
-        self.main_widget().error_box(error)
-        self.thread = None
 
     def activate(self):
         if self.config()["run_sync_server"]:
             # Restart the thread to have the new settings take effect.
             self.deactivate()
-            self.thread = ServerThread(self.component_manager)
-            self.thread.information_message.connect(self.information_box)
-            self.thread.error_message.connect(self.error_box)
+            try:
+                self.thread = ServerThread(self.component_manager)
+            except socket.error, (errno, e):
+                if errno == 98:
+                    self.main_widget().error_box(\
+                        _("Unable to start sync server.") + " " + \
+    _("There still seems to be an old server running on the requested port.")\
+                        + " " + _("Terminate that process and try again."))
+                    self.thread = None
+                    return
+            self.thread.information_message.connect(\
+                self.main_widget().information_box)
+            self.thread.error_message.connect(\
+                self.main_widget().error_box)
             self.thread.start()
         
     def deactivate(self):
