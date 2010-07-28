@@ -2,6 +2,8 @@
 # partner.py <Peter.Bienstman@UGent.be>
 #
 
+from utils import SyncError
+
 BUFFER_SIZE = 8192
 
 
@@ -71,8 +73,11 @@ class Partner(object):
         progress_dialog.set_value(file_size)
 
     def download_binary_file(self, filename, stream, progress_message):
-        downloaded_file = file(filename, "wb")            
-        file_size = int(stream.readline())
+        downloaded_file = file(filename, "wb")
+        line = stream.readline()
+        if line == "CANCEL":
+            raise SyncError("Downloading binary file: server error.")
+        file_size = int(line)
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_text(progress_message)
         progress_dialog.set_range(0, file_size)

@@ -41,6 +41,7 @@ class ConfigurationDlg(QtGui.QDialog, ConfigurationDialog):
         self.button_layout = QtGui.QHBoxLayout()
         self.ok_button = QtGui.QPushButton(_("&OK"), self)
         self.ok_button.setAutoDefault(True)
+        self.ok_button.setDefault(True)
         self.ok_button.setFocus()
         self.button_layout.addWidget(self.ok_button)
         spacerItem = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Expanding,

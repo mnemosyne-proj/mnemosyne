@@ -2,8 +2,23 @@
 # utils.py - Peter Bienstman <Peter.Bienstman@UGent.be>
 
 import os
+import sys
 import math
+import traceback
 
+class SyncError(Exception):
+    pass
+
+def traceback_string():
+    
+    """Like traceback.print_exc(), but returns a string."""
+
+    type, value, tb = sys.exc_info()
+    body = "\nTraceback (innermost last):\n"
+    list = traceback.format_tb(tb, limit=None) + \
+           traceback.format_exception_only(type, value)
+    body = body + "%-20s %s" % ("".join(list[:-1]), list[-1])
+    return body
 
 def tar_file_size(basedir, relative_paths):
 

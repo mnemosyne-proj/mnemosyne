@@ -24,6 +24,8 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.port.setValue(self.config()["sync_as_client_port"])
         self.username.setText(self.config()["sync_as_client_username"])
         self.password.setText(self.config()["sync_as_client_password"])
+        if self.config()["sync_as_client_server"]:
+            self.ok_button.setFocus()
         
     def activate(self):
         self.exec_()

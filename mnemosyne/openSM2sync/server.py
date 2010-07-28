@@ -16,6 +16,7 @@ import tempfile
 import cStringIO
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
+from utils import traceback_string
 from partner import Partner, BUFFER_SIZE
 from text_formats.xml_format import XMLFormat
 
@@ -323,9 +324,8 @@ class Server(WSGIServer, Partner):
                 session.client_info["machine_id"])
             session.database.remove_partnership_with_self()
             return "OK"
-        except Exception, exception:
-            sys.stderr.write(str(exception))
-            self.ui.status_bar_message("Session terminated due to errors...")
+        except:
+            self.ui.error_box(traceback_string())
             self.terminate_session_with_token(session_token)        
             
     def get_server_log_entries(self, environ, session_token):
@@ -353,7 +353,8 @@ class Server(WSGIServer, Partner):
             if session.client_info["upload_science_logs"]:
                 session.database.skip_science_log()
         except Exception, exception:
-            self.ui.error_box("Error: " + str(exception))
+            self.ui.error_box("Error: " + str(exception) + \
+                "\n" + traceback_string())
             self.terminate_session_with_token(session_token)
             
     def get_server_entire_database(self, environ, session_token):
@@ -370,14 +371,18 @@ class Server(WSGIServer, Partner):
             
     def get_server_entire_database_binary(self, environ, session_token):
         self.ui.status_bar_message("Sending entire binary database to client...")
-        session = self.sessions[session_token]
-        binary_format = self.binary_format_for(session)
-        binary_file, file_size = binary_format.binary_file_and_size(\
-            session.client_info["interested_in_old_reps"])
-        for buffer in self.stream_binary_file(binary_file, file_size,
-            "Sending entire binary database to client..."):
-            yield buffer
-        binary_format.clean_up()
+        try:
+            session = self.sessions[session_token]
+            binary_format = self.binary_format_for(session)
+            binary_file, file_size = binary_format.binary_file_and_size(\
+                session.client_info["interested_in_old_reps"])
+            for buffer in self.stream_binary_file(binary_file, file_size,
+                "Sending entire binary database to client..."):
+                yield buffer
+                binary_format.clean_up()
+        except:
+            self.ui.error_box(traceback_string())
+            yield "CANCEL"
         # This is a full sync, we don't need to apply client log entries here.
             
     def put_client_media_files(self, environ, session_token):
@@ -389,8 +394,8 @@ class Server(WSGIServer, Partner):
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             # Work around http://bugs.python.org/issue7693.
             tar_pipe.extractall(session.database.mediadir().encode("utf-8"))
-        except Exception, exception:
-            self.ui.error_box("Error: " + str(exception))
+        except:
+            self.ui.error_box(traceback_string())
             return "CANCEL"
         return "OK"
     
@@ -431,8 +436,8 @@ class Server(WSGIServer, Partner):
                 yield buffer            
             os.remove(tmp_file_name)
             os.chdir(saved_path)
-        except Exception, exception:
-            self.ui.error_box("Error: " + str(exception))
+        except:
+            self.ui.error_box(traceback_string())
             yield "CANCEL"
             
     def get_sync_cancel(self, environ, session_token):
