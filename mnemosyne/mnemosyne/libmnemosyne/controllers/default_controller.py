@@ -23,6 +23,7 @@ class DefaultController(Controller):
 
         """
         
+        self.flush_sync_server()        
         self.database().backup()
         self.log().saved_database()
         self.log().loaded_database()        
@@ -39,6 +40,7 @@ class DefaultController(Controller):
 
     def add_cards(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.component_manager.get_current("add_cards_dialog")\
             (self.component_manager).activate()
         self.database().save()
@@ -52,6 +54,7 @@ class DefaultController(Controller):
 
     def edit_current_card(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         review_controller = self.review_controller()
         fact = review_controller.card.fact
         self.component_manager.get_current("edit_fact_dialog")\
@@ -244,6 +247,7 @@ class DefaultController(Controller):
 
     def delete_current_fact(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         db = self.database()
         review_controller = self.review_controller()
         fact = review_controller.card.fact
@@ -296,6 +300,7 @@ class DefaultController(Controller):
    
     def file_new(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         db = self.database()
         suffix = db.suffix
         filename = self.main_widget().save_file_dialog(\
@@ -322,6 +327,7 @@ class DefaultController(Controller):
 
     def file_open(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         db = self.database()
         basedir = self.config().basedir
         old_path = expand_path(self.config()["path"], basedir)
@@ -361,6 +367,7 @@ class DefaultController(Controller):
 
     def file_save(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         try:
             self.database().save()
             self.log().saved_database()
@@ -370,6 +377,7 @@ class DefaultController(Controller):
 
     def file_save_as(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         suffix = self.database().suffix
         old_path = expand_path(self.config()["path"], self.config().basedir)
         filename = self.main_widget().save_file_dialog(path=old_path,
@@ -446,6 +454,7 @@ class DefaultController(Controller):
         
     def activate_cards(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.component_manager.get_current("activate_cards_dialog")\
             (self.component_manager).activate()
         review_controller = self.review_controller()
@@ -455,12 +464,14 @@ class DefaultController(Controller):
         
     def browse_cards(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.component_manager.get_current("browse_cards_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def card_appearance(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.component_manager.get_current("card_appearance_dialog")\
             (self.component_manager).activate()
         self.review_controller().update_dialog(redraw_all=True)
@@ -468,6 +479,7 @@ class DefaultController(Controller):
         
     def activate_plugins(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.component_manager.get_current("activate_plugins_dialog")\
             (self.component_manager).activate()
         self.review_controller().update_dialog(redraw_all=True)
@@ -475,18 +487,21 @@ class DefaultController(Controller):
 
     def manage_card_types(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.component_manager.get_current("manage_card_types_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def show_statistics(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.component_manager.get_current("statistics_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def configure(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.component_manager.get_current("configuration_dialog")\
             (self.component_manager).activate()
         self.review_controller().reset_but_try_to_keep_current_card()
@@ -494,6 +509,7 @@ class DefaultController(Controller):
         
     def import_file(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         path = expand_path(self.config()["import_dir"], self.config().basedir)
 
         # TMP hardcoded single fileformat.
@@ -515,11 +531,13 @@ class DefaultController(Controller):
 
     def export_file(self):
         self.stopwatch().pause()
-
+        self.flush_sync_server()
+        
         self.stopwatch().unpause()
 
     def sync(self):
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.database().save()        
         self.component_manager.get_current("sync_dialog")\
             (self.component_manager).activate()
@@ -553,6 +571,7 @@ class DefaultController(Controller):
         """
         
         self.stopwatch().pause()
+        self.flush_sync_server()
         self.self.main_widget().information_box(\
             _("For instructions on how to download Mnemosyne's source,") + \
             + " " + _("go to http://www.mnemosyne-proj.org"))

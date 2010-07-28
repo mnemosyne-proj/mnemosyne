@@ -1,7 +1,15 @@
--finish dangling sessions everytime we do a controller or a review controller action
--don't repaint ui from server thread after sync
+-session deactivate is not mutex guarded, OK for errors, as these are caught directly, but
+ could be problematic if there are hanging client sessions (timeouts)
+-make really sure all server code is protected
+
+
+-implement better main widget for server
+-does server thread need to be a component?
+-revisit libmnemosyne server code
+
+-no traceback on 'connection refused' error on client sync.
+
 -revisit UI object design, only use progress bars and no status bars. Update server thread to reflect this.
--connect information box directly to main_widget?
 -make sure 'server running' message does not show if there is an error, and not if the server is already running
 -display server status in configuration box
 -test if mnemosyne version gets set alright, both client and server

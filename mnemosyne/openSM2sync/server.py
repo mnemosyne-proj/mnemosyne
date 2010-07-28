@@ -74,6 +74,7 @@ class Session(object):
 
         """Restore from backup if the session failed to close normally."""
 
+        import sys; sys.stderr.write("session terminated, database restored.\n")
         self.database.restore(self.backup_file)
 
 
@@ -139,8 +140,8 @@ class Server(WSGIServer, Partner):
 
     def close_session_with_token(self, session_token):
         session = self.sessions[session_token]
-        self.after_sync(session)
-        session.close()        
+        session.close()
+        self.after_sync()        
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
 
@@ -152,7 +153,7 @@ class Server(WSGIServer, Partner):
         """
         
         session = self.sessions[session_token]
-        self.after_sync(session)
+        self.after_sync()
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
             
@@ -161,14 +162,17 @@ class Server(WSGIServer, Partner):
         """Clean up a session which failed to close normally."""
 
         session = self.sessions[session_token]
-        self.after_sync(session)
-        session.terminate()        
+        session.terminate()
+        self.after_sync()      
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
+
+    def terminate_all_sessions(self):
+        for session_token in self.sessions.keys():
+            self.terminate_session_with_token(session_token)        
             
     def stop(self):
-        for session_token in self.sessions.keys():
-            self.terminate_session_with_token(session_token)
+        self.terminate_all_sessions()
         self.stopped = True
         # Make dummy request for self.stopped to take effect.
         con = httplib.HTTPConnection(socket.getfqdn(), self.server_port)   
@@ -208,7 +212,7 @@ class Server(WSGIServer, Partner):
 
         raise NotImplementedError
 
-    def after_sync(self, session):
+    def after_sync(self):
         pass
     
     # The following are methods that are supported by the server through GET
@@ -321,8 +325,8 @@ class Server(WSGIServer, Partner):
             session.database.remove_partnership_with_self()
             return "OK"
         except:
-            self.ui.error_box(traceback_string())
-            self.terminate_session_with_token(session_token)        
+            self.terminate_session_with_token(session_token) 
+            self.ui.error_box(traceback_string())       
             
     def get_server_log_entries(self, environ, session_token):
         self.ui.status_bar_message("Sending log entries to client...")
@@ -349,9 +353,8 @@ class Server(WSGIServer, Partner):
             if session.client_info["upload_science_logs"]:
                 session.database.skip_science_log()
         except Exception, exception:
-            self.ui.error_box("Error: " + str(exception) + \
-                "\n" + traceback_string())
             self.terminate_session_with_token(session_token)
+            self.ui.error_box(traceback_string())
             
     def get_server_entire_database(self, environ, session_token):
         self.ui.status_bar_message("Sending entire database to client...")
@@ -375,8 +378,9 @@ class Server(WSGIServer, Partner):
             for buffer in self.stream_binary_file(binary_file, file_size,
                 "Sending entire binary database to client..."):
                 yield buffer
-                binary_format.clean_up()
+            binary_format.clean_up()
         except:
+            self.terminate_session_with_token(session_token) 
             self.ui.error_box(traceback_string())
             yield "CANCEL"
         # This is a full sync, we don't need to apply client log entries here.
@@ -392,6 +396,7 @@ class Server(WSGIServer, Partner):
             tar_pipe.extractall(session.database.mediadir().encode("utf-8"))
         except:
             self.ui.error_box(traceback_string())
+            self.terminate_session_with_token(session_token) 
             return "CANCEL"
         return "OK"
     
@@ -433,6 +438,7 @@ class Server(WSGIServer, Partner):
             os.remove(tmp_file_name)
             os.chdir(saved_path)
         except:
+            self.terminate_session_with_token(session_token) 
             self.ui.error_box(traceback_string())
             yield "CANCEL"
             
@@ -445,6 +451,7 @@ class Server(WSGIServer, Partner):
         self.ui.status_bar_message("Waiting for client to finish...")
         self.close_session_with_token(session_token) 
         # Now is a good time to garbage-collect dangling sessions.
+        # Only relevant for multi-user server.
         for session_token, session in self.sessions.iteritems():
             if session.is_expired():
                 self.terminate_session_with_token(session_token)

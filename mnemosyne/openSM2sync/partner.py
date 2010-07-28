@@ -75,9 +75,10 @@ class Partner(object):
     def download_binary_file(self, filename, stream, progress_message):
         downloaded_file = file(filename, "wb")
         line = stream.readline()
-        if line == "CANCEL":
-            raise SyncError("Downloading binary file: server error.")
-        file_size = int(line)
+        try:
+            file_size = int(stream.readline())
+        except:
+            raise SyncError("Downloading binary file: server error.")            
         progress_dialog = self.ui.get_progress_dialog()
         progress_dialog.set_text(progress_message)
         progress_dialog.set_range(0, file_size)

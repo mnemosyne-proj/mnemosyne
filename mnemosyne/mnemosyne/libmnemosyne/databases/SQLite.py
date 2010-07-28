@@ -218,8 +218,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
 
         if not self._connection:
             self._connection = sqlite3.connect(self._path, timeout=0.1,
-                               isolation_level="EXCLUSIVE",
-                               check_same_thread=False)
+                               isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
         return self._connection
     
@@ -293,12 +292,12 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.load_failed = False
         except sqlite3.OperationalError:
             self.main_widget().error_box(
-                _("Another copy of Mnemosyne is still running.") + "\n" +
+                _("Another copy of Mnemosyne is still running.") + "\n" + \
                 _("Continuing is impossible and will lead to data loss!"))
             sys.exit()
         except:
             self.load_failed = True
-            raise RuntimeError, _("Unable to load file.")    
+            raise RuntimeError, _("Unable to load file.") + traceback_string()    
         if sql_res["value"] != self.version:
             self.load_failed = True
             raise RuntimeError, \
@@ -308,7 +307,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             id = cursor[0]
             card_type = self.get_card_type(id, id_is_internal=-1)
             self.component_manager.register(card_type)
-        # Identify missing plugins for card types and their parents.       
+        # Identify missing plugins for card types and their parents.
         plugin_needed = set()
         active_ids = set(card_type.id for card_type in self.card_types())
         for cursor in self.con.execute("""select distinct card_type_id

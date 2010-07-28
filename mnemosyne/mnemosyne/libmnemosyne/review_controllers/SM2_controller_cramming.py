@@ -11,6 +11,7 @@ from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
 class SM2ControllerCramming(SM2Controller):
 
     def grade_answer(self, grade):
+        self.flush_sync_server()
         card_to_grade = self.card
         old_grade = card_to_grade.grade
         self.update_counters(old_grade, grade)

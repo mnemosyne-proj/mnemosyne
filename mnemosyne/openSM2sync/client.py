@@ -312,10 +312,10 @@ class Client(Partner):
             url += "&redownload_all=1"
         self.con.request("GET", url)
         response = self.con.getresponse()
-        line = response.fp.readline()
-        if line == "CANCEL":
+        try:
+            size = int(response.fp.readline())
+        except:
             raise SyncError("Getting media files: server error.")
-        size = int(line)
         if size == 0:
             return
         tar_pipe = tarfile.open(mode="r|", fileobj=response)

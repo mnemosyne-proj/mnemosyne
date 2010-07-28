@@ -106,3 +106,16 @@ class Component(object):
     
     def card_type_by_id(self, id):
         return self.component_manager.card_type_by_id[id]
+
+    def flush_sync_server(self):
+
+        """If there are still dangling sessions in the sync server, we should
+        flush them and make sure they restore from backup before doing anything
+        that could change the database. Otherwise, if these sessions close
+        later, their backup restoration will override these changes.
+
+        """
+
+        server = self.component_manager.get_current("sync_server")
+        if server:
+            server.flush_sync_server()
