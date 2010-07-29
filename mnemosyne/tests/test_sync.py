@@ -3,6 +3,7 @@
 #
 
 import os
+import sys
 import socket
 from nose.tools import raises
 from threading import Thread, Lock
@@ -24,7 +25,7 @@ answer = None
 
 class Widget(MainWidget):
     
-    def status_bar_message(self, message):
+    def set_progress_text(self, message):
         print message
         
     def information_box(self, info):
@@ -33,14 +34,13 @@ class Widget(MainWidget):
     def error_box(self, error):
         global last_error
         last_error = error
-        print error
+        #sys.stderr.write(error)
 
     def question_box(self, question, option0, option1, option2):
         return answer
 
-PORT = 9903
-
-        
+PORT = 9922
+   
 class MyServer(Server, Thread):
 
     program_name = "Mnemosyne"
@@ -59,8 +59,6 @@ class MyServer(Server, Thread):
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
      
@@ -125,8 +123,6 @@ class MyClient(Client):
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(basedir, filename)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()        

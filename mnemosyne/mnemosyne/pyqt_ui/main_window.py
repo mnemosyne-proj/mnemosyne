@@ -22,6 +22,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
         self.status_bar_widgets = []
+        self.progress_bar = None
 
     def closeEvent(self, event):
         self.config()["main_window_size"] = (self.width(), self.height())
@@ -59,9 +60,29 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         return QtGui.QMessageBox.question(None,  _("Mnemosyne"),
             question, option0, option1, option2, 0, -1)
 
-    def error_box(self, message):  
+    def error_box(self, message):
         QtGui.QMessageBox.critical(None, _("Mnemosyne"), message,
             _("&OK"), "", "", 0, -1)
+
+    def set_progress_text(self, text):
+        if self.progress_bar:
+            self.progress_bar.setValue(self.progress_bar.maximum() + 1)
+        if not self.progress_bar:
+            self.progress_bar = QtGui.QProgressDialog(self)
+            self.progress_bar.setWindowModality(QtCore.Qt.WindowModal)
+            self.progress_bar.setCancelButton(None)
+            self.progress_bar.setAutoClose(False)
+            self.progress_bar.setMinimumDuration(0)
+        self.progress_bar.setLabelText(text)
+        self.progress_bar.setRange(0, 0)
+        self.progress_bar.setValue(0)
+        self.progress_bar.show() # Needed?
+            
+    def set_progress_range(self, minimum, maximum):
+        self.progress_bar.setRange(minimum, maximum)
+        
+    def set_progress_value(self, value):
+        self.progress_bar.setValue(value)
  
     def enable_edit_current_card(self, enable):
         self.actionEditCurrentCard.setEnabled(enable)

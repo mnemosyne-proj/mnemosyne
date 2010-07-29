@@ -101,16 +101,14 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.statistics_wdgt_html",
                              "HtmlStatisticsWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.criterion_wdgt_default",
                              "DefaultCriterionWdgt"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.progress_dlg",
-                             "ProgressDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.mp3_clip_prevention",
                              "Mp3ClipPrevention"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_dlg",
                              "ConfigurationDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.sync_dlg",
                              "SyncDlg"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.sync_server",
-                             "SyncServer"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.qt_sync_server",
+                             "QtSyncServer"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_main",
                              "ConfigurationWdgtMain"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_wdgt_sync_server",

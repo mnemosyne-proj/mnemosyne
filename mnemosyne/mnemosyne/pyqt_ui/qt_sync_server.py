@@ -1,5 +1,5 @@
 #
-# sync_server.py <Peter.Bienstman@UGent.be>
+# qt_sync_server.py <Peter.Bienstman@UGent.be>
 #
 
 import socket
@@ -9,69 +9,95 @@ from PyQt4 import QtCore
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.openSM2sync_server import OpenSM2SyncServer
+from mnemosyne.libmnemosyne.sync_server import SyncServer
+
+# The following is some thread synchronisation machinery to ensure that
+# either the sync server thread or the main thread is doing database
+# operations.
 
 mutex = QtCore.QMutex()
 main_thread_database_loaded = True
 wait_for_main_thread_database_unloaded = QtCore.QWaitCondition()
 
 
-class ServerThread(QtCore.QThread, OpenSM2SyncServer):
+class ServerThread(QtCore.QThread, SyncServer):
+    
+    """When a sync request comes in, the main thread will unload the database.
+    Subsequently, the server thread will start a separate Mnemosyne instance
+    loading the database to be synced. When the sync is finished, the server
+    thread will unload the database, and the main thread will reload its
+    original database (which could be different from the one that was synced).
+    This way, there is maximum separation between the data of the two threads.
+
+    We need to care of the three different situations where the main database
+    needs to be reloaded:
+
+     -after a successful sync (the easy case).
+     -after a sync server error. For that reason, the openSM2sync server is
+      written such that all exceptions are caught and also result in
+      'unload_database' being called.
+     -when the client disappears halfway through the sync, and the user of
+      the server database wants to go on using it. For that reason,
+      libmnemosyne calls 'flush_sync_server' before each GUI action.
+
+    Also note that in Qt, we cannot do GUI updates in the server thread, so we
+    use the signal/slot mechanism to notify the main thread to do the
+    necessary GUI operations.
+
+    """
     
     sync_started_message = QtCore.pyqtSignal()
     sync_ended_message = QtCore.pyqtSignal()
-    information_message = QtCore.pyqtSignal(QtCore.QString)
     error_message = QtCore.pyqtSignal(QtCore.QString)
-
+    set_progress_text_message = QtCore.pyqtSignal(QtCore.QString)
+    set_progress_range_message = QtCore.pyqtSignal(int, int)
+    set_progress_value_message = QtCore.pyqtSignal(int)    
+    
     def __init__(self, component_manager):
         QtCore.QThread.__init__(self)
-        OpenSM2SyncServer.__init__(self, component_manager, self)
+        SyncServer.__init__(self, component_manager, self)
+
+    def run(self):
+        self.serve_forever()
 
     def open_database(self, database_name):
         mutex.lock()
         self.sync_started_message.emit()
         if main_thread_database_loaded:
             wait_for_main_thread_database_unloaded.wait(mutex)
-
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(self.config().basedir, database_name)
-
-        
         mutex.unlock()
+        import sys; sys.stderr.write("thread: load database\n")
         return self.mnemosyne.database()
 
-    def after_sync(self):
-        import sys; sys.stderr.write("thread: after sync\n")
+    def unload_database(self, database):
+        import sys; sys.stderr.write("thread: unload database\n")
         mutex.lock()
-        self.mnemosyne.database().save()
+        self.mnemosyne.finalise()
         self.sync_ended_message.emit()
         mutex.unlock()
         
-    def run(self):
-        self.serve_forever()
-
-    def get_progress_dialog(self):
-        pass 
-            
-    def status_bar_message(self, message):
-        print message
-        
-    def information_box(self, info):  
-        self.information_message.emit(info)
-        
     def error_box(self, error):
-        self.error_message.emit(error)       
+        self.error_message.emit(error)
+
+    def set_progress_text(self, text):
+        self.set_progress_text_message.emit(text)
+    
+    def set_progress_range(self, minimum, maximum):
+        self.set_progress_range_message.emit(minimum, maximum)        
+
+    def set_progress_value(self, value):
+        self.set_progress_value_message.emit(value) 
 
 
-class SyncServer(Component, QtCore.QObject):
+class QtSyncServer(Component, QtCore.QObject):
 
     component_type = "sync_server"
 
@@ -97,10 +123,14 @@ class SyncServer(Component, QtCore.QObject):
                 self.unload_database_before_sync)
             self.thread.sync_ended_message.connect(\
                 self.load_database_after_sync)
-            self.thread.information_message.connect(\
-                self.main_widget().information_box)
             self.thread.error_message.connect(\
                 self.main_widget().error_box)
+            self.thread.set_progress_text_message.connect(\
+                self.main_widget().set_progress_text)
+            self.thread.set_progress_range_message.connect(\
+                self.main_widget().set_progress_range)
+            self.thread.set_progress_value_message.connect(\
+                self.main_widget().set_progress_value)
             self.thread.start()
             
     def unload_database_before_sync(self):
@@ -125,7 +155,7 @@ class SyncServer(Component, QtCore.QObject):
         main_thread_database_loaded = True
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_status_bar()
-        import sys; sys.stderr.write("main: loaded\n")
+        import sys; sys.stderr.write("main: reloaded\n")
         mutex.unlock()
 
     def flush_sync_server(self):
@@ -134,19 +164,11 @@ class SyncServer(Component, QtCore.QObject):
         mutex.lock()
         if self.thread:
             self.thread.terminate_all_sessions()
-
-        # TODO: wrap in
-        
-        if main_thread_database_loaded == False:
-            self.database().load(self.old_database)
-            self.log().loaded_database()
-            main_thread_database_loaded = True
-            self.review_controller().reset_but_try_to_keep_current_card()
-            self.review_controller().update_status_bar()
-            import sys; sys.stderr.write("main: loaded in flush\n")
-            
+        reload_needed = not main_thread_database_loaded
         mutex.unlock()
-        
+        if reload_needed:
+            self.load_database_after_sync()
+            
     def deactivate(self):
         if self.thread:
             self.thread.stop()

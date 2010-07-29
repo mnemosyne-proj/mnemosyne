@@ -56,6 +56,7 @@ class Mnemosyne1Mem(FileFormat):
     def _import_mem_file(self, filename, tag_name=None,
                          reset_learning_data=False):        
         self.importdir = os.path.dirname(os.path.abspath(filename))
+        w = self.main_widget()
         
         # Mimick 1.x module structure.
         class MnemosyneCore(object):                          
@@ -75,7 +76,7 @@ class Mnemosyne1Mem(FileFormat):
             self.starttime, self.categories, self.items = cPickle.load(memfile)
             self.starttime = self.starttime.time
         except:
-            self.main_widget().error_box(_("Unable to open file."))
+            w.error_box(_("Unable to open file."))
             return -1
         # See if the file was imported before.
         try:
@@ -84,19 +85,18 @@ class Mnemosyne1Mem(FileFormat):
         except:
             card = None
         if card:
-            self.main_widget().error_box(\
-           _("This file seems to have been imported before. Aborting..."))
+            w.error_box(\
+                _("This file seems to have been imported before. Aborting..."))
             return -2
             
         # Convert to 2.x data structures.
-        progress = self.main_widget().get_progress_dialog()
-        progress.set_text(_("Importing cards..."))
-        progress.set_range(0, len(self.items))
+        w.set_progress_text(_("Importing cards..."))
+        w.set_progress_range(0, len(self.items))
         update_interval = int(len(self.items)/50)
         if update_interval == 0:
             update_interval = 1
         count = 0
-        progress.set_value(0)
+        w.set_progress_value(0)
         self.map_plugin_activated = False
         self.items_by_id = {}
         for item in self.items:
@@ -106,13 +106,13 @@ class Mnemosyne1Mem(FileFormat):
         for item in self.items:
             count += 1
             if count % update_interval == 0:
-                progress.set_value(count)
+                w.set_progress_value(count)
             self._create_card_from_item(item)
-        progress.set_value(len(self.items))
+        w.set_progress_value(len(self.items))
                         
     def _import_logs(self, filename):
-        progress = self.main_widget().get_progress_dialog()
-        progress.set_text(_("Importing history..."))
+        w = self.main_widget()
+        w.set_progress_text(_("Importing history..."))
         parser = ScienceLogParser(self.database(),
             ids_to_parse=self.items_by_id)
         log_dir = os.path.join(os.path.dirname(filename), "history")
@@ -128,15 +128,15 @@ class Mnemosyne1Mem(FileFormat):
         # 2.x for a while, there could be duplicate load events, etc, but these
         # don't matter.)
         filenames.append(os.path.join(os.path.dirname(filename), "log.txt"))
-        progress.set_range(0, len(filenames))
+        w.set_progress_range(0, len(filenames))
         for count, filename in enumerate(filenames):
-            progress.set_value(count)
+            w.set_progress_value(count)
             try:
                 parser.parse(filename)
             except:
-                self.main_widget().information_box(\
-                    _("Ignoring unparsable file:") + " " + filename)
-        progress.set_value(len(filenames))
+                w.information_box(_("Ignoring unparsable file:") + " " +\
+                    filename)
+        w.set_progress_value(len(filenames))
 
     def _create_card_from_item(self, item):
         # Don't create 'secondary' cards here, but create them together with

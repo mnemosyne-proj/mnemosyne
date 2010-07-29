@@ -11,31 +11,18 @@ class UI(object):
 
     def information_box(self, message):
         raise NotImplementedError
-            
-    def question_box(self, question, option0, option1, option2):
-        raise NotImplementedError
     
     def error_box(self, message):
         raise NotImplementedError
+    
+    def question_box(self, question, option0, option1, option2):
+        raise NotImplementedError
 
-    def status_bar_message(self, message):
+    def set_progress_text(self, text):
+        pass
+    
+    def set_progress_range(self, minimum, maximum):
         pass
 
-    def get_progress_dialog(self):
-
-        """Returns a new progress dialog with the interface specified below."""
-        
-        pass        
-
-
-
-class ProgressDialog(object):
-
-    def set_range(self, minimum, maximum):
-        pass
-
-    def set_text(self, text):
-        pass
-
-    def set_value(self, value):
+    def set_progress_value(self, value):
         pass

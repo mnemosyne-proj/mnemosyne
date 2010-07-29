@@ -61,13 +61,28 @@ class MainWidget(UiComponent):
     def set_window_title(self, title):
         pass
 
-    def get_progress_dialog(self):
+    # Functions for progress dialogs, behaving in a streaming manner.
+    
+    def set_progress_text(self, text):
+        pass
+    
+    def set_progress_range(self, minimum, maximum):
 
-        """Convenience function to be able to use main_widget in libraries
-        which don't know about libmnemosyne (like openSM2sync.
-
-        """
+        """If minimum and maximum are zero, this is just a busy dialog."""
         
-        return self.component_manager.get_current("progress_dialog")\
-                   (self.component_manager)
+        pass
+
+    def set_progress_value(self, value):
+
+        """If value is maximum or beyond, the dialog closes."""
+        
+        pass
+
+    def close_progress(self):
+
+        """Convenience function for closing a busy dialog."""
+        
+        pass
+
+
         

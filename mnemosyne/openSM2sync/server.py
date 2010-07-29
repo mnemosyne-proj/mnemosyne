@@ -103,7 +103,6 @@ class Server(WSGIServer, Partner):
             return status
 
     def serve_forever(self):
-        self.ui.status_bar_message("Waiting for client connection...")
         while not self.stopped:
             if select.select([self.socket], [], [])[0]:
                 self.handle_request()
@@ -141,7 +140,7 @@ class Server(WSGIServer, Partner):
     def close_session_with_token(self, session_token):
         session = self.sessions[session_token]
         session.close()
-        self.after_sync()        
+        self.unload_database(session.database)        
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
 
@@ -153,7 +152,7 @@ class Server(WSGIServer, Partner):
         """
         
         session = self.sessions[session_token]
-        self.after_sync()
+        self.unload_database(session.database)
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
             
@@ -163,7 +162,7 @@ class Server(WSGIServer, Partner):
 
         session = self.sessions[session_token]
         session.terminate()
-        self.after_sync()      
+        self.unload_database(session.database)      
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
 
@@ -212,7 +211,13 @@ class Server(WSGIServer, Partner):
 
         raise NotImplementedError
 
-    def after_sync(self):
+    def unload_database(self, database):
+
+        """Here, there is the possibility for a custom server to do some
+        after sync cleanup.
+
+        """
+        
         pass
     
     # The following are methods that are supported by the server through GET
@@ -221,46 +226,61 @@ class Server(WSGIServer, Partner):
     # request.
 
     def put_login(self, environ):
-        self.ui.status_bar_message("Client logging in...")
-        client_info_repr = environ["wsgi.input"].readline()
-        client_info = self.text_format.parse_partner_info(client_info_repr)
-        if not self.authorise(client_info["username"],
-            client_info["password"]):
-            return "403 Forbidden"
-        # Close old session if it failed to finish properly.
-        old_running_session_token = self.session_token_for_user.\
-            get(client_info["username"])
-        if old_running_session_token:
-            self.terminate_session_with_token(old_running_session_token)
-        session = self.create_session(client_info)
-        # Make sure there are no cycles in the sync graph.
-        server_in_client_partners = self.machine_id in \
-            session.client_info["partners"]
-        client_in_server_partners = session.client_info["machine_id"] in \
-            session.database.partners()      
-        if (server_in_client_partners and not client_in_server_partners) or \
-           (client_in_server_partners and not server_in_client_partners):
-            self.terminate_session_with_token(session.token)                
-            return "Cycle detected"
-        session.database.create_partnership_if_needed_for(\
-            client_info["machine_id"])
-        session.database.merge_partners(client_info["partners"])
-        # Note that we need to send 'user_id' to the client as well, so that the
-        # client can make sure the 'user_id's (used to label the anonymous
-        # uploaded logs) are consistent across machines.
-        server_info = {"user_id": session.database.user_id(),
-            "machine_id": self.machine_id,
-            "program_name": self.program_name,
-            "program_version": self.program_version,
-            "database_version": session.database.version,
-            "partners": session.database.partners(),
-            "session_token": session.token,
-            "supports_binary_log_download": \
-                self.supports_binary_log_download(session)}
-        # We check if files were updated outside of the program. This can
-        # generate MEDIA_UPDATED log entries, so it should be done first.
-        session.database.check_for_updated_media_files()
-        return self.text_format.repr_partner_info(server_info).encode("utf-8")
+        session = None
+        try:
+            self.ui.set_progress_text("Client logging in...")
+            client_info_repr = environ["wsgi.input"].readline()
+            client_info = self.text_format.parse_partner_info(\
+                client_info_repr)
+            if not self.authorise(client_info["username"],
+                client_info["password"]):
+                return "403 Forbidden"
+            # Close old session waiting in vain for client input.
+            old_running_session_token = self.session_token_for_user.\
+                get(client_info["username"])
+            if old_running_session_token:
+                self.terminate_session_with_token(old_running_session_token)
+            session = self.create_session(client_info)
+            # Make sure there are no cycles in the sync graph.
+            server_in_client_partners = self.machine_id in \
+                session.client_info["partners"]
+            client_in_server_partners = session.client_info["machine_id"] in \
+                session.database.partners()      
+            if (server_in_client_partners and not client_in_server_partners)\
+               or \
+               (client_in_server_partners and not server_in_client_partners):
+                self.terminate_session_with_token(session.token)                
+                return "CYCLE"
+            session.database.create_partnership_if_needed_for(\
+                client_info["machine_id"])
+            session.database.merge_partners(client_info["partners"])
+            # Note that we need to send 'user_id' to the client as well, so
+            # that the client can make sure the 'user_id's (used to label the
+            # anonymous uploaded logs) are consistent across machines.
+            server_info = {"user_id": session.database.user_id(),
+                "machine_id": self.machine_id,
+                "program_name": self.program_name,
+                "program_version": self.program_version,
+                "database_version": session.database.version,
+                "partners": session.database.partners(),
+                "session_token": session.token,
+                "supports_binary_log_download": \
+                    self.supports_binary_log_download(session)}
+            # We check if files were updated outside of the program. This can
+            # generate MEDIA_UPDATED log entries, so it should be done first.
+            session.database.check_for_updated_media_files()
+            return self.text_format.repr_partner_info(server_info)\
+                   .encode("utf-8")
+        except:
+            # We need to be really thorough in our exception handling, so as
+            # to always revert the database to its last backup if an error
+            # occurs. It is important that this happens as soon as possible,
+            # especially if this server is being run as a built-in server in a
+            # thread in an SRS desktop application.
+            if session:
+                self.terminate_session_with_token(session.token) 
+            self.ui.error_box(traceback_string())
+            return "CANCEL"
 
     def _read_unsized_log_entry_stream(self, stream):
         # Since chunked requests are not supported by the WSGI 1.x standard,
@@ -281,44 +301,51 @@ class Server(WSGIServer, Partner):
         return cStringIO.StringIO("".join(lines))
 
     def put_client_log_entries(self, environ, session_token):
-        self.ui.status_bar_message("Receiving client log entries...")
-        session = self.sessions[session_token]
-        socket = environ["wsgi.input"]
-        # In order to do conflict resolution easily, one of the sync partners
-        # has to have both logs in memory. We do this at the server side, as
-        # the client could be a resource-limited mobile device.
-        session.client_log = []
-        client_o_ids = []
-        def callback(context, log_entry):
-            context["session_client_log"].append(log_entry)
-            if log_entry["type"] > 5: # not STARTED_PROGRAM, STOPPED_PROGRAM,
-                # STARTED_SCHEDULER, LOADED_DATABASE, SAVED_DATABASE
+        try:
+            self.ui.set_progress_text("Receiving log entries...")
+            session = self.sessions[session_token]
+            socket = environ["wsgi.input"]
+            # In order to do conflict resolution easily, one of the sync
+            # partners has to have both logs in memory. We do this at the
+            # server side, as the client could be a resource-limited mobile
+            # device.
+            session.client_log = []
+            client_o_ids = []
+            def callback(context, log_entry):
+                context["session_client_log"].append(log_entry)
+                if log_entry["type"] > 5: # not STARTED_PROGRAM,
+                    # STOPPED_PROGRAM, STARTED_SCHEDULER, LOADED_DATABASE,
+                    # SAVED_DATABASE
+                    if "fname" in log_entry:
+                        log_entry["o_id"] = log_entry["fname"]
+                    context["client_o_ids"].append(log_entry["o_id"])
+            context = {"session_client_log": session.client_log,
+                       "client_o_ids": client_o_ids}
+            self.download_log_entries(\
+                self._read_unsized_log_entry_stream(socket), callback, context)      
+            # Now we can determine whether there are conflicts.
+            for log_entry in session.database.log_entries_to_sync_for(\
+                session.client_info["machine_id"]):
+                if not log_entry: # Irrelevent entry for card-based clients.
+                    continue
                 if "fname" in log_entry:
                     log_entry["o_id"] = log_entry["fname"]
-                context["client_o_ids"].append(log_entry["o_id"])
-        context = {"session_client_log": session.client_log,
-                   "client_o_ids": client_o_ids}
-        self.download_log_entries(self._read_unsized_log_entry_stream(socket),
-            "Getting client log entries...", callback, context)        
-        # Now we can determine whether there are conflicts.
-        for log_entry in session.database.log_entries_to_sync_for(\
-            session.client_info["machine_id"]):
-            if not log_entry: # Irrelevent entry for card-based clients.
-                continue
-            if "fname" in log_entry:
-                log_entry["o_id"] = log_entry["fname"]
-            if log_entry["type"] > 5 and log_entry["o_id"] in client_o_ids:
-                return "Conflict"
-        return "OK"
+                if log_entry["type"] > 5 and \
+                    log_entry["o_id"] in client_o_ids:
+                    return "CONFLICT"
+            return "OK"
+        except:
+            self.terminate_session_with_token(session.token) 
+            self.ui.error_box(traceback_string())
+            return "CANCEL"
 
     def put_client_entire_database_binary(self, environ, session_token):
-        self.ui.status_bar_message("Getting entire binary client database...")
-        session = self.sessions[session_token] 
-        filename = session.database.path()
-        session.database.abandon()
         try:
-            self.download_binary_file(filename, environ["wsgi.input"],
-                    "Getting entire binary database...")
+            self.ui.set_progress_text("Getting entire binary database...")
+            session = self.sessions[session_token] 
+            filename = session.database.path()
+            session.database.abandon()
+            self.download_binary_file(filename, environ["wsgi.input"])
             session.database.load(filename)
             session.database.create_partnership_if_needed_for(\
                 session.client_info["machine_id"])
@@ -327,85 +354,92 @@ class Server(WSGIServer, Partner):
         except:
             self.terminate_session_with_token(session_token) 
             self.ui.error_box(traceback_string())       
-            
+            return "CANCEL"
+        
     def get_server_log_entries(self, environ, session_token):
-        self.ui.status_bar_message("Sending log entries to client...")
-        session = self.sessions[session_token]
-        log_entries = session.database.log_entries_to_sync_for(\
-            session.client_info["machine_id"],
-            session.client_info["interested_in_old_reps"])
-        number_of_entries = session.database.\
-            number_of_log_entries_to_sync_for(\
-            session.client_info["machine_id"],
-            session.client_info["interested_in_old_reps"])
-        for buffer in self.stream_log_entries(log_entries, number_of_entries,
-            "Sending log entries to client..."):
-            yield buffer
-        # Now that all the data is underway to the client, we can start
-        # applying the client log entries.
-        # First, dump to the science log, so that we can skip over the new
-        # logs in case the client uploads them.
         try:
+            self.ui.set_progress_text("Sending log entries...")
+            session = self.sessions[session_token]
+            log_entries = session.database.log_entries_to_sync_for(\
+                session.client_info["machine_id"],
+                session.client_info["interested_in_old_reps"])
+            number_of_entries = session.database.\
+                number_of_log_entries_to_sync_for(\
+                session.client_info["machine_id"],
+                session.client_info["interested_in_old_reps"])
+            for buffer in self.stream_log_entries(log_entries,
+                number_of_entries):
+                yield buffer
+            # Now that all the data is underway to the client, we can start
+            # applying the client log entries.
+            # First, dump to the science log, so that we can skip over the new
+            # logs in case the client uploads them.
             session.database.dump_to_science_log()
             for log_entry in session.client_log:
                 session.database.apply_log_entry(log_entry)
             # Skip over the logs that the client promised to upload.
             if session.client_info["upload_science_logs"]:
                 session.database.skip_science_log()
-        except Exception, exception:
+        except:
             self.terminate_session_with_token(session_token)
             self.ui.error_box(traceback_string())
+            yield "CANCEL"
             
     def get_server_entire_database(self, environ, session_token):
-        self.ui.status_bar_message("Sending entire database to client...")
-        session = self.sessions[session_token]
-        session.database.dump_to_science_log()
-        log_entries = session.database.all_log_entries(\
-            session.client_info["interested_in_old_reps"])
-        number_of_entries = session.database.number_of_log_entries(\
-            session.client_info["interested_in_old_reps"])
-        for buffer in self.stream_log_entries(log_entries, number_of_entries,
-            "Sending entire database to client..."):
-            yield buffer
-            
-    def get_server_entire_database_binary(self, environ, session_token):
-        self.ui.status_bar_message("Sending entire binary database to client...")
         try:
+            self.ui.set_progress_text("Sending entire database...")
+            session = self.sessions[session_token]
+            session.database.dump_to_science_log()
+            log_entries = session.database.all_log_entries(\
+                session.client_info["interested_in_old_reps"])
+            number_of_entries = session.database.number_of_log_entries(\
+                session.client_info["interested_in_old_reps"])
+            for buffer in self.stream_log_entries(log_entries,
+                number_of_entries):
+                yield buffer
+        except:
+            self.terminate_session_with_token(session_token)
+            self.ui.error_box(traceback_string())
+            yield "CANCEL"
+        
+    def get_server_entire_database_binary(self, environ, session_token):
+        try:
+            self.ui.set_progress_text("Sending entire binary database...")
             session = self.sessions[session_token]
             binary_format = self.binary_format_for(session)
             binary_file, file_size = binary_format.binary_file_and_size(\
                 session.client_info["interested_in_old_reps"])
-            for buffer in self.stream_binary_file(binary_file, file_size,
-                "Sending entire binary database to client..."):
+            for buffer in self.stream_binary_file(binary_file, file_size):
                 yield buffer
             binary_format.clean_up()
+            # This is a full sync, we don't need to apply client log
+            # entries here.
         except:
-            self.terminate_session_with_token(session_token) 
+            self.terminate_session_with_token(session_token)
             self.ui.error_box(traceback_string())
             yield "CANCEL"
-        # This is a full sync, we don't need to apply client log entries here.
-            
+
     def put_client_media_files(self, environ, session_token):
-        self.ui.status_bar_message("Receiving client media files...")
         try:
+            self.ui.set_progress_text("Receiving media files...")
             session = self.sessions[session_token]
             socket = environ["wsgi.input"]
             size = int(socket.readline())
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             # Work around http://bugs.python.org/issue7693.
             tar_pipe.extractall(session.database.mediadir().encode("utf-8"))
+            return "OK"
         except:
             self.ui.error_box(traceback_string())
             self.terminate_session_with_token(session_token) 
             return "CANCEL"
-        return "OK"
     
     def get_server_media_files(self, environ, session_token,
                                redownload_all=False):
         # Note that for media files, we use tar stream directy for efficiency
         # reasons, and bypass the routines in Partner.
-        self.ui.status_bar_message("Sending media files to client...")
         try:
+            self.ui.set_progress_text("Sending media files...")
             # Determine files to send across.
             session = self.sessions[session_token]
             if redownload_all in ["1", "True", "true"]:
@@ -432,8 +466,7 @@ class Server(WSGIServer, Partner):
             # Stream tar file across.
             tmp_file = file(tmp_file_name, "rb")
             file_size = os.path.getsize(tmp_file_name)
-            for buffer in self.stream_binary_file(tmp_file, file_size,
-                "Sending media files to client..."):
+            for buffer in self.stream_binary_file(tmp_file, file_size):
                 yield buffer            
             os.remove(tmp_file_name)
             os.chdir(saved_path)
@@ -443,12 +476,12 @@ class Server(WSGIServer, Partner):
             yield "CANCEL"
             
     def get_sync_cancel(self, environ, session_token):
-        self.ui.status_bar_message("Waiting for client to finish...")
+        self.ui.set_progress_text("Waiting for client to finish...")
         self.cancel_session_with_token(session_token)
         return "OK"
-    
+            
     def get_sync_finish(self, environ, session_token):
-        self.ui.status_bar_message("Waiting for client to finish...")
+        self.ui.set_progress_text("Waiting for client to finish...")
         self.close_session_with_token(session_token) 
         # Now is a good time to garbage-collect dangling sessions.
         # Only relevant for multi-user server.

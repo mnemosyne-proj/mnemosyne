@@ -109,10 +109,11 @@ class Component(object):
 
     def flush_sync_server(self):
 
-        """If there are still dangling sessions in the sync server, we should
-        flush them and make sure they restore from backup before doing anything
-        that could change the database. Otherwise, if these sessions close
-        later, their backup restoration will override these changes.
+        """If there are still dangling sessions (i.e. those waiting in vain
+        for more client input) in the sync server, we should flush them and
+        make sure they restore from backup before doing anything that could
+        change the database. Otherwise, if these sessions close during program
+        shutdown, their backup restoration will override the changes.
 
         """
 
