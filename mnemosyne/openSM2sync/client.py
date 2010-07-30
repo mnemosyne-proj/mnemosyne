@@ -86,6 +86,9 @@ class Client(Partner):
             if self.check_for_updated_media_files:
                 self.database.check_for_updated_media_files()
             self.login(server, port, username, password)
+
+            import time; time.sleep(11111)
+            
             # First sync.
             if self.database.is_empty():
                 self.get_server_media_files()

@@ -84,6 +84,7 @@ class Session(object):
         """Restore from backup if the session failed to close normally."""
 
         self.database.restore(self.backup_file)
+        import sys; sys.stderr.write("restored")
         
 
 class Server(WSGIServer, Partner):

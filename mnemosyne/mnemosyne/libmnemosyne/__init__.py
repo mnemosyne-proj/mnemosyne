@@ -222,6 +222,11 @@ class Mnemosyne(Component):
         self.controller().update_title()
 
     def finalise(self):
+        # Deactivate the sync server first, so that we make sure it reverts
+        # to the right backup file.
+        server = self.component_manager.get_current("sync_server")
+        if server:
+            server.deactivate()
         # Saving the config should happen before we deactivate the plugins,
         # otherwise they are not restored upon reload.
         self.config().save()
@@ -229,11 +234,6 @@ class Mnemosyne(Component):
         # We need to log before we unload the database.
         self.log().saved_database()
         self.log().stopped_program()
-        # Deactivate the sync server first, so that we make sure it reverts
-        # to the right backup file.
-        server = self.component_manager.get_current("sync_server")
-        if server:
-            server.deactivate()
         # Now deactivate the database, such that deactivating plugins with
         # card types does not raise an error about card types in use.
         self.database().deactivate()

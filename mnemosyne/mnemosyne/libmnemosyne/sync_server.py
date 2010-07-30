@@ -45,10 +45,6 @@ class SyncServer(Component, Server):
         return self.database()
     
     def unload_database(self, database):
-        # If we are closing down the program, and there are still dangling
-        # sessions in the server, we cannot continue.
-        if not self.database():
-            return
         self.database().load(self.old_database)
         self.log().loaded_database()
         self.review_controller().reset_but_try_to_keep_current_card()
