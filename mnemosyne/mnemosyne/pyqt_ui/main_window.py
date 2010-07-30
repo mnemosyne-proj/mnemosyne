@@ -69,6 +69,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
             self.progress_bar.setValue(self.progress_bar.maximum() + 1)
         if not self.progress_bar:
             self.progress_bar = QtGui.QProgressDialog(self)
+            self.progress_bar.setWindowTitle(_("Mnemosyne"))
             self.progress_bar.setWindowModality(QtCore.Qt.WindowModal)
             self.progress_bar.setCancelButton(None)
             self.progress_bar.setAutoClose(False)
@@ -76,14 +77,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.progress_bar.setLabelText(text)
         self.progress_bar.setRange(0, 0)
         self.progress_bar.setValue(0)
-        self.progress_bar.show() # Needed?
+        self.progress_bar.show()
             
     def set_progress_range(self, minimum, maximum):
         self.progress_bar.setRange(minimum, maximum)
         
     def set_progress_value(self, value):
         self.progress_bar.setValue(value)
- 
+        
+    def close_progress(self):
+        if self.progress_bar:
+            self.progress_bar.close()
+        self.progress_bar = None
+        
     def enable_edit_current_card(self, enable):
         self.actionEditCurrentCard.setEnabled(enable)
 

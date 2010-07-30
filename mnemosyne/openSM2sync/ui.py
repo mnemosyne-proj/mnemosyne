@@ -16,13 +16,33 @@ class UI(object):
         raise NotImplementedError
     
     def question_box(self, question, option0, option1, option2):
-        raise NotImplementedError
 
+        """Returns 0, 1 or 2"""
+                
+        raise NotImplementedError
+    
     def set_progress_text(self, text):
         pass
     
     def set_progress_range(self, minimum, maximum):
+
+        """If minimum and maximum are zero, this is just a busy dialog.
+        Should be the default for set_progress_text.
+
+        """
+        
         pass
 
     def set_progress_value(self, value):
+
+        """If value is maximum or beyond, the dialog closes."""
+        
         pass
+
+    def close_progress(self):
+
+        """Convenience function for closing a busy dialog."""
+        
+        pass
+
+

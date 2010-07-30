@@ -1,10 +1,7 @@
--progress bars don't show up as expected.
 -make sure to reload the current card from the database, editing does not have an effect
 -server: add 1 card, import mnemosyne: non scheduled cards are not shown
 -after sync with client: same problems, plus bad status bar. restart: all cards due... (last rep and next rep set to zero...)
--delete progress bar on bad termination, both in client and server
 -do we need to import all those components for the server?
--test if mnemosyne version gets set alright, both client and server
 -no traceback on 'connection refused' error on client sync.
 -make sure 'server running' message does not show if there is an error, and not if the server is already running
 -display server status in configuration box?
@@ -12,6 +9,7 @@
 -remove debug statements from qt_server
 -why does home pc start on localhost?
 -modulo in progress dialogs
+-reduce socket timeout and test again
 
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI
@@ -114,6 +112,8 @@ the GUI function itself?
 -new translation infrastructure
 -handle deferred translation
 -different translators for different users?
+
+-remove port from GUI syncing options?
 
 -import
 -update data if same id present on import

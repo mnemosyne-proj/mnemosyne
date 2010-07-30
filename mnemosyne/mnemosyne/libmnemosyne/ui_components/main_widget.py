@@ -24,7 +24,7 @@ class MainWidget(UiComponent):
             
     def question_box(self, question, option0, option1, option2):
 
-        """Returns 0, 1 or 2"""
+        """Returns 0, 1 or 2."""
         
         raise NotImplementedError
     
@@ -60,15 +60,16 @@ class MainWidget(UiComponent):
 
     def set_window_title(self, title):
         pass
-
-    # Functions for progress dialogs, behaving in a streaming manner.
     
     def set_progress_text(self, text):
         pass
     
     def set_progress_range(self, minimum, maximum):
 
-        """If minimum and maximum are zero, this is just a busy dialog."""
+        """If minimum and maximum are zero, this is just a busy dialog.
+        Should be the default for set_progress_text.
+
+        """
         
         pass
 

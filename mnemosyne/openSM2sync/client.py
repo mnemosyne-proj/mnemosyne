@@ -78,7 +78,7 @@ class Client(Partner):
 
     def sync(self, server, port, username, password):       
         try:
-            self.ui.set_progress_text("Creating backup...")
+            self.ui.set_progress_text("Creating backup...")            
             if self.do_backup:
                 backup_file = self.database.backup()
             # We check if files were updated outside of the program. This can
@@ -122,6 +122,7 @@ class Client(Partner):
             elif result == "CANCEL":
                 self.get_sync_cancel()
         except Exception, exception:
+            self.ui.close_progress()
             if type(exception) == type(SyncError()):
                 self.ui.error_box(str(exception))
             else:
@@ -129,7 +130,8 @@ class Client(Partner):
             if self.do_backup:
                 self.database.restore(backup_file)
         else:
-            self.ui.information_box("Sync finished!")        
+            self.ui.close_progress()
+            self.ui.information_box("Sync finished!")
 
     def login(self, server, port, username, password):
         self.ui.set_progress_text("Logging in...")
@@ -149,7 +151,7 @@ class Client(Partner):
         # Not yet implemented: downloading cards as pictures.
         client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
         client_info["cards_pictures_res"] = "320x200"
-        client_info["reset_cards_as_pictures"] = False # True redownloads.
+        client_info["reset_cards_as_pictures"] = False # True redownloads.                
         self.con = httplib.HTTPConnection(server, port)
         self.con.request("PUT", "/login",
             self.text_format.repr_partner_info(client_info).\
@@ -167,7 +169,8 @@ class Client(Partner):
         if self.database.is_empty():
             self.database.set_user_id(self.server_info["user_id"])
         elif self.server_info["user_id"] != client_info["user_id"]:
-            raise SyncError("Error: mismatched user_ids.")
+            raise SyncError("Error: mismatched user ids.\n" + \
+                "The first sync should happen on an empty database.")
         self.database.create_partnership_if_needed_for(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
@@ -185,7 +188,7 @@ class Client(Partner):
             self.server_info["machine_id"])
         for buffer in self.stream_log_entries(log_entries, number_of_entries):
             self.con.send(buffer)        
-        self.ui.set_progress_text("Waiting for server to complete...")
+        self.ui.set_progress_text("Waiting for server to finish...")
         response = self.con.getresponse().read()
         if response == "CANCEL":
             raise SyncError("Sending log entries: server error.")
@@ -324,7 +327,7 @@ class Client(Partner):
         tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
 
     def get_sync_cancel(self):
-        self.ui.set_progress_text("Waiting for the server to complete...")
+        self.ui.set_progress_text("Waiting for the server to finish...")
         self.con.request("GET", "/sync_cancel?session_token=%s" \
             % (self.server_info["session_token"], ))
         response = self.con.getresponse()
