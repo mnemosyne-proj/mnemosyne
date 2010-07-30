@@ -2,6 +2,7 @@
 # qt_sync_server.py <Peter.Bienstman@UGent.be>
 #
 
+import os
 import socket
 
 from PyQt4 import QtCore
@@ -16,29 +17,26 @@ from mnemosyne.libmnemosyne.sync_server import SyncServer
 # operations.
 
 mutex = QtCore.QMutex()
-main_thread_database_loaded = True
-wait_for_main_thread_database_unloaded = QtCore.QWaitCondition()
+database_released = QtCore.QWaitCondition()
 
 
 class ServerThread(QtCore.QThread, SyncServer):
     
-    """When a sync request comes in, the main thread will unload the database.
-    Subsequently, the server thread will start a separate Mnemosyne instance
-    loading the database to be synced. When the sync is finished, the server
-    thread will unload the database, and the main thread will reload its
-    original database (which could be different from the one that was synced).
-    This way, there is maximum separation between the data of the two threads.
+    """When a sync request comes in, the main thread will release the
+    database connection, which will be recreated in the server thread. After
+    the sync is finished, the server thread will release the database
+    connection again.
+    
+    We need to care of the three different situations where the server needs
+    to call 'unload_database':
 
-    We need to care of the three different situations where the main database
-    needs to be reloaded:
-
-     -after a successful sync (the easy case).
-     -after a sync server error. For that reason, the openSM2sync server is
-      written such that all exceptions are caught and also result in
-      'unload_database' being called.
-     -when the client disappears halfway through the sync, and the user of
-      the server database wants to go on using it. For that reason,
-      libmnemosyne calls 'flush_sync_server' before each GUI action.
+     - after a successful sync (the easy case).
+     - after a sync server error. For that reason, the openSM2sync server is
+       written such that all exceptions are caught and also result in
+       'unload_database' being called.
+     - when the client disappears halfway through the sync, and the user of
+       the server database wants to go on using it. For that reason,
+       libmnemosyne calls 'flush_sync_server' before each GUI action.
 
     Also note that in Qt, we cannot do GUI updates in the server thread, so we
     use the signal/slot mechanism to notify the main thread to do the
@@ -46,13 +44,13 @@ class ServerThread(QtCore.QThread, SyncServer):
 
     """
     
-    sync_started_message = QtCore.pyqtSignal()
-    sync_ended_message = QtCore.pyqtSignal()
-    error_message = QtCore.pyqtSignal(QtCore.QString)
-    set_progress_text_message = QtCore.pyqtSignal(QtCore.QString)
-    set_progress_range_message = QtCore.pyqtSignal(int, int)
-    set_progress_value_message = QtCore.pyqtSignal(int)    
-    close_progress_message = QtCore.pyqtSignal()
+    sync_started_signal = QtCore.pyqtSignal()
+    sync_ended_signal = QtCore.pyqtSignal()
+    error_signal = QtCore.pyqtSignal(QtCore.QString)
+    set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
+    set_progress_range_signal = QtCore.pyqtSignal(int, int)
+    set_progress_value_signal = QtCore.pyqtSignal(int)    
+    close_progress_signal = QtCore.pyqtSignal()
     
     def __init__(self, component_manager):
         QtCore.QThread.__init__(self)
@@ -63,42 +61,39 @@ class ServerThread(QtCore.QThread, SyncServer):
 
     def open_database(self, database_name):
         mutex.lock()
-        self.sync_started_message.emit()
-        if main_thread_database_loaded:
-            wait_for_main_thread_database_unloaded.wait(mutex)
-        self.mnemosyne = Mnemosyne()
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-            "GetTextTranslator"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-        self.mnemosyne.initialise(self.config().basedir, database_name)
+        self.sync_started_signal.emit()
+        if self.database().is_loaded():
+            database_released.wait(mutex)
         mutex.unlock()
-        import sys; sys.stderr.write("thread: load database\n")
-        return self.mnemosyne.database()
+        previous_database = self.config()["path"]      
+        if previous_database != database_name:
+            if not os.path.exists(expand_path(database_name,
+                self.config().basedir)):
+                self.database().new(database_name)
+            else:
+                self.database().load(database_name)
+        return self.database()
 
     def unload_database(self, database):
-        import sys; sys.stderr.write("thread: unload database\n")
         mutex.lock()
-        self.mnemosyne.finalise()
-        self.sync_ended_message.emit()
+        self.database().release_connection()
+        self.sync_ended_signal.emit()
         mutex.unlock()
         
     def error_box(self, error):
-        self.error_message.emit(error)
+        self.error_signal.emit(error)
 
     def set_progress_text(self, text):
-        self.set_progress_text_message.emit(text)
+        self.set_progress_text_signal.emit(text)
         
     def set_progress_range(self, minimum, maximum):
-        self.set_progress_range_message.emit(minimum, maximum)        
+        self.set_progress_range_signal.emit(minimum, maximum)        
 
     def set_progress_value(self, value):
-        self.set_progress_value_message.emit(value) 
+        self.set_progress_value_signal.emit(value) 
 
     def close_progress(self):
-        self.close_progress_message.emit()
+        self.close_progress_signal.emit()
 
         
 class QtSyncServer(Component, QtCore.QObject):
@@ -123,54 +118,49 @@ class QtSyncServer(Component, QtCore.QObject):
                         + " " + _("Terminate that process and try again."))
                     self.thread = None
                     return
-            self.thread.sync_started_message.connect(\
-                self.unload_database_before_sync)
-            self.thread.sync_ended_message.connect(\
-                self.load_database_after_sync)
-            self.thread.error_message.connect(\
+            self.thread.sync_started_signal.connect(\
+                self.unload_database)
+            self.thread.sync_ended_signal.connect(\
+                self.load_database)
+            self.thread.error_signal.connect(\
                 self.main_widget().error_box)
-            self.thread.set_progress_text_message.connect(\
+            self.thread.set_progress_text_signal.connect(\
                 self.main_widget().set_progress_text)
-            self.thread.set_progress_range_message.connect(\
+            self.thread.set_progress_range_signal.connect(\
                 self.main_widget().set_progress_range)
-            self.thread.set_progress_value_message.connect(\
+            self.thread.set_progress_value_signal.connect(\
                 self.main_widget().set_progress_value)
-            self.thread.close_progress_message.connect(\
+            self.thread.close_progress_signal.connect(\
                 self.main_widget().close_progress)
             self.thread.start()
             
-    def unload_database_before_sync(self):
-        global main_thread_database_loaded
+    def unload_database(self):
         mutex.lock()
-        self.old_database = self.config()["path"]
-        self.database().unload()
-        main_thread_database_loaded = False
-        import sys; sys.stderr.write("main: unloaded\n")
-        wait_for_main_thread_database_unloaded.wakeAll()
+        self.previous_database = self.config()["path"]
+        self.database().release_connection()
+        database_released.wakeAll()
         mutex.unlock()
 
-    def load_database_after_sync(self):
-        global main_thread_database_loaded
+    def load_database(self):
         # If we are closing down the program, and there are still dangling
         # sessions in the server, we cannot continue.
         if not self.database():
             return
         mutex.lock()
-        self.database().load(self.old_database)
+        self.database().load(self.previous_database)
         self.log().loaded_database()
-        main_thread_database_loaded = True
         self.review_controller().reset_but_try_to_keep_current_card()
-        self.review_controller().update_status_bar()
-        import sys; sys.stderr.write("main: reloaded\n")
+        self.review_controller().update_dialog(redraw_all=True)
         mutex.unlock()
 
     def flush_sync_server(self):
-        global main_thread_database_loaded
-        import sys; sys.stderr.write("main: entered flush\n")
+        # This function only does something useful if the server thread holds
+        # the database.
+        if not self.thread:
+            return
         mutex.lock()
-        if self.thread:
-            self.thread.terminate_all_sessions()
-        reload_needed = not main_thread_database_loaded
+        self.thread.terminate_all_sessions()
+        reload_needed = not self.database().is_loaded()
         mutex.unlock()
         if reload_needed:
             self.load_database_after_sync()

@@ -203,7 +203,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         Database.__init__(self, component_manager)
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
-        self.load_failed = True
         self._current_criterion = None # Cached for performance reasons.
         self.syncing = False # Controls whether _process_media should log.
 
@@ -218,10 +217,21 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
 
         if not self._connection:
             self._connection = sqlite3.connect(self._path, timeout=0.1,
-                               isolation_level="EXCLUSIVE",
-                               check_same_thread=False)
+                               isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
         return self._connection
+
+    def release_connection(self):
+
+        """Release the connection, so that it may be recreated in a separate
+        thread.
+
+        """
+
+        if self._connection:
+            self._connection.commit()
+            self._connection.close()
+            self._connection = None
     
     def path(self):
         return self._path
@@ -246,7 +256,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._path = expand_path(path, self.config().basedir)
         if os.path.exists(self._path):
             os.remove(self._path)
-        self.load_failed = False
         # Create tables.
         self.con.executescript(SCHEMA)
         self.con.execute("insert into global_variables(key, value) values(?,?)",
@@ -290,17 +299,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         try:
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
-            self.load_failed = False
         except sqlite3.OperationalError:
             self.main_widget().error_box(
                 _("Another copy of Mnemosyne is still running.") + "\n" + \
                 _("Continuing is impossible and will lead to data loss!"))
             sys.exit()
         except:
-            self.load_failed = True
             raise RuntimeError, _("Unable to load file.") + traceback_string()    
         if sql_res["value"] != self.version:
-            self.load_failed = True
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
         # Instantiate card types stored in this database.
@@ -326,7 +332,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             except RuntimeError, exception:
                 self._connection.close()
                 self._connection = None
-                self.load_failed = True
                 raise exception
         self._current_criterion = self.get_activity_criterion\
             (1, id_is_internal=True)
@@ -337,9 +342,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # of the program first.
         
     def save(self, path=None):
-        # Don't erase a database which failed to load.
-        if self.load_failed == True:
-            return -1
         # Update format.
         self.con.execute("update global_variables set value=? where key=?",
                          (self.version, "version" ))
@@ -402,7 +404,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self._connection.close()
             self._connection = None
         self._path = None
-        self.load_failed = True
         return True
 
     def abandon(self):
@@ -410,10 +411,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self._connection.close()
             self._connection = None
         self._path = None
-        self.load_failed = True        
         
     def is_loaded(self):
-        return not self.load_failed
+        return self._connection is not None
 
     def is_empty(self):
         return self.tag_count() == 0 and self.fact_count() == 0 and \
@@ -506,7 +506,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
     
     def add_fact(self, fact):
-        self.load_failed = False
         # Add fact to facts table.
         _fact_id = self.con.execute("""insert into facts(id, card_type_id,
             creation_time, modification_time) values(?,?,?,?)""",
@@ -571,7 +570,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
     
     def add_card(self, card):
-        self.load_failed = False
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,

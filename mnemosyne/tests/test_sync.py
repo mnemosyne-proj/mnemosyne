@@ -8,9 +8,9 @@ import socket
 from nose.tools import raises
 from threading import Thread, Lock
 
-from openSM2sync.server import Server
 from openSM2sync.client import Client
 from openSM2sync.log_entry import EventTypes
+from openSM2sync.server import Server, localhost
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.fact import Fact
@@ -133,7 +133,7 @@ class MyClient(Client):
         global server_lock
         server_lock.acquire()
         try:
-            self.sync(socket.getfqdn(), PORT, self.user, self.password)
+            self.sync(localhost(), PORT, self.user, self.password)
         finally:
             server_lock.release()
 

@@ -94,6 +94,8 @@ class Client(Partner):
                 else:
                     self.get_server_entire_database()
                 self.get_sync_finish()
+                self.ui.close_progress()
+                self.ui.information_box("Sync finished!")
                 return
             # Upload local changes and check for conflicts.
             result = self.put_client_log_entries()
@@ -121,6 +123,9 @@ class Client(Partner):
             # Conflict, cancel.
             elif result == "CANCEL":
                 self.get_sync_cancel()
+                self.ui.close_progress()
+                self.ui.information_box("Sync cancelled!")
+                return
         except Exception, exception:
             self.ui.close_progress()
             if type(exception) == type(SyncError()):
@@ -188,7 +193,7 @@ class Client(Partner):
             self.server_info["machine_id"])
         for buffer in self.stream_log_entries(log_entries, number_of_entries):
             self.con.send(buffer)        
-        self.ui.set_progress_text("Waiting for server to finish...")
+        self.ui.set_progress_text("Waiting for server...")
         response = self.con.getresponse().read()
         if response == "CANCEL":
             raise SyncError("Sending log entries: server error.")
@@ -199,15 +204,15 @@ class Client(Partner):
                self.program_version == self.server_info["program_version"]:
                 result = self.ui.question_box(\
                     "Conflicts detected during sync!",
-                    "Keep local version", "Keep remote version", "Cancel")
+                    "Keep local version", "Fetch remote version", "Cancel")
                 results = {0: "KEEP_LOCAL", 1: "KEEP_REMOTE", 2: "CANCEL"}
                 return results[result]
             else:
                 result = self.ui.question_box(\
                     "Conflicts detected during sync! Your client only " +\
                     "stores part of the server database, so you can only " +\
-                    "keep the remote version.",
-                    "Keep remote version", "Cancel", "")
+                    "fetch the remote version.",
+                    "Fetch remote version", "Cancel", "")
                 results = {0: "KEEP_REMOTE", 1: "CANCEL"}
                 return results[result]
         return "OK"
@@ -342,4 +347,4 @@ class Client(Partner):
         if response.read() != "OK":
             raise SyncError("Sync finish: server error.")
         self.database.update_last_log_index_synced_for(\
-            self.server_info["machine_id"])        
+            self.server_info["machine_id"])

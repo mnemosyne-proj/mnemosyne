@@ -276,17 +276,6 @@ class TestDatabase(MnemosyneTest):
                 break
                     
         self.database().load(self.config()["path"])
-
-    def test_dont_overwrite_failed_load(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
-        card_type = self.card_type_by_id("1")
-        self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["default"])
-        self.controller().file_save()
-        
-        self.database().load_failed = True
-        assert self.database().save(self.config()["path"]) == -1
         
     def test_save_as(self):
         fact_data = {"q": "question",

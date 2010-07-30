@@ -66,13 +66,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
 
     def set_progress_text(self, text):
         if self.progress_bar:
-            self.progress_bar.setValue(self.progress_bar.maximum() + 1)
+            self.progress_bar.close()
+            self.progress_bar = None
         if not self.progress_bar:
             self.progress_bar = QtGui.QProgressDialog(self)
             self.progress_bar.setWindowTitle(_("Mnemosyne"))
             self.progress_bar.setWindowModality(QtCore.Qt.WindowModal)
             self.progress_bar.setCancelButton(None)
-            self.progress_bar.setAutoClose(False)
             self.progress_bar.setMinimumDuration(0)
         self.progress_bar.setLabelText(text)
         self.progress_bar.setRange(0, 0)

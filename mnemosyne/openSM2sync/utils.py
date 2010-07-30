@@ -4,6 +4,7 @@
 import os
 import sys
 import math
+import socket
 import traceback
 
 class SyncError(Exception):

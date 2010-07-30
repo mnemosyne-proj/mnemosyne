@@ -73,10 +73,16 @@ class SM2Controller(ReviewController):
         if self.card is None:
             self.new_question()
             return
-        # Reload the card, as its 'active' flag might have changed.
-        self.card = self.database().get_card(self.card._id,
-                                             id_is_internal=True)
-        if not self.card.active:
+        # Reload the card, as its data might have changed or deleted, e.g.
+        # during sync.
+        try:
+            self.card = self.database().get_card(self.card._id,
+                id_is_internal=True)
+        except TypeError: # The card was deleted.
+            self.new_question()
+            return
+        # 'Activate cards' might have turned this card off.
+        if self.card and not self.card.active:
             self.new_question()
         else:
             # It's already being asked.

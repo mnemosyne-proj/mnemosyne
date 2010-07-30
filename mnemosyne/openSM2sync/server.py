@@ -19,7 +19,6 @@ from utils import traceback_string
 from partner import Partner, BUFFER_SIZE
 from text_formats.xml_format import XMLFormat
 
-
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
 
@@ -29,6 +28,16 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
     sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     return sockobj
 socket.socket = socketwrap
+
+# Hack to detect IP adress of local host.
+
+def localhost():
+    hostname = socket.getfqdn()
+    if not "localhost" in hostname:
+        return hostname
+    s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(('google.com', 0))
+    return s.getsockname()[0]
 
 # Work around http://bugs.python.org/issue6085.
 
@@ -74,7 +83,6 @@ class Session(object):
 
         """Restore from backup if the session failed to close normally."""
 
-        import sys; sys.stderr.write("session terminated, database restored.\n")
         self.database.restore(self.backup_file)
         
 
@@ -85,7 +93,7 @@ class Server(WSGIServer, Partner):
 
     def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
-        WSGIServer.__init__(self, (socket.getfqdn(), port), WSGIRequestHandler)
+        WSGIServer.__init__(self, (localhost(), port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         Partner.__init__(self, ui)
         self.text_format = XMLFormat()
@@ -177,7 +185,7 @@ class Server(WSGIServer, Partner):
         self.terminate_all_sessions()
         self.stopped = True
         # Make dummy request for self.stopped to take effect.
-        con = httplib.HTTPConnection(socket.getfqdn(), self.server_port)   
+        con = httplib.HTTPConnection(self.server_name, self.server_port)   
         con.request("GET", "dummy_request")
         con.getresponse().read()
         self.ui.close_progress()

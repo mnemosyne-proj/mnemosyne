@@ -51,6 +51,13 @@ class Database(Component):
         
     # File operations.
 
+    def release_connection(self):
+
+        """Release the connection, so that it may be recreated in a separate
+        thread.
+
+        """
+
     def new(self, path):
         raise NotImplementedError       
 

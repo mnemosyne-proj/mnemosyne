@@ -5,6 +5,7 @@
 import socket
 from PyQt4 import QtCore, QtGui
 
+from openSM2sync.server import localhost
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
@@ -44,7 +45,7 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
             self.component_manager.get_current("sync_server").activate()
             # TODO: should only be displayed if there are no errors.
             QtGui.QMessageBox.information(None, _("Mnemosyne"),
-               _("Server now running on ") + str(socket.getfqdn()) + ".",
+               _("Server now running on ") + localhost() + ".",
                _("&OK"), "", "", 0, -1)
     
             
