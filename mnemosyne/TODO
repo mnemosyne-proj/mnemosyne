@@ -1,10 +1,10 @@
+-runtimeerror
+-review server thread code
+-extra lock on db operations
+-check client errors on hang
 -does the 0.25 trick also work in the main server? (note: we override run forever and don't use stop anymore). Get rid of extra request?
--document 0.25 timeout
--make sure the flush only runs if there are no dangling sessions
--start and stop server from dialog
--make sure everything happens as expected for dangling sessions (threading issues, modality, cancel box needed...)
--both deactivate and add cards
--both on client and on server
+-document 0.25 timeout, both client and server
+-host_ip
 -move qt code to lib?
 -remove debug statements on database restored, remove sleep in client
 
