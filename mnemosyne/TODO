@@ -1,18 +1,14 @@
--runtimeerror
--review server thread code
--extra lock on db operations
--check client errors on hang
+-restart sync after cancel on client, does the server still respond?
 -does the 0.25 trick also work in the main server? (note: we override run forever and don't use stop anymore). Get rid of extra request?
 -document 0.25 timeout, both client and server
 -host_ip
 -move qt code to lib?
 -remove debug statements on database restored, remove sleep in client
 
--load database vs open database
+-naming: load database vs open database
 
 
 -server: add 1 card, import mnemosyne. after sync with client: all cards due... (last rep and next rep set to zero...)
--no traceback on 'connection refused' error on client sync.
 -make sure 'server running' message does not show if there is an error, and not if the server is already running
 -display server status + hostname in configuration box?
 -test create a new database on server, or upload full client database to other server database

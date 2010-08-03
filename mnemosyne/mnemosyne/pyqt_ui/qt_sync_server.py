@@ -65,14 +65,15 @@ class ServerThread(QtCore.QThread, SyncServer):
                 self.handle_request()
         self.socket.close()
         # Clean up after stopping.
-        import sys; sys.stderr.write("stopped!")
         mutex.lock()
-        if not self.server_has_connection:
-            database_released.wait(mutex)
         server_hanging = (len(self.sessions) != 0)
         mutex.unlock()
         if server_hanging:
-            self.terminate_all_sessions()
+            if not self.server_has_connection:
+                mutex.lock()
+                database_released.wait(mutex)
+                mutex.unlock()
+            self.terminate_all_sessions() # Does its own locking.
             self.database().release_connection()
             self.server_has_connection = False
             database_released.wakeAll()
@@ -95,11 +96,10 @@ class ServerThread(QtCore.QThread, SyncServer):
 
     def unload_database(self, database):
         mutex.lock()
-        if not self.server_has_connection:
-            database_released.wait(mutex)
-        self.database().release_connection()
-        self.server_has_connection = False
-        database_released.wakeAll()
+        if self.server_has_connection:
+            self.database().release_connection()
+            self.server_has_connection = False
+            database_released.wakeAll()
         self.sync_ended_signal.emit()
         mutex.unlock()
         

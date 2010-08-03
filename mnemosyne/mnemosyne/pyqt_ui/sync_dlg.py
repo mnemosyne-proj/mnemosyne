@@ -140,7 +140,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         thread.close_progress_signal.connect(\
             self.main_widget().close_progress)
         thread.start()
-        while thread.isRunning():
+        while thread.isRunning():                    
             QtGui.QApplication.instance().processEvents()
             thread.wait(100)
 

@@ -302,8 +302,7 @@ class Server(WSGIServer, Partner):
         # consume the entire stream, nothing more and nothing less. For that,
         # we use the file format footer as a sentinel.
         # For simplicity, we also keep the entire stream in memory, as the
-        # server is not expected to be resource limited.
-        
+        # server is not expected to be resource limited.      
         sentinel = self.text_format.log_entries_footer()
         lines = []
         line = stream.readline()

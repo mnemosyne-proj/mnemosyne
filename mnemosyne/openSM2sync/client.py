@@ -14,7 +14,7 @@ from partner import Partner, BUFFER_SIZE
 from text_formats.xml_format import XMLFormat
 from utils import tar_file_size, traceback_string, SyncError
 
-socket.setdefaulttimeout(300)
+socket.setdefaulttimeout(60)
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -86,9 +86,6 @@ class Client(Partner):
             if self.check_for_updated_media_files:
                 self.database.check_for_updated_media_files()
             self.login(server, port, username, password)
-
-            import time; time.sleep(11111)
-            
             # First sync.
             if self.database.is_empty():
                 self.get_server_media_files()
@@ -131,7 +128,11 @@ class Client(Partner):
                 return
         except Exception, exception:
             self.ui.close_progress()
-            if type(exception) == type(SyncError()):
+            if type(exception) == type(socket.error()):
+                self.ui.error_box("Could not connect to server!")            
+            elif type(exception) == type(socket.timeout()):
+                self.ui.error_box("Timeout while waiting for server!")
+            elif type(exception) == type(SyncError()):
                 self.ui.error_box(str(exception))
             else:
                 self.ui.error_box(traceback_string())

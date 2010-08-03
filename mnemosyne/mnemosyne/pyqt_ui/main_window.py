@@ -78,7 +78,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.progress_bar.setRange(0, 0)
         self.progress_bar.setValue(0)
         self.progress_bar.show()
-            
+        
     def set_progress_range(self, minimum, maximum):
         self.progress_bar.setRange(minimum, maximum)
         
