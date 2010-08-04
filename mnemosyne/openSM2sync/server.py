@@ -84,7 +84,6 @@ class Session(object):
         """Restore from backup if the session failed to close normally."""
 
         self.database.restore(self.backup_file)
-        import sys; sys.stderr.write("restored")
         
 
 class Server(WSGIServer, Partner):
@@ -111,9 +110,11 @@ class Server(WSGIServer, Partner):
         else:
             return status
 
-    def serve_forever(self):
+    def serve_until_stopped(self):
         while not self.stopped:
-            if select.select([self.socket], [], [])[0]:
+            # We time out every 0.25 seconds, so that we changing
+            # self.stopped can have an effect.
+            if select.select([self.socket], [], [], 0.25)[0]:
                 self.handle_request()
         self.socket.close()
         
@@ -140,7 +141,7 @@ class Server(WSGIServer, Partner):
             return "404 Not Found", "text/plain", None, None
 
     def create_session(self, client_info):
-        database = self.open_database(client_info["database_name"])
+        database = self.load_database(client_info["database_name"])
         session = Session(client_info, database)
         self.sessions[session.token] = session
         self.session_token_for_user[client_info["username"]] = session.token
@@ -185,10 +186,6 @@ class Server(WSGIServer, Partner):
     def stop(self):
         self.terminate_all_sessions()
         self.stopped = True
-        # Make dummy request for self.stopped to take effect.
-        con = httplib.HTTPConnection(self.server_name, self.server_port)   
-        con.request("GET", "dummy_request")
-        con.getresponse().read()
         self.ui.close_progress()
         
     def binary_format_for(self, session):
@@ -215,7 +212,7 @@ class Server(WSGIServer, Partner):
         
         raise NotImplementedError
 
-    def open_database(self, database_name):
+    def load_database(self, database_name):
 
         """Returns a database object for the database named 'database_name'.
         Should create the database if it does not exist yet.

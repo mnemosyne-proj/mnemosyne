@@ -17,7 +17,7 @@ class SyncServer(Component, Server):
     is best done at the GUI level in view of the interaction between multiple
     threads and the GUI event loop.
 
-    Also, a GUI will typically want to override 'open_database' and
+    Also, a GUI will typically want to override/wrap 'load_database' and
     'unload_database' too, because these will be subject to threading issues
     as well.
 
@@ -35,8 +35,9 @@ class SyncServer(Component, Server):
         return username == self.config()["sync_server_username"] and \
                password == self.config()["sync_server_password"]
     
-    def open_database(self, database_name):
-        if previous_database != database_name:
+    def load_database(self, database_name):
+        self.previous_database = self.config()["path"]   
+        if self.previous_database != database_name:
             if not os.path.exists(expand_path(database_name,
                 self.config().basedir)):
                 self.database().new(database_name)
@@ -45,7 +46,7 @@ class SyncServer(Component, Server):
         return self.database()
     
     def unload_database(self, database):
-        self.database().load(self.old_database)
+        self.database().load(self.previous_database)
         self.log().loaded_database()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)

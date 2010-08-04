@@ -58,12 +58,7 @@ class ServerThread(QtCore.QThread, SyncServer):
         self.server_has_connection = False
 
     def run(self):
-        # Run until stopped.
-        import select
-        while not self.stopped:
-            if select.select([self.socket], [], [], 0.25)[0]:
-                self.handle_request()
-        self.socket.close()
+        self.serve_until_stopped()
         # Clean up after stopping.
         mutex.lock()
         server_hanging = (len(self.sessions) != 0)
@@ -78,18 +73,12 @@ class ServerThread(QtCore.QThread, SyncServer):
             self.server_has_connection = False
             database_released.wakeAll()
             
-    def open_database(self, database_name):
+    def load_database(self, database_name):
         mutex.lock()
         self.sync_started_signal.emit()
         if not self.server_has_connection:
             database_released.wait(mutex)
-        previous_database = self.config()["path"]      
-        if previous_database != database_name:
-            if not os.path.exists(expand_path(database_name,
-                self.config().basedir)):
-                self.database().new(database_name)
-            else:
-                self.database().load(database_name)
+        SyncServer.load_database(self, database_name)                
         self.server_has_connection = True
         mutex.unlock()
         return self.database()
@@ -172,12 +161,12 @@ class QtSyncServer(Component, QtCore.QObject):
     def load_database(self):
         mutex.lock()
         if self.thread.server_has_connection:
-            database_released.wait(mutex)
+            database_released.wait(mutex)            
         self.database().load(self.previous_database)
         self.log().loaded_database()
-        self.thread.server_has_connection = False
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)
+        self.thread.server_has_connection = False
         mutex.unlock()
 
     def server_is_hanging(self):

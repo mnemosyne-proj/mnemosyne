@@ -4,9 +4,9 @@
 
 import os
 import sys
-import socket
+import httplib
 from nose.tools import raises
-from threading import Thread, Lock
+from threading import Thread, Condition
 
 from openSM2sync.client import Client
 from openSM2sync.log_entry import EventTypes
@@ -18,7 +18,9 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
      DefaultCriterion
 
-server_lock = Lock()
+server_initialised = Condition()
+server_is_initialised = None
+tests_done = Condition()
 
 last_error = None
 answer = None
@@ -61,49 +63,63 @@ class MyServer(Server, Thread):
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        global server_is_initialised
+        server_is_initialised = None
+        self.passed_tests = None        
      
     def authorise(self, login, password):
         return login == "user" and password == "pass"
 
-    def open_database(self, database_name):
+    def load_database(self, database_name):
         return self.mnemosyne.database()
+
+    def stop(self):
+        Server.stop(self)
+        # Make an extra request so that we don't need to wait for the server
+        # timeout.
+        global server_is_initialised
+        server_is_initialised = None
+        con = httplib.HTTPConnection(self.server_name, self.server_port)
+        con.request("GET", "dummy_request")
+        con.getresponse().read()
 
     def run(self):
         # We only open the database connection inside the thread to prevent
         # access problems, as a single connection can only be used inside a
         # single thread.
-        # We use a lock here to prevent the client from accessing the server
-        # until the server is ready.
-        global server_lock
-        server_lock.acquire()
-        try:
-            self.mnemosyne.initialise(self.basedir, self.filename)
-            self.mnemosyne.config().change_user_id(self.user_id)
-            self.mnemosyne.review_controller().reset()
-            if hasattr(self, "fill_server_database"):
-                self.fill_server_database(self)
-            Server.__init__(self, self.mnemosyne.config().machine_id(),
-                            PORT, self.mnemosyne.main_widget())
-            if not self.binary_download:
-                self.supports_binary_log_download = lambda x : False
-        finally:
-            server_lock.release()
+        # We use a condition object here to prevent the client from accessing
+        # the server until the server is ready.
+        server_initialised.acquire()
+        self.mnemosyne.initialise(self.basedir, self.filename)
+        self.mnemosyne.config().change_user_id(self.user_id)
+        self.mnemosyne.review_controller().reset()
+        if hasattr(self, "fill_server_database"):
+            self.fill_server_database(self)
+        Server.__init__(self, self.mnemosyne.config().machine_id(),
+                        PORT, self.mnemosyne.main_widget())
+        if not self.binary_download:
+            self.supports_binary_log_download = lambda x : False
+        global server_is_initialised
+        server_is_initialised = True
+        server_initialised.notify()            
+        server_initialised.release()
         # Because we stop_after_sync is True, serve_forever will actually stop
         # after one sync.
-        self.serve_forever()
+        self.serve_until_stopped()
         # Also running the actual tests we need to do inside this thread and
         # not in the main thread, again because of sqlite access restrictions.
         # However, if the asserts fail in this thread, nose won't flag them as
         # failures in the main thread, so we communicate failure back to the
         # main thread using self.passed_tests.
-        server_lock.acquire()
+        tests_done.acquire()
         self.passed_tests = False
         try:
             self.test_server(self)
             self.passed_tests = True
         finally:
             self.mnemosyne.finalise()
-            server_lock.release()
+            tests_done.notify()
+            tests_done.release()
         
 class MyClient(Client):
     
@@ -130,23 +146,23 @@ class MyClient(Client):
                         self.mnemosyne.database(), self.mnemosyne.main_widget())
         
     def do_sync(self):
-        global server_lock
-        server_lock.acquire()
-        try:
-            self.sync(localhost(), PORT, self.user, self.password)
-        finally:
-            server_lock.release()
+        server_initialised.acquire()
+        while not server_is_initialised:
+            server_initialised.wait()
+        server_initialised.release()
+        self.sync(localhost(), PORT, self.user, self.password)
 
 class TestSync(object):
 
     def teardown(self):
-        global server_lock
         self.server.stop()
-        server_lock.acquire()
+        tests_done.acquire()
+        while self.server.passed_tests is None:
+            tests_done.wait()
+        tests_done.release()
         try:
             assert self.server.passed_tests == True
         finally:
-            server_lock.release()
             self.client.mnemosyne.finalise()
         
     def test_add_tag(self):

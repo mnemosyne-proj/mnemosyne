@@ -1,12 +1,4 @@
--restart sync after cancel on client, does the server still respond?
--does the 0.25 trick also work in the main server? (note: we override run forever and don't use stop anymore). Get rid of extra request?
--document 0.25 timeout, both client and server
 -host_ip
--move qt code to lib?
--remove debug statements on database restored, remove sleep in client
-
--naming: load database vs open database
-
 
 -server: add 1 card, import mnemosyne. after sync with client: all cards due... (last rep and next rep set to zero...)
 -make sure 'server running' message does not show if there is an error, and not if the server is already running
