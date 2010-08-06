@@ -2,10 +2,10 @@
 # configuration_wdgt_sync_server.py <Peter.Bienstman@UGent.be>
 #
 
-import socket
+import httplib
 from PyQt4 import QtCore, QtGui
 
-from openSM2sync.server import localhost
+from openSM2sync.server import localhost_IP
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
@@ -22,12 +22,28 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         ConfigurationWidget.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.initially_running = self.is_server_running()
+
+    def is_server_running(self):
+        try:
+            con = httplib.HTTPConnection(localhost_IP(),
+                self.config()["sync_server_port"])
+            con.request("GET", "/status")
+            assert con.getresponse().read() == "OK"
+            return True
+        except:
+            return False
 
     def display(self):
         self.run_sync_server.setChecked(self.config()["run_sync_server"])
         self.port.setValue(self.config()["sync_server_port"])
         self.username.setText(self.config()["sync_server_username"])
         self.password.setText(self.config()["sync_server_password"])
+        if self.is_server_running():
+            self.server_status.setText(_("Server running on ") + \
+                localhost_IP() + ".")
+        else:
+            self.server_status.setText(_("Server NOT running."))            
             
     def reset_to_defaults(self):
         self.run_sync_server.setChecked(False)
@@ -43,9 +59,14 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.component_manager.get_current("sync_server").deactivate() 
         if self.config()["run_sync_server"]:
             self.component_manager.get_current("sync_server").activate()
-            # TODO: should only be displayed if there are no errors.
-            QtGui.QMessageBox.information(None, _("Mnemosyne"),
-               _("Server now running on ") + localhost() + ".",
-               _("&OK"), "", "", 0, -1)
+            if not self.initially_running and self.is_server_running():
+                QtGui.QMessageBox.information(None, _("Mnemosyne"),
+                    _("Server now running on ") + localhost_IP() + ".",
+                   _("&OK"), "", "", 0, -1)                
+        else:
+            self.component_manager.get_current("sync_server").deactivate()
+            if self.initially_running and not self.is_server_running():
+                QtGui.QMessageBox.information(None, _("Mnemosyne"),
+                    _("Server stopped."), _("&OK"), "", "", 0, -1)
     
             

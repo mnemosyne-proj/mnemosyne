@@ -18,10 +18,12 @@ socket.setdefaulttimeout(60)
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
+# Use a different name for client realsocket than for server realsocket to
+# avoid problems in the testsuite when both are imported.
 
-realsocket = socket.socket
+realsocket_ = socket.socket
 def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
-    sockobj = realsocket(family, type, proto)
+    sockobj = realsocket_(family, type, proto)
     sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     return sockobj
 socket.socket = socketwrap
@@ -85,7 +87,7 @@ class Client(Partner):
             # generate MEDIA_UPDATED log entries, so it should be done first.
             if self.check_for_updated_media_files:
                 self.database.check_for_updated_media_files()
-            self.login(server, port, username, password)
+            self.login(socket.gethostbyname(server), port, username, password)
             # First sync.
             if self.database.is_empty():
                 self.get_server_media_files()

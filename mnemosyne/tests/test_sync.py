@@ -8,9 +8,9 @@ import httplib
 from nose.tools import raises
 from threading import Thread, Condition
 
+from openSM2sync.server import Server, localhost_IP
 from openSM2sync.client import Client
 from openSM2sync.log_entry import EventTypes
-from openSM2sync.server import Server, localhost
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.fact import Fact
@@ -36,10 +36,15 @@ class Widget(MainWidget):
     def error_box(self, error):
         global last_error
         last_error = error
-        #sys.stderr.write(error)
+        # Activate this for debugging.
+        sys.stderr.write(error)
 
     def question_box(self, question, option0, option1, option2):
         return answer
+
+    def save_file_dialog(self, path, filter, caption):
+        return "default.db"
+
 
 PORT = 9922
    
@@ -150,7 +155,7 @@ class MyClient(Client):
         while not server_is_initialised:
             server_initialised.wait()
         server_initialised.release()
-        self.sync(localhost(), PORT, self.user, self.password)
+        self.sync(localhost_IP(), PORT, self.user, self.password)
 
 class TestSync(object):
 
@@ -2051,3 +2056,46 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
+    def test_new_database(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            assert tag.id == self.client_tag_id
+            assert tag.name == unichr(0x628) + u">&<abcd"
+            sql_res = db.con.execute("select * from log where event_type=?",
+               (EventTypes.ADDED_TAG, )).fetchone()
+            assert self.tag_added_timestamp == sql_res["timestamp"]
+            assert type(sql_res["timestamp"]) == int
+            assert db.con.execute("select count() from log").fetchone()[0] == 8 
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.server.client_tag_id = tag.id
+        sql_res = self.client.mnemosyne.database().con.execute(\
+            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()
+        self.server.tag_added_timestamp = sql_res["timestamp"]
+        assert type(self.server.tag_added_timestamp) == int
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()[0] == 1
+
+        # Create new database, make sure we don't trigger the sync cycle
+        # warning.
+
+        self.client.mnemosyne.controller().file_new()        
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()[0] == 0        
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()[0] == 1   

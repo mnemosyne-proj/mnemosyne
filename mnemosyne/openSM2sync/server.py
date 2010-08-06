@@ -30,13 +30,9 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
 socket.socket = socketwrap
 
 # Hack to detect IP adress of local host.
-
-def localhost():
-    hostname = socket.getfqdn()
-    if not "localhost" in hostname:
-        return hostname
+def localhost_IP():
     s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(('google.com', 0))
+    s.connect(("google.com", 8000))
     return s.getsockname()[0]
 
 # Work around http://bugs.python.org/issue6085.
@@ -93,7 +89,7 @@ class Server(WSGIServer, Partner):
 
     def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
-        WSGIServer.__init__(self, (localhost(), port), WSGIRequestHandler)
+        WSGIServer.__init__(self, (localhost_IP(), port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         Partner.__init__(self, ui)
         self.text_format = XMLFormat()
@@ -125,7 +121,7 @@ class Server(WSGIServer, Partner):
         args = cgi.parse_qs(environ["QUERY_STRING"])
         args = dict([(key, val[0]) for key, val in args.iteritems()])
         # Login method.
-        if method == "put_login":
+        if method == "put_login" or method == "get_status":
             if len(args) == 0:
                 return "200 OK", "xml/text", method, args
             else:
@@ -234,6 +230,9 @@ class Server(WSGIServer, Partner):
     # and PUT calls. 'get_foo_bar' gets executed after a 'GET /foo_bar'
     # request. Similarly, 'put_foo_bar' gets executed after a 'PUT /foo_bar'
     # request.
+
+    def get_status(self, environ):
+        return "OK"
 
     def put_login(self, environ):
         session = None

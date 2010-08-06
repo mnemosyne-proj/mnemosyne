@@ -169,14 +169,14 @@ class QtSyncServer(Component, QtCore.QObject):
         self.thread.server_has_connection = False
         mutex.unlock()
 
-    def server_is_hanging(self):
+    def is_server_hanging(self):
         mutex.lock()
         hanging = (len(self.thread.sessions) != 0)
         mutex.unlock()
         return hanging
         
     def flush_sync_server(self):
-        if not self.thread or not self.server_is_hanging():
+        if not self.thread or not self.is_server_hanging():
             return
         self.deactivate()
         self.activate()
