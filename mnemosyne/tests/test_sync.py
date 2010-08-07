@@ -1147,7 +1147,6 @@ class TestSync(object):
         self.server = MyServer(os.path.abspath("dot_sync_A"), erase_previous=False)
         self.server.test_server = test_server
         self.server.start()
-        self.server.passed_tests = True
 
         self.client = MyClient(os.path.abspath("dot_sync_C"), erase_previous=False)
         self.client.mnemosyne.review_controller().reset()
@@ -1207,7 +1206,8 @@ class TestSync(object):
         global answer
         answer = 2 # Cancel
         self.client.do_sync()
-        self.server.stopped = True
+        self.server.stop()
+        self._wait_for_server_shutdown()
         
         tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
         assert tag.name == "client"
@@ -1738,8 +1738,6 @@ class TestSync(object):
            grade=-1, tag_names=["default"])[0]
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
-
-        self.server.passed_tests = True
 
     def test_add_activity_criterion(self):
         
