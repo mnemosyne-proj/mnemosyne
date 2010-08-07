@@ -37,7 +37,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        sys.stderr.write(error)
+        #sys.stderr.write(error)
 
     def question_box(self, question, option0, option1, option2):
         return answer
@@ -77,17 +77,7 @@ class MyServer(Server, Thread):
 
     def load_database(self, database_name):
         return self.mnemosyne.database()
-
-    def stop(self):
-        Server.stop(self)
-        # Make an extra request so that we don't need to wait for the server
-        # timeout.
-        global server_is_initialised
-        server_is_initialised = None
-        con = httplib.HTTPConnection(self.server_name, self.server_port)
-        con.request("GET", "dummy_request")
-        con.getresponse().read()
-
+    
     def run(self):
         # We only open the database connection inside the thread to prevent
         # access problems, as a single connection can only be used inside a
@@ -108,8 +98,6 @@ class MyServer(Server, Thread):
         server_is_initialised = True
         server_initialised.notify()            
         server_initialised.release()
-        # Because we stop_after_sync is True, serve_forever will actually stop
-        # after one sync.
         self.serve_until_stopped()
         # Also running the actual tests we need to do inside this thread and
         # not in the main thread, again because of sqlite access restrictions.
@@ -125,6 +113,20 @@ class MyServer(Server, Thread):
             self.mnemosyne.finalise()
             tests_done.notify()
             tests_done.release()
+
+    def stop(self):
+        Server.stop(self)
+        # Make an extra request so that we don't need to wait for the server
+        # timeout. This could fail if the server has already shut down.
+        try:
+            con = httplib.HTTPConnection(self.server_name, self.server_port)
+            con.request("GET", "dummy_request")
+            con.getresponse().read()
+        except:
+            pass
+        global server_is_initialised
+        server_is_initialised = None
+
         
 class MyClient(Client):
     
@@ -159,12 +161,15 @@ class MyClient(Client):
 
 class TestSync(object):
 
-    def teardown(self):
-        self.server.stop()
+    def _wait_for_server_shutdown(self):
         tests_done.acquire()
         while self.server.passed_tests is None:
             tests_done.wait()
         tests_done.release()
+            
+    def teardown(self):
+        self.server.stop()
+        self._wait_for_server_shutdown()
         try:
             assert self.server.passed_tests == True
         finally:
@@ -695,6 +700,35 @@ class TestSync(object):
         assert card.next_rep == 1247616000
         assert card.id == "9cff728f"
         
+    def test_mem_import_xml(self):
+            
+        def fill_server_database(self):        
+            filename = os.path.join(os.getcwd(), "tests", "files",
+                                    "basedir_2_mem", "deck1.mem")
+            for format in self.mnemosyne.component_manager.get_all("file_format"):
+                if format.__class__.__name__ == "Mnemosyne1Mem":
+                    format.do_import(filename)
+            self.mnemosyne.controller().file_save()
+                    
+        def test_server(self):
+            pass
+            
+        self.server = MyServer(binary_download=False)
+        self.server.fill_server_database = fill_server_database
+        self.server.test_server = test_server
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.do_sync()
+
+        assert self.client.database.con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.REPETITION, )).fetchone()[0] != 0
+        card = self.client.database.get_card("0c3f0613", id_is_internal=False)
+
+        assert card.last_rep != 0
+        assert card.next_rep != 0
+                
     def test_user_id_update(self):
             
         def test_server(self):
@@ -1083,6 +1117,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # B --> C
 
@@ -1102,6 +1137,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # C --> A
 
@@ -1142,6 +1178,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
 
         # Second sync.
 
@@ -1159,7 +1196,7 @@ class TestSync(object):
         self.server.tag_id = tag.id
         self.server.test_server = test_server
         self.server.fill_server_database = fill_server_database
-        self.server.start()
+        self.server.start()    
 
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
@@ -1192,6 +1229,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # Second sync.
 
@@ -1249,6 +1287,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # Second sync.
 
@@ -1306,6 +1345,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # Second sync.
 
@@ -1364,6 +1404,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # Second sync.
 
@@ -1422,6 +1463,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # Second sync.
 
@@ -1494,6 +1536,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # Remove media.
         
@@ -1575,6 +1618,7 @@ class TestSync(object):
         self.client.do_sync()
         self.client.mnemosyne.finalise()
         self.server.stop()
+        self._wait_for_server_shutdown()
         
         # Remove media.
         
@@ -1641,7 +1685,7 @@ class TestSync(object):
         self.client.put_client_log_entries = lambda x : 1/0
         self.client.do_sync()
         self.client.mnemosyne.finalise()
-
+        
         # Second sync.
 
         self.client = MyClient(erase_previous=False)

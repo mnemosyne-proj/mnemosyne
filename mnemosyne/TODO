@@ -1,4 +1,5 @@
--server: add 1 card, import mnemosyne. after sync with client: all cards due... (last rep and next rep set to zero...)
+-test suite errors
+-test suite speed, timeout
 -modulo in progress dialogs
 -reduce socket timeout and test again
 
