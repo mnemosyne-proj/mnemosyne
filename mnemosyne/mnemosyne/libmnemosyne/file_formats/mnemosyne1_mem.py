@@ -100,9 +100,7 @@ class Mnemosyne1Mem(FileFormat):
         # Convert to 2.x data structures.
         w.set_progress_text(_("Importing cards..."))
         w.set_progress_range(0, len(self.items))
-        update_interval = int(len(self.items)/50)
-        if update_interval == 0:
-            update_interval = 1
+        w.set_progress_update_interval(len(self.items)/50)
         count = 0
         w.set_progress_value(0)
         self.map_plugin_activated = False
@@ -113,8 +111,7 @@ class Mnemosyne1Mem(FileFormat):
             self.items_by_id[item.id] = item
         for item in self.items:
             count += 1
-            if count % update_interval == 0:
-                w.set_progress_value(count)
+            w.set_progress_value(count)
             self._create_card_from_item(item)
         w.set_progress_value(len(self.items))
                         

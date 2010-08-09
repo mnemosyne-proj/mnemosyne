@@ -23,6 +23,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.setupUi(self)
         self.status_bar_widgets = []
         self.progress_bar = None
+        self.progress_bar_update_interval = 1
 
     def closeEvent(self, event):
         self.config()["main_window_size"] = (self.width(), self.height())
@@ -76,14 +77,22 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
             self.progress_bar.setMinimumDuration(0)
         self.progress_bar.setLabelText(text)
         self.progress_bar.setRange(0, 0)
+        self.progress_bar_update_interval = 1
         self.progress_bar.setValue(0)
         self.progress_bar.show()
-        
+
     def set_progress_range(self, minimum, maximum):
         self.progress_bar.setRange(minimum, maximum)
         
+    def set_progress_update_interval(self, update_interval):
+        update_interval = int(update_interval)
+        if update_interval == 0:
+            update_interval = 1
+        self.progress_bar_update_interval = update_interval
+        
     def set_progress_value(self, value):
-        self.progress_bar.setValue(value)
+        if value % self.progress_bar_update_interval == 0:
+            self.progress_bar.setValue(value)
         
     def close_progress(self):
         if self.progress_bar:

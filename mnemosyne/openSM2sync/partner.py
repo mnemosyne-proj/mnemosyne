@@ -28,6 +28,7 @@ class Partner(object):
         # We also tried compression here, but for typical scenarios that is
         # slightly slower on a WLAN and mobile phone.     
         self.ui.set_progress_range(0, number_of_entries)
+        self.ui.set_progress_update_interval(number_of_entries/50)
         buffer = self.text_format.log_entries_header(number_of_entries)
         count = 0
         for log_entry in log_entries:
@@ -49,6 +50,7 @@ class Partner(object):
         if number_of_entries == 0:
             return
         self.ui.set_progress_range(0, number_of_entries)
+        self.ui.set_progress_update_interval(number_of_entries/50)
         count = 0
         for log_entry in element_loop:
             callback(context, log_entry)
@@ -57,7 +59,8 @@ class Partner(object):
         self.ui.set_progress_value(number_of_entries)
         
     def stream_binary_file(self, binary_file, file_size):
-        self.ui.set_progress_range(0, file_size)        
+        self.ui.set_progress_range(0, file_size)
+        self.ui.set_progress_update_interval(file_size/50)
         buffer = str(file_size) + "\n" + binary_file.read(BUFFER_SIZE)
         count = BUFFER_SIZE
         while buffer:
@@ -74,6 +77,7 @@ class Partner(object):
         except:
             raise SyncError("Downloading binary file: error on remote side.")
         self.ui.set_progress_range(0, file_size)
+        self.ui.set_progress_update_interval(file_size/50)
         remaining = file_size
         while remaining:
             if remaining < BUFFER_SIZE:

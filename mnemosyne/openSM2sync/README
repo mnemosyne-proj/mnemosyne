@@ -119,3 +119,23 @@ For the actual details of the syncing process itself, the code of the reference 
 -server.py: the sycing process as seen from the server side
 
 It's also interesting to have a look at the testsuite in tests/test_sync.py, for inspriration on what corner cases to be prepared for :-)
+
+
+
+Syncing speed:
+
+After robustness, speed is the most important property of any implementation of the sync protocol. An efficient sync will contribute greatly to the comfort of the user and the percieved quality of the client.
+
+The Python reference client and server implementation have already been optimised to this effect. For a typical daily scenario of doing 200 repetitions of your phone and adding 20 cards on your desktop, a sync takes about 4 seconds on a home WLAN with a rather old (2007) Windows Mobile phone. Memory requirement is about 4 Mb. This is without any GuI running, and does not take the time into account to backup the database before sync (which in this case turns out to be the dominant factor).
+
+When implementing the client in a different language, here are some tips to help improve performance:
+
+-profile your client to detect where the bottlenecks are
+-look for the most optimal XML parsing library, preferably a compiled one as opposed to an interpreted one
+-buffer *all* the http connections, i.e. read them block by block (e.g. 8kB), as opposed to e.g. log entry by log entry
+-to save memory, do all processing in a streaming manner, i.e. don't read in everything at once, but process block by block by block and throw away the block as soon as it's processed
+-make sure to support all the time saving feature the server supports: binary download of the very first sync, grouping of media files in tar archives
+-at the beginning of 'client.py', there are a few network tweaks which are useful in the context of the Python network stack, but which could also be worth investigating
+-reuse the same http connection for the different stages of the sync
+-run the sync operation in a separate thread to keep the UI responsive
+-progress bars are nice, but don't update them after every log entry, as then you would spend more time updating the GUI than doing the actual processing

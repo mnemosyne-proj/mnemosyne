@@ -34,6 +34,7 @@ class SyncThread(QtCore.QThread):
         QtCore.QString, QtCore.QString)
     set_progress_text_signal = QtCore.pyqtSignal(QtCore.QString)
     set_progress_range_signal = QtCore.pyqtSignal(int, int)
+    set_progress_update_interval_signal = QtCore.pyqtSignal(int)
     set_progress_value_signal = QtCore.pyqtSignal(int)    
     close_progress_signal = QtCore.pyqtSignal()
     
@@ -78,8 +79,11 @@ class SyncThread(QtCore.QThread):
         self.set_progress_text_signal.emit(text)
         
     def set_progress_range(self, minimum, maximum):
-        self.set_progress_range_signal.emit(minimum, maximum)        
-
+        self.set_progress_range_signal.emit(minimum, maximum)
+        
+    def set_progress_update_interval(self, value):
+        self.set_progress_update_interval_signal.emit(value)
+        
     def set_progress_value(self, value):
         self.set_progress_value_signal.emit(value) 
 
@@ -135,6 +139,8 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
             self.main_widget().set_progress_text)
         thread.set_progress_range_signal.connect(\
             self.main_widget().set_progress_range)
+        thread.set_progress_update_interval_signal.connect(\
+            self.main_widget().set_progress_update_interval)
         thread.set_progress_value_signal.connect(\
             self.main_widget().set_progress_value)
         thread.close_progress_signal.connect(\

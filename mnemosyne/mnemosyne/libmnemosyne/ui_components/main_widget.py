@@ -62,6 +62,12 @@ class MainWidget(UiComponent):
         pass
     
     def set_progress_text(self, text):
+
+        """Resets all the attributes of the progress bar if one is still open,
+        and displays 'text'.
+
+        """
+        
         pass
     
     def set_progress_range(self, minimum, maximum):
@@ -72,7 +78,18 @@ class MainWidget(UiComponent):
         """
         
         pass
+    
+    def set_progress_update_interval(self, update_interval):
 
+        """Sometimes updating the progress bar for a single step takes longer
+        than doing the actual processing. In this case, it is useful to set
+        'update_interval' and the progress bar will only be updated every
+        'update_interval' steps.
+
+        """
+        
+        pass
+    
     def set_progress_value(self, value):
 
         """If value is maximum or beyond, the dialog closes."""

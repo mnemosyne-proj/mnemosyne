@@ -1,7 +1,3 @@
--test suite speed, timeout
--modulo in progress dialogs
--reduce socket timeout and test again
-
 -is it worth keeping database.tag_names?
 -get rid of 'get_'
 -update_cards --> modify cards, edit cards?
@@ -54,8 +50,6 @@ https://bugzilla.gnome.org/show_bug.cgi?id=518585
 >         return duplicates
 
 
--rework progress bar API
-
 -more tests
 
 -windows: upgrade config?
@@ -92,7 +86,6 @@ the GUI function itself?
 -delete 1.99 logs
 -reenable upload
 
--progress dialog title is 'mnemosyne' instead of 'Mnemosyne'
 
 -... after menu options that open a dialog
 -suppress autorepeat on review dialog
@@ -215,7 +208,6 @@ pylint:
 * After 2.0:
 
 -hack tarfile to add progress bar?
--add modulo to progress dialogs
 
 -'shared deck' export
 -is 'client_info["shared_dack"] the best way to signal this? Or have entirely new

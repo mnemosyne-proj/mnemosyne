@@ -78,7 +78,7 @@ class Client(Partner):
         self.text_format = XMLFormat()
         self.server_info = {}
 
-    def sync(self, server, port, username, password):       
+    def sync(self, server, port, username, password):
         try:
             self.ui.set_progress_text("Creating backup...")            
             if self.do_backup:

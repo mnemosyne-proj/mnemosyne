@@ -119,7 +119,7 @@ class MyServer(Server, Thread):
         # Make an extra request so that we don't need to wait for the server
         # timeout. This could fail if the server has already shut down.
         try:
-            con = httplib.HTTPConnection(self.server_name, self.server_port)
+            con = httplib.HTTPConnection(localhost_IP(), PORT)
             con.request("GET", "dummy_request")
             con.getresponse().read()
         except:
