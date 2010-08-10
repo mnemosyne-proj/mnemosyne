@@ -112,7 +112,7 @@ class TestActivateCards(MnemosyneTest):
         self.review_controller().new_question()
         
         assert self.review_controller().card == card
-        assert self.review_controller().get_counters() == (0, 1, 1)
+        assert self.review_controller().counters() == (0, 1, 1)
         
         fact_data = {"q": "question2",
                      "a": "answer2"}
@@ -129,7 +129,7 @@ class TestActivateCards(MnemosyneTest):
         self.review_controller().reload_counters()
         
         assert self.review_controller().card != card
-        assert self.review_controller().get_counters() == (0, 2, 2)
+        assert self.review_controller().counters() == (0, 2, 2)
         
     def test_activate_cards_4(self):
         fact_data = {"q": "question",
@@ -140,7 +140,7 @@ class TestActivateCards(MnemosyneTest):
         self.review_controller().new_question()
         
         assert self.review_controller().card == card
-        assert self.review_controller().get_counters() == (0, 1, 1)
+        assert self.review_controller().counters() == (0, 1, 1)
         
         c = DefaultCriterion(self.mnemosyne.component_manager)
         c.deactivated_card_type_fact_view_ids = set()
@@ -151,7 +151,7 @@ class TestActivateCards(MnemosyneTest):
         self.review_controller().reload_counters()
                 
         assert self.review_controller().card is None       
-        assert self.review_controller().get_counters() == (0, 0, 0)
+        assert self.review_controller().counters() == (0, 0, 0)
 
         c = DefaultCriterion(self.mnemosyne.component_manager)
         c.deactivated_card_type_fact_view_ids = set()
@@ -162,7 +162,7 @@ class TestActivateCards(MnemosyneTest):
         self.review_controller().reload_counters()
         
         assert self.review_controller().card == card
-        assert self.review_controller().get_counters() == (0, 1, 1)
+        assert self.review_controller().counters() == (0, 1, 1)
 
     def test_activate_cards_new(self):
         fact_data = {"q": "question",
@@ -225,11 +225,11 @@ class TestActivateCards(MnemosyneTest):
         assert self.database().active_count() == 0
         
         card_type_2 = self.card_type_by_id("2")
-        self.controller().update_related_cards(card.fact, card.fact.data,
+        self.controller().edit_related_cards(card.fact, card.fact.data,
                card_type_2, new_tag_names=["allowed"], correspondence=[])
         assert self.database().active_count() == 2
 
-        c = list(self.database().get_activity_criteria())[0]
+        c = list(self.database().activity_criteria())[0]
         assert len(c.forbidden_tag__ids) == 0
         assert len(c.active_tag__ids) == 1
 
@@ -255,7 +255,7 @@ class TestActivateCards(MnemosyneTest):
         self.database().set_current_activity_criterion(c)
         assert self.database().active_count() == 0
 
-        self.database().delete_fact_and_related_data(card.fact)
+        self.database().delete_fact_and_related_cards(card.fact)
         plugin.deactivate()
         c = self.database().current_activity_criterion()
         assert len(c.deactivated_card_type_fact_view_ids) == 0

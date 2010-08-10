@@ -312,7 +312,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Instantiate card types stored in this database.
         for cursor in self.con.execute("select id from card_types"):
             id = cursor[0]
-            card_type = self.get_card_type(id, id_is_internal=-1)
+            card_type = self.card_type(id, id_is_internal=-1)
             self.component_manager.register(card_type)
         # Identify missing plugins for card types and their parents.
         plugin_needed = set()
@@ -333,10 +333,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 self._connection.close()
                 self._connection = None
                 raise exception
-        self._current_criterion = self.get_activity_criterion\
+        self._current_criterion = self.activity_criterion\
             (1, id_is_internal=True)
         self.config()["path"] = contract_path(path, self.config().basedir)
-        for f in self.component_manager.get_all("hook", "after_load"):
+        for f in self.component_manager.all("hook", "after_load"):
             f.run()
         # We don't log the database load here, as we prefer to log the start
         # of the program first.
@@ -375,7 +375,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
           not os.stat(backupfile).st_size:
             self.main_widget().information_box(\
                 _("Warning: backup creation failed for") + " " +  backupfile)
-        for f in self.component_manager.get_all("hook", "after_backup"):
+        for f in self.component_manager.all("hook", "after_backup"):
             f.run(backupfile)
         # Only keep the last logs.
         if self.config()["backups_to_keep"] < 0:
@@ -396,7 +396,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.load(db_path)
 
     def unload(self):
-        for f in self.component_manager.get_all("hook", "before_unload"):
+        for f in self.component_manager.all("hook", "before_unload"):
             f.run()
         self.log().dump_to_science_log()
         if self._connection:
@@ -441,7 +441,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
 
     def get_or_create_tag_with_name(self, name):
-        sql_res = self.con.execute("""select * from tags where name=?""",
+        sql_res = self.con.execute("select * from tags where name=?",
                                    (name, )).fetchone()
         if sql_res:
             tag = Tag(sql_res["name"], sql_res["id"])
@@ -458,11 +458,11 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
         self.log().added_tag(tag)
-        for criterion in self.get_activity_criteria():
+        for criterion in self.activity_criteria():
             criterion.tag_created(tag)
-            self.update_activity_criterion(criterion)
+            self.edit_activity_criterion(criterion)
 
-    def get_tag(self, id, id_is_internal):
+    def tag(self, id, id_is_internal):
         if id_is_internal:
             sql_res = self.con.execute("select * from tags where _id=?",
                                        (id, )).fetchone()
@@ -474,17 +474,17 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, tag)
         return tag
 
-    def update_tag(self, tag):
+    def edit_tag(self, tag):
         self.con.execute("update tags set name=?, extra_data=? where _id=?",
             (tag.name, self._repr_extra_data(tag.extra_data), tag._id))
-        self.log().updated_tag(tag)
+        self.log().edited_tag(tag)
     
     def delete_tag(self, tag):
         self.con.execute("delete from tags where _id=?", (tag._id, ))
         self.log().deleted_tag(tag)
-        for criterion in self.get_activity_criteria():
+        for criterion in self.activity_criteria():
             criterion.tag_deleted(tag)
-            self.update_activity_criterion(criterion)
+            self.edit_activity_criterion(criterion)
         del tag
         
     def remove_tag_if_unused(self, tag):
@@ -493,11 +493,11 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             cat._id=?""", (tag._id, )).fetchone()[0] == 0:
             self.delete_tag(tag)
             
-    def get_tags(self):
-        return (self.get_tag(cursor[0], id_is_internal=True) for cursor in \
+    def tags(self):
+        return (self.tag(cursor[0], id_is_internal=True) for cursor in \
             self.con.execute("select _id from tags"))
     
-    def get_tag_names(self):
+    def tag_names(self):
         return [cursor[0] for cursor in \
                 self.con.execute("select name from tags")]
     
@@ -520,7 +520,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Process media files.
         self._process_media(fact)
 
-    def get_fact(self, id, id_is_internal):
+    def fact(self, id, id_is_internal):
         if id_is_internal:
             sql_res = self.con.execute("select * from facts where _id=?",
                                        (id, )).fetchone()
@@ -541,7 +541,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, fact)
         return fact
     
-    def update_fact(self, fact):
+    def edit_fact(self, fact):
         # Update fact.
         self.con.execute("""update facts set card_type_id=?, creation_time=?,
             modification_time=? where _id=?""", (fact.card_type.id,
@@ -552,11 +552,11 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
                 for key, value in fact.data.items()))
-        self.log().updated_fact(fact)
+        self.log().edited_fact(fact)
         # Process media files.
         self._process_media(fact)
 
-    def delete_fact_and_related_data(self, fact):
+    def delete_fact_and_related_cards(self, fact):
         for card in self.cards_from_fact(fact):
             self.delete_card(card)
         self.con.execute("delete from facts where _id=?", (fact._id, ))
@@ -592,14 +592,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Add card is not logged here, but in the controller, to make sure
         # that the first repetition is logged after the card creation.
 
-    def get_card(self, id, id_is_internal):
+    def card(self, id, id_is_internal):
         if id_is_internal:
             sql_res = self.con.execute("select * from cards where _id=?",
                                        (id, )).fetchone()
         else:
             sql_res = self.con.execute("select * from cards where id=?",
                                        (id, )).fetchone()            
-        fact = self.get_fact(sql_res["_fact_id"], id_is_internal=True)
+        fact = self.fact(sql_res["_fact_id"], id_is_internal=True)
         for fact_view in fact.card_type.fact_views:
             if fact_view.id == sql_res["fact_view_id"]:
                 card = Card(fact, fact_view)
@@ -611,10 +611,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, card)
         for cursor in self.con.execute("""select _tag_id from tags_for_card
             where _card_id=?""", (sql_res["_id"], )):
-            card.tags.add(self.get_tag(cursor["_tag_id"], id_is_internal=True))
+            card.tags.add(self.tag(cursor["_tag_id"], id_is_internal=True))
         return card
     
-    def update_card(self, card, repetition_only=False):
+    def edit_card(self, card, repetition_only=False):
         self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
@@ -628,10 +628,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             card.scheduler_data, card.active, card.in_view, card._id))
         if repetition_only:
             return
-        # If repetition_only is True, there is no need to log an UPDATED_CARD
+        # If repetition_only is True, there is no need to log an EDITED_CARD
         # entry here, as the REPETITION log entry will contain all the data to
-        # update the card.
-        self.log().updated_card(card)
+        # edit the card.
+        self.log().edited_card(card)
         # Link card to its tags. The tags themselves have already been created
         # by default_controller calling get_or_create_tag_with_name.
         # Unused tags will also be cleaned up there.
@@ -664,7 +664,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         fact_view._id = _fact_view_id
         self.log().added_fact_view(fact_view)
 
-    def get_fact_view(self, id, id_is_internal):
+    def fact_view(self, id, id_is_internal):
         if id_is_internal:
             sql_res = self.con.execute("select * from fact_views where _id=?",
                 (id, )).fetchone()
@@ -680,14 +680,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, fact_view)
         return fact_view
 
-    def update_fact_view(self, fact_view):
+    def edit_fact_view(self, fact_view):
         self.con.execute("""update fact_views set name=?, q_fields=?,
             a_fields=?, a_on_top_of_q=?, type_answer=?, extra_data=? where
             _id=?""", (fact_view.name, repr(fact_view.q_fields),
             repr(fact_view.a_fields), fact_view.a_on_top_of_q,
             fact_view.type_answer, self._repr_extra_data(fact_view.extra_data),
             fact_view._id))
-        self.log().updated_fact_view(fact_view)
+        self.log().edited_fact_view(fact_view)
         
     def delete_fact_view(self, fact_view):
         self.con.execute("delete from fact_views where _id=?",
@@ -716,7 +716,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.component_manager.register(card_type)
         self.log().added_card_type(card_type)
 
-    def get_card_type(self, id, id_is_internal):
+    def card_type(self, id, id_is_internal):
         # Since there are so few of them, we don't use internal _ids.
         # ids should be unique too.
         if id in self.component_manager.card_type_by_id:
@@ -724,7 +724,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         parent_id, child_id = "", id
         if "::" in id:
             parent_id, child_id = id.rsplit("::", 1)
-            parent = self.get_card_type(parent_id, id_is_internal=-1)
+            parent = self.card_type(parent_id, id_is_internal=-1)
         else:
             parent = CardType(self.component_manager)
         sql_res = self.con.execute("select * from card_types where id=?",
@@ -738,11 +738,11 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         card_type.fact_views = []
         for cursor in self.con.execute("""select _fact_view_id from
             fact_views_for_card_type where card_type_id=?""", (id, )):
-            card_type.fact_views.append(self.get_fact_view(\
+            card_type.fact_views.append(self.fact_view(\
                 cursor["_fact_view_id"], id_is_internal=True))
         return card_type
         
-    def update_card_type(self, card_type):
+    def edit_card_type(self, card_type):
         self.con.execute("""update card_types set name=?, fields=?,
             unique_fields=?, required_fields=?, keyboard_shortcuts=?,
             extra_data=? where id=?""",
@@ -754,7 +754,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         for cursor in self.con.execute("""select _fact_view_id from
             fact_views_for_card_type where card_type_id=?""",
             (card_type.id, )):
-            fact_view = self.get_fact_view(cursor[0], id_is_internal=True)
+            fact_view = self.fact_view(cursor[0], id_is_internal=True)
             self.delete_fact_view(fact_view)
         self.con.execute("""delete from fact_views_for_card_type where
             card_type_id=?""", (card_type.id, ))
@@ -765,7 +765,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 (fact_view._id, card_type.id))
         self.component_manager.unregister(card_type)
         self.component_manager.register(card_type)
-        self.log().updated_card_type(card_type)
+        self.log().edited_card_type(card_type)
 
     def delete_card_type(self, card_type):
         # The deletion of the fact views should happen at the controller
@@ -792,7 +792,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         if criterion.name:
             self.log().added_activity_criterion(criterion)
         
-    def get_activity_criterion(self, id, id_is_internal):
+    def activity_criterion(self, id, id_is_internal):
         if id_is_internal:
             sql_res = self.con.execute(\
                 "select * from activity_criteria where _id=?",
@@ -802,7 +802,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 "select * from activity_criteria where id=?",
                 (id, )).fetchone()
         for criterion_class in \
-            self.component_manager.get_all("activity_criterion"):
+            self.component_manager.all("activity_criterion"):
             if criterion_class.criterion_type == sql_res["type"]:
                 criterion = criterion_class(self.component_manager,
                                             sql_res["id"])
@@ -811,14 +811,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 criterion.set_data_from_string(sql_res["data"])
                 return criterion
     
-    def update_activity_criterion(self, criterion):
+    def edit_activity_criterion(self, criterion):
         self.con.execute("""update activity_criteria set name=?, type=?, data=?
             where id=?""", (criterion.name, criterion.criterion_type,
             criterion.data_to_string(), criterion.id))
         if criterion._id == 1:
             self._current_criterion = criterion
         if criterion.name:
-            self.log().updated_activity_criterion(criterion)
+            self.log().edited_activity_criterion(criterion)
  
     def delete_activity_criterion(self, criterion):
         self.con.execute("delete from activity_criteria where _id=?",
@@ -831,15 +831,15 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.execute("""update activity_criteria set type=?, data=?
             where _id=1""", (criterion.criterion_type, criterion.data_to_string()))
         self._current_criterion = criterion
-        applier = self.component_manager.get_current("criterion_applier",
+        applier = self.component_manager.current("criterion_applier",
             used_for=criterion.__class__)
         applier.apply_to_database(criterion, active_or_in_view=applier.ACTIVE)
 
     def current_activity_criterion(self):
         return self._current_criterion
     
-    def get_activity_criteria(self):
-        return (self.get_activity_criterion(cursor[0], id_is_internal=True) \
+    def activity_criteria(self):
+        return (self.activity_criterion(cursor[0], id_is_internal=True) \
             for cursor in self.con.execute(\
                 "select _id from activity_criteria"))
     
@@ -869,7 +869,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     
     def _process_media(self, fact):
 
-        """Copy the media files to the media directory and update the media
+        """Copy the media files to the media directory and edit the media
         table. We don't keep track of which facts use which media and delete
         a media file if it's no longer in use. The reason for this is that some
         people use the media directory as their only location to store their
@@ -908,7 +908,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
 
     def cards_from_fact(self, fact):
-        return list(self.get_card(cursor[0], id_is_internal=True) for cursor
+        return list(self.card(cursor[0], id_is_internal=True) for cursor
             in self.con.execute("select _id from cards where _fact_id=?",
                                 (fact._id, )))
 
@@ -935,7 +935,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             for field in fact.card_type.unique_fields:
                 if data[field] == fact[field]:
                     duplicates.append(\
-                        self.get_fact(cursor[0], id_is_internal=True))
+                        self.fact(cursor[0], id_is_internal=True))
                     break
         return duplicates
 

@@ -94,7 +94,7 @@ class TestPlugin(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         fact = card.fact
-        self.database().delete_fact_and_related_data(fact)
+        self.database().delete_fact_and_related_cards(fact)
         
         p.deactivate() # Should work without problems.
 
@@ -119,10 +119,10 @@ class TestPlugin(MnemosyneTest):
             
         p = RedPlugin(self.mnemosyne.component_manager)
         p.activate()
-        assert self.mnemosyne.component_manager.get_current\
+        assert self.mnemosyne.component_manager.current\
                     ("generic_card_type_widget", used_for=FrontToBack) != None
         p.deactivate()  
-        assert self.mnemosyne.component_manager.get_current\
+        assert self.mnemosyne.component_manager.current\
                     ("generic_card_type_widget", used_for=FrontToBack) == None
 
     def test_5(self):   

@@ -123,7 +123,7 @@ class SQLiteSync(object):
                 "select * from log where event_type!=?",
                 (EventTypes.REPETITION, )))
         
-    def check_for_updated_media_files(self):
+    def check_for_edited_media_files(self):
         # Regular media files.
         new_hashes = {}
         for sql_res in self.con.execute("select * from media"):
@@ -136,7 +136,7 @@ class SQLiteSync(object):
         for filename, new_hash in new_hashes.iteritems():
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
-            self.log().updated_media(filename)
+            self.log().edited_media(filename)
         # Latex files (takes 0.10 sec on 8000 card database).
         latex = Latex(self.component_manager)
         for cursor in self.con.execute("select value from data_for_fact"):
@@ -152,7 +152,7 @@ class SQLiteSync(object):
         for filename in [cursor[0] for cursor in self.con.execute(\
             """select object_id from log where _id>? and (event_type=? or
             event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
-            EventTypes.UPDATED_MEDIA))]:
+            EventTypes.EDITED_MEDIA))]:
             if os.path.exists(expand_path(filename, self.mediadir())):
                 filenames.append(filename)
         return filenames
@@ -162,7 +162,7 @@ class SQLiteSync(object):
         for filename in [cursor[0] for cursor in self.con.execute(\
             """select object_id from log where event_type=? or
             event_type=?""", (EventTypes.ADDED_MEDIA,
-            EventTypes.UPDATED_MEDIA))]:
+            EventTypes.EDITED_MEDIA))]:
             if os.path.exists(expand_path(filename, self.mediadir())):
                 filenames.append(filename)
         return filenames
@@ -183,14 +183,14 @@ class SQLiteSync(object):
             log_entry["sch"] = sql_res["acq_reps"]
             log_entry["n_mem"] = sql_res["ret_reps"]
             log_entry["act"] = sql_res["lapses"]            
-        elif event_type in (EventTypes.ADDED_CARD, EventTypes.UPDATED_CARD):
+        elif event_type in (EventTypes.ADDED_CARD, EventTypes.EDITED_CARD):
             try:
                 # Note that some of these values (e.g. the repetition count) we
                 # could in theory calculate from the previous state and the
                 # grade. However, we send the entire state of the card across
                 # because it could be that there is no valid previous state
                 # because of conflict resolution.
-                card = self.get_card(log_entry["o_id"], id_is_internal=False)
+                card = self.card(log_entry["o_id"], id_is_internal=False)
                 if self.sync_partner_info.get("capabilities") == "cards":
                     log_entry["q"] = card.question(exporting=True)
                     log_entry["a"] = card.answer(exporting=True)
@@ -227,24 +227,24 @@ class SQLiteSync(object):
             log_entry["l_rp"] = sql_res["last_rep"]
             log_entry["n_rp"] = sql_res["next_rep"]
             log_entry["sch_data"] = sql_res["scheduler_data"]
-        elif event_type in (EventTypes.ADDED_TAG, EventTypes.UPDATED_TAG):
+        elif event_type in (EventTypes.ADDED_TAG, EventTypes.EDITED_TAG):
             try:
-                tag = self.get_tag(log_entry["o_id"], id_is_internal=False)
+                tag = self.tag(log_entry["o_id"], id_is_internal=False)
                 log_entry["name"] = tag.name
                 if tag.extra_data:
                     log_entry["extra"] = repr(tag.extra_data)
             except TypeError: # The object has been deleted at a later stage.
                 pass
-        elif event_type in (EventTypes.ADDED_MEDIA, EventTypes.UPDATED_MEDIA,
+        elif event_type in (EventTypes.ADDED_MEDIA, EventTypes.EDITED_MEDIA,
             EventTypes.DELETED_MEDIA):
             log_entry["fname"] = sql_res["object_id"]
             del log_entry["o_id"]
-        elif event_type in (EventTypes.ADDED_FACT, EventTypes.UPDATED_FACT):
+        elif event_type in (EventTypes.ADDED_FACT, EventTypes.EDITED_FACT):
             if self.sync_partner_info.get("capabilities") == "cards":
-                # The accompanying ADDED_CARD and UPDATED_CARD events suffice.
+                # The accompanying ADDED_CARD and EDITED_CARD events suffice.
                 return None
             try:
-                fact = self.get_fact(log_entry["o_id"], id_is_internal=False)
+                fact = self.fact(log_entry["o_id"], id_is_internal=False)
                 log_entry["c_time"] = fact.creation_time
                 log_entry["m_time"] = fact.modification_time
                 log_entry["card_t"] = fact.card_type.id
@@ -253,9 +253,9 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass
         elif event_type in (EventTypes.ADDED_FACT_VIEW,
-            EventTypes.UPDATED_FACT_VIEW):
+            EventTypes.EDITED_FACT_VIEW):
             try:
-                fact_view = self.get_fact_view(log_entry["o_id"],
+                fact_view = self.fact_view(log_entry["o_id"],
                     id_is_internal=False)
                 log_entry["name"] = fact_view.name
                 log_entry["q_fields"] = repr(fact_view.q_fields)
@@ -267,9 +267,9 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass            
         elif event_type in (EventTypes.ADDED_CARD_TYPE,
-            EventTypes.UPDATED_CARD_TYPE):
+            EventTypes.EDITED_CARD_TYPE):
             try:
-                card_type = self.get_card_type(log_entry["o_id"],
+                card_type = self.card_type(log_entry["o_id"],
                     id_is_internal=False)
                 log_entry["name"] = card_type.name
                 log_entry["fields"] = repr(card_type.fields)
@@ -283,9 +283,9 @@ class SQLiteSync(object):
             except TypeError: # The object has been deleted at a later stage.
                 pass            
         elif event_type in (EventTypes.ADDED_ACTIVITY_CRITERION,
-            EventTypes.UPDATED_ACTIVITY_CRITERION):
+            EventTypes.EDITED_ACTIVITY_CRITERION):
             try:
-                criterion = self.get_activity_criterion(log_entry["o_id"],
+                criterion = self.activity_criterion(log_entry["o_id"],
                     id_is_internal=False)
                 log_entry["name"] = criterion.name
                 log_entry["criterion_type"] = criterion.criterion_type
@@ -300,7 +300,7 @@ class SQLiteSync(object):
         # in harmless missing fields, but it is more robust against future
         # side effects of tag deletion.
         if log_entry["type"] == EventTypes.DELETED_TAG:
-            return self.get_tag(log_entry["o_id"], id_is_internal=False)
+            return self.tag(log_entry["o_id"], id_is_internal=False)
         # If we are creating a tag that will be deleted at a later stage
         # during this sync, we are missing some (irrelevant) information
         # needed to properly create a tag object.
@@ -320,7 +320,7 @@ class SQLiteSync(object):
     def fact_from_log_entry(self, log_entry):
         # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
-            return self.get_fact(log_entry["o_id"], id_is_internal=False)
+            return self.fact(log_entry["o_id"], id_is_internal=False)
         # Make sure we can create a fact object that will be deleted later
         # during this sync.
         if "card_t" not in log_entry:
@@ -355,7 +355,7 @@ class SQLiteSync(object):
                 # However, this will fail if after the last sync the other
                 # partner created and deleted this card, so that there is no
                 # fact information.
-                return self.get_card(log_entry["o_id"], id_is_internal=False)
+                return self.card(log_entry["o_id"], id_is_internal=False)
             except TypeError:
                 # Less future-proof version which just returns an empty shell.
                 # Make sure to set _id, though, as that will be used in
@@ -376,18 +376,18 @@ class SQLiteSync(object):
             card.id = log_entry["o_id"]
             return card
         # Create card object.
-        fact = self.get_fact(log_entry["fact"], id_is_internal=False)
+        fact = self.fact(log_entry["fact"], id_is_internal=False)
         for fact_view in fact.card_type.fact_views:
             if fact_view.id == log_entry["fact_v"]:
                 card = Card(fact, fact_view)
                 break
         for tag_id in log_entry["tags"].split(","):
             try:
-                card.tags.add(self.get_tag(tag_id, id_is_internal=False))
+                card.tags.add(self.tag(tag_id, id_is_internal=False))
             except TypeError:
                 # The tag has been later later during the log. Don't worry
                 # about it now, this will be corrected by a later
-                # UPDATED_CARD event.
+                # EDITED_CARD event.
                 pass
         card.id = log_entry["o_id"]
         if log_entry["type"] != EventTypes.ADDED_CARD:
@@ -434,7 +434,7 @@ class SQLiteSync(object):
     def add_media(self, log_entry):
 
         """ADDED_MEDIA events get created in several places:
-        database._process_media, database.check_for_updated_media_files,
+        database._process_media, database.check_for_edited_media_files,
         latex, ... . In order to make sure that all of these are treated
         in the same way, we generate an ADDED_MEDIA event here, and prevent
         _process_media from generating this event through self.syncing = True.
@@ -447,16 +447,16 @@ class SQLiteSync(object):
                 values(?,?)""", (filename, self._media_hash(filename)))
         self.log().added_media(filename)
         
-    def update_media(self, log_entry):
+    def edit_media(self, log_entry):
         filename = log_entry["fname"]
-        self.log().updated_media(filename)
+        self.log().edited_media(filename)
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
 
     def fact_view_from_log_entry(self, log_entry):
         # Get fact view object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT_VIEW:
-            return self.get_fact_view(log_entry["o_id"], id_is_internal=False)
+            return self.fact_view(log_entry["o_id"], id_is_internal=False)
         # Create an empty shell of fact view object that will be deleted later
         # during this sync.
         if "name" not in log_entry:
@@ -474,7 +474,7 @@ class SQLiteSync(object):
     def card_type_from_log_entry(self, log_entry):
         # Get card type object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD_TYPE:
-            return self.get_card_type(log_entry["o_id"], id_is_internal=False)
+            return self.card_type(log_entry["o_id"], id_is_internal=False)
         # Create an empty shell of card type object that will be deleted later
         # during this sync.
         if "fact_views" not in log_entry:
@@ -489,7 +489,7 @@ class SQLiteSync(object):
         card_type.fields = eval(log_entry["fields"])
         card_type.fact_views = []
         for fact_view_id in eval(log_entry["fact_views"]):
-            card_type.fact_views.append(self.get_fact_view(fact_view_id,
+            card_type.fact_views.append(self.fact_view(fact_view_id,
                 id_is_internal=False))
         card_type.unique_fields = eval(log_entry["unique_fields"])
         card_type.required_fields = eval(log_entry["required_fields"])        
@@ -501,7 +501,7 @@ class SQLiteSync(object):
     def activity_criterion_from_log_entry(self, log_entry):
         # Get criterion object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_ACTIVITY_CRITERION:
-            return self.get_activity_criterion(log_entry["o_id"],
+            return self.activity_criterion(log_entry["o_id"],
                 id_is_internal=False)
         # Create an empty shell of criterion object that will be deleted later
         # during this sync.
@@ -511,7 +511,7 @@ class SQLiteSync(object):
             return DefaultCriterion(self.component_manager, log_entry["o_id"])
         # Create criterion object.
         for criterion_class in \
-            self.component_manager.get_all("activity_criterion"):
+            self.component_manager.all("activity_criterion"):
             if criterion_class.criterion_type == log_entry["criterion_type"]:
                 criterion = criterion_class(self.component_manager,
                                             log_entry["o_id"])
@@ -542,49 +542,49 @@ class SQLiteSync(object):
                     log_entry["n_mem"], log_entry["act"])
             elif event_type == EventTypes.ADDED_TAG:
                 self.add_tag(self.tag_from_log_entry(log_entry))
-            elif event_type == EventTypes.UPDATED_TAG:
-                self.update_tag(self.tag_from_log_entry(log_entry))
+            elif event_type == EventTypes.EDITED_TAG:
+                self.edit_tag(self.tag_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_TAG:
                 self.delete_tag(self.tag_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_FACT:
                 self.add_fact(self.fact_from_log_entry(log_entry))
-            elif event_type == EventTypes.UPDATED_FACT:
-                self.update_fact(self.fact_from_log_entry(log_entry))
+            elif event_type == EventTypes.EDITED_FACT:
+                self.edit_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT:
                 fact = self.fact_from_log_entry(log_entry)
-                self.delete_fact_and_related_data(fact)
+                self.delete_fact_and_related_cards(fact)
             elif event_type == EventTypes.ADDED_CARD:
                 card = self.card_from_log_entry(log_entry)
                 # 'add_card' does not log, so we need to do it ourselves.
                 self.add_card(card)
                 self.log().added_card(card)
-            elif event_type == EventTypes.UPDATED_CARD:
-                self.update_card(self.card_from_log_entry(log_entry))
+            elif event_type == EventTypes.EDITED_CARD:
+                self.edit_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD:
                 self.delete_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.REPETITION:
                 self.apply_repetition(log_entry)
             elif event_type == EventTypes.ADDED_MEDIA:
                 self.add_media(log_entry)
-            elif event_type == EventTypes.UPDATED_MEDIA:
-                self.update_media(log_entry)
+            elif event_type == EventTypes.EDITED_MEDIA:
+                self.edit_media(log_entry)
             elif event_type == EventTypes.ADDED_FACT_VIEW:
                 self.add_fact_view(self.fact_view_from_log_entry(log_entry))
-            elif event_type == EventTypes.UPDATED_FACT_VIEW:
-                self.update_fact_view(self.fact_view_from_log_entry(log_entry))
+            elif event_type == EventTypes.EDITED_FACT_VIEW:
+                self.edit_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT_VIEW:
                 self.delete_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_CARD_TYPE:
                 self.add_card_type(self.card_type_from_log_entry(log_entry))
-            elif event_type == EventTypes.UPDATED_CARD_TYPE:
-                self.update_card_type(self.card_type_from_log_entry(log_entry))
+            elif event_type == EventTypes.EDITED_CARD_TYPE:
+                self.edit_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD_TYPE:
                 self.delete_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_ACTIVITY_CRITERION:
                 self.add_activity_criterion(\
                     self.activity_criterion_from_log_entry(log_entry))
-            elif event_type == EventTypes.UPDATED_ACTIVITY_CRITERION:
-                self.update_activity_criterion(\
+            elif event_type == EventTypes.EDITED_ACTIVITY_CRITERION:
+                self.edit_activity_criterion(\
                     self.activity_criterion_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_ACTIVITY_CRITERION:
                 self.delete_activity_criterion(\

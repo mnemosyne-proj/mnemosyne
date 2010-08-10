@@ -25,11 +25,11 @@ class UpgradeConfig(Component):
             # Migrate settings.
             config["grade_0_cards_in_hand"] = config["grade_0_items_at_once"]
             for card_type in self.card_types():
-                card_type.get_renderer().set_property("font", config["QA_font"],
+                card_type.renderer().set_property("font", config["QA_font"],
                                                       card_type)
             if config["left_align"]:
                 for card_type in self.card_types():                
-                    card_type.get_renderer().set_property(\
+                    card_type.renderer().set_property(\
                         "alignment", "left", card_type)
             del config["hide_toolbar"]
             del config["QA_font"]

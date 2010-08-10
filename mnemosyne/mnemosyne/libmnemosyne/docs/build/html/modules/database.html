@@ -69,6 +69,16 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.activity_criteria">
+<tt class="descname">activity_criteria</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.activity_criteria" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.activity_criterion">
+<tt class="descname">activity_criterion</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.activity_criterion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_activity_criterion">
 <tt class="descname">add_activity_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_activity_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -89,6 +99,11 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.add_fact_view">
+<tt class="descname">add_fact_view</tt><big>(</big><em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_fact_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_tag">
 <tt class="descname">add_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -99,8 +114,18 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.card">
+<tt class="descname">card</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.card_count">
 <tt class="descname">card_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.card_type">
+<tt class="descname">card_type</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -175,8 +200,13 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.delete_fact_and_related_data">
-<tt class="descname">delete_fact_and_related_data</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact_and_related_data" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.database.Database.delete_fact_and_related_cards">
+<tt class="descname">delete_fact_and_related_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact_and_related_cards" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.delete_fact_view">
+<tt class="descname">delete_fact_view</tt><big>(</big><em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact_view" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -185,9 +215,50 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.display_name">
+<tt class="descname">display_name</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.display_name" title="Permalink to this definition">¶</a></dt>
+<dd>Returns bare name of the database, without parent paths and
+without extension.</dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.duplicates_for_fact">
 <tt class="descname">duplicates_for_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.duplicates_for_fact" title="Permalink to this definition">¶</a></dt>
 <dd>Return facts with the same &#8216;unique_fields&#8217; data as &#8216;fact&#8217;.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.edit_activity_criterion">
+<tt class="descname">edit_activity_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.edit_activity_criterion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.edit_card">
+<tt class="descname">edit_card</tt><big>(</big><em>card</em>, <em>repetition_only=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.edit_card" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.edit_card_type">
+<tt class="descname">edit_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.edit_card_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.edit_fact">
+<tt class="descname">edit_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.edit_fact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.edit_fact_view">
+<tt class="descname">edit_fact_view</tt><big>(</big><em>fact_view</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.edit_fact_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.edit_tag">
+<tt class="descname">edit_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.edit_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.fact">
+<tt class="descname">fact</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.fact_count">
@@ -195,48 +266,13 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.get_activity_criteria">
-<tt class="descname">get_activity_criteria</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_activity_criteria" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.get_activity_criterion">
-<tt class="descname">get_activity_criterion</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_activity_criterion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.get_card">
-<tt class="descname">get_card</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.get_card_type">
-<tt class="descname">get_card_type</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_card_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.get_fact">
-<tt class="descname">get_fact</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_fact" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.database.Database.fact_view">
+<tt class="descname">fact_view</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact_view" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.get_or_create_tag_with_name">
 <tt class="descname">get_or_create_tag_with_name</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_or_create_tag_with_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.get_tag">
-<tt class="descname">get_tag</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_tag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.get_tag_names">
-<tt class="descname">get_tag_names</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_tag_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.get_tags">
-<tt class="descname">get_tags</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.get_tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -257,8 +293,8 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.name">
 <tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.name" title="Permalink to this definition">¶</a></dt>
-<dd>Returns bare name of the database, without parent paths and
-suffixes.</dd></dl>
+<dd>Returns name of the database, without parent paths, but with
+extensions.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.new">
@@ -274,6 +310,12 @@ suffixes.</dd></dl>
 <dt id="mnemosyne.libmnemosyne.database.Database.path">
 <tt class="descname">path</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.path" title="Permalink to this definition">¶</a></dt>
 <dd>Returns full path of the database.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.release_connection">
+<tt class="descname">release_connection</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.release_connection" title="Permalink to this definition">¶</a></dt>
+<dd>Release the connection, so that it may be recreated in a separate
+thread.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.remove_tag_if_unused">
@@ -316,33 +358,23 @@ suffixes.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.tag">
+<tt class="descname">tag</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.tag_names">
+<tt class="descname">tag_names</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tag_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.tags">
+<tt class="descname">tags</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.unload">
 <tt class="descname">unload</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.unload" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.update_activity_criterion">
-<tt class="descname">update_activity_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_activity_criterion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.update_card">
-<tt class="descname">update_card</tt><big>(</big><em>card</em>, <em>repetition_only=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.update_card_type">
-<tt class="descname">update_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.update_fact">
-<tt class="descname">update_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_fact" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.update_tag">
-<tt class="descname">update_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -408,7 +440,7 @@ suffixes.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Jul 07, 2010.
+      Last updated on Aug 10, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

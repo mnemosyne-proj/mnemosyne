@@ -304,7 +304,7 @@ class SM2Mnemosyne(Scheduler):
         except:
             pass
     
-    def get_next_card(self, learn_ahead=False):
+    def next_card(self, learn_ahead=False):
         # Populate queue if it is empty.
         if len(self.card__ids_in_queue) == 0:
             self.rebuild_queue(learn_ahead)
@@ -319,7 +319,7 @@ class SM2Mnemosyne(Scheduler):
                       self.last_card__id == _card_id:
                 _card_id = self.card__ids_in_queue.pop(0)
         self.last_card__id = _card_id
-        return self.database().get_card(_card_id, id_is_internal=True)
+        return self.database().card(_card_id, id_is_internal=True)
 
     def allow_prefetch(self):
 
@@ -338,7 +338,7 @@ class SM2Mnemosyne(Scheduler):
         # from hooks running then.
         if not dry_run:
             card.fact.card_type.before_repetition(card)
-            for f in self.component_manager.get_all("hook",
+            for f in self.component_manager.all("hook",
                                                     "before_repetition"):
                 f.run(card)            
         # When doing a dry run, make a copy to operate on. This leaves the
@@ -448,7 +448,7 @@ class SM2Mnemosyne(Scheduler):
         # Run hooks.
         card.fact.card_type.after_repetition(card)
         self.database().current_activity_criterion().apply_to_card(card)
-        for f in self.component_manager.get_all("hook", "after_repetition"):
+        for f in self.component_manager.all("hook", "after_repetition"):
             f.run(card)
         # Create log entry.
         self.log().repetition(card, scheduled_interval, actual_interval,

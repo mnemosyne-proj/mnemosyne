@@ -180,7 +180,7 @@ class Database(object):
     def all_log_entries(self, interested_in_old_reps=True):
         raise NotImplementedError
         
-    def check_for_updated_media_files(self):
+    def check_for_edited_media_files(self):
         raise NotImplementedError
     
     def media_filenames_to_sync_for(self, partner):    

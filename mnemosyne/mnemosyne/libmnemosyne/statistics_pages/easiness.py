@@ -15,7 +15,7 @@ class Easiness(PlotStatisticsPage):
     def __init__(self, component_manager):
         PlotStatisticsPage.__init__(self, component_manager)
         self.variants = [(self.ALL_CARDS, _("All cards"))]
-        for _id, name in self.database().get_tags__id_and_name():
+        for _id, name in self.database().tags__id_and_name():
             self.variants.append((_id, name))
         
     def prepare_statistics(self, variant):                

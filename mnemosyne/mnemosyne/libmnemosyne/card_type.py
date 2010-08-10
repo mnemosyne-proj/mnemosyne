@@ -41,7 +41,7 @@ class CardType(Component, CompareOnId):
     create the card type, because it is not sure that the renderer already
     exists at that stage.
 
-    The functions create_related_cards and update_related_cards and
+    The functions create_related_cards and edit_related_cards and
     after_review provide an extra layer of abstraction and can be overridden
     by card types like cloze deletion, which require a varying number of fact
     views with card specific data.
@@ -54,7 +54,7 @@ class CardType(Component, CompareOnId):
     id = "-1"
     name = ""
     component_type = "card_type"
-    renderer = None
+    _renderer = None
 
     fields = None
     fact_views = None
@@ -87,7 +87,7 @@ class CardType(Component, CompareOnId):
         
         """
         
-        return self.get_renderer().render_card_fields(card.fact,
+        return self.renderer().render_card_fields(card.fact,
             card.fact_view.q_fields, exporting)
 
     def answer(self, card, exporting):
@@ -96,18 +96,18 @@ class CardType(Component, CompareOnId):
         False are not run. 
         
         """
-        return self.get_renderer().render_card_fields(card.fact,
+        return self.renderer().render_card_fields(card.fact,
             card.fact_view.a_fields, exporting)
         
-    def get_renderer(self):
-        if self.renderer:
-            return self.renderer
+    def renderer(self):
+        if self._renderer:
+            return self._renderer
         else:
-            self.renderer = self.component_manager.\
-                   get_current("renderer", used_for=self.__class__)
-            if not self.renderer:
-                 self.renderer = self.component_manager.get_current("renderer")
-            return self.renderer
+            self._renderer = self.component_manager.\
+                current("renderer", used_for=self.__class__)
+            if not self._renderer:
+                 self._renderer = self.component_manager.current("renderer")
+            return self._renderer
 
     # The following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be
@@ -119,17 +119,17 @@ class CardType(Component, CompareOnId):
     def create_related_cards(self, fact):
         return [Card(fact, fact_view) for fact_view in self.fact_views]
 
-    def update_related_cards(self, fact, new_fact_data):
+    def edit_related_cards(self, fact, new_fact_data):
 
-        """If for the card type this operation results in updated, added or
-        deleted card data apart from the updated fact data from which they
+        """If for the card type this operation results in edited, added or
+        deleted card data apart from the edited fact data from which they
         derive, these should be returned here, so that they can be taken into
         account in the database storage.
 
         """
 
-        new_cards, updated_cards, deleted_cards = [], [], []
-        return new_cards, updated_cards, deleted_cards
+        new_cards, edited_cards, deleted_cards = [], [], []
+        return new_cards, edited_cards, deleted_cards
     
     def before_repetition(self, card):
         return

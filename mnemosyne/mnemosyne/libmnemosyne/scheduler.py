@@ -49,7 +49,7 @@ class Scheduler(Component):
 
         """Called by the rest of the library when an existing queue risks
         becoming invalid, e.g. when cards have been deleted in the GUI.
-        'get_next_card' also makes use of this in certain implementations.
+        'next_card' also makes use of this in certain implementations.
 
         """
         
@@ -67,13 +67,7 @@ class Scheduler(Component):
     def remove_from_queue_if_present(self, card):
         raise NotImplementedError        
 
-    def get_next_card(self, learn_ahead=False):
-        raise NotImplementedError
-    
-    def get_next_card_id(self, learn_ahead=False):
-
-        """Avoids creating a card object, which enables certain shortcuts."""
-        
+    def next_card(self, learn_ahead=False):
         raise NotImplementedError
     
     def allow_prefetch(self):

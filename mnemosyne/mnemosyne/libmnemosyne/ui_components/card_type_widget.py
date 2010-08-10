@@ -20,7 +20,7 @@ class CardTypeWidget(UiComponent):
     def contains_data(self):
         raise NotImplementedError
 
-    def get_data(self, check_for_required=True):
+    def data(self, check_for_required=True):
 
         """Get fact data from widget, optionally check for required fields.
         Should raise a ValueError if required fields are missing.

@@ -19,7 +19,7 @@ class SQLiteStatistics(object):
 
     """
 
-    def get_tags__id_and_name(self):
+    def tags__id_and_name(self):
         result = [(cursor[0], cursor[1]) for cursor in self.con.execute(\
             "select _id, name from tags")]
         result.sort(key=lambda x: x[1], cmp=numeric_string_cmp)

@@ -49,12 +49,12 @@ class Cloze(CardType):
         cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
         question = question.replace(cloze, "[...]",  1)
-        return self.get_renderer().render_text(question, "text",
+        return self.renderer().render_text(question, "text",
             card.fact.card_type, exporting)
 
     def answer(self, card, exporting):
         cloze = card.extra_data["cloze"]
-        return self.get_renderer().render_text(cloze, "text",
+        return self.renderer().render_text(cloze, "text",
             card.fact.card_type, exporting)
 
     def create_related_cards(self, fact):
@@ -67,18 +67,18 @@ class Cloze(CardType):
             cards.append(card)         
         return cards
 
-    def update_related_cards(self, fact, new_fact_data):        
-        new_cards, updated_cards, deleted_cards = [], [], []
+    def edit_related_cards(self, fact, new_fact_data):        
+        new_cards, edited_cards, deleted_cards = [], [], []
 
         old_clozes = cloze_re.findall(fact["text"])
         new_clozes = cloze_re.findall(new_fact_data["text"])
 
-        # If the number of clozes is equal, just update the existing cards.
+        # If the number of clozes is equal, just edit the existing cards.
         if len(old_clozes) == len(new_clozes):
             for card in self.database().cards_from_fact(fact):
                 index = card.extra_data["index"]
                 card.extra_data["cloze"]= new_clozes[index]
-                updated_cards.append(card)
+                edited_cards.append(card)
         # If not, things are a little more complicated.
         else:
             new_clozes_processed = set()
@@ -90,7 +90,7 @@ class Cloze(CardType):
                     card.extra_data["cloze"] = new_clozes[new_index]
                     card.extra_data["index"] = new_index
                     new_clozes_processed.add(new_clozes[new_index])
-                    updated_cards.append(card)
+                    edited_cards.append(card)
                 else:
                     deleted_cards.append(card)
             # For the new cards that we are about to create, we need to have
@@ -110,7 +110,7 @@ class Cloze(CardType):
                 id_suffix += 1
                 new_cards.append(card)
                      
-        return new_cards, updated_cards, deleted_cards
+        return new_cards, edited_cards, deleted_cards
 
 
 class ClozePlugin(Plugin):

@@ -41,7 +41,7 @@ class Mnemosyne1Mem(FileFormat):
         db.remove_card_log_entries_since(log_index)
         # The events that we import from the science logs obviously should not
         # be reexported to these logs. So, before the import, we flush the SQL
-        # logs to the science logs, and after the import we update the
+        # logs to the science logs, and after the import we edit the
         # partership index.
         db.dump_to_science_log()
         self._import_logs(filename)
@@ -53,10 +53,10 @@ class Mnemosyne1Mem(FileFormat):
         # In 2.x, repetition events are used to update a card's last_rep and
         # next_rep during sync. In 1.x, there was no such information, and
         # calculating it from the logs will fail if they are incomplete.
-        # Therefore, we force a card update event for all cards.
+        # Therefore, we force a card edit event for all cards.
         timestamp = int(time.time())
         for item in self.items:
-            db.log_updated_card(timestamp, item.id)
+            db.log_edited_card(timestamp, item.id)
         # Mananage database indices.
         db.after_mem_import()
         db.save()
@@ -88,7 +88,7 @@ class Mnemosyne1Mem(FileFormat):
             return -1
         # See if the file was imported before.
         try:
-            card = self.database().get_card(self.items[0].id,
+            card = self.database().card(self.items[0].id,
                 id_is_internal=False)
         except:
             card = None
@@ -235,7 +235,7 @@ class Mnemosyne1Mem(FileFormat):
             card.acq_reps_since_lapse = 0
             card.last_rep = -1
             card.next_rep = -1
-        self.database().update_card(card)
+        self.database().edit_card(card)
         
     def _preprocess_media(self, fact_data):        
         mediadir = self.database().mediadir()
@@ -279,4 +279,3 @@ class Mnemosyne1Mem(FileFormat):
             if component.component_type == "card_type" and component.id == "4":
                 plugin.activate()
     
-

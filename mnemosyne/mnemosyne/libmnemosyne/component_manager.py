@@ -52,11 +52,11 @@ class ComponentManager(object):
         
         """
         
-        for plugin in self.get_all("plugin"):
+        for plugin in self.all("plugin"):
             if plugin.__class__.__name__ == plugin_class_name:
                 plugin.components.append(component_class)
 
-    def get_all(self, comp_type, used_for=None):
+    def all(self, comp_type, used_for=None):
         
         """For components for which there can be many active at once."""
 
@@ -95,14 +95,14 @@ class ComponentManager(object):
                             return []
                 return []
         
-    def get_current(self, comp_type, used_for=None):
+    def current(self, comp_type, used_for=None):
         
         """For components for which there can be only one active at any
         time.
 
         """
 
-        all = self.get_all(comp_type, used_for)
+        all = self.all(comp_type, used_for)
         if all == []:
             return None
         else:

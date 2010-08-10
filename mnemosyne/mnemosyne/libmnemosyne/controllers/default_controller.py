@@ -41,7 +41,7 @@ class DefaultController(Controller):
     def add_cards(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.get_current("add_cards_dialog")\
+        self.component_manager.current("add_cards_dialog")\
             (self.component_manager).activate()
         self.database().save()
         review_controller = self.review_controller()
@@ -57,7 +57,7 @@ class DefaultController(Controller):
         self.flush_sync_server()
         review_controller = self.review_controller()
         fact = review_controller.card.fact
-        self.component_manager.get_current("edit_fact_dialog")\
+        self.component_manager.current("edit_fact_dialog")\
             (fact, self.component_manager).activate()
         review_controller.reload_counters()
         # Our current card could have disappeared from the database here,
@@ -66,7 +66,7 @@ class DefaultController(Controller):
         if review_controller.card is None:
             review_controller.new_question()
         else:
-            review_controller.card = self.database().get_card(\
+            review_controller.card = self.database().card(\
                 review_controller.card._id, id_is_internal=True)
             review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
@@ -115,9 +115,9 @@ class DefaultController(Controller):
                         for key in fact_data:
                             if key not in card_type.required_fields:
                                 merged_fact_data[key] += " / " + duplicate[key]
-                        db.delete_fact_and_related_data(duplicate)
+                        db.delete_fact_and_related_cards(duplicate)
                     fact.data = merged_fact_data
-                    self.component_manager.get_current("edit_fact_dialog")\
+                    self.component_manager.current("edit_fact_dialog")\
                       (fact, self.component_manager, allow_cancel=False).\
                       activate()
                     return
@@ -145,14 +145,14 @@ class DefaultController(Controller):
             self.review_controller().reset()
         return cards
 
-    def update_related_cards(self, fact, new_fact_data, new_card_type, \
+    def edit_related_cards(self, fact, new_fact_data, new_card_type, \
                              new_tag_names, correspondence):
         # Change card type.
         db = self.database()
         sch = self.scheduler()
         old_card_type = fact.card_type
         if old_card_type != new_card_type:
-            converter = self.component_manager.get_current\
+            converter = self.component_manager.current\
                   ("card_type_converter", used_for=(old_card_type.__class__,
                                                     new_card_type.__class__))
             if not converter:
@@ -161,7 +161,7 @@ class DefaultController(Controller):
                 parents_new = new_card_type.id.split("::")
                 if parents_old[0] == parents_new[0]: 
                     fact.card_type = new_card_type
-                    updated_cards = db.cards_from_fact(fact)      
+                    edited_cards = db.cards_from_fact(fact)      
                 else:
                     answer = self.main_widget().question_box(\
          _("Can't preserve history when converting between these card types.")\
@@ -170,7 +170,7 @@ class DefaultController(Controller):
                     if answer == 1:   # Cancel.
                         return -1
                     else:
-                        db.delete_fact_and_related_data(fact)
+                        db.delete_fact_and_related_cards(fact)
                         card = self.create_new_cards(new_fact_data,
                           new_card_type, grade=-1, tag_names=new_tag_names)[0]
                         self.review_controller().card = card
@@ -180,12 +180,12 @@ class DefaultController(Controller):
                 # already know their new type, otherwise we could get
                 # conflicting ids.
                 fact.card_type = new_card_type
-                cards_to_be_updated = db.cards_from_fact(fact)
-                for card in cards_to_be_updated:
+                cards_to_be_edited = db.cards_from_fact(fact)
+                for card in cards_to_be_edited:
                     card.fact = fact
                 # Do the conversion.
-                new_cards, updated_cards, deleted_cards = \
-                   converter.convert(cards_to_be_updated, old_card_type,
+                new_cards, edited_cards, deleted_cards = \
+                   converter.convert(cards_to_be_edited, old_card_type,
                                      new_card_type, correspondence)
                 if len(deleted_cards) != 0:
                     answer = self.main_widget().question_box(\
@@ -202,17 +202,17 @@ class DefaultController(Controller):
                     db.delete_card(card)
                 for card in new_cards:
                     db.add_card(card)
-                for card in updated_cards:
-                    db.update_card(card)
+                for card in edited_cards:
+                    db.edit_card(card)
                 if new_cards and self.review_controller().learning_ahead:
                     self.review_controller().reset()
                     
         # Update fact and create or delete cards.
-        new_cards, updated_cards, deleted_cards = \
-            fact.card_type.update_related_cards(fact, new_fact_data)
+        new_cards, edited_cards, deleted_cards = \
+            fact.card_type.edit_related_cards(fact, new_fact_data)
         fact.modification_time = int(time.time())
         fact.data = new_fact_data
-        db.update_fact(fact)
+        db.edit_fact(fact)
         for card in deleted_cards:
             if self.review_controller().card == card:
                 self.review_controller().card = None
@@ -223,14 +223,14 @@ class DefaultController(Controller):
         if new_cards and self.review_controller().learning_ahead == True:
             self.review_controller().reset()
             
-        # Create new tags if needed and fetch the updated activity criterion.
+        # Create new tags if needed and fetch the edited activity criterion.
         tags = set()
         for tag_name in new_tag_names:
             tags.add(db.get_or_create_tag_with_name(tag_name))
         criterion = db.current_activity_criterion()
 
         # Apply new tags and activity criterion to cards and save cards back
-        # to the database. Note that this makes sure there is an UPDATED_CARD
+        # to the database. Note that this makes sure there is an EDITED_CARD
         # log entry for each related card, which is needed when syncing with a
         # partner that does not have the concept of facts.
         old_tags = set()
@@ -238,7 +238,7 @@ class DefaultController(Controller):
             old_tags = old_tags.union(card.tags)
             card.tags = tags
             criterion.apply_to_card(card)
-            db.update_card(card)
+            db.edit_card(card)
         for tag in old_tags:
             db.remove_tag_if_unused(tag)
         db.save()
@@ -268,7 +268,7 @@ class DefaultController(Controller):
         if answer == 1:  # Cancel.
             self.stopwatch().unpause()
             return
-        db.delete_fact_and_related_data(fact)
+        db.delete_fact_and_related_cards(fact)
         db.save()
         review_controller.reload_counters()
         review_controller.new_question()
@@ -461,7 +461,7 @@ class DefaultController(Controller):
     def activate_cards(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.get_current("activate_cards_dialog")\
+        self.component_manager.current("activate_cards_dialog")\
             (self.component_manager).activate()
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
@@ -471,14 +471,14 @@ class DefaultController(Controller):
     def browse_cards(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.get_current("browse_cards_dialog")\
+        self.component_manager.current("browse_cards_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def card_appearance(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.get_current("card_appearance_dialog")\
+        self.component_manager.current("card_appearance_dialog")\
             (self.component_manager).activate()
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
@@ -486,7 +486,7 @@ class DefaultController(Controller):
     def activate_plugins(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.get_current("activate_plugins_dialog")\
+        self.component_manager.current("activate_plugins_dialog")\
             (self.component_manager).activate()
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
@@ -494,21 +494,21 @@ class DefaultController(Controller):
     def manage_card_types(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.get_current("manage_card_types_dialog")\
+        self.component_manager.current("manage_card_types_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def show_statistics(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.get_current("statistics_dialog")\
+        self.component_manager.current("statistics_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
         
     def configure(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.component_manager.get_current("configuration_dialog")\
+        self.component_manager.current("configuration_dialog")\
             (self.component_manager).activate()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.stopwatch().unpause()
@@ -524,7 +524,7 @@ class DefaultController(Controller):
         if not filename:
             self.stopwatch().unpause()
             return
-        self.component_manager.get_current("file_format").do_import(filename)
+        self.component_manager.current("file_format").do_import(filename)
         self.database().save()
         self.log().saved_database()
         review_controller = self.review_controller()
@@ -545,7 +545,7 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.database().save()        
-        self.component_manager.get_current("sync_dialog")\
+        self.component_manager.current("sync_dialog")\
             (self.component_manager).activate()
         self.database().save()
         self.log().saved_database()

@@ -98,10 +98,10 @@ class Database(Component):
     def add_tag(self, tag):
         raise NotImplementedError
 
-    def get_tag(self, id, id_is_internal):
+    def tag(self, id, id_is_internal):
         raise NotImplementedError
     
-    def update_tag(self, tag):
+    def edit_tag(self, tag):
         raise NotImplementedError
 
     def delete_tag(self, tag):
@@ -113,10 +113,10 @@ class Database(Component):
     def remove_tag_if_unused(self, tag):
         raise NotImplementedError
     
-    def get_tags(self):
+    def tags(self):
         raise NotImplementedError
     
-    def get_tag_names(self):
+    def tag_names(self):
         raise NotImplementedError
     
     # Facts.
@@ -124,13 +124,13 @@ class Database(Component):
     def add_fact(self, fact):
         raise NotImplementedError
     
-    def get_fact(self, id, id_is_internal):
+    def fact(self, id, id_is_internal):
         raise NotImplementedError
     
-    def update_fact(self, fact):
+    def edit_fact(self, fact):
         raise NotImplementedError
 
-    def delete_fact_and_related_data(self, fact):
+    def delete_fact_and_related_cards(self, fact):
         raise NotImplementedError
     
     # Cards.
@@ -138,10 +138,10 @@ class Database(Component):
     def add_card(self, card):
         raise NotImplementedError
         
-    def get_card(self, id, id_is_internal):
+    def card(self, id, id_is_internal):
         raise NotImplementedError
     
-    def update_card(self, card, repetition_only=False):
+    def edit_card(self, card, repetition_only=False):
         raise NotImplementedError
 
     def delete_card(self, card):
@@ -152,10 +152,10 @@ class Database(Component):
     def add_fact_view(self, fact_view):
         raise NotImplementedError
 
-    def get_fact_view(self, id, id_is_internal):
+    def fact_view(self, id, id_is_internal):
         raise NotImplementedError
     
-    def update_fact_view(self, fact_view):
+    def edit_fact_view(self, fact_view):
         raise NotImplementedError
 
     def delete_fact_view(self, fact_view):
@@ -166,10 +166,10 @@ class Database(Component):
     def add_card_type(self, card_type):
         raise NotImplementedError
 
-    def get_card_type(self, id, id_is_internal):
+    def card_type(self, id, id_is_internal):
         raise NotImplementedError
     
-    def update_card_type(self, card_type):
+    def edit_card_type(self, card_type):
         raise NotImplementedError
 
     def delete_card_type(self, card_type):
@@ -180,10 +180,10 @@ class Database(Component):
     def add_activity_criterion(self, criterion):
         raise NotImplementedError
 
-    def get_activity_criterion(self, id, id_is_internal):
+    def activity_criterion(self, id, id_is_internal):
         raise NotImplementedError
     
-    def update_activity_criterion(self, criterion):
+    def edit_activity_criterion(self, criterion):
         raise NotImplementedError
 
     def delete_activity_criterion(self, criterion):
@@ -195,7 +195,7 @@ class Database(Component):
     def current_activity_criterion(self):
         raise NotImplementedError
     
-    def get_activity_criteria(self):
+    def activity_criteria(self):
         raise NotImplementedError    
     
     # Queries.
@@ -272,4 +272,3 @@ class Database(Component):
 
     def scheduler_data_count(self, scheduler_data):        
         raise NotImplementedError
-

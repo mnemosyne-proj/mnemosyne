@@ -149,10 +149,10 @@ class Mnemosyne(Component):
         for component in  ["config", "log", "database", "scheduler",
                            "controller"]:
             try:
-                self.component_manager.get_current(component).activate()
+                self.component_manager.current(component).activate()
             except RuntimeError, e:
                 self.main_widget().error_box(unicode(e))
-        server = self.component_manager.get_current("sync_server")
+        server = self.component_manager.current("sync_server")
         if server:
             server.activate()
 
@@ -224,7 +224,7 @@ class Mnemosyne(Component):
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts
         # to the right backup file.
-        server = self.component_manager.get_current("sync_server")
+        server = self.component_manager.current("sync_server")
         if server:
             server.deactivate()
         # Saving the config should happen before we deactivate the plugins,

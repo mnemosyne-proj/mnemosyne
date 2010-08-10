@@ -27,37 +27,37 @@ class MnemosyneTest():
         self.mnemosyne.finalise()
 
     def config(self):
-        return self.mnemosyne.component_manager.get_current("config")
+        return self.mnemosyne.component_manager.current("config")
 
     def log(self):
-        return self.mnemosyne.component_manager.get_current("log")
+        return self.mnemosyne.component_manager.current("log")
 
     def database(self):
-        return self.mnemosyne.component_manager.get_current("database")
+        return self.mnemosyne.component_manager.current("database")
 
     def scheduler(self):
-        return self.mnemosyne.component_manager.get_current("scheduler")
+        return self.mnemosyne.component_manager.current("scheduler")
 
     def main_widget(self):
-        return self.mnemosyne.component_manager.get_current("main_widget")
+        return self.mnemosyne.component_manager.current("main_widget")
 
     def review_widget(self):
-        return self.mnemosyne.component_manager.get_current("review_widget")
+        return self.mnemosyne.component_manager.current("review_widget")
 
     def controller(self):
-        return self.mnemosyne.component_manager.get_current("controller")
+        return self.mnemosyne.component_manager.current("controller")
 
     def review_controller(self):
-        return self.mnemosyne.component_manager.get_current("review_controller")
+        return self.mnemosyne.component_manager.current("review_controller")
 
     def card_types(self):
-        return self.mnemosyne.component_manager.get_all("card_type")
+        return self.mnemosyne.component_manager.all("card_type")
 
     def filters(self):
-        return self.mnemosyne.component_manager.get_all("filter")
+        return self.mnemosyne.component_manager.all("filter")
 
     def plugins(self):
-        return self.mnemosyne.component_manager.get_all("plugin")
+        return self.mnemosyne.component_manager.all("plugin")
 
     def card_type_by_id(self, id): 
         return self.mnemosyne.component_manager.card_type_by_id[id]

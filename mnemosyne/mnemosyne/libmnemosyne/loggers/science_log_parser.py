@@ -94,7 +94,7 @@ class ScienceLogParser(object):
             ret_reps, lapses, acq_reps_since_lapse, ret_reps_since_lapse,
             scheduled_interval, actual_interval, new_interval, thinking_time)
         def set_offset_last_rep(self, card_id, offset, last_rep)
-        def get_offset_last_rep(self, card_id)
+        def offset_last_rep(self, card_id)
         def update_card_after_log_import(id, creation_time, offset)
 
     Note that we don't go through the log() level of abstraction here, as this
@@ -223,7 +223,7 @@ class ScienceLogParser(object):
         # Check if we've seen this card before. If so, we are restoring from a
         # backup and don't need to update the database.
         try:
-            offset, last_rep = self.database.get_offset_last_rep(id)
+            offset, last_rep = self.database.offset_last_rep(id)
         except:
             offset = 0
             last_rep = 0
@@ -239,7 +239,7 @@ class ScienceLogParser(object):
         # Only log the deletion if we've seen the card before, as a safeguard
         # against corrupt logs.
         try:
-            offset, last_rep = self.database.get_offset_last_rep(id)
+            offset, last_rep = self.database.offset_last_rep(id)
             self.database.log_deleted_card(self.timestamp, id)
         except:
             pass
@@ -271,7 +271,7 @@ class ScienceLogParser(object):
                 # Calculate 'actual_interval' and update 'last_rep'.
                 # (Note: 'last_rep' is the time the card was graded, not when
                 # it was shown.)
-                offset, last_rep = self.database.get_offset_last_rep(id)
+                offset, last_rep = self.database.offset_last_rep(id)
                 if last_rep:
                     actual_interval = self.previous_timestamp - last_rep               
                 else:
@@ -297,4 +297,5 @@ class ScienceLogParser(object):
             ret_reps_since_lapse, scheduled_interval, actual_interval,
             new_interval, thinking_time, last_rep=0, next_rep=0,
             scheduler_data=0)
+        
         

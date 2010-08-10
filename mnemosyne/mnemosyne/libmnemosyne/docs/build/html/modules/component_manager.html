@@ -69,20 +69,20 @@ component which obviously does not live inside libmnemosyne, and which
 needs to be added at a later stage.</dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all">
-<tt class="descname">deactivate_all</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.get_all">
-<tt class="descname">get_all</tt><big>(</big><em>comp_type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.get_all" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.all">
+<tt class="descname">all</tt><big>(</big><em>comp_type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.all" title="Permalink to this definition">¶</a></dt>
 <dd>For components for which there can be many active at once.</dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.get_current">
-<tt class="descname">get_current</tt><big>(</big><em>comp_type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.get_current" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.current">
+<tt class="descname">current</tt><big>(</big><em>comp_type</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.current" title="Permalink to this definition">¶</a></dt>
 <dd>For components for which there can be only one active at any
 time.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all">
+<tt class="descname">deactivate_all</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.register">
@@ -152,7 +152,7 @@ time.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2010.
+      Last updated on Aug 10, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

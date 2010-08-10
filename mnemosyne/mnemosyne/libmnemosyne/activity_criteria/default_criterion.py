@@ -63,11 +63,11 @@ class DefaultCriterion(ActivityCriterion):
     def data_to_sync_string(self):
         active_tag_ids = set()
         for tag__id in self.active_tag__ids:
-            tag = self.database().get_tag(tag__id, id_is_internal=True)
+            tag = self.database().tag(tag__id, id_is_internal=True)
             active_tag_ids.add(tag.id)
         forbidden_tag_ids = set()
         for tag__id in self.forbidden_tag__ids:
-            tag = self.database().get_tag(tag__id, id_is_internal=True)
+            tag = self.database().tag(tag__id, id_is_internal=True)
             forbidden_tag_ids.add(tag.id)
         return repr((self.deactivated_card_type_fact_view_ids,
                      active_tag_ids, forbidden_tag_ids))
@@ -79,9 +79,9 @@ class DefaultCriterion(ActivityCriterion):
         forbidden_tag_ids = data[2]
         self.active_tag__ids = set()
         for tag_id in active_tag_ids:
-            tag = self.database().get_tag(tag_id, id_is_internal=False)
+            tag = self.database().tag(tag_id, id_is_internal=False)
             self.active_tag__ids.add(tag._id)        
         self.forbidden_tag__ids = set()
         for tag_id in forbidden_tag_ids:
-            tag = self.database().get_tag(tag_id, id_is_internal=False)
+            tag = self.database().tag(tag_id, id_is_internal=False)
             self.forbidden_tag__ids.add(tag._id)        

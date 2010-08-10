@@ -52,7 +52,7 @@ class TestCloze(MnemosyneTest):
         
         assert card.answer() == """<html><head><style type="text/css"><br>        table { height: 100%; margin-left: auto; margin-right: auto;  }<br>body { margin: 0;<br>        padding: 0;<br>        border: thin solid #8F8F8F; }<br>div#text { text-align: center; }<br></style></head><body><table><tr><td><div id="%s"><div id="text">b</div></td></tr></table></body></html>"""
         
-    def test_update(self):
+    def test_edit(self):
         card_type = self.card_type_by_id("5")
         
         fact_data = {"text": "a [b] [c]"}
@@ -68,21 +68,21 @@ class TestCloze(MnemosyneTest):
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_] [c_]"}
-        self.controller().update_related_cards(fact, fact_data,
+        self.controller().edit_related_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_]"}
-        self.controller().update_related_cards(fact, fact_data,
+        self.controller().edit_related_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
         
         fact_data = {"text": "a_ [b_] [d] [e]"}
-        self.controller().update_related_cards(fact, fact_data,
+        self.controller().edit_related_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1

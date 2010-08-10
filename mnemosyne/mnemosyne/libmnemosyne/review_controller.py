@@ -56,7 +56,7 @@ class ReviewController(Component):
         
         raise NotImplementedError
 
-    def get_counters(self):
+    def counters(self):
 
         """Returns tuple (scheduled_count, non_memorised_count, active_count)."""
         

@@ -123,7 +123,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         colour = QtGui.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
-                card_type.get_renderer().set_property("background_colour",
+                card_type.renderer().set_property("background_colour",
                                                       colour.rgb(), card_type)
             self.changed = True
         
@@ -149,7 +149,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         if ok:
             font_string = unicode(font.toString())
             for card_type in self.affected_card_types:
-                card_type.get_renderer().set_property("font", font_string,
+                card_type.renderer().set_property("font", font_string,
                                                       card_type, affected_key)
             self.changed = True
         
@@ -174,7 +174,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         colour = QtGui.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
-                card_type.get_renderer().set_property("font_colour",
+                card_type.renderer().set_property("font_colour",
                                  colour.rgb(), card_type, affected_key)
             self.changed = True
         
@@ -186,19 +186,19 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         elif index == 2:
             new_alignment = "right"                
         for card_type in self.affected_card_types:
-            card_type.get_renderer().set_property(\
+            card_type.renderer().set_property(\
                 "alignment", new_alignment, card_type)
         self.alignment.font().setWeight(50)
         self.changed = True
         
     def accept(self):
         for card_type in self.affected_card_types:
-            card_type.get_renderer().update(card_type)
+            card_type.renderer().update(card_type)
         QtGui.QDialog.accept(self)     
         
     def preview(self):
         card_type = self.affected_card_types[0]
-        card_type.get_renderer().update(card_type)
+        card_type.renderer().update(card_type)
         fact_data = {}
         for fact_key, fact_key_name in card_type.fields:
             fact_data[fact_key] = fact_key_name

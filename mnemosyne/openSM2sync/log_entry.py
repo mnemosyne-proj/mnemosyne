@@ -17,34 +17,34 @@ class EventTypes(object):
     SAVED_DATABASE = 5
     
     ADDED_CARD = 6
-    UPDATED_CARD = 7
+    EDITED_CARD = 7
     DELETED_CARD = 8
     REPETITION = 9
     
     ADDED_TAG = 10
-    UPDATED_TAG = 11
+    EDITED_TAG = 11
     DELETED_TAG = 12
 
     ADDED_MEDIA = 13
-    UPDATED_MEDIA = 14
+    EDITED_MEDIA = 14
     DELETED_MEDIA = 15
 
     # Only relevant for fact-based clients.
     
     ADDED_FACT = 16
-    UPDATED_FACT = 17
+    EDITED_FACT = 17
     DELETED_FACT = 18
 
     ADDED_FACT_VIEW = 19
-    UPDATED_FACT_VIEW = 20
+    EDITED_FACT_VIEW = 20
     DELETED_FACT_VIEW = 21
        
     ADDED_CARD_TYPE = 22
-    UPDATED_CARD_TYPE = 23
+    EDITED_CARD_TYPE = 23
     DELETED_CARD_TYPE = 24
 
     ADDED_ACTIVITY_CRITERION = 25
-    UPDATED_ACTIVITY_CRITERION = 26
+    EDITED_ACTIVITY_CRITERION = 26
     DELETED_ACTIVITY_CRITERION = 27
 
 
@@ -67,7 +67,7 @@ class LogEntry(dict):
             Mnemosyne. The number of scheduled, non memorised and active cards
             in the database.
             
-    Keys specific to ADDED_CARD, UPDATED_CARD:
+    Keys specific to ADDED_CARD, EDITED_CARD:
         fact (nice_string), fact_v (nice_string): fact id and fact view id
         q, a (string): question and answer, if partner does not support facts.
         tags (nice_string): comma separated list of tag ids
@@ -108,13 +108,13 @@ class LogEntry(dict):
         plugins to work with. On the other hand, it contains all the info
         needed to update the corresponding card in the database.
         
-    Keys specific to ADDED_TAG, UPDATED_TAG:
+    Keys specific to ADDED_TAG, EDITED_TAG:
         name (string): tag name
 
-    Keys specific to ADDED_MEDIA, UPDATED_MEDIA, DELETED_MEDIA:
+    Keys specific to ADDED_MEDIA, EDITED_MEDIA, DELETED_MEDIA:
         fname (string): filename
 
-    Keys specific to ADDED_FACT, UPDATED_FACT:
+    Keys specific to ADDED_FACT, EDITED_FACT:
         card_t (nice_string), c_time (int), m_time (int): card type id,
             creation time, modification time (Unix timestamp).
 
@@ -124,7 +124,7 @@ class LogEntry(dict):
     The following events are entirely optional, certainly for card-based
     clients. Consult libmnemosyne's code for more details.
     
-    Keys specific to ADDED_FACT_VIEW, UPDATED_FACT_VIEW, DELETED_FACT_VIEW:
+    Keys specific to ADDED_FACT_VIEW, EDITED_FACT_VIEW, DELETED_FACT_VIEW:
         name (string)
         q_fields (string)
         a_fields (string)
@@ -132,7 +132,7 @@ class LogEntry(dict):
         type_answer (bool)
         extra (string)
 
-    Keys specific to ADDED_CARD_TYPE, UPDATED_CARD_TYPE, DELETED_CARD_TYPE:
+    Keys specific to ADDED_CARD_TYPE, EDITED_CARD_TYPE, DELETED_CARD_TYPE:
         name (string)
         fields (string)
         fact_views (string)
@@ -141,7 +141,7 @@ class LogEntry(dict):
         keyboard_shortcuts (string)
         extra (string)
                 
-    Keys specific to ADDED_ACTIVITY_CRITERION, UPDATED_ACTIVITY_CRITERION,
+    Keys specific to ADDED_ACTIVITY_CRITERION, EDITED_ACTIVITY_CRITERION,
         DELETED_ACTIVITY_CRITERION:
         name (string)
         criterion_type (string)
@@ -161,4 +161,3 @@ class LogEntry(dict):
     """
     
     pass
-

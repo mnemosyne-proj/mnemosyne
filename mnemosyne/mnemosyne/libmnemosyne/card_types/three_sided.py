@@ -51,8 +51,8 @@ class FrontToBackToThreeSided(CardTypeConverter):
             new_card = Card(cards[0].fact, new_card_type.fact_views[0])
         else:
             new_card = Card(cards[0].fact, new_card_type.fact_views[1])
-        new_cards, updated_cards, deleted_cards = [new_card], [cards[0]], []
-        return new_cards, updated_cards, deleted_cards
+        new_cards, edited_cards, deleted_cards = [new_card], [cards[0]], []
+        return new_cards, edited_cards, deleted_cards
 
 
 class BothWaysToThreeSided(CardTypeConverter):
@@ -71,8 +71,8 @@ class BothWaysToThreeSided(CardTypeConverter):
                     card.fact_view = new_card_type.fact_views[0]
                 else:
                     card.fact_view = new_card_type.fact_views[1]
-        new_cards, updated_cards, deleted_cards = [], cards, []
-        return new_cards, updated_cards, deleted_cards
+        new_cards, edited_cards, deleted_cards = [], cards, []
+        return new_cards, edited_cards, deleted_cards
 
 
 class ThreeSidedToFrontToBack(CardTypeConverter):
@@ -80,12 +80,12 @@ class ThreeSidedToFrontToBack(CardTypeConverter):
     used_for = (ThreeSided, FrontToBack)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
-        new_cards, updated_cards, deleted_cards = [], [], []
+        new_cards, edited_cards, deleted_cards = [], [], []
         for card in cards:
             if card.fact_view == old_card_type.fact_views[0]:
                 if "f" in correspondence and correspondence["f"] == "q":
                     card.fact_view = new_card_type.fact_views[0]
-                    updated_cards.append(card)
+                    edited_cards.append(card)
                 else:
                     deleted_cards.append(card)
             if card.fact_view == old_card_type.fact_views[1]:
@@ -93,8 +93,8 @@ class ThreeSidedToFrontToBack(CardTypeConverter):
                     deleted_cards.append(card)
                 else:
                     card.fact_view = new_card_type.fact_views[0]
-                    updated_cards.append(card)
-        return new_cards, updated_cards, deleted_cards
+                    edited_cards.append(card)
+        return new_cards, edited_cards, deleted_cards
 
 
 class ThreeSidedToBothWays(CardTypeConverter):
@@ -113,5 +113,5 @@ class ThreeSidedToBothWays(CardTypeConverter):
                     card.fact_view = new_card_type.fact_views[1]
                 else:
                     card.fact_view = new_card_type.fact_views[0]
-        new_cards, updated_cards, deleted_cards = [], cards, []
-        return new_cards, updated_cards, deleted_cards
+        new_cards, edited_cards, deleted_cards = [], cards, []
+        return new_cards, edited_cards, deleted_cards

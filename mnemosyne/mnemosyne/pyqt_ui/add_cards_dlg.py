@@ -51,7 +51,7 @@ class AddEditCards(Component):
         # statement.
         if self.card_type_widget:  # Get data from previous card widget.
             prefill_data = \
-                     self.card_type_widget.get_data()
+                     self.card_type_widget.data()
             self.card_type_widget.close()
             self.card_type_widget = None
         else:
@@ -60,7 +60,7 @@ class AddEditCards(Component):
             except:  # Start from scratch in the 'add' dialog.
                 prefill_data = None          
         # Transform keys in dictionary if the card type has changed, but don't
-        # update the fact just yet.
+        # edit the fact just yet.
         if prefill_data:
             for key in prefill_data:
                 if key in self.correspondence:
@@ -70,12 +70,12 @@ class AddEditCards(Component):
         card_type_name = unicode(self.card_types_widget.currentText())
         self.card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
-            self.card_type_widget = self.component_manager.get_current\
+            self.card_type_widget = self.component_manager.current\
                     ("card_type_widget", used_for=self.card_type.__class__)\
                           (self.component_manager, parent=self)
         except:
             if not self.card_type_widget:
-                self.card_type_widget = self.component_manager.get_current\
+                self.card_type_widget = self.component_manager.current\
                     ("generic_card_type_widget")(self.component_manager,
                         parent=self, card_type=self.card_type)
         self.card_type_widget.set_data(prefill_data)
@@ -85,7 +85,7 @@ class AddEditCards(Component):
     def update_tags_combobox(self, current_tag_name):
         self.tags.clear()
         self.tags.addItem(_("<default>"))
-        sorted_tags = sorted(self.database().get_tag_names(),
+        sorted_tags = sorted(self.database().tag_names(),
                              cmp=numeric_string_cmp)
         for name in sorted_tags:
             if name != _("<default>"):
@@ -114,7 +114,7 @@ class AddEditCards(Component):
             self.update_card_widget()
 
     def preview(self):
-        fact_data = self.card_type_widget.get_data()
+        fact_data = self.card_type_widget.data()
         fact = Fact(fact_data, self.card_type)
         cards = self.card_type.create_related_cards(fact)
         tag_text = self.tags.currentText()
@@ -163,7 +163,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.preview_button.setEnabled(valid)
         
     def new_cards(self, grade):
-        fact_data = self.card_type_widget.get_data()
+        fact_data = self.card_type_widget.data()
         tag_names = [c.strip() for c in \
                      unicode(self.tags.currentText()).split(',')]
         card_type_name = unicode(self.card_types_widget.currentText())
@@ -185,4 +185,3 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
                 return
         else:
             QtGui.QDialog.reject(self)
-

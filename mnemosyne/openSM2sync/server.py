@@ -276,8 +276,8 @@ class Server(WSGIServer, Partner):
                 "supports_binary_log_download": \
                     self.supports_binary_log_download(session)}
             # We check if files were updated outside of the program. This can
-            # generate MEDIA_UPDATED log entries, so it should be done first.
-            session.database.check_for_updated_media_files()
+            # generate MEDIA_EDITED log entries, so it should be done first.
+            session.database.check_for_edited_media_files()
             return self.text_format.repr_partner_info(server_info)\
                    .encode("utf-8")
         except:

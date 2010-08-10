@@ -20,10 +20,10 @@ class TestCardType(MnemosyneTest):
         card_type = self.controller().clone_card_type(\
             card_type, ("1 clone"))
         card_type.extra_data = {"b": "b"}
-        self.database().update_card_type(card_type)
+        self.database().edit_card_type(card_type)
         self.database().save()
         self.mnemosyne.component_manager.unregister(card_type)
-        card_type_out = self.database().get_card_type(card_type.id,
+        card_type_out = self.database().card_type(card_type.id,
                                                       id_is_internal=False)
         assert card_type_out.key_with_name("Question") == "q"
         assert card_type_out.required_fields == ["q"]
@@ -62,7 +62,7 @@ class TestCardType(MnemosyneTest):
 
         self.controller().delete_card_type(card_type_1)
 
-        card_type_out = self.database().get_card_type(card_type_2.id,
+        card_type_out = self.database().card_type(card_type_2.id,
                                                       id_is_internal=False)
 
         assert card_type_out.fact_views[0].id == \
@@ -85,10 +85,10 @@ class TestCardType(MnemosyneTest):
         card_type = self.controller().clone_card_type(\
             card_type, ("1 clone cloned"))
         card_type.extra_data = {"b": "b"}
-        self.database().update_card_type(card_type)
+        self.database().edit_card_type(card_type)
         self.database().save()
         self.mnemosyne.component_manager.unregister(card_type)
-        card_type_out = self.database().get_card_type(card_type.id,
+        card_type_out = self.database().card_type(card_type.id,
                                                       id_is_internal=False)
         assert card_type_out.key_with_name("Question") == "q"
         assert card_type_out.required_fields == ["q"]

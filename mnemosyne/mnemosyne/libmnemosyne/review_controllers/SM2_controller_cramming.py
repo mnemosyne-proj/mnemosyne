@@ -19,12 +19,12 @@ class SM2ControllerCramming(SM2Controller):
         if self.scheduler().allow_prefetch():
             self.new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().update_card(card_to_grade, repetition_only=True)
+            self.database().edit_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
         else:
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().update_card(card_to_grade, repetition_only=True)
+            self.database().edit_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
             self.new_question()
@@ -33,7 +33,7 @@ class SM2ControllerCramming(SM2Controller):
             self.review_widget().update_status_bar(_("Returns in") + " " + \
                   str(interval) + _(" day(s)."))
 
-    def get_counters(self):
+    def counters(self):
         db = self.database()
         return db.scheduler_data_count(Cramming.WRONG), \
             db.scheduler_data_count(Cramming.UNSEEN), db.active_count()

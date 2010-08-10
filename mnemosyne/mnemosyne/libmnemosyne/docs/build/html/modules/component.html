@@ -59,7 +59,7 @@ scheduler, stopwatch, translator, filter, card_type, card_type_converter,
 card_type_widget, generic_card_type_widget, ui_component, renderer,
 controller, main_widget, review_controller, review_widget, file format,
 plugin, hook, activity_criterion, criterion_applier, statistics_page,
-all the abstract dialogs, ...</p>
+sync_server, all the abstract dialogs, ...</p>
 <p>&#8216;used_for&#8217; can store certain relationships between components, e.g.
 a card type widget is used for a certain card type.</p>
 <p>Most of the time, instances are stored here, apart from widgets when
@@ -121,6 +121,15 @@ components on which it relies have not yet been registered.</dd></dl>
 <dt id="mnemosyne.libmnemosyne.component.Component.filters">
 <tt class="descname">filters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.filters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.component.Component.flush_sync_server">
+<tt class="descname">flush_sync_server</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.flush_sync_server" title="Permalink to this definition">¶</a></dt>
+<dd>If there are still dangling sessions (i.e. those waiting in vain
+for more client input) in the sync server, we should flush them and
+make sure they restore from backup before doing anything that could
+change the database. Otherwise, if these sessions close during program
+shutdown, their backup restoration will override the changes.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component.Component.log">
@@ -215,7 +224,7 @@ components on which it relies have not yet been registered.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2010.
+      Last updated on Aug 10, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

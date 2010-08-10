@@ -94,7 +94,7 @@ def create_database():
             check_for_duplicates=False, save=False)[0]
         card.next_rep = time.time() - 24 * 60 * 60
         card.last_rep = card.next_rep - i * 24 * 60 * 60
-        mnemosyne.database().update_card(card)
+        mnemosyne.database().edit_card(card)
     mnemosyne.database().save()
     
 def queue():
@@ -142,7 +142,7 @@ def finalise():
     mnemosyne.finalise()
 
 def do_import():
-    mnemosyne.component_manager.get_current("file_format").\
+    mnemosyne.component_manager.current("file_format").\
         do_import("/home/pbienst/dot_mnemosyne/default.mem")
 
 #tests = ["startup()", "create_database()", "queue()", "new_question()", "display()", "grade_only()",

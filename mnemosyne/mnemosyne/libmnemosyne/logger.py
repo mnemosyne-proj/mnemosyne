@@ -64,7 +64,7 @@ class Logger(Component):
     def added_card(self, card):
         pass
 
-    def updated_card(self, card):
+    def edited_card(self, card):
         pass
     
     def deleted_card(self, card):
@@ -77,7 +77,7 @@ class Logger(Component):
     def added_tag(self, tag):
         pass
 
-    def updated_tag(self, tag):
+    def edited_tag(self, tag):
         pass
     
     def deleted_tag(self, tag):
@@ -86,7 +86,7 @@ class Logger(Component):
     def added_media(self, filename):
         pass
     
-    def updated_media(self, filename):
+    def edited_media(self, filename):
         pass
     
     def deleted_media(self, filename):
@@ -95,7 +95,7 @@ class Logger(Component):
     def added_fact(self, fact):
         pass
 
-    def updated_fact(self, fact):
+    def edited_fact(self, fact):
         pass
     
     def deleted_fact(self, fact):
@@ -104,7 +104,7 @@ class Logger(Component):
     def added_fact_view(self, fact_view):
         pass
 
-    def updated_fact_view(self, fact_view):
+    def edited_fact_view(self, fact_view):
         pass
     
     def deleted_fact_view(self, fact_view):
@@ -113,7 +113,7 @@ class Logger(Component):
     def added_card_type(self, card_type):
         pass
 
-    def updated_card_type(self, card_type):
+    def edited_card_type(self, card_type):
         pass
     
     def deleted_card_type(self, card_type):
@@ -122,7 +122,7 @@ class Logger(Component):
     def added_activity_criterion(self, activity_criterion):
         pass
 
-    def updated_activity_criterion(self, activity_criterion):
+    def edited_activity_criterion(self, activity_criterion):
         pass
     
     def deleted_activity_criterion(self, activity_criterion):

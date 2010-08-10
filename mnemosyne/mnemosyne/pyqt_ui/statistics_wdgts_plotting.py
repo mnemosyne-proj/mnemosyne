@@ -187,13 +187,13 @@ class GradesWdgt(PlotStatisticsWdgt):
         self.axes.set_xlabel(_("Grades"))
         self.axes.set_xticks(self.page.x)
         self.axes.set_xticklabels([_("Not seen")] + range(0, 6))
-        for label in self.axes.get_xticklabels():
+        for label in self.axes.xticklabels():
             label.set_size("small")
         xmin, xmax = min(self.page.x), max(self.page.x)
         self.axes.set_xlim(xmin=xmin - 0.5, xmax=xmax + 0.5)
         self.axes.set_ylim(ymax=int(max(self.page.y) *  1.1) + 1)
         self.axes.yaxis.set_major_formatter(FuncFormatter(self.integers_only))
-        for label in self.axes.get_yticklabels():
+        for label in self.axes.yticklabels():
             label.set_size("small")
 
 

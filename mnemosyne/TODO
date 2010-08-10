@@ -1,8 +1,4 @@
--is it worth keeping database.tag_names?
--get rid of 'get_'
--update_cards --> modify cards, edit cards?
--delete fact and related data,  --> related cards?
--reload counters --> recalc counters
+-make docs
 
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI

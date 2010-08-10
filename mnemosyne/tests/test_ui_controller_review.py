@@ -22,15 +22,15 @@ class TestUIControllerReview(MnemosyneTest):
             if i == 0:
                 card_1 = card
                 card.next_rep -= 1000 * 24 * 60 * 60 
-                self.database().update_card(card)
+                self.database().edit_card(card)
         self.review_controller().new_question()
         self.review_controller().show_answer()        
         assert self.review_controller().card == card_1
-        assert self.review_controller().get_counters() == (1, 0, 15)       
+        assert self.review_controller().counters() == (1, 0, 15)       
         self.review_controller().grade_answer(0)
-        assert self.review_controller().get_counters() == (0, 1, 15)
+        assert self.review_controller().counters() == (0, 1, 15)
         self.review_controller().grade_answer(2)
-        assert self.review_controller().get_counters() == (0, 0, 15)        
+        assert self.review_controller().counters() == (0, 0, 15)        
 
     def test_2(self):
         card_1 = None
@@ -47,14 +47,14 @@ class TestUIControllerReview(MnemosyneTest):
             if i == 0:
                 card_1 = card
                 card.next_rep -= 1000 * 24 * 60 * 60
-                self.database().update_card(card)
+                self.database().edit_card(card)
         self.review_controller().new_question()
         assert self.review_controller().card == card_1
         self.review_controller().reload_counters()        
-        assert self.review_controller().get_counters() == (1, 0, 15)       
+        assert self.review_controller().counters() == (1, 0, 15)       
         self.review_controller().grade_answer(0)
         self.review_controller().reload_counters()  
-        assert self.review_controller().get_counters() == (0, 1, 15)
+        assert self.review_controller().counters() == (0, 1, 15)
         self.review_controller().grade_answer(2)
         self.review_controller().reload_counters()  
-        assert self.review_controller().get_counters() == (0, 0, 15)    
+        assert self.review_controller().counters() == (0, 0, 15)    

@@ -63,7 +63,7 @@ objects.</p>
 state. It is an integer as opposed to a complex datatype to to allow for
 fast sql queries. If a scheduler needs additional data, it can be stored
 in &#8216;extra_data&#8217;, but then the custom scheduler needs to make sure it
-explicitly logs an &#8216;updated_card&#8217; event so that &#8216;extra data&#8217; gets sent
+explicitly logs an &#8216;edited_card&#8217; event so that &#8216;extra data&#8217; gets sent
 across during sync.</p>
 <p>&#8216;active&#8217; is used to determine whether a card is included in the review
 process. Currently, the UI allows setting cards active when then belong to
@@ -174,7 +174,7 @@ scheduling. Storing them as int makes it very efficient in SQL.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2010.
+      Last updated on Aug 10, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

@@ -48,8 +48,8 @@ class DatabaseLogger(Logger):
     def added_card(self, card):
         self.database().log_added_card(self.timestamp, card.id)
                 
-    def updated_card(self, card):
-        self.database().log_updated_card(self.timestamp, card.id)
+    def edited_card(self, card):
+        self.database().log_edited_card(self.timestamp, card.id)
         
     def deleted_card(self, card):
         self.database().log_deleted_card(self.timestamp, card.id)
@@ -65,8 +65,8 @@ class DatabaseLogger(Logger):
     def added_tag(self, tag):
         self.database().log_added_tag(self.timestamp, tag.id)
         
-    def updated_tag(self, tag):
-        self.database().log_updated_tag(self.timestamp, tag.id)
+    def edited_tag(self, tag):
+        self.database().log_edited_tag(self.timestamp, tag.id)
                 
     def deleted_tag(self, tag):
         self.database().log_deleted_tag(self.timestamp, tag.id)
@@ -74,8 +74,8 @@ class DatabaseLogger(Logger):
     def added_media(self, filename):
         self.database().log_added_media(self.timestamp, filename)
         
-    def updated_media(self, filename):
-        self.database().log_updated_media(self.timestamp, filename)
+    def edited_media(self, filename):
+        self.database().log_edited_media(self.timestamp, filename)
         
     def deleted_media(self, filename):
         self.database().log_deleted_media(self.timestamp, filename)
@@ -83,8 +83,8 @@ class DatabaseLogger(Logger):
     def added_fact(self, fact):
         self.database().log_added_fact(self.timestamp, fact.id)
         
-    def updated_fact(self, fact):
-        self.database().log_updated_fact(self.timestamp, fact.id)
+    def edited_fact(self, fact):
+        self.database().log_edited_fact(self.timestamp, fact.id)
         
     def deleted_fact(self, fact):
         self.database().log_deleted_fact(self.timestamp, fact.id)
@@ -92,8 +92,8 @@ class DatabaseLogger(Logger):
     def added_fact_view(self, fact_view):
         self.database().log_added_fact_view(self.timestamp, fact_view.id)
                 
-    def updated_fact_view(self, fact_view):
-        self.database().log_updated_fact_view(self.timestamp, fact_view.id)
+    def edited_fact_view(self, fact_view):
+        self.database().log_edited_fact_view(self.timestamp, fact_view.id)
         
     def deleted_fact_view(self, fact_view):
         self.database().log_deleted_fact_view(self.timestamp, fact_view.id)
@@ -101,8 +101,8 @@ class DatabaseLogger(Logger):
     def added_card_type(self, card_type):
         self.database().log_added_card_type(self.timestamp, card_type.id)
                 
-    def updated_card_type(self, card_type):
-        self.database().log_updated_card_type(self.timestamp, card_type.id)
+    def edited_card_type(self, card_type):
+        self.database().log_edited_card_type(self.timestamp, card_type.id)
         
     def deleted_card_type(self, card_type):
         self.database().log_deleted_card_type(self.timestamp, card_type.id)
@@ -111,8 +111,8 @@ class DatabaseLogger(Logger):
         self.database().log_added_activity_criterion(\
             self.timestamp, activity_criterion.id)
 
-    def updated_activity_criterion(self, activity_criterion):
-        self.database().log_updated_activity_criterion(\
+    def edited_activity_criterion(self, activity_criterion):
+        self.database().log_edited_activity_criterion(\
             self.timestamp, activity_criterion.id)
     
     def deleted_activity_criterion(self, activity_criterion):

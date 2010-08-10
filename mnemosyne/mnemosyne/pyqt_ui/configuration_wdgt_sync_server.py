@@ -56,15 +56,15 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.config()["sync_server_port"] = self.port.value()
         self.config()["sync_server_username"] = self.username.text()
         self.config()["sync_server_password"] = self.password.text()    
-        self.component_manager.get_current("sync_server").deactivate() 
+        self.component_manager.current("sync_server").deactivate() 
         if self.config()["run_sync_server"]:
-            self.component_manager.get_current("sync_server").activate()
+            self.component_manager.current("sync_server").activate()
             if not self.initially_running and self.is_server_running():
                 QtGui.QMessageBox.information(None, _("Mnemosyne"),
                     _("Server now running on ") + localhost_IP() + ".",
                    _("&OK"), "", "", 0, -1)                
         else:
-            self.component_manager.get_current("sync_server").deactivate()
+            self.component_manager.current("sync_server").deactivate()
             if self.initially_running and not self.is_server_running():
                 QtGui.QMessageBox.information(None, _("Mnemosyne"),
                     _("Server stopped."), _("&OK"), "", "", 0, -1)

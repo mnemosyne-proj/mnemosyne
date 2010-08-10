@@ -39,8 +39,8 @@ class TestDatabaseStub:
         self.database.add_tag(None)
 
     @raises(NotImplementedError)
-    def test_update_tag(self):
-        self.database.update_tag(None)
+    def test_edit_tag(self):
+        self.database.edit_tag(None)
         
     @raises(NotImplementedError)
     def test_delete_tag(self):
@@ -59,20 +59,20 @@ class TestDatabaseStub:
         self.database.add_fact(None)
         
     @raises(NotImplementedError)
-    def test_update_fact(self):
-        self.database.update_fact(None)
+    def test_edit_fact(self):
+        self.database.edit_fact(None)
         
     @raises(NotImplementedError)
     def test_add_card(self):
         self.database.add_card(None)
         
     @raises(NotImplementedError)
-    def test_update_card(self):
-        self.database.update_card(None)
+    def test_edit_card(self):
+        self.database.edit_card(None)
         
     @raises(NotImplementedError)       
-    def test_delete_fact_and_related_data(self):
-        self.database.delete_fact_and_related_data(None)
+    def test_delete_fact_and_related_cards(self):
+        self.database.delete_fact_and_related_cards(None)
         
     @raises(NotImplementedError)
     def test_delete_card(self):
@@ -80,23 +80,23 @@ class TestDatabaseStub:
 
     @raises(NotImplementedError)
     def test_get_tag(self):
-        self.database.get_tag(None, True)
+        self.database.tag(None, True)
 
     @raises(NotImplementedError)
     def test_get_fact(self):
-        self.database.get_fact(None, True)
+        self.database.fact(None, True)
 
     @raises(NotImplementedError)
     def test_get_card(self):
-        self.database.get_card(None, True)
+        self.database.card(None, True)
         
     @raises(NotImplementedError)
     def test_get_tags(self):
-        self.database.get_tags()
+        self.database.tags()
         
     @raises(NotImplementedError)
     def test_get_tag_names(self):
-        self.database.get_tag_names()
+        self.database.tag_names()
            
     @raises(NotImplementedError)       
     def test_cards_from_fact(self):        

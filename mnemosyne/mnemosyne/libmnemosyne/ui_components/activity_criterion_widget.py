@@ -16,5 +16,5 @@ class ActivityCriterionWidget(UiComponent):
     def display_criterion(self, criterion):
         raise NotImplementedError
 
-    def get_criterion(self):
+    def criterion(self):
         raise NotImplementedError

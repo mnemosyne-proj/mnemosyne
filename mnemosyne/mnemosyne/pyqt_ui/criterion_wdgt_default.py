@@ -30,7 +30,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
 
     def display_default_criterion(self):
         criterion = DefaultCriterion(self.component_manager)
-        for tag in self.database().get_tags():
+        for tag in self.database().tags():
             criterion.active_tag__ids.add(tag._id)
         self.display_criterion(criterion)
     
@@ -72,7 +72,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         root_item.setCheckState(0, QtCore.Qt.Checked)
         self.tag_for_node_item = {}
         node_item_for_partial_tag = {}
-        for tag in self.database().get_tags():
+        for tag in self.database().tags():
             parent = root_item
             partial_tag = ""
             node_item = None
@@ -108,7 +108,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         self.tags_tree.expandAll()
 
         
-    def get_criterion(self):
+    def criterion(self):
 
         """Build the criterion from the information the user entered in the
         widget.

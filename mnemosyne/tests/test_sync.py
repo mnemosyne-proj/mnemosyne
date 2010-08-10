@@ -209,11 +209,11 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 8
         
-    def test_update_tag(self):
+    def test_edit_tag(self):
  
         def test_server(self):
             db = self.mnemosyne.database()
-            tag = db.get_tag(self.client_tag_id, id_is_internal=False)
+            tag = db.tag(self.client_tag_id, id_is_internal=False)
             assert tag.extra_data["A"] == "<a>"
             assert db.con.execute("select count() from log").\
                    fetchone()[0] == 9
@@ -226,7 +226,7 @@ class TestSync(object):
         tag = self.client.mnemosyne.database().\
               get_or_create_tag_with_name("tag")
         tag.extra_data = {"A": "<a>"}
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.server.client_tag_id = tag.id
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
@@ -237,7 +237,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             try:
-                tag = db.get_tag(self.client_tag_id, id_is_internal=False)
+                tag = db.tag(self.client_tag_id, id_is_internal=False)
                 assert 1 == 0
             except TypeError:
                 pass
@@ -263,7 +263,7 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            fact = db.get_fact(self.client_fact_id, id_is_internal=False)
+            fact = db.fact(self.client_fact_id, id_is_internal=False)
             assert fact.data == {"q": "Q", "a": ""}
             assert fact.card_type == self.mnemosyne.card_type_by_id("1")
             assert fact.creation_time == self.client_creation_time
@@ -285,11 +285,11 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 8
         
-    def test_update_fact(self):
+    def test_edit_fact(self):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            fact = db.get_fact(self.client_fact_id, id_is_internal=False)
+            fact = db.fact(self.client_fact_id, id_is_internal=False)
             assert fact.data == {"q": "Q", "a": "AA"}
             assert fact.card_type == self.mnemosyne.card_type_by_id("1")
             assert fact.creation_time == self.client_creation_time
@@ -305,7 +305,7 @@ class TestSync(object):
         fact = Fact({"q": "Q", "a": "A"}, card_type)
         self.client.mnemosyne.database().add_fact(fact)
         fact.data = {"q": "Q", "a": "AA"}
-        self.client.mnemosyne.database().update_fact(fact)        
+        self.client.mnemosyne.database().edit_fact(fact)        
         self.server.client_fact_id = fact.id
         self.server.client_creation_time = fact.creation_time
         self.client.mnemosyne.controller().file_save()
@@ -318,7 +318,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             try:
-                fact = db.get_fact(self.client_fact_id, id_is_internal=False)
+                fact = db.fact(self.client_fact_id, id_is_internal=False)
                 assert 1 == 0
             except TypeError:
                 pass
@@ -333,7 +333,7 @@ class TestSync(object):
         fact = Fact({"q": "Q", "a": "A"}, card_type)
         self.client.mnemosyne.database().add_fact(fact)
         self.client.mnemosyne.controller().file_save()
-        self.client.mnemosyne.database().delete_fact_and_related_data(fact)        
+        self.client.mnemosyne.database().delete_fact_and_related_cards(fact)        
         self.server.client_fact_id = fact.id
         self.server.client_creation_time = fact.creation_time
         self.client.mnemosyne.controller().file_save()
@@ -348,7 +348,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             assert db.fact_count() == 1
             assert db.card_count() == 1
-            card = db.get_card(self.client_card.id, id_is_internal=False)
+            card = db.card(self.client_card.id, id_is_internal=False)
             assert card.question() == self.client_card.question()
             tag_ids = [tag.id for tag in card.tags]
             assert db.get_or_create_tag_with_name("tag_1").id in tag_ids
@@ -385,11 +385,11 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 12
 
-    def test_update_cards(self):
+    def test_edit_cards(self):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            card = db.get_card(self.client_card.id, id_is_internal=False)
+            card = db.card(self.client_card.id, id_is_internal=False)
             assert card.extra_data == {"A": "B"}
             assert db.con.execute("select count() from log").fetchone()[0] == 13
             
@@ -405,7 +405,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.server.client_card = card
         card.extra_data = {"A": "B"}
-        self.client.database.update_card(card)
+        self.client.database.edit_card(card)
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
@@ -416,7 +416,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             try:
-                card = db.get_card(self.client_card.id, id_is_internal=False)
+                card = db.card(self.client_card.id, id_is_internal=False)
                 assert 1 == 0
             except TypeError:
                 pass
@@ -443,7 +443,7 @@ class TestSync(object):
 
         def test_server(self):
             db = self.mnemosyne.database()
-            card = db.get_card(self.client_card.id, id_is_internal=False)
+            card = db.card(self.client_card.id, id_is_internal=False)
             assert card.grade == self.client_card.grade
             assert card.easiness == self.client_card.easiness
             assert card.acq_reps == self.client_card.acq_reps            
@@ -487,7 +487,7 @@ class TestSync(object):
         self.client.mnemosyne.review_controller().grade_answer(5)
         self.client.mnemosyne.controller().file_save()
         self.server.client_card = self.client.mnemosyne.database().\
-           get_card(card.id, id_is_internal=False)        
+           card(card.id, id_is_internal=False)        
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 13
@@ -523,7 +523,7 @@ class TestSync(object):
                 order by _id desc limit 1""", (EventTypes.ADDED_MEDIA, )).\
                 fetchone()[0].startswith("a/")
             assert db.con.execute("select count() from media").fetchone()[0] == 2
-            card = db.get_card(self.client_card.id, id_is_internal=False)
+            card = db.card(self.client_card.id, id_is_internal=False)
             assert card.fact["q"].startswith("question\n<img src=")
             
         self.server = MyServer()
@@ -548,7 +548,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().file_save()
         self.server.client_card = self.client.mnemosyne.database().\
-            get_card(card.id, id_is_internal=False)  
+            card(card.id, id_is_internal=False)  
         self.client.do_sync()
 
         filename = os.path.join(os.path.abspath("dot_sync_client"),
@@ -580,7 +580,7 @@ class TestSync(object):
             card_type = self.mnemosyne.card_type_by_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-            self.mnemosyne.database().delete_fact_and_related_data(card.fact)
+            self.mnemosyne.database().delete_fact_and_related_cards(card.fact)
             os.remove(filename)
             self.mnemosyne.controller().file_save()
         
@@ -607,12 +607,12 @@ class TestSync(object):
         card_type = self.client.mnemosyne.card_type_by_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-        self.client.mnemosyne.database().delete_fact_and_related_data(card.fact)
+        self.client.mnemosyne.database().delete_fact_and_related_cards(card.fact)
         os.remove(filename)
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
-    def test_update_media(self):
+    def test_edit_media(self):
      
         def test_server(self):
             db = self.mnemosyne.database()
@@ -623,7 +623,7 @@ class TestSync(object):
             assert db.con.execute("""select count() from media""").fetchone()[0] == 1
             assert db.con.execute("select count() from log").fetchone()[0] == 14
             assert db.con.execute("select count() from log where event_type=?",
-                (EventTypes.UPDATED_MEDIA, )).fetchone()[0] == 1
+                (EventTypes.EDITED_MEDIA, )).fetchone()[0] == 1
 
             sql_res = db.con.execute("select * from media").fetchone()
             assert sql_res["_hash"] == db._media_hash(sql_res["filename"])
@@ -664,14 +664,14 @@ class TestSync(object):
         assert sql_res["_hash"] == db._media_hash(sql_res["filename"])
         
         assert db.con.execute("select count() from log where event_type=?",
-            (EventTypes.UPDATED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.EDITED_MEDIA, )).fetchone()[0] == 1
         assert db.con.execute("select count() from log").fetchone()[0] == 14
 
     def test_mem_import(self):
             
         def fill_server_database(self):
             filename = os.path.join(os.getcwd(), "tests", "files", "1sided.mem")
-            for format in self.mnemosyne.component_manager.get_all("file_format"):
+            for format in self.mnemosyne.component_manager.all("file_format"):
                 if format.__class__.__name__ == "Mnemosyne1Mem":
                     format.do_import(filename)
             self.mnemosyne.controller().file_save()
@@ -687,7 +687,7 @@ class TestSync(object):
         self.client = MyClient()
         self.client.do_sync()
     
-        card = self.client.database.get_card("9cff728f", id_is_internal=False)
+        card = self.client.database.card("9cff728f", id_is_internal=False)
         assert card.grade == 2
         assert card.easiness == 2.5
         assert card.acq_reps == 1
@@ -705,7 +705,7 @@ class TestSync(object):
         def fill_server_database(self):        
             filename = os.path.join(os.getcwd(), "tests", "files",
                                     "basedir_2_mem", "deck1.mem")
-            for format in self.mnemosyne.component_manager.get_all("file_format"):
+            for format in self.mnemosyne.component_manager.all("file_format"):
                 if format.__class__.__name__ == "Mnemosyne1Mem":
                     format.do_import(filename)
             self.mnemosyne.controller().file_save()
@@ -724,12 +724,12 @@ class TestSync(object):
         assert self.client.database.con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.REPETITION, )).fetchone()[0] != 0
-        card = self.client.database.get_card("0c3f0613", id_is_internal=False)
+        card = self.client.database.card("0c3f0613", id_is_internal=False)
 
         assert card.last_rep != 0
         assert card.next_rep != 0
                 
-    def test_user_id_update(self):
+    def test_user_id_edit(self):
             
         def test_server(self):
             pass
@@ -813,7 +813,7 @@ class TestSync(object):
             self.mnemosyne.controller().file_save()
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
-            self.mnemosyne.controller().update_related_cards(self.card.fact,
+            self.mnemosyne.controller().edit_related_cards(self.card.fact,
               new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()            
@@ -829,7 +829,7 @@ class TestSync(object):
         self.client = MyClient()
         self.client.do_sync()
 
-        card = self.client.database.get_card(self.server.card.id, id_is_internal=False)
+        card = self.client.database.card(self.server.card.id, id_is_internal=False)
         assert len(card.tags) == 1
         assert list(card.tags)[0].name == "default1"
 
@@ -849,7 +849,7 @@ class TestSync(object):
             self.mnemosyne.controller().file_save()
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
-            self.mnemosyne.controller().update_related_cards(self.card.fact,
+            self.mnemosyne.controller().edit_related_cards(self.card.fact,
               new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()
@@ -865,7 +865,7 @@ class TestSync(object):
         self.client = MyClient()
         self.client.do_sync()
 
-        card = self.client.database.get_card(self.server.card.id, id_is_internal=False)
+        card = self.client.database.card(self.server.card.id, id_is_internal=False)
         assert len(card.tags) == 1
         assert list(card.tags)[0].name == "default1"
 
@@ -888,7 +888,7 @@ class TestSync(object):
             self.mnemosyne.controller().file_save()
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
-            self.mnemosyne.controller().update_related_cards(self.card.fact,
+            self.mnemosyne.controller().edit_related_cards(self.card.fact,
               new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()
@@ -907,7 +907,7 @@ class TestSync(object):
         self.client.interested_in_old_reps = False
         self.client.do_sync()
 
-        card = self.client.database.get_card(self.server.card.id, id_is_internal=False)
+        card = self.client.database.card(self.server.card.id, id_is_internal=False)
         assert len(card.tags) == 1
         assert list(card.tags)[0].name == "default1"
 
@@ -933,7 +933,7 @@ class TestSync(object):
             self.mnemosyne.controller().file_save()
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
-            self.mnemosyne.controller().update_related_cards(self.card.fact,
+            self.mnemosyne.controller().edit_related_cards(self.card.fact,
               new_fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()
@@ -952,7 +952,7 @@ class TestSync(object):
         self.client.interested_in_old_reps = False
         self.client.do_sync()
 
-        card = self.client.database.get_card(self.server.card.id, id_is_internal=False)
+        card = self.client.database.card(self.server.card.id, id_is_internal=False)
         assert len(card.tags) == 1
         assert list(card.tags)[0].name == "default1"
 
@@ -1182,13 +1182,13 @@ class TestSync(object):
         # Second sync.
 
         def fill_server_database(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().edit_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             assert tag.name == "server"            
             
         self.server = MyServer(erase_previous=False)
@@ -1198,9 +1198,9 @@ class TestSync(object):
         self.server.start()    
 
         self.client = MyClient(erase_previous=False)
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1209,7 +1209,7 @@ class TestSync(object):
         self.server.stop()
         self._wait_for_server_shutdown()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "client"
 
     def test_conflict_keep_remote_binary(self):
@@ -1234,13 +1234,13 @@ class TestSync(object):
         # Second sync.
 
         def fill_server_database(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().edit_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             assert tag.name == "server"
 
             assert self.mnemosyne.config().machine_id() not in \
@@ -1254,16 +1254,16 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
         answer = 1 # keep remote
         self.client.do_sync()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "server"
 
         assert self.client.mnemosyne.config().machine_id() not in \
@@ -1292,13 +1292,13 @@ class TestSync(object):
         # Second sync.
 
         def fill_server_database(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().edit_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             assert tag.name == "server"
 
             assert self.mnemosyne.config().machine_id() not in \
@@ -1312,16 +1312,16 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
         answer = 1 # keep remote
         self.client.do_sync()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "server"
 
         assert self.client.mnemosyne.config().machine_id() not in \
@@ -1350,13 +1350,13 @@ class TestSync(object):
         # Second sync.
 
         def fill_server_database(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().edit_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             assert tag.name == "server"
 
             assert self.mnemosyne.config().machine_id() not in \
@@ -1371,16 +1371,16 @@ class TestSync(object):
 
         self.client = MyClient(erase_previous=False)
         self.client.interested_in_old_reps = False
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
         answer = 1 # cancel
         self.client.do_sync()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "client"
 
         assert self.client.mnemosyne.config().machine_id() not in \
@@ -1409,13 +1409,13 @@ class TestSync(object):
         # Second sync.
 
         def fill_server_database(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().edit_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             assert tag.name == "server"
 
             assert self.mnemosyne.config().machine_id() not in \
@@ -1430,16 +1430,16 @@ class TestSync(object):
 
         self.client = MyClient(erase_previous=False)
         self.client.interested_in_old_reps = False
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
         answer = 0 # keep remote
         self.client.do_sync()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "server"
 
         assert self.client.mnemosyne.config().machine_id() not in \
@@ -1468,13 +1468,13 @@ class TestSync(object):
         # Second sync.
 
         def fill_server_database(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().edit_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             assert tag.name == "client"
 
             assert self.mnemosyne.config().machine_id() not in \
@@ -1488,16 +1488,16 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
         answer = 0 # keep local
         self.client.do_sync()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "client"
 
         assert self.client.mnemosyne.config().machine_id() not in \
@@ -1548,13 +1548,13 @@ class TestSync(object):
         # Second sync.
 
         def fill_server_database(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().edit_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             assert tag.name == "server"
 
             assert self.mnemosyne.config().machine_id() not in \
@@ -1568,16 +1568,16 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
         answer = 1 # keep remote
         self.client.do_sync()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "server"
 
         assert self.client.mnemosyne.config().machine_id() not in \
@@ -1630,13 +1630,13 @@ class TestSync(object):
         # Second sync.
 
         def fill_server_database(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().edit_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
-            tag = self.mnemosyne.database().get_tag(self.tag_id, id_is_internal=False)
+            tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             assert tag.name == "client"
 
             assert self.mnemosyne.config().machine_id() not in \
@@ -1650,16 +1650,16 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
         answer = 0 # keep local
         self.client.do_sync()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "client"
 
         assert self.client.mnemosyne.config().machine_id() not in \
@@ -1690,14 +1690,14 @@ class TestSync(object):
 
         self.client = MyClient(erase_previous=False)
         self.client.interested_in_old_reps = False
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().edit_tag(tag)
         self.client.mnemosyne.database().save()
     
         self.client.do_sync()
         
-        tag = self.client.mnemosyne.database().get_tag(tag.id, id_is_internal=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         assert tag.name == "client"
 
         assert self.client.mnemosyne.config().machine_id() not in \
@@ -1743,7 +1743,7 @@ class TestSync(object):
         
         def test_server(self):
             db = self.mnemosyne.database()
-            criterion = db.get_activity_criterion(self.criterion_id,
+            criterion = db.activity_criterion(self.criterion_id,
                 id_is_internal=False)
             assert criterion.data_to_string() == "(set([('5', '5::1')]), set([2]), set([3]))"
 
@@ -1796,7 +1796,7 @@ class TestSync(object):
         
         def test_server(self):
             db = self.mnemosyne.database()
-            criterion = db.get_activity_criterion(self.criterion_id,
+            criterion = db.activity_criterion(self.criterion_id,
                 id_is_internal=False)
             assert criterion.data_to_string() == "(set([('5', '5::1')]), set([2]), set([]))"
 
@@ -1841,7 +1841,7 @@ class TestSync(object):
         self.client.mnemosyne.database().set_current_activity_criterion(c)
 
         c.forbidden_tag__ids = set()
-        self.client.mnemosyne.database().update_activity_criterion(c)        
+        self.client.mnemosyne.database().edit_activity_criterion(c)        
 
         self.server.criterion_id = c.id
 
@@ -1853,7 +1853,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             try:
-                criterion = db.get_activity_criterion(self.criterion_id,
+                criterion = db.activity_criterion(self.criterion_id,
                 id_is_internal=False)
                 assert 1 == 0
             except TypeError:
@@ -1908,7 +1908,7 @@ class TestSync(object):
         
         def test_server(self):
             db = self.mnemosyne.database()
-            fact_view = db.get_fact_view(self.fact_view_id,
+            fact_view = db.fact_view(self.fact_view_id,
                 id_is_internal=False)
             assert fact_view.id == "1::1"
             assert fact_view.name == "Front-to-back"
@@ -1941,7 +1941,7 @@ class TestSync(object):
         
         def test_server(self):
             db = self.mnemosyne.database()
-            fact_view = db.get_fact_view(self.fact_view_id,
+            fact_view = db.fact_view(self.fact_view_id,
                 id_is_internal=False)
             assert fact_view.extra_data["1"] == 3
 
@@ -1958,7 +1958,7 @@ class TestSync(object):
         self.client.mnemosyne.database().add_fact_view(fact_view)
 
         fact_view.extra_data = {'1': 3}
-        self.client.mnemosyne.database().update_fact_view(fact_view)        
+        self.client.mnemosyne.database().edit_fact_view(fact_view)        
 
         self.server.fact_view_id = fact_view.id
 
@@ -1970,7 +1970,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             try:
-                fact_view = db.get_fact_view(self.fact_view_id,
+                fact_view = db.fact_view(self.fact_view_id,
                     id_is_internal=False)
                 assert 1 == 0
             except TypeError:
@@ -1998,7 +1998,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
-            card_type = db.get_card_type(self.card_type_id, id_is_internal=False)
+            card_type = db.card_type(self.card_type_id, id_is_internal=False)
             assert card_type.name == "1 cloned"
             assert card_type.fields == [('q', 'Question'), ('a', 'Answer')]
             assert card_type.unique_fields == ['q']
@@ -2034,7 +2034,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
-            card_type = db.get_card_type(self.card_type_id, id_is_internal=False)
+            card_type = db.card_type(self.card_type_id, id_is_internal=False)
             assert card_type.name == "1 cloned"
             assert card_type.fields == [('q', 'Question'), ('a', 'Answer')]
             assert card_type.unique_fields == ['q']
@@ -2064,7 +2064,7 @@ class TestSync(object):
         self.server.card_type_id = card_type_1.id
 
         card_type_1.extra_data = {1: 1}
-        card_type_1 = self.client.mnemosyne.database().update_card_type(card_type_1)        
+        card_type_1 = self.client.mnemosyne.database().edit_card_type(card_type_1)        
 
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
@@ -2074,7 +2074,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             try:
-                card_type = db.get_card_type(self.card_type_id,
+                card_type = db.card_type(self.card_type_id,
                     id_is_internal=False)
                 assert 1 == 0
             except TypeError:

@@ -67,9 +67,9 @@ class Plugin(Component):
         if db and db.is_loaded():
             for component in self.instantiated_components:
                 if component.component_type == "card_type":
-                    for criterion in db.get_activity_criteria():
+                    for criterion in db.activity_criteria():
                         criterion.card_type_created(component)
-                        db.update_activity_criterion(criterion)
+                        db.edit_activity_criterion(criterion)
         if self.database().is_loaded() and self.review_reset_needed:
             self.review_controller().reset()
             self.log().started_scheduler()
@@ -88,9 +88,9 @@ class Plugin(Component):
                             self.main_widget().information_box(\
           _("Cannot deactivate, this card type or a clone of it is in use."))
                             return False
-                    for criterion in db.get_activity_criteria():
+                    for criterion in db.activity_criteria():
                         criterion.card_type_deleted(component)
-                        db.update_activity_criterion(criterion)                            
+                        db.edit_activity_criterion(criterion)                            
         # Deactivate and unregister components.  
         for component in self.instantiated_components:
             component.deactivate()

@@ -65,7 +65,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
                 return True
         return False
 
-    def get_data(self):
+    def data(self):
         fact_data = {}
         for edit_box, fact_key in self.edit_boxes.iteritems():
             fact_data[fact_key] = unicode(edit_box.document().toPlainText())
@@ -83,4 +83,4 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.top_edit_box.setFocus()
     
     def text_changed(self):
-        self.parent().set_valid(self.card_type.is_data_valid(self.get_data()))
+        self.parent().set_valid(self.card_type.is_data_valid(self.data()))

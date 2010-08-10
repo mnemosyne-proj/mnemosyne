@@ -70,16 +70,6 @@ the previous one?</dd></dl>
 <dd>Yesterday: n=-1, today: n=0, tomorrow: n=1, ... .</dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card">
-<tt class="descname">get_next_card</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card_id">
-<tt class="descname">get_next_card_id</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.get_next_card_id" title="Permalink to this definition">¶</a></dt>
-<dd>Avoids creating a card object, which enables certain shortcuts.</dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer">
 <tt class="descname">grade_answer</tt><big>(</big><em>card</em>, <em>new_grade</em>, <em>dry_run=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -96,6 +86,11 @@ the previous one?</dd></dl>
 a card that was deleted in the GUI.</dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.next_card">
+<tt class="descname">next_card</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.next_card" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count">
 <tt class="descname">non_memorised_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -105,7 +100,7 @@ a card that was deleted in the GUI.</dd></dl>
 <tt class="descname">rebuild_queue</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.rebuild_queue" title="Permalink to this definition">¶</a></dt>
 <dd>Called by the rest of the library when an existing queue risks
 becoming invalid, e.g. when cards have been deleted in the GUI.
-&#8216;get_next_card&#8217; also makes use of this in certain implementations.</dd></dl>
+&#8216;next_card&#8217; also makes use of this in certain implementations.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue_if_present">
@@ -198,7 +193,7 @@ but all the relevant information can still be parsed from them.)</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2010.
+      Last updated on Aug 10, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
