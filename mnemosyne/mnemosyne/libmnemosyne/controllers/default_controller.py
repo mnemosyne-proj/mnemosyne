@@ -85,7 +85,7 @@ class DefaultController(Controller):
         """
 
         if grade in [0,1]:
-            raise AttributeError, "Use -1 as grade for unlearned cards."
+            raise AttributeError, "Use -1 as grade for yet to learn cards."
         db = self.database()
         fact = Fact(fact_data, card_type)
         if check_for_duplicates:

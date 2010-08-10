@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>383</width>
+    <width>431</width>
     <height>405</height>
    </rect>
   </property>
@@ -77,12 +77,15 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Number of grade 0 cards to hold in your hand:</string>
+             <string>Number of non memorised cards to hold in your hand:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="grade_0_cards">
+           <widget class="QSpinBox" name="non_memorised_cards">
+            <property name="minimum">
+             <number>1</number>
+            </property>
             <property name="value">
              <number>10</number>
             </property>

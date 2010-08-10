@@ -7,7 +7,7 @@ from mnemosyne.libmnemosyne.review_controller import ReviewController
 
 
 # Tooltip texts.  The first index deals with whether we have a card with
-# previous grade 0 or 1 (i.e. unmemorised).  The second index is the grade.
+# previous grade 0 or 1 (i.e. non memorised).  The second index is the grade.
 tooltip = [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]]
 tooltip[0][0] = \
     _("You don't remember this card yet.")

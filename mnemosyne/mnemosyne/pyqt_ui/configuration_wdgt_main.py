@@ -29,7 +29,8 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.scheduled_cards.setCurrentIndex(1)
         else:
             self.scheduled_cards.setCurrentIndex(0)
-        self.grade_0_cards.setValue(self.config()["grade_0_cards_in_hand"])
+        self.non_memorised_cards.setValue(self.config()\
+            ["non_memorised_cards_in_hand"])
         if self.config()["memorise_related_cards_on_same_day"] == True:
             self.memorise_related_cards_on_same_day.setCheckState(\
                 QtCore.Qt.Checked)
@@ -52,7 +53,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
     def reset_to_defaults(self):
         self.new_cards.setCurrentIndex(0)
         self.scheduled_cards.setCurrentIndex(0)
-        self.grade_0_cards.setValue(10)
+        self.non_memorised_cards.setValue(10)
         self.memorise_related_cards_on_same_day.setCheckState(\
                 QtCore.Qt.Unchecked)
         self.media_autoplay.setCheckState(QtCore.Qt.Checked)
@@ -68,7 +69,8 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.config()["randomise_scheduled_cards"] = True
         else:
             self.config()["randomise_scheduled_cards"] = False
-        self.config()["grade_0_cards_in_hand"] = self.grade_0_cards.value()
+        self.config()["non_memorised_cards_in_hand"] = \
+            self.non_memorised_cards.value()
         if self.memorise_related_cards_on_same_day.checkState() == \
            QtCore.Qt.Checked:
             self.config()["memorise_related_cards_on_same_day"] = True

@@ -93,7 +93,7 @@ class Configuration(Component, dict):
              "background_colour": {}, # [card_type.id]             
              "font_colour": {}, # [card_type.id][fact_key]
              "alignment": {}, # [card_type.id]
-             "grade_0_cards_in_hand": 10,
+             "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
              "memorise_related_cards_on_same_day": False, 

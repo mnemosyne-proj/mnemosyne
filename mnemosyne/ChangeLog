@@ -34,7 +34,10 @@ easily, which allows plugin writers maximum flexibility.
 -'Activate cards' is completely revamped and is much more flexible. Also, sets of
  active cards can be now be saved for easier later recall.
 -Avoid showing the same card twice in a row.
--Added option "learn new related cards in same session"
+-Added option "learn new related cards in same session".
+-Replaced 'number of grade 0 cards to hold in your hand' by 'number of non 
+ memorised cards to hold in your hand', so that the limit now works on the
+ total of grade 0 and 1 cards. Default value is 10.
 -Varn if the user memorises over 15 new cards in a session.
 -Hooked up the machinery to allow embedding video in cards, but on my machine
  only the sound plays. Hopefully, later versions of Qt will fix this.

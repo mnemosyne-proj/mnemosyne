@@ -1,5 +1,3 @@
--make docs
-
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI
 
@@ -13,17 +11,10 @@
 
 -check if media files exist?
 
--number of unmemorised cards to hold in your hand? (i.e. grade 0 + 1)
--rework give initial grade dialog
-
 -move ~/.mnemosyne to .config/mnemosyne as per freedesktop standard?
 https://bugzilla.gnome.org/show_bug.cgi?id=518585
 
--post nose 0.11: add cover branches
-
 -eliminate double save on finalise
--compression on backup to reduce write time to SD card?
-
 
 -duplicates for fact speedup
 >         """Return fact with the same 'unique_fields' data as 'fact'."""
@@ -203,7 +194,10 @@ pylint:
 
 * After 2.0:
 
+-post nose 0.11: add cover branches
+
 -hack tarfile to add progress bar?
+-compression on backup to reduce write time to SD card?
 
 -'shared deck' export
 -is 'client_info["shared_dack"] the best way to signal this? Or have entirely new

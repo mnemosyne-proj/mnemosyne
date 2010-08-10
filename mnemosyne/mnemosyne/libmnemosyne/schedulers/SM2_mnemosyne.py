@@ -180,30 +180,32 @@ class SM2Mnemosyne(Scheduler):
         # Stage 2
         #
         # Now rememorise the cards that we got wrong during the last stage.
-        # Concentrate on only a limited number of grade 0 cards, in order to
-        # avoid too long intervals between repetitions.
-        limit = self.config()["grade_0_cards_in_hand"]
-        grade_0_in_queue = 0
+        # Concentrate on only a limited number of non memorised cards, in
+        # order to avoid too long intervals between repetitions.
+        limit = self.config()["non_memorised_cards_in_hand"]
+        non_memorised_in_queue = 0
         if self.stage == 2:
-            if limit != 0:
-                for _card_id, _fact_id in \
-                    db.cards_due_for_final_review(grade=0):
-                    if _fact_id not in self.fact__ids_in_queue:
-                        if grade_0_in_queue < limit:
-                            self.card__ids_in_queue.append(_card_id)
-                            self.card__ids_in_queue.append(_card_id)
-                            self.fact__ids_in_queue.append(_fact_id)
-                            grade_0_in_queue += 1
-                        if grade_0_in_queue == limit:
-                            break       
             for _card_id, _fact_id in db.cards_due_for_final_review(grade=1):
                 if _fact_id not in self.fact__ids_in_queue:
-                    self.card__ids_in_queue.append(_card_id)
-                    self.fact__ids_in_queue.append(_fact_id)
+                    if non_memorised_in_queue < limit:
+                        self.card__ids_in_queue.append(_card_id)
+                        self.fact__ids_in_queue.append(_fact_id)
+                        non_memorised_in_queue += 1
+                    if non_memorised_in_queue == limit:
+                        break  
+            for _card_id, _fact_id in db.cards_due_for_final_review(grade=0):
+                if _fact_id not in self.fact__ids_in_queue:
+                    if non_memorised_in_queue < limit:
+                        self.card__ids_in_queue.append(_card_id)
+                        self.card__ids_in_queue.append(_card_id)
+                        self.fact__ids_in_queue.append(_fact_id)
+                        non_memorised_in_queue += 1
+                    if non_memorised_in_queue == limit:
+                            break                 
             random.shuffle(self.card__ids_in_queue)
-            # Only stop when we reach the grade 0 limit. Otherwise, keep
+            # Only stop when we reach the non memorised limit. Otherwise, keep
             # going to add some extra cards to get more spread.
-            if limit != 0 and grade_0_in_queue == limit:
+            if non_memorised_in_queue == limit:
                 return
             # If the queue is empty, we can skip stage 2 in the future.
             if len(self.card__ids_in_queue) == 0:
@@ -214,24 +216,27 @@ class SM2Mnemosyne(Scheduler):
         # Now do the cards which have never been committed to long-term
         # memory, but which we have seen before.
         if self.stage == 3:
-            if limit != 0:
-                for _card_id, _fact_id in db.cards_new_memorising(grade=0):
-                    if _fact_id not in self.fact__ids_in_queue:
-                        if grade_0_in_queue < limit:
-                            self.card__ids_in_queue.append(_card_id)
-                            self.card__ids_in_queue.append(_card_id)
-                            self.fact__ids_in_queue.append(_fact_id)
-                            grade_0_in_queue += 1
-                        if grade_0_in_queue == limit:
-                            break       
             for _card_id, _fact_id in db.cards_new_memorising(grade=1):
                 if _fact_id not in self.fact__ids_in_queue:
-                    self.card__ids_in_queue.append(_card_id)
-                    self.fact__ids_in_queue.append(_fact_id)
+                    if non_memorised_in_queue < limit:
+                        self.card__ids_in_queue.append(_card_id)
+                        self.fact__ids_in_queue.append(_fact_id)
+                        non_memorised_in_queue += 1
+                    if non_memorised_in_queue == limit:
+                        break                        
+            for _card_id, _fact_id in db.cards_new_memorising(grade=0):
+                if _fact_id not in self.fact__ids_in_queue:
+                    if non_memorised_in_queue < limit:
+                        self.card__ids_in_queue.append(_card_id)
+                        self.card__ids_in_queue.append(_card_id)
+                        self.fact__ids_in_queue.append(_fact_id)
+                        non_memorised_in_queue += 1
+                    if non_memorised_in_queue == limit:
+                        break          
             random.shuffle(self.card__ids_in_queue)
             # Only stop when we reach the grade 0 limit. Otherwise, keep
             # going to add some extra cards to get more spread.
-            if limit != 0 and grade_0_in_queue == limit:
+            if non_memorised_in_queue == limit:
                 return
             # If the queue is empty, we can skip stage 3 in the future.
             if len(self.card__ids_in_queue) == 0:
@@ -239,8 +244,7 @@ class SM2Mnemosyne(Scheduler):
 
         # Stage 4
         #
-        # Now add some unseen cards. We treat these cards as grade 0 cards in
-        # terms of limiting the queue size.
+        # Now add some cards we have yet to see for the first time.
         if self.stage <= 4:
             if self.config()["randomise_new_cards"]:
                 sort_key = "random"
@@ -257,8 +261,8 @@ class SM2Mnemosyne(Scheduler):
                           and _fact_id not in self.fact__ids_memorised):
                     self.card__ids_in_queue.append(_card_id)
                     self.fact__ids_in_queue.append(_fact_id)
-                    grade_0_in_queue += 1
-                    if limit and grade_0_in_queue == limit:
+                    non_memorised_in_queue += 1
+                    if non_memorised_in_queue == limit:
                         self.stage = 2
                         return
             # If the queue is empty, relax the 'related not together'                           
@@ -269,8 +273,8 @@ class SM2Mnemosyne(Scheduler):
                     if _fact_id not in self.fact__ids_in_queue:
                         self.card__ids_in_queue.append(_card_id)
                         self.fact__ids_in_queue.append(_fact_id)
-                        grade_0_in_queue += 1                                                   
-                        if limit and grade_0_in_queue == limit:                                 
+                        non_memorised_in_queue += 1                                                   
+                        if non_memorised_in_queue == limit:                                 
                             self.stage = 2                                                      
                             return                                                              
             # If the queue is still empty, go to learn ahead of schedule.                       

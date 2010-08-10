@@ -74,7 +74,7 @@ class TestScheduler(MnemosyneTest):
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.config()["grade_0_cards_in_hand"] = 0
+        self.config()["non_memorised_cards_in_hand"] = 0
         
         assert self.scheduler().next_card() is None
         
@@ -84,7 +84,7 @@ class TestScheduler(MnemosyneTest):
             fact_data = {"q": str(i), "a": "a"}
             self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]    
-        self.config()["grade_0_cards_in_hand"] = 3
+        self.config()["non_memorised_cards_in_hand"] = 3
         cards = set()
         for i in range(10):
             card = self.scheduler().next_card()
