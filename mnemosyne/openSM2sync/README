@@ -137,5 +137,6 @@ When implementing the client in a different language, here are some tips to help
 -make sure to support all the time saving feature the server supports: binary download of the very first sync, grouping of media files in tar archives
 -at the beginning of 'client.py', there are a few network tweaks which are useful in the context of the Python network stack, but which could also be worth investigating
 -reuse the same http connection for the different stages of the sync
+-if you don't care about historical statistics, don't download the entire history on the first sync ('interested_in_old_reps' setting)
 -run the sync operation in a separate thread to keep the UI responsive
 -progress bars are nice, but don't update them after every log entry, as then you would spend more time updating the GUI than doing the actual processing
