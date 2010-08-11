@@ -86,7 +86,7 @@ class MyClient(Client):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
-                                  "dot_benchmark")))
+                                  "dot_benchmark")),  automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
         # Do 200 reviews.

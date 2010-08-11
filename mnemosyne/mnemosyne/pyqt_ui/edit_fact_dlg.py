@@ -21,7 +21,7 @@ class EditFactDlg(QtGui.QDialog, Ui_EditFactDlg, AddEditCards,
         self.fact = fact 
         self.initialise_card_types_combobox(self.fact.card_type.name)     
         tag_string = self.database().cards_from_fact(fact)[0].tag_string()
-        self.edit_tags_combobox(tag_string)
+        self.update_tags_combobox(tag_string)
         width, height = self.config()["edit_widget_size"]
         if width:
             self.resize(width, height)

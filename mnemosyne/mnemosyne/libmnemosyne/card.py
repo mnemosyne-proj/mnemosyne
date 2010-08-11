@@ -88,7 +88,7 @@ class Card(CompareOnId):
         False are not run. 
         
         """
-                
+
         return self.fact.card_type.question(self, exporting)
        
     def answer(self, exporting=False):

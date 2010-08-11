@@ -12,10 +12,10 @@ else:
 
 from mnemosyne.libmnemosyne import Mnemosyne
 
-# TODO: create mechanism which will make it easier to change the basedir,
+# TODO: create mechanism which will make it easier to change the data_dir,
 # e.g. by a first run wizard, of from an option in the program. Perhaps a
 # text file in the location of libmnemosyne?
-basedir = "\SDMMC\.mnemosyne"
+data_dir = "\SDMMC\mnemosyne2"
 
 # Load the Mnemosyne library.
 mnemosyne = Mnemosyne(resource_limited=True)
@@ -73,7 +73,7 @@ mnemosyne.components = [
      "CrammingPlugin") ]
 
 # Run Mnemosyne.
-mnemosyne.initialise(basedir=basedir)
+mnemosyne.initialise(data_dir=data_dir)
 mnemosyne.config()["upload_science_logs"] = False
 app.mainframe = mnemosyne.main_widget()
 app.run()

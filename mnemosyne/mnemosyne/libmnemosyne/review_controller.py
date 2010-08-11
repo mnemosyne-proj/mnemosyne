@@ -17,6 +17,7 @@ class ReviewController(Component):
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
         self.card = None
+        self.learning_ahead = False
 
     def reset(self):
         raise NotImplementedError

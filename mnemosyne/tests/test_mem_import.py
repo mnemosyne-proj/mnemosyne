@@ -47,7 +47,7 @@ class TestMemImport(MnemosyneTest):
                              "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_mem_import", "Widget"))
-        self.mnemosyne.initialise(os.path.abspath("dot_test"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
         
     def mem_importer(self):
@@ -658,8 +658,8 @@ class TestMemImport(MnemosyneTest):
         
     def test_upgrade(self):
         os.system("rm -fr dot_test")
-        basedir = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2")
-        shutil.copytree(basedir, "dot_test")
+        data_dir = os.path.join(os.getcwd(), "tests", "files", "data_dir_bz2")
+        shutil.copytree(data_dir, "dot_test")
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))

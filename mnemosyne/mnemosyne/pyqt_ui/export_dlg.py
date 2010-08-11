@@ -87,7 +87,7 @@ class ExportDlg(ExportFrm):
 
     def apply(self):
 
-        fname = expand_path(unicode(self.filename.text()), get_basedir())
+        fname = expand_path(unicode(self.filename.text()), get_data_dir())
 
         fformat_name = unicode(self.fileformats.currentText())
 

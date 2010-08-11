@@ -39,7 +39,7 @@ class SyncServer(Component, Server):
         self.previous_database = self.config()["path"]   
         if self.previous_database != database_name:
             if not os.path.exists(expand_path(database_name,
-                self.config().basedir)):
+                self.config().data_dir)):
                 self.database().new(database_name)
             else:
                 self.database().load(database_name)
@@ -50,4 +50,3 @@ class SyncServer(Component, Server):
         self.log().loaded_database()
         self.review_controller().reset_but_try_to_keep_current_card()
         self.review_controller().update_dialog(redraw_all=True)
-

@@ -64,7 +64,8 @@ class MyServer(Server, Thread):
         # We only open the database connection inside the thread to prevent
         # access problems, as a single connection can only be used inside a
         # single thread.
-        self.mnemosyne.initialise(os.path.abspath("sync_from_here"))
+        self.mnemosyne.initialise(os.path.abspath("sync_from_here"),  
+                                  automatic_upgrades=False)
         self.mnemosyne.review_controller().reset()
         Server.__init__(self, "server_machine_id", "127.0.0.1", 8190,
                         self.mnemosyne.main_widget())
@@ -91,7 +92,7 @@ class MyClient(Client):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
-                                  "dot_benchmark")))
+                                  "dot_benchmark")),  automatic_upgrades=False)
         self.mnemosyne.review_controller().reset()        
         Client.__init__(self, "client_machine_id", self.mnemosyne.database(),
                         self.mnemosyne.main_widget())

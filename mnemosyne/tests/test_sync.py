@@ -54,14 +54,14 @@ class MyServer(Server, Thread):
     program_version = "test"
     user_id = "user_id"
 
-    def __init__(self, basedir=os.path.abspath("dot_sync_server"),
+    def __init__(self, data_dir=os.path.abspath("dot_sync_server"),
             filename="default.db", binary_download=False, erase_previous=True):
         self.binary_download = binary_download
-        self.basedir = basedir
+        self.data_dir = data_dir
         self.filename = filename
         Thread.__init__(self)
         if erase_previous:
-            os.system("rm -fr " + basedir)
+            os.system("rm -fr " + data_dir)
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
@@ -85,7 +85,7 @@ class MyServer(Server, Thread):
         # We use a condition object here to prevent the client from accessing
         # the server until the server is ready.
         server_initialised.acquire()
-        self.mnemosyne.initialise(self.basedir, self.filename)
+        self.mnemosyne.initialise(self.data_dir, self.filename,  automatic_upgrades=False)
         self.mnemosyne.config().change_user_id(self.user_id)
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
@@ -136,17 +136,17 @@ class MyClient(Client):
     user = "user"
     password = "pass"
     
-    def __init__(self, basedir=os.path.abspath("dot_sync_client"),
+    def __init__(self, data_dir=os.path.abspath("dot_sync_client"),
             filename="default.db", erase_previous=True):
         if erase_previous:
-            os.system("rm -fr " + basedir)
+            os.system("rm -fr " + data_dir)
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-        self.mnemosyne.initialise(basedir, filename)
+        self.mnemosyne.initialise(data_dir, filename,  automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()        
         Client.__init__(self, self.mnemosyne.config().machine_id(),
@@ -704,7 +704,7 @@ class TestSync(object):
             
         def fill_server_database(self):        
             filename = os.path.join(os.getcwd(), "tests", "files",
-                                    "basedir_2_mem", "deck1.mem")
+                                    "data_dir_2_mem", "deck1.mem")
             for format in self.mnemosyne.component_manager.all("file_format"):
                 if format.__class__.__name__ == "Mnemosyne1Mem":
                     format.do_import(filename)

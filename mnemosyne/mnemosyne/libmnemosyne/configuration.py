@@ -56,12 +56,13 @@ class Configuration(Component, dict):
 
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
-        basedir = None
-        resource_limited = False
+        self.data_dir = None
+        self.config_dir = None
+        self.resource_limited = False
 
     def activate(self):
-        self.determine_basedir()
-        self.fill_basedir()
+        self.determine_dirs()
+        self.fill_dirs()
         self.load()
         self.load_user_config()
         self.correct_config()
@@ -76,15 +77,15 @@ class Configuration(Component, dict):
         for key, value in \
             {"first_run": True, 
              "path": self.database().default_name + self.database().suffix,
-             "import_dir": self.basedir, 
+             "import_dir": self.data_dir, 
              "import_format": "XML",
              "reset_learning_data_import": False,
-             "export_dir": self.basedir,
+             "export_dir": self.data_dir,
              "export_format": "XML", 
              "reset_learning_data_export": False,
-             "import_img_dir": self.basedir, 
-             "import_sound_dir": self.basedir,
-             "import_video_dir": self.basedir,
+             "import_img_dir": self.data_dir, 
+             "import_sound_dir": self.data_dir,
+             "import_video_dir": self.data_dir,
              "user_id": None,
              "upload_science_logs": False, 
              "science_server": "mnemosyne-proj.dyndns.org:80",
@@ -99,7 +100,7 @@ class Configuration(Component, dict):
              "memorise_related_cards_on_same_day": False, 
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
-             "language": None,
+             "ui_language": None,
              "show_daily_tips": True,
              "tip": 0,
              "backups_to_keep": 10,
@@ -119,20 +120,17 @@ class Configuration(Component, dict):
              "sync_server_password": ""
             }.items():
             self.setdefault(key, value)
-
         if not self["user_id"]:
             import uuid
             self["user_id"] = str(uuid.uuid4())
-
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook",
-                                                "configuration_defaults"):
+            "configuration_defaults"):
             f.run()
 
     def load(self):
         try:
-            config_file = file(os.path.join(self.basedir,
-                                            "config"), 'rb')
+            config_file = file(os.path.join(self.config_dir, "config"), 'rb')
             for key, value in cPickle.load(config_file).iteritems():
                 self[key] = value
             self.set_defaults()
@@ -143,58 +141,66 @@ class Configuration(Component, dict):
         
     def save(self):
         try:
-            config_file = file(os.path.join(self.basedir,
-                                            "config"), 'wb')
+            config_file = file(os.path.join(self.config_dir, "config"), 'wb')
             cPickle.dump(dict(self), config_file)
         except:
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Unable to save config file:") \
                   + "\n" + traceback_string()
 
-    def determine_basedir(self):
-        exists = os.path.exists
+    def determine_dirs(self):
+        # Return if data_dir was already set by the user. In that case, we
+        # also store the config in that directory.
+        if self.data_dir is not None:
+            self.config_dir = self.data_dir
+            return
         join = os.path.join        
-        self.old_basedir = None
-        if self.basedir == None:
+        if sys.platform == "win32":
+            import ctypes
+            n = ctypes.windll.kernel32.GetEnvironmentVariableW(\
+                "APPDATA", None, 0)
+            buf = ctypes.create_unicode_buffer(u'\0'*n)
+            ctypes.windll.kernel32.GetEnvironmentVariableW(name, buf, n)
+            self.data_dir = join(buf.value, "Mnemosyne2")
+            self.config_dir = self.data_dir
+        elif sys.platform == "darwin":
             home = os.path.expanduser("~")
-            try:
-                home = home.decode(locale.getdefaultlocale()[1])
-            except:
-                pass
-            if sys.platform == "darwin":
-                self.basedir = join(home, "Library", "Mnemosyne")
-            else:
-                self.basedir = join(home, ".mnemosyne")
-
-    def fill_basedir(self):
+            self.data_dir = join(home, "Library", "Mnemosyne2")
+            self.config_dir = self.data_dir
+        else:
+            home = os.path.expanduser("~")
+            self.data_dir = join(home, ".local", "share", "mnemosyne2")
+            self.config_dir = join(home, ".config", "mnemosyne2")
+                
+    def fill_dirs(self):
         
-        """ Fill basedir with configuration files. Do this even if basedir
-        already exists, because we might have added new files since the
-        last version.
+        """Fill data_dir and config_dir. Do this even if they already exist,
+        because we might have added new files since the last version.
         
         """
 
         exists = os.path.exists
-        join = os.path.join        
+        join = os.path.join
         # Create paths.
-        if not exists(self.basedir):
-            os.mkdir(self.basedir)
+        if not exists(self.data_dir):
+            os.mkdir(self.data_dir)
+        if not exists(self.config_dir):
+            os.mkdir(self.config_dir)
         for directory in ["history", "css", "plugins", "backups"]:
-            if not exists(join(self.basedir, directory)):
-                os.mkdir(join(self.basedir, directory))
+            if not exists(join(self.data_dir, directory)):
+                os.mkdir(join(self.data_dir, directory))
         # Create default configuration.
-        if not exists(join(self.basedir, "config")):
+        if not exists(join(self.config_dir, "config")):
             self.save()
         # Create default config.py.
-        configfile = join(self.basedir, "config.py")
-        if not exists(configfile):
-            f = file(configfile, "w")
+        config_file = join(self.config_dir, "config.py")
+        if not exists(config_file):
+            f = file(config_file, "w")
             print >> f, config_py
             f.close()
-        # Create machine_id. Do this in a separate file, so that people can
-        # copy their other config files over to a different machine without
-        # problems.
-        machine_id_file = join(self.basedir, "machine.id")
+        # Create machine_id. Do this in a separate file, as extra warning
+        # signal that people should not copy this file to a different machine.
+        machine_id_file = join(self.config_dir, "machine.id")
         if not exists(machine_id_file):
             import uuid
             f = file(machine_id_file, "w")
@@ -202,15 +208,15 @@ class Configuration(Component, dict):
             f.close()
 
     def machine_id(self):
-        return file(os.path.join(self.basedir, "machine.id")).\
+        return file(os.path.join(self.config_dir, "machine.id")).\
             readline().rstrip()
 
     def load_user_config(self):
-        sys.path.insert(0, self.basedir)
-        config_file_c = os.path.join(self.basedir, "config.pyc")
+        sys.path.insert(0, self.config_dir)
+        config_file_c = os.path.join(self.config_dir, "config.pyc")
         if os.path.exists(config_file_c):
             os.remove(config_file_c)
-        config_file = os.path.join(self.basedir, "config.py")
+        config_file = os.path.join(self.config_dir, "config.py")
         if os.path.exists(config_file):
             try:
                 import config as user_config
@@ -227,23 +233,19 @@ class Configuration(Component, dict):
                           + "\n" + traceback_string()
                 
     def correct_config(self):
-        # Update paths if the location has migrated.
-        if self.old_basedir:
-            for key in ["import_dir", "export_dir", "import_img_dir",
-                        "import_sound_dir"]:
-                if self[key] == self.old_basedir:
-                    self[key] = self.basedir
         # Recreate user id and log index from history folder in case the
         # config file was accidentally deleted.
         if self["log_index"] == 1:
             join = os.path.join
-            _dir = os.listdir(unicode(join(self.basedir, "history")))
+            _dir = os.listdir(unicode(join(self.data_dir, "history")))
             history_files = [x for x in _dir if x[-4:] == ".bz2"]
             history_files.sort()
             if history_files:
                 last = history_files[-1]
-                user, index = last.rsplit('_', 1)
-                index = int(index.split('.')[0]) + 1
+                user_id, log_index = last.rsplit('_', 1)
+                log_index = int(log_index.split('.')[0]) + 1
+                self["user_id"] = user_id
+                self["log_index"] = log_index
 
     def change_user_id(self, new_user_id):
 

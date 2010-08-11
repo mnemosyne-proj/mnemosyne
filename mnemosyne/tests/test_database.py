@@ -287,7 +287,7 @@ class TestDatabase(MnemosyneTest):
         new_name = self.config()["path"] + ".bak"
         assert self.database().save(self.config()["path"] + ".bak") != -1
         assert self.config()["path"] == new_name
-        assert new_name != expand_path(new_name, self.config().basedir)
+        assert new_name != expand_path(new_name, self.config().data_dir)
 
     def test_duplicates_for_fact(self):
         fact_data = {"q": "question",
@@ -384,7 +384,7 @@ class TestDatabase(MnemosyneTest):
         assert self.database().count_related_cards_with_next_rep(card_1, card_1.next_rep) == 0
 
     def test_purge_backups(self):
-        backup_dir = os.path.join(self.config().basedir, "backups")
+        backup_dir = os.path.join(self.config().data_dir, "backups")
         for count in range(10):
             f = file(os.path.join(backup_dir, "default-%d.db" % count), "w")
         self.mnemosyne.finalise()

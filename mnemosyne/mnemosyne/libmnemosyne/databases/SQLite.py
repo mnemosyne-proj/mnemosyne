@@ -247,13 +247,13 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                    split(self.database().suffix)[0]
         
     def mediadir(self):
-        return os.path.join(self.config().basedir,
+        return os.path.join(self.config().data_dir,
             os.path.basename(self.config()["path"]) + "_media")
     
     def new(self, path):
         if self.is_loaded():
             self.unload()
-        self._path = expand_path(path, self.config().basedir)
+        self._path = expand_path(path, self.config().data_dir)
         if os.path.exists(self._path):
             os.remove(self._path)
         # Create tables.
@@ -263,7 +263,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.execute("""insert into partnerships(partner, _last_log_id)
             values(?,?)""", ("log.txt", 0))
         self.con.commit()
-        self.config()["path"] = contract_path(self._path, self.config().basedir)
+        self.config()["path"] = contract_path(self._path, self.config().data_dir)
         # Create default criterion.
         from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
              DefaultCriterion
@@ -294,7 +294,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     def load(self, path):
         if self.is_loaded():
             self.unload()
-        self._path = expand_path(path, self.config().basedir)
+        self._path = expand_path(path, self.config().data_dir)
         # Check database version.
         try:
             sql_res = self.con.execute("""select value from global_variables
@@ -335,7 +335,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 raise exception
         self._current_criterion = self.activity_criterion\
             (1, id_is_internal=True)
-        self.config()["path"] = contract_path(path, self.config().basedir)
+        self.config()["path"] = contract_path(path, self.config().data_dir)
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
         # We don't log the database load here, as we prefer to log the start
@@ -349,11 +349,11 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.commit()
         if not path:
             return
-        dest_path = expand_path(path, self.config().basedir)
+        dest_path = expand_path(path, self.config().data_dir)
         if dest_path != self._path:
             shutil.copy(self._path, dest_path)
             self._path = dest_path
-        self.config()["path"] = contract_path(path, self.config().basedir)
+        self.config()["path"] = contract_path(path, self.config().data_dir)
         # We don't log every save, as that would result in an event after
         # card repetitions.
 
@@ -361,7 +361,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.save()
         if self.config()["backups_to_keep"] == 0:
             return
-        backupdir = os.path.join(self.config().basedir, "backups")
+        backupdir = os.path.join(self.config().data_dir, "backups")
         db_name = os.path.basename(self._path).rsplit(".", 1)[0]
         backupfile = db_name + "-" + \
             datetime.datetime.today().strftime("%Y%m%d-%H%M%S.db")
@@ -391,7 +391,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
 
     def restore(self, path):
         self.abandon()
-        db_path = expand_path(self.config()["path"], self.config().basedir)
+        db_path = expand_path(self.config()["path"], self.config().data_dir)
         shutil.copy(path, db_path)
         self.load(db_path)
 

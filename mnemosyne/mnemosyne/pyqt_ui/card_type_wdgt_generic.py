@@ -42,7 +42,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             try:
                 font_string = self.config()["font"][card_type.id][fact_key]
                 font = QtGui.QFont()
-                font.fromString(font_string)
+                font.fromString(font_string)                
                 t.setCurrentFont(font)
             except:
                 pass            

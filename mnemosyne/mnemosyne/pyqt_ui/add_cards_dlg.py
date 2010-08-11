@@ -90,7 +90,7 @@ class AddEditCards(Component):
         for name in sorted_tags:
             if name != _("<default>"):
                 self.tags.addItem(name)
-        if ',' in current_tag_name:
+        if "," in current_tag_name:
             self.tags.addItem(current_tag_name)      
         for i in range(self.tags.count()):
             if self.tags.itemText(i) == current_tag_name:

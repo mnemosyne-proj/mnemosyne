@@ -48,7 +48,7 @@ class MyServer(Server):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-        self.mnemosyne.initialise(os.path.abspath("sync_from_here"))
+        self.mnemosyne.initialise(os.path.abspath("sync_from_here"),  automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
         # Add 20 cards to database.

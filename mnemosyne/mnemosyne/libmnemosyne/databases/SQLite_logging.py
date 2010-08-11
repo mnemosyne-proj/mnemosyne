@@ -183,7 +183,7 @@ class SQLiteLogging(object):
         if self.config()["upload_science_logs"] == False:
             return
         # Open log file and get starting index.
-        logname = os.path.join(self.config().basedir, "log.txt")
+        logname = os.path.join(self.config().data_dir, "log.txt")
         logfile = file(logname, "a")
         sql_res = self.con.execute(\
             "select _last_log_id from partnerships where partner=?",

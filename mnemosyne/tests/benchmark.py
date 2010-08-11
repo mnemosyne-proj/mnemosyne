@@ -73,8 +73,10 @@ def startup():
         ("mnemosyne.libmnemosyne.ui_components.dialogs",
          "ProgressDialog") ]    
 
-    mnemosyne.initialise(basedir=os.path.abspath("dot_benchmark"))
-    #mnemosyne.initialise(basedir="\SDMMC\.mnemosyne")
+    mnemosyne.initialise(data_dir=os.path.abspath("dot_benchmark"),  
+        automatic_upgrades=False)
+    #mnemosyne.initialise(data_dir="\SDMMC\.mnemosyne", 
+    #automatic_upgrades=False)
 
     mnemosyne.review_controller().reset()
 

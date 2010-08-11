@@ -137,8 +137,8 @@ class Logger(Component):
 
         if not self.config()["upload_science_logs"]:
             return
-        basedir = self.config().basedir
-        log_name = os.path.join(basedir, "log.txt")
+        data_dir = self.config().data_dir
+        log_name = os.path.join(data_dir, "log.txt")
         try:
             log_size = os.stat(log_name).st_size
         except:
@@ -150,10 +150,10 @@ class Logger(Component):
             archive_name = "%s_%s_%05d.bz2" % (user, machine, index)
             if not self.config().resource_limited:
                 import bz2
-                f = bz2.BZ2File(os.path.join(basedir, "history",
+                f = bz2.BZ2File(os.path.join(data_dir, "history",
                                              archive_name), 'w')
             else:
-                f = file(os.path.join(basedir, "history", archive_name), 'w')
+                f = file(os.path.join(data_dir, "history", archive_name), 'w')
             for l in file(log_name):
                 f.write(l)
             f.close()

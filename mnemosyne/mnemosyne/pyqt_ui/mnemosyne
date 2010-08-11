@@ -24,18 +24,17 @@ parser.add_option("-d", "--datadir", dest="datadir",
                   help=_("data directory"), default=None)
 (options, args) = parser.parse_args()
 
-# Check if we have to override the basedir determined in libmnemosyne,
-# either because we explicitly specified a datadir on the command line,
-# or because there is a .mnemosyne directory present in the current directory.
+# Check if we have to override the data_dir determined in libmnemosyne,
+# either because we explicitly specified a data_dir on the command line,
+# or because there is a mnemosyne2 directory present in the current directory.
 # The latter is handy when Mnemosyne is run from a USB key, so that there
 # is no need to refer to a drive letter which can change from computer to
 # computer.
+data_dir = None
 if options.datadir != None:
-    basedir = os.path.abspath(options.datadir)
-elif os.path.exists(os.path.join(os.getcwdu(), ".mnemosyne")):
-    basedir = os.path.abspath(os.path.join(os.getcwdu(), ".mnemosyne"))
-else:
-    basedir = os.path.abspath(os.path.join(os.environ['HOME'], ".mnemosyne"))
+    data_dir = os.path.abspath(options.datadir)
+elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne2")):
+    data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne2"))
     
 # Filename argument.
 if len(args) > 0:
@@ -118,7 +117,7 @@ mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
                              "ReviewWdgtCramming")]
 
 # Run Mnemosyne.
-mnemosyne.initialise(basedir=basedir, filename=filename)
+mnemosyne.initialise(data_dir=data_dir, filename=filename)
 mnemosyne.main_widget().show()
 mnemosyne.main_widget().raise_() # Needed for OSX.
 # TODO: check first run wizard.

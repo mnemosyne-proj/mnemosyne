@@ -306,7 +306,7 @@ class DefaultController(Controller):
         old_partnerships = db.partners()
         suffix = db.suffix
         filename = self.main_widget().save_file_dialog(\
-            path=self.config().basedir, filter=_("Mnemosyne databases") + \
+            path=self.config().data_dir, filter=_("Mnemosyne databases") + \
             " (*%s)" % suffix, caption=_("New"))
         if not filename:
             self.stopwatch().unpause()
@@ -335,14 +335,14 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         db = self.database()
-        basedir = self.config().basedir
-        old_path = expand_path(self.config()["path"], basedir)
+        data_dir = self.config().data_dir
+        old_path = expand_path(self.config()["path"], data_dir)
         filename = self.main_widget().open_file_dialog(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % db.suffix)
         if not filename:
             self.stopwatch().unpause()
             return
-        if filename.startswith(os.path.join(basedir, "backups")):
+        if filename.startswith(os.path.join(data_dir, "backups")):
             result = self.main_widget().question_box(\
                 _("Do you want to restore from this backup?"),
                 _("Yes"), _("No"), "")
@@ -385,7 +385,7 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         suffix = self.database().suffix
-        old_path = expand_path(self.config()["path"], self.config().basedir)
+        old_path = expand_path(self.config()["path"], self.config().data_dir)
         filename = self.main_widget().save_file_dialog(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % suffix)
         if not filename:
@@ -415,8 +415,8 @@ class DefaultController(Controller):
         """
 
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        basedir, mediadir = self.config().basedir, self.database().mediadir()
-        path = expand_path(self.config()["import_img_dir"], basedir)
+        data_dir, mediadir = self.config().data_dir, self.database().mediadir()
+        path = expand_path(self.config()["import_img_dir"], data_dir)
         filter = _("Image files") + " " + filter
         filename = self.main_widget().open_file_dialog(\
             path, filter, _("Insert image"))
@@ -424,14 +424,14 @@ class DefaultController(Controller):
             return ""
         else:
             self.config()["import_img_dir"] = contract_path(\
-                os.path.dirname(filename), basedir)
+                os.path.dirname(filename), data_dir)
             filename = copy_file_to_dir(filename, mediadir)
             return contract_path(filename, mediadir)
         
     def insert_sound(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        basedir, mediadir = self.config().basedir, self.database().mediadir()
-        path = expand_path(self.config()["import_sound_dir"], basedir)
+        data_dir, mediadir = self.config().data_dir, self.database().mediadir()
+        path = expand_path(self.config()["import_sound_dir"], data_dir)
         filter = _("Sound files") + " " + filter
         filename = self.main_widget().open_file_dialog(\
             path, filter, _("Insert sound"))
@@ -439,14 +439,14 @@ class DefaultController(Controller):
             return ""
         else:
             self.config()["import_sound_dir"] = contract_path(\
-                os.path.dirname(filename), basedir)
+                os.path.dirname(filename), data_dir)
             filename = copy_file_to_dir(filename, mediadir)
             return filename
         
     def insert_video(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        basedir, mediadir = self.config().basedir, self.database().mediadir()
-        path = expand_path(self.config()["import_video_dir"], basedir)
+        data_dir, mediadir = self.config().data_dir, self.database().mediadir()
+        path = expand_path(self.config()["import_video_dir"], data_dir)
         filter = _("Video files") + " " + filter
         filename = self.main_widget().open_file_dialog(\
             path, filter, _("Insert video"))
@@ -454,7 +454,7 @@ class DefaultController(Controller):
             return ""
         else:
             self.config()["import_video_dir"] = contract_path(\
-                os.path.dirname(filename), basedir)
+                os.path.dirname(filename), data_dir)
             filename = copy_file_to_dir(filename, mediadir)
             return filename
         
@@ -516,7 +516,7 @@ class DefaultController(Controller):
     def import_file(self):
         self.stopwatch().pause()
         self.flush_sync_server()
-        path = expand_path(self.config()["import_dir"], self.config().basedir)
+        path = expand_path(self.config()["import_dir"], self.config().data_dir)
 
         # TMP hardcoded single fileformat.
         filename = self.main_widget().open_file_dialog(path=path,
