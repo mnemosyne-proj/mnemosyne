@@ -21,7 +21,7 @@ class Mnemosyne(Component):
 
     """
 
-    def __init__(self, resource_limited=False):
+    def __init__(self):
         self.components = [
          ("mnemosyne.libmnemosyne.databases.SQLite",
           "SQLite"),
@@ -90,7 +90,6 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
           "Mnemosyne1Mem")]
         self.extra_components_for_plugin = {}
-        self.resource_limited = resource_limited
 
     def initialise(self, data_dir=None, filename=None,
                    automatic_upgrades=True):
@@ -98,7 +97,6 @@ class Mnemosyne(Component):
         self.register_components()
         if data_dir:
             self.config().data_dir = data_dir
-        self.config().resource_limited = self.resource_limited 
         self.activate_components()
         self.initialise_error_handling()
         register_component_manager(self.component_manager,
@@ -116,8 +114,9 @@ class Mnemosyne(Component):
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).run()  
-        # Finally, we can activate the main widget.
+        # Finally, we can activate the main widget and start the review.
         self.main_widget().activate()
+        self.review_controller().reset()
                     
     def register_components(self):
 
@@ -166,6 +165,9 @@ class Mnemosyne(Component):
             sys.stderr = file(error_log, "a")
                     
     def execute_user_plugin_dir(self):
+        # Note that we put user plugins in the data_dir and not the
+        # config_dir as there are many plugins (.e.g. new card types) for
+        # which the database does not make sense without them. 
         plugin_dir = unicode(os.path.join(self.config().data_dir, "plugins"))
         sys.path.insert(0, plugin_dir)
         for component in os.listdir(unicode(plugin_dir)):

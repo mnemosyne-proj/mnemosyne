@@ -246,7 +246,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             return os.path.basename(self.config()["path"]).\
                    split(self.database().suffix)[0]
         
-    def mediadir(self):
+    def media_dir(self):
         return os.path.join(self.config().data_dir,
             os.path.basename(self.config()["path"]) + "_media")
     
@@ -270,10 +270,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._current_criterion = DefaultCriterion(self.component_manager)
         self.add_activity_criterion(self._current_criterion)
         # Create media directory.
-        mediadir = self.mediadir()
-        if not os.path.exists(mediadir):
-            os.mkdir(mediadir)
-            os.mkdir(os.path.join(mediadir, "latex"))
+        media_dir = self.media_dir()
+        if not os.path.exists(media_dir):
+            os.mkdir(media_dir)
+            os.mkdir(os.path.join(media_dir, "latex"))
 
     def _activate_plugin_for_card_type(self, card_type_id):
         found = False
@@ -400,7 +400,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             f.run()
         self.log().dump_to_science_log()
         if self._connection:
-            self.save()
+            self.backup()  # Saves too.
             self._connection.close()
             self._connection = None
         self._path = None
@@ -864,7 +864,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
 
         """
         
-        return str(os.path.getmtime(os.path.join(self.mediadir(),
+        return str(os.path.getmtime(os.path.join(self.media_dir(),
             os.path.normcase(filename))))
     
     def _process_media(self, fact):
@@ -889,7 +889,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             # the user clicks 'Add image' e.g., but he could have typed in the
             # full path directly.
             if os.path.isabs(filename):
-                filename = copy_file_to_dir(filename, self.mediadir())
+                filename = copy_file_to_dir(filename, self.media_dir())
             else:  # We always store Unix paths internally.
                 filename = filename.replace("\\", "/")
             for key, value in fact.data.iteritems():

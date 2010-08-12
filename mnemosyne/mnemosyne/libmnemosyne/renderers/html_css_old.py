@@ -31,8 +31,7 @@ class HtmlCssOld(Renderer):
             f = file(css_path)
             self._css[card_type.id] = file(css_path).read()
             return       
-        # Else, construct from configuration data.
-        self._css[card_type.id] = """<style type="text/css">\n"""           
+        # Else, construct from configuration data.    
         # Background colours.
         self._css[card_type.id] += "body { "
         try:
@@ -93,7 +92,6 @@ class HtmlCssOld(Renderer):
             except:
                 pass                
             self._css[card_type.id] += "}\n"
-        self._css[card_type.id] += "</style>"
         
     def css(self, card_type):
         if not card_type.id in self._css:
@@ -101,8 +99,9 @@ class HtmlCssOld(Renderer):
         return self._css[card_type.id] 
                 
     def render_card_fields(self, fact, fields, exporting):
-        html = "<html><head>" + self.css(fact.card_type) + \
-            "</head><body><table  "
+        html = "<html><head><style type=\"text/css\">\n" + \
+            self.css(fact.card_type) + \
+            "</style></head><body><table  "
         try:
             alignment = self.config()["alignment"][fact.card_type.id]
         except:
@@ -124,8 +123,8 @@ class HtmlCssOld(Renderer):
         return html
     
     def render_text(self, text, field_name, card_type, exporting):
-        html = "<html><head>" + self.css(card_type) + \
-            "</head><body><table "
+        html = "<html><head><style type=\"text/css\">\n" + \
+            self.css(card_type) + "</style></head><body><table "
         try:
             alignment = self.config()["alignment"][card_type.id]
         except:

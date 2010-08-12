@@ -58,7 +58,6 @@ class Configuration(Component, dict):
         Component.__init__(self, component_manager)
         self.data_dir = None
         self.config_dir = None
-        self.resource_limited = False
 
     def activate(self):
         self.determine_dirs()
@@ -168,9 +167,20 @@ class Configuration(Component, dict):
             self.data_dir = join(home, "Library", "Mnemosyne2")
             self.config_dir = self.data_dir
         else:
+            # Follow the freedesktop standards:
+            # http://standards.freedesktop.org/basedir-spec/
+            # basedir-spec-latest.html
             home = os.path.expanduser("~")
-            self.data_dir = join(home, ".local", "share", "mnemosyne2")
-            self.config_dir = join(home, ".config", "mnemosyne2")
+            if "XDG_DATA_HOME" in os.environ:
+                self.data_dir = os.environ["XDG_DATA_HOME"]
+            else:
+                self.data_dir = join(home, ".local", "share")
+            self.data_dir = join(self.data_dir, "mnemosyne2")    
+            if "XDG_CONFIG_HOME" in os.environ:
+                self.config_dir = os.environ["XDG_CONFIG_HOME"]
+            else:
+                self.config_dir = join(home, ".config")
+            self.config_dir = join(self.config_dir, "mnemosyne2")
                 
     def fill_dirs(self):
         

@@ -130,7 +130,9 @@ class Client(Partner):
                 return
         except Exception, exception:
             self.ui.close_progress()
-            if type(exception) == type(socket.error()):
+            if type(exception) == type(socket.gaierror()):
+                self.ui.error_box("Could not find server!") 
+            elif type(exception) == type(socket.error()):
                 self.ui.error_box("Could not connect to server!")            
             elif type(exception) == type(socket.timeout()):
                 self.ui.error_box("Timeout while waiting for server!")
@@ -296,7 +298,7 @@ class Client(Partner):
         else:
             filenames = self.database.media_filenames_to_sync_for(\
                 self.server_info["machine_id"])
-        size = tar_file_size(self.database.mediadir(), filenames)
+        size = tar_file_size(self.database.media_dir(), filenames)
         if size == 0:
             return
         self.con.putrequest("PUT", "/client_media_files?session_token=%s" \
@@ -309,7 +311,7 @@ class Client(Partner):
         # cut for efficiency reasons and bypasses the routines in Partner, and
         # in fact even httplib.HTTPConnection.send.
         saved_path = os.getcwdu()
-        os.chdir(self.database.mediadir())
+        os.chdir(self.database.media_dir())
         tar_pipe = tarfile.open(mode="w|",  # Open in streaming mode.
              format=tarfile.PAX_FORMAT, fileobj=socket)
         for filename in filenames:
@@ -335,7 +337,7 @@ class Client(Partner):
             return
         tar_pipe = tarfile.open(mode="r|", fileobj=response)
         # Work around http://bugs.python.org/issue7693.
-        tar_pipe.extractall(self.database.mediadir().encode("utf-8"))
+        tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
 
     def get_sync_cancel(self):
         self.ui.set_progress_text("Waiting for the server to finish...")

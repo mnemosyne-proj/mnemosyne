@@ -110,7 +110,7 @@
   </widget>
   <action name="actionActivateCards">
    <property name="text">
-    <string>(De)a&amp;ctivate cards</string>
+    <string>(De)a&amp;ctivate cards...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
@@ -122,7 +122,7 @@
      <normaloff>:/mnemosyne/pixmaps/add.png</normaloff>:/mnemosyne/pixmaps/add.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Add cards</string>
+    <string>&amp;Add cards...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
@@ -130,7 +130,7 @@
   </action>
   <action name="actionCleanDuplicates">
    <property name="text">
-    <string>C&amp;lean duplicates</string>
+    <string>C&amp;lean duplicates...</string>
    </property>
   </action>
   <action name="actionConfigure">
@@ -139,7 +139,7 @@
      <normaloff>:/mnemosyne/pixmaps/configure.png</normaloff>:/mnemosyne/pixmaps/configure.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Configure Mnemosyne</string>
+    <string>&amp;Configure Mnemosyne...</string>
    </property>
   </action>
   <action name="actionDeleteCurrentFact">
@@ -160,7 +160,7 @@
      <normaloff>:/mnemosyne/pixmaps/edit.png</normaloff>:/mnemosyne/pixmaps/edit.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Edit current card</string>
+    <string>&amp;Edit current card...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
@@ -172,7 +172,7 @@
      <normaloff>:/mnemosyne/pixmaps/cards.png</normaloff>:/mnemosyne/pixmaps/cards.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Browse cards</string>
+    <string>&amp;Browse cards...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+B</string>
@@ -180,7 +180,7 @@
   </action>
   <action name="actionExport">
    <property name="text">
-    <string>&amp;Export</string>
+    <string>&amp;Export...</string>
    </property>
   </action>
   <action name="actionFileExit">
@@ -198,7 +198,7 @@
      <normaloff>../../pixmaps/filenew.png</normaloff>../../pixmaps/filenew.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;New</string>
+    <string>&amp;New...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -244,7 +244,7 @@
   </action>
   <action name="actionImport">
    <property name="text">
-    <string>&amp;Import</string>
+    <string>&amp;Import...</string>
    </property>
   </action>
   <action name="actionGettingStarted">
@@ -258,7 +258,7 @@
      <normaloff>:/mnemosyne/pixmaps/statistics.png</normaloff>:/mnemosyne/pixmaps/statistics.png</iconset>
    </property>
    <property name="text">
-    <string>Show s&amp;tatistics</string>
+    <string>Show s&amp;tatistics...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
@@ -271,22 +271,22 @@
   </action>
   <action name="actionCardAppearance">
    <property name="text">
-    <string>Card &amp;appearance</string>
+    <string>Card &amp;appearance...</string>
    </property>
   </action>
   <action name="actionActivatePlugins">
    <property name="text">
-    <string>Activate &amp;plugins</string>
+    <string>Activate &amp;plugins...</string>
    </property>
   </action>
   <action name="actionCloneCardTypes">
    <property name="text">
-    <string>C&amp;lone card types</string>
+    <string>C&amp;lone card types...</string>
    </property>
   </action>
   <action name="actionSync">
    <property name="text">
-    <string>S&amp;ync</string>
+    <string>S&amp;ync...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Y</string>

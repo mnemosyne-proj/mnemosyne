@@ -48,10 +48,21 @@ class TestCloze(MnemosyneTest):
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
-        assert card.question() == """<html><head><style type="text/css"><br>        table { height: 100%; margin-left: auto; margin-right: auto;  }<br>body { margin: 0;<br>        padding: 0;<br>        border: thin solid #8F8F8F; }<br>div#text { text-align: center; }<br></style></head><body><table><tr><td><div id="%s"><div id="text">a [...] c</div></td></tr></table></body></html>"""
+        print card.question()
+        print card.answer()
+
+        assert card.question() == """<html><head><style type="text/css">
+body { margin: 0; padding: 0; border: thin solid #8F8F8F; }
+table { height: 100%; margin-left: auto; margin-right: auto; }
+div#text { text-align: center; }
+</style></head><body><table><tr><td><div id="text">a [...] c</div></td></tr></table></body></html>"""
         
-        assert card.answer() == """<html><head><style type="text/css"><br>        table { height: 100%; margin-left: auto; margin-right: auto;  }<br>body { margin: 0;<br>        padding: 0;<br>        border: thin solid #8F8F8F; }<br>div#text { text-align: center; }<br></style></head><body><table><tr><td><div id="%s"><div id="text">b</div></td></tr></table></body></html>"""
-        
+        assert card.answer() == """<html><head><style type="text/css">
+body { margin: 0; padding: 0; border: thin solid #8F8F8F; }
+table { height: 100%; margin-left: auto; margin-right: auto; }
+div#text { text-align: center; }
+</style></head><body><table><tr><td><div id="text">b</div></td></tr></table></body></html>"""
+                
     def test_edit(self):
         card_type = self.card_type_by_id("5")
         

@@ -415,7 +415,7 @@ class DefaultController(Controller):
         """
 
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        data_dir, mediadir = self.config().data_dir, self.database().mediadir()
+        data_dir, media_dir = self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_img_dir"], data_dir)
         filter = _("Image files") + " " + filter
         filename = self.main_widget().open_file_dialog(\
@@ -425,12 +425,12 @@ class DefaultController(Controller):
         else:
             self.config()["import_img_dir"] = contract_path(\
                 os.path.dirname(filename), data_dir)
-            filename = copy_file_to_dir(filename, mediadir)
-            return contract_path(filename, mediadir)
+            filename = copy_file_to_dir(filename, media_dir)
+            return contract_path(filename, media_dir)
         
     def insert_sound(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        data_dir, mediadir = self.config().data_dir, self.database().mediadir()
+        data_dir, media_dir = self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_sound_dir"], data_dir)
         filter = _("Sound files") + " " + filter
         filename = self.main_widget().open_file_dialog(\
@@ -440,12 +440,12 @@ class DefaultController(Controller):
         else:
             self.config()["import_sound_dir"] = contract_path(\
                 os.path.dirname(filename), data_dir)
-            filename = copy_file_to_dir(filename, mediadir)
+            filename = copy_file_to_dir(filename, media_dir)
             return filename
         
     def insert_video(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
-        data_dir, mediadir = self.config().data_dir, self.database().mediadir()
+        data_dir, media_dir = self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_video_dir"], data_dir)
         filter = _("Video files") + " " + filter
         filename = self.main_widget().open_file_dialog(\
@@ -455,7 +455,7 @@ class DefaultController(Controller):
         else:
             self.config()["import_video_dir"] = contract_path(\
                 os.path.dirname(filename), data_dir)
-            filename = copy_file_to_dir(filename, mediadir)
+            filename = copy_file_to_dir(filename, media_dir)
             return filename
         
     def activate_cards(self):

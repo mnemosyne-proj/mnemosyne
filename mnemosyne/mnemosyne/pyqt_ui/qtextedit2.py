@@ -9,7 +9,7 @@ from mnemosyne.libmnemosyne.translator import _
 
 class QTextEdit2(QtGui.QTextEdit):
 
-    "QTextEdit with extra options in popup menu" 
+    "QTextEdit with extra options in popup menu." 
     
     def __init__(self, parent=None):
         QtGui.QTextEdit.__init__(self, parent)
@@ -54,5 +54,4 @@ class QTextEdit2(QtGui.QTextEdit):
         fname = self.parent().controller().insert_video(filter)
         if fname:
             self.insertPlainText("<video src=\"" + fname + "\">")
-
-        
+            

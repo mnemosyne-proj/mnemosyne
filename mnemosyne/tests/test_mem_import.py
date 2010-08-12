@@ -23,6 +23,8 @@ class Widget(MainWidget):
         if message.startswith("No history found to import."):
             return 0
         if message.startswith("Ignoring unparsable file"):
+            return 0
+        if message.startswith("Upgrade from"):
             return 0        
         raise NotImplementedError
 
@@ -47,7 +49,7 @@ class TestMemImport(MnemosyneTest):
                              "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_mem_import", "Widget"))
-        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
         
     def mem_importer(self):
@@ -657,32 +659,28 @@ class TestMemImport(MnemosyneTest):
         assert self.database().card_count_scheduled_n_days_ago(0) == 1
         
     def test_upgrade(self):
-        os.system("rm -fr dot_test")
-        data_dir = os.path.join(os.getcwd(), "tests", "files", "data_dir_bz2")
-        shutil.copytree(data_dir, "dot_test")
-        self.mnemosyne = Mnemosyne()
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))       
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
-        self.mnemosyne.components.append(\
-            ("test_mem_import", "Widget"))
-        self.mnemosyne.initialise(os.path.abspath("dot_test"))
-        assert self.config()["grade_0_cards_in_hand"] == 7
-        assert "grade_0_items_at_once" not in self.config()
+        old_data_dir = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2")
+        from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
+        Upgrade1(self.mnemosyne.component_manager).upgrade_from_old_data_dir(old_data_dir) 
         assert self.config()["dvipng"].rstrip() == \
                "dvipng -D 300 -T tight tmp.dvi\necho"
         assert "14pt" in self.config()["latex_preamble"]
-        assert os.path.exists(os.path.join("dot_test", "latex.NO_LONGER_USED",
-                                           "dvipng.NO_LONGER_USED"))
-        assert not os.path.exists(os.path.join("dot_test", "latex"))
-        assert not os.path.exists(os.path.join("dot_test", "latex.NO_LONGER_USED",
-                                               "dvipng"))
-        self.review_controller().reset()       
+        assert self.config()["user_id"] == "f3fb13c7"
+        assert self.config()["log_index"] == 3
+        assert os.path.exists(os.path.join(old_data_dir,
+            "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2"))
+        assert os.path.exists(os.path.join(self.mnemosyne.config().data_dir,
+                                           "history", "a_2.bz2"))
+        log = file(os.path.join(self.mnemosyne.config().data_dir, "log.txt"))
+        assert log.readline().strip() == \
+               "2005-11-01 09:29:08 : Imported item 82f2ed0d 0 0 0 0 0"
+
         
     def teardown(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",
+                                    "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2")
+        if os.path.exists(filename):
+            os.remove(filename)        
         filename = os.path.join(os.getcwd(), "tests", "files", "a.png")
         if os.path.exists(filename):
             os.remove(filename)

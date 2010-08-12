@@ -38,13 +38,14 @@ easily, which allows plugin writers maximum flexibility.
 -Replaced 'number of grade 0 cards to hold in your hand' by 'number of non 
  memorised cards to hold in your hand', so that the limit now works on the
  total of grade 0 and 1 cards. Default value is 10.
--Varn if the user memorises over 15 new cards in a session.
+-Warn if the user memorises over 15 new cards in a session.
+-The keyboard shortcuts for the reviewing process no long auto-repeat.
 -Hooked up the machinery to allow embedding video in cards, but on my machine
  only the sound plays. Hopefully, later versions of Qt will fix this.
 -Added option to control whether media (sound/video) gets started automatically
  when displaying a card.
 -Added option to display a media control (play/pause/slider)
--improved backup scheme. Users can now restore from backups using the 
+-Improved backup scheme. Users can now restore from backups using the 
  File - Open menu, as opposed to first decompressing a file outside of Mnemosyne.
 -The learing history is now stored in an SQL database, allowing to calculate
  more statistics
@@ -57,7 +58,10 @@ easily, which allows plugin writers maximum flexibility.
  order and does not affect the normal scheduler data. It is visually
  distinguished from the regular scheduler by having only two grade buttons
  (Right and Wrong)
--Windows Mobile client
+-Mnemosyne now stores its data in a more standards compliant location: 
+ C:/Users/peter/Application Data/Mnemosyne2 under Windows, and 
+ /home/pbienst/.local/share/mnemosyne2 and /home/pbienst/.config/mnemosyne2
+ under Linux.
 -Maemo client
 -When leaving the program open overnight, the display will update at the
  roll over point.

@@ -113,7 +113,7 @@ class Database(object):
         
         raise NotImplementedError
 
-    def mediadir(self):
+    def media_dir(self):
         raise NotImplementedError        
     
     def user_id(self):

@@ -20,7 +20,7 @@ from mnemosyne.libmnemosyne import Mnemosyne
 
 parser = OptionParser()
 parser.usage = "%prog [<database_file>]"
-parser.add_option("-d", "--datadir", dest="datadir",
+parser.add_option("-d", "--datadir", dest="data_dir",
                   help=_("data directory"), default=None)
 (options, args) = parser.parse_args()
 
@@ -31,8 +31,8 @@ parser.add_option("-d", "--datadir", dest="datadir",
 # is no need to refer to a drive letter which can change from computer to
 # computer.
 data_dir = None
-if options.datadir != None:
-    data_dir = os.path.abspath(options.datadir)
+if options.data_dir != None:
+    data_dir = os.path.abspath(options.data_dir)
 elif os.path.exists(os.path.join(os.getcwdu(), "mnemosyne2")):
     data_dir = os.path.abspath(os.path.join(os.getcwdu(), "mnemosyne2"))
     

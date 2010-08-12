@@ -14,7 +14,8 @@ import calendar
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.file_format import FileFormat
-from mnemosyne.libmnemosyne.loggers.science_log_parser import ScienceLogParser
+from mnemosyne.libmnemosyne.file_formats.science_log_parser \
+     import ScienceLogParser
         
 re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 re_sound = re.compile(r"""<sound src=\".+?\">""", re.DOTALL | re.IGNORECASE)
@@ -40,9 +41,10 @@ class Mnemosyne1Mem(FileFormat):
             return result
         db.remove_card_log_entries_since(log_index)
         # The events that we import from the science logs obviously should not
-        # be reexported to these logs. So, before the import, we flush the SQL
-        # logs to the science logs, and after the import we edit the
-        # partership index.
+        # be reexported to these logs (this is true for both the archived logs
+        # and log.txt). So, before the import, we flush the SQL logs to the
+        # science logs, and after the import we edit the partership index to
+        # skip these entries.
         db.dump_to_science_log()
         self._import_logs(filename)
         db.skip_science_log()
@@ -235,7 +237,7 @@ class Mnemosyne1Mem(FileFormat):
         self.database().edit_card(card)
         
     def _preprocess_media(self, fact_data):        
-        mediadir = self.database().mediadir()
+        media_dir = self.database().media_dir()
         # os.path.normpath does not convert Windows separators to Unix
         # separators, so we need to make sure we internally store Unix paths.
         for key in fact_data:
@@ -255,13 +257,13 @@ class Mnemosyne1Mem(FileFormat):
                     subdir = os.path.dirname(filename)
                     subdirs = []
                     while subdir:
-                        subdirs.insert(0, os.path.join(mediadir, subdir))
+                        subdirs.insert(0, os.path.join(media_dir, subdir))
                         subdir = os.path.dirname(subdir)
                     for subdir in subdirs:
                         if not os.path.exists(subdir):
                             os.mkdir(subdir)
                     source = expand_path(filename, self.importdir)
-                    dest = expand_path(filename, mediadir)
+                    dest = expand_path(filename, media_dir)
                     if not os.path.exists(source):
                         self.main_widget().information_box(\
                             _("Missing media file") + " %s" % source)

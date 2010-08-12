@@ -1,12 +1,4 @@
--just copy everything + log.txt first, then import.
--on import, make distinction between logs that were uploaded and those that were not (log.txt e.g.)
--add tests for that
--mediadir --> media_dir
--add sqlite sync to docs?
--update tests to make upgrade testable
--changelog
-
--more fine grained resource_limited. Put in __init__ or in initialise?
+-get rid of event filter for key repeat, also for grade 0
 
 -current active set not marked upon entering
 -get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI
@@ -16,17 +8,34 @@
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -add update after import
 
--where to move txt_log_parser
--need component.statisticspages and configuration widgets?
-
 -check if media files exist?
-
--remove 'style' tag from css and move it to html
+-time how long it takes to extract all media from a set of cards. If it takes too
+ long, consider adding a media field to the fact table
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
+- right click to add cards or sound, comma to 
+ separate tag names, :: to separate hierarchies
+-document cntrl enter in edit dialog instead of clicking ok (also manual?)
 
--eliminate double save on finalise
--where to put review_controller.reset, in initialise or main_window activate?
+-auto vacuum after every N openings? What about WM?
+
+-see if graphical glitch is fixed with latest matplotlib version, reenable
+ remember size
+
+-delete key shortcut for saved sets
+
+-ampersand mnemonics everywhere
+
+-test uploading of logs in rollover
+
+-bug in Qt: setting default colour to black does not register the colour clicks.
+
+-in add card window with custum font size, typing text and then deleting it reverts the font size to
+ the UI default instead of the card type default. hook upcurrentCharFormatChanged()? 
+
+-check for related cards on same day could fail if minute level scheduler is used in the meantime
+ (update comment in scheduler too)
+
 
 -card browser
 -make sure searching for a single unicode character works
@@ -35,39 +44,27 @@
 -card.in_view needed?
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 -make card browser remember its size
-
--time how long it takes to extract all media from a set of cards. If it takes too
- long, consider adding a media field to the fact table
-
 -do better numeric sort on card browser and activate cards
-
--add tests with unicode in data_dir
-
--... after menu options that open a dialog
--suppress autorepeat on review dialog
+-better mechanism to have different renderers?
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
-
--see if graphical glitch is fixed with latest matplotlib version, reenable
- remember size
-
--in add card window with custum font size, typing text and then deleting it reverts the font size to
- the UI default instead of the card type default.
 
 -delete 1.99 logs
 -reenable upload
 
+
+-alpha 1
+
+
 -make distrib
 -http://blog.oak-tree.us/index.php/2010/05/27/pyqt-snow-leopard
 
--auto vacuum after every N openings? What about WM?
-
--bug in Qt: setting default colour to black does not register the colour clicks.
 -Qt bug? different font size in edit box and in css
 
 -windows: test auto upgrade
 -windows: test unicode filenames in sync protocol
 -test running from usb, update instructions
+-add tests with unicode in data_dir
 
 -reenable datadir in setup.py
 
@@ -75,11 +72,31 @@
 
 -Faq about how to pronounce Mnemosyne
 
--delete key shortcut for saved sets
 
--ampersand mnemonics everywhere
+-import
+-update data if same id present on import
+-on import, activate plugins, created card types if necessary
+-on import don't add cards for which card type is not present
+-warn when not importing a duplicate card
+-xml import tests (wcu, memaid, plconv)
+-rewrite test_mem_import test_sch to go through the controller
+-option to detect and mark inverses on import?
+-update XML import/export to new database format
+-make XML import tolerant to extra new lines in header
+-warn when importing card type with duplicate id
+-option to add tags on import
+-save import dir
+-make sure after import all sync events fire
+-make sure enter does not close the import dialog
+-make sure we log new card creation on import
+-make sure to detect media and do slash normalisation from importing text files
+-utf16?
+-make sure there is an error message to the user if xml import fails.
+-mention Mnemosyne XML instead of XML
+-make sure all grades are shown on first revision of imported card. Adapt button group title
+-http://gitorious.org/hooq/hooq? Qt4 testing
+ http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
 
--test uploading of logs, also in rollover
 
 -implement duplicate checking
 -confirmation dialog for deleted cards
@@ -107,29 +124,6 @@ the GUI function itself?
 >         return duplicates
 
 
--import
--update data if same id present on import
--on import, activate plugins, created card types if necessary
--on import don't add cards for which card type is not present
--warn when not importing a duplicate card
--xml import tests (wcu, memaid, plconv)
--rewrite test_mem_import test_sch to go through the controller
--option to detect and mark inverses on import?
--update XML import/export to new database format
--make XML import tolerant to extra new lines in header
--warn when importing card type with duplicate id
--option to add tags on import
--save import dir
--make sure after import all sync events fire
--make sure enter does not close the import dialog
--make sure we log new card creation on import
--make sure to detect media and do slash normalisation from importing text files
--utf16?
--make sure there is an error message to the user if xml import fails.
--mention Mnemosyne XML instead of XML
--make sure all grades are shown on first revision of imported card. Adapt button group title
--http://gitorious.org/hooq/hooq? Qt4 testing
- http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
 
 -new translation infrastructure
 -handle deferred translation
@@ -147,12 +141,7 @@ the GUI function itself?
 -http://pysnippet.blogspot.com/2010/02/qtabwidget-hiding-bar.html
 -have hierarchy in plugin names
 
--better mechanism to have different renderers
-
 -http://www.mblondel.org/journal/2008/08/01/web-canvas/
-
--check for related cards on same day could fail if minute level scheduler is used in the meantime
- (update comment in scheduler too)
 
 -infrastructure to make it easier to type certain symbols
 
@@ -280,8 +269,6 @@ pylint:
 
 -don't activate plugins until after clicking ok
 
--respect font in fact editor
-
 -card type with prefilled fields
 
 -update ohloh?
@@ -324,6 +311,7 @@ http://lost-theory.org/python/ltchinese/
 
 -control B format character in supermemo import?
 
+
 Windows Mobile client:
 
 If your phone has a touchscreen use the pocket pc version. Otherwise try the smartphone version. 
@@ -342,6 +330,7 @@ If your phone has a touchscreen use the pocket pc version. Otherwise try the sma
 -mark card
 -button color
 -sonud: http://watersprite.awardspace.com/python/
+
 
 Multiuser statistics analysis:
 

@@ -23,7 +23,7 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
         self.vbox_layout = QtGui.QVBoxLayout(self)
         self.tab_widget = QtGui.QTabWidget(self.main_widget())
         page_index = 0
-        for page in self.statistics_pages():
+        for page in self.component_manager.all("statistics_page"):
             page = page(self.component_manager)
             self.tab_widget.addTab(StatisticsPageWdgt(component_manager, self,
                 page, page_index), page.name)

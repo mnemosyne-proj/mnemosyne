@@ -128,7 +128,7 @@ class SQLiteSync(object):
         new_hashes = {}
         for sql_res in self.con.execute("select * from media"):
             filename = sql_res["filename"]
-            if not os.path.exists(expand_path(filename, self.mediadir())):
+            if not os.path.exists(expand_path(filename, self.media_dir())):
                 continue
             new_hash = self._media_hash(filename)
             if sql_res["_hash"] != new_hash:
@@ -153,7 +153,7 @@ class SQLiteSync(object):
             """select object_id from log where _id>? and (event_type=? or
             event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
             EventTypes.EDITED_MEDIA))]:
-            if os.path.exists(expand_path(filename, self.mediadir())):
+            if os.path.exists(expand_path(filename, self.media_dir())):
                 filenames.append(filename)
         return filenames
     
@@ -163,7 +163,7 @@ class SQLiteSync(object):
             """select object_id from log where event_type=? or
             event_type=?""", (EventTypes.ADDED_MEDIA,
             EventTypes.EDITED_MEDIA))]:
-            if os.path.exists(expand_path(filename, self.mediadir())):
+            if os.path.exists(expand_path(filename, self.media_dir())):
                 filenames.append(filename)
         return filenames
     
@@ -442,7 +442,7 @@ class SQLiteSync(object):
         """
         
         filename = log_entry["fname"]
-        if os.path.exists(expand_path(filename, self.mediadir())):
+        if os.path.exists(expand_path(filename, self.media_dir())):
             self.con.execute("""insert or replace into media(filename, _hash)
                 values(?,?)""", (filename, self._media_hash(filename)))
         self.log().added_media(filename)

@@ -22,7 +22,6 @@ class Database(Component):
     component_type = "database"
 
     def deactivate(self):
-        self.backup()
         self.unload()
 
     def path(self):

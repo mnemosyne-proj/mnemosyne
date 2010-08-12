@@ -23,7 +23,7 @@ class Mp3ClipPrevention(Filter):
         if not match:
             return text
         mp3 = file(match.group(1).replace("file:\\\\", ""))
-        outname = os.path.join(self.database().mediadir(), "___.mp3") 
+        outname = os.path.join(self.database().media_dir(), "___.mp3") 
         mp3_silence = file(outname, 'wb')
         mp3_silence.write(mp3.read())
         silence = QtCore.QFile(":/mnemosyne/pixmaps/silence.mp3")
@@ -32,4 +32,3 @@ class Mp3ClipPrevention(Filter):
         return re.sub(re_mp3, """<audio src=\"%s\"""" % outname, text)
     
         
-

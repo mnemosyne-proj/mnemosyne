@@ -17,9 +17,6 @@ class MainFrame(gui.CeFrame, MainWidget):
         MainWidget.__init__(self, component_manager)
         gui.CeFrame.__init__(self, title="Mnemosyne")
         
-    def activate(self):
-        self.review_controller().reset()
-        
     def set_central_widget(self, widget):
         sizer = gui.VBox()
         sizer.add(widget)

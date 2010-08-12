@@ -7,7 +7,8 @@ import sys
 import sqlite3
 
 from openSM2sync.log_event import EventCodes as Event
-from mnemosyne.libmnemosyne.loggers.science_log_parser import ScienceLogParser
+from mnemosyne.libmnemosyne.file_formats.science_log_parser \
+     import ScienceLogParser
 
 
 SCHEMA = """

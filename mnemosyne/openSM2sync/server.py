@@ -435,7 +435,7 @@ class Server(WSGIServer, Partner):
             size = int(socket.readline())
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             # Work around http://bugs.python.org/issue7693.
-            tar_pipe.extractall(session.database.mediadir().encode("utf-8"))
+            tar_pipe.extractall(session.database.media_dir().encode("utf-8"))
             return "OK"
         except:
             self.ui.error_box(traceback_string())
@@ -465,7 +465,7 @@ class Server(WSGIServer, Partner):
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
             tmp_file_name = tmp_file.name
             saved_path = os.getcwdu()
-            os.chdir(session.database.mediadir())
+            os.chdir(session.database.media_dir())
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
                 bufsize=BUFFER_SIZE, format=tarfile.PAX_FORMAT)
             for filename in filenames:

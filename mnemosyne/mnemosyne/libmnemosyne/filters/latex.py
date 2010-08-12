@@ -45,7 +45,7 @@ class Latex(Filter):
         """
      
         img_name = md5(latex_command.encode("utf-8")).hexdigest() + ".png"
-        latex_dir = os.path.join(self.database().mediadir(), "latex")
+        latex_dir = os.path.join(self.database().media_dir(), "latex")
         filename = os.path.join(latex_dir, img_name)
         rel_filename = "latex" + "/" + img_name # To be stored in database.
         if not os.path.exists(filename):

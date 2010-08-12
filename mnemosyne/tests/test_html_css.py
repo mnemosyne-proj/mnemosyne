@@ -18,20 +18,18 @@ class TestHtmlCss(MnemosyneTest):
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]
 
+        print card.question()
+
         assert card.question() == """<html><head><style type="text/css">
-        table { height: 100%; margin-left: auto; margin-right: auto;  }
-body { margin: 0;
-        padding: 0;
-        border: thin solid #8F8F8F; }
+body { margin: 0; padding: 0; border: thin solid #8F8F8F; }
+table { height: 100%; margin-left: auto; margin-right: auto; }
 div#q { text-align: center; }
 div#a { text-align: center; }
 </style></head><body><table><tr><td><div id="q">question</div></td></tr></table></body></html>"""
 
         assert card.answer() == """<html><head><style type="text/css">
-        table { height: 100%; margin-left: auto; margin-right: auto;  }
-body { margin: 0;
-        padding: 0;
-        border: thin solid #8F8F8F; }
+body { margin: 0; padding: 0; border: thin solid #8F8F8F; }
+table { height: 100%; margin-left: auto; margin-right: auto; }
 div#q { text-align: center; }
 div#a { text-align: center; }
 </style></head><body><table><tr><td><div id="a">answer</div></td></tr></table></body></html>"""

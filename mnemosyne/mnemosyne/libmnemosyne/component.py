@@ -97,12 +97,6 @@ class Component(object):
 
     def plugins(self):
         return self.component_manager.all("plugin")
-
-    def statistics_pages(self):
-        return self.component_manager.all("statistics_page")
-    
-    def configuration_widgets(self):
-        return self.component_manager.all("configuration_widget")
     
     def card_type_by_id(self, id):
         return self.component_manager.card_type_by_id[id]

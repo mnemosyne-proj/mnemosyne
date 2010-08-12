@@ -148,12 +148,9 @@ class Logger(Component):
             machine = self.config().machine_id()
             index = self.config()["log_index"]
             archive_name = "%s_%s_%05d.bz2" % (user, machine, index)
-            if not self.config().resource_limited:
-                import bz2
-                f = bz2.BZ2File(os.path.join(data_dir, "history",
-                                             archive_name), 'w')
-            else:
-                f = file(os.path.join(data_dir, "history", archive_name), 'w')
+            import bz2  # Not all platforms have bz.
+            f = bz2.BZ2File(os.path.join(data_dir, "history",
+                archive_name), 'w')
             for l in file(log_name):
                 f.write(l)
             f.close()

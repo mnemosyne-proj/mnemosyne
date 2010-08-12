@@ -704,7 +704,7 @@ class TestSync(object):
             
         def fill_server_database(self):        
             filename = os.path.join(os.getcwd(), "tests", "files",
-                                    "data_dir_2_mem", "deck1.mem")
+                                    "basedir_2_mem", "deck1.mem")
             for format in self.mnemosyne.component_manager.all("file_format"):
                 if format.__class__.__name__ == "Mnemosyne1Mem":
                     format.do_import(filename)
@@ -786,7 +786,7 @@ class TestSync(object):
         self.server.test_server = test_server
         self.server.fill_server_database = fill_server_database
         self.server.start()
-        
+       
         self.client = MyClient()
 
         self.client.do_sync()
