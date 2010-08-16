@@ -95,7 +95,7 @@ class HtmlCssOld(Renderer):
         
     def css(self, card_type):
         if not card_type.id in self._css:
-            self.edit(card_type)
+            self.update(card_type)
         return self._css[card_type.id] 
                 
     def render_card_fields(self, fact, fields, exporting):

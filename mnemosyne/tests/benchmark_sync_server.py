@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import sys
 import time
 import pstats
 import cProfile
@@ -20,14 +21,14 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
     
-    def status_bar_message(self, message):
-        print message
+    def set_progress_text(self, text):
+        sys.stderr.write(text)
         
     def information_box(self, info):
-        print info
+        sys.stderr.write(info)
         
     def error_box(self, error):
-        print error
+        sys.stderr.write(error)
 
         
 class MyServer(Server):
@@ -36,16 +37,12 @@ class MyServer(Server):
     program_version = "test"
     capabilities = "TODO"
 
-    stop_after_sync = True
-
     def __init__(self):
         os.system("rm -rf sync_from_here")
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("sync_from_here"),  automatic_upgrades=False)
@@ -63,16 +60,13 @@ class MyServer(Server):
     def authorise(self, login, password):
         return login == "user" and password == "pass"
 
-    def open_database(self, database_name):
+    def load_database(self, database_name):
         return self.mnemosyne.database()
 
     def run(self):
-        Server.__init__(self, "client_machine_id", "192.168.2.54", 8186,
-                        self.mnemosyne.main_widget())                
-        # Because we stop_after_sync is True, serve_forever will actually stop
-        # after one sync.
-        self.serve_forever()
-        self.mnemosyne.finalise()
+        Server.__init__(self, "client_machine_id", 8186,
+                        self.mnemosyne.main_widget())
+        self.serve_until_stopped()
 
 server = MyServer()
 

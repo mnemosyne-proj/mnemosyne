@@ -21,8 +21,8 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
     
-    def status_bar_message(self, message):
-        print message
+    def set_progress_text(self, text):
+        print text
         
     def information_box(self, info):
         print info
@@ -58,8 +58,8 @@ class MyClient(Client):
              "BothWays"),
             ("mnemosyne.libmnemosyne.card_types.three_sided",
              "ThreeSided"),
-            ("mnemosyne.libmnemosyne.renderers.html_css_old",
-             "HtmlCssOld"),
+            ("mnemosyne.libmnemosyne.renderers.html_css",
+             "HtmlCss"),
             ("mnemosyne.libmnemosyne.filters.escape_to_html",
              "EscapeToHtml"),
             ("mnemosyne.libmnemosyne.filters.expand_paths",
@@ -83,8 +83,6 @@ class MyClient(Client):
         self.mnemosyne.components.append(("benchmark_sync_client", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "ProgressDialog"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
                                   "dot_benchmark")),  automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
@@ -104,7 +102,7 @@ class MyClient(Client):
                         self.mnemosyne.main_widget())
         
     def do_sync(self):
-        self.sync("192.168.2.54", 8186, "user", "pass")
+        self.sync("192.168.2.60", 8186, "user", "pass")
         self.mnemosyne.database().save()
 
 if __name__== '__main__':

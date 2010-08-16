@@ -486,6 +486,7 @@ class Server(WSGIServer, Partner):
     def get_sync_cancel(self, environ, session_token):
         self.ui.set_progress_text("Waiting for client to finish...")
         self.cancel_session_with_token(session_token)
+        self.ui.set_progress_text("Sync finished!")
         return "OK"
             
     def get_sync_finish(self, environ, session_token):
@@ -496,5 +497,6 @@ class Server(WSGIServer, Partner):
         for session_token, session in self.sessions.iteritems():
             if session.is_expired():
                 self.terminate_session_with_token(session_token)
+        self.ui.set_progress_text("Sync finished!")
         return "OK"
     
