@@ -196,9 +196,12 @@ class Configuration(Component, dict):
             os.mkdir(self.data_dir)
         if not exists(self.config_dir):
             os.mkdir(self.config_dir)
-        for directory in ["history", "css", "plugins", "backups"]:
+        for directory in ["history", "plugins", "backups"]:
             if not exists(join(self.data_dir, directory)):
                 os.mkdir(join(self.data_dir, directory))
+        for directory in ["css"]:
+            if not exists(join(self.config_dir, directory)):
+                os.mkdir(join(self.config_dir, directory))
         # Create default configuration.
         if not exists(join(self.config_dir, "config")):
             self.save()

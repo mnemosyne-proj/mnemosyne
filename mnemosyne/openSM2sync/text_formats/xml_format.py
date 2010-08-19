@@ -127,3 +127,13 @@ class XMLFormat(object):
                         log_entry[child.tag] = ""
                 root.clear()  # Avoid taking up unnecessary memory.
                 yield log_entry
+
+    def repr_message(self, message, traceback=None):
+        xml = "<openSM2sync message='%d'>" % (message, )
+        if traceback:
+            xml += "<traceback>%s</traceback>" % saxutils.escape(traceback)
+        xml += "</openSM2sync>"
+        return xml
+
+    def parse_message(self, text):
+        raise NotImplementedError

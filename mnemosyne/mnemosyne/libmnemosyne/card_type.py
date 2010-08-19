@@ -18,14 +18,16 @@ class CardType(Component, CompareOnId):
     Inherited card types should have ids where :: separates the different
     levels of the hierarchy, e.g. parent_id::child_id.
     
-    The keys from the fact are also given more verbose names here.
+    The keys from the fact are also given more verbose names here, as well
+    as an optional language code, e.g. for text-to-speech processing.
     This is not done in fact.py, on one hand to save space in the database,
     and on the other hand to allow the possibility that different card types
     give different names to the same key. (E.g. foreign word' could be
     called 'French' in a French card type, or 'pronunciation' could be
     called 'reading' in a Kanji card type.) This in done in self.fields,
-    which is a list of the form [(fact_key, fact_key_name)]. It is tempting to
-    use a dictionary here, but we can't do that since ordering is important.
+    which is a list of the form [(fact_key, fact_key_name, language_code)].
+    It is tempting to use a dictionary here, but we can't do that since
+    ordering is important.
 
     Fields which need to be different for all facts belonging to this card
     type are listed in unique_fields.
@@ -64,13 +66,15 @@ class CardType(Component, CompareOnId):
     extra_data = {}
 
     def keys(self):
-        return set(fact_key for (fact_key, fact_key_name) in self.fields)
+        return set(fact_key for (fact_key, fact_key_name,
+                   fact_key_language) in self.fields)
 
     def key_names(self):
-        return [fact_key_name for (fact_key, fact_key_name) in self.fields]
+        return [fact_key_name for (fact_key, fact_key_name,
+               fact_key_language) in self.fields]
     
     def key_with_name(self, key_name):
-        for fact_key, fact_key_name in self.fields:
+        for fact_key, fact_key_name, fact_key_language in self.fields:
             if fact_key_name == key_name:
                 return fact_key
 

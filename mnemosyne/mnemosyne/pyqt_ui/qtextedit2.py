@@ -9,11 +9,8 @@ from mnemosyne.libmnemosyne.translator import _
 
 class QTextEdit2(QtGui.QTextEdit):
 
-    "QTextEdit with extra options in popup menu." 
+    """QTextEdit with extra options in popup menu.""" 
     
-    def __init__(self, parent=None):
-        QtGui.QTextEdit.__init__(self, parent)
-
     def contextMenuEvent(self, e):
         popup = self.createStandardContextMenu()
         popup.addSeparator()
@@ -25,15 +22,15 @@ class QTextEdit2(QtGui.QTextEdit):
                         QtGui.QKeySequence(_("Ctrl+D")))
         popup.exec_(e.globalPos())
 
-    def keyPressEvent(self, e):
-        if e.key() == QtCore.Qt.Key_I and e.modifiers() == \
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_I and event.modifiers() == \
             QtCore.Qt.ControlModifier:
             self.insert_img()
-        elif e.key() == QtCore.Qt.Key_S and e.modifiers() == \
+        elif event.key() == QtCore.Qt.Key_S and event.modifiers() == \
             QtCore.Qt.ControlModifier:
             self.insert_sound()
         else:
-            QtGui.QTextEdit.keyPressEvent(self, e)
+            QtGui.QTextEdit.keyPressEvent(self, event)
 
     def insert_img(self):
         filter = "(*.png *.gif *.jpg *.bmp *.jpeg" + \

@@ -2000,7 +2000,7 @@ class TestSync(object):
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
             card_type = db.card_type(self.card_type_id, id_is_internal=False)
             assert card_type.name == "1 cloned"
-            assert card_type.fields == [('q', 'Question'), ('a', 'Answer')]
+            assert card_type.fields == [('q', 'Question', None), ('a', 'Answer', None)]
             assert card_type.unique_fields == ['q']
             assert card_type.required_fields == ['q']
             assert card_type.keyboard_shortcuts == {}
@@ -2036,7 +2036,7 @@ class TestSync(object):
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
             card_type = db.card_type(self.card_type_id, id_is_internal=False)
             assert card_type.name == "1 cloned"
-            assert card_type.fields == [('q', 'Question'), ('a', 'Answer')]
+            assert card_type.fields == [('q', 'Question', None), ('a', 'Answer', None)]
             assert card_type.unique_fields == ['q']
             assert card_type.required_fields == ['q']
             assert card_type.keyboard_shortcuts == {}

@@ -29,10 +29,11 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.splitter.setSizes(splitter_sizes)
         # Initialise widgets.
         self.saved_sets.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),
+                        self.saved_sets, self.delete_set)
         self.connect(self.saved_sets,
                      QtCore.SIGNAL("customContextMenuRequested(QPoint)"),
                      self.saved_sets_custom_menu)
-        self.update_saved_sets_pane()
         criterion = self.database().current_activity_criterion()
         self.criterion_classes = \
             self.component_manager.all("activity_criterion")
@@ -61,6 +62,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
             self.criterion_layout.insertWidget(0, self.tab_widget)
             self.connect(self.tab_widget, QtCore.SIGNAL("currentChanged(int)"),
                          self.change_widget)
+        # Should go last, otherwise 'change_widget' clears the selection.
+        self.update_saved_sets_pane()
 
     def change_widget(self, index):
         self.widget = self.tab_widget.currentWidget()
@@ -88,7 +91,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if active_name:
             item = self.saved_sets.findItems(active_name,
                 QtCore.Qt.MatchExactly)[0]
-            self.saved_sets.setCurrentItem(item)        
+            self.saved_sets.setCurrentItem(item)
         splitter_sizes = self.splitter.sizes()
         if self.saved_sets.count() == 0:
             self.splitter.setSizes([0, sum(splitter_sizes)])

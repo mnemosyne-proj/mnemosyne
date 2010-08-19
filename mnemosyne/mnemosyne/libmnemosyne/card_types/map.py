@@ -14,9 +14,9 @@ class Map(CardType):
     name = _("Map")
 
     # List and name the keys.
-    fields = [("loc", _("Location")),
-              ("blank", _("Blank map")),
-              ("marked", _("Marked map"))]
+    fields = [("loc", _("Location"), None),
+              ("blank", _("Blank map"), None),
+              ("marked", _("Marked map"), None)]
 
     # Recognition.
     v1 = FactView(_("Recognition"), "4::1")

@@ -8,14 +8,6 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_review_wdgt import Ui_ReviewWdgt
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
-
-class AutoRepeatFilter(QtCore.QObject):
-    
-    def eventFilter(self, object, event):
-        if event.type() == QtCore.QEvent.KeyPress and event.isAutoRepeat():
-            return True
-        else:
-            return False
         
 class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
@@ -55,10 +47,6 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         parent.add_to_status_bar(self.notmem)
         parent.add_to_status_bar(self.act)
         parent.status_bar.setSizeGripEnabled(0)
-        self.auto_repeat_filter = AutoRepeatFilter()
-        self.grade_0_button.installEventFilter(self.auto_repeat_filter)
-        self.grade_4_button.installEventFilter(self.auto_repeat_filter)
-        self.show_button.installEventFilter(self.auto_repeat_filter)
         
     def show_answer(self):
         self.review_controller().show_answer()

@@ -38,7 +38,7 @@ class Cloze(CardType):
     id = "5"
     name = _("Cloze deletion")
 
-    fields = [("text", _("Text"))]
+    fields = [("text", _("Text"), None)]
     unique_fields = ["text"]
     fact_views = [FactView(_("Cloze"), "5::1")]
 

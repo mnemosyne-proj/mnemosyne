@@ -15,9 +15,9 @@ class ThreeSided(CardType):
     name = _("Foreign word with pronunciation")
 
     # List and name the keys.
-    fields = [("f", _("Foreign word")),
-              ("p", _("Pronunciation")),
-              ("t", _("Translation"))]
+    fields = [("f", _("Foreign word"), None),
+              ("p", _("Pronunciation"), None),
+              ("t", _("Translation"), None)]
 
     # Recognition.
     v1 = FactView(_("Recognition"), "3::1")

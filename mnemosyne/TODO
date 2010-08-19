@@ -1,29 +1,22 @@
--fix css old
--get rid of event filter for key repeat, also for grade 0
-
--current active set not marked upon entering
--get_activity_criterion also returns default criterion. Make sure it is not used to construct the criteria list in the GUI
+-XML status messages
 
 -empty tags
--convert default tags on import
+-convert default tags on import, make sure the events needed for sync are there
+
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
--add update after import
 
 -check if media files exist?
 -time how long it takes to extract all media from a set of cards. If it takes too
  long, consider adding a media field to the fact table
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
-- right click to add cards or sound, comma to 
- separate tag names, :: to separate hierarchies
+-right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
 -document cntrl enter in edit dialog instead of clicking ok (also manual?)
 
 -auto vacuum after every N openings? What about WM?
 
 -see if graphical glitch is fixed with latest matplotlib version, reenable
  remember size
-
--delete key shortcut for saved sets
 
 -ampersand mnemonics everywhere
 

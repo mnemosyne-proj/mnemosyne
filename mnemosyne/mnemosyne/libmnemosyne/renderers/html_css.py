@@ -18,7 +18,7 @@ class HtmlCss(Renderer):
 
     def update(self, card_type):
         # Load from external file if exists.
-        css_path = os.path.join(self.config().data_dir, "css")
+        css_path = os.path.join(self.config().config_dir, "css")
         css_path = os.path.join(css_path, card_type.id)
         if os.path.exists(css_path):
             f = file(css_path)

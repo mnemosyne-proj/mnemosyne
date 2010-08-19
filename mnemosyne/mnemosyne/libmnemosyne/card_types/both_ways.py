@@ -15,8 +15,8 @@ class BothWays(CardType):
     name = _("Front-to-back and back-to-front")
 
     # List and name the keys.
-    fields = [("q", _("Question")),
-              ("a", _("Answer"))]
+    fields = [("q", _("Question"), None),
+              ("a", _("Answer"), None)]
     
     # Front-to-back.
     v1 = FactView(_("Front-to-back"), "2::1")

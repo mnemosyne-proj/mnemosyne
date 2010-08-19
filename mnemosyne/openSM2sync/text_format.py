@@ -20,11 +20,16 @@ class TextFormat(object):
         raise NotImplementedError
 
     def log_entries_footer(self):
-        raise NotImplementedError    
+        raise NotImplementedError
 
     def repr_log_entry(self, log_entry):
         raise NotImplementedError
 
     def parse_log_entries(self, txt):
         raise NotImplementedError
- 
+
+    def repr_message(self, message, traceback=None):
+        raise NotImplementedError
+
+    def parse_message(self, text):
+        raise NotImplementedError

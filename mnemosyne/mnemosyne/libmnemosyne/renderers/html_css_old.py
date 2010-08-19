@@ -25,7 +25,7 @@ class HtmlCssOld(Renderer):
 
     def update(self, card_type):
         # Load from external file if exists.
-        css_path = os.path.join(self.config().data_dir, "css")
+        css_path = os.path.join(self.config().config_dir, "css")
         css_path = os.path.join(css_path, card_type.id)
         if os.path.exists(css_path):
             f = file(css_path)
@@ -33,7 +33,7 @@ class HtmlCssOld(Renderer):
             return       
         # Else, construct from configuration data.    
         # Background colours.
-        self._css[card_type.id] += "body { "
+        self._css[card_type.id] = "body { "
         try:
             colour = self.config()["background_colour"][card_type.id]
             colour_string = ("%X" % colour)[2:] # Strip alpha.
