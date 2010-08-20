@@ -8,7 +8,7 @@ import datetime
 from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
-from mnemosyne.libmnemosyne.loggers.science_log_parser import ScienceLogParser
+from mnemosyne.libmnemosyne.file_formats.science_log_parser import ScienceLogParser
 
 
 class TestStatistics(MnemosyneTest):

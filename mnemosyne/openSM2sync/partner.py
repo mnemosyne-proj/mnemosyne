@@ -25,8 +25,8 @@ class Partner(object):
         # entries, so that the other side can track progress.
         # We also buffer the stream until we have sufficient data to send, in
         # order to improve throughput.
-        # We also tried compression here, but for typical scenarios that is
-        # slightly slower on a WLAN and mobile phone.     
+        # We also tried compression here, but for typical scenarios that seems
+        # to be slightly slower on a WLAN and mobile phone.     
         self.ui.set_progress_range(0, number_of_entries)
         self.ui.set_progress_update_interval(number_of_entries/50)
         buffer = self.text_format.log_entries_header(number_of_entries)

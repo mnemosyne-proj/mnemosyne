@@ -31,6 +31,8 @@ class XMLFormat(object):
         
     """
 
+    mime_type = "text/xml"
+
     def repr_partner_info(self, info):
         repr_info = " <partner "
         for key, value in info.iteritems():
@@ -110,16 +112,16 @@ class XMLFormat(object):
         for key, value in root.attrib.iteritems():
             if key == "number_of_entries":
                 yield value 
-        for event, elem in context:
-            if event == "end" and elem.tag == "log":
+        for event, element in context:
+            if event == "end" and element.tag == "log":
                 log_entry = LogEntry()
-                for key, value in elem.attrib.iteritems():
+                for key, value in element.attrib.iteritems():
                     if key in self.int_keys:
                         value = int(value)
                     elif key in self.float_keys:
                         values = float(value)
                     log_entry[key] = value
-                for child in elem:
+                for child in element:
                     if child.text:
                         log_entry[child.tag] = child.text
                     else:
@@ -129,11 +131,17 @@ class XMLFormat(object):
                 yield log_entry
 
     def repr_message(self, message, traceback=None):
-        xml = "<openSM2sync message='%d'>" % (message, )
+        xml = "<openSM2sync message='%s'>" % (message, )
         if traceback:
             xml += "<traceback>%s</traceback>" % saxutils.escape(traceback)
         xml += "</openSM2sync>"
         return xml
 
-    def parse_message(self, text):
-        raise NotImplementedError
+    def parse_message(self, xml):
+        element = cElementTree.XML(xml)
+        message = element.attrib["message"]
+        traceback = None
+        if element.find("traceback") is not None:
+            traceback = element.find("traceback").text
+        return message, traceback
+

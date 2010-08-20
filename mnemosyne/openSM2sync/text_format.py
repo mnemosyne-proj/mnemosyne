@@ -10,6 +10,8 @@ class TextFormat(object):
 
     """
 
+    mime_type = None
+
     def repr_partner_info(self, info):
         raise NotImplementedError
 

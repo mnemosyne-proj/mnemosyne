@@ -29,7 +29,7 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
             con = httplib.HTTPConnection(localhost_IP(),
                 self.config()["sync_server_port"])
             con.request("GET", "/status")
-            assert con.getresponse().read() == "OK"
+            assert "OK" in con.getresponse().read()
             return True
         except:
             return False

@@ -10,7 +10,7 @@ from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-from mnemosyne.libmnemosyne.loggers.science_log_parser import ScienceLogParser
+from mnemosyne.libmnemosyne.file_formats.science_log_parser import ScienceLogParser
 
 class Widget(MainWidget):
         

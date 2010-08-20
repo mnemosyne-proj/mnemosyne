@@ -1,6 +1,8 @@
--XML status messages
+-in add_cards controller, add __UNTAGGED__ if tag is empty. Document why.
+-add test
+-in libmnemosyne, pyqt_ui, get rid of <default> 
+-in tree widget for tags, rename __UNTAGGED__ with _("untagged")
 
--empty tags
 -convert default tags on import, make sure the events needed for sync are there
 
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:

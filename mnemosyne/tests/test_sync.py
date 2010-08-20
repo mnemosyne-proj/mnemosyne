@@ -168,6 +168,9 @@ class TestSync(object):
         tests_done.release()
             
     def teardown(self):
+        if self.server is None:
+            self.client.mnemosyne.finalise()
+            return
         self.server.stop()
         self._wait_for_server_shutdown()
         try:
@@ -1392,7 +1395,9 @@ class TestSync(object):
         # First sync.
 
         def test_server(self):
-            pass
+            partners = self.mnemosyne.database().partners()
+            assert len(partners) == 1
+            assert self.mnemosyne.database().last_log_index_synced_for(partners[0]) == 8
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -1420,7 +1425,9 @@ class TestSync(object):
 
             assert self.mnemosyne.config().machine_id() not in \
                    self.mnemosyne.database().partners()
-            assert len(self.mnemosyne.database().partners()) == 1
+            partners = self.mnemosyne.database().partners()
+            assert len(partners) == 1
+            assert self.mnemosyne.database().last_log_index_synced_for(partners[0]) > 8
         
         self.server = MyServer(erase_previous=False)
         self.server.tag_id = tag.id
@@ -1717,6 +1724,8 @@ class TestSync(object):
             
         def test_server(self):
             assert self.mnemosyne.database().card_count() == 0
+            assert self.mnemosyne.database().con.\
+                   execute("select count() from partnerships").fetchone()[0] == 1
         
         self.server = MyServer()
         self.server.test_server = test_server
@@ -1738,7 +1747,9 @@ class TestSync(object):
            grade=-1, tag_names=["default"])[0]
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
-
+        assert self.client.mnemosyne.database().con.\
+                   execute("select count() from partnerships").fetchone()[0] == 1
+            
     def test_add_activity_criterion(self):
         
         def test_server(self):
@@ -2098,46 +2109,20 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
-    def test_new_database(self):
-
-        def test_server(self):
-            db = self.mnemosyne.database()
-            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
-            assert tag.id == self.client_tag_id
-            assert tag.name == unichr(0x628) + u">&<abcd"
-            sql_res = db.con.execute("select * from log where event_type=?",
-               (EventTypes.ADDED_TAG, )).fetchone()
-            assert self.tag_added_timestamp == sql_res["timestamp"]
-            assert type(sql_res["timestamp"]) == int
-            assert db.con.execute("select count() from log").fetchone()[0] == 8 
-            
-        self.server = MyServer()
-        self.server.test_server = test_server
-        self.server.start()
-
+    def test_messages(self):
+        self.server = None
         self.client = MyClient()
-        tag = self.client.mnemosyne.database().\
-              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
-        self.server.client_tag_id = tag.id
-        sql_res = self.client.mnemosyne.database().con.execute(\
-            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
-             )).fetchone()
-        self.server.tag_added_timestamp = sql_res["timestamp"]
-        assert type(self.server.tag_added_timestamp) == int
-        self.client.mnemosyne.controller().file_save()
-        self.client.do_sync()
-        assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
-             )).fetchone()[0] == 1
 
-        # Create new database, make sure we don't trigger the sync cycle
-        # warning.
+        xml = self.client.text_format.repr_message("message")
+        message, traceback = self.client.text_format.parse_message(xml)
+        assert message == "message"
+        assert traceback == None
 
-        self.client.mnemosyne.controller().file_new()        
-        assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
-             )).fetchone()[0] == 0        
-        self.client.do_sync()
-        assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
-             )).fetchone()[0] == 1   
+        xml = self.client.text_format.repr_message("message", "traceback")
+        message, traceback = self.client.text_format.parse_message(xml)
+        assert message == "message"
+        assert traceback == "traceback"
+
+
+
+   

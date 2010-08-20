@@ -100,12 +100,13 @@ class Client(Partner):
                 self.ui.information_box("Sync finished!")
                 return
             # Upload local changes and check for conflicts.
-            result = self.put_client_log_entries()
+            result = self.put_client_log_entries()            
             # No conflicts.
             if result == "OK":
                 self.put_client_media_files()
                 self.get_server_media_files()
                 self.get_server_log_entries()
+                self.get_apply_client_log_entries()
                 self.get_sync_finish()
             # Conflicts, keep remote.
             elif result == "KEEP_REMOTE":
@@ -146,6 +147,14 @@ class Client(Partner):
             self.ui.close_progress()
             self.ui.information_box("Sync finished!")
 
+    def _check_response_for_errors(self):
+        message, traceback = self.text_format.parse_message(\
+            self.con.getresponse().read())
+        if "server error" in message.lower():
+            raise SyncError(message)
+        # We don't scare the client user with server log traces here, those
+        # should have already been logged at the server side.
+
     def login(self, server, port, username, password):
         self.ui.set_progress_text("Logging in...")
         client_info = {}
@@ -170,13 +179,16 @@ class Client(Partner):
             self.text_format.repr_partner_info(client_info).\
                 encode("utf-8") + "\n")
         response = self.con.getresponse().read()
-        if response == "CANCEL":
-            raise SyncError("Logging in: server error.")
-        if response == "403 Forbidden":
-            raise SyncError("Wrong username or password.")
-        if response == "CYCLE":
-            raise SyncError(\
-                "Sync cycle detected. Sync through intermediate partner.")            
+        if "message" in response:
+            message, traceback = self.text_format.parse_message(response)
+            message = message.lower()
+            if "server error" in message:
+                raise SyncError("Logging in: server error.")
+            if "access denied" in message:
+                raise SyncError("Wrong username or password.")
+            if "cycle" in message:
+                raise SyncError(\
+                    "Sync cycle detected. Sync through intermediate partner.")         
         self.server_info = self.text_format.parse_partner_info(response)
         self.database.set_sync_partner_info(self.server_info)
         if self.database.is_empty():
@@ -202,10 +214,12 @@ class Client(Partner):
         for buffer in self.stream_log_entries(log_entries, number_of_entries):
             self.con.send(buffer)        
         self.ui.set_progress_text("Waiting for server...")
-        response = self.con.getresponse().read()
-        if response == "CANCEL":
-            raise SyncError("Sending log entries: server error.")
-        if response == "CONFLICT":
+        message, traceback = self.text_format.parse_message(\
+            self.con.getresponse().read())
+        message = message.lower()
+        if "server error" in message:
+            raise SyncError(message)
+        if "conflict" in message:
             if self.capabilities == "mnemosyne_dynamic_cards" and \
                self.interested_in_old_reps and \
                self.program_name == self.server_info["program_name"] and \
@@ -240,8 +254,7 @@ class Client(Partner):
         for buffer in self.stream_binary_file(binary_file, file_size):
             self.con.send(buffer)
         binary_format.clean_up()
-        if self.con.getresponse().read() != "OK":
-            raise SyncError("Sending entire binary database: server error.")
+        self._check_response_for_errors()
         
     def get_server_log_entries(self):
         self.ui.set_progress_text("Getting log entries...")
@@ -318,8 +331,7 @@ class Client(Partner):
             tar_pipe.add(filename)
         tar_pipe.close()
         os.chdir(saved_path)
-        if self.con.getresponse().read() != "OK":
-            raise SyncError("Sending media files: server error.")
+        self._check_response_for_errors()
 
     def get_server_media_files(self, redownload_all=False):
         self.ui.set_progress_text("Getting media files...")
@@ -332,27 +344,30 @@ class Client(Partner):
         try:
             size = int(response.fp.readline())
         except:
-            raise SyncError("Getting media files: server error.")
+            raise SyncError("Internal server error.")
         if size == 0:
             return
         tar_pipe = tarfile.open(mode="r|", fileobj=response)
         # Work around http://bugs.python.org/issue7693.
         tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
-
+        
+    def get_apply_client_log_entries(self):
+        self.ui.set_progress_text("Waiting for server to finish...")
+        self.con.request("GET", "/apply_client_log_entries?session_token=%s" \
+            % (self.server_info["session_token"], ))
+        self._check_response_for_errors()
+        
     def get_sync_cancel(self):
-        self.ui.set_progress_text("Waiting for the server to finish...")
+        self.ui.set_progress_text("Cancelling sync...")
         self.con.request("GET", "/sync_cancel?session_token=%s" \
             % (self.server_info["session_token"], ))
-        response = self.con.getresponse()
-        if response.read() != "OK":
-            raise SyncError("Sync cancel: server error.")
-
+        self._check_response_for_errors()
+        
     def get_sync_finish(self):
-        self.ui.set_progress_text("Waiting for server to finish...")
+        self.ui.set_progress_text("Finishing sync...")
         self.con.request("GET", "/sync_finish?session_token=%s" \
             % (self.server_info["session_token"], ))
-        response = self.con.getresponse()
-        if response.read() != "OK":
-            raise SyncError("Sync finish: server error.")
+        self._check_response_for_errors()
+        # Only update after we are sure there have been no errors.
         self.database.update_last_log_index_synced_for(\
             self.server_info["machine_id"])
