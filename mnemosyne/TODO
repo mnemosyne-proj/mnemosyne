@@ -1,11 +1,4 @@
--in add_cards controller, add __UNTAGGED__ if tag is empty. Document why.
--add test
--in libmnemosyne, pyqt_ui, get rid of <default> 
--in tree widget for tags, rename __UNTAGGED__ with _("untagged")
-
--convert default tags on import, make sure the events needed for sync are there
-
--test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
+-rename default tag on import. Make sure all sync events fire. Add test.
 
 -check if media files exist?
 -time how long it takes to extract all media from a set of cards. If it takes too
@@ -35,12 +28,13 @@
 
 -card browser
 -make sure searching for a single unicode character works
+-test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 -qsortfilter proxy
 -show number of cards selected
 -card.in_view needed?
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 -make card browser remember its size
--do better numeric sort on card browser and activate cards
+-do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
 -better mechanism to have different renderers?
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
@@ -179,6 +173,7 @@ the GUI function itself?
 pylint:
 	find ./mnemosyne/libmnemosyne/ -name \*.py | while read f ; do echo $f;pylint $f 2>&1|grep ^E:; done
 
+-Qt bug: insertAtTop on tags combobox in add_cards does not seem to work
 
 
 * After 2.0:

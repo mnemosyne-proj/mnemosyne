@@ -124,9 +124,16 @@ class DefaultController(Controller):
                 if answer == 2:  # Don't add.
                     return
         db.add_fact(fact)
+        # Add the tags. If there are no tags, use an artificial __UNTAGGED__
+        # tag. This allows for an easy and fast implementation of applying
+        # activity criteria.
         tags = set()
         for tag_name in tag_names:
-            tags.add(db.get_or_create_tag_with_name(tag_name))
+            tag_name = tag_name.rstrip()
+            if tag_name:
+                tags.add(db.get_or_create_tag_with_name(tag_name))
+        if len(tags) == 0:
+            tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))
         cards = []
         criterion = db.current_activity_criterion()
         for card in card_type.create_related_cards(fact):
@@ -226,7 +233,11 @@ class DefaultController(Controller):
         # Create new tags if needed and fetch the edited activity criterion.
         tags = set()
         for tag_name in new_tag_names:
-            tags.add(db.get_or_create_tag_with_name(tag_name))
+            tag_name = tag_name.rstrip()
+            if tag_name:
+                tags.add(db.get_or_create_tag_with_name(tag_name))
+        if len(tags) == 0:
+            tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))
         criterion = db.current_activity_criterion()
 
         # Apply new tags and activity criterion to cards and save cards back

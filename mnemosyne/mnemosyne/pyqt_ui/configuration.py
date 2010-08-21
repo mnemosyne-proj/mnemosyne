@@ -3,7 +3,6 @@
 #
 
 from mnemosyne.libmnemosyne.hook import Hook
-from mnemosyne.libmnemosyne.translator import _
 
 
 class PyQtConfiguration(Hook):
@@ -14,7 +13,7 @@ class PyQtConfiguration(Hook):
         for key, value in \
             {"list_font": None,
              "card_type_name_of_last_added": "",
-             "tags_of_last_added": _("<default>"),
+             "tags_of_last_added": "",
              "sort_column": None,
              "sort_order": None,
              "last_statistics_page": 0,

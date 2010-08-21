@@ -19,10 +19,10 @@ class TestDatabase(MnemosyneTest):
     def test_tags(self):
         cat = Tag("test")
         self.database().add_tag(cat)
-        assert self.database().tag_names() == [u"test"]
+        assert self.database().real_tag_names() == [u"test"]
         cat.name = "test2"
         self.database().edit_tag(cat)
-        assert self.database().tag_names() == [u"test2"]        
+        assert self.database().real_tag_names() == [u"test2"]        
 
     def test_new_cards(self):
         fact_data = {"q": "question",
@@ -200,7 +200,7 @@ class TestDatabase(MnemosyneTest):
         self.database().delete_fact_and_related_cards(fact)
         
         assert self.database().fact_count() == 0
-        assert len(self.database().tag_names()) == 0
+        assert len(self.database().real_tag_names()) == 0
         
     @raises(RuntimeError)
     def test_missing_plugin(self):

@@ -20,7 +20,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.vboxlayout = QtGui.QVBoxLayout()
         self.edit_boxes = {}
         self.top_edit_box = None
-        for fact_key, fact_key_name in self.card_type.fields:
+        for fact_key, fact_key_name, language_code in self.card_type.fields:
             self.vboxlayout.addWidget(QtGui.QLabel(fact_key_name + ":", self))
             t = QTextEdit2(self)
             t.setTabChangesFocus(True)

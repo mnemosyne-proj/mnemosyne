@@ -493,13 +493,20 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             cat._id=?""", (tag._id, )).fetchone()[0] == 0:
             self.delete_tag(tag)
             
-    def tags(self):
+    def all_tags(self):
+
+        """Including the __UNTAGGED__ tag."""
+        
         return (self.tag(cursor[0], id_is_internal=True) for cursor in \
             self.con.execute("select _id from tags"))
     
-    def tag_names(self):
+    def real_tag_names(self):
+
+        """Excluding the __UNTAGGED__ tag."""
+        
         return [cursor[0] for cursor in \
-                self.con.execute("select name from tags")]
+            self.con.execute("select name from tags where name!=?",
+                             ("__UNTAGGED__", ))]
     
     #
     # Facts.
@@ -611,7 +618,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, card)
         for cursor in self.con.execute("""select _tag_id from tags_for_card
             where _card_id=?""", (sql_res["_id"], )):
-            card.tags.add(self.tag(cursor["_tag_id"], id_is_internal=True))
+            tag = self.tag(cursor["_tag_id"], id_is_internal=True)
+            if tag.name != "__UNTAGGED__":
+                card.tags.add(tag)
         return card
     
     def edit_card(self, card, repetition_only=False):

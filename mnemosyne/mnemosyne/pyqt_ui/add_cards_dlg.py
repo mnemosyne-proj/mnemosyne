@@ -84,14 +84,16 @@ class AddEditCards(Component):
 
     def update_tags_combobox(self, current_tag_name):
         self.tags.clear()
-        self.tags.addItem(_("<default>"))
-        sorted_tags = sorted(self.database().tag_names(),
+        sorted_tags = sorted(self.database().real_tag_names(),
                              cmp=numeric_string_cmp)
         for name in sorted_tags:
-            if name != _("<default>"):
-                self.tags.addItem(name)
+            self.tags.addItem(name)
+        # For the 'special' tags, we add them at the top.
+        self.tags.setInsertPolicy(QtGui.QComboBox.InsertAtTop)
         if "," in current_tag_name:
-            self.tags.addItem(current_tag_name)      
+            self.tags.addItem(current_tag_name)
+        if current_tag_name == "":
+            self.tags.addItem(current_tag_name)
         for i in range(self.tags.count()):
             if self.tags.itemText(i) == current_tag_name:
                 self.tags.setCurrentIndex(i)
@@ -118,8 +120,6 @@ class AddEditCards(Component):
         fact = Fact(fact_data, self.card_type)
         cards = self.card_type.create_related_cards(fact)
         tag_text = self.tags.currentText()
-        if tag_text == _("<default>"):
-            tag_text = ""
         dlg = PreviewCardsDlg(cards, tag_text, self)
         dlg.exec_()
 

@@ -72,7 +72,9 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         root_item.setCheckState(0, QtCore.Qt.Checked)
         self.tag_for_node_item = {}
         node_item_for_partial_tag = {}
-        for tag in self.database().tags():
+        for tag in self.database().all_tags():
+            if tag.name == "__UNTAGGED__":
+                tag.name = _("Untagged")
             parent = root_item
             partial_tag = ""
             node_item = None
