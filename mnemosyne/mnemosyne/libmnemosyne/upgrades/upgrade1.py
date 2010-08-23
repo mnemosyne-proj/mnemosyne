@@ -32,7 +32,8 @@ class Upgrade1(Component):
                 pass
             old_data_dir = join(home, ".mnemosyne")
         # We split off the rest to a separate function for testability.
-        self.upgrade_from_old_data_dir(old_data_dir)
+        if os.path.exists(old_data_dir):
+            self.upgrade_from_old_data_dir(old_data_dir)
 
     def upgrade_from_old_data_dir(self, old_data_dir):
         join = os.path.join
@@ -68,7 +69,7 @@ class Upgrade1(Component):
         # completely preserve the state of all the files that need to uploaded
         # to the science server.
         new_data_dir = self.config().data_dir
-        os.rmdir(join(new_data_dir, "history"))
+        shutil.rmtree(join(new_data_dir, "history"))
         shutil.copytree(join(old_data_dir, "history"),
                         join(new_data_dir, "history"))
         shutil.copyfile(join(old_data_dir, "log.txt"),

@@ -63,11 +63,9 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
         page.combobox.setCurrentIndex(variant_index)
         page.display_variant(variant_index)
         self.config()["last_statistics_page"] = page_index
-
-        # TODO: suffers from screen corruption
-        #width, height = self.config()["statistics_dlg_size"]
-        #if width:
-        #    self.resize(width, height)
+        width, height = self.config()["statistics_dlg_size"]
+        if width:
+            self.resize(width, height)
 
 
 class StatisticsPageWdgt(QtGui.QWidget, Component):

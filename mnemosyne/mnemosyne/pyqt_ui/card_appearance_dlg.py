@@ -79,12 +79,10 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             
             row += 1
         self.gridLayout.setColumnStretch(1, 10)
-        self.gridLayout.setColumnStretch(2, 10)     
-        self.connect(self.font_buttons, QtCore.SIGNAL(\
-            "buttonClicked(int)"), self.update_font)
-        self.connect(self.colour_buttons, QtCore.SIGNAL(\
-            "buttonClicked(int)"), self.update_font_colour)
-
+        self.gridLayout.setColumnStretch(2, 10)
+        self.font_buttons.buttonClicked.connect(self.update_font)
+        self.colour_buttons.buttonClicked.connect(self.update_font_colour)
+        
         try:
             current_alignment = self.config()["alignment"]\
                                 [self.affected_card_types[0].id]
@@ -200,7 +198,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         card_type = self.affected_card_types[0]
         card_type.renderer().update(card_type)
         fact_data = {}
-        for fact_key, fact_key_name in card_type.fields:
+        for fact_key, fact_key_name, language_code in card_type.fields:
             fact_data[fact_key] = fact_key_name
         fact = Fact(fact_data, card_type)
         cards = card_type.create_related_cards(fact)        

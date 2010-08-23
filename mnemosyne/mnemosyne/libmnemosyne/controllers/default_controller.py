@@ -22,6 +22,17 @@ class DefaultController(Controller):
         uploaded.
 
         """
+
+
+
+
+
+        print 'heartbeat1'
+
+
+
+
+
         
         self.flush_sync_server()        
         self.database().backup()
@@ -421,7 +432,9 @@ class DefaultController(Controller):
         filename, massage it, and return it to the widget to be inserted.
         There is more media file logic inside the database code too, as the
         user could also just type in the html tags as opposed to passing
-        through the fileselector here.
+        through the file selector here. The reason we don't do all the
+        operations in the database code, is that we want to display a nice
+        short relative path back in the edit field.
 
         """
 

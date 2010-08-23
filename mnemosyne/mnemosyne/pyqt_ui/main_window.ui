@@ -33,21 +33,6 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu_Cards">
-    <property name="title">
-     <string>&amp;Cards</string>
-    </property>
-    <addaction name="actionAddCards"/>
-    <addaction name="actionEditCurrentCard"/>
-    <addaction name="actionDeleteCurrentFact"/>
-    <addaction name="separator"/>
-    <addaction name="actionBrowseCards"/>
-    <addaction name="actionActivateCards"/>
-    <addaction name="actionCleanDuplicates"/>
-    <addaction name="actionCloneCardTypes"/>
-    <addaction name="separator"/>
-    <addaction name="actionShowStatistics"/>
-   </widget>
    <widget class="QMenu" name="menu_Settings">
     <property name="title">
      <string>&amp;Settings</string>
@@ -79,6 +64,21 @@
     <addaction name="actionSync"/>
     <addaction name="separator"/>
     <addaction name="actionFileExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Cards">
+    <property name="title">
+     <string>&amp;Cards</string>
+    </property>
+    <addaction name="actionAddCards"/>
+    <addaction name="actionEditCurrentCard"/>
+    <addaction name="actionDeleteCurrentFact"/>
+    <addaction name="separator"/>
+    <addaction name="actionBrowseCards"/>
+    <addaction name="actionActivateCards"/>
+    <addaction name="actionCleanDuplicates"/>
+    <addaction name="actionCloneCardTypes"/>
+    <addaction name="separator"/>
+    <addaction name="actionShowStatistics"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_Cards"/>
@@ -130,7 +130,7 @@
   </action>
   <action name="actionCleanDuplicates">
    <property name="text">
-    <string>C&amp;lean duplicates...</string>
+    <string>Clean du&amp;plicates...</string>
    </property>
   </action>
   <action name="actionConfigure">

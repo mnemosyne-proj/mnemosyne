@@ -33,13 +33,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         if width:
             self.resize(width, height)
         self.timer_1 = QtCore.QTimer()
-        self.connect(self.timer_1, QtCore.SIGNAL("timeout()"),
-                     self.review_controller().heartbeat)
+        self.timer_1.timeout.connect(self.review_controller().heartbeat)
         self.timer_1.start(1000 * 60 * 10)
         self.timer_2 = QtCore.QTimer()
-        self.connect(self.timer_2, QtCore.SIGNAL("timeout()"),
-                     self.controller().heartbeat)
-        self.timer_2.start(1000 * 60 * 60 * 24)
+        self.timer_2.timeout.connect(self.controller().heartbeat)
+        self.timer_2.start(1000 * 60 * 60 * 12)
 
     def status_bar_message(self, message):
         self.status_bar.showMessage(message)

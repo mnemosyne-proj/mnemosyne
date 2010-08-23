@@ -9,7 +9,7 @@ from mnemosyne.libmnemosyne.translator import _
 
 class QTextEdit2(QtGui.QTextEdit):
 
-    """QTextEdit with extra options in popup menu.""" 
+    """QTextEdit with extra options in popup menu."""
     
     def contextMenuEvent(self, e):
         popup = self.createStandardContextMenu()
