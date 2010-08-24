@@ -22,17 +22,6 @@ class DefaultController(Controller):
         uploaded.
 
         """
-
-
-
-
-
-        print 'heartbeat1'
-
-
-
-
-
         
         self.flush_sync_server()        
         self.database().backup()

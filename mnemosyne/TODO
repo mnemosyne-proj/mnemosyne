@@ -1,11 +1,8 @@
--test uploading of logs in rollover
--remove heart beat prints
+-statistics dlg from designer? also hide tabbar there
 
--http://pysnippet.blogspot.com/2010/02/qtabwidget-hiding-bar.html
 -new style connect
 
--make sure all grades are shown on first revision of imported card. Adapt button group title
--does scheduler work with grade -1?
+-reapply activity criterion after sync
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -26,19 +23,17 @@
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 -make card browser remember its size
 -do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
--better mechanism to have different renderers?
+-better mechanism to have different renderers, e.g. filters that only run on sync.
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 
 -delete 1.99 logs
 -reenable upload
 
-
 -alpha 1
 
 
 -make distrib
--http://blog.oak-tree.us/index.php/2010/05/27/pyqt-snow-leopard
 
 -Qt bug? different font size in edit box and in css
 
@@ -49,7 +44,8 @@
 
 -reenable datadir in setup.py
 
--Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev
+-Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
+ (also make sure they are on webpage)
 
 -Faq about how to pronounce Mnemosyne
 
@@ -241,6 +237,7 @@ pylint:
 
 -mechanism to have plugin settings synced?
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
+-Tim's gogorender plugin
 -option purge history, refactor logging test. Should only happen in no other sync partners are
  interested in it
 

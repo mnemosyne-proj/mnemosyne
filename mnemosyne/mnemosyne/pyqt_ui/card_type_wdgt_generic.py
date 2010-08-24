@@ -46,7 +46,8 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         try:
             colour = self.config()["font_colour"][self.card_type.id][fact_key]
             edit_box.setTextColor(QtGui.QColor(colour))
-        except:
+        except KeyError:
+            # The defaults have not been changed, there is no key for colour.
             pass
         try:
             colour = self.config()["background_colour"][self.card_type.id]
@@ -54,14 +55,14 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base,
                        QtGui.QColor(colour))
             edit_box.setPalette(p)
-        except:
+        except KeyError:
             pass
         try:
             font_string = self.config()["font"][self.card_type.id][fact_key]
             font = QtGui.QFont()
             font.fromString(font_string)                
             edit_box.setCurrentFont(font)
-        except:
+        except KeyError:
             pass
 
     def reset_formatting(self):

@@ -393,7 +393,6 @@ class SQLiteSync(object):
         if log_entry["type"] != EventTypes.ADDED_CARD:
             card._id = self.con.execute("select _id from cards where id=?",
                 (card.id, )).fetchone()[0]      
-        card.active = True
         card.grade = log_entry["gr"]
         card.easiness = log_entry["e"]
         card.acq_reps = log_entry["ac_rp"]

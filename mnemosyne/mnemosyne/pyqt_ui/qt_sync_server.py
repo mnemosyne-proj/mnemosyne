@@ -134,6 +134,14 @@ class QtSyncServer(Component, QtCore.QObject):
                         + " " + _("Terminate that process and try again."))
                     self.thread = None
                     return
+                elif errno == 13:
+                    self.main_widget().error_box(\
+                        _("Unable to start sync server.") + " " + \
+    _("You don't have the permission to use the requested port."))
+                    self.thread = None
+                    return                    
+                else:
+                    raise
             self.thread.sync_started_signal.connect(\
                 self.unload_database)
             self.thread.sync_ended_signal.connect(\

@@ -19,8 +19,6 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         ConfigurationWidget.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
-
-    def display(self):
         if self.config()["randomise_new_cards"] == True:
             self.new_cards.setCurrentIndex(1)
         else:

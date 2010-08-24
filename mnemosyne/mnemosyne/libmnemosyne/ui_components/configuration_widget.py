@@ -10,9 +10,6 @@ class ConfigurationWidget(UiComponent):
     component_type = "configuration_widget"
     instantiate = UiComponent.LATER
 
-    def display(self):
-        pass
-
     def reset_to_defaults(self):
         pass
 
