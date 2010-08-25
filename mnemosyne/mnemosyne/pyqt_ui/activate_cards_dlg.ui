@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>608</width>
-    <height>342</height>
+    <width>346</width>
+    <height>135</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,12 +29,23 @@
         </widget>
        </item>
        <item>
-        <widget class="QListWidget" name="saved_sets"/>
+        <widget class="QListWidget" name="saved_sets">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
      <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="criterion_layout">
+       <item>
+        <widget class="QTabWidget" name="tab_widget">
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
+        </widget>
+       </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
@@ -158,6 +169,38 @@
     <hint type="destinationlabel">
      <x>303</x>
      <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saved_sets</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>ActivateCardsDlg</receiver>
+   <slot>saved_sets_custom_menu()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>172</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>172</x>
+     <y>89</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tab_widget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>ActivateCardsDlg</receiver>
+   <slot>change_widget()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>172</x>
+     <y>142</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>172</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>

@@ -28,46 +28,29 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         else:
             self.splitter.setSizes(splitter_sizes)
         # Initialise widgets.
-        self.saved_sets.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),
                         self.saved_sets, self.delete_set)
-        self.connect(self.saved_sets,
-                     QtCore.SIGNAL("customContextMenuRequested(QPoint)"),
-                     self.saved_sets_custom_menu)
         criterion = self.database().current_activity_criterion()
         self.criterion_classes = \
-            self.component_manager.all("activity_criterion")
-        if len(self.criterion_classes) == 1:
-            criterion = self.database().current_activity_criterion()
-            self.widget = self.component_manager.current\
-                    ("activity_criterion_widget", used_for=criterion.__class__)\
-                          (self.component_manager, self)
-            self.criterion_layout.insertWidget(0, self.widget)
-            self.widget.display_criterion(criterion)
-        else:  
-            self.tab_widget = QtGui.QTabWidget(self)
-            current_criterion = self.database().current_activity_criterion()
-            self.widget_for_criterion_type = {}
-            for criterion_class in self.criterion_classes:
-                widget = self.component_manager.current\
-                    ("activity_criterion_widget", used_for=criterion_class)\
-                          (self.component_manager, self)
-                self.tab_widget.addTab(widget, criterion_class.criterion_type)
-                self.widget_for_criterion_type\
-                    [criterion_class.criterion_type] = widget
-            self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
-                                             [current_criterion.criterion_type])
-            self.widget = self.tab_widget.currentWidget()
-            self.widget.display_criterion(current_criterion)
-            self.criterion_layout.insertWidget(0, self.tab_widget)
-            self.connect(self.tab_widget, QtCore.SIGNAL("currentChanged(int)"),
-                         self.change_widget)
-        # Should go last, otherwise 'change_widget' clears the selection.
+            self.component_manager.all("activity_criterion")       
+        current_criterion = self.database().current_activity_criterion()
+        self.widget_for_criterion_type = {}
+        for criterion_class in self.criterion_classes:
+            widget = self.component_manager.current\
+                ("activity_criterion_widget", used_for=criterion_class)\
+                      (self.component_manager, self)
+            self.tab_widget.addTab(widget, criterion_class.criterion_type)
+            self.widget_for_criterion_type\
+                [criterion_class.criterion_type] = widget
+        self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
+                                         [current_criterion.criterion_type])
+        self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
+        self.tab_widget.currentWidget().display_criterion(current_criterion)           
+        # Should go last, otherwise the selection of the saved sets pane will
+        # allways be cleared.
         self.update_saved_sets_pane()
 
     def change_widget(self, index):
-        self.widget = self.tab_widget.currentWidget()
-        self.widget.display_default_criterion()
         self.saved_sets.clearSelection()
 
     def activate(self):
@@ -106,7 +89,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         menu.exec_(self.saved_sets.mapToGlobal(pos))
         
     def save_set(self):
-        criterion = self.widget.criterion()
+        criterion = self.tab_widget.currentWidget().criterion()
         CardSetNameDlg(self.component_manager, criterion,
                        self.criteria_by_name.keys()).exec_()
         if not criterion.name:  # User cancelled.
@@ -149,11 +132,9 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
     def load_set(self, item):
         name = unicode(item.text())
         criterion = self.criteria_by_name[name]
-        if len(self.criterion_classes) != 1:
-            self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
+        self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
                                              [criterion.criterion_type])
-            self.widget = self.tab_widget.currentWidget()
-        self.widget.display_criterion(criterion)
+        self.tab_widget.currentWidget().display_criterion(criterion)
         # Restore the selection that got cleared in change_widget.
         item = self.saved_sets.findItems(criterion.name,
             QtCore.Qt.MatchExactly)[0]
@@ -170,7 +151,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         
     def accept(self):
         self.database().set_current_activity_criterion(\
-            self.widget.criterion())
+            self.tab_widget.currentWidget().criterion())
         self._store_layout()
         return QtGui.QDialog.accept(self)
         

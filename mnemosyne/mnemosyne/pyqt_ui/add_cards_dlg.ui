@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>316</width>
+    <width>317</width>
     <height>170</height>
    </rect>
   </property>
@@ -66,7 +66,7 @@
         <item>
          <layout class="QHBoxLayout">
           <item>
-           <widget class="QPushButton" name="grade_unseen_button">
+           <widget class="QPushButton" name="yet_to_learn_button">
             <property name="text">
              <string>&amp;Yet to learn</string>
             </property>

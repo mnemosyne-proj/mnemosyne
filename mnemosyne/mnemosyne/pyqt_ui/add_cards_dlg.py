@@ -39,8 +39,9 @@ class AddEditCards(Component):
             self.card_type = self.card_types()[0]
             self.card_type_index = 0
         self.card_types_widget.setCurrentIndex(self.card_type_index)
-        self.connect(self.card_types_widget, QtCore.SIGNAL(\
-            "currentIndexChanged(QString)"), self.card_type_changed)
+        # Now that the combobox is filled, we can connect the signal.
+        self.card_types_widget.currentIndexChanged[QtCore.QString].\
+            connect(self.card_type_changed)
         self.correspondence = {}  # Used when changing card types.
         self.update_card_widget()
         
@@ -139,13 +140,14 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.update_tags_combobox(\
             self.config()["tags_of_last_added"])  
         self.grades = QtGui.QButtonGroup()
-        self.grades.addButton(self.grade_unseen_button, -1)
+        # Negative indices have special meanings in Qt, so we can't use -1 for
+        # 'yet to learn'.
+        self.grades.addButton(self.yet_to_learn_button, 0)
         self.grades.addButton(self.grade_2_button, 2)
         self.grades.addButton(self.grade_3_button, 3)
         self.grades.addButton(self.grade_4_button, 4)
         self.grades.addButton(self.grade_5_button, 5)
-        self.connect(self.grades, QtCore.SIGNAL("buttonClicked(int)"),
-                     self.new_cards)
+        self.grades.buttonClicked[int].connect(self.new_cards)
         self.set_valid(False)
         width, height = self.config()["add_widget_size"]
         if width:
@@ -163,6 +165,8 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.preview_button.setEnabled(valid)
         
     def new_cards(self, grade):
+        if grade == 0:
+            grade = -1
         fact_data = self.card_type_widget.data()
         tag_names = [c.strip() for c in \
                      unicode(self.tags.currentText()).split(',')]

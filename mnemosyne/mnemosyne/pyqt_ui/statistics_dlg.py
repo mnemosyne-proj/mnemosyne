@@ -6,10 +6,11 @@ from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.pyqt_ui.ui_statistics_dlg import Ui_StatisticsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import StatisticsDialog
 
 
-class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
+class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
 
     """A tab widget containing several statistics pages. The number and names
     of the tab pages are determined at run time.
@@ -19,25 +20,14 @@ class StatisticsDlg(QtGui.QDialog, StatisticsDialog):
     def __init__(self, component_manager):
         StatisticsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
-        self.setWindowTitle(_("Statistics"))
-        self.vbox_layout = QtGui.QVBoxLayout(self)
-        self.tab_widget = QtGui.QTabWidget(self.main_widget())
+        self.setupUi(self)
         page_index = 0
         for page in self.component_manager.all("statistics_page"):
             page = page(self.component_manager)
             self.tab_widget.addTab(StatisticsPageWdgt(component_manager, self,
                 page, page_index), page.name)
             page_index += 1
-        self.vbox_layout.addWidget(self.tab_widget)       
-        self.button_layout = QtGui.QHBoxLayout()
-        self.button_layout.addItem(QtGui.QSpacerItem(20, 20,
-            QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum))
-        self.ok_button = QtGui.QPushButton(_("&OK"), self)
-        self.button_layout.addWidget(self.ok_button)
-        self.vbox_layout.addLayout(self.button_layout)
-        self.connect(self.ok_button, QtCore.SIGNAL("clicked()"), self.accept)
-        self.connect(self.tab_widget, QtCore.SIGNAL("currentChanged(int)"),
-                     self.display_page)
+        self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)  
         page_index = self.config()["last_statistics_page"]
         if page_index >= self.tab_widget.count():
             page_index = 0
@@ -89,7 +79,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
         self.current_variant_widget = None
         variants = statistics_page.variants
         if not variants:
-            variants = [(0, "Default")]
+            variants = [(0, _("Default"))]
         for variant_id, variant_name in variants:
             self.variant_ids.append(variant_id)
             self.variant_widgets.append(None)
@@ -98,8 +88,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
            self.statistics_page.show_variants_in_combobox == False:
             self.combobox.hide()
         self.vbox_layout.addWidget(self.combobox)
-        self.connect(self.combobox, QtCore.SIGNAL("currentIndexChanged(int)"),
-                     self.display_variant)
+        self.combobox.currentIndexChanged.connect(self.display_variant)
         
     def display_variant(self, variant_index):
 

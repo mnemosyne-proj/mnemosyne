@@ -86,6 +86,8 @@ class DefaultController(Controller):
 
         if grade in [0,1]:
             raise AttributeError, "Use -1 as grade for yet to learn cards."
+        if grade not in [-1, 2, 3, 4, 5]:
+            raise AttributeError, "Invalid initial grade."            
         db = self.database()
         fact = Fact(fact_data, card_type)
         if check_for_duplicates:

@@ -1,8 +1,11 @@
--statistics dlg from designer? also hide tabbar there
+-empty string as host
 
--new style connect
-
--reapply activity criterion after sync
+-auto size of activate cards dialog?
+-do we need to clear the selection in self.widget? What about changing back.
+-edit existing set
+-removing plugin with criterion should not happen if it is in use. 
+-What happens when syncing and the other criterion plugin is not present?
+-apply activity criterion after sync, for both partners
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -14,6 +17,12 @@
 -auto vacuum after every N openings? What about WM?
 -profile startup/shutdown
 
+-better mechanism to have different renderers, e.g. filters that only run on sync. revisit review_widget.empty?
+-unify renderers and filters? probably not, renderer can be specific for card type, filters are more general
+-replace filter.run_on_export by run_for_renderers?
+-unify render_text and render_card_fields?
+-plugin hook mechanism for 'check_for_updated_media_files', to move latex code out of DB code.
+
 -card browser
 -make sure searching for a single unicode character works
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
@@ -23,7 +32,6 @@
 -MVC: http://doc.trolltech.com/qq/qq24-delegates.html
 -make card browser remember its size
 -do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
--better mechanism to have different renderers, e.g. filters that only run on sync.
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 
@@ -122,6 +130,9 @@ the GUI function itself?
 -infrastructure to make it easier to type certain symbols
 
 -mark cards plugin
+
+-move button group in review widget to designer code after pyqt upgrade. 
+ Also possible in add cards?
 
 -partial implementation of type answer (none/all/special tag? Db Attribute? Button?)
 -draw answer, make configurable by card type

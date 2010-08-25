@@ -22,7 +22,7 @@ class GradesCriterion(ActivityCriterion):
     def data_to_string(self):
         return repr(self.threshold)
     
-    def data_from_string(self, data):
+    def set_data_from_string(self, data):
         self.threshold = eval(data)
 
 
@@ -68,16 +68,13 @@ class GradesCriterionWdgt(QtGui.QWidget, ActivityCriterionWidget):
         self.horizontalLayout.addWidget(self.threshold)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.parent_saved_sets = parent.saved_sets
-        self.connect(self.threshold, QtCore.SIGNAL("valueChanged(int)"),
-                     self.criterion_changed)
-        
-    def display_default_criterion(self):
+        self.threshold.valueChanged.connect(self.criterion_changed)
         self.threshold.setValue(5)
-
+                
     def display_criterion(self, criterion):
         self.threshold.setValue(criterion.threshold)
 
-    def get_criterion(self):
+    def criterion(self):
         criterion = GradesCriterion(self.component_manager)
         criterion.threshold = self.threshold.value()
         return criterion

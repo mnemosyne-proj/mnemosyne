@@ -80,8 +80,9 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             row += 1
         self.gridLayout.setColumnStretch(1, 10)
         self.gridLayout.setColumnStretch(2, 10)
-        self.font_buttons.buttonClicked.connect(self.update_font)
-        self.colour_buttons.buttonClicked.connect(self.update_font_colour)
+        self.font_buttons.buttonClicked[int].connect(self.update_font)
+        self.colour_buttons.buttonClicked[int].\
+            connect(self.update_font_colour)
         
         try:
             current_alignment = self.config()["alignment"]\

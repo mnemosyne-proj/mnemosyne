@@ -20,7 +20,6 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
         ConfigurationDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
-        self.tab_widget.clear()
         for widget in self.component_manager.all("configuration_widget"):
             widget = widget(self.component_manager, parent=self)
             self.tab_widget.addTab(widget, widget.name)

@@ -30,6 +30,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         QtGui.QWidget.__init__(self, parent)
         parent.setCentralWidget(self)
         self.setupUi(self)
+        # TODO: move this to designer with update of PyQt.
         self.grade_buttons = QtGui.QButtonGroup()
         self.grade_buttons.addButton(self.grade_0_button, 0)
         self.grade_buttons.addButton(self.grade_1_button, 1)
@@ -37,8 +38,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.addButton(self.grade_3_button, 3)
         self.grade_buttons.addButton(self.grade_4_button, 4)
         self.grade_buttons.addButton(self.grade_5_button, 5)
-        self.connect(self.grade_buttons, QtCore.SIGNAL("buttonClicked(int)"),\
-                     self.grade_answer)
+        self.grade_buttons.buttonClicked[int].connect(self.grade_answer)
         self.sched = QtGui.QLabel("", parent.status_bar)
         self.notmem = QtGui.QLabel("", parent.status_bar)
         self.act = QtGui.QLabel("", parent.status_bar)

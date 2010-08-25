@@ -342,8 +342,7 @@ class SM2Mnemosyne(Scheduler):
         # from hooks running then.
         if not dry_run:
             card.fact.card_type.before_repetition(card)
-            for f in self.component_manager.all("hook",
-                                                    "before_repetition"):
+            for f in self.component_manager.all("hook", "before_repetition"):
                 f.run(card)            
         # When doing a dry run, make a copy to operate on. This leaves the
         # original in the GUI intact.
@@ -403,7 +402,7 @@ class SM2Mnemosyne(Scheduler):
                     card.easiness = 1.3
             if card.ret_reps_since_lapse == 1:
                 new_interval = 6 * DAY
-            else:               
+            else:
                 if new_grade == 2 or new_grade == 3:
                     if actual_interval <= scheduled_interval:
                         new_interval = actual_interval * card.easiness

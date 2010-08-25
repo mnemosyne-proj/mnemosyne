@@ -27,10 +27,8 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         QtGui.QWidget.__init__(self, parent)
         self.setupUi(self)
         self.parent_saved_sets = parent.saved_sets
-
-    def display_default_criterion(self):
         criterion = DefaultCriterion(self.component_manager)
-        for tag in self.database().tags():
+        for tag in self.database().all_tags():
             criterion.active_tag__ids.add(tag._id)
         self.display_criterion(criterion)
     
