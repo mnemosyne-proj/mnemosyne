@@ -30,11 +30,6 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
     return sockobj
 socket.socket = socketwrap
 
-# Hack to detect IP adress of local host.
-def localhost_IP():
-    s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("google.com", 8000))
-    return s.getsockname()[0]
 
 # Work around http://bugs.python.org/issue6085.
 
@@ -90,7 +85,7 @@ class Server(WSGIServer, Partner):
 
     def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
-        WSGIServer.__init__(self, (localhost_IP(), port), WSGIRequestHandler)
+        WSGIServer.__init__(self, ("", port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         Partner.__init__(self, ui)
         self.text_format = XMLFormat()
@@ -314,7 +309,8 @@ class Server(WSGIServer, Partner):
         # consume the entire stream, nothing more and nothing less. For that,
         # we use the file format footer as a sentinel.
         # For simplicity, we also keep the entire stream in memory, as the
-        # server is not expected to be resource limited.      
+        # server is not expected to be resource limited.
+
         sentinel = self.text_format.log_entries_footer()
         lines = []
         line = stream.readline()
@@ -344,7 +340,7 @@ class Server(WSGIServer, Partner):
                         log_entry["o_id"] = log_entry["fname"]
                     context["client_o_ids"].append(log_entry["o_id"])
             context = {"session_client_log": session.client_log,
-                       "client_o_ids": client_o_ids}
+                       "client_o_ids": client_o_ids} 
             self.download_log_entries(\
                 self._read_unsized_log_entry_stream(socket), callback, context)      
             # Now we can determine whether there are conflicts.
@@ -498,21 +494,21 @@ class Server(WSGIServer, Partner):
         
     def get_sync_cancel(self, environ, session_token):
         try:
-            self.cancel_session_with_token(session_token)
             self.ui.set_progress_text("Sync cancelled!")
+            self.cancel_session_with_token(session_token)
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())
         
     def get_sync_finish(self, environ, session_token):
-        try:    
+        try:
+            self.ui.set_progress_text("Sync finished!")
             self.close_session_with_token(session_token) 
             # Now is a good time to garbage-collect dangling sessions.
             # Only relevant for multi-user server.
             for session_token, session in self.sessions.iteritems():
                 if session.is_expired():
                     self.terminate_session_with_token(session_token)
-            self.ui.set_progress_text("Sync finished!")
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())

@@ -1,10 +1,20 @@
--empty string as host
+-sending log entries to server and receiving log entries does not happen at the same time...
+ http://wiki.python.org/moin/PrintFails
+-OK for receiving from server?
+-killing the server when client wants to send cancel message results in SQlite thread problems.
+
+-cstringIO and unicode? add test for that?
+
+-cilent syncs with server, cancel due to conflicts. Create new database on client, add card, sync does not pull in big server database
 
 -auto size of activate cards dialog?
+
 -do we need to clear the selection in self.widget? What about changing back.
--edit existing set
+-being able to edit existing set, replace input box by combobox with old sets
 -removing plugin with criterion should not happen if it is in use. 
 -What happens when syncing and the other criterion plugin is not present?
+-make 'grade activity criterion' an official plugin? Add tests?
+
 -apply activity criterion after sync, for both partners
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
@@ -18,6 +28,7 @@
 -profile startup/shutdown
 
 -better mechanism to have different renderers, e.g. filters that only run on sync. revisit review_widget.empty?
+-allow arguments to renders, e.g. for picture resolution
 -unify renderers and filters? probably not, renderer can be specific for card type, filters are more general
 -replace filter.run_on_export by run_for_renderers?
 -unify render_text and render_card_fields?
@@ -70,6 +81,7 @@
 -make XML import tolerant to extra new lines in header
 -warn when importing card type with duplicate id
 -option to add tags on import
+-mention that txt format does not have tag info?
 -save import dir
 -make sure after import all sync events fire
 -make sure enter does not close the import dialog

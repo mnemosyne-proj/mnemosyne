@@ -8,7 +8,7 @@ import httplib
 from nose.tools import raises
 from threading import Thread, Condition
 
-from openSM2sync.server import Server, localhost_IP
+from openSM2sync.server import Server
 from openSM2sync.client import Client
 from openSM2sync.log_entry import EventTypes
 
@@ -119,7 +119,7 @@ class MyServer(Server, Thread):
         # Make an extra request so that we don't need to wait for the server
         # timeout. This could fail if the server has already shut down.
         try:
-            con = httplib.HTTPConnection(localhost_IP(), PORT)
+            con = httplib.HTTPConnection("", PORT)
             con.request("GET", "dummy_request")
             con.getresponse().read()
         except:
@@ -157,7 +157,7 @@ class MyClient(Client):
         while not server_is_initialised:
             server_initialised.wait()
         server_initialised.release()
-        self.sync(localhost_IP(), PORT, self.user, self.password)
+        self.sync("", PORT, self.user, self.password)
 
 class TestSync(object):
 

@@ -2,15 +2,24 @@
 # configuration_wdgt_sync_server.py <Peter.Bienstman@UGent.be>
 #
 
+import socket
 import httplib
 from PyQt4 import QtCore, QtGui
 
-from openSM2sync.server import localhost_IP
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.configuration_widget import \
      ConfigurationWidget
 from mnemosyne.pyqt_ui.ui_configuration_wdgt_sync_server import \
      Ui_ConfigurationWdgtSyncServer
+
+
+# Hack to determine local IP.
+
+from openSM2sync.server import realsocket
+def localhost_IP():
+    s = realsocket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("google.com", 8000))
+    return s.getsockname()[0]
 
 
 class ConfigurationWdgtSyncServer(QtGui.QWidget,
@@ -40,7 +49,7 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
             con.request("GET", "/status")
             assert "OK" in con.getresponse().read()
             return True
-        except:
+        except socket.error:
             return False
 
     def reset_to_defaults(self):

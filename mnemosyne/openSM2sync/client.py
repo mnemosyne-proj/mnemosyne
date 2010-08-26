@@ -18,12 +18,10 @@ socket.setdefaulttimeout(60)
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
-# Use a different name for client realsocket than for server realsocket to
-# avoid problems in the testsuite when both are imported.
 
-realsocket_ = socket.socket
+realsocket = socket.socket
 def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
-    sockobj = realsocket_(family, type, proto)
+    sockobj = realsocket(family, type, proto)
     sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     return sockobj
 socket.socket = socketwrap

@@ -42,7 +42,7 @@ class Partner(object):
         yield buffer.encode("utf-8")
 
     def download_log_entries(self, stream, callback, context):
-        element_loop = self.text_format.parse_log_entries(stream)
+        element_loop = self.text_format.parse_log_entries(stream)        
         try:
             number_of_entries = int(element_loop.next())
         except:
