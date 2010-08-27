@@ -13,12 +13,11 @@ import socket
 import tarfile
 import httplib
 import tempfile
-import cStringIO
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
 from utils import traceback_string
-from partner import Partner, BUFFER_SIZE
 from text_formats.xml_format import XMLFormat
+from partner import Partner, UnsizedLogEntryStreamReader, BUFFER_SIZE
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -59,6 +58,7 @@ class Session(object):
         self.client_info = client_info
         self.database = database
         self.client_log = []
+        self.apply_error = None
         self.expires = time.time() + 60*60
         self.backup_file = self.database.backup()
         self.database.set_sync_partner_info(client_info)
@@ -262,17 +262,22 @@ class Server(WSGIServer, Partner):
             if old_running_session_token:
                 self.terminate_session_with_token(old_running_session_token)
             session = self.create_session(client_info)
+            # If the client database is empty, perhaps it was reset, and we
+            # need to delete the partnership from our side too.
+            if session.client_info["database_is_empty"] == True:
+                session.database.remove_partnership_with(\
+                    session.client_info["machine_id"])
             # Make sure there are no cycles in the sync graph.
             server_in_client_partners = self.machine_id in \
                 session.client_info["partners"]
             client_in_server_partners = session.client_info["machine_id"] in \
-                session.database.partners()      
+                session.database.partners()
             if (server_in_client_partners and not client_in_server_partners)\
                or \
                (client_in_server_partners and not server_in_client_partners):
                 self.terminate_session_with_token(session.token)                
                 return self.text_format.repr_message("Sync cycle detected")
-            session.database.create_partnership_if_needed_for(\
+            session.database.create_if_needed_partnership_with(\
                 client_info["machine_id"])
             session.database.merge_partners(client_info["partners"])
             # Note that we need to send 'user_id' to the client as well, so
@@ -301,29 +306,11 @@ class Server(WSGIServer, Partner):
             # As mentioned before, the error handling should happen here, at
             # the lowest level, and not in e.g. 'wsgi_app'.
             return self.handle_error(session, traceback_string())
-                
-    def _read_unsized_log_entry_stream(self, stream):
-        # Since chunked requests are not supported by the WSGI 1.x standard,
-        # the client does not set Content-Length in order to be able to
-        # stream the log entries. Therefore, it is our responsability that we
-        # consume the entire stream, nothing more and nothing less. For that,
-        # we use the file format footer as a sentinel.
-        # For simplicity, we also keep the entire stream in memory, as the
-        # server is not expected to be resource limited.
-
-        sentinel = self.text_format.log_entries_footer()
-        lines = []
-        line = stream.readline()
-        lines.append(line)
-        while not line.rstrip().endswith(sentinel.rstrip()):
-            line = stream.readline()
-            lines.append(line)
-        return cStringIO.StringIO("".join(lines))
 
     def put_client_log_entries(self, environ, session_token):
         try:
-            self.ui.set_progress_text("Receiving log entries...")
             session = self.sessions[session_token]
+            self.ui.set_progress_text("Receiving log entries...")
             socket = environ["wsgi.input"]
             # In order to do conflict resolution easily, one of the sync
             # partners has to have both logs in memory. We do this at the
@@ -340,9 +327,10 @@ class Server(WSGIServer, Partner):
                         log_entry["o_id"] = log_entry["fname"]
                     context["client_o_ids"].append(log_entry["o_id"])
             context = {"session_client_log": session.client_log,
-                       "client_o_ids": client_o_ids} 
-            self.download_log_entries(\
-                self._read_unsized_log_entry_stream(socket), callback, context)      
+                       "client_o_ids": client_o_ids}
+            adapted_stream = UnsizedLogEntryStreamReader(socket,
+                self.text_format.log_entries_footer())
+            self.download_log_entries(adapted_stream, callback, context)
             # Now we can determine whether there are conflicts.
             for log_entry in session.database.log_entries_to_sync_for(\
                 session.client_info["machine_id"]):
@@ -359,23 +347,23 @@ class Server(WSGIServer, Partner):
         
     def put_client_entire_database_binary(self, environ, session_token):
         try:
-            self.ui.set_progress_text("Getting entire binary database...")
             session = self.sessions[session_token] 
+            self.ui.set_progress_text("Getting entire binary database...")
             filename = session.database.path()
             session.database.abandon()
             self.download_binary_file(filename, environ["wsgi.input"])
             session.database.load(filename)
-            session.database.create_partnership_if_needed_for(\
+            session.database.create_if_needed_partnership_with(\
                 session.client_info["machine_id"])
-            session.database.remove_partnership_with_self()
+            session.database.remove_partnership_with(self.machine_id)
             return self.text_format.repr_message("OK")
         except:
             return self.handle_error(session, traceback_string())
 
     def get_server_log_entries(self, environ, session_token):
         try:
-            self.ui.set_progress_text("Sending log entries...")
             session = self.sessions[session_token]
+            self.ui.set_progress_text("Sending log entries...")
             log_entries = session.database.log_entries_to_sync_for(\
                 session.client_info["machine_id"],
                 session.client_info["interested_in_old_reps"])
@@ -385,19 +373,30 @@ class Server(WSGIServer, Partner):
                 session.client_info["interested_in_old_reps"])
             for buffer in self.stream_log_entries(log_entries,
                 number_of_entries):
-                yield buffer
-            # Now that all the data is underway to the client, it might seem
-            # like a clever idea to already start applying the client log
-            # entries. However, any errors that occur then would be more
-            # difficult to communicate to the client, as it would need to
-            # watch for extra messages coming after the server log entries.            
+                yield buffer        
         except:
             yield self.handle_error(session, traceback_string())
-            
+        # Now that all the data is underway to the client, we can already
+        # start applying the client log entries. If there are errors that
+        # occur, we save them and communicate them to the client in
+        # 'get_sync_finish'.
+        try:    
+            self.ui.set_progress_text("Applying log entries...")
+            # First, dump to the science log, so that we can skip over the new
+            # logs in case the client uploads them.
+            session.database.dump_to_science_log()
+            for log_entry in session.client_log:
+                session.database.apply_log_entry(log_entry)
+            # Skip over the logs that the client promised to upload.
+            if session.client_info["upload_science_logs"]:
+                session.database.skip_science_log()
+        except:
+            session.apply_error = traceback_string()
+
     def get_server_entire_database(self, environ, session_token):
         try:
-            self.ui.set_progress_text("Sending entire database...")
             session = self.sessions[session_token]
+            self.ui.set_progress_text("Sending entire database...")
             session.database.dump_to_science_log()
             log_entries = session.database.all_log_entries(\
                 session.client_info["interested_in_old_reps"])
@@ -411,8 +410,8 @@ class Server(WSGIServer, Partner):
 
     def get_server_entire_database_binary(self, environ, session_token):
         try:
-            self.ui.set_progress_text("Sending entire binary database...")
             session = self.sessions[session_token]
+            self.ui.set_progress_text("Sending entire binary database...")
             binary_format = self.binary_format_for(session)
             binary_file, file_size = binary_format.binary_file_and_size(\
                 session.client_info["interested_in_old_reps"])
@@ -426,8 +425,8 @@ class Server(WSGIServer, Partner):
 
     def put_client_media_files(self, environ, session_token):
         try:
-            self.ui.set_progress_text("Getting media files...")
             session = self.sessions[session_token]
+            self.ui.set_progress_text("Getting media files...")
             socket = environ["wsgi.input"]
             size = int(socket.readline())
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
@@ -440,19 +439,16 @@ class Server(WSGIServer, Partner):
     def get_server_media_files(self, environ, session_token,
                                redownload_all=False):
         try:
+            session = self.sessions[session_token]
             # Note that for media files, we use tar stream directy for efficiency
             # reasons, and bypass the routines in Partner.
             self.ui.set_progress_text("Sending media files...")
             # Determine files to send across.
-            session = self.sessions[session_token]
             if redownload_all in ["1", "True", "true"]:
                 filenames = list(session.database.all_media_filenames())
             else:
                 filenames = list(session.database.media_filenames_to_sync_for(\
                     session.client_info["machine_id"]))
-            # TODO: implement creating pictures from cards, based on the
-            # following client_info fields: "cards_as_pictures",
-            # "cards_pictures_res", "reset_cards_as_pictures".
             if len(filenames) == 0:
                 yield "0\n"
                 return
@@ -476,32 +472,20 @@ class Server(WSGIServer, Partner):
         except:
             yield self.handle_error(session, traceback_string())
 
-    def get_apply_client_log_entries(self, environ, session_token):
-        try:    
-            self.ui.set_progress_text("Applying log entries...")
-            # First, dump to the science log, so that we can skip over the new
-            # logs in case the client uploads them.
-            session = self.sessions[session_token]
-            session.database.dump_to_science_log()
-            for log_entry in session.client_log:
-                session.database.apply_log_entry(log_entry)
-            # Skip over the logs that the client promised to upload.
-            if session.client_info["upload_science_logs"]:
-                session.database.skip_science_log()
-            return self.text_format.repr_message("OK")
-        except:
-            return self.handle_error(session, traceback_string())
-        
     def get_sync_cancel(self, environ, session_token):
         try:
             self.ui.set_progress_text("Sync cancelled!")
             self.cancel_session_with_token(session_token)
             return self.text_format.repr_message("OK")
         except:
+            session = self.sessions[session_token]
             return self.handle_error(session, traceback_string())
         
-    def get_sync_finish(self, environ, session_token):
+    def get_sync_finish(self, environ, session_token):           
         try:
+            session = self.sessions[session_token]
+            if session.apply_error:
+                return self.handle_error(session, session.apply_error)
             self.ui.set_progress_text("Sync finished!")
             self.close_session_with_token(session_token) 
             # Now is a good time to garbage-collect dangling sessions.

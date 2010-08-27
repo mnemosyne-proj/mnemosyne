@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>315</height>
+    <width>583</width>
+    <height>427</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -57,6 +57,9 @@
        <property name="headerHidden">
         <bool>true</bool>
        </property>
+       <attribute name="headerVisible">
+        <bool>false</bool>
+       </attribute>
        <attribute name="headerVisible">
         <bool>false</bool>
        </attribute>

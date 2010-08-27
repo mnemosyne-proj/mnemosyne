@@ -153,10 +153,10 @@ class Database(object):
     def partners(self):
         raise NotImplementedError
     
-    def create_partnership_if_needed_for(self, partner):
+    def create_if_needed_partnership_with(self, partner):
         raise NotImplementedError
 
-    def remove_partnership_with_self(self):
+    def remove_partnership_with(self, partner):
         raise NotImplementedError
         
     def merge_partners(self, remote_partners):

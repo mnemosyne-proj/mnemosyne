@@ -84,6 +84,9 @@ class XMLFormat(object):
         For efficiency reasons we require tag names and attribute values to be
         useable without escaping them with saxutils.quoteattr, so they should
         not contain <, >, &, ... .
+
+        We add an newline after each entry to improve parsing throughput
+        (side effect of WSGI 1.x not supporting chunked requests).
         
         """
 
@@ -95,9 +98,9 @@ class XMLFormat(object):
                 attribs += " %s='%s'" % (key, value)
             else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
-        xml = "<log%s>%s</log>" % (attribs, tags)
-        #import sys; sys.stderr.write(xml.encode("utf-8") + "\n")
-        return xml  # Don't add \n to improve throughput.
+        xml = "<log%s>%s</log>\n" % (attribs, tags)
+        #import sys; sys.stderr.write(xml.encode("utf-8"))
+        return xml
 
     def parse_log_entries(self, xml):
 

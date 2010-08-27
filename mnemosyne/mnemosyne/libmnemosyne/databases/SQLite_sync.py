@@ -40,22 +40,16 @@ class SQLiteSync(object):
         return [cursor[0] for cursor in self.con.execute("""select partner
             from partnerships where partner!=?""", ("log.txt", ))]
     
-    def create_partnership_if_needed_for(self, partner):
+    def create_if_needed_partnership_with(self, partner):
         sql_res = self.con.execute("""select partner from partnerships 
            where partner=?""", (partner, )).fetchone()
         if not sql_res:
             self.con.execute("""insert into partnerships(partner, 
                _last_log_id) values(?,?)""", (partner, 0))
 
-    def remove_partnership_with_self(self):
-
-        """Can happen after binary download of a full remote database after
-        confict resolution.
-
-        """
-        
+    def remove_partnership_with(self, partner):        
         self.con.execute("delete from partnerships where partner=?",
-            (self.config().machine_id(),))
+            (partner, ))
         
     def merge_partners(self, remote_partners):
 

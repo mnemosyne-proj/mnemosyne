@@ -130,6 +130,7 @@ The Python reference client and server implementation have already been optimise
 
 When implementing the client in a different language, here are some tips to help improve performance:
 
+-terminate each log entry with a newline. (side effect of WSGI 1.x not supporting chunked requests)
 -profile your client to detect where the bottlenecks are
 -look for the most optimal XML parsing library, preferably a compiled one as opposed to an interpreted one
 -buffer *all* the http connections, i.e. read them block by block (e.g. 8kB), as opposed to e.g. log entry by log entry

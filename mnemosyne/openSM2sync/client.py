@@ -77,7 +77,7 @@ class Client(Partner):
         self.server_info = {}
 
     def sync(self, server, port, username, password):
-        try:
+        try:            
             self.ui.set_progress_text("Creating backup...")            
             if self.do_backup:
                 backup_file = self.database.backup()
@@ -104,7 +104,6 @@ class Client(Partner):
                 self.put_client_media_files()
                 self.get_server_media_files()
                 self.get_server_log_entries()
-                self.get_apply_client_log_entries()
                 self.get_sync_finish()
             # Conflicts, keep remote.
             elif result == "KEEP_REMOTE":
@@ -162,16 +161,17 @@ class Client(Partner):
         client_info["machine_id"] = self.machine_id
         client_info["program_name"] = self.program_name
         client_info["program_version"] = self.program_version
+        client_info["database_name"] = self.database.name()
         client_info["database_version"] = self.database.version
         client_info["capabilities"] = self.capabilities
-        client_info["database_name"] = self.database.name()
         client_info["partners"] = self.database.partners()
         client_info["interested_in_old_reps"] = self.interested_in_old_reps
-        client_info["upload_science_logs"] = self.upload_science_logs            
-        # Not yet implemented: downloading cards as pictures.
-        client_info["cards_as_pictures"] = "no" # "yes", "non_latin_only"
-        client_info["cards_pictures_res"] = "320x200"
-        client_info["reset_cards_as_pictures"] = False # True redownloads.                
+        client_info["upload_science_logs"] = self.upload_science_logs
+        # Signal if the database is empty, so that the server does not give a
+        # spurious sync cycle warning if the client database was reset.
+        client_info["database_is_empty"] = self.database.is_empty()
+        # Not yet implemented: preferred renderer.
+        client_info["preferred_renderer"] = "" #
         self.con = httplib.HTTPConnection(server, port)
         self.con.request("PUT", "/login",
             self.text_format.repr_partner_info(client_info).\
@@ -194,7 +194,7 @@ class Client(Partner):
         elif self.server_info["user_id"] != client_info["user_id"]:
             raise SyncError("Error: mismatched user ids.\n" + \
                 "The first sync should happen on an empty database.")
-        self.database.create_partnership_if_needed_for(\
+        self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
         
@@ -286,7 +286,7 @@ class Client(Partner):
         self.database.skip_science_log()
         # Since we start from a new database, we need to create the
         # partnership again.
-        self.database.create_partnership_if_needed_for(\
+        self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         
     def get_server_entire_database_binary(self):
@@ -297,9 +297,9 @@ class Client(Partner):
             "session_token=%s" % (self.server_info["session_token"], ))
         self.download_binary_file(filename, self.con.getresponse().fp)
         self.database.load(filename)
-        self.database.create_partnership_if_needed_for(\
+        self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
-        self.database.remove_partnership_with_self()
+        self.database.remove_partnership_with(self.machine_id)
         
     def put_client_media_files(self, reupload_all=False):
         self.ui.set_progress_text("Sending media files...")
@@ -348,12 +348,6 @@ class Client(Partner):
         tar_pipe = tarfile.open(mode="r|", fileobj=response)
         # Work around http://bugs.python.org/issue7693.
         tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
-        
-    def get_apply_client_log_entries(self):
-        self.ui.set_progress_text("Waiting for server to finish...")
-        self.con.request("GET", "/apply_client_log_entries?session_token=%s" \
-            % (self.server_info["session_token"], ))
-        self._check_response_for_errors()
         
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")

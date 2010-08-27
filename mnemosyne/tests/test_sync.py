@@ -1101,6 +1101,9 @@ class TestSync(object):
 
     def test_sync_cycle(self):
 
+        global last_error
+        last_error = None
+
         # A --> B
 
         def test_server(self):
@@ -1159,9 +1162,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
-        global last_error
         assert "cycle" in last_error
-        last_error = None
         
     def test_conflict_cancel(self):
 
@@ -2123,6 +2124,52 @@ class TestSync(object):
         assert message == "message"
         assert traceback == "traceback"
 
+    def test_reset_database(self):
 
+        global last_error
+        last_error = None
 
+        # First sync.
+        
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+
+        self.client.mnemosyne.controller().file_new()
+
+        self.client.do_sync()        
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        assert last_error == None
+
+        # Second sync.
+
+        def fill_server_database(self):
+            tag = self.mnemosyne.database().get_or_create_tag_with_name("tag2")
+
+        def test_server(self):
+            assert len(self.mnemosyne.database().real_tag_names()) == 2
+            assert len(self.mnemosyne.database().partners()) == 1
+        
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        self.client.do_sync()
+        assert len(self.client.mnemosyne.database().real_tag_names()) == 2
+        assert len(self.client.mnemosyne.database().partners()) == 1
+        
    

@@ -58,8 +58,10 @@ class SyncThread(QtCore.QThread):
         client.interested_in_old_reps = True
         client.do_backup = True
         client.upload_science_logs = True
-        client.sync(self.server, self.port, self.username, self.password)
-        client.database.release_connection()
+        try:
+            client.sync(self.server, self.port, self.username, self.password)
+        finally:
+            client.database.release_connection()
         
     def information_box(self, message):
         self.information_signal.emit(message)
