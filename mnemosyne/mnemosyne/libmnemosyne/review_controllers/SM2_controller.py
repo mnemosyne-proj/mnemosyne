@@ -205,6 +205,7 @@ class SM2Controller(ReviewController):
         question_label_text = _("Question: ")
         if self.card is not None:
             question_label_text += self.card.tag_string()
+        w.set_question_label(question_label_text)
         # Update question content.
         if self.card is None:
             w.clear_question()
@@ -240,7 +241,7 @@ class SM2Controller(ReviewController):
             for grade in [3, 4, 5]:
                 w.enable_grade(grade, False)
         else:
-            i = 1 # Retention phase.
+            i = 1  # Retention phase.
             default_grade = 4
             for grade in [3, 4, 5]:
                 w.enable_grade(grade, True)
