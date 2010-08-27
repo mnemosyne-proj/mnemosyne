@@ -119,7 +119,7 @@ class MyServer(Server, Thread):
         # Make an extra request so that we don't need to wait for the server
         # timeout. This could fail if the server has already shut down.
         try:
-            con = httplib.HTTPConnection("", PORT)
+            con = httplib.HTTPConnection("localhost", PORT)
             con.request("GET", "dummy_request")
             con.getresponse().read()
         except:
@@ -157,7 +157,8 @@ class MyClient(Client):
         while not server_is_initialised:
             server_initialised.wait()
         server_initialised.release()
-        self.sync("", PORT, self.user, self.password)
+        self.sync("localhost", PORT, self.user, self.password)
+
 
 class TestSync(object):
 
