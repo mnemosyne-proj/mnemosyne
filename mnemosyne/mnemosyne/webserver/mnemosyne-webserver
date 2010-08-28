@@ -1,0 +1,12 @@
+#
+# mnemosyne_webserver <Peter.Bienstman@UGent.be>
+#
+
+import os
+from mnemosyne.webserver.server import Server
+
+data_dir = os.path.abspath("dot_mnemosyne2")
+filename = "default.db"
+server = Server(8888, data_dir, filename)
+server.serve_until_stopped()
+    

@@ -177,12 +177,13 @@ setup (name = "Mnemosyne",
                    "mnemosyne.libmnemosyne.upgrades",
                    "openSM2sync",
                    "openSM2sync.binary_formats",
-                   "openSM2sync.text_formats"
+                   "openSM2sync.text_formats",
+                   "mnemosyne.webserver"
                    ],
        package_data = {"mnemosyne.pyqt_ui": ['locale/*.qm', 'mnemosyne.qrc'],
                        "mnemosyne": ['mnemosyne.qrc']},
        data_files = data_files,
-       scripts = ['mnemosyne/pyqt_ui/mnemosyne'],
+       scripts = ['mnemosyne/pyqt_ui/mnemosyne', 'mnemosyne/webserver/mnemosyne-webserver'],
        # py2exe
        windows = [{'script':'mnemosyne/pyqt_ui/mnemosyne',
                    "icon_resources":[(1,"pixmaps/mnemosyne.ico")]}],

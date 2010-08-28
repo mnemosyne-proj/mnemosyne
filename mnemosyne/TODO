@@ -1,3 +1,5 @@
+-hang in syncing with 'default' instead of 'default.db'?
+-rename sync_server_password in config to something more general
 -apply activity criterion after sync, for both partners + test
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
