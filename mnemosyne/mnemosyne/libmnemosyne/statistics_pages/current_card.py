@@ -39,9 +39,11 @@ class CurrentCard(HtmlStatisticsPage):
             self.html += _("Interval") + ": %d<br>" \
                 % (card.interval / DAY)
             self.html += _("Last repetition") + ": %s<br>" \
-                % time.strftime("%B %d, %Y", time.gmtime(card.last_rep))           
+                % time.strftime("%B %d, %Y", time.gmtime(card.last_rep))\
+                .decode('utf-8')           
             self.html += _("Next repetition") + ": %s<br>" \
-                % time.strftime("%B %d, %Y", time.gmtime(card.next_rep))
+                % time.strftime("%B %d, %Y", time.gmtime(card.next_rep))\
+                .decode('utf-8')
             self.html += _("Average thinking time (secs)") + ": %d<br>" \
                 % self.database().average_thinking_time(card)
             self.html += _("Total thinking time (secs)") + ": %d<br>" \
