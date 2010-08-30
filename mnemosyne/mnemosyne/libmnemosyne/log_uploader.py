@@ -3,11 +3,10 @@
 #
 
 import os
-import bz2
-import traceback
 import time
-import urllib2
 import random
+import urllib2
+import traceback
 from threading import Thread
 
 from mnemosyne.libmnemosyne.translator import _
@@ -64,16 +63,6 @@ class LogUploader(Thread, Component):
         data_dir = self.config().data_dir
         join = os.path.join
         dir = os.listdir(unicode(join(data_dir, "history")))
-        # Compress files which haven't been compressed yet (e.g. because they
-        # come from a mobile device).
-        for filename in [x for x in dir if x.endswith(".txt")]:
-            filename = os.path.join(data_dir, "history", filename)
-            compressed_filename = filename.replace(".txt", ".bz2")
-            compressed_file = bz2.BZ2File(compressed_filename, "w")
-            for l in file(filename):
-                compressed_file.write(l)
-            compressed_file.close()
-            os.remove(filename)
         # Find out which files haven't been uploaded yet.
         dir = os.listdir(unicode(join(data_dir, "history")))
         history_files = [x for x in dir if x.endswith(".bz2")]
@@ -100,3 +89,4 @@ class LogUploader(Thread, Component):
             print _("Upload failed")
             traceback.print_exc()
         upload_log.close()
+        

@@ -68,24 +68,27 @@ class HtmlReviewWidget(ReviewWidget):
         #card_type = card.fact.card_type
         #css = card_type.renderer().css(card_type)
 
-        css = """
+        #TODO: http://www.wickham43.supanet.com/tutorial/headerfooterfixexample.html
+
+        css = """     
 html { margin: 0; padding: 0; height: 100%; }
 body { margin: 0; padding: 0; height: 100%; }
-.centeredBox { position: absolute; left: 0px; top: 0px; margin-left: 1%; width: 99%; height: 99%; }
-.footerBox { position:absolute; left: 0px; bottom: 0px; width: 100%; }
-table { align:center; width:99%; margin-left:1%; margin-right:1%; height: 33%; border: 1px solid black;}
-#table.footertable { alignment:center; width:70%; margin-left:15%; margin-right:15%; height: 33%;}
+input.button {width: 100%; margin: 0; padding: 0;}
+table { align: center; width: 99%; margin: 2px 0px; height: 39%;  border: 1px solid black;}
+#container { position: absolute; left: 0px; top: 0px; margin-left: 1%; width: 99%; height: 99%; }
+#footer { position:absolute; left: 0px; bottom: 0px; width: 100%; height: 10%;}
+#footer table {height: 10%; border: 0; margin: 0; padding:0;}
 """     
         html = "<html><head><meta http-equiv=\"Content-Type\""
         html += "content=\"text/html; charset=UTF-8\"/>"
         html += "<style type=\"text/css\">" + css + "</style>"
         html += "</head><body>"
 
-        html += "<div class=\"centeredBox\">"
+        html += "<div id=\"container\">"
         
         if self._question_box_visible and self._question:
             # Last clause was needed for 'learn ahead'.
-            html += self._question_label + "<br><br><table><tr><td>"
+            html += self._question_label + "<br><table><tr><td>"
             for field in card.fact_view.q_fields:
                 s = card.fact[field]
                 for f in self.filters():
@@ -93,7 +96,7 @@ table { align:center; width:99%; margin-left:1%; margin-right:1%; height: 33%; b
                         s = f.run(s)
                 html += "<div id=\"%s\">%s</div>" % (field, s)
             html += "</td></tr></table><br>"
-        html += self._answer_label + "<br><br>"
+        html += self._answer_label + "<br>"
         html +=  "<table><tr><td>"   
         if self._answer_box_visible and self._answer: # Todo: fixed using new renderers
             for field in card.fact_view.a_fields:
@@ -102,21 +105,20 @@ table { align:center; width:99%; margin-left:1%; margin-right:1%; height: 33%; b
                     if f.run_on_export:
                         s = f.run(s)
                 html += "<div id=\"%s\">%s</div>" % (field, s)
-        html += "</td></tr></table><br>"
+        html += "</td></tr></table>"
 
-        html += "<div class=\"footerBox\">"
+        html += "<div id=\"footer\">"
         
-        html += "<table id=\"footertable\"><tr>"
+        html += "<table><tr>"
             
         if self._grade_buttons_enabled:
-
             for i in range(6):
                 html += "<td><form action=\"\" method=\"post\">"
-                html += "<input type=\"submit\" name=\"grade\""
+                html += "<input class=\"button\" type=\"submit\" name=\"grade\""
                 html += "accesskey=\"%d\" value=\"%d\"></form></td>" % (i, i)
         if self._show_button_enabled:
             html += "<td><form action=\"\" method=\"post\"><input type=\"submit\""
-            html += "name=\"show_answer\" value=\"%s\"" % (self._show_button)
+            html += "class=\"button\" name=\"show_answer\" value=\"%s\"" % (self._show_button)
             html += "</form></td>"
             
         html += "</tr></table>"
