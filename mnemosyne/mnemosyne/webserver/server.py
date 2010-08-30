@@ -1,37 +1,16 @@
 #
-# web_server.py <Peter.Bienstman@UGent.be>
+# server.py <Peter.Bienstman@UGent.be>
 #
 
 
-#
-# Playing around, throw-away code. Don't use for anything serious!
-#
-
+import os
 import cgi
 import select
-import time
+import mimetypes
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
 from mnemosyne.libmnemosyne import Mnemosyne
-from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
-class Widget(MainWidget):
-    
-    def set_progress_text(self, message):
-        print message
-        
-    def information_box(self, info):
-        print info
-        
-    def error_box(self, error):
-        global last_error
-        last_error = error
-        # Activate this for debugging.
-        sys.stderr.write(error)
-
-    def question_box(self, question, option0, option1, option2):
-        return answer
-    
 
 class Server(WSGIServer):
 
@@ -39,14 +18,15 @@ class Server(WSGIServer):
         WSGIServer.__init__(self, ("", port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.stopped = False
-
         self.mnemosyne = Mnemosyne()
-        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
-        self.mnemosyne.components.append(("mnemosyne.webserver.server", "Widget"))
+        self.mnemosyne.components.insert(0,
+            ("mnemosyne.libmnemosyne.translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.webserver.html_review_widget", "HtmlReviewWidget"))
         self.mnemosyne.initialise(data_dir, filename, automatic_upgrades=False)
+        self.widget = self.mnemosyne.review_controller().widget
 
     def serve_until_stopped(self):
         while not self.stopped:
@@ -55,33 +35,68 @@ class Server(WSGIServer):
             if select.select([self.socket], [], [], 0.25)[0]:
                 self.handle_request()
         self.socket.close()
-
-    def wsgi_app(self, environ, start_response):
-
-        
-        method = (environ["REQUEST_METHOD"] + \
-                  environ["PATH_INFO"].replace("/", "_")).lower()
-        args = cgi.parse_qs(environ["QUERY_STRING"])
-        args = dict([(key, val[0]) for key, val in args.iteritems()])
-        print method, args
-
-        form = cgi.FieldStorage(fp=environ['wsgi.input'], 
-                        environ=environ)
-        print form
-
-        status = "200 OK"
-        response_headers = [("Content-type", "text/html")]
-        start_response(status, response_headers)
-        html = "<br/><br/><table><tr>"
-        html += str(time.time())
-        for i in range(6):
-            html += """<td><form action="grade" method="post">"""
-            html += """<input type="submit" name="grade" value="%d" accesskey="%d">""" % (i, i)
-            html += "</form></td>"
-        html += "</tr></table>"
-        html += self.mnemosyne.review_controller().card.question(exporting=True).encode("utf-8")
-        return html
-
+    
     def stop(self):
         self.stopped = True
 
+    def wsgi_app(self, environ, start_response):        
+        # All our request return to the root page, so if the path is '/', return
+        # the html of the review widget.        
+        filename = environ["PATH_INFO"]
+        if filename == "/":
+            # Process clicked buttons in the form.
+            form = cgi.FieldStorage(fp=environ["wsgi.input"],  environ=environ)
+            if "show_answer" in form:
+                self.widget.show_answer()
+            if "grade" in form:
+                grade = int(form["grade"].value)
+                self.widget.grade_answer(grade)
+            # Serve the web page.
+            response_headers = [("Content-type", "text/html")]
+            start_response("200 OK", response_headers)        
+            return self.widget.to_html()
+        # We need to serve a media file.
+        else:
+            media_file = self.open_media_file(filename)
+            if media_file is None:
+                response_headers = [("Content-type", "text/html")]
+                start_response("404 File not found", response_headers)  
+                return
+            else:
+                response_headers = [("Content-type", self.guess_type(filename))]
+                start_response("200 OK", response_headers)
+                return self.serve_media_file(media_file)
+
+    def open_media_file(self, path):
+        full_path = self.mnemosyne.database().media_dir()
+        for word in path.split("/"):
+            full_path = os.path.join(full_path, word)
+        try:
+            return file(full_path, "rb")
+        except IOError:
+            return None
+        
+    def serve_media_file(self, media_file):        
+        BUFFER_SIZE = 8192
+        buffer = media_file.read(BUFFER_SIZE)
+        while buffer:
+            yield buffer
+            buffer = media_file.read(BUFFER_SIZE)
+
+    # Adapted from SimpleHTTPServer:
+
+    def guess_type(self, path):
+        base, ext = os.path.splitext(path)
+        if ext in self.extensions_map:
+            return self.extensions_map[ext]
+        ext = ext.lower()
+        if ext in self.extensions_map:
+            return self.extensions_map[ext]
+        else:
+            return self.extensions_map[""]
+
+    # Try to read system mimetypes.
+    if not mimetypes.inited:
+        mimetypes.init() 
+    extensions_map = mimetypes.types_map.copy()
+    extensions_map.update({"": "application/octet-stream"})  # Default.

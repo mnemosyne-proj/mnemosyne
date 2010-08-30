@@ -82,7 +82,7 @@ class Component(object):
     
     def main_widget(self):
         return self.component_manager.current("main_widget")
-
+    
     def controller(self):
         return self.component_manager.current("controller")
 

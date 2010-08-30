@@ -1,4 +1,5 @@
--hang in syncing with 'default' instead of 'default.db'?
+-test for learn ahead
+
 -rename sync_server_password in config to something more general
 -apply activity criterion after sync, for both partners + test
 
@@ -30,6 +31,7 @@
 
 -delete 1.99 logs
 -reenable upload
+-remove hard coded dot_mnemosyne2 path in webserver
 
 -alpha 1
 
@@ -125,6 +127,16 @@ the GUI function itself?
 -upgrade docs on duplicate checking
 -update tooltips, inform Patrick
 -tar file size estimate sometimes off by one record.
+
+-webserver
+-make use of new renderer mechanism
+-support for css. center everything?
+-integrate in GUI, login mechanism, session_token, cookies
+-more ergonomic button placement, roughly always at same spot
+-less hacky way to get to the widget, as opposed to via the review controller
+-the html hides the answer label if the answer is empty. Moveable to controller?
+-server 10 cards at once?
+-mimic desktop widget closer? with Javascript?
 
 -have hierarchy in plugin names
 

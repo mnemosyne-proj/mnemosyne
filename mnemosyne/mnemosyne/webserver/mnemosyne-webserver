@@ -5,8 +5,19 @@
 import os
 from mnemosyne.webserver.server import Server
 
+port = 8888
 data_dir = os.path.abspath("dot_mnemosyne2")
 filename = "default.db"
-server = Server(8888, data_dir, filename)
+
+disclaimer = """
+Prototype of Mnemosyne web server. It works, but does not yet support
+formatting, is not integrated into the desktop application, and has no 
+security.
+"""
+
+print disclaimer
+print "Server listening on port", port
+
+server = Server(port, data_dir, filename)
 server.serve_until_stopped()
     
