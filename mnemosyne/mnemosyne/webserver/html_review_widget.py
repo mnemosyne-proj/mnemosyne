@@ -2,23 +2,36 @@
 # html_review_widget.py <Peter.Bienstman@UGent.be>
 #
 
+from string import Template
+
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
 class HtmlReviewWidget(ReviewWidget):
+
+    """I've tried fiddling with css to get the grades area always show up at
+    the bottom of the screen, no matter the contents of the cards, but I
+    never got this to work reliably both on Firefox and IE. Therefore, we
+    place the grades at the top, where they are also always at the same
+    location for easy ergonomic access.
+
+    """
     
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
         self._question_label = ""
         self._question = ""
         self._question_box_visible = True
-        self._answer_label = "Answer:"
         self._answer = ""
+        self._answer_label = _("Answer:")
         self._answer_box_visible = True
         self._show_button = ""
         self._show_button_enabled = True              
         self._grade_buttons_enabled = False
         self._status_bar = ""
+        self.template = Template(\
+            file("mnemosyne/webserver/review_page.html").read())
         
     def set_question_label(self, text):
         self._question_label = text
@@ -64,85 +77,54 @@ class HtmlReviewWidget(ReviewWidget):
             (scheduled_count, non_memorised_count, active_count)
 
     def to_html(self):
-
-        # I've tried fiddling with css to get the grades area always show up
-        # at the bottom of the screen, no matter the contents of the cards,
-        # but I never got this to work reliably both on Firefox and IE.
-        # Therefore, we place the grades at the top, where they are also
-        # always at the same location for easy ergonomic access.
-        
         card = self.review_controller().card
         #card_type = card.fact.card_type
-        #css = card_type.renderer().css(card_type)
-
-        css = """     
-input.button {width: 100%;}
-table { align: center; width: 100%;  border: 1px solid black; padding: 1em;}
-#buttonarea table {border: 0; padding: 0;}
-"""
-
-        html = """
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">"""
-
-       
-        html += "<html><head><meta http-equiv=\"Content-Type\""
-        html += "content=\"text/html\"; charset=\"UTF-8\"/>"
-        html += "<title>Mnemosyne</title>"
-
-        html += "<style type=\"text/css\">" + css + "</style>"
-        html += "</head><body>"
-        
-
-        html += "<div id=\"buttonarea\">"
-        
-        html += "<table><tr>"
-            
+        #card_css = card_type.renderer().card_css(card_type)
+        card_css = ""
+        buttons = ""
         if self._grade_buttons_enabled:
+            buttons = ""
             for i in range(6):
-                html += "<td><form action=\"\" method=\"post\">"
-                html += "<input class=\"button\" type=\"submit\" name=\"grade\""
-                html += "accesskey=\"%d\" value=\"%d\"></form></td>" % (i, i)
+                buttons += """
+                  <td>
+                    <form action="" method="post">
+                      <input class="button" type="submit" name="grade"
+                         accesskey="%d" value="%d">
+                    </form>
+                  </td>""" % (i, i)
         if self._show_button_enabled:
-            html += "<td><form action=\"\" method=\"post\"><input type=\"submit\""
-            html += "class=\"button\" name=\"show_answer\" value=\"%s\"" % (self._show_button)
-            html += "</form></td>"
-            
-        html += "</tr></table>"
-        html += "</div>"
-
-        
-        if self._question_box_visible and self._question:
-            # Last clause was needed for 'learn ahead'.
-            html += "<p>" + self._question_label + "</p><table><tr><td>"
-            for field in card.fact_view.q_fields:
-                s = card.fact[field]
-                for f in self.filters():
-                    if f.run_on_export:
-                        s = f.run(s)
-                html += "<div id=\"%s\">%s</div>" % (field, s)
-            html += "</td></tr></table>"
-        html += "<p>" + self._answer_label + "</p>"
-        html +=  "<table><tr><td>"   
-        if self._answer_box_visible: # Todo: fixed using new renderers
+            buttons = """
+              <td>
+                <form action="" method="post">
+                  <input type="submit" class="button" name="show_answer"
+                    value="%s">
+                </form>
+              </td>""" % (self._show_button)
+        question = ""
+        if self._question_box_visible:
+            if not self._question:
+                question += "&nbsp;"
+            else:
+                for field in card.fact_view.q_fields:
+                    s = card.fact[field]
+                    for f in self.filters():
+                        if f.run_on_export:
+                            s = f.run(s)
+                    question += "<div id=\"%s\">%s</div>" % (field, s) 
+        answer = ""
+        if self._answer_box_visible: # TODO: fixed using new renderers
             if not self._answer:
-                html += "&nbsp;"
+                answer += "&nbsp;"
             else:
                 for field in card.fact_view.a_fields:
                     s = card.fact[field]
                     for f in self.filters():
                         if f.run_on_export:
                             s = f.run(s)
-                    html += "<div id=\"%s\">%s</div>" % (field, s)
-                
-        html += "</td></tr></table>"      
-
-        html += "<p>" + self._status_bar + "</p>" 
-        
-        html += "</body></html>"
-
-        
-        return html.encode("utf-8")
+                    answer += "<div id=\"%s\">%s</div>" % (field, s)
+        return self.template.substitute(card_css=card_css, buttons=buttons,
+            question_label=self._question_label, question=question,
+            answer_label=self._answer_label, answer=answer,
+            status_bar=self._status_bar).encode("utf-8")
 
        

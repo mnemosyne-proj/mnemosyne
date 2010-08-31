@@ -1,6 +1,9 @@
--test for learn ahead, empty deck
--""" vs "
+-audiofiles
+-""" vs ", also in renderer
 -formatting
+-make use of new renderer mechanism
+-less hacky way to get to the widget, as opposed to via the review controller
+
 
 -apply activity criterion after sync, for both partners + test
 
@@ -130,12 +133,8 @@ the GUI function itself?
 -update tooltips, inform Patrick
 -tar file size estimate sometimes off by one record.
 
--webserver
--make use of new renderer mechanism
--integrate in GUI, login mechanism, session_token, cookies
--less hacky way to get to the widget, as opposed to via the review controller
--the html hides the answer label if the answer is empty. Moveable to controller?
--serve 10 cards at once?
+-integrate webserver in GUI, login mechanism, session_token, cookies
+-add webserver in testsuite, case when the database is empty
 
 -have hierarchy in plugin names
 
