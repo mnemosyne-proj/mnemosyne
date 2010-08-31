@@ -107,7 +107,7 @@ class Server(WSGIServer, Partner):
         if status != "200 OK":
             response_headers = [("Content-type", "text/plain")]
             start_response(status, response_headers)
-            return status
+            return [status]
         # Note that it is no use to wrap the function call in a try/except
         # statement. The reponse could be an iterable, in which case more
         # calls to e.g. 'get_server_log_entries' could follow outside of this
@@ -244,7 +244,7 @@ class Server(WSGIServer, Partner):
     # request.
 
     def get_status(self, environ):
-        return self.text_format.repr_message("OK")     
+        return [self.text_format.repr_message("OK")]
 
     def put_login(self, environ):
         session = None
@@ -255,7 +255,7 @@ class Server(WSGIServer, Partner):
                 client_info_repr)
             if not self.authorise(client_info["username"],
                 client_info["password"]):
-                return self.text_format.repr_message("Access denied")
+                return [self.text_format.repr_message("Access denied")]
             # Close old session waiting in vain for client input.
             old_running_session_token = self.session_token_for_user.\
                 get(client_info["username"])
@@ -276,7 +276,7 @@ class Server(WSGIServer, Partner):
                or \
                (client_in_server_partners and not server_in_client_partners):
                 self.terminate_session_with_token(session.token)                
-                return self.text_format.repr_message("Sync cycle detected")
+                return [self.text_format.repr_message("Sync cycle detected")]
             session.database.create_if_needed_partnership_with(\
                 client_info["machine_id"])
             session.database.merge_partners(client_info["partners"])
@@ -295,8 +295,8 @@ class Server(WSGIServer, Partner):
             # We check if files were updated outside of the program. This can
             # generate MEDIA_EDITED log entries, so it should be done first.
             session.database.check_for_edited_media_files()
-            return self.text_format.repr_partner_info(server_info)\
-                   .encode("utf-8") 
+            return [self.text_format.repr_partner_info(server_info)\
+                   .encode("utf-8")] 
         except:
             # We need to be really thorough in our exception handling, so as
             # to always revert the database to its last backup if an error
@@ -305,7 +305,7 @@ class Server(WSGIServer, Partner):
             # thread in an SRS desktop application.
             # As mentioned before, the error handling should happen here, at
             # the lowest level, and not in e.g. 'wsgi_app'.
-            return self.handle_error(session, traceback_string())
+            return [self.handle_error(session, traceback_string())]
 
     def put_client_log_entries(self, environ, session_token):
         try:
@@ -340,10 +340,10 @@ class Server(WSGIServer, Partner):
                     log_entry["o_id"] = log_entry["fname"]
                 if log_entry["type"] > 5 and \
                     log_entry["o_id"] in client_o_ids:
-                    return self.text_format.repr_message("Conflict")
-            return self.text_format.repr_message("OK")
+                    return [self.text_format.repr_message("Conflict")]
+            return [self.text_format.repr_message("OK")]
         except:
-            return self.handle_error(session, traceback_string())
+            return [self.handle_error(session, traceback_string())]
         
     def put_client_entire_database_binary(self, environ, session_token):
         try:
@@ -356,9 +356,9 @@ class Server(WSGIServer, Partner):
             session.database.create_if_needed_partnership_with(\
                 session.client_info["machine_id"])
             session.database.remove_partnership_with(self.machine_id)
-            return self.text_format.repr_message("OK")
+            return [self.text_format.repr_message("OK")]
         except:
-            return self.handle_error(session, traceback_string())
+            return [self.handle_error(session, traceback_string())]
 
     def get_server_log_entries(self, environ, session_token):
         try:
@@ -432,9 +432,9 @@ class Server(WSGIServer, Partner):
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             # Work around http://bugs.python.org/issue7693.
             tar_pipe.extractall(session.database.media_dir().encode("utf-8"))
-            return self.text_format.repr_message("OK")
+            return [self.text_format.repr_message("OK")]
         except:
-            return self.handle_error(session, traceback_string())        
+            return [self.handle_error(session, traceback_string())]        
 
     def get_server_media_files(self, environ, session_token,
                                redownload_all=False):
@@ -476,16 +476,16 @@ class Server(WSGIServer, Partner):
         try:
             self.ui.set_progress_text("Sync cancelled!")
             self.cancel_session_with_token(session_token)
-            return self.text_format.repr_message("OK")
+            return [self.text_format.repr_message("OK")]
         except:
             session = self.sessions[session_token]
-            return self.handle_error(session, traceback_string())
+            return [self.handle_error(session, traceback_string())]
         
     def get_sync_finish(self, environ, session_token):           
         try:
             session = self.sessions[session_token]
             if session.apply_error:
-                return self.handle_error(session, session.apply_error)
+                return [self.handle_error(session, session.apply_error)]
             self.ui.set_progress_text("Sync finished!")
             self.close_session_with_token(session_token) 
             # Now is a good time to garbage-collect dangling sessions.
@@ -493,6 +493,6 @@ class Server(WSGIServer, Partner):
             for session_token, session in self.sessions.iteritems():
                 if session.is_expired():
                     self.terminate_session_with_token(session_token)
-            return self.text_format.repr_message("OK")
+            return [self.text_format.repr_message("OK")]
         except:
-            return self.handle_error(session, traceback_string())
+            return [self.handle_error(session, traceback_string())]

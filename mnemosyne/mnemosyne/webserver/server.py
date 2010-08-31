@@ -2,14 +2,42 @@
 # server.py <Peter.Bienstman@UGent.be>
 #
 
-
 import os
 import cgi
+import socket
 import select
 import mimetypes
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
 from mnemosyne.libmnemosyne import Mnemosyne
+
+
+# Avoid delays caused by Nagle's algorithm.
+# http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
+
+realsocket = socket.socket
+def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
+    sockobj = realsocket(family, type, proto)
+    sockobj.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+    return sockobj
+socket.socket = socketwrap
+
+
+# Work around http://bugs.python.org/issue6085.
+
+def not_insane_address_string(self):
+    host, port = self.client_address[:2]
+    return "%s (no getfqdn)" % host
+
+WSGIRequestHandler.address_string = not_insane_address_string
+
+
+# Don't log (saves time on an embedded server).
+
+def dont_log(*kwargs):
+    pass
+
+WSGIRequestHandler.log_message = dont_log
 
 
 class Server(WSGIServer):
@@ -54,14 +82,14 @@ class Server(WSGIServer):
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)        
-            return self.widget.to_html()
+            return [self.widget.to_html()]
         # We need to serve a media file.
         else:
             media_file = self.open_media_file(filename)
             if media_file is None:
                 response_headers = [("Content-type", "text/html")]
                 start_response("404 File not found", response_headers)  
-                return
+                return ["404 File not found"]
             else:
                 response_headers = [("Content-type", self.guess_type(filename))]
                 start_response("200 OK", response_headers)

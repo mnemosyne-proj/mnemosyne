@@ -327,7 +327,7 @@ class DefaultController(Controller):
         db.backup()
         db.unload()
         # Confirmation on overwrite has happened in the file dialog code.
-        if os.path.exists(filename):
+        if os.path.exists(filename + "_media"):
             import shutil
             shutil.rmtree(filename + "_media")
         db.new(filename)

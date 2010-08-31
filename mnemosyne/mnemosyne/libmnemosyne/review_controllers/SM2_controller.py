@@ -94,7 +94,8 @@ class SM2Controller(ReviewController):
         the data gets updated when a new day starts.
 
         """
- 
+        
+        self.flush_sync_server() 
         self.reload_counters()
         self.widget.update_status_bar()
         self.scheduler().heartbeat()

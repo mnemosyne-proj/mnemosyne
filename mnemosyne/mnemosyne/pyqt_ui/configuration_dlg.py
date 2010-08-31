@@ -24,10 +24,10 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
             widget = widget(self.component_manager, parent=self)
             self.tab_widget.addTab(widget, widget.name)
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)     
-        widget_index = self.config()["last_configuration_wdgt"]
+        widget_index = self.config()["previous_configuration_wdgt"]
         if widget_index >= self.tab_widget.count():
             widget_index = 0
-            self.config()["last_configuration_wdgt"] = 0
+            self.config()["previous_configuration_wdgt"] = 0
         self.tab_widget.setCurrentIndex(widget_index)
         self.ok_button.setFocus()
         width, height = self.config()["configuration_dlg_size"]
@@ -41,7 +41,7 @@ class ConfigurationDlg(QtGui.QDialog, Ui_ConfigurationDlg, ConfigurationDialog):
         self.config()["configuration_dlg_size"] = (self.width(), self.height())
         
     def accept(self):
-        self.config()["last_configuration_wdgt"] = \
+        self.config()["previous_configuration_wdgt"] = \
             self.tab_widget.currentIndex()
         for index in range(self.tab_widget.count()):
             self.tab_widget.widget(index).apply()

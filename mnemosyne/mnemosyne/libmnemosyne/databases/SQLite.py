@@ -251,8 +251,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             os.path.basename(self.config()["path"]) + "_media")
     
     def new(self, path):
-        if self.is_loaded():
-            self.unload()
+        self.unload()
         self._path = expand_path(path, self.config().data_dir)
         if os.path.exists(self._path):
             os.remove(self._path)
@@ -396,14 +395,21 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.load(db_path)
 
     def unload(self):
-        for f in self.component_manager.all("hook", "before_unload"):
-            f.run()
-        self.log().dump_to_science_log()
-        if self._connection:
-            self.backup()  # Saves too.
+        if not self._connection:
+            return
+        # This could fail if the database got corrupted and we are trying to
+        # create a new, temporary one.
+        try:
+            for f in self.component_manager.all("hook", "before_unload"):
+                f.run()
+            self.log().dump_to_science_log()
+            self.backup()  # Saves too.         
             self._connection.close()
+        except:
+            pass
+        finally:
             self._connection = None
-        self._path = None
+            self._path = None        
         return True
 
     def abandon(self):

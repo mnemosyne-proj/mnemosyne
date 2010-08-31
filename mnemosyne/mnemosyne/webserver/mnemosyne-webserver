@@ -10,12 +10,12 @@ data_dir = os.path.abspath("dot_mnemosyne2")
 filename = "default.db"
 
 disclaimer = """
-Prototype of Mnemosyne web server. It works, but does not yet support
-formatting, is not integrated into the desktop application, and has no 
-security.
+Prototype of Mnemosyne web server. It works, but is not yet integrated in
+the desktop application, and has no security.
 """
 
 print disclaimer
+print "Serving", os.path.join(data_dir, filename)
 print "Server listening on port", port
 
 server = Server(port, data_dir, filename)

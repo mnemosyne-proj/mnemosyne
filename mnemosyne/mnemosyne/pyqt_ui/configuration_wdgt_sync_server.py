@@ -33,9 +33,9 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.setupUi(self)
         self.initially_running = self.is_server_running()
         self.run_sync_server.setChecked(self.config()["run_sync_server"])
-        self.port.setValue(self.config()["sync_server_port"])
-        self.username.setText(self.config()["sync_server_username"])
-        self.password.setText(self.config()["sync_server_password"])
+        self.port.setValue(self.config()["port_for_sync_as_server"])
+        self.username.setText(self.config()["remote_access_username"])
+        self.password.setText(self.config()["remote_access_password"])
         if self.is_server_running():
             self.server_status.setText(_("Server running on ") + \
                 localhost_IP() + ".")
@@ -45,7 +45,7 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
     def is_server_running(self):
         try:
             con = httplib.HTTPConnection(localhost_IP(),
-                self.config()["sync_server_port"])
+                self.config()["port_for_sync_as_server"])
             con.request("GET", "/status")
             assert "OK" in con.getresponse().read()
             return True
@@ -60,9 +60,9 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
                 
     def apply(self):
         self.config()["run_sync_server"] = self.run_sync_server.isChecked()
-        self.config()["sync_server_port"] = self.port.value()
-        self.config()["sync_server_username"] = unicode(self.username.text())
-        self.config()["sync_server_password"] = unicode(self.password.text())    
+        self.config()["port_for_sync_as_server"] = self.port.value()
+        self.config()["remote_access_username"] = unicode(self.username.text())
+        self.config()["remote_access_password"] = unicode(self.password.text())    
         self.component_manager.current("sync_server").deactivate() 
         if self.config()["run_sync_server"]:
             self.component_manager.current("sync_server").activate()

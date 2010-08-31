@@ -23,7 +23,7 @@ class CardsAdded(PlotStatisticsPage):
                 (LAST_YEAR, _("Last year"))]
     
     def prepare_statistics(self, variant):
-        if variant == self.LAST_WEEK:
+        if variant == self.LAST_WEEK:            
             self.x = range(-7, 1, 1)
         elif variant == self.LAST_MONTH:
             self.x = range(-31, 1, 1)

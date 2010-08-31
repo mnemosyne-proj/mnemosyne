@@ -29,11 +29,11 @@ class SyncServer(Component, Server):
     def __init__(self, component_manager, ui):
         Component.__init__(self, component_manager)
         Server.__init__(self, self.config().machine_id(),
-            self.config()["sync_server_port"], ui)
+            self.config()["port_for_sync_as_server"], ui)
     
     def authorise(self, username, password):
-        return username == self.config()["sync_server_username"] and \
-               password == self.config()["sync_server_password"]
+        return username == self.config()["remote_access_username"] and \
+               password == self.config()["remote_access_password"]
     
     def load_database(self, database_name):
         self.previous_database = self.config()["path"]   

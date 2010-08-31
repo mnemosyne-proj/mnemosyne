@@ -104,11 +104,11 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
                _("Here, you can sync with a different desktop or a webserver. \nTo sync with a mobile device, first enable a sync server on this computer in the configuration dialog, and then start the sync from the mobile device."),
                _("&OK"), "", "", 0, -1)
             self.config()["sync_help_shown"] = True
-        self.server.setText(self.config()["sync_as_client_server"])
-        self.port.setValue(self.config()["sync_as_client_port"])
-        self.username.setText(self.config()["sync_as_client_username"])
-        self.password.setText(self.config()["sync_as_client_password"])
-        if self.config()["sync_as_client_server"]:
+        self.server.setText(self.config()["server_for_sync_as_client"])
+        self.port.setValue(self.config()["port_for_sync_as_client"])
+        self.username.setText(self.config()["username_for_sync_as_client"])
+        self.password.setText(self.config()["password_for_sync_as_client"])
+        if self.config()["server_for_sync_as_client"]:
             self.ok_button.setFocus()
         
     def activate(self):
@@ -121,10 +121,10 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         port = self.port.value()
         username = unicode(self.username.text())
         password = unicode(self.password.text()) 
-        self.config()["sync_as_client_server"] = server
-        self.config()["sync_as_client_port"] = port
-        self.config()["sync_as_client_username"] = username
-        self.config()["sync_as_client_password"] = password
+        self.config()["server_for_sync_as_client"] = server
+        self.config()["port_for_sync_as_client"] = port
+        self.config()["username_for_sync_as_client"] = username
+        self.config()["password_for_sync_as_client"] = password
         # Do the actual sync in a separate thread.
         self.database().release_connection()
         global answer

@@ -16,9 +16,9 @@ class PyQtConfiguration(Hook):
              "tags_of_last_added": "",
              "sort_column": None,
              "sort_order": None,
-             "last_statistics_page": 0,
-             "last_configuration_wdgt": 0,
-             "last_variant_for_statistics_page": {}, # dict[page] = variant
+             "previous_statistics_page": 0,
+             "previous_configuration_wdgt": 0,
+             "previous_variant_for_statistics_page": {}, # dict[page] = variant
              "main_window_size": (0, 0),
              "add_widget_size": (0, 0),
              "edit_widget_size": (0, 0),
@@ -28,9 +28,12 @@ class PyQtConfiguration(Hook):
              "activate_cards_dlg_size": (0, 0),
              "activate_cards_dlg_splitter": None,
              "sync_help_shown": False,
-             "sync_as_client_server": "",
-             "sync_as_client_port": 8512,
-             "sync_as_client_username": "",
-             "sync_as_client_password": ""
+             "server_for_sync_as_client": "",
+             "port_for_sync_as_client": 8512,
+             "username_for_sync_as_client": "",
+             "password_for_sync_as_client": "",
+             "port_for_sync_as_server": 8512,
+             "remote_access_username": "",
+             "remote_access_password": ""
             }.items():
             self.config().setdefault(key, value)

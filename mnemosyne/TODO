@@ -1,7 +1,7 @@
--test for learn ahead
+-test for learn ahead, empty deck
+-""" vs "
+-formatting
 
--statistics page is not remembered
--rename sync_server_password in config to something more general
 -apply activity criterion after sync, for both partners + test
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
@@ -33,6 +33,7 @@
 -delete 1.99 logs
 -reenable upload
 -remove hard coded dot_mnemosyne2 path in webserver
+-turn off logging in webserver
 
 -alpha 1
 
@@ -131,13 +132,10 @@ the GUI function itself?
 
 -webserver
 -make use of new renderer mechanism
--support for css. center everything?
 -integrate in GUI, login mechanism, session_token, cookies
--more ergonomic button placement, roughly always at same spot
 -less hacky way to get to the widget, as opposed to via the review controller
 -the html hides the answer label if the answer is empty. Moveable to controller?
--server 10 cards at once?
--mimic desktop widget closer? with Javascript?
+-serve 10 cards at once?
 
 -have hierarchy in plugin names
 

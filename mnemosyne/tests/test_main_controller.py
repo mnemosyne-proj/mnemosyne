@@ -9,11 +9,12 @@ from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.ui_components.dialogs import *
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
+save_file = ""
 
 class Widget(MainWidget):
 
     def save_file_dialog(self, path, filter, caption=""):
-        return os.path.join(os.getcwd(), "dot_test", "copy.db")
+        return save_file
     
     def open_file_dialog(self, path, filter, caption=""):
         return os.path.join(os.getcwd(), "dot_test", "default.db")
@@ -52,6 +53,9 @@ class TestMainController(MnemosyneTest):
         self.review_controller().reset()
         
     def test_coverage(self):
+        global save_file
+        os.path.join(os.getcwd(), "dot_test", "copy.db")
+        
         self.controller().heartbeat()
         self.controller().add_cards()
         card_type = self.card_type_by_id("2")
@@ -74,3 +78,15 @@ class TestMainController(MnemosyneTest):
     def test_2(self):
         self.controller().file_save_as()
         self.controller().file_open()
+
+    def test_overwrite(self):
+        global save_file
+        os.path.join(os.getcwd(), "dot_test", "default.db")
+
+        card_type = self.card_type_by_id("2")
+        fact_data = {"q": "q", "a": "a"}
+        card_1, card_2 = self.controller().create_new_cards(fact_data,
+          card_type, grade=-1, tag_names=["default"])
+        self.controller().file_save()
+        
+        self.controller().file_new()

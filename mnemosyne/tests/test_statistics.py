@@ -62,14 +62,14 @@ class TestStatistics(MnemosyneTest):
     def test_schedule_page(self):
         from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
         page = Schedule(self.mnemosyne.component_manager)
-        for i in range(1, 7):
+        for i in range(1, 11):
             page.prepare_statistics(i)
 
     @raises(AttributeError)
     def test_schedule_page_2(self):
         from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
         page = Schedule(self.mnemosyne.component_manager)
-        page.prepare_statistics(8)
+        page.prepare_statistics(0)
 
     def test_added_cards(self):
         self.database().update_card_after_log_import = (lambda x, y, z: 0)
@@ -84,7 +84,7 @@ class TestStatistics(MnemosyneTest):
     def test_added_cards_page(self):
         from mnemosyne.libmnemosyne.statistics_pages.cards_added import CardsAdded
         page = CardsAdded(self.mnemosyne.component_manager)
-        for i in range(1, 4):
+        for i in range(1, 6):
             page.prepare_statistics(i)
             
     @raises(AttributeError)
@@ -104,10 +104,9 @@ class TestStatistics(MnemosyneTest):
         assert self.database().retention_score_n_days_ago(0) == 0
         from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
         page = RetentionScore(self.mnemosyne.component_manager)
-        page.prepare_statistics(1)
-        page.prepare_statistics(2)
-        page.prepare_statistics(3)
-                
+        for i in range(1, 6):
+            page.prepare_statistics(i)
+
     @raises(AttributeError)
     def test_score_page(self):
         from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore

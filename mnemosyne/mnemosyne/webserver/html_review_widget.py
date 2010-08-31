@@ -64,50 +64,38 @@ class HtmlReviewWidget(ReviewWidget):
             (scheduled_count, non_memorised_count, active_count)
 
     def to_html(self):
+
+        # I've tried fiddling with css to get the grades area always show up
+        # at the bottom of the screen, no matter the contents of the cards,
+        # but I never got this to work reliably both on Firefox and IE.
+        # Therefore, we place the grades at the top, where they are also
+        # always at the same location for easy ergonomic access.
+        
         card = self.review_controller().card
         #card_type = card.fact.card_type
         #css = card_type.renderer().css(card_type)
 
-        #TODO: http://www.wickham43.supanet.com/tutorial/headerfooterfixexample.html
-
         css = """     
-html { margin: 0; padding: 0; height: 100%; }
-body { margin: 0; padding: 0; height: 100%; }
-input.button {width: 100%; margin: 0; padding: 0;}
-table { align: center; width: 99%; margin: 2px 0px; height: 39%;  border: 1px solid black;}
-#container { position: absolute; left: 0px; top: 0px; margin-left: 1%; width: 99%; height: 99%; }
-#footer { position:absolute; left: 0px; bottom: 0px; width: 100%; height: 10%;}
-#footer table {height: 10%; border: 0; margin: 0; padding:0;}
-"""     
-        html = "<html><head><meta http-equiv=\"Content-Type\""
-        html += "content=\"text/html; charset=UTF-8\"/>"
+input.button {width: 100%;}
+table { align: center; width: 100%;  border: 1px solid black; padding: 1em;}
+#buttonarea table {border: 0; padding: 0;}
+"""
+
+        html = """
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">"""
+
+       
+        html += "<html><head><meta http-equiv=\"Content-Type\""
+        html += "content=\"text/html\"; charset=\"UTF-8\"/>"
+        html += "<title>Mnemosyne</title>"
+
         html += "<style type=\"text/css\">" + css + "</style>"
         html += "</head><body>"
-
-        html += "<div id=\"container\">"
         
-        if self._question_box_visible and self._question:
-            # Last clause was needed for 'learn ahead'.
-            html += self._question_label + "<br><table><tr><td>"
-            for field in card.fact_view.q_fields:
-                s = card.fact[field]
-                for f in self.filters():
-                    if f.run_on_export:
-                        s = f.run(s)
-                html += "<div id=\"%s\">%s</div>" % (field, s)
-            html += "</td></tr></table><br>"
-        html += self._answer_label + "<br>"
-        html +=  "<table><tr><td>"   
-        if self._answer_box_visible and self._answer: # Todo: fixed using new renderers
-            for field in card.fact_view.a_fields:
-                s = card.fact[field]
-                for f in self.filters():
-                    if f.run_on_export:
-                        s = f.run(s)
-                html += "<div id=\"%s\">%s</div>" % (field, s)
-        html += "</td></tr></table>"
 
-        html += "<div id=\"footer\">"
+        html += "<div id=\"buttonarea\">"
         
         html += "<table><tr>"
             
@@ -122,13 +110,39 @@ table { align: center; width: 99%; margin: 2px 0px; height: 39%;  border: 1px so
             html += "</form></td>"
             
         html += "</tr></table>"
-        
-        html += self._status_bar 
-        
-        html += "</div></div>"
+        html += "</div>"
 
         
+        if self._question_box_visible and self._question:
+            # Last clause was needed for 'learn ahead'.
+            html += "<p>" + self._question_label + "</p><table><tr><td>"
+            for field in card.fact_view.q_fields:
+                s = card.fact[field]
+                for f in self.filters():
+                    if f.run_on_export:
+                        s = f.run(s)
+                html += "<div id=\"%s\">%s</div>" % (field, s)
+            html += "</td></tr></table>"
+        html += "<p>" + self._answer_label + "</p>"
+        html +=  "<table><tr><td>"   
+        if self._answer_box_visible: # Todo: fixed using new renderers
+            if not self._answer:
+                html += "&nbsp;"
+            else:
+                for field in card.fact_view.a_fields:
+                    s = card.fact[field]
+                    for f in self.filters():
+                        if f.run_on_export:
+                            s = f.run(s)
+                    html += "<div id=\"%s\">%s</div>" % (field, s)
+                
+        html += "</td></tr></table>"      
+
+        html += "<p>" + self._status_bar + "</p>" 
+        
         html += "</body></html>"
+
+        
         return html.encode("utf-8")
 
        

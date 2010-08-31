@@ -21,6 +21,7 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
         StatisticsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        previous_page_index = self.config()["previous_statistics_page"]
         page_index = 0
         for page in self.component_manager.all("statistics_page"):
             page = page(self.component_manager)
@@ -28,11 +29,10 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
                 page, page_index), page.name)
             page_index += 1
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)  
-        page_index = self.config()["last_statistics_page"]
-        if page_index >= self.tab_widget.count():
-            page_index = 0
-        self.tab_widget.setCurrentIndex(page_index)
-        self.display_page(page_index)
+        if previous_page_index >= self.tab_widget.count():
+            previous_page_index = 0
+        self.tab_widget.setCurrentIndex(previous_page_index)
+        self.display_page(previous_page_index)
            
     def activate(self):
         self.exec_()
@@ -46,13 +46,15 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
         
     def display_page(self, page_index):
         page = self.tab_widget.widget(page_index)
-        self.config()["last_variant_for_statistics_page"].setdefault(page_index, 0)
-        variant_index = self.config()["last_variant_for_statistics_page"][page_index]
+        self.config()["previous_variant_for_statistics_page"]\
+            .setdefault(page_index, 0)
+        variant_index = self.config()\
+            ["previous_variant_for_statistics_page"][page_index]
         if variant_index >= page.combobox.count():
             variant_index = 0
         page.combobox.setCurrentIndex(variant_index)
         page.display_variant(variant_index)
-        self.config()["last_statistics_page"] = page_index
+        self.config()["previous_statistics_page"] = page_index
         width, height = self.config()["statistics_dlg_size"]
         # Disabled, seems to cause corruption with current Matplotlib.
         #if width:
@@ -113,5 +115,5 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
         self.current_variant_widget = self.variant_widgets[variant_index]
         self.vbox_layout.addWidget(self.current_variant_widget)
         self.current_variant_widget.show()
-        self.config()["last_variant_for_statistics_page"][self.page_index] = \
-           variant_index
+        self.config()["previous_variant_for_statistics_page"]\
+           [self.page_index] = variant_index
