@@ -27,6 +27,9 @@ easily, which allows plugin writers maximum flexibility.
 -Move to SQL as the storage backend, resulting in improved speed and memory
  usage, as well as better scalability for large decks. Majority of work done
  by Ed Bartosh.
+-Mnemosyne comes with a webserver to do remote reviews over a browser. It is
+ not yet integrated in the GUI, you need to run the 'mnemosyne-webserver'
+ program. It also has no security yet.
 -Vhen importing a sound or an image, a copy is made to the .mnemosyne directory. 
  This saves some confusing explaining to new users about the difference between 
  relative and absolute paths.

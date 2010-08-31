@@ -3,12 +3,12 @@
 #
 
 import time
+import locale
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_page import HtmlStatisticsPage
 
 DAY = 24 * 60 * 60 # Seconds in a day.
-
 
 class CurrentCard(HtmlStatisticsPage):
 
@@ -38,12 +38,13 @@ class CurrentCard(HtmlStatisticsPage):
             self.html += _("Lapses") + ": %d<br>" % card.lapses
             self.html += _("Interval") + ": %d<br>" \
                 % (card.interval / DAY)
+            date_format = locale.nl_langinfo(locale.D_FMT)
             self.html += _("Last repetition") + ": %s<br>" \
-                % time.strftime("%B %d, %Y", time.gmtime(card.last_rep))\
-                .decode('utf-8')           
+                % time.strftime(date_format, time.gmtime(card.last_rep))\
+                .decode("utf-8")           
             self.html += _("Next repetition") + ": %s<br>" \
-                % time.strftime("%B %d, %Y", time.gmtime(card.next_rep))\
-                .decode('utf-8')
+                % time.strftime(date_format, time.gmtime(card.next_rep))\
+                .decode("utf-8")
             self.html += _("Average thinking time (secs)") + ": %d<br>" \
                 % self.database().average_thinking_time(card)
             self.html += _("Total thinking time (secs)") + ": %d<br>" \
