@@ -89,11 +89,23 @@ class BarChartDaysWdgt(PlotStatisticsWdgt):
             show_text_value = True
             linewidth = 1 
         elif hasattr(self.page, "NEXT_MONTH") and \
-                 variant == self.page.NEXT_MONTH:   
+            variant == self.page.NEXT_MONTH:   
             xticks = [1] + range(5, 32, 5)
             xticklabels = ["+1"] + ticklabels_pos(5, 32, 5)
             show_text_value = False
-            linewidth = 1        
+            linewidth = 1
+        elif hasattr(self.page, "NEXT_3_MONTHS") and \
+            variant == self.page.NEXT_3_MONTHS:   
+            xticks = [1] + range(10, 92, 10)
+            xticklabels = ["+1"] + ticklabels_pos(10, 92, 10)
+            show_text_value = False
+            linewidth = 1
+        elif hasattr(self.page, "NEXT_6_MONTHS") and \
+            variant == self.page.NEXT_6_MONTHS:   
+            xticks = [1] + range(30, 183, 30)
+            xticklabels = ["+1"] + ticklabels_pos(30, 183, 30)
+            show_text_value = False
+            linewidth = 0             
         elif hasattr(self.page, "NEXT_YEAR") and \
                  variant == self.page.NEXT_YEAR:
             xticks = [1] + range(60, 365, 60)            
@@ -111,7 +123,19 @@ class BarChartDaysWdgt(PlotStatisticsWdgt):
             xticks = range(-30, -4, 5) + [0]
             xticklabels = ticklabels_neg(-30, -4, 5) + ["0"]
             show_text_value = False
-            linewidth = 1        
+            linewidth = 1
+        elif hasattr(self.page, "LAST_3_MONTHS") and \
+            variant == self.page.LAST_3_MONTHS:   
+            xticks = range(-90, -9, 10) + [0]
+            xticklabels = ticklabels_neg(-90, -9, 10) + ["0"]
+            show_text_value = False
+            linewidth = 1
+        elif hasattr(self.page, "LAST_6_MONTHS") and \
+            variant == self.page.LAST_6_MONTHS:   
+            xticks = range(-180, -19, 20) + [0]
+            xticklabels = ticklabels_neg(-180, -19, 20) + ["0"]
+            show_text_value = False
+            linewidth = 0  
         elif hasattr(self.page, "LAST_YEAR") and \
                  variant == self.page.LAST_YEAR:
             xticks = range(-360, -59, 60) + [0]          
