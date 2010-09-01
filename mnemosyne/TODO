@@ -5,15 +5,6 @@
 -make use of new renderer mechanism
 -less hacky way to get to the widget, as opposed to via the review controller
 
-
--grade -2? Importing files does not allow setting grade >2 on first review
-
-2: You've memorised this card now, and you might rememember it tomorrow
-3: should remember
-4: might remember in 2 days
-5: should remember in 2 days
--tooltips for add cards too?
-
 -apply activity criterion after sync, for both partners + test
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
@@ -144,8 +135,10 @@ the GUI function itself?
 
 -integrate webserver in GUI, login mechanism, session_token, cookies
 -add webserver in testsuite, case when the database is empty
--sound files suffer from connection reset by peer
--add caching support
+-sound files suffer from connection reset by peer. Try other WSGI server?
+-add html caching support for media files
+-send absolute filenames when running server locally, so that we don't need to
+ send them over http
 
 -have hierarchy in plugin names
 
@@ -297,6 +290,8 @@ pylint:
 -skritter/cpod interop mail
 
 -better supermemo import
+
+-API for statusbar widgets
 
 -get rid of mp3 clip prevention?
 

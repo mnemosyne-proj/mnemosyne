@@ -373,7 +373,14 @@ class SM2Mnemosyne(Scheduler):
              # In the acquisition phase and moving to the retention phase.
              card.acq_reps += 1
              card.acq_reps_since_lapse += 1
-             new_interval = DAY
+             if new_grade == 2:
+                 new_interval = DAY
+             elif new_grade == 3:
+                 new_interval = random.choice([1, 1, 2]) * DAY
+             elif new_grade == 4:
+                 new_interval = random.choice([1, 2, 2]) * DAY
+             elif new_grade == 5:
+                 new_interval = 2 * DAY
              # Make sure the second copy of a grade 0 card doesn't show
              # up again.
              if not dry_run and card.grade == 0:

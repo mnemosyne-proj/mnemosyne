@@ -5,30 +5,40 @@
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.review_controller import ReviewController
 
+ACQ_PHASE = 0
+RET_PHASE = 1
+
 
 # Tooltip texts.  The first index deals with whether we have a card with
 # previous grade 0 or 1 (i.e. non memorised).  The second index is the grade.
 tooltip = [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]]
-tooltip[0][0] = \
+tooltip[ACQ_PHASE][0] = \
     _("You don't remember this card yet.")
-tooltip[0][1] = \
+tooltip[ACQ_PHASE][1] = \
     _("Like '0', but it's getting more familiar.") + " " + \
     _("Show it less often.")
-tooltip[0][2] = tooltip[0][3] = tooltip[0][4] = tooltip[0][5] = \
-    _("You've memorised this card now,") + \
-    _(" and will probably remember it for a few days.")
+tooltip[ACQ_PHASE][2] = \
+    _("You've memorised this card now, and might remember it tomorrow.")
+tooltip[ACQ_PHASE][3] = \
+    _("You've memorised this card now, and should remember it tomorrow.")
+tooltip[ACQ_PHASE][4] = \
+    _("You've memorised this card now, and might remember it in 2 days.")
+tooltip[ACQ_PHASE][5] = \
+    _("You've memorised this card now, and should remember it in 2 days.")
 
-tooltip[1][0] = tooltip[1][1] = \
-    _("You have forgotten this card completely.")
-tooltip[1][2] = \
+tooltip[RET_PHASE][0]  = \
+    _("You've forgotten this card completely.")
+tooltip[RET_PHASE][1] = \
+    _("You've forgotten this card.")
+tooltip[RET_PHASE][2] = \
     _("Barely correct answer. The interval was way too long.")
-tooltip[1][3] = \
+tooltip[RET_PHASE][3] = \
     _("Correct answer, but with much effort.") + " " + \
     _("The interval was probably too long.")
-tooltip[1][4] = \
+tooltip[RET_PHASE][4] = \
     _("Correct answer, with some effort.") + " " + \
     _("The interval was probably just right.")
-tooltip[1][5] = \
+tooltip[RET_PHASE][5] = \
     _("Correct answer, but without any difficulties.") + " " + \
     _("The interval was probably too short.")
 
@@ -237,15 +247,11 @@ class SM2Controller(ReviewController):
         w = self.widget
         # Update grade buttons.
         if self.card and self.card.grade < 2:
-            i = 0 # Acquisition phase.
+            phase = ACQ_PHASE
             default_grade = 0
-            for grade in [3, 4, 5]:
-                w.enable_grade(grade, False)
         else:
-            i = 1  # Retention phase.
+            phase = RET_PHASE
             default_grade = 4
-            for grade in [3, 4, 5]:
-                w.enable_grade(grade, True)
         w.enable_grades(self.grades_enabled)
         if self.grades_enabled:
             w.set_default_grade(default_grade)         
@@ -264,10 +270,10 @@ class SM2Controller(ReviewController):
                 interval = self.scheduler().process_answer(self.card, \
                     grade, dry_run=True)
                 days = int(math.ceil(interval / (24.0 * 60 * 60)))               
-                w.set_grade_tooltip(grade, tooltip[i][grade] + \
+                w.set_grade_tooltip(grade, tooltip[phase][grade] + \
                     self.next_rep_string(days))
             else:
-                w.set_grade_tooltip(grade, tooltip[i][grade])
+                w.set_grade_tooltip(grade, tooltip[phase][grade])
             # Button text.
             if self.state == "SELECT GRADE" and \
                self.config()["show_intervals"] == "buttons":
