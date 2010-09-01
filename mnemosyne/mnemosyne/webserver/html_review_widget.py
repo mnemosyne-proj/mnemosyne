@@ -78,9 +78,9 @@ class HtmlReviewWidget(ReviewWidget):
 
     def to_html(self):
         card = self.review_controller().card
-        #card_type = card.fact.card_type
-        #card_css = card_type.renderer().card_css(card_type)
-        card_css = ""
+        card_type = card.fact.card_type
+        card_css = card_type.renderer().css(card_type)
+        #card_css = ""
         buttons = ""
         if self._grade_buttons_enabled:
             buttons = ""
@@ -88,16 +88,15 @@ class HtmlReviewWidget(ReviewWidget):
                 buttons += """
                   <td>
                     <form action="" method="post">
-                      <input class="button" type="submit" name="grade"
-                         accesskey="%d" value="%d">
+                      <input type="submit" name="grade" accesskey="%d"
+                       value="%d">
                     </form>
                   </td>""" % (i, i)
         if self._show_button_enabled:
             buttons = """
               <td>
                 <form action="" method="post">
-                  <input type="submit" class="button" name="show_answer"
-                    value="%s">
+                  <input type="submit" name="show_answer" value="%s">
                 </form>
               </td>""" % (self._show_button)
         question = ""

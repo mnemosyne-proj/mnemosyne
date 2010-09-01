@@ -1,7 +1,6 @@
 -edit vs update
 
 -""" vs ", also in renderer
--formatting
 -make use of new renderer mechanism
 -less hacky way to get to the widget, as opposed to via the review controller
 
@@ -14,12 +13,18 @@
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
 
+-factor out common code between html_css and html_css_old
 -better mechanism to have different renderers, e.g. filters that only run on sync. revisit review_widget.empty?
 -allow arguments to renders, e.g. for picture resolution
 -unify renderers and filters? probably not, renderer can be specific for card type, filters are more general
+-do filters on whole html, not just card fields
+-is caching css needed?
+-time on wm: < 15 ms
 -replace filter.run_on_export by run_for_renderers?
 -unify render_text and render_card_fields?
 -plugin hook mechanism for 'check_for_updated_media_files', to move latex code out of DB code.
+-preview card formatting changes; cancel does not undo the changes
+-update tests
 
 -card browser
 -make sure searching for a single unicode character works

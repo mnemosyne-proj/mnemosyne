@@ -15,7 +15,7 @@ class HtmlCssOld(Renderer):
 
     Changes:
     - table height is 95% instead of 100% to avoid spurious scrollbars.
-     - centering is done in html as opposed to only in css.
+    - centering is done in html as opposed to only in css.
       
     """
 
@@ -23,14 +23,7 @@ class HtmlCssOld(Renderer):
         Renderer.__init__(self, component_manager)
         self._css = {} # {card_type.id: css}
 
-    def update(self, card_type):
-        # Load from external file if exists.
-        css_path = os.path.join(self.config().config_dir, "css")
-        css_path = os.path.join(css_path, card_type.id)
-        if os.path.exists(css_path):
-            f = file(css_path)
-            self._css[card_type.id] = file(css_path).read()
-            return       
+    def update(self, card_type):   
         # Else, construct from configuration data.    
         # Background colours.
         self._css[card_type.id] = "body { "
