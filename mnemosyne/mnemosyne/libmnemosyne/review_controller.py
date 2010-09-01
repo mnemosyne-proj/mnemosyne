@@ -42,7 +42,7 @@ class ReviewController(Component):
         
         pass
 
-    def new_question(self, learn_ahead=False):
+    def new_question(self):
         raise NotImplementedError    
         
     def show_answer(self):

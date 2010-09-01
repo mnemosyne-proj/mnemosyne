@@ -74,7 +74,7 @@ class TestMemImport(MnemosyneTest):
         assert card.lapses == 0
         assert card.acq_reps_since_lapse == 1
         assert card.ret_reps_since_lapse == 0
-        assert [tag.name for tag in card.tags] == []
+        assert [tag.name for tag in card.tags] == ["__UNTAGGED__"]
         assert card.last_rep == 1247529600
         assert card.next_rep == 1247616000
         assert card.id == "9cff728f"

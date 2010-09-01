@@ -13,27 +13,29 @@ class TestScheduler(MnemosyneTest):
         
         fact_data = {"q": "1", "a": "a"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"])[0]
+                     grade=-1, tag_names=[])[0]
         fact_data = {"q": "2", "a": "a"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
-                     grade=-1, tag_names=["default"])[0]
+                     grade=-1, tag_names=[])[0]
         fact_data = {"q": "3", "a": "a"}
         card_3 = self.controller().create_new_cards(fact_data, card_type,
-                     grade=2, tag_names=["default"])[0]
+                     grade=2, tag_names=[])[0]
         fact_data = {"q": "4", "a": "a"}
         card_4 = self.controller().create_new_cards(fact_data, card_type,
-                     grade=2, tag_names=["default"])[0]
+                     grade=2, tag_names=[])[0]
         card_4.next_rep -= 1000 * 24 * 60 * 60
         self.database().edit_card(card_4)
 
         # Due cards.
         assert self.scheduler().next_card() == card_4
         self.scheduler().grade_answer(card_4, 0)
+        assert card_4.active == True
         self.database().edit_card(card_4)
     
         # Failed scheduled cards.
         assert self.scheduler().next_card() == card_4
         self.scheduler().grade_answer(card_4, 2)
+        assert card_4.active == True
         self.database().edit_card(card_4)
         
         # Unseen cards.
@@ -270,5 +272,17 @@ class TestScheduler(MnemosyneTest):
         card_2.last_rep = card_2.next_rep - 24 * 60 * 60
         self.database().edit_card(card_2)
 
-        # Shortest interval should go first
+        # Shortest interval should go first.
         assert self.scheduler().next_card() == card_2
+
+    def test_empty_tag(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "1", "a": "a"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+                     grade=-1, tag_names=[])[0]     
+        self.review_controller().new_question()
+        assert self.review_controller().card == card
+        self.review_controller().grade_answer(2)
+        self.review_controller().learning_ahead = True
+        self.review_controller().new_question()
+        assert self.review_controller().card == card

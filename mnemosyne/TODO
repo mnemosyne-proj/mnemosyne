@@ -1,9 +1,13 @@
+-sync server messages overrides lock database message
+-edit vs update
+
 -audiofiles
 -""" vs ", also in renderer
 -formatting
 -make use of new renderer mechanism
 -less hacky way to get to the widget, as opposed to via the review controller
 
+-grade -2? Importing files does not allow setting grade >2 on first review
 
 -apply activity criterion after sync, for both partners + test
 

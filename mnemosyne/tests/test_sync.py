@@ -699,7 +699,7 @@ class TestSync(object):
         assert card.lapses == 0
         assert card.acq_reps_since_lapse == 1
         assert card.ret_reps_since_lapse == 0
-        assert [tag.name for tag in card.tags] == []
+        assert [tag.name for tag in card.tags] == ["__UNTAGGED__"]
         assert card.last_rep == 1247529600
         assert card.next_rep == 1247616000
         assert card.id == "9cff728f"
@@ -2160,7 +2160,7 @@ class TestSync(object):
             tag = self.mnemosyne.database().get_or_create_tag_with_name("tag2")
 
         def test_server(self):
-            assert len(self.mnemosyne.database().real_tag_names()) == 2
+            assert len(self.mnemosyne.database().tags()) == 2
             assert len(self.mnemosyne.database().partners()) == 1
         
         self.server = MyServer(erase_previous=False, binary_download=True)
@@ -2170,7 +2170,7 @@ class TestSync(object):
 
         self.client = MyClient(erase_previous=False)
         self.client.do_sync()
-        assert len(self.client.mnemosyne.database().real_tag_names()) == 2
+        assert len(self.client.mnemosyne.database().tags()) == 2
         assert len(self.client.mnemosyne.database().partners()) == 1
         
    

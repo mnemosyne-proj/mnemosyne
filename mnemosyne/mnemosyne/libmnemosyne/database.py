@@ -112,18 +112,8 @@ class Database(Component):
     def remove_tag_if_unused(self, tag):
         raise NotImplementedError
 
-    def all_tags(self):
-
-        """Including internal tags like __UNTAGGED__."""
-        
+    def tags(self):        
         raise NotImplementedError        
-            
-    def real_tag_names(self):
-
-        """Excluding internal tags like __UNTAGGED__."""
-
-        raise NotImplementedError
-
     
     # Facts.
     

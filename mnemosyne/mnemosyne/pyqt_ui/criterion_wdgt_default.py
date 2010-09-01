@@ -28,7 +28,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         self.setupUi(self)
         self.parent_saved_sets = parent.saved_sets
         criterion = DefaultCriterion(self.component_manager)
-        for tag in self.database().all_tags():
+        for tag in self.database().tags():
             criterion.active_tag__ids.add(tag._id)
         self.display_criterion(criterion)
     
@@ -70,7 +70,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         root_item.setCheckState(0, QtCore.Qt.Checked)
         self.tag_for_node_item = {}
         node_item_for_partial_tag = {}
-        for tag in self.database().all_tags():
+        for tag in self.database().tags():
             if tag.name == "__UNTAGGED__":
                 tag.name = _("Untagged")
             parent = root_item

@@ -85,8 +85,9 @@ class AddEditCards(Component):
 
     def update_tags_combobox(self, current_tag_name):
         self.tags.clear()
-        sorted_tags = sorted(self.database().real_tag_names(),
-                             cmp=numeric_string_cmp)
+        tags = [tag.name for tag in self.database().tags() \
+            if tag.name != "__UNTAGGED__"]
+        sorted_tags = sorted(tags, cmp=numeric_string_cmp)
         for name in sorted_tags:
             self.tags.addItem(name)
         # For the 'special' tags, we add them at the top.

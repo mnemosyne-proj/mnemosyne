@@ -184,7 +184,7 @@ class TestAddCards(MnemosyneTest):
         assert self.database().card_count() == 1
 
         new_card = self.database().card(card._id, id_is_internal=True)
-        assert len(new_card.tags) == 0
+        assert len(new_card.tags) == 1
         
     def test_edit_untagged(self):
         fact_data = {"q": "question",
@@ -204,4 +204,4 @@ class TestAddCards(MnemosyneTest):
         self.controller().file_save()
 
         new_card = self.database().card(card._id, id_is_internal=True)
-        assert len(new_card.tags) == 0
+        assert len(new_card.tags) == 1

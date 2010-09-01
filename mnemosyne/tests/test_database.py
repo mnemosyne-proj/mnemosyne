@@ -17,12 +17,14 @@ from mnemosyne.libmnemosyne.utils import expand_path
 class TestDatabase(MnemosyneTest):
 
     def test_tags(self):
-        cat = Tag("test")
-        self.database().add_tag(cat)
-        assert self.database().real_tag_names() == [u"test"]
-        cat.name = "test2"
-        self.database().edit_tag(cat)
-        assert self.database().real_tag_names() == [u"test2"]        
+        tag = Tag("test")
+        self.database().add_tag(tag)
+        assert len(self.database().tags()) == 1
+        assert self.database().tags()[0].name == u"test"
+        tag.name = "test2"
+        self.database().edit_tag(tag)
+        assert len(self.database().tags()) == 1
+        assert self.database().tags()[0].name == u"test2"      
 
     def test_new_cards(self):
         fact_data = {"q": "question",
@@ -200,7 +202,7 @@ class TestDatabase(MnemosyneTest):
         self.database().delete_fact_and_related_cards(fact)
         
         assert self.database().fact_count() == 0
-        assert len(self.database().real_tag_names()) == 0
+        assert len(self.database().tags()) == 0
         
     @raises(RuntimeError)
     def test_missing_plugin(self):

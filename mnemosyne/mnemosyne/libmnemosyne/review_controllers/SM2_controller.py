@@ -254,10 +254,7 @@ class SM2Controller(ReviewController):
                self.config()["show_intervals"] == "buttons":
             w.set_grades_title(_("Pick days until next repetition:"))
         else:
-            if self.card and self.card.grade == -1:
-                w.set_grades_title(_("Select initial grade:"))
-            else:
-                w.set_grades_title(_("Grade your answer:"))   
+            w.set_grades_title(_("Grade your answer:"))   
         # Set tooltips and texts for the grade buttons.
         for grade in range(0,6):
             # Tooltip.

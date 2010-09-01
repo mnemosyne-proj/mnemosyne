@@ -101,6 +101,7 @@ class Card(CompareOnId):
         return self.fact.card_type.answer(self, exporting)
 
     def tag_string(self):
-        return ", ".join([tag.name for tag in self.tags])
+        return ", ".join([tag.name for tag in self.tags if \
+                          tag.name != "__UNTAGGED__"])
         
     interval = property(lambda self : self.next_rep - self.last_rep)
