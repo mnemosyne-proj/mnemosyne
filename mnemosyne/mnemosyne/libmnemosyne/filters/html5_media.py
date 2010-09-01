@@ -13,7 +13,7 @@ class Html5Media(Filter):
 
     """Add autoplay and control tags to html5 media tags."""
 
-    run_on_export = False
+    run_on_export = True
 
     def run(self, text):
         options = ""

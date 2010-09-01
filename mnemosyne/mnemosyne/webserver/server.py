@@ -93,7 +93,7 @@ class Server(WSGIServer):
             else:
                 response_headers = [("Content-type", self.guess_type(filename))]
                 start_response("200 OK", response_headers)
-                return self.serve_media_file(media_file)
+                return [media_file.read()]
 
     def open_media_file(self, path):
         full_path = self.mnemosyne.database().media_dir()
@@ -103,13 +103,6 @@ class Server(WSGIServer):
             return file(full_path, "rb")
         except IOError:
             return None
-        
-    def serve_media_file(self, media_file):        
-        BUFFER_SIZE = 8192
-        buffer = media_file.read(BUFFER_SIZE)
-        while buffer:
-            yield buffer
-            buffer = media_file.read(BUFFER_SIZE)
 
     # Adapted from SimpleHTTPServer:
 

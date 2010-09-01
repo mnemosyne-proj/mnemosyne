@@ -1,13 +1,18 @@
--sync server messages overrides lock database message
 -edit vs update
 
--audiofiles
 -""" vs ", also in renderer
 -formatting
 -make use of new renderer mechanism
 -less hacky way to get to the widget, as opposed to via the review controller
 
+
 -grade -2? Importing files does not allow setting grade >2 on first review
+
+2: You've memorised this card now, and you might rememember it tomorrow
+3: should remember
+4: might remember in 2 days
+5: should remember in 2 days
+-tooltips for add cards too?
 
 -apply activity criterion after sync, for both partners + test
 
@@ -87,7 +92,7 @@
 -http://gitorious.org/hooq/hooq? Qt4 testing
  http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
 
-
+-deactive all tags, click on 1 tag: gives partial flag for that tag, not full tag, and is not counted
 -better initial size of activate cards dialog. Autoresizing?
 -Select saved set, switch tab to other criterion (deselects set) and switch back to original one.
  The set should then be autoselected again.
@@ -139,6 +144,8 @@ the GUI function itself?
 
 -integrate webserver in GUI, login mechanism, session_token, cookies
 -add webserver in testsuite, case when the database is empty
+-sound files suffer from connection reset by peer
+-add caching support
 
 -have hierarchy in plugin names
 
