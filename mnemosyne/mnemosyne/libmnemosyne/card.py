@@ -82,23 +82,11 @@ class Card(CompareOnId):
         self.last_rep = -1
         self.next_rep = -1
 
-    def question(self, exporting=False):
-
-        """When 'exporting' is True, filters that have 'run_on_export' set to
-        False are not run. 
-        
-        """
-
-        return self.fact.card_type.question(self, exporting)
+    def question(self, render_chain="default", **render_args):
+        return self.fact.card_type.question(self, render_chain, **render_args)
        
-    def answer(self, exporting=False):
-
-        """When 'exporting' is True, filters that have 'run_on_export' set to
-        False are not run. 
-        
-        """
-                
-        return self.fact.card_type.answer(self, exporting)
+    def answer(self, render_chain="default", **render_args):                
+        return self.fact.card_type.answer(self, render_chain, **render_args)
 
     def tag_string(self):
         return ", ".join([tag.name for tag in self.tags if \

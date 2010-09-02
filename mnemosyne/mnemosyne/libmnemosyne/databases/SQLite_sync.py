@@ -186,8 +186,8 @@ class SQLiteSync(object):
                 # because of conflict resolution.
                 card = self.card(log_entry["o_id"], id_is_internal=False)
                 if self.sync_partner_info.get("capabilities") == "cards":
-                    log_entry["q"] = card.question(exporting=True)
-                    log_entry["a"] = card.answer(exporting=True)
+                    log_entry["q"] = card.question("sync_to_card_only_client")
+                    log_entry["a"] = card.answer("sync_to_card_only_client")
                 else:
                     log_entry["fact"] = card.fact.id
                     log_entry["fact_v"] = card.fact_view.id

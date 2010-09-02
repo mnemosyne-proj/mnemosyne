@@ -781,7 +781,7 @@ class TestSync(object):
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.mnemosyne.controller().file_save()
             assert card.question().count("file") == 3
-            assert "_media" not in card.question(exporting=True)
+            assert "_media" not in card.question("sync_to_card_only_client")
           
         def test_server(self):
             pass

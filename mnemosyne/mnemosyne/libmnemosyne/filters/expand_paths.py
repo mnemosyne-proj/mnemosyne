@@ -10,7 +10,7 @@ class ExpandPaths(Filter):
 
     """Fill out relative paths for src tags (e.g. img src or sound src)."""
 
-    run_on_export = False
+    used_for = "default"
 
     def run(self, text):
         i = text.lower().find("src")

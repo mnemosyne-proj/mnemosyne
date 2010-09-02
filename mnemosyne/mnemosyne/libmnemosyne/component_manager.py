@@ -23,24 +23,31 @@ class ComponentManager(object):
 
     def register(self, component, in_front=False):
         comp_type = component.component_type
-        used_for = component.used_for
-        if not self.components.has_key(used_for):
-            self.components[used_for] = {}
-        if not self.components[used_for].has_key(comp_type):
-            self.components[used_for][comp_type] = [component]
-        else:
-            if component not in self.components[used_for][comp_type]:
-                if not in_front:
-                    self.components[used_for][comp_type].append(component)
-                else:
-                    self.components[used_for][comp_type].insert(0, component)
+        used_fors = component.used_for
+        if not isinstance(used_fors, tuple):
+            used_fors = (used_fors, )
+        for used_for in used_fors:
+            if not self.components.has_key(used_for):
+                self.components[used_for] = {}
+            if not self.components[used_for].has_key(comp_type):
+                self.components[used_for][comp_type] = [component]
+            else:
+                if component not in self.components[used_for][comp_type]:
+                    if not in_front:
+                        self.components[used_for][comp_type].append(component)
+                    else:
+                        self.components[used_for][comp_type].\
+                            insert(0, component)   
         if comp_type == "card_type":
             self.card_type_by_id[component.id] = component
             
     def unregister(self, component):
         comp_type = component.component_type
-        used_for = component.used_for
-        self.components[used_for][comp_type].remove(component)
+        used_fors = component.used_for
+        if not isinstance(used_fors, tuple):
+            used_fors = (used_fors, )
+        for used_for in used_fors:
+            self.components[used_for][comp_type].remove(component)
         if component.component_type == "card_type":
             del self.card_type_by_id[component.id]
 

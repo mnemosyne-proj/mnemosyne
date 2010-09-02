@@ -39,20 +39,13 @@ class CardType(Component, CompareOnId):
     We could use the component manager to track fact views, but this is
     probably overkill.
     
-    The renderer is determined only when we need it, as opposed to when we
-    create the card type, because it is not sure that the renderer already
-    exists at that stage.
-
     The functions create_related_cards and edit_related_cards and
     after_review provide an extra layer of abstraction and can be overridden
     by card types like cloze deletion, which require a varying number of fact
     views with card specific data.
 
     """
-
-    # Id is a class variable to allow extra way of determining inheritance
-    # hierarchy.
-
+    
     id = "-1"
     name = ""
     component_type = "card_type"
@@ -83,42 +76,23 @@ class CardType(Component, CompareOnId):
             if not fact_data[required]:
                 return False
         return True
-        
-    def question(self, card, exporting):
 
-        """When 'exporting' is True, filters that have 'run_on_export' set to
-        False are not run. 
-        
-        """
-        
-        return self.renderer().render_card_fields(card.fact,
-            card.fact_view.q_fields, exporting)
-
-    def answer(self, card, exporting):
-
-        """When 'exporting' is True, filters that have 'run_on_export' set to
-        False are not run. 
-        
-        """
-        return self.renderer().render_card_fields(card.fact,
-            card.fact_view.a_fields, exporting)
-        
-    def renderer(self):
-        if self._renderer:
-            return self._renderer
-        else:
-            self._renderer = self.component_manager.\
-                current("renderer", used_for=self.__class__)
-            if not self._renderer:
-                 self._renderer = self.component_manager.current("renderer")
-            return self._renderer
-
-    # The following functions allow for the fact that all the logic
+    # All the following functions allow for the fact that all the logic
     # corresponding to specialty card types (like cloze deletion) can be
     # contained in a single derived class by reimplementing these functions.
-    # These functions should only deal with creating, deleting, ... Card
-    # objects. Initial grading and storing in the database is done in the
-    # main controller.
+    # The default implementation provided here is for fact-based cards.
+        
+    def question(self, card, render_chain="default", **render_args):        
+        return self.renderer(render_chain).render_fields(card.fact,
+            card.fact_view.q_fields, self, render_chain, **render_args)
+
+    def answer(self, card, render_chain="default", **render_args):
+        return self.renderer(render_chain).render_fields(card.fact,
+            card.fact_view.a_fields, self, render_chain, **render_args)
+    
+    # The following functions should only deal with creating, deleting, ...
+    # Card objects. Initial grading and storing in the database is done in
+    # the main controller.
 
     def create_related_cards(self, fact):
         return [Card(fact, fact_view) for fact_view in self.fact_views]

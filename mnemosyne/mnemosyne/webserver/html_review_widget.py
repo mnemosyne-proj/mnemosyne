@@ -12,9 +12,11 @@ class HtmlReviewWidget(ReviewWidget):
 
     """I've tried fiddling with css to get the grades area always show up at
     the bottom of the screen, no matter the contents of the cards, but I
-    never got this to work reliably both on Firefox and IE. Therefore, we
-    place the grades at the top, where they are also always at the same
-    location for easy ergonomic access.
+    never got this to work satisfactory both on Firefox and IE. There would
+    always be issues with spurious scrollbars or the card areas not expanding
+    to fill the entire screen.
+    Therefore, we place the grades at the top, where they are also always at
+    the same location for easy ergonomic access.
 
     """
     
@@ -77,21 +79,22 @@ class HtmlReviewWidget(ReviewWidget):
             (scheduled_count, non_memorised_count, active_count)
 
     def to_html(self):
+        card_css = ""
         card = self.review_controller().card
-        card_type = card.fact.card_type
-        card_css = card_type.renderer().css(card_type)
-        #card_css = ""
+        if card:
+            card_type = card.fact.card_type
+            card_css = self.renderer().card_type_css(card_type)
         buttons = ""
         if self._grade_buttons_enabled:
             buttons = ""
-            for i in range(6):
+            for i in range(6):                
                 buttons += """
                   <td>
                     <form action="" method="post">
                       <input type="submit" name="grade" accesskey="%d"
                        value="%d">
                     </form>
-                  </td>""" % (i, i)
+                  </td>""" % (i, i)               
         if self._show_button_enabled:
             buttons = """
               <td>
@@ -104,6 +107,7 @@ class HtmlReviewWidget(ReviewWidget):
             if not self._question:
                 question += "&nbsp;"
             else:
+                question += body(self, field_data, fields, render_chain, **render_args):
                 for field in card.fact_view.q_fields:
                     s = card.fact[field]
                     for f in self.filters():
@@ -111,7 +115,7 @@ class HtmlReviewWidget(ReviewWidget):
                             s = f.run(s)
                     question += "<div id=\"%s\">%s</div>" % (field, s) 
         answer = ""
-        if self._answer_box_visible: # TODO: fixed using new renderers
+        if self._answer_box_visible:
             if not self._answer:
                 answer += "&nbsp;"
             else:

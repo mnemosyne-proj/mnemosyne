@@ -45,17 +45,17 @@ class Cloze(CardType):
     def is_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
         
-    def question(self, card, exporting):
+    def question(self, card, render_chain="default", **render_args):
         cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
         question = question.replace(cloze, "[...]",  1)
-        return self.renderer().render_text(question, "text",
-            card.fact.card_type, exporting)
+        return self.renderer(render_chain).render_fields({"text": question},
+            ["text"], self, render_chain, **render_args)
 
-    def answer(self, card, exporting):
+    def answer(self, card, render_chain="default", **render_args):
         cloze = card.extra_data["cloze"]
-        return self.renderer().render_text(cloze, "text",
-            card.fact.card_type, exporting)
+        return self.renderer(render_chain).render_fields({"text": cloze},
+            ["text"], self, render_chain, **render_args)
 
     def create_related_cards(self, fact):
         cards = []
@@ -69,15 +69,13 @@ class Cloze(CardType):
 
     def edit_related_cards(self, fact, new_fact_data):        
         new_cards, edited_cards, deleted_cards = [], [], []
-
         old_clozes = cloze_re.findall(fact["text"])
         new_clozes = cloze_re.findall(new_fact_data["text"])
-
         # If the number of clozes is equal, just edit the existing cards.
         if len(old_clozes) == len(new_clozes):
             for card in self.database().cards_from_fact(fact):
                 index = card.extra_data["index"]
-                card.extra_data["cloze"]= new_clozes[index]
+                card.extra_data["cloze"] = new_clozes[index]
                 edited_cards.append(card)
         # If not, things are a little more complicated.
         else:
@@ -108,8 +106,7 @@ class Cloze(CardType):
                 card.extra_data["index"] = new_index
                 card.id += "." + str(id_suffix)
                 id_suffix += 1
-                new_cards.append(card)
-                     
+                new_cards.append(card)                  
         return new_cards, edited_cards, deleted_cards
 
 

@@ -14,7 +14,9 @@ class Component(object):
     sync_server, all the abstract dialogs, ...      
 
     'used_for' can store certain relationships between components, e.g.
-    a card type widget is used for a certain card type.
+    a card type widget is used for a certain card type. A component can be
+    used for multple things, e.g. a filter can be used in several renderer
+    chains: used_for = "chain1', "chain2".
 
     Most of the time, instances are stored here, apart from widgets when
     classes are stored. (Instantiating a complex widget can take a lot of
@@ -92,8 +94,12 @@ class Component(object):
     def card_types(self):
         return self.component_manager.all("card_type")
 
-    def filters(self):
-        return self.component_manager.all("filter")
+    def renderer(self, render_chain="default"):
+        return self.component_manager.current("renderer",
+            used_for=render_chain)
+
+    def filters(self, render_chain="default"):
+        return self.component_manager.all("filter", used_for=render_chain)
 
     def plugins(self):
         return self.component_manager.all("plugin")

@@ -10,7 +10,13 @@ class CardTypeConverter(Component):
 
     """Converts a set of related cards to a new card type.
 
-    "used_for" should be set to the tuple (old_type class, new_type class)
+    'used_for' should boil down to the tuple (old_type class, new_type class).
+    However, since the component mechanism allows that a component is
+    'used_for' for more than one purpose (e.g. a filter can be used for more
+    than one render chain), we need to avoid confusion with that case by
+    wrapping our tuple in an extra tuple:
+    
+    used_for = ((old_type class, new_type class), )
 
     Note that the function of this class is not to edit the fact data behind
     the cards, which is trivial and handled in the main UI controller, but

@@ -8,21 +8,18 @@ from mnemosyne.libmnemosyne.component import Component
 class Filter(Component):
 
     """Code which operates on a string and filters it to achieve extra 
-    functionality.  The 'card' argument provides extra context if needed.
+    functionality, e.g. converting relative paths to absolute paths.
+
+    The filter is 'used_for' one or more render chains.
 
     The filters are executed in the order they are listed in the component
     manager. If you really need to make sure that your filter runs before the
     rest, set 'in_front=True' as argument in 'component_manager.register'.
-
-    Setting 'run_on_export = False' will make sure this filter is not run when
-    exporting cards to html, e.g. during sync with a client that does not
-    understand facts.
     
     """
 
     component_type = "filter"
+    used_for = "default"
 
-    run_on_export = True
-
-    def run(self, text):
+    def run(self, text, **render_args):
         raise NotImplementedError

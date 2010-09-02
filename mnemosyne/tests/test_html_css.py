@@ -18,19 +18,7 @@ class TestHtmlCss(MnemosyneTest):
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]
 
-        print card.question()
+        card.question()
+        card.answer()
 
-        assert card.question() == """<html><head><style type="text/css">
-body { margin: 0; padding: 0; border: thin solid #8F8F8F; }
-table { height: 100%; margin-left: auto; margin-right: auto; }
-div#q { text-align: center; }
-div#a { text-align: center; }
-</style></head><body><table><tr><td><div id="q">question</div></td></tr></table></body></html>"""
-
-        assert card.answer() == """<html><head><style type="text/css">
-body { margin: 0; padding: 0; border: thin solid #8F8F8F; }
-table { height: 100%; margin-left: auto; margin-right: auto; }
-div#q { text-align: center; }
-div#a { text-align: center; }
-</style></head><body><table><tr><td><div id="a">answer</div></td></tr></table></body></html>"""
-        
+        card.question("sync_to_card_only_client")

@@ -38,7 +38,7 @@ from mnemosyne.libmnemosyne.card_types.both_ways import BothWays
 
 class FrontToBackToThreeSided(CardTypeConverter):
 
-    used_for = (FrontToBack, ThreeSided)
+    used_for = ((FrontToBack, ThreeSided), )
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         # Update front-to-back view to corresponding view in new type.
@@ -57,7 +57,7 @@ class FrontToBackToThreeSided(CardTypeConverter):
 
 class BothWaysToThreeSided(CardTypeConverter):
 
-    used_for = (BothWays, ThreeSided)
+    used_for = ((BothWays, ThreeSided), )
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         for card in cards:
@@ -77,7 +77,7 @@ class BothWaysToThreeSided(CardTypeConverter):
 
 class ThreeSidedToFrontToBack(CardTypeConverter):
 
-    used_for = (ThreeSided, FrontToBack)
+    used_for = ((ThreeSided, FrontToBack), )
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         new_cards, edited_cards, deleted_cards = [], [], []
@@ -99,7 +99,7 @@ class ThreeSidedToFrontToBack(CardTypeConverter):
 
 class ThreeSidedToBothWays(CardTypeConverter):
 
-    used_for = (ThreeSided, BothWays)
+    used_for = ((ThreeSided, BothWays), )
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         for card in cards:

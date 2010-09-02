@@ -26,6 +26,8 @@ re3 = re.compile(r"<\$\$>(.+?)</\$\$>",   re.DOTALL | re.IGNORECASE)
 
 class Latex(Filter):
 
+    used_for = "default", "sync_to_card_only_client"
+    
     # To create the images, we have two options: either precreate them when
     # adding or editing cards, or lazily create them before display or sync.
     # We choose the latter, so that a power user can e.g. change the latex
