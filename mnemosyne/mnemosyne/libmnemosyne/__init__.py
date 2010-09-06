@@ -57,6 +57,8 @@ class Mnemosyne(Component):
           "EscapeToHtml"),
          ("mnemosyne.libmnemosyne.filters.latex",
           "Latex"),
+         ("mnemosyne.libmnemosyne.filters.latex",
+          "CheckForUpdatedLatexFiles"),
          ("mnemosyne.libmnemosyne.filters.expand_paths",
           "ExpandPaths"),
          ("mnemosyne.libmnemosyne.filters.html5_media",

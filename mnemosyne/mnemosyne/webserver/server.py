@@ -53,6 +53,8 @@ class Server(WSGIServer):
             ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.webserver.html_review_widget", "HtmlReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.webserver.webserver_renderer", "WebserverRenderer"))
         self.mnemosyne.initialise(data_dir, filename, automatic_upgrades=False)
         self.widget = self.mnemosyne.review_controller().widget
 

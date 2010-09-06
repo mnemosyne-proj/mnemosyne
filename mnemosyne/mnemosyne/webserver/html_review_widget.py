@@ -105,26 +105,15 @@ class HtmlReviewWidget(ReviewWidget):
         question = ""
         if self._question_box_visible:
             if not self._question:
-                question += "&nbsp;"
+                question = "&nbsp;"  # For esthetic reasons.
             else:
-                question += body(self, field_data, fields, render_chain, **render_args):
-                for field in card.fact_view.q_fields:
-                    s = card.fact[field]
-                    for f in self.filters():
-                        if f.run_on_export:
-                            s = f.run(s)
-                    question += "<div id=\"%s\">%s</div>" % (field, s) 
+                question = card.question(render_chain="webserver")
         answer = ""
         if self._answer_box_visible:
             if not self._answer:
-                answer += "&nbsp;"
+                answer = "&nbsp;"
             else:
-                for field in card.fact_view.a_fields:
-                    s = card.fact[field]
-                    for f in self.filters():
-                        if f.run_on_export:
-                            s = f.run(s)
-                    answer += "<div id=\"%s\">%s</div>" % (field, s)
+                answer = card.answer(render_chain="webserver")
         return self.template.substitute(card_css=card_css, buttons=buttons,
             question_label=self._question_label, question=question,
             answer_label=self._answer_label, answer=answer,

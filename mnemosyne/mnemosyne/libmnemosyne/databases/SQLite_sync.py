@@ -131,10 +131,11 @@ class SQLiteSync(object):
             self.con.execute("update media set _hash=? where filename=?",
                 (new_hash, filename))
             self.log().edited_media(filename)
-        # Latex files (takes 0.10 sec on 8000 card database).
-        latex = Latex(self.component_manager)
+        # Other media files, e.g. latex.
         for cursor in self.con.execute("select value from data_for_fact"):
-            latex.run(cursor[0])
+            for f in self.component_manager.all("hook",
+                "check_for_updated_media_files"):
+                f.run(cursor[0])
             
     def media_filenames_to_sync_for(self, partner):    
         # Note that Mnemosyne does not delete media files on its own, so

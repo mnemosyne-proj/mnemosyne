@@ -10,6 +10,7 @@ try:
 except ImportError:
     from md5 import md5
 
+from mnemosyne.libmnemosyne.hook import Hook
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.filter import Filter
 
@@ -102,3 +103,20 @@ class Latex(Filter):
             text = text.replace(match.group(), "<center>" \
                        + img_tag + "</center>")
         return text
+
+
+class CheckForUpdatedLatexFiles(Hook):
+
+    # Used during sync. Added here to keep al the latex functionality in
+    # a single file.
+    
+    used_for = "check_for_updated_media_files"
+
+    def __init__(self, component_manager):
+        Hook.__init__(self, component_manager)
+        self.latex = Latex(component_manager)
+    
+    def run(self, data):
+        # Takes 0.10 sec on 8000 card database.
+        self.latex.run(data)
+        

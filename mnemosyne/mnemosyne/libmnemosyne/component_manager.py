@@ -15,17 +15,25 @@ class ComponentManager(object):
     one registered takes preference. This means that e.g. the default
     scheduler needs to be registered first.
 
+    When registering or unregistering a component, normally the 'used_for'
+    information is taken from the class definition. This can be overriden
+    by specifying an optional argument. This is typically used for building
+    a new render chain, based on an existing renderer and/or existing plugins.
+
     """
         
     def __init__(self):
         self.components = {} # {used_for: {type: [component]} }
         self.card_type_by_id = {}
 
-    def register(self, component, in_front=False):
+    def register(self, component, used_for=None, in_front=False):
         comp_type = component.component_type
-        used_fors = component.used_for
-        if not isinstance(used_fors, tuple):
-            used_fors = (used_fors, )
+        if used_for is None:
+            used_for = component.used_for
+        if not isinstance(used_for, tuple):
+            used_fors = (used_for, )
+        else:
+            used_fors = used_for
         for used_for in used_fors:
             if not self.components.has_key(used_for):
                 self.components[used_for] = {}
@@ -41,11 +49,14 @@ class ComponentManager(object):
         if comp_type == "card_type":
             self.card_type_by_id[component.id] = component
             
-    def unregister(self, component):
+    def unregister(self, component, used_for=None):
         comp_type = component.component_type
-        used_fors = component.used_for
-        if not isinstance(used_fors, tuple):
-            used_fors = (used_fors, )
+        if used_for is None:
+            used_for = component.used_for
+        if not isinstance(used_for, tuple):
+            used_fors = (used_for, )
+        else:
+            used_fors = used_for
         for used_for in used_fors:
             self.components[used_for][comp_type].remove(component)
         if component.component_type == "card_type":
