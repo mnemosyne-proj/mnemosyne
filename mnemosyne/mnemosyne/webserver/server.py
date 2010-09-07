@@ -56,7 +56,6 @@ class Server(WSGIServer):
         self.mnemosyne.components.append(\
             ("mnemosyne.webserver.webserver_renderer", "WebserverRenderer"))
         self.mnemosyne.initialise(data_dir, filename, automatic_upgrades=False)
-        self.widget = self.mnemosyne.review_controller().widget
 
     def serve_until_stopped(self):
         while not self.stopped:
@@ -77,14 +76,14 @@ class Server(WSGIServer):
             # Process clicked buttons in the form.
             form = cgi.FieldStorage(fp=environ["wsgi.input"],  environ=environ)
             if "show_answer" in form:
-                self.widget.show_answer()
+                self.mnemosyne.review_widget().show_answer()
             if "grade" in form:
                 grade = int(form["grade"].value)
-                self.widget.grade_answer(grade)
+                self.mnemosyne.review_widget().grade_answer(grade)
             # Serve the web page.
             response_headers = [("Content-type", "text/html")]
             start_response("200 OK", response_headers)        
-            return [self.widget.to_html()]
+            return [self.mnemosyne.review_widget().to_html()]
         # We need to serve a media file.
         else:
             media_file = self.open_media_file(filename)

@@ -7,9 +7,10 @@ from mnemosyne.libmnemosyne.component import Component
 
 class Renderer(Component):
 
-    """Renders the contents of the Fact behind a Card to a suitable format.
+    """Renders the contents of the Fact behind a Card to a suitable format,
+    e.g. a html page, or a purely text based format.
 
-    "used_for" = card_type class
+    "used_for" = render_chain
 
     """
 
@@ -44,31 +45,21 @@ class Renderer(Component):
             keys = [fact_key]
         for key in keys:
             self.config()[property_name][card_type.id][key] = property
-        
-    def render_card_fields(self, card, fields, exporting):
-        
-        """Renders a sequence of fields from a card, e.g. by generating html 
-        for them.  'fields' is typically either fact_view.q_fields or 
-        fact_view.a_fields.
 
-        When 'exporting' is True, filters that have 'run_on_export' set to
-        False are not run. 
-        
+    def render_fields(self, field_data, fields, card_type,
+                      render_chain, **render_args):
+
+        """Renders a sequence of 'fields' from the dictionary 'field_data'.
+        'card_type' is passed as extra argument e.g. to determine card type
+        specific formatting.
+        We need to pass 'render_chain' as an argument here: a renderer can be
+        used in more than one render chain, and can therefore not determine
+        which render chain it is part of.
+
         """
         
         raise NotImplementedError
 
-    def render_text(self, text, field_name, card_type, exporting):
-
-        """A lower lever renderer, rendering 'text' from a field with name
-        'field_name' from 'card_type'.
-        
-        When 'exporting' is True, filters that have 'run_on_export' set to
-        False are not run. 
-
-        """
-
-        raise NotImplementedError
 
 
         

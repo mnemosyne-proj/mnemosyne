@@ -55,6 +55,10 @@
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.review_controller.</tt><tt class="descname">ReviewController</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls the behaviour of a widget which implements the ReviewWidget
 interface.</p>
+<p>The review controller is the one that should instantiate the review
+widget, and only one needed. There could be many review widgets defined
+in plugins, and instantiating them all when starting the program could be
+slow, especially on a mobile device.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.counters">
 <tt class="descname">counters</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.counters" title="Permalink to this definition">¶</a></dt>
@@ -84,7 +88,7 @@ of date.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.review_controller.ReviewController.new_question">
-<tt class="descname">new_question</tt><big>(</big><em>learn_ahead=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.new_question" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">new_question</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.review_controller.ReviewController.new_question" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -132,7 +136,7 @@ possible.</dd></dl>
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
             <p class="topless"><a href="controller.html"
-                                  title="previous chapter"><tt class="docutils literal"><span class="pre">Controller</span></tt></a></p>
+                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Controller</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="configuration.html"
                                   title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
@@ -178,7 +182,7 @@ possible.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Aug 12, 2010.
+      Last updated on Sep 07, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

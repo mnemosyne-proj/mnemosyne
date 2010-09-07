@@ -100,6 +100,10 @@ class HtmlCss(Renderer):
         return self._css[card_type.id]
 
     def body(self, field_data, fields, render_chain, **render_args):
+        # Note that the filter only run on the card data, not on the full
+        # webpage. This is done for efficiency reasons. If a plugin needs
+        # to modify e.g. the css, this is best done in a new renderer as
+        # opposed to in a filter.
         html = ""
         for field in fields:
             s = field_data[field]

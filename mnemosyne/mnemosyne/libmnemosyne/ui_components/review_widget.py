@@ -10,6 +10,12 @@ class ReviewWidget(UiComponent):
     """Describes the interface that the review widget needs to implement
     in order to be used by the review controller.
 
+    Note that also the review widget is instantiated late, even though we
+    always need one right from the start of the program. The reason is that
+    there could be many review widgets defined through plugins, and
+    instantiating them all at the start of the program could be slow,
+    especially on mobile devices.
+
     """
 
     component_type = "review_widget"

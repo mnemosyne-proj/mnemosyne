@@ -1,14 +1,8 @@
 -preview card formatting changes; cancel does not undo the changes
 
--do filters just card fields, document why
--document renderer chain, update docs in renderer.py
--document need for render chain argument again in render_fields
-
 -test and time renderer on MW. Need to cache it?
 
 -edit vs update
-
--less hacky way to get to the review widget, as opposed to via the review controller
 
 -apply activity criterion after sync, for both partners + test
 

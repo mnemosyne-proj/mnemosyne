@@ -85,6 +85,15 @@ class Component(object):
     def main_widget(self):
         return self.component_manager.current("main_widget")
     
+    def review_widget(self):
+
+        """For efficiency reasons, the review widget is instantiated late and
+        is under control of the review controller.
+
+        """
+        
+        return self.review_controller().widget
+    
     def controller(self):
         return self.component_manager.current("controller")
 

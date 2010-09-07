@@ -9,6 +9,11 @@ class ReviewController(Component):
     
     """Controls the behaviour of a widget which implements the ReviewWidget
     interface.
+
+    The review controller is the one that should instantiate the review
+    widget, and only one needed. There could be many review widgets defined
+    in plugins, and instantiating them all when starting the program could be
+    slow, especially on a mobile device.
     
     """
 
@@ -17,6 +22,7 @@ class ReviewController(Component):
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
         self.card = None
+        self.widget = None
         self.learning_ahead = False
 
     def reset(self):

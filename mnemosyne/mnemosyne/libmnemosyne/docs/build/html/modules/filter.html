@@ -54,16 +54,14 @@
 <dt id="mnemosyne.libmnemosyne.filter.Filter">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.filter.</tt><tt class="descname">Filter</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Code which operates on a string and filters it to achieve extra 
-functionality.  The &#8216;card&#8217; argument provides extra context if needed.</p>
+functionality, e.g. converting relative paths to absolute paths.</p>
+<p>The filter is &#8216;used_for&#8217; one or more render chains.</p>
 <p>The filters are executed in the order they are listed in the component
 manager. If you really need to make sure that your filter runs before the
 rest, set &#8216;in_front=True&#8217; as argument in &#8216;component_manager.register&#8217;.</p>
-<p>Setting &#8216;run_on_export = False&#8217; will make sure this filter is not run when
-exporting cards to html, e.g. during sync with a client that does not
-understand facts.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.filter.Filter.run">
-<tt class="descname">run</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>text</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -124,7 +122,7 @@ understand facts.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2010.
+      Last updated on Sep 07, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
