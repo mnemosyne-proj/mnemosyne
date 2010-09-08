@@ -1,3 +1,21 @@
+-better next_rep, last rep representation, Q sort role
+-add 'date added', ('date_edited' will be for later, requires extra column?)
+-grey for inactive cards
+-reorder card fields
+-respect fonts
+-background colour
+-searching
+-make sure searching for a single unicode character works
+-auto search after timeout?
+-filtering on tag and card type
+-fix test suite
+-save column sizes
+-save sort order
+-right click menu options
+-add controller logic for after editing/deleting a card in browse cards
+
+-do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
+
 -preview card formatting changes; cancel does not undo the changes
 
 -test and time renderer on MW. Need to cache it?
@@ -13,15 +31,8 @@
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
 
--card browser
--make sure searching for a single unicode character works
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
--qsortfilter proxy
--show number of cards selected?
--card.in_view needed?
--MVC: http://doc.trolltech.com/qq/qq24-delegates.html
--make card browser remember its size
--do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
+
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 

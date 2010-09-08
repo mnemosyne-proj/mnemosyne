@@ -23,6 +23,7 @@ class PyQtConfiguration(Hook):
              "add_widget_size": (0, 0),
              "edit_widget_size": (0, 0),
              "plugins_dlg_size": (0, 0),
+             "browse_dlg_size": (0, 0),
              "statistics_dlg_size": (0, 0),
              "configuration_dlg_size": (0, 0),
              "activate_cards_dlg_size": (0, 0),

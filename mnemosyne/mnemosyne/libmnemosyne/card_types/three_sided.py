@@ -46,7 +46,7 @@ class FrontToBackToThreeSided(CardTypeConverter):
             cards[0].fact_view = new_card_type.fact_views[1]
         else:
             cards[0].fact_view = new_card_type.fact_views[0]
-        # Create back-to-front view.
+        # Create back-to-front view.        
         if "q" in correspondence and correspondence["q"] == "t":
             new_card = Card(cards[0].fact, new_card_type.fact_views[0])
         else:

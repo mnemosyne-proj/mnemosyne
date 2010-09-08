@@ -366,7 +366,8 @@ class SQLiteSync(object):
         # during this sync.
         if "tags" not in log_entry:
             card_type = self.card_type_by_id("1")
-            fact = Fact({}, card_type, creation_time=0, id="")
+            fact = Fact({"q": "q", "a": "a"}, card_type,
+                        creation_time=0, id="")
             card = Card(fact, card_type.fact_views[0])
             card.id = log_entry["o_id"]
             return card

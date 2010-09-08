@@ -53,6 +53,8 @@ class Mnemosyne(Component):
           "ThreeSidedToBothWays"),
          ("mnemosyne.libmnemosyne.renderers.html_css",
           "HtmlCss"),
+         ("mnemosyne.libmnemosyne.renderers.plain_text",
+          "PlainText"),
          ("mnemosyne.libmnemosyne.filters.escape_to_html",
           "EscapeToHtml"),
          ("mnemosyne.libmnemosyne.filters.latex",

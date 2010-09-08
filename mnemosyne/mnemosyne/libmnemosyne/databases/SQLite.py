@@ -58,19 +58,20 @@ SCHEMA = """
         id text,
         _fact_id integer,
         fact_view_id text,
+        question text,
+        answer text,
         grade integer,
+        next_rep integer,
+        last_rep integer,
         easiness real,
         acq_reps integer,
         ret_reps integer,
         lapses integer,
         acq_reps_since_lapse integer,
         ret_reps_since_lapse integer,
-        last_rep integer,
-        next_rep integer,
         extra_data text default "",
         scheduler_data integer default 0,
-        active boolean default 1,
-        in_view boolean default 1
+        active boolean default 1
     );
     create index i_cards on cards (id);
     
@@ -575,14 +576,15 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         _card_id = self.con.execute("""insert into cards(id, _fact_id,
             fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
-            extra_data, scheduler_data, active, in_view)
-            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            extra_data, scheduler_data, active, question, answer)
+            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (card.id, card.fact._id, card.fact_view.id, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
-            card.scheduler_data, card.active, card.in_view)).lastrowid
+            card.scheduler_data, card.active, card.question("plain_text"),
+            card.answer("plain_text"))).lastrowid
         card._id = _card_id
         # Link card to its tags. The tags themselves have already been created
         # by default_controller calling get_or_create_tag_with_name.
@@ -608,7 +610,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 break
         for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
             "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
-            "last_rep", "next_rep", "scheduler_data", "active", "in_view"):
+            "last_rep", "next_rep", "scheduler_data", "active"):
             setattr(card, attr, sql_res[attr])
         self._get_extra_data(sql_res, card)
         for cursor in self.con.execute("""select _tag_id from tags_for_card
@@ -621,13 +623,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
             next_rep=?, extra_data=?, scheduler_data=?, active=?,
-            in_view=? where _id=?""",
+            question=?, answer=? where _id=?""",
             (card.fact._id, card.fact_view.id, card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
-            card.scheduler_data, card.active, card.in_view, card._id))
+            card.scheduler_data, card.active, card.question("plain_text"),
+            card.answer("plain_text"), card._id))
         if repetition_only:
             return
         # If repetition_only is True, there is no need to log an EDITED_CARD

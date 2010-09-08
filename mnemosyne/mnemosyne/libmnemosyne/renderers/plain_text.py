@@ -7,6 +7,8 @@ from mnemosyne.libmnemosyne.renderer import Renderer
 
 class PlainText(Renderer):
 
+    used_for = "plain_text"
+
     def render_fields(self, field_data, fields, card_type,
                       render_chain, **render_args):
         text = ""

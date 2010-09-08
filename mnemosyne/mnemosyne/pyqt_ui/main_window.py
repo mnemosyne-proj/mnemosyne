@@ -125,6 +125,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
     def delete_current_fact(self):
         self.controller().delete_current_fact()
         
+    def browse_cards(self):
+        self.controller().browse_cards()
+        
     def activate_cards(self):
         self.controller().activate_cards()
         

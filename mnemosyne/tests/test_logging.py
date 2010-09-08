@@ -29,8 +29,8 @@ class TestLogging(MnemosyneTest):
             ("test_logging", "MyMainWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
-        self.review_controller().reset()
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+
 
     def test_logging(self):
         card_type = self.card_type_by_id("1")
