@@ -284,19 +284,17 @@ class SQLiteLogging(object):
             (new_id, card._id))       
 
     def update_card_after_log_import(self, id, creation_time, offset):
-        sql_res = self.con.execute("""select _id, _fact_id, acq_reps,
-            lapses, acq_reps_since_lapse from cards where id=?""",
+        sql_res = self.con.execute("""select _id, acq_reps, lapses,
+            acq_reps_since_lapse from cards where id=?""",
             (id, )).fetchone()
         acq_reps = sql_res["acq_reps"] + offset
         acq_reps_since_lapse = sql_res["acq_reps_since_lapse"]
         if sql_res["lapses"] == 0:
             acq_reps_since_lapse += offset
-        self.con.execute("""update cards set acq_reps=?,
-            acq_reps_since_lapse=? where _id=?""",
-            (acq_reps, acq_reps_since_lapse, sql_res["_id"]))
-        self.con.execute("""update facts set creation_time=?,
-            modification_time=? where _id=?""",
-            (creation_time, creation_time, sql_res["_fact_id"]))
+        self.con.execute("""update cards set creation_time=?,
+            modification_time=?, acq_reps=?, acq_reps_since_lapse=?
+            where _id=?""", (creation_time, creation_time, acq_reps,
+            acq_reps_since_lapse, sql_res["_id"]))
 
     def remove_card_log_entries_since(self, index):
 

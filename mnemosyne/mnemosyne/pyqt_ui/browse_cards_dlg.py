@@ -29,6 +29,8 @@ RET_REPS_SINCE_LAPSE = 14
 EXTRA_DATA = 15
 SCHEDULER_DATA = 16
 ACTIVE = 17
+E1 = 18
+E2 = 19
 
 class CardModel(QtSql.QSqlTableModel):
 
@@ -36,7 +38,16 @@ class CardModel(QtSql.QSqlTableModel):
         QtSql.QSqlTableModel.__init__(self)
         self.date_format = locale.nl_langinfo(locale.D_FMT)
 
+    def columnCount(self, parent=QtCore.QModelIndex()):
+        return QtSql.QSqlTableModel.columnCount(self, parent) + 2
+
+    def lessThan(self, index1, index2):
+        print 1
+        return QtSql.QSqlTableModel.columnCount(self, index1, index2)
+
     def data(self, index, role=QtCore.Qt.DisplayRole):
+        # Display some columns in a more pretty way. Note that sorting still
+        # seems to use the orginal database fields, which is good for speed.
         if role == QtCore.Qt.DisplayRole and index.column() == EASINESS:
             old_data = QtSql.QSqlTableModel.data(self, index, role).toString()
             return QtCore.QVariant("%.2f" % float(old_data))
@@ -45,12 +56,19 @@ class CardModel(QtSql.QSqlTableModel):
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.gmtime(old_data)))
+        if role == QtCore.Qt.DisplayRole and index.column() == E1:
+            index = self.createIndex(index.row(), _FACT_ID)
+            _fact_id = self.data(index).toString()
+            fact = self.database
+            return QtCore.QVariant(_fact_id)
         if role == QtCore.Qt.TextAlignmentRole and \
             index.column() != QUESTION and index.column() != ANSWER:
             return QtCore.QVariant(QtCore.Qt.AlignCenter)  
         
         return QtSql.QSqlTableModel.data(self, index, role)
 
+class SortedCardModel(QtGui.QSortFilterProxyModel):
+    
 
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
 
@@ -91,7 +109,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.table.verticalHeader().hide()
         self.table.setColumnHidden(_ID, True)
         self.table.setColumnHidden(ID, True)
-        self.table.setColumnHidden(_FACT_ID, True)
+        #self.table.setColumnHidden(_FACT_ID, True)
         self.table.setColumnHidden(_FACT_VIEW_ID, True)
         self.table.setColumnHidden(ACQ_REPS_SINCE_LAPSE, True)
         self.table.setColumnHidden(RET_REPS_SINCE_LAPSE, True)

@@ -211,7 +211,7 @@ class Database(Component):
         
         raise NotImplementedError        
 
-    def duplicates_for_fact(self, fact):
+    def duplicates_for_fact(self, fact, card_type):
 
         """Return facts with the same 'unique_fields' data as 'fact'."""
 

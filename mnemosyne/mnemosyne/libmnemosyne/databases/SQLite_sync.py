@@ -190,8 +190,11 @@ class SQLiteSync(object):
                     log_entry["q"] = card.question("sync_to_card_only_client")
                     log_entry["a"] = card.answer("sync_to_card_only_client")
                 else:
+                    log_entry["card_t"] = card.card_type.id
                     log_entry["fact"] = card.fact.id
                     log_entry["fact_v"] = card.fact_view.id
+                log_entry["c_time"] = card.creation_time
+                log_entry["m_time"] = card.modification_time
                 log_entry["tags"] = ",".join([tag.id for tag in card.tags])
                 log_entry["gr"] = card.grade
                 log_entry["e"] = card.easiness
@@ -240,9 +243,6 @@ class SQLiteSync(object):
                 return None
             try:
                 fact = self.fact(log_entry["o_id"], id_is_internal=False)
-                log_entry["c_time"] = fact.creation_time
-                log_entry["m_time"] = fact.modification_time
-                log_entry["card_t"] = fact.card_type.id
                 for key, value in fact.data.iteritems():
                     log_entry[key] = value
             except TypeError: # The object has been deleted at a later stage.
@@ -316,23 +316,12 @@ class SQLiteSync(object):
         # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
             return self.fact(log_entry["o_id"], id_is_internal=False)
-        # Make sure we can create a fact object that will be deleted later
-        # during this sync.
-        if "card_t" not in log_entry:
-            log_entry["card_t"] = "1"
-            log_entry["c_time"] = "-1"
-            log_entry["m_time"] = "-1"
         # Create fact object.
         data = {}
         for key, value in log_entry.iteritems():
-            if key not in ["time", "type", "o_id", "c_time", "m_time",
-                "card_t"]:
-                data[key] = value
-        if log_entry["card_t"] not in self.component_manager.card_type_by_id:
-            self._activate_plugin_for_card_type(log_entry["card_t"])
-        card_type = self.card_type_by_id(log_entry["card_t"])
-        fact = Fact(data, card_type, log_entry["c_time"], log_entry["o_id"])
-        fact.modification_time = log_entry["m_time"]
+            if key not in ["time", "type", "o_id"]:
+                data[key] = value        
+        fact = Fact(data, log_entry["o_id"])
         if log_entry["type"] != EventTypes.ADDED_FACT:
             fact._id = self.con.execute("select _id from facts where id=?",
                 (fact.id, )).fetchone()[0]
@@ -358,24 +347,30 @@ class SQLiteSync(object):
                 sql_res = self.con.execute("select * from cards where id=?",
                     (log_entry["o_id"], )).fetchone()
                 card_type = self.card_type_by_id("1")
-                fact = Fact({}, card_type, creation_time=0, id="")
-                card = Card(fact, card_type.fact_views[0])
+                fact = Fact({"q": "q", "a": "a"}, id="")
+                card = Card(card_type, fact, card_type.fact_views[0], creation_time=0)
                 card._id = sql_res["_id"]
                 return card
         # Create an empty shell of card object that will be deleted later
         # during this sync.
         if "tags" not in log_entry:
             card_type = self.card_type_by_id("1")
-            fact = Fact({"q": "q", "a": "a"}, card_type,
-                        creation_time=0, id="")
-            card = Card(fact, card_type.fact_views[0])
+            fact = Fact({"q": "q", "a": "a"}, id="")
+            card = Card(card_type, fact, card_type.fact_views[0], creation_time=0)
             card.id = log_entry["o_id"]
             return card
         # Create card object.
+        if "card_t" not in log_entry:  # Client only supports simple cards.
+            card_type = self.card_type_by_id("1")
+        else:
+            card_type = self.card_type_by_id(log_entry["card_t"])       
+        if log_entry["card_t"] not in self.component_manager.card_type_by_id:
+            self._activate_plugin_for_card_type(log_entry["card_t"])
         fact = self.fact(log_entry["fact"], id_is_internal=False)
-        for fact_view in fact.card_type.fact_views:
+        for fact_view in card_type.fact_views:
             if fact_view.id == log_entry["fact_v"]:
-                card = Card(fact, fact_view)
+                card = Card(card_type, fact, fact_view,
+                    creation_time=log_entry["c_time"])
                 break
         for tag_id in log_entry["tags"].split(","):
             try:
@@ -388,7 +383,8 @@ class SQLiteSync(object):
         card.id = log_entry["o_id"]
         if log_entry["type"] != EventTypes.ADDED_CARD:
             card._id = self.con.execute("select _id from cards where id=?",
-                (card.id, )).fetchone()[0]      
+                (card.id, )).fetchone()[0]
+        card.modification_time = log_entry["m_time"]        
         card.grade = log_entry["gr"]
         card.easiness = log_entry["e"]
         card.acq_reps = log_entry["ac_rp"]

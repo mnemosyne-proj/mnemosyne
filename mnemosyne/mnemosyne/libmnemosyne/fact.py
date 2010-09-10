@@ -2,8 +2,6 @@
 # fact.py <Peter.Bienstman@UGent.be>
 #
 
-import time
-
 from mnemosyne.libmnemosyne.utils import CompareOnId
 
 
@@ -13,8 +11,6 @@ class Fact(CompareOnId):
 
     The fields are stored in a dictionary called 'data', and can be get and 
     set using the standard dictionary syntax.
-
-    Creating and modification dates are POSIX timestamps stored as integers.
 
     'id' is used to identify this object to the external world (logs, xml
     files, ...), whereas '_id' is an internal id that could be different and
@@ -36,14 +32,11 @@ class Fact(CompareOnId):
 
     """
 
-    def __init__(self, data, card_type, creation_time=None, id=None):
-        if creation_time is None:
-            creation_time = int(time.time())
-        self.creation_time = creation_time
-        self.modification_time = self.creation_time
+    def __init__(self, data, id=None):
         self.data = data
-        self.card_type = card_type
         if id is None:
+            # Importing this module takes a long time on mobile devices,
+            # so we only do so as late as possible.
             import uuid
             id = str(uuid.uuid4())
         self.id = id

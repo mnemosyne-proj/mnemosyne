@@ -39,9 +39,6 @@ SCHEMA = """
     create table facts(
         _id integer primary key,
         id text,
-        card_type_id text,
-        creation_time integer,
-        modification_time integer,
         extra_data text default ""
     );
     create index i_facts on facts (id);
@@ -56,8 +53,11 @@ SCHEMA = """
     create table cards(
         _id integer primary key,
         id text,
+        card_type_id text,
         _fact_id integer,
         fact_view_id text,
+        creation_time integer,
+        modification_time integer,
         question text,
         answer text,
         grade integer,
@@ -318,7 +318,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         plugin_needed = set()
         active_ids = set(card_type.id for card_type in self.card_types())
         for cursor in self.con.execute("""select distinct card_type_id
-            from facts"""):
+            from cards"""):
             id = cursor[0]
             while "::" in id: # Move up one level of the hierarchy.
                 id, child_name = id.rsplit("::", 1)
@@ -510,15 +510,13 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     
     def add_fact(self, fact):
         # Add fact to facts table.
-        _fact_id = self.con.execute("""insert into facts(id, card_type_id,
-            creation_time, modification_time) values(?,?,?,?)""",
-            (fact.id, fact.card_type.id, fact.creation_time,
-             fact.modification_time)).lastrowid
+        _fact_id = self.con.execute("insert into facts(id) values(?)",
+            (fact.id, )).lastrowid
         fact._id = _fact_id
         # Create data_for_fact.        
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((_fact_id, key, value)
-                for key, value in fact.data.items()))
+            for key, value in fact.data.items()))
         self.log().added_fact(fact)
         # Process media files.
         self._process_media(fact)
@@ -537,18 +535,12 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Create fact. Note that for the card type, we turn to the component
         # manager as opposed to this database, as we would otherwise miss the
         # built-in system card types.
-        fact = Fact(data, self.card_type_by_id(sql_res["card_type_id"]),
-            creation_time=sql_res["creation_time"], id=sql_res["id"])
+        fact = Fact(data, id=sql_res["id"])
         fact._id = sql_res["_id"]
-        fact.modification_time = sql_res["modification_time"]
         self._get_extra_data(sql_res, fact)
         return fact
     
     def edit_fact(self, fact):
-        # Update fact.
-        self.con.execute("""update facts set card_type_id=?, creation_time=?,
-            modification_time=? where _id=?""", (fact.card_type.id,
-            fact.creation_time, fact.modification_time, fact._id))
         # Delete data_for_fact and recreate it.
         self.con.execute("delete from data_for_fact where _fact_id=?",
             (fact._id, ))
@@ -573,12 +565,12 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
     
     def add_card(self, card):
-        _card_id = self.con.execute("""insert into cards(id, _fact_id,
-            fact_view_id, grade, easiness, acq_reps, ret_reps, lapses,
+        _card_id = self.con.execute("""insert into cards(id, card_type_id, _fact_id,
+            fact_view_id, creation_time, modification_time, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
             extra_data, scheduler_data, active, question, answer)
-            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            (card.id, card.fact._id, card.fact_view.id, card.grade,
+            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (card.id, card.card_type.id, card.fact._id, card.fact_view.id, card.creation_time, card.modification_time, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep,
@@ -602,15 +594,18 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                                        (id, )).fetchone()
         else:
             sql_res = self.con.execute("select * from cards where id=?",
-                                       (id, )).fetchone()            
+                                       (id, )).fetchone()
         fact = self.fact(sql_res["_fact_id"], id_is_internal=True)
-        for fact_view in fact.card_type.fact_views:
+        card_type = self.card_type_by_id(sql_res["card_type_id"])
+        for fact_view in card_type.fact_views:
             if fact_view.id == sql_res["fact_view_id"]:
-                card = Card(fact, fact_view)
+                card = Card(card_type, fact, fact_view,
+                    creation_time=sql_res["creation_time"])
                 break
-        for attr in ("id", "_id", "grade", "easiness", "acq_reps", "ret_reps",
-            "lapses", "acq_reps_since_lapse", "ret_reps_since_lapse",
-            "last_rep", "next_rep", "scheduler_data", "active"):
+        for attr in ("id", "_id", "modification_time", "grade", "easiness",
+            "acq_reps", "ret_reps", "lapses", "acq_reps_since_lapse",
+            "ret_reps_since_lapse", "last_rep", "next_rep", "scheduler_data",
+            "active"):
             setattr(card, attr, sql_res[attr])
         self._get_extra_data(sql_res, card)
         for cursor in self.con.execute("""select _tag_id from tags_for_card
@@ -619,20 +614,23 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return card
     
     def edit_card(self, card, repetition_only=False):
-        self.con.execute("""update cards set _fact_id=?, fact_view_id=?,
-            grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
+        self.con.execute("""update cards set grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
-            next_rep=?, extra_data=?, scheduler_data=?, active=?,
-            question=?, answer=? where _id=?""",
-            (card.fact._id, card.fact_view.id, card.grade, card.easiness,
+            next_rep=?, scheduler_data=?, active=? where _id=?""",
+            (card.grade, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep,
-            self._repr_extra_data(card.extra_data),
-            card.scheduler_data, card.active, card.question("plain_text"),
-            card.answer("plain_text"), card._id))
+            card.scheduler_data, card.active, card._id))
         if repetition_only:
             return
+        self.con.execute("""update cards set card_type_id=?, _fact_id=?, fact_view_id=?,
+            creation_time=?, modification_time=?, extra_data=?,
+            question=?, answer=? where _id=?""",
+            (card.card_type.id, card.fact._id, card.fact_view.id, card.creation_time, card.modification_time,
+            self._repr_extra_data(card.extra_data),
+            card.question("plain_text"),
+            card.answer("plain_text"), card._id))        
         # If repetition_only is True, there is no need to log an EDITED_CARD
         # entry here, as the REPETITION log entry will contain all the data to
         # edit the card.
@@ -838,7 +836,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._current_criterion = criterion
         applier = self.component_manager.current("criterion_applier",
             used_for=criterion.__class__)
-        applier.apply_to_database(criterion, active_or_in_view=applier.ACTIVE)
+        applier.apply_to_database(criterion)
 
     def current_activity_criterion(self):
         return self._current_criterion
@@ -923,30 +921,39 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             (select _id from cards where _fact_id=?)""",
             (next_rep, card._id, card.fact._id)).fetchone()[0]
 
-    def duplicates_for_fact(self, fact):
+    def duplicates_for_fact(self, fact, card_type):
 
-        """Return fact with the same 'unique_fields' data as 'fact'."""
-        
-        query = "select _id from facts where card_type_id=?"
-        args = (fact.card_type.id,)
-        if fact._id:
-            query += " and not _id=?"
-            args = (fact.card_type.id, fact._id)
-        duplicates = []            
-        for cursor in self.con.execute(query, args):
-            data = dict([(cursor2["key"], cursor2["value"]) for cursor2 in \
-                self.con.execute("""select * from data_for_fact where
-                _fact_id=?""", (cursor[0], ))])
-            for field in fact.card_type.unique_fields:
-                if data[field] == fact[field]:
-                    duplicates.append(\
-                        self.fact(cursor[0], id_is_internal=True))
-                    break
-        return duplicates
+        """Return facts with the same 'card_type.unique_fields'
+        data as 'fact'.
+
+        """
+
+        _fact_ids = set()
+        for field in card_type.unique_fields:
+            if fact._id:
+                for cursor in self.con.execute("""select _fact_id from
+                    data_for_fact where key=? and value=?
+                    and not _fact_id=?""", (field, fact[field], fact._id)):
+                    _fact_ids.add(cursor[0])
+            else:
+                # The fact has not yet been saved in the database.
+                for cursor in self.con.execute("""select _fact_id from
+                    data_for_fact where key=? and value=?""",
+                    (field, fact[field])):
+                    _fact_ids.add(cursor[0])
+        # Now we still need to make sure these facts are from cards with
+        # the correct card type.
+        facts = []
+        for _fact_id in _fact_ids:
+            this_card_type_id = self.con.execute("""select card_type_id
+                from cards where _fact_id=?""", (_fact_id, )).fetchone()[0]
+            if this_card_type_id == card_type.id:
+                facts.append(self.fact(_fact_id, id_is_internal=True))
+        return facts
 
     def card_types_in_use(self):
         return [self.card_type_by_id(cursor[0]) for cursor in \
-            self.con.execute ("select distinct card_type_id from facts")]
+            self.con.execute ("select distinct card_type_id from cards")]
     
     def tag_count(self):
         return self.con.execute("select count() from tags").fetchone()[0]

@@ -43,15 +43,15 @@ class TestDatabase(MnemosyneTest):
         
         assert fact.data["q"] == "question"
         assert fact.data["a"] == "answer"
-        assert fact.id == old_fact.id
-        assert fact.creation_time == old_fact.creation_time
-        assert fact.modification_time == old_fact.modification_time     
+        assert fact.id == old_fact.id   
         assert [tag.name for tag in card.tags] == \
                [tag.name for tag in old_card.tags]
 
         assert card.fact == old_card.fact
         assert card.fact_view == old_card.fact_view       
         assert card.id == old_card.id
+        assert card.creation_time == old_card.creation_time
+        assert card.modification_time == old_card.modification_time  
         assert card.grade == old_card.grade
         assert card.easiness == old_card.easiness
         assert card.acq_reps == old_card.acq_reps
@@ -122,7 +122,7 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
         self.controller().file_save()
         fact = card.fact
-        self.controller().clone_card_type(fact.card_type, "my_1")
+        self.controller().clone_card_type(card_type, "my_1")
         
         new_card_type = self.card_type_by_id("1::my_1")
         self.controller().edit_related_cards(fact, fact_data,
@@ -136,8 +136,8 @@ class TestDatabase(MnemosyneTest):
         _card_id, _fact_id = list(self.database().cards_unseen())[0]
         fact = self.database().fact(_fact_id, id_is_internal=True)
         card_type = self.card_type_by_id("1::my_1")        
-        assert fact.card_type.id == "1::my_1"
-        assert fact.card_type == card_type
+        assert card_type.id == "1::my_1"
+        assert card_type == card_type
 
     def test_plugin_and_clones(self):
         for plugin in self.plugins():
@@ -155,7 +155,7 @@ class TestDatabase(MnemosyneTest):
         
         self.controller().file_save()
         fact = card.fact
-        self.controller().clone_card_type(fact.card_type, "my_4")
+        self.controller().clone_card_type(card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4::my_4")
         self.controller().edit_related_cards(fact, fact_data,
@@ -172,8 +172,8 @@ class TestDatabase(MnemosyneTest):
         fact = self.database().fact(_fact_id, id_is_internal=True)
         card_type = self.card_type_by_id("4")           
         card_type = self.card_type_by_id("4::my_4")        
-        assert fact.card_type.id == "4::my_4"
-        assert fact.card_type == card_type
+        assert card_type.id == "4::my_4"
+        assert card_type == card_type
         
         card = self.database().cards_from_fact(fact)[0]
         card.question()
@@ -219,7 +219,7 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
         self.controller().file_save()
         fact = card.fact
-        self.controller().clone_card_type(fact.card_type, "my_4")
+        self.controller().clone_card_type(card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4::my_4")
         self.controller().edit_related_cards(fact, fact_data,
@@ -257,7 +257,7 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
         self.controller().file_save()
         fact = card.fact
-        self.controller().clone_card_type(fact.card_type, "my_4")
+        self.controller().clone_card_type(card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4::my_4")
         self.controller().edit_related_cards(fact, fact_data,

@@ -95,7 +95,7 @@ class CardType(Component, CompareOnId):
     # the main controller.
 
     def create_related_cards(self, fact):
-        return [Card(fact, fact_view) for fact_view in self.fact_views]
+        return [Card(self, fact, fact_view) for fact_view in self.fact_views]
 
     def edit_related_cards(self, fact, new_fact_data):
 

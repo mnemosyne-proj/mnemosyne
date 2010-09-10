@@ -34,14 +34,10 @@ class GradesCriterionApplier(CriterionApplier):
 
     used_for = GradesCriterion
 
-    def apply_to_database(self, criterion, active_or_in_view):
-        if active_or_in_view == self.ACTIVE:
-            field_name = "active"
-        elif active_or_in_view == self.IN_VIEW:
-            field_name = "in_view"
+    def apply_to_database(self, criterion):
         db = self.database()
-        db.con.execute("update cards set %s=0" % field_name)
-        db.con.execute("update cards set %s=1 where grade<=?" % field_name,
+        db.con.execute("update cards set active=0")
+        db.con.execute("update cards set active=1 where grade<=?",
                        (criterion.threshold, ))
 
 

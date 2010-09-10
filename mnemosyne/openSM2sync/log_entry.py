@@ -68,6 +68,8 @@ class LogEntry(dict):
             in the database.
             
     Keys specific to ADDED_CARD, EDITED_CARD:
+        c_time, m_time (int): creation time, modification time, Unix timestamp
+        card_t (nice_string): card type id, if partner supports facts
         fact (nice_string), fact_v (nice_string): fact id and fact view id
         q, a (string): question and answer, if partner does not support facts.
         tags (nice_string): comma separated list of tag ids
@@ -115,11 +117,9 @@ class LogEntry(dict):
         fname (string): filename
 
     Keys specific to ADDED_FACT, EDITED_FACT:
-        card_t (nice_string), c_time (int), m_time (int): card type id,
-            creation time, modification time (Unix timestamp).
-
-        <fact_key> (string): any different key name than the ones above will
-            be treated as belonging to the fact's data dictionary.
+        <fact_key> (string): any different key name than the general keys
+            above will be treated as belonging to the fact's data
+            dictionary.
 
     The following events are entirely optional, certainly for card-based
     clients. Consult libmnemosyne's code for more details.

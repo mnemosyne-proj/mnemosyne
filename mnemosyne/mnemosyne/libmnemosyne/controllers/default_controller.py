@@ -89,9 +89,9 @@ class DefaultController(Controller):
         if grade not in [-1, 2, 3, 4, 5]:
             raise AttributeError, "Invalid initial grade."            
         db = self.database()
-        fact = Fact(fact_data, card_type)
+        fact = Fact(fact_data)
         if check_for_duplicates:
-            duplicates = db.duplicates_for_fact(fact)
+            duplicates = db.duplicates_for_fact(fact, card_type)
             if len(duplicates) != 0:
                 for duplicate in duplicates:
                     # Duplicates only checks equality of unique keys.
@@ -159,7 +159,7 @@ class DefaultController(Controller):
         # Change card type.
         db = self.database()
         sch = self.scheduler()
-        old_card_type = fact.card_type
+        old_card_type = db.cards_from_fact(fact)[0].card_type
         if old_card_type != new_card_type:
             converter = self.component_manager.current\
                   ("card_type_converter", used_for=(old_card_type.__class__,
@@ -169,8 +169,9 @@ class DefaultController(Controller):
                 parents_old = old_card_type.id.split("::")
                 parents_new = new_card_type.id.split("::")
                 if parents_old[0] == parents_new[0]: 
-                    fact.card_type = new_card_type
-                    edited_cards = db.cards_from_fact(fact)      
+                    edited_cards = db.cards_from_fact(fact)
+                    for card in edited_cards:
+                        card.card_type = new_card_type
                 else:
                     answer = self.main_widget().question_box(\
          _("Can't preserve history when converting between these card types.")\
@@ -188,9 +189,9 @@ class DefaultController(Controller):
                 # Make sure the converter operates on card objects which
                 # already know their new type, otherwise we could get
                 # conflicting ids.
-                fact.card_type = new_card_type
                 cards_to_be_edited = db.cards_from_fact(fact)
                 for card in cards_to_be_edited:
+                    card.card_type = new_card_type
                     card.fact = fact
                 fact.data = new_fact_data
                 # Do the conversion.
@@ -220,8 +221,7 @@ class DefaultController(Controller):
         # Update fact and create or delete cards (due to updating of fact
         # data, not changing of card type).
         new_cards, edited_cards, deleted_cards = \
-            fact.card_type.edit_related_cards(fact, new_fact_data)
-        fact.modification_time = int(time.time())
+            new_card_type.edit_related_cards(fact, new_fact_data)
         fact.data = new_fact_data
         db.edit_fact(fact)
         for card in deleted_cards:
@@ -244,12 +244,14 @@ class DefaultController(Controller):
             tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))
         criterion = db.current_activity_criterion()
 
-        # Apply new tags and activity criterion to cards and save cards back
-        # to the database. Note that this makes sure there is an EDITED_CARD
-        # log entry for each related card, which is needed when syncing with a
-        # partner that does not have the concept of facts.
+        # Apply new tags, modification time and activity criterion to cards
+        # and save cards back to the database. Note that this makes sure there
+        # is an EDITED_CARD log entry for each related card, which is needed
+        # when syncing with a partner that does not have the concept of facts.
         old_tags = set()
+        modification_time = int(time.time())
         for card in self.database().cards_from_fact(fact):
+            card.modification_time = modification_time
             old_tags = old_tags.union(card.tags)
             card.tags = tags
             criterion.apply_to_card(card)

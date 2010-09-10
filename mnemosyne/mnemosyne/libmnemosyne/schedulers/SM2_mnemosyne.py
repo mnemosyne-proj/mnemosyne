@@ -341,7 +341,7 @@ class SM2Mnemosyne(Scheduler):
         # for the different grades, so we don't want any side effects
         # from hooks running then.
         if not dry_run:
-            card.fact.card_type.before_repetition(card)
+            card.card_type.before_repetition(card)
             for f in self.component_manager.all("hook", "before_repetition"):
                 f.run(card)            
         # When doing a dry run, make a copy to operate on. This leaves the
@@ -456,7 +456,7 @@ class SM2Mnemosyne(Scheduler):
         _("You've memorised 15 new cards.") + " " +\
         _("If you do this for many days, you could get a big workload later."))
         # Run hooks.
-        card.fact.card_type.after_repetition(card)
+        card.card_type.after_repetition(card)
         self.database().current_activity_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):
             f.run(card)

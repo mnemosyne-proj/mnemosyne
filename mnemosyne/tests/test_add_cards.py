@@ -200,7 +200,7 @@ class TestAddCards(MnemosyneTest):
         assert len(new_card.tags) == 1
 
         self.controller().edit_related_cards(new_card.fact, new_card.fact.data,
-           new_card.fact.card_type, [" "], [])    
+           new_card.card_type, [" "], [])    
         self.controller().file_save()
 
         new_card = self.database().card(card._id, id_is_internal=True)

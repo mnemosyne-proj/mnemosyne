@@ -60,7 +60,7 @@ class Cloze(CardType):
     def create_related_cards(self, fact):
         cards = []
         for match in cloze_re.finditer(fact["text"]):
-            card = Card(fact, self.fact_views[0])
+            card = Card(self, fact, self.fact_views[0])
             card.extra_data["cloze"] = match.group(1)
             card.extra_data["index"] = len(cards)
             card.id += "." + str(len(cards)) # Make id unique.
@@ -101,7 +101,7 @@ class Cloze(CardType):
             id_suffix += 1
             for new_cloze in set(new_clozes).difference(new_clozes_processed):
                 new_index = new_clozes.index(new_cloze)
-                card = Card(fact, self.fact_views[0])
+                card = Card(self, fact, self.fact_views[0])
                 card.extra_data["cloze"] = new_cloze
                 card.extra_data["index"] = new_index
                 card.id += "." + str(id_suffix)

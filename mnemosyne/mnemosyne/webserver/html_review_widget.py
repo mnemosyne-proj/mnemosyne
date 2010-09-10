@@ -82,8 +82,7 @@ class HtmlReviewWidget(ReviewWidget):
         card_css = ""
         card = self.review_controller().card
         if card:
-            card_type = card.fact.card_type
-            card_css = self.renderer().card_type_css(card_type)
+            card_css = self.renderer().card_type_css(card.card_type)
         buttons = ""
         if self._grade_buttons_enabled:
             buttons = ""

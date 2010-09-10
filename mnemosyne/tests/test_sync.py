@@ -269,9 +269,6 @@ class TestSync(object):
             db = self.mnemosyne.database()
             fact = db.fact(self.client_fact_id, id_is_internal=False)
             assert fact.data == {"q": "Q", "a": ""}
-            assert fact.card_type == self.mnemosyne.card_type_by_id("1")
-            assert fact.creation_time == self.client_creation_time
-            assert fact.modification_time == self.client_creation_time
             assert db.con.execute("select count() from log").fetchone()[0] == 8 
             
         self.server = MyServer()
@@ -283,7 +280,6 @@ class TestSync(object):
         fact = Fact({"q": "Q", "a": ""}, card_type)
         self.client.mnemosyne.database().add_fact(fact)
         self.server.client_fact_id = fact.id
-        self.server.client_creation_time = fact.creation_time
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
@@ -295,9 +291,6 @@ class TestSync(object):
             db = self.mnemosyne.database()
             fact = db.fact(self.client_fact_id, id_is_internal=False)
             assert fact.data == {"q": "Q", "a": "AA"}
-            assert fact.card_type == self.mnemosyne.card_type_by_id("1")
-            assert fact.creation_time == self.client_creation_time
-            assert fact.modification_time == self.client_creation_time
             assert db.con.execute("select count() from log").fetchone()[0] == 9
             
         self.server = MyServer()
@@ -311,7 +304,6 @@ class TestSync(object):
         fact.data = {"q": "Q", "a": "AA"}
         self.client.mnemosyne.database().edit_fact(fact)        
         self.server.client_fact_id = fact.id
-        self.server.client_creation_time = fact.creation_time
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
@@ -339,7 +331,6 @@ class TestSync(object):
         self.client.mnemosyne.controller().file_save()
         self.client.mnemosyne.database().delete_fact_and_related_cards(fact)        
         self.server.client_fact_id = fact.id
-        self.server.client_creation_time = fact.creation_time
         self.client.mnemosyne.controller().file_save()
         self.client.mnemosyne.log().stopped_program()
         self.client.do_sync()
@@ -358,6 +349,9 @@ class TestSync(object):
             assert db.get_or_create_tag_with_name("tag_1").id in tag_ids
             assert db.get_or_create_tag_with_name("tag_2").id in tag_ids
             assert len(card.tags) == 2
+            assert card.card_type == self.mnemosyne.card_type_by_id("1")
+            assert card.creation_time == self.client_card.creation_time
+            assert card.modification_time == self.client_card.modification_time
             assert card.scheduler_data == 0
             assert card.active == True
             assert card.in_view == True
@@ -396,6 +390,9 @@ class TestSync(object):
             card = db.card(self.client_card.id, id_is_internal=False)
             assert card.extra_data == {"A": "B"}
             assert db.con.execute("select count() from log").fetchone()[0] == 13
+            assert card.card_type == self.mnemosyne.card_type_by_id("1")
+            assert card.creation_time == self.client_card.creation_time
+            assert card.modification_time == self.client_card.modification_time
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -410,6 +407,7 @@ class TestSync(object):
         self.server.client_card = card
         card.extra_data = {"A": "B"}
         self.client.database.edit_card(card)
+        self.server.client_card = card
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\

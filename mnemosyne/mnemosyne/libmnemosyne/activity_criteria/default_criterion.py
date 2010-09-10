@@ -23,7 +23,7 @@ class DefaultCriterion(ActivityCriterion):
             if tag._id in self.active_tag__ids:
                 card.active = True
                 break
-        if (card.fact.card_type.id, card.fact_view.id) in \
+        if (card.card_type.id, card.fact_view.id) in \
            self.deactivated_card_type_fact_view_ids:
             card.active = False
         for tag in card.tags:

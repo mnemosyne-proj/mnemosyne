@@ -2,6 +2,8 @@
 # card.py <Peter.Bienstman@UGent.be>
 #
 
+import time
+
 from mnemosyne.libmnemosyne.utils import CompareOnId
 
 
@@ -9,6 +11,8 @@ class Card(CompareOnId):
 
     """A card has a question and an answer, based on a fact view operating on
     a fact. It also stores repetition data.
+
+    Creating and modification dates are POSIX timestamps stored as integers.
 
     For card types which need extra information (e.g. cloze deletion), the
     variable 'extra_data' can be used to store extra information in the
@@ -29,29 +33,27 @@ class Card(CompareOnId):
     possibility to offer more flexibility, e.g. by having different active
     tags per card type/fact view combo.
 
-    'in_view' offers similar functionality as 'active', but is not used by the
-    scheduler, but e.g. by GUI elements which need to operate only on a subset
-    of the cards (displaying search results, e.g.). The 'active' flag could
-    serve double duty to store this info, but having a separate flag for this
-    is safer.
-
     'id' is used to identify this object to the external world (logs, xml
     files, ...), whereas '_id' is an internal id that could be different and
     that can be used by the database for efficiency reasons.
 
     """
 
-    def __init__(self, fact, fact_view):
+    def __init__(self, card_type, fact, fact_view, creation_time=None):
+        self.card_type = card_type
         self.fact = fact
         self.fact_view = fact_view
-        self.id = self.fact.id + "." + self.fact.card_type.id + "." + \
+        self.id = self.fact.id + "." + self.card_type.id + "." + \
                   self.fact_view.id
         self._id = None
+        if creation_time is None:
+            creation_time = int(time.time())
+        self.creation_time = creation_time
+        self.modification_time = self.creation_time
         self.tags = set()
         self.extra_data = {}
         self.scheduler_data = 0
         self.active = True
-        self.in_view = True
         self.reset_learning_data()
         
     def reset_learning_data(self):
@@ -83,10 +85,10 @@ class Card(CompareOnId):
         self.next_rep = -1
 
     def question(self, render_chain="default", **render_args):
-        return self.fact.card_type.question(self, render_chain, **render_args)
+        return self.card_type.question(self, render_chain, **render_args)
        
     def answer(self, render_chain="default", **render_args):                
-        return self.fact.card_type.answer(self, render_chain, **render_args)
+        return self.card_type.answer(self, render_chain, **render_args)
 
     def tag_string(self):
         return ", ".join([tag.name for tag in self.tags if \

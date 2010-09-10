@@ -119,7 +119,7 @@ class AddEditCards(Component):
 
     def preview(self):
         fact_data = self.card_type_widget.data()
-        fact = Fact(fact_data, self.card_type)
+        fact = Fact(fact_data)
         cards = self.card_type.create_related_cards(fact)
         tag_text = self.tags.currentText()
         dlg = PreviewCardsDlg(cards, tag_text, self)

@@ -1,23 +1,34 @@
--better next_rep, last rep representation, Q sort role
--add 'date added', ('date_edited' will be for later, requires extra column?)
+-cardtype.q --> create question? relationship.
+-test suite
+-have 'activate plugin for card type work on card types, not on ids
+-tag column, sort tags
+-make q,a and tags column optional for some clients (default None, so as to make sure each client sets it)
+-reorder card fields in sql and in card.py
+
+-better next_rep, last rep representation
 -grey for inactive cards
--reorder card fields
--respect fonts
 -background colour
+-respect fonts
+
+-time python overhead
 -searching
 -make sure searching for a single unicode character works
 -auto search after timeout?
 -filtering on tag and card type
+-show number of cards per tag and cardtype?
 -fix test suite
 -save column sizes
 -save sort order
--right click menu options
+-right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -add controller logic for after editing/deleting a card in browse cards
+
+-try work around osx sync server hang by using python thread primitives?
 
 -do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
 
--preview card formatting changes; cancel does not undo the changes
+-preview card formatting changes; cancel does not undo the changes (vestige of card_type.renderer())
 
+-add full html header to stardard renderer. Still need MW table hack?
 -test and time renderer on MW. Need to cache it?
 
 -edit vs update
@@ -33,6 +44,8 @@
 
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 
+
+-go through all source
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 
@@ -101,27 +114,6 @@
 -explain check for duplicates after import of 1.x? Also give a hint of its working in
 the GUI function itself?
 -card preview
--duplicates for fact speedup
->         """Return fact with the same 'unique_fields' data as 'fact'."""
->         
->         query = "select _id from facts where card_type_id=?"
->         args = (fact.card_type.id,)
->         if fact._id:
->             query += " and not _id=?"
->             args = (fact.card_type.id, fact._id)
->         duplicates = []            
->         for cursor in self.con.execute(query, args):
->             data = dict([(cursor2["key"], cursor2["value"]) for cursor2 in \
->                 self.con.execute("""select * from data_for_fact where
->                 _fact_id=?""", (cursor[0], ))])
->             for field in fact.card_type.unique_fields:
->                 if data[field] == fact[field]:
->                     duplicates.append(\
->                         self.get_fact(cursor[0], id_is_internal=True))
->                     break
->         return duplicates
-
-
 
 -new translation infrastructure
 -handle deferred translation
