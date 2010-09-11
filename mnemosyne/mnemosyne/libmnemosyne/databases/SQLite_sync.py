@@ -348,7 +348,8 @@ class SQLiteSync(object):
                     (log_entry["o_id"], )).fetchone()
                 card_type = self.card_type_by_id("1")
                 fact = Fact({"q": "q", "a": "a"}, id="")
-                card = Card(card_type, fact, card_type.fact_views[0], creation_time=0)
+                card = Card(card_type, fact, card_type.fact_views[0],
+                    creation_time=0)
                 card._id = sql_res["_id"]
                 return card
         # Create an empty shell of card object that will be deleted later
@@ -356,16 +357,18 @@ class SQLiteSync(object):
         if "tags" not in log_entry:
             card_type = self.card_type_by_id("1")
             fact = Fact({"q": "q", "a": "a"}, id="")
-            card = Card(card_type, fact, card_type.fact_views[0], creation_time=0)
+            card = Card(card_type, fact, card_type.fact_views[0],
+                creation_time=0)
             card.id = log_entry["o_id"]
             return card
         # Create card object.
         if "card_t" not in log_entry:  # Client only supports simple cards.
             card_type = self.card_type_by_id("1")
         else:
+            if log_entry["card_t"] not in \
+                self.component_manager.card_type_by_id:
+                self._activate_plugin_for_card_type(log_entry["card_t"])
             card_type = self.card_type_by_id(log_entry["card_t"])       
-        if log_entry["card_t"] not in self.component_manager.card_type_by_id:
-            self._activate_plugin_for_card_type(log_entry["card_t"])
         fact = self.fact(log_entry["fact"], id_is_internal=False)
         for fact_view in card_type.fact_views:
             if fact_view.id == log_entry["fact_v"]:

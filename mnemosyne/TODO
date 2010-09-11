@@ -1,5 +1,4 @@
 -cardtype.q --> create question? relationship.
--test suite
 -have 'activate plugin for card type work on card types, not on ids
 -tag column, sort tags
 -make q,a and tags column optional for some clients (default None, so as to make sure each client sets it)

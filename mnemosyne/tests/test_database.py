@@ -63,7 +63,6 @@ class TestDatabase(MnemosyneTest):
         assert card.extra_data == old_card.extra_data
         assert card.scheduler_data == old_card.scheduler_data
         assert card.active == old_card.active
-        assert card.in_view == old_card.in_view
         
         # Modify cards
 
@@ -94,7 +93,6 @@ class TestDatabase(MnemosyneTest):
         assert card.extra_data == "extra"
         assert card.scheduler_data == 1
         assert card.active == False
-        assert card.in_view == False
         
     def test_edit_tag(self):
         fact_data = {"q": "question",
@@ -304,28 +302,28 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["default"], check_for_duplicates=False)
-        assert len(self.database().duplicates_for_fact(fact)) == 0
+        assert len(self.database().duplicates_for_fact(fact, card_type)) == 0
         
         fact_data = {"q": "question1",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["default"], check_for_duplicates=False)
-        assert len(self.database().duplicates_for_fact(fact)) == 0
+        assert len(self.database().duplicates_for_fact(fact, card_type)) == 0
         
         fact_data = {"q": "question",
                      "a": "answer1"}
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["default"], check_for_duplicates=False)
-        assert len(self.database().duplicates_for_fact(fact)) == 1
+        assert len(self.database().duplicates_for_fact(fact, card_type)) == 1
         
         fact_data = {"q": "question",
                      "a": "answer1"}
         card_type = self.card_type_by_id("2")
         self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["default"], check_for_duplicates=False)
-        assert len(self.database().duplicates_for_fact(fact)) == 1
+        assert len(self.database().duplicates_for_fact(fact, card_type)) == 1
         
     def test_card_types_in_use(self):
         fact_data = {"q": "question",

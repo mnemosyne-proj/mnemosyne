@@ -53,7 +53,7 @@ class Cramming(SM2Mnemosyne):
         # for the different grades, so we don't want any side effects
         # from hooks running then.
         if not dry_run:
-            card.fact.card_type.before_repetition(card)
+            card.card_type.before_repetition(card)
             for f in self.component_manager.all("hook",
                                                     "before_repetition"):
                 f.run(card)
@@ -63,7 +63,7 @@ class Cramming(SM2Mnemosyne):
         else:
             card.scheduler_data = self.RIGHT
         # Run hooks.
-        card.fact.card_type.after_repetition(card)
+        card.card_type.after_repetition(card)
         self.criterion.apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):
             f.run(card)

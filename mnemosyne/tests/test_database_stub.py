@@ -100,7 +100,7 @@ class TestDatabaseStub:
 
     @raises(NotImplementedError)
     def test_duplicates_for_fact(self):
-        self.database.duplicates_for_fact(None)
+        self.database.duplicates_for_fact(None, None)
 
     @raises(NotImplementedError)
     def test_fact_count(self):

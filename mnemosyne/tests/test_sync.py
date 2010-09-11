@@ -277,7 +277,7 @@ class TestSync(object):
 
         self.client = MyClient()
         card_type = self.client.mnemosyne.card_type_by_id("1")
-        fact = Fact({"q": "Q", "a": ""}, card_type)
+        fact = Fact({"q": "Q", "a": ""})
         self.client.mnemosyne.database().add_fact(fact)
         self.server.client_fact_id = fact.id
         self.client.mnemosyne.controller().file_save()
@@ -299,7 +299,7 @@ class TestSync(object):
 
         self.client = MyClient()
         card_type = self.client.mnemosyne.card_type_by_id("1")
-        fact = Fact({"q": "Q", "a": "A"}, card_type)
+        fact = Fact({"q": "Q", "a": "A"})
         self.client.mnemosyne.database().add_fact(fact)
         fact.data = {"q": "Q", "a": "AA"}
         self.client.mnemosyne.database().edit_fact(fact)        
@@ -326,7 +326,7 @@ class TestSync(object):
 
         self.client = MyClient()
         card_type = self.client.mnemosyne.card_type_by_id("1")
-        fact = Fact({"q": "Q", "a": "A"}, card_type)
+        fact = Fact({"q": "Q", "a": "A"})
         self.client.mnemosyne.database().add_fact(fact)
         self.client.mnemosyne.controller().file_save()
         self.client.mnemosyne.database().delete_fact_and_related_cards(fact)        
@@ -354,7 +354,6 @@ class TestSync(object):
             assert card.modification_time == self.client_card.modification_time
             assert card.scheduler_data == 0
             assert card.active == True
-            assert card.in_view == True
             assert card.grade == 4
             assert card.easiness == 2.5
             assert card.acq_reps == 1

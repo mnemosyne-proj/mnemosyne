@@ -172,6 +172,7 @@ class DefaultController(Controller):
                     edited_cards = db.cards_from_fact(fact)
                     for card in edited_cards:
                         card.card_type = new_card_type
+                        db.edit_card(card)
                 else:
                     answer = self.main_widget().question_box(\
          _("Can't preserve history when converting between these card types.")\
