@@ -118,6 +118,7 @@ class QtSyncServer(Component, QtCore.QObject):
 
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
+        QtCore.QObject.__init__(self)
         self.thread = None
 
     def activate(self):
