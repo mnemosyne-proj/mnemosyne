@@ -31,7 +31,6 @@ class TestLogging(MnemosyneTest):
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
 
-
     def test_logging(self):
         card_type = self.card_type_by_id("1")
         fact_data = {"q": "1", "a": "a"}
@@ -45,6 +44,7 @@ class TestLogging(MnemosyneTest):
 
         self.mnemosyne.finalise()
         self.restart()
+        card_type = self.card_type_by_id("1")
         fact_data = {"q": "2", "a": "a"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]

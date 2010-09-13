@@ -240,3 +240,4 @@ class Mnemosyne(Component):
         self.component_manager.deactivate_all()
         unregister_component_manager(user_id)
         
+        

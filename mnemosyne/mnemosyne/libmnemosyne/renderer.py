@@ -10,11 +10,18 @@ class Renderer(Component):
     """Renders the contents of the Fact behind a Card to a suitable format,
     e.g. a html page, or a purely text based format.
 
-    "used_for" = render_chain
+    The 'used_for' argument contains a string to signal the render chain
+    in which the rendere is used ('default', 'plain_text', ...)
+
+    If this renderer is only for a specific card type (and it's descendants)
+    'card_type' can be set to the corresponding CardType class. If 'card_type' 
+    is None, this renderer is used for all other card types.
 
     """
 
     component_type = "renderer"
+    used_for = ""
+    card_type = None # Used for all card types.
 
     def update(self, card_type):
 
@@ -59,7 +66,4 @@ class Renderer(Component):
         """
         
         raise NotImplementedError
-
-
-
-        
+    

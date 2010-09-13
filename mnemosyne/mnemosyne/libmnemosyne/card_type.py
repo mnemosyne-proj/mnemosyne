@@ -82,11 +82,11 @@ class CardType(Component, CompareOnId):
     # contained in a single derived class by reimplementing these functions.
     # The default implementation provided here is for fact-based cards.
         
-    def question(self, card, render_chain="default", **render_args):
+    def create_question(self, card, render_chain="default", **render_args):
         return self.renderer(render_chain).render_fields(card.fact,
             card.fact_view.q_fields, self, render_chain, **render_args)
 
-    def answer(self, card, render_chain="default", **render_args):
+    def create_answer(self, card, render_chain="default", **render_args):
         return self.renderer(render_chain).render_fields(card.fact,
             card.fact_view.a_fields, self, render_chain, **render_args)
     

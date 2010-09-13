@@ -1,7 +1,8 @@
--renderer per cardtype?
--cardtype.q --> create question? relationship.
--have 'activate plugin for card type work on card types, not on ids
--tag column, sort tags
+-renderer per cardtype? cardtype renderer class used_for renderer? card_type attribute in renderer? inheritance in card type (not ok in regular attribute, unless we add extra logic to card.py, need to chache in dictionary)?, update component.py docs
+-just overloading create question? Better for separation: move all rendering out of create question?
+-make renderchain a component? Would allow us to get rid of card converter syntax quirks
+-test blank line hack in map card type
+
 -make q,a and tags column optional for some clients (default None, so as to make sure each client sets it)
 -reorder card fields in sql and in card.py
 
@@ -16,13 +17,10 @@
 -auto search after timeout?
 -filtering on tag and card type
 -show number of cards per tag and cardtype?
--fix test suite
 -save column sizes
 -save sort order
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -add controller logic for after editing/deleting a card in browse cards
-
--try work around osx sync server hang by using python thread primitives?
 
 -do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
 
@@ -297,6 +295,8 @@ pylint:
 -improve sphinxdocs: autoclass='both', document module members
 
 -show latex errors in GUI?
+-adding latex cards on non-latex device currently requires 2 syncs with main server to
+ show the images
 
 -add media to a card but then abandonig/editing the card keeps the media in media directory
  (they are not referenced in the database, though)
@@ -419,7 +419,7 @@ Multiuser statistics analysis:
 
 -importing cards from rss feed
 
--clean obsolete latex images / autogenerate them
+-clean obsolete latex images
 
 -investigate ridiculously large thinking times
 

@@ -58,6 +58,7 @@ SCHEMA = """
         fact_view_id text,
         creation_time integer,
         modification_time integer,
+        tags text,
         question text,
         answer text,
         grade integer,
@@ -568,14 +569,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         _card_id = self.con.execute("""insert into cards(id, card_type_id, _fact_id,
             fact_view_id, creation_time, modification_time, grade, easiness, acq_reps, ret_reps, lapses,
             acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
-            extra_data, scheduler_data, active, question, answer)
-            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            extra_data, scheduler_data, active, tags, question, answer)
+            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             (card.id, card.card_type.id, card.fact._id, card.fact_view.id, card.creation_time, card.modification_time, card.grade,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
             card.last_rep, card.next_rep,
             self._repr_extra_data(card.extra_data),
-            card.scheduler_data, card.active, card.question("plain_text"),
+            card.scheduler_data, card.active, card.tag_string(), card.question("plain_text"),
             card.answer("plain_text"))).lastrowid
         card._id = _card_id
         # Link card to its tags. The tags themselves have already been created
@@ -625,10 +626,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         if repetition_only:
             return
         self.con.execute("""update cards set card_type_id=?, _fact_id=?, fact_view_id=?,
-            creation_time=?, modification_time=?, extra_data=?,
+            creation_time=?, modification_time=?, extra_data=?, tags=?,
             question=?, answer=? where _id=?""",
             (card.card_type.id, card.fact._id, card.fact_view.id, card.creation_time, card.modification_time,
-            self._repr_extra_data(card.extra_data),
+            self._repr_extra_data(card.extra_data), card.tag_string(),
             card.question("plain_text"),
             card.answer("plain_text"), card._id))        
         # If repetition_only is True, there is no need to log an EDITED_CARD

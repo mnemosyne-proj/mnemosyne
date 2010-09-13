@@ -45,14 +45,14 @@ class Cloze(CardType):
     def is_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
         
-    def question(self, card, render_chain="default", **render_args):
+    def create_question(self, card, render_chain="default", **render_args):
         cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
         question = question.replace(cloze, "[...]",  1)
         return self.renderer(render_chain).render_fields({"text": question},
             ["text"], self, render_chain, **render_args)
 
-    def answer(self, card, render_chain="default", **render_args):
+    def create_answer(self, card, render_chain="default", **render_args):
         cloze = card.extra_data["cloze"]
         return self.renderer(render_chain).render_fields({"text": cloze},
             ["text"], self, render_chain, **render_args)

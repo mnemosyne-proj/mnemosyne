@@ -45,7 +45,7 @@ class ComponentManager(object):
                         self.components[used_for][comp_type].append(component)
                     else:
                         self.components[used_for][comp_type].\
-                            insert(0, component)   
+                            insert(0, component)
         if comp_type == "card_type":
             self.card_type_by_id[component.id] = component
             

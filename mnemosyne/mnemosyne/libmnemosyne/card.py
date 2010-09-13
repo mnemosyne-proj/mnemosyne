@@ -5,6 +5,7 @@
 import time
 
 from mnemosyne.libmnemosyne.utils import CompareOnId
+from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
 
 class Card(CompareOnId):
@@ -85,13 +86,22 @@ class Card(CompareOnId):
         self.next_rep = -1
 
     def question(self, render_chain="default", **render_args):
-        return self.card_type.question(self, render_chain, **render_args)
+
+        # First create contents in card type.
+
+        # Then worry about rendering.
+        # See if there is a renderer specifically for this card type and render chain.
+        # If not, call the generic one
+        
+        return self.card_type.create_question(self, render_chain,
+            **render_args)
        
     def answer(self, render_chain="default", **render_args):                
-        return self.card_type.answer(self, render_chain, **render_args)
+        return self.card_type.create_answer(self, render_chain, **render_args)
 
     def tag_string(self):
-        return ", ".join([tag.name for tag in self.tags if \
-                          tag.name != "__UNTAGGED__"])
+        tags = [tag.name for tag in self.tags if tag.name != "__UNTAGGED__"]
+        sorted_tags = sorted(tags, cmp=numeric_string_cmp)
+        return ", ".join(sorted_tags)
         
     interval = property(lambda self : self.next_rep - self.last_rep)
