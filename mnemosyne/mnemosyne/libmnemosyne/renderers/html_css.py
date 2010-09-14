@@ -99,23 +99,15 @@ class HtmlCss(Renderer):
             self.update(card_type)
         return self._css[card_type.id]
 
-    def body(self, field_data, fields, render_chain, **render_args):
-        # Note that the filter only run on the card data, not on the full
-        # webpage. This is done for efficiency reasons. If a plugin needs
-        # to modify e.g. the css, this is best done in a new renderer as
-        # opposed to in a filter.
+    def body(self, field_data, fields, **render_args):
         html = ""
         for field in fields:
-            s = field_data[field]
-            for f in self.filters(render_chain):
-                s = f.run(s, **render_args)
-            html += "<div id=\"%s\">%s</div>" % (field, s)
+            html += "<div id=\"%s\">%s</div>" % (field, field_data[field])
         return html
                 
-    def render_fields(self, field_data, fields, card_type,
-                      render_chain, **render_args):
+    def render_fields(self, field_data, fields, card_type, **render_args):
         css = self.css(card_type)
-        body = self.body(field_data, fields, render_chain, **render_args)  
+        body = self.body(field_data, fields, **render_args)  
         return """
         <html>
         <head>

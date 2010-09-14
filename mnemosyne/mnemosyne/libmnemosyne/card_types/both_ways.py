@@ -37,7 +37,7 @@ from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
 
 class FrontToBackToBothWays(CardTypeConverter):
 
-    used_for = ((FrontToBack, BothWays), )
+    used_for = (FrontToBack, BothWays)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         # Update front-to-back view to corresponding view in new type.
@@ -51,7 +51,7 @@ class FrontToBackToBothWays(CardTypeConverter):
  
 class BothWaysToFrontToBack(CardTypeConverter):
 
-    used_for = ((BothWays, FrontToBack), )
+    used_for = (BothWays, FrontToBack)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         new_cards, edited_cards, deleted_cards = [], [], []

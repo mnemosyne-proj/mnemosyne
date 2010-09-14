@@ -20,7 +20,7 @@ class Map(CardType):
 
     # Recognition.
     v1 = FactView(_("Recognition"), "4::1")
-    v1.q_fields = ["_", "marked"]
+    v1.q_fields = ["marked"]
     v1.a_fields = ["loc", "marked",]
     v1.a_on_top_of_q = True
     
@@ -33,12 +33,6 @@ class Map(CardType):
     fact_views = [v1, v2]
     unique_fields = ["loc"]
     required_fields = ["loc", "blank", "marked"]
-    
-    def create_question(self, card, render_chain="default", **render_args):
-        # Insert a blank line to improve layout.
-        card.fact["_"] = "<br>"
-        return CardType.create_question(self, card, render_chain,
-            **render_args)
 
 
 class MapPlugin(Plugin):

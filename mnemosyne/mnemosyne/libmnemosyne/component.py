@@ -7,16 +7,15 @@ class Component(object):
 
     """Base class of components that are registered with the component
     manager. This is a list of component types: config, log, database,
-    scheduler, stopwatch, translator, filter, card_type, card_type_converter,
-    card_type_widget, generic_card_type_widget, ui_component, renderer,
-    controller, main_widget, review_controller, review_widget, file format,
-    plugin, hook, activity_criterion, criterion_applier, statistics_page,
-    sync_server, all the abstract dialogs, ...      
+    scheduler, stopwatch, translator, card_type, card_type_converter,
+    render_chain, renderer, filter, card_type_widget,
+    generic_card_type_widget, ui_component, controller, main_widget,
+    review_controller, review_widget, file format, plugin, hook,
+    activity_criterion, criterion_applier, statistics_page, sync_server,
+    all the abstract dialogs, ...      
 
     'used_for' can store certain relationships between components, e.g.
-    a card type widget is used for a certain card type. A component can be
-    used for multple things, e.g. a filter can be used in several renderer
-    chains: used_for = "chain1', "chain2".
+    a card type widget is used for a certain card type.
 
     Most of the time, instances are stored here, apart from widgets when
     classes are stored. (Instantiating a complex widget can take a lot of
@@ -102,19 +101,12 @@ class Component(object):
 
     def card_types(self):
         return self.component_manager.all("card_type")
-
-    def renderer(self, render_chain="default"):
-        return self.component_manager.current("renderer",
-            used_for=render_chain)
-
-    def filters(self, render_chain="default"):
-        return self.component_manager.all("filter", used_for=render_chain)
-
-    def plugins(self):
-        return self.component_manager.all("plugin")
     
     def card_type_by_id(self, id):
         return self.component_manager.card_type_by_id[id]
+
+    def plugins(self):
+        return self.component_manager.all("plugin")
 
     def flush_sync_server(self):
 

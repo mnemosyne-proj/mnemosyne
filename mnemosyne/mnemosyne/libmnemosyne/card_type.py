@@ -38,11 +38,14 @@ class CardType(Component, CompareOnId):
 
     We could use the component manager to track fact views, but this is
     probably overkill.
+
+    The function 'fact_data' typically just returns a dictionary which is
+    typically just fact.data, butwhich can also be generated on the fly,
+    as e.g. in the cloze card type.
     
-    The functions create_related_cards and edit_related_cards and
-    after_review provide an extra layer of abstraction and can be overridden
-    by card types like cloze deletion, which require a varying number of fact
-    views with card specific data.
+    The functions 'create_related_cards' and 'edit_related_cards' can be
+    overridden by card types which can have a varying number of fact views,
+    e.g. the cloze card type.
 
     """
     
@@ -77,24 +80,29 @@ class CardType(Component, CompareOnId):
                 return False
         return True
 
-    # All the following functions allow for the fact that all the logic
-    # corresponding to specialty card types (like cloze deletion) can be
-    # contained in a single derived class by reimplementing these functions.
-    # The default implementation provided here is for fact-based cards.
-        
-    def create_question(self, card, render_chain="default", **render_args):
-        return self.renderer(render_chain).render_fields(card.fact,
-            card.fact_view.q_fields, self, render_chain, **render_args)
+    def render_question(self, card, render_chain="default", **render_args):
+        return self.render_chain(render_chain).\
+            render_question(card, **render_args)
+       
+    def render_answer(self, card, render_chain="default", **render_args):
+        return self.render_chain(render_chain).\
+            render_answer(card, **render_args)
 
-    def create_answer(self, card, render_chain="default", **render_args):
-        return self.renderer(render_chain).render_fields(card.fact,
-            card.fact_view.a_fields, self, render_chain, **render_args)
-    
-    # The following functions should only deal with creating, deleting, ...
-    # Card objects. Initial grading and storing in the database is done in
-    # the main controller.
+    # The following functions can be overridden by speciality card types.
+        
+    def fact_data(self, card):
+        return card.fact.data
+
+    def create_answer_data(self, card):
+        return card.fact.data
 
     def create_related_cards(self, fact):
+
+        """Initial grading of cards and storing in the database should not happen
+        here, but is done in the main controller.
+
+        """
+        
         return [Card(self, fact, fact_view) for fact_view in self.fact_views]
 
     def edit_related_cards(self, fact, new_fact_data):
@@ -104,13 +112,16 @@ class CardType(Component, CompareOnId):
         derive, these should be returned here, so that they can be taken into
         account in the database storage.
 
+        Initial grading of cards and storing in the database should not happen
+        here, but is done in the main controller.
+
         """
 
         new_cards, edited_cards, deleted_cards = [], [], []
         return new_cards, edited_cards, deleted_cards
     
     def before_repetition(self, card):
-        return
+        pass
 
     def after_repetition(self, card):
-        return
+        pass

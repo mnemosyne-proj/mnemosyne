@@ -1,6 +1,12 @@
--renderer per cardtype? cardtype renderer class used_for renderer? card_type attribute in renderer? inheritance in card type (not ok in regular attribute, unless we add extra logic to card.py, need to chache in dictionary)?, update component.py docs
--just overloading create question? Better for separation: move all rendering out of create question?
--make renderchain a component? Would allow us to get rid of card converter syntax quirks
+-still render question in card type? Document why we can't do this in card directly
+-make 'field_data' 'fields' terminology uniform
+-renderer: used for: card_type, None
+-filter: no used for
+-create folder with renderchains
+-update renderers
+-test webserver
+-see if we can reduce the argument count in render_q and render_a
+-update overview document, add render chain to pages
 -test blank line hack in map card type
 
 -make q,a and tags column optional for some clients (default None, so as to make sure each client sets it)

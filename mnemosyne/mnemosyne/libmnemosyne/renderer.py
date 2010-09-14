@@ -53,15 +53,11 @@ class Renderer(Component):
         for key in keys:
             self.config()[property_name][card_type.id][key] = property
 
-    def render_fields(self, field_data, fields, card_type,
-                      render_chain, **render_args):
+    def render_fields(self, field_data, fields, card_type, **render_args):
 
         """Renders a sequence of 'fields' from the dictionary 'field_data'.
         'card_type' is passed as extra argument e.g. to determine card type
         specific formatting.
-        We need to pass 'render_chain' as an argument here: a renderer can be
-        used in more than one render chain, and can therefore not determine
-        which render chain it is part of.
 
         """
         

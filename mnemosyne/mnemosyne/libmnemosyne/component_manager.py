@@ -15,53 +15,43 @@ class ComponentManager(object):
     one registered takes preference. This means that e.g. the default
     scheduler needs to be registered first.
 
-    When registering or unregistering a component, normally the 'used_for'
-    information is taken from the class definition. This can be overriden
-    by specifying an optional argument. This is typically used for building
-    a new render chain, based on an existing renderer and/or existing plugins.
-
     """
         
     def __init__(self):
         self.components = {} # {used_for: {type: [component]} }
         self.card_type_by_id = {}
-
-    def register(self, component, used_for=None, in_front=False):
+        self.render_chain_by_id = {}
+        
+    def register(self, component, in_front=False):
         comp_type = component.component_type
-        if used_for is None:
-            used_for = component.used_for
-        if not isinstance(used_for, tuple):
-            used_fors = (used_for, )
+        used_for = component.used_for   
+        if not self.components.has_key(used_for):
+            self.components[used_for] = {}
+        if not self.components[used_for].has_key(comp_type):
+            self.components[used_for][comp_type] = [component]
         else:
-            used_fors = used_for
-        for used_for in used_fors:
-            if not self.components.has_key(used_for):
-                self.components[used_for] = {}
-            if not self.components[used_for].has_key(comp_type):
-                self.components[used_for][comp_type] = [component]
-            else:
-                if component not in self.components[used_for][comp_type]:
-                    if not in_front:
-                        self.components[used_for][comp_type].append(component)
-                    else:
-                        self.components[used_for][comp_type].\
-                            insert(0, component)
+            if component not in self.components[used_for][comp_type]:
+                if not in_front:
+                    self.components[used_for][comp_type].append(component)
+                else:
+                    self.components[used_for][comp_type].\
+                        insert(0, component)
+        # We could abuse the component's used_for as the id here, but that
+        # would hamper readability.
         if comp_type == "card_type":
             self.card_type_by_id[component.id] = component
+        elif comp_type == "render_chain":
+            self.render_chain_by_id[component.id] = component
             
-    def unregister(self, component, used_for=None):
+    def unregister(self, component):
         comp_type = component.component_type
-        if used_for is None:
-            used_for = component.used_for
-        if not isinstance(used_for, tuple):
-            used_fors = (used_for, )
-        else:
-            used_fors = used_for
-        for used_for in used_fors:
-            self.components[used_for][comp_type].remove(component)
+        used_for = component.used_for
+        self.components[used_for][comp_type].remove(component)
         if component.component_type == "card_type":
             del self.card_type_by_id[component.id]
-
+        elif component.component_type == "render_chain":
+            del self.render_chain_by_id[component.id]
+            
     def add_component_to_plugin(self, plugin_class_name, component_class):
 
         """Typical use case for this is when a plugin has a GUI

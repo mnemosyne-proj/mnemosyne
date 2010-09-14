@@ -86,18 +86,12 @@ class Card(CompareOnId):
         self.next_rep = -1
 
     def question(self, render_chain="default", **render_args):
-
-        # First create contents in card type.
-
-        # Then worry about rendering.
-        # See if there is a renderer specifically for this card type and render chain.
-        # If not, call the generic one
-        
-        return self.card_type.create_question(self, render_chain,
-            **render_args)
+        return self.card_type.render_question\
+            (self, render_chain, **render_args)
        
-    def answer(self, render_chain="default", **render_args):                
-        return self.card_type.create_answer(self, render_chain, **render_args)
+    def answer(self, render_chain="default", **render_args):
+        return self.card_type.render_answer\
+            (self, render_chain, **render_args)
 
     def tag_string(self):
         tags = [tag.name for tag in self.tags if tag.name != "__UNTAGGED__"]
