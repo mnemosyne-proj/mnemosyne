@@ -105,6 +105,9 @@ class Component(object):
     def card_type_by_id(self, id):
         return self.component_manager.card_type_by_id[id]
 
+    def render_chain(self, id="default"):
+        return self.component_manager.render_chain_by_id[id]        
+
     def plugins(self):
         return self.component_manager.all("plugin")
 

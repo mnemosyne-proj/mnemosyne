@@ -1,14 +1,3 @@
--still render question in card type? Document why we can't do this in card directly
--make 'field_data' 'fields' terminology uniform
--renderer: used for: card_type, None
--filter: no used for
--create folder with renderchains
--update renderers
--test webserver
--see if we can reduce the argument count in render_q and render_a
--update overview document, add render chain to pages
--test blank line hack in map card type
-
 -make q,a and tags column optional for some clients (default None, so as to make sure each client sets it)
 -reorder card fields in sql and in card.py
 
@@ -29,8 +18,6 @@
 -add controller logic for after editing/deleting a card in browse cards
 
 -do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
-
--preview card formatting changes; cancel does not undo the changes (vestige of card_type.renderer())
 
 -add full html header to stardard renderer. Still need MW table hack?
 -test and time renderer on MW. Need to cache it?
@@ -193,6 +180,8 @@ pylint:
 
 
 * After 2.0:
+
+-more elaborate plugin description in bottom pane
 
 -post nose 0.11: add cover branches
 
@@ -357,6 +346,8 @@ Multiuser statistics analysis:
 -download media files when giving URL
 
 -three sided export?
+
+-webserver: map card type does not really hide the question box, just blanks the question
 
 -synonym handling plugin?
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>EditFactDlg</class>
- <widget class="QDialog" name="EditFactDlg">
+ <class>EditCardDlg</class>
+ <widget class="QDialog" name="EditCardDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -128,7 +128,7 @@
   <connection>
    <sender>exit_button</sender>
    <signal>clicked()</signal>
-   <receiver>EditFactDlg</receiver>
+   <receiver>EditCardDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -144,7 +144,7 @@
   <connection>
    <sender>preview_button</sender>
    <signal>clicked()</signal>
-   <receiver>EditFactDlg</receiver>
+   <receiver>EditCardDlg</receiver>
    <slot>preview</slot>
    <hints>
     <hint type="sourcelabel">
@@ -160,7 +160,7 @@
   <connection>
    <sender>OK_button</sender>
    <signal>clicked()</signal>
-   <receiver>EditFactDlg</receiver>
+   <receiver>EditCardDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">

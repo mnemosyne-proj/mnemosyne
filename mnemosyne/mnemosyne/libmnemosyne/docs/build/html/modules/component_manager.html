@@ -61,10 +61,6 @@ filters, function hooks, ...). For others, there can be only on active
 at the same time, like schedule, database ... The idea is that the last
 one registered takes preference. This means that e.g. the default
 scheduler needs to be registered first.</p>
-<p>When registering or unregistering a component, normally the &#8216;used_for&#8217;
-information is taken from the class definition. This can be overriden
-by specifying an optional argument. This is typically used for building
-a new render chain, based on an existing renderer and/or existing plugins.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin">
 <tt class="descname">add_component_to_plugin</tt><big>(</big><em>plugin_class_name</em>, <em>component_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin" title="Permalink to this definition">¶</a></dt>
@@ -90,12 +86,12 @@ time.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.register">
-<tt class="descname">register</tt><big>(</big><em>component</em>, <em>used_for=None</em>, <em>in_front=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.register" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">register</tt><big>(</big><em>component</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.register" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.unregister">
-<tt class="descname">unregister</tt><big>(</big><em>component</em>, <em>used_for=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.unregister" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">unregister</tt><big>(</big><em>component</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.unregister" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -156,7 +152,7 @@ time.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 07, 2010.
+      Last updated on Sep 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

@@ -33,8 +33,8 @@ mnemosyne.components = [
      "MainFrame"),
     ("mnemosyne.ppygui_ui.review_wdgt",
      "ReviewWdgt"),
-    ("mnemosyne.ppygui_ui.html_css_WM",
-     "HtmlCss_WM"),
+    ("mnemosyne.ppygui_ui.render_chain_WM",
+     "RenderChain_WM"),
     ("mnemosyne.libmnemosyne.databases.SQLite",
      "SQLite"), 
     ("mnemosyne.libmnemosyne.configuration",
@@ -51,12 +51,6 @@ mnemosyne.components = [
      "BothWays"),
     ("mnemosyne.libmnemosyne.card_types.three_sided",
      "ThreeSided"),
-    ("mnemosyne.libmnemosyne.filters.escape_to_html",
-     "EscapeToHtml"),
-    ("mnemosyne.libmnemosyne.filters.latex",
-     "Latex"),
-    ("mnemosyne.libmnemosyne.filters.expand_paths",
-     "ExpandPaths"),
     ("mnemosyne.libmnemosyne.controllers.default_controller",
      "DefaultController"),
     ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
@@ -68,9 +62,7 @@ mnemosyne.components = [
     ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
      "DefaultCriterion"),
     ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
-     "DefaultCriterionApplier"),   
-    ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
-     "CrammingPlugin") ]
+     "DefaultCriterionApplier") ]
 
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir)

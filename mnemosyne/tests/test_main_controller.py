@@ -34,7 +34,7 @@ class TestMainController(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "AddCardsDialog"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditFactDialog"))
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "BrowseCardsDialog"))
         self.mnemosyne.components.append(\

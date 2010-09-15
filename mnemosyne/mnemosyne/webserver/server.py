@@ -50,11 +50,14 @@ class Server(WSGIServer):
         self.mnemosyne.components.insert(0,
             ("mnemosyne.libmnemosyne.translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+            ("mnemosyne.libmnemosyne.ui_components.main_widget",
+             "MainWidget"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.webserver.html_review_widget", "HtmlReviewWidget"))
+            ("mnemosyne.webserver.html_review_widget",
+             "HtmlReviewWidget"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.webserver.webserver_renderer", "WebserverRenderer"))
+            ("mnemosyne.webserver.webserver_render_chain",
+             "WebserverRenderChain"))
         self.mnemosyne.initialise(data_dir, filename, automatic_upgrades=False)
 
     def serve_until_stopped(self):

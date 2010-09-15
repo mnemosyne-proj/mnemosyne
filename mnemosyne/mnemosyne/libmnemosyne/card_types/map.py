@@ -2,6 +2,8 @@
 # map.py <Peter.Bienstman@UGent.be>
 #
 
+import copy
+
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.plugin import Plugin
@@ -20,7 +22,7 @@ class Map(CardType):
 
     # Recognition.
     v1 = FactView(_("Recognition"), "4::1")
-    v1.q_fields = ["marked"]
+    v1.q_fields = ["_", "marked"]
     v1.a_fields = ["loc", "marked",]
     v1.a_on_top_of_q = True
     
@@ -34,6 +36,10 @@ class Map(CardType):
     unique_fields = ["loc"]
     required_fields = ["loc", "blank", "marked"]
 
+    def fact_data(self, card):
+        data = copy.copy(card.fact.data)
+        data["_"] = "\n"  # Insert a blank line to improve layout.
+        return data
 
 class MapPlugin(Plugin):
     

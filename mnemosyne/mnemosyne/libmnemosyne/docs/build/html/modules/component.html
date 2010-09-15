@@ -55,15 +55,14 @@
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.component.</tt><tt class="descname">Component</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class of components that are registered with the component
 manager. This is a list of component types: config, log, database,
-scheduler, stopwatch, translator, filter, card_type, card_type_converter,
-card_type_widget, generic_card_type_widget, ui_component, renderer,
-controller, main_widget, review_controller, review_widget, file format,
-plugin, hook, activity_criterion, criterion_applier, statistics_page,
-sync_server, all the abstract dialogs, ...</p>
+scheduler, stopwatch, translator, card_type, card_type_converter,
+render_chain, renderer, filter, card_type_widget,
+generic_card_type_widget, ui_component, controller, main_widget,
+review_controller, review_widget, file format, plugin, hook,
+activity_criterion, criterion_applier, statistics_page, sync_server,
+all the abstract dialogs, ...</p>
 <p>&#8216;used_for&#8217; can store certain relationships between components, e.g.
-a card type widget is used for a certain card type. A component can be
-used for multple things, e.g. a filter can be used in several renderer
-chains: used_for = &#8220;chain1&#8217;, &#8220;chain2&#8221;.</p>
+a card type widget is used for a certain card type.</p>
 <p>Most of the time, instances are stored here, apart from widgets when
 classes are stored. (Instantiating a complex widget can take a lot of
 time on a mobile device, and should be done lazily.) Only the main
@@ -115,11 +114,6 @@ components on which it relies have not yet been registered.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.component.Component.filters">
-<tt class="descname">filters</tt><big>(</big><em>render_chain='default'</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.filters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.component.Component.flush_sync_server">
 <tt class="descname">flush_sync_server</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.flush_sync_server" title="Permalink to this definition">¶</a></dt>
 <dd>If there are still dangling sessions (i.e. those waiting in vain
@@ -144,8 +138,8 @@ shutdown, their backup restoration will override the changes.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.component.Component.renderer">
-<tt class="descname">renderer</tt><big>(</big><em>render_chain='default'</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.renderer" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.component.Component.render_chain">
+<tt class="descname">render_chain</tt><big>(</big><em>id='default'</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component.Component.render_chain" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -227,7 +221,7 @@ is under control of the review controller.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 07, 2010.
+      Last updated on Sep 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

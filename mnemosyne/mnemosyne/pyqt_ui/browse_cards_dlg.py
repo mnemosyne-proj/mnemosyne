@@ -67,8 +67,6 @@ class CardModel(QtSql.QSqlTableModel):
         
         return QtSql.QSqlTableModel.data(self, index, role)
 
-class SortedCardModel(QtGui.QSortFilterProxyModel):
-    
 
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
 
@@ -89,8 +87,6 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.card_model = CardModel(self)
         
         self.card_model.setTable("cards")
-        #self.card_model.setRelation(CATEGORYID,
-        #        QSqlRelation("categories", "id", "name"))
         #self.card_model.setSort(GRADE, QtCore.Qt.AscendingOrder)
 
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),

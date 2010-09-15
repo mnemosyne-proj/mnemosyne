@@ -49,7 +49,7 @@ class Cloze(CardType):
     def is_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
         
-    def create_fact_data(self, card):
+    def fact_data(self, card):
         cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
         question = question.replace(cloze, "[...]",  1)

@@ -70,10 +70,12 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
                              "ReviewWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration",
                              "PyQtConfiguration"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.pyqt_render_chain",
+                             "PyQtRenderChain"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.add_cards_dlg",
                              "AddCardsDlg"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.edit_fact_dlg",
-                             "EditFactDlg"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.edit_card_dlg",
+                             "EditCardDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.browse_cards_dlg",
                              "BrowseCardsDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.activate_cards_dlg",
@@ -102,8 +104,6 @@ mnemosyne.components.append(("mnemosyne.pyqt_ui.statistics_wdgt_html",
                              "HtmlStatisticsWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.criterion_wdgt_default",
                              "DefaultCriterionWdgt"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.mp3_clip_prevention",
-                             "Mp3ClipPrevention"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration_dlg",
                              "ConfigurationDlg"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.sync_dlg",

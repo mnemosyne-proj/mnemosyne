@@ -1,27 +1,26 @@
 #
-# edit_fact_dlg.py <Peter.Bienstman@UGent.be>
+# edit_card_dlg.py <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtGui
 
 from mnemosyne.pyqt_ui.add_cards_dlg import AddEditCards
-from mnemosyne.pyqt_ui.ui_edit_fact_dlg import Ui_EditFactDlg
-from mnemosyne.libmnemosyne.ui_components.dialogs import EditFactDialog
+from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
+from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
 
 
-class EditFactDlg(QtGui.QDialog, Ui_EditFactDlg, AddEditCards,
-                  EditFactDialog):
+class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
+                  EditCardDialog):
 
-    def __init__(self, fact, component_manager, allow_cancel=True):
+    def __init__(self, card, component_manager, allow_cancel=True):
         AddEditCards.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         if not allow_cancel:
             self.exit_button.setVisible(False)  
-        self.fact = fact 
-        self.initialise_card_types_combobox(self.fact.card_type.name)     
-        tag_string = self.database().cards_from_fact(fact)[0].tag_string()
-        self.update_tags_combobox(tag_string)
+        self.card = card
+        self.initialise_card_types_combobox(self.card.card_type.name)     
+        self.update_tags_combobox(card.tag_string())
         width, height = self.config()["edit_widget_size"]
         if width:
             self.resize(width, height)
@@ -41,7 +40,7 @@ class EditFactDlg(QtGui.QDialog, Ui_EditFactDlg, AddEditCards,
         new_card_type_name = unicode(self.card_types_widget.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
         c = self.controller()
-        status = c.edit_related_cards(self.fact, new_fact_data,
+        status = c.edit_related_cards(self.card.fact, new_fact_data,
                         new_card_type, new_tag_names, self.correspondence)
         if status == 0:
             tag_text = ", ".join(new_tag_names)

@@ -76,18 +76,15 @@ type&#8217;s &#8216;fields&#8217; variable, which could be useful for card types
 hidden fields.</p>
 <p>We could use the component manager to track fact views, but this is
 probably overkill.</p>
-<p>The functions create_related_cards and edit_related_cards and
-after_review provide an extra layer of abstraction and can be overridden
-by card types like cloze deletion, which require a varying number of fact
-views with card specific data.</p>
+<p>The function &#8216;fact_data&#8217; typically just returns a dictionary which is
+typically just fact.data, butwhich can also be generated on the fly,
+as e.g. in the cloze card type.</p>
+<p>The functions &#8216;create_related_cards&#8217; and &#8216;edit_related_cards&#8217; can be
+overridden by card types which can have a varying number of fact views,
+e.g. the cloze card type.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.after_repetition">
 <tt class="descname">after_repetition</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.after_repetition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.answer">
-<tt class="descname">answer</tt><big>(</big><em>card</em>, <em>render_chain='default'</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.answer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -96,17 +93,31 @@ views with card specific data.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.create_answer_data">
+<tt class="descname">create_answer_data</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_answer_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.create_related_cards">
 <tt class="descname">create_related_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_related_cards" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd>Initial grading of cards and storing in the database should not happen
+here, but is done in the main controller.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.edit_related_cards">
 <tt class="descname">edit_related_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.edit_related_cards" title="Permalink to this definition">¶</a></dt>
-<dd>If for the card type this operation results in edited, added or
+<dd><p>If for the card type this operation results in edited, added or
 deleted card data apart from the edited fact data from which they
 derive, these should be returned here, so that they can be taken into
-account in the database storage.</dd></dl>
+account in the database storage.</p>
+<p>Initial grading of cards and storing in the database should not happen
+here, but is done in the main controller.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_data">
+<tt class="descname">fact_data</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.is_data_valid">
@@ -129,8 +140,13 @@ account in the database storage.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.question">
-<tt class="descname">question</tt><big>(</big><em>card</em>, <em>render_chain='default'</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.question" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.render_answer">
+<tt class="descname">render_answer</tt><big>(</big><em>card</em>, <em>render_chain='default'</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.render_answer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.render_question">
+<tt class="descname">render_question</tt><big>(</big><em>card</em>, <em>render_chain='default'</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.render_question" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -191,7 +207,7 @@ account in the database storage.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 07, 2010.
+      Last updated on Sep 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

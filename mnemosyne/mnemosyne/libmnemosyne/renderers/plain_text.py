@@ -7,16 +7,12 @@ from mnemosyne.libmnemosyne.renderer import Renderer
 
 class PlainText(Renderer):
 
-    used_for = "plain_text"
+    used_for = None  # All card types.
 
-    def render_fields(self, field_data, fields, card_type,
-                      render_chain, **render_args):
+    def render_fields(self, data, fields, card_type, **render_args):
         text = ""
         for field in fields:
-            s = field_data[field]
-            for f in self.filters(render_chain):
-                s = f.run(s, **render_args)
-            text += s + "\n"
+            text += data[field] + "\n"
         return text
 
     

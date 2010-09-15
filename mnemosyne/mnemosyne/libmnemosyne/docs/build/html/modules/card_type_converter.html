@@ -20,7 +20,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
-    <link rel="next" title="Renderer" href="renderer.html" />
+    <link rel="next" title="RenderChain" href="render_chain.html" />
     <link rel="prev" title="Card" href="card.html" /> 
   </head>
   <body>
@@ -34,7 +34,7 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="renderer.html" title="Renderer"
+          <a href="render_chain.html" title="RenderChain"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="card.html" title="Card"
@@ -54,14 +54,9 @@
 <dt id="mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.card_type_converter.</tt><tt class="descname">CardTypeConverter</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a set of related cards to a new card type.</p>
-<p>&#8216;used_for&#8217; should boil down to the tuple (old_type class, new_type class).
-However, since the component mechanism allows that a component is
-&#8216;used_for&#8217; for more than one purpose (e.g. a filter can be used for more
-than one render chain), we need to avoid confusion with that case by
-wrapping our tuple in an extra tuple:</p>
-<p>used_for = ((old_type class, new_type class), )</p>
+<p>used_for = (old_type class, new_type class)</p>
 <p>Note that the function of this class is not to edit the fact data behind
-the cards, which is trivial and handled in the main UI controller, but
+the cards, which is trivial and handled in the main  controller, but
 rather to delete, create or convert cards to make the transition to the
 new card type.</p>
 <p>&#8216;correspondence&#8217; is the dictionary which relates fact keys in the two
@@ -87,8 +82,8 @@ or deleted.</p>
             <p class="topless"><a href="card.html"
                                   title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="renderer.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">Renderer</span></tt></a></p>
+            <p class="topless"><a href="render_chain.html"
+                                  title="next chapter"><tt class="docutils literal"><span class="pre">RenderChain</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/card_type_converter.txt"
@@ -121,7 +116,7 @@ or deleted.</p>
           <a href="../modindex.html" title="Global Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="renderer.html" title="Renderer"
+          <a href="render_chain.html" title="RenderChain"
              >next</a> |</li>
         <li class="right" >
           <a href="card.html" title="Card"
@@ -131,7 +126,7 @@ or deleted.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 07, 2010.
+      Last updated on Sep 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

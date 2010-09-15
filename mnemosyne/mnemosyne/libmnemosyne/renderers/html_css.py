@@ -18,7 +18,7 @@ class HtmlCss(Renderer):
     
     """
 
-    used_for = "default", "sync_to_card_only_client"
+    used_for = None  # All card types.
     table_height = "100%"
     
     def __init__(self, component_manager):
@@ -99,15 +99,15 @@ class HtmlCss(Renderer):
             self.update(card_type)
         return self._css[card_type.id]
 
-    def body(self, field_data, fields, **render_args):
+    def body(self, data, fields, **render_args):
         html = ""
         for field in fields:
-            html += "<div id=\"%s\">%s</div>" % (field, field_data[field])
+            html += "<div id=\"%s\">%s</div>" % (field, data[field])
         return html
                 
-    def render_fields(self, field_data, fields, card_type, **render_args):
+    def render_fields(self, data, fields, card_type, **render_args):
         css = self.css(card_type)
-        body = self.body(field_data, fields, **render_args)  
+        body = self.body(data, fields, **render_args)  
         return """
         <html>
         <head>

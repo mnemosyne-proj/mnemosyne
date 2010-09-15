@@ -21,7 +21,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
     <link rel="next" title="Controller" href="controller.html" />
-    <link rel="prev" title="CardTypeConverter" href="card_type_converter.html" /> 
+    <link rel="prev" title="Filter" href="filter.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,7 @@
           <a href="controller.html" title="Controller"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="card_type_converter.html" title="CardTypeConverter"
+          <a href="filter.html" title="Filter"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -53,18 +53,23 @@
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.renderer.</tt><tt class="descname">Renderer</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Renders the contents of the Fact behind a Card to a suitable format,
-e.g. a html page, or a purely text based format.</p>
-<p>&#8220;used_for&#8221; = render_chain</p>
+<dd><p>Assembles a sequence of &#8216;fields&#8217; which are keys in a dictionary &#8216;data&#8217;
+to a certain format, e.g. a html page, or a purely text based format.</p>
+<p>Typically, &#8216;data&#8217; is the fact data of a card, and &#8216;fields&#8217; are the question
+and answer fields of the card&#8217;s fact view.</p>
+<p>It is contained in a RenderChain and represents the functionality which
+is typically different for each card type.</p>
+<p>If this renderer is only for a specific card type (and its descendants)
+&#8216;used_for&#8217; can be set to the corresponding CardType class. If it is set to
+None, this renderer is used for all other card types.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.render_fields">
-<tt class="descname">render_fields</tt><big>(</big><em>field_data</em>, <em>fields</em>, <em>card_type</em>, <em>render_chain</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_fields" title="Permalink to this definition">¶</a></dt>
-<dd>Renders a sequence of &#8216;fields&#8217; from the dictionary &#8216;field_data&#8217;.
-&#8216;card_type&#8217; is passed as extra argument e.g. to determine card type
-specific formatting.
-We need to pass &#8216;render_chain&#8217; as an argument here: a renderer can be
-used in more than one render chain, and can therefore not determine
-which render chain it is part of.</dd></dl>
+<tt class="descname">render_fields</tt><big>(</big><em>data</em>, <em>fields</em>, <em>card_type</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.render_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assembles a sequence of &#8216;fields&#8217; which are keys in a dictionary
+&#8216;data&#8217;.</p>
+<p>card_type&#8217; is passed as extra argument e.g. to determine card type
+specific formatting.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.set_property">
@@ -75,7 +80,9 @@ If fact_key is None, then this will be applied to all fact keys.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.renderer.Renderer.update">
 <tt class="descname">update</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.renderer.Renderer.update" title="Permalink to this definition">¶</a></dt>
-<dd>Update renderer information for given card type.</dd></dl>
+<dd>Update renderer information for given card type. Some information
+(e.g. css style sheets) is typically cached, and this function is
+used to signal that the cache should be rebuilt.</dd></dl>
 
 </dd></dl>
 
@@ -88,8 +95,8 @@ If fact_key is None, then this will be applied to all fact keys.</dd></dl>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="card_type_converter.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">CardTypeConverter</span></tt></a></p>
+            <p class="topless"><a href="filter.html"
+                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Filter</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="controller.html"
                                   title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Controller</span></tt></a></p>
@@ -128,14 +135,14 @@ If fact_key is None, then this will be applied to all fact keys.</dd></dl>
           <a href="controller.html" title="Controller"
              >next</a> |</li>
         <li class="right" >
-          <a href="card_type_converter.html" title="CardTypeConverter"
+          <a href="filter.html" title="Filter"
              >previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 07, 2010.
+      Last updated on Sep 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

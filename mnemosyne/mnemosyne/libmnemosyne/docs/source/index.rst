@@ -27,9 +27,13 @@ Scheduler to do its work. Since the question and answers are generated from
 the Fact data each time a Card is shown, related Cards (i.e. Cards with
 different FactViews of the same Fact) are always consistent.
 
-The actual displaying of the data in a Card is handled by a Renderer. The 
-default Renderer takes the fields from the Fact, adds them into a html template
-and applies a CSS for formatting.
+The actual displaying of the data in a Card is handled by a RenderChain, which
+details the operations needed to get from the raw data in a Card to a 
+representation of its question and answer, in a form either suitable for 
+displaying in a browser, or exporting to a text file, ... . First the raw data
+is sent through Filters, which perform operations which can be useful for many
+card types, like expanding relative paths. Then this data is assembled in the 
+right order in a Renderer, which can be card type specific.
 
 At several points in the program, plugin writers can hook in their code using
 the Hook mechanism.
@@ -65,14 +69,15 @@ Contents
     modules/tag   
     modules/card_type
     modules/card
-    modules/card_type_converter
+    modules/card_type_converter    
+    modules/render_chain
+    modules/filter
     modules/renderer
     modules/controller
     modules/review_controller
     modules/configuration
     modules/database
     modules/file_format
-    modules/filter
     modules/hook
     modules/log_uploader
     modules/logger

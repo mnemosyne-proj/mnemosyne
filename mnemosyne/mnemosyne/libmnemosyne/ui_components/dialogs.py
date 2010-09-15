@@ -16,11 +16,11 @@ class AddCardsDialog(Dialog):
     component_type = "add_cards_dialog"
 
 
-class EditFactDialog(Dialog):
+class EditCardDialog(Dialog):
     
-    component_type = "edit_fact_dialog"
+    component_type = "edit_card_dialog"
 
-    def __init__(self, fact, component_manager, allow_cancel=True):
+    def __init__(self, card, component_manager, allow_cancel=True):
         pass
 
 

@@ -9,8 +9,6 @@ class EscapeToHtml(Filter):
 
     """Escape literal < (unmatched tag) and new line from string."""
 
-    used_for = "default", "sync_to_card_only_client"
-
     def run(self, text):
         hanging = []
         open = 0

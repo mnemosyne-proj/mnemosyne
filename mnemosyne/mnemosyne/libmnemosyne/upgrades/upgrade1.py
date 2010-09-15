@@ -50,12 +50,13 @@ class Upgrade1(Component):
         self.config()["log_index"] = old_config["log_index"]
         self.config()["upload_science_logs"] = old_config["upload_logs"]
         for card_type in self.card_types():
-            card_type.renderer().set_property("font", old_config["QA_font"],
-                card_type)
+            renderer = self.render_chain().renderer_for_card_type(card_type)
+            renderer.set_property("font", old_config["QA_font"], card_type)
         if old_config["left_align"]:
-            for card_type in self.card_types():                
-                card_type.renderer().set_property(\
-                    "alignment", "left", card_type)
+            for card_type in self.card_types():
+                renderer = \
+                    self.render_chain().renderer_for_card_type(card_type)
+                renderer.set_property("alignment", "left", card_type)
         # Migrate latex settings.
         setting_for_file = {"dvipng": "dvipng",
                             "preamble": "latex_preamble",

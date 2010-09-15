@@ -238,7 +238,7 @@ class Mnemosyne1Mem(FileFormat):
             card.next_rep = -1
         self.database().edit_card(card)
         
-    def _preprocess_media(self, fact_data):        
+    def _preprocess_media(self, fact_data):
         media_dir = self.database().media_dir()
         # os.path.normpath does not convert Windows separators to Unix
         # separators, so we need to make sure we internally store Unix paths.

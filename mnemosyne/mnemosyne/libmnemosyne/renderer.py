@@ -7,25 +7,31 @@ from mnemosyne.libmnemosyne.component import Component
 
 class Renderer(Component):
 
-    """Renders the contents of the Fact behind a Card to a suitable format,
-    e.g. a html page, or a purely text based format.
+    """Assembles a sequence of 'fields' which are keys in a dictionary 'data'
+    to a certain format, e.g. a html page, or a purely text based format.
+    
+    Typically, 'data' is the fact data of a card, and 'fields' are the question
+    and answer fields of the card's fact view.
 
-    The 'used_for' argument contains a string to signal the render chain
-    in which the rendere is used ('default', 'plain_text', ...)
+    It is contained in a RenderChain and represents the functionality which
+    is typically different for each card type.
 
-    If this renderer is only for a specific card type (and it's descendants)
-    'card_type' can be set to the corresponding CardType class. If 'card_type' 
-    is None, this renderer is used for all other card types.
+    If this renderer is only for a specific card type (and its descendants)
+    'used_for' can be set to the corresponding CardType class. If it is set to
+    None, this renderer is used for all other card types.
 
     """
 
     component_type = "renderer"
-    used_for = ""
-    card_type = None # Used for all card types.
+    used_for = None  # Used for all card types.
 
     def update(self, card_type):
 
-        """Update renderer information for given card type."""
+        """Update renderer information for given card type. Some information
+        (e.g. css style sheets) is typically cached, and this function is
+        used to signal that the cache should be rebuilt.
+
+        """
         
         pass
 
@@ -53,13 +59,14 @@ class Renderer(Component):
         for key in keys:
             self.config()[property_name][card_type.id][key] = property
 
-    def render_fields(self, field_data, fields, card_type, **render_args):
+    def render_fields(self, data, fields, card_type, **render_args):
 
-        """Renders a sequence of 'fields' from the dictionary 'field_data'.
-        'card_type' is passed as extra argument e.g. to determine card type
+        """Assembles a sequence of 'fields' which are keys in a dictionary
+        'data'.
+        
+        card_type' is passed as extra argument e.g. to determine card type
         specific formatting.
 
         """
         
         raise NotImplementedError
-    

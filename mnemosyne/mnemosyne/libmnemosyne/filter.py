@@ -7,19 +7,19 @@ from mnemosyne.libmnemosyne.component import Component
 
 class Filter(Component):
 
-    """Code which operates on a string and filters it to achieve extra 
+    """Code which operates on a string and filters it to achieve extra
     functionality, e.g. converting relative paths to absolute paths.
 
-    The filter is 'used_for' one or more render chains.
+    It is contained in a RenderChain and represents functionality which is
+    useful for many different card types.
 
-    The filters are executed in the order they are listed in the component
-    manager. If you really need to make sure that your filter runs before the
-    rest, set 'in_front=True' as argument in 'component_manager.register'.
+    The filters are executed in the order they are listed in the RenderChain.
+    If you really need to make sure that your filter runs before the
+    rest, set 'in_front=True' as argument in 'render_chain.register_filter'.
     
     """
 
     component_type = "filter"
-    used_for = "default"
 
     def run(self, text, **render_args):
         raise NotImplementedError

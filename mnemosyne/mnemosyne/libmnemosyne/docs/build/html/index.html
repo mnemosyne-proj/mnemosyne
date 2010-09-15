@@ -63,9 +63,13 @@ certain FactView. A Card also contains all the repetition data needed for the
 Scheduler to do its work. Since the question and answers are generated from
 the Fact data each time a Card is shown, related Cards (i.e. Cards with
 different FactViews of the same Fact) are always consistent.</p>
-<p>The actual displaying of the data in a Card is handled by a Renderer. The
-default Renderer takes the fields from the Fact, adds them into a html template
-and applies a CSS for formatting.</p>
+<p>The actual displaying of the data in a Card is handled by a RenderChain, which
+details the operations needed to get from the raw data in a Card to a
+representation of its question and answer, in a form either suitable for
+displaying in a browser, or exporting to a text file, ... . First the raw data
+is sent through Filters, which perform operations which can be useful for many
+card types, like expanding relative paths. Then this data is assembled in the
+right order in a Renderer, which can be card type specific.</p>
 <p>At several points in the program, plugin writers can hook in their code using
 the Hook mechanism.</p>
 <p>Before the data is passed to the Renderer, Filters can be applied to it. This
@@ -93,13 +97,14 @@ statistics in an integrated way.</p>
 <li class="toctree-l1"><a class="reference external" href="modules/card_type.html"><tt class="docutils literal"><span class="pre">CardType</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/card.html"><tt class="docutils literal"><span class="pre">Card</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/card_type_converter.html"><tt class="docutils literal"><span class="pre">CardTypeConverter</span></tt></a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/render_chain.html"><tt class="docutils literal"><span class="pre">RenderChain</span></tt></a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/filter.html"><tt class="docutils literal"><span class="pre">Filter</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/renderer.html"><tt class="docutils literal"><span class="pre">Renderer</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/controller.html"><tt class="docutils literal"><span class="pre">Controller</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/review_controller.html"><tt class="docutils literal"><span class="pre">ReviewController</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/configuration.html"><tt class="docutils literal"><span class="pre">Configuration</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/database.html"><tt class="docutils literal"><span class="pre">Database</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/file_format.html"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="modules/filter.html"><tt class="docutils literal"><span class="pre">Filter</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/hook.html"><tt class="docutils literal"><span class="pre">Hook</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/log_uploader.html"><tt class="docutils literal"><span class="pre">LogUploader</span></tt></a></li>
 <li class="toctree-l1"><a class="reference external" href="modules/logger.html"><tt class="docutils literal"><span class="pre">Logger</span></tt></a></li>
@@ -177,7 +182,7 @@ statistics in an integrated way.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 07, 2010.
+      Last updated on Sep 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

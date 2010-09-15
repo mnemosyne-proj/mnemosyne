@@ -20,8 +20,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
-    <link rel="next" title="Hook" href="hook.html" />
-    <link rel="prev" title="FileFormat" href="file_format.html" /> 
+    <link rel="next" title="Renderer" href="renderer.html" />
+    <link rel="prev" title="RenderChain" href="render_chain.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,10 +34,10 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="hook.html" title="Hook"
+          <a href="renderer.html" title="Renderer"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="file_format.html" title="FileFormat"
+          <a href="render_chain.html" title="RenderChain"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -53,12 +53,13 @@
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.filter.Filter">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.filter.</tt><tt class="descname">Filter</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Code which operates on a string and filters it to achieve extra 
+<dd><p>Code which operates on a string and filters it to achieve extra
 functionality, e.g. converting relative paths to absolute paths.</p>
-<p>The filter is &#8216;used_for&#8217; one or more render chains.</p>
-<p>The filters are executed in the order they are listed in the component
-manager. If you really need to make sure that your filter runs before the
-rest, set &#8216;in_front=True&#8217; as argument in &#8216;component_manager.register&#8217;.</p>
+<p>It is contained in a RenderChain and represents functionality which is
+useful for many different card types.</p>
+<p>The filters are executed in the order they are listed in the RenderChain.
+If you really need to make sure that your filter runs before the
+rest, set &#8216;in_front=True&#8217; as argument in &#8216;render_chain.register_filter&#8217;.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.filter.Filter.run">
 <tt class="descname">run</tt><big>(</big><em>text</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.filter.Filter.run" title="Permalink to this definition">¶</a></dt>
@@ -75,11 +76,11 @@ rest, set &#8216;in_front=True&#8217; as argument in &#8216;component_manager.re
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="file_format.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">FileFormat</span></tt></a></p>
+            <p class="topless"><a href="render_chain.html"
+                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">RenderChain</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="hook.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">Hook</span></tt></a></p>
+            <p class="topless"><a href="renderer.html"
+                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Renderer</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/filter.txt"
@@ -112,17 +113,17 @@ rest, set &#8216;in_front=True&#8217; as argument in &#8216;component_manager.re
           <a href="../modindex.html" title="Global Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="hook.html" title="Hook"
+          <a href="renderer.html" title="Renderer"
              >next</a> |</li>
         <li class="right" >
-          <a href="file_format.html" title="FileFormat"
+          <a href="render_chain.html" title="RenderChain"
              >previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 07, 2010.
+      Last updated on Sep 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

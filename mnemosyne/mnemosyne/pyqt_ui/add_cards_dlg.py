@@ -48,7 +48,7 @@ class AddEditCards(Component):
     def update_card_widget(self):
         # Determine data to put into card widget. Since we want to share this
         # code between the 'add' and the 'edit' dialogs, we put the reference
-        # to self.fact (which only exists in the 'edit' dialog) inside a try
+        # to self.card (which only exists in the 'edit' dialog) inside a try
         # statement.
         if self.card_type_widget:  # Get data from previous card widget.
             prefill_data = \
@@ -57,7 +57,7 @@ class AddEditCards(Component):
             self.card_type_widget = None
         else:
             try:  # Get data from fact passed to the 'edit' dialog.
-                prefill_data = self.fact.data
+                prefill_data = self.card.fact.data
             except:  # Start from scratch in the 'add' dialog.
                 prefill_data = None          
         # Transform keys in dictionary if the card type has changed, but don't

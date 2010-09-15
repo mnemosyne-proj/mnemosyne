@@ -80,6 +80,9 @@ class CardType(Component, CompareOnId):
                 return False
         return True
 
+    # Note: we don't call render_chain in card.question because Card is not
+    # a Component and has no access to the render chains.
+
     def render_question(self, card, render_chain="default", **render_args):
         return self.render_chain(render_chain).\
             render_question(card, **render_args)

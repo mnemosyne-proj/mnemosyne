@@ -100,6 +100,9 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=-1, tag_names=["default"])[0]
 
         self.review_controller().new_question()
+        self.review_controller().show_answer()        
+        self.review_controller().grade_answer(0)
+        self.review_controller().counters()        
 
         self.mnemosyne.finalise()
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)

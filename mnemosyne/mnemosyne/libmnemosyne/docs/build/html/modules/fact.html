@@ -52,11 +52,10 @@
 <h1><tt class="xref docutils literal"><span class="pre">Fact</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.fact" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.fact.Fact">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.fact.</tt><tt class="descname">Fact</tt><big>(</big><em>data</em>, <em>card_type</em>, <em>creation_time=None</em>, <em>id=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.fact.Fact" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.fact.</tt><tt class="descname">Fact</tt><big>(</big><em>data</em>, <em>id=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.fact.Fact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Basic unit of information from which several cards can be derived.</p>
 <p>The fields are stored in a dictionary called &#8216;data&#8217;, and can be get and 
 set using the standard dictionary syntax.</p>
-<p>Creating and modification dates are POSIX timestamps stored as integers.</p>
 <p>&#8216;id&#8217; is used to identify this object to the external world (logs, xml
 files, ...), whereas &#8216;_id&#8217; is an internal id that could be different and
 that can be used by the database for efficiency reasons.</p>
@@ -145,7 +144,7 @@ as possible, to facilitate conversion between card types:</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 07, 2010.
+      Last updated on Sep 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

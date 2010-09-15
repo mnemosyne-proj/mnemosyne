@@ -56,9 +56,8 @@ class DefaultController(Controller):
         self.stopwatch().pause()
         self.flush_sync_server()
         review_controller = self.review_controller()
-        fact = review_controller.card.fact
-        self.component_manager.current("edit_fact_dialog")\
-            (fact, self.component_manager).activate()
+        self.component_manager.current("edit_card_dialog")\
+            (review_controller.card, self.component_manager).activate()
         review_controller.reload_counters()
         # Our current card could have disappeared from the database here,
         # e.g. when converting a front-to-back card to a cloze card, which
