@@ -38,7 +38,7 @@ class FileFormat(Component):
 
 id_to_anon = {}
 
-def anonymise_id(card):
+def anonymise_id(card):  # pragma: no cover
     
     global id_to_anon
 
@@ -66,7 +66,7 @@ def anonymise_id(card):
 
 anon_to_id = {}
 
-def unanonymise_id(card):
+def unanonymise_id(card):  # pragma: no cover
     global anon_to_id
     if '.' in card.id:
         old_id, suffix = card.id.split('.', 1)
@@ -92,7 +92,7 @@ def unanonymise_id(card):
 ##############################################################################
 
 def import_file(filename, fformat_name, default_tag_name,
-                reset_learning_data=False):
+                reset_learning_data=False):  # pragma: no cover
 
     global load_failed, queue, anon_to_id
 
@@ -141,7 +141,7 @@ def import_file(filename, fformat_name, default_tag_name,
 ##############################################################################
 
 def export_file(filename, fformat_name,
-                cat_names_to_export, reset_learning_data):
+                cat_names_to_export, reset_learning_data): # pragma: no cover
 
     global id_to_anon
     

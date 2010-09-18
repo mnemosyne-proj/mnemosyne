@@ -56,7 +56,8 @@
 <dd><p>A card type groups a number of fact views on a certain fact, thereby
 forming a set of related cards.</p>
 <p>A card type needs an id as well as a name, because the name can change
-for different translations.</p>
+for different translations. It is best to keep the id short, as it will
+show up in the card id as well.</p>
 <p>Inherited card types should have ids where :: separates the different
 levels of the hierarchy, e.g. parent_id::child_id.</p>
 <p>The keys from the fact are also given more verbose names here, as well
@@ -90,11 +91,6 @@ e.g. the cloze card type.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.before_repetition">
 <tt class="descname">before_repetition</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.before_repetition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.create_answer_data">
-<tt class="descname">create_answer_data</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_answer_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -164,7 +160,7 @@ here, but is done in the main controller.</p>
                                   title="previous chapter"><tt class="docutils literal"><span class="pre">Tag</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="card.html"
-                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
+                                  title="next chapter"><tt class="docutils literal"><span class="pre">Card</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/card_type.txt"
@@ -207,7 +203,7 @@ here, but is done in the main controller.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 15, 2010.
+      Last updated on Sep 16, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

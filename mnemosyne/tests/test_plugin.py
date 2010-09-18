@@ -131,3 +131,8 @@ class TestPlugin(MnemosyneTest):
             if component.component_type == "card_type" and component.id == "4":
                 plugin.activate()
                 plugin.activate()
+
+    @raises(NotImplementedError)
+    def test_6(self):
+        from mnemosyne.libmnemosyne.hook import Hook
+        Hook(self.mnemosyne.component_manager).run()

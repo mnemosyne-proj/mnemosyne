@@ -13,7 +13,8 @@ class CardType(Component, CompareOnId):
     forming a set of related cards.
 
     A card type needs an id as well as a name, because the name can change
-    for different translations.
+    for different translations. It is best to keep the id short, as it will
+    show up in the card id as well.
 
     Inherited card types should have ids where :: separates the different
     levels of the hierarchy, e.g. parent_id::child_id.
@@ -94,9 +95,6 @@ class CardType(Component, CompareOnId):
     # The following functions can be overridden by speciality card types.
         
     def fact_data(self, card):
-        return card.fact.data
-
-    def create_answer_data(self, card):
         return card.fact.data
 
     def create_related_cards(self, fact):

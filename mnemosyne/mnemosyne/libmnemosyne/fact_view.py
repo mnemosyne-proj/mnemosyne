@@ -16,10 +16,7 @@ class FactView(CompareOnId):
     
     """
 
-    def __init__(self, name, id=None):
-        if id is None:
-            import uuid
-            id = str(uuid.uuid4())
+    def __init__(self, name, id):
         self.id = id
         self._id = None
         self.name = name

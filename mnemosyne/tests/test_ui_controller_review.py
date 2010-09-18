@@ -2,6 +2,7 @@
 # test_review_controller.py <Peter.Bienstman@UGent.be>
 #
 
+
 from mnemosyne_test import MnemosyneTest
 
 
@@ -57,4 +58,6 @@ class TestUIControllerReview(MnemosyneTest):
         assert self.review_controller().counters() == (0, 1, 15)
         self.review_controller().grade_answer(2)
         self.review_controller().reload_counters()  
-        assert self.review_controller().counters() == (0, 0, 15)    
+        assert self.review_controller().counters() == (0, 0, 15)
+
+        self.mnemosyne.review_widget().enable_grade(1, True)

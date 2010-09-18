@@ -145,3 +145,15 @@ class TestDatabaseStub:
     @raises(NotImplementedError)   
     def test_cards_learn_ahead(self):
         self.database.cards_learn_ahead(None)
+        
+    @raises(NotImplementedError)   
+    def test_path(self):
+        self.database.path()
+        
+    @raises(NotImplementedError)   
+    def test_name(self):
+        self.database.name()
+        
+    @raises(NotImplementedError)   
+    def test_display_name(self):
+        self.database.display_name()

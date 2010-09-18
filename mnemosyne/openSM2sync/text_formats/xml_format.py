@@ -91,6 +91,7 @@ class XMLFormat(object):
         """
 
         if log_entry is None:
+            # Dummy entries for card-based clients.
             return ""
         attribs, tags = "", ""
         for key, value in log_entry.iteritems():

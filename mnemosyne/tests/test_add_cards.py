@@ -45,6 +45,15 @@ class TestAddCards(MnemosyneTest):
         self.controller().file_save()
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
+
+    def test_coverage(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+        card.fact["q"] = "new_question"
+        
         
     def test_src(self):
         fact_data = {"q": """<font face="courier">src</font>""",

@@ -595,7 +595,7 @@ class DefaultController(Controller):
         
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.self.main_widget().information_box(\
+        self.main_widget().information_box(\
             _("For instructions on how to download Mnemosyne's source,") + \
-            + " " + _("go to http://www.mnemosyne-proj.org"))
+            " " + _("go to http://www.mnemosyne-proj.org"))
         self.stopwatch().unpause()        

@@ -334,8 +334,8 @@ class Server(WSGIServer, Partner):
             # Now we can determine whether there are conflicts.
             for log_entry in session.database.log_entries_to_sync_for(\
                 session.client_info["machine_id"]):
-                if not log_entry: # Irrelevent entry for card-based clients.
-                    continue
+                if not log_entry:
+                    continue  # Irrelevent entry for card-based clients.
                 if "fname" in log_entry:
                     log_entry["o_id"] = log_entry["fname"]
                 if log_entry["type"] > 5 and \

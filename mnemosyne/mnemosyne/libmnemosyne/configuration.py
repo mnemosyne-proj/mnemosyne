@@ -147,7 +147,7 @@ class Configuration(Component, dict):
             raise RuntimeError, _("Unable to save config file:") \
                   + "\n" + traceback_string()
 
-    def determine_dirs(self):
+    def determine_dirs(self):  # pragma: no cover
         # Return if data_dir was already set by the user. In that case, we
         # also store the config in that directory.
         if self.data_dir is not None:

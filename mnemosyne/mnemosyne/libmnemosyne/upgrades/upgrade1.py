@@ -16,7 +16,7 @@ class Upgrade1(Component):
 
     """Upgrade from 1.x to 2.x."""
 
-    def run(self):
+    def run(self):  # pragma: no cover
         join = os.path.join
         # Only do this upgrade once.
         if not self.database().is_empty():
@@ -85,6 +85,8 @@ class Upgrade1(Component):
         info = _("Upgrade from Mnemosyne 1.x complete!") + "\n\n"
         info += _("Mnemosyne 2.x now stores its data here:") + "\n\n"
         info += self.config().data_dir + "\n"
-        if self.config().config_dir != self.config().data_dir:
+        if self.config().config_dir != \
+            self.config().data_dir: # pragma: no cover
+            # Only happens on Linux, outside of the test suite.
             info += self.config().config_dir
         self.main_widget().information_box(info)

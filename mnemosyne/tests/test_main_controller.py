@@ -3,6 +3,7 @@
 #
 
 import os
+from nose.tools import raises
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -18,6 +19,7 @@ class Widget(MainWidget):
     
     def open_file_dialog(self, path, filter, caption=""):
         return os.path.join(os.getcwd(), "dot_test", "default.db")
+
 
 class TestMainController(MnemosyneTest):
 
@@ -37,6 +39,8 @@ class TestMainController(MnemosyneTest):
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "BrowseCardsDialog"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "SyncDialog"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "CardAppearanceDialog"))
         self.mnemosyne.components.append(\
@@ -74,6 +78,8 @@ class TestMainController(MnemosyneTest):
         self.controller().configure()
         self.controller().show_statistics()
         self.controller().activate_cards()
+        self.controller().download_source()
+        self.controller().sync()
         
     def test_2(self):
         self.controller().file_save_as()
@@ -90,3 +96,31 @@ class TestMainController(MnemosyneTest):
         self.controller().file_save()
         
         self.controller().file_new()
+
+
+    def test_coverage(self):
+        from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+        w = MainWidget(self.mnemosyne.component_manager)
+        w.information_box("")
+        w.error_box("")
+        w.status_bar_message("")
+        w.add_to_status_bar(None)
+        w.clear_status_bar()
+        
+    @raises(NotImplementedError)
+    def test_open_file(self):
+        from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+        w = MainWidget(self.mnemosyne.component_manager)
+        w.open_file_dialog("", "")
+
+    @raises(NotImplementedError)
+    def test_save_file(self):
+        from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+        w = MainWidget(self.mnemosyne.component_manager)
+        w.save_file_dialog("", "")
+        
+    @raises(NotImplementedError)
+    def test_question_box(self):
+        from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+        w = MainWidget(self.mnemosyne.component_manager)
+        w.question_box("", "", "", "")

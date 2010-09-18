@@ -21,7 +21,7 @@ class MainWidget(UiComponent):
         
     def information_box(self, message):
         print message
-                    
+            
     def question_box(self, question, option0, option1, option2):
 
         """Returns 0, 1 or 2."""
@@ -53,10 +53,10 @@ class MainWidget(UiComponent):
 
         """Should ask for confirmation on overwrite."""
         
-        pass
+        raise NotImplementedError
     
     def open_file_dialog(self, path, filter, caption=""):
-        pass
+        raise NotImplementedError
 
     def set_window_title(self, title):
         pass

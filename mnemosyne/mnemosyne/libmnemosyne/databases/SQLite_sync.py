@@ -362,7 +362,8 @@ class SQLiteSync(object):
             card.id = log_entry["o_id"]
             return card
         # Create card object.
-        if "card_t" not in log_entry:  # Client only supports simple cards.
+        if "card_t" not in log_entry:
+            # Client only supports simple cards.
             card_type = self.card_type_by_id("1")
         else:
             if log_entry["card_t"] not in \
@@ -404,10 +405,7 @@ class SQLiteSync(object):
         return card
 
     def apply_repetition(self, log_entry):
-        if "sch_data" in log_entry:
-            sch_data = log_entry["sch_data"]
-        else:
-            sch_data = None
+        sch_data = log_entry.get("sch_data") # Gives None if not present.
         card = Bunch(id=log_entry["o_id"], grade=log_entry["gr"],
             easiness=log_entry["e"], acq_reps=log_entry["ac_rp"],
             ret_reps=log_entry["rt_rp"], lapses=log_entry["lps"],

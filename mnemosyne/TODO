@@ -1,5 +1,10 @@
+-more renderer.set_property to config
+-question_box, etc: remove box
+-rename relative_paths to Media_paths
+
 -make q,a and tags column optional for some clients (default None, so as to make sure each client sets it)
 -reorder card fields in sql and in card.py
+-option not have these columns on initial binary download
 
 -better next_rep, last rep representation
 -grey for inactive cards
@@ -25,6 +30,8 @@
 -edit vs update
 
 -apply activity criterion after sync, for both partners + test
+-sync to empty webserver
+-add support for error messages on protocol mismatch, expired credit
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -33,10 +40,15 @@
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
 
+-delete orphaned media files
+
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 
 
 -go through all source
+-do extra input checking in controller
+-include coverage source option
+-test on cramming counters
 
 -do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
 
@@ -49,6 +61,9 @@
 
 
 -make distrib
+
+-add plugin example on card type specific renderer
+-add doc on how to write plugin to sfinx doc
 
 -Qt bug? different font size in edit box and in css
 
@@ -70,6 +85,7 @@
 -on import, activate plugins, created card types if necessary
 -on import don't add cards for which card type is not present
 -warn when not importing a duplicate card
+-covert to map type on import
 -xml import tests (wcu, memaid, plconv)
 -rewrite test_mem_import test_sch to go through the controller
 -option to detect and mark inverses on import?
@@ -254,6 +270,7 @@ pylint:
         # were already in the database.
 -make sure to enforce read-only, preferable through server itself, not through
  open_shared_database
+-if there are actual card based clients, remove pragma: no cover and test these as well
 
 
 -mechanism to have plugin settings synced?
@@ -283,6 +300,7 @@ pylint:
 
 -get rid of mp3 clip prevention?
 
+-media on dropbox?
 -plugin to store backups on dropbox
 
 -detect wrong current date (last review in the future or way past)
