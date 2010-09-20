@@ -68,7 +68,7 @@ class BothWaysToThreeSided(CardTypeConverter):
                     card.fact_view = new_card_type.fact_views[1]
                 else:
                     card.fact_view = new_card_type.fact_views[0]
-            elif card.fact_view == old_card_type.fact_views[1]:
+            if card.fact_view == old_card_type.fact_views[1]:
                 if "q" in correspondence and correspondence["q"] == "t":
                     card.fact_view = new_card_type.fact_views[0]
                 else:

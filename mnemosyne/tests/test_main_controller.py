@@ -97,7 +97,6 @@ class TestMainController(MnemosyneTest):
         
         self.controller().file_new()
 
-
     def test_coverage(self):
         from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
         w = MainWidget(self.mnemosyne.component_manager)
@@ -106,21 +105,14 @@ class TestMainController(MnemosyneTest):
         w.status_bar_message("")
         w.add_to_status_bar(None)
         w.clear_status_bar()
-        
-    @raises(NotImplementedError)
-    def test_open_file(self):
-        from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-        w = MainWidget(self.mnemosyne.component_manager)
-        w.open_file_dialog("", "")
 
-    @raises(NotImplementedError)
-    def test_save_file(self):
-        from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-        w = MainWidget(self.mnemosyne.component_manager)
-        w.save_file_dialog("", "")
-        
-    @raises(NotImplementedError)
-    def test_question_box(self):
-        from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-        w = MainWidget(self.mnemosyne.component_manager)
-        w.question_box("", "", "", "")
+        self.controller().add_cards()
+        self.controller().edit_current_card()
+        self.controller().insert_video("")        
+        self.controller().download_source()
+        self.controller().sync()
+        self.controller().browse_cards()
+        self.controller().activate_cards()
+        self.controller().import_file()
+        self.controller().export_file()
+        self.controller().heartbeat()

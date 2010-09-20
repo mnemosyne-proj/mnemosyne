@@ -155,4 +155,3 @@ class CompareOnId(object):
         if result is NotImplemented:
             return result
         return not result
-

@@ -1,0 +1,23 @@
+[run]
+branch = True
+
+[report]
+omit = 
+    openSM2sync/tarfile.py
+    lib/*
+    tests/*
+    mnemosyne/pyqt_ui/*
+    /usr/*
+    dot_test/*
+
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if self.debug:
+    if settings.DEBUG
+    raise AssertionError
+    raise NotImplementedError
+    if 0:
+    if __name__ == .__main__.:
+    pass
+    except ImportError:

@@ -22,10 +22,11 @@ test: install-virtual-env
 	./bin/nosetests tests
 
 coverage: install-virtual-env
-	# nose post 0.11: add --cover-branches
-	./bin/nosetests --with-coverage --cover-erase --cover-html \
+	rm -rf .coverage cover htmlcov
+	./bin/nosetests --with-coverage --cover-erase \
 	--cover-package=mnemosyne.libmnemosyne,openSM2sync
-	firefox cover/index.html
+	./bin/coverage html
+	firefox htmlcov/index.html
 
 profile: install-virtual-env
 	echo "from hotshot import stats" > process_profile.py
