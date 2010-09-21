@@ -95,10 +95,10 @@ class DefaultController(Controller):
                 for duplicate in duplicates:
                     # Duplicates only checks equality of unique keys.
                     if duplicate.data == fact_data:
-                        self.main_widget().information_box(\
+                        self.main_widget().show_information(\
                     _("Card is already in database.\nDuplicate not added."))
                     return                
-                answer = self.main_widget().question_box(\
+                answer = self.main_widget().show_question(\
                   _("There is already data present for:\n\N") +
                   "".join(fact[k] for k in card_type.required_fields),
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
@@ -171,9 +171,9 @@ class DefaultController(Controller):
                     edited_cards = db.cards_from_fact(fact)
                     for card in edited_cards:
                         card.card_type = new_card_type
-                        db.edit_card(card)
+                        db.update_card(card)
                 else:
-                    answer = self.main_widget().question_box(\
+                    answer = self.main_widget().show_question(\
          _("Can't preserve history when converting between these card types.")\
                  + " " + _("The learning history of the cards will be reset."),
                       _("&OK"), _("&Cancel"), "")
@@ -199,7 +199,7 @@ class DefaultController(Controller):
                    converter.convert(cards_to_be_edited, old_card_type,
                                      new_card_type, correspondence)
                 if len(deleted_cards) != 0:
-                    answer = self.main_widget().question_box(\
+                    answer = self.main_widget().show_question(\
           _("This will delete cards and their history.") + " " +\
           _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?"),
@@ -214,7 +214,7 @@ class DefaultController(Controller):
                 for card in new_cards:
                     db.add_card(card)
                 for card in edited_cards:
-                    db.edit_card(card)
+                    db.update_card(card)
                 if new_cards and self.review_controller().learning_ahead:
                     self.review_controller().reset()
                     
@@ -223,7 +223,7 @@ class DefaultController(Controller):
         new_cards, edited_cards, deleted_cards = \
             new_card_type.edit_related_cards(fact, new_fact_data)
         fact.data = new_fact_data
-        db.edit_fact(fact)
+        db.update_fact(fact)
         for card in deleted_cards:
             if self.review_controller().card == card:
                 self.review_controller().card = None
@@ -255,7 +255,7 @@ class DefaultController(Controller):
             old_tags = old_tags.union(card.tags)
             card.tags = tags
             criterion.apply_to_card(card)
-            db.edit_card(card)
+            db.update_card(card)
         for tag in old_tags:
             db.remove_tag_if_unused(tag)
         db.save()
@@ -280,7 +280,7 @@ class DefaultController(Controller):
                        + " " + _("related cards?") + " " +\
                        _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?")
-        answer = self.main_widget().question_box(question, _("&Delete"),
+        answer = self.main_widget().show_question(question, _("&Delete"),
                                           _("&Cancel"), "")
         if answer == 1:  # Cancel.
             self.stopwatch().unpause()
@@ -295,7 +295,7 @@ class DefaultController(Controller):
         from mnemosyne.libmnemosyne.utils import mangle    
         clone_id = card_type.id + "::" + clone_name
         if clone_id in [card_t.id for card_t in self.card_types()]:
-            self.main_widget().error_box(_("Card type name already exists."))
+            self.main_widget().show_error(_("Card type name already exists."))
             return None
         card_type_class = type(mangle(clone_name), (card_type.__class__, ),
             {"name": clone_name, "id": clone_id})
@@ -354,7 +354,7 @@ class DefaultController(Controller):
             self.stopwatch().unpause()
             return
         if filename.startswith(os.path.join(data_dir, "backups")):
-            result = self.main_widget().question_box(\
+            result = self.main_widget().show_question(\
                 _("Do you want to restore from this backup?"),
                 _("Yes"), _("No"), "")
             if result == 0:  # Yes.
@@ -368,7 +368,7 @@ class DefaultController(Controller):
             db.backup()
             db.unload()
         except RuntimeError, error:
-            self.main_widget().error_box(unicode(error))
+            self.main_widget().show_error(unicode(error))
             self.stopwatch().unpause()
             return            
         try:
@@ -389,7 +389,7 @@ class DefaultController(Controller):
             self.database().save()
             self.log().saved_database()
         except RuntimeError, error:
-            self.main_widget().error_box(unicode(error))
+            self.main_widget().show_error(unicode(error))
         self.stopwatch().unpause()
 
     def file_save_as(self):
@@ -408,7 +408,7 @@ class DefaultController(Controller):
             self.database().save(filename)
             self.log().saved_database()
         except RuntimeError, error:
-            self.main_widget().error_box(unicode(error))
+            self.main_widget().show_error(unicode(error))
             self.stopwatch().unpause()
             return
         self.review_controller().update_dialog()
@@ -595,7 +595,7 @@ class DefaultController(Controller):
         
         self.stopwatch().pause()
         self.flush_sync_server()
-        self.main_widget().information_box(\
+        self.main_widget().show_information(\
             _("For instructions on how to download Mnemosyne's source,") + \
             " " + _("go to http://www.mnemosyne-proj.org"))
         self.stopwatch().unpause()        

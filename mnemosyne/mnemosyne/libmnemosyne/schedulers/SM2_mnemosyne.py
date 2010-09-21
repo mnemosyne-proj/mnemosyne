@@ -452,7 +452,7 @@ class SM2Mnemosyne(Scheduler):
             new_interval = 0
         # Warn if we learned a lot of new cards.
         if len(self.fact__ids_memorised) == 15:
-            self.main_widget().information_box(\
+            self.main_widget().show_information(\
         _("You've memorised 15 new cards.") + " " +\
         _("If you do this for many days, you could get a big workload later."))
         # Run hooks.

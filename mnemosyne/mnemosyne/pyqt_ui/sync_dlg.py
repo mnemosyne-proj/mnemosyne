@@ -63,13 +63,13 @@ class SyncThread(QtCore.QThread):
         finally:
             client.database.release_connection()
         
-    def information_box(self, message):
+    def show_information(self, message):
         self.information_signal.emit(message)
     
-    def error_box(self, error):
+    def show_error(self, error):
         self.error_signal.emit(error)
 
-    def question_box(self, question, option0, option1, option2):
+    def show_question(self, question, option0, option1, option2):
         mutex.lock()
         self.question_signal.emit(question, option0, option1, option2)
         if not answer:
@@ -152,10 +152,10 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
             QtGui.QApplication.instance().processEvents()
             thread.wait(100)
 
-    def threaded_question_box(self,question, option0, option1, option2):
+    def threaded_show_question(self,question, option0, option1, option2):
         global answer
         mutex.lock()        
-        answer = self.main_widget().question_box(question, option0,
+        answer = self.main_widget().show_question(question, option0,
             option1, option2)
         question_answered.wakeAll()
         mutex.unlock()

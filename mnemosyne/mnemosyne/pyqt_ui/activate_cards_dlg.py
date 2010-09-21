@@ -101,7 +101,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.saved_sets.setCurrentItem(item)
         
     def delete_set(self):
-        answer = self.main_widget().question_box(_("Delete this set?"),
+        answer = self.main_widget().show_question(_("Delete this set?"),
             _("&OK"), _("&Cancel"), "")
         if answer == 1:  # Cancel.
             return -1
@@ -122,7 +122,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if not criterion.name:  # User cancelled.
             criterion.name = name
             return
-        self.database().edit_activity_criterion(criterion)
+        self.database().update_activity_criterion(criterion)
         self.database().save()
         self.update_saved_sets_pane()
         item = self.saved_sets.findItems(criterion.name,

@@ -31,11 +31,10 @@ class HelloWorldPlugin(Plugin):
             self.actionHello = None
 
     def hello_world(self):
-        self.main_widget().information_box("Hi there!")        
+        self.main_widget().show_information("Hi there!")        
 
 # Register plugin.
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(HelloWorldPlugin)
-
 

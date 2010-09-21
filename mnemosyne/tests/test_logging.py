@@ -12,7 +12,7 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class MyMainWidget(MainWidget):
 
-    def question_box(self, question, b, c, d):
+    def show_question(self, question, b, c, d):
         if question == "Delete this card?":
             return 0 # Yes
         else:
@@ -30,7 +30,8 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
-
+        self.mnemosyne.start_review()
+        
     def test_logging(self):
         card_type = self.card_type_by_id("1")
         fact_data = {"q": "1", "a": "a"}
@@ -181,4 +182,3 @@ class TestLogging(MnemosyneTest):
             """select _id from log order by _id limit 1""").fetchone()[0] \
             == log_index      
         
-

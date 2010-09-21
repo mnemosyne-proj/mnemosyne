@@ -148,12 +148,12 @@ class SM2Controller(ReviewController):
         if self.scheduler().allow_prefetch():
             self.new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().edit_card(card_to_grade, repetition_only=True)
+            self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
         else:
             interval = self.scheduler().grade_answer(card_to_grade, grade)
-            self.database().edit_card(card_to_grade, repetition_only=True)
+            self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
             self.new_question()     
@@ -202,16 +202,16 @@ class SM2Controller(ReviewController):
         w = self.widget
         # Hide/show the question and answer boxes.
         if self.state == "SELECT SHOW":
-            w.question_box_visible(True)
+            w.set_question_box_visible(True)
             if self.card.fact_view.a_on_top_of_q:
-                w.answer_box_visible(False)
+                w.set_answer_box_visible(False)
         elif self.state == "SELECT GRADE":
-            w.answer_box_visible(True)
+            w.set_answer_box_visible(True)
             if self.card.fact_view.a_on_top_of_q:
-                w.question_box_visible(False)
+                w.set_question_box_visible(False)
         else:
-            w.question_box_visible(True)
-            w.answer_box_visible(True)
+            w.set_question_box_visible(True)
+            w.set_answer_box_visible(True)
         # Update question label.
         question_label_text = _("Question: ")
         if self.card is not None:
@@ -221,12 +221,12 @@ class SM2Controller(ReviewController):
         if self.card is None:
             w.clear_question()
         elif self.state == "SELECT SHOW" or redraw_all == True:
-            w.set_question(self.card.question())
+            w.set_question(self.card.question(self.render_chain))
         # Update answer content.
         if self.card is None or self.state == "SELECT SHOW":
             w.clear_answer()
         else:
-            w.set_answer(self.card.answer())
+            w.set_answer(self.card.answer(self.render_chain))
         # Update 'Show answer' button.
         if self.state == "EMPTY":
             show_enabled, default, text = False, True, _("Show answer")
@@ -252,7 +252,7 @@ class SM2Controller(ReviewController):
         else:
             phase = RET_PHASE
             default_grade = 4
-        w.enable_grades(self.grades_enabled)
+        w.set_grades_enabled(self.grades_enabled)
         if self.grades_enabled:
             w.set_default_grade(default_grade)         
         # Set title for grades box.

@@ -11,7 +11,7 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
 
-    def information_box(self, s1):
+    def show_information(self, s1):
         raise NotImplementedError
 
 class TestPlugin(MnemosyneTest):

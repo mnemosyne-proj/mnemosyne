@@ -112,9 +112,8 @@ class Mnemosyne(Component):
         if automatic_upgrades:
             from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
             Upgrade1(self.component_manager).run()  
-        # Finally, we can activate the main widget and start the review.
+        # Finally, we can activate the main widget.
         self.main_widget().activate()
-        self.review_controller().reset()
                     
     def register_components(self):
 
@@ -152,7 +151,7 @@ class Mnemosyne(Component):
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError, e:
-                self.main_widget().error_box(unicode(e))
+                self.main_widget().show_error(unicode(e))
         server = self.component_manager.current("sync_server")
         if server:
             server.activate()
@@ -176,7 +175,7 @@ class Mnemosyne(Component):
                     from mnemosyne.libmnemosyne.translator import _
                     msg = _("Error when running plugin:") \
                           + "\n" + traceback_string()
-                    self.main_widget().error_box(msg)
+                    self.main_widget().show_error(msg)
 
     def activate_saved_plugins(self):
         for plugin in self.config()["active_plugins"]:
@@ -189,7 +188,7 @@ class Mnemosyne(Component):
                 from mnemosyne.libmnemosyne.translator import _
                 msg = _("Error when running plugin:") \
                       + "\n" + traceback_string()
-                self.main_widget().error_box(msg)
+                self.main_widget().show_error(msg)
 
     def load_database(self, filename):
         if not filename:
@@ -206,8 +205,8 @@ class Mnemosyne(Component):
             # corner case anyhow. So, as workaround, we create a temporary
             # database.
             from mnemosyne.libmnemosyne.translator import _
-            self.main_widget().error_box(unicode(e))
-            self.main_widget().error_box(_("Creating temporary database."))
+            self.main_widget().show_error(unicode(e))
+            self.main_widget().show_error(_("Creating temporary database."))
             filename = os.path.join(os.path.split(filename)[0], "___TMP___" \
                                     + self.database().suffix)
             self.database().new(filename)

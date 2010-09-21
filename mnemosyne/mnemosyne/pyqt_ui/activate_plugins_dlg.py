@@ -51,9 +51,6 @@ class PluginListModel(QtCore.QAbstractTableModel, Component):
                 plugin = self.plugins()[index.row()]
                 if value == QtCore.QVariant(QtCore.Qt.Checked):
                     plugin.activate()
-                    if plugin.activation_message:
-                        self.main_widget().information_box(\
-                            plugin.activation_message)
                 else:
                     if plugin.deactivate() == False:
                         return False
@@ -78,7 +75,6 @@ class ActivatePluginsDlg(QtGui.QDialog, Ui_ActivatePluginsDlg, ActivatePluginsDi
         Component.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
-
         self.model = PluginListModel(self.component_manager)
         self.plugins.setModel(self.model)
         self.plugins.resizeColumnToContents(0)    

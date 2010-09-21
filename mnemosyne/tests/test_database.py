@@ -22,7 +22,7 @@ class TestDatabase(MnemosyneTest):
         assert len(self.database().tags()) == 1
         assert self.database().tags()[0].name == u"test"
         tag.name = "test2"
-        self.database().edit_tag(tag)
+        self.database().update_tag(tag)
         assert len(self.database().tags()) == 1
         assert self.database().tags()[0].name == u"test2"      
 
@@ -79,7 +79,7 @@ class TestDatabase(MnemosyneTest):
         card.active = False
         card.in_view = False
         
-        self.database().edit_card(card)
+        self.database().update_card(card)
         new_card = list(self.database().cards_from_fact(fact))[0]
         
         assert card.grade == -1
@@ -94,7 +94,7 @@ class TestDatabase(MnemosyneTest):
         assert card.scheduler_data == 1
         assert card.active == False
         
-    def test_edit_tag(self):
+    def test_update_tag(self):
         fact_data = {"q": "question",
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
@@ -378,7 +378,7 @@ class TestDatabase(MnemosyneTest):
         card_1 = self.database().card(card_1._id, id_is_internal=True)
         card_3.next_rep = card_1.next_rep
         card_3.grade = 2
-        self.database().edit_card(card_3)
+        self.database().update_card(card_3)
         assert self.database().count_related_cards_with_next_rep(card_2, card_1.next_rep) == 1        
         assert self.database().count_related_cards_with_next_rep(card_3, card_1.next_rep) == 0
         assert self.database().count_related_cards_with_next_rep(card_1, card_1.next_rep) == 0

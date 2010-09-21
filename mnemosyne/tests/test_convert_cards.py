@@ -12,7 +12,7 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
 
-    def question_box(self, question, option0, option1, option2):
+    def show_question(self, question, option0, option1, option2):
         if option0 == "&Proceed and delete":
             return 0
         if option0 == "&OK": # Reset learning history

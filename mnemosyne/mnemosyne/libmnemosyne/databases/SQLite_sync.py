@@ -33,6 +33,10 @@ class SQLiteSync(object):
 
     """
 
+    def append_to_sync_partner_info(self, partner_info):
+        partner_info["config"] = dict(self.config())
+        return partner_info
+
     def set_sync_partner_info(self, info):
         self.sync_partner_info = info
     
@@ -535,13 +539,13 @@ class SQLiteSync(object):
             elif event_type == EventTypes.ADDED_TAG:
                 self.add_tag(self.tag_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_TAG:
-                self.edit_tag(self.tag_from_log_entry(log_entry))
+                self.update_tag(self.tag_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_TAG:
                 self.delete_tag(self.tag_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_FACT:
                 self.add_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_FACT:
-                self.edit_fact(self.fact_from_log_entry(log_entry))
+                self.update_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT:
                 fact = self.fact_from_log_entry(log_entry)
                 self.delete_fact_and_related_cards(fact)
@@ -551,7 +555,7 @@ class SQLiteSync(object):
                 self.add_card(card)
                 self.log().added_card(card)
             elif event_type == EventTypes.EDITED_CARD:
-                self.edit_card(self.card_from_log_entry(log_entry))
+                self.update_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD:
                 self.delete_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.REPETITION:
@@ -563,20 +567,20 @@ class SQLiteSync(object):
             elif event_type == EventTypes.ADDED_FACT_VIEW:
                 self.add_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_FACT_VIEW:
-                self.edit_fact_view(self.fact_view_from_log_entry(log_entry))
+                self.update_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT_VIEW:
                 self.delete_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_CARD_TYPE:
                 self.add_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_CARD_TYPE:
-                self.edit_card_type(self.card_type_from_log_entry(log_entry))
+                self.update_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD_TYPE:
                 self.delete_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_ACTIVITY_CRITERION:
                 self.add_activity_criterion(\
                     self.activity_criterion_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_ACTIVITY_CRITERION:
-                self.edit_activity_criterion(\
+                self.update_activity_criterion(\
                     self.activity_criterion_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_ACTIVITY_CRITERION:
                 self.delete_activity_criterion(\

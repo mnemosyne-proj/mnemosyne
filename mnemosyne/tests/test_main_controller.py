@@ -100,8 +100,8 @@ class TestMainController(MnemosyneTest):
     def test_coverage(self):
         from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
         w = MainWidget(self.mnemosyne.component_manager)
-        w.information_box("")
-        w.error_box("")
+        w.show_information("")
+        w.show_error("")
         w.status_bar_message("")
         w.add_to_status_bar(None)
         w.clear_status_bar()

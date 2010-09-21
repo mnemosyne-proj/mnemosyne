@@ -187,7 +187,7 @@ class Server(WSGIServer, Partner):
         if session:
             self.terminate_session_with_token(session.token)
         if traceback_string:
-            self.ui.error_box(traceback_string)
+            self.ui.show_error(traceback_string)
             return self.text_format.repr_message("Internal server error",
                 traceback_string)
     
@@ -292,6 +292,9 @@ class Server(WSGIServer, Partner):
                 "session_token": session.token,
                 "supports_binary_log_download": \
                     self.supports_binary_log_download(session)}
+            # Add optional program-specific information.
+            server_info = \
+                session.database.append_to_sync_partner_info(server_info)
             # We check if files were updated outside of the program. This can
             # generate MEDIA_EDITED log entries, so it should be done first.
             session.database.check_for_edited_media_files()

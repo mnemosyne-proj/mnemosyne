@@ -12,7 +12,7 @@ class Grade5DetectionHook(Hook):
 
     def run(self, card):
         if card.grade == 5:
-            self.main_widget().information_box("This was an easy card!")
+            self.main_widget().show_information("This was an easy card!")
 
 
 class AfterRepetitionPlugin(Plugin):
@@ -26,5 +26,4 @@ class AfterRepetitionPlugin(Plugin):
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
 register_user_plugin(AfterRepetitionPlugin)
-
 

@@ -22,46 +22,46 @@ class HtmlReviewWidget(ReviewWidget):
     
     def __init__(self, component_manager):
         ReviewWidget.__init__(self, component_manager)
-        self._question_label = ""
-        self._question = ""
-        self._question_box_visible = True
-        self._answer = ""
-        self._answer_label = _("Answer:")
-        self._answer_box_visible = True
-        self._show_button = ""
-        self._show_button_enabled = True              
-        self._grade_buttons_enabled = False
-        self._status_bar = ""
+        self.question_label = ""
+        self.question = ""
+        self.question_box_visible = True
+        self.answer = ""
+        self.answer_label = _("Answer:")
+        self.answer_box_visible = True
+        self.show_button = ""
+        self.show_button_enabled = True              
+        self.grade_buttons_enabled = False
+        self.status_bar = ""
         self.template = Template(\
             file("mnemosyne/webserver/review_page.html").read())
         
     def set_question_label(self, text):
-        self._question_label = text
+        self.question_label = text
         
     def set_question(self, text):
-        self._question = text
+        self.question = text
 
     def clear_question(self):
-		self._question = ""
+		self.question = ""
         
-    def question_box_visible(self, visible):
-        self._question_box_visible = visible
+    def set_question_box_visible(self, visible):
+        self.question_box_visible = visible
 
     def set_answer(self, text):
-        self._answer = text
+        self.answer = text
 
     def clear_answer(self):
-		self._answer = ""
+		self.answer = ""
             
-    def answer_box_visible(self, visible):
-        self._answer_box_visible = visible
+    def set_answer_box_visible(self, visible):
+        self.answer_box_visible = visible
 
     def update_show_button(self, text, default, enabled):
-        self._show_button = text
-        self._show_button_enabled = enabled
+        self.show_button = text
+        self.show_button_enabled = enabled
 
-    def enable_grades(self, enabled):
-        self._grade_buttons_enabled = enabled
+    def set_grades_enabled(self, enabled):
+        self.grade_buttons_enabled = enabled
         
     def set_default_grade(self, grade):
         pass
@@ -75,7 +75,7 @@ class HtmlReviewWidget(ReviewWidget):
     def update_status_bar(self):
         scheduled_count, non_memorised_count, active_count = \
                    self.review_controller().counters()
-        self._status_bar  = "Sch.: %d Not mem.: %d Act.: %d" % \
+        self.status_bar  = "Sch.: %d Not mem.: %d Act.: %d" % \
             (scheduled_count, non_memorised_count, active_count)
 
     def to_html(self):
@@ -85,7 +85,7 @@ class HtmlReviewWidget(ReviewWidget):
             card_css = self.render_chain().\
                 renderer_for_card_type(card.card_type).card_type_css(card.card_type)
         buttons = ""
-        if self._grade_buttons_enabled:
+        if self.grade_buttons_enabled:
             buttons = ""
             for i in range(6):                
                 buttons += """
@@ -95,28 +95,20 @@ class HtmlReviewWidget(ReviewWidget):
                        value="%d">
                     </form>
                   </td>""" % (i, i)               
-        if self._show_button_enabled:
+        if self.show_button_enabled:
             buttons = """
               <td>
                 <form action="" method="post">
                   <input type="submit" name="show_answer" value="%s">
                 </form>
-              </td>""" % (self._show_button)
-        question = ""
-        if self._question_box_visible:
-            if not self._question:
-                question = "&nbsp;"  # For esthetic reasons.
-            else:
-                question = card.question(render_chain="webserver")
-        answer = ""
-        if self._answer_box_visible:
-            if not self._answer:
-                answer = "&nbsp;"
-            else:
-                answer = card.answer(render_chain="webserver")
+              </td>""" % (self.show_button)
+        if not self.question:
+            self.question = "&nbsp;"  # For esthetic reasons.
+        if not self.answer:
+            self.answer = "&nbsp;"
         return self.template.substitute(card_css=card_css, buttons=buttons,
-            question_label=self._question_label, question=question,
-            answer_label=self._answer_label, answer=answer,
-            status_bar=self._status_bar).encode("utf-8")
+            question_label=self.question_label, question=self.question,
+            answer_label=self.answer_label, answer=self.answer,
+            status_bar=self.status_bar).encode("utf-8")
 
        

@@ -59,6 +59,8 @@ class Server(WSGIServer):
             ("mnemosyne.webserver.webserver_render_chain",
              "WebserverRenderChain"))
         self.mnemosyne.initialise(data_dir, filename, automatic_upgrades=False)
+        self.mnemosyne.review_controller().set_render_chain("webserver")
+        self.mnemosyne.start_review()
 
     def serve_until_stopped(self):
         while not self.stopped:

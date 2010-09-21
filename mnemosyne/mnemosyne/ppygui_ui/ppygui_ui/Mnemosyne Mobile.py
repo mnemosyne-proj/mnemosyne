@@ -35,8 +35,8 @@ mnemosyne.components = [
      "ReviewWdgt"),
     ("mnemosyne.ppygui_ui.render_chain_WM",
      "RenderChain_WM"),
-    ("mnemosyne.libmnemosyne.databases.SQLite",
-     "SQLite"), 
+    ("mnemosyne.libmnemosyne.databases.SQLite_no_pregenerated_data",
+     "SQLite_NoPregeneratedData"), 
     ("mnemosyne.libmnemosyne.configuration",
      "Configuration"), 
     ("mnemosyne.libmnemosyne.loggers.database_logger",
@@ -67,6 +67,7 @@ mnemosyne.components = [
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir)
 mnemosyne.config()["upload_science_logs"] = False
+mnemosyne.start_review()
 app.mainframe = mnemosyne.main_widget()
 app.run()
 mnemosyne.finalise()

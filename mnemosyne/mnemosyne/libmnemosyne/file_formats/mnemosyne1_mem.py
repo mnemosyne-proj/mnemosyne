@@ -84,7 +84,7 @@ class Mnemosyne1Mem(FileFormat):
             self.starttime, self.categories, self.items = cPickle.load(memfile)
             self.starttime = self.starttime.time
         except:
-            w.error_box(_("Unable to open file."))
+            w.show_error(_("Unable to open file."))
             return -1
         # See if the file was imported before.
         try:
@@ -93,7 +93,7 @@ class Mnemosyne1Mem(FileFormat):
         except:
             card = None
         if card:
-            w.error_box(\
+            w.show_error(\
                 _("This file seems to have been imported before. Aborting..."))
             return -2          
         # Convert to 2.x data structures.
@@ -121,7 +121,7 @@ class Mnemosyne1Mem(FileFormat):
             ids_to_parse=self.items_by_id)
         log_dir = os.path.join(os.path.dirname(filename), "history")
         if not os.path.exists(log_dir):
-            self.main_widget().information_box(\
+            self.main_widget().show_information(\
                 _("No history found to import."))
             return
         filenames = [os.path.join(log_dir, logname) for logname in \
@@ -138,7 +138,7 @@ class Mnemosyne1Mem(FileFormat):
             try:
                 parser.parse(filename)
             except:
-                w.information_box(_("Ignoring unparsable file:") + " " +\
+                w.show_information(_("Ignoring unparsable file:") + " " +\
                     filename)
         w.set_progress_value(len(filenames))
 
@@ -236,7 +236,7 @@ class Mnemosyne1Mem(FileFormat):
             card.acq_reps_since_lapse = 0
             card.last_rep = -1
             card.next_rep = -1
-        self.database().edit_card(card)
+        self.database().update_card(card)
         
     def _preprocess_media(self, fact_data):
         media_dir = self.database().media_dir()
@@ -267,7 +267,7 @@ class Mnemosyne1Mem(FileFormat):
                     source = expand_path(filename, self.importdir)
                     dest = expand_path(filename, media_dir)
                     if not os.path.exists(source):
-                        self.main_widget().information_box(\
+                        self.main_widget().show_information(\
                             _("Missing media file") + " %s" % source)
                         fact_data[key] = fact_data[key].replace(match.group(),
                             "src_missing=\"%s\"" % match.group(1))

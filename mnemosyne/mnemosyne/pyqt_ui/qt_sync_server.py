@@ -93,7 +93,7 @@ class ServerThread(QtCore.QThread, SyncServer):
         self.sync_ended_signal.emit()
         mutex.unlock()
         
-    def error_box(self, error):
+    def show_error(self, error):
         self.error_signal.emit(error)
 
     def set_progress_text(self, text):
@@ -129,14 +129,14 @@ class QtSyncServer(Component, QtCore.QObject):
                 self.thread = ServerThread(self.component_manager)
             except socket.error, (errno, e):
                 if errno == 98:
-                    self.main_widget().error_box(\
+                    self.main_widget().show_error(\
                         _("Unable to start sync server.") + " " + \
     _("There still seems to be an old server running on the requested port.")\
                         + " " + _("Terminate that process and try again."))
                     self.thread = None
                     return
                 elif errno == 13:
-                    self.main_widget().error_box(\
+                    self.main_widget().show_error(\
                         _("Unable to start sync server.") + " " + \
     _("You don't have the permission to use the requested port."))
                     self.thread = None

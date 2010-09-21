@@ -38,10 +38,12 @@ class XMLFormat(object):
         for key, value in info.iteritems():
             if key.lower() == "partners":
                 if value:
-                    repr_info += "%s='%s' " % (key, ",".join(value))
+                    repr_info += "%s=%s " % (key, saxutils.quoteattr(",".join(value)))
             else:
-                repr_info += "%s='%s' " % (key, value)
-        repr_info += "protocol_version='%s'></partner>" % (PROTOCOL_VERSION, )
+                if type(value) != str and type(value) != unicode:
+                    value = repr(value)
+                repr_info += "%s=%s " % (key, saxutils.quoteattr(value))
+        repr_info += "protocol_version=\"%s\"></partner>" % (PROTOCOL_VERSION, )
         #import sys; sys.stderr.write(repr_info)
         return repr_info
 
@@ -96,7 +98,7 @@ class XMLFormat(object):
         attribs, tags = "", ""
         for key, value in log_entry.iteritems():
             if key in self.keys_in_attribs:
-                attribs += " %s='%s'" % (key, value)
+                attribs += " %s=\"%s\"" % (key, value)
             else:    
                 tags += "<%s>%s</%s>" % (key, saxutils.escape(value), key)
         xml = "<log%s>%s</log>\n" % (attribs, tags)
@@ -135,7 +137,7 @@ class XMLFormat(object):
                 yield log_entry
 
     def repr_message(self, message, traceback=None):
-        xml = "<openSM2sync message='%s'>" % (message, )
+        xml = "<openSM2sync message=\"%s\">" % (message, )
         if traceback:
             xml += "<traceback>%s</traceback>" % saxutils.escape(traceback)
         xml += "</openSM2sync>"

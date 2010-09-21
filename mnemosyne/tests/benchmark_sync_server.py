@@ -24,10 +24,10 @@ class Widget(MainWidget):
     def set_progress_text(self, text):
         sys.stderr.write(text)
         
-    def information_box(self, info):
+    def show_information(self, info):
         sys.stderr.write(info)
         
-    def error_box(self, error):
+    def show_error(self, error):
         sys.stderr.write(error)
 
         

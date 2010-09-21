@@ -30,16 +30,16 @@ class Widget(MainWidget):
     def set_progress_text(self, message):
         print message
         
-    def information_box(self, info):
+    def show_information(self, info):
         print info
         
-    def error_box(self, error):
+    def show_error(self, error):
         global last_error
         last_error = error
         # Activate this for debugging.
         #sys.stderr.write(error)
 
-    def question_box(self, question, option0, option1, option2):
+    def show_question(self, question, option0, option1, option2):
         return answer
 
     def save_file_dialog(self, path, filter, caption):
@@ -230,7 +230,7 @@ class TestSync(object):
         tag = self.client.mnemosyne.database().\
               get_or_create_tag_with_name("tag")
         tag.extra_data = {"A": "<a>"}
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.server.client_tag_id = tag.id
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
@@ -302,7 +302,7 @@ class TestSync(object):
         fact = Fact({"q": "Q", "a": "A"})
         self.client.mnemosyne.database().add_fact(fact)
         fact.data = {"q": "Q", "a": "AA"}
-        self.client.mnemosyne.database().edit_fact(fact)        
+        self.client.mnemosyne.database().update_fact(fact)        
         self.server.client_fact_id = fact.id
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
@@ -405,7 +405,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.server.client_card = card
         card.extra_data = {"A": "B"}
-        self.client.database.edit_card(card)
+        self.client.database.update_card(card)
         self.server.client_card = card
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
@@ -792,13 +792,13 @@ class TestSync(object):
 
         self.client.do_sync()
         assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "latex",
+            "default.db_media", "_latex",
             "28ec9eac8abe468caee402926546d10f.png"))
         assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "latex",
+            "default.db_media", "_latex",
             "44e557b2680adf90a549e62a6f79a50c.png"))
         assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
-            "default.db_media", "latex",
+            "default.db_media", "_latex",
             "ebc3d7bedc1f11e08895c3124001cbb5.png"))
         
     def test_latex_edit(self):
@@ -1186,7 +1186,7 @@ class TestSync(object):
         def fill_server_database(self):
             tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().edit_tag(tag)
+            self.mnemosyne.database().update_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
@@ -1202,7 +1202,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1238,7 +1238,7 @@ class TestSync(object):
         def fill_server_database(self):
             tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().edit_tag(tag)
+            self.mnemosyne.database().update_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
@@ -1258,7 +1258,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1296,7 +1296,7 @@ class TestSync(object):
         def fill_server_database(self):
             tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().edit_tag(tag)
+            self.mnemosyne.database().update_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
@@ -1316,7 +1316,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1354,7 +1354,7 @@ class TestSync(object):
         def fill_server_database(self):
             tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().edit_tag(tag)
+            self.mnemosyne.database().update_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
@@ -1375,7 +1375,7 @@ class TestSync(object):
         self.client.interested_in_old_reps = False
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1415,7 +1415,7 @@ class TestSync(object):
         def fill_server_database(self):
             tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().edit_tag(tag)
+            self.mnemosyne.database().update_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
@@ -1438,7 +1438,7 @@ class TestSync(object):
         self.client.interested_in_old_reps = False
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1476,7 +1476,7 @@ class TestSync(object):
         def fill_server_database(self):
             tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().edit_tag(tag)
+            self.mnemosyne.database().update_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
@@ -1496,7 +1496,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1556,7 +1556,7 @@ class TestSync(object):
         def fill_server_database(self):
             tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().edit_tag(tag)
+            self.mnemosyne.database().update_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
@@ -1576,7 +1576,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1638,7 +1638,7 @@ class TestSync(object):
         def fill_server_database(self):
             tag = self.mnemosyne.database().tag(self.tag_id, id_is_internal=False)
             tag.name = "server"
-            self.mnemosyne.database().edit_tag(tag)
+            self.mnemosyne.database().update_tag(tag)
             self.mnemosyne.database().save()
 
         def test_server(self):
@@ -1658,7 +1658,7 @@ class TestSync(object):
         self.client = MyClient(erase_previous=False)
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
 
         global answer
@@ -1698,7 +1698,7 @@ class TestSync(object):
         self.client.interested_in_old_reps = False
         tag = self.client.mnemosyne.database().tag(tag.id, id_is_internal=False)
         tag.name = "client"
-        self.client.mnemosyne.database().edit_tag(tag)
+        self.client.mnemosyne.database().update_tag(tag)
         self.client.mnemosyne.database().save()
     
         self.client.do_sync()
@@ -1851,7 +1851,7 @@ class TestSync(object):
         self.client.mnemosyne.database().set_current_activity_criterion(c)
 
         c.forbidden_tag__ids = set()
-        self.client.mnemosyne.database().edit_activity_criterion(c)        
+        self.client.mnemosyne.database().update_activity_criterion(c)        
 
         self.server.criterion_id = c.id
 
@@ -1968,7 +1968,7 @@ class TestSync(object):
         self.client.mnemosyne.database().add_fact_view(fact_view)
 
         fact_view.extra_data = {'1': 3}
-        self.client.mnemosyne.database().edit_fact_view(fact_view)        
+        self.client.mnemosyne.database().update_fact_view(fact_view)        
 
         self.server.fact_view_id = fact_view.id
 
@@ -2074,7 +2074,7 @@ class TestSync(object):
         self.server.card_type_id = card_type_1.id
 
         card_type_1.extra_data = {1: 1}
-        card_type_1 = self.client.mnemosyne.database().edit_card_type(card_type_1)        
+        card_type_1 = self.client.mnemosyne.database().update_card_type(card_type_1)        
 
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()

@@ -17,7 +17,7 @@ class Widget(MainWidget):
     def activate(self):
         self.review_controller().reset()
 
-    def information_box(self, message):
+    def show_information(self, message):
         if message.startswith("Missing media file"):
             return 0
         if message.startswith("No history found to import."):
@@ -28,7 +28,7 @@ class Widget(MainWidget):
             return 0        
         raise NotImplementedError
 
-    def error_box(self, message):
+    def show_error(self, message):
         if message.startswith("This file seems to have been imported before"):
             return
         if message.startswith("Unable to open"):

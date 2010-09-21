@@ -50,13 +50,12 @@ class Upgrade1(Component):
         self.config()["log_index"] = old_config["log_index"]
         self.config()["upload_science_logs"] = old_config["upload_logs"]
         for card_type in self.card_types():
-            renderer = self.render_chain().renderer_for_card_type(card_type)
-            renderer.set_property("font", old_config["QA_font"], card_type)
+            self.config().set_appearance_property("font",
+                old_config["QA_font"], card_type)
         if old_config["left_align"]:
             for card_type in self.card_types():
-                renderer = \
-                    self.render_chain().renderer_for_card_type(card_type)
-                renderer.set_property("alignment", "left", card_type)
+                self.config().set_appearance_property("alignment",
+                    "left", card_type)
         # Migrate latex settings.
         setting_for_file = {"dvipng": "dvipng",
                             "preamble": "latex_preamble",
@@ -89,4 +88,4 @@ class Upgrade1(Component):
             self.config().data_dir: # pragma: no cover
             # Only happens on Linux, outside of the test suite.
             info += self.config().config_dir
-        self.main_widget().information_box(info)
+        self.main_widget().show_information(info)

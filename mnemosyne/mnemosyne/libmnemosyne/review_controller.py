@@ -24,7 +24,11 @@ class ReviewController(Component):
         self.card = None
         self.widget = None
         self.learning_ahead = False
+        self.render_chain = "default"
 
+    def set_render_chain(self, render_chain):
+        self.render_chain = render_chain
+        
     def reset(self):
         raise NotImplementedError
     

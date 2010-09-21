@@ -19,16 +19,16 @@ class MainWidget(UiComponent):
     def activate(self):
         pass
         
-    def information_box(self, message):
+    def show_information(self, message):
         print message
             
-    def question_box(self, question, option0, option1, option2):
+    def show_question(self, question, option0, option1, option2):
 
         """Returns 0, 1 or 2."""
         
         raise NotImplementedError
     
-    def error_box(self, message):
+    def show_error(self, message):
         print message
 
     def status_bar_message(self, message):

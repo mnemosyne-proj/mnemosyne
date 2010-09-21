@@ -100,7 +100,7 @@ class Database(Component):
     def tag(self, id, id_is_internal):
         raise NotImplementedError
     
-    def edit_tag(self, tag):
+    def update_tag(self, tag):
         raise NotImplementedError
 
     def delete_tag(self, tag):
@@ -123,7 +123,7 @@ class Database(Component):
     def fact(self, id, id_is_internal):
         raise NotImplementedError
     
-    def edit_fact(self, fact):
+    def update_fact(self, fact):
         raise NotImplementedError
 
     def delete_fact_and_related_cards(self, fact):
@@ -137,7 +137,7 @@ class Database(Component):
     def card(self, id, id_is_internal):
         raise NotImplementedError
     
-    def edit_card(self, card, repetition_only=False):
+    def update_card(self, card, repetition_only=False):
         raise NotImplementedError
 
     def delete_card(self, card):
@@ -151,7 +151,7 @@ class Database(Component):
     def fact_view(self, id, id_is_internal):
         raise NotImplementedError
     
-    def edit_fact_view(self, fact_view):
+    def update_fact_view(self, fact_view):
         raise NotImplementedError
 
     def delete_fact_view(self, fact_view):
@@ -165,7 +165,7 @@ class Database(Component):
     def card_type(self, id, id_is_internal):
         raise NotImplementedError
     
-    def edit_card_type(self, card_type):
+    def update_card_type(self, card_type):
         raise NotImplementedError
 
     def delete_card_type(self, card_type):
@@ -179,7 +179,7 @@ class Database(Component):
     def activity_criterion(self, id, id_is_internal):
         raise NotImplementedError
     
-    def edit_activity_criterion(self, criterion):
+    def update_activity_criterion(self, criterion):
         raise NotImplementedError
 
     def delete_activity_criterion(self, criterion):

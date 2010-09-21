@@ -11,12 +11,12 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class Widget(MainWidget):
 
-    def information_box(self, message):
+    def show_information(self, message):
         if message == "Card is already in database.\nDuplicate not added.":
             return 0
         raise NotImplementedError
 
-    def question_box(self, question, a, b, c):
+    def show_question(self, question, a, b, c):
         if question.startswith("Delete"):
             return 0
         raise NotImplementedError        

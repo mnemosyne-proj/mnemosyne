@@ -51,14 +51,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
             self.status_bar.removeWidget(widget)
         self.status_bar_widgets = []
 
-    def information_box(self, message):
+    def show_information(self, message):
         QtGui.QMessageBox.information(None, _("Mnemosyne"), message, _("&OK"))
 
-    def question_box(self, question, option0, option1, option2):
+    def show_question(self, question, option0, option1, option2):
         return QtGui.QMessageBox.question(None,  _("Mnemosyne"),
             question, option0, option1, option2, 0, -1)
 
-    def error_box(self, message):
+    def show_error(self, message):
         QtGui.QMessageBox.critical(None, _("Mnemosyne"), message,
             _("&OK"), "", "", 0, -1)
 

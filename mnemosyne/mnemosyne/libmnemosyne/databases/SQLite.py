@@ -12,10 +12,10 @@ import datetime
 
 from openSM2sync.log_entry import EventTypes
 
-from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
@@ -56,11 +56,9 @@ SCHEMA = """
         card_type_id text,
         _fact_id integer,
         fact_view_id text,
-        creation_time integer,
-        modification_time integer,
-        tags text,
         question text,
         answer text,
+        tags text,
         grade integer,
         next_rep integer,
         last_rep integer,
@@ -70,6 +68,8 @@ SCHEMA = """
         lapses integer,
         acq_reps_since_lapse integer,
         ret_reps_since_lapse integer,
+        creation_time integer,
+        modification_time integer,
         extra_data text default "",
         scheduler_data integer default 0,
         active boolean default 1
@@ -196,10 +196,17 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     calling save in the main controller, in order to have a better control
     over transaction granularity.
 
+    'store_pregenerated_data' determines whether the question, answer and tag
+    strings are pregenerated and stored in the database. This is useful for
+    GUIs which display the card list based directly on the SQL database. On a
+    mobile device which does not need this, this can be set to 'False' to save
+    resources.
+
     """
 
     version = "Mnemosyne SQL 1.0"
     suffix = ".db"
+    store_pregenerated_data = True
 
     def __init__(self, component_manager):
         Database.__init__(self, component_manager)
@@ -274,7 +281,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         media_dir = self.media_dir()
         if not os.path.exists(media_dir):
             os.mkdir(media_dir)
-            os.mkdir(os.path.join(media_dir, "latex"))
+            os.mkdir(os.path.join(media_dir, "_latex"))
 
     def _activate_plugin_for_card_type(self, card_type_id):
         found = False
@@ -301,7 +308,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             sql_res = self.con.execute("""select value from global_variables
                 where key=?""", ("version", )).fetchone()
         except sqlite3.OperationalError:
-            self.main_widget().error_box(
+            self.main_widget().show_error(
                 _("Another copy of Mnemosyne is still running.") + "\n" + \
                 _("Continuing is impossible and will lead to data loss!"))
             sys.exit()
@@ -374,7 +381,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             failed = True
         if failed or not os.path.exists(backupfile) or \
           not os.stat(backupfile).st_size:
-            self.main_widget().information_box(\
+            self.main_widget().show_information(\
                 _("Warning: backup creation failed for") + " " +  backupfile)
         for f in self.component_manager.all("hook", "after_backup"):
             f.run(backupfile)
@@ -468,7 +475,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.log().added_tag(tag)
         for criterion in self.activity_criteria():
             criterion.tag_created(tag)
-            self.edit_activity_criterion(criterion)
+            self.update_activity_criterion(criterion)
 
     def tag(self, id, id_is_internal):
         if id_is_internal:
@@ -482,7 +489,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, tag)
         return tag
 
-    def edit_tag(self, tag):
+    def update_tag(self, tag):
         self.con.execute("update tags set name=?, extra_data=? where _id=?",
             (tag.name, self._repr_extra_data(tag.extra_data), tag._id))
         self.log().edited_tag(tag)
@@ -492,7 +499,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.log().deleted_tag(tag)
         for criterion in self.activity_criteria():
             criterion.tag_deleted(tag)
-            self.edit_activity_criterion(criterion)
+            self.update_activity_criterion(criterion)
         del tag
         
     def remove_tag_if_unused(self, tag):
@@ -541,7 +548,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, fact)
         return fact
     
-    def edit_fact(self, fact):
+    def update_fact(self, fact):
         # Delete data_for_fact and recreate it.
         self.con.execute("delete from data_for_fact where _fact_id=?",
             (fact._id, ))
@@ -614,7 +621,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             card.tags.add(self.tag(cursor["_tag_id"], id_is_internal=True))
         return card
     
-    def edit_card(self, card, repetition_only=False):
+    def update_card(self, card, repetition_only=False):
         self.con.execute("""update cards set grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
             next_rep=?, scheduler_data=?, active=? where _id=?""",
@@ -634,7 +641,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             card.answer("plain_text"), card._id))        
         # If repetition_only is True, there is no need to log an EDITED_CARD
         # entry here, as the REPETITION log entry will contain all the data to
-        # edit the card.
+        # update the card.
         self.log().edited_card(card)
         # Link card to its tags. The tags themselves have already been created
         # by default_controller calling get_or_create_tag_with_name.
@@ -684,7 +691,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self._get_extra_data(sql_res, fact_view)
         return fact_view
 
-    def edit_fact_view(self, fact_view):
+    def update_fact_view(self, fact_view):
         self.con.execute("""update fact_views set name=?, q_fields=?,
             a_fields=?, a_on_top_of_q=?, type_answer=?, extra_data=? where
             _id=?""", (fact_view.name, repr(fact_view.q_fields),
@@ -746,7 +753,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 cursor["_fact_view_id"], id_is_internal=True))
         return card_type
         
-    def edit_card_type(self, card_type):
+    def update_card_type(self, card_type):
         self.con.execute("""update card_types set name=?, fields=?,
             unique_fields=?, required_fields=?, keyboard_shortcuts=?,
             extra_data=? where id=?""",
@@ -815,7 +822,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 criterion.set_data_from_string(sql_res["data"])
                 return criterion
     
-    def edit_activity_criterion(self, criterion):
+    def update_activity_criterion(self, criterion):
         self.con.execute("""update activity_criteria set name=?, type=?, data=?
             where id=?""", (criterion.name, criterion.criterion_type,
             criterion.data_to_string(), criterion.id))

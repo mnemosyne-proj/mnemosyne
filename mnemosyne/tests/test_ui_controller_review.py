@@ -2,7 +2,6 @@
 # test_review_controller.py <Peter.Bienstman@UGent.be>
 #
 
-
 from mnemosyne_test import MnemosyneTest
 
 
@@ -23,7 +22,8 @@ class TestUIControllerReview(MnemosyneTest):
             if i == 0:
                 card_1 = card
                 card.next_rep -= 1000 * 24 * 60 * 60 
-                self.database().edit_card(card)
+                self.database().update_card(card)
+        self.review_controller().set_render_chain("default")
         self.review_controller().new_question()
         self.review_controller().show_answer()        
         assert self.review_controller().card == card_1
@@ -48,7 +48,7 @@ class TestUIControllerReview(MnemosyneTest):
             if i == 0:
                 card_1 = card
                 card.next_rep -= 1000 * 24 * 60 * 60
-                self.database().edit_card(card)
+                self.database().update_card(card)
         self.review_controller().new_question()
         assert self.review_controller().card == card_1
         self.review_controller().reload_counters()        
@@ -60,4 +60,4 @@ class TestUIControllerReview(MnemosyneTest):
         self.review_controller().reload_counters()  
         assert self.review_controller().counters() == (0, 0, 15)
 
-        self.mnemosyne.review_widget().enable_grade(1, True)
+        self.mnemosyne.review_widget().set_grade_enabled(1, True)

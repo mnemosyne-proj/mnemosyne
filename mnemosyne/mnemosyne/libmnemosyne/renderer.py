@@ -35,30 +35,6 @@ class Renderer(Component):
         
         pass
 
-    def set_property(self, property_name, property, card_type, fact_key=None):
-
-        """Set a property (like font, colour, ..) for a certain card type.
-        If fact_key is None, then this will be applied to all fact keys.
-
-        """
-
-        if property_name not in ["background_colour", "font", "font_colour",
-                                 "alignment"]:
-            raise KeyError
-        if property_name == "background_colour" or \
-               property_name == "alignment":
-            self.config()[property_name][card_type.id] = property
-            return
-        self.config()[property_name].setdefault(card_type.id, {})
-        for key in card_type.keys():
-            self.config()[property_name][card_type.id].setdefault(key, None)
-        if not fact_key:
-            keys = card_type.keys()
-        else:
-            keys = [fact_key]
-        for key in keys:
-            self.config()[property_name][card_type.id][key] = property
-
     def render_fields(self, data, fields, card_type, **render_args):
 
         """Assembles a sequence of 'fields' which are keys in a dictionary

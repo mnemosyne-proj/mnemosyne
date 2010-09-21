@@ -96,7 +96,7 @@ class Client(Partner):
                     self.get_server_entire_database()
                 self.get_sync_finish()
                 self.ui.close_progress()
-                self.ui.information_box("Sync finished!")
+                self.ui.show_information("Sync finished!")
                 return
             # Upload local changes and check for conflicts.
             result = self.put_client_log_entries()            
@@ -125,25 +125,25 @@ class Client(Partner):
             elif result == "CANCEL":
                 self.get_sync_cancel()
                 self.ui.close_progress()
-                self.ui.information_box("Sync cancelled!")
+                self.ui.show_information("Sync cancelled!")
                 return
         except Exception, exception:
             self.ui.close_progress()
             if type(exception) == type(socket.gaierror()):
-                self.ui.error_box("Could not find server!") 
+                self.ui.show_error("Could not find server!") 
             elif type(exception) == type(socket.error()):
-                self.ui.error_box("Could not connect to server!")            
+                self.ui.show_error("Could not connect to server!")            
             elif type(exception) == type(socket.timeout()):
-                self.ui.error_box("Timeout while waiting for server!")
+                self.ui.show_error("Timeout while waiting for server!")
             elif type(exception) == type(SyncError()):
-                self.ui.error_box(str(exception))
+                self.ui.show_error(str(exception))
             else:
-                self.ui.error_box(traceback_string())
+                self.ui.show_error(traceback_string())
             if self.do_backup:
                 self.database.restore(backup_file)
         else:
             self.ui.close_progress()
-            self.ui.information_box("Sync finished!")
+            self.ui.show_information("Sync finished!")
 
     def _check_response_for_errors(self):
         message, traceback = self.text_format.parse_message(\
@@ -172,7 +172,9 @@ class Client(Partner):
         # spurious sync cycle warning if the client database was reset.
         client_info["database_is_empty"] = self.database.is_empty()
         # Not yet implemented: preferred renderer.
-        client_info["preferred_renderer"] = "" #
+        client_info["render_chain"] = ""
+        # Add optional program-specific information.
+        client_info = self.database.append_to_sync_partner_info(client_info)
         self.con = httplib.HTTPConnection(server, port)
         self.con.request("PUT", "/login",
             self.text_format.repr_partner_info(client_info).\
@@ -223,13 +225,13 @@ class Client(Partner):
                self.interested_in_old_reps and \
                self.program_name == self.server_info["program_name"] and \
                self.program_version == self.server_info["program_version"]:
-                result = self.ui.question_box(\
+                result = self.ui.show_question(\
                     "Conflicts detected during sync!",
                     "Keep local version", "Fetch remote version", "Cancel")
                 results = {0: "KEEP_LOCAL", 1: "KEEP_REMOTE", 2: "CANCEL"}
                 return results[result]
             else:
-                result = self.ui.question_box(\
+                result = self.ui.show_question(\
                     "Conflicts detected during sync! Your client only " +\
                     "stores part of the server database, so you can only " +\
                     "fetch the remote version.",

@@ -122,11 +122,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         colour = QtGui.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
-                for render_chain in \
-                    self.component_manager.all("render_chain"):
-                    render_chain.renderer_for_card_type(card_type).\
-                        set_property("background_colour",
-                            colour.rgb(), card_type)
+                self.config().set_appearance_property("background_colour",
+                    colour.rgb(), card_type)
             self.changed = True
         
     def update_font(self, index):
@@ -151,11 +148,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         if ok:
             font_string = unicode(font.toString())
             for card_type in self.affected_card_types:
-                for render_chain in \
-                    self.component_manager.all("render_chain"):
-                    render_chain.renderer_for_card_type(card_type).\
-                        set_property("font", font_string,
-                            card_type, affected_key)
+                self.config().set_appearance_property("font", font_string,
+                    card_type, affected_key)
             self.changed = True
         
     def update_font_colour(self, index):
@@ -179,11 +173,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         colour = QtGui.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
-                for render_chain in \
-                    self.component_manager.all("render_chain"):
-                    render_chain.renderer_for_card_type(card_type).\
-                        set_property("font_colour", colour.rgb(),
-                            card_type, affected_key)
+                self.config().set_appearance_property("font_colour",
+                    colour.rgb(), card_type, affected_key)
             self.changed = True
         
     def update_alignment(self, index):
@@ -194,9 +185,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         elif index == 2:
             new_alignment = "right"                
         for card_type in self.affected_card_types:
-            for render_chain in self.component_manager.all("render_chain"):
-                render_chain.renderer_for_card_type(card_type).\
-                    set_property("alignment", new_alignment, card_type)
+            self.config().set_appearance_property("alignment", new_alignment,
+                card_type)
         self.alignment.font().setWeight(50)
         self.changed = True
         

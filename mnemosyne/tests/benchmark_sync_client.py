@@ -24,10 +24,10 @@ class Widget(MainWidget):
     def set_progress_text(self, text):
         print text
         
-    def information_box(self, info):
+    def show_information(self, info):
         print info
         
-    def error_box(self, error):
+    def show_error(self, error):
         print error
 
         
@@ -121,4 +121,3 @@ if __name__== '__main__':
         print
         p = pstats.Stats('mnemosyne_profile.' + test.replace("()", ""))
         p.strip_dirs().sort_stats('cumulative').print_stats(number_of_calls)
-

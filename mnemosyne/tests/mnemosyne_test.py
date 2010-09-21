@@ -22,6 +22,7 @@ class MnemosyneTest():
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"),
                                   automatic_upgrades=False)
+        self.mnemosyne.start_review()
 
     def teardown(self):
         self.mnemosyne.finalise()

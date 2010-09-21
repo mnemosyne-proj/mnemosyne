@@ -1,10 +1,10 @@
--more renderer.set_property to config
--question_box, etc: remove box
--rename relative_paths to Media_paths
+-reorder card fields in sql queries
+-make q,a and tags column optional
 
--make q,a and tags column optional for some clients (default None, so as to make sure each client sets it)
--reorder card fields in sql and in card.py
--option not have these columns on initial binary download
+-UDP server
+-server embedded in C
+
+-option not have pregenerated columns on initial binary download is sync
 
 -better next_rep, last rep representation
 -grey for inactive cards
@@ -26,12 +26,23 @@
 
 -add full html header to stardard renderer. Still need MW table hack?
 -test and time renderer on MW. Need to cache it?
-
--edit vs update
+-test no_pregenerated_data on WM
 
 -apply activity criterion after sync, for both partners + test
--sync to empty webserver
+-sync to empty webserver (add 'database_is_empty' to server and act upon it)
 -add support for error messages on protocol mismatch, expired credit
+-add support for render chain selection
+
+-media file handler
+-don't do media check in database, but in controller?
+-rename relative_paths to Media_paths
+-create latex dir in filter plugin?
+-delete orphaned media files. Do it in controller, not in database, so that it needs to 
+ happen only once when batch deleting a set of cards.
+
+-card formatting options on remote web server: act on config info that the client sent across
+ Add hook in set_partner_info
+
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -40,12 +51,12 @@
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
 
--delete orphaned media files
 
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
 
 
 -go through all source
+-communicate start_review, SQLite_no_pregerated_data to client writers
 -do extra input checking in controller
 -include coverage source option
 -test on cramming counters
@@ -71,6 +82,8 @@
 -windows: test unicode filenames in sync protocol
 -test running from usb, update instructions
 -add tests with unicode in data_dir
+
+-more elaborate plugin description in bottom pane
 
 -reenable datadir in setup.py
 
@@ -197,7 +210,6 @@ pylint:
 
 * After 2.0:
 
--more elaborate plugin description in bottom pane
 
 -post nose 0.11: add cover branches
 
@@ -273,7 +285,6 @@ pylint:
 -if there are actual card based clients, remove pragma: no cover and test these as well
 
 
--mechanism to have plugin settings synced?
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 -Tim's gogorender plugin
 -option purge history, refactor logging test. Should only happen in no other sync partners are

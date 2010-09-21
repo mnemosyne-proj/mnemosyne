@@ -59,7 +59,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         sizer.add(self.status_bar)        
         self.sizer = sizer
         
-    def question_box_visible(self, visible):
+    def set_question_box_visible(self, visible):
         if visible:
             self._question_label.show()
             self._question.show()
@@ -67,7 +67,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
             self._question_label.hide()
             self._question.hide()
             
-    def answer_box_visible(self, visible):
+    def set_answer_box_visible(self, visible):
         if visible:
             self._answer_label.show()
             self._answer.show()
@@ -96,7 +96,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         self.show_button.text = text
         self.show_button_enabled = enabled
 
-    def enable_grades(self, enabled):
+    def set_grades_enabled(self, enabled):
         self.grade_buttons_enabled = enabled
         
     def set_default_grade(self, grade):

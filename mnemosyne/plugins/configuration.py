@@ -62,7 +62,7 @@ class SettingsExamplePlugin(Plugin):
         
     def activate(self):
         Plugin.activate(self)
-        self.main_widget().information_box("My value is %d" % \
+        self.main_widget().show_information("My value is %d" % \
                                            self.config()["my_value"]) 
 
 
