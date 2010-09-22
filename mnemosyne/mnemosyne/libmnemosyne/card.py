@@ -76,14 +76,14 @@ class Card(CompareOnId):
         """
 
         self.grade = -1
+        self.next_rep = -1
+        self.last_rep = -1
         self.easiness = -1
         self.acq_reps = 0
         self.ret_reps = 0
         self.lapses = 0
         self.acq_reps_since_lapse = 0
         self.ret_reps_since_lapse = 0
-        self.last_rep = -1
-        self.next_rep = -1
 
     def question(self, render_chain="default", **render_args):
         return self.card_type.render_question\

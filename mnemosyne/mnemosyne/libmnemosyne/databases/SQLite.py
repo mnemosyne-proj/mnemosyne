@@ -6,6 +6,7 @@ import os
 import re
 import sys
 import time
+import string
 import shutil
 import sqlite3
 import datetime
@@ -33,7 +34,7 @@ re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 
 # All times are Posix timestamps.
 
-SCHEMA = """
+SCHEMA = string.Template("""
     begin;
     
     create table facts(
@@ -56,9 +57,7 @@ SCHEMA = """
         card_type_id text,
         _fact_id integer,
         fact_view_id text,
-        question text,
-        answer text,
-        tags text,
+$pregenerated_data
         grade integer,
         next_rep integer,
         last_rep integer,
@@ -184,6 +183,12 @@ SCHEMA = """
     );
     
     commit;
+""")
+
+pregenerated_data = """
+        question text,
+        answer text,
+        tags text,
 """
         
 from mnemosyne.libmnemosyne.databases.SQLite_sync import SQLiteSync
@@ -265,7 +270,12 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         if os.path.exists(self._path):
             os.remove(self._path)
         # Create tables.
-        self.con.executescript(SCHEMA)
+        if self.store_pregenerated_data:
+            self.con.executescript(\
+                SCHEMA.substitute(pregenerated_data=pregenerated_data))
+        else:
+            self.con.executescript(\
+                SCHEMA.substitute(pregenerated_data=""))            
         self.con.execute("insert into global_variables(key, value) values(?,?)",
             ("version", self.version))
         self.con.execute("""insert into partnerships(partner, _last_log_id)
@@ -573,19 +583,24 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
     
     def add_card(self, card):
-        _card_id = self.con.execute("""insert into cards(id, card_type_id, _fact_id,
-            fact_view_id, creation_time, modification_time, grade, easiness, acq_reps, ret_reps, lapses,
-            acq_reps_since_lapse, ret_reps_since_lapse, last_rep, next_rep,
-            extra_data, scheduler_data, active, tags, question, answer)
-            values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            (card.id, card.card_type.id, card.fact._id, card.fact_view.id, card.creation_time, card.modification_time, card.grade,
+        _card_id = self.con.execute("""insert into cards(id, card_type_id,
+            _fact_id, fact_view_id, grade, next_rep, last_rep, easiness,
+            acq_reps, ret_reps, lapses, acq_reps_since_lapse,
+            ret_reps_since_lapse, creation_time, modification_time,
+            extra_data, scheduler_data, active) values(?,?,?,?,?,?,?,?,?,?,
+            ?,?,?,?,?,?,?,?)""", (card.id, card.card_type.id, card.fact._id,
+            card.fact_view.id, card.grade, card.next_rep, card.last_rep,
             card.easiness, card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep,
-            self._repr_extra_data(card.extra_data),
-            card.scheduler_data, card.active, card.tag_string(), card.question("plain_text"),
-            card.answer("plain_text"))).lastrowid
+            card.creation_time, card.modification_time,
+            self._repr_extra_data(card.extra_data), card.scheduler_data,
+            card.active,)).lastrowid
         card._id = _card_id
+        if self.store_pregenerated_data:
+            self.con.execute(\
+                "update cards set question=?, answer=?, tags=? where _id=?",
+                (card.question("plain_text"), card.answer("plain_text"),
+                card.tag_string(), _card_id))
         # Link card to its tags. The tags themselves have already been created
         # by default_controller calling get_or_create_tag_with_name.
         # Note: using executemany here is often slower here as cards mostly
@@ -610,9 +625,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 card = Card(card_type, fact, fact_view,
                     creation_time=sql_res["creation_time"])
                 break
-        for attr in ("id", "_id", "modification_time", "grade", "easiness",
+        for attr in ("id", "_id", "grade", "next_rep", "last_rep", "easiness",
             "acq_reps", "ret_reps", "lapses", "acq_reps_since_lapse",
-            "ret_reps_since_lapse", "last_rep", "next_rep", "scheduler_data",
+            "ret_reps_since_lapse", "modification_time", "scheduler_data",
             "active"):
             setattr(card, attr, sql_res[attr])
         self._get_extra_data(sql_res, card)
@@ -622,23 +637,26 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return card
     
     def update_card(self, card, repetition_only=False):
-        self.con.execute("""update cards set grade=?, easiness=?, acq_reps=?, ret_reps=?, lapses=?,
-            acq_reps_since_lapse=?, ret_reps_since_lapse=?, last_rep=?,
-            next_rep=?, scheduler_data=?, active=? where _id=?""",
-            (card.grade, card.easiness,
+        self.con.execute("""update cards set grade=?, next_rep=?, last_rep=?,
+            easiness=?, acq_reps=?, ret_reps=?, lapses=?,
+            acq_reps_since_lapse=?, ret_reps_since_lapse=?, 
+            scheduler_data=?, active=? where _id=?""",
+            (card.grade, card.next_rep, card.last_rep, card.easiness,
             card.acq_reps, card.ret_reps, card.lapses,
             card.acq_reps_since_lapse, card.ret_reps_since_lapse,
-            card.last_rep, card.next_rep,
             card.scheduler_data, card.active, card._id))
         if repetition_only:
             return
-        self.con.execute("""update cards set card_type_id=?, _fact_id=?, fact_view_id=?,
-            creation_time=?, modification_time=?, extra_data=?, tags=?,
-            question=?, answer=? where _id=?""",
-            (card.card_type.id, card.fact._id, card.fact_view.id, card.creation_time, card.modification_time,
-            self._repr_extra_data(card.extra_data), card.tag_string(),
-            card.question("plain_text"),
-            card.answer("plain_text"), card._id))        
+        self.con.execute("""update cards set card_type_id=?, _fact_id=?,
+            fact_view_id=?, creation_time=?, modification_time=?, extra_data=?
+            where _id=?""", (card.card_type.id, card.fact._id,
+            card.fact_view.id, card.creation_time, card.modification_time,
+            self._repr_extra_data(card.extra_data), card._id))
+        if self.store_pregenerated_data:
+            self.con.execute(\
+                "update cards set question=?, answer=?, tags=? where _id=?",
+                (card.question("plain_text"), card.answer("plain_text"),
+                card.tag_string(), card._id))        
         # If repetition_only is True, there is no need to log an EDITED_CARD
         # entry here, as the REPETITION log entry will contain all the data to
         # update the card.

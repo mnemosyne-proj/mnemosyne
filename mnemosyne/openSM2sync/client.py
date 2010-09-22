@@ -90,7 +90,7 @@ class Client(Partner):
             # First sync.
             if self.database.is_empty():
                 self.get_server_media_files()
-                if self.server_info["supports_binary_log_download"]:
+                if self.server_info["supports_binary_transfer"]:
                     self.get_server_entire_database_binary()
                 else:
                     self.get_server_entire_database()
@@ -109,7 +109,7 @@ class Client(Partner):
             # Conflicts, keep remote.
             elif result == "KEEP_REMOTE":
                 self.get_server_media_files(redownload_all=True)                
-                if self.server_info["supports_binary_log_download"]:
+                if self.server_info["supports_binary_transfer"]:
                     self.get_server_entire_database_binary()
                 else:
                     self.get_server_entire_database()

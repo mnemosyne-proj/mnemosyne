@@ -1,6 +1,3 @@
--reorder card fields in sql queries
--make q,a and tags column optional
-
 -UDP server
 -server embedded in C
 
@@ -21,6 +18,7 @@
 -save sort order
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -add controller logic for after editing/deleting a card in browse cards
+-throwing an exception in browse cards does not release database
 
 -do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
 

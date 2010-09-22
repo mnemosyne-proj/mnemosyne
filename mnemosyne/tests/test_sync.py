@@ -93,7 +93,7 @@ class MyServer(Server, Thread):
         Server.__init__(self, self.mnemosyne.config().machine_id(),
                         PORT, self.mnemosyne.main_widget())
         if not self.binary_download:
-            self.supports_binary_log_download = lambda x : False
+            self.supports_binary_transfer = lambda x : False
         global server_is_initialised
         server_is_initialised = True
         server_initialised.notify()            

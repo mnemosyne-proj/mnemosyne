@@ -205,7 +205,7 @@ class Server(WSGIServer, Partner):
                 return binary_format
         return None
 
-    def supports_binary_log_download(self, session):
+    def supports_binary_transfer(self, session):
 
         """For testability, can easily be overridden by testsuite. """
         
@@ -290,8 +290,8 @@ class Server(WSGIServer, Partner):
                 "database_version": session.database.version,
                 "partners": session.database.partners(),
                 "session_token": session.token,
-                "supports_binary_log_download": \
-                    self.supports_binary_log_download(session)}
+                "supports_binary_transfer": \
+                    self.supports_binary_transfer(session)}
             # Add optional program-specific information.
             server_info = \
                 session.database.append_to_sync_partner_info(server_info)

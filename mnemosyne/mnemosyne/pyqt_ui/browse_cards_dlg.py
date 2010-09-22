@@ -13,24 +13,27 @@ from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
 
 _ID = 0
 ID = 1
-_FACT_ID = 2
-_FACT_VIEW_ID = 3
-QUESTION = 4
-ANSWER = 5
-GRADE = 6
-NEXT_REP = 7
-LAST_REP = 8
-EASINESS = 9
-ACQ_REPS = 10
-RET_REPS = 11
-LAPSES = 12
-ACQ_REPS_SINCE_LAPSE = 13
-RET_REPS_SINCE_LAPSE = 14
-EXTRA_DATA = 15
-SCHEDULER_DATA = 16
-ACTIVE = 17
-E1 = 18
-E2 = 19
+CARD_TYPE_ID = 2
+_FACT_ID = 3
+_FACT_VIEW_ID = 4
+QUESTION = 5
+ANSWER = 6
+TAGS = 7
+GRADE = 8
+NEXT_REP = 9
+LAST_REP = 10
+EASINESS = 11
+ACQ_REPS = 12
+RET_REPS = 13
+LAPSES = 14
+ACQ_REPS_SINCE_LAPSE = 15
+RET_REPS_SINCE_LAPSE = 16
+CREATION_TIME = 17
+MODIFICATION_TIME = 18
+EXTRA_DATA = 19
+SCHEDULER_DATA = 20
+ACTIVE = 21
+
 
 class CardModel(QtSql.QSqlTableModel):
 
@@ -38,33 +41,20 @@ class CardModel(QtSql.QSqlTableModel):
         QtSql.QSqlTableModel.__init__(self)
         self.date_format = locale.nl_langinfo(locale.D_FMT)
 
-    def columnCount(self, parent=QtCore.QModelIndex()):
-        return QtSql.QSqlTableModel.columnCount(self, parent) + 2
-
-    def lessThan(self, index1, index2):
-        print 1
-        return QtSql.QSqlTableModel.columnCount(self, index1, index2)
-
     def data(self, index, role=QtCore.Qt.DisplayRole):
         # Display some columns in a more pretty way. Note that sorting still
         # seems to use the orginal database fields, which is good for speed.
         if role == QtCore.Qt.DisplayRole and index.column() == EASINESS:
             old_data = QtSql.QSqlTableModel.data(self, index, role).toString()
             return QtCore.QVariant("%.2f" % float(old_data))
-        if role == QtCore.Qt.DisplayRole and \
-            (index.column() == NEXT_REP or index.column() == LAST_REP):
+        if role == QtCore.Qt.DisplayRole and index.column() in \
+            (NEXT_REP, LAST_REP, CREATION_TIME, MODIFICATION_TIME):
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.gmtime(old_data)))
-        if role == QtCore.Qt.DisplayRole and index.column() == E1:
-            index = self.createIndex(index.row(), _FACT_ID)
-            _fact_id = self.data(index).toString()
-            fact = self.database
-            return QtCore.QVariant(_fact_id)
-        if role == QtCore.Qt.TextAlignmentRole and \
-            index.column() != QUESTION and index.column() != ANSWER:
+        if role == QtCore.Qt.TextAlignmentRole and index.column() not in \
+            (QUESTION, ANSWER, TAGS):
             return QtCore.QVariant(QtCore.Qt.AlignCenter)  
-        
         return QtSql.QSqlTableModel.data(self, index, role)
 
 
@@ -90,10 +80,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         #self.card_model.setSort(GRADE, QtCore.Qt.AscendingOrder)
 
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
-            GRADE: _("Grade"), NEXT_REP: _("Next rep"),
+            TAGS: _("Tags"), GRADE: _("Grade"), NEXT_REP: _("Next rep"),
             LAST_REP: _("Last rep"), EASINESS: _("Easiness"),
             ACQ_REPS: _("Acquisition\nreps"),
-            RET_REPS: _("Retention\nreps"), LAPSES: _("Lapses")}
+            RET_REPS: _("Retention\nreps"), LAPSES: _("Lapses"),
+            CREATION_TIME: _("Created"), MODIFICATION_TIME: _("Modified")}
         for key, value in headers.iteritems():
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
                   QtCore.QVariant(value))
@@ -103,15 +94,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.table.setModel(self.card_model)
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.table.verticalHeader().hide()
-        self.table.setColumnHidden(_ID, True)
-        self.table.setColumnHidden(ID, True)
-        #self.table.setColumnHidden(_FACT_ID, True)
-        self.table.setColumnHidden(_FACT_VIEW_ID, True)
-        self.table.setColumnHidden(ACQ_REPS_SINCE_LAPSE, True)
-        self.table.setColumnHidden(RET_REPS_SINCE_LAPSE, True)
-        self.table.setColumnHidden(EXTRA_DATA, True)
-        self.table.setColumnHidden(ACTIVE, True)
-        self.table.setColumnHidden(SCHEDULER_DATA, True)
+        for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
+            ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
+            EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
+            self.table.setColumnHidden(column, True)
     
         #self.table.resizeColumnsToContents()
         
@@ -121,7 +107,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         
     def activate(self):
         self.exec_()
-        
+            
     def closeEvent(self, event):
         self.db.close()
         self.config()["browse_dlg_size"] = (self.width(), self.height())
