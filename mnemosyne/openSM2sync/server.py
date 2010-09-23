@@ -29,7 +29,6 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
     return sockobj
 socket.socket = socketwrap
 
-
 # Work around http://bugs.python.org/issue6085.
 
 def not_insane_address_string(self):

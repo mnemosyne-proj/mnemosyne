@@ -1,67 +1,32 @@
 #
-# main_window.py <Peter.Bienstman@UGent.be>
+# UDP_main_window.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
+import socket
 
-from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.pyqt_ui.ui_main_window import Ui_MainWindow
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
-# The folloving is need to determine the location of the translations.
-# TODO: needed?
-import os
-prefix = os.path.dirname(__file__)
-
-
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
+class UDP_MainWindow(MainWidget):
 
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
-        QtGui.QMainWindow.__init__(self)
-        self.setupUi(self)
-        self.status_bar_widgets = []
+        self.buffer = ""
+
         self.progress_bar = None
         self.progress_bar_update_interval = 1
-
-    def closeEvent(self, event):
-        self.config()["main_window_size"] = (self.width(), self.height())
-
-    def activate(self):
-        width, height = self.config()["main_window_size"]
-        if width:
-            self.resize(width, height)
-        self.timer_1 = QtCore.QTimer()
-        self.timer_1.timeout.connect(self.review_controller().heartbeat)
-        self.timer_1.start(1000 * 60 * 10)
-        self.timer_2 = QtCore.QTimer()
-        self.timer_2.timeout.connect(self.controller().heartbeat)
-        self.timer_2.start(1000 * 60 * 60 * 12)
-        self.start_review()
 
     def status_bar_message(self, message):
         self.status_bar.showMessage(message)
 
-    def add_to_status_bar(self, widget):
-        self.status_bar_widgets.append(widget)
-        self.status_bar.addPermanentWidget(widget)
-
-    def clear_status_bar(self):
-        for widget in self.status_bar_widgets:
-            self.status_bar.removeWidget(widget)
-        self.status_bar_widgets = []
-
     def show_information(self, message):
-        QtGui.QMessageBox.information(None, _("Mnemosyne"), message, _("&OK"))
+        pass
 
     def show_question(self, question, option0, option1, option2):
-        return QtGui.QMessageBox.question(None,  _("Mnemosyne"),
-            question, option0, option1, option2, 0, -1)
-
+        pass
+    
     def show_error(self, message):
-        QtGui.QMessageBox.critical(None, _("Mnemosyne"), message,
-            _("&OK"), "", "", 0, -1)
+        pass
 
     def set_progress_text(self, text):
         if self.progress_bar:
@@ -98,13 +63,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.progress_bar = None
         
     def enable_edit_current_card(self, enable):
-        self.actionEditCurrentCard.setEnabled(enable)
+        pass
 
-    def enable_delete_current_card(self, enable):      
-        self.actionDeleteCurrentFact.setEnabled(enable)
+    def enable_delete_current_card(self, enable):
+        pass
 
     def enable_browse_cards(self, enable):      
-        self.actionBrowseCards.setEnabled(enable)
+        pass
 
     def save_file_dialog(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.getSaveFileName(self, caption, path,
@@ -115,7 +80,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
                                                          filter))
 
     def set_window_title(self, title):
-        self.setWindowTitle(title)
+        self.buffer += ("< main_widget.set_window_title(\"%s\")\n" % title)
 
     def add_cards(self):
         self.controller().add_cards()
@@ -167,46 +132,3 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
 
     def configure(self):
         self.controller().configure()      
-
-    def editCards(self):
-        stopwatch.pause()
-        dlg = EditCardsDlg(self)
-        dlg.exec_()
-        rebuild_queue()
-        if not in_queue(self.card):
-            self.newQuestion()
-        else:
-            remove_from_queue(self.card) # It's already being asked.
-        self.review_controller().update_dialog(redraw_all=True)
-        self.updateDialog()
-        stopwatch.unpause()
-
-    def cleanDuplicates(self):
-        stopwatch.pause()
-        self.status_bar.message(_("Please wait..."))
-        clean_duplicates(self)
-        rebuild_queue()
-        if not in_queue(self.card):
-            self.newQuestion()
-        self.updateDialog()
-        stopwatch.unpause()
-
-    def productTour(self):
-        return
-        stopwatch.pause()
-        dlg = ProductTourDlg(self)
-        dlg.exec_()
-        stopwatch.unpause()
-
-    def Tip(self):
-        return
-        stopwatch.pause()
-        dlg = TipDlg(self)
-        dlg.exec_()
-        stopwatch.unpause()
-
-    def helpAbout(self):
-        stopwatch.pause()
-        dlg = AboutDlg(self)
-        dlg.exec_()
-        stopwatch.unpause()

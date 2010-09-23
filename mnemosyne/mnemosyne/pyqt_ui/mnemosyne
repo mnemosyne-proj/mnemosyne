@@ -122,7 +122,6 @@ mnemosyne.extra_components_for_plugin["CrammingPlugin"] = \
 mnemosyne.initialise(data_dir=data_dir, filename=filename)
 mnemosyne.main_widget().show()
 mnemosyne.main_widget().raise_() # Needed for OSX.
-mnemosyne.start_review()
 # TODO: check first run wizard.
 #if config()["first_run"] == True:
 #    w.productTour()
