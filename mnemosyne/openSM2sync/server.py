@@ -52,6 +52,14 @@ BinaryFormats = [MnemosyneFormat]
 
 class Session(object):
 
+    """Very basic session support.
+
+    Note that although the current code supports multiple open sessions at
+    once, it does not yet support the locking mechanisms to make this
+    thread-safe.
+
+    """
+
     def __init__(self, client_info, database):
         self.token = str(uuid.uuid4())
         self.client_info = client_info
@@ -138,6 +146,8 @@ class Server(WSGIServer, Partner):
             return "200 OK", method, args
         else:
             return "404 Not Found", None, None
+
+    # The following functions are not yet thread safe.
 
     def create_session(self, client_info):
         database = self.load_database(client_info["database_name"])

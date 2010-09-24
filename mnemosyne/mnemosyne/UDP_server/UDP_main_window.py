@@ -11,10 +11,21 @@ class UDP_MainWindow(MainWidget):
 
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
-        self.buffer = ""
-
+        self.socket = None
         self.progress_bar = None
         self.progress_bar_update_interval = 1
+
+    def set_socket(self, socket, client_address):
+        self.socket = socket
+        self.client_address = client_address
+
+    def write_to_socket(self, data):
+        socket = self.component_manager.socket
+        client_address = self.component_manager.client_address
+        socket.sendto(data + "\nDONE\n", client_address)
+
+    def read_from_socket(self):
+        return self.component_manager.socket.makefile("rb").readline()
 
     def status_bar_message(self, message):
         self.status_bar.showMessage(message)
@@ -23,7 +34,9 @@ class UDP_MainWindow(MainWidget):
         pass
 
     def show_question(self, question, option0, option1, option2):
-        pass
+        self.write_to_socket\
+            ("< main_widget.show_question(\"%s\")" % question)
+            return int(self.read_from_socket())
     
     def show_error(self, message):
         pass
@@ -80,7 +93,8 @@ class UDP_MainWindow(MainWidget):
                                                          filter))
 
     def set_window_title(self, title):
-        self.buffer += ("< main_widget.set_window_title(\"%s\")\n" % title)
+        self.write_to_socket\
+            ("< main_widget.set_window_title(\"%s\")" % title)
 
     def add_cards(self):
         self.controller().add_cards()

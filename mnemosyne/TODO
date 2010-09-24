@@ -1,22 +1,19 @@
--blocking calls, like question
--do we need the buffer, can't we send immediately?
--http://code.activestate.com/recipes/408859-socketrecv-three-ways-to-turn-it-into-recvall/
+-empty lines
+-route stdout to socket
+-duplication of socket code in review and main widget
 -both in client and server, wait until everything has been initialised
 -clean server shutdown
 -flesh out calls
--so far, we don't seem to need threads
--note that we don't profit from prefetching in the review controller. Fixable by blocking?
- add comment in code
--time open database connection
--way to shutdown server, self.socket.close
--get rid of socket server for overhead?
--allow port number to be passed to server as argument on command line
+-treat exceptions
+-allow port number to be passed to server as argument on command line?
 -name == main trick for webserver too?
--inform maemo people of thread trick
+-move 'start_review' to init again?
+-review all code
 -remove print statements from production server
 
 
 -server embedded in C
+-treat exceptions
 
 -option not have pregenerated columns on initial binary download is sync
 
@@ -109,7 +106,9 @@
 
 -Faq about how to pronounce Mnemosyne
 -check if online username is still free
--threading or forking sync and review servers
+-threading/multiprocess for sync and review servers? Threading prob. works automatically if persistent
+ connections are supported (CherryPy), perhaps also for multiprocess. Multiprocess probably only useful
+ to get round the GIL, which is only useful on a dedicated server.
 
 
 -import

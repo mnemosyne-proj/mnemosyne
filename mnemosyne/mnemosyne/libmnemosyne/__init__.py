@@ -22,6 +22,7 @@ class Mnemosyne(Component):
     """
 
     def __init__(self):
+        self.component_manager = new_component_manager()
         self.components = [
          ("mnemosyne.libmnemosyne.databases.SQLite",
           "SQLite"),
@@ -88,10 +89,9 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
           "Mnemosyne1Mem")]
         self.extra_components_for_plugin = {}
-
+        
     def initialise(self, data_dir=None, filename=None,
-                   automatic_upgrades=True):
-        self.component_manager = new_component_manager()          
+                   automatic_upgrades=True):  
         self.register_components()
         if data_dir:
             self.config().data_dir = data_dir
