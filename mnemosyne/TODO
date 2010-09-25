@@ -1,11 +1,8 @@
--empty lines
 -route stdout to socket
--duplication of socket code in review and main widget
--both in client and server, wait until everything has been initialised
--clean server shutdown
--flesh out calls
 -treat exceptions
--allow port number to be passed to server as argument on command line?
+-empty lines
+-duplication of socket code in review and main widget
+-flesh out calls
 -name == main trick for webserver too?
 -move 'start_review' to init again?
 -review all code

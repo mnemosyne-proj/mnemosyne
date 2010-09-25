@@ -22,7 +22,7 @@ class UDP_MainWindow(MainWidget):
     def write_to_socket(self, data):
         socket = self.component_manager.socket
         client_address = self.component_manager.client_address
-        socket.sendto(data + "\nDONE\n", client_address)
+        socket.sendto(data + "\n", client_address)
 
     def read_from_socket(self):
         return self.component_manager.socket.makefile("rb").readline()
@@ -35,8 +35,8 @@ class UDP_MainWindow(MainWidget):
 
     def show_question(self, question, option0, option1, option2):
         self.write_to_socket\
-            ("< main_widget.show_question(\"%s\")" % question)
-            return int(self.read_from_socket())
+            ("@@main_widget.show_question(\"%s\")" % question)
+        return int(self.read_from_socket())
     
     def show_error(self, message):
         pass
@@ -94,7 +94,7 @@ class UDP_MainWindow(MainWidget):
 
     def set_window_title(self, title):
         self.write_to_socket\
-            ("< main_widget.set_window_title(\"%s\")" % title)
+            ("@@main_widget.set_window_title(\"%s\")" % title)
 
     def add_cards(self):
         self.controller().add_cards()
