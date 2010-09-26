@@ -1,12 +1,9 @@
--route stdout to socket
--treat exceptions
--empty lines
 -duplication of socket code in review and main widget
 -flesh out calls
 -name == main trick for webserver too?
 -move 'start_review' to init again?
 -review all code
--remove print statements from production server
+-add tests
 
 
 -server embedded in C

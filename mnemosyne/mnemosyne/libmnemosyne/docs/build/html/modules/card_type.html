@@ -80,7 +80,7 @@ probably overkill.</p>
 <p>The function &#8216;fact_data&#8217; typically just returns a dictionary which is
 typically just fact.data, butwhich can also be generated on the fly,
 as e.g. in the cloze card type.</p>
-<p>The functions &#8216;create_related_cards&#8217; and &#8216;update_related_cards&#8217; can be
+<p>The functions &#8216;create_related_cards&#8217; and &#8216;edit_related_cards&#8217; can be
 overridden by card types which can have a varying number of fact views,
 e.g. the cloze card type.</p>
 <dl class="method">
@@ -100,10 +100,10 @@ e.g. the cloze card type.</p>
 here, but is done in the main controller.</dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.update_related_cards">
-<tt class="descname">update_related_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.update_related_cards" title="Permalink to this definition">¶</a></dt>
-<dd><p>If for the card type this operation results in updateed, added or
-deleted card data apart from the updateed fact data from which they
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.edit_related_cards">
+<tt class="descname">edit_related_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.edit_related_cards" title="Permalink to this definition">¶</a></dt>
+<dd><p>If for the card type this operation results in edited, added or
+deleted card data apart from the edited fact data from which they
 derive, these should be returned here, so that they can be taken into
 account in the database storage.</p>
 <p>Initial grading of cards and storing in the database should not happen
@@ -160,7 +160,7 @@ here, but is done in the main controller.</p>
                                   title="previous chapter"><tt class="docutils literal"><span class="pre">Tag</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="card.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">Card</span></tt></a></p>
+                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Card</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/card_type.txt"
@@ -203,7 +203,7 @@ here, but is done in the main controller.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Sep 16, 2010.
+      Last updated on Sep 26, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>

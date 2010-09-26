@@ -65,3 +65,4 @@ Notes:
 
 * If you need access to the main widget when you are constructing the review widget, e.g. to specify it's parent, you can access it using `self.main_widget()``
 * If you need access to some components of libmnemosyne to construct your widget (e.g. the configuration), these might not yet be available inside your ``__init__()`` method. In this case, you need to move that code to your widget's ``activate()`` method, at which time all the other compoments will already be active.
+* The same philosophy applies for frontends not written in Python, but which access libmnemosyne through an UDP socket or through the Python-embedded-in-C bridge.

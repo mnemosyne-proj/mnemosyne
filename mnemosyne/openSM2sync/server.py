@@ -102,7 +102,7 @@ class Server(WSGIServer, Partner):
 
     def serve_until_stopped(self):
         while not self.stopped:
-            # We time out every 0.25 seconds, so that we changing
+            # We time out every 0.25 seconds, so that changing
             # self.stopped can have an effect.
             if select.select([self.socket], [], [], 0.25)[0]:
                 self.handle_request()

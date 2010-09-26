@@ -1,23 +1,24 @@
 #
-# UDP_main_window.py <Peter.Bienstman@UGent.be>
+# UDP_main_widget.py <Peter.Bienstman@UGent.be>
 #
 
+import sys
 import socket
 
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
-class UDP_MainWindow(MainWidget):
+class UDP_MainWidget(MainWidget):
 
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
         self.socket = None
-        self.progress_bar = None
-        self.progress_bar_update_interval = 1
 
     def set_socket(self, socket, client_address):
         self.socket = socket
         self.client_address = client_address
+        sys.stdout = socket
+        sys.stderr = socket
 
     def write_to_socket(self, data):
         socket = self.component_manager.socket
@@ -31,7 +32,8 @@ class UDP_MainWindow(MainWidget):
         self.status_bar.showMessage(message)
 
     def show_information(self, message):
-        pass
+        self.write_to_socket\
+            ("@@main_widget.show_information(\"%s\")" % message)
 
     def show_question(self, question, option0, option1, option2):
         self.write_to_socket\
@@ -39,23 +41,11 @@ class UDP_MainWindow(MainWidget):
         return int(self.read_from_socket())
     
     def show_error(self, message):
-        pass
+        self.write_to_socket\
+            ("@@main_widget.show_error(\"%s\")" % message)
 
     def set_progress_text(self, text):
-        if self.progress_bar:
-            self.progress_bar.close()
-            self.progress_bar = None
-        if not self.progress_bar:
-            self.progress_bar = QtGui.QProgressDialog(self)
-            self.progress_bar.setWindowTitle(_("Mnemosyne"))
-            self.progress_bar.setWindowModality(QtCore.Qt.WindowModal)
-            self.progress_bar.setCancelButton(None)
-            self.progress_bar.setMinimumDuration(0)
-        self.progress_bar.setLabelText(text)
-        self.progress_bar.setRange(0, 0)
-        self.progress_bar_update_interval = 1
-        self.progress_bar.setValue(0)
-        self.progress_bar.show()
+        pass
 
     def set_progress_range(self, minimum, maximum):
         self.progress_bar.setRange(minimum, maximum)
@@ -95,54 +85,3 @@ class UDP_MainWindow(MainWidget):
     def set_window_title(self, title):
         self.write_to_socket\
             ("@@main_widget.set_window_title(\"%s\")" % title)
-
-    def add_cards(self):
-        self.controller().add_cards()
-
-    def edit_current_card(self):
-        self.controller().edit_current_card()
-        
-    def delete_current_fact(self):
-        self.controller().delete_current_fact()
-        
-    def browse_cards(self):
-        self.controller().browse_cards()
-        
-    def activate_cards(self):
-        self.controller().activate_cards()
-        
-    def file_new(self):
-        self.controller().file_new()
-
-    def file_open(self):
-        self.controller().file_open()
-        
-    def file_save(self):
-        self.controller().file_save()
-        
-    def file_save_as(self):
-        self.controller().file_save_as()
-        
-    def manage_card_types(self):
-        self.controller().manage_card_types()
-        
-    def card_appearance(self):
-        self.controller().card_appearance()
-        
-    def activate_plugins(self):
-        self.controller().activate_plugins()
-
-    def show_statistics(self):
-        self.controller().show_statistics()
-        
-    def import_file(self):
-        self.controller().import_file()
-        
-    def export_file(self):
-        self.controller().export_file()
-
-    def sync(self):
-        self.controller().sync()
-
-    def configure(self):
-        self.controller().configure()      

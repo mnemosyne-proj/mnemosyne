@@ -100,6 +100,7 @@
 <ul class="simple">
 <li>If you need access to the main widget when you are constructing the review widget, e.g. to specify it&#8217;s parent, you can access it using <cite>self.main_widget()`</cite></li>
 <li>If you need access to some components of libmnemosyne to construct your widget (e.g. the configuration), these might not yet be available inside your <tt class="docutils literal"><span class="pre">__init__()</span></tt> method. In this case, you need to move that code to your widget&#8217;s <tt class="docutils literal"><span class="pre">activate()</span></tt> method, at which time all the other compoments will already be active.</li>
+<li>The same philosophy applies for frontends not written in Python, but which access libmnemosyne through an UDP socket or through the Python-embedded-in-C bridge.</li>
 </ul>
 </div>
 
@@ -151,7 +152,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on May 05, 2010.
+      Last updated on Sep 26, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
