@@ -2,86 +2,59 @@
 # UDP_main_widget.py <Peter.Bienstman@UGent.be>
 #
 
-import sys
-import socket
-
+from mnemosyne.UDP_server.UDP_widget import UDP_Widget
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
-class UDP_MainWidget(MainWidget):
+class UDP_MainWidget(MainWidget, UDP_Widget):
 
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
-        self.socket = None
-
-    def set_socket(self, socket, client_address):
-        self.socket = socket
-        self.client_address = client_address
-        sys.stdout = socket
-        sys.stderr = socket
-
-    def write_to_socket(self, data):
-        socket = self.component_manager.socket
-        client_address = self.component_manager.client_address
-        socket.sendto(data + "\n", client_address)
-
-    def read_from_socket(self):
-        return self.component_manager.socket.makefile("rb").readline()
 
     def status_bar_message(self, message):
-        self.status_bar.showMessage(message)
+        self.callback(message)
 
     def show_information(self, message):
-        self.write_to_socket\
-            ("@@main_widget.show_information(\"%s\")" % message)
-
+        self.callback(message)
+        
     def show_question(self, question, option0, option1, option2):
-        self.write_to_socket\
-            ("@@main_widget.show_question(\"%s\")" % question)
+        self.callback(question, option0, option1, option2)
         return int(self.read_from_socket())
     
     def show_error(self, message):
-        self.write_to_socket\
-            ("@@main_widget.show_error(\"%s\")" % message)
-
+        self.callback(message)
+        
     def set_progress_text(self, text):
-        pass
-
+        self.callback(text)
+        
     def set_progress_range(self, minimum, maximum):
-        self.progress_bar.setRange(minimum, maximum)
+        self.callback(minimum, maximum)
         
     def set_progress_update_interval(self, update_interval):
-        update_interval = int(update_interval)
-        if update_interval == 0:
-            update_interval = 1
-        self.progress_bar_update_interval = update_interval
+        self.callback(update_interval)
         
     def set_progress_value(self, value):
-        if value % self.progress_bar_update_interval == 0:
-            self.progress_bar.setValue(value)
+        self.callback(value)
         
     def close_progress(self):
-        if self.progress_bar:
-            self.progress_bar.close()
-        self.progress_bar = None
+        self.callback()
         
     def enable_edit_current_card(self, enable):
-        pass
+        self.callback(enable)        
 
     def enable_delete_current_card(self, enable):
-        pass
+        self.callback(enable)
 
     def enable_browse_cards(self, enable):      
-        pass
+        self.callback(enable)
 
     def save_file_dialog(self, path, filter, caption=""):
-        return unicode(QtGui.QFileDialog.getSaveFileName(self, caption, path,
-                                                         filter))
+        self.callback(path, filter, caption)
+        return self.read_from_socket()       
     
     def open_file_dialog(self, path, filter, caption=""):
-        return unicode(QtGui.QFileDialog.getOpenFileName(self, caption, path,
-                                                         filter))
+        self.callback(path, filter, caption)
+        return self.read_from_socket()
 
     def set_window_title(self, title):
-        self.write_to_socket\
-            ("@@main_widget.set_window_title(\"%s\")" % title)
+        self.callback(title)

@@ -1,7 +1,5 @@
--duplication of socket code in review and main widget
--flesh out calls
--name == main trick for webserver too?
--move 'start_review' to init again?
+-redirect stdout, stderr + test
+-better examples
 -review all code
 -add tests
 

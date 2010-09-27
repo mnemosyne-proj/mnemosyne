@@ -15,6 +15,8 @@ class MyHandler(SocketServer.BaseRequestHandler):
     def handle(self):
         data = self.request[0].strip()
         socket = self.request[1]
+        sys.stdout = socket
+        sys.stderr = socket
         mnemosyne = self.server.mnemosyne
         # We use the component manager to store some more global data there.
         mnemosyne.component_manager.socket = socket
@@ -51,6 +53,7 @@ class Server(SocketServer.UDPServer):
             if select.select([self.socket], [], [], 0.25)[0]:
                 self.handle_request()
         self.socket.close()
+
 
 if __name__ == "__main__":
     port = int(sys.argv[1])

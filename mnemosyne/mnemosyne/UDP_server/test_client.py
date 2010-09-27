@@ -31,7 +31,7 @@ class Client(object):
         connected = False
         while not connected:
             try:
-                self.send_command("")
+                self.send_command("# Waiting for server...")
                 connected = True
             except:
                 time.sleep(0.1)
@@ -77,8 +77,11 @@ class Client(object):
 c = Client()
 c.send_command("mnemosyne.initialise(data_dir=\"%s\", filename=\"%s\")" % (data_dir, filename))
 c.send_command("mnemosyne.start_review()")
-c.send_command("mnemosyne.main_widget().show_question(\"a\", \"1\", \"2\", \"3\")")            
-c.send_command("mnemosyne.review_widget().show_answer()")
+c.send_command("mnemosyne.review_controller().show_answer()")
+c.send_command("mnemosyne.review_controller().grade_answer(0)")
 c.send_command("mnemosyne.finalise()")
+
+c.send_command("mnemosyne.main_widget().show_question(\"a\", \"1\", \"2\", \"3\")")
 c.send_command("1/0")
+
 c.send_command("exit()")
