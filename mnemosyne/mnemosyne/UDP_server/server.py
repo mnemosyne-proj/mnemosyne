@@ -12,12 +12,11 @@ from mnemosyne.libmnemosyne.utils import traceback_string
 
 class OutputCatcher:
 
-    def __init__(self, socket, client_address):
+    def __init__(self, socket):
         self.socket = socket
-        self.client_address = client_address
 
     def write(self, data):
-        self.socket.sendto(data, self.client_address)
+        self.socket.sendall(data)
         
 
 class MyHandler(SocketServer.BaseRequestHandler):
@@ -25,20 +24,19 @@ class MyHandler(SocketServer.BaseRequestHandler):
     def handle(self):
         data = self.request[0].strip()
         socket = self.request[1]
-        sys.stdout = sys.stderr = OutputCatcher(socket, self.client_address)
+        socket.connect(self.client_address)
+        sys.stdout = sys.stderr = OutputCatcher(socket)
         # We use the component manager to store some more global data there.
         mnemosyne = self.server.mnemosyne
         mnemosyne.component_manager.socket = socket
-        mnemosyne.component_manager.client_address = self.client_address
         if data != "exit()":
             try:
                 exec(data)
             except:
-                socket.sendto("__EXCEPTION__\n" + traceback_string(),
-                    self.client_address)
+                socket.sendall("__EXCEPTION__\n" + traceback_string())
         else:
             self.server.stopped = True
-        socket.sendto("__DONE__\n", self.client_address)
+        socket.sendall("__DONE__\n")
 
 
 class Server(SocketServer.UDPServer):

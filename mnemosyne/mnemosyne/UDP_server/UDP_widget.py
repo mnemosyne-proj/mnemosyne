@@ -30,9 +30,7 @@ class UDP_Widget(object):
             command += "\"\"\"%s\"\"\"," % unicode(arg).encode("utf-8")
         if args:
             command = command[:-1]
-        socket = self.component_manager.socket
-        client_address = self.component_manager.client_address
-        socket.sendto(command + ")\n", client_address)        
+        self.component_manager.socket.sendall(command + ")\n")
 
     def read_from_socket(self):
         return self.component_manager.socket.makefile("rb").readline()
