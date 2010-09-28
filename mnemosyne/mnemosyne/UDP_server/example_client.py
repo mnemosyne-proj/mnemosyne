@@ -1,5 +1,5 @@
 #
-# test_client.py <Peter.Bienstman@UGent.be>
+# example_client.py <Peter.Bienstman@UGent.be>
 #
 
 PORT = 6666
@@ -83,6 +83,8 @@ if __name__ == "__main__":
     c.send_command("mnemosyne.start_review()")
     c.send_command("mnemosyne.review_controller().show_answer()")
     c.send_command("mnemosyne.review_controller().grade_answer(0)")
+    # You can get access to all data using print statements:
+    c.send_command("print mnemosyne.database().card_count()")        
     c.send_command("mnemosyne.finalise()")
     c.send_command("exit()")
 
@@ -134,5 +136,10 @@ if __name__ == "__main__":
 #@@main_widget.enable_edit_current_card("""True""")
 #@@main_widget.enable_delete_current_card("""True""")
 #@@main_widget.enable_browse_cards("""True""")
+#>>print mnemosyne.database().card_count()
+#8960
 #>>mnemosyne.finalise()
+#Waiting for uploader thread to stop...
+#Done!
 #>>exit()
+

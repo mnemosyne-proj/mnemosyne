@@ -10,14 +10,24 @@ from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import traceback_string
 
 
+class OutputCatcher:
+
+    def __init__(self, socket, client_address):
+        self.socket = socket
+        self.client_address = client_address
+
+    def write(self, data):
+        self.socket.sendto(data, self.client_address)
+        
+
 class MyHandler(SocketServer.BaseRequestHandler):
 
     def handle(self):
         data = self.request[0].strip()
         socket = self.request[1]
-        sys.stdout = sys.stderr = socket.makefile("w")
-        mnemosyne = self.server.mnemosyne
+        sys.stdout = sys.stderr = OutputCatcher(socket, self.client_address)
         # We use the component manager to store some more global data there.
+        mnemosyne = self.server.mnemosyne
         mnemosyne.component_manager.socket = socket
         mnemosyne.component_manager.client_address = self.client_address
         if data != "exit()":
