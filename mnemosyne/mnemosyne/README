@@ -1,0 +1,14 @@
+Some information about the contents of the directories:
+
+-libmnemosyne: the main python library that does all the heavy lifting common
+ to all the frontends.
+-pyqt_ui: the Qt frontend, written in Python, for use on desktop machines 
+ under Windows, Linux and OSX.
+-ppygui_ui: the PocketPyGui frontend, for use on Windows Mobile.
+-webserver: the webserver frontend, to do reviews in your browser.
+-UDP_server: talk libmnemosyne over the UDP protocol. Useful if you want to
+ write a frontend in a language other than Python, and if you have the option
+ to run a separate process.
+-embedded_in_C: embeds libmnemosyne in a C application. Useful if you don't
+ have the option of running separate processes on your client machine.
+

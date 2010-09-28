@@ -1,9 +1,3 @@
--redirect stdout, stderr + test
--better examples
--review all code
--add tests
-
-
 -server embedded in C
 -treat exceptions
 
