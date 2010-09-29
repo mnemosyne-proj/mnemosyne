@@ -1,6 +1,7 @@
 -server embedded in C
 -treat exceptions
 
+-add preambe/postamble in latex signature
 -option not have pregenerated columns on initial binary download is sync
 
 -better next_rep, last rep representation
