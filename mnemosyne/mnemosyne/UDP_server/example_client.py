@@ -80,6 +80,7 @@ if __name__ == "__main__":
     c = Client()
     c.send_command("mnemosyne.initialise(data_dir=\"%s\", filename=\"%s\")" \
         % (data_dir, filename))
+    c.send_command("mnemosyne.config()[\"upload_science_logs\"] = False")
     c.send_command("mnemosyne.start_review()")
     c.send_command("mnemosyne.review_controller().show_answer()")
     c.send_command("mnemosyne.review_controller().grade_answer(0)")
