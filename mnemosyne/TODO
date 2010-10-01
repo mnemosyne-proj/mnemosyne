@@ -1,5 +1,9 @@
--server embedded in C
+-read up on ref counting
+-callback with a return value
+-export function names, clean up
 -treat exceptions
+-clean up paths
+-capture stdout/err needed?
 -test for memory leaks
 
 -add preambe/postamble in latex signature

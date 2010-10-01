@@ -2,6 +2,10 @@
 # C_main_widget.py <Peter.Bienstman@UGent.be>
 #
 
+from _C_main_widget import _set_window_title
+#import sys
+#print sys.builtin_module_names
+#print sys.modules.keys()
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
@@ -65,4 +69,5 @@ class C_MainWidget(MainWidget):
         return self.read_from_socket()
 
     def set_window_title(self, title):
-        self.callback(title)
+        _set_window_title(title)
+
