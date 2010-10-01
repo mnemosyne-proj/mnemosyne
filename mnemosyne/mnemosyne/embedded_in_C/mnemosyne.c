@@ -81,6 +81,13 @@ int main(int argc, char *argv[])
   printf("buffer:%s\n", buffer);
   printf("count+1:%d\n", card_count+1);
 
+  PyObject* obj = PyRun_String("1", Py_single_input, PyEval_GetGlobals(), PyEval_GetLocals());
+  long d = PyLong_AsLong(obj);
+  printf("long:%ld\n", d);  
+  Py_DECREF(obj);
+
+
+
   PyObject* pyIntObject = PyInt_FromLong(5);
   if (pyIntObject == NULL) ; // Error
 

@@ -1,5 +1,6 @@
 -server embedded in C
 -treat exceptions
+-test for memory leaks
 
 -add preambe/postamble in latex signature
 -option not have pregenerated columns on initial binary download is sync
