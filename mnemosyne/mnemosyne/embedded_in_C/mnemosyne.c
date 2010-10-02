@@ -72,10 +72,13 @@ int main(int argc, char *argv[])
 
   // Illustration on how to get data from Python to C.
 
-  //PyObject* obj = PyRun_String("1", Py_single_input, PyEval_GetGlobals(), PyEval_GetLocals());
-  //long d = PyLong_AsLong(obj);
-  //printf("long:%ld\n", d);  
-  //Py_DECREF(obj);
+  PyObject* module = PyImport_ImportModule("__builtin__");
+  PyObject* obj = PyRun_String("unicode(1).encode(\"utf-8\")", Py_eval_input, PyModule_GetDict(module), NULL);
+  Py_DECREF(module);
+  char* s = PyString_AsString(obj);
+  //PyErr_Print();
+  printf("string: %s\n", s);  
+  Py_DECREF(obj);
 
   Py_Finalize();
   return 0;
