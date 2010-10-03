@@ -22,7 +22,7 @@ class MainWidget(UiComponent):
     def show_information(self, message):
         print message
             
-    def show_question(self, question, option0, option1, option2):
+    def show_question(self, question, option0, option1, option2=""):
 
         """Returns 0, 1 or 2."""
         

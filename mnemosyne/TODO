@@ -1,10 +1,10 @@
--read up on ref counting
--callback with a return value
--export function names, clean up
+-be sure to use strncopy, also expose buffer size in interface
+-test for memory leaks
 -treat exceptions
 -clean up paths
+-hook up dialogs, also in UDP
 -capture stdout/err needed?
--test for memory leaks
+
 
 -add preambe/postamble in latex signature
 -option not have pregenerated columns on initial binary download is sync
