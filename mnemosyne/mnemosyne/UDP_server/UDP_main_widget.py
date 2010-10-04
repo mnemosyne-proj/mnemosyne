@@ -48,11 +48,11 @@ class UDP_MainWidget(MainWidget, UDP_Widget):
     def enable_browse_cards(self, enable):      
         self.callback(enable)
 
-    def show_save_file_dialog(self, path, filter, caption=""):
+    def get_filename_to_save(self, path, filter, caption=""):
         self.callback(path, filter, caption)
         return self.read_from_socket()       
     
-    def show_open_file_dialog(self, path, filter, caption=""):
+    def get_filename_to_open(self, path, filter, caption=""):
         self.callback(path, filter, caption)
         return self.read_from_socket()
 

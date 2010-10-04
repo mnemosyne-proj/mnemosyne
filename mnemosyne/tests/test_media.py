@@ -13,7 +13,7 @@ filename = ""
 
 class Widget(MainWidget):
 
-    def open_file_dialog(self, a, b, c):
+    def get_filename_to_open(self, a, b, c):
         return filename
     
 class TestMedia(MnemosyneTest):

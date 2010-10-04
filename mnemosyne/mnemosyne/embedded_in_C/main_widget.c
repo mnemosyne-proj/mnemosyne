@@ -197,7 +197,7 @@ static PyObject* _enable_browse_cards(PyObject* self, PyObject* args)
 }
 
 
-static PyObject* _show_save_file_dialog(PyObject* self, PyObject* args)
+static PyObject* _get_filename_to_save(PyObject* self, PyObject* args)
 {
   char* path = NULL;
   char* filter = NULL;
@@ -207,16 +207,16 @@ static PyObject* _show_save_file_dialog(PyObject* self, PyObject* args)
 
   // --------------------------------------------------------------------------
   // Replace this by something useful.
-  printf("show_save_file_dialog: %s, %s, %s\n", path, filter, caption);
+  printf("get_filename_to_save: %s, %s, %s\n", path, filter, caption);
   // We should ask the user which path he chooses, but here, we just 
   // hardcode 'tmp'.
   char answer[5] = "tmp";
   // --------------------------------------------------------------------------
-  return Py_BuildValue("s", answer);
+  return PyUnicode_FromString(answer);
 }
 
 
-static PyObject* _show_open_file_dialog(PyObject* self, PyObject* args)
+static PyObject* _get_filename_to_open(PyObject* self, PyObject* args)
 {
   char* path = NULL;
   char* filter = NULL;
@@ -226,12 +226,12 @@ static PyObject* _show_open_file_dialog(PyObject* self, PyObject* args)
 
   // --------------------------------------------------------------------------
   // Replace this by something useful.
-  printf("show_open_file_dialog: %s, %s, %s\n", path, filter, caption);
+  printf("get_filename_to_open: %s, %s, %s\n", path, filter, caption);
   // We should ask the user which path he chooses, but here, we just 
   // hardcode 'tmp'.
   char answer[5] = "tmp";
   // --------------------------------------------------------------------------
-  return Py_BuildValue("s", answer);
+  return PyUnicode_FromString(answer);
 }
 
 
@@ -265,8 +265,8 @@ static PyMethodDef main_widget_methods[] = {
  {"_enable_edit_current_card", _enable_edit_current_card, METH_VARARGS, ""},
  {"_enable_delete_current_card", _enable_delete_current_card, METH_VARARGS, ""},
  {"_enable_browse_cards", _enable_browse_cards, METH_VARARGS, ""},
- {"_show_save_file_dialog", _show_save_file_dialog, METH_VARARGS, ""},
- {"_show_open_file_dialog", _show_open_file_dialog, METH_VARARGS, ""},
+ {"_get_filename_to_save", _get_filename_to_save, METH_VARARGS, ""},
+ {"_get_filename_to_open", _get_filename_to_open, METH_VARARGS, ""},
  {"_set_window_title", _set_window_title, METH_VARARGS, ""},
  {NULL, NULL, 0, NULL}
 };

@@ -14,10 +14,10 @@ save_file = ""
 
 class Widget(MainWidget):
 
-    def save_file_dialog(self, path, filter, caption=""):
+    def get_filename_to_save(self, path, filter, caption=""):
         return save_file
     
-    def open_file_dialog(self, path, filter, caption=""):
+    def get_filename_to_open(self, path, filter, caption=""):
         return os.path.join(os.getcwd(), "dot_test", "default.db")
 
 

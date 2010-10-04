@@ -49,13 +49,13 @@ class MainWidget(UiComponent):
     def enable_browse_cards(self, enable): 
         pass
     
-    def show_save_file_dialog(self, path, filter, caption=""):
+    def get_filename_to_save(self, path, filter, caption=""):
 
         """Should ask for confirmation on overwrite."""
         
         raise NotImplementedError
     
-    def show_open_file_dialog(self, path, filter, caption=""):
+    def get_filename_to_open(self, path, filter, caption=""):
         raise NotImplementedError
 
     def set_window_title(self, title):

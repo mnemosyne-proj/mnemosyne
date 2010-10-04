@@ -320,7 +320,7 @@ class DefaultController(Controller):
         self.flush_sync_server()
         db = self.database()
         suffix = db.suffix
-        filename = self.main_widget().show_save_file_dialog(\
+        filename = self.main_widget().get_filename_to_save(\
             path=self.config().data_dir, filter=_("Mnemosyne databases") + \
             " (*%s)" % suffix, caption=_("New"))
         if not filename:
@@ -348,7 +348,7 @@ class DefaultController(Controller):
         db = self.database()
         data_dir = self.config().data_dir
         old_path = expand_path(self.config()["path"], data_dir)
-        filename = self.main_widget().show_open_file_dialog(path=old_path,
+        filename = self.main_widget().get_filename_to_open(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % db.suffix)
         if not filename:
             self.stopwatch().unpause()
@@ -397,7 +397,7 @@ class DefaultController(Controller):
         self.flush_sync_server()
         suffix = self.database().suffix
         old_path = expand_path(self.config()["path"], self.config().data_dir)
-        filename = self.main_widget().show_save_file_dialog(path=old_path,
+        filename = self.main_widget().get_filename_to_save(path=old_path,
             filter=_("Mnemosyne databases") + " (*%s)" % suffix)
         if not filename:
             self.stopwatch().unpause()
@@ -431,7 +431,7 @@ class DefaultController(Controller):
         data_dir, media_dir = self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_img_dir"], data_dir)
         filter = _("Image files") + " " + filter
-        filename = self.main_widget().show_open_file_dialog(\
+        filename = self.main_widget().get_filename_to_open(\
             path, filter, _("Insert image"))
         if not filename:
             return ""
@@ -446,7 +446,7 @@ class DefaultController(Controller):
         data_dir, media_dir = self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_sound_dir"], data_dir)
         filter = _("Sound files") + " " + filter
-        filename = self.main_widget().show_open_file_dialog(\
+        filename = self.main_widget().get_filename_to_open(\
             path, filter, _("Insert sound"))
         if not filename:
             return ""
@@ -461,7 +461,7 @@ class DefaultController(Controller):
         data_dir, media_dir = self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_video_dir"], data_dir)
         filter = _("Video files") + " " + filter
-        filename = self.main_widget().show_open_file_dialog(\
+        filename = self.main_widget().get_filename_to_open(\
             path, filter, _("Insert video"))
         if not filename:
             return ""
@@ -540,7 +540,7 @@ class DefaultController(Controller):
         path = expand_path(self.config()["import_dir"], self.config().data_dir)
 
         # TMP hardcoded single fileformat.
-        filename = self.main_widget().show_open_file_dialog(path=path,
+        filename = self.main_widget().get_filename_to_open(path=path,
             filter=_("Mnemosyne 1.x databases") + " (*.mem)")
         if not filename:
             self.stopwatch().unpause()

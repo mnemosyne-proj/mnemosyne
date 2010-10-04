@@ -45,11 +45,11 @@ class C_MainWidget(MainWidget):
     def enable_browse_cards(self, enable):      
         _C_main_widget._enable_browse_cards(enable)
 
-    def show_save_file_dialog(self, path, filter, caption=""):
-        return _C_main_widget._show_save_file_dialog(path, filter, caption)
+    def get_filename_to_save(self, path, filter, caption=""):
+        return _C_main_widget._get_filename_to_save(path, filter, caption)
 
-    def show_open_file_dialog(self, path, filter, caption=""):
-        return _C_main_widget._show_open_file_dialog(path, filter, caption)
+    def get_filename_to_open(self, path, filter, caption=""):
+        return _C_main_widget._get_filename_to_open(path, filter, caption)
     
     def set_window_title(self, title):
         _C_main_widget._set_window_title(title)

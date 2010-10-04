@@ -42,7 +42,7 @@ class Widget(MainWidget):
     def show_question(self, question, option0, option1, option2):
         return answer
 
-    def save_file_dialog(self, path, filter, caption):
+    def get_filename_to_save(self, path, filter, caption):
         return "default.db"
 
 
