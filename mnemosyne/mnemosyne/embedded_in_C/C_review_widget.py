@@ -15,10 +15,6 @@ class C_ReviewWidget(ReviewWidget):
     def read_from_socket(self):
         pass
 
-    
-    def __init__(self, component_manager):
-        ReviewWidget.__init__(self, component_manager)
-
     def set_question_label(self, text):
         self.callback(text)
         

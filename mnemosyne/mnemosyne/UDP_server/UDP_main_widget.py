@@ -11,7 +11,7 @@ class UDP_MainWidget(MainWidget, UDP_Widget):
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
 
-    def status_bar_message(self, message):
+    def set_status_bar_message(self, message):
         self.callback(message)
 
     def show_information(self, message):
@@ -48,11 +48,11 @@ class UDP_MainWidget(MainWidget, UDP_Widget):
     def enable_browse_cards(self, enable):      
         self.callback(enable)
 
-    def save_file_dialog(self, path, filter, caption=""):
+    def show_save_file_dialog(self, path, filter, caption=""):
         self.callback(path, filter, caption)
         return self.read_from_socket()       
     
-    def open_file_dialog(self, path, filter, caption=""):
+    def show_open_file_dialog(self, path, filter, caption=""):
         self.callback(path, filter, caption)
         return self.read_from_socket()
 

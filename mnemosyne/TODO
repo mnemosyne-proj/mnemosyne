@@ -1,9 +1,12 @@
--be sure to use strncopy, also expose buffer size in interface
--test for memory leaks
--treat exceptions
--clean up paths
+-get_save_file(_)name
+-fix test suite
+-hook up review widget
 -hook up dialogs, also in UDP
+-clean up example client, more useful command, sync, ...
+-treat exceptions?
+-clean up paths
 -capture stdout/err needed?
+-README file
 
 
 -add preambe/postamble in latex signature

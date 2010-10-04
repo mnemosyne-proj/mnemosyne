@@ -36,4 +36,4 @@ class ReviewWdgtCramming(ReviewWdgt):
         self.unseen.setText(_("Unseen: %d ") % unseen_count)
         self.active.setText(_("Active: %d ") % active_count)
         if message:
-            self.main_widget().status_bar_message(message)
+            self.main_widget().set_status_bar_message(message)

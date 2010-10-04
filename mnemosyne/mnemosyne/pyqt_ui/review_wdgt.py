@@ -119,4 +119,4 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.notmem.setText(_("Not memorised: %d ") % non_memorised_count)
         self.act.setText(_("Active: %d ") % active_count)
         if message:
-            self.main_widget().status_bar_message(message)
+            self.main_widget().set_status_bar_message(message)

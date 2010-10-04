@@ -40,7 +40,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
         self.timer_2.start(1000 * 60 * 60 * 12)
         self.start_review()
 
-    def status_bar_message(self, message):
+    def set_status_bar_message(self, message):
         self.status_bar.showMessage(message)
 
     def add_to_status_bar(self, widget):
@@ -106,11 +106,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
     def enable_browse_cards(self, enable):      
         self.actionBrowseCards.setEnabled(enable)
 
-    def save_file_dialog(self, path, filter, caption=""):
+    def show_save_file_dialog(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.getSaveFileName(self, caption, path,
                                                          filter))
     
-    def open_file_dialog(self, path, filter, caption=""):
+    def show_open_file_dialog(self, path, filter, caption=""):
         return unicode(QtGui.QFileDialog.getOpenFileName(self, caption, path,
                                                          filter))
 

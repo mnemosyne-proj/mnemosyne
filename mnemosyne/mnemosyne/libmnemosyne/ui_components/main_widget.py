@@ -31,7 +31,7 @@ class MainWidget(UiComponent):
     def show_error(self, message):
         print message
 
-    def status_bar_message(self, message):
+    def set_status_bar_message(self, message):
         pass
 
     def add_to_status_bar(self, widget):
@@ -49,13 +49,13 @@ class MainWidget(UiComponent):
     def enable_browse_cards(self, enable): 
         pass
     
-    def save_file_dialog(self, path, filter, caption=""):
+    def show_save_file_dialog(self, path, filter, caption=""):
 
         """Should ask for confirmation on overwrite."""
         
         raise NotImplementedError
     
-    def open_file_dialog(self, path, filter, caption=""):
+    def show_open_file_dialog(self, path, filter, caption=""):
         raise NotImplementedError
 
     def set_window_title(self, title):

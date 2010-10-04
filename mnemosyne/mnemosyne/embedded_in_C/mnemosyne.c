@@ -1,5 +1,7 @@
 // mnemosyne.c <Peter.Bienstman@UGent.be>
 
+#include <string.h>
+#include <stdlib.h>
 #include <Python.h>
 
 PyObject* log_CaptureStdout(PyObject* self, PyObject* pArgs)
@@ -35,6 +37,30 @@ static PyMethodDef logMethods[] = {
 
 void init_C_main_widget(void); /* Forward */
 
+
+// Evaluates a Python expression and returns the result as a unicode string
+// encoded in the system's default encoding.
+// The caller has ownership of the 'result' buffer.
+
+void eval_as_unicode(char* expression, char* result, int bufsize)
+{
+  char buf[256];
+  if (strlen(expression) + 10 > sizeof(buf))
+  {
+    printf("Expression too long in eval_as_unicode.\n");
+    exit (-1);    
+  };
+  snprintf(buf, sizeof(buf), "unicode(%s)", expression);
+
+  PyObject* module = PyImport_ImportModule("__builtin__");
+  PyObject* obj = PyRun_String(buf, Py_eval_input, PyModule_GetDict(module), NULL);
+  Py_DECREF(module);
+  PyErr_Print();
+  strncpy(result, PyString_AsString(obj), bufsize);
+  Py_DECREF(obj);
+}
+
+
 int main(int argc, char *argv[])
 {
 
@@ -67,19 +93,16 @@ int main(int argc, char *argv[])
     "mnemosyne.components.append((\"mnemosyne.embedded_in_C.C_review_widget\", \"C_ReviewWidget\"))\n"
     "mnemosyne.initialise(data_dir=\"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2\", filename=\"default.db\")\n"
     "mnemosyne.config()[\"upload_science_logs\"] = False\n"
-    "mnemosyne.main_widget().show_question(\"q\", \"0\",\"1\")\n"
+    "mnemosyne.main_widget().show_question(\"q\", \"0\",\"1\")\n"    
+    "mnemosyne.main_widget().show_save_file_dialog(\"q\", \"0\",\"1\")\n"
+    "mnemosyne.main_widget().enable_edit_current_card(False)\n"
 );
 
   // Illustration on how to get data from Python to C.
 
-  PyObject* module = PyImport_ImportModule("__builtin__");
-  PyObject* obj = PyRun_String("unicode(1)", Py_eval_input, PyModule_GetDict(module), NULL);
-  Py_DECREF(module);
-  char* s = PyString_AsString(obj);
-  //PyErr_Print();
-  printf("string: %s\n", s);  
-  Py_DECREF(obj);
-
+  char result[256];
+  eval_as_unicode("1", result, sizeof(result));
+  printf("result as string: %s\n", result);
 
   Py_Finalize();
   return 0;

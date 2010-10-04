@@ -8,60 +8,48 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 class C_MainWidget(MainWidget):
 
-    # TMP
-
-    def callback(self, *args):
-        pass
-
-    def read_from_socket(self):
-        pass
-
-    def status_bar_message(self, message):
-        self.callback(message)
+    def set_status_bar_message(self, message):
+        _C_main_widget._set_status_bar_message(message)
 
     def show_information(self, message):
-        self.callback(message)
+        _C_main_widget._show_information(message)
         
     def show_question(self, question, option0, option1, option2=""):
-        a = _C_main_widget._show_question(question, option0, option1, option2)
-        print 'got', a
-        return a
+        return  _C_main_widget._show_question\
+            (question, option0, option1, option2)
     
     def show_error(self, message):
-        self.callback(message)
+        _C_main_widget._show_information(error)
         
     def set_progress_text(self, text):
-        self.callback(text)
-        
+        _C_main_widget._set_progress_text(text)
+                
     def set_progress_range(self, minimum, maximum):
-        self.callback(minimum, maximum)
+        _C_main_widget._set_progress_range(minimum, maximum)
         
     def set_progress_update_interval(self, update_interval):
-        self.callback(update_interval)
+        _C_main_widget._set_progress_update_interval(update_interval)
         
     def set_progress_value(self, value):
-        self.callback(value)
+        _C_main_widget._set_progress_value(value)
         
     def close_progress(self):
-        self.callback()
+        _C_main_widget._close_progress()
         
     def enable_edit_current_card(self, enable):
-        self.callback(enable)        
+        _C_main_widget._enable_edit_current_card(enable)
 
     def enable_delete_current_card(self, enable):
-        self.callback(enable)
+        _C_main_widget._enable_delete_current_card(enable)
 
     def enable_browse_cards(self, enable):      
-        self.callback(enable)
+        _C_main_widget._enable_browse_cards(enable)
 
-    def save_file_dialog(self, path, filter, caption=""):
-        self.callback(path, filter, caption)
-        return self.read_from_socket()       
+    def show_save_file_dialog(self, path, filter, caption=""):
+        return _C_main_widget._show_save_file_dialog(path, filter, caption)
+
+    def show_open_file_dialog(self, path, filter, caption=""):
+        return _C_main_widget._show_open_file_dialog(path, filter, caption)
     
-    def open_file_dialog(self, path, filter, caption=""):
-        self.callback(path, filter, caption)
-        return self.read_from_socket()
-
     def set_window_title(self, title):
         _C_main_widget._set_window_title(title)
-
