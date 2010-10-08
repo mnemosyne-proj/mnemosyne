@@ -24,9 +24,6 @@ class MainFrame(gui.CeFrame, MainWidget):
     
     def show_information(self, message):
         gui.Message.ok("Mnemosyne", message, icon="info")            
-        
-    def show_error(self, message):
-        gui.Message.ok("Mnemosyne", message, icon="error")
 
     def show_question(self, question, option0, option1, option2):
 
@@ -38,3 +35,6 @@ class MainFrame(gui.CeFrame, MainWidget):
         """
 
         raise RuntimeError, question
+
+    def show_error(self, message):
+        gui.Message.ok("Mnemosyne", message, icon="error")

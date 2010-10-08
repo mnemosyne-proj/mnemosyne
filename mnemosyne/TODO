@@ -1,8 +1,11 @@
--move ALL python related code to python_bridge.c, also run simple string
--create libmnemosyne.a?
+-move ALL python related code to python_bridge.c, in correct order, also run simple string
+-rename WM main window class
+-review widget: order functions, in all clients
+-create libmnemosyne.a, improve makefile
 -hook up review widget
 -hook up dialogs, also in UDP
 -clean up example client, more useful command, sync, ...
+-revisit all files, make as parallel with UDP as possible
 -treat exceptions?
 -clean up paths
 -capture stdout/err needed?

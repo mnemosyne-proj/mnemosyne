@@ -19,6 +19,9 @@ class MainWidget(UiComponent):
     def activate(self):
         pass
         
+    def set_window_title(self, title):
+        pass
+        
     def show_information(self, message):
         print message
             
@@ -30,37 +33,19 @@ class MainWidget(UiComponent):
     
     def show_error(self, message):
         print message
+       
+    def get_filename_to_open(self, path, filter, caption=""):
+        raise NotImplementedError
 
-    def set_status_bar_message(self, message):
-        pass
-
-    def add_to_status_bar(self, widget):
-        pass
-
-    def clear_status_bar(self):
-        pass
-
-    def enable_edit_current_card(self, enabled):
-        pass
-        
-    def enable_delete_current_card(self, enabled):
-        pass
-        
-    def enable_browse_cards(self, enable): 
-        pass
-    
     def get_filename_to_save(self, path, filter, caption=""):
 
         """Should ask for confirmation on overwrite."""
         
         raise NotImplementedError
-    
-    def get_filename_to_open(self, path, filter, caption=""):
-        raise NotImplementedError
 
-    def set_window_title(self, title):
+    def set_status_bar_message(self, message):
         pass
-    
+
     def set_progress_text(self, text):
 
         """Resets all the attributes of the progress bar if one is still open,
@@ -102,5 +87,12 @@ class MainWidget(UiComponent):
         
         pass
 
-
+    def enable_edit_current_card(self, enabled):
+        pass
+        
+    def enable_delete_current_card(self, enabled):
+        pass
+        
+    def enable_browse_cards(self, enable): 
+        pass
         

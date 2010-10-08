@@ -103,8 +103,6 @@ class TestMainController(MnemosyneTest):
         w.show_information("")
         w.show_error("")
         w.set_status_bar_message("")
-        w.add_to_status_bar(None)
-        w.clear_status_bar()
 
         self.controller().add_cards()
         self.controller().edit_current_card()
