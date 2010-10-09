@@ -3,6 +3,8 @@
 // python_bridge.c <Peter.Bienstman@UGent.be>
 //
  
+#define STR_SIZE 128
+
 #include <string.h>
 #include <stdlib.h>
 #include <Python.h>
@@ -12,20 +14,15 @@
 // Functions relating to main widget.
 //
 
-static PyObject* _main_widget_set_status_bar_message(PyObject* self, 
-                                                     PyObject* args)
+static PyObject* _main_widget_set_window_title(PyObject* self, 
+                                               PyObject* args)
 {
-  char* message = NULL;
-  if (!PyArg_ParseTuple(args, "s", &message))
-    return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("set_status_bar_message: %s\n", message);
-  // --------------------------------------------------------------------------
-
-  Py_INCREF(Py_None);
-  return Py_None;
+ char* title = NULL;
+ if (!PyArg_ParseTuple(args, "s", &title)) 
+   return NULL;
+ main_widget_set_window_title(title);
+ Py_INCREF(Py_None);
+ return Py_None;
 }
 
 
@@ -35,12 +32,7 @@ static PyObject* _main_widget_show_information(PyObject* self,
   char* message = NULL;
   if (!PyArg_ParseTuple(args, "s", &message)) 
     return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("show_information: %s\n", message);
-  // --------------------------------------------------------------------------
-
+  main_widget_show_information(message);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -69,10 +61,50 @@ static PyObject* _main_widget_show_error(PyObject* self,
   char* message = NULL;
   if (!PyArg_ParseTuple(args, "s", &message)) 
     return NULL;
+  main_widget_show_error(message);
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+static PyObject* _main_widget_get_filename_to_open(PyObject* self, 
+                                                   PyObject* args)
+{
+  char* path = NULL;
+  char* filter = NULL;
+  char* caption = NULL;
+  if (!PyArg_ParseTuple(args, "sss", &path, &filter, &caption))
+    return NULL;
+  char filename[STR_SIZE+1];
+  main_widget_get_filename_to_open(path, filter, caption, filename, STR_SIZE);
+  return PyUnicode_FromString(filename);
+}
+
+
+static PyObject* _main_widget_get_filename_to_save(PyObject* self, 
+                                                   PyObject* args)
+{
+  char* path = NULL;
+  char* filter = NULL;
+  char* caption = NULL;
+  if (!PyArg_ParseTuple(args, "sss", &path, &filter, &caption))
+    return NULL;
+  char filename[STR_SIZE+1];
+  main_widget_get_filename_to_save(path, filter, caption, filename, STR_SIZE);
+  return PyUnicode_FromString(filename);
+}
+
+
+static PyObject* _main_widget_set_status_bar_message(PyObject* self, 
+                                                     PyObject* args)
+{
+  char* message = NULL;
+  if (!PyArg_ParseTuple(args, "s", &message))
+    return NULL;
 
   // --------------------------------------------------------------------------
   // Replace this by something useful.
-  printf("show_error: %s\n", message);
+  printf("set_status_bar_message: %s\n", message);
   // --------------------------------------------------------------------------
 
   Py_INCREF(Py_None);
@@ -213,63 +245,6 @@ static PyObject* _main_widget_enable_browse_cards(PyObject* self,
 }
 
 
-static PyObject* _main_widget_get_filename_to_save(PyObject* self, 
-                                                   PyObject* args)
-{
-  char* path = NULL;
-  char* filter = NULL;
-  char* caption = NULL;
-  if (!PyArg_ParseTuple(args, "sss", &path, &filter, &caption))
-    return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("get_filename_to_save: %s, %s, %s\n", path, filter, caption);
-  // We should ask the user which path he chooses, but here, we just 
-  // hardcode 'tmp'.
-  char answer[5] = "tmp";
-  // --------------------------------------------------------------------------
-  return PyUnicode_FromString(answer);
-}
-
-
-static PyObject* _main_widget_get_filename_to_open(PyObject* self, 
-                                                   PyObject* args)
-{
-  char* path = NULL;
-  char* filter = NULL;
-  char* caption = NULL;
-  if (!PyArg_ParseTuple(args, "sss", &path, &filter, &caption))
-    return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("get_filename_to_open: %s, %s, %s\n", path, filter, caption);
-  // We should ask the user which path he chooses, but here, we just 
-  // hardcode 'tmp'.
-  char answer[5] = "tmp";
-  // --------------------------------------------------------------------------
-  return PyUnicode_FromString(answer);
-}
-
-
-static PyObject* _main_widget_set_window_title(PyObject* self, 
-                                               PyObject* args)
-{
- char* title = NULL;
- if (!PyArg_ParseTuple(args, "s", &title)) 
-   return NULL;
-
- // --------------------------------------------------------------------------
- // Replace this by something useful.
- printf("set_window_title: %s\n", title);
- // --------------------------------------------------------------------------
-
- Py_INCREF(Py_None);
- return Py_None;
-}
-
-
 static PyMethodDef C_main_widget_methods[] = {
  {"set_window_title",             _main_widget_set_window_title, 
   METH_VARARGS, ""},
@@ -317,7 +292,6 @@ init_C_main_widget(void)
 // High level functions.
 //
 
-
 PyObject* log_CaptureStdout(PyObject* self, PyObject* pArgs)
 {
  char* LogStr = NULL;
@@ -342,6 +316,7 @@ PyObject* log_CaptureStderr(PyObject* self, PyObject* pArgs)
  Py_INCREF(Py_None);
  return Py_None;
 }
+
 
 static PyMethodDef logMethods[] = {
  {"CaptureStdout", log_CaptureStdout, METH_VARARGS, "Logs stdout"},

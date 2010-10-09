@@ -1,3 +1,4 @@
+-main widget.h
 -move ALL python related code to python_bridge.c, in correct order, also run simple string
 -rename WM main window class
 -review widget: order functions, in all clients
