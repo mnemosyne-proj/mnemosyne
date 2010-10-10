@@ -1,12 +1,13 @@
 #
-# C_main_widget.py <Peter.Bienstman@UGent.be>
+# main_widget.py <Peter.Bienstman@UGent.be>
 #
 
-import _C_main_widget as _
-from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+import _main_widget as _
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget \
+     as GenericMainWidget
 
 
-class C_MainWidget(MainWidget):
+class MainWidget(GenericMainWidget):
 
     def set_window_title(self, title):
         _.set_window_title(title)

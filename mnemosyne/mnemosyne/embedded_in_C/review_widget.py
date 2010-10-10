@@ -1,11 +1,12 @@
 #
-# C_review_widget.py <Peter.Bienstman@UGent.be>
+# review_widget.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
+from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget \
+     as GenericReviewWidget
 
 
-class C_ReviewWidget(ReviewWidget):
+class ReviewWidget(GenericReviewWidget):
 
     # TMP
 

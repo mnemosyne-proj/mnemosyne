@@ -101,12 +101,7 @@ static PyObject* _main_widget_set_status_bar_message(PyObject* self,
   char* message = NULL;
   if (!PyArg_ParseTuple(args, "s", &message))
     return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("set_status_bar_message: %s\n", message);
-  // --------------------------------------------------------------------------
-
+  main_widget_set_status_bar_message(message);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -118,12 +113,7 @@ static PyObject* _main_widget_set_progress_text(PyObject* self,
   char* text = NULL;
   if (!PyArg_ParseTuple(args, "s", &text)) 
     return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("set_progress_text: %s\n", text);
-  // --------------------------------------------------------------------------
-
+  main_widget_set_progress_text(text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -136,12 +126,7 @@ static PyObject* _main_widget_set_progress_range(PyObject* self,
   int max=0;
   if (!PyArg_ParseTuple(args, "ii", &min, &max)) 
     return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("set_progress_range: %d %d\n", min, max);
-  // --------------------------------------------------------------------------
-
+  main_widget_set_progress_range(min, max);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -153,12 +138,7 @@ static PyObject* _main_widget_set_progress_update_interval(PyObject* self,
   int interval=0;
   if (!PyArg_ParseTuple(args, "i", &interval)) 
     return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("set_progress_update_interval: %d\n", interval);
-  // --------------------------------------------------------------------------
-
+  main_widget_set_progress_update_interval(interval);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -170,12 +150,7 @@ static PyObject* _main_widget_set_progress_value(PyObject* self,
   int value=0;
   if (!PyArg_ParseTuple(args, "i", &value)) 
     return NULL;
-
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("set_progress_value: %d\n", value);
-  // --------------------------------------------------------------------------
-
+  main_widget_set_progress_value(value);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -184,11 +159,7 @@ static PyObject* _main_widget_set_progress_value(PyObject* self,
 static PyObject* _main_widget_close_progress(PyObject* self, 
                                              PyObject* args)
 {
-  // --------------------------------------------------------------------------
-  // Replace this by something useful.
-  printf("close_progress\n");
-  // --------------------------------------------------------------------------
-
+  main_widget_close_progress();
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -200,12 +171,7 @@ static PyObject* _main_widget_enable_edit_current_card(PyObject* self,
  int enable=0;
  if (!PyArg_ParseTuple(args, "i", &enable)) 
    return NULL;
-
- // --------------------------------------------------------------------------
- // Replace this by something useful.
- printf("enable_edit_current_card: %d\n", enable);
- // --------------------------------------------------------------------------
-
+ main_widget_enable_edit_current_card(enable);
  Py_INCREF(Py_None);
  return Py_None;
 }
@@ -217,12 +183,7 @@ static PyObject* _main_widget_enable_delete_current_card(PyObject* self,
  int enable=0;
  if (!PyArg_ParseTuple(args, "i", &enable)) 
    return NULL;
-
- // --------------------------------------------------------------------------
- // Replace this by something useful.
- printf("enable_delete_current_card: %d\n", enable);
- // --------------------------------------------------------------------------
-
+ main_widget_enable_delete_current_card(enable);
  Py_INCREF(Py_None);
  return Py_None;
 }
@@ -234,18 +195,13 @@ static PyObject* _main_widget_enable_browse_cards(PyObject* self,
  int enable=0;
  if (!PyArg_ParseTuple(args, "i", &enable)) 
    return NULL;
-
- // --------------------------------------------------------------------------
- // Replace this by something useful.
- printf("enable_browse_cards: %d\n", enable);
- // --------------------------------------------------------------------------
-
+ main_widget_enable_browse_cards(enable);
  Py_INCREF(Py_None);
  return Py_None;
 }
 
 
-static PyMethodDef C_main_widget_methods[] = {
+static PyMethodDef main_widget_methods[] = {
  {"set_window_title",             _main_widget_set_window_title, 
   METH_VARARGS, ""},
  {"show_information",             _main_widget_show_information, 
@@ -281,9 +237,9 @@ static PyMethodDef C_main_widget_methods[] = {
 
 
 PyMODINIT_FUNC
-init_C_main_widget(void)
+init__main_widget(void)
 {
-  Py_InitModule("_C_main_widget", C_main_widget_methods);
+  Py_InitModule("_main_widget", main_widget_methods);
 }
 
 
@@ -330,7 +286,7 @@ void start_python_bridge()
   Py_Initialize();
   Py_InitModule("log", logMethods);
   
-  init_C_main_widget();
+  init__main_widget();
   
   PyRun_SimpleString(
     "import log\n"

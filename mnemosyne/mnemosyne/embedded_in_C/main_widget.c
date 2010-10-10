@@ -55,3 +55,56 @@ void main_widget_get_filename_to_save(char* path, char* filter, char *caption,
   strncpy(filename, "example_path", str_size);
 }
 
+
+void main_widget_set_status_bar_message(char* message)
+{
+  printf("set_status_bar_message: %s\n", message);
+}
+
+
+void main_widget_set_progress_text(char* text)
+{
+  printf("set_progress_text: %s\n", text);
+}
+
+
+void main_widget_set_progress_range(int min, int max)
+{
+  printf("set_progress_range: %d %d\n", min, max);
+}
+
+
+void main_widget_set_progress_update_interval(int interval)
+{
+  printf("set_progress_update_interval: %d\n", interval);
+}
+
+
+void main_widget_set_progress_value(int value)
+{
+  printf("set_progress_value: %d\n", value);
+}
+
+
+void main_widget_close_progress()
+{  
+  printf("close_progress\n");
+}
+
+
+void main_widget_enable_edit_current_card(int enable)
+{
+  printf("enable_edit_current_card: %d\n", enable);
+}
+
+
+void main_widget_enable_delete_current_card(int enable)
+{
+  printf("enable_delete_current_card: %d\n", enable);
+}
+
+
+void main_widget_enable_browse_cards(int enable)
+{
+  printf("enable_browse_cards: %d\n", enable);
+}
