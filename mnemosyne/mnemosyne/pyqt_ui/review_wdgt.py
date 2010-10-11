@@ -54,16 +54,16 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     def grade_answer(self, grade):
         self.review_controller().grade_answer(grade)
 
-    def set_question_box_visible(self, visible):
-        if visible:
+    def set_question_box_visible(self, is_visible):
+        if is_visible:
             self.question.show()
             self.question_label.show()
         else:
             self.question.hide()
             self.question_label.hide()
 
-    def set_answer_box_visible(self, visible):
-        if visible:
+    def set_answer_box_visible(self, is_visible):
+        if is_visible:
             self.answer.show()
             self.answer_label.show()
         else:
@@ -85,19 +85,18 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     def clear_answer(self):
         self.answer.setHtml(self._empty)
         
-    def update_show_button(self, text, default, show_enabled):
-        self.show_button.setEnabled(show_enabled)
-        self.show_button.setText(text)
-        self.show_button.setEnabled(show_enabled)
-        if default:
+    def update_show_button(self, text, is_default, is_enabled):
+        if is_default:
             self.show_button.setDefault(True)
             self.show_button.setFocus()
+        self.show_button.setText(text)
+        self.show_button.setEnabled(is_enabled)
 
-    def set_grades_enabled(self, enabled):
-        self.grades.setEnabled(enabled)
+    def set_grades_enabled(self, is_enabled):
+        self.grades.setEnabled(is_enabled)
         
-    def set_grade_enabled(self, grade, enabled):
-        self.grade_buttons.button(grade).setEnabled(enabled)
+    def set_grade_enabled(self, grade, is_enabled):
+        self.grade_buttons.button(grade).setEnabled(is_enabled)
         
     def set_default_grade(self, grade):
         if self.auto_focus_grades:

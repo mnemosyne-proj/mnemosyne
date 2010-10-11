@@ -46,11 +46,11 @@ class Server(SocketServer.UDPServer):
         self.mnemosyne.components.insert(0,
             ("mnemosyne.libmnemosyne.translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.UDP_server.UDP_main_widget",
-             "UDP_MainWidget"))
+            ("mnemosyne.UDP_server.main_wdgt",
+             "MainWidget"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.UDP_server.UDP_review_widget",
-             "UDP_ReviewWidget"))    
+            ("mnemosyne.UDP_server.review_wdgt",
+             "ReviewWdgt"))    
         SocketServer.UDPServer.__init__(self, ("localhost", port), MyHandler)
         print "Server listening on port", port
         self.stopped = False

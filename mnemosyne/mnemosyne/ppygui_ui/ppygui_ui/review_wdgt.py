@@ -30,7 +30,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         
         self.show_button = gui.Button(self, "Show answer")
         self.show_button.bind(clicked=self.show_answer)
-        self.show_button_enabled = True
+        self.is_show_button_enabled = True
 
         self.grade_sizer = gui.HBox(border=(2, 2, 2, 2), spacing=5)
         self.grade_buttons = []
@@ -45,7 +45,7 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
                 self.grade_0_button = button
             elif i == 4:
                 self.grade_4_button = button                
-        self.grade_buttons_enabled = False
+        self.is_grade_buttons_enabled = False
 
         self.status_bar = gui.Label(self)
 
@@ -59,16 +59,27 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
         sizer.add(self.status_bar)        
         self.sizer = sizer
         
-    def set_question_box_visible(self, visible):
-        if visible:
+    def show_answer(self, event):
+        if not self.is_show_button_enabled:
+            return
+        self.review_controller().show_answer()
+           
+    def grade_answer(self, event):
+        if not self.is_grade_buttons_enabled:
+            return
+        grade = self.id_for_grade[event.id]
+        self.review_controller().grade_answer(grade)
+        
+    def set_question_box_visible(self, is_visible):
+        if is_visible:
             self._question_label.show()
             self._question.show()
         else:
             self._question_label.hide()
             self._question.hide()
             
-    def set_answer_box_visible(self, visible):
-        if visible:
+    def set_answer_box_visible(self, is_visible):
+        if is_visible:
             self._answer_label.show()
             self._answer.show()
         else:
@@ -90,30 +101,19 @@ class ReviewWdgt(gui.Frame, ReviewWidget):
     def clear_answer(self):
 		self._answer.value = ""
 
-    def update_show_button(self, text, default, enabled):
-        if default:
+    def update_show_button(self, text, is_default, is_enabled):
+        if is_default:
             self.show_button.focus()
         self.show_button.text = text
-        self.show_button_enabled = enabled
+        self.is_show_button_enabled = is_enabled
 
-    def set_grades_enabled(self, enabled):
-        self.grade_buttons_enabled = enabled
+    def set_grades_enabled(self, is_enabled):
+        self.is_grade_buttons_enabled = is_enabled
         
     def set_default_grade(self, grade):
         self.grade_buttons[grade].focus()
-        
-    def show_answer(self, event):
-        if not self.show_button_enabled:
-            return
-        self.review_controller().show_answer()
-           
-    def grade_answer(self, event):
-        if not self.grade_buttons_enabled:
-            return
-        grade = self.id_for_grade[event.id]
-        self.review_controller().grade_answer(grade)
 
-    def update_status_bar(self):
+    def update_status_bar(self, message=None):
         scheduled_count, non_memorised_count, active_count = \
                    self.review_controller().counters()
         self.status_bar.text = "Sch.:%d Not mem.:%d Act.:%d" % \

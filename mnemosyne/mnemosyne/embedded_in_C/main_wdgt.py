@@ -1,13 +1,12 @@
 #
-# main_widget.py <Peter.Bienstman@UGent.be>
+# main_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
-import _main_widget as _
-from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget \
-     as GenericMainWidget
+import _main_wdgt as _
+from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
-class MainWidget(GenericMainWidget):
+class MainWdgt(MainWidget):
 
     def set_window_title(self, title):
         _.set_window_title(title)
@@ -46,11 +45,11 @@ class MainWidget(GenericMainWidget):
     def close_progress(self):
         _.close_progress()
 
-    def enable_edit_current_card(self, enable):
-        _.enable_edit_current_card(enable)
+    def enable_edit_current_card(self, is_enabled):
+        _.enable_edit_current_card(is_enabled)
 
-    def enable_delete_current_card(self, enable):
-        _.enable_delete_current_card(enable)
+    def enable_delete_current_card(self, is_enabled):
+        _.enable_delete_current_card(is_enabled)
 
-    def enable_browse_cards(self, enable):      
-        _.enable_browse_cards(enable)
+    def enable_browse_cards(self, is_enabled):      
+        _.enable_browse_cards(is_enabled)

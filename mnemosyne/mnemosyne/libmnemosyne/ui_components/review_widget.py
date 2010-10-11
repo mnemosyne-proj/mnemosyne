@@ -20,10 +20,10 @@ class ReviewWidget(UiComponent):
 
     component_type = "review_widget"
         
-    def set_question_box_visible(self, visible):
+    def set_question_box_visible(self, is_visible):
         pass
         
-    def set_answer_box_visible(self, visible):
+    def set_answer_box_visible(self, is_visible):
         pass
         
     def set_question_label(self, text):
@@ -41,16 +41,16 @@ class ReviewWidget(UiComponent):
     def clear_answer(self): 
         pass
         
-    def update_show_button(self, text, default, enabled): 
+    def update_show_button(self, text, is_default, is_enabled): 
         pass
 
-    def set_grades_enabled(self, enabled):
+    def set_grades_enabled(self, is_enabled):
 
         """Enable whole grade area, including title."""
         
         pass
     
-    def set_grade_enabled(self, grade, enabled):
+    def set_grade_enabled(self, grade, is_enabled):
 
         """Enable just a single grade button."""
         

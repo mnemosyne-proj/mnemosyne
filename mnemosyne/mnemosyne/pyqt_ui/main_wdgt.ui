@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>MainWdgt</class>
+ <widget class="QMainWindow" name="MainWdgt">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -300,7 +300,7 @@
   <connection>
    <sender>actionAddCards</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>add_cards</slot>
    <hints>
     <hint type="sourcelabel">
@@ -316,7 +316,7 @@
   <connection>
    <sender>actionFileNew</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>file_new</slot>
    <hints>
     <hint type="sourcelabel">
@@ -332,7 +332,7 @@
   <connection>
    <sender>actionFileOpen</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>file_open</slot>
    <hints>
     <hint type="sourcelabel">
@@ -348,7 +348,7 @@
   <connection>
    <sender>actionFileSave</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>file_save</slot>
    <hints>
     <hint type="sourcelabel">
@@ -364,7 +364,7 @@
   <connection>
    <sender>actionFileSaveAs</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>file_save_as</slot>
    <hints>
     <hint type="sourcelabel">
@@ -380,7 +380,7 @@
   <connection>
    <sender>actionFileExit</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -396,7 +396,7 @@
   <connection>
    <sender>actionEditCurrentCard</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>edit_current_card</slot>
    <hints>
     <hint type="sourcelabel">
@@ -412,7 +412,7 @@
   <connection>
    <sender>actionDeleteCurrentFact</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>delete_current_fact</slot>
    <hints>
     <hint type="sourcelabel">
@@ -428,7 +428,7 @@
   <connection>
    <sender>actionCardAppearance</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>card_appearance</slot>
    <hints>
     <hint type="sourcelabel">
@@ -444,7 +444,7 @@
   <connection>
    <sender>actionActivatePlugins</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>activate_plugins</slot>
    <hints>
     <hint type="sourcelabel">
@@ -460,7 +460,7 @@
   <connection>
    <sender>actionCloneCardTypes</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>manage_card_types</slot>
    <hints>
     <hint type="sourcelabel">
@@ -476,7 +476,7 @@
   <connection>
    <sender>actionShowStatistics</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>show_statistics</slot>
    <hints>
     <hint type="sourcelabel">
@@ -492,7 +492,7 @@
   <connection>
    <sender>actionImport</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>import_file</slot>
    <hints>
     <hint type="sourcelabel">
@@ -508,7 +508,7 @@
   <connection>
    <sender>actionConfigure</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>configure</slot>
    <hints>
     <hint type="sourcelabel">
@@ -524,7 +524,7 @@
   <connection>
    <sender>actionActivateCards</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>activate_cards</slot>
    <hints>
     <hint type="sourcelabel">
@@ -540,7 +540,7 @@
   <connection>
    <sender>actionSync</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>sync</slot>
    <hints>
     <hint type="sourcelabel">
@@ -556,7 +556,7 @@
   <connection>
    <sender>actionBrowseCards</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWdgt</receiver>
    <slot>browse_cards</slot>
    <hints>
     <hint type="sourcelabel">

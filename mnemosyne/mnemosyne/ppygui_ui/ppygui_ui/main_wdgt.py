@@ -1,5 +1,5 @@
 #
-# main_window.py <Peter.Bienstman@UGent.be>
+# main_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -11,7 +11,7 @@ else:
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
-class MainFrame(gui.CeFrame, MainWidget):
+class MainWdgt(gui.CeFrame, MainWidget):
     
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)

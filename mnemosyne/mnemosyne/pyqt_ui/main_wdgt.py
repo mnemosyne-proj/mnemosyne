@@ -1,11 +1,11 @@
 #
-# main_window.py <Peter.Bienstman@UGent.be>
+# main_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.pyqt_ui.ui_main_window import Ui_MainWindow
+from mnemosyne.pyqt_ui.ui_main_wdgt import Ui_MainWdgt
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
@@ -15,7 +15,7 @@ import os
 prefix = os.path.dirname(__file__)
 
 
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
+class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
 
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
@@ -108,14 +108,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow, MainWidget):
             self.progress_bar.close()
         self.progress_bar = None
         
-    def enable_edit_current_card(self, enable):
-        self.actionEditCurrentCard.setEnabled(enable)
+    def enable_edit_current_card(self, is_enabled):
+        self.actionEditCurrentCard.setEnabled(is_enabled)
 
-    def enable_delete_current_card(self, enable):      
-        self.actionDeleteCurrentFact.setEnabled(enable)
+    def enable_delete_current_card(self, is_enabled):      
+        self.actionDeleteCurrentFact.setEnabled(is_enabled)
 
-    def enable_browse_cards(self, enable):      
-        self.actionBrowseCards.setEnabled(enable)
+    def enable_browse_cards(self, is_enabled):      
+        self.actionBrowseCards.setEnabled(is_enabled)
 
     def add_cards(self):
         self.controller().add_cards()

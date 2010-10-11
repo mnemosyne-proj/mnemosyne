@@ -1,0 +1,7 @@
+The only relevant file to study when writing a new client based on the UDP 
+server is 'example_client.py', which shows how to interact with libmnemosyne
+through UDP.
+
+Obviously, 'example_client.py' needs to be reimplemented in your language of
+choice, and all the callbacks which are now simple print statements need to be
+fleshed out as well.

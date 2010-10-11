@@ -1,0 +1,10 @@
+The files to study when writing a new client based on the embedded C server
+are the following:
+
+example_client.c: shows how to interact with libmnemosyne through C
+main_wdgt.h, main_wdgt.c, review_wdgt.h, review_wdgt.c: these are the
+    functions that libmnemosyne's UI controllers will call
+
+The files above are now implemented in C, but could be implemented in any
+language that allows linking to python_bridge.o and libpython.a, e.g.
+ObjC.

@@ -8,38 +8,35 @@
 #include <string.h>
 #include <stdlib.h>
 #include <Python.h>
-#include "main_widget.h"
+#include "main_wdgt.h"
 
 //
 // Functions relating to main widget.
 //
 
-static PyObject* _main_widget_set_window_title(PyObject* self, 
-                                               PyObject* args)
+static PyObject* _main_wdgt_set_window_title(PyObject* self, PyObject* args)
 {
  char* title = NULL;
  if (!PyArg_ParseTuple(args, "s", &title)) 
    return NULL;
- main_widget_set_window_title(title);
+ main_wdgt_set_window_title(title);
  Py_INCREF(Py_None);
  return Py_None;
 }
 
 
-static PyObject* _main_widget_show_information(PyObject* self, 
-                                               PyObject* args)
+static PyObject* _main_wdgt_show_information(PyObject* self, PyObject* args)
 {
   char* message = NULL;
   if (!PyArg_ParseTuple(args, "s", &message)) 
     return NULL;
-  main_widget_show_information(message);
+  main_wdgt_show_information(message);
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
-static PyObject* _main_widget_show_question(PyObject* self, 
-                                            PyObject* args)
+static PyObject* _main_wdgt_show_question(PyObject* self, PyObject* args)
 {
   char* question = NULL;
   char* option_0 = NULL;
@@ -49,26 +46,25 @@ static PyObject* _main_widget_show_question(PyObject* self,
         &option_2)) 
     return NULL;
   int answer;
-  answer = main_widget_show_question(question, option_0, option_1,
+  answer = main_wdgt_show_question(question, option_0, option_1,
                                      option_2);
   return Py_BuildValue("i", answer);
 }
 
 
-static PyObject* _main_widget_show_error(PyObject* self, 
-                                         PyObject* args)
+static PyObject* _main_wdgt_show_error(PyObject* self, PyObject* args)
 {
   char* message = NULL;
   if (!PyArg_ParseTuple(args, "s", &message)) 
     return NULL;
-  main_widget_show_error(message);
+  main_wdgt_show_error(message);
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
-static PyObject* _main_widget_get_filename_to_open(PyObject* self, 
-                                                   PyObject* args)
+static PyObject* _main_wdgt_get_filename_to_open(PyObject* self, 
+                                                 PyObject* args)
 {
   char* path = NULL;
   char* filter = NULL;
@@ -76,13 +72,13 @@ static PyObject* _main_widget_get_filename_to_open(PyObject* self,
   if (!PyArg_ParseTuple(args, "sss", &path, &filter, &caption))
     return NULL;
   char filename[STR_SIZE+1];
-  main_widget_get_filename_to_open(path, filter, caption, filename, STR_SIZE);
+  main_wdgt_get_filename_to_open(path, filter, caption, filename, STR_SIZE);
   return PyUnicode_FromString(filename);
 }
 
 
-static PyObject* _main_widget_get_filename_to_save(PyObject* self, 
-                                                   PyObject* args)
+static PyObject* _main_wdgt_get_filename_to_save(PyObject* self,
+                                                 PyObject* args)
 {
   char* path = NULL;
   char* filter = NULL;
@@ -90,156 +86,152 @@ static PyObject* _main_widget_get_filename_to_save(PyObject* self,
   if (!PyArg_ParseTuple(args, "sss", &path, &filter, &caption))
     return NULL;
   char filename[STR_SIZE+1];
-  main_widget_get_filename_to_save(path, filter, caption, filename, STR_SIZE);
+  main_wdgt_get_filename_to_save(path, filter, caption, filename, STR_SIZE);
   return PyUnicode_FromString(filename);
 }
 
 
-static PyObject* _main_widget_set_status_bar_message(PyObject* self, 
-                                                     PyObject* args)
+static PyObject* _main_wdgt_set_status_bar_message(PyObject* self, 
+                                                   PyObject* args)
 {
   char* message = NULL;
   if (!PyArg_ParseTuple(args, "s", &message))
     return NULL;
-  main_widget_set_status_bar_message(message);
+  main_wdgt_set_status_bar_message(message);
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
-static PyObject* _main_widget_set_progress_text(PyObject* self, 
-                                                PyObject* args)
+static PyObject* _main_wdgt_set_progress_text(PyObject* self, PyObject* args)
 {
   char* text = NULL;
   if (!PyArg_ParseTuple(args, "s", &text)) 
     return NULL;
-  main_widget_set_progress_text(text);
+  main_wdgt_set_progress_text(text);
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
-static PyObject* _main_widget_set_progress_range(PyObject* self, 
-                                                 PyObject* args)
+static PyObject* _main_wdgt_set_progress_range(PyObject* self, PyObject* args)
 {
   int min=0;
   int max=0;
   if (!PyArg_ParseTuple(args, "ii", &min, &max)) 
     return NULL;
-  main_widget_set_progress_range(min, max);
+  main_wdgt_set_progress_range(min, max);
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
-static PyObject* _main_widget_set_progress_update_interval(PyObject* self, 
-                                                           PyObject* args)
+static PyObject* _main_wdgt_set_progress_update_interval(PyObject* self,
+                                                         PyObject* args)
 {
   int interval=0;
   if (!PyArg_ParseTuple(args, "i", &interval)) 
     return NULL;
-  main_widget_set_progress_update_interval(interval);
+  main_wdgt_set_progress_update_interval(interval);
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
-static PyObject* _main_widget_set_progress_value(PyObject* self, 
-                                                 PyObject* args)
+static PyObject* _main_wdgt_set_progress_value(PyObject* self, PyObject* args)
 {
   int value=0;
   if (!PyArg_ParseTuple(args, "i", &value)) 
     return NULL;
-  main_widget_set_progress_value(value);
+  main_wdgt_set_progress_value(value);
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
-static PyObject* _main_widget_close_progress(PyObject* self, 
-                                             PyObject* args)
+static PyObject* _main_wdgt_close_progress(PyObject* self, PyObject* args)
 {
-  main_widget_close_progress();
+  main_wdgt_close_progress();
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
-static PyObject* _main_widget_enable_edit_current_card(PyObject* self, 
+static PyObject* _main_wdgt_enable_edit_current_card(PyObject* self, 
+                                                     PyObject* args)
+{
+ int is_enabled=0;
+ if (!PyArg_ParseTuple(args, "i", &is_enabled)) 
+   return NULL;
+ main_wdgt_enable_edit_current_card(is_enabled);
+ Py_INCREF(Py_None);
+ return Py_None;
+}
+
+
+static PyObject* _main_wdgt_enable_delete_current_card(PyObject* self,
                                                        PyObject* args)
 {
- int enable=0;
- if (!PyArg_ParseTuple(args, "i", &enable)) 
+ int is_enabled=0;
+ if (!PyArg_ParseTuple(args, "i", &is_enabled)) 
    return NULL;
- main_widget_enable_edit_current_card(enable);
+ main_wdgt_enable_delete_current_card(is_enabled);
  Py_INCREF(Py_None);
  return Py_None;
 }
 
 
-static PyObject* _main_widget_enable_delete_current_card(PyObject* self, 
-                                                         PyObject* args)
+static PyObject* _main_wdgt_enable_browse_cards(PyObject* self,
+                                                PyObject* args)
 {
- int enable=0;
- if (!PyArg_ParseTuple(args, "i", &enable)) 
+ int is_enabled=0;
+ if (!PyArg_ParseTuple(args, "i", &is_enabled)) 
    return NULL;
- main_widget_enable_delete_current_card(enable);
+ main_wdgt_enable_browse_cards(is_enabled);
  Py_INCREF(Py_None);
  return Py_None;
 }
 
 
-static PyObject* _main_widget_enable_browse_cards(PyObject* self, 
-                                                  PyObject* args)
-{
- int enable=0;
- if (!PyArg_ParseTuple(args, "i", &enable)) 
-   return NULL;
- main_widget_enable_browse_cards(enable);
- Py_INCREF(Py_None);
- return Py_None;
-}
-
-
-static PyMethodDef main_widget_methods[] = {
- {"set_window_title",             _main_widget_set_window_title, 
+static PyMethodDef main_wdgt_methods[] = {
+ {"set_window_title",             _main_wdgt_set_window_title, 
   METH_VARARGS, ""},
- {"show_information",             _main_widget_show_information, 
+ {"show_information",             _main_wdgt_show_information, 
   METH_VARARGS, ""},
- {"show_question",                _main_widget_show_question, 
+ {"show_question",                _main_wdgt_show_question, 
   METH_VARARGS, ""},
- {"show_error",                   _main_widget_show_error, 
+ {"show_error",                   _main_wdgt_show_error, 
   METH_VARARGS, ""},
- {"get_filename_to_open",         _main_widget_get_filename_to_open, 
+ {"get_filename_to_open",         _main_wdgt_get_filename_to_open, 
   METH_VARARGS, ""},
- {"get_filename_to_save",         _main_widget_get_filename_to_save, 
+ {"get_filename_to_save",         _main_wdgt_get_filename_to_save, 
   METH_VARARGS, ""},
- {"set_status_bar_message",       _main_widget_set_status_bar_message, 
+ {"set_status_bar_message",       _main_wdgt_set_status_bar_message, 
   METH_VARARGS, ""},
- {"set_progress_text",            _main_widget_set_progress_text, 
+ {"set_progress_text",            _main_wdgt_set_progress_text, 
   METH_VARARGS, ""},
- {"set_progress_range",           _main_widget_set_progress_range, 
+ {"set_progress_range",           _main_wdgt_set_progress_range, 
   METH_VARARGS, ""},
- {"set_progress_update_interval", _main_widget_set_progress_update_interval, 
+ {"set_progress_update_interval", _main_wdgt_set_progress_update_interval, 
   METH_VARARGS, ""},
- {"set_progress_value",           _main_widget_set_progress_value, 
+ {"set_progress_value",           _main_wdgt_set_progress_value, 
   METH_VARARGS, ""},
- {"close_progress",               _main_widget_close_progress, 
+ {"close_progress",               _main_wdgt_close_progress, 
   METH_VARARGS, ""},
- {"enable_edit_current_card",     _main_widget_enable_edit_current_card, 
+ {"enable_edit_current_card",     _main_wdgt_enable_edit_current_card, 
   METH_VARARGS, ""},
- {"enable_delete_current_card",   _main_widget_enable_delete_current_card, 
+ {"enable_delete_current_card",   _main_wdgt_enable_delete_current_card, 
   METH_VARARGS, ""},
- {"enable_browse_cards",          _main_widget_enable_browse_cards, 
+ {"enable_browse_cards",          _main_wdgt_enable_browse_cards, 
   METH_VARARGS, ""},
  {NULL, NULL, 0, NULL}
 };
 
 
 PyMODINIT_FUNC
-init__main_widget(void)
+init__main_wdgt(void)
 {
-  Py_InitModule("_main_widget", main_widget_methods);
+  Py_InitModule("_main_wdgt", main_wdgt_methods);
 }
 
 
@@ -286,7 +278,7 @@ void start_python_bridge()
   Py_Initialize();
   Py_InitModule("log", logMethods);
   
-  init__main_widget();
+  init__main_wdgt();
   
   PyRun_SimpleString(
     "import log\n"
@@ -306,6 +298,12 @@ void start_python_bridge()
 void stop_python_bridge()
 {
   Py_Finalize();
+}
+
+
+void run_python(char* command)
+{
+  PyRun_SimpleString(command);
 }
 
 

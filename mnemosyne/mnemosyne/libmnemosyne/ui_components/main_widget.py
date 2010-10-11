@@ -87,12 +87,12 @@ class MainWidget(UiComponent):
         
         pass
 
-    def enable_edit_current_card(self, enabled):
+    def enable_edit_current_card(self, is_enabled):
         pass
         
-    def enable_delete_current_card(self, enabled):
+    def enable_delete_current_card(self, is_enabled):
         pass
         
-    def enable_browse_cards(self, enable): 
+    def enable_browse_cards(self, is_enabled): 
         pass
         

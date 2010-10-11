@@ -1,12 +1,12 @@
 #
-# UDP_main_widget.py <Peter.Bienstman@UGent.be>
+# main_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.UDP_server.UDP_widget import UDP_Widget
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 
-class UDP_MainWidget(MainWidget, UDP_Widget):
+class MainWdgt(MainWidget, UDP_Widget):
 
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
@@ -39,14 +39,14 @@ class UDP_MainWidget(MainWidget, UDP_Widget):
     def close_progress(self):
         self.callback()
         
-    def enable_edit_current_card(self, enable):
-        self.callback(enable)        
+    def enable_edit_current_card(self, is_enabled):
+        self.callback(is_enabled)        
 
-    def enable_delete_current_card(self, enable):
-        self.callback(enable)
+    def enable_delete_current_card(self, is_enabled):
+        self.callback(is_enabled)
 
-    def enable_browse_cards(self, enable):      
-        self.callback(enable)
+    def enable_browse_cards(self, is_enabled):      
+        self.callback(is_enabled)
 
     def get_filename_to_save(self, path, filter, caption=""):
         self.callback(path, filter, caption)

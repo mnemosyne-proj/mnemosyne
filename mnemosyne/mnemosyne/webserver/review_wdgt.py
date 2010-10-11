@@ -1,5 +1,5 @@
 #
-# html_review_widget.py <Peter.Bienstman@UGent.be>
+# review_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
 from string import Template
@@ -8,7 +8,7 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 
-class HtmlReviewWidget(ReviewWidget):
+class ReviewWdgt(ReviewWidget):
 
     """I've tried fiddling with css to get the grades area always show up at
     the bottom of the screen, no matter the contents of the cards, but I
@@ -24,53 +24,53 @@ class HtmlReviewWidget(ReviewWidget):
         ReviewWidget.__init__(self, component_manager)
         self.question_label = ""
         self.question = ""
-        self.question_box_visible = True
+        self.is_question_box_visible = True
         self.answer = ""
         self.answer_label = _("Answer:")
-        self.answer_box_visible = True
+        self.is_answer_box_visible = True
         self.show_button = ""
-        self.show_button_enabled = True              
-        self.grade_buttons_enabled = False
+        self.is_show_button_enabled = True              
+        self.is_grade_buttons_enabled = False
         self.status_bar = ""
         self.template = Template(\
             file("mnemosyne/webserver/review_page.html").read())
-        
-    def set_question_label(self, text):
-        self.question_label = text
-        
-    def set_question(self, text):
-        self.question = text
-
-    def clear_question(self):
-		self.question = ""
-        
-    def set_question_box_visible(self, visible):
-        self.question_box_visible = visible
-
-    def set_answer(self, text):
-        self.answer = text
-
-    def clear_answer(self):
-		self.answer = ""
-            
-    def set_answer_box_visible(self, visible):
-        self.answer_box_visible = visible
-
-    def update_show_button(self, text, default, enabled):
-        self.show_button = text
-        self.show_button_enabled = enabled
-
-    def set_grades_enabled(self, enabled):
-        self.grade_buttons_enabled = enabled
-        
-    def set_default_grade(self, grade):
-        pass
         
     def show_answer(self):
         self.review_controller().show_answer()
            
     def grade_answer(self, grade):
         self.review_controller().grade_answer(grade)
+        
+    def set_question_box_visible(self, is_visible):
+        self.is_question_box_visible = is_visible
+            
+    def set_answer_box_visible(self, is_visible):
+        self.is_answer_box_visible = is_visible
+        
+    def set_question_label(self, text):
+        self.question_label = text
+        
+    def set_question(self, text):
+        self.question = text
+        
+    def set_answer(self, text):
+        self.answer = text
+        
+    def clear_question(self):
+		self.question = ""
+
+    def clear_answer(self):
+		self.answer = ""
+
+    def update_show_button(self, text, is_default, is_enabled):
+        self.show_button = text
+        self.is_show_button_enabled = is_enabled
+
+    def set_grades_enabled(self, is_enabled):
+        self.is_grade_buttons_enabled = is_enabled
+        
+    def set_default_grade(self, grade):
+        pass
 
     def update_status_bar(self):
         scheduled_count, non_memorised_count, active_count = \
@@ -85,7 +85,7 @@ class HtmlReviewWidget(ReviewWidget):
             card_css = self.render_chain().\
                 renderer_for_card_type(card.card_type).card_type_css(card.card_type)
         buttons = ""
-        if self.grade_buttons_enabled:
+        if self.is_grade_buttons_enabled:
             buttons = ""
             for i in range(6):                
                 buttons += """
@@ -95,7 +95,7 @@ class HtmlReviewWidget(ReviewWidget):
                        value="%d">
                     </form>
                   </td>""" % (i, i)               
-        if self.show_button_enabled:
+        if self.is_show_button_enabled:
             buttons = """
               <td>
                 <form action="" method="post">

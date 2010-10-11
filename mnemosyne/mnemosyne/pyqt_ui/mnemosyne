@@ -64,8 +64,8 @@ a.setApplicationName("Mnemosyne")
 # but apart from that, the order does not matter.
 mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
-mnemosyne.components.append(("mnemosyne.pyqt_ui.main_window",
-                             "MainWindow"))
+mnemosyne.components.append(("mnemosyne.pyqt_ui.main_wdgt",
+                             "MainWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.review_wdgt",
                              "ReviewWdgt"))
 mnemosyne.components.append(("mnemosyne.pyqt_ui.configuration",

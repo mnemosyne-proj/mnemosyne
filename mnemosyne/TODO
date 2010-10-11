@@ -1,17 +1,12 @@
--rename main window and review windov in all clients
--move  run simple string to bridge
--hook up review widget, in correct order, order all clients
+-review_wdgt: c, h, bridge
+-clean up example client, more useful commands, sync, ...
 -hook up dialogs, also in UDP
--clean up example client, more useful command, sync, ...
--revisit all files, make as parallel with UDP as possible
--treat exceptions?
+-treat exceptions? Make exec/retrieve more error proof 
 -clean up paths
 -capture stdout/err needed?
--README file
-
 
 -add preambe/postamble in latex signature
--option not have pregenerated columns on initial binary download is sync
+-option not have pregenerated columns on initial binary download in sync
 
 -better next_rep, last rep representation
 -grey for inactive cards
@@ -164,6 +159,7 @@ the GUI function itself?
 
 -integrate webserver in GUI, login mechanism, session_token, cookies
 -add webserver in testsuite, case when the database is empty
+-make empty lines respect font size
 -sound files suffer from connection reset by peer. Try other WSGI server?
 -add html caching support for media files
 -send absolute filenames when running server locally, so that we don't need to

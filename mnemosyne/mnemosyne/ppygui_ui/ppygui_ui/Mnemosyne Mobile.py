@@ -29,8 +29,8 @@ app = gui.Application()
 mnemosyne.components = [
     ("mnemosyne.libmnemosyne.translator",
      "NoTranslation"),    
-    ("mnemosyne.ppygui_ui.main_window",
-     "MainFrame"),
+    ("mnemosyne.ppygui_ui.main_wdgt",
+     "MainWdgt"),
     ("mnemosyne.ppygui_ui.review_wdgt",
      "ReviewWdgt"),
     ("mnemosyne.ppygui_ui.render_chain_WM",
