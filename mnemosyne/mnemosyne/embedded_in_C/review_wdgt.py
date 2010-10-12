@@ -15,13 +15,13 @@ class ReviewWdgt(ReviewWidget):
         _.set_answer_box_visible(is_visible)
         
     def set_question_label(self, text):
-        _.set_question_label(text)
+        _.set_question_label(text.encode("utf-8"))
         
     def set_question(self, text):
-        _.set_question(text)
+        _.set_question(text.encode("utf-8"))
         
     def set_answer(self, text):
-        _.set_answer(text)
+        _.set_answer(text.encode("utf-8"))
         
     def clear_question(self): 
         _.clear_question()
@@ -30,7 +30,7 @@ class ReviewWdgt(ReviewWidget):
         _.clear_answer ()
         
     def update_show_button(self, text, is_default, is_enabled): 
-        _.update_show_button(text, is_default, is_enabled)
+        _.update_show_button(text.encode("utf-8"), is_default, is_enabled)
 
     def set_grades_enabled(self, is_enabled):
         _.set_grades_enabled(is_enabled)
@@ -42,16 +42,16 @@ class ReviewWdgt(ReviewWidget):
         _.set_default_grade(grade)
         
     def set_grades_title(self, text): 
-        _.set_grades_title(text)
+        _.set_grades_title(text.encode("utf-8"))
             
     def set_grade_text(self, grade, text): 
-        _.set_grade_text(grade, text)
+        _.set_grade_text(grade, text.encode("utf-8"))
             
     def set_grade_tooltip(self, grade, text): 
-        _.set_grade_tooltip(grade, text)
+        _.set_grade_tooltip(grade, text.encode("utf-8"))
 
     def update_status_bar(self, message=None):
         if not message:
             message = ""
-        _.update_status_bar(message)
+        _.update_status_bar(message.encode("utf-8"))
 

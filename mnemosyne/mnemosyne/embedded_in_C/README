@@ -5,6 +5,8 @@ example_client.c: shows how to interact with libmnemosyne through C
 main_wdgt.h, main_wdgt.c, review_wdgt.h, review_wdgt.c: these are the
     functions that libmnemosyne's UI controllers will call
 
+Note that Unicode strings are encoded in UTF-8.
+
 The files above are now implemented in C, but could be implemented in any
 language that allows linking to python_bridge.o and libpython.a, e.g.
 ObjC.

@@ -1,4 +1,3 @@
-
 //
 // main_wdgt.c <Peter.Bienstman@UGent.be>
 //
@@ -48,7 +47,7 @@ void main_wdgt_get_filename_to_open(char* path, char* filter, char *caption,
 
 void main_wdgt_get_filename_to_save(char* path, char* filter, char *caption,
                                       char* filename, int str_size)
-// Should check for overwritin existing file.
+// Should warn about overwriting existing file.
 {
   printf("get_filename_to_save: %s, %s, %s\n", path, filter, caption);
   // As an example, we hardcode the reply.

@@ -1,4 +1,3 @@
-
 //
 // main_wdgt.h <Peter.Bienstman@UGent.be>
 //
@@ -15,9 +14,9 @@ void main_wdgt_show_error(char* message);
 void main_wdgt_get_filename_to_open(char* path, char* filter, char *caption,
                                       char* filename, int str_size);
 
-// The following function should warn about overwritin existing file.
 void main_wdgt_get_filename_to_save(char* path, char* filter, char *caption,
                                       char* filename, int str_size);
+// Should warn about overwriting existing file.
 
 
 void main_wdgt_set_status_bar_message(char* message);

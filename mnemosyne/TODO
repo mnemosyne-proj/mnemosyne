@@ -1,9 +1,12 @@
--review_wdgt: c, h, bridge
--clean up example client, more useful commands, sync, ...
+-review_wdgt and main widget both have update_status bar
+-what to call text arguments: 'text' or something more specific?
+-fix crash
+-eval python does not refer to main context
 -hook up dialogs, also in UDP
 -treat exceptions? Make exec/retrieve more error proof 
 -clean up paths
 -capture stdout/err needed?
+-make docs
 
 -add preambe/postamble in latex signature
 -option not have pregenerated columns on initial binary download in sync
