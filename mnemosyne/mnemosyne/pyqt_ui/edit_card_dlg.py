@@ -36,12 +36,12 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         self.config()["edit_widget_size"] = (self.width(), self.height())
         new_fact_data = self.card_type_widget.data()
         new_tag_names = [tag.strip() for tag in \
-                        unicode(self.tags.currentText()).split(',')]
+            unicode(self.tags.currentText()).split(',')]
         new_card_type_name = unicode(self.card_types_widget.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
         c = self.controller()
         status = c.edit_related_cards(self.card.fact, new_fact_data,
-                        new_card_type, new_tag_names, self.correspondence)
+            new_card_type, new_tag_names, self.correspondence)
         if status == 0:
             tag_text = ", ".join(new_tag_names)
             self.config()["tags_of_last_added"] = tag_text

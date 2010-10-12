@@ -1,11 +1,9 @@
--review_wdgt and main widget both have update_status bar
+-review_wdgt and main widget both have update_status bar. make one update_status_bar_counters?
 -what to call text arguments: 'text' or something more specific?
--fix crash
--eval python does not refer to main context
 -hook up dialogs, also in UDP
--treat exceptions? Make exec/retrieve more error proof 
+-fix merge duplicates and edit
 -clean up paths
--capture stdout/err needed?
+-capture stdout/err: move to user space
 -make docs
 
 -add preambe/postamble in latex signature

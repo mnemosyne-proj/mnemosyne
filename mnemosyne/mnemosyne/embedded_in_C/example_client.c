@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
 
   // Illustration on how to get data from Python to C.
   char result[256];
-  //eval_python_as_unicode("mnemosyne.database().card_count()\n", result, sizeof(result));
-  //printf("card count: %s\n", result);
+  eval_python_as_unicode("mnemosyne.database().card_count()\n", result, sizeof(result));
+  printf("card count: %s\n", result);
   
   // Termination.  
   run_python("mnemosyne.finalise()");

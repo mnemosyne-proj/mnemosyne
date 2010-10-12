@@ -525,11 +525,12 @@ void eval_python_as_unicode(char* expression, char* result, int bufsize)
     exit (-1);    
   };
   snprintf(buf, sizeof(buf), "unicode(%s)", expression);
-
-  PyObject* module = PyImport_ImportModule("__builtin__");
-  PyObject* obj = PyRun_String(buf, Py_eval_input, PyModule_GetDict(module), NULL);
-  Py_DECREF(module);
+  PyObject* main = PyImport_AddModule("__main__");
+  PyObject* main_dict = PyModule_GetDict( main );
+  PyObject* obj = PyRun_String(buf, Py_eval_input, main_dict, main_dict);
   PyErr_Print();
+  if (obj == NULL)
+    return;
   strncpy(result, PyString_AsString(obj), bufsize);
   Py_DECREF(obj);
 }

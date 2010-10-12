@@ -133,6 +133,10 @@ if __name__ == "__main__":
 #@@review_widget.clear_answer()
 #@@review_widget.update_show_button("""Show answer""","""True""","""True""")
 #@@review_widget.set_grades_enabled("""False""")
+#@@review_widget.set_grades_title("""Grade your answer:""")
+#@@review_widget.set_grade_tooltip("""0""","""You've forgotten this card completely.""")
+#@@review_widget.set_grade_text("""0""","""0""")
+# ...
 #@@review_widget.update_status_bar()
 #@@main_widget.enable_edit_current_card("""True""")
 #@@main_widget.enable_delete_current_card("""True""")

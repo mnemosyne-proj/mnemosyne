@@ -44,8 +44,20 @@ class ReviewWdgt(ReviewWidget, UDP_Widget):
     def set_grades_enabled(self, is_enabled):
         self.callback(is_enabled)
         
+    def set_grade_enabled(self, grade, is_enabled):
+        self.callback(grade, is_enabled)
+        
     def set_default_grade(self, grade):
         self.callback(grade)
+
+    def set_grades_title(self, text): 
+        self.callback(text)
+            
+    def set_grade_text(self, grade, text): 
+        self.callback(grade, text)
+            
+    def set_grade_tooltip(self, grade, text): 
+        self.callback(grade, text)
 
     def update_status_bar(self):
         self.callback()
