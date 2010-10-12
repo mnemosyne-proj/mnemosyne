@@ -519,12 +519,12 @@ void run_python(char* command)
 void eval_python_as_unicode(char* expression, char* result, int bufsize)
 {
   char buf[256];
-  if (strlen(expression) + 10 > sizeof(buf))
+  if (strlen(expression) + 26 > sizeof(buf))
   {
     printf("Expression too long in eval_as_unicode.\n");
     exit (-1);    
   };
-  snprintf(buf, sizeof(buf), "unicode(%s)", expression);
+  snprintf(buf, sizeof(buf), "unicode(%s).encode(\"utf-8\")", expression);
   PyObject* main = PyImport_AddModule("__main__");
   PyObject* main_dict = PyModule_GetDict( main );
   PyObject* obj = PyRun_String(buf, Py_eval_input, main_dict, main_dict);
