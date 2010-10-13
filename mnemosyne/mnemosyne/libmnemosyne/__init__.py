@@ -21,7 +21,15 @@ class Mnemosyne(Component):
 
     """
 
-    def __init__(self):
+    def __init__(self, upload_science_logs):
+
+        """We need to specify 'upload_science_logs' as an argument here, so
+        that we can inject it on time to prevent the uploader thread from
+        starting.
+
+        """
+        
+        self.upload_science_logs = upload_science_logs
         self.component_manager = new_component_manager()
         self.components = [
          ("mnemosyne.libmnemosyne.databases.SQLite",
@@ -145,9 +153,15 @@ class Mnemosyne(Component):
         in the correct order: first config, followed by log.
         
         """
-        
-        for component in  ["config", "log", "database", "scheduler",
-                           "controller"]:
+
+        # Activate config and inject necessary settings.
+        try:
+            self.component_manager.current("config").activate()
+        except RuntimeError, e:
+            self.main_widget().show_error(unicode(e))
+        self.config()["upload_science_logs"] = self.upload_science_logs
+        # Activate other components.
+        for component in ["log", "database", "scheduler", "controller"]:
             try:
                 self.component_manager.current(component).activate()
             except RuntimeError, e:

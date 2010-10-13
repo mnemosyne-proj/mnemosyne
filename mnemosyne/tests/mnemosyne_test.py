@@ -13,7 +13,7 @@ class MnemosyneTest():
         self.restart()
 
     def restart(self):
-        self.mnemosyne = Mnemosyne()
+        self.mnemosyne = Mnemosyne(upload_science_logs=False)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(\

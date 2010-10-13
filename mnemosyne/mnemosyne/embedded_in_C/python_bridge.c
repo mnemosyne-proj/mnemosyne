@@ -9,6 +9,7 @@
 #include <Python.h>
 #include "main_wdgt.h"
 #include "review_wdgt.h"
+#include "python_stdout_stderr.h"
 
 //
 // Functions relating to main widget.
@@ -447,68 +448,71 @@ init__review_wdgt(void)
 
 
 //
-// High level functions.
+// Functions relating to capturing stdout and stderr.
 //
 
-PyObject* log_CaptureStdout(PyObject* self, PyObject* pArgs)
+PyObject* _python_stdout(PyObject* self, PyObject* pArgs)
 {
- char* LogStr = NULL;
- if (!PyArg_ParseTuple(pArgs, "s", &LogStr)); 
-   return NULL;
-
- printf("%s", LogStr);
-
- Py_INCREF(Py_None);
- return Py_None;
+  char* text = NULL;
+  if (!PyArg_ParseTuple(pArgs, "s", &text)) 
+    return NULL;
+  python_stdout(text);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 
-PyObject* log_CaptureStderr(PyObject* self, PyObject* pArgs)
+PyObject* _python_stderr(PyObject* self, PyObject* pArgs)
 {
- char* LogStr = NULL;
- if (!PyArg_ParseTuple(pArgs, "s", &LogStr)) 
-   return NULL;
-
- printf("%s", LogStr);
-
- Py_INCREF(Py_None);
- return Py_None;
+  char* text = NULL;
+  if (!PyArg_ParseTuple(pArgs, "s", &text)) 
+    return NULL;
+  python_stderr(text);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 
-static PyMethodDef logMethods[] = {
- {"CaptureStdout", log_CaptureStdout, METH_VARARGS, "Logs stdout"},
- {"CaptureStderr", log_CaptureStderr, METH_VARARGS, "Logs stderr"},
+static PyMethodDef python_stdout_stderr_methods[] = {
+ {"python_stdout", _python_stdout, METH_VARARGS, ""},
+ {"python_stderr", _python_stderr, METH_VARARGS, ""},
  {NULL, NULL, 0, NULL}
 };
 
 
+PyMODINIT_FUNC
+init__python_stdout_stderr(void)
+{
+  Py_InitModule("_python_stdout_stderr", python_stdout_stderr_methods);
+}
+
+
+
+//
+// High level functions.
+//
+
 void start_python_bridge()
 {
   Py_Initialize();
-  Py_InitModule("log", logMethods);
-  
   init__main_wdgt();
   init__review_wdgt();
+  init__python_stdout_stderr();
   
   PyRun_SimpleString(
-    "import log\n"
     "import sys\n"
+    "import _python_stdout_stderr\n"
     "class StdoutCatcher:\n"
-    "\tdef write(self, str):\n"
-    "\t\tlog.CaptureStdout(str)\n"
+    "    def write(self, str):\n"
+    "        _python_stdout_stderr.python_stdout(str)\n"
     "class StderrCatcher:\n"
-    "\tdef write(self, str):\n"
-    "\t\tlog.CaptureStderr(str)\n"
+    "    def write(self, str):\n"
+    "        _python_stdout_stderr.python_stderr(str)\n"
     "sys.stdout = StdoutCatcher()\n"
     "sys.stderr = StderrCatcher()\n"
-   );  
-
-  //PyRun_SimpleString(
-  //"if 1:\n"
-  //  "\tprint 'hi'"
-  // );
+   );
 }
+
 
 
 void stop_python_bridge()

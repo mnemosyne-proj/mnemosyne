@@ -19,14 +19,14 @@ class Widget(MainWidget):
 class TestMedia(MnemosyneTest):
 
     def restart(self):
-        self.mnemosyne = Mnemosyne()
+        self.mnemosyne = Mnemosyne(upload_science_logs=False)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
-                             "GetTextTranslator"))
+            "GetTextTranslator"))
         self.mnemosyne.components.append(\
             ("test_media", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
-        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
         self.review_controller().reset()
 
     def test_sound_1(self):

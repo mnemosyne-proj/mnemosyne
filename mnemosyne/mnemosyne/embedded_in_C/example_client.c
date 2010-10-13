@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   // Initialise Python bridge.
   start_python_bridge();
@@ -19,12 +19,11 @@ int main(int argc, char *argv[])
     "import sys\n"
     "sys.path.insert(0, \"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne\")\n"
     "from mnemosyne.libmnemosyne import Mnemosyne\n"
-    "mnemosyne = Mnemosyne()\n"
+    "mnemosyne = Mnemosyne(upload_science_logs=False)\n"
     "mnemosyne.components.insert(0, (\"mnemosyne.libmnemosyne.translator\", \"GetTextTranslator\"))\n"
     "mnemosyne.components.append((\"mnemosyne.embedded_in_C.main_wdgt\", \"MainWdgt\"))\n"
     "mnemosyne.components.append((\"mnemosyne.embedded_in_C.review_wdgt\", \"ReviewWdgt\"))\n"
     "mnemosyne.initialise(data_dir=\"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2\", filename=\"default.db\")\n"
-    "mnemosyne.config()[\"upload_science_logs\"] = False\n"
     "mnemosyne.start_review()\n"
     "mnemosyne.review_controller().show_answer()\n"
     "mnemosyne.review_controller().grade_answer(0)\n"

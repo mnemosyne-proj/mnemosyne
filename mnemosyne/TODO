@@ -1,7 +1,3 @@
--capture stdout/err: move to user space
--SystemError: error return without exception set
--rework 'upload science logs'
-
 -hook up dialogs, also in UDP
 -pyqt: hook up main widget calls directly to controller?
 -fix merge duplicates and edit. editcard --> edit related cards?

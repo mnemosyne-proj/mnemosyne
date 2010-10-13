@@ -18,7 +18,7 @@ def startup():
 
     # Note that this also includes building the queue and getting the first card.
 
-    mnemosyne = Mnemosyne(resource_limited=True)
+    mnemosyne = Mnemosyne(upload_science_logs=False)
     mnemosyne.components = [
         ("mnemosyne.libmnemosyne.translator",
          "NoTranslation"),
@@ -27,11 +27,11 @@ def startup():
         ("mnemosyne.libmnemosyne.ui_components.review_widget",
          "ReviewWidget"),
         ("mnemosyne.libmnemosyne.databases.SQLite",
-         "SQLite"),               
+         "SQLite"),
         ("mnemosyne.libmnemosyne.configuration",
-         "Configuration"),          
+         "Configuration"),
         ("mnemosyne.libmnemosyne.loggers.database_logger",
-         "DatabaseLogger"),          
+         "DatabaseLogger"),
         ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
          "SM2Mnemosyne"),
         ("mnemosyne.libmnemosyne.stopwatch",
@@ -39,7 +39,7 @@ def startup():
         ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
          "DefaultCriterion"),
         ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
-         "DefaultCriterionApplier"),  
+         "DefaultCriterionApplier"),
         ("mnemosyne.libmnemosyne.card_types.front_to_back",
          "FrontToBack"),
         ("mnemosyne.libmnemosyne.card_types.both_ways",
@@ -67,22 +67,21 @@ def startup():
         ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
          "DefaultCriterion"),
         ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
-         "DefaultCriterionApplier"),  
+         "DefaultCriterionApplier"),
         #("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
         #  "Mnemosyne1Mem"),
         ("mnemosyne.libmnemosyne.ui_components.dialogs",
-         "ProgressDialog") ]    
+         "ProgressDialog") ]
 
-    mnemosyne.initialise(data_dir=os.path.abspath("dot_benchmark"),  
+    mnemosyne.initialise(data_dir=os.path.abspath("dot_benchmark"),
         automatic_upgrades=False)
-    #mnemosyne.initialise(data_dir="\SDMMC\.mnemosyne", 
+    #mnemosyne.initialise(data_dir="\SDMMC\.mnemosyne",
     #automatic_upgrades=False)
 
     mnemosyne.review_controller().reset()
 
-    
-def create_database():    
-    mnemosyne.config()["upload_science_logs"] = False
+
+def create_database():
     mnemosyne.database().new(mnemosyne.config()["path"])
     for i in range(number_of_facts):
         fact_data = {"q": "question" + str(i),
@@ -90,7 +89,7 @@ def create_database():
         if i % 2:
             card_type = mnemosyne.card_type_by_id("1")
         else:
-            card_type = mnemosyne.card_type_by_id("2")            
+            card_type = mnemosyne.card_type_by_id("2")
         card = mnemosyne.controller().create_new_cards(\
             fact_data, card_type, grade=4, tag_names=["default"],
             check_for_duplicates=False, save=False)[0]
@@ -98,17 +97,17 @@ def create_database():
         card.last_rep = card.next_rep - i * 24 * 60 * 60
         mnemosyne.database().edit_card(card)
     mnemosyne.database().save()
-    
+
 def queue():
     mnemosyne.review_controller().reset()
-    
+
 def new_question():
     # Note that this actually also happened in startup().
     mnemosyne.review_controller().new_question()
-    
+
 def display():
     mnemosyne.review_controller().card.question()
-    
+
 def grade():
     # Note that this will also pull in a new question.
     mnemosyne.review_controller().grade_answer(0)
@@ -125,7 +124,7 @@ def count_scheduled():
 
 def count_not_memorised():
     mnemosyne.scheduler().non_memorised_count()
-    
+
 def activate():
     from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
      DefaultCriterion
@@ -137,10 +136,9 @@ def activate():
         set([(card_type_2.id, card_type_2.fact_views[0].id)])
     c.active_tag__ids = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
     c.forbidden_tags__ids = set()
-    mnemosyne.database().set_current_activity_criterion(c)  
+    mnemosyne.database().set_current_activity_criterion(c)
 
 def finalise():
-    mnemosyne.config()["upload_science_logs"] = False
     mnemosyne.finalise()
 
 def do_import():
@@ -160,7 +158,7 @@ tests = ["startup()", "new_question()", "display()", "grade()", "activate()",
 #tests = ["startup()", "queue()", "finalise()"]
 #tests = ["startup()", "activate()"]
 
-for test in tests:  
+for test in tests:
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))
     print
     print "*** ", test, " ***"

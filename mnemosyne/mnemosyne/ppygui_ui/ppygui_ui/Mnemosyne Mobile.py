@@ -18,7 +18,7 @@ from mnemosyne.libmnemosyne import Mnemosyne
 data_dir = "\SDMMC\mnemosyne2"
 
 # Load the Mnemosyne library.
-mnemosyne = Mnemosyne()
+mnemosyne = Mnemosyne(upload_science_logs=False)
 
 # Initialise GUI toolkit.
 app = gui.Application()
@@ -28,7 +28,7 @@ app = gui.Application()
 # apart from that, the order does not matter.
 mnemosyne.components = [
     ("mnemosyne.libmnemosyne.translator",
-     "NoTranslation"),    
+     "NoTranslation"),
     ("mnemosyne.ppygui_ui.main_wdgt",
      "MainWdgt"),
     ("mnemosyne.ppygui_ui.review_wdgt",
@@ -36,11 +36,11 @@ mnemosyne.components = [
     ("mnemosyne.ppygui_ui.render_chain_WM",
      "RenderChain_WM"),
     ("mnemosyne.libmnemosyne.databases.SQLite_no_pregenerated_data",
-     "SQLite_NoPregeneratedData"), 
+     "SQLite_NoPregeneratedData"),
     ("mnemosyne.libmnemosyne.configuration",
-     "Configuration"), 
+     "Configuration"),
     ("mnemosyne.libmnemosyne.loggers.database_logger",
-     "DatabaseLogger"),          
+     "DatabaseLogger"),
     ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
      "SM2Mnemosyne"),
     ("mnemosyne.libmnemosyne.stopwatch",
@@ -66,7 +66,6 @@ mnemosyne.components = [
 
 # Run Mnemosyne.
 mnemosyne.initialise(data_dir=data_dir)
-mnemosyne.config()["upload_science_logs"] = False
 mnemosyne.start_review()
 app.mainframe = mnemosyne.main_widget()
 app.run()

@@ -40,7 +40,7 @@ class TestMemImport(MnemosyneTest):
 
     def setup(self):
         os.system("rm -fr dot_test")        
-        self.mnemosyne = Mnemosyne()
+        self.mnemosyne = Mnemosyne(upload_science_logs=False)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(\

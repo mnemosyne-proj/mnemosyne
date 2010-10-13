@@ -41,8 +41,8 @@ class MyHandler(SocketServer.BaseRequestHandler):
 
 class Server(SocketServer.UDPServer):
 
-    def __init__(self, port):
-        self.mnemosyne = Mnemosyne()
+    def __init__(self, port, upload_science_logs=False):
+        self.mnemosyne = Mnemosyne(upload_science_logs)
         self.mnemosyne.components.insert(0,
             ("mnemosyne.libmnemosyne.translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\

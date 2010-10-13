@@ -43,7 +43,7 @@ else:
     filename = None
 
 # Load the Mnemosyne library.
-mnemosyne = Mnemosyne()
+mnemosyne = Mnemosyne(upload_science_logs=True)
 
 # Initialise GUI toolkit.
 a = QApplication(sys.argv)

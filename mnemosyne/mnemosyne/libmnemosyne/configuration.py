@@ -65,38 +65,38 @@ class Configuration(Component, dict):
         self.load()
         self.load_user_config()
         self.correct_config()
-        
+
     def set_defaults(self):
-        
+
         """Fill the config with default values.  Is called after every load,
         since a new version of Mnemosyne might have introduced new keys.
 
         """
-        
+
         for key, value in \
-            {"first_run": True, 
+            {"first_run": True,
              "path": self.database().default_name + self.database().suffix,
-             "import_dir": self.data_dir, 
+             "import_dir": self.data_dir,
              "import_format": "XML",
              "reset_learning_data_import": False,
              "export_dir": self.data_dir,
-             "export_format": "XML", 
+             "export_format": "XML",
              "reset_learning_data_export": False,
-             "import_img_dir": self.data_dir, 
+             "import_img_dir": self.data_dir,
              "import_sound_dir": self.data_dir,
              "import_video_dir": self.data_dir,
              "user_id": None,
-             "upload_science_logs": False, 
+             "upload_science_logs": True,
              "science_server": "mnemosyne-proj.dyndns.org:80",
-             "log_index": 1, 
+             "log_index": 1,
              "font": {}, # [card_type.id][fact_key]
-             "background_colour": {}, # [card_type.id]             
+             "background_colour": {}, # [card_type.id]
              "font_colour": {}, # [card_type.id][fact_key]
              "alignment": {}, # [card_type.id]
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
-             "memorise_related_cards_on_same_day": False, 
+             "memorise_related_cards_on_same_day": False,
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
              "ui_language": None,
@@ -107,7 +107,7 @@ class Configuration(Component, dict):
              "save_after_n_reps": 1,
              "latex_preamble": "\\documentclass[12pt]{article}\n"+
                               "\\pagestyle{empty}\n\\begin{document}",
-             "latex_postamble": "\\end{document}", 
+             "latex_postamble": "\\end{document}",
              "latex": "latex -interaction=nonstopmode",
              "dvipng": "dvipng -D 200 -T tight tmp.dvi",
              "active_plugins": set(), # Plugin classes, not instances.
@@ -137,7 +137,7 @@ class Configuration(Component, dict):
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Error in config:") \
                   + "\n" + traceback_string()
-        
+
     def save(self):
         try:
             config_file = file(os.path.join(self.config_dir, "config"), 'wb')
@@ -153,7 +153,7 @@ class Configuration(Component, dict):
         if self.data_dir is not None:
             self.config_dir = self.data_dir
             return
-        join = os.path.join        
+        join = os.path.join
         if sys.platform == "win32":
             import ctypes
             n = ctypes.windll.kernel32.GetEnvironmentVariableW(\
@@ -175,18 +175,18 @@ class Configuration(Component, dict):
                 self.data_dir = os.environ["XDG_DATA_HOME"]
             else:
                 self.data_dir = join(home, ".local", "share")
-            self.data_dir = join(self.data_dir, "mnemosyne2")    
+            self.data_dir = join(self.data_dir, "mnemosyne2")
             if "XDG_CONFIG_HOME" in os.environ:
                 self.config_dir = os.environ["XDG_CONFIG_HOME"]
             else:
                 self.config_dir = join(home, ".config")
             self.config_dir = join(self.config_dir, "mnemosyne2")
-                
+
     def fill_dirs(self):
-        
+
         """Fill data_dir and config_dir. Do this even if they already exist,
         because we might have added new files since the last version.
-        
+
         """
 
         exists = os.path.exists
@@ -217,7 +217,7 @@ class Configuration(Component, dict):
             print >> f, str(uuid.uuid4())
             f.close()
 
-            
+
     def set_appearance_property(self, property_name, property, card_type,
             fact_key=None):
 
@@ -260,14 +260,14 @@ class Configuration(Component, dict):
                     if var in self:
                         self[var] = getattr(user_config, var)
             except:
-                # Work around the unexplained fact that config.py cannot get 
+                # Work around the unexplained fact that config.py cannot get
                 # imported right after it has been created.
                 if self["first_run"] == True:
                     pass
                 else:
                     raise RuntimeError, _("Error in config.py:") \
                           + "\n" + traceback_string()
-                
+
     def correct_config(self):
         # Recreate user id and log index from history folder in case the
         # config file was accidentally deleted.
@@ -294,7 +294,7 @@ class Configuration(Component, dict):
 
         if new_user_id == self["user_id"]:
             return
-        db = self.database()        
+        db = self.database()
         if self["log_index"] > 1 or not db.is_empty():
             raise RuntimeError, "Unable to change user id."
         old_user_id = self["user_id"]

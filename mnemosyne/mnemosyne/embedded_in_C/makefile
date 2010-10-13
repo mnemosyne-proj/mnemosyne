@@ -5,7 +5,8 @@ LDFLAGS	= -lpython2.6
 RM	= rm
 
 EXE	= mnemosyne
-SRCS = python_bridge.c main_wdgt.c review_wdgt.c example_client.c 
+SRCS = python_bridge.c main_wdgt.c review_wdgt.c python_stdout_stderr.c \
+	example_client.c 
 OBJS = ${SRCS:.c=.o}
 
 .c.o :
@@ -16,7 +17,7 @@ all : $(EXE)
 $(EXE) : $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJS)
 
-$(OBJS) : python_bridge.h main_wdgt.h review_wdgt.h
+$(OBJS) : python_bridge.h main_wdgt.h review_wdgt.h python_stdout_stderr.h
 
 clean :
 	-$(RM) -f $(EXE) $(OBJS)
