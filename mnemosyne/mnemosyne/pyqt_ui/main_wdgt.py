@@ -40,39 +40,30 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.timer_2.start(1000 * 60 * 60 * 12)
         self.start_review()
         
-    def set_window_title(self, title):
-        self.setWindowTitle(title)
+    def set_window_title(self, text):
+        self.setWindowTitle(text)
         
-    def show_information(self, message):
-        QtGui.QMessageBox.information(None, _("Mnemosyne"), message, _("&OK"))
+    def show_information(self, text):
+        QtGui.QMessageBox.information(None, _("Mnemosyne"), text, _("&OK"))
 
-    def show_question(self, question, option0, option1, option2):
+    def show_question(self, text, option0, option1, option2):
         return QtGui.QMessageBox.question(None,  _("Mnemosyne"),
-            question, option0, option1, option2, 0, -1)
+            text, option0, option1, option2, 0, -1)
 
-    def show_error(self, message):
-        QtGui.QMessageBox.critical(None, _("Mnemosyne"), message,
+    def show_error(self, text):
+        QtGui.QMessageBox.critical(None, _("Mnemosyne"), text,
             _("&OK"), "", "", 0, -1)
         
     def get_filename_to_open(self, path, filter, caption=""):
-        return unicode(QtGui.QFileDialog.getOpenFileName(self, caption, path,
-                                                         filter))
+        return unicode(QtGui.QFileDialog.\
+            getOpenFileName(self, caption, path, filter))
      
     def get_filename_to_save(self, path, filter, caption=""):
-        return unicode(QtGui.QFileDialog.getSaveFileName(self, caption, path,
-                                                         filter))
+        return unicode(QtGui.QFileDialog.\
+            getSaveFileName(self, caption, path, filter))
     
-    def set_status_bar_message(self, message):
-        self.status_bar.showMessage(message)
-
-    def add_to_status_bar(self, widget):
-        self.status_bar_widgets.append(widget)
-        self.status_bar.addPermanentWidget(widget)
-
-    def clear_status_bar(self):
-        for widget in self.status_bar_widgets:
-            self.status_bar.removeWidget(widget)
-        self.status_bar_widgets = []
+    def set_status_bar_message(self, text):
+        self.status_bar.showMessage(text)
 
     def set_progress_text(self, text):
         if self.progress_bar:
@@ -117,6 +108,15 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def enable_browse_cards(self, is_enabled):      
         self.actionBrowseCards.setEnabled(is_enabled)
 
+    def add_to_status_bar(self, widget):
+        self.status_bar_widgets.append(widget)
+        self.status_bar.addPermanentWidget(widget)
+
+    def clear_status_bar(self):
+        for widget in self.status_bar_widgets:
+            self.status_bar.removeWidget(widget)
+        self.status_bar_widgets = []
+        
     def add_cards(self):
         self.controller().add_cards()
 

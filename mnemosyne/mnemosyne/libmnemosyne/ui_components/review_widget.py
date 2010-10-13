@@ -68,5 +68,5 @@ class ReviewWidget(UiComponent):
     def set_grade_tooltip(self, grade, text): 
         pass
 
-    def update_status_bar(self, message=None):
+    def update_status_bar_counters(self):
         pass 

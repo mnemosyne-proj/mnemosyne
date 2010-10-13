@@ -19,20 +19,20 @@ class MainWidget(UiComponent):
     def activate(self):
         pass
         
-    def set_window_title(self, title):
+    def set_window_title(self, text):
         pass
         
-    def show_information(self, message):
-        print message
+    def show_information(self, text):
+        print text
             
-    def show_question(self, question, option0, option1, option2=""):
+    def show_question(self, text, option0, option1, option2=""):
 
         """Returns 0, 1 or 2."""
         
         raise NotImplementedError
     
-    def show_error(self, message):
-        print message
+    def show_error(self, text):
+        print text
        
     def get_filename_to_open(self, path, filter, caption=""):
         raise NotImplementedError
@@ -43,7 +43,7 @@ class MainWidget(UiComponent):
         
         raise NotImplementedError
 
-    def set_status_bar_message(self, message):
+    def set_status_bar_message(self, text):
         pass
 
     def set_progress_text(self, text):

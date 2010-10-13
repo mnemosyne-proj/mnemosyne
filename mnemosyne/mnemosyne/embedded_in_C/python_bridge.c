@@ -16,10 +16,10 @@
 
 static PyObject* _main_wdgt_set_window_title(PyObject* self, PyObject* args)
 {
-  char* title = NULL;
-  if (!PyArg_ParseTuple(args, "s", &title)) 
+  char* text = NULL;
+  if (!PyArg_ParseTuple(args, "s", &text)) 
     return NULL;
-  main_wdgt_set_window_title(title);
+  main_wdgt_set_window_title(text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -27,10 +27,10 @@ static PyObject* _main_wdgt_set_window_title(PyObject* self, PyObject* args)
 
 static PyObject* _main_wdgt_show_information(PyObject* self, PyObject* args)
 {
-  char* message = NULL;
-  if (!PyArg_ParseTuple(args, "s", &message)) 
+  char* text = NULL;
+  if (!PyArg_ParseTuple(args, "s", &text)) 
     return NULL;
-  main_wdgt_show_information(message);
+  main_wdgt_show_information(text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -38,26 +38,25 @@ static PyObject* _main_wdgt_show_information(PyObject* self, PyObject* args)
 
 static PyObject* _main_wdgt_show_question(PyObject* self, PyObject* args)
 {
-  char* question = NULL;
+  char* text = NULL;
   char* option_0 = NULL;
   char* option_1 = NULL;
   char* option_2 = NULL;
-  if (!PyArg_ParseTuple(args, "ssss", &question, &option_0, &option_1,
+  if (!PyArg_ParseTuple(args, "ssss", &text, &option_0, &option_1,
         &option_2)) 
     return NULL;
   int answer;
-  answer = main_wdgt_show_question(question, option_0, option_1,
-                                     option_2);
+  answer = main_wdgt_show_question(text, option_0, option_1, option_2);
   return Py_BuildValue("i", answer);
 }
 
 
 static PyObject* _main_wdgt_show_error(PyObject* self, PyObject* args)
 {
-  char* message = NULL;
-  if (!PyArg_ParseTuple(args, "s", &message)) 
+  char* text = NULL;
+  if (!PyArg_ParseTuple(args, "s", &text)) 
     return NULL;
-  main_wdgt_show_error(message);
+  main_wdgt_show_error(text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -94,10 +93,10 @@ static PyObject* _main_wdgt_get_filename_to_save(PyObject* self,
 static PyObject* _main_wdgt_set_status_bar_message(PyObject* self, 
                                                    PyObject* args)
 {
-  char* message = NULL;
-  if (!PyArg_ParseTuple(args, "s", &message))
+  char* text = NULL;
+  if (!PyArg_ParseTuple(args, "s", &text))
     return NULL;
-  main_wdgt_set_status_bar_message(message);
+  main_wdgt_set_status_bar_message(text);
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -240,7 +239,8 @@ init__main_wdgt(void)
 // Functions relating to review widget.
 //
 
-static PyObject* _review_wdgt_set_question_box_visible(PyObject* self, PyObject* args)
+static PyObject* _review_wdgt_set_question_box_visible(PyObject* self, 
+                                                       PyObject* args)
 {
   int is_visible = 0;
   if (!PyArg_ParseTuple(args, "i", &is_visible))
@@ -250,7 +250,8 @@ static PyObject* _review_wdgt_set_question_box_visible(PyObject* self, PyObject*
   return Py_None;
 }
         
-static PyObject* _review_wdgt_set_answer_box_visible(PyObject* self, PyObject* args)
+static PyObject* _review_wdgt_set_answer_box_visible(PyObject* self, 
+                                                     PyObject* args)
 {
   int is_visible = 0;
   if (!PyArg_ParseTuple(args, "i", &is_visible)) 
@@ -260,7 +261,8 @@ static PyObject* _review_wdgt_set_answer_box_visible(PyObject* self, PyObject* a
   return Py_None;
 }
 
-static PyObject* _review_wdgt_set_question_label(PyObject* self, PyObject* args)
+static PyObject* _review_wdgt_set_question_label(PyObject* self, 
+                                                 PyObject* args)
 {
   char* text = NULL;
   if (!PyArg_ParseTuple(args, "s", &text))
@@ -309,7 +311,8 @@ static PyObject* _review_wdgt_clear_answer(PyObject* self, PyObject* args)
 }
 
 
-static PyObject* _review_wdgt_update_show_button(PyObject* self, PyObject* args)
+static PyObject* _review_wdgt_update_show_button(PyObject* self, 
+                                                 PyObject* args)
 {  
   char* text = NULL;
   int is_default = 0;
@@ -322,7 +325,8 @@ static PyObject* _review_wdgt_update_show_button(PyObject* self, PyObject* args)
 }
 
 
-static PyObject* _review_wdgt_set_grades_enabled(PyObject* self, PyObject* args)
+static PyObject* _review_wdgt_set_grades_enabled(PyObject* self, 
+                                                 PyObject* args)
 {
   int is_enabled = 0;
   if (!PyArg_ParseTuple(args, "i", &is_enabled))
@@ -390,47 +394,45 @@ static PyObject* _review_wdgt_set_grade_tooltip(PyObject* self, PyObject* args)
 }
 
 
-static PyObject* _review_wdgt_update_status_bar(PyObject* self, PyObject* args)
+static PyObject* _review_wdgt_update_status_bar_counters(PyObject* self, 
+                                                         PyObject* args)
 {
-  char* message = NULL;
-  if (!PyArg_ParseTuple(args, "s", &message)) 
-    return NULL;
-  review_wdgt_update_status_bar(message);
+  review_wdgt_update_status_bar_counters();
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 
 static PyMethodDef review_wdgt_methods[] = {
-  {"set_question_box_visible", _review_wdgt_set_question_box_visible, 
+  {"set_question_box_visible",   _review_wdgt_set_question_box_visible, 
    METH_VARARGS, ""},
-  {"set_answer_box_visible",   _review_wdgt_set_answer_box_visible, 
+  {"set_answer_box_visible",     _review_wdgt_set_answer_box_visible, 
    METH_VARARGS, ""},
-  {"set_question_label",       _review_wdgt_set_question_label, 
+  {"set_question_label",         _review_wdgt_set_question_label, 
    METH_VARARGS, ""},
-  {"set_question",             _review_wdgt_set_question, 
+  {"set_question",               _review_wdgt_set_question, 
    METH_VARARGS, ""},
-  {"set_answer",               _review_wdgt_set_answer, 
+  {"set_answer",                 _review_wdgt_set_answer, 
    METH_VARARGS, ""},
-  {"clear_question",           _review_wdgt_clear_question, 
+  {"clear_question",             _review_wdgt_clear_question, 
    METH_VARARGS, ""},
-  {"clear_answer",             _review_wdgt_clear_answer, 
+  {"clear_answer",               _review_wdgt_clear_answer, 
    METH_VARARGS, ""},
-  {"update_show_button",       _review_wdgt_update_show_button, 
+  {"update_show_button",         _review_wdgt_update_show_button, 
    METH_VARARGS, ""},
-  {"set_grades_enabled",       _review_wdgt_set_grades_enabled, 
+  {"set_grades_enabled",         _review_wdgt_set_grades_enabled, 
    METH_VARARGS, ""},
-  {"set_grade_enabled",        _review_wdgt_set_grade_enabled, 
+  {"set_grade_enabled",          _review_wdgt_set_grade_enabled, 
    METH_VARARGS, ""},
-  {"set_default_grade",        _review_wdgt_set_default_grade, 
+  {"set_default_grade",          _review_wdgt_set_default_grade, 
    METH_VARARGS, ""},
-  {"set_grades_title",         _review_wdgt_set_grades_title, 
+  {"set_grades_title",           _review_wdgt_set_grades_title, 
    METH_VARARGS, ""},
-  {"set_grade_text",           _review_wdgt_set_grade_text, 
+  {"set_grade_text",             _review_wdgt_set_grade_text, 
    METH_VARARGS, ""},
-  {"set_grade_tooltip",        _review_wdgt_set_grade_tooltip, 
+  {"set_grade_tooltip",          _review_wdgt_set_grade_tooltip, 
    METH_VARARGS, ""},  
-  {"update_status_bar",        _review_wdgt_update_status_bar, 
+  {"update_status_bar_counters", _review_wdgt_update_status_bar_counters, 
    METH_VARARGS, ""},
   {NULL, NULL, 0, NULL}
 };
@@ -500,7 +502,12 @@ void start_python_bridge()
     "\t\tlog.CaptureStderr(str)\n"
     "sys.stdout = StdoutCatcher()\n"
     "sys.stderr = StderrCatcher()\n"
-   );
+   );  
+
+  //PyRun_SimpleString(
+  //"if 1:\n"
+  //  "\tprint 'hi'"
+  // );
 }
 
 
@@ -526,11 +533,14 @@ void eval_python_as_unicode(char* expression, char* result, int bufsize)
   };
   snprintf(buf, sizeof(buf), "unicode(%s).encode(\"utf-8\")", expression);
   PyObject* main = PyImport_AddModule("__main__");
-  PyObject* main_dict = PyModule_GetDict( main );
+  PyObject* main_dict = PyModule_GetDict(main);
   PyObject* obj = PyRun_String(buf, Py_eval_input, main_dict, main_dict);
   PyErr_Print();
   if (obj == NULL)
+  {
+    *result = NULL;
     return;
+  }
   strncpy(result, PyString_AsString(obj), bufsize);
   Py_DECREF(obj);
 }

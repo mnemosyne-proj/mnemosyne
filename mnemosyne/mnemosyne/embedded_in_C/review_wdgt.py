@@ -50,8 +50,6 @@ class ReviewWdgt(ReviewWidget):
     def set_grade_tooltip(self, grade, text): 
         _.set_grade_tooltip(grade, text.encode("utf-8"))
 
-    def update_status_bar(self, message=None):
-        if not message:
-            message = ""
-        _.update_status_bar(message.encode("utf-8"))
+    def update_status_bar_counters(self):
+        _.update_status_bar_counters()
 

@@ -28,10 +28,10 @@ class SM2ControllerCramming(SM2Controller):
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
             self.new_question()
-        self.widget.update_status_bar()
+        self.widget.update_status_bar_counters()
         if self.config()["show_intervals"] == "status_bar":
-            self.review_widget().update_status_bar(_("Returns in") + " " + \
-                  str(interval) + _(" day(s)."))
+            self.main_widget().update_status_bar_message(_("Returns in") + \
+                " " + str(interval) + _(" day(s)."))
 
     def counters(self):
         db = self.database()

@@ -8,36 +8,36 @@
 #include <stdio.h>
 #include <string.h>
 
-void main_wdgt_set_window_title(char* title)
+void main_wdgt_set_window_title(char* text)
 {
-  printf("set_window_title: %s\n", title);
+  printf("set_window_title: %s\n", text);
 }
 
 
-void main_wdgt_show_information(char* message)
+void main_wdgt_show_information(char* text)
 {
-  printf("show_information: %s\n", message);
+  printf("show_information: %s\n", text);
 }
 
 
-int main_wdgt_show_question(char* question, char* option_0, char* option_1,
-                              char* option_2)
+int main_wdgt_show_question(char* text, char* option_0, char* option_1,
+                            char* option_2)
 {
-  printf("show_question: %s, %s, %s, %s\n", question, option_0, option_1,
+  printf("show_question: %s, %s, %s, %s\n", text, option_0, option_1,
          option_2);
   // As an example, we hardcode the reply.
   return 0;
 }
 
 
-void main_wdgt_show_error(char* message)
+void main_wdgt_show_error(char* text)
 {
-  printf("show_error: %s\n", message);
+  printf("show_error: %s\n", text);
 }
 
 
 void main_wdgt_get_filename_to_open(char* path, char* filter, char *caption,
-                                      char* filename, int str_size)
+                                    char* filename, int str_size)
 {
   printf("get_filename_to_open: %s, %s, %s\n", path, filter, caption);
   // As an example, we hardcode the reply.
@@ -46,7 +46,7 @@ void main_wdgt_get_filename_to_open(char* path, char* filter, char *caption,
 
 
 void main_wdgt_get_filename_to_save(char* path, char* filter, char *caption,
-                                      char* filename, int str_size)
+                                    char* filename, int str_size)
 // Should warn about overwriting existing file.
 {
   printf("get_filename_to_save: %s, %s, %s\n", path, filter, caption);
@@ -55,9 +55,9 @@ void main_wdgt_get_filename_to_save(char* path, char* filter, char *caption,
 }
 
 
-void main_wdgt_set_status_bar_message(char* message)
+void main_wdgt_set_status_bar_message(char* text)
 {
-  printf("set_status_bar_message: %s\n", message);
+  printf("set_status_bar_message: %s\n", text);
 }
 
 

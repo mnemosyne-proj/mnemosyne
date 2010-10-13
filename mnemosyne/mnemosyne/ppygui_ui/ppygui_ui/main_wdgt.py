@@ -22,10 +22,10 @@ class MainWdgt(gui.CeFrame, MainWidget):
         sizer.add(widget)
         self.sizer = sizer
     
-    def show_information(self, message):
-        gui.Message.ok("Mnemosyne", message, icon="info")            
+    def show_information(self, text):
+        gui.Message.ok("Mnemosyne", text, icon="info")            
 
-    def show_question(self, question, option0, option1, option2):
+    def show_question(self, text, option0, option1, option2):
 
         """ppygui has no convenience functions for this, so this should be
         created as a custom dialog. However, for just the review client, its
@@ -34,7 +34,7 @@ class MainWdgt(gui.CeFrame, MainWidget):
 
         """
 
-        raise RuntimeError, question
+        raise RuntimeError, text
 
-    def show_error(self, message):
-        gui.Message.ok("Mnemosyne", message, icon="error")
+    def show_error(self, text):
+        gui.Message.ok("Mnemosyne", text, icon="error")

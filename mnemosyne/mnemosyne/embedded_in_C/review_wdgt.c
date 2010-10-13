@@ -91,8 +91,7 @@ void review_wdgt_set_grade_tooltip(int grade, char* text)
 }
 
 
-void review_wdgt_update_status_bar(char* message)
-// Should also update the counters.
+void review_wdgt_update_status_bar_counters()
 {
-  printf("update_status_bar: %s\n", message);
+  printf("update_status_bar_counters\n");
 }

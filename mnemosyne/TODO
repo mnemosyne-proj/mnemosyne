@@ -1,10 +1,11 @@
--check if science logs really don't get uploaded. order of statement?
--review_wdgt and main widget both have update_status bar. make one update_status_bar_counters?
--what to call text arguments: 'text' or something more specific?
--hook up dialogs, also in UDP
--fix merge duplicates and edit
--clean up paths
 -capture stdout/err: move to user space
+-SystemError: error return without exception set
+-rework 'upload science logs'
+
+-hook up dialogs, also in UDP
+-pyqt: hook up main widget calls directly to controller?
+-fix merge duplicates and edit. editcard --> edit related cards?
+-update 'how to write new front end'
 -make docs
 
 -add preambe/postamble in latex signature

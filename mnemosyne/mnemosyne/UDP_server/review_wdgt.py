@@ -59,7 +59,7 @@ class ReviewWdgt(ReviewWidget, UDP_Widget):
     def set_grade_tooltip(self, grade, text): 
         self.callback(grade, text)
 
-    def update_status_bar(self):
+    def update_status_bar_counters(self):
         self.callback()
 
 

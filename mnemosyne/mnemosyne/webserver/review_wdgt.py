@@ -72,9 +72,9 @@ class ReviewWdgt(ReviewWidget):
     def set_default_grade(self, grade):
         pass
 
-    def update_status_bar(self):
+    def update_status_bar_counters(self):
         scheduled_count, non_memorised_count, active_count = \
-                   self.review_controller().counters()
+            self.review_controller().counters()
         self.status_bar  = "Sch.: %d Not mem.: %d Act.: %d" % \
             (scheduled_count, non_memorised_count, active_count)
 

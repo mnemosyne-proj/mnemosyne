@@ -2,6 +2,11 @@
 // mnemosyne.c <Peter.Bienstman@UGent.be>
 //
 
+// Very simple client illustrating the basic structure of a frontend which
+// embeds Mnemosyne in C.
+// Also consult 'How to write a new frontend' in the docs of libmnemosyne for
+// more information about the interaction between libmnemosyne and a frontend.
+
 #include <stdio.h>
 
 int main(int argc, char *argv[])
@@ -13,7 +18,6 @@ int main(int argc, char *argv[])
   run_python(
     "import sys\n"
     "sys.path.insert(0, \"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne\")\n"
-    "sys.path.insert(0, \"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne-proj/mnemosyne\")\n"
     "from mnemosyne.libmnemosyne import Mnemosyne\n"
     "mnemosyne = Mnemosyne()\n"
     "mnemosyne.components.insert(0, (\"mnemosyne.libmnemosyne.translator\", \"GetTextTranslator\"))\n"
@@ -28,7 +32,8 @@ int main(int argc, char *argv[])
 
   // Illustration on how to get data from Python to C.
   char result[256];
-  eval_python_as_unicode("mnemosyne.database().card_count()\n", result, sizeof(result));
+  eval_python_as_unicode("mnemosyne.database().card_count()\n", 
+                         result, sizeof(result));
   printf("card count: %s\n", result);
   
   // Termination.  

@@ -11,18 +11,29 @@ class MainWdgt(MainWidget, UDP_Widget):
     def __init__(self, component_manager):
         MainWidget.__init__(self, component_manager)
 
-    def set_status_bar_message(self, message):
-        self.callback(message)
-
-    def show_information(self, message):
-        self.callback(message)
+    def set_window_title(self, text):
+        self.callback(text)
         
-    def show_question(self, question, option0, option1, option2):
-        self.callback(question, option0, option1, option2)
+    def show_information(self, text):
+        self.callback(text)
+        
+    def show_question(self, text, option0, option1, option2):
+        self.callback(text, option0, option1, option2)
         return int(self.read_from_socket())
     
-    def show_error(self, message):
-        self.callback(message)
+    def show_error(self, text):
+        self.callback(text)
+    
+    def get_filename_to_open(self, path, filter, caption=""):
+        self.callback(path, filter, caption)
+        return self.read_from_socket()
+
+    def get_filename_to_save(self, path, filter, caption=""):
+        self.callback(path, filter, caption)
+        return self.read_from_socket()
+    
+    def set_status_bar_message(self, text):
+        self.callback(text)
         
     def set_progress_text(self, text):
         self.callback(text)
@@ -47,14 +58,4 @@ class MainWdgt(MainWidget, UDP_Widget):
 
     def enable_browse_cards(self, is_enabled):      
         self.callback(is_enabled)
-
-    def get_filename_to_save(self, path, filter, caption=""):
-        self.callback(path, filter, caption)
-        return self.read_from_socket()       
-    
-    def get_filename_to_open(self, path, filter, caption=""):
-        self.callback(path, filter, caption)
-        return self.read_from_socket()
-
-    def set_window_title(self, title):
-        self.callback(title)
+        

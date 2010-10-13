@@ -111,11 +111,9 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
     def set_grade_tooltip(self, grade, text):
         self.grade_buttons.button(grade).setToolTip(text)
 
-    def update_status_bar(self, message=None):
+    def update_status_bar_counters(self):
         scheduled_count, non_memorised_count, active_count = \
-                   self.review_controller().counters()
+            self.review_controller().counters()
         self.sched.setText(_("Scheduled: %d ") % scheduled_count)
         self.notmem.setText(_("Not memorised: %d ") % non_memorised_count)
         self.act.setText(_("Active: %d ") % active_count)
-        if message:
-            self.main_widget().set_status_bar_message(message)

@@ -49,7 +49,7 @@ class DefaultController(Controller):
         if review_controller.card is None:
             review_controller.new_question()
         else:
-            review_controller.update_status_bar()
+            review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
 
     def edit_current_card(self):
@@ -478,7 +478,7 @@ class DefaultController(Controller):
             (self.component_manager).activate()
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
-        review_controller.update_status_bar()
+        review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
         
     def browse_cards(self):
@@ -553,7 +553,7 @@ class DefaultController(Controller):
         if review_controller.card is None:
             review_controller.new_question()
         else:
-            review_controller.update_status_bar()
+            review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
 
     def export_file(self):

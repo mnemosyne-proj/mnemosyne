@@ -137,7 +137,7 @@ if __name__ == "__main__":
 #@@review_widget.set_grade_tooltip("""0""","""You've forgotten this card completely.""")
 #@@review_widget.set_grade_text("""0""","""0""")
 # ...
-#@@review_widget.update_status_bar()
+#@@review_widget.update_status_bar_counters()
 #@@main_widget.enable_edit_current_card("""True""")
 #@@main_widget.enable_delete_current_card("""True""")
 #@@main_widget.enable_browse_cards("""True""")

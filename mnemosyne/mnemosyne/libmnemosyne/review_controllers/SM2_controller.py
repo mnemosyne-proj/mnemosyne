@@ -107,7 +107,7 @@ class SM2Controller(ReviewController):
         
         self.flush_sync_server() 
         self.reload_counters()
-        self.widget.update_status_bar()
+        self.widget.update_status_bar_counters()
         self.scheduler().heartbeat()
         if self.card is None or self.learning_ahead:
             self.reset()
@@ -160,8 +160,8 @@ class SM2Controller(ReviewController):
         if self.config()["show_intervals"] == "status_bar":
             import math
             days = int(math.ceil(interval / (24.0 * 60 * 60)))
-            self.widget.update_status_bar(_("Returns in") + " " + \
-                  str(interval) + _(" day(s)."))
+            self.main_widget().set_status_bar_message(_("Returns in") + \
+                " " + str(interval) + _(" day(s)."))
         
     def next_rep_string(self, days):
         if days == 0:
@@ -195,7 +195,7 @@ class SM2Controller(ReviewController):
     def update_dialog(self, redraw_all=False):
         self.update_qa_area(redraw_all)
         self.update_grades_area()
-        self.widget.update_status_bar()
+        self.widget.update_status_bar_counters()
         self.update_menu_bar()
                    
     def update_qa_area(self, redraw_all=False):
@@ -296,9 +296,9 @@ class SM2Controller(ReviewController):
                 w.enable_edit_current_card(False)
         w.enable_delete_current_card(self.card != None)
         w.enable_browse_cards(self.database().is_loaded())
-        
-    def update_status_bar(self, message=None):
-        self.widget.update_status_bar(message)    
+
+    def update_status_bar_counters(self):
+        self.widget.update_status_bar_counters()
 
     def is_question_showing(self):
         return self.review_controller().state == "SELECT SHOW"

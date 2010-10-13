@@ -29,11 +29,10 @@ class ReviewWdgtCramming(ReviewWdgt):
         parent.add_to_status_bar(self.unseen)
         parent.add_to_status_bar(self.active)
 
-    def update_status_bar(self, message=None):
+    def update_status_bar_counters(self):
         wrong_count, unseen_count, active_count = \
                    self.review_controller().counters()
         self.wrong.setText(_("Wrong: %d ") % wrong_count)
         self.unseen.setText(_("Unseen: %d ") % unseen_count)
         self.active.setText(_("Active: %d ") % active_count)
-        if message:
-            self.main_widget().set_status_bar_message(message)
+        
