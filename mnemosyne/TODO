@@ -1,7 +1,10 @@
 -hook up dialogs, also in UDP
+-add all dialogs to mnemosyne components. Abstract init procedure away?
+-example add cards, sync
 -pyqt: hook up main widget calls directly to controller?
 -fix merge duplicates and edit. editcard --> edit related cards?
 -update 'how to write new front end'
+-sync settings in config or not?
 -make docs
 
 -add preambe/postamble in latex signature

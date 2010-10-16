@@ -2,8 +2,8 @@ The files to study when writing a new client based on the embedded C server
 are the following:
 
 example_client.c: shows how to interact with libmnemosyne through C
-main_wdgt.c/h, review_wdgt.c/h: these are the functions that libmnemosyne's 
-    UI controllers will call
+main_wdgt.c/h, review_wdgt.c/h, dlgs.c/h: these are the functions that 
+    libmnemosyne's UI controllers will call
 python_stdout_stderr.c/h: captures stdout and stderr written to
      from Python
 

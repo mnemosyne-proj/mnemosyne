@@ -58,6 +58,7 @@ class ConfigurationDialog(Dialog):
     
     component_type = "configuration_dialog"
 
+
 class SyncDialog(Dialog):
     
     component_type = "sync_dialog"

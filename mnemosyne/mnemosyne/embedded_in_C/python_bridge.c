@@ -7,6 +7,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <Python.h>
+
+#include "dlgs.h"
 #include "main_wdgt.h"
 #include "review_wdgt.h"
 #include "python_stdout_stderr.h"
@@ -448,13 +450,134 @@ init__review_wdgt(void)
 
 
 //
+// Functions relating to dialogs.
+//
+
+PyObject* _add_cards_dlg_activate(PyObject* self, PyObject* args)
+{
+  add_cards_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _edit_card_dlg_activate(PyObject* self, PyObject* args)
+{
+  char* card_id = NULL;
+  int allow_cancel = 1;
+  if (!PyArg_ParseTuple(args, "si", &card_id, &allow_cancel)) 
+    return NULL;
+  edit_card_dlg_activate(card_id, allow_cancel);
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _activate_cards_dlg_activate(PyObject* self, PyObject* args)
+{
+  activate_cards_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _browse_cards_dlg_activate(PyObject* self, PyObject* args)
+{
+  browse_cards_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _card_appearance_dlg_activate(PyObject* self, PyObject* args)
+{
+  card_appearance_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _activate_plugins_dlg_activate(PyObject* self, PyObject* args)
+{
+  activate_plugins_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _manage_card_types_dlg_activate(PyObject* self, PyObject* args)
+{
+  manage_card_types_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _statistics_dlg_activate(PyObject* self, PyObject* args)
+{
+  statistics_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _configuration_dlg_activate(PyObject* self, PyObject* args)
+{
+  configuration_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+PyObject* _sync_dlg_activate(PyObject* self, PyObject* args)
+{
+  sync_dlg_activate();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
+static PyMethodDef dlgs_methods[] = {
+  {"add_cards_dlg_activate",         _add_cards_dlg_activate, 
+   METH_VARARGS, ""},
+  {"edit_card_dlg_activate",         _edit_card_dlg_activate, 
+   METH_VARARGS, ""},
+  {"activate_cards_dlg_activate",    _activate_cards_dlg_activate, 
+   METH_VARARGS, ""},
+  {"browse_cards_dlg_activate",      _browse_cards_dlg_activate, 
+   METH_VARARGS, ""},
+  {"card_appearance_dlg_activate",   _card_appearance_dlg_activate, 
+   METH_VARARGS, ""},
+  {"activate_plugins_dlg_activate",  _activate_plugins_dlg_activate, 
+   METH_VARARGS, ""},
+  {"manage_card_types_dlg_activate", _manage_card_types_dlg_activate, 
+   METH_VARARGS, ""},
+  {"statistics_dlg_activate",        _statistics_dlg_activate, 
+   METH_VARARGS, ""},
+  {"configuration_dlg_activate",     _configuration_dlg_activate, 
+   METH_VARARGS, ""},  
+  {"sync_dlg_activate",              _sync_dlg_activate, 
+   METH_VARARGS, ""},
+  {NULL, NULL, 0, NULL}
+};
+
+
+PyMODINIT_FUNC
+init__dlgs(void)
+{
+  Py_InitModule("_dlgs", dlgs_methods);
+}
+
+
+
+//
 // Functions relating to capturing stdout and stderr.
 //
 
-PyObject* _python_stdout(PyObject* self, PyObject* pArgs)
+PyObject* _python_stdout(PyObject* self, PyObject* args)
 {
   char* text = NULL;
-  if (!PyArg_ParseTuple(pArgs, "s", &text)) 
+  if (!PyArg_ParseTuple(args, "s", &text)) 
     return NULL;
   python_stdout(text);
   Py_INCREF(Py_None);
@@ -462,10 +585,10 @@ PyObject* _python_stdout(PyObject* self, PyObject* pArgs)
 }
 
 
-PyObject* _python_stderr(PyObject* self, PyObject* pArgs)
+PyObject* _python_stderr(PyObject* self, PyObject* args)
 {
   char* text = NULL;
-  if (!PyArg_ParseTuple(pArgs, "s", &text)) 
+  if (!PyArg_ParseTuple(args, "s", &text)) 
     return NULL;
   python_stderr(text);
   Py_INCREF(Py_None);
@@ -496,7 +619,8 @@ void start_python_bridge()
 {
   Py_Initialize();
   init__main_wdgt();
-  init__review_wdgt();
+  init__review_wdgt();  
+  init__dlgs_wdgt();
   init__python_stdout_stderr();
   
   PyRun_SimpleString(

@@ -23,7 +23,9 @@ class Mnemosyne(Component):
 
     def __init__(self, upload_science_logs):
 
-        """We need to specify 'upload_science_logs' as an argument here, so
+        """For mobile clients, it is recommended that you set
+        'upload_science_logs' to 'False'.
+        We need to specify 'upload_science_logs' as an argument here, so
         that we can inject it on time to prevent the uploader thread from
         starting.
 
