@@ -620,7 +620,7 @@ void start_python_bridge()
   Py_Initialize();
   init__main_wdgt();
   init__review_wdgt();  
-  init__dlgs_wdgt();
+  init__dlgs();
   init__python_stdout_stderr();
   
   PyRun_SimpleString(
@@ -666,7 +666,7 @@ void eval_python_as_unicode(char* expression, char* result, int bufsize)
   PyErr_Print();
   if (obj == NULL)
   {
-    *result = NULL;
+    *result = 0;
     return;
   }
   strncpy(result, PyString_AsString(obj), bufsize);
