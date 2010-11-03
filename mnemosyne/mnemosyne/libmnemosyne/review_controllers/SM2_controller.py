@@ -229,13 +229,13 @@ class SM2Controller(ReviewController):
             w.set_answer(self.card.answer(self.render_chain))
         # Update 'Show answer' button.
         if self.state == "EMPTY":
-            show_enabled, default, text = False, True, _("Show answer")
+            show_enabled, default, text = False, False, _("Show answer")
             self.grades_enabled = False
         elif self.state == "SELECT SHOW":
             show_enabled, default, text = True,  True, _("Show answer")
             self.grades_enabled = False
         elif self.state == "SELECT GRADE":
-            show_enabled, default, text = False, True, _("Show answer")
+            show_enabled, default, text = False, False, _("Show answer")
             self.grades_enabled = True
         elif self.state == "SELECT AHEAD":
             show_enabled, default, text = True,  False, \

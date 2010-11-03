@@ -34,7 +34,7 @@ class MainWdgt(MainWidget):
         _.set_status_bar_message(text.encode("utf-8"))
     
     def set_progress_text(self, text):
-        _.set_progress_text(tex.encode("utf-8"))
+        _.set_progress_text(text.encode("utf-8"))
                 
     def set_progress_range(self, minimum, maximum):
         _.set_progress_range(minimum, maximum)

@@ -32,14 +32,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="question">
+        <widget class="QWebView" name="question" native="true">
          <property name="minimumSize">
           <size>
            <width>295</width>
            <height>100</height>
           </size>
          </property>
-         <property name="url">
+         <property name="url" stdset="0">
           <url>
            <string>about:blank</string>
           </url>
@@ -58,14 +58,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QWebView" name="answer">
+        <widget class="QWebView" name="answer" native="true">
          <property name="minimumSize">
           <size>
            <width>295</width>
            <height>100</height>
           </size>
          </property>
-         <property name="url">
+         <property name="url" stdset="0">
           <url>
            <string>about:blank</string>
           </url>
@@ -78,9 +78,6 @@
       <widget class="QPushButton" name="show_button">
        <property name="text">
         <string>Show &amp;answer</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -103,9 +100,6 @@
             <property name="shortcut">
              <string>0</string>
             </property>
-            <property name="autoDefault">
-             <bool>true</bool>
-            </property>
            </widget>
           </item>
           <item>
@@ -115,9 +109,6 @@
             </property>
             <property name="shortcut">
              <string>1</string>
-            </property>
-            <property name="autoDefault">
-             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -136,9 +127,6 @@
             <property name="shortcut">
              <string>2</string>
             </property>
-            <property name="autoDefault">
-             <bool>true</bool>
-            </property>
            </widget>
           </item>
           <item>
@@ -148,9 +136,6 @@
             </property>
             <property name="shortcut">
              <string>3</string>
-            </property>
-            <property name="autoDefault">
-             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -162,9 +147,6 @@
             <property name="shortcut">
              <string>4</string>
             </property>
-            <property name="autoDefault">
-             <bool>true</bool>
-            </property>
            </widget>
           </item>
           <item>
@@ -174,9 +156,6 @@
             </property>
             <property name="shortcut">
              <string>5</string>
-            </property>
-            <property name="autoDefault">
-             <bool>true</bool>
             </property>
            </widget>
           </item>

@@ -86,11 +86,11 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.answer.setHtml(self._empty)
         
     def update_show_button(self, text, is_default, is_enabled):
+        self.show_button.setText(text)
+        self.show_button.setEnabled(is_enabled)
         if is_default:
             self.show_button.setDefault(True)
             self.show_button.setFocus()
-        self.show_button.setText(text)
-        self.show_button.setEnabled(is_enabled)
 
     def set_grades_enabled(self, is_enabled):
         self.grades.setEnabled(is_enabled)
@@ -100,6 +100,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         
     def set_default_grade(self, grade):
         if self.auto_focus_grades:
+            self.grade_buttons.button(grade).setDefault(True)
             self.grade_buttons.button(grade).setFocus()
  
     def set_grades_title(self, text):

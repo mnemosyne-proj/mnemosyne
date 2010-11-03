@@ -12,10 +12,13 @@
 void add_cards_dlg_activate()
 {
   printf("add_cards_dlg\n");
+
+  // Simple example with hard coded data instead of user input.
   run_python(
     "fact_data = {\"q\": \"question\", \"a\": \"answer\"}\n"
-    "card_type = self.card_type_by_id(\"1\")\n"
+    "card_type = mnemosyne.card_type_by_id(\"1\")\n"
     "mnemosyne.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[\"default\"])\n");
+  printf("Added a card\n");  
 }
 
 
@@ -70,14 +73,17 @@ void configuration_dlg_activate()
 void sync_dlg_activate()
 {
   printf("sync_dlg\n");
+  // The majority of the following sync related settings are fixed for
+  // each client, which is why they are hard-coded here instead of
+  // putting them in the config().
   run_python(
     "from openSM2sync.client import Client\n"
-    "import mnemosyne.version\n"
-    "client = Client(mnemosyne.machine_id, mnemosyne.database, self)\n"
+    "import mnemosyne.version as mnemosyne_version\n"
+    "client = Client(mnemosyne.config().machine_id(), mnemosyne.database(), mnemosyne.main_widget())\n"
     "client.program_name = \"Mnemosyne\"\n"
-    "client.program_version = mnemosyne.version.version\n"
+    "client.program_version = mnemosyne_version\n"
     "client.capabilities = \"mnemosyne_dynamic_cards\"\n"
-    "client.check_for_updated_media_files = False\n"
+    "client.check_for_edited_local_media_files = False\n"
     "client.interested_in_old_reps = False\n"
     "client.do_backup = True\n"
     "client.upload_science_logs = False\n"

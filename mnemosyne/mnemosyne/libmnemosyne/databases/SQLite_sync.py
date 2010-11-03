@@ -138,7 +138,7 @@ class SQLiteSync(object):
         # Other media files, e.g. latex.
         for cursor in self.con.execute("select value from data_for_fact"):
             for f in self.component_manager.all("hook",
-                "check_for_updated_media_files"):
+                "check_for_edited_local_media_files"):
                 f.run(cursor[0])
             
     def media_filenames_to_sync_for(self, partner):    

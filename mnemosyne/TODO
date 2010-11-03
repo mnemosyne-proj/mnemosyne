@@ -1,11 +1,6 @@
--hook up dialogs, also in UDP
--add all dialogs to mnemosyne components. Abstract init procedure away?
--example add cards, sync
--pyqt: hook up main widget calls directly to controller?
 -fix merge duplicates and edit. editcard --> edit related cards?
--update 'how to write new front end'
--sync settings in config or not?
--make docs
+
+-Ubuntu 10.10: delay after 2nd review?
 
 -add preambe/postamble in latex signature
 -option not have pregenerated columns on initial binary download in sync
@@ -139,6 +134,7 @@
 -warn when syncing and the other criterion plugin is not present?
 -make 'grade activity criterion' an official plugin? Add tests?
 
+-hoop up dialogs in UDP
 
 -implement duplicate checking
 -confirmation dialog for deleted cards

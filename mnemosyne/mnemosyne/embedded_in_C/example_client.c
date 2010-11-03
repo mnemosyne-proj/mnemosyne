@@ -24,10 +24,15 @@ int main(int argc, char* argv[])
     "mnemosyne.components.insert(0, (\"mnemosyne.libmnemosyne.translator\", \"GetTextTranslator\"))\n"
     "mnemosyne.components.append((\"mnemosyne.embedded_in_C.main_wdgt\", \"MainWdgt\"))\n"
     "mnemosyne.components.append((\"mnemosyne.embedded_in_C.review_wdgt\", \"ReviewWdgt\"))\n"
+    "mnemosyne.components.append((\"mnemosyne.embedded_in_C.dlgs\", \"AddCardsDlg\"))\n"    
+    "mnemosyne.components.append((\"mnemosyne.embedded_in_C.dlgs\", \"EditCardDlg\"))\n"    
+    "mnemosyne.components.append((\"mnemosyne.embedded_in_C.dlgs\", \"SyncDlg\"))\n"
     "mnemosyne.initialise(data_dir=\"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2\", filename=\"default.db\")\n"
     "mnemosyne.start_review()\n"
+    "mnemosyne.controller().add_cards()\n"
     "mnemosyne.review_controller().show_answer()\n"
-    "mnemosyne.review_controller().grade_answer(0)\n"
+    "mnemosyne.review_controller().grade_answer(0)\n"    
+    "mnemosyne.controller().sync()\n"
 );
 
   // Illustration on how to get data from Python to C.

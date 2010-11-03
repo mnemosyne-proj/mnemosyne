@@ -53,7 +53,7 @@ class Client(Partner):
     # The following setting can be set to False to speed up the syncing
     # process on e.g. read only mobile clients where the media files don't get
     # updated anyway.
-    check_for_updated_media_files = True
+    check_for_edited_local_media_files = True
     # Setting the following to False will speed up the initial sync, but in that
     # case the client will not have access to all of the review history in order
     # to e.g. display statistics. Also, it will not be possible to keep the
@@ -84,7 +84,7 @@ class Client(Partner):
             # We check if files were updated outside of the program. This can
             # generate MEDIA_EDITED log entries, so it should be done first.
             self.ui.set_progress_text("Checking for updated media files...")  
-            if self.check_for_updated_media_files:
+            if self.check_for_edited_local_media_files:
                 self.database.check_for_edited_media_files()
             self.login(socket.gethostbyname(server), port, username, password)
             # First sync.

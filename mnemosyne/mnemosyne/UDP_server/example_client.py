@@ -156,7 +156,7 @@ if __name__ == "__main__":
 #    client.program_name = "Mnemosyne"
 #    client.program_version = mnemosyne.version.version
 #    client.capabilities = "mnemosyne_dynamic_cards"
-#    client.check_for_updated_media_files = False
+#    client.check_for_edited_local_media_files = False
 #    client.interested_in_old_reps = False
 #    client.do_backup = True
 #    client.upload_science_logs = False

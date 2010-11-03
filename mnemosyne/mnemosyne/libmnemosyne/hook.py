@@ -20,7 +20,7 @@ class Hook(Component):
                                         extra argument: card
        'after_repetititon'              in SM2_mnemosyne.grade_answer
                                         extra argument: card
-       'check_for_updated_media_files'  in SQLite_sync
+       'check_for_edited_local_media_files'  in SQLite_sync
                                         extra argument: data
        ===============================  ===============================
 
@@ -33,4 +33,3 @@ class Hook(Component):
     
     def run(self):
         raise NotImplementedError
-
