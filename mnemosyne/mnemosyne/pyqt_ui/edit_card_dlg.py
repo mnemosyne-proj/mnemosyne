@@ -47,7 +47,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             self.config()["tags_of_last_added"] = tag_text
             QtGui.QDialog.accept(self)
 
-    def reject(self): # Override 'add cards' behaviour.
+    def reject(self):  # Override 'add cards' behaviour.
         self.config()["edit_widget_size"] = (self.width(), self.height())
         QtGui.QDialog.reject(self)
         

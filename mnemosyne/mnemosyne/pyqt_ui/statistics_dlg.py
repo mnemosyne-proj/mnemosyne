@@ -20,21 +20,21 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
     def __init__(self, component_manager):
         StatisticsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
+
+    def activate(self):
         self.setupUi(self)
         previous_page_index = self.config()["previous_statistics_page"]
         page_index = 0
         for page in self.component_manager.all("statistics_page"):
             page = page(self.component_manager)
-            self.tab_widget.addTab(StatisticsPageWdgt(component_manager, self,
-                page, page_index), page.name)
+            self.tab_widget.addTab(StatisticsPageWdgt(self.component_manager,
+                self, page, page_index), page.name)
             page_index += 1
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)  
         if previous_page_index >= self.tab_widget.count():
             previous_page_index = 0
         self.tab_widget.setCurrentIndex(previous_page_index)
         self.display_page(previous_page_index)
-           
-    def activate(self):
         self.exec_()
 
     def closeEvent(self, event):

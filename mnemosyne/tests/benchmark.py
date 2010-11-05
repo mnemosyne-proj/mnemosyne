@@ -19,59 +19,15 @@ def startup():
     # Note that this also includes building the queue and getting the first card.
 
     mnemosyne = Mnemosyne(upload_science_logs=False)
-    mnemosyne.components = [
+    mnemosyne.components.insert(0,
         ("mnemosyne.libmnemosyne.translator",
-         "NoTranslation"),
+         "NoTranslation"))
+    mnemosyne.components.append(    
         ("mnemosyne.libmnemosyne.ui_components.main_widget",
-         "MainWidget"),
+         "MainWidget"))
+    mnemosyne.components.append(
         ("mnemosyne.libmnemosyne.ui_components.review_widget",
-         "ReviewWidget"),
-        ("mnemosyne.libmnemosyne.databases.SQLite",
-         "SQLite"),
-        ("mnemosyne.libmnemosyne.configuration",
-         "Configuration"),
-        ("mnemosyne.libmnemosyne.loggers.database_logger",
-         "DatabaseLogger"),
-        ("mnemosyne.libmnemosyne.schedulers.SM2_mnemosyne",
-         "SM2Mnemosyne"),
-        ("mnemosyne.libmnemosyne.stopwatch",
-         "Stopwatch"),
-        ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
-         "DefaultCriterion"),
-        ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
-         "DefaultCriterionApplier"),
-        ("mnemosyne.libmnemosyne.card_types.front_to_back",
-         "FrontToBack"),
-        ("mnemosyne.libmnemosyne.card_types.both_ways",
-         "BothWays"),
-        ("mnemosyne.libmnemosyne.card_types.three_sided",
-         "ThreeSided"),
-        ("mnemosyne.libmnemosyne.renderers.html_css_old",
-         "HtmlCssOld"),
-        ("mnemosyne.libmnemosyne.filters.escape_to_html",
-         "EscapeToHtml"),
-        ("mnemosyne.libmnemosyne.filters.expand_paths",
-         "ExpandPaths"),
-        ("mnemosyne.libmnemosyne.filters.latex",
-         "Latex"),
-        ("mnemosyne.libmnemosyne.controllers.default_controller",
-         "DefaultController"),
-        ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
-         "SM2Controller"),
-        ("mnemosyne.libmnemosyne.card_types.map",
-         "MapPlugin"),
-        ("mnemosyne.libmnemosyne.card_types.cloze",
-         "ClozePlugin"),
-        ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
-         "CrammingPlugin"),
-        ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
-         "DefaultCriterion"),
-        ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
-         "DefaultCriterionApplier"),
-        #("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
-        #  "Mnemosyne1Mem"),
-        ("mnemosyne.libmnemosyne.ui_components.dialogs",
-         "ProgressDialog") ]
+         "ReviewWidget"))
 
     mnemosyne.initialise(data_dir=os.path.abspath("dot_benchmark"),
         automatic_upgrades=False)
@@ -79,7 +35,6 @@ def startup():
     #automatic_upgrades=False)
 
     mnemosyne.review_controller().reset()
-
 
 def create_database():
     mnemosyne.database().new(mnemosyne.config()["path"])
@@ -95,7 +50,7 @@ def create_database():
             check_for_duplicates=False, save=False)[0]
         card.next_rep = time.time() - 24 * 60 * 60
         card.last_rep = card.next_rep - i * 24 * 60 * 60
-        mnemosyne.database().edit_card(card)
+        mnemosyne.database().update_card(card)
     mnemosyne.database().save()
 
 def queue():
@@ -111,7 +66,11 @@ def display():
 def grade():
     # Note that this will also pull in a new question.
     mnemosyne.review_controller().grade_answer(0)
-
+    
+def grade_2():
+    # Note that this will also pull in a new question.
+    mnemosyne.review_controller().grade_answer(0)
+    
 def grade_only():
     mnemosyne.scheduler().grade_answer(\
         mnemosyne.review_controller().card, 0)
@@ -145,9 +104,9 @@ def do_import():
     mnemosyne.component_manager.current("file_format").\
         do_import("/home/pbienst/dot_mnemosyne/default.mem")
 
-#tests = ["startup()", "create_database()", "queue()", "new_question()", "display()", "grade_only()",
-#         "grade()", "count_active()", "count_scheduled()", "count_not_memorised()"]
-tests = ["startup()", "new_question()", "display()", "grade()", "activate()",
+tests = ["startup()", "create_database()", "queue()", "new_question()", "display()", "grade_only()",
+         "grade()", "grade_2()", "count_active()", "count_scheduled()", "count_not_memorised()"]
+tests = ["startup()", "new_question()", "display()", "grade()", "grade_2()", "activate()",
     "finalise()"]
 #tests = ["startup()", "create_database()", "new_question()", "display()",
 #    "grade()", "activate()", "finalise()"]
@@ -157,6 +116,7 @@ tests = ["startup()", "new_question()", "display()", "grade()", "activate()",
 #tests = ["startup()", "do_import()", "finalise()"]
 #tests = ["startup()", "queue()", "finalise()"]
 #tests = ["startup()", "activate()"]
+tests = ["startup()", "finalise()"]
 
 for test in tests:
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))

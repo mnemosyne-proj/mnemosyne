@@ -1,6 +1,4 @@
--fix merge duplicates and edit. editcard --> edit related cards?
-
--Ubuntu 10.10: delay after 2nd review?
+-fix merge duplicates and edit
 
 -add preambe/postamble in latex signature
 -option not have pregenerated columns on initial binary download in sync
@@ -69,6 +67,9 @@
 -reenable upload
 -remove hard coded dot_mnemosyne2 path in webserver
 -turn off logging in webserver
+
+-delay matplotlib instatiation
+-profile startup/shutdown
 
 -alpha 1
 
@@ -166,7 +167,6 @@ the GUI function itself?
 -have hierarchy in plugin names
 
 -auto vacuum after every N openings? What about WM?
--profile startup/shutdown
 
 -http://www.mblondel.org/journal/2008/08/01/web-canvas/
 

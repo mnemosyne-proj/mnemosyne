@@ -43,6 +43,7 @@ class DefaultController(Controller):
         self.flush_sync_server()
         self.component_manager.current("add_cards_dialog")\
             (self.component_manager).activate()
+        # This dialog calls 'create_new_cards' at some point.
         self.database().save()
         review_controller = self.review_controller()
         review_controller.reload_counters()
@@ -50,24 +51,6 @@ class DefaultController(Controller):
             review_controller.new_question()
         else:
             review_controller.update_status_bar_counters()
-        self.stopwatch().unpause()
-
-    def edit_current_card(self):
-        self.stopwatch().pause()
-        self.flush_sync_server()
-        review_controller = self.review_controller()
-        self.component_manager.current("edit_card_dialog")\
-            (review_controller.card, self.component_manager).activate()
-        review_controller.reload_counters()
-        # Our current card could have disappeared from the database here,
-        # e.g. when converting a front-to-back card to a cloze card, which
-        # deletes the old cards and their learning history.
-        if review_controller.card is None:
-            review_controller.new_question()
-        else:
-            review_controller.card = self.database().card(\
-                review_controller.card._id, id_is_internal=True)
-            review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
     def create_new_cards(self, fact_data, card_type, grade, tag_names,
@@ -153,8 +136,27 @@ class DefaultController(Controller):
             self.review_controller().reset()
         return cards
 
+    def edit_current_card(self):
+        self.stopwatch().pause()
+        self.flush_sync_server()
+        review_controller = self.review_controller()
+        self.component_manager.current("edit_card_dialog")\
+            (review_controller.card, self.component_manager).activate()
+        # This dialog calls 'edit_related_cards' at some point.
+        review_controller.reload_counters()
+        # Our current card could have disappeared from the database here,
+        # e.g. when converting a front-to-back card to a cloze card, which
+        # deletes the old cards and their learning history.
+        if review_controller.card is None:
+            review_controller.new_question()
+        else:
+            review_controller.card = self.database().card(\
+                review_controller.card._id, id_is_internal=True)
+            review_controller.update_dialog(redraw_all=True)
+        self.stopwatch().unpause()
+        
     def edit_related_cards(self, fact, new_fact_data, new_card_type, \
-                             new_tag_names, correspondence):
+                           new_tag_names, correspondence):
         # Change card type.
         db = self.database()
         sch = self.scheduler()
