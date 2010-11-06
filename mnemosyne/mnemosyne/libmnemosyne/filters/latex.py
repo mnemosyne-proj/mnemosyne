@@ -44,8 +44,11 @@ class Latex(Filter):
         to speed up syncing).
 
         """
-     
-        img_name = md5(latex_command.encode("utf-8")).hexdigest() + ".png"
+
+        hash_input = latex_command + self.config()["latex_preamble"] + \
+            self.config()["latex_postamble"] + self.config()["dvipng"] + \
+            self.config()["latex"]
+        img_name = md5(hash_input.encode("utf-8")).hexdigest() + ".png"
         latex_dir = os.path.join(self.database().media_dir(), "_latex")
         filename = os.path.join(latex_dir, img_name)
         rel_filename = "_latex" + "/" + img_name # To be stored in database.

@@ -793,13 +793,13 @@ class TestSync(object):
         self.client.do_sync()
         assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "_latex",
-            "28ec9eac8abe468caee402926546d10f.png"))
+            "4db2425ed3a4fabae0f62663e7613555.png"))
         assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "_latex",
-            "44e557b2680adf90a549e62a6f79a50c.png"))
+            "ab8ddeb30a66d731e16390ee62ac383c.png"))
         assert os.path.exists(os.path.join(os.path.abspath("dot_sync_client"),
             "default.db_media", "_latex",
-            "ebc3d7bedc1f11e08895c3124001cbb5.png"))
+            "ff66949244c3f6a9018230b95bddfe2b.png"))
         
     def test_latex_edit(self):
         
