@@ -280,7 +280,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             ("version", self.version))
         self.con.execute("""insert into partnerships(partner, _last_log_id)
             values(?,?)""", ("log.txt", 0))
-        self.con.commit()
         self.config()["path"] = contract_path(self._path, self.config().data_dir)
         # Create default criterion.
         from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
