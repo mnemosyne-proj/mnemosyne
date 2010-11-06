@@ -8,6 +8,7 @@ from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
+answer = 0
 
 class Widget(MainWidget):
 
@@ -19,8 +20,10 @@ class Widget(MainWidget):
     def show_question(self, question, a, b, c):
         if question.startswith("Delete"):
             return 0
-        raise NotImplementedError        
+        else:
+            return answer
 
+        
 class TestAddCards(MnemosyneTest):
 
     def setup(self):
@@ -33,6 +36,8 @@ class TestAddCards(MnemosyneTest):
             ("test_add_cards", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
         self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
         self.review_controller().reset()
 
@@ -214,3 +219,63 @@ class TestAddCards(MnemosyneTest):
 
         new_card = self.database().card(card._id, id_is_internal=True)
         assert len(new_card.tags) == 1
+        
+    def test_duplicate(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["tag"])[0]
+        self.controller().file_save()
+        self.controller().create_new_cards(fact_data, card_type,
+                                           grade=-1, tag_names=["tag"])
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
+
+    def test_duplicate_2(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["tag"])[0]
+        self.controller().file_save()
+        global answer
+        answer = 0  # Merge.
+        fact_data = {"q": "question",
+                     "a": "answer2"}
+        self.controller().create_new_cards(fact_data, card_type,
+                                           grade=-1, tag_names=["tag"])
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
+
+    def test_duplicate_3(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["tag"])[0]
+        self.controller().file_save()
+        fact_data = {"q": "question",
+                     "a": "answer2"}
+        global answer
+        answer = 1 # Add.
+        self.controller().create_new_cards(fact_data, card_type,
+                                           grade=-1, tag_names=["tag"])
+        assert self.database().fact_count() == 2
+        assert self.database().card_count() == 2
+
+    def test_duplicate_4(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["tag"])[0]
+        self.controller().file_save()
+        fact_data = {"q": "question",
+                     "a": "answer2"}
+        global answer
+        answer = 2 # Don't add.
+        self.controller().create_new_cards(fact_data, card_type,
+                                           grade=-1, tag_names=["tag"])
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1

@@ -100,9 +100,10 @@ class DefaultController(Controller):
                             if key not in card_type.required_fields:
                                 merged_fact_data[key] += " / " + duplicate[key]
                         db.delete_fact_and_related_cards(duplicate)
-                    fact.data = merged_fact_data
-                    self.component_manager.current("edit_fact_dialog")\
-                      (fact, self.component_manager, allow_cancel=False).\
+                    card = db.cards_from_fact(fact)[0]
+                    card.fact.data = merged_fact_data
+                    self.component_manager.current("edit_card_dialog")\
+                      (card, self.component_manager, allow_cancel=False).\
                       activate()
                     return
                 if answer == 2:  # Don't add.
