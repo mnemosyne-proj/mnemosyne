@@ -9,7 +9,7 @@ import cPickle
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.utils import traceback_string
+from mnemosyne.libmnemosyne.utils import rand_uuid, traceback_string
 
 config_py = \
 """# Mnemosyne configuration file.
@@ -120,8 +120,7 @@ class Configuration(Component, dict):
             }.items():
             self.setdefault(key, value)
         if not self["user_id"]:
-            import uuid
-            self["user_id"] = str(uuid.uuid4())
+            self["user_id"] = rand_uuid()
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook",
             "configuration_defaults"):
@@ -212,9 +211,8 @@ class Configuration(Component, dict):
         # signal that people should not copy this file to a different machine.
         machine_id_file = join(self.config_dir, "machine.id")
         if not exists(machine_id_file):
-            import uuid
             f = file(machine_id_file, "w")
-            print >> f, str(uuid.uuid4())
+            print >> f, rand_uuid()
             f.close()
 
 

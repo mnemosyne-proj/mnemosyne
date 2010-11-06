@@ -2,6 +2,7 @@
 # activity_criterion.py <Peter.Bienstman@UGent.be>
 #
 
+from mnemosyne.libmnemosyne.utils import rand_uuid
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -24,8 +25,7 @@ class ActivityCriterion(Component):
         Component.__init__(self, component_manager)
         self.name = ""
         if id is None:
-            import uuid
-            id = str(uuid.uuid4())
+            id = rand_uuid()
         self.id = id
         self._id = None
             

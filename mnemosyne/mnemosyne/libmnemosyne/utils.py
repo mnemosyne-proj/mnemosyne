@@ -6,6 +6,7 @@ import os
 import re
 import cgi
 import sys
+import random
 import shutil
 import traceback
 
@@ -132,6 +133,25 @@ def mangle(string):
         if char.isalnum() or char == "_":
             new_string += char    
     return new_string
+
+
+def rand_uuid():
+
+    """Importing Python's uuid module brings a huge overhead, so we use
+    this stand-alone version from 
+    http://www.python-forum.org/pythonforum/viewtopic.php?f=14&t=6269
+
+    """
+
+    uuid = [0,0,0,0,0]
+    chars = "abcdef0123456789"
+    rand = random.random
+    for g,length in enumerate([8, 4, 4, 4, 12]):
+        seg = ""
+        for i in range(length):
+            seg += chars[int(rand() * 16.0 - 1)]
+        uuid[g] = seg
+    return "-".join(uuid)
 
 
 class CompareOnId(object):

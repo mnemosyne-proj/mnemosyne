@@ -104,6 +104,31 @@ def do_import():
     mnemosyne.component_manager.current("file_format").\
         do_import("/home/pbienst/dot_mnemosyne/default.mem")
 
+def test_setup():
+    os.system("rm -fr dot_test")
+    global mnemosyne
+    mnemosyne = Mnemosyne(upload_science_logs=False)
+    mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+        "GetTextTranslator"))
+    mnemosyne.components.append(\
+        ("test_add_cards", "Widget"))
+    mnemosyne.components.append(\
+        ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+    mnemosyne.components.append(\
+        ("mnemosyne.libmnemosyne.ui_components.dialogs", "EditCardDialog"))
+    mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+    mnemosyne.review_controller().reset()
+
+def test_run():
+    fact_data = {"q": "question",
+                 "a": "answer"}
+    card_type = mnemosyne.card_type_by_id("1")
+    card = mnemosyne.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+    mnemosyne.controller().file_save()
+    assert mnemosyne.database().fact_count() == 1
+    assert mnemosyne.database().card_count() == 1
+
 tests = ["startup()", "create_database()", "queue()", "new_question()", "display()", "grade_only()",
          "grade()", "grade_2()", "count_active()", "count_scheduled()", "count_not_memorised()"]
 tests = ["startup()", "new_question()", "display()", "grade()", "grade_2()", "activate()",
@@ -117,6 +142,7 @@ tests = ["startup()", "new_question()", "display()", "grade()", "grade_2()", "ac
 #tests = ["startup()", "queue()", "finalise()"]
 #tests = ["startup()", "activate()"]
 tests = ["startup()", "finalise()"]
+tests = ["test_setup()", "test_run()"]
 
 for test in tests:
     cProfile.run(test, "mnemosyne_profile." + test.replace("()", ""))

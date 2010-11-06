@@ -2,7 +2,7 @@
 # tag.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.utils import CompareOnId
+from mnemosyne.libmnemosyne.utils import rand_uuid, CompareOnId
 
 
 class Tag(CompareOnId):
@@ -21,8 +21,7 @@ class Tag(CompareOnId):
 
     def __init__(self, name, id=None):
         if id is None:
-            import uuid
-            id = str(uuid.uuid4())
+            id = rand_uuid()
         self.id = id
         self._id = None
         self.name = name

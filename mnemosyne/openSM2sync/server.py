@@ -6,7 +6,6 @@
 import os
 import sys
 import cgi
-import uuid
 import time
 import select
 import socket
@@ -15,7 +14,7 @@ import httplib
 import tempfile
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
-from utils import traceback_string
+from utils import traceback_string, rand_uuid
 from text_formats.xml_format import XMLFormat
 from partner import Partner, UnsizedLogEntryStreamReader, BUFFER_SIZE
 
@@ -61,7 +60,7 @@ class Session(object):
     """
 
     def __init__(self, client_info, database):
-        self.token = str(uuid.uuid4())
+        self.token = rand_uuid()
         self.client_info = client_info
         self.database = database
         self.client_log = []

@@ -2,7 +2,7 @@
 # fact.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.utils import CompareOnId
+from mnemosyne.libmnemosyne.utils import rand_uuid, CompareOnId
 
 
 class Fact(CompareOnId):
@@ -35,10 +35,7 @@ class Fact(CompareOnId):
     def __init__(self, data, id=None):
         self.data = data
         if id is None:
-            # Importing this module takes a long time on mobile devices,
-            # so we only do so as late as possible.
-            import uuid
-            id = str(uuid.uuid4())
+            id = rand_uuid()
         self.id = id
         self._id = None
     
