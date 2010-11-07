@@ -40,7 +40,6 @@ class TestCloze(MnemosyneTest):
 
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]
@@ -58,7 +57,6 @@ class TestCloze(MnemosyneTest):
 
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]

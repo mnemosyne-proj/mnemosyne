@@ -32,7 +32,6 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         old_card = self.controller().create_new_cards(fact_data, card_type,
                                  grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
         old_fact = old_card.fact
         self.database().unload()
 
@@ -100,7 +99,6 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
         fact = card.fact
         self.controller().edit_related_cards(fact, fact_data, card_type,
             new_tag_names=["default1"], correspondence=[])
@@ -118,16 +116,12 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
         fact = card.fact
         self.controller().clone_card_type(card_type, "my_1")
         
         new_card_type = self.card_type_by_id("1::my_1")
         self.controller().edit_related_cards(fact, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
-        
-        self.controller().file_save()       
-
         self.mnemosyne.finalise()
         self.restart()
         assert self.database().fact_count() == 1
@@ -151,7 +145,6 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
         assert self.database().fact_count() == 1
         
-        self.controller().file_save()
         fact = card.fact
         self.controller().clone_card_type(card_type, "my_4")
         
@@ -159,7 +152,6 @@ class TestDatabase(MnemosyneTest):
         self.controller().edit_related_cards(fact, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
         assert self.database().fact_count() == 1        
-        self.controller().file_save()
 
         self.mnemosyne.finalise()
 
@@ -182,7 +174,6 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
-        self.controller().file_save()
 
         self.database().new(self.config()["path"])
 
@@ -194,7 +185,6 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         self.database().delete_fact_and_related_cards(fact)
@@ -215,15 +205,12 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("4")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
         fact = card.fact
         self.controller().clone_card_type(card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4::my_4")
         self.controller().edit_related_cards(fact, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
-        
-        self.controller().file_save()
 
         self.mnemosyne.finalise()
         self.restart()
@@ -253,7 +240,6 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("4")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
         fact = card.fact
         self.controller().clone_card_type(card_type, "my_4")
         
@@ -261,7 +247,6 @@ class TestDatabase(MnemosyneTest):
         self.controller().edit_related_cards(fact, fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
         
-        self.controller().file_save()       
 
         self.mnemosyne.finalise()
         self.restart()
@@ -283,7 +268,6 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
-        self.controller().file_save()
         new_name = self.config()["path"] + ".bak"
         assert self.database().save(self.config()["path"] + ".bak") != -1
         assert self.config()["path"] == new_name
@@ -345,7 +329,6 @@ class TestDatabase(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
-        self.database().save()
         self.database().unload()
         self.database().version = "Wrong"
         self.database().load(self.config()["path"])

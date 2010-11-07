@@ -172,7 +172,6 @@ class TestLogging(MnemosyneTest):
         # start again at 1 and mess up the sync.
         self.database().con.execute("""delete from log where _id <?""", (log_index,))
         self.database().con.execute("""vacuum""")        
-        self.database().save()
         fact_data = {"q": "question2",
                      "a": "answer2"}
         card_type_2 = self.card_type_by_id("1")

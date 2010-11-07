@@ -51,7 +51,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
         
         fact = card.fact
         old_card = copy.copy(self.database().cards_from_fact(fact)[0])
@@ -90,7 +89,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("2")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -125,7 +123,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         old_card = copy.copy(self.database().cards_from_fact(fact)[0])
@@ -164,7 +161,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         old_card = copy.copy(self.database().cards_from_fact(fact)[0])
@@ -204,7 +200,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("3")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -242,7 +237,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("3")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -279,7 +273,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("2")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -319,7 +312,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("2")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -359,7 +351,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("3")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -400,7 +391,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("3")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -443,7 +433,6 @@ class TestConvertCards(MnemosyneTest):
         
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -481,7 +470,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("3")        
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -527,7 +515,6 @@ class TestConvertCards(MnemosyneTest):
         
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
 
         fact = card.fact
         card_1, card_2 = self.database().cards_from_fact(fact)
@@ -578,7 +565,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("5")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
         self.review_controller().reset()
         print self.review_controller().card
 
@@ -602,7 +588,6 @@ class TestConvertCards(MnemosyneTest):
         card_type = self.card_type_by_id("2")        
         card_1, card_2  = self.controller().create_new_cards(fact_data,
                                  card_type, grade=-1, tag_names=["default"])
-        self.controller().file_save()
         
         new_card_type = self.controller().\
                         clone_card_type(card_type, "my_2")

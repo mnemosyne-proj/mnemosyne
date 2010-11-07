@@ -5,6 +5,7 @@
 import os
 
 from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.utils import expand_path
 
 class MnemosyneTest():
     

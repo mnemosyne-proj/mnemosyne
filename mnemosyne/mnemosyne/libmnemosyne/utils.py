@@ -138,20 +138,18 @@ def mangle(string):
 def rand_uuid():
 
     """Importing Python's uuid module brings a huge overhead, so we use
-    this stand-alone version from 
-    http://www.python-forum.org/pythonforum/viewtopic.php?f=14&t=6269
+    our own variant: a length 22 random string from a 62 letter alphabet,
+    which in terms of randomness is about the same as the traditional hex
+    string with length 32, but uses less space.
 
     """
-
-    uuid = [0,0,0,0,0]
-    chars = "abcdef0123456789"
+    
+    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789"
     rand = random.random
-    for g,length in enumerate([8, 4, 4, 4, 12]):
-        seg = ""
-        for i in range(length):
-            seg += chars[int(rand() * 16.0 - 1)]
-        uuid[g] = seg
-    return "-".join(uuid)
+    uuid = ""
+    for c in range(22):
+        uuid += chars[int(rand() * 62.0 - 1)]
+    return uuid
 
 
 class CompareOnId(object):

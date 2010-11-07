@@ -197,6 +197,7 @@ class SM2Controller(ReviewController):
         self.update_grades_area()
         self.widget.update_status_bar_counters()
         self.update_menu_bar()
+        self.widget.repaint_now()  # Don't wait until disk activity dies down.
                    
     def update_qa_area(self, redraw_all=False):
         w = self.widget

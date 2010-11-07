@@ -21,7 +21,6 @@ class TestCardType(MnemosyneTest):
             card_type, ("1 clone"))
         card_type.extra_data = {"b": "b"}
         self.database().update_card_type(card_type)
-        self.database().save()
         self.mnemosyne.component_manager.unregister(card_type)
         card_type_out = self.database().card_type(card_type.id,
                                                       id_is_internal=False)
@@ -86,7 +85,6 @@ class TestCardType(MnemosyneTest):
             card_type, ("1 clone cloned"))
         card_type.extra_data = {"b": "b"}
         self.database().update_card_type(card_type)
-        self.database().save()
         self.mnemosyne.component_manager.unregister(card_type)
         card_type_out = self.database().card_type(card_type.id,
                                                       id_is_internal=False)

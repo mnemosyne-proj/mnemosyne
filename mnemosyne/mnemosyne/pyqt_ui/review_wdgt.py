@@ -118,3 +118,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.sched.setText(_("Scheduled: %d ") % scheduled_count)
         self.notmem.setText(_("Not memorised: %d ") % non_memorised_count)
         self.act.setText(_("Active: %d ") % active_count)
+
+    def repaint_now(self):
+        self.repaint()        
+        self.parent().repaint()
