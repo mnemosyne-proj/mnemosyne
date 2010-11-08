@@ -96,6 +96,10 @@
 </div>
 <p>So, the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the ui controller&#8217;s <tt class="docutils literal"><span class="pre">create_new_cards()</span></tt> method.</p>
 <p>If you feel like you need to override the review or the main controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.</p>
+<p>Tips for creating a responsive client:</p>
+<ul class="simple">
+<li>libmnemosyne does some optimisation by trying to show the next question before the grading of the previous question is completed. This improves the perceived responsiveness of the client. However, some GUI toolkits (e.g. Qt) queue widget updates and only excecute them when there is no more processing going on, thereby defeating libmnemosyne&#8217;s optimisation. For that reason, there is a function <tt class="docutils literal"><span class="pre">review_widget.repaint_now</span></tt> which is used to tell the GUI toolkit to do the repaint now. If your toolkit also has similar behaviour, implementing this function can really help to mask slow database access.</li>
+</ul>
 <p>Notes:</p>
 <ul class="simple">
 <li>If you need access to the main widget when you are constructing the review widget, e.g. to specify it&#8217;s parent, you can access it using <cite>self.main_widget()`</cite></li>
@@ -152,8 +156,8 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Oct 13, 2010.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+      Last updated on Nov 08, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>
 </html>

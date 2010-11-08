@@ -61,6 +61,11 @@ class Client(Partner):
     # possible for the user to change this value, doing so should result in
     # redownloading the entire database from scratch.
     interested_in_old_reps = True
+    # Store prerendered question, answer and tag fields in database. The only
+    # benefit of this is fast operation for a 'browse cards' dialog which
+    # directly operates at the SQL level. If you don't use this, set to False
+    # to reduce the database size.
+    store_pregenerated_data = True
     # On SD cards copying a large database for the backup before sync can take
     # a long time, so we offer reckless users the possibility to skip this.
     do_backup = True
@@ -167,6 +172,7 @@ class Client(Partner):
         client_info["capabilities"] = self.capabilities
         client_info["partners"] = self.database.partners()
         client_info["interested_in_old_reps"] = self.interested_in_old_reps
+        client_info["store_pregenerated_data"] = self.store_pregenerated_data
         client_info["upload_science_logs"] = self.upload_science_logs
         # Signal if the database is empty, so that the server does not give a
         # spurious sync cycle warning if the client database was reset.
@@ -222,8 +228,8 @@ class Client(Partner):
             raise SyncError(message)
         if "conflict" in message:
             if self.capabilities == "mnemosyne_dynamic_cards" and \
-               self.interested_in_old_reps and \
-               self.program_name == self.server_info["program_name"] and \
+               self.interested_in_old_reps and self.store_pregenerated_data \
+               and self.program_name == self.server_info["program_name"] and \
                self.program_version == self.server_info["program_version"]:
                 result = self.ui.show_question(\
                     "Conflicts detected during sync!",
@@ -250,7 +256,10 @@ class Client(Partner):
             if binary_format.supports(self.server_info["program_name"],
                 self.server_info["program_version"],
                 self.server_info["database_version"]):
-                binary_file, file_size = binary_format.binary_file_and_size()
+                assert self.store_pregenerated_data == True
+                assert self.interested_in_old_reps == True
+                binary_file, file_size = binary_format.binary_file_and_size(\
+                    self.store_pregenerated_data, self.interested_in_old_reps)
                 break
         for buffer in self.stream_binary_file(binary_file, file_size):
             self.con.send(buffer)

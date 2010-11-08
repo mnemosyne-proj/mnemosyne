@@ -56,6 +56,7 @@ class SyncThread(QtCore.QThread):
         client.capabilities = "mnemosyne_dynamic_cards"
         client.check_for_edited_local_media_files = True
         client.interested_in_old_reps = True
+        client.store_pregenerated_data = True
         client.do_backup = True
         client.upload_science_logs = True
         try:

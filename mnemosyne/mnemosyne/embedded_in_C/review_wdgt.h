@@ -46,3 +46,5 @@ void review_wdgt_set_grade_tooltip(int grade, char* text);
 
 void review_wdgt_update_status_bar_counters();
 
+
+void review_wdgt_repaint_now();

@@ -53,3 +53,5 @@ class ReviewWdgt(ReviewWidget):
     def update_status_bar_counters(self):
         _.update_status_bar_counters()
 
+    def repaint_now(self):
+        _.repaint_now()

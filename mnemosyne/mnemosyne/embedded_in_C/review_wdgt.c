@@ -95,3 +95,9 @@ void review_wdgt_update_status_bar_counters()
 {
   printf("update_status_bar_counters\n");
 }
+
+
+void review_wdgt_repaint_now()
+{
+  printf("repaint_now\n");
+}

@@ -425,6 +425,7 @@ class Server(WSGIServer, Partner):
             self.ui.set_progress_text("Sending entire binary database...")
             binary_format = self.binary_format_for(session)
             binary_file, file_size = binary_format.binary_file_and_size(\
+                session.client_info["store_pregenerated_data"],
                 session.client_info["interested_in_old_reps"])
             for buffer in self.stream_binary_file(binary_file, file_size):
                 yield buffer

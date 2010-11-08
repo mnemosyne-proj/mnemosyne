@@ -917,6 +917,39 @@ class TestSync(object):
         
         assert self.client.database.con.execute("select count() from log where event_type=?",
             (EventTypes.REPETITION, )).fetchone()[0] == 0
+
+    def test_binary_download_no_pregenerated_data(self):
+        
+        def fill_server_database(self):
+            fact_data = {"q": "a^2",
+                         "a": "b^2"}
+            card_type = self.mnemosyne.card_type_by_id("1")
+            self.card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+          
+        def test_server(self):
+            self.mnemosyne.database().con.execute("select question from cards where id=?",
+                                      (self.card.id, )).fetchone()
+            
+        self.server = MyServer(binary_download=True)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.store_pregenerated_data = False
+        self.client.do_sync()
+        
+        card = self.client.database.card(self.server.card.id, id_is_internal=False)
+        assert len(card.tags) == 2
+        import sqlite3
+        try:
+            self.client.database.con.execute("select question from cards where id=?",
+                                             (self.server.card.id, )).fetchone()
+        except sqlite3.OperationalError:
+            pass
+            
+            
         
     def test_xml_download_no_old_reps(self):
         

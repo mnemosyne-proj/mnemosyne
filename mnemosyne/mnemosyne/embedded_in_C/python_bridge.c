@@ -406,6 +406,14 @@ static PyObject* _review_wdgt_update_status_bar_counters(PyObject* self,
 }
 
 
+static PyObject* _review_wdgt_repaint_now(PyObject* self, PyObject* args)
+{
+  review_wdgt_repaint_now();
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+
 static PyMethodDef review_wdgt_methods[] = {
   {"set_question_box_visible",   _review_wdgt_set_question_box_visible, 
    METH_VARARGS, ""},
@@ -436,6 +444,8 @@ static PyMethodDef review_wdgt_methods[] = {
   {"set_grade_tooltip",          _review_wdgt_set_grade_tooltip, 
    METH_VARARGS, ""},  
   {"update_status_bar_counters", _review_wdgt_update_status_bar_counters, 
+   METH_VARARGS, ""},  
+  {"repaint_now",                _review_wdgt_repaint_now, 
    METH_VARARGS, ""},
   {NULL, NULL, 0, NULL}
 };

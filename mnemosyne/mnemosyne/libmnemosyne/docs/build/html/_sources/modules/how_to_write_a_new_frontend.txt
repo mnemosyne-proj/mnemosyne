@@ -61,6 +61,11 @@ So, the ``AddCardsDlg`` should almost entirely consist of GUI dependent code. Al
 
 If you feel like you need to override the review or the main controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.
 
+Tips for creating a responsive client:
+
+* libmnemosyne does some optimisation by trying to show the next question before the grading of the previous question is completed. This improves the perceived responsiveness of the client. However, some GUI toolkits (e.g. Qt) queue widget updates and only excecute them when there is no more processing going on, thereby defeating libmnemosyne's optimisation. For that reason, there is a function ``review_widget.repaint_now`` which is used to tell the GUI toolkit to do the repaint now. If your toolkit also has similar behaviour, implementing this function can really help to mask slow database access.
+
+
 Notes:
 
 * If you need access to the main widget when you are constructing the review widget, e.g. to specify it's parent, you can access it using `self.main_widget()``

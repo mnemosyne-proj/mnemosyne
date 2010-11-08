@@ -1,8 +1,3 @@
--wrap repaint now in UDP and embedded C server
--document repaint now in 'how to write a new frontend'
-
--option not have pregenerated columns on initial binary download in sync
-
 -better next_rep, last rep representation
 -grey for inactive cards
 -background colour
@@ -56,7 +51,7 @@
 
 
 -go through all source
--communicate start_review, SQLite_no_pregerated_data to client writers
+-communicate SQLite_no_pregerated_data, save interval, ..., repaint now to client writers
 -do extra input checking in controller
 -include coverage source option
 -test on cramming counters
@@ -357,6 +352,7 @@ Windows Mobile client:
 If your phone has a touchscreen use the pocket pc version. Otherwise try the smartphone version. 
 
 -integrate sync
+-repaint_now useful?
 -better way of making default actions visible? Call layout()?
 -hook up scheduler rollover
 -document save after n rep
