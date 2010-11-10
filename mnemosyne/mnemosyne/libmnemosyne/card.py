@@ -78,7 +78,7 @@ class Card(CompareOnId):
         self.grade = -1
         self.next_rep = -1
         self.last_rep = -1
-        self.easiness = -1
+        self.easiness = 2.5
         self.acq_reps = 0
         self.ret_reps = 0
         self.lapses = 0

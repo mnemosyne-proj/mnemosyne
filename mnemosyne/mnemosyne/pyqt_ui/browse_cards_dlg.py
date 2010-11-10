@@ -9,6 +9,7 @@ from PyQt4 import QtCore, QtGui, QtSql
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
+from mnemosyne.libmnemosyne.utils import timestamp_to_interval_string
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
 
 _ID = 0
@@ -44,11 +45,33 @@ class CardModel(QtSql.QSqlTableModel):
     def data(self, index, role=QtCore.Qt.DisplayRole):
         # Display some columns in a more pretty way. Note that sorting still
         # seems to use the orginal database fields, which is good for speed.
+
+        if role == QtCore.Qt.TextColorRole:
+            active_index = self.index(index.row(), ACTIVE)
+            active = QtSql.QSqlTableModel.data(self, active_index).toInt()[0]
+            if not active:
+                return QtCore.QVariant(QtGui.QColor(QtCore.Qt.gray))
+            else:
+                return QtCore.QVariant(QtGui.QColor(QtCore.Qt.black))                
         if role == QtCore.Qt.DisplayRole and index.column() == EASINESS:
             old_data = QtSql.QSqlTableModel.data(self, index, role).toString()
             return QtCore.QVariant("%.2f" % float(old_data))
         if role == QtCore.Qt.DisplayRole and index.column() in \
-            (NEXT_REP, LAST_REP, CREATION_TIME, MODIFICATION_TIME):
+            (NEXT_REP, LAST_REP):
+            old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
+            if old_data == -1:
+                return QtCore.QVariant("")
+            date = time.strftime(self.date_format,
+                time.gmtime(old_data))
+            return QtCore.QVariant(date + " " + timestamp_to_interval_string(old_data))
+        if role == QtCore.Qt.DisplayRole and index.column() == GRADE:
+            grade = QtSql.QSqlTableModel.data(self, index).toInt()[0]
+            if grade == -1:
+                return QtCore.QVariant(_("Yet to learn"))
+            else:
+                return QtCore.QVariant(grade)
+        if role == QtCore.Qt.DisplayRole and index.column() in \
+            (CREATION_TIME, MODIFICATION_TIME):
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.gmtime(old_data)))

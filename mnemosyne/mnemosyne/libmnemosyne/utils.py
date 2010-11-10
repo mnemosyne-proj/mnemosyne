@@ -6,6 +6,7 @@ import os
 import re
 import cgi
 import sys
+import time
 import random
 import shutil
 import traceback
@@ -150,6 +151,42 @@ def rand_uuid():
     for c in range(22):
         uuid += chars[int(rand() * 62.0 - 1)]
     return uuid
+
+
+def timestamp_to_interval_string(timestamp):
+
+    """Converts a unix timestamp to a string like 'yesterday',
+    'in three days', ... .
+
+    """
+
+    from mnemosyne.libmnemosyne.translator import _
+    interval_days = (timestamp - time.time()) / 60. / 60. / 24.        
+    if interval_days >= 365:
+        interval_years = interval_days/365
+        return _("in") + " " + "%.1f" % interval_years + " " + \
+               _("years")             
+    elif interval_days >= 31:
+        interval_months = int(interval_days/31)
+        return _("in") + " " + str(interval_months) + " " + \
+               _("months")
+    elif interval_days >= 2:
+        return _("in") + " " + str(int(interval_days)) + " " + \
+               _("days")
+    elif interval_days >= 1:
+        return _("tomorrow")
+    elif interval_days > 0:
+        return _("today")
+    elif interval_days >= -1:
+        return _("yesterday")
+    elif interval_days >= -31:
+        return str(int(-interval_days)) + " " + _("days ago")  
+    elif interval_days >= -356:
+        interval_months = int(-interval_days/31)
+        return str(interval_months) + " " + _("months ago")
+    else:
+        interval_years = -interval_days/356
+        return "%.1f " % interval_years +  _("years ago")
 
 
 class CompareOnId(object):

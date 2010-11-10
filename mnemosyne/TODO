@@ -1,9 +1,13 @@
 -better next_rep, last rep representation
--grey for inactive cards
+-1 month ago, in 1 month
+-add tests
+
 -background colour
 -respect fonts
-
 -time python overhead
+-move imports out of loop?
+
+
 -searching
 -make sure searching for a single unicode character works
 -auto search after timeout?

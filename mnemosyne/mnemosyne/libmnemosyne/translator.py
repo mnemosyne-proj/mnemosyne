@@ -17,7 +17,7 @@ class Translator(Component):
 
     def __call__(self, text):
         raise NotImplementedError
-
+    
 
 class NoTranslation(Translator):
 
