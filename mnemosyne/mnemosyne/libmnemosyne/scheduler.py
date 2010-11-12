@@ -95,4 +95,20 @@ class Scheduler(Component):
 
         """Yesterday: n=-1, today: n=0, tomorrow: n=1, ... ."""
         
-        raise NotImplementedError        
+        raise NotImplementedError
+
+    def next_rep_to_interval_string(self, next_rep):
+        
+        """Converts next_rep to a string like 'tomorrow', 'in 2 weeks', ...
+
+        """
+        
+        raise NotImplementedError
+
+    def last_rep_to_interval_string(self, last_rep):
+        
+        """Converts last_rep to a string like 'yesterday', '2 weeks ago', ...
+
+        """
+        
+        raise NotImplementedError

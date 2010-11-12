@@ -5,11 +5,13 @@
 import sys
 import time
 import locale
+
 from PyQt4 import QtCore, QtGui, QtSql
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import make_interval_string
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
-from mnemosyne.libmnemosyne.utils import timestamp_to_interval_string
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
 
 _ID = 0
@@ -36,16 +38,29 @@ SCHEDULER_DATA = 20
 ACTIVE = 21
 
 
-class CardModel(QtSql.QSqlTableModel):
+class CardModel(QtSql.QSqlTableModel, Component):
 
-    def __init__(self, parent=None):
+    def __init__(self, component_manager):
         QtSql.QSqlTableModel.__init__(self)
+        Component.__init__(self, component_manager)
+        self.adjusted_now = self.scheduler().adjusted_now()
         self.date_format = locale.nl_langinfo(locale.D_FMT)
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
         # Display some columns in a more pretty way. Note that sorting still
         # seems to use the orginal database fields, which is good for speed.
 
+        # 102: all (pcshulgi)
+        # none: 14
+        # text color: 32
+        # easiness: 23
+        # next rep: 47
+        # last rep: 49
+        # grade: 33
+        # creation: 20
+        # align: 36
+
+        column = index.column()
         if role == QtCore.Qt.TextColorRole:
             active_index = self.index(index.row(), ACTIVE)
             active = QtSql.QSqlTableModel.data(self, active_index).toInt()[0]
@@ -53,29 +68,33 @@ class CardModel(QtSql.QSqlTableModel):
                 return QtCore.QVariant(QtGui.QColor(QtCore.Qt.gray))
             else:
                 return QtCore.QVariant(QtGui.QColor(QtCore.Qt.black))                
-        if role == QtCore.Qt.DisplayRole and index.column() == EASINESS:
+        if role == QtCore.Qt.DisplayRole and column == EASINESS:
             old_data = QtSql.QSqlTableModel.data(self, index, role).toString()
             return QtCore.QVariant("%.2f" % float(old_data))
-        if role == QtCore.Qt.DisplayRole and index.column() in \
-            (NEXT_REP, LAST_REP):
-            old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
-            if old_data == -1:
+        if role == QtCore.Qt.DisplayRole and column == NEXT_REP:
+            next_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
+            if next_rep == -1:
                 return QtCore.QVariant("")
-            date = time.strftime(self.date_format,
-                time.gmtime(old_data))
-            return QtCore.QVariant(date + " " + timestamp_to_interval_string(old_data))
-        if role == QtCore.Qt.DisplayRole and index.column() == GRADE:
+            return QtCore.QVariant(\
+                self.scheduler().next_rep_to_interval_string(next_rep))
+        if role == QtCore.Qt.DisplayRole and column == LAST_REP:
+            last_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
+            if last_rep == -1:
+                return QtCore.QVariant("")
+            return QtCore.QVariant(\
+                self.scheduler().last_rep_to_interval_string(last_rep))
+        if role == QtCore.Qt.DisplayRole and column == GRADE:
             grade = QtSql.QSqlTableModel.data(self, index).toInt()[0]
             if grade == -1:
                 return QtCore.QVariant(_("Yet to learn"))
             else:
                 return QtCore.QVariant(grade)
-        if role == QtCore.Qt.DisplayRole and index.column() in \
+        if role == QtCore.Qt.DisplayRole and column in \
             (CREATION_TIME, MODIFICATION_TIME):
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.gmtime(old_data)))
-        if role == QtCore.Qt.TextAlignmentRole and index.column() not in \
+        if role == QtCore.Qt.TextAlignmentRole and column not in \
             (QUESTION, ANSWER, TAGS):
             return QtCore.QVariant(QtCore.Qt.AlignCenter)  
         return QtSql.QSqlTableModel.data(self, index, role)
@@ -97,7 +116,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 _("Database error: ") + self.db.lastError().text())
             sys.exit(1)
 
-        self.card_model = CardModel(self)
+        self.card_model = CardModel(component_manager)
         
         self.card_model.setTable("cards")
         #self.card_model.setSort(GRADE, QtCore.Qt.AscendingOrder)

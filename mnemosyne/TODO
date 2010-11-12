@@ -1,11 +1,8 @@
--better next_rep, last rep representation
--1 month ago, in 1 month
--add tests
+-add tests next_rep, last_rep to string
 
 -background colour
 -respect fonts
 -time python overhead
--move imports out of loop?
 
 
 -searching

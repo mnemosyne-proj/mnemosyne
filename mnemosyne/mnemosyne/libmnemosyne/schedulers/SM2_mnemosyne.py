@@ -38,14 +38,16 @@ class SM2Mnemosyne(Scheduler):
         date_only = datetime.date.fromtimestamp(timestamp)
         return int(calendar.timegm(date_only.timetuple()))
     
-    def adjusted_now(self):
+    def adjusted_now(self, now=None):
 
         """Adjust now such that the cross-over point of h:00 local time
         (with h being 'day_starts_at') becomes midnight UTC.
 
         """
 
-        now = time.time() - self.config()["day_starts_at"] * HOUR           
+        if now == None:
+            now = time.time()
+        now -= self.config()["day_starts_at"] * HOUR 
         if time.daylight:
             now -= time.altzone
         else:
@@ -485,4 +487,60 @@ class SM2Mnemosyne(Scheduler):
                     (now + (n - 1) * DAY, now + n * DAY)
         else:
             return self.database().card_count_scheduled_n_days_ago(-n)
+
+    def next_rep_to_interval_string(self, next_rep):
+
+        """Converts next_rep to a string like 'tomorrow', 'in 2 weeks', ...
+
+        """
+
+        interval_days = (next_rep - self.adjusted_now()) / DAY        
+        if interval_days >= 365:
+            interval_years = interval_days/365.
+            return _("in") + " " + "%.1f" % interval_years + " " + \
+                   _("years")             
+        elif interval_days >= 62:
+            interval_months = int(interval_days/31)
+            return _("in") + " " + str(interval_months) + " " + \
+                   _("months")
+        elif interval_days >= 31:
+            return _("in 1 month")
+        elif interval_days >= 1:
+            return _("in") + " " + str(int(interval_days) + 1) + " " + \
+                   _("days")
+        elif interval_days >= 0:
+            return _("tomorrow")
+        elif interval_days >= -1:
+            return _("today")
+        elif interval_days >= -2:
+            return _("yesterday")
+        elif interval_days >= -32:
+            return str(int(-interval_days) - 1) + " " + _("days ago")
+        elif interval_days >= -63:
+            return _("1 month ago")  
+        elif interval_days >= -366:
+            interval_months = int(-interval_days/31) - 1
+            return str(interval_months) + " " + _("months ago")
+        else:
+            interval_years = -interval_days/365.
+            return "%.1f " % interval_years +  _("years ago")
+
+    def last_rep_to_interval_string(self, last_rep):
+        last_rep = self.midnight_UTC(self.adjusted_now(now=last_rep))
+        now = self.midnight_UTC(self.adjusted_now())
+        interval_days = (last_rep - now) / DAY
+        if interval_days >= -1:
+            return _("today")
+        elif interval_days >= -2:
+            return _("yesterday")
+        elif interval_days >= -31:
+            return str(int(-interval_days)) + " " + _("days ago")
+        elif interval_days >= -62:
+            return _("1 month ago")  
+        elif interval_days >= -365:
+            interval_months = int(-interval_days/31)
+            return str(interval_months) + " " + _("months ago")
+        else:
+            interval_years = -interval_days/365.
+            return "%.1f " % interval_years +  _("years ago")        
         
