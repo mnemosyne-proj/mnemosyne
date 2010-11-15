@@ -3,6 +3,8 @@
 #
 
 import time
+import datetime
+import calendar
 from mnemosyne_test import MnemosyneTest
 
 
@@ -286,3 +288,120 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().learning_ahead = True
         self.review_controller().new_question()
         assert self.review_controller().card == card
+
+    def test_next_rep_to_interval_string(self):
+        sch = self.scheduler()
+        now = datetime.datetime(2000, 9, 1, 12, 0)
+
+        next_rep = now + datetime.timedelta(1) 
+        sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())))
+       
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "tomorrow"
+        
+        next_rep = now + datetime.timedelta(2)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "in 2 days"
+        
+        next_rep = now + datetime.timedelta(32)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "in 1 month"
+        
+        next_rep = now + datetime.timedelta(64)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "in 2 months"
+        
+        next_rep = now + datetime.timedelta(366)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "in 1.0 years"
+        
+        next_rep = now + datetime.timedelta(0)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "today"
+        
+        next_rep = now - datetime.timedelta(1)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "yesterday"
+        
+        next_rep = now - datetime.timedelta(2)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "2 days ago"
+        
+        next_rep = now - datetime.timedelta(32)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "1 month ago"
+        
+        next_rep = now - datetime.timedelta(64)        
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "2 months ago"
+
+        next_rep = now - datetime.timedelta(365)      
+        assert sch.next_rep_to_interval_string(\
+            sch.midnight_UTC(calendar.timegm(next_rep.timetuple())),
+            calendar.timegm(now.timetuple())) == \
+            "1.0 years ago"
+
+    def test_last_rep_to_interval_string(self):
+        sch = self.scheduler()
+        now = datetime.datetime(2000, 9, 1, 12, 0)
+
+        last_rep = now + datetime.timedelta(0)  
+        sch.last_rep_to_interval_string(\
+            calendar.timegm(last_rep.timetuple()))
+        
+        last_rep = now + datetime.timedelta(0)        
+        assert sch.last_rep_to_interval_string(\
+            calendar.timegm(last_rep.timetuple()),
+            calendar.timegm(now.timetuple())) == \
+            "today"
+
+        last_rep = now - datetime.timedelta(1)        
+        assert sch.last_rep_to_interval_string(\
+            calendar.timegm(last_rep.timetuple()),
+            calendar.timegm(now.timetuple())) == \
+            "yesterday"
+        
+        last_rep = now - datetime.timedelta(2)        
+        assert sch.last_rep_to_interval_string(\
+            calendar.timegm(last_rep.timetuple()),
+            calendar.timegm(now.timetuple())) == \
+            "2 days ago"
+        
+        last_rep = now - datetime.timedelta(32)        
+        assert sch.last_rep_to_interval_string(\
+            calendar.timegm(last_rep.timetuple()),
+            calendar.timegm(now.timetuple())) == \
+            "1 month ago"
+        
+        last_rep = now - datetime.timedelta(64)
+        assert sch.last_rep_to_interval_string(\
+            calendar.timegm(last_rep.timetuple()),
+            calendar.timegm(now.timetuple())) == \
+            "2 months ago"
+
+        last_rep = now - datetime.timedelta(365)      
+        assert sch.last_rep_to_interval_string(\
+            calendar.timegm(last_rep.timetuple()),
+            calendar.timegm(now.timetuple())) == \
+            "1.0 years ago"

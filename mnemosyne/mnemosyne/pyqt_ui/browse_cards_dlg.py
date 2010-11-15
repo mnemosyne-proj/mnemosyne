@@ -59,6 +59,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
         # grade: 33
         # creation: 20
         # align: 36
+        # with fetching q and a: 250
 
         column = index.column()
         if role == QtCore.Qt.TextColorRole:
@@ -90,10 +91,20 @@ class CardModel(QtSql.QSqlTableModel, Component):
             else:
                 return QtCore.QVariant(grade)
         if role == QtCore.Qt.DisplayRole and column in \
-            (CREATION_TIME, MODIFICATION_TIME):
+            (CREATION_TIME, MODIFICATION_TIME):    
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.gmtime(old_data)))
+        if role == QtCore.Qt.DisplayRole and column == QUESTION:  
+            _id_index = self.index(index.row(), _ID)
+            _id = QtSql.QSqlTableModel.data(self, _id_index).toInt()[0]
+            return QtCore.QVariant(self.component_manager.current("database").\
+                card(_id, id_is_internal=True).question())
+        if role == QtCore.Qt.DisplayRole and column == ANSWER:  
+            _id_index = self.index(index.row(), _ID)
+            _id = QtSql.QSqlTableModel.data(self, _id_index).toInt()[0]
+            return QtCore.QVariant(self.component_manager.current("database").\
+                card(_id, id_is_internal=True).answer())        
         if role == QtCore.Qt.TextAlignmentRole and column not in \
             (QUESTION, ANSWER, TAGS):
             return QtCore.QVariant(QtCore.Qt.AlignCenter)  

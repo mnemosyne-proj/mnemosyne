@@ -1,9 +1,6 @@
--add tests next_rep, last_rep to string
-
 -background colour
 -respect fonts
--time python overhead
-
+-regular expressions get recompiled everytime?
 
 -searching
 -make sure searching for a single unicode character works

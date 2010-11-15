@@ -464,8 +464,7 @@ class SM2Mnemosyne(Scheduler):
             f.run(card)
         # Create log entry.
         self.log().repetition(card, scheduled_interval, actual_interval,
-                              new_interval,
-                              thinking_time=self.stopwatch().time())
+            new_interval, thinking_time=self.stopwatch().time())
         return new_interval
     
     def scheduled_count(self):
@@ -488,13 +487,15 @@ class SM2Mnemosyne(Scheduler):
         else:
             return self.database().card_count_scheduled_n_days_ago(-n)
 
-    def next_rep_to_interval_string(self, next_rep):
+    def next_rep_to_interval_string(self, next_rep, now=None):
 
         """Converts next_rep to a string like 'tomorrow', 'in 2 weeks', ...
 
         """
 
-        interval_days = (next_rep - self.adjusted_now()) / DAY        
+        if now is None:
+            now = self.adjusted_now()
+        interval_days = (next_rep - now) / DAY        
         if interval_days >= 365:
             interval_years = interval_days/365.
             return _("in") + " " + "%.1f" % interval_years + " " + \
@@ -514,30 +515,32 @@ class SM2Mnemosyne(Scheduler):
             return _("today")
         elif interval_days >= -2:
             return _("yesterday")
-        elif interval_days >= -32:
+        elif interval_days >= -31:
             return str(int(-interval_days) - 1) + " " + _("days ago")
-        elif interval_days >= -63:
+        elif interval_days >= -62:
             return _("1 month ago")  
-        elif interval_days >= -366:
-            interval_months = int(-interval_days/31) - 1
+        elif interval_days >= -365:
+            interval_months = int(-interval_days/31)
             return str(interval_months) + " " + _("months ago")
         else:
             interval_years = -interval_days/365.
             return "%.1f " % interval_years +  _("years ago")
 
-    def last_rep_to_interval_string(self, last_rep):
+    def last_rep_to_interval_string(self, last_rep, now=None):
+        if now is None:
+            now = self.adjusted_now()
+        now = self.midnight_UTC(now)
         last_rep = self.midnight_UTC(self.adjusted_now(now=last_rep))
-        now = self.midnight_UTC(self.adjusted_now())
         interval_days = (last_rep - now) / DAY
-        if interval_days >= -1:
+        if interval_days > -1:
             return _("today")
-        elif interval_days >= -2:
+        elif interval_days > -2:
             return _("yesterday")
-        elif interval_days >= -31:
+        elif interval_days > -31:
             return str(int(-interval_days)) + " " + _("days ago")
-        elif interval_days >= -62:
+        elif interval_days > -62:
             return _("1 month ago")  
-        elif interval_days >= -365:
+        elif interval_days > -365:
             interval_months = int(-interval_days/31)
             return str(interval_months) + " " + _("months ago")
         else:
