@@ -1,6 +1,9 @@
--background colour
--respect fonts
--regular expressions get recompiled everytime?
+-compare with qt book
+-background colour: probably not
+-respect fonts, but not size or alignment
+-itemdelegate for column only
+-make sure images, latex, ... are displayed as such
+
 
 -searching
 -make sure searching for a single unicode character works
