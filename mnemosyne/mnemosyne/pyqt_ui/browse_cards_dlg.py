@@ -99,41 +99,34 @@ class CardModel(QtSql.QSqlTableModel, Component):
             _id_index = self.index(index.row(), _ID)
             _id = QtSql.QSqlTableModel.data(self, _id_index).toInt()[0]
             return QtCore.QVariant(self.component_manager.current("database").\
-                card(_id, id_is_internal=True).question())
+                card(_id, id_is_internal=True).\
+                question(render_chain="card_browser"))
         if role == QtCore.Qt.DisplayRole and column == ANSWER:  
             _id_index = self.index(index.row(), _ID)
             _id = QtSql.QSqlTableModel.data(self, _id_index).toInt()[0]
             return QtCore.QVariant(self.component_manager.current("database").\
-                card(_id, id_is_internal=True).answer())        
+                card(_id, id_is_internal=True).\
+                answer(render_chain="card_browser"))        
         if role == QtCore.Qt.TextAlignmentRole and column not in \
             (QUESTION, ANSWER, TAGS):
             return QtCore.QVariant(QtCore.Qt.AlignCenter)  
         return QtSql.QSqlTableModel.data(self, index, role)
 
-class MyDelegate(QtGui.QItemDelegate):
+
+class QA_Delegate(QtGui.QStyledItemDelegate):
 
     def __init__(self, parent=None):
         QtGui.QItemDelegate.__init__(self, parent) 
 
     def paint(self, painter, option, index):
-        if index.column() == QUESTION:
-            text = index.model().data(index).toString()
-            doc = QtGui.QTextDocument(self)
-            doc.setHtml(text)
-            #doc.setTextWidth(option.rect.width())
-            ctx = QtGui.QAbstractTextDocumentLayout.PaintContext()
-
-            painter.save()
-            painter.translate(option.rect.topLeft());
-            painter.setClipRect(option.rect.translated(-option.rect.topLeft()))
-            dl = doc.documentLayout()
-            dl.draw(painter, ctx)
-            painter.restore()
-        else:
-            QtGui.QItemDelegate.paint(self, painter, option, index)
-
-
-
+        document = QtGui.QTextDocument(self)
+        document.setHtml(index.model().data(index).toString())
+        painter.save()
+        painter.translate(option.rect.topLeft());
+        painter.setClipRect(option.rect.translated(-option.rect.topLeft()))
+        document.drawContents(painter)
+        painter.restore()
+        
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
 
     def __init__(self, component_manager):
@@ -166,13 +159,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                   QtCore.QVariant(value))
 
         self.card_model.select()
-
         self.table.setModel(self.card_model)
-
-        
-        self.table.setItemDelegate(MyDelegate(self))
-
-        
+        self.table.setItemDelegateForColumn(QUESTION, QA_Delegate(self))
+        self.table.setItemDelegateForColumn(ANSWER, QA_Delegate(self))
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.table.verticalHeader().hide()
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,

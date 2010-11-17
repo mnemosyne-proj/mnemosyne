@@ -10,7 +10,7 @@ from mnemosyne.libmnemosyne.renderer import Renderer
 
 class HtmlCss(Renderer):
 
-    """Renders the question or the answer as a full webpage.
+    """Renders the question or the answer as a full webpage using tables.
     Tested on webkit-based browsers.
 
     We split out the components of the html page in different functions,
