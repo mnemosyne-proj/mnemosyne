@@ -121,11 +121,20 @@ class QA_Delegate(QtGui.QStyledItemDelegate):
     def paint(self, painter, option, index):
         document = QtGui.QTextDocument(self)
         document.setHtml(index.model().data(index).toString())
+        palette = QtGui.QApplication.palette()
         painter.save()
+        # Setting the background for selection works sort of, but looks a bit
+        # of the place if default theme is fancier, e.g. with gradients.
+        if option.state & QtGui.QStyle.State_Selected:
+            painter.fillRect(option.rect,
+                palette.brush(QtGui.QPalette.Normal, QtGui.QPalette.Highlight))
+            painter.setPen(palette.color(QtGui.QPalette.Normal,
+                QtGui.QPalette.HighlightedText))
         painter.translate(option.rect.topLeft());
         painter.setClipRect(option.rect.translated(-option.rect.topLeft()))
         document.drawContents(painter)
         painter.restore()
+
         
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
 
