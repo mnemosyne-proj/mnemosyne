@@ -48,19 +48,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
         # Display some columns in a more pretty way. Note that sorting still
-        # seems to use the orginal database fields, which is good for speed.
-
-        # 102: all (pcshulgi)
-        # none: 14
-        # text color: 32
-        # easiness: 23
-        # next rep: 47
-        # last rep: 49
-        # grade: 33
-        # creation: 20
-        # align: 36
-        # with fetching q and a: 250
-
+        # uses the orginal database fields, which is good for speed.
         column = index.column()
         if role == QtCore.Qt.TextColorRole:
             active_index = self.index(index.row(), ACTIVE)
@@ -106,33 +94,48 @@ class CardModel(QtSql.QSqlTableModel, Component):
             _id = QtSql.QSqlTableModel.data(self, _id_index).toInt()[0]
             return QtCore.QVariant(self.component_manager.current("database").\
                 card(_id, id_is_internal=True).\
-                answer(render_chain="card_browser"))        
+                answer(render_chain="card_browser"))
         if role == QtCore.Qt.TextAlignmentRole and column not in \
             (QUESTION, ANSWER, TAGS):
             return QtCore.QVariant(QtCore.Qt.AlignCenter)  
         return QtSql.QSqlTableModel.data(self, index, role)
 
-
+ 
 class QA_Delegate(QtGui.QStyledItemDelegate):
 
+    # http://stackoverflow.com/questions/1956542/
+    # how-to-make-item-view-render-rich-html-text-in-qt
+
     def __init__(self, parent=None):
-        QtGui.QItemDelegate.__init__(self, parent) 
+        QtGui.QItemDelegate.__init__(self, parent)
+        self.doc = QtGui.QTextDocument(self)
 
     def paint(self, painter, option, index):
-        document = QtGui.QTextDocument(self)
-        document.setHtml(index.model().data(index).toString())
-        palette = QtGui.QApplication.palette()
+        optionV4 = QtGui.QStyleOptionViewItemV4(option)
+        self.initStyleOption(optionV4, index)
+        if optionV4.widget:
+            style = optionV4.widget.style()
+        else:
+            style = QtGui.QApplication.style()
+        self.doc.setHtml(index.model().data(index).toString())
+        # Paint the item without the text.
+        optionV4.text = QtCore.QString()
+        style.drawControl(QtGui.QStyle.CE_ItemViewItem, optionV4, painter)
+        context = QtGui.QAbstractTextDocumentLayout.PaintContext() 
+        # Highlight text if item is selected.
+        if optionV4.state & QtGui.QStyle.State_Selected:
+            context.palette.setColor(QtGui.QPalette.Text,
+                optionV4.palette.color(QtGui.QPalette.Active,
+                                       QtGui.QPalette.HighlightedText))
+        rect = \
+             style.subElementRect(QtGui.QStyle.SE_ItemViewItemText, optionV4)
         painter.save()
-        # Setting the background for selection works sort of, but looks a bit
-        # of the place if default theme is fancier, e.g. with gradients.
-        if option.state & QtGui.QStyle.State_Selected:
-            painter.fillRect(option.rect,
-                palette.brush(QtGui.QPalette.Normal, QtGui.QPalette.Highlight))
-            painter.setPen(palette.color(QtGui.QPalette.Normal,
-                QtGui.QPalette.HighlightedText))
-        painter.translate(option.rect.topLeft());
-        painter.setClipRect(option.rect.translated(-option.rect.topLeft()))
-        document.drawContents(painter)
+        if not (optionV4.state & QtGui.QStyle.State_Selected) and \
+           not (optionV4.state & QtGui.QStyle.State_MouseOver):
+            painter.fillRect(rect, QtGui.QColor("red"))
+        painter.translate(rect.topLeft())
+        painter.setClipRect(rect.translated(-rect.topLeft()))
+        self.doc.documentLayout().draw(painter, context)
         painter.restore()
 
         
@@ -151,12 +154,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             QtGui.QMessageBox.warning(None, _("Mnemosyne"),
                 _("Database error: ") + self.db.lastError().text())
             sys.exit(1)
-
         self.card_model = CardModel(component_manager)
-        
         self.card_model.setTable("cards")
-        #self.card_model.setSort(GRADE, QtCore.Qt.AscendingOrder)
-
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
             TAGS: _("Tags"), GRADE: _("Grade"), NEXT_REP: _("Next rep"),
             LAST_REP: _("Last rep"), EASINESS: _("Easiness"),
@@ -176,10 +175,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
-            self.table.setColumnHidden(column, True)
-    
-        #self.table.resizeColumnsToContents()
-        
+            self.table.setColumnHidden(column, True)        
         width, height = self.config()["browse_dlg_size"]
         if width:
             self.resize(width, height)

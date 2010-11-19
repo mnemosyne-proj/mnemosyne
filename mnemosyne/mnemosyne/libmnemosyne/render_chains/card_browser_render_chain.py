@@ -18,3 +18,4 @@ class CardBrowserRenderChain(RenderChain):
 
     filters = [EscapeToHtmlForCardBrowser]
     renderers = [HtmlCssLight]
+

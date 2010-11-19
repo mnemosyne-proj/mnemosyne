@@ -107,7 +107,7 @@ class HtmlCss(Renderer):
                 
     def render_fields(self, data, fields, card_type, **render_args):
         css = self.css(card_type)
-        body = self.body(data, fields, **render_args)  
+        body = self.body(data, fields, **render_args)
         return """
         <html>
         <head>

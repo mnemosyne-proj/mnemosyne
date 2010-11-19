@@ -8,8 +8,9 @@ from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
 class HtmlCssLight(HtmlCss):
 
     """Renders the question or the answer as html without tables, to be used
-    e.g. in the card browser. Only respects fonts families and weights, not
-    size and alignment.
+    e.g. in the card browser. The idea is to display everything as much as
+    possible on a single line which fits with the rest of the table, so we
+    only respect fonts families and weights, not size and alignment.
     
     """
     
@@ -58,7 +59,7 @@ class HtmlCssLight(HtmlCss):
                 
     def render_fields(self, data, fields, card_type, **render_args):
         css = self.css(card_type)
-        body = self.body(data, fields, **render_args)  
+        body = self.body(data, fields, **render_args)
         return """
         <html>
         <head>

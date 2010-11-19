@@ -1,10 +1,9 @@
--mouse over / selection color
--ellisis / scroll bars not possible?
--what to do with br?
--don't display background colour? Or revert it on selection?
--respect fonts, but not size or alignment
--font colors or not? If not, remove
--don't display images, latex?
+-tests?
+
+-get background colour
+-don't let Mnemosyne choose font colors if the text is selected
+-shift down 1 pixel?
+-time paint and data
 -is html_css_light a good name?
 -add tests for new render chain
 
@@ -292,6 +291,12 @@ pylint:
  open_shared_database
 -if there are actual card based clients, remove pragma: no cover and test these as well
 
+-try adding images to card browser.
+http://developer.qt.nokia.com/faq/answer/how_can_i_add_a_non-resource_image_to_a_qtextdocument
+using Qwebit http://stackoverflow.com/questions/3142132/how-to-use-a-qgraphicswebview is not
+a good alternative, as it does not obey selection coloring
+-ellisis in QTextDocument in card browser?
+-rewrite card browser in C++?
 
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 -Tim's gogorender plugin
