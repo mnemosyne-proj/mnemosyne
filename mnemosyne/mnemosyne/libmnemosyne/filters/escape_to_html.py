@@ -9,7 +9,7 @@ class EscapeToHtml(Filter):
 
     """Escape literal < (unmatched tag) and new line from string."""
 
-    def run(self, text):
+    def run(self, text, **render_args):
         hanging = []
         open = 0
         pending = 0

@@ -83,32 +83,22 @@ class CardModel(QtSql.QSqlTableModel, Component):
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.gmtime(old_data)))
-        if role == QtCore.Qt.DisplayRole and column == QUESTION:  
-            _id_index = self.index(index.row(), _ID)
-            _id = QtSql.QSqlTableModel.data(self, _id_index).toInt()[0]
-            return QtCore.QVariant(self.component_manager.current("database").\
-                card(_id, id_is_internal=True).\
-                question(render_chain="card_browser"))
-        if role == QtCore.Qt.DisplayRole and column == ANSWER:  
-            _id_index = self.index(index.row(), _ID)
-            _id = QtSql.QSqlTableModel.data(self, _id_index).toInt()[0]
-            return QtCore.QVariant(self.component_manager.current("database").\
-                card(_id, id_is_internal=True).\
-                answer(render_chain="card_browser"))
         if role == QtCore.Qt.TextAlignmentRole and column not in \
             (QUESTION, ANSWER, TAGS):
             return QtCore.QVariant(QtCore.Qt.AlignCenter)  
         return QtSql.QSqlTableModel.data(self, index, role)
 
  
-class QA_Delegate(QtGui.QStyledItemDelegate):
+class QA_Delegate(QtGui.QStyledItemDelegate, Component):
 
     # http://stackoverflow.com/questions/1956542/
     # how-to-make-item-view-render-rich-html-text-in-qt
 
-    def __init__(self, parent=None):
+    def __init__(self, component_manager, Q_or_A, parent=None):
+        Component.__init__(self, component_manager)
         QtGui.QItemDelegate.__init__(self, parent)
         self.doc = QtGui.QTextDocument(self)
+        self.Q_or_A = Q_or_A
 
     def paint(self, painter, option, index):
         optionV4 = QtGui.QStyleOptionViewItemV4(option)
@@ -117,7 +107,18 @@ class QA_Delegate(QtGui.QStyledItemDelegate):
             style = optionV4.widget.style()
         else:
             style = QtGui.QApplication.style()
-        self.doc.setHtml(index.model().data(index).toString())
+        # Get the data.
+        _id_index = index.model().index(index.row(), _ID)
+        _id = index.model().data(_id_index).toInt()[0]
+        ignore_text_colour = bool(optionV4.state & QtGui.QStyle.State_Selected)
+        card = self.component_manager.current("database").\
+            card(_id, id_is_internal=True)
+        if self.Q_or_A == QUESTION:
+            self.doc.setHtml(card.question(render_chain="card_browser",
+                ignore_text_colour=ignore_text_colour))
+        else:
+            self.doc.setHtml(card.answer(render_chain="card_browser",
+                ignore_text_colour=ignore_text_colour))
         # Paint the item without the text.
         optionV4.text = QtCore.QString()
         style.drawControl(QtGui.QStyle.CE_ItemViewItem, optionV4, painter)
@@ -145,9 +146,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         BrowseCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
-
         self.database().release_connection()
-
         self.db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         self.db.setDatabaseName(self.database().path())
         if not self.db.open():
@@ -165,11 +164,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         for key, value in headers.iteritems():
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
                   QtCore.QVariant(value))
-
         self.card_model.select()
         self.table.setModel(self.card_model)
-        self.table.setItemDelegateForColumn(QUESTION, QA_Delegate(self))
-        self.table.setItemDelegateForColumn(ANSWER, QA_Delegate(self))
+        self.table.setItemDelegateForColumn(\
+            QUESTION, QA_Delegate(component_manager, QUESTION, self))
+        self.table.setItemDelegateForColumn(\
+            ANSWER, QA_Delegate(component_manager, ANSWER, self))
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.table.verticalHeader().hide()
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,

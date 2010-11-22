@@ -85,7 +85,7 @@ class Latex(Filter):
         # should always run at the end.
         return "<img src=\"" + img_file + "\" align=middle>"
     
-    def run(self, text):
+    def run(self, text, **render_args):
 
         """The actual filter code called on the question or answer text."""
         

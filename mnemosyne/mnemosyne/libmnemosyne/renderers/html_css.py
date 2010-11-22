@@ -47,7 +47,7 @@ class HtmlCss(Renderer):
         try:
             colour = self.config()["background_colour"][card_type.id]
             colour_string = ("%X" % colour)[2:] # Strip alpha.
-            css += "background-color: #%s;" % colour_string
+            css += "background-color: #%s; " % colour_string
         except:
             pass        
         css += "}\n"
@@ -64,7 +64,7 @@ class HtmlCss(Renderer):
             try:
                 colour = self.config()["font_colour"][card_type.id][key]
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
-                css += "color: #%s;" % colour_string
+                css += "color: #%s; " % colour_string
             except:
                 pass
             # Text font.
