@@ -52,7 +52,8 @@ windows:
 	python setup.py py2exe --packages=xml.sax --includes=sip
 
 clean:
-	rm -f *~ *.pyc *.tgz process_profile.py
+	rm -f *~ *.pyc *.tgz process_profile.py 
+	rm -f -R Mnemosyne.egg-info
 	rm -f -R distrib build bin lib include dot_mnemosyne2 dot_test 
 	rm -f -R dot_benchmark dist
 	cd mnemosyne/pyqt_ui && make clean

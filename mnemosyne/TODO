@@ -1,8 +1,9 @@
 -tests?
 
--get background colour
--don't let Mnemosyne choose font colors if the text is selected
--shift down 1 pixel?
+-use font colour from card type for all fields, but use 
+ lighter color function from Qt if card is inactive
+-when field has background colour in card browser, no mouse over effects apart from when selected
+ force it to white otherwise?
 -time paint and data
 -is html_css_light a good name?
 -add tests for new render chain

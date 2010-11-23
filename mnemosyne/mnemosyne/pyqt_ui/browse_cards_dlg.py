@@ -45,47 +45,63 @@ class CardModel(QtSql.QSqlTableModel, Component):
         Component.__init__(self, component_manager)
         self.adjusted_now = self.scheduler().adjusted_now()
         self.date_format = locale.nl_langinfo(locale.D_FMT)
+        self.background_colour_for_card_type_id = {}
+        for card_type_id, rgb in \
+            self.config()["background_colour"].iteritems():
+            self.background_colour_for_card_type_id[card_type_id] = \
+                QtGui.QColor(rgb)
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
         # Display some columns in a more pretty way. Note that sorting still
         # uses the orginal database fields, which is good for speed.
-        column = index.column()
         if role == QtCore.Qt.TextColorRole:
             active_index = self.index(index.row(), ACTIVE)
             active = QtSql.QSqlTableModel.data(self, active_index).toInt()[0]
             if not active:
                 return QtCore.QVariant(QtGui.QColor(QtCore.Qt.gray))
             else:
-                return QtCore.QVariant(QtGui.QColor(QtCore.Qt.black))                
-        if role == QtCore.Qt.DisplayRole and column == EASINESS:
-            old_data = QtSql.QSqlTableModel.data(self, index, role).toString()
-            return QtCore.QVariant("%.2f" % float(old_data))
-        if role == QtCore.Qt.DisplayRole and column == NEXT_REP:
-            next_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
-            if next_rep == -1:
-                return QtCore.QVariant("")
-            return QtCore.QVariant(\
-                self.scheduler().next_rep_to_interval_string(next_rep))
-        if role == QtCore.Qt.DisplayRole and column == LAST_REP:
-            last_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
-            if last_rep == -1:
-                return QtCore.QVariant("")
-            return QtCore.QVariant(\
-                self.scheduler().last_rep_to_interval_string(last_rep))
-        if role == QtCore.Qt.DisplayRole and column == GRADE:
+                return QtCore.QVariant(QtGui.QColor(QtCore.Qt.black))
+        if role == QtCore.Qt.BackgroundColorRole:
+            card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
+            card_type_id = str(QtSql.QSqlTableModel.data(\
+                self, card_type_id_index).toString())
+            if card_type_id in self.background_colour_for_card_type_id:
+                return QtCore.QVariant(\
+                    self.background_colour_for_card_type_id[card_type_id])
+            else:
+                return QtSql.QSqlTableModel.data(self, index, role)
+        column = index.column()
+        if role == QtCore.Qt.TextAlignmentRole and column not in \
+            (QUESTION, ANSWER, TAGS):
+            return QtCore.QVariant(QtCore.Qt.AlignCenter)
+        if role != QtCore.Qt.DisplayRole:
+            return QtSql.QSqlTableModel.data(self, index, role)
+        # Display roles.
+        if column == GRADE:
             grade = QtSql.QSqlTableModel.data(self, index).toInt()[0]
             if grade == -1:
                 return QtCore.QVariant(_("Yet to learn"))
             else:
                 return QtCore.QVariant(grade)
-        if role == QtCore.Qt.DisplayRole and column in \
-            (CREATION_TIME, MODIFICATION_TIME):    
+        if column == NEXT_REP:
+            next_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
+            if next_rep == -1:
+                return QtCore.QVariant("")
+            return QtCore.QVariant(\
+                self.scheduler().next_rep_to_interval_string(next_rep))
+        if column == LAST_REP:
+            last_rep = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
+            if last_rep == -1:
+                return QtCore.QVariant("")
+            return QtCore.QVariant(\
+                self.scheduler().last_rep_to_interval_string(last_rep))
+        if column == EASINESS:
+            old_data = QtSql.QSqlTableModel.data(self, index, role).toString()
+            return QtCore.QVariant("%.2f" % float(old_data))
+        if column in (CREATION_TIME, MODIFICATION_TIME):    
             old_data = QtSql.QSqlTableModel.data(self, index, role).toInt()[0]
             return QtCore.QVariant(time.strftime(self.date_format,
                 time.gmtime(old_data)))
-        if role == QtCore.Qt.TextAlignmentRole and column not in \
-            (QUESTION, ANSWER, TAGS):
-            return QtCore.QVariant(QtCore.Qt.AlignCenter)  
         return QtSql.QSqlTableModel.data(self, index, role)
 
  
@@ -131,10 +147,15 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         rect = \
              style.subElementRect(QtGui.QStyle.SE_ItemViewItemText, optionV4)
         painter.save()
-        if not (optionV4.state & QtGui.QStyle.State_Selected) and \
-           not (optionV4.state & QtGui.QStyle.State_MouseOver):
-            painter.fillRect(rect, QtGui.QColor("red"))
+
+        # No longer used (done in model for all columns),
+        # but kept for reference.
+        #if not (optionV4.state & QtGui.QStyle.State_Selected) and \
+        #    not (optionV4.state & QtGui.QStyle.State_MouseOver):
+        #     painter.fillRect(rect, QtGui.QColor("red"))
+
         painter.translate(rect.topLeft())
+        painter.translate(0, 3)  # There seems to be a small offset needed...
         painter.setClipRect(rect.translated(-rect.topLeft()))
         self.doc.documentLayout().draw(painter, context)
         painter.restore()
