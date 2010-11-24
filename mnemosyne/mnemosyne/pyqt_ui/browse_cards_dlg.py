@@ -49,18 +49,22 @@ class CardModel(QtSql.QSqlTableModel, Component):
         for card_type_id, rgb in \
             self.config()["background_colour"].iteritems():
             self.background_colour_for_card_type_id[card_type_id] = \
-                QtGui.QColor(rgb)
-
+                QtGui.QColor(rgb)    
+        self.font_colour_for_card_type_id = {}
+        for card_type_id in self.config()["font_colour"]:
+            first_key = self.card_type_by_id(card_type_id).fields[0][0]
+            self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
+                self.config()["font_colour"][card_type_id][first_key])
+        
     def data(self, index, role=QtCore.Qt.DisplayRole):
-        # Display some columns in a more pretty way. Note that sorting still
-        # uses the orginal database fields, which is good for speed.
-        if role == QtCore.Qt.TextColorRole:
-            active_index = self.index(index.row(), ACTIVE)
-            active = QtSql.QSqlTableModel.data(self, active_index).toInt()[0]
-            if not active:
-                return QtCore.QVariant(QtGui.QColor(QtCore.Qt.gray))
-            else:
-                return QtCore.QVariant(QtGui.QColor(QtCore.Qt.black))
+        if role == QtCore.Qt.TextColorRole: 
+            card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
+            card_type_id = str(QtSql.QSqlTableModel.data(\
+                self, card_type_id_index).toString())
+            colour = QtGui.QColor(QtCore.Qt.black)
+            if card_type_id in self.font_colour_for_card_type_id:
+                colour = self.font_colour_for_card_type_id[card_type_id]
+            return QtCore.QVariant(colour)
         if role == QtCore.Qt.BackgroundColorRole:
             card_type_id_index = self.index(index.row(), CARD_TYPE_ID)
             card_type_id = str(QtSql.QSqlTableModel.data(\
@@ -69,14 +73,24 @@ class CardModel(QtSql.QSqlTableModel, Component):
                 return QtCore.QVariant(\
                     self.background_colour_for_card_type_id[card_type_id])
             else:
-                return QtSql.QSqlTableModel.data(self, index, role)
+                return QtCore.QVariant(QtGui.QFont("white"))
         column = index.column()
         if role == QtCore.Qt.TextAlignmentRole and column not in \
             (QUESTION, ANSWER, TAGS):
             return QtCore.QVariant(QtCore.Qt.AlignCenter)
+        if role == QtCore.Qt.FontRole and column not in \
+            (QUESTION, ANSWER, TAGS):
+            active_index = self.index(index.row(), ACTIVE)
+            active = QtSql.QSqlTableModel.data(self, active_index).toInt()[0]
+            font = QtGui.QFont()
+            if not active:
+                font.setStrikeOut(True)
+            return QtCore.QVariant(font)
         if role != QtCore.Qt.DisplayRole:
             return QtSql.QSqlTableModel.data(self, index, role)
-        # Display roles.
+        # Display roles to format some columns in a more pretty way. Note that
+        # sorting still uses the orginal database fields, which is good
+        # for speed.
         if column == GRADE:
             grade = QtSql.QSqlTableModel.data(self, index).toInt()[0]
             if grade == -1:

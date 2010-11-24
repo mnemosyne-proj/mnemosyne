@@ -138,8 +138,8 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
             if len(self.affected_card_types) > 1:
                 font_string = self.config()["font"]["1"]["q"]
             else:
-                font_string = self.config()["font"][self.affected_card_types[0].id]\
-                                                             [affected_key]
+                font_string = self.config()["font"]\
+                    [self.affected_card_types[0].id][affected_key]
             current_font.fromString(font_string)
         except:
             pass        

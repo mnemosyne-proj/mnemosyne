@@ -90,8 +90,8 @@ class Configuration(Component, dict):
              "science_server": "mnemosyne-proj.dyndns.org:80",
              "log_index": 1,
              "font": {}, # [card_type.id][fact_key]
-             "background_colour": {}, # [card_type.id]
              "font_colour": {}, # [card_type.id][fact_key]
+             "background_colour": {}, # [card_type.id]
              "alignment": {}, # [card_type.id]
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,

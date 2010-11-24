@@ -1,12 +1,5 @@
-
--use font colour from card type for all fields, but use 
- lighter color function from Qt if card is inactive
--when field has background colour in card browser, no mouse over effects apart from when selected
- force it to white otherwise?
--time paint and data
--is html_css_light a good name?
+-rename html_css_light to html_css_browser
 -add tests for new render chain
-
 
 -searching
 -make sure searching for a single unicode character works
@@ -296,7 +289,8 @@ http://developer.qt.nokia.com/faq/answer/how_can_i_add_a_non-resource_image_to_a
 using Qwebit http://stackoverflow.com/questions/3142132/how-to-use-a-qgraphicswebview is not
 a good alternative, as it does not obey selection coloring
 -ellisis in QTextDocument in card browser?
--rewrite card browser in C++?
+-rewrite card browser in C++, or at least delegate? In that case, move question and answer getting
+ to data, and eliminate the text colors at selection using Qt.
 
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 -Tim's gogorender plugin
