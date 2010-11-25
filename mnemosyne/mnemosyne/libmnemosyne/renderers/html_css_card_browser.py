@@ -1,5 +1,5 @@
 #
-# html_css_light.py <Peter.Bienstman@UGent.be>
+# html_css_card_browser.py <Peter.Bienstman@UGent.be>
 #
 
 import re
@@ -8,12 +8,12 @@ from mnemosyne.libmnemosyne.renderers.html_css import HtmlCss
 
 colour_re = re.compile(r"color:.+?;")
 
-class HtmlCssLight(HtmlCss):
+class HtmlCssCardBrowser(HtmlCss):
 
     """Renders the question or the answer as html without tables, to be used
-    e.g. in the card browser. The idea is to display everything as much as
-    possible on a single line which fits with the rest of the table, so we
-    only respect fonts families and weights, not size and alignment.
+    in the card browser. The idea is to display everything as much as possible
+    on a single line which fits with the rest of the table, so we only respect
+    fonts families and weights, not size and alignment.
     
     """
     
@@ -21,7 +21,7 @@ class HtmlCssLight(HtmlCss):
         return "body { margin: 0; padding: 0; }\n"
 
     def card_type_css(self, card_type):
-        css = ""
+        css = "._search { color: red; }"
         # Field tags.
         for key in card_type.keys():
             css += ".%s { " % key
@@ -65,6 +65,11 @@ class HtmlCssLight(HtmlCss):
         if "ignore_text_colour" in render_args and \
             render_args["ignore_text_colour"] == True:
             css = colour_re.sub("", css)
+        if "search_string" in render_args and render_args["search_string"]:
+            search_string = render_args["search_string"]
+            replace_string = "<span class=\"_search\">%s</span>" % search_string
+            for field in fields:
+                data[field] = data[field].replace(search_string, replace_string)
         body = self.body(data, fields, **render_args)
         return """
         <html>

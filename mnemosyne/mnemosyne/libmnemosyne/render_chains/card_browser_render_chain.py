@@ -3,9 +3,10 @@
 #
 
 from mnemosyne.libmnemosyne.render_chain import RenderChain
+from mnemosyne.libmnemosyne.renderers.html_css_card_browser \
+     import HtmlCssCardBrowser
 from mnemosyne.libmnemosyne.filters.escape_to_html_for_card_browser \
      import EscapeToHtmlForCardBrowser
-from mnemosyne.libmnemosyne.renderers.html_css_light import HtmlCssLight
 
 
 class CardBrowserRenderChain(RenderChain):
@@ -17,5 +18,5 @@ class CardBrowserRenderChain(RenderChain):
     id = "card_browser"
 
     filters = [EscapeToHtmlForCardBrowser]
-    renderers = [HtmlCssLight]
+    renderers = [HtmlCssCardBrowser]
 

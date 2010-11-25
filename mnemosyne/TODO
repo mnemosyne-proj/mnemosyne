@@ -1,6 +1,3 @@
--rename html_css_light to html_css_browser
--add tests for new render chain
-
 -searching
 -make sure searching for a single unicode character works
 -auto search after timeout?

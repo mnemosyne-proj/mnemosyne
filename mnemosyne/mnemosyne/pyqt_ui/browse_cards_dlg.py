@@ -43,6 +43,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
     def __init__(self, component_manager):
         QtSql.QSqlTableModel.__init__(self)
         Component.__init__(self, component_manager)
+        self.search_string = ""
         self.adjusted_now = self.scheduler().adjusted_now()
         self.date_format = locale.nl_langinfo(locale.D_FMT)
         self.background_colour_for_card_type_id = {}
@@ -141,14 +142,17 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         _id_index = index.model().index(index.row(), _ID)
         _id = index.model().data(_id_index).toInt()[0]
         ignore_text_colour = bool(optionV4.state & QtGui.QStyle.State_Selected)
+        search_string = index.model().search_string
         card = self.component_manager.current("database").\
             card(_id, id_is_internal=True)
         if self.Q_or_A == QUESTION:
             self.doc.setHtml(card.question(render_chain="card_browser",
-                ignore_text_colour=ignore_text_colour))
+                ignore_text_colour=ignore_text_colour,
+                search_string=search_string))
         else:
             self.doc.setHtml(card.answer(render_chain="card_browser",
-                ignore_text_colour=ignore_text_colour))
+                ignore_text_colour=ignore_text_colour,
+                search_string=search_string))
         # Paint the item without the text.
         optionV4.text = QtCore.QString()
         style.drawControl(QtGui.QStyle.CE_ItemViewItem, optionV4, painter)
@@ -210,7 +214,17 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
-            self.table.setColumnHidden(column, True)        
+            self.table.setColumnHidden(column, True)
+
+        search_string = "tion"
+        search_string = u"\u0645"
+        print search_string
+        
+        self.card_model.search_string = search_string
+        self.card_model.setFilter(\
+            "question like '%%%s%%' or answer like '%%%s%%'" \
+            % (search_string, search_string))
+            
         width, height = self.config()["browse_dlg_size"]
         if width:
             self.resize(width, height)

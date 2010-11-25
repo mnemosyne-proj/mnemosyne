@@ -21,3 +21,5 @@ class TestHtmlCss(MnemosyneTest):
         card.answer()
 
         card.question("sync_to_card_only_client")
+        card.question("card_browser")        
+        card.question("card_browser", ignore_text_colour=True)
