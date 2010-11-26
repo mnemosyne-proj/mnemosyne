@@ -34,42 +34,6 @@
        </item>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QTreeWidget" name="card_types_tree">
-       <property name="headerHidden">
-        <bool>true</bool>
-       </property>
-       <property name="expandsOnDoubleClick">
-        <bool>false</bool>
-       </property>
-       <column>
-        <property name="text">
-         <string>1</string>
-        </property>
-       </column>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QTreeWidget" name="tags_tree">
-       <property name="sortingEnabled">
-        <bool>true</bool>
-       </property>
-       <property name="headerHidden">
-        <bool>true</bool>
-       </property>
-       <attribute name="headerVisible">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="headerVisible">
-        <bool>false</bool>
-       </attribute>
-       <column>
-        <property name="text">
-         <string notr="true">1</string>
-        </property>
-       </column>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>
@@ -85,38 +49,6 @@
     <hint type="sourcelabel">
      <x>349</x>
      <y>17</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>229</x>
-     <y>157</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>card_types_tree</sender>
-   <signal>itemChanged(QTreeWidgetItem*,int)</signal>
-   <receiver>DefaultCriterionWdgt</receiver>
-   <slot>criterion_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>122</x>
-     <y>171</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>229</x>
-     <y>157</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tags_tree</sender>
-   <signal>itemChanged(QTreeWidgetItem*,int)</signal>
-   <receiver>DefaultCriterionWdgt</receiver>
-   <slot>criterion_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>349</x>
-     <y>171</y>
     </hint>
     <hint type="destinationlabel">
      <x>229</x>

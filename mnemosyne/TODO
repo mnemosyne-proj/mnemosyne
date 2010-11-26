@@ -1,3 +1,7 @@
+-break out tag tree widget:
+ -fix expand on scaling
+ -implement selection to criterion
+
 -searching
 -make sure searching for a single unicode character works
 -auto search after timeout?
