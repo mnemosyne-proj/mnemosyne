@@ -1,14 +1,21 @@
--break out tag tree widget:
- -fix expand on scaling
- -implement selection to criterion
+-don't have slider for search box
 
--searching
--make sure searching for a single unicode character works
+-default vsplit ratio 1/3 as opposed to 1/1?
+
+-search colouring is case sensitive, sqlfilter is case insensitive
+
+-filtering on tag and card type. Time single statement vs current multiple statements
+ in criterion applier
+
 -auto search after timeout?
--filtering on tag and card type
+-show on update tree selection or only when pressing button?
+ if latter, colour button if selection changes.
+
 -show number of cards per tag and cardtype?
 -save column sizes
 -save sort order
+-save splitter sizes
+-save last used criterion for browser?
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -add controller logic for after editing/deleting a card in browse cards
 -throwing an exception in browse cards does not release database

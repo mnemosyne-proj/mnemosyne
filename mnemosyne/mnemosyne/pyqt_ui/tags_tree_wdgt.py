@@ -15,9 +15,11 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def __init__(self, component_manager, parent):
         Component.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)
+        self.layout = QtGui.QVBoxLayout(self)
         self.tags_tree = QtGui.QTreeWidget(self)
         self.tags_tree.setHeaderHidden(True)
-
+        self.layout.addWidget(self.tags_tree)
+        
     def display(self, criterion):
         self.tags_tree.clear()
         self.tag_for_node_item = {}
@@ -62,11 +64,17 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tags_tree.sortItems(0, QtCore.Qt.AscendingOrder)
         self.tags_tree.expandAll()
 
-    def selection_to_criterion(self, criterion):
-        criterion.deactivated_card_type_fact_view_ids = set()
-        for item, card_type_fact_view_ids in \
-                self.card_type_fact_view_ids_for_node_item.iteritems():
-            if item.checkState(0) == QtCore.Qt.Unchecked:
-                criterion.deactivated_card_type_fact_view_ids.add(\
-                    card_type_fact_view_ids)
+    def selection_to_active_tags_in_criterion(self, criterion):
+        for item, tag in self.tag_for_node_item.iteritems():
+            if item.checkState(0) == QtCore.Qt.Checked:
+                criterion.active_tag__ids.add(tag._id)
+        criterion.forbidden_tags = set()
         return criterion
+
+    def selection_to_forbidden_tags_in_criterion(self, criterion):
+        for item, tag in self.tag_for_node_item.iteritems():
+            if item.checkState(0) == QtCore.Qt.Checked:
+                criterion.forbidden_tag__ids.add(tag._id)
+        criterion.active_tags = set(self.tag_for_node_item.values())
+        return criterion
+    

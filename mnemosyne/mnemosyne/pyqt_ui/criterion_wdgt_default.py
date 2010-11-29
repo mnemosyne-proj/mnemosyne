@@ -61,17 +61,13 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         criterion = \
             self.card_types_tree_wdgt.selection_to_criterion(criterion)
         # Tag tree contains active tags.
-        if self.active_or_forbidden.currentIndex() == 0: 
-            for item, tag in self.tag_for_node_item.iteritems():
-                if item.checkState(0) == QtCore.Qt.Checked:
-                    criterion.active_tag__ids.add(tag._id)
-            criterion.forbidden_tags = set()
+        if self.active_or_forbidden.currentIndex() == 0:
+            self.tags_tree_wdgt.\
+                selection_to_active_tags_in_criterion(criterion)
         # Tag tree contains forbidden tags.
         else:
-            for item, tag in self.tag_for_node_item.iteritems():
-                if item.checkState(0) == QtCore.Qt.Checked:
-                    criterion.forbidden_tag__ids.add(tag._id)
-            criterion.active_tags = set(self.tag_for_node_item.values())
+            self.tags_tree_wdgt.\
+                selection_to_forbidden_tags_in_criterion(criterion)
         return criterion
 
     def criterion_changed(self):        

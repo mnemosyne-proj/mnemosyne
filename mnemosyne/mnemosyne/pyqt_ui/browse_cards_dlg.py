@@ -10,8 +10,12 @@ from PyQt4 import QtCore, QtGui, QtSql
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.pyqt_ui.tags_tree_wdgt import TagsTreeWdgt
 from mnemosyne.libmnemosyne.utils import make_interval_string
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
+from mnemosyne.pyqt_ui.card_types_tree_wdgt import CardTypesTreeWdgt
+from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
+     DefaultCriterion
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
 
 _ID = 0
@@ -185,6 +189,31 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         BrowseCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        # Set up tree widgets.
+        self.container_1 = QtGui.QWidget(self.splitter)
+        self.layout_1 = QtGui.QVBoxLayout(self.container_1)
+        self.label_1 = QtGui.QLabel(_("Show cards from these card types:"),
+            self.container_1)
+        self.layout_1.addWidget(self.label_1)
+        self.card_types_tree_wdgt = \
+            CardTypesTreeWdgt(component_manager, self.container_1)
+        self.layout_1.addWidget(self.card_types_tree_wdgt)
+        self.splitter.insertWidget(0, self.container_1)
+        self.container_2 = QtGui.QWidget(self.splitter)
+        self.layout_2 = QtGui.QVBoxLayout(self.container_2)
+        self.label_2 = QtGui.QLabel(_("having any of these tags:"),
+            self.container_2)
+        self.layout_2.addWidget(self.label_2)
+        self.tags_tree_wdgt = \
+            TagsTreeWdgt(component_manager, self.container_2)
+        self.layout_2.addWidget(self.tags_tree_wdgt)
+        self.splitter.insertWidget(1, self.container_2)
+        criterion = DefaultCriterion(self.component_manager)
+        for tag in self.database().tags():
+            criterion.active_tag__ids.add(tag._id)
+        self.card_types_tree_wdgt.display(criterion)
+        self.tags_tree_wdgt.display(criterion)
+        # Set up database.
         self.database().release_connection()
         self.db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         self.db.setDatabaseName(self.database().path())
@@ -214,23 +243,20 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
-            self.table.setColumnHidden(column, True)
-
-        search_string = "tion"
-        search_string = u"\u0645"
-        print search_string
-        
-        self.card_model.search_string = search_string
-        self.card_model.setFilter(\
-            "question like '%%%s%%' or answer like '%%%s%%'" \
-            % (search_string, search_string))
-            
+            self.table.setColumnHidden(column, True)         
         width, height = self.config()["browse_dlg_size"]
         if width:
             self.resize(width, height)
         
     def activate(self):
         self.exec_()
+
+    def update_criterion(self):
+        search_string = unicode(self.search_box.text())        
+        self.card_model.search_string = search_string
+        self.card_model.setFilter(\
+            "question like '%%%s%%' or answer like '%%%s%%'" \
+            % (search_string, search_string))       
             
     def closeEvent(self, event):
         self.db.close()

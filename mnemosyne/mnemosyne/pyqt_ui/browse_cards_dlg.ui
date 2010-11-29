@@ -6,26 +6,81 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>453</width>
-    <height>318</height>
+    <width>729</width>
+    <height>511</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QTableView" name="table">
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
+    <widget class="QSplitter" name="splitter_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>containing this text:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLineEdit" name="search_box"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="show_button">
+            <property name="text">
+             <string>&amp;Show</string>
+            </property>
+            <property name="default">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QTableView" name="table">
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>show_button</sender>
+   <signal>clicked()</signal>
+   <receiver>BrowseCardsDlg</receiver>
+   <slot>update_criterion()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>301</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>364</x>
+     <y>255</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

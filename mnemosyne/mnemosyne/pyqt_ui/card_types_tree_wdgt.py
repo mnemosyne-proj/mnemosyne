@@ -15,8 +15,10 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
     def __init__(self, component_manager, parent):
         Component.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)
+        self.layout = QtGui.QVBoxLayout(self)
         self.card_types_tree = QtGui.QTreeWidget(self)
         self.card_types_tree.setHeaderHidden(True)
+        self.layout.addWidget(self.card_types_tree)
 
     def display(self, criterion):
         self.card_types_tree.clear()
