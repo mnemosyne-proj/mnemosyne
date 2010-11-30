@@ -7,6 +7,8 @@
 -filtering on tag and card type. Time single statement vs current multiple statements
  in criterion applier
 
+-rename activity criterion to criterion?
+
 -auto search after timeout?
 -show on update tree selection or only when pressing button?
  if latter, colour button if selection changes.
