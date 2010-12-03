@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>729</width>
-    <height>511</height>
+    <width>990</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,38 +19,10 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QSplitter" name="splitter">
+     <widget class="QSplitter" name="splitter_1">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QWidget" name="layoutWidget">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>containing this text:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLineEdit" name="search_box"/>
-          </item>
-          <item>
-           <widget class="QPushButton" name="show_button">
-            <property name="text">
-             <string>&amp;Show</string>
-            </property>
-            <property name="default">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
      </widget>
      <widget class="QTableView" name="table">
       <property name="selectionBehavior">
@@ -65,22 +37,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>show_button</sender>
-   <signal>clicked()</signal>
-   <receiver>BrowseCardsDlg</receiver>
-   <slot>update_criterion()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>301</x>
-     <y>381</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>364</x>
-     <y>255</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

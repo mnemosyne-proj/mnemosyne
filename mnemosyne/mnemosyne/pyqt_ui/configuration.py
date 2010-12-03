@@ -28,6 +28,8 @@ class PyQtConfiguration(Hook):
              "configuration_dlg_size": (0, 0),
              "activate_cards_dlg_size": (0, 0),
              "activate_cards_dlg_splitter": None,
+             "browse_cards_dlg_splitter_1": None,
+             "browse_cards_dlg_splitter_2": None,             
              "sync_help_shown": False,
              "server_for_sync_as_client": "",
              "port_for_sync_as_client": 8512,
