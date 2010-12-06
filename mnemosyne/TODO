@@ -1,28 +1,16 @@
--filtering on tag and card type. Time single statement vs current multiple statements
- in criterion applier
--rename activity criterion to criterion?
-
--auto search after timeout?
--show on update tree selection or only when pressing button?
- if latter, colour button if selection changes.
-
--show number of cards per tag and cardtype?
+-rename activity criterion to criterion
+-shortcut if all tags are active/inactive
+-total number of cards in selection
+-show number of cards per tag and cardtype
+-do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
 -save column sizes
 -save sort order
+
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -add controller logic for after editing/deleting a card in browse cards
 -throwing an exception in browse cards does not release database
 
--do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
-
--add full html header to stardard renderer. Still need MW table hack?
--test and time renderer on MW. Need to cache it?
--test no_pregenerated_data on WM
-
 -apply activity criterion after sync, for both partners + test
--sync to empty webserver (add 'database_is_empty' to server and act upon it)
--add support for error messages on protocol mismatch, expired credit
--add support for render chain selection
 
 -larger interval for initial grade 5?
 
@@ -36,7 +24,6 @@
 -card formatting options on remote web server: act on config info that the client sent across
  Add hook in set_partner_info
 
-
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
 -document cntrl enter in edit dialog instead of clicking ok (also manual?)
@@ -46,7 +33,6 @@
 
 
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]:
-
 
 -go through all source
 -communicate SQLite_no_pregerated_data, save interval, ..., repaint now to client writers
@@ -63,8 +49,6 @@
 
 -delay matplotlib instatiation
 -profile startup/shutdown
-
--alpha 1
 
 
 -make distrib
@@ -92,6 +76,9 @@
  connections are supported (CherryPy), perhaps also for multiprocess. Multiprocess probably only useful
  to get round the GIL, which is only useful on a dedicated server.
 
+-sync to empty webserver (add 'database_is_empty' to server and act upon it)
+-add support for error messages on protocol mismatch, expired credit
+-add support for render chain selection
 
 -import
 -update data if same id present on import
@@ -357,6 +344,9 @@ Windows Mobile client:
 If your phone has a touchscreen use the pocket pc version. Otherwise try the smartphone version. 
 
 -integrate sync
+-add full html header to standard renderer. Still need MW table hack?
+-test and time renderer on MW. Need to cache it?
+-test no_pregenerated_data on WM
 -repaint_now useful?
 -better way of making default actions visible? Call layout()?
 -hook up scheduler rollover

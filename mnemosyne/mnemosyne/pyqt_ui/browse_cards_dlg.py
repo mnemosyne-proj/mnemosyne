@@ -211,14 +211,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.label_3 = QtGui.QLabel(_("containing this text:"),
             self.container_2)
         self.layout_2.addWidget(self.label_3)
-        self.layout_3 = QtGui.QHBoxLayout()
         self.search_box = QtGui.QLineEdit(self.container_2)
-        self.layout_3.addWidget(self.search_box)
-        self.show_button = QtGui.QPushButton( _("Update"), self.container_2)
-        self.show_button.setDefault(True)
-        self.show_button.clicked.connect(self.update_criterion)
-        self.layout_3.addWidget(self.show_button)
-        self.layout_2.addLayout(self.layout_3)
+        self.search_box.textChanged.connect(self.update_filter)
+        self.layout_2.addWidget(self.search_box)
         self.splitter_1.insertWidget(1, self.container_2)
         # Fill tree widgets.
         criterion = DefaultCriterion(self.component_manager)
@@ -226,6 +221,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             criterion.active_tag__ids.add(tag._id)
         self.card_types_tree_wdgt.display(criterion)
         self.tags_tree_wdgt.display(criterion)
+        self.card_types_tree_wdgt.card_types_tree.\
+            itemClicked.connect(self.update_filter)
+        self.tags_tree_wdgt.tags_tree.\
+            itemClicked.connect(self.update_filter)        
         # Set up database.
         self.database().release_connection()
         self.db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
@@ -270,17 +269,42 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         if not splitter_2_sizes:
             self.splitter_2.setSizes([333, 630])
         else:
-            self.splitter_2.setSizes(splitter_2_sizes)                       
+            self.splitter_2.setSizes(splitter_2_sizes)
         
     def activate(self):
         self.exec_()
 
-    def update_criterion(self):
-        search_string = unicode(self.search_box.text())        
+    def update_filter(self):
+        # Card types and fact views.
+        criterion = DefaultCriterion(self.component_manager)
+        self.card_types_tree_wdgt.selection_to_criterion(criterion)
+        filter = ""
+        for card_type_id, fact_view_id in \
+                criterion.deactivated_card_type_fact_view_ids:
+            filter += """not (cards.fact_view_id='%s' and
+                cards.card_type_id='%s') and """ \
+                % (fact_view_id, card_type_id)
+        filter = filter.rsplit("and ", 1)[0]
+        # Tags.
+        self.tags_tree_wdgt.selection_to_active_tags_in_criterion(criterion)
+        #tag_count = db.con.execute("select count() from tags").fetchone()[0]
+        if 1: #len(criterion.active_tag__ids) != tag_count:
+            if filter:
+                filter += "and "
+            filter += "_id in (select _card_id from tags_for_card where "
+            for _tag_id in criterion.active_tag__ids:
+                filter += "_tag_id='%s' or " % (_tag_id, )
+            filter = filter.rsplit("or ", 1)[0] + ")"
+        # Search string.
+        search_string = unicode(self.search_box.text())
         self.card_model.search_string = search_string
-        self.card_model.setFilter(\
-            "question like '%%%s%%' or answer like '%%%s%%'" \
-            % (search_string, search_string))       
+        if search_string:
+            if filter:
+                filter += "and "
+            filter += "(question like '%%%s%%' or answer like '%%%s%%')" \
+                % (search_string, search_string)
+        self.card_model.setFilter(filter)
+        self.card_model.select()
             
     def closeEvent(self, event):
         self.db.close()
