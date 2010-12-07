@@ -2,15 +2,15 @@
 # default_criterion.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.activity_criterion import ActivityCriterion
+from mnemosyne.libmnemosyne.criterion import Criterion
 
 
-class DefaultCriterion(ActivityCriterion):
+class DefaultCriterion(Criterion):
 
     criterion_type = "Default"
     
     def __init__(self, component_manager, id=None):
-        ActivityCriterion.__init__(self, component_manager, id)
+        Criterion.__init__(self, component_manager, id)
         # (card_type.id, fact_view.id):
         self.deactivated_card_type_fact_view_ids = set()
         # We work with _ids instead of ids for speed.

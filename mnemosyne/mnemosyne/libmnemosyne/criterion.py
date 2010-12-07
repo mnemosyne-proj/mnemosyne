@@ -1,15 +1,15 @@
 #
-# activity_criterion.py <Peter.Bienstman@UGent.be>
+# criterion.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.utils import rand_uuid
 from mnemosyne.libmnemosyne.component import Component
 
 
-class ActivityCriterion(Component):
+class Criterion(Component):
 
-    """Used to determine which cards are currently active, i.e. included in
-    the review process.
+    """Used to select a subset of cards, e.g. which cards are currently
+    active, i.e. included in the review process.
 
     The available Criteria are stored as classes in the component_manager.
 
@@ -39,8 +39,7 @@ class ActivityCriterion(Component):
 
         The tag and card type creation and deletion function are callbacks
         called by the rest of libmnemosyne when these objects get created or
-        destroyed, such that ActivityCriteria can update their status if
-        needed.
+        destroyed, such that Criteria can update their status if needed.
 
         """
         
@@ -85,13 +84,13 @@ class ActivityCriterion(Component):
 
 class CriterionApplier(Component):
 
-    """Can be registered 'used_for' a certain ActivityCriterion to apply it in
-    bulk to all the cards in the database. Is much faster than fetching each
-    card from the database, calling ActivityCriterion.apply_to_card, and
-    storing it back in the database.
+    """Can be registered 'used_for' a certain Criterion to apply it in bulk to
+    all the cards in the database. Is much faster than fetching each card from
+    the database, calling Criterion.apply_to_card, and storing it back in the
+    database.
 
-    This code is not part of ActivityCriterion, because it is dependent on
-    the database backend.
+    This code is not part of Criterion, because it is dependent on the database
+    backend.
 
     """
 

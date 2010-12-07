@@ -5,7 +5,7 @@
 from mnemosyne.libmnemosyne.ui_component import UiComponent
 
 
-class ActivityCriterionWidget(UiComponent):
+class CriterionWidget(UiComponent):
 
     component_type = "activity_criterion_widget"
     instantiate = UiComponent.LATER      

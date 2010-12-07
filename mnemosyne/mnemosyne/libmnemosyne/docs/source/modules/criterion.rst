@@ -1,9 +1,9 @@
-:mod:`ActivityCriterion`
+:mod:`Criterion`
 ===============================
 
-.. automodule:: mnemosyne.libmnemosyne.activity_criterion
+.. automodule:: mnemosyne.libmnemosyne.criterion
    
-.. autoclass:: ActivityCriterion
+.. autoclass:: Criterion
    :members:
    :undoc-members:   
 

@@ -2,9 +2,8 @@
 # SQLite_criterion_applier.py - <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne.libmnemosyne.activity_criterion import CriterionApplier
-from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
-     DefaultCriterion
+from mnemosyne.libmnemosyne.criterion import CriterionApplier
+from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
 
 class DefaultCriterionApplier(CriterionApplier):

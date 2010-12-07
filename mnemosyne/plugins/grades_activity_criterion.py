@@ -4,16 +4,16 @@
 
 # The criterion itself.
 
-from mnemosyne.libmnemosyne.activity_criterion import ActivityCriterion
+from mnemosyne.libmnemosyne.activity_criterion import Criterion
 
-class GradesCriterion(ActivityCriterion):
+class GradesCriterion(Criterion):
 
     """Only review cards with grade lower than or equal to 'threshold'."""
 
     criterion_type = "Grades"
 
     def __init__(self, component_manager, id=None):
-        ActivityCriterion.__init__(self, component_manager, id)
+        Criterion.__init__(self, component_manager, id)
         self.threshold = 5
         
     def apply_to_card(self, card):
@@ -44,16 +44,16 @@ class GradesCriterionApplier(CriterionApplier):
 # The UI widget to set the threshold.
 
 from mnemosyne.libmnemosyne.ui_components.activity_criterion_widget \
-     import ActivityCriterionWidget
+     import CriterionWidget
 
 from PyQt4 import QtCore, QtGui
 
-class GradesCriterionWdgt(QtGui.QWidget, ActivityCriterionWidget):
+class GradesCriterionWdgt(QtGui.QWidget, CriterionWidget):
 
     used_for = GradesCriterion
 
     def __init__(self, component_manager, parent):
-        ActivityCriterionWidget.__init__(self, component_manager)
+        CriterionWidget.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)        
         self.verticalLayout = QtGui.QVBoxLayout(self)
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -82,11 +82,10 @@ class GradesCriterionWdgt(QtGui.QWidget, ActivityCriterionWidget):
 
 from mnemosyne.libmnemosyne.plugin import Plugin
 
-class GradesActivityCriterionPlugin(Plugin):
+class GradesCriterionPlugin(Plugin):
     name = "Activity criterion example"
     description = "Example plugin for grade-based activity criteria."
     components = [GradesCriterion, GradesCriterionApplier, GradesCriterionWdgt]
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
-register_user_plugin(GradesActivityCriterionPlugin)
-
+register_user_plugin(GradesCriterionPlugin)

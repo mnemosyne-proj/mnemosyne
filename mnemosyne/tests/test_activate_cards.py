@@ -4,8 +4,7 @@
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
-from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
-     DefaultCriterion
+from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
 class TestActivateCards(MnemosyneTest):
     

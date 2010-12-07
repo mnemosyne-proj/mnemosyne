@@ -85,7 +85,7 @@ Contents
     modules/scheduler
     modules/stopwatch
     modules/statistics_page
-    modules/activity_criterion
+    modules/criterion
 
     modules/how_to_write_a_new_frontend
     

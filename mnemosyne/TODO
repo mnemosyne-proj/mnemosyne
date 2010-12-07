@@ -1,18 +1,14 @@
--rename activity criterion to criterion
--shortcut if all tags are active/inactive
--total number of cards in selection
 -show number of cards per tag and cardtype
 -do better numeric sort on card browser and activate cards, make sure 'untagged' shows up last
 -save column sizes
 -save sort order
-
+-edit tag name, also partially
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
+-repopulate tree widgets after editing/deleting
 -add controller logic for after editing/deleting a card in browse cards
 -throwing an exception in browse cards does not release database
 
 -apply activity criterion after sync, for both partners + test
-
--larger interval for initial grade 5?
 
 -media file handler
 -don't do media check in database, but in controller?
@@ -143,6 +139,8 @@ the GUI function itself?
 -add html caching support for media files
 -send absolute filenames when running server locally, so that we don't need to
  send them over http
+
+-larger interval for initial grade 5?
 
 -have hierarchy in plugin names
 
@@ -279,6 +277,7 @@ a good alternative, as it does not obey selection coloring
 -ellisis in QTextDocument in card browser?
 -rewrite card browser in C++, or at least delegate? In that case, move question and answer getting
  to data, and eliminate the text colors at selection using Qt.
+-inline editing in card browser
 
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 -Tim's gogorender plugin

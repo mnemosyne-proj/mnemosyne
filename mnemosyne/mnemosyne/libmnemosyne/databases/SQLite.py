@@ -282,7 +282,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             values(?,?)""", ("log.txt", 0))
         self.config()["path"] = contract_path(self._path, self.config().data_dir)
         # Create default criterion.
-        from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
+        from mnemosyne.libmnemosyne.criteria.default_criterion import \
              DefaultCriterion
         self._current_criterion = DefaultCriterion(self.component_manager)
         self.add_activity_criterion(self._current_criterion)

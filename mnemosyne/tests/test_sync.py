@@ -15,8 +15,7 @@ from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
-from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
-     DefaultCriterion
+from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
 server_initialised = Condition()
 server_is_initialised = None
