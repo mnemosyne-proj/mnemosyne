@@ -35,7 +35,7 @@ class HtmlCss(Renderer):
         css = "table { height: " + self.table_height + "; width: 100%; "
         try:
             alignment = self.config()["alignment"][card_type.id]
-        except:
+        except KeyError:
             alignment = "center"
         if alignment == "left":
             css += "margin-left: 0; margin-right: auto; "
@@ -48,7 +48,7 @@ class HtmlCss(Renderer):
             colour = self.config()["background_colour"][card_type.id]
             colour_string = ("%X" % colour)[2:] # Strip alpha.
             css += "background-color: #%s; " % colour_string
-        except:
+        except KeyError:
             pass        
         css += "}\n"
         # Field tags.
@@ -57,7 +57,7 @@ class HtmlCss(Renderer):
             # Set alignment within table cell.
             try:
                 alignment = self.config()["alignment"][card_type.id]
-            except:
+            except KeyError:
                 alignment = "center"
             css += "text-align: %s; " % alignment  
             # Text colours.
@@ -65,27 +65,28 @@ class HtmlCss(Renderer):
                 colour = self.config()["font_colour"][card_type.id][key]
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
-            except:
+            except KeyError:
                 pass
             # Text font.
             try:
                 font_string = self.config()["font"][card_type.id][key]
-                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
-                css += "font-family: \"%s\"; " % family
-                css += "font-size: %spt; " % size
-                if w == "25":
-                    css += "font-weight: light; "
-                if w == "75":
-                    css += "font-weight: bold; "                    
-                if i == "1":
-                    css += "font-style: italic; "
-                if i == "2":
-                    css += "font-style: oblique; "
-                if u == "1":
-                    css += "text-decoration: underline; "
-                if s == "1":
-                    css += "text-decoration: line-through; "
-            except:
+                if font_string:
+                    family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                    css += "font-family: \"%s\"; " % family
+                    css += "font-size: %spt; " % size
+                    if w == "25":
+                        css += "font-weight: light; "
+                    if w == "75":
+                        css += "font-weight: bold; "
+                    if i == "1":
+                        css += "font-style: italic; "
+                    if i == "2":
+                        css += "font-style: oblique; "
+                    if u == "1":
+                        css += "text-decoration: underline; "
+                    if s == "1":
+                        css += "text-decoration: line-through; "
+            except KeyError:
                 pass                
             css += "}\n"
         return css

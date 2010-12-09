@@ -11,7 +11,6 @@ from PyQt4 import QtCore, QtGui, QtSql
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tags_tree_wdgt import TagsTreeWdgt
-from mnemosyne.libmnemosyne.utils import make_interval_string
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
 from mnemosyne.pyqt_ui.card_types_tree_wdgt import CardTypesTreeWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
@@ -274,7 +273,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.splitter_2.setSizes([333, 630])
         else:
             self.splitter_2.setSizes(splitter_2_sizes)
-        
+                
     def activate(self):
         self.exec_()
 

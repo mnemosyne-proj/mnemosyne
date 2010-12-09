@@ -35,6 +35,17 @@ class SQLiteStatistics(object):
             tags_for_card._card_id=cards._id and cards.active=1 and
             cards.grade>=0 and tags_for_card._tag_id=?""", (_tag_id, ))]
 
+    def total_card_count_for_fact_view(self, fact_view):
+        return self.con.execute(\
+            "select count() from cards where fact_view_id=?",
+            (fact_view.id, )).fetchone()[0]
+    
+    def total_card_count_for_tag(self, tag):
+        return self.con.execute(\
+             """select count() from cards, tags_for_card where
+             tags_for_card._card_id=cards._id and tags_for_card._tag_id=?""",
+             (tag._id, )).fetchone()[0]
+    
     def card_count_for_grade(self, grade):
         return self.con.execute(\
             "select count() from cards where grade=? and active=1",

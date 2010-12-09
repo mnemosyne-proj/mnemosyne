@@ -30,26 +30,27 @@ class HtmlCssCardBrowser(HtmlCss):
                 colour = self.config()["font_colour"][card_type.id][key]
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
-            except:
+            except KeyError:
                 pass
             # Text font.
             try:
                 font_string = self.config()["font"][card_type.id][key]
-                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
-                css += "font-family: \"%s\"; " % family
-                if w == "25":
-                    css += "font-weight: light; "
-                if w == "75":
-                    css += "font-weight: bold; "                    
-                if i == "1":
-                    css += "font-style: italic; "
-                if i == "2":
-                    css += "font-style: oblique; "
-                if u == "1":
-                    css += "text-decoration: underline; "
-                if s == "1":
-                    css += "text-decoration: line-through; "
-            except:
+                if font_string:
+                    family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                    css += "font-family: \"%s\"; " % family
+                    if w == "25":
+                        css += "font-weight: light; "
+                    if w == "75":
+                        css += "font-weight: bold; "
+                    if i == "1":
+                        css += "font-style: italic; "
+                    if i == "2":
+                        css += "font-style: oblique; "
+                    if u == "1":
+                        css += "text-decoration: underline; "
+                    if s == "1":
+                        css += "text-decoration: line-through; "
+            except KeyError:
                 pass                
             css += "}\n"
         return css

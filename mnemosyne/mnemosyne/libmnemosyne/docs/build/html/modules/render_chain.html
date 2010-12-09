@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>RenderChain &mdash; libmnemosyne v2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="next" title="Filter" href="filter.html" />
+    <link rel="prev" title="CardTypeConverter" href="card_type_converter.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="filter.html" title="Filter"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="card_type_converter.html" title="CardTypeConverter"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-mnemosyne.libmnemosyne.render_chain">
+<h1><tt class="xref docutils literal"><span class="pre">RenderChain</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.render_chain" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain">
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.render_chain.</tt><tt class="descname">RenderChain</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain" title="Permalink to this definition">¶</a></dt>
+<dd><p>A RenderChain details the operations needed to get from the raw data
+in a card to a representation of its question and answer, in a form either
+suitable for displaying in a browser, or exporting to a text file, ... .</p>
+<p>First the raw data is sent through Filters, which perform operations which
+can be useful for many card types, like expanding relative paths.</p>
+<p>Then this data is assembled in the right order in a Renderer, which can be
+card type specific.</p>
+<p>&#8216;filters&#8217;: list of Filter classes
+&#8216;renderers&#8217;: list or Renderer classes</p>
+<p>Plugins can add Filters or Renderers for a new card type to a chain at run
+time.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter">
+<tt class="descname">register_filter</tt><big>(</big><em>filter</em>, <em>in_front=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_filter" title="Permalink to this definition">¶</a></dt>
+<dd>&#8216;filter&#8217; should be a class, not an instance.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.register_renderer">
+<tt class="descname">register_renderer</tt><big>(</big><em>renderer</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.register_renderer" title="Permalink to this definition">¶</a></dt>
+<dd>&#8216;renderer&#8217; should be a class, not an instance.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.render_answer">
+<tt class="descname">render_answer</tt><big>(</big><em>card</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.render_answer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.render_question">
+<tt class="descname">render_question</tt><big>(</big><em>card</em>, <em>**render_args</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.render_question" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.render_chain.RenderChain.renderer_for_card_type">
+<tt class="descname">renderer_for_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.render_chain.RenderChain.renderer_for_card_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="card_type_converter.html"
+                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">CardTypeConverter</span></tt></a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="filter.html"
+                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Filter</span></tt></a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/modules/render_chain.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="filter.html" title="Filter"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="card_type_converter.html" title="CardTypeConverter"
+             >previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Dec 07, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+    </div>
+  </body>
+</html>

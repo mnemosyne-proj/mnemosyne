@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Criterion &mdash; libmnemosyne v2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
+    <link rel="next" title="How to write a new frontend" href="how_to_write_a_new_frontend.html" />
+    <link rel="prev" title="StatisticsPage" href="statistics_page.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="how_to_write_a_new_frontend.html" title="How to write a new frontend"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="statistics_page.html" title="StatisticsPage"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-mnemosyne.libmnemosyne.criterion">
+<h1><tt class="xref docutils literal"><span class="pre">Criterion</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.criterion" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion">
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.criterion.</tt><tt class="descname">Criterion</tt><big>(</big><em>component_manager</em>, <em>id=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to select a subset of cards, e.g. which cards are currently
+active, i.e. included in the review process.</p>
+<p>The available Criteria are stored as classes in the component_manager.</p>
+<p>The actual instances together with their data are stored in the database.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card">
+<tt class="descname">apply_to_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the card active or not depending on the criterion. Does not
+write to the database. Called after creating or updating cards, to
+see whether these cards should start out their life as active or not.</p>
+<p>Also called after reviewing a card.</p>
+<p>The tag and card type creation and deletion function are callbacks
+called by the rest of libmnemosyne when these objects get created or
+destroyed, such that Criteria can update their status if needed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.card_type_created">
+<tt class="descname">card_type_created</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.card_type_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.card_type_deleted">
+<tt class="descname">card_type_deleted</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.card_type_deleted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.data_to_string">
+<tt class="descname">data_to_string</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.data_to_string" title="Permalink to this definition">¶</a></dt>
+<dd>Convert variables to a string for storage in the database. We don&#8217;t
+use pickle here as that would make it difficult for non-Python programs
+to read the database.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.data_to_sync_string">
+<tt class="descname">data_to_sync_string</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.data_to_sync_string" title="Permalink to this definition">¶</a></dt>
+<dd>Convert variables to a string for sending across during syncing.
+Could be different from &#8216;data_to_string&#8217;, as it should use ids instead
+of _ids.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_string">
+<tt class="descname">set_data_from_string</tt><big>(</big><em>data_string</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_sync_string">
+<tt class="descname">set_data_from_sync_string</tt><big>(</big><em>data_string</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.set_data_from_sync_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.tag_created">
+<tt class="descname">tag_created</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.tag_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.Criterion.tag_deleted">
+<tt class="descname">tag_deleted</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.tag_deleted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.criterion.CriterionApplier">
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.criterion.</tt><tt class="descname">CriterionApplier</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be registered &#8216;used_for&#8217; a certain Criterion to apply it in bulk to
+all the cards in the database. Is much faster than fetching each card from
+the database, calling Criterion.apply_to_card, and storing it back in the
+database.</p>
+<p>This code is not part of Criterion, because it is dependent on the database
+backend.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.criterion.CriterionApplier.apply_to_database">
+<tt class="descname">apply_to_database</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.CriterionApplier.apply_to_database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="statistics_page.html"
+                                  title="previous chapter"><tt class="docutils literal"><span class="pre">StatisticsPage</span></tt></a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="how_to_write_a_new_frontend.html"
+                                  title="next chapter">How to write a new frontend</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/modules/criterion.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="how_to_write_a_new_frontend.html" title="How to write a new frontend"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="statistics_page.html" title="StatisticsPage"
+             >previous</a> |</li>
+        <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Peter Bienstman.
+      Last updated on Dec 07, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+    </div>
+  </body>
+</html>

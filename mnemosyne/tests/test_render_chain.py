@@ -62,3 +62,4 @@ class TestRenderChain(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type_2,
             grade=-1, tag_names=["default"])[0]
         assert "666" not in card.question()
+

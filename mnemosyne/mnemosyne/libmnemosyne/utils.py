@@ -152,45 +152,6 @@ def rand_uuid():
     return uuid
 
 
-def make_interval_string(now_timestamp, then_timestamp):
-
-    """Converts the interval between two unix timestamps to a string like
-    'yesterday', 'in three days', ... .
-
-    """
-
-    from mnemosyne.libmnemosyne.translator import _
-    interval_days = (then_timestamp - now_timestamp) / 60. / 60. / 24.        
-    if interval_days >= 365:
-        interval_years = interval_days/365
-        return _("in") + " " + "%.1f" % interval_years + " " + \
-               _("years")             
-    elif interval_days >= 62:
-        interval_months = int(interval_days/31)
-        return _("in") + " " + str(interval_months) + " " + \
-               _("months")
-    elif interval_days >= 31:
-        return _("in 1 month")
-    elif interval_days >= 2:
-        return _("in") + " " + str(int(interval_days)) + " " + \
-               _("days")
-    elif interval_days >= 1:
-        return _("tomorrow")
-    elif interval_days > 0:
-        return _("today")
-    elif interval_days >= -1:
-        return _("yesterday")
-    elif interval_days >= -31:
-        return str(int(-interval_days)) + " " + _("days ago")
-    elif interval_days >= -62:
-        return _("1 month ago")  
-    elif interval_days >= -356:
-        interval_months = int(-interval_days/31)
-        return str(interval_months) + " " + _("months ago")
-    else:
-        interval_years = -interval_days/356
-        return "%.1f " % interval_years +  _("years ago")
-
 
 class CompareOnId(object):
 

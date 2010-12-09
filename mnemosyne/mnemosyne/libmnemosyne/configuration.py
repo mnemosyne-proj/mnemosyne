@@ -136,7 +136,7 @@ class Configuration(Component, dict):
             from mnemosyne.libmnemosyne.utils import traceback_string
             raise RuntimeError, _("Error in config:") \
                   + "\n" + traceback_string()
-
+        
     def save(self):
         try:
             config_file = file(os.path.join(self.config_dir, "config"), 'wb')
