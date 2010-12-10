@@ -5,6 +5,7 @@
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
+from mnemosyne.libmnemosyne.tag import TagsTree
 from mnemosyne.libmnemosyne.component import Component
 
 
@@ -19,16 +20,36 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tags_tree = QtGui.QTreeWidget(self)
         self.tags_tree.setHeaderHidden(True)
         self.layout.addWidget(self.tags_tree)
+
+
+    def create_subtree(self, qt_parent, subtree):
+        for node in subtree:
+            if type(node) == type([]):
+                # Create Qt node item.
+                node_item = 0
+                self.create_subtree(qt_parent=node_item, node)
+            else:
+                # Create Qt leaf item
+                leaf_item = 0
         
     def display(self, criterion):
         self.tags_tree.clear()
+
+        _tags_tree = TagsTree(self.component_manager)
+        parent = _tag_tree.tree["__ALL__"]
+        # create parent node
+        for nodes in parent
+        
+
+        
+        
         self.tag_for_node_item = {}
         root_item = QtGui.QTreeWidgetItem(self.tags_tree, [_("All tags")], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
         self.tag_for_node_item = {}
-        node_item_for_partial_tag = {}
+        node_item_for_partial_tag = {} # Not needed if libmnemosyne takes over?
         for tag in self.database().tags():
             if tag.name == "__UNTAGGED__":
                 tag.name = _("Untagged")
@@ -61,7 +82,6 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 else:
                     node_item.setCheckState(0, QtCore.Qt.Unchecked)
         # Finalise.
-        self.tags_tree.sortItems(0, QtCore.Qt.AscendingOrder)
         self.tags_tree.expandAll()
 
     def selection_to_active_tags_in_criterion(self, criterion):

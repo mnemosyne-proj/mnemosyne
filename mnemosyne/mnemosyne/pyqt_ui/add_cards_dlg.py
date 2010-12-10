@@ -85,10 +85,9 @@ class AddEditCards(Component):
 
     def update_tags_combobox(self, current_tag_name):
         self.tags.clear()
-        tags = [tag.name for tag in self.database().tags() \
-            if tag.name != "__UNTAGGED__"]
-        sorted_tags = sorted(tags, cmp=numeric_string_cmp)
-        for name in sorted_tags:
+        tag_names = sorted([tag.name for tag in self.database().tags() \
+            if tag.name != "__UNTAGGED__"], cmp=numeric_string_cmp)
+        for name in tag_names:
             self.tags.addItem(name)
         # For the 'special' tags, we add them at the top.
         self.tags.setInsertPolicy(QtGui.QComboBox.InsertAtTop)
