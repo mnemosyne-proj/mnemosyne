@@ -42,8 +42,7 @@ class SQLiteStatistics(object):
     
     def total_card_count_for_tag(self, tag):
         return self.con.execute(\
-             """select count() from cards, tags_for_card where
-             tags_for_card._card_id=cards._id and tags_for_card._tag_id=?""",
+             "select count() from tags_for_card where _tag_id=?",
              (tag._id, )).fetchone()[0]
     
     def card_count_for_grade(self, grade):
@@ -64,8 +63,7 @@ class SQLiteStatistics(object):
     
     def total_card_count_for__tag_id(self, _tag_id):
         return self.con.execute(\
-             """select count() from cards, tags_for_card where
-             tags_for_card._card_id=cards._id and tags_for_card._tag_id=?""",
+             "select count() from tags_for_card where _tag_id=?",
              (_tag_id, )).fetchone()[0]
     
     def total_card_count_for_grade_and__tag_id(self, grade, _tag_id):

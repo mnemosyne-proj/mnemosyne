@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugin &mdash; libmnemosyne v2.0 documentation</title>
+    <title>TagTree &mdash; libmnemosyne v2.0 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -20,8 +20,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="libmnemosyne v2.0 documentation" href="../index.html" />
-    <link rel="next" title="Scheduler" href="scheduler.html" />
-    <link rel="prev" title="Logger" href="logger.html" /> 
+    <link rel="next" title="CardType" href="card_type.html" />
+    <link rel="prev" title="Tag" href="tag.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,10 +34,10 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="scheduler.html" title="Scheduler"
+          <a href="card_type.html" title="CardType"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="logger.html" title="Logger"
+          <a href="tag.html" title="Tag"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -48,33 +48,12 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-mnemosyne.libmnemosyne.plugin">
-<h1><tt class="xref docutils literal"><span class="pre">Plugin</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.plugin" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-mnemosyne.libmnemosyne.tag_tree">
+<h1><tt class="xref docutils literal"><span class="pre">TagTree</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.tag_tree" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin">
-<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.plugin.</tt><tt class="descname">Plugin</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Plugin is a group of components which can be activated and
-deactivated by the user when the program is running.</p>
-<p>Plugins are used as a separate class, and not as mixins, in order to
-allow for the fact that a Plugin can group multiple components.</p>
-<p>&#8216;components&#8217; is a list of component classes (not instances) that will
-be registered and/or instantiated when the Plugin becomes active.</p>
-<p>Activating and deactivating certain components needs to give rise to
-certain side effects. It&#8217;s cumbersone to implement those in the
-&#8216;activate&#8217; and &#8216;deactivate&#8217; methods of the components, as these also
-are called when the program is still starting up and the context can
-be completely different.</p>
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin.activate">
-<tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.activate" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.tag_tree.TagTree">
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.tag_tree.</tt><tt class="descname">TagTree</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.tag_tree.TagTree" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.plugin.Plugin.deactivate">
-<tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.plugin.Plugin.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
 
 </div>
 
@@ -85,14 +64,14 @@ be completely different.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="logger.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Logger</span></tt></a></p>
+            <p class="topless"><a href="tag.html"
+                                  title="previous chapter"><tt class="docutils literal"><span class="pre">Tag</span></tt></a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="scheduler.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">Scheduler</span></tt></a></p>
+            <p class="topless"><a href="card_type.html"
+                                  title="next chapter"><tt class="docutils literal"><span class="pre">CardType</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
-              <li><a href="../_sources/modules/plugin.txt"
+              <li><a href="../_sources/modules/tag_tree.txt"
                      rel="nofollow">Show Source</a></li>
             </ul>
           <div id="searchbox" style="display: none">
@@ -122,10 +101,10 @@ be completely different.</p>
           <a href="../modindex.html" title="Global Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="scheduler.html" title="Scheduler"
+          <a href="card_type.html" title="CardType"
              >next</a> |</li>
         <li class="right" >
-          <a href="logger.html" title="Logger"
+          <a href="tag.html" title="Tag"
              >previous</a> |</li>
         <li><a href="../index.html">libmnemosyne v2.0 documentation</a> &raquo;</li> 
       </ul>

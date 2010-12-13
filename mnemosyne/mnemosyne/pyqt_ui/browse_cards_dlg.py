@@ -10,9 +10,9 @@ from PyQt4 import QtCore, QtGui, QtSql
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.pyqt_ui.tags_tree_wdgt import TagsTreeWdgt
+from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
-from mnemosyne.pyqt_ui.card_types_tree_wdgt import CardTypesTreeWdgt
+from mnemosyne.pyqt_ui.card_type_tree_wdgt import CardTypesTreeWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
 from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
@@ -193,9 +193,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.label_1 = QtGui.QLabel(_("Show cards from these card types:"),
             self.container_1)
         self.layout_1.addWidget(self.label_1)
-        self.card_types_tree_wdgt = \
+        self.card_type_tree_wdgt = \
             CardTypesTreeWdgt(component_manager, self.container_1)
-        self.layout_1.addWidget(self.card_types_tree_wdgt)
+        self.layout_1.addWidget(self.card_type_tree_wdgt)
         self.splitter_1.insertWidget(0, self.container_1)
         # Set up tag tree plus search box.
         self.container_2 = QtGui.QWidget(self.splitter_1)
@@ -203,9 +203,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.label_2 = QtGui.QLabel(_("having any of these tags:"),
             self.container_2)
         self.layout_2.addWidget(self.label_2)
-        self.tags_tree_wdgt = \
+        self.tag_tree_wdgt = \
             TagsTreeWdgt(component_manager, self.container_2)
-        self.layout_2.addWidget(self.tags_tree_wdgt)
+        self.layout_2.addWidget(self.tag_tree_wdgt)
         self.label_3 = QtGui.QLabel(_("containing this text:"),
             self.container_2)
         self.layout_2.addWidget(self.label_3)
@@ -218,11 +218,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         criterion = DefaultCriterion(self.component_manager)
         for tag in self.database().tags():
             criterion.active_tag__ids.add(tag._id)
-        self.card_types_tree_wdgt.display(criterion)
-        self.tags_tree_wdgt.display(criterion)
-        self.card_types_tree_wdgt.card_types_tree.\
+        self.card_type_tree_wdgt.display(criterion)
+        self.tag_tree_wdgt.display(criterion)
+        self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
-        self.tags_tree_wdgt.tags_tree.\
+        self.tag_tree_wdgt.tag_tree_wdgt.\
             itemClicked.connect(self.update_filter)        
         # Set up database.
         self.database().release_connection()
@@ -280,7 +280,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
     def update_filter(self):
         # Card types and fact views.
         criterion = DefaultCriterion(self.component_manager)
-        self.card_types_tree_wdgt.selection_to_criterion(criterion)
+        self.card_type_tree_wdgt.selection_to_criterion(criterion)
         filter = ""
         for card_type_id, fact_view_id in \
                 criterion.deactivated_card_type_fact_view_ids:
@@ -289,7 +289,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 % (fact_view_id, card_type_id)
         filter = filter.rsplit("and ", 1)[0]
         # Tags.
-        self.tags_tree_wdgt.selection_to_active_tags_in_criterion(criterion)
+        self.tag_tree_wdgt.selection_to_active_tags_in_criterion(criterion)
         if len(criterion.active_tag__ids) == 0:
             filter = "_id='not_there'"
         elif len(criterion.active_tag__ids) != self.tag_count:

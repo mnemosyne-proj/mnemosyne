@@ -66,7 +66,8 @@ Contents
     modules/component_manager
     modules/fact
     modules/fact_view
-    modules/tag   
+    modules/tag
+    modules/tag_tree
     modules/card_type
     modules/card
     modules/card_type_converter    

@@ -1,5 +1,5 @@
 #
-# card_types_tree_wdgt.py <Peter.Bienstman@UGent.be>
+# card_type_tree_wdgt.py <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtCore, QtGui
@@ -16,9 +16,9 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         Component.__init__(self, component_manager)
         QtGui.QWidget.__init__(self, parent)
         self.layout = QtGui.QVBoxLayout(self)
-        self.card_types_tree = QtGui.QTreeWidget(self)
-        self.card_types_tree.setHeaderHidden(True)
-        self.layout.addWidget(self.card_types_tree)
+        self.card_type_tree = QtGui.QTreeWidget(self)
+        self.card_type_tree.setHeaderHidden(True)
+        self.layout.addWidget(self.card_type_tree)
 
     def display(self, criterion):
         # Determine number of cards at each level of the tree.
@@ -35,9 +35,9 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
             count_for_card_type[card_type] = card_type_count 
             root_count += card_type_count
         # Fill widget.
-        self.card_types_tree.clear()
+        self.card_type_tree.clear()
         self.card_type_fact_view_ids_for_node_item = {}
-        root_item = QtGui.QTreeWidgetItem(self.card_types_tree,
+        root_item = QtGui.QTreeWidgetItem(self.card_type_tree,
             [_("All card types (%d)" % (root_count, ))], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
@@ -62,7 +62,7 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
                 fact_view_item.setCheckState(0, check_state)
                 self.card_type_fact_view_ids_for_node_item[fact_view_item] = \
                     (card_type.id, fact_view.id)
-        self.card_types_tree.expandAll()
+        self.card_type_tree.expandAll()
 
     def selection_to_criterion(self, criterion):
         criterion.deactivated_card_type_fact_view_ids = set()
