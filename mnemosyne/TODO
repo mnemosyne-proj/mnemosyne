@@ -1,7 +1,6 @@
--document tag tree
+-dict interface for tag tree
 -test case for hierarchy parsing ["a", "bye bye", "a::b", "a::c", "b::c::d"]
--UNTAGGED always gets added?
--where to put untagged in hierarchy? last, first, top level, just below?
+-test untagged
 
 -save column sizes
 -save sort order

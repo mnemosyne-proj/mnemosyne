@@ -53,7 +53,21 @@
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.tag_tree.TagTree">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.tag_tree.</tt><tt class="descname">TagTree</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.tag_tree.TagTree" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Organises the tags in a hierarchical tree. By convention, hierarchical
+levels in tags are denoted by a :: separator.</p>
+<p>This class is not meant to be instantiated at run time, but rather only
+when it is needed.</p>
+<p>The internal tree datastructure for e.g. the two tags A::B::C and A::B::D
+looks as follows:</p>
+<p>self.tree[_(&#8220;__ALL__&#8221;)] = [&#8220;A::&#8221;]
+self.tree[&#8220;A::&#8221;] = [&#8220;A::B::&#8221;]
+self.tree[&#8220;A::B::&#8221;] = [&#8220;A::B::C&#8221;, &#8220;A::B::D&#8221;]</p>
+<p>Each tree level stores the entire partial tag (i.e. A::B instead of B) to
+guarantee uniqueness.</p>
+<p>Apart from self.tree, this class also contains self.display_name_for_node
+and self.card_count_for_node, with node being the index field in
+self.tree.</p>
+</dd></dl>
 
 </div>
 
@@ -111,7 +125,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Dec 13, 2010.
+      Last updated on Dec 15, 2010.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

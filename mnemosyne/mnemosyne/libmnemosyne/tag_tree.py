@@ -6,17 +6,31 @@ from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
+
 class TagTree(Component):
 
-          # A::B::C and A::B::D
-        # Each tree level stores the entire partial tag (i.e. A::B instead
-        # of B) to guarantee uniqueness.
+    """Organises the tags in a hierarchical tree. By convention, hierarchical
+    levels in tags are denoted by a :: separator.
 
-        # Internal nodes have an id ending on ::, leaves don't end on
-        #self.tree[_("__ALL__")] = ["A::"]
-        #self.tree["A::"] = ["A::B::"]
-        #self.tree["A::B::"] = ["A::B::C", "A::B::D"]
+    This class is not meant to be instantiated at run time, but rather only
+    when it is needed.
 
+    The internal tree datastructure for e.g. the two tags A::B::C and A::B::D
+    looks as follows:
+    
+    self.tree[_("__ALL__")] = ["A::"]
+    self.tree["A::"] = ["A::B::"]
+    self.tree["A::B::"] = ["A::B::C", "A::B::D"]
+
+    Each tree level stores the entire partial tag (i.e. A::B instead of B) to
+    guarantee uniqueness.
+
+    Apart from self.tree, this class also contains self.display_name_for_node
+    and self.card_count_for_node, with node being the index field in
+    self.tree.
+
+    """
+    
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
         self.tree = {"__ALL__": []}
