@@ -43,12 +43,12 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         node = "__ALL__"
         node_name = "%s (%d)" % (self.tag_tree.display_name_for_node[node],
             self.tag_tree.card_count_for_node[node])
-        root = self.tag_tree.tree[node]
+        root = self.tag_tree[node]
         root_item = QtGui.QTreeWidgetItem(self.tag_tree_wdgt, [node_name], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
-        self.create_tree(self.tag_tree.tree[node], qt_parent=root_item)            
+        self.create_tree(self.tag_tree[node], qt_parent=root_item)            
         # Set forbidden tags.
         if len(criterion.forbidden_tag__ids):
             for node_item, tag in self.tag_for_node_item.iteritems():
