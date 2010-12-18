@@ -148,7 +148,7 @@ class QtSyncServer(Component, QtCore.QObject):
             self.thread.sync_ended_signal.connect(\
                 self.load_database)
             self.thread.error_signal.connect(\
-                self.main_widget().error_box)
+                self.main_widget().show_error)
             self.thread.set_progress_text_signal.connect(\
                 self.main_widget().set_progress_text)
             self.thread.set_progress_range_signal.connect(\
