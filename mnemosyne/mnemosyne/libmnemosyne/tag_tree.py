@@ -35,49 +35,41 @@ class TagTree(Component, dict):
         Component.__init__(self, component_manager)
         self["__ALL__"] = []
         self.display_name_for_node = {"__ALL__": _("All tags")}
-        self.card_count_for_node = {"__ALL__": -1}  # To be determined later.
+        self.card_count_for_node = {}
         tag_names = sorted([tag.name for tag in self.database().tags()],
             cmp=numeric_string_cmp)
         for tag_name in tag_names:
-            print 'tag_name', tag_name
+            self.card_count_for_node[tag_name] = \
+                self.database().total_card_count_for_tag\
+                (self.database().get_or_create_tag_with_name(tag_name))
             if tag_name == "__UNTAGGED__":
                 continue  # Add it at the very end for esthetical reasons.
             parent = "__ALL__"
             partial_tag = ""
             levels = tag_name.split("::")
-            # Branches.
-            for node in levels[:-1]:
-                print ' node', node
+            for node in tag_name.split("::"):
+                if partial_tag:
+                    partial_tag += "::"
                 partial_tag += node
-                print ' partial_tag', partial_tag
                 if not partial_tag in self.display_name_for_node:
                     self[parent].append(partial_tag)
-                    self.display_name_for_node[partial_tag] = node
-                    self.card_count_for_node[partial_tag] = -1  # For later. 
+                    self[partial_tag] = []
+                    self.display_name_for_node[partial_tag] = node 
                 parent = partial_tag
-                print ' parent', parent
-            # Leaf.
-            self[parent].append(tag_name)
-            self.display_name_for_node[tag_name] = levels[-1]
-            self.card_count_for_node[tag_name] = \
-                self.database().total_card_count_for_tag\
-                (self.database().get_or_create_tag_with_name(tag_name))
-            print dict(self)
         if "__UNTAGGED__" in tag_names:
             self["__ALL__"].append("__UNTAGGED__")
             self.display_name_for_node["__UNTAGGED__"] = _("Untagged")
-            self.card_count_for_node["__UNTAGGED__"] = \
-                self.database().total_card_count_for_tag\
-                (self.database().get_or_create_tag_with_name("__UNTAGGED__"))
-        self.card_count_for_node["__ALL__"] = \
-            self._determine_card_count("__ALL__")
+            self["__UNTAGGED__"] = []
+        self._determine_card_count("__ALL__")
 
     def _determine_card_count(self, node):
-        if self.card_count_for_node[node] != -1:
-            return self.card_count_for_node[node]
-        self.card_count_for_node[node] = 0
+        count = 0
+        # If an internal node is a full tag too (e.g. when you have both tags
+        # 'A' and 'A::B', be sure to count the upper level too.
+        if node in self.card_count_for_node:
+            count += self.card_count_for_node[node]
+        # Count sublevels.
         for subnode in self[node]:
-            self.card_count_for_node[node] += \
-                self._determine_card_count(subnode)
+            count += self._determine_card_count(subnode)
+        self.card_count_for_node[node] = count
         return self.card_count_for_node[node]
-    

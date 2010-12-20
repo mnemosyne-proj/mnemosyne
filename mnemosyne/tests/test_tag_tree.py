@@ -16,7 +16,8 @@ class TestTagTree(MnemosyneTest):
         self.controller().file_save()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
-        assert len(self.tree.keys()) == 1
+        print self.tree.keys()
+        assert len(self.tree.keys()) == 2
         assert self.tree['__ALL__'] == [u'__UNTAGGED__']
         
     def test_2(self):
@@ -28,7 +29,7 @@ class TestTagTree(MnemosyneTest):
         self.controller().file_save()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
-        assert len(self.tree.keys()) == 1
+        assert len(self.tree.keys()) == 2
         assert self.tree['__ALL__'] == [u'tag_1']
 
     def test_3(self):
@@ -50,12 +51,13 @@ class TestTagTree(MnemosyneTest):
             grade=-1, tag_names=["b::c::d"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
+        assert self.tree.card_count_for_node["__ALL__"] == 5
         assert self.tree.card_count_for_node["a"] == 3
-        assert self.tree.card_count_for_node["Z::"] == 1
+        assert self.tree.card_count_for_node["Z"] == 1
         assert self.tree.card_count_for_node["a::b"] == 1
         assert self.tree.card_count_for_node["a::c"] == 1
-        assert self.tree.card_count_for_node["b::"] == 1
-        assert self.tree.card_count_for_node["b::c::"] == 1
+        assert self.tree.card_count_for_node["b"] == 1
+        assert self.tree.card_count_for_node["b::c"] == 1
         assert self.tree.card_count_for_node["b::c::d"] == 1
         
     def test_4(self):
@@ -77,10 +79,11 @@ class TestTagTree(MnemosyneTest):
             grade=-1, tag_names=["b::c::d"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
+        assert self.tree.card_count_for_node["__ALL__"] == 5
         assert self.tree.card_count_for_node["a"] == 3
-        assert self.tree.card_count_for_node["Z::"] == 1
+        assert self.tree.card_count_for_node["Z"] == 1
         assert self.tree.card_count_for_node["a::b"] == 1
         assert self.tree.card_count_for_node["a::c"] == 1
-        assert self.tree.card_count_for_node["b::"] == 1
-        assert self.tree.card_count_for_node["b::c::"] == 1
+        assert self.tree.card_count_for_node["b"] == 1
+        assert self.tree.card_count_for_node["b::c"] == 1
         assert self.tree.card_count_for_node["b::c::d"] == 1

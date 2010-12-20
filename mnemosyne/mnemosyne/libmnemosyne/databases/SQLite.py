@@ -475,7 +475,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             tag = Tag(name)
             self.add_tag(tag)
         return tag
-
+    
     def add_tag(self, tag):
         _id = self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,

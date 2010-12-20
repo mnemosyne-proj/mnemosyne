@@ -29,16 +29,16 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             node_item = QtGui.QTreeWidgetItem(qt_parent, [node_name], 0)
             node_item.setFlags(node_item.flags() | \
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
-            if type(node) == type([]):
-                self.create_tree(tree=node, qt_parent=node_item)
-            else:
+            if node in self._tag_names:
                 self.tag_for_node_item[node_item] = \
                     self.database().get_or_create_tag_with_name(node)
+            self.create_tree(tree=self.tag_tree[node], qt_parent=node_item)
         
     def display(self, criterion):
         # Create tree.
         self.tag_tree_wdgt.clear()
         self.tag_for_node_item = {}
+        self._tag_names = [tag.name for tag in self.database().tags()]
         self.tag_tree = TagTree(self.component_manager)
         node = "__ALL__"
         node_name = "%s (%d)" % (self.tag_tree.display_name_for_node[node],

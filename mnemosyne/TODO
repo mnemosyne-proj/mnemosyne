@@ -1,7 +1,3 @@
--test case for hierarchy parsing ["a", "Z", "a::b", "a::c", "b::c::d"]
--make sure cards which are only labelled 'a' get counted correctly
-
-
 -save column sizes
 -save sort order
 -edit tag name, also partially. Rebuild wigdet after that. Need to release db connection?
