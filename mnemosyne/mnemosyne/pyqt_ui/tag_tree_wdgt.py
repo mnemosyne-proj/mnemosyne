@@ -7,6 +7,54 @@ from PyQt4 import QtCore, QtGui
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.tag_tree import TagTree
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
+
+
+class TagDelegate(QtGui.QStyledItemDelegate, Component):
+
+    def __init__(self, component_manager, parent=None):
+        Component.__init__(self, component_manager)
+        QtGui.QStyledItemDelegate.__init__(self, parent)
+
+    def createEditor(self, parent, option, index):
+        editor = QtGui.QStyledItemDelegate.createEditor\
+            (self, parent, option, index)
+        editor.returnPressed.connect(self.commit_and_close_editor)
+        return editor
+        
+    def commit_and_close_editor(self):
+        editor = self.sender()
+        print editor.parent().parent()
+        tree = editor.parent().tag_tree_wdgt
+        print tree
+
+        # TODO: rename tags here, on in set_model_data?
+        pass
+        
+
+        # TODO: recreate tree widget.
+        criterion = DefaultCriterion(self.component_manager)
+        for tag in self.database().tags():
+            criterion.active_tag__ids.add(tag._id)
+        tree.display(criterion)
+        tree.display(criterion)
+
+        self.commitData.emit(editor)
+        self.closeEditor.emit(editor)
+
+    def setEditorData(self, editor, index):
+        text = index.model().data(index, QtCore.Qt.DisplayRole).toString()
+        text = unicode(text).rsplit("(", 1)[0][:-1]
+        editor.setText(text)
+
+    def setModelData(self, editor, model, index):
+        # Needed?
+
+        print model
+        print model.display
+        
+        text = editor.text()
+        model.setData(index, QtCore.QVariant(text))
 
 
 class TagsTreeWdgt(QtGui.QWidget, Component):
@@ -19,9 +67,16 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.layout = QtGui.QVBoxLayout(self)
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
         self.tag_tree_wdgt.setHeaderHidden(True)
+        self.tag_tree_wdgt.setItemDelegate(\
+            TagDelegate(component_manager, self))
         self.layout.addWidget(self.tag_tree_wdgt)
 
     def create_tree(self, tree, qt_parent):
+
+        #rename_tag_action = QAction(_("Rename tag"), pContextMenu);
+        #pTreeWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
+        #pTreeWidget->addAction(pTestCard);
+        
         for node in tree:
             node_name = "%s (%d)" % \
                 (self.tag_tree.display_name_for_node[node],
@@ -29,6 +84,9 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             node_item = QtGui.QTreeWidgetItem(qt_parent, [node_name], 0)
             node_item.setFlags(node_item.flags() | \
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
+            if node not in ["__ALL__", "__UNTAGGED__"]:
+                node_item.setFlags(node_item.flags() | \
+                    QtCore.Qt.ItemIsEditable)
             if node in self._tag_names:
                 self.tag_for_node_item[node_item] = \
                     self.database().get_or_create_tag_with_name(node)

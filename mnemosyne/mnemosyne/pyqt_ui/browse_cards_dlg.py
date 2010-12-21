@@ -129,7 +129,7 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
 
     def __init__(self, component_manager, Q_or_A, parent=None):
         Component.__init__(self, component_manager)
-        QtGui.QItemDelegate.__init__(self, parent)
+        QtGui.QStyledItemDelegate.__init__(self, parent)
         self.doc = QtGui.QTextDocument(self)
         self.Q_or_A = Q_or_A
 
@@ -260,7 +260,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.tag_count = query.value(0).toInt()[0]
         self.update_counters()
         # Restore settings.
-        width, height = self.config()["browse_dlg_size"]
+        width, height = self.config()["browse_cards_dlg_size"]
         if width:
             self.resize(width, height)
         splitter_1_sizes = self.config()["browse_cards_dlg_splitter_1"]
@@ -273,7 +273,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.splitter_2.setSizes([333, 630])
         else:
             self.splitter_2.setSizes(splitter_2_sizes)
-                
+        table_settings = self.config()["browse_cards_dlg_table_settings"]
+        if table_settings:
+            self.table.horizontalHeader().restoreState(table_settings)
+            
     def activate(self):
         self.exec_()
 
@@ -333,8 +336,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         
     def closeEvent(self, event):
         self.db.close()
-        self.config()["browse_dlg_size"] = (self.width(), self.height())
+        self.config()["browse_cards_dlg_size"] = (self.width(), self.height())
         self.config()["browse_cards_dlg_splitter_1"] \
             = self.splitter_1.sizes()
         self.config()["browse_cards_dlg_splitter_2"] \
            = self.splitter_2.sizes()        
+        self.config()["browse_cards_dlg_table_settings"] \
+            = self.table.horizontalHeader().saveState()
