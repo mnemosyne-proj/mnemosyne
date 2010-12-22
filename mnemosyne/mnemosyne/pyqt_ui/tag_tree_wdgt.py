@@ -12,6 +12,8 @@ from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
 class TagDelegate(QtGui.QStyledItemDelegate, Component):
 
+    tree_rebuild_needed = QtCore.pyqtSignal()   
+
     def __init__(self, component_manager, parent=None):
         Component.__init__(self, component_manager)
         QtGui.QStyledItemDelegate.__init__(self, parent)
@@ -21,42 +23,19 @@ class TagDelegate(QtGui.QStyledItemDelegate, Component):
             (self, parent, option, index)
         editor.returnPressed.connect(self.commit_and_close_editor)
         return editor
-        
-    def commit_and_close_editor(self):
-        editor = self.sender()
-        print editor.parent().parent()
-        tree = editor.parent().tag_tree_wdgt
-        print tree
-
-        # TODO: rename tags here, on in set_model_data?
-        pass
-        
-
-        # TODO: recreate tree widget.
-        criterion = DefaultCriterion(self.component_manager)
-        for tag in self.database().tags():
-            criterion.active_tag__ids.add(tag._id)
-        tree.display(criterion)
-        tree.display(criterion)
-
-        self.commitData.emit(editor)
-        self.closeEditor.emit(editor)
 
     def setEditorData(self, editor, index):
         text = index.model().data(index, QtCore.Qt.DisplayRole).toString()
         text = unicode(text).rsplit("(", 1)[0][:-1]
         editor.setText(text)
-
-    def setModelData(self, editor, model, index):
-        # Needed?
-
-        print model
-        print model.display
         
-        text = editor.text()
-        model.setData(index, QtCore.QVariant(text))
+    def commit_and_close_editor(self):
+        editor = self.sender()
+        self.closeEditor.emit(editor, QtGui.QAbstractItemDelegate.NoHint)
+        # TODO: rename tags.
+        self.tree_rebuild_needed.emit()
 
-
+    
 class TagsTreeWdgt(QtGui.QWidget, Component):
 
     """Displays all the tags in a tree together with check boxes."""
@@ -67,8 +46,9 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.layout = QtGui.QVBoxLayout(self)
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
         self.tag_tree_wdgt.setHeaderHidden(True)
-        self.tag_tree_wdgt.setItemDelegate(\
-            TagDelegate(component_manager, self))
+        self.delegate = TagDelegate(component_manager, self)
+        self.tag_tree_wdgt.setItemDelegate(self.delegate)
+        self.delegate.tree_rebuild_needed.connect(self.display)
         self.layout.addWidget(self.tag_tree_wdgt)
 
     def create_tree(self, tree, qt_parent):
@@ -92,7 +72,12 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                     self.database().get_or_create_tag_with_name(node)
             self.create_tree(tree=self.tag_tree[node], qt_parent=node_item)
         
-    def display(self, criterion):
+    def display(self, criterion=None):
+        # Create criterion if needed.
+        if criterion is None:
+            criterion = DefaultCriterion(self.component_manager)
+            for tag in self.database().tags():
+                criterion.active_tag__ids.add(tag._id)            
         # Create tree.
         self.tag_tree_wdgt.clear()
         self.tag_for_node_item = {}

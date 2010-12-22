@@ -1,5 +1,11 @@
--edit tag name, also partially. Rebuild wigdet after that. Need to release db connection?
- also with right click menu option
+-edit tag name, also partially.
+-add libmnemosyne functions for tag renaming
+-save previous criterion, so that simple renaming keeps selection? What happens in this case if hierarchy
+ becomes very different?
+-also with right click menu option
+
+-card_browser dialog title
+
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -repopulate tree widgets after editing/deleting
 -add controller logic for after editing/deleting a card in browse cards

@@ -215,11 +215,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.layout_2.addWidget(self.search_box)
         self.splitter_1.insertWidget(1, self.container_2)
         # Fill tree widgets.
-        criterion = DefaultCriterion(self.component_manager)
-        for tag in self.database().tags():
-            criterion.active_tag__ids.add(tag._id)
-        self.card_type_tree_wdgt.display(criterion)
-        self.tag_tree_wdgt.display(criterion)
+        self.card_type_tree_wdgt.display()
+        self.tag_tree_wdgt.display()
         self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
