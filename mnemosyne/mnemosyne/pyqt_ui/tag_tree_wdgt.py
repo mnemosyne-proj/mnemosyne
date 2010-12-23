@@ -9,13 +9,18 @@ from mnemosyne.libmnemosyne.tag_tree import TagTree
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
+# We hijack QTreeWidgetItem a bit and store extra data in hidden columns, so
+# that we don't need to implement a custom tree model.
 
-class TagDelegate(QtGui.QStyledItemDelegate, Component):
+DISPLAY_STRING = 0
+EDIT_STRING = 1
+NODE = 2
+
+class TagDelegate(QtGui.QStyledItemDelegate):
 
     tree_rebuild_needed = QtCore.pyqtSignal()   
 
     def __init__(self, component_manager, parent=None):
-        Component.__init__(self, component_manager)
         QtGui.QStyledItemDelegate.__init__(self, parent)
 
     def createEditor(self, parent, option, index):
@@ -25,9 +30,8 @@ class TagDelegate(QtGui.QStyledItemDelegate, Component):
         return editor
 
     def setEditorData(self, editor, index):
-        text = index.model().data(index, QtCore.Qt.DisplayRole).toString()
-        text = unicode(text).rsplit("(", 1)[0][:-1]
-        editor.setText(text)
+        edit_index = index.model().index(index.row(), EDIT_STRING, index.parent())        
+        editor.setText(index.model().data(edit_index).toString())
         
     def commit_and_close_editor(self):
         editor = self.sender()
@@ -35,7 +39,6 @@ class TagDelegate(QtGui.QStyledItemDelegate, Component):
         # TODO: rename tags.
         self.tree_rebuild_needed.emit()
 
-    
 class TagsTreeWdgt(QtGui.QWidget, Component):
 
     """Displays all the tags in a tree together with check boxes."""
@@ -45,6 +48,10 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         QtGui.QWidget.__init__(self, parent)
         self.layout = QtGui.QVBoxLayout(self)
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
+        self.tag_tree_wdgt.setColumnCount(3)
+        self.tag_tree_wdgt.setColumnHidden(1, True)
+        self.tag_tree_wdgt.setColumnHidden(EDIT_STRING, True)
+        self.tag_tree_wdgt.setColumnHidden(NODE, True)        
         self.tag_tree_wdgt.setHeaderHidden(True)
         self.delegate = TagDelegate(component_manager, self)
         self.tag_tree_wdgt.setItemDelegate(self.delegate)
@@ -61,15 +68,27 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             node_name = "%s (%d)" % \
                 (self.tag_tree.display_name_for_node[node],
                 self.tag_tree.card_count_for_node[node])
-            node_item = QtGui.QTreeWidgetItem(qt_parent, [node_name], 0)
+            node_item = QtGui.QTreeWidgetItem(qt_parent,
+                [node_name, "", node], 0)
             node_item.setFlags(node_item.flags() | \
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
             if node not in ["__ALL__", "__UNTAGGED__"]:
                 node_item.setFlags(node_item.flags() | \
                     QtCore.Qt.ItemIsEditable)
+            # For nodes which correspond to a tag, we show the full
+            # tag name (i.e. all levels including ::), otherwise we
+            # cannot change the hierarchy of the tag.
+            # For internal nodes, we only show the name corresponding to
+            # that level.
             if node in self._tag_names:
                 self.tag_for_node_item[node_item] = \
                     self.database().get_or_create_tag_with_name(node)
+                node_item.setData(EDIT_STRING, QtCore.Qt.DisplayRole,
+                    QtCore.QVariant(QtCore.QString(node)))
+            else:
+                node_item.setData(EDIT_STRING, QtCore.Qt.DisplayRole,
+                    QtCore.QVariant(QtCore.QString(\
+                    self.tag_tree.display_name_for_node[node])))                
             self.create_tree(tree=self.tag_tree[node], qt_parent=node_item)
         
     def display(self, criterion=None):

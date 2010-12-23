@@ -1,4 +1,4 @@
--edit tag name, also partially.
+-tell libmnemosyne which node got renamed and to what (distinguish tag nodes and non-tag nodes)
 -add libmnemosyne functions for tag renaming
 -save previous criterion, so that simple renaming keeps selection? What happens in this case if hierarchy
  becomes very different?
