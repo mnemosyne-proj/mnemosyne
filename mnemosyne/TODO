@@ -204,6 +204,8 @@ pylint:
 
 -hack tarfile to add progress bar?
 -compression on backup to reduce write time to SD card?
+-move from httplib to urllib2 to make use of automatic proxy detection? However, could have
+ an impact on performance/streaming upload.
 
 -'shared deck' export
 -is 'client_info["shared_dack"] the best way to signal this? Or have entirely new
