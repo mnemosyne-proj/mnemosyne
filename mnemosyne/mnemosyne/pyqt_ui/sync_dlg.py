@@ -133,11 +133,11 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         thread = SyncThread(self.config().machine_id(), self.database(),
             server, port, username, password)
         thread.information_signal.connect(\
-            self.main_widget().information_box)
+            self.main_widget().show_information)
         thread.error_signal.connect(\
-            self.main_widget().error_box)
+            self.main_widget().show_error)
         thread.question_signal.connect(\
-            self.threaded_question_box)        
+            self.threaded_show_question)        
         thread.set_progress_text_signal.connect(\
             self.main_widget().set_progress_text)
         thread.set_progress_range_signal.connect(\
