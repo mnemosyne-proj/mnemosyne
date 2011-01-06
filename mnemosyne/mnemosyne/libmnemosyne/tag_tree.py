@@ -29,16 +29,23 @@ class TagTree(Component, dict):
     self.display_name_for_node and self.card_count_for_node, with node being
     the index field for the main dictionary self.
 
+    We also store the full list of tag names, to be able to easily figure out
+    if a node in the tree corresponds to tag or not (Also non-leaf nodes can
+    be associated with a tag).
+
     """
     
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
+        self._rebuild()
+
+    def _rebuild(self):
         self["__ALL__"] = []
         self.display_name_for_node = {"__ALL__": _("All tags")}
         self.card_count_for_node = {}
-        tag_names = sorted([tag.name for tag in self.database().tags()],
+        self.tag_names = sorted([tag.name for tag in self.database().tags()],
             cmp=numeric_string_cmp)
-        for tag_name in tag_names:
+        for tag_name in self.tag_names:
             self.card_count_for_node[tag_name] = \
                 self.database().total_card_count_for_tag\
                 (self.database().get_or_create_tag_with_name(tag_name))
@@ -56,7 +63,7 @@ class TagTree(Component, dict):
                     self[partial_tag] = []
                     self.display_name_for_node[partial_tag] = node 
                 parent = partial_tag
-        if "__UNTAGGED__" in tag_names:
+        if "__UNTAGGED__" in self.tag_names:
             self["__ALL__"].append("__UNTAGGED__")
             self.display_name_for_node["__UNTAGGED__"] = _("Untagged")
             self["__UNTAGGED__"] = []
@@ -66,10 +73,35 @@ class TagTree(Component, dict):
         count = 0
         # If an internal node is a full tag too (e.g. when you have both tags
         # 'A' and 'A::B', be sure to count the upper level too.
-        if node in self.card_count_for_node:
+        if node in self.tag_names:
             count += self.card_count_for_node[node]
         # Count sublevels.
         for subnode in self[node]:
             count += self._determine_card_count(subnode)
         self.card_count_for_node[node] = count
         return self.card_count_for_node[node]
+
+    def _tags_in_subtree(self, node):
+        tags = []
+        # If an internal node is a full tag too (e.g. when you have both tags
+        # 'A' and 'A::B', be sure to include the upper level too.
+        if node in self.tag_names:
+            tags.append(node)
+        # Do sublevels.
+        for subnode in self[node]:
+            tags.extend(self._tags_in_subtree[subnode])
+        return tags
+
+    def rename_node(self, old_node_label, new_node_label):
+        print old_node_label, new_node_label        
+        # leaf node: simple rename of old_node_label to new_node_label
+
+        # internal node without level change
+        #find node itself + all children: replace prefix old with prefix new
+        
+        tags_to_be_renamed = self._tags_in_subtree(old_node_label)
+        print tags_to_be_renamed
+        
+        self._rebuild()
+        
+        

@@ -18,10 +18,11 @@ NODE = 2
 
 class TagDelegate(QtGui.QStyledItemDelegate):
 
-    tree_rebuild_needed = QtCore.pyqtSignal()   
+    rename_node = QtCore.pyqtSignal(unicode, unicode)   
 
     def __init__(self, component_manager, parent=None):
         QtGui.QStyledItemDelegate.__init__(self, parent)
+        self.old_node_label = None
 
     def createEditor(self, parent, option, index):
         editor = QtGui.QStyledItemDelegate.createEditor\
@@ -30,14 +31,17 @@ class TagDelegate(QtGui.QStyledItemDelegate):
         return editor
 
     def setEditorData(self, editor, index):
-        edit_index = index.model().index(index.row(), EDIT_STRING, index.parent())        
+        edit_index = index.model().index(index.row(), \
+            EDIT_STRING, index.parent())    
         editor.setText(index.model().data(edit_index).toString())
+        node_index = index.model().index(index.row(), \
+            NODE, index.parent())
+        self.old_node_label = index.model().data(edit_index).toString()
         
     def commit_and_close_editor(self):
         editor = self.sender()
+        self.rename_node.emit(self.old_node_label, unicode(editor.text()))
         self.closeEditor.emit(editor, QtGui.QAbstractItemDelegate.NoHint)
-        # TODO: rename tags.
-        self.tree_rebuild_needed.emit()
 
 class TagsTreeWdgt(QtGui.QWidget, Component):
 
@@ -55,7 +59,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tag_tree_wdgt.setHeaderHidden(True)
         self.delegate = TagDelegate(component_manager, self)
         self.tag_tree_wdgt.setItemDelegate(self.delegate)
-        self.delegate.tree_rebuild_needed.connect(self.display)
+        self.delegate.rename_node.connect(self.rename_node)
         self.layout.addWidget(self.tag_tree_wdgt)
 
     def create_tree(self, tree, qt_parent):
@@ -75,11 +79,11 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             if node not in ["__ALL__", "__UNTAGGED__"]:
                 node_item.setFlags(node_item.flags() | \
                     QtCore.Qt.ItemIsEditable)
-            # For nodes which correspond to a tag, we show the full
-            # tag name (i.e. all levels including ::), otherwise we
-            # cannot change the hierarchy of the tag.
-            # For internal nodes, we only show the name corresponding to
-            # that level.
+            # Set the string that should be displayed when editing a node.
+            # For nodes which correspond to a tag, we show the full tag name
+            # (i.e. all levels including ::), otherwise we cannot change the
+            # hierarchy of the tag. For internal nodes, we only show the name
+            # corresponding to that level.
             if node in self._tag_names:
                 self.tag_for_node_item[node_item] = \
                     self.database().get_or_create_tag_with_name(node)
@@ -141,4 +145,11 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 criterion.forbidden_tag__ids.add(tag._id)
         criterion.active_tags = set(self.tag_for_node_item.values())
         return criterion
+
+    def rename_node(self, old_node_label, new_node_label):
+        print type(old_name
+        self.tag_tree.rename_node(old_node_label, new_node_label)
+        # Rebuild the tree widget to reflect the changes.
+        self.display()
+        
     
