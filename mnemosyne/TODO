@@ -1,9 +1,14 @@
--for internal nodes which are not tags, also display the full name up till that point.
--need to store tag names in gui too?
--add libmnemosyne functions for tag renaming. Distinguish tag nodes from non-tag nodes. Need tree for this, or can happen only based on list of names?
+-add tests
+-tag strings for cards need to be rebuilt in edit and delete tags
+-what about changing one tag name to another one with the same name? Need to convert then, and remove
+ if unused.
+-reconsider need for update full browse card widget after tag rename. Need to release database first?
+ Really need to update tag count? Probably yes: what about changing one tag to another one with the 
+ same name? Need for remove if unused. Document this
+-add tests
+-also with right click menu option
 -save previous criterion, so that simple renaming keeps selection? What happens in this case if hierarchy
  becomes very different?
--also with right click menu option
 
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -repopulate tree widgets after editing/deleting
@@ -43,7 +48,7 @@
 -remove hard coded dot_mnemosyne2 path in webserver
 -turn off logging in webserver
 
--delay matplotlib instatiation
+-delay matplotlib instantiation
 -profile startup/shutdown
 
 

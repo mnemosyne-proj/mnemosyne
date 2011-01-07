@@ -9,12 +9,11 @@ from mnemosyne.libmnemosyne.tag_tree import TagTree
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
-# We hijack QTreeWidgetItem a bit and store extra data in hidden columns, so
+# We hijack QTreeWidgetItem a bit and store extra data in a hidden column, so
 # that we don't need to implement a custom tree model.
 
 DISPLAY_STRING = 0
-EDIT_STRING = 1
-NODE = 2
+NODE = 1
 
 class TagDelegate(QtGui.QStyledItemDelegate):
 
@@ -31,17 +30,17 @@ class TagDelegate(QtGui.QStyledItemDelegate):
         return editor
 
     def setEditorData(self, editor, index):
-        edit_index = index.model().index(index.row(), \
-            EDIT_STRING, index.parent())    
-        editor.setText(index.model().data(edit_index).toString())
-        node_index = index.model().index(index.row(), \
-            NODE, index.parent())
-        self.old_node_label = index.model().data(edit_index).toString()
+        # We display the full node (i.e. all levels including ::), so that
+        # the hierarchy can be changed upon editing.
+        node_index = index.model().index(index.row(), NODE, index.parent())
+        self.old_node_label = index.model().data(node_index).toString()
+        editor.setText(self.old_node_label)
         
     def commit_and_close_editor(self):
         editor = self.sender()
-        self.rename_node.emit(self.old_node_label, unicode(editor.text()))
+        self.rename_node.emit(self.old_node_label, editor.text())
         self.closeEditor.emit(editor, QtGui.QAbstractItemDelegate.NoHint)
+
 
 class TagsTreeWdgt(QtGui.QWidget, Component):
 
@@ -52,22 +51,19 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         QtGui.QWidget.__init__(self, parent)
         self.layout = QtGui.QVBoxLayout(self)
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
-        self.tag_tree_wdgt.setColumnCount(3)
+        self.tag_tree_wdgt.setColumnCount(2)
         self.tag_tree_wdgt.setColumnHidden(1, True)
-        self.tag_tree_wdgt.setColumnHidden(EDIT_STRING, True)
         self.tag_tree_wdgt.setColumnHidden(NODE, True)        
         self.tag_tree_wdgt.setHeaderHidden(True)
         self.delegate = TagDelegate(component_manager, self)
         self.tag_tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
         self.layout.addWidget(self.tag_tree_wdgt)
-
-    def create_tree(self, tree, qt_parent):
-
         #rename_tag_action = QAction(_("Rename tag"), pContextMenu);
         #pTreeWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
         #pTreeWidget->addAction(pTestCard);
-        
+
+    def create_tree(self, tree, qt_parent):
         for node in tree:
             node_name = "%s (%d)" % \
                 (self.tag_tree.display_name_for_node[node],
@@ -79,20 +75,11 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             if node not in ["__ALL__", "__UNTAGGED__"]:
                 node_item.setFlags(node_item.flags() | \
                     QtCore.Qt.ItemIsEditable)
-            # Set the string that should be displayed when editing a node.
-            # For nodes which correspond to a tag, we show the full tag name
-            # (i.e. all levels including ::), otherwise we cannot change the
-            # hierarchy of the tag. For internal nodes, we only show the name
-            # corresponding to that level.
-            if node in self._tag_names:
+            if node in self.tag_tree.tag_for_node:
                 self.tag_for_node_item[node_item] = \
-                    self.database().get_or_create_tag_with_name(node)
-                node_item.setData(EDIT_STRING, QtCore.Qt.DisplayRole,
-                    QtCore.QVariant(QtCore.QString(node)))
-            else:
-                node_item.setData(EDIT_STRING, QtCore.Qt.DisplayRole,
-                    QtCore.QVariant(QtCore.QString(\
-                    self.tag_tree.display_name_for_node[node])))                
+                    self.tag_tree.tag_for_node[node]
+            node_item.setData(NODE, QtCore.Qt.DisplayRole,
+                    QtCore.QVariant(QtCore.QString(node)))              
             self.create_tree(tree=self.tag_tree[node], qt_parent=node_item)
         
     def display(self, criterion=None):
@@ -104,7 +91,6 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         # Create tree.
         self.tag_tree_wdgt.clear()
         self.tag_for_node_item = {}
-        self._tag_names = [tag.name for tag in self.database().tags()]
         self.tag_tree = TagTree(self.component_manager)
         node = "__ALL__"
         node_name = "%s (%d)" % (self.tag_tree.display_name_for_node[node],
@@ -147,9 +133,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         return criterion
 
     def rename_node(self, old_node_label, new_node_label):
-        print type(old_name
-        self.tag_tree.rename_node(old_node_label, new_node_label)
+        self.tag_tree.rename_node(unicode(old_node_label),
+            unicode(new_node_label))
         # Rebuild the tree widget to reflect the changes.
         self.display()
         
-    

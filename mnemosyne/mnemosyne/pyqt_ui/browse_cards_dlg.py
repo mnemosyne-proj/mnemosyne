@@ -220,7 +220,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
-            itemClicked.connect(self.update_filter)        
+            itemClicked.connect(self.update_filter)
+        self.tag_tree_wdgt.delegate.\
+            rename_node.connect(self.tag_renamed)
         # Set up database.
         self.database().release_connection()
         self.db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
@@ -240,7 +242,6 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         for key, value in headers.iteritems():
               self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
                   QtCore.QVariant(value))
-        self.card_model.select()
         self.table.setModel(self.card_model)
         self.table.setItemDelegateForColumn(\
             QUESTION, QA_Delegate(component_manager, QUESTION, self))
@@ -252,10 +253,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
             self.table.setColumnHidden(column, True)
-        query = QtSql.QSqlQuery("select count() from tags")
-        query.first()
-        self.tag_count = query.value(0).toInt()[0]
-        self.update_counters()
+        self.update_tag_counter()
+        self.update_card_counters()
+        self.card_model.select()
         # Restore settings.
         width, height = self.config()["browse_cards_dlg_size"]
         if width:
@@ -309,9 +309,14 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 % (search_string, search_string)
         self.card_model.setFilter(filter)
         self.card_model.select()
-        self.update_counters()
+        self.update_card_counters()
 
-    def update_counters(self):
+    def update_tag_counter(self):
+        query = QtSql.QSqlQuery("select count() from tags")
+        query.first()
+        self.tag_count = query.value(0).toInt()[0]
+
+    def update_card_counters(self):
         filter = self.card_model.filter()
         # Selected count.
         query_string = "select count() from cards"
@@ -330,6 +335,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         active = query.value(0).toInt()[0]
         self.counter_label.setText(\
             "%d cards selected, of which %d are active" % (selected, active))
+
+    def tag_renamed(self):
+        self.update_tag_counter()
+        self.update_filter()        
         
     def closeEvent(self, event):
         self.db.close()
