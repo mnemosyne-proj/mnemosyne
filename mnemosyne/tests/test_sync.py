@@ -410,7 +410,54 @@ class TestSync(object):
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 13
+        
+    def test_rename_tag(self):
+
+        def test_server(self):
+            pass
             
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.client.mnemosyne.controller().file_save()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            card = db.card(self.client_card.id, id_is_internal=False)
+            tag_string = db.con.execute("select tags from cards where _id=?",
+                (card._id,))
+            assert "TAG_1" in tag_string
+            assert "tag_1" not in tag_string
+            print 'done server'
+            #assert db.con.execute("select count() from log").fetchone()[0] == 13
+                    
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        self.client.mnemosyne.review_controller().reset()
+        self.server.client_card = card
+        
+        tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag_1")
+        tag.name = "TAG_1"
+        self.client.mnemosyne.database().update_tag(tag)
+        print 'done client'
+        #assert self.client.mnemosyne.database().con.execute(\
+        #    "select count() from log").fetchone()[0] == 13
+
+        
     def test_delete_cards(self):
 
         def test_server(self):
@@ -947,9 +994,7 @@ class TestSync(object):
                                              (self.server.card.id, )).fetchone()
         except sqlite3.OperationalError:
             pass
-            
-            
-        
+             
     def test_xml_download_no_old_reps(self):
         
         def fill_server_database(self):

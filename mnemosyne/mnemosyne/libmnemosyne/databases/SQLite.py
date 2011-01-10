@@ -21,6 +21,7 @@ from mnemosyne.libmnemosyne.database import Database
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.utils import traceback_string
+from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from mnemosyne.libmnemosyne.utils import mangle, copy_file_to_dir
 from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
@@ -502,6 +503,22 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.execute("update tags set name=?, extra_data=? where _id=?",
             (tag.name, self._repr_extra_data(tag.extra_data), tag._id))
         self.log().edited_tag(tag)
+        if self.store_pregenerated_data:
+            # Rebuild tag strings for each card. To speed up the process, we
+            # don't construct the entire card object, but take shortcuts.
+            for cursor in self.con.execute("""select _card_id from
+                tags_for_card where _tag_id=?""", (tag._id, )):
+                _card_id = cursor["_card_id"]
+                for cursor2 in self.con.execute("""select _tag_id from
+                    tags_for_card where _card_id=?""", (_card_id, )):
+                    _tag_id = cursor2["_tag_id"]
+                    tags = [sql_res["name"] for sql_res in self.con.execute(\
+                        "select name from tags where _id=?", (_tag_id, ))\
+                        if sql_res["name"] != "__UNTAGGED__"]
+                    sorted_tags = sorted(tags, cmp=numeric_string_cmp)
+                    tag_string = ", ".join(sorted_tags)
+                self.con.execute("update cards set tags=? where _id=?",
+                    (tag_string, _card_id))
     
     def delete_tag(self, tag):
         self.con.execute("delete from tags where _id=?", (tag._id, ))
@@ -509,6 +526,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         for criterion in self.activity_criteria():
             criterion.tag_deleted(tag)
             self.update_activity_criterion(criterion)
+        if self.store_pregenerated_data:
+            pass
+        
         del tag
         
     def remove_tag_if_unused(self, tag):
