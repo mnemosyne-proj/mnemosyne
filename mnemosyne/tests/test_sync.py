@@ -431,17 +431,16 @@ class TestSync(object):
         self.client.mnemosyne.finalise()
         self.server.stop()
         self._wait_for_server_shutdown()
-
+        
         def test_server(self):
             db = self.mnemosyne.database()
             card = db.card(self.client_card.id, id_is_internal=False)
             tag_string = db.con.execute("select tags from cards where _id=?",
-                (card._id,))
+                (card._id,)).fetchone()[0]
             assert "TAG_1" in tag_string
             assert "tag_1" not in tag_string
-            print 'done server'
-            #assert db.con.execute("select count() from log").fetchone()[0] == 13
-                    
+            assert db.con.execute("select count() from log").fetchone()[0] == 21
+        
         self.server = MyServer()
         self.server.test_server = test_server
         self.server.start()
@@ -453,11 +452,10 @@ class TestSync(object):
         tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag_1")
         tag.name = "TAG_1"
         self.client.mnemosyne.database().update_tag(tag)
-        print 'done client'
-        #assert self.client.mnemosyne.database().con.execute(\
-        #    "select count() from log").fetchone()[0] == 13
-
-        
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 21
+      
     def test_delete_cards(self):
 
         def test_server(self):

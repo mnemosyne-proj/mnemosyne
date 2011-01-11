@@ -94,8 +94,9 @@ class Card(CompareOnId):
             (self, render_chain, **render_args)
 
     def tag_string(self):
-        tags = [tag.name for tag in self.tags if tag.name != "__UNTAGGED__"]
-        sorted_tags = sorted(tags, cmp=numeric_string_cmp)
-        return ", ".join(sorted_tags)
+        tag_names = [tag.name for tag in self.tags \
+            if tag.name != "__UNTAGGED__"]
+        sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
+        return ", ".join(sorted_tag_names)
         
     interval = property(lambda self : self.next_rep - self.last_rep)

@@ -508,15 +508,17 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             # don't construct the entire card object, but take shortcuts.
             for cursor in self.con.execute("""select _card_id from
                 tags_for_card where _tag_id=?""", (tag._id, )):
+                tag_names = []
                 _card_id = cursor["_card_id"]
                 for cursor2 in self.con.execute("""select _tag_id from
                     tags_for_card where _card_id=?""", (_card_id, )):
-                    _tag_id = cursor2["_tag_id"]
-                    tags = [sql_res["name"] for sql_res in self.con.execute(\
-                        "select name from tags where _id=?", (_tag_id, ))\
-                        if sql_res["name"] != "__UNTAGGED__"]
-                    sorted_tags = sorted(tags, cmp=numeric_string_cmp)
-                    tag_string = ", ".join(sorted_tags)
+                    tag_name = self.con.execute(\
+                        "select name from tags where _id=?",
+                        (cursor2["_tag_id"], )).fetchone()[0]
+                    if tag_name != "__UNTAGGED__":
+                        tag_names.append(tag_name)
+                sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
+                tag_string = ", ".join(sorted_tag_names)
                 self.con.execute("update cards set tags=? where _id=?",
                     (tag_string, _card_id))
     
