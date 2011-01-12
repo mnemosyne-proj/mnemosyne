@@ -93,6 +93,11 @@ class TagTree(Component, dict):
     def rename_node(self, old_node_label, new_node_label):
         for tag in self._tags_in_subtree(old_node_label):
             tag.name = tag.name.replace(old_node_label, new_node_label, 1)
+            # Corner cases when new_node_label is empty.
+            if tag.name == "":
+                tag.name = "__UNTAGGED__"
+            if tag.name.startswith("::"):
+                tag.name = tag.name[2:]
             self.database().update_tag(tag)
         self.database().save()
         self._rebuild()

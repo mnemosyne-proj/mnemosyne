@@ -500,27 +500,52 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return tag
 
     def update_tag(self, tag):
-        self.con.execute("update tags set name=?, extra_data=? where _id=?",
-            (tag.name, self._repr_extra_data(tag.extra_data), tag._id))
         self.log().edited_tag(tag)
+        # Corner case: change tag name into the name of an existing tag.
+        new_name = tag.name
+        stored_name = self.con.execute("select name from tags where _id=?",
+            (tag._id, )).fetchone()[0]
+        if new_name != stored_name and self.con.execute("""select count() from
+            tags where name=?""", (new_name, )).fetchone()[0] != 0:
+            _existing_tag_id = self.con.execute("""select _id from tags where
+            name=?""", (new_name, )).fetchone()[0]
+            if self.store_pregenerated_data:
+                affected_card__ids = [cursor[0] for cursor in \
+                    self.con.execute(
+                    "select _card_id from tags_for_card where _tag_id=?",
+                    (tag._id, ))]
+            self.con.execute("""update tags_for_card set _tag_id=? where
+                _tag_id=?""", (_existing_tag_id, tag._id))
+            if self.store_pregenerated_data:
+                self._update_tag_strings(affected_card__ids)
+            self.remove_tag_if_unused(tag)
+            return
+        # Regular case.
+        self.con.execute("""update tags set name=?, extra_data=? where
+            _id=?""", (tag.name, self._repr_extra_data(tag.extra_data),
+             tag._id))
         if self.store_pregenerated_data:
-            # Rebuild tag strings for each card. To speed up the process, we
-            # don't construct the entire card object, but take shortcuts.
-            for cursor in self.con.execute("""select _card_id from
-                tags_for_card where _tag_id=?""", (tag._id, )):
-                tag_names = []
-                _card_id = cursor["_card_id"]
-                for cursor2 in self.con.execute("""select _tag_id from
-                    tags_for_card where _card_id=?""", (_card_id, )):
-                    tag_name = self.con.execute(\
-                        "select name from tags where _id=?",
-                        (cursor2["_tag_id"], )).fetchone()[0]
-                    if tag_name != "__UNTAGGED__":
-                        tag_names.append(tag_name)
-                sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
-                tag_string = ", ".join(sorted_tag_names)
-                self.con.execute("update cards set tags=? where _id=?",
-                    (tag_string, _card_id))
+            affected_card__ids = [cursor[0] for cursor in self.con.execute(
+                "select _card_id from tags_for_card where _tag_id=?",
+                (tag._id, ))]
+            self._update_tag_strings(affected_card__ids)
+
+    def _update_tag_strings(self, card__ids):
+        # To speed up the process, we don't construct the entire card object,
+        # but take shortcuts.
+        for _card_id in card__ids:
+            tag_names = []
+            for cursor in self.con.execute("""select _tag_id from
+                tags_for_card where _card_id=?""", (_card_id, )):
+                tag_name = self.con.execute(\
+                    "select name from tags where _id=?",
+                    (cursor["_tag_id"], )).fetchone()[0]
+                if tag_name != "__UNTAGGED__":
+                    tag_names.append(tag_name)
+            sorted_tag_names = sorted(tag_names, cmp=numeric_string_cmp)
+            tag_string = ", ".join(sorted_tag_names)
+            self.con.execute("update cards set tags=? where _id=?",
+                (tag_string, _card_id))            
     
     def delete_tag(self, tag):
         self.con.execute("delete from tags where _id=?", (tag._id, ))

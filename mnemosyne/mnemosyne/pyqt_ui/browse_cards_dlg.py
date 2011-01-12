@@ -337,6 +337,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             "%d cards selected, of which %d are active" % (selected, active))
 
     def tag_renamed(self):
+        # We need to update the tag counter here, as the number of tags could
+        # have changed due to a rename operation (e.g. renaming a tag to an
+        # existing tag).
         self.update_tag_counter()
         self.update_filter()        
         

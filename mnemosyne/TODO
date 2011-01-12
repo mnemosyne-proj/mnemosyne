@@ -1,13 +1,9 @@
--fix test: make sure tag strings get updated after sync too. Need to log update card event in update tag?
--test coverage
--what about changing one tag name to another one with the same name? Need to convert then, and remove
- if unused.
--reconsider need for update full browse card widget after tag rename. Need to release database first?
- Really need to update tag count? Probably yes: what about changing one tag to another one with the 
- same name? Need for remove if unused. Document this
+-clicking on a tag name and not editing it does not restore counter in tag name
+-right click option for tag rename
+
 -tag strings for cards need to be rebuilt in delete tags too. Make sure they are sync resistant.
--add tests
 -also with right click menu option
+
 -save previous criterion, so that simple renaming keeps selection? What happens in this case if hierarchy
  becomes very different?
 
