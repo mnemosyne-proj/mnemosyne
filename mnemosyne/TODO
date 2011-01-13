@@ -1,4 +1,6 @@
--clicking on a tag name and not editing it does not restore counter in tag name
+-full database: make sure to unlock
+-tag_tree_widgt:rename_node is called twice?
+-Don't we create the tag tree twice after editing, once in libmnemosyne and once in gui?
 -right click option for tag rename
 
 -tag strings for cards need to be rebuilt in delete tags too. Make sure they are sync resistant.

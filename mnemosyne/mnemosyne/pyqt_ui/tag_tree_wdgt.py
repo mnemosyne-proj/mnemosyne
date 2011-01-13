@@ -26,7 +26,7 @@ class TagDelegate(QtGui.QStyledItemDelegate):
     def createEditor(self, parent, option, index):
         editor = QtGui.QStyledItemDelegate.createEditor\
             (self, parent, option, index)
-        editor.returnPressed.connect(self.commit_and_close_editor)
+        editor.editingFinished.connect(self.commit_and_close_editor)
         return editor
 
     def setEditorData(self, editor, index):
@@ -48,7 +48,9 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
     def __init__(self, component_manager, parent):
         Component.__init__(self, component_manager)
+        self.tag_tree = TagTree(self.component_manager)
         QtGui.QWidget.__init__(self, parent)
+        self.qt_database = None
         self.layout = QtGui.QVBoxLayout(self)
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
         self.tag_tree_wdgt.setColumnCount(2)
@@ -91,7 +93,6 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         # Create tree.
         self.tag_tree_wdgt.clear()
         self.tag_for_node_item = {}
-        self.tag_tree = TagTree(self.component_manager)
         node = "__ALL__"
         node_name = "%s (%d)" % (self.tag_tree.display_name_for_node[node],
             self.tag_tree.card_count_for_node[node])
@@ -133,8 +134,27 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         return criterion
 
     def rename_node(self, old_node_label, new_node_label):
-        self.tag_tree.rename_node(unicode(old_node_label),
-            unicode(new_node_label))
-        # Rebuild the tree widget to reflect the changes.
+        print 'rename _node', old_node_label, new_node_label
+        old_node_label = unicode(old_node_label)
+        new_node_label = unicode(new_node_label)
+        if old_node_label != new_node_label:
+            if self.qt_database:
+                self.database().release_connection()
+                self.qt_database.close()
+                self.database().release_connection()
+                self.qt_database.close()
+                print 'closed qt_database'
+            self.tag_tree.rename_node(old_node_label, new_node_label)
+            # Rebuild the tree widget to reflect the changes.
+            # Needed?
+            self.tag_tree = TagTree(self.component_manager)
+            if self.qt_database:
+                print 'open qt_database'
+                if not self.qt_database.open():
+                    QtGui.QMessageBox.warning(None, _("Mnemosyne"),
+                        _("Database error: ") + \
+                       self.qt_database.lastError().text())
+                    sys.exit(1)
+        # Update the GUI.
         self.display()
-        
+

@@ -231,6 +231,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             QtGui.QMessageBox.warning(None, _("Mnemosyne"),
                 _("Database error: ") + self.db.lastError().text())
             sys.exit(1)
+        self.tag_tree_wdgt.qt_database = self.db
         self.card_model = CardModel(component_manager)
         self.card_model.setTable("cards")
         headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
