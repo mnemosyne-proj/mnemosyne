@@ -1,5 +1,15 @@
--full database: make sure to unlock
--tag_tree_widgt:rename_node is called twice?
+-Restoring the database connection in Qt after the updates of libmnemosyne still crashes sometimes.
+ set dummy model to the view instead of leaving it dangling removes 'closing error message'
+ main problem comes from 'editing finished' event which fires after underlying database has been removed
+
+
+-update close event of tag browser
+-make sure database unload does not harm in case of using the tag widget in 'browse cards'
+
+-sort order gets lost after tag renaming
+
+-Need to pass db object / browser object to tag tree widget? Clean up seriously.
+
 -Don't we create the tag tree twice after editing, once in libmnemosyne and once in gui?
 -right click option for tag rename
 

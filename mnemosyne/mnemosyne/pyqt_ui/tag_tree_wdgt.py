@@ -26,7 +26,10 @@ class TagDelegate(QtGui.QStyledItemDelegate):
     def createEditor(self, parent, option, index):
         editor = QtGui.QStyledItemDelegate.createEditor\
             (self, parent, option, index)
-        editor.editingFinished.connect(self.commit_and_close_editor)
+        # TODO: clarify
+        
+        #editor.editingFinished.connect(self.commit_and_close_editor)
+        editor.returnPressed.connect(self.commit_and_close_editor)
         return editor
 
     def setEditorData(self, editor, index):
@@ -50,7 +53,6 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         Component.__init__(self, component_manager)
         self.tag_tree = TagTree(self.component_manager)
         QtGui.QWidget.__init__(self, parent)
-        self.qt_database = None
         self.layout = QtGui.QVBoxLayout(self)
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
         self.tag_tree_wdgt.setColumnCount(2)
@@ -138,23 +140,42 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         old_node_label = unicode(old_node_label)
         new_node_label = unicode(new_node_label)
         if old_node_label != new_node_label:
-            if self.qt_database:
+            # TODO: make sure this does not executed in activate cards.
+            if 1:
                 self.database().release_connection()
-                self.qt_database.close()
-                self.database().release_connection()
-                self.qt_database.close()
+                from PyQt4 import QtCore, QtGui, QtSql
+                print self.browse_dlg.card_model.database()
+                self.browse_dlg.card_model.clear()
+
+                model = self.browse_dlg.table.selectionModel()
+                print 'model', model, self.browse_dlg.card_model
+
+                m = QtGui.QStandardItemModel()
+                # This removes: qt_sql_default_connection' is still in use
+                self.browse_dlg.table.setModel(m)
+                
+                del model
+                
+                print self.browse_dlg.card_model.database()
+                print QtSql.QSqlDatabase.database()
+                del self.browse_dlg.card_model
+                QtSql.QSqlDatabase.database().close()
+                QtSql.QSqlDatabase.removeDatabase(QtSql.QSqlDatabase.database().connectionName())
                 print 'closed qt_database'
+                print  QtSql.QSqlDatabase.database()
+                # TODO: remove. Just checking if we can write to the database.
+                self.database().con.execute("""update tags set extra_data='1' where  _id='1'""")
+                print 'done update'
             self.tag_tree.rename_node(old_node_label, new_node_label)
             # Rebuild the tree widget to reflect the changes.
             # Needed?
             self.tag_tree = TagTree(self.component_manager)
-            if self.qt_database:
-                print 'open qt_database'
-                if not self.qt_database.open():
-                    QtGui.QMessageBox.warning(None, _("Mnemosyne"),
-                        _("Database error: ") + \
-                       self.qt_database.lastError().text())
-                    sys.exit(1)
-        # Update the GUI.
+            if 1: #self.qt_database:
+                print 'reopening qt_database'
+                self.browse_dlg._setup_database()
+        # Update the GUI, restoring e.g. card counts for the tags in case of
+        # an aborted edit.
+        print 'before display'
         self.display()
+        print 'after display'
 
