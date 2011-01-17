@@ -1,16 +1,9 @@
--Restoring the database connection in Qt after the updates of libmnemosyne still crashes sometimes.
- set dummy model to the view instead of leaving it dangling removes 'closing error message'
- main problem comes from 'editing finished' event which fires after underlying database has been removed
-
-
--update close event of tag browser
--make sure database unload does not harm in case of using the tag widget in 'browse cards'
-
--sort order gets lost after tag renaming
-
--Need to pass db object / browser object to tag tree widget? Clean up seriously.
-
+-check aborted edit, possible to speed up? Fold tag update count functions in newer function?
+-sort order gets lost after tag renaming. Ditto for table location.
 -Don't we create the tag tree twice after editing, once in libmnemosyne and once in gui?
+-make sure database unload does not harm in case of using the tag widget in 'browse cards'
+-grep TODO
+
 -right click option for tag rename
 
 -tag strings for cards need to be rebuilt in delete tags too. Make sure they are sync resistant.

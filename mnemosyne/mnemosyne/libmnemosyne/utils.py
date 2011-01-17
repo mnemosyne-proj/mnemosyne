@@ -104,7 +104,7 @@ def numeric_string_cmp(s1, s2):
 
     """
     
-    atoi = lambda s: int(s) if s.isdigit() else s
+    atoi = lambda s: int(s) if s.isdigit() else s.lower()
     scan = lambda s: tuple(atoi(str) for str in re.split('(\d+)', s))
     return cmp(scan(s1), scan(s2))
 

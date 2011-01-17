@@ -204,7 +204,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.container_2)
         self.layout_2.addWidget(self.label_2)
         self.tag_tree_wdgt = \
-            TagsTreeWdgt(component_manager, self.container_2)
+            TagsTreeWdgt(component_manager, self.container_2,
+                 self.unload_qt_database, self.display_card_table)
         self.layout_2.addWidget(self.tag_tree_wdgt)
         self.label_3 = QtGui.QLabel(_("containing this text:"),
             self.container_2)
@@ -217,50 +218,13 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # Fill tree widgets.
         self.card_type_tree_wdgt.display()
         self.tag_tree_wdgt.display()
+        self.display_card_table()
         self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.delegate.\
             rename_node.connect(self.tag_renamed)
-
-        
-        self.tag_tree_wdgt.browse_dlg = self
-        
-        # Set up database.
-        self.database().release_connection()
-        db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
-        db.setDatabaseName(self.database().path())
-        if not db.open():
-            QtGui.QMessageBox.warning(None, _("Mnemosyne"),
-                _("Database error: ") + db.lastError().text())
-            sys.exit(1)
-        self.card_model = CardModel(component_manager)
-        self.card_model.setTable("cards")
-        headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
-            TAGS: _("Tags"), GRADE: _("Grade"), NEXT_REP: _("Next rep"),
-            LAST_REP: _("Last rep"), EASINESS: _("Easiness"),
-            ACQ_REPS: _("Acquisition\nreps"),
-            RET_REPS: _("Retention\nreps"), LAPSES: _("Lapses"),
-            CREATION_TIME: _("Created"), MODIFICATION_TIME: _("Modified")}
-        for key, value in headers.iteritems():
-              self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
-                  QtCore.QVariant(value))
-        self.table.setModel(self.card_model)
-        self.table.setItemDelegateForColumn(\
-            QUESTION, QA_Delegate(component_manager, QUESTION, self))
-        self.table.setItemDelegateForColumn(\
-            ANSWER, QA_Delegate(component_manager, ANSWER, self))
-        self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-        self.table.verticalHeader().hide()
-        for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
-            ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
-            EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
-            self.table.setColumnHidden(column, True)
-        self.update_tag_counter()
-        self.update_card_counters()
-        self.card_model.select()
-        
         # Restore settings.
         width, height = self.config()["browse_cards_dlg_size"]
         if width:
@@ -275,9 +239,52 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.splitter_2.setSizes([333, 630])
         else:
             self.splitter_2.setSizes(splitter_2_sizes)
+
+    def load_qt_database(self):
+        self.database().release_connection()
+        qt_db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
+        qt_db.setDatabaseName(self.database().path())
+        if not qt_db.open():
+            QtGui.QMessageBox.warning(None, _("Mnemosyne"),
+                _("Database error: ") + qt_db.lastError().text())
+            sys.exit(1)
+
+    def unload_qt_database(self):
+        self.table.setModel(QtGui.QStandardItemModel())
+        del self.card_model
+        QtSql.QSqlDatabase.removeDatabase(\
+            QtSql.QSqlDatabase.database().connectionName())
+
+    def display_card_table(self):
+        self.load_qt_database()
+        self.card_model = CardModel(self.component_manager)
+        self.card_model.setTable("cards")
+        headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
+            TAGS: _("Tags"), GRADE: _("Grade"), NEXT_REP: _("Next rep"),
+            LAST_REP: _("Last rep"), EASINESS: _("Easiness"),
+            ACQ_REPS: _("Acquisition\nreps"),
+            RET_REPS: _("Retention\nreps"), LAPSES: _("Lapses"),
+            CREATION_TIME: _("Created"), MODIFICATION_TIME: _("Modified")}
+        for key, value in headers.iteritems():
+              self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
+                  QtCore.QVariant(value))
+        self.table.setModel(self.card_model)
         table_settings = self.config()["browse_cards_dlg_table_settings"]
         if table_settings:
             self.table.horizontalHeader().restoreState(table_settings)
+        self.table.setItemDelegateForColumn(\
+            QUESTION, QA_Delegate(self.component_manager, QUESTION, self))
+        self.table.setItemDelegateForColumn(\
+            ANSWER, QA_Delegate(self.component_manager, ANSWER, self))
+        self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        self.table.verticalHeader().hide()
+        for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
+            ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
+            EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
+            self.table.setColumnHidden(column, True)
+        self.update_tag_counter()
+        self.update_card_counters()
+        self.card_model.select()            
             
     def activate(self):
         self.exec_()
@@ -342,6 +349,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             "%d cards selected, of which %d are active" % (selected, active))
 
     def tag_renamed(self):
+
+        # TODO: fold this into display?
+        
         # We need to update the tag counter here, as the number of tags could
         # have changed due to a rename operation (e.g. renaming a tag to an
         # existing tag).
@@ -349,10 +359,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.update_filter()        
         
     def closeEvent(self, event):
-        # TODO: clean up.
-        QtSql.QSqlDatabase.database().close()
-        QtSql.QSqlDatabase.removeDatabase(QtSql.QSqlDatabase.database().connectionName())
-                
+        self.unload_qt_database()                
         self.config()["browse_cards_dlg_size"] = (self.width(), self.height())
         self.config()["browse_cards_dlg_splitter_1"] \
             = self.splitter_1.sizes()
@@ -360,37 +367,3 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
            = self.splitter_2.sizes()        
         self.config()["browse_cards_dlg_table_settings"] \
             = self.table.horizontalHeader().saveState()
-
-    def _setup_database(self):
-        self.database().release_connection()
-        db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
-        db.setDatabaseName(self.database().path())
-        if not db.open():
-            QtGui.QMessageBox.warning(None, _("Mnemosyne"),
-                _("Database error: ") + db.lastError().text())
-            sys.exit(1)
-        self.card_model = CardModel(self.component_manager)
-        self.card_model.setTable("cards")
-        headers = {QUESTION: _("Question"), ANSWER: _("Answer"),
-            TAGS: _("Tags"), GRADE: _("Grade"), NEXT_REP: _("Next rep"),
-            LAST_REP: _("Last rep"), EASINESS: _("Easiness"),
-            ACQ_REPS: _("Acquisition\nreps"),
-            RET_REPS: _("Retention\nreps"), LAPSES: _("Lapses"),
-            CREATION_TIME: _("Created"), MODIFICATION_TIME: _("Modified")}
-        for key, value in headers.iteritems():
-              self.card_model.setHeaderData(key, QtCore.Qt.Horizontal,
-                  QtCore.QVariant(value))
-        self.table.setModel(self.card_model)
-        self.table.setItemDelegateForColumn(\
-            QUESTION, QA_Delegate(self.component_manager, QUESTION, self))
-        self.table.setItemDelegateForColumn(\
-            ANSWER, QA_Delegate(self.component_manager, ANSWER, self))
-        self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-        self.table.verticalHeader().hide()
-        for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
-            ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
-            EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
-            self.table.setColumnHidden(column, True)
-        self.update_tag_counter()
-        self.update_card_counters()
-        self.card_model.select()
