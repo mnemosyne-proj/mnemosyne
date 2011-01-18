@@ -25,11 +25,8 @@ class TagDelegate(QtGui.QStyledItemDelegate):
 
     def createEditor(self, parent, option, index):
         editor = QtGui.QStyledItemDelegate.createEditor\
-            (self, parent, option, index)
-        # TODO: clarify
-        
-        #editor.editingFinished.connect(self.commit_and_close_editor)
-        editor.returnPressed.connect(self.commit_and_close_editor)
+            (self, parent, option, index)        
+        editor.editingFinished.connect(self.commit_and_close_editor)
         return editor
 
     def setEditorData(self, editor, index):
@@ -112,7 +109,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
-        self.create_tree(self.tag_tree[node], qt_parent=root_item)            
+        self.create_tree(self.tag_tree[node], qt_parent=root_item)
         # Set forbidden tags.
         if len(criterion.forbidden_tag__ids):
             for node_item, tag in self.tag_for_node_item.iteritems():
@@ -147,17 +144,24 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def rename_node(self, old_node_label, new_node_label):
         old_node_label = unicode(old_node_label)
         new_node_label = unicode(new_node_label)
+        # Case 1: regular rename.
         if old_node_label != new_node_label:
             if self.before_libmnemosyne_db:
                 self.before_libmnemosyne_db()
             self.tag_tree.rename_node(old_node_label, new_node_label)
-            # Rebuild the tree widget to reflect the changes.
-            # TODO: Needed?
-            self.tag_tree = TagTree(self.component_manager)
             if self.after_libmnemosyne_db:
                 self.after_libmnemosyne_db()
-        # Update the GUI, restoring e.g. card counts for the tags in case of
-        # an aborted edit.
-        # TODO: needed?
-        self.display()
+            # Rebuild the tree widget to reflect the changes.
+            self.display()
+        else:
+            # Case 2: aborted edit, we need to redraw the tree to show the
+            # card counts again.
+            if old_node_label in self.tag_tree:
+                self.display()
+            # Case 3: extra event after regular rename, caused by hooking up
+            # 'editor.editingFinished' (to treat caes 2) as opposed to
+            # 'editor.returnPressed'. We need to ignore this, otherwise we get
+            # crashes.
+            else:
+                return
 

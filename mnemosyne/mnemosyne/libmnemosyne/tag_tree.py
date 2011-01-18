@@ -36,6 +36,8 @@ class TagTree(Component, dict):
         self._rebuild()
 
     def _rebuild(self):
+        for key in dict(self):
+            del self[key]
         self["__ALL__"] = []
         self.display_name_for_node = {"__ALL__": _("All tags")}
         self.card_count_for_node = {}

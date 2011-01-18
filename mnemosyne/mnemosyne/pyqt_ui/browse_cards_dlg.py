@@ -184,6 +184,11 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
 
     def __init__(self, component_manager):
+
+
+        self.index = None
+
+        
         BrowseCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
@@ -223,8 +228,6 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
             itemClicked.connect(self.update_filter)
-        self.tag_tree_wdgt.delegate.\
-            rename_node.connect(self.tag_renamed)
         # Restore settings.
         width, height = self.config()["browse_cards_dlg_size"]
         if width:
@@ -250,6 +253,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             sys.exit(1)
 
     def unload_qt_database(self):
+        self.index = self.table.indexAt(QtCore.QPoint(0,0))
+        print 'index', self.index, self.index.row()
+        self.config()["browse_cards_dlg_table_settings"] \
+            = self.table.horizontalHeader().saveState()
         self.table.setModel(QtGui.QStandardItemModel())
         del self.card_model
         QtSql.QSqlDatabase.removeDatabase(\
@@ -282,9 +289,24 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
             self.table.setColumnHidden(column, True)
-        self.update_tag_counter()
+        query = QtSql.QSqlQuery("select count() from tags")
+        query.first()
+        self.tag_count = query.value(0).toInt()[0]
         self.update_card_counters()
-        self.card_model.select()            
+        self.card_model.select()
+
+        if self.index:
+            print 'select1', self.index, self.index.row()
+            self.index = self.card_model.index(self.index.row(), self.index.column())
+            print 'select2', self.index, self.index.row()
+            print self.index.isValid()
+            #self.table.setColumnHidden(0, False)
+            self.table.scrollTo(self.index, QtGui.QAbstractItemView.PositionAtTop)
+            #self.table.setColumnHidden(0, True)
+            print 'after', self.table.indexAt(QtCore.QPoint(0,0)),  self.table.indexAt(QtCore.QPoint(0,0)).row()
+
+
+
             
     def activate(self):
         self.exec_()
@@ -323,11 +345,6 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.card_model.select()
         self.update_card_counters()
 
-    def update_tag_counter(self):
-        query = QtSql.QSqlQuery("select count() from tags")
-        query.first()
-        self.tag_count = query.value(0).toInt()[0]
-
     def update_card_counters(self):
         filter = self.card_model.filter()
         # Selected count.
@@ -346,17 +363,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         query.first()
         active = query.value(0).toInt()[0]
         self.counter_label.setText(\
-            "%d cards selected, of which %d are active" % (selected, active))
-
-    def tag_renamed(self):
-
-        # TODO: fold this into display?
-        
-        # We need to update the tag counter here, as the number of tags could
-        # have changed due to a rename operation (e.g. renaming a tag to an
-        # existing tag).
-        self.update_tag_counter()
-        self.update_filter()        
+            "%d cards selected, of which %d are active" % (selected, active))   
         
     def closeEvent(self, event):
         self.unload_qt_database()                
