@@ -184,14 +184,10 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
 class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
 
     def __init__(self, component_manager):
-
-
-        self.index = None
-
-        
         BrowseCardsDialog.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.saved_index = None
         # Set up card type tree.
         self.container_1 = QtGui.QWidget(self.splitter_1)
         self.layout_1 = QtGui.QVBoxLayout(self.container_1)
@@ -253,8 +249,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             sys.exit(1)
 
     def unload_qt_database(self):
-        self.index = self.table.indexAt(QtCore.QPoint(0,0))
-        print 'index', self.index, self.index.row()
+        self.saved_index = self.table.indexAt(QtCore.QPoint(0,0))
         self.config()["browse_cards_dlg_table_settings"] \
             = self.table.horizontalHeader().saveState()
         self.table.setModel(QtGui.QStandardItemModel())
@@ -292,21 +287,18 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         query = QtSql.QSqlQuery("select count() from tags")
         query.first()
         self.tag_count = query.value(0).toInt()[0]
+        self.update_filter() # Need after tag rename.
         self.update_card_counters()
-        self.card_model.select()
-
-        if self.index:
-            print 'select1', self.index, self.index.row()
-            self.index = self.card_model.index(self.index.row(), self.index.column())
-            print 'select2', self.index, self.index.row()
-            print self.index.isValid()
-            #self.table.setColumnHidden(0, False)
-            self.table.scrollTo(self.index, QtGui.QAbstractItemView.PositionAtTop)
-            #self.table.setColumnHidden(0, True)
-            print 'after', self.table.indexAt(QtCore.QPoint(0,0)),  self.table.indexAt(QtCore.QPoint(0,0)).row()
-
-
-
+        self.card_model.select()   
+        if self.saved_index:
+            # All of the statements below are needed.
+            # Qt does not (yet) seem to allow to restore the previous column
+            # correctly.
+            self.saved_index = self.card_model.index(self.saved_index.row(),
+                self.saved_index.column())
+            self.table.scrollTo(self.saved_index)
+            self.table.scrollTo(self.saved_index,
+                QtGui.QAbstractItemView.PositionAtTop)
             
     def activate(self):
         self.exec_()

@@ -144,20 +144,30 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def rename_node(self, old_node_label, new_node_label):
         old_node_label = unicode(old_node_label)
         new_node_label = unicode(new_node_label)
+        saved_criterion = DefaultCriterion(self.component_manager)
+        self.selection_to_active_tags_in_criterion(saved_criterion)
         # Case 1: regular rename.
         if old_node_label != new_node_label:
             if self.before_libmnemosyne_db:
                 self.before_libmnemosyne_db()
             self.tag_tree.rename_node(old_node_label, new_node_label)
+            # Rebuild the tree widget to reflect the changes.
+            new_criterion = DefaultCriterion(self.component_manager)
+            for tag in self.database().tags():
+                if tag._id in saved_criterion.active_tag__ids:
+                    new_criterion.active_tag__ids.add(tag._id)  
+            self.display(new_criterion)
             if self.after_libmnemosyne_db:
                 self.after_libmnemosyne_db()
-            # Rebuild the tree widget to reflect the changes.
-            self.display()
         else:
             # Case 2: aborted edit, we need to redraw the tree to show the
             # card counts again.
             if old_node_label in self.tag_tree:
-                self.display()
+                new_criterion = DefaultCriterion(self.component_manager)
+                for tag in self.database().tags():
+                    if tag._id in saved_criterion.active_tag__ids:
+                        new_criterion.active_tag__ids.add(tag._id)  
+                self.display(new_criterion)
             # Case 3: extra event after regular rename, caused by hooking up
             # 'editor.editingFinished' (to treat caes 2) as opposed to
             # 'editor.returnPressed'. We need to ignore this, otherwise we get

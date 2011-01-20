@@ -1,11 +1,6 @@
--save table location. Making sure it's visible, add a paint event? Force column?
- try it immedialetly after first dialog instantiation too.
--save previous criterion, so that simple renaming keeps selection? What happens in this case if hierarchy
- becomes very different?
--make sure database unload does not harm in case of using the tag widget in 'browse cards'
-
 -right click option for tag rename
 
+-tag delete
 -tag strings for cards need to be rebuilt in delete tags too. Make sure they are sync resistant.
 -also with right click menu option
 
@@ -57,6 +52,7 @@
 -add doc on how to write plugin to sfinx doc
 
 -Qt bug? different font size in edit box and in css
+-Qt bug? Cannot restore scroll_to column in card browser after tag rename.
 
 -windows: test auto upgrade
 -windows: test unicode filenames in sync protocol

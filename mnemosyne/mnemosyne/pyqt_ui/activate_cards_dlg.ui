@@ -53,8 +53,8 @@
            <property name="text">
             <string>&amp;OK</string>
            </property>
-           <property name="default">
-            <bool>true</bool>
+           <property name="autoDefault">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -76,6 +76,9 @@
            <property name="text">
             <string>&amp;Save this set for later use</string>
            </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -95,6 +98,9 @@
           <widget class="QPushButton" name="cancel_button">
            <property name="text">
             <string>&amp;Cancel</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
