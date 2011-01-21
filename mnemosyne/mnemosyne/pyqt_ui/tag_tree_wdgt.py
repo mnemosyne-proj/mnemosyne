@@ -65,14 +65,48 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tag_tree_wdgt.setColumnHidden(1, True)
         self.tag_tree_wdgt.setColumnHidden(NODE, True)        
         self.tag_tree_wdgt.setHeaderHidden(True)
+        self.tag_tree_wdgt.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.delegate = TagDelegate(component_manager, self)
         self.tag_tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
         self.layout.addWidget(self.tag_tree_wdgt)
-        #rename_tag_action = QAction(_("Rename tag"), pContextMenu);
-        #pTreeWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
-        #pTreeWidget->addAction(pTestCard);
+        self.tag_tree_wdgt.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.tag_tree_wdgt.customContextMenuRequested.connect(self.context_menu)
 
+    def context_menu(self, point):
+        menu = QtGui.QMenu(self)    
+        rename_tag_action = QtGui.QAction(_("Re&name tag"), menu)
+        rename_tag_action.setShortcut(QtCore.Qt.Key_Enter)
+        rename_tag_action.triggered.connect(self.menu_rename)
+        menu.addAction(rename_tag_action)
+        remove_tag_action = QtGui.QAction(_("Re&move tag"), menu)
+        remove_tag_action.setShortcut(QtGui.QKeySequence.Delete)
+        remove_tag_action.triggered.connect(self.menu_remove)
+        menu.addAction(remove_tag_action)            
+        if len(self.tag_tree_wdgt.selectedIndexes()) > 1:
+            rename_tag_action.setEnabled(False)
+            remove_tag_action.setText(_("Re&move tags"))
+        if len(self.tag_tree_wdgt.selectedIndexes()) >= 1:
+            menu.exec_(self.tag_tree_wdgt.mapToGlobal(point))
+
+    def menu_rename(self):
+        # We display the full node (i.e. all levels including ::), so that
+        # the hierarchy can be changed upon editing.
+        index = self.tag_tree_wdgt.selectedIndexes()[0]        
+        node_index = index.model().index(index.row(), NODE, index.parent())
+        self.old_node_label = index.model().data(node_index).toString()
+        print self.old_node_label
+        
+    def menu_remove(self):
+        for index in self.tag_tree_wdgt.selectedIndexes():
+            print 'delete', index
+
+    def keyPressEvent(self, event):
+        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
+            self.menu_rename()
+        elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
+            self.menu_remove()
+        
     def create_tree(self, tree, qt_parent):
         for node in tree:
             node_name = "%s (%d)" % \

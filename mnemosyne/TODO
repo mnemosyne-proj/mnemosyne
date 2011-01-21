@@ -1,3 +1,4 @@
+-make sure we can't remove/rename 'all tags', 'untagged' through menu
 -right click option for tag rename
 
 -tag delete
