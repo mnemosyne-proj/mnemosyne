@@ -553,7 +553,14 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         for criterion in self.activity_criteria():
             criterion.tag_deleted(tag)
             self.update_activity_criterion(criterion)
+
+
+        # TODO: delete also from tags_for_card.
         if self.store_pregenerated_data:
+            affected_card__ids = [cursor[0] for cursor in self.con.execute(
+                "select _card_id from tags_for_card where _tag_id=?",
+                (tag._id, ))]
+            self._update_tag_strings(affected_card__ids)
             pass
         
         del tag

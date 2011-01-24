@@ -73,8 +73,18 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tag_tree_wdgt.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tag_tree_wdgt.customContextMenuRequested.connect(self.context_menu)
 
+    def selected_non_read_indices(self):
+        indices = []
+        for index in self.tag_tree_wdgt.selectedIndexes():
+            node_index = \
+                index.model().index(index.row(), NODE, index.parent())
+            if index.model().data(node_index).toString() not in \
+                ["__ALL__", "__UNTAGGED__"]:
+                indices.append(index)
+        return indices
+
     def context_menu(self, point):
-        menu = QtGui.QMenu(self)    
+        menu = QtGui.QMenu(self)
         rename_tag_action = QtGui.QAction(_("Re&name tag"), menu)
         rename_tag_action.setShortcut(QtCore.Qt.Key_Enter)
         rename_tag_action.triggered.connect(self.menu_rename)
@@ -82,23 +92,34 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         remove_tag_action = QtGui.QAction(_("Re&move tag"), menu)
         remove_tag_action.setShortcut(QtGui.QKeySequence.Delete)
         remove_tag_action.triggered.connect(self.menu_remove)
-        menu.addAction(remove_tag_action)            
-        if len(self.tag_tree_wdgt.selectedIndexes()) > 1:
+        menu.addAction(remove_tag_action)
+        indices = self.selected_non_read_indices()
+        if len(indices) > 1:
             rename_tag_action.setEnabled(False)
             remove_tag_action.setText(_("Re&move tags"))
-        if len(self.tag_tree_wdgt.selectedIndexes()) >= 1:
+        if len(indices) >= 1:
             menu.exec_(self.tag_tree_wdgt.mapToGlobal(point))
 
     def menu_rename(self):
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
-        index = self.tag_tree_wdgt.selectedIndexes()[0]        
+        index = self.selected_non_read_indices()[0]        
         node_index = index.model().index(index.row(), NODE, index.parent())
-        self.old_node_label = index.model().data(node_index).toString()
-        print self.old_node_label
+        old_node_label = index.model().data(node_index).toString()
+
+        from mnemosyne.pyqt_ui.ui_rename_tag_dlg import Ui_RenameTagDlg        
+        class RenameDlg(QtGui.QDialog, Ui_RenameTagDlg):          
+            def __init__(self, old_node_label):
+                QtGui.QDialog.__init__(self)
+                self.setupUi(self)
+                self.tag_name.setText(old_node_label)
+
+        dlg = RenameDlg(old_node_label)  
+        if dlg.exec_() == QtGui.QDialog.Accepted:
+            self.rename_node(old_node_label, unicode(dlg.tag_name.text()))
         
     def menu_remove(self):
-        for index in self.tag_tree_wdgt.selectedIndexes():
+        for index in self.selected_non_read_indices():        
             print 'delete', index
 
     def keyPressEvent(self, event):
@@ -112,8 +133,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             node_name = "%s (%d)" % \
                 (self.tag_tree.display_name_for_node[node],
                 self.tag_tree.card_count_for_node[node])
-            node_item = QtGui.QTreeWidgetItem(qt_parent,
-                [node_name, "", node], 0)
+            node_item = QtGui.QTreeWidgetItem(qt_parent, [node_name, node], 0)
             node_item.setFlags(node_item.flags() | \
                 QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
             if node not in ["__ALL__", "__UNTAGGED__"]:
@@ -139,7 +159,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         node_name = "%s (%d)" % (self.tag_tree.display_name_for_node[node],
             self.tag_tree.card_count_for_node[node])
         root = self.tag_tree[node]
-        root_item = QtGui.QTreeWidgetItem(self.tag_tree_wdgt, [node_name], 0)
+        root_item = QtGui.QTreeWidgetItem(\
+            self.tag_tree_wdgt, [node_name, node], 0)
         root_item.setFlags(root_item.flags() | \
            QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsTristate)
         root_item.setCheckState(0, QtCore.Qt.Checked)
@@ -203,7 +224,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                         new_criterion.active_tag__ids.add(tag._id)  
                 self.display(new_criterion)
             # Case 3: extra event after regular rename, caused by hooking up
-            # 'editor.editingFinished' (to treat caes 2) as opposed to
+            # 'editor.editingFinished' (to treat case 2) as opposed to
             # 'editor.returnPressed'. We need to ignore this, otherwise we get
             # crashes.
             else:

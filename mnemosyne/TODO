@@ -1,9 +1,5 @@
--make sure we can't remove/rename 'all tags', 'untagged' through menu
--right click option for tag rename
-
+-tag strings for cards need to be rebuilt in delete tags too. Make sure they are sync resistant. (add tests)
 -tag delete
--tag strings for cards need to be rebuilt in delete tags too. Make sure they are sync resistant.
--also with right click menu option
 
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -repopulate tree widgets after editing/deleting
