@@ -103,5 +103,9 @@ class TagTree(Component, dict):
             self.database().update_tag(tag)
         self.database().save()
         self._rebuild()
-        
-        
+             
+    def delete_subtree(self, node):
+        for tag in self._tags_in_subtree(node):
+            self.database().delete_tag(tag)
+        self.database().save()
+        self._rebuild()

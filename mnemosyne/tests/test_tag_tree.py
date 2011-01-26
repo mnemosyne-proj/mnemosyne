@@ -12,7 +12,7 @@ class TestTagTree(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=[])[0]
+            grade=-1, tag_names=[])[0]
         self.controller().file_save()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
@@ -25,7 +25,7 @@ class TestTagTree(MnemosyneTest):
                      "a": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["tag_1"])[0]
+            grade=-1, tag_names=["tag_1"])[0]
         self.controller().file_save()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
@@ -191,3 +191,123 @@ class TestTagTree(MnemosyneTest):
         assert self.tree.card_count_for_node["__UNTAGGED__"] == 1
         assert self.tree.card_count_for_node["tag1"] == 1
         assert len(self.database().tags()) == 2
+
+    def test_delete(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "question4",  "a": "answer4"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a::b"])[0]
+        fact_data = {"q": "question", "a": "answer"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]         
+        fact_data = {"q": "question2", "a": "answer2"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["Z"])[0]
+        fact_data = {"q": "question3",  "a": "answer3"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a::c"])[0]
+        fact_data = {"q": "question5",  "a": "answer5"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["b::c::d"])[0]
+        from mnemosyne.libmnemosyne.tag_tree import TagTree
+        self.tree = TagTree(self.mnemosyne.component_manager)
+        assert self.tree.card_count_for_node["__ALL__"] == 5
+        assert self.tree.card_count_for_node["a"] == 3
+        assert self.tree.card_count_for_node["Z"] == 1
+        assert self.tree.card_count_for_node["a::b"] == 1
+        assert self.tree.card_count_for_node["a::c"] == 1
+        assert self.tree.card_count_for_node["b"] == 1
+        assert self.tree.card_count_for_node["b::c"] == 1
+        assert self.tree.card_count_for_node["b::c::d"] == 1
+        
+        self.tree.delete_subtree("b::c")
+
+        card = self.database().card(card._id, id_is_internal=True)
+        assert card.tag_string() == ""
+        self.database().con.execute("select tags from cards where _id=?",
+            (card._id, )).fetchone()[0] == ""
+        
+        assert self.tree.card_count_for_node["__ALL__"] == 5
+        assert self.tree.card_count_for_node["a"] == 3
+        assert self.tree.card_count_for_node["Z"] == 1
+        assert self.tree.card_count_for_node["a::b"] == 1
+        assert self.tree.card_count_for_node["a::c"] == 1
+        assert self.tree.card_count_for_node["__UNTAGGED__"] == 1
+        assert "b" not in self.tree.card_count_for_node
+        assert "b::c" not in self.tree.card_count_for_node
+        assert "b::c::d" not in self.tree.card_count_for_node
+        
+    def test_delete_2(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "question4",  "a": "answer4"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a::b"])[0]
+        fact_data = {"q": "question", "a": "answer"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]         
+        fact_data = {"q": "question2", "a": "answer2"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["Z"])[0]
+        fact_data = {"q": "question3",  "a": "answer3"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a::c"])[0]
+        fact_data = {"q": "question5",  "a": "answer5"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["b::c::d", "b"])[0]
+        from mnemosyne.libmnemosyne.tag_tree import TagTree
+        self.tree = TagTree(self.mnemosyne.component_manager)
+        
+        assert self.tree.card_count_for_node["__ALL__"] == 5
+        assert self.tree.card_count_for_node["a"] == 3
+        assert self.tree.card_count_for_node["Z"] == 1
+        assert self.tree.card_count_for_node["a::b"] == 1
+        assert self.tree.card_count_for_node["a::c"] == 1
+        assert self.tree.card_count_for_node["b"] == 1
+        assert self.tree.card_count_for_node["b::c"] == 1
+        assert self.tree.card_count_for_node["b::c::d"] == 1
+        
+        self.tree.delete_subtree("b::c")
+        print self.tree.card_count_for_node
+        card = self.database().card(card._id, id_is_internal=True)
+        assert card.tag_string() == "b"
+        self.database().con.execute("select tags from cards where _id=?",
+            (card._id, )).fetchone()[0] == "b"
+        
+        assert self.tree.card_count_for_node["__ALL__"] == 5
+        assert self.tree.card_count_for_node["a"] == 3
+        assert self.tree.card_count_for_node["Z"] == 1
+        assert self.tree.card_count_for_node["a::b"] == 1
+        assert self.tree.card_count_for_node["a::c"] == 1
+        assert self.tree.card_count_for_node["b"] == 1
+        assert "__UNTAGGED__" not in self.tree.card_count_for_node == 1
+        assert "b::c" not in self.tree.card_count_for_node
+        assert "b::c::d" not in self.tree.card_count_for_node
+
+    def test_count_1(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "question4",  "a": "answer4"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]
+        fact_data = {"q": "question", "a": "answer"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a", "b"])[0]
+        
+        from mnemosyne.libmnemosyne.tag_tree import TagTree
+        self.tree = TagTree(self.mnemosyne.component_manager)
+        
+        assert self.tree.card_count_for_node["__ALL__"] == 2
+        
+    def test_count_2(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "question4",  "a": "answer4"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["X::a"])[0]
+        fact_data = {"q": "question", "a": "answer"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["X::a", "X::b"])[0]
+        
+        from mnemosyne.libmnemosyne.tag_tree import TagTree
+        self.tree = TagTree(self.mnemosyne.component_manager)
+        
+        assert self.tree.card_count_for_node["__ALL__"] == 2
+        assert self.tree.card_count_for_node["X"] == 2 

@@ -1,4 +1,6 @@
--tag strings for cards need to be rebuilt in delete tags too. Make sure they are sync resistant. (add tests)
+-fix test: tag count in tree implicitly assumes each card has only one tag.
+-coverage test in tag tree
+-hook ui, loop for multiple tags in selection
 -tag delete
 
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags

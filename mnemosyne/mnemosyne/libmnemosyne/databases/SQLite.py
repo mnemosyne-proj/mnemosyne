@@ -553,16 +553,19 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         for criterion in self.activity_criteria():
             criterion.tag_deleted(tag)
             self.update_activity_criterion(criterion)
-
-
-        # TODO: delete also from tags_for_card.
+        affected_card__ids = [cursor[0] for cursor in self.con.execute(
+            "select _card_id from tags_for_card where _tag_id=?",
+            (tag._id, ))]
+        self.con.execute("delete from tags_for_card where _tag_id=?",
+            (tag._id, ))
+        for _card_id in affected_card__ids:
+            if self.con.execute("""select count() from tags_for_card where
+                _card_id=?""", (_card_id, )).fetchone()[0] == 0:
+                untagged = self.get_or_create_tag_with_name("__UNTAGGED__")
+                self.con.execute("""insert into tags_for_card(_tag_id,
+                    _card_id) values(?,?)""", (untagged._id, _card_id))                
         if self.store_pregenerated_data:
-            affected_card__ids = [cursor[0] for cursor in self.con.execute(
-                "select _card_id from tags_for_card where _tag_id=?",
-                (tag._id, ))]
-            self._update_tag_strings(affected_card__ids)
-            pass
-        
+            self._update_tag_strings(affected_card__ids)  
         del tag
         
     def remove_tag_if_unused(self, tag):
@@ -627,7 +630,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.delete_card(card)
         self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
-                         (fact._id, ))
+            (fact._id, ))
         self.log().deleted_fact(fact)
         del fact
 
@@ -726,7 +729,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     def delete_card(self, card):
         self.con.execute("delete from cards where _id=?", (card._id, ))
         self.con.execute("delete from tags_for_card where _card_id=?",
-                         (card._id, ))
+            (card._id, ))
         for tag in card.tags:
             self.remove_tag_if_unused(tag)
         self.log().deleted_card(card)
