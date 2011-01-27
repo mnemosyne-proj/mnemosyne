@@ -6,7 +6,6 @@ import time
 import datetime
 
 from openSM2sync.log_entry import EventTypes
-from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
 HOUR = 60 * 60 # Seconds in an hour. 
 DAY = 24 * HOUR # Seconds in a day.
@@ -18,59 +17,53 @@ class SQLiteStatistics(object):
     so that SQLite.py does not becomes too large.
 
     """
-
-    def tags__id_and_name(self):
-        result = [(cursor[0], cursor[1]) for cursor in self.con.execute(\
-            "select _id, name from tags")]
-        result.sort(key=lambda x: x[1], cmp=numeric_string_cmp)
-        return result
         
-    def easinesses(self):
-        return [cursor[0] for cursor in self.con.execute(\
-            "select easiness from cards where active=1 and grade>=0")]
+    def easinesses(self, active_only):
+        command = "select easiness from cards where grade>=0"
+        if active_only:
+            command += " and active=1"
+        return [cursor[0] for cursor in self.con.execute(command)]
 
-    def easinesses_for__tag_id(self, _tag_id):    
-        return [cursor[0] for cursor in self.con.execute(\
-            """select cards.easiness from cards, tags_for_card where
-            tags_for_card._card_id=cards._id and cards.active=1 and
-            cards.grade>=0 and tags_for_card._tag_id=?""", (_tag_id, ))]
+    def easinesses_for_tag(self, tag, active_only):
+        command = """select cards.easiness from cards, tags_for_card where
+            tags_for_card._card_id=cards._id and cards.grade>=0 and
+            tags_for_card._tag_id=?"""
+        if active_only:
+            command += " and cards.active=1"
+        return [cursor[0] for cursor in self.con.execute(command,
+            (tag._id, ))]
 
-    def total_card_count_for_fact_view(self, fact_view):
-        return self.con.execute(\
-            "select count() from cards where fact_view_id=?",
-            (fact_view.id, )).fetchone()[0]
-    
-    def total_card_count_for_tag(self, tag):
-        return self.con.execute(\
-             "select count() from tags_for_card where _tag_id=?",
-             (tag._id, )).fetchone()[0]
-    
-    def card_count_for_grade(self, grade):
-        return self.con.execute(\
-            "select count() from cards where grade=? and active=1",
-            (grade, )).fetchone()[0]
- 
-    def card_count_for_grade_and__tag_id(self, grade, _tag_id):
-        return self.con.execute(\
-             """select count() from cards, tags_for_card where
-             tags_for_card._card_id=cards._id and cards.active=1
-             and tags_for_card._tag_id=? and grade=?""",
-             (_tag_id, grade)).fetchone()[0]
+    def card_count_for_fact_view(self, fact_view, active_only):
+        command = "select count() from cards where fact_view_id=?"
+        if active_only:
+            command += " and active=1"        
+        return self.con.execute(command, (fact_view.id, )).fetchone()[0]
 
-    def total_card_count_for_grade(self, grade):
-        return self.con.execute("select count() from cards where grade=?",
-            (grade, )).fetchone()[0]
+    def card_count_for_grade(self, grade, active_only):
+        command = "select count() from cards where grade=?"
+        if active_only:
+            command += " and active=1"        
+        return self.con.execute(command, (grade, )).fetchone()[0]
     
-    def total_card_count_for__tag_id(self, _tag_id):
-        return self.con.execute(\
-             "select count() from tags_for_card where _tag_id=?",
-             (_tag_id, )).fetchone()[0]
-    
-    def total_card_count_for_grade_and__tag_id(self, grade, _tag_id):
-        return self.con.execute(\
-            """select count() from cards, tags_for_card where
-              tags_for_card._card_id=cards._id and tags_for_card._tag_id=?
-              and grade=?""", (_tag_id, grade)).fetchone()[0]
+    def card_count_for_tag(self, tag, active_only):
+        if active_only:
+            return self.con.execute(\
+                """select count() from cards, tags_for_card where
+                tags_for_card._card_id=cards._id and cards.active=1
+                and tags_for_card._tag_id=?""",
+                (tag._id, grade)).fetchone()[0]
+        else:
+            return self.con.execute(\
+                "select count() from tags_for_card where _tag_id=?",
+                (tag._id, )).fetchone()[0]
+
+    def card_count_for_grade_and_tag(self, grade, tag, active_only):
+        command = """select count() from cards, tags_for_card where
+            tags_for_card._card_id=cards._id and tags_for_card._tag_id=?
+            and grade=?"""
+        if active_only:
+            command += " and cards.active=1"    
+        return self.con.execute(command, (tag._id, grade)).fetchone()[0]
  
     def future_card_count_scheduled_between(self, start, stop):
         return self.con.execute(\

@@ -32,8 +32,8 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         for card_type in self.card_types():
             card_type_count = 0
             for fact_view in card_type.fact_views:
-                count = \
-                    self.database().total_card_count_for_fact_view(fact_view)
+                count = self.database().card_count_for_fact_view\
+                    (fact_view, active_only=False)
                 card_type_count += count
                 count_for_fact_view[fact_view] = count
             count_for_card_type[card_type] = card_type_count 

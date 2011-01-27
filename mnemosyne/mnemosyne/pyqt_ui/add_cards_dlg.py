@@ -7,13 +7,12 @@ from PyQt4 import QtCore, QtGui
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 from mnemosyne.pyqt_ui.ui_add_cards_dlg import Ui_AddCardsDlg
 from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import AddCardsDialog
 from mnemosyne.pyqt_ui.card_type_wdgt_generic import GenericCardTypeWdgt
 from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
-                                                    ConvertCardTypeFieldsDlg
+     ConvertCardTypeFieldsDlg
 
 class AddEditCards(Component):
 
@@ -85,8 +84,8 @@ class AddEditCards(Component):
 
     def update_tags_combobox(self, current_tag_name):
         self.tags.clear()
-        tag_names = sorted([tag.name for tag in self.database().tags() \
-            if tag.name != "__UNTAGGED__"], cmp=numeric_string_cmp)
+        tag_names = [tag.name for tag in self.database().tags() \
+            if tag.name != "__UNTAGGED__"]
         for name in tag_names:
             self.tags.addItem(name)
         # For the 'special' tags, we add them at the top.

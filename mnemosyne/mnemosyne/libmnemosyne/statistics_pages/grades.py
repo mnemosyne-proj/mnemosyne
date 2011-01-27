@@ -15,16 +15,19 @@ class Grades(PlotStatisticsPage):
     def __init__(self, component_manager):
         PlotStatisticsPage.__init__(self, component_manager)
         self.variants = [(self.ALL_CARDS, _("All cards"))]
-        for _id, name in self.database().tags__id_and_name():
-            self.variants.append((_id, name))
+        self.tag_for__id = {}
+        for tag in self.database().tags():
+            self.tag_for__id[tag._id] = tag
+            self.variants.append((tag._id, tag.name))
                 
     def prepare_statistics(self, variant):
         self.x = range(-1, 6)
         if variant == self.ALL_CARDS:
-            self.y = [self.database().card_count_for_grade\
-                      (grade) for grade in self.x]
+            self.y = [self.database().card_count_for_grade \
+                (grade, active_only=True) for grade in self.x]
         else:
-            self.y = [self.database().card_count_for_grade_and__tag_id\
-                      (grade, variant) for grade in self.x]
+            self.y = [self.database().card_count_for_grade_and_tag \
+                (grade, self.tag_for__id[variant], active_only=True) \
+                for grade in self.x]
             
                               

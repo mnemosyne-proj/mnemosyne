@@ -624,8 +624,9 @@ class TestMemImport(MnemosyneTest):
         card = self.database().card("4c8fff73", id_is_internal=False)
         assert self.database().average_thinking_time(card) == 1.5
         assert self.database().total_thinking_time(card) == 3.0
-        assert self.database().card_count_for_grade(0) == 2
-        assert self.database().card_count_for_grade_and__tag_id(0, 666) == 0
+        assert self.database().card_count_for_grade(0, active_only=True) == 2
+        tag = self.database().get_or_create_tag_with_name("666")
+        assert self.database().card_count_for_grade_and_tag(0, tag, active_only=True) == 0
         from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
         page = Grades(self.mnemosyne.component_manager)
         page.prepare_statistics(0)

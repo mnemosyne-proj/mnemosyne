@@ -575,8 +575,10 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.delete_tag(tag)
             
     def tags(self):
-        return [self.tag(cursor[0], id_is_internal=True) for cursor in \
+        result = [self.tag(cursor[0], id_is_internal=True) for cursor in \
             self.con.execute("select _id from tags")]
+        result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)
+        return result
 
     #
     # Facts.

@@ -4,7 +4,6 @@
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
-from mnemosyne.libmnemosyne.utils import numeric_string_cmp
 
 
 class TagTree(Component, dict):
@@ -42,13 +41,12 @@ class TagTree(Component, dict):
         self.display_name_for_node = {"__ALL__": _("All tags")}
         self.card_count_for_node = {}
         self.tag_for_node = {}
-        tag_names = sorted([tag.name for tag in self.database().tags()],
-            cmp=numeric_string_cmp)
+        tag_names = [tag.name for tag in self.database().tags()]
         for tag_name in tag_names:
             tag = self.database().get_or_create_tag_with_name(tag_name)
             self.tag_for_node[tag_name] = tag
             self.card_count_for_node[tag_name] = \
-                self.database().total_card_count_for_tag(tag)
+                self.database().card_count_for_tag(tag, active_only=False)
             if tag_name == "__UNTAGGED__":
                 continue  # Add it at the very end for esthetical reasons.
             parent = "__ALL__"

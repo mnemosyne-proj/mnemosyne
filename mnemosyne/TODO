@@ -1,3 +1,8 @@
+-handle:__untagged__ in statistics pages (grades, easiness, ...):
+ make sure putting that tag at the end happens in sqlite.py. Rename it to something useful in pages
+-fix testmemimport
+-make sure you can't create a tag called __UNTAGGED__
+
 -fix test: tag count in tree implicitly assumes each card has only one tag.
 -coverage test in tag tree
 -hook ui, loop for multiple tags in selection
