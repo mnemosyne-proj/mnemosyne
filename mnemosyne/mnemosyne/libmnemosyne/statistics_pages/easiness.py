@@ -17,6 +17,8 @@ class Easiness(PlotStatisticsPage):
         self.variants = [(self.ALL_CARDS, _("All cards"))]
         self.tag_for__id = {}
         for tag in self.database().tags():
+            if tag.name == "__UNTAGGED__":
+                tag.name = _("Untagged")
             self.tag_for__id[tag._id] = tag
             self.variants.append((tag._id, tag.name))
         

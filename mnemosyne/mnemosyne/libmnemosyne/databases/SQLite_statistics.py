@@ -44,18 +44,23 @@ class SQLiteStatistics(object):
         if active_only:
             command += " and active=1"        
         return self.con.execute(command, (grade, )).fetchone()[0]
-    
-    def card_count_for_tag(self, tag, active_only):
-        if active_only:
-            return self.con.execute(\
-                """select count() from cards, tags_for_card where
-                tags_for_card._card_id=cards._id and cards.active=1
-                and tags_for_card._tag_id=?""",
-                (tag._id, grade)).fetchone()[0]
-        else:
-            return self.con.execute(\
-                "select count() from tags_for_card where _tag_id=?",
-                (tag._id, )).fetchone()[0]
+
+    def card_count_for_tags(self, tags, active_only):
+        
+        """ Determine the number of cards in a set of tags. Note that a card
+        could have one or more of these tags.
+
+        """
+
+        if active_only == True:
+            raise NotImplementedError
+        command = "select count(distinct _card_id) from tags_for_card where "
+        args = []
+        for tag in tags:
+            command += "_tag_id=? or "
+            args.append(tag._id)
+        command = command.rsplit("or ", 1)[0]
+        return self.con.execute(command, args).fetchone()[0]
 
     def card_count_for_grade_and_tag(self, grade, tag, active_only):
         command = """select count() from cards, tags_for_card where

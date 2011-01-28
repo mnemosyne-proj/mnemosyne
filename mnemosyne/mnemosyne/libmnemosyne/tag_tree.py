@@ -41,18 +41,11 @@ class TagTree(Component, dict):
         self.display_name_for_node = {"__ALL__": _("All tags")}
         self.card_count_for_node = {}
         self.tag_for_node = {}
-        tag_names = [tag.name for tag in self.database().tags()]
-        for tag_name in tag_names:
-            tag = self.database().get_or_create_tag_with_name(tag_name)
-            self.tag_for_node[tag_name] = tag
-            self.card_count_for_node[tag_name] = \
-                self.database().card_count_for_tag(tag, active_only=False)
-            if tag_name == "__UNTAGGED__":
-                continue  # Add it at the very end for esthetical reasons.
+        for tag in self.database().tags():
+            self.tag_for_node[tag.name] = tag
             parent = "__ALL__"
             partial_tag = ""
-            levels = tag_name.split("::")
-            for node in tag_name.split("::"):
+            for node in tag.name.split("::"):
                 if partial_tag:
                     partial_tag += "::"
                 partial_tag += node
@@ -61,23 +54,12 @@ class TagTree(Component, dict):
                     self[partial_tag] = []
                     self.display_name_for_node[partial_tag] = node 
                 parent = partial_tag
-        if "__UNTAGGED__" in tag_names:
-            self["__ALL__"].append("__UNTAGGED__")
+        if "__UNTAGGED__" in self.display_name_for_node:
             self.display_name_for_node["__UNTAGGED__"] = _("Untagged")
-            self["__UNTAGGED__"] = []
-        self._determine_card_count("__ALL__")
-
-    def _determine_card_count(self, node):
-        count = 0
-        # If an internal node is a full tag too (e.g. when you have both tags
-        # 'A' and 'A::B', be sure to count the upper level too.
-        if node in self.tag_for_node:
-            count += self.card_count_for_node[node]
-        # Count sublevels.
-        for subnode in self[node]:
-            count += self._determine_card_count(subnode)
-        self.card_count_for_node[node] = count
-        return self.card_count_for_node[node]
+        for node in dict(self):
+            self.card_count_for_node[node] = \
+                self.database().card_count_for_tags(\
+                self._tags_in_subtree(node), active_only=False)
 
     def _tags_in_subtree(self, node):
         tags = []
@@ -91,6 +73,8 @@ class TagTree(Component, dict):
         return tags
 
     def rename_node(self, old_node_label, new_node_label):
+        if new_node_label == "__UNTAGGED__": # Forbidden.
+            new_node_label = "Untagged"
         for tag in self._tags_in_subtree(old_node_label):
             tag.name = tag.name.replace(old_node_label, new_node_label, 1)
             # Corner cases when new_node_label is empty.

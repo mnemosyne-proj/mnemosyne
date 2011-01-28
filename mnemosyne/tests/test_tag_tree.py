@@ -191,7 +191,20 @@ class TestTagTree(MnemosyneTest):
         assert self.tree.card_count_for_node["__UNTAGGED__"] == 1
         assert self.tree.card_count_for_node["tag1"] == 1
         assert len(self.database().tags()) == 2
-
+        
+    def test_rename_to_forbidden(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "question4",  "a": "answer4"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["A::tag1"])[0]
+        fact_data = {"q": "question", "a": "answer"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["A"])[0]
+        from mnemosyne.libmnemosyne.tag_tree import TagTree
+        self.tree = TagTree(self.mnemosyne.component_manager)
+        self.tree.rename_node("A", "__UNTAGGED__")
+        assert "__UNTAGGED__" not in self.tree.card_count_for_node
+        
     def test_delete(self):
         card_type = self.card_type_by_id("1")
         fact_data = {"q": "question4",  "a": "answer4"}
@@ -279,7 +292,7 @@ class TestTagTree(MnemosyneTest):
         assert self.tree.card_count_for_node["a::b"] == 1
         assert self.tree.card_count_for_node["a::c"] == 1
         assert self.tree.card_count_for_node["b"] == 1
-        assert "__UNTAGGED__" not in self.tree.card_count_for_node == 1
+        assert "__UNTAGGED__" not in self.tree.card_count_for_node
         assert "b::c" not in self.tree.card_count_for_node
         assert "b::c::d" not in self.tree.card_count_for_node
 

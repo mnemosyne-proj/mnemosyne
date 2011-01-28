@@ -115,7 +115,7 @@ class DefaultController(Controller):
         tags = set()
         for tag_name in tag_names:
             tag_name = tag_name.rstrip()
-            if tag_name:
+            if tag_name and tag_name != "__UNTAGGED__":
                 tags.add(db.get_or_create_tag_with_name(tag_name))
         if len(tags) == 0:
             tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))

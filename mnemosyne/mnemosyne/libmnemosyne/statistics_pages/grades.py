@@ -17,6 +17,8 @@ class Grades(PlotStatisticsPage):
         self.variants = [(self.ALL_CARDS, _("All cards"))]
         self.tag_for__id = {}
         for tag in self.database().tags():
+            if tag.name == "__UNTAGGED__":
+                tag.name = _("Untagged")
             self.tag_for__id[tag._id] = tag
             self.variants.append((tag._id, tag.name))
                 
@@ -29,5 +31,3 @@ class Grades(PlotStatisticsPage):
             self.y = [self.database().card_count_for_grade_and_tag \
                 (grade, self.tag_for__id[variant], active_only=True) \
                 for grade in self.x]
-            
-                              

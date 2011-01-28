@@ -575,9 +575,17 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self.delete_tag(tag)
             
     def tags(self):
+
+        """Return tags in a nicely sorted order, with __UNTAGGED__ at the end.
+
+        """
+        
         result = [self.tag(cursor[0], id_is_internal=True) for cursor in \
             self.con.execute("select _id from tags")]
         result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)
+        if result and result[0].name == "__UNTAGGED__":
+            untagged = result.pop(0)
+            result.append(untagged)
         return result
 
     #

@@ -50,8 +50,7 @@ class AddEditCards(Component):
         # to self.card (which only exists in the 'edit' dialog) inside a try
         # statement.
         if self.card_type_widget:  # Get data from previous card widget.
-            prefill_data = \
-                     self.card_type_widget.data()
+            prefill_data = self.card_type_widget.data()
             self.card_type_widget.close()
             self.card_type_widget = None
         else:
@@ -70,24 +69,23 @@ class AddEditCards(Component):
         card_type_name = unicode(self.card_types_widget.currentText())
         self.card_type = self.card_type_by_name[card_type_name]
         try:                                                                    
-            self.card_type_widget = self.component_manager.current\
-                    ("card_type_widget", used_for=self.card_type.__class__)\
-                          (self.component_manager, parent=self)
+            self.card_type_widget = self.component_manager.current \
+                ("card_type_widget", used_for=self.card_type.__class__) \
+                (self.component_manager, parent=self)
         except:
             if not self.card_type_widget:
-                self.card_type_widget = self.component_manager.current\
+                self.card_type_widget = self.component_manager.current \
                     ("generic_card_type_widget")(self.component_manager,
-                        parent=self, card_type=self.card_type)
+                    parent=self, card_type=self.card_type)
         self.card_type_widget.set_data(prefill_data)
         self.card_type_widget.show()
         self.vbox_layout.insertWidget(1, self.card_type_widget)
 
     def update_tags_combobox(self, current_tag_name):
         self.tags.clear()
-        tag_names = [tag.name for tag in self.database().tags() \
-            if tag.name != "__UNTAGGED__"]
-        for name in tag_names:
-            self.tags.addItem(name)
+        for tag in self.database().tags():
+            if tag.name != "__UNTAGGED__":
+                self.tags.addItem(tag.name)
         # For the 'special' tags, we add them at the top.
         self.tags.setInsertPolicy(QtGui.QComboBox.InsertAtTop)
         if "," in current_tag_name:
