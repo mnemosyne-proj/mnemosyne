@@ -1,5 +1,3 @@
--tag delete: hook ui, loop for multiple tags in selection
-
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
 -repopulate tree widgets after editing/deleting
 -add controller logic for after editing/deleting a card in browse cards

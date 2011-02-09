@@ -224,6 +224,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
             itemClicked.connect(self.update_filter)
+        # Context menu.
+        self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.table.customContextMenuRequested.connect(self.context_menu)
         # Restore settings.
         width, height = self.config()["browse_cards_dlg_size"]
         if width:
@@ -238,6 +241,61 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.splitter_2.setSizes([333, 630])
         else:
             self.splitter_2.setSizes(splitter_2_sizes)
+
+    def context_menu(self, point):
+        menu = QtGui.QMenu(self)
+        edit_action = QtGui.QAction(_("&Edit"), menu)
+        edit_action.setShortcut(QtCore.Qt.Key_Enter)
+        edit_action.triggered.connect(self.menu_edit)
+        menu.addAction(edit_action)
+        preview_action = QtGui.QAction(_("&Preview"), menu)
+        preview_action.triggered.connect(self.menu_preview)
+        menu.addAction(preview_action)
+        delete_action = QtGui.QAction(_("&Delete"), menu)
+        delete_action.setShortcut(QtGui.QKeySequence.Delete)
+        delete_action.triggered.connect(self.menu_delete)
+        menu.addAction(delete_action)
+        menu.addSeparator()
+        change_card_type_action = QtGui.QAction(_("Change card &type"), menu)
+        change_card_type_action.triggered.connect(self.menu_change_card_type)
+        menu.addAction(change_card_type_action)
+        menu.addSeparator()
+        add_tag_action = QtGui.QAction(_("&Add tag"), menu)
+        add_tag_action.triggered.connect(self.menu_add_tag)
+        menu.addAction(add_tag_action)
+        remove_tag_action = QtGui.QAction(_("&Remove tag"), menu)
+        remove_tag_action.triggered.connect(self.menu_remove_tag)
+        menu.addAction(remove_tag_action)
+        indices = self.table.selectedIndexes()
+        if len(indices) > 1:
+            edit_action.setEnabled(False)
+            preview_action.setEnabled(False)            
+        if len(indices) >= 1:
+            menu.exec_(self.table.mapToGlobal(point))
+            
+    def keyPressEvent(self, event):            
+        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
+            self.menu_rename()
+        elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
+            self.menu_delete()
+            
+    def menu_edit(self):
+        print "edit"
+        
+    def menu_preview(self):
+        print "preview"
+
+    def menu_delete(self):
+        print "delete"
+
+    def menu_change_card_type(self):
+        print 'change card type'
+
+    def menu_add_tag(self):
+        print 'add tag'
+
+    def menu_remove_tag(self):
+        print 'remove_tag'
 
     def load_qt_database(self):
         self.database().release_connection()

@@ -73,7 +73,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tag_tree_wdgt.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tag_tree_wdgt.customContextMenuRequested.connect(self.context_menu)
 
-    def selected_non_read_indices(self):
+    def selected_not_read_only_indices(self):
         indices = []
         for index in self.tag_tree_wdgt.selectedIndexes():
             node_index = \
@@ -85,25 +85,30 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
-        rename_tag_action = QtGui.QAction(_("Re&name tag"), menu)
+        rename_tag_action = QtGui.QAction(_("Re&name"), menu)
         rename_tag_action.setShortcut(QtCore.Qt.Key_Enter)
         rename_tag_action.triggered.connect(self.menu_rename)
         menu.addAction(rename_tag_action)
-        remove_tag_action = QtGui.QAction(_("Re&move tag"), menu)
+        remove_tag_action = QtGui.QAction(_("Re&move"), menu)
         remove_tag_action.setShortcut(QtGui.QKeySequence.Delete)
         remove_tag_action.triggered.connect(self.menu_remove)
         menu.addAction(remove_tag_action)
-        indices = self.selected_non_read_indices()
+        indices = self.selected_not_read_only_indices()
         if len(indices) > 1:
             rename_tag_action.setEnabled(False)
-            remove_tag_action.setText(_("Re&move tags"))
         if len(indices) >= 1:
             menu.exec_(self.tag_tree_wdgt.mapToGlobal(point))
+
+    def keyPressEvent(self, event):
+        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
+            self.menu_rename()
+        elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
+            self.menu_remove()
 
     def menu_rename(self):
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
-        index = self.selected_non_read_indices()[0]        
+        index = self.selected_not_read_only_indices()[0]        
         node_index = index.model().index(index.row(), NODE, index.parent())
         old_node_label = index.model().data(node_index).toString()
 
@@ -119,14 +124,10 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.rename_node(old_node_label, unicode(dlg.tag_name.text()))
         
     def menu_remove(self):
-        for index in self.selected_non_read_indices():        
-            print 'delete', index
-
-    def keyPressEvent(self, event):
-        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
-            self.menu_rename()
-        elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
-            self.menu_remove()
+        for index in self.selected_not_read_only_indices():
+            node_index = index.model().index(index.row(), NODE, index.parent())
+            node_label = index.model().data(node_index).toString()
+            self.delete_node(node_label)
         
     def create_tree(self, tree, qt_parent):
         for node in tree:
@@ -229,4 +230,19 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             # crashes.
             else:
                 return
+
+    def delete_node(self, node):
+        if self.before_libmnemosyne_db:
+            self.before_libmnemosyne_db()
+        saved_criterion = DefaultCriterion(self.component_manager)
+        self.selection_to_active_tags_in_criterion(saved_criterion)
+        self.tag_tree.delete_subtree(unicode(node))
+        # Rebuild the tree widget to reflect the changes.
+        new_criterion = DefaultCriterion(self.component_manager)
+        for tag in self.database().tags():
+            if tag._id in saved_criterion.active_tag__ids:
+                new_criterion.active_tag__ids.add(tag._id)  
+        self.display(new_criterion)
+        if self.after_libmnemosyne_db:
+            self.after_libmnemosyne_db()        
 
