@@ -211,6 +211,24 @@ class TestAddCards(MnemosyneTest):
 
         new_card = self.database().card(card._id, id_is_internal=True)
         assert len(new_card.tags) == 1
+
+    def test_edit_untagged_2(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=[""])[0]
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 1
+
+        new_card = self.database().card(card._id, id_is_internal=True)
+        _untagged_id =  list(new_card.tags)[0]._id
+
+        self.controller().edit_related_cards(new_card.fact, new_card.fact.data,
+           new_card.card_type, ["tag"], [])    
+
+        new_card = self.database().card(card._id, id_is_internal=True)
+        assert list(new_card.tags)[0]._id != _untagged_id 
         
     def test_duplicate(self):
         fact_data = {"q": "question",

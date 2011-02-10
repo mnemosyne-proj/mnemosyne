@@ -11,6 +11,12 @@ from mnemosyne.pyqt_ui.ui_preview_cards_dlg import Ui_PreviewCardsDlg
 class PreviewCardsDlg(QtGui.QDialog, Ui_PreviewCardsDlg):
 
     def __init__(self, cards, tag_text, parent=None):
+
+        """We need to provide tag_text explicitly, since it's possible that
+        the cards have not yet been added to the database.
+
+        """
+        
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.cards = cards

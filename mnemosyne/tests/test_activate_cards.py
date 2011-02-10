@@ -276,5 +276,26 @@ class TestActivateCards(MnemosyneTest):
         self.database().set_current_activity_criterion(c)
         self.review_controller().reset_but_try_to_keep_current_card()
         assert self.database().active_count() == 0
-        assert self.review_controller().active_count == 0        
+        assert self.review_controller().active_count == 0
+
+    def test_activate_cards_5(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        card_type_1 = self.card_type_by_id("1")
+        self.controller().create_new_cards(fact_data, card_type_1,
+           grade=-1, tag_names=["a"])
         
+        fact_data = {"q": "question2",
+                     "a": "answer2"}
+        self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["b"])
+        assert self.database().active_count() == 2
+        
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c.active_tag__ids = set([self.database().get_or_create_tag_with_name("a")._id,
+                                 self.database().get_or_create_tag_with_name("b")._id])
+        c.forbidden_tags__ids = set([self.database().get_or_create_tag_with_name("b")._id])
+        self.database().set_current_activity_criterion(c)
+        assert self.database().active_count() == 1
+

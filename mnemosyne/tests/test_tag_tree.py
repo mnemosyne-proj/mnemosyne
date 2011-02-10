@@ -3,6 +3,7 @@
 #
 
 from mnemosyne_test import MnemosyneTest
+from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 
   
 class TestTagTree(MnemosyneTest):
@@ -324,3 +325,22 @@ class TestTagTree(MnemosyneTest):
         
         assert self.tree.card_count_for_node["__ALL__"] == 2
         assert self.tree.card_count_for_node["X"] == 2 
+
+    def test_delete_forbidden(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"q": "question",  "a": "answer"}
+        card = self.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]
+        assert self.database().active_count() == 1
+        
+        c = DefaultCriterion(self.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c.active_tag__ids = set([self.database().get_or_create_tag_with_name("active")._id])
+        c.forbidden_tag__ids = set([self.database().get_or_create_tag_with_name("a")._id])
+        self.database().set_current_activity_criterion(c)
+        assert self.database().active_count() == 0
+        
+        from mnemosyne.libmnemosyne.tag_tree import TagTree
+        self.tree = TagTree(self.mnemosyne.component_manager)      
+        self.tree.delete_subtree("a")
+        assert self.database().active_count() == 1

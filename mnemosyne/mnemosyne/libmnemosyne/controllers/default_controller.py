@@ -148,6 +148,9 @@ class DefaultController(Controller):
         # Our current card could have disappeared from the database here,
         # e.g. when converting a front-to-back card to a cloze card, which
         # deletes the old cards and their learning history.
+
+        print review_controller.card
+        
         if review_controller.card is None:
             review_controller.new_question()
         else:
@@ -489,14 +492,9 @@ class DefaultController(Controller):
         self.flush_sync_server()
         self.component_manager.current("browse_cards_dialog")\
             (self.component_manager).activate()
-
-        #rebuild_queue()
-        #if not in_queue(self.card):
-        #    self.newQuestion()
-        #else:
-        #    remove_from_queue(self.card) # It's already being asked.
-        #self.review_controller().update_dialog(redraw_all=True)
-        
+        review_controller = self.review_controller()
+        review_controller.reset_but_try_to_keep_current_card()
+        review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
     def card_appearance(self):

@@ -266,7 +266,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         remove_tag_action = QtGui.QAction(_("&Remove tag"), menu)
         remove_tag_action.triggered.connect(self.menu_remove_tag)
         menu.addAction(remove_tag_action)
-        indices = self.table.selectedIndexes()
+        indices = self.table.selectionModel().selectedRows()
         if len(indices) > 1:
             edit_action.setEnabled(False)
             preview_action.setEnabled(False)            
@@ -281,9 +281,21 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             
     def menu_edit(self):
         print "edit"
+        # unload qt database
+
+        # load qt database
         
     def menu_preview(self):
-        print "preview"
+        from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg  
+        index = self.table.selectionModel().selectedRows()[0]
+        _fact_id_index = index.model().index(\
+            index.row(), _FACT_ID, index.parent())
+        _fact_id = index.model().data(_fact_id_index).toInt()[0]
+        fact = self.database().fact(_fact_id, id_is_internal=True)
+        cards = self.database().cards_from_fact(fact) 
+        tag_text = cards[0].tag_string()
+        dlg = PreviewCardsDlg(cards, tag_text, self)
+        dlg.exec_()
 
     def menu_delete(self):
         print "delete"

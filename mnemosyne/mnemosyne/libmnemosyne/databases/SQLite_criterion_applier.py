@@ -28,7 +28,7 @@ class DefaultCriterionApplier(CriterionApplier):
                 args.append(_tag_id)
             command = command.rsplit("or ", 1)[0] + ")"
             if criterion.active_tag__ids:
-                db.con.execute(command, args)          
+                db.con.execute(command, args)
         # Turn off inactive card types and views.
         command = "update cards set active=0 where "
         args = []        

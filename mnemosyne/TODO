@@ -1,4 +1,15 @@
+-one untagged card, one forbidden card. Activity criterium: no forbidden tag. Untagged card gets deactivated as well (i.e. fix test suite)
+
+-in gui, make sure when we select forbidden tags, the the active tags contain all the tags (and vice versa).
+
+-when deleting forbidden tag, make sure the card gets reactivated (i.e. fix test suite)
+-card in review window, edit it to pick up forbidden tag: review window does not get cleared
+-apply criteria in database or in controller? Document
+
+
+
 -right click menu options: edit, preview, delete, change card type, add tags, remove tags
+-do criterion applier after adding/deleting tags and changing card type
 -repopulate tree widgets after editing/deleting
 -add controller logic for after editing/deleting a card in browse cards
 
@@ -22,14 +33,13 @@
  (update comment in scheduler too)
 
 
-
 -go through all source
 -communicate SQLite_no_pregerated_data, save interval, ..., repaint now to client writers
 -do extra input checking in controller
 -include coverage source option
 -test on cramming counters
 
--do review_controller.rebuild_queue, reload counter after edit deck, clean duplicates
+
 
 -delete 1.99 logs
 -reenable upload
@@ -111,7 +121,8 @@
 -confirmation dialog for deleted cards
 -explain check for duplicates after import of 1.x? Also give a hint of its working in
 the GUI function itself?
--card preview
+-duplicate card preview?
+-do review_controller.rebuild_queue, reload counter after clean duplicates
 
 -new translation infrastructure
 -handle deferred translation
