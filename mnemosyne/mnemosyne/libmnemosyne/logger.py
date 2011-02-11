@@ -119,13 +119,13 @@ class Logger(Component):
     def deleted_card_type(self, card_type):
         pass
     
-    def added_activity_criterion(self, activity_criterion):
+    def added_criterion(self, criterion):
         pass
 
-    def edited_activity_criterion(self, activity_criterion):
+    def edited_criterion(self, criterion):
         pass
     
-    def deleted_activity_criterion(self, activity_criterion):
+    def deleted_criterion(self, criterion):
         pass
     
     def dump_to_science_log(self):

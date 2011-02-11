@@ -4,9 +4,7 @@
 
 class EventTypes(object):
 
-    """Codes to identify event types.
-    
-    """
+    """Codes to identify event types."""
 
     # Relevant for all clients.
 
@@ -43,9 +41,9 @@ class EventTypes(object):
     EDITED_CARD_TYPE = 23
     DELETED_CARD_TYPE = 24
 
-    ADDED_ACTIVITY_CRITERION = 25
-    EDITED_ACTIVITY_CRITERION = 26
-    DELETED_ACTIVITY_CRITERION = 27
+    ADDED_CRITERION = 25
+    EDITED_CRITERION = 26
+    DELETED_CRITERION = 27
 
 
 class LogEntry(dict):
@@ -141,8 +139,7 @@ class LogEntry(dict):
         keyboard_shortcuts (string)
         extra (string)
                 
-    Keys specific to ADDED_ACTIVITY_CRITERION, EDITED_ACTIVITY_CRITERION,
-        DELETED_ACTIVITY_CRITERION:
+    Keys specific to ADDED_CRITERION, EDITED_CRITERION, DELETED_CRITERION:
         name (string)
         criterion_type (string)
         data (string)

@@ -30,18 +30,18 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         # Initialise widgets.
         QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete),
                         self.saved_sets, self.delete_set)
-        criterion = self.database().current_activity_criterion()
+        criterion = self.database().current_criterion()
         self.criterion_classes = \
-            self.component_manager.all("activity_criterion")       
-        current_criterion = self.database().current_activity_criterion()
+            self.component_manager.all("criterion")       
+        current_criterion = self.database().current_criterion()
         self.widget_for_criterion_type = {}
         for criterion_class in self.criterion_classes:
             widget = self.component_manager.current\
-                ("activity_criterion_widget", used_for=criterion_class)\
-                      (self.component_manager, self)
+                ("criterion_widget", used_for=criterion_class)\
+                (self.component_manager, self)
             self.tab_widget.addTab(widget, criterion_class.criterion_type)
-            self.widget_for_criterion_type\
-                [criterion_class.criterion_type] = widget
+            self.widget_for_criterion_type[criterion_class.criterion_type] \
+                = widget
         self.tab_widget.setCurrentWidget(self.widget_for_criterion_type\
                                          [current_criterion.criterion_type])
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
@@ -60,8 +60,8 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.saved_sets.clear()
         self.criteria_by_name = {}
         active_name = ""
-        active_criterion = self.database().current_activity_criterion()
-        for criterion in self.database().activity_criteria():
+        active_criterion = self.database().current_criterion()
+        for criterion in self.database().criteria():
             if criterion._id != 1:
                 self.criteria_by_name[criterion.name] = criterion
                 self.saved_sets.addItem(criterion.name)
@@ -94,7 +94,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
                        self.criteria_by_name.keys()).exec_()
         if not criterion.name:  # User cancelled.
             return
-        self.database().add_activity_criterion(criterion)
+        self.database().add_criterion(criterion)
         self.update_saved_sets_pane()
         item = self.saved_sets.findItems(criterion.name,
             QtCore.Qt.MatchExactly)[0]
@@ -108,7 +108,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         else:
             name = unicode(self.saved_sets.currentItem().text())
             criterion = self.criteria_by_name[name]
-            self.database().delete_activity_criterion(criterion)
+            self.database().delete_criterion(criterion)
             self.database().save()
             self.update_saved_sets_pane()
 
@@ -122,7 +122,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         if not criterion.name:  # User cancelled.
             criterion.name = name
             return
-        self.database().update_activity_criterion(criterion)
+        self.database().update_criterion(criterion)
         self.database().save()
         self.update_saved_sets_pane()
         item = self.saved_sets.findItems(criterion.name,
@@ -150,7 +150,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self._store_layout()
         
     def accept(self):
-        self.database().set_current_activity_criterion(\
+        self.database().set_current_criterion(\
             self.tab_widget.currentWidget().criterion())
         self._store_layout()
         return QtGui.QDialog.accept(self)

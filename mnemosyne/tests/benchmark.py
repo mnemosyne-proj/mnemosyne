@@ -85,7 +85,7 @@ def count_not_memorised():
     mnemosyne.scheduler().non_memorised_count()
 
 def activate():
-    from mnemosyne.libmnemosyne.activity_criteria.default_criterion import \
+    from mnemosyne.libmnemosyne.criteria.default_criterion import \
      DefaultCriterion
     card_type_2 = mnemosyne.card_type_by_id("2")
     c = DefaultCriterion(mnemosyne.component_manager)
@@ -95,7 +95,7 @@ def activate():
         set([(card_type_2.id, card_type_2.fact_views[0].id)])
     c.active_tag__ids = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
     c.forbidden_tags__ids = set()
-    mnemosyne.database().set_current_activity_criterion(c)
+    mnemosyne.database().set_current_criterion(c)
 
 def finalise():
     mnemosyne.finalise()

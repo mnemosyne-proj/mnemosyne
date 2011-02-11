@@ -157,23 +157,20 @@ class SQLiteLogging(object):
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_CARD_TYPE, int(timestamp), card_type_id))
         
-    def log_added_activity_criterion(self, timestamp, activity_criterion_id):
+    def log_added_criterion(self, timestamp, criterion_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.ADDED_ACTIVITY_CRITERION, int(timestamp),
-            activity_criterion_id))
+            (EventTypes.ADDED_CRITERION, int(timestamp), criterion_id))
         
-    def log_edited_activity_criterion(self, timestamp, activity_criterion_id):
+    def log_edited_criterion(self, timestamp, criterion_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.EDITED_ACTIVITY_CRITERION, int(timestamp),
-            activity_criterion_id))
+            (EventTypes.EDITED_CRITERION, int(timestamp), criterion_id))
         
-    def log_deleted_activity_criterion(self, timestamp, activity_criterion_id):
+    def log_deleted_criterion(self, timestamp, criterion_id):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.DELETED_ACTIVITY_CRITERION, int(timestamp),
-            activity_criterion_id))
+            (EventTypes.DELETED_CRITERION, int(timestamp), criterion_id))
         
     def current_log_index(self):
         return self.con.execute(\

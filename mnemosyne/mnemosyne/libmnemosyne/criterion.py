@@ -17,7 +17,7 @@ class Criterion(Component):
 
     """
 
-    component_type = "activity_criterion"   
+    component_type = "criterion"   
     criterion_type = ""
     instantiate = Component.LATER
     

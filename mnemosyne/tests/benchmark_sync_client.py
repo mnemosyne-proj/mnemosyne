@@ -74,7 +74,7 @@ class MyClient(Client):
              "MapPlugin"),
             ("mnemosyne.libmnemosyne.card_types.cloze",
              "ClozePlugin"),
-            ("mnemosyne.libmnemosyne.activity_criteria.default_criterion",
+            ("mnemosyne.libmnemosyne.criteria.default_criterion",
              "DefaultCriterion"),
             ("mnemosyne.libmnemosyne.databases.SQLite_criterion_applier",
              "DefaultCriterionApplier"), 

@@ -1,5 +1,5 @@
 #
-# activity_criterion_widget.py <Peter.Bienstman@UGent.be>
+# criterion_widget.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.ui_component import UiComponent
@@ -7,7 +7,7 @@ from mnemosyne.libmnemosyne.ui_component import UiComponent
 
 class CriterionWidget(UiComponent):
 
-    component_type = "activity_criterion_widget"
+    component_type = "criterion_widget"
     instantiate = UiComponent.LATER      
 
     def display_criterion(self, criterion):

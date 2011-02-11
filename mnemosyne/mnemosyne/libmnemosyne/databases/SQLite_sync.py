@@ -276,15 +276,16 @@ class SQLiteSync(object):
                     in card_type.fact_views])                
                 log_entry["unique_fields"] = repr(card_type.unique_fields)
                 log_entry["required_fields"] = repr(card_type.required_fields)
-                log_entry["keyboard_shortcuts"] = repr(card_type.keyboard_shortcuts)
+                log_entry["keyboard_shortcuts"] = \
+                    repr(card_type.keyboard_shortcuts)
                 if card_type.extra_data:
                     log_entry["extra"] = repr(card_type.extra_data)
             except TypeError: # The object has been deleted at a later stage.
                 pass            
-        elif event_type in (EventTypes.ADDED_ACTIVITY_CRITERION,
-            EventTypes.EDITED_ACTIVITY_CRITERION):
+        elif event_type in (EventTypes.ADDED_CRITERION,
+            EventTypes.EDITED_CRITERION):
             try:
-                criterion = self.activity_criterion(log_entry["o_id"],
+                criterion = self.criterion(log_entry["o_id"],
                     id_is_internal=False)
                 log_entry["name"] = criterion.name
                 log_entry["criterion_type"] = criterion.criterion_type
@@ -494,29 +495,26 @@ class SQLiteSync(object):
             card_type.extra_data = eval(log_entry["extra"])
         return card_type
     
-    def activity_criterion_from_log_entry(self, log_entry):
+    def criterion_from_log_entry(self, log_entry):
         # Get criterion object to be deleted now.
-        if log_entry["type"] == EventTypes.DELETED_ACTIVITY_CRITERION:
-            return self.activity_criterion(log_entry["o_id"],
-                id_is_internal=False)
+        if log_entry["type"] == EventTypes.DELETED_CRITERION:
+            return self.criterion(log_entry["o_id"], id_is_internal=False)
         # Create an empty shell of criterion object that will be deleted later
         # during this sync.
         if "criterion_type" not in log_entry:
-            from mnemosyne.libmnemosyne.activity_criteria.default_criterion \
+            from mnemosyne.libmnemosyne.criteria.default_criterion \
                  import DefaultCriterion
             return DefaultCriterion(self.component_manager, log_entry["o_id"])
         # Create criterion object.
-        for criterion_class in \
-            self.component_manager.all("activity_criterion"):
+        for criterion_class in self.component_manager.all("criterion"):
             if criterion_class.criterion_type == log_entry["criterion_type"]:
-                criterion = criterion_class(self.component_manager,
-                                            log_entry["o_id"])
+                criterion = \
+                    criterion_class(self.component_manager, log_entry["o_id"])
                 criterion.name = log_entry["name"]
                 criterion.set_data_from_sync_string(log_entry["data"])
-        if log_entry["type"] != EventTypes.ADDED_ACTIVITY_CRITERION:
-            criterion._id = self.con.execute("""select _id from
-                activity_criteria where id=?""",
-                (criterion.id, )).fetchone()[0]
+        if log_entry["type"] != EventTypes.ADDED_CRITERION:
+            criterion._id = self.con.execute("""select _id from criteria where
+                id=?""", (criterion.id, )).fetchone()[0]
         return criterion
 
     def apply_log_entry(self, log_entry):
@@ -576,15 +574,12 @@ class SQLiteSync(object):
                 self.update_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD_TYPE:
                 self.delete_card_type(self.card_type_from_log_entry(log_entry))
-            elif event_type == EventTypes.ADDED_ACTIVITY_CRITERION:
-                self.add_activity_criterion(\
-                    self.activity_criterion_from_log_entry(log_entry))
-            elif event_type == EventTypes.EDITED_ACTIVITY_CRITERION:
-                self.update_activity_criterion(\
-                    self.activity_criterion_from_log_entry(log_entry))
-            elif event_type == EventTypes.DELETED_ACTIVITY_CRITERION:
-                self.delete_activity_criterion(\
-                    self.activity_criterion_from_log_entry(log_entry))
+            elif event_type == EventTypes.ADDED_CRITERION:
+                self.add_criterion(self.criterion_from_log_entry(log_entry))
+            elif event_type == EventTypes.EDITED_CRITERION:
+                self.update_criterion(self.criterion_from_log_entry(log_entry))
+            elif event_type == EventTypes.DELETED_CRITERION:
+                self.delete_criterion(self.criterion_from_log_entry(log_entry))
         finally:
             self.log().timestamp = None
             self.syncing = False

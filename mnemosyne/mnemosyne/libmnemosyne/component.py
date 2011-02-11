@@ -11,7 +11,7 @@ class Component(object):
     render_chain, renderer, filter, card_type_widget,
     generic_card_type_widget, ui_component, controller, main_widget,
     review_controller, review_widget, file format, plugin, hook,
-    activity_criterion, criterion_applier, statistics_page, sync_server,
+    criterion, criterion_applier, statistics_page, sync_server,
     all the abstract dialogs, ...      
 
     'used_for' can store certain relationships between components, e.g.

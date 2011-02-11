@@ -1866,11 +1866,11 @@ class TestSync(object):
         assert self.client.mnemosyne.database().con.\
                    execute("select count() from partnerships").fetchone()[0] == 1
             
-    def test_add_activity_criterion(self):
+    def test_add_criterion(self):
         
         def test_server(self):
             db = self.mnemosyne.database()
-            criterion = db.activity_criterion(self.criterion_id,
+            criterion = db.criterion(self.criterion_id,
                 id_is_internal=False)
             assert criterion.data_to_string() == "(set([('5', '5::1')]), set([2]), set([3]))"
 
@@ -1911,19 +1911,19 @@ class TestSync(object):
             get_or_create_tag_with_name("tag_1")._id])
         c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_2")._id])
-        self.client.mnemosyne.database().add_activity_criterion(c)
-        self.client.mnemosyne.database().set_current_activity_criterion(c)
+        self.client.mnemosyne.database().add_criterion(c)
+        self.client.mnemosyne.database().set_current_criterion(c)
 
         self.server.criterion_id = c.id
 
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
-    def test_edit_activity_criterion(self):
+    def test_edit_criterion(self):
         
         def test_server(self):
             db = self.mnemosyne.database()
-            criterion = db.activity_criterion(self.criterion_id,
+            criterion = db.criterion(self.criterion_id,
                 id_is_internal=False)
             assert criterion.data_to_string() == "(set([('5', '5::1')]), set([2]), set([]))"
 
@@ -1964,23 +1964,23 @@ class TestSync(object):
             get_or_create_tag_with_name("tag_1")._id])
         c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_2")._id])
-        self.client.mnemosyne.database().add_activity_criterion(c)
-        self.client.mnemosyne.database().set_current_activity_criterion(c)
+        self.client.mnemosyne.database().add_criterion(c)
+        self.client.mnemosyne.database().set_current_criterion(c)
 
         c.forbidden_tag__ids = set()
-        self.client.mnemosyne.database().update_activity_criterion(c)        
+        self.client.mnemosyne.database().update_criterion(c)        
 
         self.server.criterion_id = c.id
 
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
-    def test_delete_activity_criterion(self):
+    def test_delete_criterion(self):
         
         def test_server(self):
             db = self.mnemosyne.database()
             try:
-                criterion = db.activity_criterion(self.criterion_id,
+                criterion = db.criterion(self.criterion_id,
                 id_is_internal=False)
                 assert 1 == 0
             except TypeError:
@@ -2023,9 +2023,9 @@ class TestSync(object):
             get_or_create_tag_with_name("tag_1")._id])
         c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_2")._id])
-        self.client.mnemosyne.database().add_activity_criterion(c)
-        self.client.mnemosyne.database().set_current_activity_criterion(c)
-        self.client.mnemosyne.database().delete_activity_criterion(c)
+        self.client.mnemosyne.database().add_criterion(c)
+        self.client.mnemosyne.database().set_current_criterion(c)
+        self.client.mnemosyne.database().delete_criterion(c)
         self.server.criterion_id = c.id
 
         self.client.mnemosyne.controller().file_save()

@@ -5,7 +5,7 @@
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.translator import _
-from mnemosyne.libmnemosyne.ui_components.activity_criterion_widget \
+from mnemosyne.libmnemosyne.ui_components.criterion_widget \
      import CriterionWidget
 from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
@@ -67,6 +67,8 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         else:
             self.tag_tree_wdgt.\
                 selection_to_forbidden_tags_in_criterion(criterion)
+            for tag in self.database().tags():
+                criterion.active_tag__ids.add(tag._id)
         return criterion
 
     def criterion_changed(self):        

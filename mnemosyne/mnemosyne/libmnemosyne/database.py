@@ -171,27 +171,27 @@ class Database(Component):
     def delete_card_type(self, card_type):
         raise NotImplementedError
 
-    # Activity criteria.
+    # Criteria.
     
-    def add_activity_criterion(self, criterion):
+    def add_criterion(self, criterion):
         raise NotImplementedError
 
-    def activity_criterion(self, id, id_is_internal):
+    def criterion(self, id, id_is_internal):
         raise NotImplementedError
     
-    def update_activity_criterion(self, criterion):
+    def update_criterion(self, criterion):
         raise NotImplementedError
 
-    def delete_activity_criterion(self, criterion):
+    def delete_criterion(self, criterion):
         raise NotImplementedError
     
-    def set_current_activity_criterion(self, criterion):
+    def set_current_criterion(self, criterion):
         raise NotImplementedError        
     
-    def current_activity_criterion(self):
+    def current_criterion(self):
         raise NotImplementedError
     
-    def activity_criteria(self):
+    def criteria(self):
         raise NotImplementedError    
     
     # Queries.

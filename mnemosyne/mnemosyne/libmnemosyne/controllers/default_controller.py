@@ -120,7 +120,7 @@ class DefaultController(Controller):
         if len(tags) == 0:
             tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))
         cards = []
-        criterion = db.current_activity_criterion()
+        criterion = db.current_criterion()
         for card in card_type.create_related_cards(fact):
             # Make sure the log entry for adding the card comes before the one
             # with the initial repetition.
@@ -248,7 +248,7 @@ class DefaultController(Controller):
                 tags.add(db.get_or_create_tag_with_name(tag_name))
         if len(tags) == 0:
             tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))
-        criterion = db.current_activity_criterion()
+        criterion = db.current_criterion()
 
         # Apply new tags, modification time and activity criterion to cards
         # and save cards back to the database. Note that this makes sure there

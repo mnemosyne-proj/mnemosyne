@@ -11,6 +11,8 @@ class DefaultCriterionApplier(CriterionApplier):
     used_for = DefaultCriterion
 
     def apply_to_database(self, criterion):
+        if len(criterion.forbidden_tag__ids) != 0:
+            assert len(criterion.active_tag__ids) != 0
         db = self.database()
         # If every tag is active, take a shortcut.
         tag_count = db.con.execute("select count() from tags").fetchone()[0]
@@ -28,7 +30,7 @@ class DefaultCriterionApplier(CriterionApplier):
                 args.append(_tag_id)
             command = command.rsplit("or ", 1)[0] + ")"
             if criterion.active_tag__ids:
-                db.con.execute(command, args)
+                db.con.execute(command, args)                
         # Turn off inactive card types and views.
         command = "update cards set active=0 where "
         args = []        

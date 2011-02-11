@@ -337,7 +337,7 @@ class TestTagTree(MnemosyneTest):
         c.deactivated_card_type_fact_view_ids = set()
         c.active_tag__ids = set([self.database().get_or_create_tag_with_name("active")._id])
         c.forbidden_tag__ids = set([self.database().get_or_create_tag_with_name("a")._id])
-        self.database().set_current_activity_criterion(c)
+        self.database().set_current_criterion(c)
         assert self.database().active_count() == 0
         
         from mnemosyne.libmnemosyne.tag_tree import TagTree

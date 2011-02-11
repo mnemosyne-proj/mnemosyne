@@ -107,17 +107,14 @@ class DatabaseLogger(Logger):
     def deleted_card_type(self, card_type):
         self.database().log_deleted_card_type(self.timestamp, card_type.id)
         
-    def added_activity_criterion(self, activity_criterion):
-        self.database().log_added_activity_criterion(\
-            self.timestamp, activity_criterion.id)
+    def added_criterion(self, criterion):
+        self.database().log_added_criterion(self.timestamp, criterion.id)
 
-    def edited_activity_criterion(self, activity_criterion):
-        self.database().log_edited_activity_criterion(\
-            self.timestamp, activity_criterion.id)
+    def edited_criterion(self, criterion):
+        self.database().log_edited_criterion(self.timestamp, criterion.id)
     
-    def deleted_activity_criterion(self, activity_criterion):
-        self.database().log_deleted_activity_criterion(\
-            self.timestamp, activity_criterion.id)
+    def deleted_criterion(self, criterion):
+        self.database().log_deleted_criterion(self.timestamp, criterion.id)
             
     def dump_to_science_log(self):
         self.database().dump_to_science_log()

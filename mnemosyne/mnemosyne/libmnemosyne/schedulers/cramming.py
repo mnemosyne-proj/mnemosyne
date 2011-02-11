@@ -24,7 +24,7 @@ class Cramming(SM2Mnemosyne):
             return
         self.card__ids_in_queue = []
         self.fact__ids_in_queue = []
-        self.criterion = db.current_activity_criterion()
+        self.criterion = db.current_criterion()
         # Stage 1 : do all the unseen cards.     
         if self.stage == 1:
             for _card_id, _fact_id in db.cards_with_scheduler_data(self.UNSEEN,

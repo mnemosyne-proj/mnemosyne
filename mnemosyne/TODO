@@ -1,8 +1,4 @@
--one untagged card, one forbidden card. Activity criterium: no forbidden tag. Untagged card gets deactivated as well (i.e. fix test suite)
-
--in gui, make sure when we select forbidden tags, the the active tags contain all the tags (and vice versa).
-
--when deleting forbidden tag, make sure the card gets reactivated (i.e. fix test suite)
+-when deleting forbidden tag, make sure the card gets reactivated (see test suite)
 -card in review window, edit it to pick up forbidden tag: review window does not get cleared
 -apply criteria in database or in controller? Document
 

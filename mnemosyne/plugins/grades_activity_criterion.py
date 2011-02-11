@@ -1,10 +1,10 @@
 #
-# grades_activity_criterion.py <Peter.Bienstman@UGent.be>
+# grades_criterion.py <Peter.Bienstman@UGent.be>
 #
 
 # The criterion itself.
 
-from mnemosyne.libmnemosyne.activity_criterion import Criterion
+from mnemosyne.libmnemosyne.criterion import Criterion
 
 class GradesCriterion(Criterion):
 
@@ -28,7 +28,7 @@ class GradesCriterion(Criterion):
 
 # The criterion applier.
 
-from mnemosyne.libmnemosyne.activity_criterion import CriterionApplier
+from mnemosyne.libmnemosyne.criterion import CriterionApplier
 
 class GradesCriterionApplier(CriterionApplier):
 
@@ -43,7 +43,7 @@ class GradesCriterionApplier(CriterionApplier):
 
 # The UI widget to set the threshold.
 
-from mnemosyne.libmnemosyne.ui_components.activity_criterion_widget \
+from mnemosyne.libmnemosyne.ui_components.criterion_widget \
      import CriterionWidget
 
 from PyQt4 import QtCore, QtGui

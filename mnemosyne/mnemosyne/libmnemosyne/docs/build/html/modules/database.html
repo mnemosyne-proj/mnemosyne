@@ -69,21 +69,6 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.activity_criteria">
-<tt class="descname">activity_criteria</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.activity_criteria" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.activity_criterion">
-<tt class="descname">activity_criterion</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.activity_criterion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.add_activity_criterion">
-<tt class="descname">add_activity_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_activity_criterion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_card">
 <tt class="descname">add_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -91,6 +76,11 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_card_type">
 <tt class="descname">add_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_card_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.add_criterion">
+<tt class="descname">add_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -175,18 +165,23 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 &#8216;next_rep&#8217;. Note that there is no need that next_rep == card.next_rep.</dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.current_activity_criterion">
-<tt class="descname">current_activity_criterion</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.current_activity_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.database.Database.criteria">
+<tt class="descname">criteria</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.criteria" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.criterion">
+<tt class="descname">criterion</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.criterion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.current_criterion">
+<tt class="descname">current_criterion</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.current_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.deactivate">
 <tt class="descname">deactivate</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.delete_activity_criterion">
-<tt class="descname">delete_activity_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_activity_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -197,6 +192,11 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_card_type">
 <tt class="descname">delete_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_card_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.delete_criterion">
+<tt class="descname">delete_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -314,8 +314,8 @@ thread.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.set_current_activity_criterion">
-<tt class="descname">set_current_activity_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_current_activity_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.database.Database.set_current_criterion">
+<tt class="descname">set_current_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.set_current_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -344,11 +344,6 @@ thread.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.update_activity_criterion">
-<tt class="descname">update_activity_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_activity_criterion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_card">
 <tt class="descname">update_card</tt><big>(</big><em>card</em>, <em>repetition_only=False</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -356,6 +351,11 @@ thread.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.update_card_type">
 <tt class="descname">update_card_type</tt><big>(</big><em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_card_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.update_criterion">
+<tt class="descname">update_criterion</tt><big>(</big><em>criterion</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.update_criterion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -390,7 +390,7 @@ thread.</dd></dl>
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
             <p class="topless"><a href="configuration.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Configuration</span></tt></a></p>
+                                  title="previous chapter"><tt class="docutils literal"><span class="pre">Configuration</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="file_format.html"
                                   title="next chapter"><tt class="docutils literal"><span class="pre">FileFormat</span></tt></a></p>
@@ -436,7 +436,7 @@ thread.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Dec 13, 2010.
+      Last updated on Feb 11, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>
