@@ -547,13 +547,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 (tag_string, _card_id))            
     
     def delete_tag(self, tag):
-        print self.current_criterion().forbidden_tag__ids
-        print self.current_criterion().active_tag__ids
         self.con.execute("delete from tags where _id=?", (tag._id, ))
-        self.log().deleted_tag(tag)
-        for criterion in self.criteria():
-            criterion.tag_deleted(tag)
-            self.update_criterion(criterion)
         affected_card__ids = [cursor[0] for cursor in self.con.execute(
             "select _card_id from tags_for_card where _tag_id=?",
             (tag._id, ))]
@@ -565,12 +559,20 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 untagged = self.get_or_create_tag_with_name("__UNTAGGED__")
                 self.con.execute("""insert into tags_for_card(_tag_id,
                     _card_id) values(?,?)""", (untagged._id, _card_id))
-            print self.current_criterion().forbidden_tag__ids
-            print self.current_criterion().active_tag__ids
-            self.current_criterion().apply_to_card\
-                (self.card(_card_id, id_is_internal=True))
         if self.store_pregenerated_data:
-            self._update_tag_strings(affected_card__ids)  
+            self._update_tag_strings(affected_card__ids)
+        # Update criteria, as e.g. deleting a forbidden tag needs to
+        # reactive the cards having this tag.
+        # TODO: some speed-up could be had here be only running the applier
+        # if the tag was relevant for the current criterion.
+        self.log().deleted_tag(tag)
+        for criterion in self.criteria():
+            criterion.tag_deleted(tag)
+            self.update_criterion(criterion)
+        criterion = self.current_criterion()
+        applier = self.component_manager.current("criterion_applier",
+            used_for=criterion.__class__)
+        applier.apply_to_database(criterion)
         del tag
         
     def remove_tag_if_unused(self, tag):

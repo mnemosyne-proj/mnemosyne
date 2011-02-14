@@ -1,15 +1,13 @@
--when deleting forbidden tag, make sure the card gets reactivated (see test suite)
+-apply criteria in database (like when deleting tags) or in controller (like when adding, editing cards)?
+ best in database, then it's correctly set for syncing too.
+-apply activity criterion after sync, for both partners + test (could be obsoleted by previous point)
+
 -card in review window, edit it to pick up forbidden tag: review window does not get cleared
--apply criteria in database or in controller? Document
 
-
-
--right click menu options: edit, preview, delete, change card type, add tags, remove tags
--do criterion applier after adding/deleting tags and changing card type
+-right click menu options: edit, delete, change card type, add tags, remove tags
+-do criterion applier after adding/deleting tags and changing card type, preferably in the database code
 -repopulate tree widgets after editing/deleting
 -add controller logic for after editing/deleting a card in browse cards
-
--apply activity criterion after sync, for both partners + test
 
 -media file handler
 -don't do media check in database, but in controller?

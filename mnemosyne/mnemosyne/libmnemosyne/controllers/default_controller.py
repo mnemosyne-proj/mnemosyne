@@ -148,9 +148,6 @@ class DefaultController(Controller):
         # Our current card could have disappeared from the database here,
         # e.g. when converting a front-to-back card to a cloze card, which
         # deletes the old cards and their learning history.
-
-        print review_controller.card
-        
         if review_controller.card is None:
             review_controller.new_question()
         else:

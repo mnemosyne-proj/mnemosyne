@@ -330,17 +330,17 @@ class TestTagTree(MnemosyneTest):
         card_type = self.card_type_by_id("1")
         fact_data = {"q": "question",  "a": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["a"])[0]
+            grade=-1, tag_names=["forbidden"])[0]
         assert self.database().active_count() == 1
         
         c = DefaultCriterion(self.mnemosyne.component_manager)
         c.deactivated_card_type_fact_view_ids = set()
         c.active_tag__ids = set([self.database().get_or_create_tag_with_name("active")._id])
-        c.forbidden_tag__ids = set([self.database().get_or_create_tag_with_name("a")._id])
+        c.forbidden_tag__ids = set([self.database().get_or_create_tag_with_name("forbidden")._id])
         self.database().set_current_criterion(c)
         assert self.database().active_count() == 0
         
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)      
-        self.tree.delete_subtree("a")
+        self.tree.delete_subtree("forbidden")
         assert self.database().active_count() == 1
