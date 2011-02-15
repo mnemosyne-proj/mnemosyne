@@ -57,8 +57,7 @@ class DefaultCriterion(Criterion):
         self.active_tag__ids = data[1]
         self.forbidden_tag__ids = data[2]
 
-    # To send the activity criteria across, we need to convert from _ids
-    # ids first.
+    # To send the criteria across, we need to convert from _ids ids first.
     
     def data_to_sync_string(self):
         active_tag_ids = set()

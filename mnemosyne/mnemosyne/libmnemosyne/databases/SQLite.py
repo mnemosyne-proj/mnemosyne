@@ -465,8 +465,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
 
     def get_or_create_tag_with_name(self, name):
+        name = name.strip()
         sql_res = self.con.execute("select * from tags where name=?",
-                                   (name, )).fetchone()
+            (name, )).fetchone()
         if sql_res:
             tag = Tag(sql_res["name"], sql_res["id"])
             tag._id = sql_res["_id"]
@@ -475,6 +476,18 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             tag = Tag(name)
             self.add_tag(tag)
         return tag
+
+    def get_or_create_tags_with_names(self, names):
+        # If there are no tags, use an artificial __UNTAGGED__ tag. This
+        # allows for an easy and fast implementation of applying criteria.
+        tags = set()
+        for name in names:
+            name = name.strip()
+            if name and name != "__UNTAGGED__":
+                tags.add(self.get_or_create_tag_with_name(name))
+        if len(tags) == 0:
+            tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
+        return tags
     
     def add_tag(self, tag):
         _id = self.con.execute("""insert into tags(name, extra_data, id)
@@ -656,6 +669,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
     #
     
     def add_card(self, card):
+        self.current_criterion().apply_to_card(card)
         _card_id = self.con.execute("""insert into cards(id, card_type_id,
             _fact_id, fact_view_id, grade, next_rep, last_rep, easiness,
             acq_reps, ret_reps, lapses, acq_reps_since_lapse,
@@ -710,6 +724,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         return card
     
     def update_card(self, card, repetition_only=False):
+        if not repetition_only:
+            self.current_criterion().apply_to_card(card)
         self.con.execute("""update cards set grade=?, next_rep=?, last_rep=?,
             easiness=?, acq_reps=?, ret_reps=?, lapses=?,
             acq_reps_since_lapse=?, ret_reps_since_lapse=?, 
@@ -918,6 +934,9 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             self._current_criterion = criterion
         if criterion.name:
             self.log().edited_criterion(criterion)
+        # Note that by design, the sync procedure never touches the current
+        # criterion: you could have different cards active on different
+        # devices.
  
     def delete_criterion(self, criterion):
         self.con.execute("delete from criteria where _id=?", (criterion._id, ))

@@ -75,7 +75,6 @@ class TestDatabase(MnemosyneTest):
         card.next_rep = -8
         card.extra_data = "extra"
         card.scheduler_data = 1
-        card.active = False
         card.in_view = False
         
         self.database().update_card(card)
@@ -91,7 +90,6 @@ class TestDatabase(MnemosyneTest):
         assert card.next_rep == -8
         assert card.extra_data == "extra"
         assert card.scheduler_data == 1
-        assert card.active == False
         
     def test_update_tag(self):
         fact_data = {"q": "question",

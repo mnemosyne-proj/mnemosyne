@@ -109,18 +109,9 @@ class DefaultController(Controller):
                 if answer == 2:  # Don't add.
                     return
         db.add_fact(fact)
-        # Add the tags. If there are no tags, use an artificial __UNTAGGED__
-        # tag. This allows for an easy and fast implementation of applying
-        # activity criteria.
-        tags = set()
-        for tag_name in tag_names:
-            tag_name = tag_name.rstrip()
-            if tag_name and tag_name != "__UNTAGGED__":
-                tags.add(db.get_or_create_tag_with_name(tag_name))
-        if len(tags) == 0:
-            tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))
+        # Create cards.
         cards = []
-        criterion = db.current_criterion()
+        tags = db.get_or_create_tags_with_names(tag_names)
         for card in card_type.create_related_cards(fact):
             # Make sure the log entry for adding the card comes before the one
             # with the initial repetition.
@@ -128,7 +119,6 @@ class DefaultController(Controller):
             if grade >= 2:
                 self.scheduler().set_initial_grade(card, grade)
             card.tags = tags
-            criterion.apply_to_card(card)
             db.add_card(card)
             cards.append(card)
         if save:
@@ -144,7 +134,7 @@ class DefaultController(Controller):
         self.component_manager.current("edit_card_dialog")\
             (review_controller.card, self.component_manager).activate()
         # This dialog calls 'edit_related_cards' at some point.
-        review_controller.reload_counters()
+        review_controller.reload_counters()    
         # Our current card could have disappeared from the database here,
         # e.g. when converting a front-to-back card to a cloze card, which
         # deletes the old cards and their learning history.
@@ -153,6 +143,9 @@ class DefaultController(Controller):
         else:
             review_controller.card = self.database().card(\
                 review_controller.card._id, id_is_internal=True)
+            # Our current card could have picked up a forbidden tag.
+            if review_controller.card.active == False: 
+                review_controller.new_question()
             review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
@@ -236,28 +229,18 @@ class DefaultController(Controller):
             db.add_card(card)
         if new_cards and self.review_controller().learning_ahead == True:
             self.review_controller().reset()
-            
-        # Create new tags if needed and fetch the edited activity criterion.
-        tags = set()
-        for tag_name in new_tag_names:
-            tag_name = tag_name.rstrip()
-            if tag_name:
-                tags.add(db.get_or_create_tag_with_name(tag_name))
-        if len(tags) == 0:
-            tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))
-        criterion = db.current_criterion()
 
-        # Apply new tags, modification time and activity criterion to cards
-        # and save cards back to the database. Note that this makes sure there
-        # is an EDITED_CARD log entry for each related card, which is needed
-        # when syncing with a partner that does not have the concept of facts.
+        # Apply new tags and modification time to cards and save them back to
+        # the database. Note that this makes sure there is an EDITED_CARD log
+        # entry for each related card, which is needed when syncing with a
+        # partner that does not have the concept of facts.
         old_tags = set()
+        tags = db.get_or_create_tags_with_names(new_tag_names)
         modification_time = int(time.time())
         for card in self.database().cards_from_fact(fact):
             card.modification_time = modification_time
             old_tags = old_tags.union(card.tags)
             card.tags = tags
-            criterion.apply_to_card(card)
             db.update_card(card)
         for tag in old_tags:
             db.remove_tag_if_unused(tag)

@@ -108,7 +108,10 @@ class Database(Component):
 
     def get_or_create_tag_with_name(self, name):
         raise NotImplementedError
-
+    
+    def get_or_create_tags_with_names(self, names):
+        raise NotImplementedError
+    
     def remove_tag_if_unused(self, tag):
         raise NotImplementedError
 

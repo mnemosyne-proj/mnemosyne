@@ -574,6 +574,9 @@ class SQLiteSync(object):
                 self.update_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD_TYPE:
                 self.delete_card_type(self.card_type_from_log_entry(log_entry))
+            # Note that by design, the sync procedure never touches the
+            # current criterion: you could have different cards active on
+            # different devices.
             elif event_type == EventTypes.ADDED_CRITERION:
                 self.add_criterion(self.criterion_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_CRITERION:

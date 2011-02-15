@@ -15,7 +15,7 @@ class Tag(CompareOnId):
     that can be used by the database for efficiency reasons.
 
     Untagged cards are given the internal tag __UNTAGGED__, to allow for a
-    fast implementation of applying activity criteria.
+    fast implementation of applying criteria.
     
     """
 

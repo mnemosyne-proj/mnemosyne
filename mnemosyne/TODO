@@ -1,11 +1,5 @@
--apply criteria in database (like when deleting tags) or in controller (like when adding, editing cards)?
- best in database, then it's correctly set for syncing too.
--apply activity criterion after sync, for both partners + test (could be obsoleted by previous point)
-
--card in review window, edit it to pick up forbidden tag: review window does not get cleared
-
 -right click menu options: edit, delete, change card type, add tags, remove tags
--do criterion applier after adding/deleting tags and changing card type, preferably in the database code
+-do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
 -repopulate tree widgets after editing/deleting
 -add controller logic for after editing/deleting a card in browse cards
 

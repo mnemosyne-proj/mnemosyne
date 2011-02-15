@@ -2286,5 +2286,61 @@ class TestSync(object):
         self.client.do_sync()
         assert len(self.client.mnemosyne.database().tags()) == 2
         assert len(self.client.mnemosyne.database().partners()) == 1
+
+    def test_delete_forbidden_tag(self):
+
+        # First sync.
         
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        fact_data = {"q": "question",  "a": "answer"}
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["forbidden"])[0]
+        assert self.client.mnemosyne.database().active_count() == 1
+        
+        c = DefaultCriterion(self.client.mnemosyne.component_manager)
+        c.deactivated_card_type_fact_view_ids = set()
+        c.active_tag__ids = set([self.client.mnemosyne.database().get_or_create_tag_with_name("active")._id])
+        c.forbidden_tag__ids = set([self.client.mnemosyne.database().get_or_create_tag_with_name("forbidden")._id])
+        self.client.mnemosyne.database().set_current_criterion(c)
+        assert self.client.mnemosyne.database().active_count() == 0
+
+        self.client.do_sync()        
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        # Second sync.
+
+        def fill_server_database(self):
+            pass
+        
+        def test_server(self):
+            card = self.mnemosyne.database().card(self.card_id, id_is_internal=False)
+            assert card.active == True
+            assert self.mnemosyne.database().active_count() == 1
+        
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        self.server.card_id = card.id
+
+        self.client = MyClient(erase_previous=False)
+
+        from mnemosyne.libmnemosyne.tag_tree import TagTree
+        tree = TagTree(self.client.mnemosyne.component_manager)      
+        tree.delete_subtree("forbidden")
+        
+        self.client.do_sync()
+        
+        assert self.client.mnemosyne.database().active_count() == 1
    

@@ -84,7 +84,7 @@ from mnemosyne.libmnemosyne.plugin import Plugin
 
 class GradesCriterionPlugin(Plugin):
     name = "Activity criterion example"
-    description = "Example plugin for grade-based activity criteria."
+    description = "Example plugin for grade-based criterion."
     components = [GradesCriterion, GradesCriterionApplier, GradesCriterionWdgt]
 
 from mnemosyne.libmnemosyne.plugin import register_user_plugin
