@@ -58,7 +58,8 @@ class HtmlCssCardBrowser(HtmlCss):
     def body(self, data, fields, **render_args):
         html = ""
         for field in fields:
-            html += "<span class=\"%s\">%s</span> / " % (field, data[field])
+            data_field = data[field].replace("\n", " / ")
+            html += "<span class=\"%s\">%s</span> / " % (field, data_field)
         return html[:-2]
                 
     def render_fields(self, data, fields, card_type, **render_args):

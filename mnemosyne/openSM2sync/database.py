@@ -88,7 +88,7 @@ class Database(object):
         _hash text
     );
 
-    This minimal client will not be sent any events related to facts, so it
+    This minimal client will not be sent any events sister to facts, so it
     does not need to implement them.
 
     """

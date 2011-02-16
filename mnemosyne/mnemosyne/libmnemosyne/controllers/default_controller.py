@@ -56,7 +56,7 @@ class DefaultController(Controller):
     def create_new_cards(self, fact_data, card_type, grade, tag_names,
                          check_for_duplicates=True, save=True):
 
-        """Create a new set of related cards. If the grade is 2 or higher,
+        """Create a new set of sister cards. If the grade is 2 or higher,
         we perform a initial review with that grade and move the cards into
         the long term retention process. For other grades, we treat the card
         as still unseen and keep its grade at -1. This puts the card on equal
@@ -87,7 +87,7 @@ class DefaultController(Controller):
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
                 if answer == 0: # Merge and edit.
                     db.add_fact(fact)
-                    for card in card_type.create_related_cards(fact):
+                    for card in card_type.create_sister_cards(fact):
                         # Make sure the log entry for adding the card comes
                         # before the one with the initial repetition.
                         self.log().added_card(card)
@@ -99,7 +99,7 @@ class DefaultController(Controller):
                         for key in fact_data:
                             if key not in card_type.required_fields:
                                 merged_fact_data[key] += " / " + duplicate[key]
-                        db.delete_fact_and_related_cards(duplicate)
+                        db.delete_fact_and_sister_cards(duplicate)
                     card = db.cards_from_fact(fact)[0]
                     card.fact.data = merged_fact_data
                     self.component_manager.current("edit_card_dialog")\
@@ -112,7 +112,7 @@ class DefaultController(Controller):
         # Create cards.
         cards = []
         tags = db.get_or_create_tags_with_names(tag_names)
-        for card in card_type.create_related_cards(fact):
+        for card in card_type.create_sister_cards(fact):
             # Make sure the log entry for adding the card comes before the one
             # with the initial repetition.
             self.log().added_card(card)
@@ -133,7 +133,7 @@ class DefaultController(Controller):
         review_controller = self.review_controller()
         self.component_manager.current("edit_card_dialog")\
             (review_controller.card, self.component_manager).activate()
-        # This dialog calls 'edit_related_cards' at some point.
+        # This dialog calls 'edit_sister_cards' at some point.
         review_controller.reload_counters()    
         # Our current card could have disappeared from the database here,
         # e.g. when converting a front-to-back card to a cloze card, which
@@ -149,7 +149,7 @@ class DefaultController(Controller):
             review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
-    def edit_related_cards(self, fact, new_fact_data, new_card_type, \
+    def edit_sister_cards(self, fact, new_fact_data, new_card_type, \
                            new_tag_names, correspondence):
         # Change card type.
         db = self.database()
@@ -176,7 +176,7 @@ class DefaultController(Controller):
                     if answer == 1:   # Cancel.
                         return -1
                     else:
-                        db.delete_fact_and_related_cards(fact)
+                        db.delete_fact_and_sister_cards(fact)
                         card = self.create_new_cards(new_fact_data,
                           new_card_type, grade=-1, tag_names=new_tag_names)[0]
                         self.review_controller().card = card
@@ -217,7 +217,7 @@ class DefaultController(Controller):
         # Update fact and create or delete cards (due to updating of fact
         # data, not changing of card type).
         new_cards, edited_cards, deleted_cards = \
-            new_card_type.edit_related_cards(fact, new_fact_data)
+            new_card_type.edit_sister_cards(fact, new_fact_data)
         fact.data = new_fact_data
         db.update_fact(fact)
         for card in deleted_cards:
@@ -232,7 +232,7 @@ class DefaultController(Controller):
 
         # Apply new tags and modification time to cards and save them back to
         # the database. Note that this makes sure there is an EDITED_CARD log
-        # entry for each related card, which is needed when syncing with a
+        # entry for each sister card, which is needed when syncing with a
         # partner that does not have the concept of facts.
         old_tags = set()
         tags = db.get_or_create_tags_with_names(new_tag_names)
@@ -258,12 +258,12 @@ class DefaultController(Controller):
         if no_of_cards == 1:
             question = _("Delete this card?")
         elif no_of_cards == 2:
-            question = _("Delete this card and 1 related card?") + " "  +\
+            question = _("Delete this card and 1 sister card?") + " "  +\
                       _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?")
         else:
             question = _("Delete this card and") + " " + str(no_of_cards - 1) \
-                       + " " + _("related cards?") + " " +\
+                       + " " + _("sister cards?") + " " +\
                        _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?")
         answer = self.main_widget().show_question(question, _("&Delete"),
@@ -271,7 +271,7 @@ class DefaultController(Controller):
         if answer == 1:  # Cancel.
             self.stopwatch().unpause()
             return
-        db.delete_fact_and_related_cards(fact)
+        db.delete_fact_and_sister_cards(fact)
         db.save()
         review_controller.reload_counters()
         review_controller.new_question()

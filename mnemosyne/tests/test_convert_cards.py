@@ -58,7 +58,7 @@ class TestConvertCards(MnemosyneTest):
         new_fact_data = {"q": "question2",                    
                          "a": "answer2"}
         new_card_type = self.card_type_by_id("2")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
@@ -98,7 +98,7 @@ class TestConvertCards(MnemosyneTest):
         new_fact_data = {"q": "question2",                    
                          "a": "answer2"}
         new_card_type = self.card_type_by_id("1")
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
@@ -132,7 +132,7 @@ class TestConvertCards(MnemosyneTest):
                          "t": "translation"}
         correspondence = {"q": "f", "a": "p"}
         new_card_type = self.card_type_by_id("3")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -170,7 +170,7 @@ class TestConvertCards(MnemosyneTest):
                          "t": "translation"}
         correspondence = {"q": "t", "a": "f"}
         new_card_type = self.card_type_by_id("3")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -210,7 +210,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}
         new_card_type = self.card_type_by_id("1")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -247,7 +247,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer"}
         correspondence = {"f": "a", "t": ";"}
         new_card_type = self.card_type_by_id("1")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -284,7 +284,7 @@ class TestConvertCards(MnemosyneTest):
                          "t": "translation"}
         correspondence = {"q": "f", "a": "t"}
         new_card_type = self.card_type_by_id("3")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -323,7 +323,7 @@ class TestConvertCards(MnemosyneTest):
                          "t": "translation"}
         correspondence = {"q": "t", "a": "f"}
         new_card_type = self.card_type_by_id("3")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -361,7 +361,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}
         new_card_type = self.card_type_by_id("2")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -401,7 +401,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer"}
         correspondence = {"f": "a", "t": "q"}
         new_card_type = self.card_type_by_id("2")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -443,7 +443,7 @@ class TestConvertCards(MnemosyneTest):
                          "a": "answer"}
         correspondence = {"f": "q", "t": "a"}
         new_card_type = self.card_type_by_id("1")     
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -483,7 +483,7 @@ class TestConvertCards(MnemosyneTest):
         self.controller().clone_card_type(new_card_type, "my_1")
         new_card_type = self.card_type_by_id("1::my_1")
       
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -528,7 +528,7 @@ class TestConvertCards(MnemosyneTest):
         self.controller().clone_card_type(new_card_type, "my_1")
         new_card_type = self.card_type_by_id("1::my_1")
       
-        self.controller().edit_related_cards(fact, new_fact_data,
+        self.controller().edit_sister_cards(fact, new_fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence=correspondence)
         
@@ -570,7 +570,7 @@ class TestConvertCards(MnemosyneTest):
 
         new_card_type = self.card_type_by_id("1")
         fact_data = {"q": "[question]", "a": ""}
-        self.controller().edit_related_cards(card.fact, fact_data,
+        self.controller().edit_sister_cards(card.fact, fact_data,
                new_card_type, new_tag_names=["default2"],
                correspondence={'text': 'q'})
 
@@ -592,7 +592,7 @@ class TestConvertCards(MnemosyneTest):
         new_card_type = self.controller().\
                         clone_card_type(card_type, "my_2")
       
-        self.controller().edit_related_cards(card_1.fact, fact_data,
+        self.controller().edit_sister_cards(card_1.fact, fact_data,
                new_card_type, new_tag_names=["default"],
                correspondence={})
         

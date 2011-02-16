@@ -65,21 +65,21 @@ class TestCloze(MnemosyneTest):
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_] [c_]"}
-        self.controller().edit_related_cards(fact, fact_data,
+        self.controller().edit_sister_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 2
 
         fact_data = {"text": "a_ [b_]"}
-        self.controller().edit_related_cards(fact, fact_data,
+        self.controller().edit_sister_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
         
         fact_data = {"text": "a_ [b_] [d] [e]"}
-        self.controller().edit_related_cards(fact, fact_data,
+        self.controller().edit_sister_cards(fact, fact_data,
                card_type, new_tag_names=["default2"], correspondence=[])
         
         assert self.database().fact_count() == 1

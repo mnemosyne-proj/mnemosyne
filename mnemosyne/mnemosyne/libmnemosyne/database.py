@@ -129,7 +129,7 @@ class Database(Component):
     def update_fact(self, fact):
         raise NotImplementedError
 
-    def delete_fact_and_related_cards(self, fact):
+    def delete_fact_and_sister_cards(self, fact):
         raise NotImplementedError
     
     # Cards.
@@ -205,9 +205,9 @@ class Database(Component):
         
         raise NotImplementedError
     
-    def count_related_cards_with_next_rep(self, card, next_rep):
+    def count_sister_cards_with_next_rep(self, card, next_rep):
 
-        """Return how many related cards with grade >= 2 are scheduled at
+        """Return how many sister cards with grade >= 2 are scheduled at
         'next_rep'. Note that there is no need that next_rep == card.next_rep.
 
         """

@@ -275,24 +275,31 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             
     def keyPressEvent(self, event):            
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
-            self.menu_rename()
+            self.menu_edit()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.menu_delete()
-            
-    def menu_edit(self):
-        print "edit"
-        # unload qt database
 
-        # load qt database
-        
-    def menu_preview(self):
-        from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg  
+    def cards_from_single_selection(self):
         index = self.table.selectionModel().selectedRows()[0]
         _fact_id_index = index.model().index(\
             index.row(), _FACT_ID, index.parent())
         _fact_id = index.model().data(_fact_id_index).toInt()[0]
         fact = self.database().fact(_fact_id, id_is_internal=True)
-        cards = self.database().cards_from_fact(fact) 
+        return self.database().cards_from_fact(fact)        
+        
+    def menu_edit(self):
+        cards = self.cards_from_single_selection()
+        dlg = self.component_manager.current("edit_card_dialog")\
+            (cards[0], self.component_manager)
+        dlg.before_apply_hook = self.unload_qt_database
+        dlg.activate()
+        self.display_card_table()
+        self.card_type_tree_wdgt.display()
+        self.tag_tree_wdgt.display()
+        
+    def menu_preview(self):
+        from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
+        cards = self.cards_from_single_selection()
         tag_text = cards[0].tag_string()
         dlg = PreviewCardsDlg(cards, tag_text, self)
         dlg.exec_()
@@ -349,6 +356,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.table.setItemDelegateForColumn(\
             ANSWER, QA_Delegate(self.component_manager, ANSWER, self))
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        self.table.doubleClicked.connect(self.menu_edit)
         self.table.verticalHeader().hide()
         for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,

@@ -10,7 +10,7 @@ from mnemosyne.libmnemosyne.component import Component
 class CardType(Component, CompareOnId):
 
     """A card type groups a number of fact views on a certain fact, thereby
-    forming a set of related cards.
+    forming a set of sister cards.
 
     A card type needs an id as well as a name, because the name can change
     for different translations. It is best to keep the id short, as it will
@@ -44,7 +44,7 @@ class CardType(Component, CompareOnId):
     typically just fact.data, butwhich can also be generated on the fly,
     as e.g. in the cloze card type.
     
-    The functions 'create_related_cards' and 'edit_related_cards' can be
+    The functions 'create_sister_cards' and 'edit_sister_cards' can be
     overridden by card types which can have a varying number of fact views,
     e.g. the cloze card type.
 
@@ -97,7 +97,7 @@ class CardType(Component, CompareOnId):
     def fact_data(self, card):
         return card.fact.data
 
-    def create_related_cards(self, fact):
+    def create_sister_cards(self, fact):
 
         """Initial grading of cards and storing in the database should not happen
         here, but is done in the main controller.
@@ -106,7 +106,7 @@ class CardType(Component, CompareOnId):
         
         return [Card(self, fact, fact_view) for fact_view in self.fact_views]
 
-    def edit_related_cards(self, fact, new_fact_data):
+    def edit_sister_cards(self, fact, new_fact_data):
 
         """If for the card type this operation results in edited, added or
         deleted card data apart from the edited fact data from which they

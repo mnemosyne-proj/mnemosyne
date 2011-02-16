@@ -655,7 +655,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Process media files.
         self._process_media(fact)
 
-    def delete_fact_and_related_cards(self, fact):
+    def delete_fact_and_sister_cards(self, fact):
         for card in self.cards_from_fact(fact):
             self.delete_card(card)
         self.con.execute("delete from facts where _id=?", (fact._id, ))
@@ -1028,7 +1028,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
             in self.con.execute("select _id from cards where _fact_id=?",
                                 (fact._id, )))
 
-    def count_related_cards_with_next_rep(self, card, next_rep):
+    def count_sister_cards_with_next_rep(self, card, next_rep):
         return self.con.execute("""select count() from cards where
             next_rep=? and _id<>? and grade>=2 and _id in
             (select _id from cards where _fact_id=?)""",

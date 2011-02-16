@@ -55,7 +55,7 @@ class Cloze(CardType):
         question = question.replace(cloze, "[...]",  1)
         return {"q": question, "a": cloze}
 
-    def create_related_cards(self, fact):
+    def create_sister_cards(self, fact):
         cards = []
         for match in cloze_re.finditer(fact["text"]):
             card = Card(self, fact, self.fact_views[0])
@@ -65,7 +65,7 @@ class Cloze(CardType):
             cards.append(card)         
         return cards
 
-    def edit_related_cards(self, fact, new_fact_data):        
+    def edit_sister_cards(self, fact, new_fact_data):        
         new_cards, edited_cards, deleted_cards = [], [], []
         old_clozes = cloze_re.findall(fact["text"])
         new_clozes = cloze_re.findall(new_fact_data["text"])

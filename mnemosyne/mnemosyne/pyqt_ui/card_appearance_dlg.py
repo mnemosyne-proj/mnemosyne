@@ -205,7 +205,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         for fact_key, fact_key_name, language_code in card_type.fields:
             fact_data[fact_key] = fact_key_name
         fact = Fact(fact_data)
-        cards = card_type.create_related_cards(fact)        
+        cards = card_type.create_sister_cards(fact)        
         tag_text = ""
         dlg = PreviewCardsDlg(cards, tag_text, self)
         dlg.exec_()

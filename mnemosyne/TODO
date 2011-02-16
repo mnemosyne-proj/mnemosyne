@@ -1,14 +1,29 @@
--right click menu options: edit, delete, change card type, add tags, remove tags
+-saved index routines should also restore the selections
+-repopulate tree widgets after deleting, including criterion
+ where to invalidate the tree? In libmnemosyne or in the ui?
+ possibility to factor out the saved criterion code?
+
+-right click delete
+-remove orphaned media files after delete, edit and change card type. 
+ Make sure this runs only once when deleting more than 1 card, either by running it from the controller,
+ or by having a db function which operates on more than 1 card.
+-repopulate tree widgets after deleting
+
+-right click change card type
 -do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
--repopulate tree widgets after editing/deleting
--add controller logic for after editing/deleting a card in browse cards
+
+-right click add tags
+
+-right click remove tags
+
+
+-GSoC
+
 
 -media file handler
 -don't do media check in database, but in controller?
 -rename relative_paths to Media_paths
 -create latex dir in filter plugin?
--delete orphaned media files. Do it in controller, not in database, so that it needs to 
- happen only once when batch deleting a set of cards.
 
 -card formatting options on remote web server: act on config info that the client sent across
  Add hook in set_partner_info
@@ -16,6 +31,7 @@
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
 -document cntrl enter in edit dialog instead of clicking ok (also manual?)
+-tip on double-click to edit cards and tag names in browser
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)

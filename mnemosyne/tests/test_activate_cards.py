@@ -225,7 +225,7 @@ class TestActivateCards(MnemosyneTest):
         assert self.database().active_count() == 0
         
         card_type_2 = self.card_type_by_id("2")
-        self.controller().edit_related_cards(card.fact, card.fact.data,
+        self.controller().edit_sister_cards(card.fact, card.fact.data,
                card_type_2, new_tag_names=["allowed"], correspondence=[])
         assert self.database().active_count() == 2
 
@@ -255,7 +255,7 @@ class TestActivateCards(MnemosyneTest):
         self.database().set_current_criterion(c)
         assert self.database().active_count() == 0
 
-        self.database().delete_fact_and_related_cards(card.fact)
+        self.database().delete_fact_and_sister_cards(card.fact)
         plugin.deactivate()
         c = self.database().current_criterion()
         assert len(c.deactivated_card_type_fact_view_ids) == 0

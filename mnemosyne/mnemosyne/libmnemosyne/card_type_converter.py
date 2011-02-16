@@ -7,7 +7,7 @@ from mnemosyne.libmnemosyne.component import Component
 
 class CardTypeConverter(Component):
 
-    """Converts a set of related cards to a new card type.
+    """Converts a set of sister cards to a new card type.
 
     used_for = (old_type class, new_type class)
 

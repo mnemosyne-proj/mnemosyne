@@ -53,27 +53,29 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     """
 
     def __init__(self, component_manager, parent,
-        before_libmnemosyne_db=None, after_libmnemosyne_db=None):
+        before_libmnemosyne_db_hook=None, after_libmnemosyne_db_hook=None):
         Component.__init__(self, component_manager)
         self.tag_tree = TagTree(self.component_manager)
         QtGui.QWidget.__init__(self, parent)
-        self.before_libmnemosyne_db = before_libmnemosyne_db
-        self.after_libmnemosyne_db = after_libmnemosyne_db
+        self.before_libmnemosyne_db_hook = before_libmnemosyne_db_hook
+        self.after_libmnemosyne_db_hook = after_libmnemosyne_db_hook
         self.layout = QtGui.QVBoxLayout(self)
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
         self.tag_tree_wdgt.setColumnCount(2)
         self.tag_tree_wdgt.setColumnHidden(1, True)
         self.tag_tree_wdgt.setColumnHidden(NODE, True)        
         self.tag_tree_wdgt.setHeaderHidden(True)
-        self.tag_tree_wdgt.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
+        self.tag_tree_wdgt.setSelectionMode(\
+            QtGui.QAbstractItemView.ExtendedSelection)
         self.delegate = TagDelegate(component_manager, self)
         self.tag_tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
         self.layout.addWidget(self.tag_tree_wdgt)
         self.tag_tree_wdgt.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.tag_tree_wdgt.customContextMenuRequested.connect(self.context_menu)
+        self.tag_tree_wdgt.customContextMenuRequested.connect(\
+            self.context_menu)
 
-    def selected_not_read_only_indices(self):
+    def selected_non_read_only_indices(self):
         indices = []
         for index in self.tag_tree_wdgt.selectedIndexes():
             node_index = \
@@ -93,7 +95,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         remove_tag_action.setShortcut(QtGui.QKeySequence.Delete)
         remove_tag_action.triggered.connect(self.menu_remove)
         menu.addAction(remove_tag_action)
-        indices = self.selected_not_read_only_indices()
+        indices = self.selected_non_read_only_indices()
         if len(indices) > 1:
             rename_tag_action.setEnabled(False)
         if len(indices) >= 1:
@@ -108,7 +110,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def menu_rename(self):
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
-        index = self.selected_not_read_only_indices()[0]        
+        index = self.selected_non_read_only_indices()[0]        
         node_index = index.model().index(index.row(), NODE, index.parent())
         old_node_label = index.model().data(node_index).toString()
 
@@ -124,7 +126,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.rename_node(old_node_label, unicode(dlg.tag_name.text()))
         
     def menu_remove(self):
-        for index in self.selected_not_read_only_indices():
+        for index in self.selected_non_read_only_indices():
             node_index = index.model().index(index.row(), NODE, index.parent())
             node_label = index.model().data(node_index).toString()
             self.delete_node(node_label)
@@ -204,8 +206,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.selection_to_active_tags_in_criterion(saved_criterion)
         # Case 1: regular rename.
         if old_node_label != new_node_label:
-            if self.before_libmnemosyne_db:
-                self.before_libmnemosyne_db()
+            if self.before_libmnemosyne_db_hook:
+                self.before_libmnemosyne_db_hook()
             self.tag_tree.rename_node(old_node_label, new_node_label)
             # Rebuild the tree widget to reflect the changes.
             new_criterion = DefaultCriterion(self.component_manager)
@@ -213,8 +215,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 if tag._id in saved_criterion.active_tag__ids:
                     new_criterion.active_tag__ids.add(tag._id)  
             self.display(new_criterion)
-            if self.after_libmnemosyne_db:
-                self.after_libmnemosyne_db()
+            if self.after_libmnemosyne_db_hook:
+                self.after_libmnemosyne_db_hook()
         else:
             # Case 2: aborted edit, we need to redraw the tree to show the
             # card counts again.
@@ -232,8 +234,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
                 return
 
     def delete_node(self, node):
-        if self.before_libmnemosyne_db:
-            self.before_libmnemosyne_db()
+        if self.before_libmnemosyne_db_hook:
+            self.before_libmnemosyne_db_hook()
         saved_criterion = DefaultCriterion(self.component_manager)
         self.selection_to_active_tags_in_criterion(saved_criterion)
         self.tag_tree.delete_subtree(unicode(node))
@@ -243,6 +245,6 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             if tag._id in saved_criterion.active_tag__ids:
                 new_criterion.active_tag__ids.add(tag._id)  
         self.display(new_criterion)
-        if self.after_libmnemosyne_db:
-            self.after_libmnemosyne_db()        
+        if self.after_libmnemosyne_db_hook:
+            self.after_libmnemosyne_db_hook()        
 

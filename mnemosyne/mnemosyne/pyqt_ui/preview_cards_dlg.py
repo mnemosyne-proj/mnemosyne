@@ -1,5 +1,5 @@
 #
-# Widget to preview set of related cards <Peter.Bienstman@UGent.be>
+# Widget to preview set of sister cards <Peter.Bienstman@UGent.be>
 #
 
 from PyQt4 import QtGui

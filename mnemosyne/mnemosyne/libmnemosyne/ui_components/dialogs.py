@@ -17,6 +17,11 @@ class AddCardsDialog(Dialog):
 
 
 class EditCardDialog(Dialog):
+
+    """Note: even though this is in essence an EditFactDialog, we don't use
+    'fact' as argument, as 'fact' does not know anything about card types.
+
+    """
     
     component_type = "edit_card_dialog"
 

@@ -205,8 +205,8 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().grade_answer(0)
         assert self.review_controller().scheduled_count == 0
                     
-    def test_learn_related_together(self):
-        self.config()["memorise_related_cards_on_same_day"] = True
+    def test_learn_sister_together(self):
+        self.config()["memorise_sister_cards_on_same_day"] = True
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
@@ -224,8 +224,8 @@ class TestScheduler(MnemosyneTest):
             cards.add(self.review_controller().card._id)
         assert card_2._id in cards
         
-    def test_learn_related_together_2(self):
-        self.config()["memorise_related_cards_on_same_day"] = False
+    def test_learn_sister_together_2(self):
+        self.config()["memorise_sister_cards_on_same_day"] = False
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
@@ -243,9 +243,9 @@ class TestScheduler(MnemosyneTest):
             cards.add(self.review_controller().card._id)
         assert card_2._id not in cards
 
-    def test_learn_related_together_3(self):
+    def test_learn_sister_together_3(self):
         # Relax requirements if there are not enough cards.
-        self.config()["memorise_related_cards_on_same_day"] = False
+        self.config()["memorise_sister_cards_on_same_day"] = False
         card_type = self.card_type_by_id("2")
         fact_data = {"q": "q", "a": "a"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,

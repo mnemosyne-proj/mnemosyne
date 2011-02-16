@@ -29,11 +29,11 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.scheduled_cards.setCurrentIndex(0)
         self.non_memorised_cards.setValue(self.config()\
             ["non_memorised_cards_in_hand"])
-        if self.config()["memorise_related_cards_on_same_day"] == True:
-            self.memorise_related_cards_on_same_day.setCheckState(\
+        if self.config()["memorise_sister_cards_on_same_day"] == True:
+            self.memorise_sister_cards_on_same_day.setCheckState(\
                 QtCore.Qt.Checked)
         else:
-            self.memorise_related_cards_on_same_day.setCheckState(\
+            self.memorise_sister_cards_on_same_day.setCheckState(\
                 QtCore.Qt.Unchecked)
         if self.config()["media_autoplay"] == True:
             self.media_autoplay.setCheckState(QtCore.Qt.Checked)
@@ -52,7 +52,7 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
         self.new_cards.setCurrentIndex(0)
         self.scheduled_cards.setCurrentIndex(0)
         self.non_memorised_cards.setValue(10)
-        self.memorise_related_cards_on_same_day.setCheckState(\
+        self.memorise_sister_cards_on_same_day.setCheckState(\
                 QtCore.Qt.Unchecked)
         self.media_autoplay.setCheckState(QtCore.Qt.Checked)
         self.media_controls.setCheckState(QtCore.Qt.Unchecked)
@@ -69,11 +69,11 @@ class ConfigurationWdgtMain(QtGui.QWidget, Ui_ConfigurationWdgtMain,
             self.config()["randomise_scheduled_cards"] = False
         self.config()["non_memorised_cards_in_hand"] = \
             self.non_memorised_cards.value()
-        if self.memorise_related_cards_on_same_day.checkState() == \
+        if self.memorise_sister_cards_on_same_day.checkState() == \
            QtCore.Qt.Checked:
-            self.config()["memorise_related_cards_on_same_day"] = True
+            self.config()["memorise_sister_cards_on_same_day"] = True
         else:
-            self.config()["memorise_related_cards_on_same_day"] = False
+            self.config()["memorise_sister_cards_on_same_day"] = False
         if self.media_autoplay.checkState() == QtCore.Qt.Checked:
             self.config()["media_autoplay"] = True
         else:

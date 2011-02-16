@@ -139,7 +139,7 @@ class TestAddCards(MnemosyneTest):
         self.review_controller().new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(0)
-        self.database().delete_fact_and_related_cards(card_3.fact)
+        self.database().delete_fact_and_sister_cards(card_3.fact)
         self.review_controller().reset()
         for i in range(6):
             assert self.review_controller().card != card_3
@@ -175,7 +175,7 @@ class TestAddCards(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()
-        self.controller().edit_related_cards(card.fact, fact_data, \
+        self.controller().edit_sister_cards(card.fact, fact_data, \
             card_type, ["new"], correspondence={})     
         new_card = self.database().card(card._id, id_is_internal=True)
         tag_names = [tag.name for tag in new_card.tags]
@@ -206,7 +206,7 @@ class TestAddCards(MnemosyneTest):
         new_card = self.database().card(card._id, id_is_internal=True)
         assert len(new_card.tags) == 1
 
-        self.controller().edit_related_cards(new_card.fact, new_card.fact.data,
+        self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
            new_card.card_type, [" "], [])    
 
         new_card = self.database().card(card._id, id_is_internal=True)
@@ -224,7 +224,7 @@ class TestAddCards(MnemosyneTest):
         new_card = self.database().card(card._id, id_is_internal=True)
         _untagged_id =  list(new_card.tags)[0]._id
 
-        self.controller().edit_related_cards(new_card.fact, new_card.fact.data,
+        self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
            new_card.card_type, ["tag"], [])    
 
         new_card = self.database().card(card._id, id_is_internal=True)

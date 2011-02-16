@@ -78,12 +78,12 @@ class SM2Mnemosyne(Scheduler):
         queue.
 
         The corresponding fact._ids are also stored in 'fact__ids_in_queue',
-        which is needed to make sure that no related cards can be together in
+        which is needed to make sure that no sister cards can be together in
         the queue at any time.
         
         'fact__ids_memorised' has a different function and persists over the
         different stages invocations of 'rebuild_queue'. It can be used to
-        control whether or not memorising a card will prevent a related card
+        control whether or not memorising a card will prevent a sister card
         from being pulled out of the 'unseen' pile, even after the queue has
         been rebuilt.
 
@@ -252,13 +252,13 @@ class SM2Mnemosyne(Scheduler):
                 sort_key = "random"
             else:
                 sort_key = ""
-            related_together = \
-                             self.config()["memorise_related_cards_on_same_day"]
+            sister_together = \
+                             self.config()["memorise_sister_cards_on_same_day"]
             for _card_id, _fact_id in db.cards_unseen(sort_key=sort_key,
                                                       limit=min(limit, 50)):
-                if (    related_together and _fact_id not \
+                if (    sister_together and _fact_id not \
                                             in self.fact__ids_in_queue) or \
-                   (not related_together and _fact_id not \
+                   (not sister_together and _fact_id not \
                                             in self.fact__ids_in_queue \
                           and _fact_id not in self.fact__ids_memorised):
                     self.card__ids_in_queue.append(_card_id)
@@ -267,9 +267,9 @@ class SM2Mnemosyne(Scheduler):
                     if non_memorised_in_queue == limit:
                         self.stage = 2
                         return
-            # If the queue is empty, relax the 'related not together'                           
+            # If the queue is empty, relax the 'sister not together'                           
             # requirement.                                                                      
-            if not related_together and len(self.card__ids_in_queue) == 0:
+            if not sister_together and len(self.card__ids_in_queue) == 0:
                 for _card_id, _fact_id in db.cards_unseen(\
                     sort_key=sort_key, limit=min(limit, 50)):                
                     if _fact_id not in self.fact__ids_in_queue:
@@ -353,7 +353,7 @@ class SM2Mnemosyne(Scheduler):
             card = copy.copy(card)
         scheduled_interval = self.true_scheduled_interval(card)
         # If we memorise a card, keep track of its fact, so that we can avoid
-        # pulling a related card from the 'unseen' pile.
+        # pulling a sister card from the 'unseen' pile.
         if not dry_run and card.grade < 2 and new_grade >= 2:
             self.fact__ids_memorised.append(card.fact._id)   
         if card.grade == -1: # Unseen card.
@@ -440,10 +440,10 @@ class SM2Mnemosyne(Scheduler):
         card.last_rep = int(time.time())
         if new_grade >= 2:
             card.next_rep = self.midnight_UTC(card.last_rep + new_interval)
-            # Don't schedule related cards on the same day. Keep normalising,
+            # Don't schedule sister cards on the same day. Keep normalising,
             # as a day is not always exactly DAY seconds when there are leap
             # seconds. 
-            while self.database().count_related_cards_with_next_rep\
+            while self.database().count_sister_cards_with_next_rep\
                   (card, card.next_rep):
                 card.next_rep = self.midnight_UTC(card.next_rep + DAY)
             # Round new interval to nearest cross-over point (only used in

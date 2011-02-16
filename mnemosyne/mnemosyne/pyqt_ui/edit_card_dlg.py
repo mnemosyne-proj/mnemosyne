@@ -13,9 +13,13 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
                   EditCardDialog):
 
     def __init__(self, card, component_manager, allow_cancel=True):
+        # Note: even though this is in essence an EditFactDlg, we don't use
+        # 'fact' as argument, as 'fact' does not know anything about card
+        # types.
         AddEditCards.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
+        self.before_apply_hook = None
         if not allow_cancel:
             self.exit_button.setVisible(False)  
         self.card = card
@@ -40,7 +44,9 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         new_card_type_name = unicode(self.card_types_widget.currentText())
         new_card_type = self.card_type_by_name[new_card_type_name]
         c = self.controller()
-        status = c.edit_related_cards(self.card.fact, new_fact_data,
+        if self.before_apply_hook:
+            self.before_apply_hook()
+        status = c.edit_sister_cards(self.card.fact, new_fact_data,
             new_card_type, new_tag_names, self.correspondence)
         if status == 0:
             tag_text = ", ".join(new_tag_names)

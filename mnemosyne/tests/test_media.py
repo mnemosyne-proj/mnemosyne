@@ -147,7 +147,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"q": "edited <img src=\"%s\">" % "a.ogg",
                      "a": "answer"}
-        self.controller().edit_related_cards(card.fact, fact_data,
+        self.controller().edit_sister_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, id_is_internal=True)
@@ -176,7 +176,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "edited <img src=\"%s\"> <img src=\"%s\">" \
                      % ("a.ogg", full_path),
                      "a": "answer"}
-        self.controller().edit_related_cards(card.fact, fact_data,
+        self.controller().edit_sister_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "b.ogg")
         assert os.path.exists(full_path_in_media_dir)
@@ -201,7 +201,7 @@ class TestMedia(MnemosyneTest):
         card = self.database().card(card._id, id_is_internal=True)
         fact_data = {"q": "edited ",
                      "a": "answer"}
-        self.controller().edit_related_cards(card.fact, fact_data,
+        self.controller().edit_sister_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Don't autodelete.
@@ -227,7 +227,7 @@ class TestMedia(MnemosyneTest):
                                               grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "edited",
                      "a": "answer"}        
-        self.controller().edit_related_cards(card.fact, fact_data,
+        self.controller().edit_sister_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Don't delete file.
@@ -247,7 +247,7 @@ class TestMedia(MnemosyneTest):
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, id_is_internal=True)
-        self.database().delete_fact_and_related_cards(card.fact)
+        self.database().delete_fact_and_sister_cards(card.fact)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Don't autodelete.
         assert self.database().con.execute(\
@@ -269,7 +269,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        self.database().delete_fact_and_related_cards(card.fact)
+        self.database().delete_fact_and_sister_cards(card.fact)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Not deleted.
         assert self.database().con.execute(\

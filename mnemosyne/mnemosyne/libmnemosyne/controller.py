@@ -7,7 +7,7 @@ from mnemosyne.libmnemosyne.component import Component
 
 class Controller(Component):
 
-    """A collection of logic used by the GUI.  The logic related to the
+    """A collection of logic used by the GUI.  The logic sister to the
     review process is split out in a separated controller class, to
     allow that to be swapped out easily.
 
@@ -31,7 +31,7 @@ class Controller(Component):
                          tag_names, check_for_duplicates=True, save=True):
         raise NotImplementedError
     
-    def edit_related_cards(self, fact, new_fact_data, new_card_type, \
+    def edit_sister_cards(self, fact, new_fact_data, new_card_type, \
                              new_tag_names, correspondence):
         raise NotImplementedError
 

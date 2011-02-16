@@ -94,9 +94,9 @@
          </layout>
         </item>
         <item>
-         <widget class="QCheckBox" name="memorise_related_cards_on_same_day">
+         <widget class="QCheckBox" name="memorise_sister_cards_on_same_day">
           <property name="text">
-           <string>Memorise related cards on the same day</string>
+           <string>Memorise sister cards on the same day</string>
           </property>
          </widget>
         </item>
