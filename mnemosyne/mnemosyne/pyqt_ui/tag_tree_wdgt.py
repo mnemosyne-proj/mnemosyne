@@ -18,15 +18,33 @@ NODE = 1
 class TagDelegate(QtGui.QStyledItemDelegate):
 
     rename_node = QtCore.pyqtSignal(unicode, unicode)   
-
+    redraw_node = QtCore.pyqtSignal(unicode)
+    
     def __init__(self, component_manager, parent=None):
         QtGui.QStyledItemDelegate.__init__(self, parent)
         self.old_node_label = None
 
     def createEditor(self, parent, option, index):
+        
+        # Ideally, we want to capture the focusOut event here, to redraw the
+        # card counts in case of an aborted edit by the user. One option to
+        # achieve this is connecting the editingFinished signal instead of
+        # returnPressed, but there is a long-standing bug in Qt causing this
+        # signal to be emitted twice, with the second call sometimes coming
+        # when the first one has not finished yet, which can cause crashes.
+        # The other option is to reimplement focusOutEvent of the editor, but
+        # that does not seem to work here easily in the context of Delegates.
+        # Presumably subclassing QLineEdit would work, though, but at the cost
+        # of added complexity.
+        #
+        # See also:
+        #
+        #  http://www.qtforum.org/article/33631/qlineedit-the-signal-editingfinished-is-emitted-twice.html
+        #  http://bugreports.qt.nokia.com/browse/QTBUG-40
+        
         editor = QtGui.QStyledItemDelegate.createEditor\
             (self, parent, option, index)        
-        editor.editingFinished.connect(self.commit_and_close_editor)
+        editor.returnPressed.connect(self.commit_and_close_editor)
         return editor
 
     def setEditorData(self, editor, index):
@@ -38,7 +56,10 @@ class TagDelegate(QtGui.QStyledItemDelegate):
         
     def commit_and_close_editor(self):
         editor = self.sender()
-        self.rename_node.emit(self.old_node_label, editor.text())
+        if unicode(self.old_node_label) == unicode(editor.text()):
+            self.redraw_node.emit(self.old_node_label)
+        else:
+            self.rename_node.emit(self.old_node_label, editor.text())
         self.closeEditor.emit(editor, QtGui.QAbstractItemDelegate.NoHint)
 
 
@@ -46,19 +67,26 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
     """Displays all the tags in a tree together with check boxes.
     
-    If 'before_libmnemosyne_db' and 'after_libmnemosyne_db' are set, these need
-    to be called before and after libmnemosyne operations which can modify the
-    database.
+    If 'before_using_libmnemosyne_db_hook' and 'after_using_libmnemosyne_db'
+    are set, these will be called before and after using libmnemosyne
+    operations which can modify the database.
+
+    Typical use case for this comes from a parent widget like the card
+    browser, which needs to relinquish its control over the sqlite database
+    first, before the tag tree operations can take place.
     
     """
 
     def __init__(self, component_manager, parent,
-        before_libmnemosyne_db_hook=None, after_libmnemosyne_db_hook=None):
+            before_using_libmnemosyne_db_hook=None,
+            after_using_libmnemosyne_db_hook=None):
         Component.__init__(self, component_manager)
         self.tag_tree = TagTree(self.component_manager)
         QtGui.QWidget.__init__(self, parent)
-        self.before_libmnemosyne_db_hook = before_libmnemosyne_db_hook
-        self.after_libmnemosyne_db_hook = after_libmnemosyne_db_hook
+        self.before_using_libmnemosyne_db_hook = \
+            before_using_libmnemosyne_db_hook
+        self.after_using_libmnemosyne_db_hook = \
+            after_using_libmnemosyne_db_hook
         self.layout = QtGui.QVBoxLayout(self)
         self.tag_tree_wdgt = QtGui.QTreeWidget(self)
         self.tag_tree_wdgt.setColumnCount(2)
@@ -70,6 +98,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.delegate = TagDelegate(component_manager, self)
         self.tag_tree_wdgt.setItemDelegate(self.delegate)
         self.delegate.rename_node.connect(self.rename_node)
+        self.delegate.redraw_node.connect(self.redraw_node)
         self.layout.addWidget(self.tag_tree_wdgt)
         self.tag_tree_wdgt.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tag_tree_wdgt.customContextMenuRequested.connect(\
@@ -88,12 +117,12 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
         rename_tag_action = QtGui.QAction(_("Re&name"), menu)
-        rename_tag_action.setShortcut(QtCore.Qt.Key_Enter)
         rename_tag_action.triggered.connect(self.menu_rename)
+        rename_tag_action.setShortcut(QtCore.Qt.Key_Enter)
         menu.addAction(rename_tag_action)
         remove_tag_action = QtGui.QAction(_("Re&move"), menu)
-        remove_tag_action.setShortcut(QtGui.QKeySequence.Delete)
         remove_tag_action.triggered.connect(self.menu_remove)
+        remove_tag_action.setShortcut(QtGui.QKeySequence.Delete)
         menu.addAction(remove_tag_action)
         indices = self.selected_non_read_only_indices()
         if len(indices) > 1:
@@ -108,9 +137,15 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.menu_remove()
 
     def menu_rename(self):
+        indices = self.selected_non_read_only_indices()
+        # If there are tags selected, this means that we could only have got
+        # after pressing return on an actual edit, due to our custom
+        # 'keyPressEvent'. We should not continue in that case.
+        if len(indices) == 0:
+            return
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
-        index = self.selected_non_read_only_indices()[0]        
+        index = indices[0]        
         node_index = index.model().index(index.row(), NODE, index.parent())
         old_node_label = index.model().data(node_index).toString()
 
@@ -126,6 +161,17 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.rename_node(old_node_label, unicode(dlg.tag_name.text()))
         
     def menu_remove(self):
+        # Ask for confirmation.
+        indices = self.selected_non_read_only_indices()
+        if len(indices) > 1:
+            question = _("Remove these tags?")
+        else:
+            question = _("Remove this tag?")            
+        answer = self.main_widget().show_question\
+            (question, _("&OK"), _("&Cancel"), "")
+        if answer == 1: # Cancel.
+            return
+        # Remove the tags.
         for index in self.selected_non_read_only_indices():
             node_index = index.model().index(index.row(), NODE, index.parent())
             node_label = index.model().data(node_index).toString()
@@ -199,52 +245,70 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         criterion.active_tags = set(self.tag_for_node_item.values())
         return criterion
 
-    def rename_node(self, old_node_label, new_node_label):
-        old_node_label = unicode(old_node_label)
-        new_node_label = unicode(new_node_label)
-        saved_criterion = DefaultCriterion(self.component_manager)
-        self.selection_to_active_tags_in_criterion(saved_criterion)
-        # Case 1: regular rename.
-        if old_node_label != new_node_label:
-            if self.before_libmnemosyne_db_hook:
-                self.before_libmnemosyne_db_hook()
-            self.tag_tree.rename_node(old_node_label, new_node_label)
-            # Rebuild the tree widget to reflect the changes.
-            new_criterion = DefaultCriterion(self.component_manager)
-            for tag in self.database().tags():
-                if tag._id in saved_criterion.active_tag__ids:
-                    new_criterion.active_tag__ids.add(tag._id)  
-            self.display(new_criterion)
-            if self.after_libmnemosyne_db_hook:
-                self.after_libmnemosyne_db_hook()
-        else:
-            # Case 2: aborted edit, we need to redraw the tree to show the
-            # card counts again.
-            if old_node_label in self.tag_tree:
-                new_criterion = DefaultCriterion(self.component_manager)
-                for tag in self.database().tags():
-                    if tag._id in saved_criterion.active_tag__ids:
-                        new_criterion.active_tag__ids.add(tag._id)  
-                self.display(new_criterion)
-            # Case 3: extra event after regular rename, caused by hooking up
-            # 'editor.editingFinished' (to treat case 2) as opposed to
-            # 'editor.returnPressed'. We need to ignore this, otherwise we get
-            # crashes.
-            else:
-                return
+    def save_criterion(self):
+        self.saved_criterion = DefaultCriterion(self.component_manager)
+        self.selection_to_active_tags_in_criterion(self.saved_criterion)
 
-    def delete_node(self, node):
-        if self.before_libmnemosyne_db_hook:
-            self.before_libmnemosyne_db_hook()
-        saved_criterion = DefaultCriterion(self.component_manager)
-        self.selection_to_active_tags_in_criterion(saved_criterion)
-        self.tag_tree.delete_subtree(unicode(node))
-        # Rebuild the tree widget to reflect the changes.
+    def restore_criterion(self):
         new_criterion = DefaultCriterion(self.component_manager)
         for tag in self.database().tags():
-            if tag._id in saved_criterion.active_tag__ids:
+            if tag._id in self.saved_criterion.active_tag__ids:
                 new_criterion.active_tag__ids.add(tag._id)  
-        self.display(new_criterion)
-        if self.after_libmnemosyne_db_hook:
-            self.after_libmnemosyne_db_hook()        
+        self.display(new_criterion)        
+        
+    def hibernate(self):
 
+        """Save the current selection and unload the database so that
+        we can call libmnemosyne functions.
+
+        """
+
+        self.save_criterion()
+        if self.before_using_libmnemosyne_db_hook:
+            self.before_using_libmnemosyne_db_hook()
+
+    def wakeup(self):
+
+        """Restore the saved selection and reload the database after
+        calling libmnemosyne functions.
+
+        """
+        
+        self.restore_criterion()
+        if self.after_using_libmnemosyne_db_hook:
+            self.after_using_libmnemosyne_db_hook()
+
+    def rename_node(self, old_node_label, new_node_label):
+        self.hibernate()  
+        self.tag_tree.rename_node(\
+            unicode(old_node_label), unicode(new_node_label))
+        self.wakeup()
+
+    def delete_node(self, node):
+        self.hibernate()         
+        self.tag_tree.delete_subtree(unicode(node))
+        self.wakeup()
+
+    def redraw_node(self, node_label):
+
+        """When renaming a tag to the same name, we need to redraw the node
+        to show the card count again.
+
+        """
+        
+        # We do the redrawing in a rather hackish way now, simply by
+        # recreating the widget. Could be sped up, but at the expense of more
+        # complicated code.
+        self.save_criterion()
+        self.restore_criterion()
+
+    def rebuild(self):
+
+        """To be called when external events invalidate the tag tree,
+        e.g. due to edits in the card browser widget.
+
+        """
+
+        self.hibernate()  
+        self.tag_tree = TagTree(self.component_manager)
+        self.wakeup()

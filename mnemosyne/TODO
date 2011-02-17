@@ -1,7 +1,7 @@
--saved index routines should also restore the selections
--repopulate tree widgets after deleting, including criterion
- where to invalidate the tree? In libmnemosyne or in the ui?
- possibility to factor out the saved criterion code?
+-crashing when deleting 2 tags
+
+-right click edit cards: need to restore criterion in card type browser too
+
 
 -right click delete
 -remove orphaned media files after delete, edit and change card type. 
@@ -290,6 +290,7 @@ a good alternative, as it does not obey selection coloring
  to data, and eliminate the text colors at selection using Qt.
 -inline editing in card browser
 -editing names of card type clones, also in browser
+-tag browser editor of tag names does not capture focus out event, so card count is not redrawn.
 
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 -Tim's gogorender plugin

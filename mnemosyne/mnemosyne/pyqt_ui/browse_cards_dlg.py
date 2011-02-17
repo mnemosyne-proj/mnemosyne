@@ -292,10 +292,10 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         dlg = self.component_manager.current("edit_card_dialog")\
             (cards[0], self.component_manager)
         dlg.before_apply_hook = self.unload_qt_database
-        dlg.activate()
-        self.display_card_table()
-        self.card_type_tree_wdgt.display()
-        self.tag_tree_wdgt.display()
+        if dlg.exec_() == QtGui.QDialog.Accepted:
+            self.display_card_table()
+            self.card_type_tree_wdgt.display()
+            self.tag_tree_wdgt.rebuild()
         
     def menu_preview(self):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
@@ -327,6 +327,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
 
     def unload_qt_database(self):
         self.saved_index = self.table.indexAt(QtCore.QPoint(0,0))
+        self.saved_selection = self.table.selectionModel().selectedRows()
         self.config()["browse_cards_dlg_table_settings"] \
             = self.table.horizontalHeader().saveState()
         self.table.setModel(QtGui.QStandardItemModel())
@@ -367,7 +368,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.tag_count = query.value(0).toInt()[0]
         self.update_filter() # Need after tag rename.
         self.update_card_counters()
-        self.card_model.select()   
+        self.card_model.select()
         if self.saved_index:
             # All of the statements below are needed.
             # Qt does not (yet) seem to allow to restore the previous column
@@ -377,6 +378,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             self.table.scrollTo(self.saved_index)
             self.table.scrollTo(self.saved_index,
                 QtGui.QAbstractItemView.PositionAtTop)
+            # Restore selection.
+            old_selection_mode = self.table.selectionMode()
+            self.table.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
+            for index in self.saved_selection:
+                self.table.selectRow(index.row())
+            self.table.setSelectionMode(old_selection_mode)
             
     def activate(self):
         self.exec_()
