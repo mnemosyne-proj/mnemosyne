@@ -171,11 +171,12 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             (question, _("&OK"), _("&Cancel"), "")
         if answer == 1: # Cancel.
             return
-        # Remove the tags.
+        # Remove the nodes.
+        node_labels = []
         for index in self.selected_non_read_only_indices():
             node_index = index.model().index(index.row(), NODE, index.parent())
-            node_label = index.model().data(node_index).toString()
-            self.delete_node(node_label)
+            node_labels.append(index.model().data(node_index).toString())
+        self.delete_nodes(node_labels)
         
     def create_tree(self, tree, qt_parent):
         for node in tree:
@@ -248,13 +249,24 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def save_criterion(self):
         self.saved_criterion = DefaultCriterion(self.component_manager)
         self.selection_to_active_tags_in_criterion(self.saved_criterion)
+        self.saved_selection = self.tag_tree_wdgt.selectedIndexes()
 
     def restore_criterion(self):
         new_criterion = DefaultCriterion(self.component_manager)
         for tag in self.database().tags():
             if tag._id in self.saved_criterion.active_tag__ids:
                 new_criterion.active_tag__ids.add(tag._id)  
-        self.display(new_criterion)        
+        self.display(new_criterion)
+        old_selection_mode = self.tag_tree_wdgt.selectionMode()
+        self.tag_tree_wdgt.setSelectionMode(\
+            QtGui.QAbstractItemView.MultiSelection) # Needed?
+        for index in self.saved_selection:
+            # TODO: recreate index using model of new widget.
+            item = self.tag_tree_wdgt.itemFromIndex(index)
+            print item.data(0, QtCore.Qt.DisplayRole)
+            item.setSelected(True)
+            #self.tag_tree_wdgt.setCurrentItem(item, 0, QtGui.QItemSelectionModel.Rows)
+        self.tag_tree_wdgt.setSelectionMode(old_selection_mode)
         
     def hibernate(self):
 
@@ -284,11 +296,12 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             unicode(old_node_label), unicode(new_node_label))
         self.wakeup()
 
-    def delete_node(self, node):
-        self.hibernate()         
-        self.tag_tree.delete_subtree(unicode(node))
+    def delete_nodes(self, nodes):
+        self.hibernate()
+        for node in nodes:
+            self.tag_tree.delete_subtree(unicode(node)) 
         self.wakeup()
-
+        
     def redraw_node(self, node_label):
 
         """When renaming a tag to the same name, we need to redraw the node

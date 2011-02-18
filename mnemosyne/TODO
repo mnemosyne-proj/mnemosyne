@@ -1,6 +1,5 @@
--crashing when deleting 2 tags
-
--right click edit cards: need to restore criterion in card type browser too
+-save the selection in both the tag and card type tree widget.
+Need to reconstruct the indexes after the hibernation
 
 
 -right click delete

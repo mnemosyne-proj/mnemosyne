@@ -273,7 +273,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         if len(indices) >= 1:
             menu.exec_(self.table.mapToGlobal(point))
             
-    def keyPressEvent(self, event):            
+    def keyPressEvent(self, event):
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_edit()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
@@ -294,9 +294,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         dlg.before_apply_hook = self.unload_qt_database
         if dlg.exec_() == QtGui.QDialog.Accepted:
             self.display_card_table()
-            self.card_type_tree_wdgt.display()
+            self.card_type_tree_wdgt.rebuild()
             self.tag_tree_wdgt.rebuild()
-        
+                    
     def menu_preview(self):
         from mnemosyne.pyqt_ui.preview_cards_dlg import PreviewCardsDlg
         cards = self.cards_from_single_selection()
@@ -366,7 +366,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         query = QtSql.QSqlQuery("select count() from tags")
         query.first()
         self.tag_count = query.value(0).toInt()[0]
-        self.update_filter() # Need after tag rename.
+        self.update_filter() # Needed after tag rename.
         self.update_card_counters()
         self.card_model.select()
         if self.saved_index:

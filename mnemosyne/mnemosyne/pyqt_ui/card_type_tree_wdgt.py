@@ -76,3 +76,15 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
                 criterion.deactivated_card_type_fact_view_ids.add(\
                     card_type_fact_view_ids)
         return criterion
+
+    def rebuild(self):
+
+        """To be called when external events invalidate the card type tree,
+        e.g. due to edits in the card browser widget.
+
+        """
+        
+        saved_criterion = DefaultCriterion(self.component_manager)
+        self.selection_to_criterion(saved_criterion)
+        self.display(saved_criterion)
+
