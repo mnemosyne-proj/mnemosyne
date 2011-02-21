@@ -1019,6 +1019,27 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 if not self.syncing:
                     self.log().added_media(filename)
 
+    def clean_orphaned_media(self):
+        import time
+        import re
+        t = time.time()
+        re1 = re.compile(r"src=[\"'](.+?)[\"']", re.IGNORECASE)
+        filenames = set()
+        for result in self.con.execute("select value from data_for_fact where value like '%src=%'"):
+            for match in re1.finditer(result[0]):
+                filenames.add(match.group(1))
+        print len(filenames)
+        print time.time() - t
+        print 'walk'
+        import os
+
+        for dirname, dirnames, filenames in os.walk(self.media_dir()):
+            #for subdirname in dirnames:
+            #    print os.path.join(dirname, subdirname)
+            for filename in filenames:
+                print filename
+
+
     #
     # Queries.
     #

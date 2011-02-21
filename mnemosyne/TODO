@@ -1,12 +1,9 @@
--save the selection in both the tag and card type tree widget.
-Need to reconstruct the indexes after the hibernation
-
-
 -right click delete
 -remove orphaned media files after delete, edit and change card type. 
  Make sure this runs only once when deleting more than 1 card, either by running it from the controller,
  or by having a db function which operates on more than 1 card.
--repopulate tree widgets after deleting
+-test for multiple media files per card
+-speed up if acting on only a single card?
 
 -right click change card type
 -do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
@@ -290,6 +287,7 @@ a good alternative, as it does not obey selection coloring
 -inline editing in card browser
 -editing names of card type clones, also in browser
 -tag browser editor of tag names does not capture focus out event, so card count is not redrawn.
+-save selection state (not checkstate) in tag and card type browser through hibernation
 
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 -Tim's gogorender plugin

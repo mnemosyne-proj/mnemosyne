@@ -232,14 +232,14 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         # Finalise.
         self.tag_tree_wdgt.expandAll()
 
-    def selection_to_active_tags_in_criterion(self, criterion):
+    def checked_to_active_tags_in_criterion(self, criterion):
         for item, tag in self.tag_for_node_item.iteritems():
             if item.checkState(0) == QtCore.Qt.Checked:
                 criterion.active_tag__ids.add(tag._id)
         criterion.forbidden_tags = set()
         return criterion
 
-    def selection_to_forbidden_tags_in_criterion(self, criterion):
+    def checked_to_forbidden_tags_in_criterion(self, criterion):
         for item, tag in self.tag_for_node_item.iteritems():
             if item.checkState(0) == QtCore.Qt.Checked:
                 criterion.forbidden_tag__ids.add(tag._id)
@@ -248,8 +248,13 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
     def save_criterion(self):
         self.saved_criterion = DefaultCriterion(self.component_manager)
-        self.selection_to_active_tags_in_criterion(self.saved_criterion)
-        self.saved_selection = self.tag_tree_wdgt.selectedIndexes()
+        self.checked_to_active_tags_in_criterion(self.saved_criterion)
+        # Now we've saved the checked state of the tree.
+        # Saving and restoring the selected state is less trivial, because
+        # in the case of trees, the model indices have parents which become
+        # invalid when creating the widget.
+        # The solution would be to save tags and reselect those in the new
+        # widget.
 
     def restore_criterion(self):
         new_criterion = DefaultCriterion(self.component_manager)
@@ -257,20 +262,10 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             if tag._id in self.saved_criterion.active_tag__ids:
                 new_criterion.active_tag__ids.add(tag._id)  
         self.display(new_criterion)
-        old_selection_mode = self.tag_tree_wdgt.selectionMode()
-        self.tag_tree_wdgt.setSelectionMode(\
-            QtGui.QAbstractItemView.MultiSelection) # Needed?
-        for index in self.saved_selection:
-            # TODO: recreate index using model of new widget.
-            item = self.tag_tree_wdgt.itemFromIndex(index)
-            print item.data(0, QtCore.Qt.DisplayRole)
-            item.setSelected(True)
-            #self.tag_tree_wdgt.setCurrentItem(item, 0, QtGui.QItemSelectionModel.Rows)
-        self.tag_tree_wdgt.setSelectionMode(old_selection_mode)
         
     def hibernate(self):
 
-        """Save the current selection and unload the database so that
+        """Save the current criterion and unload the database so that
         we can call libmnemosyne functions.
 
         """
@@ -281,7 +276,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
 
     def wakeup(self):
 
-        """Restore the saved selection and reload the database after
+        """Restore the saved criterion and reload the database after
         calling libmnemosyne functions.
 
         """

@@ -47,7 +47,7 @@ class ActivateCardsDlg(QtGui.QDialog, Ui_ActivateCardsDlg,
         self.tab_widget.tabBar().setVisible(self.tab_widget.count() > 1)
         self.tab_widget.currentWidget().display_criterion(current_criterion)           
         # Should go last, otherwise the selection of the saved sets pane will
-        # allways be cleared.
+        # always be cleared.
         self.update_saved_sets_pane()
 
     def change_widget(self, index):

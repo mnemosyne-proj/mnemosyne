@@ -1,3 +1,4 @@
+
 install-and-run-virtual-env: install-virtual-env
 	./bin/mnemosyne -d dot_mnemosyne2
 
@@ -34,6 +35,9 @@ profile: install-virtual-env
 	echo "s.sort_stats(\"time\").print_stats()" >> process_profile.py
 	./bin/nosetests --with-profile --profile-stats-file=stats.dat
 	python process_profile.py
+
+gui-profile:
+	./bin/python -m cProfile -s cumulative bin/mnemosyne -d ./dot_mnemosyne2/ | more
 
 benchmark: install-virtual-env
 	./bin/python tests/benchmark.py

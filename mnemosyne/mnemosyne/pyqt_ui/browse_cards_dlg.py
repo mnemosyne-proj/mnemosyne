@@ -305,17 +305,51 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         dlg.exec_()
 
     def menu_delete(self):
-        print "delete"
+        answer = self.main_widget().show_question\
+            (_("Go ahead with delete? Sister cards will be deleted as well."),
+            _("&OK"), _("&Cancel"), "")
+        if answer == 1: # Cancel.
+            return
+        facts = []
+        for index in self.table.selectionModel().selectedRows():
+            _fact_id_index = index.model().index(\
+                index.row(), _FACT_ID, index.parent())
+            _fact_id = index.model().data(_fact_id_index).toInt()[0]
+            facts.append(self.database().fact(_fact_id, id_is_internal=True))
+        self.unload_qt_database()
+        self.saved_selection = []
+            
+        # TODO: move to controller.
+        for fact in facts:
+            self.database().delete_fact_and_sister_cards(fact)
+        self.database().clean_orphaned_media()
+        self.database().save()
+        
+        self.display_card_table()
+        self.card_type_tree_wdgt.rebuild()
+        self.tag_tree_wdgt.rebuild()
 
     def menu_change_card_type(self):
         print 'change card type'
+        self.unload_qt_database()
 
+        self.display_card_table()
+        self.card_type_tree_wdgt.rebuild()
+        
     def menu_add_tag(self):
         print 'add tag'
+        self.unload_qt_database()
 
+        self.display_card_table()
+        self.tag_tree_wdgt.rebuild()
+        
     def menu_remove_tag(self):
         print 'remove_tag'
+        self.unload_qt_database()
 
+        self.display_card_table()
+        self.tag_tree_wdgt.rebuild()
+        
     def load_qt_database(self):
         self.database().release_connection()
         qt_db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
@@ -391,7 +425,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
     def update_filter(self):
         # Card types and fact views.
         criterion = DefaultCriterion(self.component_manager)
-        self.card_type_tree_wdgt.selection_to_criterion(criterion)
+        self.card_type_tree_wdgt.checked_to_criterion(criterion)
         filter = ""
         for card_type_id, fact_view_id in \
                 criterion.deactivated_card_type_fact_view_ids:
@@ -400,7 +434,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 % (fact_view_id, card_type_id)
         filter = filter.rsplit("and ", 1)[0]
         # Tags.
-        self.tag_tree_wdgt.selection_to_active_tags_in_criterion(criterion)
+        self.tag_tree_wdgt.checked_to_active_tags_in_criterion(criterion)
         if len(criterion.active_tag__ids) == 0:
             filter = "_id='not_there'"
         elif len(criterion.active_tag__ids) != self.tag_count:
