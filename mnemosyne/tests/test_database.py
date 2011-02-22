@@ -16,6 +16,13 @@ from mnemosyne.libmnemosyne.utils import expand_path
 
 class TestDatabase(MnemosyneTest):
 
+    def test_release(self):
+        self.database().release_connection()
+        self.database().release_connection()
+        self.database().display_name()
+        self.database().abandon()
+        self.database().new("default.mem")
+
     def test_tags(self):
         tag = Tag("test")
         self.database().add_tag(tag)

@@ -1019,26 +1019,44 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 if not self.syncing:
                     self.log().added_media(filename)
 
-    def clean_orphaned_media(self):
-        import time
-        import re
-        t = time.time()
-        re1 = re.compile(r"src=[\"'](.+?)[\"']", re.IGNORECASE)
-        filenames = set()
-        for result in self.con.execute("select value from data_for_fact where value like '%src=%'"):
-            for match in re1.finditer(result[0]):
-                filenames.add(match.group(1))
-        print len(filenames)
-        print time.time() - t
-        print 'walk'
-        import os
+    def clean_orphaned_static_media(self):
+        
+        """Remove the static (i.e. explictly specified in a src='' tag) unused
+        media files.
+        
+        (This check takes less than 30 ms for 9000 cards with 400 media files on
+        a 2.1 GHz dual core.)
+        
+        Note: purging dynamicly generated media files, like e.g. latex files,
+        would be rather time consuming. These files are typically small anyway
+        and can be easily cleaned up by deleting the entire _latex directory.
 
-        for dirname, dirnames, filenames in os.walk(self.media_dir()):
-            #for subdirname in dirnames:
-            #    print os.path.join(dirname, subdirname)
+        """
+
+        # Files referenced in the database.
+        files_in_db = set()
+        for result in self.con.execute(\
+            "select value from data_for_fact where value like '%src=%'"):
+            for match in re_src.finditer(result[0]):
+                files_in_db.add(match.group(1))
+        # Files in the media dir.
+        files_in_media_dir = set()
+        for root, dirnames, filenames in os.walk(self.media_dir()):
+            root = contract_path(root, self.media_dir())
             for filename in filenames:
-                print filename
-
+                # Paths are stored using unix convention.
+                if root:
+                    filename = root + "/" + filename
+                files_in_media_dir.add(filename)
+        # Delete orphaned files.
+        for filename in files_in_media_dir - files_in_db:
+            print filename, self.media_dir()
+            os.remove(expand_path(filename, self.media_dir()))
+        # Purge empty dirs.
+        for root, dirnames, filenames in \
+                os.walk(self.media_dir(), topdown=False):
+            if root[0] != "_" and len(filenames) == 0:
+                os.rmdir(root)
 
     #
     # Queries.

@@ -1,9 +1,15 @@
--right click delete
--remove orphaned media files after delete, edit and change card type. 
+-remove orphaned media files after delete, edit and change card type.
  Make sure this runs only once when deleting more than 1 card, either by running it from the controller,
  or by having a db function which operates on more than 1 card.
--test for multiple media files per card
 -speed up if acting on only a single card?
+-shortcut if no media files where present earlier?
+
+
+-media file handler
+-don't do media check in database, but in controller?
+-rename relative_paths to Media_paths
+-create latex dir in filter plugin?
+
 
 -right click change card type
 -do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
@@ -15,11 +21,6 @@
 
 -GSoC
 
-
--media file handler
--don't do media check in database, but in controller?
--rename relative_paths to Media_paths
--create latex dir in filter plugin?
 
 -card formatting options on remote web server: act on config info that the client sent across
  Add hook in set_partner_info

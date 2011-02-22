@@ -275,12 +275,40 @@ class TestMedia(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+
+
+    def test_orphaned(self):
+        file(os.path.join(self.database().media_dir(), "a.ogg"), "w")
+        os.mkdir(os.path.join(self.database().media_dir(), "sub"))
+        file(os.path.join(self.database().media_dir(), "sub", "b.ogg"), "w")
+        
+        file("c.ogg", "w")
+        full_path = os.path.abspath("c.ogg")
+
+        fact_data = {"q": "<img src=\"%s\">" % full_path,
+                     "a": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+        
+        assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))        
+        assert os.path.exists(os.path.join(self.database().media_dir(), "sub"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "sub", "b.ogg"))
+        
+        self.database().clean_orphaned_static_media()
+        
+        assert not os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))        
+        assert not os.path.exists(os.path.join(self.database().media_dir(), "sub"))
+        assert not os.path.exists(os.path.join(self.database().media_dir(), "sub", "b.ogg"))
+        assert os.path.exists(os.path.join(self.database().media_dir(), "c.ogg"))
         
     def teardown(self):
         if os.path.exists("a.ogg"):
             os.remove("a.ogg")
         if os.path.exists("b.ogg"):
             os.remove("b.ogg")
+        if os.path.exists("c.ogg"):
+            os.remove("c.ogg")
         if os.path.exists(unichr(40960) + u"a.ogg"):
             os.remove(unichr(40960) + u"a.ogg")
         MnemosyneTest.teardown(self)

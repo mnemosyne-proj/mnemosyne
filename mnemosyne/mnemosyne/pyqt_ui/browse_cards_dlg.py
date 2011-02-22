@@ -322,7 +322,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         # TODO: move to controller.
         for fact in facts:
             self.database().delete_fact_and_sister_cards(fact)
-        self.database().clean_orphaned_media()
+        self.database().clean_orphaned_static_media()
         self.database().save()
         
         self.display_card_table()
