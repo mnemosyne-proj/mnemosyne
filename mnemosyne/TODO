@@ -1,12 +1,13 @@
 -remove orphaned media files after delete, edit and change card type.
  Make sure this runs only once when deleting more than 1 card, either by running it from the controller,
- or by having a db function which operates on more than 1 card.
+ or by having a db function which operates on more than 1 card (preferred?).
 -speed up if acting on only a single card?
 -shortcut if no media files where present earlier?
 
+-don't do media check in database, but in controller?
+-fix testsuite (make sure deletion triggers purge), look at coverage
 
 -media file handler
--don't do media check in database, but in controller?
 -rename relative_paths to Media_paths
 -create latex dir in filter plugin?
 
@@ -41,8 +42,6 @@
 -test on cramming counters
 
 
-
--delete 1.99 logs
 -reenable upload
 -remove hard coded dot_mnemosyne2 path in webserver
 -turn off logging in webserver

@@ -1052,6 +1052,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         for filename in files_in_media_dir - files_in_db:
             print filename, self.media_dir()
             os.remove(expand_path(filename, self.media_dir()))
+            self.log().deleted_media(filename)
         # Purge empty dirs.
         for root, dirnames, filenames in \
                 os.walk(self.media_dir(), topdown=False):

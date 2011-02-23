@@ -141,29 +141,34 @@ class SQLiteSync(object):
                 "check_for_edited_local_media_files"):
                 f.run(cursor[0])
             
-    def media_filenames_to_sync_for(self, partner):    
-        # Note that Mnemosyne does not delete media files on its own, so
-        # DELETED_MEDIA log entries are irrelevant/ignored.
-        # We do have to make sure we don't return any files that have been
-        # deleted, though.
+    def media_filenames_to_sync_for(self, partner):
+
+        """Determine which media files need to be sent across during the sync.
+        Obviously, this only includes existing media files, not deleted ones.
+
+        """
+        
         _id = self.last_log_index_synced_for(partner)
-        filenames = []
+        filenames = set()
         for filename in [cursor[0] for cursor in self.con.execute(\
             """select object_id from log where _id>? and (event_type=? or
             event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
             EventTypes.EDITED_MEDIA))]:
-            if os.path.exists(expand_path(filename, self.media_dir())):
-                filenames.append(filename)
+            if os.path.exists(expand_path(filename, self.media_dir())):            
+                filenames.add(filename)
         return filenames
     
-    def all_media_filenames(self):    
-        filenames = []
+    def all_media_filenames(self):
+
+        """Determine all media files, for use in the initial full sync."""
+        
+        filenames = set()
         for filename in [cursor[0] for cursor in self.con.execute(\
             """select object_id from log where event_type=? or
             event_type=?""", (EventTypes.ADDED_MEDIA,
             EventTypes.EDITED_MEDIA))]:
             if os.path.exists(expand_path(filename, self.media_dir())):
-                filenames.append(filename)
+                filenames.add(filename)
         return filenames
     
     def _log_entry(self, sql_res):
@@ -446,9 +451,14 @@ class SQLiteSync(object):
         
     def edit_media(self, log_entry):
         filename = log_entry["fname"]
-        self.log().edited_media(filename)
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
+        self.log().edited_media(filename)
+        
+    def delete_media(self, log_entry):
+        filename = log_entry["fname"]
+        os.remove(expand_path(filename, self.media_dir()))
+        self.log().deleted_media(filename)    
 
     def fact_view_from_log_entry(self, log_entry):
         # Get fact view object to be deleted now.
@@ -562,6 +572,8 @@ class SQLiteSync(object):
                 self.add_media(log_entry)
             elif event_type == EventTypes.EDITED_MEDIA:
                 self.edit_media(log_entry)
+            elif event_type == EventTypes.DELETED_MEDIA:
+                self.delete_media(log_entry)
             elif event_type == EventTypes.ADDED_FACT_VIEW:
                 self.add_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_FACT_VIEW:

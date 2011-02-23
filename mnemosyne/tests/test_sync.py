@@ -453,6 +453,7 @@ class TestSync(object):
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log").fetchone()[0] == 21
+        
     def test_rename_tag(self):
 
         def test_server(self):
@@ -695,9 +696,69 @@ class TestSync(object):
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.database().delete_fact_and_sister_cards(card.fact)
-        os.remove(filename)
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
+
+    def test_delete_media_2(self):
+
+        # First sync.
+        
+        def test_server(self):
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            assert os.path.exists(filename)
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        os.mkdir(os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a"))            
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a", unichr(0x628) + u"a.ogg")        
+        f = file(filename, "w")
+        f.write("A")
+        f.close()
+        fact_data = {"q": "question\n<img src=\"%s\">" % (filename),
+                     "a": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]
+
+        self.client.do_sync()        
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        # Second sync.
+
+        def fill_server_database(self):
+            pass
+        
+        def test_server(self):
+            assert self.mnemosyne.database().con.execute("select count() from log where event_type=?",
+                (EventTypes.DELETED_MEDIA, )).fetchone()[0] == 1 
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+            "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            assert not os.path.exists(filename)
+
+        
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        self.server.card_id = card.id
+
+        self.client = MyClient(erase_previous=False)
+
+        self.client.mnemosyne.database().delete_fact_and_sister_cards(card.fact)
+        self.client.mnemosyne.controller().file_save()
+              
+        self.client.do_sync()
+        assert not os.path.exists(filename)
+
 
     def test_edit_media(self):
      
