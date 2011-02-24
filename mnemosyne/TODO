@@ -1,19 +1,15 @@
--remove orphaned media files after delete, edit and change card type.
- Make sure this runs only once when deleting more than 1 card, either by running it from the controller,
- or by having a db function which operates on more than 1 card (preferred?).
--speed up if acting on only a single card?
--shortcut if no media files where present earlier?
-
--don't do media check in database, but in controller?
--fix testsuite (make sure deletion triggers purge), look at coverage
-
--media file handler
--rename relative_paths to Media_paths
--create latex dir in filter plugin?
-
-
 -right click change card type
 -do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
+-remove orphaned media files after changing card type
+
+-do media check / delete_facts_and_their_cards in database or in controller? 
+Criterion: which can be reused if the database backend changes? 
+problem: database.delete_fact_and_related_cards does not do media check, controller.delete_fact_and_their_cards does. Better naming? delete_fact_and_their_cards to controller, sqlite only delete_fact?
+Document decision.
+
+-move media extraction from sqlite.py to fact.py
+-both ' and " in re
+-rename relative_paths to Media_paths
 
 -right click add tags
 
@@ -294,9 +290,8 @@ a good alternative, as it does not obey selection coloring
 -option purge history, refactor logging test. Should only happen in no other sync partners are
  interested in it
 
--website redesign? like http://hanzim.com/download.php
 
--add days since last rep / until next rep to statistics
+-website redesign? like http://hanzim.com/download.php
 
 -don't activate plugins until after clicking ok
 
@@ -315,6 +310,8 @@ a good alternative, as it does not obey selection coloring
 
 -get rid of mp3 clip prevention?
 
+-media handler?
+-create latex dir in filter plugin?
 -media on dropbox?
 -plugin to store backups on dropbox
 
@@ -344,6 +341,7 @@ http://pythoscope.org/
 -improve learn ahead, by learing ahead per day and prioritising within each day
 
 http://lost-theory.org/python/ltchinese/
+
 
 -control B format character in supermemo import?
 

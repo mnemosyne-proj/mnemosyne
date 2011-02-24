@@ -50,7 +50,7 @@ class TestLogging(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()        
-        self.controller().delete_current_fact()
+        self.controller().delete_current_card()
 
         self.log().dump_to_science_log()
 

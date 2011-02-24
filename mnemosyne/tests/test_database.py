@@ -192,7 +192,7 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
 
         fact = card.fact
-        self.database().delete_fact_and_sister_cards(fact)
+        self.database().delete_fact_and_their_cards(fact)
         
         assert self.database().fact_count() == 0
         assert len(self.database().tags()) == 0

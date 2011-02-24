@@ -318,13 +318,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             facts.append(self.database().fact(_fact_id, id_is_internal=True))
         self.unload_qt_database()
         self.saved_selection = []
-            
-        # TODO: move to controller.
-        for fact in facts:
-            self.database().delete_fact_and_sister_cards(fact)
-        self.database().clean_orphaned_static_media()
-        self.database().save()
-        
+        self.controller().delete_facts_and_their_cards(facts)        
         self.display_card_table()
         self.card_type_tree_wdgt.rebuild()
         self.tag_tree_wdgt.rebuild()

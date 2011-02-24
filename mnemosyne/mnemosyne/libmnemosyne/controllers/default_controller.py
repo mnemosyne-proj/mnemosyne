@@ -99,7 +99,7 @@ class DefaultController(Controller):
                         for key in fact_data:
                             if key not in card_type.required_fields:
                                 merged_fact_data[key] += " / " + duplicate[key]
-                        db.delete_fact_and_sister_cards(duplicate)
+                        db.delete_fact_and_their_cards(duplicate)
                     card = db.cards_from_fact(fact)[0]
                     card.fact.data = merged_fact_data
                     self.component_manager.current("edit_card_dialog")\
@@ -150,7 +150,9 @@ class DefaultController(Controller):
         self.stopwatch().unpause()
         
     def edit_sister_cards(self, fact, new_fact_data, new_card_type, \
-                           new_tag_names, correspondence):
+                          new_tag_names, correspondence):
+        # If the old fact contained media, we need to check for orphans.
+        clean_orphaned_static_media_needed = fact.contains_static_media()      
         # Change card type.
         db = self.database()
         sch = self.scheduler()
@@ -176,7 +178,7 @@ class DefaultController(Controller):
                     if answer == 1:   # Cancel.
                         return -1
                     else:
-                        db.delete_fact_and_sister_cards(fact)
+                        db.delete_fact_and_their_cards(fact)
                         card = self.create_new_cards(new_fact_data,
                           new_card_type, grade=-1, tag_names=new_tag_names)[0]
                         self.review_controller().card = card
@@ -244,11 +246,13 @@ class DefaultController(Controller):
             db.update_card(card)
         for tag in old_tags:
             db.remove_tag_if_unused(tag)
+        if clean_orphaned_static_media_needed:
+            db.clean_orphaned_static_media()        
         db.save()
                 
         return 0
 
-    def delete_current_fact(self):
+    def delete_current_card(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         db = self.database()
@@ -271,11 +275,21 @@ class DefaultController(Controller):
         if answer == 1:  # Cancel.
             self.stopwatch().unpause()
             return
-        db.delete_fact_and_sister_cards(fact)
-        db.save()
+        self.delete_facts_and_their_cards([fact])
         review_controller.reload_counters()
         review_controller.new_question()
         self.stopwatch().unpause()
+
+    def delete_facts_and_their_cards(self, facts):
+        db = self.database()
+        clean_orphaned_static_media_needed = False  
+        for fact in facts:
+            if fact.contains_static_media():
+                clean_orphaned_static_media_needed = True  
+            db.delete_fact_and_their_cards(fact)
+        if clean_orphaned_static_media_needed:
+            db.clean_orphaned_static_media()
+        db.save()
 
     def clone_card_type(self, card_type, clone_name):
         from mnemosyne.libmnemosyne.utils import mangle    

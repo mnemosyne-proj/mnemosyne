@@ -328,7 +328,7 @@ class TestSync(object):
         fact = Fact({"q": "Q", "a": "A"})
         self.client.mnemosyne.database().add_fact(fact)
         self.client.mnemosyne.controller().file_save()
-        self.client.mnemosyne.database().delete_fact_and_sister_cards(fact)        
+        self.client.mnemosyne.database().delete_fact_and_their_cards(fact)        
         self.server.client_fact_id = fact.id
         self.client.mnemosyne.controller().file_save()
         self.client.mnemosyne.log().stopped_program()
@@ -668,7 +668,7 @@ class TestSync(object):
             card_type = self.mnemosyne.card_type_by_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-            self.mnemosyne.database().delete_fact_and_sister_cards(card.fact)
+            self.mnemosyne.database().delete_fact_and_their_cards(card.fact)
             os.remove(filename)
             self.mnemosyne.controller().file_save()
         
@@ -695,7 +695,7 @@ class TestSync(object):
         card_type = self.client.mnemosyne.card_type_by_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-        self.client.mnemosyne.database().delete_fact_and_sister_cards(card.fact)
+        self.client.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
 
@@ -743,7 +743,6 @@ class TestSync(object):
             filename = os.path.join(os.path.abspath("dot_sync_server"),
             "default.db_media", "a", unichr(0x628) + u"a.ogg")
             assert not os.path.exists(filename)
-
         
         self.server = MyServer(erase_previous=False, binary_download=True)
         self.server.test_server = test_server
@@ -753,12 +752,11 @@ class TestSync(object):
 
         self.client = MyClient(erase_previous=False)
 
-        self.client.mnemosyne.database().delete_fact_and_sister_cards(card.fact)
+        self.client.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
         self.client.mnemosyne.controller().file_save()
               
         self.client.do_sync()
         assert not os.path.exists(filename)
-
 
     def test_edit_media(self):
      

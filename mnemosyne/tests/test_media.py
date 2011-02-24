@@ -204,11 +204,14 @@ class TestMedia(MnemosyneTest):
         self.controller().edit_sister_cards(card.fact, fact_data,
            card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
-        assert os.path.exists(full_path_in_media_dir) # Don't autodelete.
+        assert not os.path.exists(full_path_in_media_dir) # Autodelete.
         assert full_path_in_media_dir not in card.question()        
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.DELETED_MEDIA, )).fetchone()[0] == 1
         
     def test_card_edit_delete_used_by_other(self):
         file("a.ogg", "w")
@@ -224,7 +227,7 @@ class TestMedia(MnemosyneTest):
         fact_data = {"q": "2 <img src=\"%s\">" % "a.ogg",
                      "a": "answer"}
         self.controller().create_new_cards(fact_data, card_type,
-                                              grade=-1, tag_names=["default"])[0]
+                                           grade=-1, tag_names=["default"])[0]
         fact_data = {"q": "edited",
                      "a": "answer"}        
         self.controller().edit_sister_cards(card.fact, fact_data,
@@ -247,9 +250,9 @@ class TestMedia(MnemosyneTest):
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, id_is_internal=True)
-        self.database().delete_fact_and_sister_cards(card.fact)
+        self.controller().delete_facts_and_their_cards([card.fact])
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
-        assert os.path.exists(full_path_in_media_dir) # Don't autodelete.
+        assert not os.path.exists(full_path_in_media_dir) # Autodelete.
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
@@ -269,7 +272,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        self.database().delete_fact_and_sister_cards(card.fact)
+        self.database().delete_fact_and_their_cards(card.fact)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Not deleted.
         assert self.database().con.execute(\

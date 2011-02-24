@@ -89,7 +89,7 @@ class TestCrammingScheduler(MnemosyneTest):
                      grade=-1, tag_names=["default"])[0]
 
         self.review_controller().new_question()
-        self.controller().delete_current_fact()
+        self.controller().delete_current_card()
         assert self.review_controller().card == None
 
     def test_3(self):

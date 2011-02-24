@@ -35,7 +35,7 @@ class Controller(Component):
                              new_tag_names, correspondence):
         raise NotImplementedError
 
-    def delete_current_fact(self):
+    def delete_current_card(self):
         raise NotImplementedError    
     
     def file_new(self):

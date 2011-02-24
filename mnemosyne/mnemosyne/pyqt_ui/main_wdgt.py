@@ -123,8 +123,8 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def edit_current_card(self):
         self.controller().edit_current_card()
         
-    def delete_current_fact(self):
-        self.controller().delete_current_fact()
+    def delete_current_card(self):
+        self.controller().delete_current_card()
         
     def browse_cards(self):
         self.controller().browse_cards()

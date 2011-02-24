@@ -2,7 +2,11 @@
 # fact.py <Peter.Bienstman@UGent.be>
 #
 
+import re
+
 from mnemosyne.libmnemosyne.utils import rand_uuid, CompareOnId
+
+re_src = re.compile(r"""src=\"(.+?)\"""", re.DOTALL | re.IGNORECASE)
 
 
 class Fact(CompareOnId):
@@ -45,3 +49,5 @@ class Fact(CompareOnId):
     def __setitem__(self, key, value):
         self.data[key] = value
         
+    def contains_static_media(self):
+        return re_src.search("".join(self.data.values())) != None

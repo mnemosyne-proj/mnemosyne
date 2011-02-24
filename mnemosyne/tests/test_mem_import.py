@@ -156,7 +156,6 @@ class TestMemImport(MnemosyneTest):
         self.review_controller().reset()
         assert self.database().card_count() == 1
         card_1 = self.review_controller().card
-        print card_1.fact.data
         assert card_1.fact.data == {"q": "t", "a": "f\np"}
         assert self.database().con.execute(\
             "select count() from log where event_type=?",

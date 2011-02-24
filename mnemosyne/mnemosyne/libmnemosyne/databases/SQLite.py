@@ -262,8 +262,8 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                    split(self.database().suffix)[0]
         
     def media_dir(self):
-        return os.path.join(self.config().data_dir,
-            os.path.basename(self.config()["path"]) + "_media")
+        return unicode(os.path.join(self.config().data_dir,
+            os.path.basename(self.config()["path"]) + "_media"))
     
     def new(self, path):
         self.unload()
@@ -655,7 +655,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Process media files.
         self._process_media(fact)
 
-    def delete_fact_and_sister_cards(self, fact):
+    def delete_fact_and_their_cards(self, fact):
         for card in self.cards_from_fact(fact):
             self.delete_card(card)
         self.con.execute("delete from facts where _id=?", (fact._id, ))
@@ -1050,7 +1050,6 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 files_in_media_dir.add(filename)
         # Delete orphaned files.
         for filename in files_in_media_dir - files_in_db:
-            print filename, self.media_dir()
             os.remove(expand_path(filename, self.media_dir()))
             self.log().deleted_media(filename)
         # Purge empty dirs.

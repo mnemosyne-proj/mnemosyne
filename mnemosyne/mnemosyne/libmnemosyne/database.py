@@ -129,7 +129,7 @@ class Database(Component):
     def update_fact(self, fact):
         raise NotImplementedError
 
-    def delete_fact_and_sister_cards(self, fact):
+    def delete_fact_and_their_cards(self, fact):
         raise NotImplementedError
     
     # Cards.
