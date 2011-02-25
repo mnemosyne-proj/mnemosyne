@@ -94,7 +94,7 @@ class TestPlugin(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         fact = card.fact
-        self.database().delete_fact_and_their_cards(fact)
+        self.controller().delete_facts_and_their_cards([fact])
         
         p.deactivate() # Should work without problems.
 

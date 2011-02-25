@@ -17,7 +17,6 @@ class TestTagTree(MnemosyneTest):
         self.controller().file_save()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
-        print self.tree.keys()
         assert len(self.tree.keys()) == 2
         assert self.tree['__ALL__'] == [u'__UNTAGGED__']
         
@@ -281,7 +280,6 @@ class TestTagTree(MnemosyneTest):
         assert self.tree.card_count_for_node["b::c::d"] == 1
         
         self.tree.delete_subtree("b::c")
-        print self.tree.card_count_for_node
         card = self.database().card(card._id, id_is_internal=True)
         assert card.tag_string() == "b"
         self.database().con.execute("select tags from cards where _id=?",

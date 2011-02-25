@@ -530,7 +530,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
                 _tag_id=?""", (_existing_tag_id, tag._id))
             if self.store_pregenerated_data:
                 self._update_tag_strings(affected_card__ids)
-            self.remove_tag_if_unused(tag)
+            self.delete_tag_if_unused(tag)
             return
         # Regular case.
         self.con.execute("""update tags set name=?, extra_data=? where
@@ -588,7 +588,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         applier.apply_to_database(criterion)
         del tag
         
-    def remove_tag_if_unused(self, tag):
+    def delete_tag_if_unused(self, tag):
         if self.con.execute("""select count() from tags as cat,
             tags_for_card as cat_c where cat_c._tag_id=cat._id and
             cat._id=?""", (tag._id, )).fetchone()[0] == 0:
@@ -655,9 +655,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         # Process media files.
         self._process_media(fact)
 
-    def delete_fact_and_their_cards(self, fact):
-        for card in self.cards_from_fact(fact):
-            self.delete_card(card)
+    def delete_fact(self, fact):
         self.con.execute("delete from facts where _id=?", (fact._id, ))
         self.con.execute("delete from data_for_fact where _fact_id=?",
             (fact._id, ))
@@ -764,7 +762,7 @@ class SQLite(Database, SQLiteSync, SQLiteLogging, SQLiteStatistics):
         self.con.execute("delete from tags_for_card where _card_id=?",
             (card._id, ))
         for tag in card.tags:
-            self.remove_tag_if_unused(tag)
+            self.delete_tag_if_unused(tag)
         self.log().deleted_card(card)
         del card
 

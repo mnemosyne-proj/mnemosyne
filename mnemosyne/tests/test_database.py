@@ -192,9 +192,10 @@ class TestDatabase(MnemosyneTest):
                                           grade=-1, tag_names=["default"])[0]
 
         fact = card.fact
-        self.database().delete_fact_and_their_cards(fact)
+        self.controller().delete_facts_and_their_cards([fact])
         
         assert self.database().fact_count() == 0
+        assert self.database().card_count() == 0
         assert len(self.database().tags()) == 0
         
     @raises(RuntimeError)

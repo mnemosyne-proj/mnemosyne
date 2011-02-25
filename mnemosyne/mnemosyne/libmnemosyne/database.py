@@ -112,7 +112,7 @@ class Database(Component):
     def get_or_create_tags_with_names(self, names):
         raise NotImplementedError
     
-    def remove_tag_if_unused(self, tag):
+    def delete_tag_if_unused(self, tag):
         raise NotImplementedError
 
     def tags(self):        
@@ -129,7 +129,7 @@ class Database(Component):
     def update_fact(self, fact):
         raise NotImplementedError
 
-    def delete_fact_and_their_cards(self, fact):
+    def delete_fact(self, fact):
         raise NotImplementedError
     
     # Cards.

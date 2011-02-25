@@ -255,7 +255,7 @@ class TestActivateCards(MnemosyneTest):
         self.database().set_current_criterion(c)
         assert self.database().active_count() == 0
 
-        self.database().delete_fact_and_their_cards(card.fact)
+        self.controller().delete_facts_and_their_cards([card.fact])
         plugin.deactivate()
         c = self.database().current_criterion()
         assert len(c.deactivated_card_type_fact_view_ids) == 0

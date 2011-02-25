@@ -457,7 +457,11 @@ class SQLiteSync(object):
         
     def delete_media(self, log_entry):
         filename = log_entry["fname"]
-        os.remove(expand_path(filename, self.media_dir()))
+        full_path = expand_path(filename, self.media_dir())
+        # The file could have been remotely deleted before it got a chance to
+        # be synced, so we need to check if the file exists before deleting.
+        if os.path.exists(full_path):
+            os.remove(full_path)
         self.log().deleted_media(filename)    
 
     def fact_view_from_log_entry(self, log_entry):
@@ -556,7 +560,7 @@ class SQLiteSync(object):
                 self.update_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT:
                 fact = self.fact_from_log_entry(log_entry)
-                self.delete_fact_and_their_cards(fact)
+                self.delete_fact(fact)
             elif event_type == EventTypes.ADDED_CARD:
                 card = self.card_from_log_entry(log_entry)
                 # 'add_card' does not log, so we need to do it ourselves.

@@ -272,7 +272,7 @@ class TestMedia(MnemosyneTest):
                      "a": "answer"}
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        self.database().delete_fact_and_their_cards(card.fact)
+        self.controller().delete_facts_and_their_cards([card.fact])
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert os.path.exists(full_path_in_media_dir) # Not deleted.
         assert self.database().con.execute(\

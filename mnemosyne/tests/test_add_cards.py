@@ -139,7 +139,7 @@ class TestAddCards(MnemosyneTest):
         self.review_controller().new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(0)
-        self.database().delete_fact_and_their_cards(card_3.fact)
+        self.controller().delete_facts_and_their_cards([card_3.fact])
         self.review_controller().reset()
         for i in range(6):
             assert self.review_controller().card != card_3

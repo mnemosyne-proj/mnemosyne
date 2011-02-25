@@ -99,7 +99,7 @@ class DefaultController(Controller):
                         for key in fact_data:
                             if key not in card_type.required_fields:
                                 merged_fact_data[key] += " / " + duplicate[key]
-                        db.delete_fact_and_their_cards(duplicate)
+                    self.delete_facts_and_their_cards(duplicates)
                     card = db.cards_from_fact(fact)[0]
                     card.fact.data = merged_fact_data
                     self.component_manager.current("edit_card_dialog")\
@@ -178,7 +178,7 @@ class DefaultController(Controller):
                     if answer == 1:   # Cancel.
                         return -1
                     else:
-                        db.delete_fact_and_their_cards(fact)
+                        self.delete_facts_and_their_cards([fact])
                         card = self.create_new_cards(new_fact_data,
                           new_card_type, grade=-1, tag_names=new_tag_names)[0]
                         self.review_controller().card = card
@@ -245,7 +245,7 @@ class DefaultController(Controller):
             card.tags = tags
             db.update_card(card)
         for tag in old_tags:
-            db.remove_tag_if_unused(tag)
+            db.delete_tag_if_unused(tag)
         if clean_orphaned_static_media_needed:
             db.clean_orphaned_static_media()        
         db.save()
@@ -285,8 +285,10 @@ class DefaultController(Controller):
         clean_orphaned_static_media_needed = False  
         for fact in facts:
             if fact.contains_static_media():
-                clean_orphaned_static_media_needed = True  
-            db.delete_fact_and_their_cards(fact)
+                clean_orphaned_static_media_needed = True
+            for card in db.cards_from_fact(fact):
+                db.delete_card(card)
+            db.delete_fact(fact)
         if clean_orphaned_static_media_needed:
             db.clean_orphaned_static_media()
         db.save()

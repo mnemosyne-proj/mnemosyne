@@ -1,15 +1,14 @@
+-update controller.py
+-add q_field_decorator and a_field_decorator to factview and implement in render_chain.py. 
+ Also in database and sync. Add example plugin Test.
+-criterion to distinguish built-in cardtypes.
+-move media extraction from sqlite.py to fact.py
+-both ' and " in re
+-rename relative_paths to Media_paths?
+
 -right click change card type
 -do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
 -remove orphaned media files after changing card type
-
--do media check / delete_facts_and_their_cards in database or in controller? 
-Criterion: which can be reused if the database backend changes? 
-problem: database.delete_fact_and_related_cards does not do media check, controller.delete_fact_and_their_cards does. Better naming? delete_fact_and_their_cards to controller, sqlite only delete_fact?
-Document decision.
-
--move media extraction from sqlite.py to fact.py
--both ' and " in re
--rename relative_paths to Media_paths
 
 -right click add tags
 

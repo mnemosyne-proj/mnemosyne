@@ -126,7 +126,7 @@ def import_file(filename, fformat_name, default_tag_name,
             log().imported_card(card) 
     # Clean up.
 
-    remove_tag_if_unused(default_tag)
+    delete_tag_if_unused(default_tag)
 
     load_failed = False
 
@@ -153,5 +153,4 @@ def export_file(filename, fformat_name,
                             reset_learning_data)
 
     id_to_anon = {}
-
 

@@ -328,7 +328,7 @@ class TestSync(object):
         fact = Fact({"q": "Q", "a": "A"})
         self.client.mnemosyne.database().add_fact(fact)
         self.client.mnemosyne.controller().file_save()
-        self.client.mnemosyne.database().delete_fact_and_their_cards(fact)        
+        self.client.mnemosyne.database().delete_fact(fact)        
         self.server.client_fact_id = fact.id
         self.client.mnemosyne.controller().file_save()
         self.client.mnemosyne.log().stopped_program()
@@ -508,7 +508,7 @@ class TestSync(object):
                 assert 1 == 0
             except TypeError:
                 pass
-            assert db.con.execute("select count() from log").fetchone()[0] == 15
+            assert db.con.execute("select count() from log").fetchone()[0] == 16
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -521,11 +521,11 @@ class TestSync(object):
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.server.client_card = card
-        self.client.database.delete_card(card)
+        self.client.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
         self.client.mnemosyne.controller().file_save()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 15
+            "select count() from log").fetchone()[0] == 16
 
     def test_repetition(self):
 
@@ -668,8 +668,7 @@ class TestSync(object):
             card_type = self.mnemosyne.card_type_by_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
-            self.mnemosyne.database().delete_fact_and_their_cards(card.fact)
-            os.remove(filename)
+            self.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
             self.mnemosyne.controller().file_save()
         
         def test_server(self):
