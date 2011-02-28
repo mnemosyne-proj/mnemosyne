@@ -2,6 +2,7 @@
 -add q_field_decorator and a_field_decorator to factview and implement in render_chain.py. 
  Also in database and sync. Add example plugin Test.
 -criterion to distinguish built-in cardtypes.
+-don't delete media from directory starting with _
 -move media extraction from sqlite.py to fact.py
 -both ' and " in re
 -rename relative_paths to Media_paths?
