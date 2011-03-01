@@ -137,7 +137,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.update_tags_combobox(\
             self.config()["tags_of_last_added"])  
         self.grades = QtGui.QButtonGroup()
-        # Negative indices have special meanings in Qt, so we can't use -1 for
+        # Negative indexes have special meanings in Qt, so we can't use -1 for
         # 'yet to learn'.
         self.grades.addButton(self.yet_to_learn_button, 0)
         self.grades.addButton(self.grade_2_button, 2)

@@ -104,15 +104,15 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.tag_tree_wdgt.customContextMenuRequested.connect(\
             self.context_menu)
 
-    def selected_non_read_only_indices(self):
-        indices = []
+    def selected_non_read_only_indexes(self):
+        indexes = []
         for index in self.tag_tree_wdgt.selectedIndexes():
             node_index = \
                 index.model().index(index.row(), NODE, index.parent())
             if index.model().data(node_index).toString() not in \
                 ["__ALL__", "__UNTAGGED__"]:
-                indices.append(index)
-        return indices
+                indexes.append(index)
+        return indexes
 
     def context_menu(self, point):
         menu = QtGui.QMenu(self)
@@ -124,10 +124,10 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         remove_tag_action.triggered.connect(self.menu_remove)
         remove_tag_action.setShortcut(QtGui.QKeySequence.Delete)
         menu.addAction(remove_tag_action)
-        indices = self.selected_non_read_only_indices()
-        if len(indices) > 1:
+        indexes = self.selected_non_read_only_indexes()
+        if len(indexes) > 1:
             rename_tag_action.setEnabled(False)
-        if len(indices) >= 1:
+        if len(indexes) >= 1:
             menu.exec_(self.tag_tree_wdgt.mapToGlobal(point))
 
     def keyPressEvent(self, event):
@@ -137,15 +137,15 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             self.menu_remove()
 
     def menu_rename(self):
-        indices = self.selected_non_read_only_indices()
+        indexes = self.selected_non_read_only_indexes()
         # If there are tags selected, this means that we could only have got
         # after pressing return on an actual edit, due to our custom
         # 'keyPressEvent'. We should not continue in that case.
-        if len(indices) == 0:
+        if len(indexes) == 0:
             return
         # We display the full node (i.e. all levels including ::), so that
         # the hierarchy can be changed upon editing.
-        index = indices[0]        
+        index = indexes[0]        
         node_index = index.model().index(index.row(), NODE, index.parent())
         old_node_label = index.model().data(node_index).toString()
 
@@ -162,8 +162,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         
     def menu_remove(self):
         # Ask for confirmation.
-        indices = self.selected_non_read_only_indices()
-        if len(indices) > 1:
+        indexes = self.selected_non_read_only_indexes()
+        if len(indexes) > 1:
             question = _("Remove these tags?")
         else:
             question = _("Remove this tag?")            
@@ -173,7 +173,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
             return
         # Remove the nodes.
         node_labels = []
-        for index in self.selected_non_read_only_indices():
+        for index in self.selected_non_read_only_indexes():
             node_index = index.model().index(index.row(), NODE, index.parent())
             node_labels.append(index.model().data(node_index).toString())
         self.delete_nodes(node_labels)
@@ -251,7 +251,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         self.checked_to_active_tags_in_criterion(self.saved_criterion)
         # Now we've saved the checked state of the tree.
         # Saving and restoring the selected state is less trivial, because
-        # in the case of trees, the model indices have parents which become
+        # in the case of trees, the model indexes have parents which become
         # invalid when creating the widget.
         # The solution would be to save tags and reselect those in the new
         # widget.

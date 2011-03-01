@@ -1,11 +1,5 @@
--update controller.py
 -add q_field_decorator and a_field_decorator to factview and implement in render_chain.py. 
- Also in database and sync. Add example plugin Test.
--criterion to distinguish built-in cardtypes.
--don't delete media from directory starting with _
--move media extraction from sqlite.py to fact.py
--both ' and " in re
--rename relative_paths to Media_paths?
+ Also in database and sync. Add example plugin. Test.
 
 -right click change card type
 -do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
@@ -14,9 +8,6 @@
 -right click add tags
 
 -right click remove tags
-
-
--GSoC
 
 
 -card formatting options on remote web server: act on config info that the client sent across

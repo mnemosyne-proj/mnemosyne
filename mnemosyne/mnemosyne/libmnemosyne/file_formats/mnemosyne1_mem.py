@@ -30,7 +30,7 @@ class Mnemosyne1Mem(FileFormat):
 
     def do_import(self, filename, tag_name=None, reset_learning_data=False):
         db = self.database()
-        # Manage database indices.
+        # Manage database indexes.
         db.before_mem_import()
         # The import process generates card log entries, which we will delete
         # in favour of those events that are recorded in the logs and which
@@ -59,7 +59,7 @@ class Mnemosyne1Mem(FileFormat):
         timestamp = int(time.time())
         for item in self.items:
             db.log_edited_card(timestamp, item.id)
-        # Mananage database indices.
+        # Mananage database indexes.
         db.after_mem_import()
         db.save()
             

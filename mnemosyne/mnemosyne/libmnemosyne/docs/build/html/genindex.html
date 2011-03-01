@@ -121,7 +121,8 @@
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.cards_with_scheduler_data">cards_with_scheduler_data() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType">CardType (class in mnemosyne.libmnemosyne.card_type)</a></dt>
 <dt><a href="modules/card_type_converter.html#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter">CardTypeConverter (class in mnemosyne.libmnemosyne.card_type_converter)</a></dt>
-<dt><a href="modules/configuration.html#mnemosyne.libmnemosyne.configuration.Configuration.change_user_id">change_user_id() (mnemosyne.libmnemosyne.configuration.Configuration method)</a></dt></dl></td><td width="33%" valign="top"><dl>
+<dt><a href="modules/configuration.html#mnemosyne.libmnemosyne.configuration.Configuration.change_user_id">change_user_id() (mnemosyne.libmnemosyne.configuration.Configuration method)</a></dt>
+<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.clone_card_type">clone_card_type() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt></dl></td><td width="33%" valign="top"><dl>
 <dt><a href="modules/component.html#mnemosyne.libmnemosyne.component.Component">Component (class in mnemosyne.libmnemosyne.component)</a></dt>
 <dt><a href="modules/component_manager.html#mnemosyne.libmnemosyne.component_manager.ComponentManager">ComponentManager (class in mnemosyne.libmnemosyne.component_manager)</a></dt>
 <dt><a href="modules/component.html#mnemosyne.libmnemosyne.component.Component.config">config() (mnemosyne.libmnemosyne.component.Component method)</a></dt>
@@ -160,12 +161,17 @@
   </dl></dd>
 <dt><a href="modules/component_manager.html#mnemosyne.libmnemosyne.component_manager.ComponentManager.deactivate_all">deactivate_all() (mnemosyne.libmnemosyne.component_manager.ComponentManager method)</a></dt>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_card">delete_card() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
-<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_card_type">delete_card_type() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
+<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.delete_card_type">delete_card_type() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
+  <dd><dl>
+    <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_card_type">(mnemosyne.libmnemosyne.database.Database method)</a></dt>
+  </dl></dd>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_criterion">delete_criterion() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.delete_current_card">delete_current_card() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
-<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_fact_and_their_cards">delete_fact_and_their_cards() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
-<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_fact_view">delete_fact_view() (mnemosyne.libmnemosyne.database.Database method)</a></dt></dl></td><td width="33%" valign="top"><dl>
+<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_fact">delete_fact() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
+<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_fact_view">delete_fact_view() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
+<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.delete_facts_and_their_cards">delete_facts_and_their_cards() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt></dl></td><td width="33%" valign="top"><dl>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_tag">delete_tag() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
+<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused">delete_tag_if_unused() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/logger.html#mnemosyne.libmnemosyne.logger.Logger.deleted_card">deleted_card() (mnemosyne.libmnemosyne.logger.Logger method)</a></dt>
 <dt><a href="modules/logger.html#mnemosyne.libmnemosyne.logger.Logger.deleted_card_type">deleted_card_type() (mnemosyne.libmnemosyne.logger.Logger method)</a></dt>
 <dt><a href="modules/logger.html#mnemosyne.libmnemosyne.logger.Logger.deleted_criterion">deleted_criterion() (mnemosyne.libmnemosyne.logger.Logger method)</a></dt>
@@ -254,8 +260,9 @@
 <dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.in_queue">in_queue() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.insert_img">insert_img() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.insert_sound">insert_sound() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
-<dt><a href="modules/card.html#mnemosyne.libmnemosyne.card.Card.interval">interval (mnemosyne.libmnemosyne.card.Card attribute)</a></dt>
-<dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.is_answer_showing">is_answer_showing() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt></dl></td><td width="33%" valign="top"><dl>
+<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.insert_video">insert_video() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
+<dt><a href="modules/card.html#mnemosyne.libmnemosyne.card.Card.interval">interval (mnemosyne.libmnemosyne.card.Card attribute)</a></dt></dl></td><td width="33%" valign="top"><dl>
+<dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.is_answer_showing">is_answer_showing() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.is_data_valid">is_data_valid() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.is_empty">is_empty() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.is_loaded">is_loaded() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
@@ -365,7 +372,6 @@
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.release_connection">release_connection() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.reload_counters">reload_counters() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
 <dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.remove_from_queue_if_present">remove_from_queue_if_present() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt>
-<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused">delete_tag_if_unused() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.render_answer">render_answer() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt>
   <dd><dl>
     <dt><a href="modules/render_chain.html#mnemosyne.libmnemosyne.render_chain.RenderChain.render_answer">(mnemosyne.libmnemosyne.render_chain.RenderChain method)</a></dt>
@@ -376,8 +382,8 @@
   <dd><dl>
     <dt><a href="modules/render_chain.html#mnemosyne.libmnemosyne.render_chain.RenderChain.render_question">(mnemosyne.libmnemosyne.render_chain.RenderChain method)</a></dt>
   </dl></dd>
-<dt><a href="modules/render_chain.html#mnemosyne.libmnemosyne.render_chain.RenderChain">RenderChain (class in mnemosyne.libmnemosyne.render_chain)</a></dt></dl></td><td width="33%" valign="top"><dl>
-<dt><a href="modules/renderer.html#mnemosyne.libmnemosyne.renderer.Renderer">Renderer (class in mnemosyne.libmnemosyne.renderer)</a></dt>
+<dt><a href="modules/render_chain.html#mnemosyne.libmnemosyne.render_chain.RenderChain">RenderChain (class in mnemosyne.libmnemosyne.render_chain)</a></dt>
+<dt><a href="modules/renderer.html#mnemosyne.libmnemosyne.renderer.Renderer">Renderer (class in mnemosyne.libmnemosyne.renderer)</a></dt></dl></td><td width="33%" valign="top"><dl>
 <dt><a href="modules/render_chain.html#mnemosyne.libmnemosyne.render_chain.RenderChain.renderer_for_card_type">renderer_for_card_type() (mnemosyne.libmnemosyne.render_chain.RenderChain method)</a></dt>
 <dt><a href="modules/logger.html#mnemosyne.libmnemosyne.logger.Logger.repetition">repetition() (mnemosyne.libmnemosyne.logger.Logger method)</a></dt>
 <dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.reset">reset() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
@@ -424,6 +430,7 @@
 <dt><a href="modules/logger.html#mnemosyne.libmnemosyne.logger.Logger.set_timestamp">set_timestamp() (mnemosyne.libmnemosyne.logger.Logger method)</a></dt>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.set_user_id">set_user_id() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.show_answer">show_answer() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
+<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_statistics">show_statistics() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/stopwatch.html#mnemosyne.libmnemosyne.stopwatch.Stopwatch.start">start() (mnemosyne.libmnemosyne.stopwatch.Stopwatch method)</a></dt>
 <dt><a href="modules/logger.html#mnemosyne.libmnemosyne.logger.Logger.start_logging">start_logging() (mnemosyne.libmnemosyne.logger.Logger method)</a></dt>
 <dt><a href="modules/component.html#mnemosyne.libmnemosyne.component.Component.start_review">start_review() (mnemosyne.libmnemosyne.component.Component method)</a></dt>
@@ -467,6 +474,7 @@
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.update_fact_view">update_fact_view() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.update_status_bar_counters">update_status_bar_counters() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.update_tag">update_tag() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
+<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.update_title">update_title() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/log_uploader.html#mnemosyne.libmnemosyne.log_uploader.LogUploader.upload">upload() (mnemosyne.libmnemosyne.log_uploader.LogUploader method)</a></dt>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.user_id">user_id() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 </dl></td></tr></table>
@@ -512,7 +520,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 24, 2011.
+      Last updated on Mar 01, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

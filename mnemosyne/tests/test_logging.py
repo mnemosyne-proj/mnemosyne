@@ -168,7 +168,7 @@ class TestLogging(MnemosyneTest):
                                               grade=-1, tag_names=["default"])
         log_index = self.database().con.execute(\
             """select _id from log order by _id desc limit 1""").fetchone()[0]
-        # Note: we need to keep the last log entry intact, otherwise indices
+        # Note: we need to keep the last log entry intact, otherwise indexes
         # start again at 1 and mess up the sync.
         self.database().con.execute("""delete from log where _id <?""", (log_index,))
         self.database().con.execute("""vacuum""")        

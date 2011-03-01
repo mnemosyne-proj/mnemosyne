@@ -1,42 +1,57 @@
 MNEMOSYNE 2.0
 
-This is essentially a complete rewrite of the old 1.x codebase, with a new,
-clean design, consisting of components that can be swapped in and out very
-easily, which allows plugin writers maximum flexibility.
+Almost three years in the making, this is essentially a complete rewrite of 
+the old 1.x codebase, with a new, clean design, consisting of components that
+can be swapped in and out very easily, which allows plugin writers maximum 
+flexibility.
 
+Major user-visible changes:
+	
 -Support for what is called card types. The main user visible changes are that
  editing a vice versa card or three sided card will automatically update the
  related card. There is also support for N-sided cards.
+-Whereas in Mnemosyne 1.x, a card could belong to only one category, now a 
+ card can have multiple tags. Tags can also be organised in a hierachy, with
+ '::' separating the levels of the hierachy.
+-Powerful new card browser, giving much more information and flexibility to
+ organise your cards.
+-'Activate cards' is completely revamped and is much more flexible. Also, sets
+ of active cards can be now be saved for easier access later.
+-Graphical statistics, easily extensible through plugins (first
+ implementation by Mike Appleby)
 -Each individual field in a card can now have its own font, colour, ... which
  can be set through the GUI. No more need for hacks like 'increase size of 
  non-latin characters'. Background colour is also configurable per card type.
--Whereas in Mnemosyne 1.x, a card could belong to only one category, now a card
- can have multiple tags.
+-The widget that displays the cards is now a full webbrowser, with e.g. 
+ support for Javascript, animated gifs, ...
+-Added cramming scheduler plugin, which goes through your cards in random
+ order and does not affect the normal scheduler data. It is visually
+ distinguished from the regular scheduler by having only two grade buttons
+ (Right and Wrong)
 -Sync protocol, to synchronise a mobile device to your desktop client. Fully
  bidirectional, i.e. you can add new cards on your desktop and review old
  cards on your phone, and both sets of changes will be merged seamlessly.
  Can sync with more than 1 partner. Optimised for speed and memory useage
  on mobile devices. First implementation by Ed Bartosh and Max Usachev.
--Added card type for maps, and for cloze deletion.
--Plugins can now be turned on and off through the GUI.
--Move from Qt3 to Qt4 as GUI toolkit, which has better performance and 
- eliminates many interface quirks.
--Windows use scroll bar when the data does not fit.
--The widget that displays the cards is now a full webbrowser, with e.g. 
- support for Javascript, animated gifs, ...	
--Move to SQL as the storage backend, resulting in improved speed and memory
- usage, as well as better scalability for large decks. Majority of work done
- by Ed Bartosh.
 -Mnemosyne comes with a webserver to do remote reviews over a browser. It is
  not yet integrated in the GUI, you need to run the 'mnemosyne-webserver'
  program. It also has no security yet.
--Vhen importing a sound or an image, a copy is made to the .mnemosyne directory. 
- This saves some confusing explaining to new users about the difference between 
- relative and absolute paths.
+
+Other changes:
+
+-Move from Qt3 to Qt4 as GUI toolkit, which has better performance and 
+ eliminates many interface quirks.
+-Move to SQL as the storage backend, resulting in improved speed and memory
+ usage, as well as better scalability for large decks (first implementation
+ by Ed Bartosh).
+-Added card type for maps, and for cloze deletion.
+-Plugins can now be turned on and off through the GUI.
+-Windows use scroll bar when the data does not fit.	
+-Vhen importing a sound or an image, a copy is made to the 
+ .mnemosyne directory. This saves some confusing explaining to new users about
+ the difference between relative and absolute paths.
 -Mnemosyne now saves after each reviewed card.
--'Activate cards' is completely revamped and is much more flexible. Also, sets of
- active cards can be now be saved for easier later recall.
--Avoid showing the same card twice in a row.
+-Avoid showing the same card twice in a row during review.
 -Added option "learn new related cards in same session".
 -Replaced 'number of grade 0 cards to hold in your hand' by 'number of non 
  memorised cards to hold in your hand', so that the limit now works on the
@@ -49,23 +64,18 @@ easily, which allows plugin writers maximum flexibility.
  when displaying a card.
 -Added option to display a media control (play/pause/slider)
 -Improved backup scheme. Users can now restore from backups using the 
- File - Open menu, as opposed to first decompressing a file outside of Mnemosyne.
+ File - Open menu, as opposed to first decompressing a file outside of 
+ Mnemosyne.
 -The learing history is now stored in an SQL database, allowing to calculate
- more statistics
--Graphical statistics (Mike Appleby)
+ more statistics.
 -The plugin mechanism encompasses also the statistics, configuration and card
  activation screens.
 -Cards which are failed during learning ahead are now periodically brought
  back in the learning process.
--Added cramming scheduler plugin, which goes through your cards in random
- order and does not affect the normal scheduler data. It is visually
- distinguished from the regular scheduler by having only two grade buttons
- (Right and Wrong)
 -Mnemosyne now stores its data in a more standards compliant location: 
  C:/Users/peter/Application Data/Mnemosyne2 under Windows, and 
  /home/pbienst/.local/share/mnemosyne2 and /home/pbienst/.config/mnemosyne2
  under Linux.
--Maemo client
 -When leaving the program open overnight, the display will update at the
  roll over point.
 -Intelligent sorting of categories containing numbers, so that you no longer

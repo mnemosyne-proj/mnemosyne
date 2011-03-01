@@ -200,8 +200,8 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.delete_fact_and_their_cards">
-<tt class="descname">delete_fact_and_their_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact_and_their_cards" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.database.Database.delete_fact">
+<tt class="descname">delete_fact</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -212,6 +212,11 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.delete_tag">
 <tt class="descname">delete_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused">
+<tt class="descname">delete_tag_if_unused</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -292,11 +297,6 @@ extensions.</dd></dl>
 <tt class="descname">release_connection</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.release_connection" title="Permalink to this definition">¶</a></dt>
 <dd>Release the connection, so that it may be recreated in a separate
 thread.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused">
-<tt class="descname">delete_tag_if_unused</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.delete_tag_if_unused" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.restore">
@@ -441,7 +441,7 @@ thread.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Feb 24, 2011.
+      Last updated on Mar 01, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

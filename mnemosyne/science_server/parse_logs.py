@@ -61,7 +61,7 @@ class LogDatabase(object):
 
     def parse_directory(self):       
         self.parser = ScienceLogParser(database=self)
-        self._delete_indices()  # Takes too long while parsing.
+        self._delete_indexes()  # Takes too long while parsing.
         filenames = [os.path.join(self.log_dir, filename) for filename in \
             sorted(os.listdir(unicode(self.log_dir))) if \
             filename.endswith(".bz2")]
@@ -89,14 +89,14 @@ class LogDatabase(object):
             self.con.execute("insert into parsed_logs(log_name) values(?)",
                 (os.path.basename(filename), ))
             self.con.commit()
-        self._create_indices()
+        self._create_indexes()
 
-    def _delete_indices(self):
+    def _delete_indexes(self):
         self.con.execute("drop index if exists i_log_timestamp;")
         self.con.execute("drop index if exists i_log_user_id;")
         self.con.execute("drop index if exists i_log_object_id;")
         
-    def _create_indices(self):
+    def _create_indexes(self):
         self.con.execute("create index i_log_timestamp on log (timestamp);")
         self.con.execute("create index i_log_user_id on log (user_id);")
         self.con.execute("create index i_log_object_id on log (object_id);")
@@ -182,4 +182,3 @@ if __name__=="__main__":
         print "Usage: %s <log_directory>" % sys.argv[0]
     else:
         LogDatabase(log_dir=sys.argv[1]).parse_directory()
-

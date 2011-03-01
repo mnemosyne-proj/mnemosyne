@@ -14,6 +14,21 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 class DefaultController(Controller):
 
+    """A collection of logic used by the GUI.  The logic related to the
+    review process is split out in a separated controller class, to
+    allow that to be swapped out easily.
+
+    The are basically two types of functions here. Functions like 'add_card',
+    'edit_current_card', ... will be called by the GUI immediately when the
+    user selects that option from the menu or toolbar. These functions will
+    then create the corresponding dialogs, which in turn should call functions
+    like 'create_new_cards', 'edit_sister_cards' to achieve the desired
+    functionality.
+
+    See 'How to write a new frontend' in documentation for more information.
+
+    """    
+
     def heartbeat(self):
 
         """To be called once a day, to make sure, even if the user leaves the
@@ -151,10 +166,11 @@ class DefaultController(Controller):
         
     def edit_sister_cards(self, fact, new_fact_data, new_card_type, \
                           new_tag_names, correspondence):
-        # If the old fact contained media, we need to check for orphans.
-        clean_orphaned_static_media_needed = fact.contains_static_media()      
-        # Change card type.
         db = self.database()
+        # If the old fact contained media, we need to check for orphans.
+        clean_orphaned_static_media_needed = \
+            db.fact_contains_static_media(fact)     
+        # Change card type.
         sch = self.scheduler()
         old_card_type = db.cards_from_fact(fact)[0].card_type
         if old_card_type != new_card_type:
@@ -284,7 +300,7 @@ class DefaultController(Controller):
         db = self.database()
         clean_orphaned_static_media_needed = False  
         for fact in facts:
-            if fact.contains_static_media():
+            if db.fact_contains_static_media(fact):
                 clean_orphaned_static_media_needed = True
             for card in db.cards_from_fact(fact):
                 db.delete_card(card)

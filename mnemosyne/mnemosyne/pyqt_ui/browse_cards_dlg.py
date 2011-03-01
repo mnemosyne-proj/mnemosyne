@@ -266,11 +266,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         remove_tag_action = QtGui.QAction(_("&Remove tag"), menu)
         remove_tag_action.triggered.connect(self.menu_remove_tag)
         menu.addAction(remove_tag_action)
-        indices = self.table.selectionModel().selectedRows()
-        if len(indices) > 1:
+        indexes = self.table.selectionModel().selectedRows()
+        if len(indexes) > 1:
             edit_action.setEnabled(False)
             preview_action.setEnabled(False)            
-        if len(indices) >= 1:
+        if len(indexes) >= 1:
             menu.exec_(self.table.mapToGlobal(point))
             
     def keyPressEvent(self, event):

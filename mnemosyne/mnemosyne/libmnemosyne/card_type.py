@@ -16,6 +16,9 @@ class CardType(Component, CompareOnId):
     for different translations. It is best to keep the id short, as it will
     show up in the card id as well.
 
+    Built-in card types will have an id which maps to an integer, user card
+    types should not have this property.
+
     Inherited card types should have ids where :: separates the different
     levels of the hierarchy, e.g. parent_id::child_id.
     

@@ -256,7 +256,7 @@ class SQLiteLogging(object):
                 id text primary key,
                 offset int,
                 last_rep int);""")
-        # Having these indices in place while importing takes too long.
+        # Having these indexes in place while importing takes too long.
         self.con.execute("drop index if exists i_log_timestamp;")
         self.con.execute("drop index if exists i_log_object_id;")
 

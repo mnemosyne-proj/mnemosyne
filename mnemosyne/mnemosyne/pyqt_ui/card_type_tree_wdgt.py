@@ -88,9 +88,8 @@ class CardTypesTreeWdgt(QtGui.QWidget, Component):
         self.checked_to_criterion(saved_criterion)
         # Now we've saved the checked state of the tree.
         # Saving and restoring the selected state is less trivial, because
-        # in the case of trees, the model indices have parents which become
+        # in the case of trees, the model indexes have parents which become
         # invalid when creating the widget.
         # The solution would be to save card types and reselect those in the
         # new widget.
         self.display(saved_criterion)
-
