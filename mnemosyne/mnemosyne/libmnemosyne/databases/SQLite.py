@@ -159,6 +159,8 @@ $pregenerated_data
         name text,
         q_fields text,
         a_fields text,
+        q_field_decorators text,
+        a_field_decorators text,
         a_on_top_of_q boolean default 0,
         type_answer boolean default 0,
         extra_data text default ""
@@ -258,10 +260,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         else:
             return os.path.basename(self.config()["path"]).\
                    split(self.database().suffix)[0]
-        
-    def media_dir(self):
-        return unicode(os.path.join(self.config().data_dir,
-            os.path.basename(self.config()["path"]) + "_media"))
     
     def new(self, path):
         self.unload()
@@ -769,11 +767,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
 
     def add_fact_view(self, fact_view):
-        _fact_view_id = self.con.execute("""insert into fact_views(id, name, q_fields,
-            a_fields, a_on_top_of_q, type_answer, extra_data)
-            values(?,?,?,?,?,?,?)""", (fact_view.id, fact_view.name,
+        _fact_view_id = self.con.execute("""insert into fact_views(id, name,
+            q_fields, a_fields, q_field_decorators, a_field_decorators,
+            a_on_top_of_q, type_answer, extra_data)
+            values(?,?,?,?,?,?,?,?,?)""", (fact_view.id, fact_view.name,
             repr(fact_view.q_fields), repr(fact_view.a_fields),
-            fact_view.a_on_top_of_q, fact_view.type_answer,
+            repr(fact_view.q_field_decorators),
+            repr(fact_view.a_field_decorators), fact_view.a_on_top_of_q,
+            fact_view.type_answer,
             self._repr_extra_data(fact_view.extra_data))).lastrowid
         fact_view._id = _fact_view_id
         self.log().added_fact_view(fact_view)
@@ -787,7 +788,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                  (id, )).fetchone()            
         fact_view = FactView(sql_res["name"], sql_res["id"])
         fact_view._id = sql_res["_id"]
-        for attr in ("q_fields", "a_fields"):
+        for attr in ("q_fields", "a_fields", "q_field_decorators",
+            "a_field_decorators"):
             setattr(fact_view, attr, eval(sql_res[attr]))
         for attr in ["a_on_top_of_q", "type_answer"]:
             setattr(fact_view, attr, bool(sql_res[attr]))
@@ -796,11 +798,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
     def update_fact_view(self, fact_view):
         self.con.execute("""update fact_views set name=?, q_fields=?,
-            a_fields=?, a_on_top_of_q=?, type_answer=?, extra_data=? where
-            _id=?""", (fact_view.name, repr(fact_view.q_fields),
-            repr(fact_view.a_fields), fact_view.a_on_top_of_q,
-            fact_view.type_answer, self._repr_extra_data(fact_view.extra_data),
-            fact_view._id))
+            a_fields=?, q_field_decorators=?, a_field_decorators=?,
+            a_on_top_of_q=?, type_answer=?, extra_data=? where _id=?""",
+            (fact_view.name, repr(fact_view.q_fields),
+            repr(fact_view.a_fields), repr(fact_view.q_field_decorators),
+            repr(fact_view.a_field_decorators), fact_view.a_on_top_of_q,
+            fact_view.type_answer,
+            self._repr_extra_data(fact_view.extra_data), fact_view._id))
         self.log().edited_fact_view(fact_view)
         
     def delete_fact_view(self, fact_view):

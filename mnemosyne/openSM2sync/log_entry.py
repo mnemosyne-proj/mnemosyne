@@ -126,6 +126,8 @@ class LogEntry(dict):
         name (string)
         q_fields (string)
         a_fields (string)
+        q_field_decorators (string)
+        a_field_decorators (string)
         a_on_top_of_q (bool)
         type_answer (bool)
         extra (string)

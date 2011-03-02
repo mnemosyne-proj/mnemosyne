@@ -13,6 +13,9 @@ class FactView(CompareOnId):
 
     Note that id's should be unique, so a good naming convention is
     'card_type_id::fact_view_id'.
+
+    The purpose of the decorator dictionaries is to allow for cards that read
+    'What is the answer to $question', as opposed to just '$question'.
     
     """
 
@@ -22,6 +25,8 @@ class FactView(CompareOnId):
         self.name = name
         self.q_fields = []
         self.a_fields = []
+        self.q_field_decorators = {}  # {field: string.Template}
+        self.a_field_decorators = {}  # {field: string.Template}
         self.a_on_top_of_q = False
         self.type_answer = False
         self.extra_data = {}

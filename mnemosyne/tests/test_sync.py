@@ -2099,6 +2099,8 @@ class TestSync(object):
             assert fact_view.name == "Front-to-back"
             assert fact_view.q_fields == ['q']
             assert fact_view.a_fields == ['a']
+            assert fact_view.q_field_decorators['q'] == 'question is: $q'
+            assert fact_view.a_field_decorators['a'] == 'answer is: $a'
             assert fact_view.a_on_top_of_q == False
             assert type(fact_view.a_on_top_of_q) == type(False)
             assert fact_view.type_answer == False
@@ -2114,6 +2116,8 @@ class TestSync(object):
         card_type = self.client.mnemosyne.card_type_by_id("1")
         
         fact_view = card_type.fact_views[0]
+        fact_view.q_field_decorators = {'q': 'question is: $q'}
+        fact_view.a_field_decorators = {'a': 'answer is: $a'}        
         fact_view.extra_data = {'1': 2}
         self.client.mnemosyne.database().add_fact_view(fact_view)
 

@@ -23,8 +23,7 @@ class XMLFormat(object):
     <log type='6' o_id='068c2472-b1f7-424d-aefa-ae723437702e'
     time='1268213369'><name>abcd</name></log>
     <log n_mem='0' act='0' type='5' sch='0' time='1268213369'></log>
-    </openSM2sync>
-    
+    </openSM2sync>    
     
     Note that the returned XML is a unicode object, and in order to send it
     across a socket e.g., we still need to encode it first.

@@ -1,6 +1,3 @@
--add q_field_decorator and a_field_decorator to factview and implement in render_chain.py. 
- Also in database and sync. Add example plugin. Test.
-
 -right click change card type
 -do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
 -remove orphaned media files after changing card type
@@ -23,7 +20,7 @@
 
 
 -go through all source
--communicate SQLite_no_pregerated_data, save interval, ..., repaint now to client writers
+-communicate SQLite_no_pregenerated_data, save interval, ..., repaint now to client writers
 -do extra input checking in controller
 -include coverage source option
 -test on cramming counters

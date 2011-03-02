@@ -2,9 +2,56 @@
 # test_card_type.py <Peter.Bienstman@UGent.be>
 #
 
-from mnemosyne_test import MnemosyneTest
+import os
 
+from mnemosyne_test import MnemosyneTest
+from mnemosyne.libmnemosyne import Mnemosyne
+from mnemosyne.libmnemosyne.card_type import CardType
+from mnemosyne.libmnemosyne.fact_view import FactView
+
+
+class DecoratedThreeSided(CardType):
+
+    id = "3_decorated"
+    name = "Foreign word with pronunciation (decorated)"
+    
+    # List and name the keys.
+    fields = [("f", "Foreign word", None),
+              ("p", "Pronunciation", None),
+              ("t", "Translation", None)]
+
+    # Recognition.
+    v1 = FactView("Recognition", "3::1")
+    v1.q_fields = ["f"]
+    v1.a_fields = ["p", "t"]
+    v1.q_field_decorators = {"f": "What is the translation of ${f}?"}
+    
+    # Production.
+    v2 = FactView("Production", "3::2")
+    v2.q_fields = ["t"]
+    v2.a_fields = ["f", "p"]
+    v2.q_field_decorators = {"t": "How do you say ${t}?"}
+    
+    fact_views = [v1, v2]
+    unique_fields = ["f"]
+    required_fields = ["f", "t"]
+    
 class TestCardType(MnemosyneTest):
+
+    def setup(self):
+        os.system("rm -fr dot_test")
+        
+        self.mnemosyne = Mnemosyne(upload_science_logs=False)
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+                             "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_card_type", "DecoratedThreeSided"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.main_widget", "MainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"),  automatic_upgrades=False)
+        self.review_controller().reset()
 
     def test_card_types(self):
         card_type = self.card_type_by_id("1")
@@ -114,3 +161,12 @@ class TestCardType(MnemosyneTest):
         # Reset global variables.
         card_type.fact_views[0].type_answer = False
         card_type.fact_views[0].extra_data = {}   
+
+    def test_decorators(self):
+        fact_data = {"f": "foreign word",
+                     "p": "pronunciation",
+                     "t": "translation"}
+        card_type = self.card_type_by_id("3_decorated")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                  grade=-1, tag_names=["default"])[0]
+        assert "What is the translation of foreign word?" in card.question()

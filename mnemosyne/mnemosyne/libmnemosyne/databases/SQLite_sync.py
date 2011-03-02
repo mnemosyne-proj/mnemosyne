@@ -264,6 +264,10 @@ class SQLiteSync(object):
                 log_entry["name"] = fact_view.name
                 log_entry["q_fields"] = repr(fact_view.q_fields)
                 log_entry["a_fields"] = repr(fact_view.a_fields)
+                log_entry["q_field_decorators"] = \
+                    repr(fact_view.q_field_decorators)
+                log_entry["a_field_decorators"] = \
+                    repr(fact_view.a_field_decorators)
                 log_entry["a_on_top_of_q"] = repr(fact_view.a_on_top_of_q)
                 log_entry["type_answer"] = repr(fact_view.type_answer)
                 if fact_view.extra_data:
@@ -475,7 +479,9 @@ class SQLiteSync(object):
         # Create fact view object.
         fact_view = FactView(log_entry["name"], log_entry["o_id"])
         fact_view.q_fields = eval(log_entry["q_fields"])
-        fact_view.a_fields = eval(log_entry["a_fields"])        
+        fact_view.a_fields = eval(log_entry["a_fields"])
+        fact_view.q_field_decorators = eval(log_entry["q_field_decorators"])
+        fact_view.a_field_decorators = eval(log_entry["a_field_decorators"])         
         fact_view.a_on_top_of_q = bool(eval(log_entry["a_on_top_of_q"]))
         fact_view.type_answer = bool(eval(log_entry["type_answer"]))
         if "extra" in log_entry:
