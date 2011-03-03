@@ -1,38 +1,41 @@
--right click change card type
+-fix test suite
+-write controller.change_card_type public function
 -do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
 -remove orphaned media files after changing card type
+-remove # @@ tags
+-right click change card type
+
 
 -right click add tags
 
 -right click remove tags
 
-
--card formatting options on remote web server: act on config info that the client sent across
- Add hook in set_partner_info
-
--warn when creating a new database that this is not the recommended way to organise your cards.
--right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
--document cntrl enter in edit dialog instead of clicking ok (also manual?)
--tip on double-click to edit cards and tag names in browser
+-2 sided: front/back i.o. question/answer
+-card type with example sentences? Replace three-sided with vocabulary card type (f, t, p,  notes field). Update plugins.
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
-
-
 -go through all source
 -communicate SQLite_no_pregenerated_data, save interval, ..., repaint now to client writers
--do extra input checking in controller
+-do extra input checking in controller?
 -include coverage source option
 -test on cramming counters
-
 
 -reenable upload
 -remove hard coded dot_mnemosyne2 path in webserver
 -turn off logging in webserver
 
+
+
+
 -delay matplotlib instantiation
 -profile startup/shutdown
 
+-warn when creating a new database that this is not the recommended way to organise your cards.
+-right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
+-document cntrl enter in edit dialog instead of clicking ok (also manual?)
+-tooltip in preview to explain sister cards
+-tip on double-click to edit cards and tag names in browser
 
 -make distrib
 
@@ -55,6 +58,9 @@
  (also make sure they are on webpage)
 
 -Faq about how to pronounce Mnemosyne
+
+-card formatting options on remote web server: act on config info that the client sent across
+ Add hook in set_partner_info
 -check if online username is still free
 -threading/multiprocess for sync and review servers? Threading prob. works automatically if persistent
  connections are supported (CherryPy), perhaps also for multiprocess. Multiprocess probably only useful
@@ -128,6 +134,8 @@ the GUI function itself?
 -add html caching support for media files
 -send absolute filenames when running server locally, so that we don't need to
  send them over http
+
+-card appearance: show preview live
 
 -larger interval for initial grade 5?
 

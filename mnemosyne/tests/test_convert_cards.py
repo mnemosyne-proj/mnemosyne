@@ -566,7 +566,6 @@ class TestConvertCards(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         self.review_controller().reset()
-        print self.review_controller().card
 
         new_card_type = self.card_type_by_id("1")
         fact_data = {"q": "[question]", "a": ""}
