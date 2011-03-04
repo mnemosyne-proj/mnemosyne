@@ -11,10 +11,13 @@ from PyQt4 import QtCore, QtGui, QtSql
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
 from mnemosyne.pyqt_ui.tag_tree_wdgt import TagsTreeWdgt
+from mnemosyne.pyqt_ui.convert_card_type_fields_dlg import \
+     ConvertCardTypeFieldsDlg
 from mnemosyne.pyqt_ui.ui_browse_cards_dlg import Ui_BrowseCardsDlg
 from mnemosyne.pyqt_ui.card_type_tree_wdgt import CardTypesTreeWdgt
 from mnemosyne.libmnemosyne.ui_components.dialogs import BrowseCardsDialog
 from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
+
 
 _ID = 0
 ID = 1
@@ -324,9 +327,41 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.tag_tree_wdgt.rebuild()
 
     def menu_change_card_type(self):
-        print 'change card type'
-        self.unload_qt_database()
+        # Test if all selected cards have the same card type.
+        current_card_type_ids = set()
+        for index in self.table.selectionModel().selectedRows():
+            card_type_id_index = index.model().index(\
+                index.row(), CARD_TYPE_ID, index.parent())
+            card_type_id = index.model().data(card_type_id_index).toString()[0]
+            current_card_type_ids.add(card_type_id)
+            if len(current_card_type_ids) > 1:
+                self.main_widget().show_error\
+                    (_("The selected cards should have the same card type."))
+                return
 
+
+        # Get new card type.
+
+
+        return
+    
+
+        # Get correspondence.
+
+        #if not self.card_type.keys().issubset(new_card_type.keys()):      
+        #dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
+        #                               self.correspondence, self)
+        #if dlg.exec_() == 0:  # Reject.
+        #    self.card_types_widget.setCurrentIndex(self.card_type_index)
+        #    return
+        #else:          
+        #    self.update_card_widget()
+
+        # Start the actual conversion.
+        facts = self.facts_from_selection()
+        self.unload_qt_database()
+        self.controller().change_card_type(self, facts, new_card_type,
+            self.correspondence)
         self.display_card_table()
         self.card_type_tree_wdgt.rebuild()
         

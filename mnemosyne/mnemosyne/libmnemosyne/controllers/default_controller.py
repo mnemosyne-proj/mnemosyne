@@ -197,12 +197,13 @@ class DefaultController(Controller):
                 if answer == 1:  # Cancel.
                     return -1
                 else:
-                    is_currently_asked = self.review_controller().card in \
-                        db.cards_from_fact(fact)
-                    # TODO: get current tag names here.
+                    cards_from_fact = db.cards_from_fact(fact)
+                    is_currently_asked = \
+                       self.review_controller().card in cards_from_fact
+                    tag_names = cards_from_fact[0].tag_string().split(", ")
                     self.delete_facts_and_their_cards([fact])                        
                     new_card = self.create_new_cards(new_fact_data,
-                      new_card_type, grade=-1, tag_names=new_tag_names)[0]
+                        new_card_type, grade=-1, tag_names=tag_names)[0]
                     if is_currently_asked:
                         self.review_controller().card = new_card
                     return 0
@@ -235,17 +236,17 @@ class DefaultController(Controller):
                 db.delete_card(card)
             for card in new_cards:
                 db.add_card(card)
+                # Make sure the log entry for adding the card comes before the
+                # one with the initial repetition.
+                self.log().added_card(card)
             for card in edited_cards:
                 db.update_card(card)
             if new_cards and self.review_controller().learning_ahead:
                 self.review_controller().reset()
             return 0
         
-    def edit_sister_cards(self, fact, new_fact_data, new_card_type, \
-                          new_tag_names, correspondence):
-
-        # @@ reorder to bring correspondence close to new_fact_data?
-        
+    def edit_sister_cards(self, fact, new_fact_data, new_card_type,
+                          new_tag_names, correspondence):        
         db = self.database()
         sch = self.scheduler()
         # If the old fact contained media, we need to check for orphans.
@@ -268,15 +269,15 @@ class DefaultController(Controller):
             db.delete_card(card)
         for card in new_cards:
             db.add_card(card)
+            # Make sure the log entry for adding the card comes before the
+            # one with the initial repetition.
+            self.log().added_card(card)
         if new_cards and self.review_controller().learning_ahead == True:
             self.review_controller().reset()
         # Apply new tags and modification time to cards and save them back to
         # the database. Note that this makes sure there is an EDITED_CARD log
         # entry for each sister card, which is needed when syncing with a
         # partner that does not have the concept of facts.
-
-        # @@
-        
         old_tags = set()
         tags = db.get_or_create_tags_with_names(new_tag_names)
         modification_time = int(time.time())
@@ -291,6 +292,18 @@ class DefaultController(Controller):
             db.clean_orphaned_static_media()        
         db.save()       
         return 0
+
+    def change_card_type(self, facts, new_card_type, correspondence):
+        db = self.database()
+        clean_orphaned_static_media_needed = False  
+        for fact in facts:
+            if db.fact_contains_static_media(fact):
+                clean_orphaned_static_media_needed = True
+        for fact in facts:
+            self._change_card_type(fact, new_card_type, correspondence)
+        if clean_orphaned_static_media_needed:
+            db.clean_orphaned_static_media()        
+        db.save()        
 
     def delete_current_card(self):
         self.stopwatch().pause()
@@ -351,8 +364,8 @@ class DefaultController(Controller):
     def delete_card_type(self, card_type):
         fact_views = card_type.fact_views
         self.database().delete_card_type(card_type)
-        # Correct ordering for the sync protocol is deleting the fact
-        # views last.
+        # Correct ordering for the sync protocol is deleting the fact views
+        # last.
         for fact_view in fact_views:
             self.database().delete_fact_view(fact_view)
         self.database().save()

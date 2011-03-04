@@ -82,6 +82,87 @@ class TestConvertCards(MnemosyneTest):
         new_card_1.answer()        
         new_card_2.question()
         new_card_2.answer()
+
+    def test_1_to_2_multi(self):
+        file("a.ogg", "w")
+        full_path = os.path.abspath("a.ogg")
+
+        fact_data = {"q": "<img src=\"%s\">" % full_path,
+                     "a": "answer"}
+        
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+        
+        fact = card.fact
+        old_card = copy.copy(self.database().cards_from_fact(fact)[0])
+        
+        new_fact_data = {"q": "question2",                    
+                         "a": "answer2"}
+        new_card_type = self.card_type_by_id("2")     
+        self.controller().change_card_type([fact],
+               new_card_type, correspondence=[])
+        
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
+        
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
+
+        assert new_card_1.card_type.id == "2"
+        assert new_card_2.card_type.id == "2"
+
+        if new_card_1.fact_view.id == "2::1":
+            assert new_card_1 == old_card
+            assert new_card_2 != old_card
+            assert new_card_2.grade == -1
+        else:
+            assert new_card_2 == old_card
+            assert new_card_1 != old_card
+            assert new_card_1.grade == -1
+            
+        new_card_1.question()
+        new_card_1.answer()        
+        new_card_2.question()
+        new_card_2.answer()
+        
+     def test_1_to_2_multi_no_media(self):
+        fact_data = {"q": "question",
+                     "a": "answer"}
+        
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                          grade=-1, tag_names=["default"])[0]
+        
+        fact = card.fact
+        old_card = copy.copy(self.database().cards_from_fact(fact)[0])
+        
+        new_fact_data = {"q": "question2",                    
+                         "a": "answer2"}
+        new_card_type = self.card_type_by_id("2")     
+        self.controller().change_card_type([fact],
+               new_card_type, correspondence=[])
+        
+        assert self.database().fact_count() == 1
+        assert self.database().card_count() == 2
+        
+        new_card_1, new_card_2 = self.database().cards_from_fact(fact)
+
+        assert new_card_1.card_type.id == "2"
+        assert new_card_2.card_type.id == "2"
+
+        if new_card_1.fact_view.id == "2::1":
+            assert new_card_1 == old_card
+            assert new_card_2 != old_card
+            assert new_card_2.grade == -1
+        else:
+            assert new_card_2 == old_card
+            assert new_card_1 != old_card
+            assert new_card_1.grade == -1
+            
+        new_card_1.question()
+        new_card_1.answer()        
+        new_card_2.question()
+        new_card_2.answer()
         
     def test_2_to_1(self):
         fact_data = {"q": "question",
@@ -605,3 +686,8 @@ class TestConvertCards(MnemosyneTest):
 
         new_card.question()
         new_card.answer()
+
+    def teardown(self):
+        if os.path.exists("a.ogg"):
+            os.remove("a.ogg")   
+        MnemosyneTest.teardown(self)

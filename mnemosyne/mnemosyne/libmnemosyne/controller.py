@@ -47,6 +47,9 @@ class Controller(Component):
                           new_tag_names, correspondence):
         raise NotImplementedError
 
+    def change_card_type(self, facts, new_card_type, correspondence):
+        raise NotImplementedError        
+
     def delete_current_card(self):
         raise NotImplementedError
 

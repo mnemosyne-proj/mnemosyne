@@ -1,21 +1,17 @@
--fix test suite
--write controller.change_card_type public function
--do criterion applier after changing card type, preferably in the database code. Add tests, also with sync.
--remove orphaned media files after changing card type
--remove # @@ tags
+-option: facts from selection, make sure no duplicates are there
 -right click change card type
-
 
 -right click add tags
 
 -right click remove tags
 
 -2 sided: front/back i.o. question/answer
--card type with example sentences? Replace three-sided with vocabulary card type (f, t, p,  notes field). Update plugins.
+-card type with example sentences? Replace three-sided with vocabulary card type (f, t_1, p_1,  notes field). Update plugins.
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
 -go through all source
+-not logging add_cards in db?
 -communicate SQLite_no_pregenerated_data, save interval, ..., repaint now to client writers
 -do extra input checking in controller?
 -include coverage source option
@@ -33,7 +29,7 @@
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
--document cntrl enter in edit dialog instead of clicking ok (also manual?)
+-document cntrl enter in edit dialog instead of clicking ok (also manual?) Ditto for control + grade
 -tooltip in preview to explain sister cards
 -tip on double-click to edit cards and tag names in browser
 
@@ -92,6 +88,8 @@
 -utf16?
 -make sure there is an error message to the user if xml import fails.
 -mention Mnemosyne XML instead of XML
+
+-docs on dealing with synonyms and words which have multiple meanings
 
 -http://gitorious.org/hooq/hooq? Qt4 testing
  http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
