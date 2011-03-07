@@ -1,12 +1,18 @@
--option: facts from selection, make sure no duplicates are there
+-option: facts from selection, make sure no duplicate facts are there
+-make sure conversion prompts only run once
 -right click change card type
 
 -right click add tags
 
 -right click remove tags
 
+-adding/editing cards: make sure first box gets focus, not card type
+
 -2 sided: front/back i.o. question/answer
--card type with example sentences? Replace three-sided with vocabulary card type (f, t_1, p_1,  notes field). Update plugins.
+-card type with example sentences? Replace three-sided with vocabulary card type (f, p_1, m(eaning)_1,  notes field). Update plugins.
+-don't store empty fields in sql. Check if editing deletes an existing field.
+-option to hide pronunciation fields on card type
+-better tips on start of 'clone card type'
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)

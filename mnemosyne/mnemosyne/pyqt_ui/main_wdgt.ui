@@ -71,7 +71,7 @@
     </property>
     <addaction name="actionAddCards"/>
     <addaction name="actionEditCurrentCard"/>
-    <addaction name="actionDeleteCurrentFact"/>
+    <addaction name="actionDeleteCurrentCard"/>
     <addaction name="separator"/>
     <addaction name="actionBrowseCards"/>
     <addaction name="actionActivateCards"/>
@@ -104,7 +104,7 @@
    </attribute>
    <addaction name="actionAddCards"/>
    <addaction name="actionEditCurrentCard"/>
-   <addaction name="actionDeleteCurrentFact"/>
+   <addaction name="actionDeleteCurrentCard"/>
    <addaction name="actionBrowseCards"/>
    <addaction name="actionShowStatistics"/>
   </widget>
@@ -142,7 +142,7 @@
     <string>&amp;Configure Mnemosyne...</string>
    </property>
   </action>
-  <action name="actionDeleteCurrentFact">
+  <action name="actionDeleteCurrentCard">
    <property name="icon">
     <iconset resource="mnemosyne.qrc">
      <normaloff>:/mnemosyne/pixmaps/delete.png</normaloff>:/mnemosyne/pixmaps/delete.png</iconset>
@@ -410,10 +410,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionDeleteCurrentFact</sender>
+   <sender>actionDeleteCurrentCard</sender>
    <signal>triggered()</signal>
    <receiver>MainWdgt</receiver>
-   <slot>delete_current_fact</slot>
+   <slot>delete_current_card</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

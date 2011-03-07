@@ -103,7 +103,7 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.actionEditCurrentCard.setEnabled(is_enabled)
 
     def enable_delete_current_card(self, is_enabled):      
-        self.actionDeleteCurrentFact.setEnabled(is_enabled)
+        self.actionDeleteCurrentCard.setEnabled(is_enabled)
 
     def enable_browse_cards(self, is_enabled):      
         self.actionBrowseCards.setEnabled(is_enabled)
