@@ -85,7 +85,7 @@ class Card(CompareOnId):
         self.acq_reps_since_lapse = 0
         self.ret_reps_since_lapse = 0
 
-    def question(self, render_chain="default", **render_args):
+    def question(self, render_chain="default", **render_args):        
         return self.card_type.render_question\
             (self, render_chain, **render_args)
        

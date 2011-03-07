@@ -165,7 +165,7 @@ class DefaultController(Controller):
         self.stopwatch().unpause()
         
     def _change_card_type(self, fact, new_card_type, correspondence,
-            new_fact_data=None):
+            new_fact_data=None, warn=True):
 
         """This is an internal function, used by 'edit_sister_cards' and
         'change_card_type'. It should not be called from the outside by
@@ -190,23 +190,24 @@ class DefaultController(Controller):
                     card.card_type = new_card_type
                     db.update_card(card)
             else:
-                answer = self.main_widget().show_question(\
+                if warn:
+                    answer = self.main_widget().show_question(\
          _("Can't preserve history when converting between these card types.")\
                  + " " + _("The learning history of the cards will be reset."),
                  _("&OK"), _("&Cancel"), "")
-                if answer == 1:  # Cancel.
-                    return -1
-                else:
-                    cards_from_fact = db.cards_from_fact(fact)
-                    is_currently_asked = \
-                       self.review_controller().card in cards_from_fact
-                    tag_names = cards_from_fact[0].tag_string().split(", ")
-                    self.delete_facts_and_their_cards([fact])                        
-                    new_card = self.create_new_cards(new_fact_data,
-                        new_card_type, grade=-1, tag_names=tag_names)[0]
-                    if is_currently_asked:
-                        self.review_controller().card = new_card
-                    return 0
+                    if answer == 1:  # Cancel.
+                        return -1  
+                # Go ahead with conversion
+                cards_from_fact = db.cards_from_fact(fact)
+                is_currently_asked = \
+                   self.review_controller().card in cards_from_fact
+                tag_names = cards_from_fact[0].tag_string().split(", ")
+                self.delete_facts_and_their_cards([fact])                        
+                new_card = self.create_new_cards(new_fact_data,
+                    new_card_type, grade=-1, tag_names=tag_names)[0]
+                if is_currently_asked:
+                    self.review_controller().card = new_card
+                return 0
         else:
             # Make sure the converter operates on card objects which
             # already know their new type, otherwise we could get
@@ -221,14 +222,14 @@ class DefaultController(Controller):
             new_cards, edited_cards, deleted_cards = \
                converter.convert(cards_to_be_edited, old_card_type,
                                  new_card_type, correspondence)
-            if len(deleted_cards) != 0:
+            if warn and len(deleted_cards) != 0:
                 answer = self.main_widget().show_question(\
           _("This will delete cards and their history.") + " " +\
           _("Are you sure you want to do this,") + " " +\
           _("and not just deactivate cards in the 'Activate cards' dialog?"),
                  _("&Proceed and delete"), _("&Cancel"), "")
                 if answer == 1:  # Cancel.
-                    return -1
+                    return -1  
             for card in deleted_cards:
                 if self.review_controller().card == card:
                     self.review_controller().card = None
@@ -294,13 +295,21 @@ class DefaultController(Controller):
         return 0
 
     def change_card_type(self, facts, new_card_type, correspondence):
+
+        """Note: all facts should have the same card type."""
+        
         db = self.database()
         clean_orphaned_static_media_needed = False  
         for fact in facts:
             if db.fact_contains_static_media(fact):
                 clean_orphaned_static_media_needed = True
+        warn = True
         for fact in facts:
-            self._change_card_type(fact, new_card_type, correspondence)
+            result = self._change_card_type(fact, new_card_type,
+                correspondence, warn)
+            if result == -1:
+                return
+            warn = False
         if clean_orphaned_static_media_needed:
             db.clean_orphaned_static_media()        
         db.save()        

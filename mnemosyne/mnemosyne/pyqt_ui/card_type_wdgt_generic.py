@@ -40,6 +40,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.hboxlayout.addLayout(self.vboxlayout)
         self.resize(QtCore.QSize(QtCore.QRect(0,0,325,264).size()).\
                     expandedTo(self.minimumSizeHint()))
+        self.top_edit_box.setFocus()
         
     def update_formatting(self, edit_box):
         fact_key = self.fact_key_for_edit_box[edit_box]

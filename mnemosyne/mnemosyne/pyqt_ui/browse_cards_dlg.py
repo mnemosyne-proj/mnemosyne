@@ -288,8 +288,20 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             index.row(), _FACT_ID, index.parent())
         _fact_id = index.model().data(_fact_id_index).toInt()[0]
         fact = self.database().fact(_fact_id, id_is_internal=True)
-        return self.database().cards_from_fact(fact)        
-        
+        return self.database().cards_from_fact(fact)
+
+    def facts_from_selection(self):
+        _fact_ids = set()
+        for index in self.table.selectionModel().selectedRows():
+            _fact_id_index = index.model().index(\
+                index.row(), _FACT_ID, index.parent())
+            _fact_id = index.model().data(_fact_id_index).toInt()[0]
+            _fact_ids.add(_fact_id)
+        facts = []
+        for _fact_id in _fact_ids:
+            facts.append(self.database().fact(_fact_id, id_is_internal=True))
+        return facts
+            
     def menu_edit(self):
         cards = self.cards_from_single_selection()
         dlg = self.component_manager.current("edit_card_dialog")\
@@ -332,26 +344,33 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         for index in self.table.selectionModel().selectedRows():
             card_type_id_index = index.model().index(\
                 index.row(), CARD_TYPE_ID, index.parent())
-            card_type_id = index.model().data(card_type_id_index).toString()[0]
+            card_type_id = \
+                unicode(index.model().data(card_type_id_index).toString()[0])
             current_card_type_ids.add(card_type_id)
             if len(current_card_type_ids) > 1:
                 self.main_widget().show_error\
                     (_("The selected cards should have the same card type."))
                 return
-
-
-        # Get new card type.
-
-
+        current_card_type = self.card_type_by_id(current_card_type_ids.pop())
+        # Get new card type. Use a dict as backdoor to return values
+        # from the dialog.
+        return_values = {}
+        from mnemosyne.pyqt_ui.change_card_type_dlg import ChangeCardTypeDlg
+        dlg = ChangeCardTypeDlg(self.component_manager,
+            current_card_type, return_values)
+        if dlg.exec_() != QtGui.QDialog.Accepted:
+            return
+        print return_values['new_card_type'].name
         return
     
 
         # Get correspondence.
+        self.correspondence = {}
 
         #if not self.card_type.keys().issubset(new_card_type.keys()):      
         #dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
         #                               self.correspondence, self)
-        #if dlg.exec_() == 0:  # Reject.
+        #if dlg.exec_() == 0:  # Reject. TODO; use proper return values, also in edit.
         #    self.card_types_widget.setCurrentIndex(self.card_type_index)
         #    return
         #else:          
