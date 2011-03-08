@@ -85,8 +85,8 @@ functionality.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.change_card_type">
-<tt class="descname">change_card_type</tt><big>(</big><em>facts</em>, <em>new_card_type</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.change_card_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descname">change_card_type</tt><big>(</big><em>facts</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.change_card_type" title="Permalink to this definition">¶</a></dt>
+<dd>Note: all facts should have the same card type.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.clone_card_type">
@@ -125,7 +125,7 @@ functionality.</p>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.edit_sister_cards">
-<tt class="descname">edit_sister_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em>, <em>new_card_type</em>, <em>new_tag_names</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.edit_sister_cards" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">edit_sister_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>new_tag_names</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.edit_sister_cards" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -259,7 +259,7 @@ filetypes.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 04, 2011.
+      Last updated on Mar 08, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

@@ -71,7 +71,7 @@ class RenderChain(Component):
         else:
             return self._renderer_for_card_type[card_type]            
 
-    def render_question(self, card, **render_args):        
+    def render_question(self, card, **render_args):
         fields = card.fact_view.q_fields
         decorators = card.fact_view.q_field_decorators
         return self._render_fields(card, fields, decorators, **render_args)

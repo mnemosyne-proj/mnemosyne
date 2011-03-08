@@ -959,7 +959,7 @@ class TestSync(object):
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
             self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, card_type,
+              new_fact_data, self.card.card_type,  card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()            
           
@@ -995,7 +995,7 @@ class TestSync(object):
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
             self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, card_type,
+              new_fact_data, self.card.card_type, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()
           
@@ -1034,7 +1034,7 @@ class TestSync(object):
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
             self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, card_type,
+              new_fact_data, self.card.card_type, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()
           
@@ -1110,7 +1110,7 @@ class TestSync(object):
             new_fact_data = {"q": "<latex>b^2</latex>",
                              "a": "<latex>c^2</latex>"}            
             self.mnemosyne.controller().edit_sister_cards(self.card.fact,
-              new_fact_data, card_type,
+              new_fact_data, self.card.card_type, card_type,
             new_tag_names=["default1"], correspondence=[])
             self.mnemosyne.controller().file_save()
           

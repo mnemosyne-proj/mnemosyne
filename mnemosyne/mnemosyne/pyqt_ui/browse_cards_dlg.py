@@ -360,27 +360,20 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             current_card_type, return_values)
         if dlg.exec_() != QtGui.QDialog.Accepted:
             return
-        print return_values['new_card_type'].name
-        return
-    
-
+        new_card_type = return_values["new_card_type"]
         # Get correspondence.
-        self.correspondence = {}
-
-        #if not self.card_type.keys().issubset(new_card_type.keys()):      
-        #dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
-        #                               self.correspondence, self)
-        #if dlg.exec_() == 0:  # Reject. TODO; use proper return values, also in edit.
-        #    self.card_types_widget.setCurrentIndex(self.card_type_index)
-        #    return
-        #else:          
-        #    self.update_card_widget()
-
+        self.correspondence = {}        
+        if not current_card_type.keys().issubset(new_card_type.keys()):      
+            dlg = ConvertCardTypeFieldsDlg(current_card_type, new_card_type,
+                self.correspondence, self)
+            if dlg.exec_() != QtGui.QDialog.Accepted:
+                return
+        print self.correspondence
         # Start the actual conversion.
         facts = self.facts_from_selection()
         self.unload_qt_database()
-        self.controller().change_card_type(self, facts, new_card_type,
-            self.correspondence)
+        self.controller().change_card_type(facts, current_card_type,
+            new_card_type, self.correspondence)
         self.display_card_table()
         self.card_type_tree_wdgt.rebuild()
         

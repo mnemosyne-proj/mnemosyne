@@ -46,7 +46,8 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         if self.before_apply_hook:
             self.before_apply_hook()
         status = self.controller().edit_sister_cards(self.card.fact,
-            new_fact_data, new_card_type, new_tag_names, self.correspondence)
+            new_fact_data, self.card.card_type, new_card_type, new_tag_names,
+            self.correspondence)
         if status == 0:
             tag_text = ", ".join(new_tag_names)
             self.config()["tags_of_last_added"] = tag_text

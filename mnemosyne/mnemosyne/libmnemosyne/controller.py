@@ -43,11 +43,12 @@ class Controller(Component):
     def edit_current_card(self):
         raise NotImplementedError
     
-    def edit_sister_cards(self, fact, new_fact_data, new_card_type, \
-                          new_tag_names, correspondence):
+    def edit_sister_cards(self, fact, new_fact_data, old_card_type,
+                          new_card_type, new_tag_names, correspondence):
         raise NotImplementedError
 
-    def change_card_type(self, facts, new_card_type, correspondence):
+    def change_card_type(self, facts, old_card_type, new_card_type,
+                         correspondence):
 
         """Note: all facts should have the same card type."""
         

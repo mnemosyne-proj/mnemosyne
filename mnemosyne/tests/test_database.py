@@ -105,7 +105,7 @@ class TestDatabase(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         fact = card.fact
-        self.controller().edit_sister_cards(fact, fact_data, card_type,
+        self.controller().edit_sister_cards(fact, fact_data, card.card_type, card_type,
             new_tag_names=["default1"], correspondence=[])
         new_card = self.database().card(card._id, id_is_internal=True)
         tag_names = [tag.name for tag in new_card.tags]
@@ -125,7 +125,7 @@ class TestDatabase(MnemosyneTest):
         self.controller().clone_card_type(card_type, "my_1")
         
         new_card_type = self.card_type_by_id("1::my_1")
-        self.controller().edit_sister_cards(fact, fact_data,
+        self.controller().edit_sister_cards(fact, fact_data, card.card_type, 
                new_card_type, new_tag_names=["default2"], correspondence=[])
         self.mnemosyne.finalise()
         self.restart()
@@ -154,7 +154,7 @@ class TestDatabase(MnemosyneTest):
         self.controller().clone_card_type(card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4::my_4")
-        self.controller().edit_sister_cards(fact, fact_data,
+        self.controller().edit_sister_cards(fact, fact_data, card.card_type, 
                new_card_type, new_tag_names=["default2"], correspondence=[])
         assert self.database().fact_count() == 1        
 
@@ -215,7 +215,7 @@ class TestDatabase(MnemosyneTest):
         self.controller().clone_card_type(card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4::my_4")
-        self.controller().edit_sister_cards(fact, fact_data,
+        self.controller().edit_sister_cards(fact, fact_data, card.card_type, 
                new_card_type, new_tag_names=["default2"], correspondence=[])
 
         self.mnemosyne.finalise()
@@ -250,7 +250,7 @@ class TestDatabase(MnemosyneTest):
         self.controller().clone_card_type(card_type, "my_4")
         
         new_card_type = self.card_type_by_id("4::my_4")
-        self.controller().edit_sister_cards(fact, fact_data,
+        self.controller().edit_sister_cards(fact, fact_data, card.card_type, 
                new_card_type, new_tag_names=["default2"], correspondence=[])
         
 

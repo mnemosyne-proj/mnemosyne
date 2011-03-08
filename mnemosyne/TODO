@@ -1,7 +1,4 @@
--move more logic to controller, e.g. checking if all facts have the same type?
- Only call cards_from_fact once, in the very beginning?
- pass cards instead of facts? Also give old card type as argument for checking?
- Perhaps this allows us to get rid of 'warn'
+-make sure we cannot change card type and miss an essential field
 -right click change card type
 
 -right click add tags
@@ -20,7 +17,6 @@
 -go through all source
 -not logging add_cards in db?
 -communicate SQLite_no_pregenerated_data, save interval, ..., repaint now to client writers
--do extra input checking in controller?
 -include coverage source option
 -test on cramming counters
 

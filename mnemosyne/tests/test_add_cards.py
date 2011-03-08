@@ -175,7 +175,7 @@ class TestAddCards(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()
-        self.controller().edit_sister_cards(card.fact, fact_data, \
+        self.controller().edit_sister_cards(card.fact, fact_data, card.card_type, 
             card_type, ["new"], correspondence={})     
         new_card = self.database().card(card._id, id_is_internal=True)
         tag_names = [tag.name for tag in new_card.tags]
@@ -207,7 +207,7 @@ class TestAddCards(MnemosyneTest):
         assert len(new_card.tags) == 1
 
         self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
-           new_card.card_type, [" "], [])    
+           card.card_type,  new_card.card_type, [" "], [])    
 
         new_card = self.database().card(card._id, id_is_internal=True)
         assert len(new_card.tags) == 1
@@ -225,7 +225,7 @@ class TestAddCards(MnemosyneTest):
         _untagged_id =  list(new_card.tags)[0]._id
 
         self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
-           new_card.card_type, ["tag"], [])    
+           card.card_type,  new_card.card_type, ["tag"], [])    
 
         new_card = self.database().card(card._id, id_is_internal=True)
         assert list(new_card.tags)[0]._id != _untagged_id 

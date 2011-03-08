@@ -81,10 +81,8 @@ class DefaultController(Controller):
 
         """
 
-        if grade in [0,1]:
-            raise AttributeError, "Use -1 as grade for yet to learn cards."
-        if grade not in [-1, 2, 3, 4, 5]:
-            raise AttributeError, "Invalid initial grade."            
+        assert grade in [-1, 2, 3, 4, 5] # Use -1 for yet to learn cards.
+        assert card_type.is_data_valid(fact_data)
         db = self.database()
         fact = Fact(fact_data)
         if check_for_duplicates:
@@ -164,8 +162,8 @@ class DefaultController(Controller):
             review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
-    def _change_card_type(self, fact, new_card_type, correspondence,
-            new_fact_data=None, warn=True):
+    def _change_card_type(self, fact, old_card_type, new_card_type,
+                          correspondence, new_fact_data=None, warn=True):
 
         """This is an internal function, used by 'edit_sister_cards' and
         'change_card_type'. It should not be called from the outside by
@@ -174,7 +172,8 @@ class DefaultController(Controller):
         """
         
         db = self.database()
-        old_card_type = db.cards_from_fact(fact)[0].card_type
+        cards_from_fact = db.cards_from_fact(fact)
+        assert cards_from_fact[0].card_type == old_card_type
         if old_card_type == new_card_type:
             return 0
         converter = self.component_manager.current\
@@ -185,7 +184,7 @@ class DefaultController(Controller):
             parents_old = old_card_type.id.split("::")
             parents_new = new_card_type.id.split("::")
             if parents_old[0] == parents_new[0]: 
-                edited_cards = db.cards_from_fact(fact)
+                edited_cards = cards_from_fact
                 for card in edited_cards:
                     card.card_type = new_card_type
                     db.update_card(card)
@@ -198,7 +197,6 @@ class DefaultController(Controller):
                     if answer == 1:  # Cancel.
                         return -1  
                 # Go ahead with conversion
-                cards_from_fact = db.cards_from_fact(fact)
                 is_currently_asked = \
                    self.review_controller().card in cards_from_fact
                 tag_names = cards_from_fact[0].tag_string().split(", ")
@@ -209,19 +207,16 @@ class DefaultController(Controller):
                     self.review_controller().card = new_card
                 return 0
         else:
-            # Make sure the converter operates on card objects which
-            # already know their new type, otherwise we could get
-            # conflicting ids.
-            cards_to_be_edited = db.cards_from_fact(fact)
-            for card in cards_to_be_edited:
+            # Make sure the converter operates on card objects which already
+            # know their new type, otherwise we could get conflicting ids.
+            for card in cards_from_fact:
                 card.card_type = new_card_type
                 card.fact = fact
             if new_fact_data is not None:
                 fact.data = new_fact_data
             # Do the conversion.
-            new_cards, edited_cards, deleted_cards = \
-               converter.convert(cards_to_be_edited, old_card_type,
-                                 new_card_type, correspondence)
+            new_cards, edited_cards, deleted_cards = converter.convert(\
+                cards_from_fact, old_card_type, new_card_type, correspondence)
             if warn and len(deleted_cards) != 0:
                 answer = self.main_widget().show_question(\
           _("This will delete cards and their history.") + " " +\
@@ -246,16 +241,17 @@ class DefaultController(Controller):
                 self.review_controller().reset()
             return 0
         
-    def edit_sister_cards(self, fact, new_fact_data, new_card_type,
-                          new_tag_names, correspondence):        
+    def edit_sister_cards(self, fact, new_fact_data, old_card_type,
+            new_card_type, new_tag_names, correspondence):        
         db = self.database()
         sch = self.scheduler()
+        assert new_card_type.is_data_valid(new_fact_data)
         # If the old fact contained media, we need to check for orphans.
         clean_orphaned_static_media_needed = \
             db.fact_contains_static_media(fact)
         # Change card type first.
-        result = self._change_card_type(fact, new_card_type, correspondence,
-            new_fact_data)
+        result = self._change_card_type(fact, old_card_type, new_card_type,
+            correspondence, new_fact_data)
         if result == -1:  # Aborted.
             return -1
         # Update fact and create or delete cards.
@@ -294,7 +290,8 @@ class DefaultController(Controller):
         db.save()       
         return 0
 
-    def change_card_type(self, facts, new_card_type, correspondence):
+    def change_card_type(self, facts, old_card_type, new_card_type,
+                         correspondence):
 
         """Note: all facts should have the same card type."""
         
@@ -305,8 +302,9 @@ class DefaultController(Controller):
                 clean_orphaned_static_media_needed = True
         warn = True
         for fact in facts:
-            result = self._change_card_type(fact, new_card_type,
-                correspondence, warn)
+            assert new_card_type.is_data_valid(fact.data)
+            result = self._change_card_type(fact, old_card_type,
+                new_card_type, correspondence, warn=warn)
             if result == -1:
                 return
             warn = False

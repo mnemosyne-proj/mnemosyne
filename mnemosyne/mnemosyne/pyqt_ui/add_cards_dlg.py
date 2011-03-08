@@ -107,7 +107,7 @@ class AddEditCards(Component):
             return
         dlg = ConvertCardTypeFieldsDlg(self.card_type, new_card_type,
                                        self.correspondence, self)
-        if dlg.exec_() == 0:  # Reject.
+        if dlg.exec_() != QtGui.QDialog.Accepted:
             self.card_types_widget.setCurrentIndex(self.card_type_index)
             return
         else:          
