@@ -80,7 +80,7 @@ class CardType(Component, CompareOnId):
 
     def is_data_valid(self, fact_data):
         for required in self.required_fields:
-            if not fact_data[required]:
+            if required not in fact_data or not fact_data[required]:
                 return False
         return True
 

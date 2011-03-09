@@ -22,7 +22,7 @@ class HtmlCss_WM(HtmlCss):
     used_for = "default"
     table_height = "95%"
     
-    def render_fields(self, field_data, fields, card_type,
+    def render_fields(self, data, fields, card_type,
                       render_chain, **render_args):
         html = "<html><head><style type=\"text/css\">\n" + \
             self.css(card_type) + "</style></head><body><table "
@@ -38,10 +38,7 @@ class HtmlCss_WM(HtmlCss):
             html += "align=center"
         html += "><tr><td>"
         for field in fields:
-            s = field_data[field]
-            for f in self.filters(render_chain):
-                s = f.run(s, **render_args)
-            html += "<div id=\"%s\">%s</div>" % (field, s)            
+            if field in data and data[field]:
+                html += "<div id=\"%s\">%s</div>" % (field, data[field])          
         html += "</td></tr></table></body></html>"
         return html
-

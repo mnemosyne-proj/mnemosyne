@@ -1,5 +1,5 @@
 #
-# three_sided.py <Peter.Bienstman@UGent.be>
+# vocabulary.py <Peter.Bienstman@UGent.be>
 #
 
 from mnemosyne.libmnemosyne.translator import _
@@ -9,45 +9,46 @@ from mnemosyne.libmnemosyne.fact_view import FactView
 from mnemosyne.libmnemosyne.card_type_converter import CardTypeConverter
 
 
-class ThreeSided(CardType):
+class Vocabulary(CardType):
     
     id = "3"
-    name = _("Foreign word with pronunciation")
+    name = _("Vocabulary")
 
     # List and name the keys.
     fields = [("f", _("Foreign word"), None),
-              ("p", _("Pronunciation"), None),
-              ("t", _("Translation"), None)]
+              ("p_1", _("Pronunciation"), None),
+              ("m_1", _("Meaning"), None),
+              ("n", _("Notes"), None)]
 
     # Recognition.
     v1 = FactView(_("Recognition"), "3::1")
     v1.q_fields = ["f"]
-    v1.a_fields = ["p", "t"]
+    v1.a_fields = ["p_1", "m_1", "n"]
 
     # Production.
     v2 = FactView(_("Production"), "3::2")
-    v2.q_fields = ["t"]
-    v2.a_fields = ["f", "p"]
+    v2.q_fields = ["m_1"]
+    v2.a_fields = ["f", "p_1", "n"]
     
     fact_views = [v1, v2]
     unique_fields = ["f"]
-    required_fields = ["f", "t"]
+    required_fields = ["f", "m_1"]
 
 from mnemosyne.libmnemosyne.card_types.front_to_back import FrontToBack
 from mnemosyne.libmnemosyne.card_types.both_ways import BothWays
 
-class FrontToBackToThreeSided(CardTypeConverter):
+class FrontToBackToVocabulary(CardTypeConverter):
 
-    used_for = (FrontToBack, ThreeSided)
+    used_for = (FrontToBack, Vocabulary)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         # Update front-to-back view to corresponding view in new type.
-        if "q" in correspondence and correspondence["q"] == "t":
+        if "f" in correspondence and correspondence["f"] == "m_1":
             cards[0].fact_view = new_card_type.fact_views[1]
         else:
             cards[0].fact_view = new_card_type.fact_views[0]
         # Create back-to-front view.        
-        if "q" in correspondence and correspondence["q"] == "t":
+        if "f" in correspondence and correspondence["f"] == "m_1":
             new_card = Card(new_card_type, cards[0].fact,
                 new_card_type.fact_views[0])
         else:
@@ -57,19 +58,19 @@ class FrontToBackToThreeSided(CardTypeConverter):
         return new_cards, edited_cards, deleted_cards
 
 
-class BothWaysToThreeSided(CardTypeConverter):
+class BothWaysToVocabulary(CardTypeConverter):
 
-    used_for = (BothWays, ThreeSided)
+    used_for = (BothWays, Vocabulary)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         for card in cards:
             if card.fact_view == old_card_type.fact_views[0]:
-                if "q" in correspondence and correspondence["q"] == "t":
+                if "f" in correspondence and correspondence["f"] == "m_1":
                     card.fact_view = new_card_type.fact_views[1]
                 else:
                     card.fact_view = new_card_type.fact_views[0]
             if card.fact_view == old_card_type.fact_views[1]:
-                if "q" in correspondence and correspondence["q"] == "t":
+                if "f" in correspondence and correspondence["f"] == "m_1":
                     card.fact_view = new_card_type.fact_views[0]
                 else:
                     card.fact_view = new_card_type.fact_views[1]
@@ -77,21 +78,21 @@ class BothWaysToThreeSided(CardTypeConverter):
         return new_cards, edited_cards, deleted_cards
 
 
-class ThreeSidedToFrontToBack(CardTypeConverter):
+class VocabularyToFrontToBack(CardTypeConverter):
 
-    used_for = (ThreeSided, FrontToBack)
+    used_for = (Vocabulary, FrontToBack)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         new_cards, edited_cards, deleted_cards = [], [], []
         for card in cards:
             if card.fact_view == old_card_type.fact_views[0]:
-                if "f" in correspondence and correspondence["f"] == "q":
+                if "f" in correspondence and correspondence["f"] == "f":
                     card.fact_view = new_card_type.fact_views[0]
                     edited_cards.append(card)
                 else:
                     deleted_cards.append(card)
             if card.fact_view == old_card_type.fact_views[1]:
-                if "f" in correspondence and correspondence["f"] == "q":
+                if "f" in correspondence and correspondence["f"] == "f":
                     deleted_cards.append(card)
                 else:
                     card.fact_view = new_card_type.fact_views[0]
@@ -99,19 +100,19 @@ class ThreeSidedToFrontToBack(CardTypeConverter):
         return new_cards, edited_cards, deleted_cards
 
 
-class ThreeSidedToBothWays(CardTypeConverter):
+class VocabularyToBothWays(CardTypeConverter):
 
-    used_for = (ThreeSided, BothWays)
+    used_for = (Vocabulary, BothWays)
 
     def convert(self, cards, old_card_type, new_card_type, correspondence):
         for card in cards:
             if card.fact_view == old_card_type.fact_views[0]:
-                if "f" in correspondence and correspondence["f"] == "q":
+                if "f" in correspondence and correspondence["f"] == "f":
                     card.fact_view = new_card_type.fact_views[0]
                 else:
                     card.fact_view = new_card_type.fact_views[1]                    
             if card.fact_view == old_card_type.fact_views[1]:
-                if "f" in correspondence and correspondence["f"] == "q":
+                if "f" in correspondence and correspondence["f"] == "f":
                     card.fact_view = new_card_type.fact_views[1]
                 else:
                     card.fact_view = new_card_type.fact_views[0]

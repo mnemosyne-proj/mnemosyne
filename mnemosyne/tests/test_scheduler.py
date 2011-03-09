@@ -13,16 +13,16 @@ class TestScheduler(MnemosyneTest):
     def test_1(self):
         card_type = self.card_type_by_id("1")
         
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=[])[0]
-        fact_data = {"q": "2", "a": "a"}        
+        fact_data = {"f": "2", "b": "b"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=[])[0]
-        fact_data = {"q": "3", "a": "a"}
+        fact_data = {"f": "3", "b": "b"}
         card_3 = self.controller().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=[])[0]
-        fact_data = {"q": "4", "a": "a"}
+        fact_data = {"f": "4", "b": "b"}
         card_4 = self.controller().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=[])[0]
         card_4.next_rep -= 1000 * 24 * 60 * 60
@@ -72,10 +72,10 @@ class TestScheduler(MnemosyneTest):
     def test_2(self):
         card_type = self.card_type_by_id("1")
         
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        fact_data = {"q": "2", "a": "a"}        
+        fact_data = {"f": "2", "b": "b"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.config()["non_memorised_cards_in_hand"] = 0
@@ -85,7 +85,7 @@ class TestScheduler(MnemosyneTest):
     def test_grade_0_limit(self):
         card_type = self.card_type_by_id("1")
         for i in range(10):
-            fact_data = {"q": str(i), "a": "a"}
+            fact_data = {"f": str(i), "b": "b"}
             self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]    
         self.config()["non_memorised_cards_in_hand"] = 3
@@ -100,7 +100,7 @@ class TestScheduler(MnemosyneTest):
     def test_learn_ahead(self):
         card_type = self.card_type_by_id("1")
         for i in range(5):
-            fact_data = {"q": str(i), "a": "a"}
+            fact_data = {"f": str(i), "b": "b"}
             self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
         self.review_controller().learning_ahead = True
@@ -111,7 +111,7 @@ class TestScheduler(MnemosyneTest):
             
     def test_learn_ahead_2(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         old_card = self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
         self.review_controller().learning_ahead = True      
@@ -119,7 +119,7 @@ class TestScheduler(MnemosyneTest):
             card = self.scheduler().next_card(learn_ahead=True)
             self.scheduler().grade_answer(card, 5)
             self.database().update_card(card)
-        fact_data = {"q": "2", "a": "a"}
+        fact_data = {"f": "2", "b": "b"}
         new_card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         assert self.scheduler().next_card() == new_card
@@ -128,10 +128,10 @@ class TestScheduler(MnemosyneTest):
     def test_4(self):
         card_type = self.card_type_by_id("1")
         
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        fact_data = {"q": "2", "a": "a"}        
+        fact_data = {"f": "2", "b": "b"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
@@ -146,10 +146,10 @@ class TestScheduler(MnemosyneTest):
     def test_5(self):
         card_type = self.card_type_by_id("1")
         
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        fact_data = {"q": "2", "a": "a"}        
+        fact_data = {"f": "2", "b": "b"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
@@ -163,8 +163,8 @@ class TestScheduler(MnemosyneTest):
         card_1 = None
         self.review_controller().reset()
         for i in range(10):
-            fact_data = {"q": "question" + str(i),
-                         "a": "answer" + str(i)}
+            fact_data = {"f": "question" + str(i),
+                         "b": "answer" + str(i)}
             if i % 2:
                 card_type = self.card_type_by_id("1")
             else:
@@ -184,7 +184,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_learn_ahead_3(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()
@@ -197,7 +197,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_learn_ahead_4(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
         self.review_controller().learning_ahead = True
@@ -208,11 +208,11 @@ class TestScheduler(MnemosyneTest):
     def test_learn_sister_together(self):
         self.config()["memorise_sister_cards_on_same_day"] = True
         card_type = self.card_type_by_id("2")
-        fact_data = {"q": "q", "a": "a"}
+        fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
         for i in range(7):
-            fact_data = {"q": str(i), "a": "a"}
+            fact_data = {"f": str(i), "b": "b"}
             self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()
@@ -227,11 +227,11 @@ class TestScheduler(MnemosyneTest):
     def test_learn_sister_together_2(self):
         self.config()["memorise_sister_cards_on_same_day"] = False
         card_type = self.card_type_by_id("2")
-        fact_data = {"q": "q", "a": "a"}
+        fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
         for i in range(7):
-            fact_data = {"q": str(i), "a": "a"}
+            fact_data = {"f": str(i), "b": "b"}
             self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()
@@ -247,7 +247,7 @@ class TestScheduler(MnemosyneTest):
         # Relax requirements if there are not enough cards.
         self.config()["memorise_sister_cards_on_same_day"] = False
         card_type = self.card_type_by_id("2")
-        fact_data = {"q": "q", "a": "a"}
+        fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
         self.review_controller().new_question()
@@ -261,13 +261,13 @@ class TestScheduler(MnemosyneTest):
 
     def test_order(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
         card_1.next_rep = time.time() - 24 * 60 * 60
         card_1.last_rep = card_1.next_rep - 2 * 24 * 60 * 60
         self.database().update_card(card_1)
-        fact_data = {"q": "2", "a": "a"}        
+        fact_data = {"f": "2", "b": "b"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
         card_2.next_rep = time.time() - 24 * 60 * 60
@@ -279,7 +279,7 @@ class TestScheduler(MnemosyneTest):
 
     def test_empty_tag(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=[])[0]     
         self.review_controller().new_question()

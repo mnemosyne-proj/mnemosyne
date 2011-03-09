@@ -23,18 +23,18 @@ class TestFilter(MnemosyneTest):
         self.config()["media_autoplay"] = True
         self.config()["media_controls"] = True        
 
-        assert f.run("""<audio src="a">""") == \
-              """<audio src="a" autoplay=1 controls=1>"""
+        assert f.run("""<audio src="b">""") == \
+              """<audio src="b" autoplay=1 controls=1>"""
 
         self.config()["media_autoplay"] = True
         self.config()["media_controls"] = False
 
-        assert f.run("""<video src="a">""") == \
-              """<video src="a" autoplay=1>"""
+        assert f.run("""<video src="b">""") == \
+              """<video src="b" autoplay=1>"""
     
         self.config()["media_autoplay"] = False
         self.config()["media_controls"] = True
 
-        assert f.run("""<video src="a">""") == \
-              """<video src="a" controls=1>"""
+        assert f.run("""<video src="b">""") == \
+              """<video src="b" controls=1>"""
     

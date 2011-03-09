@@ -83,13 +83,13 @@ class Logger(Component):
     def deleted_tag(self, tag):
         pass
 
-    def added_media(self, filename):
+    def added_media_file(self, filename):
         pass
     
-    def edited_media(self, filename):
+    def edited_media_file(self, filename):
         pass
     
-    def deleted_media(self, filename):
+    def deleted_media_file(self, filename):
         pass
  
     def added_fact(self, fact):

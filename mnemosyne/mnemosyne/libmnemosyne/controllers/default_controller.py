@@ -247,8 +247,8 @@ class DefaultController(Controller):
         sch = self.scheduler()
         assert new_card_type.is_data_valid(new_fact_data)
         # If the old fact contained media, we need to check for orphans.
-        clean_orphaned_static_media_needed = \
-            db.fact_contains_static_media(fact)
+        clean_orphaned_static_media_files_needed = \
+            db.fact_contains_static_media_files(fact)
         # Change card type first.
         result = self._change_card_type(fact, old_card_type, new_card_type,
             correspondence, new_fact_data)
@@ -285,8 +285,8 @@ class DefaultController(Controller):
             db.update_card(card)
         for tag in old_tags:
             db.delete_tag_if_unused(tag)
-        if clean_orphaned_static_media_needed:
-            db.clean_orphaned_static_media()        
+        if clean_orphaned_static_media_files_needed:
+            db.clean_orphaned_static_media_files()        
         db.save()       
         return 0
 
@@ -296,10 +296,10 @@ class DefaultController(Controller):
         """Note: all facts should have the same card type."""
         
         db = self.database()
-        clean_orphaned_static_media_needed = False  
+        clean_orphaned_static_media_files_needed = False  
         for fact in facts:
-            if db.fact_contains_static_media(fact):
-                clean_orphaned_static_media_needed = True
+            if db.fact_contains_static_media_files(fact):
+                clean_orphaned_static_media_files_needed = True
         warn = True
         for fact in facts:
             assert new_card_type.is_data_valid(fact.data)
@@ -308,8 +308,8 @@ class DefaultController(Controller):
             if result == -1:
                 return
             warn = False
-        if clean_orphaned_static_media_needed:
-            db.clean_orphaned_static_media()        
+        if clean_orphaned_static_media_files_needed:
+            db.clean_orphaned_static_media_files()        
         db.save()        
 
     def delete_current_card(self):
@@ -342,15 +342,15 @@ class DefaultController(Controller):
 
     def delete_facts_and_their_cards(self, facts):
         db = self.database()
-        clean_orphaned_static_media_needed = False  
+        clean_orphaned_static_media_files_needed = False  
         for fact in facts:
-            if db.fact_contains_static_media(fact):
-                clean_orphaned_static_media_needed = True
+            if db.fact_contains_static_media_files(fact):
+                clean_orphaned_static_media_files_needed = True
             for card in db.cards_from_fact(fact):
                 db.delete_card(card)
             db.delete_fact(fact)
-        if clean_orphaned_static_media_needed:
-            db.clean_orphaned_static_media()
+        if clean_orphaned_static_media_files_needed:
+            db.clean_orphaned_static_media_files()
         db.save()
 
     def clone_card_type(self, card_type, clone_name):
@@ -377,7 +377,7 @@ class DefaultController(Controller):
             self.database().delete_fact_view(fact_view)
         self.database().save()
    
-    def file_new(self):
+    def new_file(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         db = self.database()
@@ -404,7 +404,7 @@ class DefaultController(Controller):
         self.update_title()
         self.stopwatch().unpause()
 
-    def file_open(self):
+    def open_file(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         db = self.database()
@@ -444,7 +444,7 @@ class DefaultController(Controller):
         self.update_title()
         self.stopwatch().unpause()
 
-    def file_save(self):
+    def save_file(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         try:
@@ -454,7 +454,7 @@ class DefaultController(Controller):
             self.main_widget().show_error(unicode(error))
         self.stopwatch().unpause()
 
-    def file_save_as(self):
+    def save_file_as(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         suffix = self.database().suffix

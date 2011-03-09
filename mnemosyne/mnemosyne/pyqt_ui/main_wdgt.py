@@ -133,16 +133,16 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.controller().activate_cards()
         
     def file_new(self):
-        self.controller().file_new()
+        self.controller().new_file()
 
     def file_open(self):
-        self.controller().file_open()
+        self.controller().open_file()
         
     def file_save(self):
-        self.controller().file_save()
+        self.controller().save_file()
         
     def file_save_as(self):
-        self.controller().file_save_as()
+        self.controller().save_file_as()
         
     def manage_card_types(self):
         self.controller().manage_card_types()

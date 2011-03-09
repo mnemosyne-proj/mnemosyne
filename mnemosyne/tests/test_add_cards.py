@@ -42,27 +42,27 @@ class TestAddCards(MnemosyneTest):
         self.review_controller().reset()
 
     def test_1(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        self.controller().file_save()
+        self.controller().save_file()
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
     def test_coverage(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
-        card.fact["q"] = "new_question"
+        card.fact["f"] = "new_question"
         
         
     def test_src(self):
-        fact_data = {"q": """<font face="courier">src</font>""",
-                     "a": "answer"}
+        fact_data = {"f": """<font face="courier">src</font>""",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
@@ -71,8 +71,8 @@ class TestAddCards(MnemosyneTest):
         assert self.database().card_count() == 1
         
     def test_comparisons(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
@@ -91,8 +91,8 @@ class TestAddCards(MnemosyneTest):
         assert tag != a
         
     def test_1_duplicates(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
@@ -102,8 +102,8 @@ class TestAddCards(MnemosyneTest):
         assert self.database().card_count() == 1
         
     def test_2(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("2")
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
@@ -112,8 +112,8 @@ class TestAddCards(MnemosyneTest):
         
     def test_3(self):
         fact_data = {"f": "foreign word",
-                     "p": "pronunciation",
-                     "t": "translation"}
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
         card_type = self.card_type_by_id("3")
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
@@ -121,19 +121,19 @@ class TestAddCards(MnemosyneTest):
         assert self.database().card_count() == 2
 
     def test_delete(self):
-        fact_data = {"q": "question1",
-                     "a": "answer1"}
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
         card_type = self.card_type_by_id("1")
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
-        fact_data = {"q": "question2",
-                     "a": "answer2"}
+        fact_data = {"f": "question2",
+                     "b": "answer2"}
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
         assert set(tag.name for tag in card_1.tags) == \
                set(tag.name for tag in card_2.tags)
-        fact_data = {"q": "question3",
-                     "a": "answer3"}
+        fact_data = {"f": "question3",
+                     "b": "answer3"}
         card_3 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()
@@ -146,19 +146,19 @@ class TestAddCards(MnemosyneTest):
             self.review_controller().grade_answer(0)
             
     def test_delete_2(self):
-        fact_data = {"q": "question1",
-                     "a": "answer1"}
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
         card_type = self.card_type_by_id("1")
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
-        fact_data = {"q": "question2",
-                     "a": "answer2"}
+        fact_data = {"f": "question2",
+                     "b": "answer2"}
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
         assert set(tag.name for tag in card_1.tags) == \
                set(tag.name for tag in card_2.tags)
-        fact_data = {"q": "question3",
-                     "a": "answer3"}
+        fact_data = {"f": "question3",
+                     "b": "answer3"}
         card_3 = self.controller().create_new_cards(fact_data, card_type,
                               grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()
@@ -169,8 +169,8 @@ class TestAddCards(MnemosyneTest):
             self.review_controller().grade_answer(0)
             
     def test_change_tag(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
@@ -183,8 +183,8 @@ class TestAddCards(MnemosyneTest):
         assert "new" in tag_names
 
     def test_untagged(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=[])[0]
@@ -195,8 +195,8 @@ class TestAddCards(MnemosyneTest):
         assert len(new_card.tags) == 1
         
     def test_edit_untagged(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["tag"])[0]
@@ -213,8 +213,8 @@ class TestAddCards(MnemosyneTest):
         assert len(new_card.tags) == 1
 
     def test_edit_untagged_2(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=[""])[0]
@@ -231,8 +231,8 @@ class TestAddCards(MnemosyneTest):
         assert list(new_card.tags)[0]._id != _untagged_id 
         
     def test_duplicate(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["tag"])[0]
@@ -242,28 +242,28 @@ class TestAddCards(MnemosyneTest):
         assert self.database().card_count() == 1
 
     def test_duplicate_2(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["tag"])[0]
         global answer
         answer = 0  # Merge.
-        fact_data = {"q": "question",
-                     "a": "answer2"}
+        fact_data = {"f": "question",
+                     "b": "answer2"}
         self.controller().create_new_cards(fact_data, card_type,
                                            grade=-1, tag_names=["tag"])
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
     def test_duplicate_3(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["tag"])[0]
-        fact_data = {"q": "question",
-                     "a": "answer2"}
+        fact_data = {"f": "question",
+                     "b": "answer2"}
         global answer
         answer = 1 # Add.
         self.controller().create_new_cards(fact_data, card_type,
@@ -272,13 +272,13 @@ class TestAddCards(MnemosyneTest):
         assert self.database().card_count() == 2
 
     def test_duplicate_4(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["tag"])[0]
-        fact_data = {"q": "question",
-                     "a": "answer2"}
+        fact_data = {"f": "question",
+                     "b": "answer2"}
         global answer
         answer = 2 # Don't add.
         self.controller().create_new_cards(fact_data, card_type,

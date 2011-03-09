@@ -86,9 +86,10 @@ class Client(Partner):
             self.ui.set_progress_text("Creating backup...")            
             if self.do_backup:
                 backup_file = self.database.backup()
-            # We check if files were updated outside of the program. This can
-            # generate MEDIA_EDITED log entries, so it should be done first.
-            self.ui.set_progress_text("Checking for updated media files...")  
+            # We check if files were edited outside of the program. This can
+            # generate MEDIA_EDITED log entries, so it should be
+            # done first.
+            self.ui.set_progress_text("Checking for edited media files...")  
             if self.check_for_edited_local_media_files:
                 self.database.check_for_edited_media_files()
             self.login(socket.gethostbyname(server), port, username, password)

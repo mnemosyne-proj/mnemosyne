@@ -12,7 +12,8 @@ class PlainText(Renderer):
     def render_fields(self, data, fields, card_type, **render_args):
         text = ""
         for field in fields:
-            text += data[field] + "\n"
+            if field in data and data[field]:
+                text += data[field] + "\n"
         return text
 
     

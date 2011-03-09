@@ -58,8 +58,8 @@ class TestPlugin(MnemosyneTest):
 
         p.activate()
 
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("666")
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])
@@ -88,8 +88,8 @@ class TestPlugin(MnemosyneTest):
 
         p.activate()
 
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("666")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]

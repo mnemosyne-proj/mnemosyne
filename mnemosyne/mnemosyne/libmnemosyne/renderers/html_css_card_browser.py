@@ -71,7 +71,8 @@ class HtmlCssCardBrowser(HtmlCss):
             search_re = re.compile("(" + render_args["search_string"] + ")",
                 re.IGNORECASE)
             for field in fields:
-                data[field] = search_re.sub(\
+                if field in data and data[field]:
+                    data[field] = search_re.sub(\
                     "<span class=\"_search\">\\1</span>", data[field])
         body = self.body(data, fields, **render_args)
         return """

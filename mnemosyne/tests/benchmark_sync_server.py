@@ -51,8 +51,8 @@ class MyServer(Server):
         # Add 20 cards to database.
         card_type = self.mnemosyne.card_type_by_id("1")
         for i in range (20):
-            fact_data = {"q": "question %d" % (i,),
-                         "a": "answer"}
+            fact_data = {"f": "question %d" % (i,),
+                         "b": "answer"}
             self.mnemosyne.controller().create_new_cards(fact_data, card_type,
                 grade=-1, tag_names=["default"])[0]
         self.mnemosyne.database().save()

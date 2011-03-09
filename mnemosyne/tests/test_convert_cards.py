@@ -46,8 +46,8 @@ class TestConvertCards(MnemosyneTest):
         self.review_controller().reset()
             
     def test_1_to_2(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -55,8 +55,8 @@ class TestConvertCards(MnemosyneTest):
         fact = card.fact
         old_card = copy.copy(self.database().cards_from_fact(fact)[0])
         
-        new_fact_data = {"q": "question2",                    
-                         "a": "answer2"}
+        new_fact_data = {"f": "question2",                    
+                         "b": "answer2"}
         new_card_type = self.card_type_by_id("2")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"], correspondence=[])
@@ -87,8 +87,8 @@ class TestConvertCards(MnemosyneTest):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
@@ -97,8 +97,8 @@ class TestConvertCards(MnemosyneTest):
         fact = card.fact
         old_card = copy.copy(self.database().cards_from_fact(fact)[0])
         
-        new_fact_data = {"q": "question2",                    
-                         "a": "answer2"}
+        new_fact_data = {"f": "question2",                    
+                         "b": "answer2"}
         new_card_type = self.card_type_by_id("2")     
         self.controller().change_card_type([fact], card.card_type,
                new_card_type, correspondence=[])
@@ -126,8 +126,8 @@ class TestConvertCards(MnemosyneTest):
         new_card_2.answer()
         
     def test_1_to_2_multi_no_media(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
@@ -136,8 +136,8 @@ class TestConvertCards(MnemosyneTest):
         fact = card.fact
         old_card = copy.copy(self.database().cards_from_fact(fact)[0])
         
-        new_fact_data = {"q": "question2",                    
-                         "a": "answer2"}
+        new_fact_data = {"f": "question2",                    
+                         "b": "answer2"}
         new_card_type = self.card_type_by_id("2")     
         self.controller().change_card_type([fact], card.card_type,
                new_card_type, correspondence=[])
@@ -165,8 +165,8 @@ class TestConvertCards(MnemosyneTest):
         new_card_2.answer()
         
     def test_2_to_1(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("2")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -176,8 +176,8 @@ class TestConvertCards(MnemosyneTest):
         old_card_1 = copy.copy(card_1)
         old_card_2 = copy.copy(card_2)
 
-        new_fact_data = {"q": "question2",                    
-                         "a": "answer2"}
+        new_fact_data = {"f": "question2",                    
+                         "b": "answer2"}
         new_card_type = self.card_type_by_id("1")
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"], correspondence=[])
@@ -199,8 +199,8 @@ class TestConvertCards(MnemosyneTest):
         new_card.answer()  
 
     def test_1_to_3_a(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -209,9 +209,9 @@ class TestConvertCards(MnemosyneTest):
         old_card = copy.copy(self.database().cards_from_fact(fact)[0])
                 
         new_fact_data = {"f": "foreign word",
-                         "p": "pronunciation",
-                         "t": "translation"}
-        correspondence = {"q": "f", "a": "p"}
+                         "p_1": "pronunciation",
+                         "m_1": "translation"}
+        correspondence = {"f": "f", "b": "p_1"}
         new_card_type = self.card_type_by_id("3")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -237,8 +237,8 @@ class TestConvertCards(MnemosyneTest):
         new_card_2.answer()
         
     def test_1_to_3_b(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -247,9 +247,9 @@ class TestConvertCards(MnemosyneTest):
         old_card = copy.copy(self.database().cards_from_fact(fact)[0])
                 
         new_fact_data = {"f": "foreign word",
-                         "p": "pronunciation",
-                         "t": "translation"}
-        correspondence = {"q": "t", "a": "f"}
+                         "p_1": "pronunciation",
+                         "m_1": "translation"}
+        correspondence = {"f": "m_1", "b": "f"}
         new_card_type = self.card_type_by_id("3")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -276,8 +276,8 @@ class TestConvertCards(MnemosyneTest):
             
     def test_3_to_1_a(self):
         fact_data = {"f": "foreign word",
-                     "p": "pronunciation",
-                     "t": "translation"}
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
         card_type = self.card_type_by_id("3")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -287,9 +287,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_1 = copy.copy(card_1)
         old_card_2 = copy.copy(card_2)
         
-        new_fact_data = {"q": "question",
-                         "a": "answer"}
-        correspondence = {"f": "q", "t": "a"}
+        new_fact_data = {"f": "question",
+                         "b": "answer"}
+        correspondence = {"f": "f", "m_1": "b"}
         new_card_type = self.card_type_by_id("1")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -313,8 +313,8 @@ class TestConvertCards(MnemosyneTest):
 
     def test_3_to_1_b(self):
         fact_data = {"f": "foreign word",
-                     "p": "pronunciation",
-                     "t": "translation"}
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
         card_type = self.card_type_by_id("3")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -324,9 +324,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_1 = copy.copy(card_1)
         old_card_2 = copy.copy(card_2)
         
-        new_fact_data = {"q": "question",
-                         "a": "answer"}
-        correspondence = {"f": "a", "t": ";"}
+        new_fact_data = {"f": "question",
+                         "b": "answer"}
+        correspondence = {"f": "b", "m_1": ";"}
         new_card_type = self.card_type_by_id("1")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -349,8 +349,8 @@ class TestConvertCards(MnemosyneTest):
         new_card.answer()  
             
     def test_2_to_3_a(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("2")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -361,9 +361,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"f": "foreign word",
-                         "p": "pronunciation",
-                         "t": "translation"}
-        correspondence = {"q": "f", "a": "t"}
+                         "p_1": "pronunciation",
+                         "m_1": "translation"}
+        correspondence = {"f": "f", "b": "m_1"}
         new_card_type = self.card_type_by_id("3")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -388,8 +388,8 @@ class TestConvertCards(MnemosyneTest):
         new_card_2.answer()
 
     def test_2_to_3_b(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("2")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -400,9 +400,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_2 = copy.copy(card_2)
         
         new_fact_data = {"f": "foreign word",
-                         "p": "pronunciation",
-                         "t": "translation"}
-        correspondence = {"q": "t", "a": "f"}
+                         "p_1": "pronunciation",
+                         "m_1": "translation"}
+        correspondence = {"f": "m_1", "b": "f"}
         new_card_type = self.card_type_by_id("3")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -427,8 +427,8 @@ class TestConvertCards(MnemosyneTest):
             
     def test_3_to_2_a(self):
         fact_data = {"f": "foreign word",
-                     "p": "pronunciation",
-                     "t": "translation"}
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
         card_type = self.card_type_by_id("3")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -438,9 +438,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_1 = copy.copy(card_1)
         old_card_2 = copy.copy(card_2)
         
-        new_fact_data = {"q": "question",
-                         "a": "answer"}
-        correspondence = {"f": "q", "t": "a"}
+        new_fact_data = {"f": "question",
+                         "b": "answer"}
+        correspondence = {"f": "f", "m_1": "b"}
         new_card_type = self.card_type_by_id("2")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -467,8 +467,8 @@ class TestConvertCards(MnemosyneTest):
 
     def test_3_to_2_b(self):
         fact_data = {"f": "foreign word",
-                     "p": "pronunciation",
-                     "t": "translation"}
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
         card_type = self.card_type_by_id("3")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -478,9 +478,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_1 = copy.copy(card_1)
         old_card_2 = copy.copy(card_2)
         
-        new_fact_data = {"q": "question",
-                         "a": "answer"}
-        correspondence = {"f": "a", "t": "q"}
+        new_fact_data = {"f": "question",
+                         "b": "answer"}
+        correspondence = {"f": "b", "m_1": "f"}
         new_card_type = self.card_type_by_id("2")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -506,8 +506,8 @@ class TestConvertCards(MnemosyneTest):
 
     def test_3_clone_to_1_a(self):
         fact_data = {"f": "foreign word",
-                     "p": "pronunciation",
-                     "t": "translation"}
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
         card_type = self.card_type_by_id("3")
         self.controller().clone_card_type(card_type, "my_3")
         card_type = self.card_type_by_id("3::my_3")
@@ -520,9 +520,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_1 = copy.copy(card_1)
         old_card_2 = copy.copy(card_2)
         
-        new_fact_data = {"q": "question",
-                         "a": "answer"}
-        correspondence = {"f": "q", "t": "a"}
+        new_fact_data = {"f": "question",
+                         "b": "answer"}
+        correspondence = {"f": "f", "m_1": "b"}
         new_card_type = self.card_type_by_id("1")     
         self.controller().edit_sister_cards(fact, new_fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
@@ -546,8 +546,8 @@ class TestConvertCards(MnemosyneTest):
 
     def test_3_to_1_clone_a(self):
         fact_data = {"f": "foreign word",
-                     "p": "pronunciation",
-                     "t": "translation"}
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
         card_type = self.card_type_by_id("3")        
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
@@ -557,9 +557,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_1 = copy.copy(card_1)
         old_card_2 = copy.copy(card_2)
         
-        new_fact_data = {"q": "question",
-                         "a": "answer"}
-        correspondence = {"f": "q", "t": "a"}      
+        new_fact_data = {"f": "question",
+                         "b": "answer"}
+        correspondence = {"f": "f", "m_1": "b"}      
         new_card_type = self.card_type_by_id("1")
         self.controller().clone_card_type(new_card_type, "my_1")
         new_card_type = self.card_type_by_id("1::my_1")
@@ -573,8 +573,8 @@ class TestConvertCards(MnemosyneTest):
         
         new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.card_type.id == "1::my_1"
-        assert new_card.fact.data["q"] == "question"
-        assert new_card.fact.data["a"] == "answer"
+        assert new_card.fact.data["f"] == "question"
+        assert new_card.fact.data["b"] == "answer"
         
         if old_card_1.fact_view.id == "3::1":
             assert new_card == old_card_1
@@ -588,8 +588,8 @@ class TestConvertCards(MnemosyneTest):
         
     def test_3_clone_to_1_clone_a(self):
         fact_data = {"f": "foreign word",
-                     "p": "pronunciation",
-                     "t": "translation"}
+                     "p_1": "pronunciation",
+                     "m_1": "translation"}
         card_type = self.card_type_by_id("3")
         self.controller().clone_card_type(card_type, "my_3")
         card_type = self.card_type_by_id("3::my_3")
@@ -602,9 +602,9 @@ class TestConvertCards(MnemosyneTest):
         old_card_1 = copy.copy(card_1)
         old_card_2 = copy.copy(card_2)
         
-        new_fact_data = {"q": "question",
-                         "a": "answer"}
-        correspondence = {"f": "q", "t": "a"}      
+        new_fact_data = {"f": "question",
+                         "b": "answer"}
+        correspondence = {"f": "f", "m_1": "b"}      
         new_card_type = self.card_type_by_id("1")
         self.controller().clone_card_type(new_card_type, "my_1")
         new_card_type = self.card_type_by_id("1::my_1")
@@ -649,10 +649,10 @@ class TestConvertCards(MnemosyneTest):
         self.review_controller().reset()
 
         new_card_type = self.card_type_by_id("1")
-        fact_data = {"q": "[question]", "a": ""}
+        fact_data = {"f": "[question]", "b": ""}
         self.controller().edit_sister_cards(card.fact, fact_data, card.card_type,
                new_card_type, new_tag_names=["default2"],
-               correspondence={'text': 'q'})
+               correspondence={'text': "f"})
 
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
@@ -663,8 +663,8 @@ class TestConvertCards(MnemosyneTest):
         new_card.answer()          
 
     def test_2_to_2_clone(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("2")        
         card_1, card_2  = self.controller().create_new_cards(fact_data,
                                  card_type, grade=-1, tag_names=["default"])
@@ -681,8 +681,8 @@ class TestConvertCards(MnemosyneTest):
         
         new_card = self.database().cards_from_fact(card_1.fact)[0]
         assert new_card.card_type.id == "2::my_2"
-        assert new_card.fact.data["q"] == "question"
-        assert new_card.fact.data["a"] == "answer"
+        assert new_card.fact.data["f"] == "question"
+        assert new_card.fact.data["b"] == "answer"
 
         new_card.question()
         new_card.answer()

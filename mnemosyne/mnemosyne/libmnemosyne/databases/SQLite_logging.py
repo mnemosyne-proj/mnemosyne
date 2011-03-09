@@ -97,20 +97,20 @@ class SQLiteLogging(object):
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_TAG, int(timestamp), tag_id))
 
-    def log_added_media(self, timestamp, filename):
+    def log_added_media_file(self, timestamp, filename):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.ADDED_MEDIA, int(timestamp), filename))
+            (EventTypes.ADDED_MEDIA_FILE, int(timestamp), filename))
         
-    def log_edited_media(self, timestamp, filename):
+    def log_edited_media_file(self, timestamp, filename):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.EDITED_MEDIA, int(timestamp), filename))
+            (EventTypes.EDITED_MEDIA_FILE, int(timestamp), filename))
         
-    def log_deleted_media(self, timestamp, filename):
+    def log_deleted_media_file(self, timestamp, filename):
         self.con.execute(\
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
-            (EventTypes.DELETED_MEDIA, int(timestamp), filename))
+            (EventTypes.DELETED_MEDIA_FILE, int(timestamp), filename))
                 
     def log_added_fact(self, timestamp, fact_id):
         self.con.execute(\

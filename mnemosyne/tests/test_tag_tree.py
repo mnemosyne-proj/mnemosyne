@@ -9,44 +9,44 @@ from mnemosyne.libmnemosyne.criteria.default_criterion import DefaultCriterion
 class TestTagTree(MnemosyneTest):
 
     def test_1(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=[])[0]
-        self.controller().file_save()
+        self.controller().save_file()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
         assert len(self.tree.keys()) == 2
         assert self.tree['__ALL__'] == [u'__UNTAGGED__']
         
     def test_2(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["tag_1"])[0]
-        self.controller().file_save()
+        self.controller().save_file()
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
         assert len(self.tree.keys()) == 2
         assert self.tree['__ALL__'] == [u'tag_1']
 
     def test_3(self):
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]         
-        fact_data = {"q": "question2", "a": "answer2"}
+        fact_data = {"f": "question2", "b": "answer2"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["Z"])[0]
-        fact_data = {"q": "question3",  "a": "answer3"}
+        fact_data = {"f": "question3",  "b": "answer3"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::b"])[0]
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::c"])[0]
-        fact_data = {"q": "question5",  "a": "answer5"}
+        fact_data = {"f": "question5",  "b": "answer5"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["b::c::d"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -62,19 +62,19 @@ class TestTagTree(MnemosyneTest):
         
     def test_4(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::b"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]         
-        fact_data = {"q": "question2", "a": "answer2"}
+        fact_data = {"f": "question2", "b": "answer2"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["Z"])[0]
-        fact_data = {"q": "question3",  "a": "answer3"}
+        fact_data = {"f": "question3",  "b": "answer3"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::c"])[0]
-        fact_data = {"q": "question5",  "a": "answer5"}
+        fact_data = {"f": "question5",  "b": "answer5"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["b::c::d"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -102,19 +102,19 @@ class TestTagTree(MnemosyneTest):
 
     def test_5(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::b"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]         
-        fact_data = {"q": "question2", "a": "answer2"}
+        fact_data = {"f": "question2", "b": "answer2"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["Z"])[0]
-        fact_data = {"q": "question3",  "a": "answer3"}
+        fact_data = {"f": "question3",  "b": "answer3"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::c"])[0]
-        fact_data = {"q": "question5",  "a": "answer5"}
+        fact_data = {"f": "question5",  "b": "answer5"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["b::c::d"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -139,10 +139,10 @@ class TestTagTree(MnemosyneTest):
 
     def test_rename_to_existing_tag(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["tag1"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["tag2"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -153,10 +153,10 @@ class TestTagTree(MnemosyneTest):
         
     def test_rename_to_empty(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["tag1"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["tag2"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -167,7 +167,7 @@ class TestTagTree(MnemosyneTest):
         
     def test_rename_to_empty_2(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["A::tag1"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -179,10 +179,10 @@ class TestTagTree(MnemosyneTest):
 
     def test_rename_to_empty_3(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["A::tag1"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["A"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -194,10 +194,10 @@ class TestTagTree(MnemosyneTest):
         
     def test_rename_to_forbidden(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["A::tag1"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["A"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -207,19 +207,19 @@ class TestTagTree(MnemosyneTest):
         
     def test_delete(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::b"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]         
-        fact_data = {"q": "question2", "a": "answer2"}
+        fact_data = {"f": "question2", "b": "answer2"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["Z"])[0]
-        fact_data = {"q": "question3",  "a": "answer3"}
+        fact_data = {"f": "question3",  "b": "answer3"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::c"])[0]
-        fact_data = {"q": "question5",  "a": "answer5"}
+        fact_data = {"f": "question5",  "b": "answer5"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["b::c::d"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -252,19 +252,19 @@ class TestTagTree(MnemosyneTest):
         
     def test_delete_2(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::b"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]         
-        fact_data = {"q": "question2", "a": "answer2"}
+        fact_data = {"f": "question2", "b": "answer2"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["Z"])[0]
-        fact_data = {"q": "question3",  "a": "answer3"}
+        fact_data = {"f": "question3",  "b": "answer3"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a::c"])[0]
-        fact_data = {"q": "question5",  "a": "answer5"}
+        fact_data = {"f": "question5",  "b": "answer5"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["b::c::d", "b"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
@@ -297,12 +297,12 @@ class TestTagTree(MnemosyneTest):
 
     def test_count_1(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["a"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+            grade=-1, tag_names=["b"])[0]
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
-            grade=-1, tag_names=["a", "b"])[0]
+            grade=-1, tag_names=["b", "b"])[0]
         
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
@@ -311,10 +311,10 @@ class TestTagTree(MnemosyneTest):
         
     def test_count_2(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question4",  "a": "answer4"}
+        fact_data = {"f": "question4",  "b": "answer4"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["X::a"])[0]
-        fact_data = {"q": "question", "a": "answer"}
+        fact_data = {"f": "question", "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["X::a", "X::b"])[0]
         
@@ -326,7 +326,7 @@ class TestTagTree(MnemosyneTest):
 
     def test_delete_forbidden(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "question",  "a": "answer"}
+        fact_data = {"f": "question",  "b": "answer"}
         card = self.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["forbidden"])[0]
         assert self.database().active_count() == 1

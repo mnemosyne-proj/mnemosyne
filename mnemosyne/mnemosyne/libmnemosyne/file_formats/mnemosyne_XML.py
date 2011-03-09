@@ -13,7 +13,7 @@ class Mnemosyne_XML_Importer(ContentHandler):
         self.reading, self.text = {}, {}
         
         self.reading["cat"] = False
-        self.reading["Q"]   = False
+        self.reading["f"]   = False
         self.reading["A"]   = False
 
         self.default_cat = default_cat
@@ -112,9 +112,9 @@ class Mnemosyne_XML_Importer(ContentHandler):
             cat_name = self.text["cat"]
             self.card.cat = get_category_by_name(cat_name)
 
-        elif name == "Q":
+        elif name == "f":
 
-            self.card.q = self.text["Q"]
+            self.card.q = self.text["f"]
 
         elif name == "A":
 

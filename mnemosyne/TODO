@@ -1,16 +1,18 @@
--make sure we cannot change card type and miss an essential field
--right click change card type
+-make docs:Malformed table.
+
+-update plugins to reflect card type rename.
+
+-get rid of 'language code', type-answer
+
+-cloze to front-to-back-only conversion fails
+
+-don't store empty/optional fields in sql. Corner case: editing deletes an existing field.
+-option to hide pronunciation fields on card type
+-better tips on start of 'clone card type'
 
 -right click add tags
 
 -right click remove tags
-
-
--2 sided: front/back i.o. question/answer
--card type with example sentences? Replace three-sided with vocabulary card type (f, p_1, m(eaning)_1,  notes field). Update plugins.
--don't store empty fields in sql. Check if editing deletes an existing field.
--option to hide pronunciation fields on card type
--better tips on start of 'clone card type'
 
 -check for related cards on same day could fail if minute level scheduler is used in the meantime
  (update comment in scheduler too)
@@ -42,7 +44,7 @@
 
 -Qt bug? different font size in edit box and in css
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
--Qt issue: cntl+a select all in card browser only selects all the prefected entries
+-Qt issue: cntl+a select all in card browser only selects all the prefetched entries
 
 -windows: test auto upgrade
 -windows: test unicode filenames in sync protocol
@@ -92,7 +94,7 @@
 -make sure there is an error message to the user if xml import fails.
 -mention Mnemosyne XML instead of XML
 
--docs on dealing with synonyms and words which have multiple meanings
+-docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
 
 -http://gitorious.org/hooq/hooq? Qt4 testing
  http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
@@ -141,6 +143,8 @@ the GUI function itself?
 -larger interval for initial grade 5?
 
 -have hierarchy in plugin names
+
+-heising card type (radical, number of strokes)
 
 -auto vacuum after every N openings? What about WM?
 

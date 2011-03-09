@@ -36,7 +36,7 @@ class smconv_XML_Importer(ContentHandler):
         self.reading, self.text = {}, {}
         
         self.reading["cat"] = False
-        self.reading["Q"]   = False
+        self.reading["f"]   = False
         self.reading["A"]   = False
 
         self.default_cat = default_cat
@@ -103,8 +103,8 @@ class smconv_XML_Importer(ContentHandler):
 
         elif name == "card_field":
             if attrs.get("idx") == "1":
-                self.reading["Q"] = True
-                self.text["Q"] = ""
+                self.reading["f"] = True
+                self.text["f"] = ""
             if  attrs.get("idx") == "2":
                 self.reading["A"] = True
                 self.text["A"] = ""
@@ -219,10 +219,10 @@ class smconv_XML_Importer(ContentHandler):
             self.imported_cards.append(self.card)
 		
 	elif name == "card_field":
-            if self.reading["Q"]:
-                self.reading["Q"] = False
-                self.card.q = self.text["Q"]
-                self.text["Q"] = ""
+            if self.reading["f"]:
+                self.reading["f"] = False
+                self.card.q = self.text["f"]
+                self.text["f"] = ""
             if self.reading["A"]:
                 self.reading["A"] = False
                 self.card.a = self.text["A"]

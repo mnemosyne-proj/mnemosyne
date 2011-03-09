@@ -134,7 +134,7 @@ class TestMemImport(MnemosyneTest):
         self.review_controller().reset()
         assert self.database().card_count() == 2
         card_1 = self.review_controller().card
-        assert card_1.fact.data == {"f": "f", "p": "p", "t": "t"}
+        assert card_1.fact.data == {"f": "f", "p_1": "p", "m_1": "t"}
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
@@ -145,7 +145,7 @@ class TestMemImport(MnemosyneTest):
         self.review_controller().reset()
         assert self.database().card_count() == 2
         card_1 = self.review_controller().card
-        assert card_1.fact.data == {"f": "f", "p": "", "t": "t"}
+        assert card_1.fact.data == {"f": "f", "p_1": "", "m_1": "t"}
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
@@ -156,7 +156,7 @@ class TestMemImport(MnemosyneTest):
         self.review_controller().reset()
         assert self.database().card_count() == 1
         card_1 = self.review_controller().card
-        assert card_1.fact.data == {"q": "t", "a": "f\np"}
+        assert card_1.fact.data == {"f": "t", "b": "f\np"}
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 1
@@ -180,7 +180,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 3      
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3      
 
     def test_media_missing(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
@@ -198,7 +198,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
 
     def test_media_slashes(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
@@ -219,7 +219,7 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 3  
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3  
 
     def test_sound(self):
         soundname = os.path.join(os.path.join(\
@@ -231,10 +231,10 @@ class TestMemImport(MnemosyneTest):
             os.path.abspath("dot_test"), "default.db_media", "a.ogg"))
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
         self.review_controller().reset()
         card = self.review_controller().card
-        assert card.fact["q"] == """<audio src="a.ogg">"""
+        assert card.fact["f"] == """<audio src="a.ogg">"""
 
     def test_map(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "map.mem")

@@ -103,7 +103,8 @@ class HtmlCss(Renderer):
     def body(self, data, fields, **render_args):
         html = ""
         for field in fields:
-            html += "<div id=\"%s\">%s</div>" % (field, data[field])
+            if field in data and data[field]:
+                html += "<div id=\"%s\">%s</div>" % (field, data[field])
         return html
                 
     def render_fields(self, data, fields, card_type, **render_args):

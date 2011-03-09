@@ -365,10 +365,9 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.correspondence = {}        
         if not current_card_type.keys().issubset(new_card_type.keys()):      
             dlg = ConvertCardTypeFieldsDlg(current_card_type, new_card_type,
-                self.correspondence, self)
+                self.correspondence, check_required_fields=True, parent=self)
             if dlg.exec_() != QtGui.QDialog.Accepted:
                 return
-        print self.correspondence
         # Start the actual conversion.
         facts = self.facts_from_selection()
         self.unload_qt_database()
@@ -515,7 +514,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         query.first()
         active = query.value(0).toInt()[0]
         self.counter_label.setText(\
-            "%d cards selected, of which %d are active" % (selected, active))   
+            _("%d cards shown, of which %d are active.") % (selected, active))   
         
     def closeEvent(self, event):
         self.unload_qt_database()                

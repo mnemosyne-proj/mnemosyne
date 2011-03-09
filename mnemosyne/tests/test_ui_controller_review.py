@@ -11,8 +11,8 @@ class TestUIControllerReview(MnemosyneTest):
         card_1 = None
         self.review_controller().reset()
         for i in range(10):
-            fact_data = {"q": "question" + str(i),
-                         "a": "answer" + str(i)}
+            fact_data = {"f": "question" + str(i),
+                         "b": "answer" + str(i)}
             if i % 2:
                 card_type = self.card_type_by_id("1")
             else:
@@ -37,8 +37,8 @@ class TestUIControllerReview(MnemosyneTest):
         card_1 = None
         self.review_controller().reset()
         for i in range(10):
-            fact_data = {"q": "question" + str(i),
-                         "a": "answer" + str(i)}
+            fact_data = {"f": "question" + str(i),
+                         "b": "answer" + str(i)}
             if i % 2:
                 card_type = self.card_type_by_id("1")
             else:

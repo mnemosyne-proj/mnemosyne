@@ -16,8 +16,8 @@ class memaid_XML_Importer(ContentHandler):
         self.reading, self.text = {}, {}
         
         self.reading["cat"] = False
-        self.reading["Q"]   = False
-        self.reading["A"]   = False
+        self.reading["f"]   = False
+        self.reading["b"]   = False
 
         self.default_cat = default_cat
         self.reset_learning_data = reset_learning_data
@@ -71,13 +71,13 @@ class memaid_XML_Importer(ContentHandler):
             cat_name = self.text["cat"]
             self.card.cat = get_category_by_name(cat_name)
 
-        elif name == "Q":
+        elif name == "f":
 
-            self.card.q = self.text["Q"]
+            self.card.q = self.text["f"]
 
-        elif name == "A":
+        elif name == "b":
 
-            self.card.a = self.text["A"]
+            self.card.a = self.text["b"]
 
         elif name == "item":
 

@@ -89,8 +89,8 @@ class MyClient(Client):
         self.mnemosyne.review_controller().reset()
         # Do 200 reviews.
         card_type = self.mnemosyne.card_type_by_id("1")
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card = self.mnemosyne.controller().create_new_cards(fact_data, card_type,
                 grade=-1, tag_names=["default"])[0]
         self.mnemosyne.database().save()
@@ -101,7 +101,7 @@ class MyClient(Client):
         Client.__init__(self, "client_machine_id", self.mnemosyne.database(),
                         self.mnemosyne.main_widget())
         
-    def do_sync(self):
+    def sync(self):
         self.sync("192.168.2.60", 8186, "user", "pass")
         self.mnemosyne.database().save()
 
@@ -110,7 +110,7 @@ if __name__== '__main__':
     client = MyClient()
     
     def sync():
-        client.do_sync()
+        client.sync()
 
     tests = ["sync()"]
 

@@ -120,26 +120,6 @@ class SQLiteSync(object):
             return (self._log_entry(cursor) for cursor in self.con.execute(\
                 "select * from log where event_type!=?",
                 (EventTypes.REPETITION, )))
-        
-    def check_for_edited_media_files(self):
-        # Regular media files.
-        new_hashes = {}
-        for sql_res in self.con.execute("select * from media"):
-            filename = sql_res["filename"]
-            if not os.path.exists(expand_path(filename, self.media_dir())):
-                continue
-            new_hash = self._media_hash(filename)
-            if sql_res["_hash"] != new_hash:
-                new_hashes[filename] = new_hash
-        for filename, new_hash in new_hashes.iteritems():
-            self.con.execute("update media set _hash=? where filename=?",
-                (new_hash, filename))
-            self.log().edited_media(filename)
-        # Other media files, e.g. latex.
-        for cursor in self.con.execute("select value from data_for_fact"):
-            for f in self.component_manager.all("hook",
-                "check_for_edited_local_media_files"):
-                f.run(cursor[0])
             
     def media_filenames_to_sync_for(self, partner):
 
@@ -152,8 +132,8 @@ class SQLiteSync(object):
         filenames = set()
         for filename in [cursor[0] for cursor in self.con.execute(\
             """select object_id from log where _id>? and (event_type=? or
-            event_type=?)""", (_id, EventTypes.ADDED_MEDIA,
-            EventTypes.EDITED_MEDIA))]:
+            event_type=?)""", (_id, EventTypes.ADDED_MEDIA_FILE,
+            EventTypes.EDITED_MEDIA_FILE))]:
             if os.path.exists(expand_path(filename, self.media_dir())):            
                 filenames.add(filename)
         return filenames
@@ -165,8 +145,8 @@ class SQLiteSync(object):
         filenames = set()
         for filename in [cursor[0] for cursor in self.con.execute(\
             """select object_id from log where event_type=? or
-            event_type=?""", (EventTypes.ADDED_MEDIA,
-            EventTypes.EDITED_MEDIA))]:
+            event_type=?""", (EventTypes.ADDED_MEDIA_FILE,
+            EventTypes.EDITED_MEDIA_FILE))]:
             if os.path.exists(expand_path(filename, self.media_dir())):
                 filenames.add(filename)
         return filenames
@@ -196,8 +176,8 @@ class SQLiteSync(object):
                 # because of conflict resolution.
                 card = self.card(log_entry["o_id"], id_is_internal=False)
                 if self.sync_partner_info.get("capabilities") == "cards":
-                    log_entry["q"] = card.question("sync_to_card_only_client")
-                    log_entry["a"] = card.answer("sync_to_card_only_client")
+                    log_entry["f"] = card.question("sync_to_card_only_client")
+                    log_entry["b"] = card.answer("sync_to_card_only_client")
                 else:
                     log_entry["card_t"] = card.card_type.id
                     log_entry["fact"] = card.fact.id
@@ -242,8 +222,8 @@ class SQLiteSync(object):
                     log_entry["extra"] = repr(tag.extra_data)
             except TypeError: # The object has been deleted at a later stage.
                 pass
-        elif event_type in (EventTypes.ADDED_MEDIA, EventTypes.EDITED_MEDIA,
-            EventTypes.DELETED_MEDIA):
+        elif event_type in (EventTypes.ADDED_MEDIA_FILE,
+            EventTypes.EDITED_MEDIA_FILE, EventTypes.DELETED_MEDIA_FILE):
             log_entry["fname"] = sql_res["object_id"]
             del log_entry["o_id"]
         elif event_type in (EventTypes.ADDED_FACT, EventTypes.EDITED_FACT):
@@ -344,7 +324,7 @@ class SQLiteSync(object):
     def card_from_log_entry(self, log_entry):
         # We should not receive cards with question and answer data, only
         # cards based on facts.
-        if "q" in log_entry:
+        if "f" in log_entry:
             raise AttributeError
         # Get card object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD:
@@ -361,7 +341,7 @@ class SQLiteSync(object):
                 sql_res = self.con.execute("select * from cards where id=?",
                     (log_entry["o_id"], )).fetchone()
                 card_type = self.card_type_by_id("1")
-                fact = Fact({"q": "q", "a": "a"}, id="")
+                fact = Fact({"f": "f", "b": "b"}, id="")
                 card = Card(card_type, fact, card_type.fact_views[0],
                     creation_time=0)
                 card._id = sql_res["_id"]
@@ -370,7 +350,7 @@ class SQLiteSync(object):
         # during this sync.
         if "tags" not in log_entry:
             card_type = self.card_type_by_id("1")
-            fact = Fact({"q": "q", "a": "a"}, id="")
+            fact = Fact({"f": "f", "b": "b"}, id="")
             card = Card(card_type, fact, card_type.fact_views[0],
                 creation_time=0)
             card.id = log_entry["o_id"]
@@ -437,13 +417,14 @@ class SQLiteSync(object):
             card.ret_reps_since_lapse, card.last_rep, card.next_rep,
             card.scheduler_data, card.id))
         
-    def add_media(self, log_entry):
+    def add_media_file(self, log_entry):
 
-        """ADDED_MEDIA events get created in several places:
+        """ADDED_MEDIA_FILE events get created in several places:
         database._process_media, database.check_for_edited_media_files,
         latex, ... . In order to make sure that all of these are treated
-        in the same way, we generate an ADDED_MEDIA event here, and prevent
-        _process_media from generating this event through self.syncing = True.
+        in the same way, we generate an ADDED_MEDIA_FILE event here, and
+        prevent _process_media from generating this event through
+        self.syncing = True.
 
         """
         
@@ -451,22 +432,22 @@ class SQLiteSync(object):
         if os.path.exists(expand_path(filename, self.media_dir())):
             self.con.execute("""insert or replace into media(filename, _hash)
                 values(?,?)""", (filename, self._media_hash(filename)))
-        self.log().added_media(filename)
+        self.log().added_media_file(filename)
         
-    def edit_media(self, log_entry):
+    def edit_media_file(self, log_entry):
         filename = log_entry["fname"]
         self.con.execute("update media set _hash=? where filename=?",
             (self._media_hash(filename), filename))
-        self.log().edited_media(filename)
+        self.log().edited_media_file(filename)
         
-    def delete_media(self, log_entry):
+    def delete_media_file(self, log_entry):
         filename = log_entry["fname"]
         full_path = expand_path(filename, self.media_dir())
         # The file could have been remotely deleted before it got a chance to
         # be synced, so we need to check if the file exists before deleting.
         if os.path.exists(full_path):
             os.remove(full_path)
-        self.log().deleted_media(filename)    
+        self.log().deleted_media_file(filename)    
 
     def fact_view_from_log_entry(self, log_entry):
         # Get fact view object to be deleted now.
@@ -578,12 +559,12 @@ class SQLiteSync(object):
                 self.delete_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.REPETITION:
                 self.apply_repetition(log_entry)
-            elif event_type == EventTypes.ADDED_MEDIA:
-                self.add_media(log_entry)
-            elif event_type == EventTypes.EDITED_MEDIA:
-                self.edit_media(log_entry)
-            elif event_type == EventTypes.DELETED_MEDIA:
-                self.delete_media(log_entry)
+            elif event_type == EventTypes.ADDED_MEDIA_FILE:
+                self.add_media_file(log_entry)
+            elif event_type == EventTypes.EDITED_MEDIA_FILE:
+                self.edit_media_file(log_entry)
+            elif event_type == EventTypes.DELETED_MEDIA_FILE:
+                self.delete_media_file(log_entry)
             elif event_type == EventTypes.ADDED_FACT_VIEW:
                 self.add_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_FACT_VIEW:

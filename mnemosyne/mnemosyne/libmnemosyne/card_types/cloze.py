@@ -42,8 +42,8 @@ class Cloze(CardType):
     unique_fields = ["text"]
 
     v = FactView(_("Cloze"), "5::1")
-    v.q_fields = ["q"]  # Generated on the fly. 
-    v.a_fields = ["a"]  # Generated on the fly. 
+    v.q_fields = ["f"]  # Generated on the fly. 
+    v.a_fields = ["b"]  # Generated on the fly. 
     fact_views = [v]
 
     def is_data_valid(self, fact_data):
@@ -53,7 +53,7 @@ class Cloze(CardType):
         cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
         question = question.replace(cloze, "[...]",  1)
-        return {"q": question, "a": cloze}
+        return {"f": question, "b": cloze}
 
     def create_sister_cards(self, fact):
         cards = []

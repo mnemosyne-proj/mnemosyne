@@ -39,8 +39,8 @@ def startup():
 def create_database():
     mnemosyne.database().new(mnemosyne.config()["path"])
     for i in range(number_of_facts):
-        fact_data = {"q": "question" + str(i),
-                     "a": "answer" + str(i)}
+        fact_data = {"f": "question" + str(i),
+                     "b": "answer" + str(i)}
         if i % 2:
             card_type = mnemosyne.card_type_by_id("1")
         else:
@@ -120,12 +120,12 @@ def test_setup():
     mnemosyne.review_controller().reset()
 
 def test_run():
-    fact_data = {"q": "question",
-                 "a": "answer"}
+    fact_data = {"f": "question",
+                 "b": "answer"}
     card_type = mnemosyne.card_type_by_id("1")
     card = mnemosyne.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
-    mnemosyne.controller().file_save()
+    mnemosyne.controller().save_file()
     assert mnemosyne.database().fact_count() == 1
     assert mnemosyne.database().card_count() == 1
 

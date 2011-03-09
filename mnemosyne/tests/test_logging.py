@@ -34,7 +34,7 @@ class TestLogging(MnemosyneTest):
         
     def test_logging(self):
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()
@@ -46,7 +46,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.finalise()
         self.restart()
         card_type = self.card_type_by_id("1")
-        fact_data = {"q": "2", "a": "a"}
+        fact_data = {"f": "2", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
         self.review_controller().new_question()        
@@ -161,8 +161,8 @@ class TestLogging(MnemosyneTest):
         assert sql_res["object_id"] is not None
 
     def test_unique_index(self):
-        fact_data = {"q": "question",
-                     "a": "answer"}
+        fact_data = {"f": "question",
+                     "b": "answer"}
         card_type_2 = self.card_type_by_id("2")
         card_1, card_2 = self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default"])
@@ -172,8 +172,8 @@ class TestLogging(MnemosyneTest):
         # start again at 1 and mess up the sync.
         self.database().con.execute("""delete from log where _id <?""", (log_index,))
         self.database().con.execute("""vacuum""")        
-        fact_data = {"q": "question2",
-                     "a": "answer2"}
+        fact_data = {"f": "question2",
+                     "b": "answer2"}
         card_type_2 = self.card_type_by_id("1")
         card_1  = self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default"])        

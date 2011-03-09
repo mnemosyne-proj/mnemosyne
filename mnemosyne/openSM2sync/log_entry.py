@@ -23,9 +23,9 @@ class EventTypes(object):
     EDITED_TAG = 11
     DELETED_TAG = 12
 
-    ADDED_MEDIA = 13
-    EDITED_MEDIA = 14
-    DELETED_MEDIA = 15
+    ADDED_MEDIA_FILE = 13
+    EDITED_MEDIA_FILE = 14
+    DELETED_MEDIA_FILE = 15
 
     # Only relevant for fact-based clients.
     
@@ -111,7 +111,7 @@ class LogEntry(dict):
     Keys specific to ADDED_TAG, EDITED_TAG:
         name (string): tag name
 
-    Keys specific to ADDED_MEDIA, EDITED_MEDIA, DELETED_MEDIA:
+    Keys specific to ADDED_MEDIA_FILE, EDITED_MEDIA_FILE, DELETED_MEDIA_FILE:
         fname (string): filename
 
     Keys specific to ADDED_FACT, EDITED_FACT:

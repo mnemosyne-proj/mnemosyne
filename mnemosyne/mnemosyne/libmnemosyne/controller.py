@@ -66,16 +66,16 @@ class Controller(Component):
     def delete_card_type(self, card_type):
         raise NotImplementedError
     
-    def file_new(self):
+    def new_file(self):
         raise NotImplementedError
     
-    def file_open(self):
+    def open_file(self):
         raise NotImplementedError
     
-    def file_save(self):
+    def save_file(self):
         raise NotImplementedError
     
-    def file_save_as(self):
+    def save_file_as(self):
         raise NotImplementedError
 
     def insert_img(self, filter):

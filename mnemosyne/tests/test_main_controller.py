@@ -63,14 +63,14 @@ class TestMainController(MnemosyneTest):
         self.controller().heartbeat()
         self.controller().add_cards()
         card_type = self.card_type_by_id("2")
-        fact_data = {"q": "q", "a": "a"}
+        fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
         self.review_controller().new_question()        
         self.controller().edit_current_card()        
-        self.controller().file_new()
-        self.controller().file_open()
-        self.controller().file_save_as()
+        self.controller().new_file()
+        self.controller().open_file()
+        self.controller().save_file_as()
         self.controller().card_appearance()        
         self.controller().activate_plugins()  
         self.controller().manage_card_types()        
@@ -82,20 +82,20 @@ class TestMainController(MnemosyneTest):
         self.controller().sync()
         
     def test_2(self):
-        self.controller().file_save_as()
-        self.controller().file_open()
+        self.controller().save_file_as()
+        self.controller().open_file()
 
     def test_overwrite(self):
         global save_file
         os.path.join(os.getcwd(), "dot_test", "default.db")
 
         card_type = self.card_type_by_id("2")
-        fact_data = {"q": "q", "a": "a"}
+        fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
-        self.controller().file_save()
+        self.controller().save_file()
         
-        self.controller().file_new()
+        self.controller().new_file()
 
     def test_coverage(self):
         from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget

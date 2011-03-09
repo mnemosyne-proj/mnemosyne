@@ -71,14 +71,14 @@ class DatabaseLogger(Logger):
     def deleted_tag(self, tag):
         self.database().log_deleted_tag(self.timestamp, tag.id)
 
-    def added_media(self, filename):
-        self.database().log_added_media(self.timestamp, filename)
+    def added_media_file(self, filename):
+        self.database().log_added_media_file(self.timestamp, filename)
         
-    def edited_media(self, filename):
-        self.database().log_edited_media(self.timestamp, filename)
+    def edited_media_file(self, filename):
+        self.database().log_edited_media_file(self.timestamp, filename)
         
-    def deleted_media(self, filename):
-        self.database().log_deleted_media(self.timestamp, filename)
+    def deleted_media_file(self, filename):
+        self.database().log_deleted_media_file(self.timestamp, filename)
         
     def added_fact(self, fact):
         self.database().log_added_fact(self.timestamp, fact.id)

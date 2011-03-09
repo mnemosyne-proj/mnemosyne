@@ -11,13 +11,14 @@ from mnemosyne.pyqt_ui.ui_convert_card_type_fields_dlg import \
 
 class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
 
-    def __init__(self, old_card_type, new_card_type,
-                 correspondence, parent=None):
+    def __init__(self, old_card_type, new_card_type, correspondence,
+                 check_required_fields=True, parent=None):
         QtGui.QDialog.__init__(self, parent)
         self.setupUi(self)
         self.old_card_type = old_card_type
         self.new_card_type = new_card_type
         self.correspondence = correspondence
+        self.check_required_fields = check_required_fields
         self.comboboxes = {}
         index = 1
         for old_fact_key, old_fact_key_name, old_language_code in \
@@ -55,8 +56,18 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
                         _("No duplicate in new fields allowed."),
                         _("&OK"), "", "", 0, -1)
                     self.ok_button.setEnabled(False)
-                    return           
+                    return                  
                 self.correspondence[old_fact_key] = new_fact_key
+        if self.check_required_fields:
+            for field in self.new_card_type.required_fields:
+                if field not in self.correspondence.values():
+                    self.ok_button.setEnabled(False)
+                    if len(self.correspondence) == \
+                       len(self.old_card_type.fields):
+                        QtGui.QMessageBox.critical(None, _("Mnemosyne"),
+                            _("A required field is missing."),
+                            _("&OK"), "", "", 0, -1)                        
+                    return
               
     def accept(self):
         self.correspondence.clear()

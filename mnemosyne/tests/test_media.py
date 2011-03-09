@@ -106,8 +106,8 @@ class TestMedia(MnemosyneTest):
     def test_card(self):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
@@ -115,17 +115,17 @@ class TestMedia(MnemosyneTest):
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, id_is_internal=True)
         assert os.path.exists(full_path_in_media_dir)
-        assert full_path not in card.fact.data["q"]
-        assert full_path_in_media_dir not in card.fact.data["q"]
+        assert full_path not in card.fact.data["f"]
+        assert full_path_in_media_dir not in card.fact.data["f"]
         assert full_path not in card.question()
         assert full_path_in_media_dir in card.question()
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_card_2(self):
-        fact_data = {"q": "<img src=\"a.ogg>", # Missing closing "
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"a.ogg>", # Missing closing "
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
@@ -138,34 +138,34 @@ class TestMedia(MnemosyneTest):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
 
-        fact_data = {"q": "edited <img src=\"%s\">" % "a.ogg",
-                     "a": "answer"}
+        fact_data = {"f": "edited <img src=\"%s\">" % "a.ogg",
+                     "b": "answer"}
         self.controller().edit_sister_cards(card.fact, fact_data, card.card_type, 
            card_type, new_tag_names=["bla"], correspondence=None)
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, id_is_internal=True)
         assert os.path.exists(full_path_in_media_dir)
-        assert full_path not in card.fact.data["q"]
-        assert full_path_in_media_dir not in card.fact.data["q"]
+        assert full_path not in card.fact.data["f"]
+        assert full_path_in_media_dir not in card.fact.data["f"]
         assert full_path not in card.question()
         assert full_path_in_media_dir in card.question()        
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_card_edit_add(self):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
@@ -173,34 +173,34 @@ class TestMedia(MnemosyneTest):
         card = self.database().card(card._id, id_is_internal=True)
         os.system("touch b.ogg")
         full_path = os.path.abspath("b.ogg")
-        fact_data = {"q": "edited <img src=\"%s\"> <img src=\"%s\">" \
+        fact_data = {"f": "edited <img src=\"%s\"> <img src=\"%s\">" \
                      % ("a.ogg", full_path),
-                     "a": "answer"}
+                     "b": "answer"}
         self.controller().edit_sister_cards(card.fact, fact_data,
            card.card_type,  card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "b.ogg")
         assert os.path.exists(full_path_in_media_dir)
-        assert full_path not in card.fact.data["q"]
-        assert full_path_in_media_dir not in card.fact.data["q"]
+        assert full_path not in card.fact.data["f"]
+        assert full_path_in_media_dir not in card.fact.data["f"]
         assert full_path not in card.question()
         assert full_path_in_media_dir in card.question()        
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 2
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
 
     def test_card_edit_delete(self):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, id_is_internal=True)
-        fact_data = {"q": "edited ",
-                     "a": "answer"}
+        fact_data = {"f": "edited ",
+                     "b": "answer"}
         self.controller().edit_sister_cards(card.fact, fact_data,
            card.card_type,  card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
@@ -208,28 +208,28 @@ class TestMedia(MnemosyneTest):
         assert full_path_in_media_dir not in card.question()        
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.DELETED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.DELETED_MEDIA_FILE, )).fetchone()[0] == 1
         
     def test_card_edit_delete_used_by_other(self):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, id_is_internal=True)
-        fact_data = {"q": "2 <img src=\'%s\'>" % "a.ogg",
-                     "a": "answer"}        
+        fact_data = {"f": "2 <img src=\'%s\'>" % "a.ogg",
+                     "b": "answer"}        
         self.controller().create_new_cards(fact_data, card_type,
                                            grade=-1, tag_names=["default"])[0]
-        fact_data = {"q": "edited",
-                     "a": "answer"}        
+        fact_data = {"f": "edited",
+                     "b": "answer"}        
         self.controller().edit_sister_cards(card.fact, fact_data,
            card.card_type, card_type, new_tag_names=["bla"], correspondence=None)
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
@@ -237,14 +237,14 @@ class TestMedia(MnemosyneTest):
         assert full_path_in_media_dir not in card.question()      
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_delete_fact(self):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
@@ -255,21 +255,21 @@ class TestMedia(MnemosyneTest):
         assert not os.path.exists(full_path_in_media_dir) # Autodelete.
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
         
     def test_delete_fact_used_by_other(self):
         file("a.ogg", "w")
         full_path = os.path.abspath("a.ogg")
 
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, id_is_internal=True)
-        fact_data = {"q": "2 <img src=\"%s\">" % "a.ogg",
-                     "a": "answer"}
+        fact_data = {"f": "2 <img src=\"%s\">" % "a.ogg",
+                     "b": "answer"}
         self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         self.controller().delete_facts_and_their_cards([card.fact])
@@ -277,7 +277,7 @@ class TestMedia(MnemosyneTest):
         assert os.path.exists(full_path_in_media_dir) # Not deleted.
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
-            (EventTypes.ADDED_MEDIA, )).fetchone()[0] == 1
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 1
 
     def test_orphaned(self):
         file(os.path.join(self.database().media_dir(), "a.ogg"), "w")
@@ -290,8 +290,8 @@ class TestMedia(MnemosyneTest):
         file("c.ogg", "w")
         full_path = os.path.abspath("c.ogg")
 
-        fact_data = {"q": "<img src=\"%s\">" % full_path,
-                     "a": "answer"}
+        fact_data = {"f": "<img src=\"%s\">" % full_path,
+                     "b": "answer"}
         card_type = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
@@ -302,7 +302,7 @@ class TestMedia(MnemosyneTest):
         assert os.path.exists(os.path.join(self.database().media_dir(), "_keep"))
         assert os.path.exists(os.path.join(self.database().media_dir(), "_keep", "b.ogg"))
         
-        self.database().clean_orphaned_static_media()
+        self.database().clean_orphaned_static_media_files()
         
         assert not os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))        
         assert not os.path.exists(os.path.join(self.database().media_dir(), "sub"))

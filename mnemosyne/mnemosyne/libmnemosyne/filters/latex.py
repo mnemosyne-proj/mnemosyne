@@ -67,7 +67,7 @@ class Latex(Filter):
             if not os.path.exists("tmp1.png"):
                 return None
             shutil.copy("tmp1.png", img_name)
-            self.log().added_media(rel_filename)
+            self.log().added_media_file(rel_filename)
             os.chdir(previous_dir)            
         return rel_filename
 

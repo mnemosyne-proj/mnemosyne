@@ -43,16 +43,16 @@ class TestCrammingScheduler(MnemosyneTest):
         
         card_type = self.card_type_by_id("1")
         
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        fact_data = {"q": "2", "a": "a"}        
+        fact_data = {"f": "2", "b": "b"}        
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        fact_data = {"q": "3", "a": "a"}
+        fact_data = {"f": "3", "b": "b"}
         card_3 = self.controller().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=["default"])[0]
-        fact_data = {"q": "4", "a": "a"}
+        fact_data = {"f": "4", "b": "b"}
         card_4 = self.controller().create_new_cards(fact_data, card_type,
                      grade=2, tag_names=["default"])[0]
         card_4.next_rep -= 1000
@@ -84,7 +84,7 @@ class TestCrammingScheduler(MnemosyneTest):
     def test_2(self):
         card_type = self.card_type_by_id("1")
         
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
@@ -95,7 +95,7 @@ class TestCrammingScheduler(MnemosyneTest):
     def test_3(self):
         card_type = self.card_type_by_id("1")
         
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
@@ -112,7 +112,7 @@ class TestCrammingScheduler(MnemosyneTest):
     def test_4(self):
         card_type = self.card_type_by_id("1")
         
-        fact_data = {"q": "1", "a": "a"}
+        fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 

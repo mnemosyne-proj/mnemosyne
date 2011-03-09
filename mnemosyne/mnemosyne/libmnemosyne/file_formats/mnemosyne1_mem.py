@@ -150,7 +150,7 @@ class Mnemosyne1Mem(FileFormat):
         if item.id.endswith(".inv") or item.id.endswith(".tr.1"):
             if not item.id.split(".", 1)[0] in self.items_by_id:
                 card_type = self.card_type_by_id("1")
-                fact_data = {"q": item.q, "a": item.a}
+                fact_data = {"f": item.q, "b": item.a}
                 self._preprocess_media(fact_data) 
                 card = self.controller().create_new_cards(fact_data,
                     card_type, grade=-1, tag_names=[item.cat.name],
@@ -181,7 +181,7 @@ class Mnemosyne1Mem(FileFormat):
         elif item.id + ".inv" not in self.items_by_id and \
            item.id + ".tr.1" not in self.items_by_id:
             card_type = self.card_type_by_id("1")
-            fact_data = {"q": item.q, "a": item.a}
+            fact_data = {"f": item.q, "b": item.a}
             self._preprocess_media(fact_data) 
             card = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=[item.cat.name],
@@ -190,7 +190,7 @@ class Mnemosyne1Mem(FileFormat):
         # Front-to-back and back-to-front.         
         elif item.id + ".inv" in self.items_by_id:
             card_type = self.card_type_by_id("2")
-            fact_data = {"q": item.q, "a": item.a}
+            fact_data = {"f": item.q, "b": item.a}
             self._preprocess_media(fact_data) 
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=[item.cat.name],
@@ -202,10 +202,10 @@ class Mnemosyne1Mem(FileFormat):
         elif item.id + ".tr.1" in self.items_by_id:
             card_type = self.card_type_by_id("3")
             try:
-                p, t = item.a.split("\n", 1)
+                p_1, m_1 = item.a.split("\n", 1)
             except:
-                p, t = "", item.a    
-            fact_data = {"f": item.q, "p": p, "t": t}
+                p_1, m_1 = "", item.a    
+            fact_data = {"f": item.q, "p_1": p_1, "m_1": m_1}
             self._preprocess_media(fact_data) 
             card_1, card_2 = self.controller().create_new_cards(fact_data,
                 card_type, grade=-1, tag_names=[item.cat.name],

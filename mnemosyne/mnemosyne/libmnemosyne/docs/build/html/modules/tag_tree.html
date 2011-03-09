@@ -24,7 +24,7 @@
     <link rel="prev" title="Tag" href="tag.html" /> 
   </head>
   <body>
-    <div class="sister">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -48,8 +48,37 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="tagtree">
-<h1><tt class="xref docutils literal"><span class="pre">TagTree</span></tt><a class="headerlink" href="#tagtree" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-mnemosyne.libmnemosyne.tag_tree">
+<h1><tt class="xref docutils literal"><span class="pre">TagTree</span></tt><a class="headerlink" href="#module-mnemosyne.libmnemosyne.tag_tree" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mnemosyne.libmnemosyne.tag_tree.TagTree">
+<em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.tag_tree.</tt><tt class="descname">TagTree</tt><big>(</big><em>component_manager</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.tag_tree.TagTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Organises the tags in a hierarchical tree. By convention, hierarchical
+levels in tags are denoted by a :: separator.</p>
+<p>This class is not meant to be instantiated at run time, but rather only
+when it is needed.</p>
+<p>The internal tree datastructure for e.g. the two tags A::B::C and A::B::D
+looks as follows:</p>
+<p>self[_(&#8220;__ALL__&#8221;)] = [&#8220;A&#8221;]
+self[&#8220;A&#8221;] = [&#8220;A::B&#8221;]
+self[&#8220;A::B&#8221;] = [&#8220;A::B::C&#8221;, &#8220;A::B::D&#8221;]</p>
+<p>Each tree level stores the entire partial tag (i.e. A::B instead of B) to
+guarantee uniqueness.</p>
+<p>Apart from the dictionary in self, this class also contains
+self.display_name_for_node and self.card_count_for_node, with node being
+the index field for the main dictionary self.</p>
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.tag_tree.TagTree.delete_subtree">
+<tt class="descname">delete_subtree</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.tag_tree.TagTree.delete_subtree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.tag_tree.TagTree.rename_node">
+<tt class="descname">rename_node</tt><big>(</big><em>old_node_label</em>, <em>new_node_label</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.tag_tree.TagTree.rename_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -60,10 +89,10 @@
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
             <p class="topless"><a href="tag.html"
-                                  title="previous chapter"><tt class="docutils literal"><span class="pre">Tag</span></tt></a></p>
+                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Tag</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="card_type.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">CardType</span></tt></a></p>
+                                  title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">CardType</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/tag_tree.txt"
@@ -86,7 +115,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="sister">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -106,7 +135,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Dec 17, 2010.
+      Last updated on Mar 09, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>
