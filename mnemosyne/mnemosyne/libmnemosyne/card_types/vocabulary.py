@@ -15,10 +15,10 @@ class Vocabulary(CardType):
     name = _("Vocabulary")
 
     # List and name the keys.
-    fields = [("f", _("Foreign word"), None),
-              ("p_1", _("Pronunciation"), None),
-              ("m_1", _("Meaning"), None),
-              ("n", _("Notes"), None)]
+    fields = [("f", _("Foreign word or expression")),
+              ("p_1", _("Pronunciation")),
+              ("m_1", _("Meaning")),
+              ("n", _("Notes"))]
 
     # Recognition.
     v1 = FactView(_("Recognition"), "3::1")

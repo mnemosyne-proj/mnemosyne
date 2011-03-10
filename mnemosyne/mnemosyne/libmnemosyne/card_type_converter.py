@@ -11,16 +11,17 @@ class CardTypeConverter(Component):
 
     used_for = (old_type class, new_type class)
 
-    Note that the function of this class is not to edit the fact data behind
-    the cards, which is trivial and handled in the main  controller, but
+    Note that the function of this class is NOT to edit the fact data behind
+    the cards, which is trivial and handled in the main controller, but
     rather to delete, create or convert cards to make the transition to the
     new card type.
 
-    'correspondence' is the dictionary which relates fact keys in the two
-    card types, in order to determine in which way cards should be created
-    or deleted.
+    'correspondence' {old_key: new_key} is the dictionary which relates fact
+    keys in the two card types, in order to determine in which way cards
+    should be created or deleted.
 
-    The returned values are to be able to edit the results in the database.
+    We return 'new_cards', 'edited_cards', 'deleted_cards' in order to be able
+    to handle them in the database storage.
 
     """
 

@@ -3,10 +3,15 @@
 #
 
 import os
+
 from mnemosyne.webserver.server import Server
+from mnemosyne.libmnemosyne.configuration import Configuration
+
+config = Configuration(None)
+config.determine_dirs()
 
 port = 8888
-data_dir = os.path.abspath("dot_mnemosyne2")
+data_dir = config.data_dir
 filename = "default.db"
 
 disclaimer = """

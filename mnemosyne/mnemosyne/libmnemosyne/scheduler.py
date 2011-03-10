@@ -9,7 +9,7 @@ class Scheduler(Component):
 
     name = ""
     component_type = "scheduler"
-            
+
     def reset(self):
 
         """Called when starting the scheduler for the first time."""
@@ -70,7 +70,7 @@ class Scheduler(Component):
     def next_card(self, learn_ahead=False):
         raise NotImplementedError
     
-    def allow_prefetch(self):
+    def is_prefetch_allowed(self):
 
         """Can we display a new card before having processed the grading of
         the previous one?

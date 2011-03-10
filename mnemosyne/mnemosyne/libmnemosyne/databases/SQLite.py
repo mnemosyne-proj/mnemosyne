@@ -616,7 +616,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # Create data_for_fact.        
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((_fact_id, key, value)
-            for key, value in fact.data.items()))
+            for key, value in fact.data.items() if value))
         self.log().added_fact(fact)
         # Process media files.
         self._process_media(fact)
@@ -646,7 +646,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             (fact._id, ))
         self.con.executemany("""insert into data_for_fact(_fact_id, key, value)
             values(?,?,?)""", ((fact._id, key, value)
-                for key, value in fact.data.items()))
+                for key, value in fact.data.items() if value))
         self.log().edited_fact(fact)
         # Process media files.
         self._process_media(fact)
@@ -689,8 +689,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for tag in card.tags:
             self.con.execute("""insert into tags_for_card(_tag_id,
                 _card_id) values(?,?)""", (tag._id, _card_id))
-        # Add card is not logged here, but in the controller, to make sure
-        # that the first repetition is logged after the card creation.
+        self.log().added_card(card)
 
     def card(self, id, id_is_internal):
         if id_is_internal:
@@ -968,12 +967,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             in self.con.execute("select _id from cards where _fact_id=?",
                                 (fact._id, )))
 
-    def count_sister_cards_with_next_rep(self, card, next_rep):
-        return self.con.execute("""select count() from cards where
-            next_rep=? and _id<>? and grade>=2 and _id in
-            (select _id from cards where _fact_id=?)""",
-            (next_rep, card._id, card.fact._id)).fetchone()[0]
-
     def duplicates_for_fact(self, fact, card_type):
 
         """Return facts with the same 'card_type.unique_fields'
@@ -1007,29 +1000,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def card_types_in_use(self):
         return [self.card_type_by_id(cursor[0]) for cursor in \
             self.con.execute ("select distinct card_type_id from cards")]
-    
-    def tag_count(self):
-        return self.con.execute("select count() from tags").fetchone()[0]
-    
-    def fact_count(self):
-        return self.con.execute("select count() from facts").fetchone()[0]
-
-    def card_count(self):
-        return self.con.execute("""select count() from cards""").fetchone()[0]
-
-    def non_memorised_count(self):
-        return self.con.execute("""select count() from cards
-            where active=1 and grade<2""").fetchone()[0]
-
-    def scheduled_count(self, timestamp):
-        count = self.con.execute("""select count() from cards
-            where active=1 and grade>=2 and ?>=next_rep""",
-            (timestamp, )).fetchone()[0]
-        return count
-
-    def active_count(self):
-        return self.con.execute("""select count() from cards
-            where active=1""").fetchone()[0]
 
     #
     # Card queries used by the scheduler.

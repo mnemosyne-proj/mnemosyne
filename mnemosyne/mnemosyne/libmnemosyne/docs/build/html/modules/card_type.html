@@ -62,16 +62,14 @@ show up in the card id as well.</p>
 types should not have this property.</p>
 <p>Inherited card types should have ids where :: separates the different
 levels of the hierarchy, e.g. parent_id::child_id.</p>
-<p>The keys from the fact are also given more verbose names here, as well
-as an optional language code, e.g. for text-to-speech processing.
-This is not done in fact.py, on one hand to save space in the database,
-and on the other hand to allow the possibility that different card types
-give different names to the same key. (E.g. foreign word&#8217; could be
-called &#8216;French&#8217; in a French card type, or &#8216;pronunciation&#8217; could be
-called &#8216;reading&#8217; in a Kanji card type.) This in done in self.fields,
-which is a list of the form [(fact_key, fact_key_name, language_code)].
-It is tempting to use a dictionary here, but we can&#8217;t do that since
-ordering is important.</p>
+<p>The keys from the fact are also given more verbose names here. This is
+not done in fact.py, on one hand to save space in the database, and on
+the other hand to allow the possibility that different card types give
+different names to the same key. (E.g. foreign word&#8217; could be called
+&#8216;French&#8217; in a French card type, or &#8216;pronunciation&#8217; could be called
+&#8216;reading&#8217; in a Kanji card type.) This in done in self.fields, which is
+a list of the form [(fact_key, fact_key_name)]. It is tempting to use a
+dictionary here, but we can&#8217;t do that since ordering is important.</p>
 <p>Fields which need to be different for all facts belonging to this card
 type are listed in unique_fields.</p>
 <p>Note that a fact could contain more data than those listed in the card
@@ -80,7 +78,7 @@ hidden fields.</p>
 <p>We could use the component manager to track fact views, but this is
 probably overkill.</p>
 <p>The function &#8216;fact_data&#8217; typically just returns a dictionary which is
-typically just fact.data, butwhich can also be generated on the fly,
+typically just fact.data, but which can also be generated on the fly,
 as e.g. in the cloze card type.</p>
 <p>The functions &#8216;create_sister_cards&#8217; and &#8216;edit_sister_cards&#8217; can be
 overridden by card types which can have a varying number of fact views,
@@ -121,6 +119,15 @@ here, but is done in the main controller.</p>
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.is_data_valid">
 <tt class="descname">is_data_valid</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.is_data_valid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.card_type.CardType.key_format_proxies">
+<tt class="descname">key_format_proxies</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.key_format_proxies" title="Permalink to this definition">¶</a></dt>
+<dd>Sometimes, a card type can dynamically create a field when
+generating a question or an answer (see e.g. the Cloze card type).
+Since the user cannot specify how this key should be formatted, it
+should be formatted like another, static key. This function returns
+a dictionary with this correspondence.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.key_names">
@@ -205,7 +212,7 @@ here, but is done in the main controller.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 09, 2011.
+      Last updated on Mar 10, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

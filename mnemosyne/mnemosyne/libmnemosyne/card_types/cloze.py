@@ -38,7 +38,7 @@ class Cloze(CardType):
     id = "5"
     name = _("Cloze deletion")
 
-    fields = [("text", _("Text"), None)]
+    fields = [("text", _("Text"))]
     unique_fields = ["text"]
 
     v = FactView(_("Cloze"), "5::1")
@@ -46,13 +46,16 @@ class Cloze(CardType):
     v.a_fields = ["b"]  # Generated on the fly. 
     fact_views = [v]
 
+    def key_format_proxies(self):
+        return {"text": "text", "f": "text", "b": "text"}
+
     def is_data_valid(self, fact_data):
         return bool(cloze_re.search(fact_data["text"]))
         
     def fact_data(self, card):
         cloze = card.extra_data["cloze"]
         question = card.fact["text"].replace("[", "").replace("]", "")
-        question = question.replace(cloze, "[...]",  1)
+        question = question.replace(cloze, "[...]", 1)
         return {"f": question, "b": cloze}
 
     def create_sister_cards(self, fact):
@@ -61,7 +64,6 @@ class Cloze(CardType):
             card = Card(self, fact, self.fact_views[0])
             card.extra_data["cloze"] = match.group(1)
             card.extra_data["index"] = len(cards)
-            card.id += "." + str(len(cards)) # Make id unique.
             cards.append(card)         
         return cards
 
@@ -91,19 +93,11 @@ class Cloze(CardType):
                     deleted_cards.append(card)
             # For the new cards that we are about to create, we need to have
             # a unique suffix first.
-            id_suffix = 0
-            for card in self.database().cards_from_fact(fact):
-                suffix = int(card.id.rsplit(".", 1)[1])
-                if suffix > id_suffix:
-                    id_suffix == suffix
-            id_suffix += 1
             for new_cloze in set(new_clozes).difference(new_clozes_processed):
                 new_index = new_clozes.index(new_cloze)
                 card = Card(self, fact, self.fact_views[0])
                 card.extra_data["cloze"] = new_cloze
                 card.extra_data["index"] = new_index
-                card.id += "." + str(id_suffix)
-                id_suffix += 1
                 new_cards.append(card)                  
         return new_cards, edited_cards, deleted_cards
 

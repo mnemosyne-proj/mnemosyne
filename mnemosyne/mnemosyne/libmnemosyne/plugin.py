@@ -71,6 +71,10 @@ class Plugin(Component):
                         db.update_criterion(criterion)
         if self.database().is_loaded() and self.review_reset_needed:
             self.review_controller().reset()
+            # We need to log 'started_scheduler' events manually and not
+            # from e.g. the 'activate' function of the scheduler because
+            # during startup, the database is not yet loaded when the
+            # scheduler gets activated.
             self.log().started_scheduler()
         # Use names instead of instances here in order to survive pickling.  
         self.config()["active_plugins"].add(self.__class__.__name__)

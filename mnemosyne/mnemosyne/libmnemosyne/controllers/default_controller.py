@@ -101,12 +101,10 @@ class DefaultController(Controller):
                 if answer == 0: # Merge and edit.
                     db.add_fact(fact)
                     for card in card_type.create_sister_cards(fact):
-                        # Make sure the log entry for adding the card comes
-                        # before the one with the initial repetition.
-                        self.log().added_card(card)
+                        db.add_card(card)
                         if grade >= 2:
                             self.scheduler().set_initial_grade(card, grade)
-                        db.add_card(card)  
+                            db.update_card(card, repetition_only=True)
                     merged_fact_data = copy.copy(fact.data)
                     for duplicate in duplicates:
                         for key in fact_data:
@@ -126,13 +124,11 @@ class DefaultController(Controller):
         cards = []
         tags = db.get_or_create_tags_with_names(tag_names)
         for card in card_type.create_sister_cards(fact):
-            # Make sure the log entry for adding the card comes before the one
-            # with the initial repetition.
-            self.log().added_card(card)
-            if grade >= 2:
-                self.scheduler().set_initial_grade(card, grade)
             card.tags = tags
             db.add_card(card)
+            if grade >= 2:
+                self.scheduler().set_initial_grade(card, grade)
+                db.update_card(card, repetition_only=True)
             cards.append(card)
         if save:
             db.save()
@@ -163,7 +159,7 @@ class DefaultController(Controller):
         self.stopwatch().unpause()
         
     def _change_card_type(self, fact, old_card_type, new_card_type,
-                          correspondence, new_fact_data=None, warn=True):
+                          correspondence, new_fact_data, warn=True):
 
         """This is an internal function, used by 'edit_sister_cards' and
         'change_card_type'. It should not be called from the outside by
@@ -207,14 +203,9 @@ class DefaultController(Controller):
                     self.review_controller().card = new_card
                 return 0
         else:
-            # Make sure the converter operates on card objects which already
-            # know their new type, otherwise we could get conflicting ids.
             for card in cards_from_fact:
                 card.card_type = new_card_type
                 card.fact = fact
-            if new_fact_data is not None:
-                fact.data = new_fact_data
-            # Do the conversion.
             new_cards, edited_cards, deleted_cards = converter.convert(\
                 cards_from_fact, old_card_type, new_card_type, correspondence)
             if warn and len(deleted_cards) != 0:
@@ -232,9 +223,6 @@ class DefaultController(Controller):
                 db.delete_card(card)
             for card in new_cards:
                 db.add_card(card)
-                # Make sure the log entry for adding the card comes before the
-                # one with the initial repetition.
-                self.log().added_card(card)
             for card in edited_cards:
                 db.update_card(card)
             if new_cards and self.review_controller().learning_ahead:
@@ -266,9 +254,6 @@ class DefaultController(Controller):
             db.delete_card(card)
         for card in new_cards:
             db.add_card(card)
-            # Make sure the log entry for adding the card comes before the
-            # one with the initial repetition.
-            self.log().added_card(card)
         if new_cards and self.review_controller().learning_ahead == True:
             self.review_controller().reset()
         # Apply new tags and modification time to cards and save them back to
@@ -302,9 +287,15 @@ class DefaultController(Controller):
                 clean_orphaned_static_media_files_needed = True
         warn = True
         for fact in facts:
-            assert new_card_type.is_data_valid(fact.data)
+            new_fact_data = {}
+            if correspondence:
+                for old_key, new_key in correspondence.iteritems():
+                    new_fact_data[new_key] = fact[old_key]
+            else:
+                new_fact_data = fact.data
+            assert new_card_type.is_data_valid(new_fact_data)
             result = self._change_card_type(fact, old_card_type,
-                new_card_type, correspondence, warn=warn)
+                new_card_type, correspondence, new_fact_data, warn)
             if result == -1:
                 return
             warn = False

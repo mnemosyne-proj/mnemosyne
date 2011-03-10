@@ -22,7 +22,7 @@ class Hook(Component):
                                          extra argument: card
        'check_for_edited_local_media'    in SQLite_sync
                                          extra argument: data
-       ================================  ===============================
+       ===============================   ===============================
 
     It is the 'run' method that will get called at the corresponding point
     in the program.

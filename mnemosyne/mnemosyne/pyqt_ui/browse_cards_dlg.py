@@ -375,6 +375,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             new_card_type, self.correspondence)
         self.display_card_table()
         self.card_type_tree_wdgt.rebuild()
+        self.tag_tree_wdgt.rebuild()
         
     def menu_add_tag(self):
         print 'add tag'

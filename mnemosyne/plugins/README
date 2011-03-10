@@ -5,6 +5,8 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * shortcuts.py: changing some keyboard shortcuts during review.
 
+ * new_card_type.py: a new card type with fixed text added around a field
+
  * new_card_type_widget.py: for if you want to customise the input/edit widget
    used for a certain card type.
  
@@ -17,11 +19,10 @@ illustrating to plugin writers on how to achieve certain functionality.
 
  * backup.py: moving your backups to a safe place.
 
- * settings.py: how to store extra settings for your plugin and set them
+ * configuration.py: how to store extra settings for your plugin and set them
    through the GUI.
 
- * grades_activity_criterion.py: adding a new activity criterion based on
-   grades.
+ * grades_criterion.py: adding a new criterion based on grades.
 
 Note that if you write plugins which require extra modules, the Windows user
 should add those to library.zip.

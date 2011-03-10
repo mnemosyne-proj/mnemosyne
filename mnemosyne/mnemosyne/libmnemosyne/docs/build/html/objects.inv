@@ -51,7 +51,8 @@ mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer method modules/scheduler
 mnemosyne.libmnemosyne.logger.Logger.edited_card_type method modules/logger.html
 mnemosyne.libmnemosyne.scheduler.Scheduler.next_card method modules/scheduler.html
 mnemosyne.libmnemosyne.tag_tree.TagTree.delete_subtree method modules/tag_tree.html
-mnemosyne.libmnemosyne.component.Component.render_chain method modules/component.html
+mnemosyne.libmnemosyne.card_type.CardType.key_format_proxies method modules/card_type.html
+mnemosyne.libmnemosyne.database.Database.path method modules/database.html
 mnemosyne.libmnemosyne.scheduler.Scheduler.scheduled_count method modules/scheduler.html
 mnemosyne.libmnemosyne.review_controller.ReviewController.counters method modules/review_controller.html
 mnemosyne.libmnemosyne.database.Database.unload method modules/database.html
@@ -161,7 +162,7 @@ mnemosyne.libmnemosyne.configuration.Configuration.activate method modules/confi
 mnemosyne.libmnemosyne.review_controller.ReviewController.is_answer_showing method modules/review_controller.html
 mnemosyne.libmnemosyne.logger.Logger.edited_fact method modules/logger.html
 mnemosyne.libmnemosyne.database.Database.set_scheduler_data method modules/database.html
-mnemosyne.libmnemosyne.database.Database.path method modules/database.html
+mnemosyne.libmnemosyne.component.Component.render_chain method modules/component.html
 mnemosyne.libmnemosyne.component.Component.review_widget method modules/component.html
 mnemosyne.libmnemosyne.logger.Logger.added_card method modules/logger.html
 mnemosyne.libmnemosyne.logger.Logger.edited_card method modules/logger.html

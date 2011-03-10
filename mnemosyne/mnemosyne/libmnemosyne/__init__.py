@@ -25,6 +25,7 @@ class Mnemosyne(Component):
 
         """For mobile clients, it is recommended that you set
         'upload_science_logs' to 'False'.
+        
         We need to specify 'upload_science_logs' as an argument here, so
         that we can inject it on time to prevent the uploader thread from
         starting.
@@ -103,20 +104,23 @@ class Mnemosyne(Component):
         self.extra_components_for_plugin = {}
         
     def initialise(self, data_dir=None, filename=None,
-                   automatic_upgrades=True):  
+                   automatic_upgrades=True):
         self.register_components()
         if data_dir:
             self.config().data_dir = data_dir
         self.activate_components()
         self.initialise_error_handling()
         register_component_manager(self.component_manager,
-                                   self.config()["user_id"])
+            self.config()["user_id"])
         self.execute_user_plugin_dir()
         self.activate_saved_plugins()
         # Loading the database should come after all user plugins have been
         # loaded, since these could be needed e.g. for a card type in the
         # database.
         self.load_database(filename)
+        # Only now that the database is loaded, we can start writing log
+        # events to it. This is why we log started_scheduler and
+        # loaded_database manually.
         self.log().started_program()
         self.log().started_scheduler()
         self.log().loaded_database()
@@ -154,7 +158,8 @@ class Mnemosyne(Component):
     def activate_components(self):
         
         """Now that everything is registered, we can activate the components
-        in the correct order: first config, followed by log.
+        in the correct order: first config, followed by log, and then the
+        rest.
         
         """
 
@@ -181,7 +186,7 @@ class Mnemosyne(Component):
                     
     def execute_user_plugin_dir(self):
         # Note that we put user plugins in the data_dir and not the
-        # config_dir as there are many plugins (.e.g. new card types) for
+        # config_dir as there could be plugins (e.g. new card types) for
         # which the database does not make sense without them. 
         plugin_dir = unicode(os.path.join(self.config().data_dir, "plugins"))
         sys.path.insert(0, plugin_dir)
@@ -232,7 +237,7 @@ class Mnemosyne(Component):
 
     def finalise(self):
         # Deactivate the sync server first, so that we make sure it reverts
-        # to the right backup file.
+        # to the right backup file in case of problems.
         server = self.component_manager.current("sync_server")
         if server:
             server.deactivate()

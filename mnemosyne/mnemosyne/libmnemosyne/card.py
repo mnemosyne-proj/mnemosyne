@@ -5,18 +5,21 @@
 import time
 
 from mnemosyne.libmnemosyne.utils import CompareOnId
-from mnemosyne.libmnemosyne.utils import numeric_string_cmp
+from mnemosyne.libmnemosyne.utils import rand_uuid, numeric_string_cmp
 
 
 class Card(CompareOnId):
 
-    """A card has a question and an answer, based on a fact view operating on
-    a fact. It also stores repetition data.
+    """A card has a question and an answer and also stores repetition data.
 
-    Creating and modification dates are POSIX timestamps stored as integers.
+    Questions and answers are dynamically generated depending on the card
+    type. Different render chains are supported, to e.g. render the question
+    for use in the review window, in the card browser, ... .
+
+    Creation and modification dates are POSIX timestamps stored as integers.
 
     For card types which need extra information (e.g. cloze deletion), the
-    variable 'extra_data' can be used to store extra information in the
+    variable 'extra_data' can be used to store this extra information in the
     database. It's dictionary which should contain only standard Python
     objects.
 
@@ -28,15 +31,15 @@ class Card(CompareOnId):
     across during sync.
 
     'active' is used to determine whether a card is included in the review
-    process. Currently, the UI allows setting cards active when then belong to
+    process. Currently, the UI allows setting cards as active if they belong to
     certain card type/fact view combos. We choose to store this information on
     card level and not as a flag in fact view or tag, so that plugins have the
-    possibility to offer more flexibility, e.g. by having different active
-    tags per card type/fact view combo.
-
+    possibility to offer more flexibility, e.g. by having cards active based
+    on grade, ...
+    
     'id' is used to identify this object to the external world (logs, xml
-    files, ...), whereas '_id' is an internal id that could be different and
-    that can be used by the database for efficiency reasons.
+    files, sync, ...), whereas '_id' is an internal id that could be different
+    and that can be used by the database for efficiency reasons.
 
     """
 
@@ -44,8 +47,7 @@ class Card(CompareOnId):
         self.card_type = card_type
         self.fact = fact
         self.fact_view = fact_view
-        self.id = self.fact.id + "." + self.card_type.id + "." + \
-                  self.fact_view.id
+        self.id = rand_uuid()
         self._id = None
         if creation_time is None:
             creation_time = int(time.time())
@@ -70,7 +72,7 @@ class Card(CompareOnId):
         forgotten, i.e. graded 0 or 1.
 
         'last_rep' and 'next_rep' are integer POSIX timestamps. Since they have
-        a resolution in seconds, the accomodate plugins doing minute-level
+        a resolution in seconds, they accomodate plugins doing minute-level
         scheduling. Storing them as int makes it very efficient in SQL.
 
         """

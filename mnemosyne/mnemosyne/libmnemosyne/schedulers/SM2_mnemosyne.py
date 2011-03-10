@@ -252,13 +252,13 @@ class SM2Mnemosyne(Scheduler):
                 sort_key = "random"
             else:
                 sort_key = ""
-            sister_together = \
-                             self.config()["memorise_sister_cards_on_same_day"]
+            sisters_together = \
+                self.config()["memorise_sister_cards_on_same_day"]
             for _card_id, _fact_id in db.cards_unseen(sort_key=sort_key,
                                                       limit=min(limit, 50)):
-                if (    sister_together and _fact_id not \
+                if (    sisters_together and _fact_id not \
                                             in self.fact__ids_in_queue) or \
-                   (not sister_together and _fact_id not \
+                   (not sisters_together and _fact_id not \
                                             in self.fact__ids_in_queue \
                           and _fact_id not in self.fact__ids_memorised):
                     self.card__ids_in_queue.append(_card_id)
@@ -269,7 +269,7 @@ class SM2Mnemosyne(Scheduler):
                         return
             # If the queue is empty, relax the 'sister not together'                           
             # requirement.                                                                      
-            if not sister_together and len(self.card__ids_in_queue) == 0:
+            if not sisters_together and len(self.card__ids_in_queue) == 0:
                 for _card_id, _fact_id in db.cards_unseen(\
                     sort_key=sort_key, limit=min(limit, 50)):                
                     if _fact_id not in self.fact__ids_in_queue:
@@ -327,7 +327,7 @@ class SM2Mnemosyne(Scheduler):
         self.last_card__id = _card_id
         return self.database().card(_card_id, id_is_internal=True)
 
-    def allow_prefetch(self):
+    def is_prefetch_allowed(self):
 
         """Can we display a new card before having processed the grading of
         the previous one?
@@ -343,7 +343,6 @@ class SM2Mnemosyne(Scheduler):
         # for the different grades, so we don't want any side effects
         # from hooks running then.
         if not dry_run:
-            card.card_type.before_repetition(card)
             for f in self.component_manager.all("hook", "before_repetition"):
                 f.run(card)            
         # When doing a dry run, make a copy to operate on. This leaves the
@@ -443,8 +442,8 @@ class SM2Mnemosyne(Scheduler):
             # Don't schedule sister cards on the same day. Keep normalising,
             # as a day is not always exactly DAY seconds when there are leap
             # seconds. 
-            while self.database().count_sister_cards_with_next_rep\
-                  (card, card.next_rep):
+            while self.database().sister_card_count_scheduled_between\
+                  (card, card.next_rep, card.next_rep + DAY):
                 card.next_rep = self.midnight_UTC(card.next_rep + DAY)
             # Round new interval to nearest cross-over point (only used in
             # logging here).
@@ -458,7 +457,6 @@ class SM2Mnemosyne(Scheduler):
         _("You've memorised 15 new cards.") + " " +\
         _("If you do this for many days, you could get a big workload later."))
         # Run hooks.
-        card.card_type.after_repetition(card)
         self.database().current_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):
             f.run(card)
@@ -482,7 +480,7 @@ class SM2Mnemosyne(Scheduler):
 
         if n > 0:
             now = self.adjusted_now()
-            return self.database().future_card_count_scheduled_between\
+            return self.database().card_count_scheduled_between\
                     (now + (n - 1) * DAY, now + n * DAY)
         else:
             return self.database().card_count_scheduled_n_days_ago(-n)

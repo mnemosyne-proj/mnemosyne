@@ -52,8 +52,8 @@ class HtmlCss(Renderer):
             pass        
         css += "}\n"
         # Field tags.
-        for key in card_type.keys():
-            css += "div#%s { " % key
+        for true_key, proxy_key in card_type.key_format_proxies().iteritems():
+            css += "div#%s { " % true_key
             # Set alignment within table cell.
             try:
                 alignment = self.config()["alignment"][card_type.id]
@@ -62,14 +62,14 @@ class HtmlCss(Renderer):
             css += "text-align: %s; " % alignment  
             # Text colours.
             try:
-                colour = self.config()["font_colour"][card_type.id][key]
+                colour = self.config()["font_colour"][card_type.id][proxy_key]
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
             except KeyError:
                 pass
             # Text font.
             try:
-                font_string = self.config()["font"][card_type.id][key]
+                font_string = self.config()["font"][card_type.id][proxy_key]
                 if font_string:
                     family,size,x,x,w,i,u,s,x,x = font_string.split(",")
                     css += "font-family: \"%s\"; " % family

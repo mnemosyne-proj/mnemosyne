@@ -57,6 +57,38 @@
 component of type hook, with the &#8216;used_for&#8217; argument any of the following
 hook points:</p>
 <blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>&#8216;after_load&#8217;</td>
+<td>in database.load</td>
+</tr>
+<tr><td>&#8216;after_backup&#8217;</td>
+<td>in database.backup</td>
+</tr>
+<tr><td>&#8216;before_unload&#8217;</td>
+<td>in database.unload</td>
+</tr>
+<tr><td>&#8216;configuration_defaults&#8217;</td>
+<td>in configuration.set_defaults</td>
+</tr>
+<tr><td>&#8216;before_repetititon&#8217;</td>
+<td>in SM2_mnemosyne.grade_answer
+extra argument: card</td>
+</tr>
+<tr><td>&#8216;after_repetititon&#8217;</td>
+<td>in SM2_mnemosyne.grade_answer
+extra argument: card</td>
+</tr>
+<tr><td>&#8216;check_for_edited_local_media&#8217;</td>
+<td>in SQLite_sync
+extra argument: data</td>
+</tr>
+</tbody>
+</table>
 </blockquote>
 <p>It is the &#8216;run&#8217; method that will get called at the corresponding point
 in the program.</p>
@@ -123,7 +155,7 @@ in the program.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 09, 2011.
+      Last updated on Mar 10, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

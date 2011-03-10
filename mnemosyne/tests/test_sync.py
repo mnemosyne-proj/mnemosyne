@@ -267,7 +267,7 @@ class TestSync(object):
         def test_server(self):
             db = self.mnemosyne.database()
             fact = db.fact(self.client_fact_id, id_is_internal=False)
-            assert fact.data == {"f": "f", "b": ""}
+            assert fact.data == {"f": "f"}
             assert db.con.execute("select count() from log").fetchone()[0] == 8 
             
         self.server = MyServer()
@@ -276,7 +276,7 @@ class TestSync(object):
 
         self.client = MyClient()
         card_type = self.client.mnemosyne.card_type_by_id("1")
-        fact = Fact({"f": "f", "b": ""})
+        fact = Fact({"f": "f"})
         self.client.mnemosyne.database().add_fact(fact)
         self.server.client_fact_id = fact.id
         self.client.mnemosyne.controller().save_file()
@@ -2192,7 +2192,7 @@ class TestSync(object):
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
             card_type = db.card_type(self.card_type_id, id_is_internal=False)
             assert card_type.name == "1 cloned"
-            assert card_type.fields == [("f", 'Front', None), ("b", 'Back', None)]
+            assert card_type.fields == [("f", 'Front'), ("b", 'Back')]
             assert card_type.unique_fields == ["f"]
             assert card_type.required_fields == ["f"]
             assert card_type.keyboard_shortcuts == {}
@@ -2228,7 +2228,7 @@ class TestSync(object):
             assert db.con.execute("select count() from fact_views").fetchone()[0] == 1
             card_type = db.card_type(self.card_type_id, id_is_internal=False)
             assert card_type.name == "1 cloned"
-            assert card_type.fields == [("f", 'Front', None), ("b", 'Back', None)]
+            assert card_type.fields == [("f", 'Front'), ("b", 'Back')]
             assert card_type.unique_fields == ["f"]
             assert card_type.required_fields == ["f"]
             assert card_type.keyboard_shortcuts == {}

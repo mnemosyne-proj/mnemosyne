@@ -23,18 +23,18 @@ class HtmlCssCardBrowser(HtmlCss):
     def card_type_css(self, card_type):
         css = "._search { color: red; }"
         # Field tags.
-        for key in card_type.keys():
-            css += ".%s { " % key
+        for true_key, proxy_key in card_type.key_format_proxies().iteritems():
+            css += ".%s { " % true_key
             # Text colours.
             try:
-                colour = self.config()["font_colour"][card_type.id][key]
+                colour = self.config()["font_colour"][card_type.id][proxy_key]
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
             except KeyError:
                 pass
             # Text font.
             try:
-                font_string = self.config()["font"][card_type.id][key]
+                font_string = self.config()["font"][card_type.id][proxy_key]
                 if font_string:
                     family,size,x,x,w,i,u,s,x,x = font_string.split(",")
                     css += "font-family: \"%s\"; " % family
@@ -58,8 +58,9 @@ class HtmlCssCardBrowser(HtmlCss):
     def body(self, data, fields, **render_args):
         html = ""
         for field in fields:
-            data_field = data[field].replace("\n", " / ")
-            html += "<span class=\"%s\">%s</span> / " % (field, data_field)
+            if field in data and data[field]:
+                data_field = data[field].replace("\n", " / ")
+                html += "<span class=\"%s\">%s</span> / " % (field, data_field)
         return html[:-2]
                 
     def render_fields(self, data, fields, card_type, **render_args):

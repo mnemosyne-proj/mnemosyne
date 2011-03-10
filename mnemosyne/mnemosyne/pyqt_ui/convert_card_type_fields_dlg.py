@@ -21,8 +21,7 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
         self.check_required_fields = check_required_fields
         self.comboboxes = {}
         index = 1
-        for old_fact_key, old_fact_key_name, old_language_code in \
-            old_card_type.fields:
+        for old_fact_key, old_fact_key_name in old_card_type.fields:
             label = QtGui.QLabel(self)
             label.setText(old_fact_key_name + ":")
             font = QtGui.QFont()
@@ -31,8 +30,7 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
             label.setFont(font)
             self.gridLayout.addWidget(label, index, 0, 1, 1)
             combobox = QtGui.QComboBox(self)
-            for new_fact_key, new_key_name, new_language_code in \
-                new_card_type.fields:
+            for new_fact_key, new_key_name in new_card_type.fields:
                 combobox.addItem(new_key_name)
             combobox.addItem(_("<none>"))
             combobox.setCurrentIndex(combobox.count()-1)
@@ -44,8 +42,7 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
     def combobox_updated(self):
         self.ok_button.setEnabled(False)
         self.correspondence.clear()
-        for old_fact_key, old_fact_key_name, old_language_code in \
-            self.old_card_type.fields:
+        for old_fact_key, old_fact_key_name in self.old_card_type.fields:
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):
                 self.ok_button.setEnabled(True)                
@@ -71,8 +68,7 @@ class ConvertCardTypeFieldsDlg(QtGui.QDialog, Ui_ConvertCardTypeFieldsDlg):
               
     def accept(self):
         self.correspondence.clear()
-        for old_fact_key, old_fact_key_name, old_language_code in \
-            self.old_card_type.fields:
+        for old_fact_key, old_fact_key_name in self.old_card_type.fields:
             new_fact_key_name = self.comboboxes[old_fact_key].currentText()
             if new_fact_key_name != _("<none>"):
                 new_fact_key = \

@@ -17,8 +17,8 @@ class Component(object):
     'used_for' can store certain relationships between components, e.g.
     a card type widget is used for a certain card type.
 
-    Most of the time, instances are stored here, apart from widgets when
-    classes are stored. (Instantiating a complex widget can take a lot of
+    Most of the time, instances are stored here, apart from widgets in which
+    case classes are stored. (Instantiating a complex widget can take a lot of
     time on a mobile device, and should be done lazily.) Only the main
     widget is stored as an instance here.
 
@@ -86,8 +86,10 @@ class Component(object):
     
     def review_widget(self):
 
-        """For efficiency reasons, the review widget is instantiated late and
-        is under control of the review controller.
+        """Apart from the main widget, we create all other widgets lazily for
+        efficiency reasons. The review widget instance is therefore not stored
+        in the component manager, but is under the control of the review
+        controller.
 
         """
         
@@ -119,8 +121,9 @@ class Component(object):
         """If there are still dangling sessions (i.e. those waiting in vain
         for more client input) in the sync server, we should flush them and
         make sure they restore from backup before doing anything that could
-        change the database. Otherwise, if these sessions close during program
-        shutdown, their backup restoration will override the changes.
+        change the database (e.g. adding a card). Otherwise, if these
+        sessions close later during program shutdown, their backup
+        restoration will override the changes.
 
         """
 

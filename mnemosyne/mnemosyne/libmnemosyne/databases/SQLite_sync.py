@@ -546,13 +546,9 @@ class SQLiteSync(object):
             elif event_type == EventTypes.EDITED_FACT:
                 self.update_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_FACT:
-                fact = self.fact_from_log_entry(log_entry)
-                self.delete_fact(fact)
+                self.delete_fact(self.fact_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_CARD:
-                card = self.card_from_log_entry(log_entry)
-                # 'add_card' does not log, so we need to do it ourselves.
-                self.add_card(card)
-                self.log().added_card(card)
+                self.add_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_CARD:
                 self.update_card(self.card_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD:

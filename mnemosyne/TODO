@@ -1,75 +1,54 @@
--make docs:Malformed table.
+-option to hide pronunciation fields on card type (use config.set_appearance property)
 
--update plugins to reflect card type rename.
+-test import of many cards, such that they have the same creation date, and see if order
+ is kept
 
--get rid of 'language code', type-answer
+-right click add tags in card browser
 
--cloze to front-to-back-only conversion fails
-
--don't store empty/optional fields in sql. Corner case: editing deletes an existing field.
--option to hide pronunciation fields on card type
--better tips on start of 'clone card type'
-
--right click add tags
-
--right click remove tags
-
--check for related cards on same day could fail if minute level scheduler is used in the meantime
- (update comment in scheduler too)
--go through all source
--not logging add_cards in db?
--communicate SQLite_no_pregenerated_data, save interval, ..., repaint now to client writers
--include coverage source option
--test on cramming counters
-
--reenable upload
--remove hard coded dot_mnemosyne2 path in webserver
--turn off logging in webserver
-
-
-
--delay matplotlib instantiation
--profile startup/shutdown
+-right click remove tags in card browser
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
 -document cntrl enter in edit dialog instead of clicking ok (also manual?) Ditto for control + grade
 -tooltip in preview to explain sister cards
+-better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
 
+-communicate SQLite_no_pregenerated_data, save interval, ..., repaint_now, upload_science_logs to client writers
+
+-go through all source (reviewed up to database.py)
+
+-delay matplotlib instantiation
+-profile startup/shutdown
+
 -make distrib
+-reenable datadir in setup.py
+
+-first run wizard and tip of the day.
+-startup tips: right click to add cards or sound, comma to 
+ separate tag names, :: to separate hierarchies
+ not having to do all your scheduled repetitions in one sitting
+
+-About dialog
+-also add option to download source in the info box
 
 -add plugin example on card type specific renderer
 -add doc on how to write plugin to sfinx doc
 
 -Qt bug? different font size in edit box and in css
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
--Qt issue: cntl+a select all in card browser only selects all the prefetched entries
+-Qt bug? Cntl+a select all in card browser only selects all the prefetched entries
+-Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
 
 -windows: test auto upgrade
 -windows: test unicode filenames in sync protocol
 -test running from usb, update instructions
 -add tests with unicode in data_dir
 
--more elaborate plugin description in bottom pane
-
--reenable datadir in setup.py
-
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
  (also make sure they are on webpage)
 
 -Faq about how to pronounce Mnemosyne
-
--card formatting options on remote web server: act on config info that the client sent across
- Add hook in set_partner_info
--check if online username is still free
--threading/multiprocess for sync and review servers? Threading prob. works automatically if persistent
- connections are supported (CherryPy), perhaps also for multiprocess. Multiprocess probably only useful
- to get round the GIL, which is only useful on a dedicated server.
-
--sync to empty webserver (add 'database_is_empty' to server and act upon it)
--add support for error messages on protocol mismatch, expired credit
--add support for render chain selection
 
 -import
 -update data if same id present on import
@@ -94,13 +73,16 @@
 -make sure there is an error message to the user if xml import fails.
 -mention Mnemosyne XML instead of XML
 
+-more elaborate plugin description in bottom pane
+
+-card appearance: show preview live
+
 -docs on dealing with synonyms and words which have multiple meanings (if implemented, update card converter too)
+ check fonts for new meanings, check decorators
 
 -http://gitorious.org/hooq/hooq? Qt4 testing
  http://www.fredemmott.co.uk/blog/2010/01/18/Qt4%20GUI%20Testing%20with%20Hooq
 
--deactive all tags, click on 1 tag: gives partial flag for that tag, not full tag, and is not counted
--better initial size of activate cards dialog. Autoresizing?
 -Select saved set, switch tab to other criterion (deselects set) and switch back to original one.
  The set should then be autoselected again.
 -being able to edit existing set, replace input box by combobox with old sets
@@ -110,24 +92,15 @@
 
 -hoop up dialogs in UDP
 
--implement duplicate checking
--confirmation dialog for deleted cards
--explain check for duplicates after import of 1.x? Also give a hint of its working in
-the GUI function itself?
--duplicate card preview?
+-implement duplicate checking. Also synonym checking? Add then standard tags.
+-give hints about when this is needed, both when starting the menu option for the
+ first time, and when importing for the first (second?) time.
 -do review_controller.rebuild_queue, reload counter after clean duplicates
 
 -new translation infrastructure
 -handle deferred translation
 -different translators for different users?
 
--tips (both on startup and on use): right click to add cards or sound, comma to 
- separate tag names, :: to separate hierarchies
--comment/tip about not having to do all your scheduled repetitions in
- one sitting
--tip on selecting 'new database' to keep everything in one database
--upgrade docs on duplicate checking
--update tooltips, inform Patrick
 -tar file size estimate sometimes off by one record.
 
 -integrate webserver in GUI, login mechanism, session_token, cookies
@@ -138,7 +111,19 @@ the GUI function itself?
 -send absolute filenames when running server locally, so that we don't need to
  send them over http
 
--card appearance: show preview live
+-card formatting options on remote web server: act on config info that the client sent across
+ Add hook in set_partner_info
+-check if online username is still free
+-threading/multiprocess for sync and review servers? Threading prob. works automatically if persistent
+ connections are supported (CherryPy), perhaps also for multiprocess. Multiprocess probably only useful
+ to get round the GIL, which is only useful on a dedicated server.
+-sync to empty webserver (add 'database_is_empty' to server and act upon it)
+-add support for error messages on protocol mismatch, expired credit
+-add support for render chain selection
+-media handler?
+-create latex dir in filter plugin?
+-media on dropbox?
+-plugin to store backups on dropbox
 
 -larger interval for initial grade 5?
 
@@ -169,8 +154,6 @@ the GUI function itself?
 
 -copy card and create a new one that way
 
--also add option to download source in the info box
-
 -explain license on our website
 
 -grep through TODO's in source code
@@ -181,25 +164,14 @@ the GUI function itself?
 
 -allow edit current card and add card to be open at the same time?
 
--make file handling more robust, detect all errors (see mail by
- OldGrantonian)
-
 -make filters more efficients by using regex instead of loops.
 
 -easier function to do tag detection in plugin
 
--document cntrl enter in edit dialog instead of clicking ok
 
 pylint:
 	find ./mnemosyne/libmnemosyne/ -name \*.py | while read f ; do echo $f;pylint $f 2>&1|grep ^E:; done
 
--Qt bug: insertAtTop on tags combobox in add_cards does not seem to work
-
-
-* After 2.0:
-
-
--post nose 0.11: add cover branches
 
 -matplotlib screen corruption, reenble resize?
 
@@ -281,7 +253,7 @@ a good alternative, as it does not obey selection coloring
 -ellisis in QTextDocument in card browser?
 -rewrite card browser in C++, or at least delegate? In that case, move question and answer getting
  to data, and eliminate the text colors at selection using Qt.
--inline editing in card browser
+-inline editing in card browser?
 -editing names of card type clones, also in browser
 -tag browser editor of tag names does not capture focus out event, so card count is not redrawn.
 -save selection state (not checkstate) in tag and card type browser through hibernation
@@ -311,10 +283,6 @@ a good alternative, as it does not obey selection coloring
 
 -get rid of mp3 clip prevention?
 
--media handler?
--create latex dir in filter plugin?
--media on dropbox?
--plugin to store backups on dropbox
 
 -detect wrong current date (last review in the future or way past)
 
@@ -411,7 +379,6 @@ Multiuser statistics analysis:
 
 -change file suffix when changing export format
 
--button after opening fact editor in edit deck to go to next card in the list
 
 -sound recorder
 

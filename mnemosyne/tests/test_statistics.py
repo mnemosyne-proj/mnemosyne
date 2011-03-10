@@ -114,4 +114,6 @@ class TestStatistics(MnemosyneTest):
         from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionScore
         page = RetentionScore(self.mnemosyne.component_manager)
         page.prepare_statistics(0)
-        
+
+    def test_card_count_for_tags(self):
+        assert self.database().card_count_for_tags([], active_only=False) == 0

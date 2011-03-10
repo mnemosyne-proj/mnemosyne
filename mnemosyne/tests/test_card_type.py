@@ -16,9 +16,9 @@ class DecoratedThreeSided(CardType):
     name = "Foreign word with pronunciation (decorated)"
     
     # List and name the keys.
-    fields = [("f", "Foreign word", None),
-              ("p_1", "Pronunciation", None),
-              ("m_1", "Translation", None)]
+    fields = [("f", "Foreign word"),
+              ("p_1", "Pronunciation"),
+              ("m_1", "Translation")]
 
     # Recognition.
     v1 = FactView("Recognition", "3::1")

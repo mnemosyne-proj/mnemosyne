@@ -4,7 +4,6 @@
 
 import os
 import sys
-import locale
 import cPickle
 
 from mnemosyne.libmnemosyne.translator import _
@@ -74,8 +73,7 @@ class Configuration(Component, dict):
         """
 
         for key, value in \
-            {"first_run": True,
-             "path": self.database().default_name + self.database().suffix,
+            {"path": self.database().default_name + self.database().suffix,
              "import_dir": self.data_dir,
              "import_format": "XML",
              "reset_learning_data_import": False,
@@ -122,13 +120,12 @@ class Configuration(Component, dict):
         if not self["user_id"]:
             self["user_id"] = rand_uuid()
         # Allow other plugins or frontend to set their configuration data.
-        for f in self.component_manager.all("hook",
-            "configuration_defaults"):
+        for f in self.component_manager.all("hook", "configuration_defaults"):
             f.run()
 
     def load(self):
         try:
-            config_file = file(os.path.join(self.config_dir, "config"), 'rb')
+            config_file = file(os.path.join(self.config_dir, "config"), "rb")
             for key, value in cPickle.load(config_file).iteritems():
                 self[key] = value
             self.set_defaults()
@@ -215,7 +212,6 @@ class Configuration(Component, dict):
             print >> f, rand_uuid()
             f.close()
 
-
     def set_appearance_property(self, property_name, property, card_type,
             fact_key=None):
 
@@ -225,10 +221,9 @@ class Configuration(Component, dict):
         """
 
         if property_name not in ["background_colour", "font", "font_colour",
-                                 "alignment"]:
+            "alignment"]:
             raise KeyError
-        if property_name == "background_colour" or \
-               property_name == "alignment":
+        if property_name in ["background_colour", "alignment"]:
             self[property_name][card_type.id] = property
             return
         self[property_name].setdefault(card_type.id, {})
@@ -258,12 +253,7 @@ class Configuration(Component, dict):
                     if var in self:
                         self[var] = getattr(user_config, var)
             except:
-                # Work around the unexplained fact that config.py cannot get
-                # imported right after it has been created.
-                if self["first_run"] == True:
-                    pass
-                else:
-                    raise RuntimeError, _("Error in config.py:") \
+                raise RuntimeError, _("Error in config.py:") \
                           + "\n" + traceback_string()
 
     def correct_config(self):
@@ -276,8 +266,8 @@ class Configuration(Component, dict):
             history_files.sort()
             if history_files:
                 last = history_files[-1]
-                user_id, log_index = last.rsplit('_', 1)
-                log_index = int(log_index.split('.')[0]) + 1
+                user_id, log_index = last.rsplit("_", 1)
+                log_index = int(log_index.split(".")[0]) + 1
                 self["user_id"] = user_id
                 self["log_index"] = log_index
 

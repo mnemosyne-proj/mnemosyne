@@ -5,9 +5,10 @@
 
 class ComponentManager(object):
 
-    """Manages the different components. Apart from some UI widgets, instances
-    of the different components are stored (as opposed to classes). In such a
-    way, the component manager stores all the state of the user.
+    """Manages the different components. Typically, instances of the different
+    components are stored, as opposed to classes. In such a way, the component
+    manager stores all the state of the user. Exceptions are widgets other
+    than the main widget, which are lazily created for efficiency reasons.
 
     For certain components, many can be active at the same time (card types,
     filters, function hooks, ...). For others, there can be only on active
@@ -32,8 +33,8 @@ class ComponentManager(object):
         else:
             if component not in self.components[used_for][comp_type]:
                 self.components[used_for][comp_type].append(component)
-        # We could abuse the component's used_for as the id here, but that
-        # would hamper readability.
+        # (We could abuse the component's used_for as the id here, but that
+        # would hamper readability.)
         if comp_type == "card_type":
             self.card_type_by_id[component.id] = component
         elif comp_type == "render_chain":
@@ -50,9 +51,9 @@ class ComponentManager(object):
             
     def add_component_to_plugin(self, plugin_class_name, component_class):
 
-        """Typical use case for this is when a plugin has a GUI
-        component which obviously does not live inside libmnemosyne, and which
-        needs to be added at a later stage.
+        """Typical use case for this is when a plugin has a GUI component
+        which obviously does not live inside libmnemosyne, and which needs to
+        be added at a later stage.
         
         """
         
@@ -64,21 +65,24 @@ class ComponentManager(object):
         
         """For components for which there can be many active at once."""
 
+        # If 'used_for' is not a class, we can just retrieve it.
         if used_for == None or isinstance(used_for, str):
             try:
                 return self.components[used_for][comp_type]
             except:
                 return []
-
-        # See if there is a component registered for the exact type.
+        # Otherwise, we also take inheritance into account. First, we see
+        # if there is a component registered for the exact type.
         try:
             return self.components[used_for][comp_type]
         except:
             # See if there is a component registered for the parent class.
+            # We need to do this both for the case where 'used_for' is a
+            # tuple and a single class.
+            class_keys = [_key for _key in self.components.keys() if \
+                not isinstance(_key, str) and not (_key == None) \
+                and isinstance(_key, tuple)]            
             if isinstance(used_for, tuple):
-                class_keys = [_key for _key in self.components.keys() if \
-                    not isinstance(_key, str) and not (_key == None) \
-                    and isinstance(_key, tuple)]
                 for key in class_keys:                   
                     if issubclass(used_for[0], key[0]) and \
                        issubclass(used_for[1], key[1]):
@@ -88,9 +92,6 @@ class ComponentManager(object):
                             return []
                 return []
             else:
-                class_keys = [_key for _key in self.components.keys() if \
-                    not isinstance(_key, str) and not (_key == None) \
-                    and not isinstance(_key, tuple)]
                 for key in class_keys:
                     if issubclass(used_for, key):
                         try:
@@ -123,9 +124,9 @@ class ComponentManager(object):
 
 
 # A component manager stores the entire session state of a user through the
-# different components it registers. To enable multiple users to use
-# libmnemosyne simultaneously, we store a component manager instance for each
-# user.
+# different components it registers. To enable multiple users to use a single
+# instance of libmnemosyne simultaneously, we store a component manager
+# instance for each user.
 
 _component_managers = {}
 

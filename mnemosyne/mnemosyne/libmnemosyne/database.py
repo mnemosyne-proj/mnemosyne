@@ -203,42 +203,15 @@ class Database(Component):
         
         """Return a list of the cards deriving from a fact."""
         
-        raise NotImplementedError
-    
-    def count_sister_cards_with_next_rep(self, card, next_rep):
-
-        """Return how many sister cards with grade >= 2 are scheduled at
-        'next_rep'. Note that there is no need that next_rep == card.next_rep.
-
-        """
-        
-        raise NotImplementedError        
+        raise NotImplementedError     
 
     def duplicates_for_fact(self, fact, card_type):
 
-        """Return facts with the same 'card_type.unique_fields'
-        data as 'fact'.
-
-        """
+        """Return facts with same 'card_type.unique_fields' data as 'fact'."""
 
         raise NotImplementedError
 
     def card_types_in_use(self):
-        raise NotImplementedError
-
-    def fact_count(self):
-        raise NotImplementedError
-
-    def card_count(self):
-        raise NotImplementedError
-
-    def non_memorised_count(self):
-        raise NotImplementedError
-
-    def scheduled_count(self, days=0):
-        raise NotImplementedError
-
-    def active_count(self):
         raise NotImplementedError
 
     # Card queries used by the scheduler. Returns tuples of internal ids

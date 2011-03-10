@@ -202,7 +202,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         for render_chain in self.component_manager.all("render_chain"):
             render_chain.renderer_for_card_type(card_type).update(card_type)
         fact_data = {}
-        for fact_key, fact_key_name, language_code in card_type.fields:
+        for fact_key, fact_key_name in card_type.fields:
             fact_data[fact_key] = fact_key_name
         fact = Fact(fact_data)
         cards = card_type.create_sister_cards(fact)        

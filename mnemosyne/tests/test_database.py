@@ -13,6 +13,9 @@ from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import expand_path
 
+HOUR = 60 * 60 # Seconds in an hour. 
+DAY = 24 * HOUR # Seconds in a day.
+
 
 class TestDatabase(MnemosyneTest):
 
@@ -362,15 +365,15 @@ class TestDatabase(MnemosyneTest):
                                               grade=-1, tag_names=["default"])        
         self.review_controller().new_question()
         assert card_1 == self.review_controller().card
-        assert self.database().count_sister_cards_with_next_rep(card_1, 0) == 0
+        assert self.database().sister_card_count_scheduled_between(card_1, 0, DAY) == 0
         self.review_controller().grade_answer(2)
         card_1 = self.database().card(card_1._id, id_is_internal=True)
         card_3.next_rep = card_1.next_rep
         card_3.grade = 2
         self.database().update_card(card_3)
-        assert self.database().count_sister_cards_with_next_rep(card_2, card_1.next_rep) == 1        
-        assert self.database().count_sister_cards_with_next_rep(card_3, card_1.next_rep) == 0
-        assert self.database().count_sister_cards_with_next_rep(card_1, card_1.next_rep) == 0
+        assert self.database().sister_card_count_scheduled_between(card_2, card_1.next_rep, card_1.next_rep+DAY) == 1        
+        assert self.database().sister_card_count_scheduled_between(card_3, card_1.next_rep, card_1.next_rep+DAY) == 0
+        assert self.database().sister_card_count_scheduled_between(card_1, card_1.next_rep, card_1.next_rep+DAY) == 0
 
     def test_purge_backups(self):
         backup_dir = os.path.join(self.config().data_dir, "backups")

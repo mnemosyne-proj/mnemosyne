@@ -6,6 +6,7 @@ import os
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
+from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 answer = 0
@@ -285,3 +286,44 @@ class TestAddCards(MnemosyneTest):
                                            grade=-1, tag_names=["tag"])
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
+
+    def test_log(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.card_type_by_id("1")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=3, tag_names=["default"])[0]
+        self.controller().save_file()
+
+        sql_res = self.database().con.execute(\
+            "select * from log where _id=6").fetchone()
+        assert sql_res["event_type"] == EventTypes.ADDED_CARD
+        assert sql_res["object_id"] is not None
+        
+        sql_res = self.database().con.execute(\
+            "select * from log where _id=7").fetchone()
+        assert sql_res["event_type"] == EventTypes.REPETITION
+        
+    def test_optional_fields(self):
+        fact_data = {"f": "foreign",
+                     "m_1": "meaning", "n": ""}
+        card_type = self.card_type_by_id("3")
+        card = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=3, tag_names=["default"])[0]
+        self.controller().save_file()
+        assert self.database().con.execute(\
+            "select count() from data_for_fact where key='n'").fetchone()[0] == 0
+
+        fact_data_2 = {"f": "foreign",
+                       "m_1": "meaning", "n": "notes"}
+        self.controller().edit_sister_cards(card.fact, fact_data_2, card_type,
+            card_type, [], {})
+        self.controller().save_file()
+        assert self.database().con.execute(\
+            "select count() from data_for_fact where key='n'").fetchone()[0] == 1
+
+        self.controller().edit_sister_cards(card.fact, fact_data, card_type,
+            card_type, [], {})
+        self.controller().save_file()
+        assert self.database().con.execute(\
+            "select count() from data_for_fact where key='n'").fetchone()[0] == 0

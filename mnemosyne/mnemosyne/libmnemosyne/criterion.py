@@ -11,9 +11,8 @@ class Criterion(Component):
     """Used to select a subset of cards, e.g. which cards are currently
     active, i.e. included in the review process.
 
-    The available Criteria are stored as classes in the component_manager.
-
-    The actual instances together with their data are stored in the database.
+    The available criteria are stored as classes in the component_manager,
+    the actual instances together with their data are stored in the database.
 
     """
 
@@ -32,12 +31,11 @@ class Criterion(Component):
     def apply_to_card(self, card):
 
         """Set the card active or not depending on the criterion. Does not
-        write to the database. Called after creating or updating cards, to
-        see whether these cards should start out their life as active or not.
+        write to the database. Called e.g. after creating, updating or
+        reviewing cards, to see whether these cards should start out their
+        life as active or not.
 
-        Also called after reviewing a card.
-
-        The tag and card type creation and deletion function are callbacks
+        The tag and card type creation and deletion functions are callbacks
         called by the rest of libmnemosyne when these objects get created or
         destroyed, such that Criteria can update their status if needed.
 

@@ -81,7 +81,7 @@
 <dt><a href="modules/logger.html#mnemosyne.libmnemosyne.logger.Logger.added_tag">added_tag() (mnemosyne.libmnemosyne.logger.Logger method)</a></dt>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.after_repetition">after_repetition() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt>
 <dt><a href="modules/component_manager.html#mnemosyne.libmnemosyne.component_manager.ComponentManager.all">all() (mnemosyne.libmnemosyne.component_manager.ComponentManager method)</a></dt>
-<dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.allow_prefetch">allow_prefetch() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt>
+<dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed">is_prefetch_allowed() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt>
 <dt><a href="modules/card.html#mnemosyne.libmnemosyne.card.Card.answer">answer() (mnemosyne.libmnemosyne.card.Card method)</a></dt>
 <dt><a href="modules/criterion.html#mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card">apply_to_card() (mnemosyne.libmnemosyne.criterion.Criterion method)</a></dt>
 <dt><a href="modules/criterion.html#mnemosyne.libmnemosyne.criterion.CriterionApplier.apply_to_database">apply_to_database() (mnemosyne.libmnemosyne.criterion.CriterionApplier method)</a></dt>
@@ -133,7 +133,7 @@
 <dt><a href="modules/component.html#mnemosyne.libmnemosyne.component.Component.controller">controller() (mnemosyne.libmnemosyne.component.Component method)</a></dt>
 <dt><a href="modules/card_type_converter.html#mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter.convert">convert() (mnemosyne.libmnemosyne.card_type_converter.CardTypeConverter method)</a></dt>
 <dt><a href="modules/configuration.html#mnemosyne.libmnemosyne.configuration.Configuration.correct_config">correct_config() (mnemosyne.libmnemosyne.configuration.Configuration method)</a></dt>
-<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.count_sister_cards_with_next_rep">count_sister_cards_with_next_rep() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
+<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.sister_card_count_with_next_rep">sister_card_count_with_next_rep() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.counters">counters() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.create_new_cards">create_new_cards() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards">create_sister_cards() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt>
@@ -270,6 +270,7 @@
 <table width="100%" class="indextable"><tr><td width="33%" valign="top">
 <dl>
 
+<dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.key_format_proxies">key_format_proxies() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.key_names">key_names() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.key_with_name">key_with_name() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt></dl></td><td width="33%" valign="top"><dl>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.keys">keys() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt>
@@ -530,7 +531,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 09, 2011.
+      Last updated on Mar 10, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

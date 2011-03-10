@@ -17,6 +17,29 @@ class SQLiteStatistics(object):
     so that SQLite.py does not becomes too large.
 
     """
+
+    def tag_count(self):
+        return self.con.execute("select count() from tags").fetchone()[0]
+    
+    def fact_count(self):
+        return self.con.execute("select count() from facts").fetchone()[0]
+
+    def card_count(self):
+        return self.con.execute("""select count() from cards""").fetchone()[0]
+
+    def non_memorised_count(self):
+        return self.con.execute("""select count() from cards
+            where active=1 and grade<2""").fetchone()[0]
+
+    def scheduled_count(self, timestamp):
+        count = self.con.execute("""select count() from cards
+            where active=1 and grade>=2 and ?>=next_rep""",
+            (timestamp, )).fetchone()[0]
+        return count
+
+    def active_count(self):
+        return self.con.execute("""select count() from cards
+            where active=1""").fetchone()[0]
         
     def easinesses(self, active_only):
         command = "select easiness from cards where grade>=0"
@@ -52,6 +75,8 @@ class SQLiteStatistics(object):
 
         """
 
+        if len(tags) == 0:
+            return 0
         if active_only == True:
             raise NotImplementedError
         command = "select count(distinct _card_id) from tags_for_card where "
@@ -69,11 +94,23 @@ class SQLiteStatistics(object):
         if active_only:
             command += " and cards.active=1"    
         return self.con.execute(command, (tag._id, grade)).fetchone()[0]
- 
-    def future_card_count_scheduled_between(self, start, stop):
+
+    def sister_card_count_scheduled_between(self, card, start, stop):
+        
+        """Return how many sister cards with grade >= 2 are scheduled at
+        between 'start' (included) and 'stop' (excluded).
+
+        """
+        
+        return self.con.execute("""select count() from cards where active=1
+            and grade>=2 and ?<=next_rep and next_rep<? and _id<>? and _id in
+            (select _id from cards where _fact_id=?)""",
+            (start, stop, card._id, card.fact._id)).fetchone()[0]
+    
+    def card_count_scheduled_between(self, start, stop):
         return self.con.execute(\
             """select count() from cards where active=1 and grade>=2
-            and ?<next_rep and next_rep<=?""",
+            and ?<=next_rep and next_rep<?""",
             (start, stop)).fetchone()[0]
 
     def _start_of_day_n_days_ago(self, n):
