@@ -20,9 +20,24 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.vboxlayout = QtGui.QVBoxLayout()
         self.fact_key_for_edit_box = {}
         self.top_edit_box = None
+        # Does this card type need to deal with the hiding of pronunciation
+        # fields?
+        if "p_1" not in self.card_type.keys():
+            pronunciation_hiding = None
+        else:
+            try:
+                pronunciation_hiding = self.config()\
+                    ["hide_pronunciation_field"][self.card_type.id]["p_1"]
+            except KeyError:
+                pronunciation_hiding = False
+        # Construct the rest of the dialog.
         for fact_key, fact_key_name in self.card_type.fields:
-            self.vboxlayout.addWidget(QtGui.QLabel(fact_key_name + ":", self))
-            t = QTextEdit2(self)
+            l = QtGui.QLabel(fact_key_name + ":", self)
+            self.vboxlayout.addWidget(l)
+            if fact_key == "p_1":
+                self.pronunciation_label = l
+                self.pronunciation_label.setVisible(not pronunciation_hiding)            
+            t = QTextEdit2(self, pronunciation_hiding)
             t.setTabChangesFocus(True)
             t.setUndoRedoEnabled(True)
             t.setReadOnly(False)
@@ -34,6 +49,9 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             self.fact_key_for_edit_box[t] = fact_key
             if not self.top_edit_box:
                 self.top_edit_box = t
+            if fact_key == "p_1":
+                self.pronunciation_box = t
+                self.pronunciation_box.setVisible(not pronunciation_hiding)
             self.update_formatting(t)
             t.textChanged.connect(self.text_changed)
             t.currentCharFormatChanged.connect(self.reset_formatting)
@@ -41,6 +59,13 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.resize(QtCore.QSize(QtCore.QRect(0,0,325,264).size()).\
                     expandedTo(self.minimumSizeHint()))
         self.top_edit_box.setFocus()
+
+    def pronunciation_hiding_toggled(self, checked):
+        self.config().set_appearance_property("hide_pronunciation_field",
+            checked, self.card_type)
+        self.pronunciation_label.setVisible(not checked)
+        self.pronunciation_box.setVisible(not checked)
+        self.pronunciation_box.pronunciation_hiding = checked
         
     def update_formatting(self, edit_box):
         fact_key = self.fact_key_for_edit_box[edit_box]

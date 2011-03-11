@@ -91,6 +91,7 @@ class Configuration(Component, dict):
              "font_colour": {}, # [card_type.id][fact_key]
              "background_colour": {}, # [card_type.id]
              "alignment": {}, # [card_type.id]
+             "hide_pronunciation_field": {}, # [card_type.id]             
              "non_memorised_cards_in_hand": 10,
              "randomise_new_cards": False,
              "randomise_scheduled_cards": False,
@@ -221,7 +222,7 @@ class Configuration(Component, dict):
         """
 
         if property_name not in ["background_colour", "font", "font_colour",
-            "alignment"]:
+            "alignment", "hide_pronunciation_field"]:
             raise KeyError
         if property_name in ["background_colour", "alignment"]:
             self[property_name][card_type.id] = property

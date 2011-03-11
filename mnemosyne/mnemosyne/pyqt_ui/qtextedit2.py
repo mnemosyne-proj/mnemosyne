@@ -10,7 +10,18 @@ from mnemosyne.libmnemosyne.translator import _
 class QTextEdit2(QtGui.QTextEdit):
 
     """QTextEdit with extra options in popup menu."""
-    
+
+    def __init__(self, parent, pronunciation_hiding=None):
+
+        """'pronunciation_hiding' is set to None when there is no
+        pronunciation field to hide, and to True or False when there is one to
+        hide.
+
+        """
+        
+        QtGui.QTextEdit.__init__(self, parent)
+        self.pronunciation_hiding = pronunciation_hiding
+
     def contextMenuEvent(self, e):
         popup = self.createStandardContextMenu()
         popup.addSeparator()
@@ -20,6 +31,15 @@ class QTextEdit2(QtGui.QTextEdit):
                         QtGui.QKeySequence(_("Ctrl+S")))
         popup.addAction(_("Insert vi&deo"), self.insert_video,
                         QtGui.QKeySequence(_("Ctrl+D")))
+        if self.pronunciation_hiding in [True, False]:
+            popup.addSeparator()
+            self.hide_action = QtGui.QAction(\
+                _("&Hide pronunciation field for this card type"), popup)
+            self.hide_action.setCheckable(True)
+            self.hide_action.setChecked(self.pronunciation_hiding)
+            self.hide_action.toggled.connect(\
+                self.parent().pronunciation_hiding_toggled)
+            popup.addAction(self.hide_action)        
         popup.exec_(e.globalPos())
 
     def keyPressEvent(self, event):
@@ -51,4 +71,6 @@ class QTextEdit2(QtGui.QTextEdit):
         fname = self.parent().controller().insert_video(filter)
         if fname:
             self.insertPlainText("<video src=\"" + fname + "\">")
+
+        
             

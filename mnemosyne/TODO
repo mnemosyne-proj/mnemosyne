@@ -1,7 +1,4 @@
--option to hide pronunciation fields on card type (use config.set_appearance property)
-
--test import of many cards, such that they have the same creation date, and see if order
- is kept
+-getter for display properties with defaults (getting rid of except KeyError)
 
 -right click add tags in card browser
 
@@ -9,6 +6,7 @@
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
+-tooltip for hiding prununciation field on language card type
 -document cntrl enter in edit dialog instead of clicking ok (also manual?) Ditto for control + grade
 -tooltip in preview to explain sister cards
 -better tips on start of 'clone card type'
@@ -18,11 +16,14 @@
 
 -go through all source (reviewed up to database.py)
 
+
+
 -delay matplotlib instantiation
 -profile startup/shutdown
 
 -make distrib
 -reenable datadir in setup.py
+-add 'mnemosyne/webserver/review_page.html'
 
 -first run wizard and tip of the day.
 -startup tips: right click to add cards or sound, comma to 
