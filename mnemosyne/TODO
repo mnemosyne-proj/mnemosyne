@@ -14,7 +14,7 @@
 -better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
 
--communicate SQLite_no_pregenerated_data, save interval, ..., repaint_now, upload_science_logs to client writers
+-communicate SQLite_no_pregenerated_data, save interval, ..., repaint_now (in UDP/C?), upload_science_logs to client writers
 
 -go through all source (reviewed up to database.py)
 
@@ -29,7 +29,13 @@
  separate tag names, :: to separate hierarchies
  not having to do all your scheduled repetitions in one sitting
 
+-implement duplicate checking. Also synonym checking? Add then standard tags.
+-autorun after import, not sync
+-do review_controller.rebuild_queue, reload counter after clean duplicates
+
 -About dialog
+-Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
+ (also make sure they are on webpage)
 -also add option to download source in the info box
 
 -add plugin example on card type specific renderer
@@ -44,9 +50,6 @@
 -windows: test unicode filenames in sync protocol
 -test running from usb, update instructions
 -add tests with unicode in data_dir
-
--Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
- (also make sure they are on webpage)
 
 -Faq about how to pronounce Mnemosyne
 
@@ -92,10 +95,6 @@
 
 -hoop up dialogs in UDP
 
--implement duplicate checking. Also synonym checking? Add then standard tags.
--give hints about when this is needed, both when starting the menu option for the
- first time, and when importing for the first (second?) time.
--do review_controller.rebuild_queue, reload counter after clean duplicates
 
 -new translation infrastructure
 -handle deferred translation

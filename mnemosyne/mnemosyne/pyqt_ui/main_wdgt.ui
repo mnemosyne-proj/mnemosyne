@@ -75,7 +75,6 @@
     <addaction name="separator"/>
     <addaction name="actionBrowseCards"/>
     <addaction name="actionActivateCards"/>
-    <addaction name="actionCleanDuplicates"/>
     <addaction name="actionCloneCardTypes"/>
     <addaction name="separator"/>
     <addaction name="actionShowStatistics"/>
@@ -126,11 +125,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
-   </property>
-  </action>
-  <action name="actionCleanDuplicates">
-   <property name="text">
-    <string>Clean du&amp;plicates...</string>
    </property>
   </action>
   <action name="actionConfigure">
