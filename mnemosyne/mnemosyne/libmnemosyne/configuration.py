@@ -156,7 +156,7 @@ class Configuration(Component, dict):
             n = ctypes.windll.kernel32.GetEnvironmentVariableW(\
                 "APPDATA", None, 0)
             buf = ctypes.create_unicode_buffer(u'\0'*n)
-            ctypes.windll.kernel32.GetEnvironmentVariableW(name, buf, n)
+            ctypes.windll.kernel32.GetEnvironmentVariableW("APPDATA", buf, n)
             self.data_dir = join(buf.value, "Mnemosyne2")
             self.config_dir = self.data_dir
         elif sys.platform == "darwin":
