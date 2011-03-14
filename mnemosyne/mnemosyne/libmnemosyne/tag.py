@@ -8,11 +8,11 @@ from mnemosyne.libmnemosyne.utils import rand_uuid, CompareOnId
 class Tag(CompareOnId):
     
     """The tag name is the full name, including all levels of the hierarchy
-    separated by two colons.
+    separated by ::.
 
     'id' is used to identify this object to the external world (logs, xml
-    files, ...), whereas '_id' is an internal id that could be different and
-    that can be used by the database for efficiency reasons.
+    files, sync, ...), whereas '_id' is an internal id that could be
+    different and that can be used by the database for efficiency reasons.
 
     Untagged cards are given the internal tag __UNTAGGED__, to allow for a
     fast implementation of applying criteria.

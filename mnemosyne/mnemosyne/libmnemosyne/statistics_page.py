@@ -16,8 +16,8 @@ class StatisticsPage(Component):
     For each StatisticsPage, there will be an associated widget (plotting
     widget, html browser, custom widget, ... ) that is in charge of displaying
     the information. This widget needs to be registered in the component
-    manager as a 'statistics_widget' 'used_for' a particular StatisticsPage (or a
-    parent class of a StatisticsPage).
+    manager as a 'statistics_widget' 'used_for' a particular StatisticsPage
+    (or a parent class of a StatisticsPage).
 
     """
     

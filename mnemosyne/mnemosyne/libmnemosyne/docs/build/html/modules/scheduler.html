@@ -59,15 +59,12 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed">
-<tt class="descname">is_prefetch_allowed</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed" title="Permalink to this definition">¶</a></dt>
-<dd>Can we display a new card before having processed the grading of
-the previous one?</dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_n_days_from_now">
 <tt class="descname">card_count_scheduled_n_days_from_now</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.card_count_scheduled_n_days_from_now" title="Permalink to this definition">¶</a></dt>
-<dd>Yesterday: n=-1, today: n=0, tomorrow: n=1, ... .</dd></dl>
+<dd><p>Yesterday: n=-1, today: n=0, tomorrow: n=1, ... .</p>
+<p>Is not implemented in the database, because this could need internal
+scheduler information.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.grade_answer">
@@ -84,6 +81,12 @@ the previous one?</dd></dl>
 <tt class="descname">in_queue</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.in_queue" title="Permalink to this definition">¶</a></dt>
 <dd>To check whether the queue needs to be rebuilt, e.g. if it contains
 a card that was deleted in the GUI.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed">
+<tt class="descname">is_prefetch_allowed</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed" title="Permalink to this definition">¶</a></dt>
+<dd>Can we display a new card before having processed the grading of
+the previous one?</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.scheduler.Scheduler.last_rep_to_interval_string">
@@ -157,7 +160,7 @@ but all the relevant information can still be parsed from them.)</p>
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
             <p class="topless"><a href="plugin.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Plugin</span></tt></a></p>
+                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">Plugin</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="stopwatch.html"
                                   title="next chapter"><tt class="docutils literal"><span class="pre">Stopwatch</span></tt></a></p>
@@ -203,7 +206,7 @@ but all the relevant information can still be parsed from them.)</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 10, 2011.
+      Last updated on Mar 14, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

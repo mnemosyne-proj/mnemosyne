@@ -57,8 +57,8 @@
 <p>The fields are stored in a dictionary called &#8216;data&#8217;, and can be get and 
 set using the standard dictionary syntax.</p>
 <p>&#8216;id&#8217; is used to identify this object to the external world (logs, xml
-files, ...), whereas &#8216;_id&#8217; is an internal id that could be different and
-that can be used by the database for efficiency reasons.</p>
+files, sync, ...), whereas &#8216;_id&#8217; is an internal id that could be different
+and that can be used by the database for efficiency reasons.</p>
 <p>The keys in data should not contain characters like &lt;, &gt;, &amp;, ..., as they
 are used as unescaped tag names during sync.</p>
 <p>When making new card types, it is best to reuse the keys below as much
@@ -69,20 +69,20 @@ as possible, to facilitate conversion between card types:</p>
 <col width="81%" />
 </colgroup>
 <tbody valign="top">
-<tr><td>q</td>
-<td>question</td>
+<tr><td>f</td>
+<td>front</td>
 </tr>
-<tr><td>a</td>
-<td>answer</td>
+<tr><td>b</td>
+<td>back</td>
 </tr>
 <tr><td>f</td>
 <td>foreign word</td>
 </tr>
-<tr><td>t</td>
-<td>translation</td>
-</tr>
 <tr><td>p</td>
 <td>pronunciation</td>
+</tr>
+<tr><td>m</td>
+<td>meaning</td>
 </tr>
 </tbody>
 </table>
@@ -98,7 +98,7 @@ as possible, to facilitate conversion between card types:</p>
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
             <p class="topless"><a href="component_manager.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">ComponentManager</span></tt></a></p>
+                                  title="previous chapter"><tt class="docutils literal"><span class="pre">ComponentManager</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="fact_view.html"
                                   title="next chapter"><tt class="docutils literal"><span class="pre">FactView</span></tt></a></p>
@@ -144,7 +144,7 @@ as possible, to facilitate conversion between card types:</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 10, 2011.
+      Last updated on Mar 14, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

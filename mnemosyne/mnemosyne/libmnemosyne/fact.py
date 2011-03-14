@@ -13,8 +13,8 @@ class Fact(CompareOnId):
     set using the standard dictionary syntax.
 
     'id' is used to identify this object to the external world (logs, xml
-    files, ...), whereas '_id' is an internal id that could be different and
-    that can be used by the database for efficiency reasons.
+    files, sync, ...), whereas '_id' is an internal id that could be different
+    and that can be used by the database for efficiency reasons.
 
     The keys in data should not contain characters like <, >, &, ..., as they
     are used as unescaped tag names during sync.
@@ -23,11 +23,11 @@ class Fact(CompareOnId):
     as possible, to facilitate conversion between card types:
 
     === =============
-     q  question
-     a  answer
+     f  front
+     b  back
      f  foreign word
-     t  translation
      p  pronunciation
+     m  meaning
     === =============
 
     """

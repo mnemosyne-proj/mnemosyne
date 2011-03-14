@@ -111,18 +111,17 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
 
     def update_background_colour(self):
         # Determine current colour.
-        current_colour = QtGui.QColor(QtCore.Qt.white)
-        try:
-            current_rgb = self.config()["background_colour"]\
-                          [self.affected_card_types[0].id]
+        current_rgb = self.config().card_type_property("background_colour",
+            self.affected_card_types[0])
+        if current_rgb:
             current_colour = QtGui.QColor(current_rgb)
-        except:
-            pass       
+        else:
+            current_colour = QtGui.QColor(QtCore.Qt.white)
         # Set new colour.
         colour = QtGui.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
-                self.config().set_appearance_property("background_colour",
+                self.config().set_card_type_property("background_colour",
                     colour.rgb(), card_type)
             self.changed = True
         
@@ -133,22 +132,21 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         else:
             affected_key = self.affected_card_types[0].fields[index][0]          
         # Determine current font.
-        current_font = QtGui.QFont(self.font())
-        try:
-            if len(self.affected_card_types) > 1:
-                font_string = self.config()["font"]["1"]["f"]
-            else:
-                font_string = self.config()["font"]\
-                    [self.affected_card_types[0].id][affected_key]
+        if len(self.affected_card_types) > 1:
+            font_string = self.config().card_type_property(\
+                "font", self.card_type_by_id("1"), "f")
+        else:
+            font_string = self.config().card_type_property(\
+                "font", self.affected_card_types[0], affected_key)
+        current_font = QtGui.QFont(self.font()) 
+        if font_string:
             current_font.fromString(font_string)
-        except:
-            pass        
         # Set new font.
         font, ok = QtGui.QFontDialog.getFont(current_font, self)
         if ok:
             font_string = unicode(font.toString())
             for card_type in self.affected_card_types:
-                self.config().set_appearance_property("font", font_string,
+                self.config().set_card_type_property("font", font_string,
                     card_type, affected_key)
             self.changed = True
         
@@ -159,21 +157,21 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         else:
             affected_key = self.affected_card_types[0].fields[index][0]            
         # Determine current colour.
-        current_colour = QtGui.QColor(QtCore.Qt.black)
-        try:
-            if len(self.affected_card_types) > 1:
-                current_rgb = self.config()["font_colour"]["1"]["f"]
-            else:
-                current_rgb = self.config()["font_colour"]\
-                             [self.affected_card_types[0].id][affected_key]
+        if len(self.affected_card_types) > 1:
+            current_rgb = self.config().card_type_property(\
+                "font_colour", self.card_type_by_id("1"), "f")
+        else:
+            current_rgb = self.config().card_type_property(\
+                "font_colour", self.affected_card_types[0], affected_key)
+        if current_rgb:
             current_colour = QtGui.QColor(current_rgb)
-        except:
-            pass
+        else:
+            current_colour = QtGui.QColor(QtCore.Qt.black)
         # Set new colour.
         colour = QtGui.QColorDialog.getColor(current_colour, self)
         if colour.isValid():
             for card_type in self.affected_card_types:
-                self.config().set_appearance_property("font_colour",
+                self.config().set_card_type_property("font_colour",
                     colour.rgb(), card_type, affected_key)
             self.changed = True
         
@@ -185,7 +183,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         elif index == 2:
             new_alignment = "right"                
         for card_type in self.affected_card_types:
-            self.config().set_appearance_property("alignment", new_alignment,
+            self.config().set_card_type_property("alignment", new_alignment,
                 card_type)
         self.alignment.font().setWeight(50)
         self.changed = True

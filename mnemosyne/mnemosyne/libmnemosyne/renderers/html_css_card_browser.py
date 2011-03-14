@@ -13,7 +13,7 @@ class HtmlCssCardBrowser(HtmlCss):
     """Renders the question or the answer as html without tables, to be used
     in the card browser. The idea is to display everything as much as possible
     on a single line which fits with the rest of the table, so we only respect
-    fonts families and weights, not size and alignment.
+    fonts families, colours and weights, not size and alignment.
     
     """
     
@@ -25,33 +25,30 @@ class HtmlCssCardBrowser(HtmlCss):
         # Field tags.
         for true_key, proxy_key in card_type.key_format_proxies().iteritems():
             css += ".%s { " % true_key
-            # Text colours.
-            try:
-                colour = self.config()["font_colour"][card_type.id][proxy_key]
+            # Font colours.
+            colour = self.config().card_type_property(\
+                "font_colour", card_type, proxy_key)
+            if colour:
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
-            except KeyError:
-                pass
-            # Text font.
-            try:
-                font_string = self.config()["font"][card_type.id][proxy_key]
-                if font_string:
-                    family,size,x,x,w,i,u,s,x,x = font_string.split(",")
-                    css += "font-family: \"%s\"; " % family
-                    if w == "25":
-                        css += "font-weight: light; "
-                    if w == "75":
-                        css += "font-weight: bold; "
-                    if i == "1":
-                        css += "font-style: italic; "
-                    if i == "2":
-                        css += "font-style: oblique; "
-                    if u == "1":
-                        css += "text-decoration: underline; "
-                    if s == "1":
-                        css += "text-decoration: line-through; "
-            except KeyError:
-                pass                
+            # Font.
+            font_string = self.config().card_type_property(\
+                "font", card_type, proxy_key)
+            if font_string:
+                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                css += "font-family: \"%s\"; " % family
+                if w == "25":
+                    css += "font-weight: light; "
+                if w == "75":
+                    css += "font-weight: bold; "
+                if i == "1":
+                    css += "font-style: italic; "
+                if i == "2":
+                    css += "font-style: oblique; "
+                if u == "1":
+                    css += "text-decoration: underline; "
+                if s == "1":
+                    css += "text-decoration: line-through; "                 
             css += "}\n"
         return css
 

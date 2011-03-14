@@ -55,16 +55,16 @@
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.criterion.</tt><tt class="descname">Criterion</tt><big>(</big><em>component_manager</em>, <em>id=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to select a subset of cards, e.g. which cards are currently
 active, i.e. included in the review process.</p>
-<p>The available Criteria are stored as classes in the component_manager.</p>
-<p>The actual instances together with their data are stored in the database.</p>
+<p>The available criteria are stored as classes in the component_manager,
+the actual instances together with their data are stored in the database.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card">
 <tt class="descname">apply_to_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.criterion.Criterion.apply_to_card" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the card active or not depending on the criterion. Does not
-write to the database. Called after creating or updating cards, to
-see whether these cards should start out their life as active or not.</p>
-<p>Also called after reviewing a card.</p>
-<p>The tag and card type creation and deletion function are callbacks
+write to the database. Called e.g. after creating, updating or
+reviewing cards, to see whether these cards should start out their
+life as active or not.</p>
+<p>The tag and card type creation and deletion functions are callbacks
 called by the rest of libmnemosyne when these objects get created or
 destroyed, such that Criteria can update their status if needed.</p>
 </dd></dl>
@@ -187,7 +187,7 @@ backend.</p>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 10, 2011.
+      Last updated on Mar 14, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

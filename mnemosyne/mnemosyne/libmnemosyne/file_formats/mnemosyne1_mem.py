@@ -198,7 +198,7 @@ class Mnemosyne1Mem(FileFormat):
             self._set_card_attributes(card_1, item)
             self._set_card_attributes(card_2,
                                       self.items_by_id[item.id + ".inv"])               
-        # Three-sided.
+        # Vocabulary.
         elif item.id + ".tr.1" in self.items_by_id:
             card_type = self.card_type_by_id("3")
             try:

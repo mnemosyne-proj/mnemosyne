@@ -39,6 +39,8 @@ SCHEMA = string.Template("""
         id text,
         extra_data text default ""
     );
+    /* indexes on id's are necessary for the sync protocol, which
+    needs to work with id's instead of _id's. */
     create index i_facts on facts (id);
     
     create table data_for_fact(
@@ -46,6 +48,7 @@ SCHEMA = string.Template("""
         key text,
         value text
     );
+    
     create index i_data_for_fact on data_for_fact (_fact_id);
     
     create table cards(
@@ -351,8 +354,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.config()["path"] = contract_path(path, self.config().data_dir)
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
-        # We don't log the database load here, as we prefer to log the start
-        # of the program first.
+        # We don't log the database load here, but in libmnemosyne.__init__,
+        # as we prefer to log the start of the program first.
         
     def save(self, path=None):
         # Update format.
@@ -367,7 +370,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             shutil.copy(self._path, dest_path)
             self._path = dest_path
         self.config()["path"] = contract_path(path, self.config().data_dir)
-        # We don't log every save, as that would result in an event after
+        # We don't log every save, as that could result in an event after
         # card repetitions.
 
     def backup(self):

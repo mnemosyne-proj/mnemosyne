@@ -56,10 +56,7 @@
 <dd><p>A card type groups a number of fact views on a certain fact, thereby
 forming a set of sister cards.</p>
 <p>A card type needs an id as well as a name, because the name can change
-for different translations. It is best to keep the id short, as it will
-show up in the card id as well.</p>
-<p>Built-in card types will have an id which maps to an integer, user card
-types should not have this property.</p>
+for different translations.</p>
 <p>Inherited card types should have ids where :: separates the different
 levels of the hierarchy, e.g. parent_id::child_id.</p>
 <p>The keys from the fact are also given more verbose names here. This is
@@ -67,32 +64,19 @@ not done in fact.py, on one hand to save space in the database, and on
 the other hand to allow the possibility that different card types give
 different names to the same key. (E.g. foreign word&#8217; could be called
 &#8216;French&#8217; in a French card type, or &#8216;pronunciation&#8217; could be called
-&#8216;reading&#8217; in a Kanji card type.) This in done in self.fields, which is
+&#8216;reading&#8217; in a Kanji card type.) This is done in self.fields, which is
 a list of the form [(fact_key, fact_key_name)]. It is tempting to use a
 dictionary here, but we can&#8217;t do that since ordering is important.</p>
 <p>Fields which need to be different for all facts belonging to this card
-type are listed in unique_fields.</p>
+type are listed in &#8216;unique_fields&#8217;.</p>
 <p>Note that a fact could contain more data than those listed in the card
 type&#8217;s &#8216;fields&#8217; variable, which could be useful for card types needing
-hidden fields.</p>
+hidden fields, dynamically generated fields, ... .</p>
 <p>We could use the component manager to track fact views, but this is
 probably overkill.</p>
-<p>The function &#8216;fact_data&#8217; typically just returns a dictionary which is
-typically just fact.data, but which can also be generated on the fly,
-as e.g. in the cloze card type.</p>
 <p>The functions &#8216;create_sister_cards&#8217; and &#8216;edit_sister_cards&#8217; can be
 overridden by card types which can have a varying number of fact views,
 e.g. the cloze card type.</p>
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.after_repetition">
-<tt class="descname">after_repetition</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.after_repetition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.card_type.CardType.before_repetition">
-<tt class="descname">before_repetition</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.before_repetition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards">
 <tt class="descname">create_sister_cards</tt><big>(</big><em>fact</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.create_sister_cards" title="Permalink to this definition">¶</a></dt>
@@ -113,20 +97,22 @@ here, but is done in the main controller.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.fact_data">
 <tt class="descname">fact_data</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.fact_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd>Returns the data in fact of a card. Normally. this is just
+&#8216;card.fact.data&#8217;, but specialty card types (e.g. the cloze card type)
+can override this.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.is_data_valid">
 <tt class="descname">is_data_valid</tt><big>(</big><em>fact_data</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.is_data_valid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd>Check if all the required fields are present.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.card_type.CardType.key_format_proxies">
 <tt class="descname">key_format_proxies</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.card_type.CardType.key_format_proxies" title="Permalink to this definition">¶</a></dt>
 <dd>Sometimes, a card type can dynamically create a field when
-generating a question or an answer (see e.g. the Cloze card type).
+generating a question or an answer (see e.g. the cloze card type).
 Since the user cannot specify how this key should be formatted, it
-should be formatted like another, static key. This function returns
+should be formatted like an other, static key. This function returns
 a dictionary with this correspondence.</dd></dl>
 
 <dl class="method">
@@ -212,7 +198,7 @@ a dictionary with this correspondence.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 10, 2011.
+      Last updated on Mar 14, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

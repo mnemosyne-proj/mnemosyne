@@ -26,10 +26,8 @@ class HtmlCss_WM(HtmlCss):
                       render_chain, **render_args):
         html = "<html><head><style type=\"text/css\">\n" + \
             self.css(card_type) + "</style></head><body><table "
-        try:
-            alignment = self.config()["alignment"][card_type.id]
-        except:
-            alignment = "center"
+        alignment = self.config().card_type_property(\
+            "alignment", card_type, default="center")
         if alignment == "left":
             html += "align=left"
         elif alignment == "right":

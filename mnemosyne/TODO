@@ -1,5 +1,3 @@
--getter for display properties with defaults (getting rid of except KeyError)
-
 -right click add tags in card browser
 
 -right click remove tags in card browser
@@ -7,16 +5,11 @@
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
 -tooltip for hiding prununciation field on language card type
+-pronunciation field wizard?
 -document cntrl enter in edit dialog instead of clicking ok (also manual?) Ditto for control + grade
 -tooltip in preview to explain sister cards
 -better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
-
--communicate SQLite_no_pregenerated_data, save interval, ..., repaint_now (in UDP/C?), upload_science_logs to client writers
-
--go through all source (reviewed up to database.py)
-
-
 
 -delay matplotlib instantiation
 -profile startup/shutdown
@@ -26,18 +19,20 @@
 -add 'mnemosyne/webserver/review_page.html'
 
 -first run wizard and tip of the day.
--startup tips: right click to add cards or sound, comma to 
- separate tag names, :: to separate hierarchies
+-startup tips: right click to add cards or sound, comma to separate tag names, 
+ :: to separate hierarchies
  not having to do all your scheduled repetitions in one sitting
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, not sync
--do review_controller.rebuild_queue, reload counter after clean duplicates
+-do review_controller.rebuild_queue, reload counter after clean duplicates?
 
 -About dialog
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
  (also make sure they are on webpage)
 -also add option to download source in the info box
+
+-ask about card browser speed
 
 -add plugin example on card type specific renderer
 -add doc on how to write plugin to sfinx doc
@@ -46,6 +41,9 @@
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
 -Qt bug? Cntl+a select all in card browser only selects all the prefetched entries
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
+
+-workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files
+ are in distrib.
 
 -windows: test auto upgrade
 -windows: test unicode filenames in sync protocol

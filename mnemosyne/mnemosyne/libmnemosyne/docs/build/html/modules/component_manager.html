@@ -53,9 +53,10 @@
 <dl class="class">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager">
 <em class="property">class </em><tt class="descclassname">mnemosyne.libmnemosyne.component_manager.</tt><tt class="descname">ComponentManager</tt><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Manages the different components. Apart from some UI widgets, instances
-of the different components are stored (as opposed to classes). In such a
-way, the component manager stores all the state of the user.</p>
+<dd><p>Manages the different components. Typically, instances of the different
+components are stored, as opposed to classes. In such a way, the component
+manager stores all the state of the user. Exceptions are widgets other
+than the main widget, which are lazily created for efficiency reasons.</p>
 <p>For certain components, many can be active at the same time (card types,
 filters, function hooks, ...). For others, there can be only on active
 at the same time, like schedule, database ... The idea is that the last
@@ -64,9 +65,9 @@ scheduler needs to be registered first.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin">
 <tt class="descname">add_component_to_plugin</tt><big>(</big><em>plugin_class_name</em>, <em>component_class</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.component_manager.ComponentManager.add_component_to_plugin" title="Permalink to this definition">¶</a></dt>
-<dd>Typical use case for this is when a plugin has a GUI
-component which obviously does not live inside libmnemosyne, and which
-needs to be added at a later stage.</dd></dl>
+<dd>Typical use case for this is when a plugin has a GUI component
+which obviously does not live inside libmnemosyne, and which needs to
+be added at a later stage.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.component_manager.ComponentManager.all">
@@ -152,7 +153,7 @@ time.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 10, 2011.
+      Last updated on Mar 14, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

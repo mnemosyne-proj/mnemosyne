@@ -33,10 +33,8 @@ class HtmlCss(Renderer):
     def card_type_css(self, card_type):
         # Set aligment of the table (but not the contents within the table).
         css = "table { height: " + self.table_height + "; width: 100%; "
-        try:
-            alignment = self.config()["alignment"][card_type.id]
-        except KeyError:
-            alignment = "center"
+        alignment = self.config().card_type_property(\
+            "alignment", card_type, default="center")
         if alignment == "left":
             css += "margin-left: 0; margin-right: auto; "
         elif alignment == "right":
@@ -44,50 +42,44 @@ class HtmlCss(Renderer):
         else:
             css += "margin-left: auto; margin-right: auto; "
         # Background colours.
-        try:
-            colour = self.config()["background_colour"][card_type.id]
+        colour = self.config().card_type_property(\
+            "background_colour", card_type)
+        if colour:
             colour_string = ("%X" % colour)[2:] # Strip alpha.
-            css += "background-color: #%s; " % colour_string
-        except KeyError:
-            pass        
+            css += "background-color: #%s; " % colour_string      
         css += "}\n"
         # Field tags.
         for true_key, proxy_key in card_type.key_format_proxies().iteritems():
             css += "div#%s { " % true_key
             # Set alignment within table cell.
-            try:
-                alignment = self.config()["alignment"][card_type.id]
-            except KeyError:
-                alignment = "center"
+            alignment = self.config().card_type_property(\
+                "alignment", card_type, proxy_key, default="center")            
             css += "text-align: %s; " % alignment  
-            # Text colours.
-            try:
-                colour = self.config()["font_colour"][card_type.id][proxy_key]
+            # Font colours.
+            colour = self.config().card_type_property(\
+                "font_colour", card_type, proxy_key)
+            if colour:
                 colour_string = ("%X" % colour)[2:] # Strip alpha.
                 css += "color: #%s; " % colour_string
-            except KeyError:
-                pass
-            # Text font.
-            try:
-                font_string = self.config()["font"][card_type.id][proxy_key]
-                if font_string:
-                    family,size,x,x,w,i,u,s,x,x = font_string.split(",")
-                    css += "font-family: \"%s\"; " % family
-                    css += "font-size: %spt; " % size
-                    if w == "25":
-                        css += "font-weight: light; "
-                    if w == "75":
-                        css += "font-weight: bold; "
-                    if i == "1":
-                        css += "font-style: italic; "
-                    if i == "2":
-                        css += "font-style: oblique; "
-                    if u == "1":
-                        css += "text-decoration: underline; "
-                    if s == "1":
-                        css += "text-decoration: line-through; "
-            except KeyError:
-                pass                
+            # Font.
+            font_string = self.config().card_type_property(\
+                "font", card_type, proxy_key)
+            if font_string:
+                family,size,x,x,w,i,u,s,x,x = font_string.split(",")
+                css += "font-family: \"%s\"; " % family
+                css += "font-size: %spt; " % size
+                if w == "25":
+                    css += "font-weight: light; "
+                if w == "75":
+                    css += "font-weight: bold; "
+                if i == "1":
+                    css += "font-style: italic; "
+                if i == "2":
+                    css += "font-style: oblique; "
+                if u == "1":
+                    css += "text-decoration: underline; "
+                if s == "1":
+                    css += "text-decoration: line-through; "               
             css += "}\n"
         return css
 
@@ -126,4 +118,3 @@ class HtmlCss(Renderer):
         </body>
         </html>""" % (css, body)
     
-

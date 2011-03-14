@@ -59,6 +59,11 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.card_type_property">
+<tt class="descname">card_type_property</tt><big>(</big><em>property_name</em>, <em>card_type</em>, <em>fact_key=None</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.card_type_property" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.change_user_id">
 <tt class="descname">change_user_id</tt><big>(</big><em>new_user_id</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.change_user_id" title="Permalink to this definition">¶</a></dt>
 <dd>When a client syncs for the first time with a server, we need to
@@ -103,10 +108,14 @@ because we might have added new files since the last version.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.configuration.Configuration.set_appearance_property">
-<tt class="descname">set_appearance_property</tt><big>(</big><em>property_name</em>, <em>property</em>, <em>card_type</em>, <em>fact_key=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.set_appearance_property" title="Permalink to this definition">¶</a></dt>
-<dd>Set a property (like font, colour, ..) for a certain card type.
-If fact_key is None, then this will be applied to all fact keys.</dd></dl>
+<dt id="mnemosyne.libmnemosyne.configuration.Configuration.set_card_type_property">
+<tt class="descname">set_card_type_property</tt><big>(</big><em>property_name</em>, <em>property</em>, <em>card_type</em>, <em>fact_key=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.configuration.Configuration.set_card_type_property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a property (like font, colour, ..) for a certain card type.
+If fact_key is None, then this will be applied to all fact keys.</p>
+<p>This info is not stored in the database, but in the configuration,
+to allow different clients to have different settings, even though
+they exchange data during sync.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.configuration.Configuration.set_defaults">
@@ -172,7 +181,7 @@ since a new version of Mnemosyne might have introduced new keys.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 10, 2011.
+      Last updated on Mar 14, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

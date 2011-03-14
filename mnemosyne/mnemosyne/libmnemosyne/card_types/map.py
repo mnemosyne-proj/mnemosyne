@@ -41,6 +41,7 @@ class Map(CardType):
         data["_"] = "\n"  # Insert a blank line to improve layout.
         return data
 
+
 class MapPlugin(Plugin):
     
     name = _("Map")

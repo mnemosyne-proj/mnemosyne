@@ -64,11 +64,6 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.active_count">
-<tt class="descname">active_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.active_count" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.add_card">
 <tt class="descname">add_card</tt><big>(</big><em>card</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.add_card" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -106,11 +101,6 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.card">
 <tt class="descname">card</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.card_count">
-<tt class="descname">card_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.card_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -157,12 +147,6 @@ syncing (see SQLite_logging.py, SQLite_statistics.py, SQLite_sync.py).</p>
 <dt id="mnemosyne.libmnemosyne.database.Database.cards_with_scheduler_data">
 <tt class="descname">cards_with_scheduler_data</tt><big>(</big><em>scheduler_data</em>, <em>sort_key=''</em>, <em>limit=-1</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.cards_with_scheduler_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.sister_card_count_with_next_rep">
-<tt class="descname">sister_card_count_with_next_rep</tt><big>(</big><em>card</em>, <em>next_rep</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.sister_card_count_with_next_rep" title="Permalink to this definition">¶</a></dt>
-<dd>Return how many sister cards with grade &gt;= 2 are scheduled at
-&#8216;next_rep&#8217;. Note that there is no need that next_rep == card.next_rep.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.criteria">
@@ -228,17 +212,11 @@ without extension.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.duplicates_for_fact">
 <tt class="descname">duplicates_for_fact</tt><big>(</big><em>fact</em>, <em>card_type</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.duplicates_for_fact" title="Permalink to this definition">¶</a></dt>
-<dd>Return facts with the same &#8216;card_type.unique_fields&#8217;
-data as &#8216;fact&#8217;.</dd></dl>
+<dd>Return facts with same &#8216;card_type.unique_fields&#8217; data as &#8216;fact&#8217;.</dd></dl>
 
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.fact">
 <tt class="descname">fact</tt><big>(</big><em>id</em>, <em>id_is_internal</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.fact_count">
-<tt class="descname">fact_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.fact_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -283,11 +261,6 @@ extensions.</dd></dl>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.non_memorised_count">
-<tt class="descname">non_memorised_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.non_memorised_count" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.path">
 <tt class="descname">path</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.path" title="Permalink to this definition">¶</a></dt>
 <dd>Returns full path of the database.</dd></dl>
@@ -306,11 +279,6 @@ thread.</dd></dl>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.database.Database.save">
 <tt class="descname">save</tt><big>(</big><em>path=None</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.database.Database.scheduled_count">
-<tt class="descname">scheduled_count</tt><big>(</big><em>days=0</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.database.Database.scheduled_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -441,7 +409,7 @@ thread.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 10, 2011.
+      Last updated on Mar 14, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

@@ -5,7 +5,6 @@
 #
 
 import os
-import time
 
 from openSM2sync.log_entry import LogEntry
 from openSM2sync.log_entry import EventTypes
@@ -16,10 +15,9 @@ from mnemosyne.libmnemosyne.card import Card
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
-from mnemosyne.libmnemosyne.filters.latex import Latex
 
 # Simple named-tuple like class, to avoid the expensive creation a full card
-# object. (Python 2.5 does not yet have a named tuple.)
+# object (Python 2.5 does not yet have a named tuple).
 
 class Bunch:
     def __init__(self, **kwds):

@@ -21,7 +21,7 @@ class Plugin(Component):
     certain side effects. It's cumbersone to implement those in the
     'activate' and 'deactivate' methods of the components, as these also
     are called when the program is still starting up and the context can
-    be completely different.
+    be completely different. Therefore, they are handled here.
     
     """
 
@@ -29,7 +29,6 @@ class Plugin(Component):
     description = ""
     component_type = "plugin"
     components = []
-    show_in_first_run_wizard = False
         
     def __init__(self, component_manager):
         Component.__init__(self, component_manager)
@@ -40,6 +39,7 @@ class Plugin(Component):
         self.review_reset_needed = False
             
     def activate(self):
+        # Don't activate a plugin twice.
         if self.instantiated_components or self.registered_components:
             return
         # See if we need to reset the review process.

@@ -25,11 +25,8 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         if "p_1" not in self.card_type.keys():
             pronunciation_hiding = None
         else:
-            try:
-                pronunciation_hiding = self.config()\
-                    ["hide_pronunciation_field"][self.card_type.id]["p_1"]
-            except KeyError:
-                pronunciation_hiding = False
+            pronunciation_hiding = self.config().card_type_property(\
+                "hide_pronunciation_field", self.card_type, default=False)
         # Construct the rest of the dialog.
         for fact_key, fact_key_name in self.card_type.fields:
             l = QtGui.QLabel(fact_key_name + ":", self)
@@ -61,35 +58,34 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.top_edit_box.setFocus()
 
     def pronunciation_hiding_toggled(self, checked):
-        self.config().set_appearance_property("hide_pronunciation_field",
+        self.config().set_card_type_property("hide_pronunciation_field",
             checked, self.card_type)
         self.pronunciation_label.setVisible(not checked)
         self.pronunciation_box.setVisible(not checked)
         self.pronunciation_box.pronunciation_hiding = checked
         
     def update_formatting(self, edit_box):
+        # Font colour.
         fact_key = self.fact_key_for_edit_box[edit_box]
-        try:
-            colour = self.config()["font_colour"][self.card_type.id][fact_key]
+        colour = self.config().card_type_property(\
+            "font_colour", self.card_type, fact_key)
+        if colour:
             edit_box.setTextColor(QtGui.QColor(colour))
-        except KeyError:
-            # The defaults have not been changed, there is no key for colour.
-            pass
-        try:
-            colour = self.config()["background_colour"][self.card_type.id]
+        # Background colour.
+        colour = self.config().card_type_property(\
+            "background_colour", self.card_type)
+        if colour:
             p = QtGui.QPalette()
             p.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base,
                        QtGui.QColor(colour))
             edit_box.setPalette(p)
-        except KeyError:
-            pass
-        try:
-            font_string = self.config()["font"][self.card_type.id][fact_key]
+        # Font.
+        font_string = self.config().card_type_property(\
+            "font", self.card_type, fact_key)
+        if font_string:
             font = QtGui.QFont()
             font.fromString(font_string)                
             edit_box.setCurrentFont(font)
-        except KeyError:
-            pass
 
     def reset_formatting(self):
 

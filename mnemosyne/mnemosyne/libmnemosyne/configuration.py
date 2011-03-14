@@ -213,18 +213,23 @@ class Configuration(Component, dict):
             print >> f, rand_uuid()
             f.close()
 
-    def set_appearance_property(self, property_name, property, card_type,
+    def set_card_type_property(self, property_name, property, card_type,
             fact_key=None):
 
         """Set a property (like font, colour, ..) for a certain card type.
         If fact_key is None, then this will be applied to all fact keys.
+
+        This info is not stored in the database, but in the configuration,
+        to allow different clients to have different settings, even though
+        they exchange data during sync.
 
         """
 
         if property_name not in ["background_colour", "font", "font_colour",
             "alignment", "hide_pronunciation_field"]:
             raise KeyError
-        if property_name in ["background_colour", "alignment"]:
+        if property_name in ["background_colour", "alignment",
+                             "hide_pronunciation_field"]:
             self[property_name][card_type.id] = property
             return
         self[property_name].setdefault(card_type.id, {})
@@ -237,6 +242,20 @@ class Configuration(Component, dict):
         for key in keys:
             self[property_name][card_type.id][key] = property
 
+    def card_type_property(self, property_name, card_type, fact_key=None,
+                            default=None):
+        if property_name in ["background_colour", "alignment",
+                             "hide_pronunciation_field"]:        
+            try:
+                return self[property_name][card_type.id]
+            except KeyError:
+                return default
+        else:
+            try:
+                return self[property_name][card_type.id][fact_key]
+            except KeyError:
+                return default
+            
     def machine_id(self):
         return file(os.path.join(self.config_dir, "machine.id")).\
             readline().rstrip()

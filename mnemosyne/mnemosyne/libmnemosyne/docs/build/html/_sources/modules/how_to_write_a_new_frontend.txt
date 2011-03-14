@@ -64,6 +64,15 @@ If you feel like you need to override the review or the main controller provided
 Tips for creating a responsive client:
 
 * libmnemosyne does some optimisation by trying to show the next question before the grading of the previous question is completed. This improves the perceived responsiveness of the client. However, some GUI toolkits (e.g. Qt) queue widget updates and only excecute them when there is no more processing going on, thereby defeating libmnemosyne's optimisation. For that reason, there is a function ``review_widget.repaint_now`` which is used to tell the GUI toolkit to do the repaint now. If your toolkit also has similar behaviour, implementing this function can really help to mask slow database access.
+* If you are writing a mobile client which syncs to a desktop version of mnemosyne, it is recommended that you don't deal with uploading the science logs yourself, but let the desktop client deal with that. This can be achieved by instantiating ``libmnemosyne`` as follows::
+
+    mnemosyne = Mnemosyne(upload_science_logs=False)
+* If your mobile client does not include a card browser, you can save some disk space by not storing pregenerated questions or answers. To achieve this, make sure you do not include the regular 'SQLite' component, but this one::
+
+    ("mnemosyne.libmnemosyne.databases.SQLite_no_pregenerated_data",
+     "SQLite_NoPregeneratedData")
+* If save operations are slow on your mobile device, you might want to consider setting a larger default value instead of ``save_after_n_reps = 1`` in ``config.py``
+
 
 
 Notes:
