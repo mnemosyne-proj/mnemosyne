@@ -38,31 +38,17 @@ class SyncThread(QtCore.QThread):
     set_progress_value_signal = QtCore.pyqtSignal(int)    
     close_progress_signal = QtCore.pyqtSignal()
     
-    def __init__(self, machine_id, database, server, port, username, password):
+    def __init__(self, mnemosyne, server, port, username, password):
         QtCore.QThread.__init__(self)
-        self.machine_id = machine_id
-        self.database = database
+        self.mnemosyne = mnemosyne
         self.server = server
         self.port = port
         self.username = username
         self.password = password
         
     def run(self):
-        from openSM2sync.client import Client
-        import mnemosyne.version
-        client = Client(self.machine_id, self.database, self)
-        client.program_name = "Mnemosyne"
-        client.program_version = mnemosyne.version.version
-        client.capabilities = "mnemosyne_dynamic_cards"
-        client.check_for_edited_local_media_files = True
-        client.interested_in_old_reps = True
-        client.store_pregenerated_data = True
-        client.do_backup = True
-        client.upload_science_logs = True
-        try:
-            client.sync(self.server, self.port, self.username, self.password)
-        finally:
-            client.database.release_connection()
+        self.mnemosyne.controller().sync(self.server, self.port,
+            self.username, self.password, ui=self)
         
     def show_information(self, message):
         self.information_signal.emit(message)
@@ -130,8 +116,7 @@ class SyncDlg(QtGui.QDialog, Ui_SyncDlg, SyncDialog):
         self.database().release_connection()
         global answer
         answer = None
-        thread = SyncThread(self.config().machine_id(), self.database(),
-            server, port, username, password)
+        thread = SyncThread(self, server, port, username, password)
         thread.information_signal.connect(\
             self.main_widget().show_information)
         thread.error_signal.connect(\

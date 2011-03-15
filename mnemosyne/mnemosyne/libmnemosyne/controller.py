@@ -11,14 +11,12 @@ class Controller(Component):
     review process is split out in a separated controller class, to
     allow that to be swapped out easily.
 
-    The are basically two types of functions here. Functions like 'add_card',
-    'edit_current_card', ... will be called by the GUI immediately when the
-    user selects that option from the menu or toolbar. These functions will
-    then create the corresponding dialogs, which in turn should call functions
-    like 'create_new_cards', 'edit_sister_cards' to achieve the desired
-    functionality.
+    There are two classes of functions here: 'show_XXX_dialog', which needs
+    to be called by the GUI to set everything up to show a certain dialog,
+    and then the other functions, which the implementation of the actual
+    dialog can use to perform GUI-independent operations.
 
-    See 'How to write a new frontend' in documentation for more information.
+    See also 'How to write a new frontend' in the docs.
 
     """
 
@@ -33,14 +31,14 @@ class Controller(Component):
     def update_title(self):
         raise NotImplementedError        
         
-    def add_cards(self):
+    def show_add_cards_dialog(self):
         raise NotImplementedError
 
     def create_new_cards(self, fact_data, card_type, grade,
                          tag_names, check_for_duplicates=True, save=True):
         raise NotImplementedError
     
-    def edit_current_card(self):
+    def show_edit_card_dialog(self):
         raise NotImplementedError
     
     def edit_sister_cards(self, fact, new_fact_data, old_card_type,
@@ -66,19 +64,19 @@ class Controller(Component):
     def delete_card_type(self, card_type):
         raise NotImplementedError
     
-    def new_file(self):
+    def show_new_file_dialog(self):
         raise NotImplementedError
     
-    def open_file(self):
+    def show_open_file_dialog(self):
         raise NotImplementedError
     
     def save_file(self):
         raise NotImplementedError
     
-    def save_file_as(self):
+    def show_save_file_as_dialog(self):
         raise NotImplementedError
 
-    def insert_img(self, filter):
+    def show_insert_img_dialog(self, filter):
 
         """Filter contains the file dialog filter with the supported
         filetypes.
@@ -87,16 +85,7 @@ class Controller(Component):
         
         raise NotImplementedError
 
-    def insert_sound(self, filter):
-
-        """Filter contains the file dialog filter with the supported
-        filetypes.
-
-        """
-        
-        raise NotImplementedError
-    
-    def insert_video(self, filter):
+    def show_insert_sound_dialog(self, filter):
 
         """Filter contains the file dialog filter with the supported
         filetypes.
@@ -105,30 +94,42 @@ class Controller(Component):
         
         raise NotImplementedError
     
+    def show_insert_video_dialog(self, filter):
 
-    def browse_cards(self):
+        """Filter contains the file dialog filter with the supported
+        filetypes.
+
+        """
+        
+        raise NotImplementedError
+    
+
+    def show_browse_cards_dialog(self):
         raise NotImplementedError        
     
-    def card_appearance(self):
+    def show_card_appearance_dialog(self):
         raise NotImplementedError
     
-    def activate_plugins(self):
+    def show_activate_plugins_dialog(self):
         raise NotImplementedError
 
-    def manage_card_types(self):
+    def show_manage_card_types_dialog(self):
         raise NotImplementedError
 
-    def show_statistics(self):
+    def show_statistics_dialog(self):
         raise NotImplementedError    
     
-    def configure(self):
+    def show_configuration_dialog(self):
         raise NotImplementedError
 
-    def import_file(self):
+    def show_import_file_dialog(self):
         raise NotImplementedError
     
-    def export_file(self):
+    def show_export_file_dialog(self):
         raise NotImplementedError
     
-    def sync(self):
+    def show_sync_dialog(self):
         raise NotImplementedError
+
+    def sync(self, server, port, username, password, ui):
+        raise NotImplementedError        

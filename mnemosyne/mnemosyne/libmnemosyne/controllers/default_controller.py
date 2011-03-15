@@ -18,14 +18,12 @@ class DefaultController(Controller):
     review process is split out in a separated controller class, to
     allow that to be swapped out easily.
 
-    The are basically two types of functions here. Functions like 'add_card',
-    'edit_current_card', ... will be called by the GUI immediately when the
-    user selects that option from the menu or toolbar. These functions will
-    then create the corresponding dialogs, which in turn should call functions
-    like 'create_new_cards', 'edit_sister_cards' to achieve the desired
-    functionality.
+    There are two classes of functions here: 'show_XXX_dialog', which needs
+    to be called by the GUI to set everything up to show a certain dialog,
+    and then the other functions, which the implementation of the actual
+    dialog can use to perform GUI-independent operations.
 
-    See 'How to write a new frontend' in documentation for more information.
+    See also 'How to write a new frontend' in the docs.
 
     """    
 
@@ -53,7 +51,7 @@ class DefaultController(Controller):
             title += " - " + database_name
         self.main_widget().set_window_title(title)
 
-    def add_cards(self):
+    def show_add_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("add_cards_dialog")\
@@ -136,7 +134,7 @@ class DefaultController(Controller):
             self.review_controller().reset()
         return cards
 
-    def edit_current_card(self):
+    def show_edit_card_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         review_controller = self.review_controller()
@@ -368,7 +366,7 @@ class DefaultController(Controller):
             self.database().delete_fact_view(fact_view)
         self.database().save()
    
-    def new_file(self):
+    def show_new_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         db = self.database()
@@ -395,7 +393,7 @@ class DefaultController(Controller):
         self.update_title()
         self.stopwatch().unpause()
 
-    def open_file(self):
+    def show_open_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         db = self.database()
@@ -445,7 +443,7 @@ class DefaultController(Controller):
             self.main_widget().show_error(unicode(error))
         self.stopwatch().unpause()
 
-    def save_file_as(self):
+    def show_save_file_as_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         suffix = self.database().suffix
@@ -468,7 +466,7 @@ class DefaultController(Controller):
         self.update_title()
         self.stopwatch().unpause()
 
-    def insert_img(self, filter):
+    def show_insert_img_dialog(self, filter):
 
         """Show a file dialog filtered on the supported filetypes, get a
         filename, massage it, and return it to the widget to be inserted.
@@ -494,7 +492,7 @@ class DefaultController(Controller):
             filename = copy_file_to_dir(filename, media_dir)
             return contract_path(filename, media_dir)
         
-    def insert_sound(self, filter):
+    def show_insert_sound_dialog(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
         data_dir, media_dir = self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_sound_dir"], data_dir)
@@ -509,7 +507,7 @@ class DefaultController(Controller):
             filename = copy_file_to_dir(filename, media_dir)
             return filename
         
-    def insert_video(self, filter):
+    def show_insert_video_dialog(self, filter):
         from mnemosyne.libmnemosyne.utils import copy_file_to_dir
         data_dir, media_dir = self.config().data_dir, self.database().media_dir()
         path = expand_path(self.config()["import_video_dir"], data_dir)
@@ -524,7 +522,7 @@ class DefaultController(Controller):
             filename = copy_file_to_dir(filename, media_dir)
             return filename
         
-    def activate_cards(self):
+    def show_activate_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("activate_cards_dialog")\
@@ -534,7 +532,7 @@ class DefaultController(Controller):
         review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
         
-    def browse_cards(self):
+    def show_browse_cards_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("browse_cards_dialog")\
@@ -544,7 +542,7 @@ class DefaultController(Controller):
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
-    def card_appearance(self):
+    def show_card_appearance_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("card_appearance_dialog")\
@@ -552,7 +550,7 @@ class DefaultController(Controller):
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
-    def activate_plugins(self):
+    def show_activate_plugins_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("activate_plugins_dialog")\
@@ -560,21 +558,21 @@ class DefaultController(Controller):
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
-    def manage_card_types(self):
+    def show_manage_card_types_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("manage_card_types_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
         
-    def show_statistics(self):
+    def show_statistics_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("statistics_dialog")\
             (self.component_manager).activate()
         self.stopwatch().unpause()
         
-    def configure(self):
+    def show_configuration_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.component_manager.current("configuration_dialog")\
@@ -582,7 +580,7 @@ class DefaultController(Controller):
         self.review_controller().reset_but_try_to_keep_current_card()
         self.stopwatch().unpause()
         
-    def import_file(self):
+    def show_import_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         path = expand_path(self.config()["import_dir"], self.config().data_dir)
@@ -604,13 +602,13 @@ class DefaultController(Controller):
             review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
 
-    def export_file(self):
+    def show_export_file_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         
         self.stopwatch().unpause()
 
-    def sync(self):
+    def show_sync_dialog(self):
         self.stopwatch().pause()
         self.flush_sync_server()
         self.database().save()        
@@ -622,7 +620,25 @@ class DefaultController(Controller):
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
-    def download_source(self):
+    def sync(self, server, port, username, password, ui):
+        import mnemosyne.version        
+        from openSM2sync.client import Client
+        client = Client(self.config().machine_id(), self.database(), ui)
+        client.program_name = "Mnemosyne"
+        client.program_version = mnemosyne.version.version
+        client.capabilities = "mnemosyne_dynamic_cards"
+        client.check_for_edited_local_media_files = True
+        client.interested_in_old_reps = True
+        client.store_pregenerated_data = \
+            self.database().store_pregenerated_data
+        client.do_backup = self.config()["backup_befor_sync"]
+        client.upload_science_logs = self.config()["upload_science_logs"]
+        try:
+            client.sync(server, port, username, password)
+        finally:
+            client.database.release_connection()        
+
+    def show_download_source_dialog(self):
 
         """The following code is here to be able to enforce the AGPL licence.
         

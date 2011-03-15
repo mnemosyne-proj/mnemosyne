@@ -2324,7 +2324,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
 
-        self.client.mnemosyne.controller().new_file()
+        self.client.mnemosyne.controller().show_new_file_dialog()
 
         self.client.do_sync()        
         self.client.mnemosyne.finalise()

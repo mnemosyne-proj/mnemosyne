@@ -15,13 +15,14 @@ class Mnemosyne(Component):
 
     """This class groups the functionality needed to initialise and finalise
     Mnemosyne in a typical scenario.
-
-    The automatic upgrades of the database can be turned off by setting
-    'automatic_upgrade' to False. This is mainly useful for the testsuite.
-
     """
 
     def __init__(self, upload_science_logs):
+
+        #client.check_for_edited_local_media_files = True: config
+        #client.interested_in_old_reps = True
+
+        # Made explicit in order to force frontend writers to think about this.
 
         """For mobile clients, it is recommended that you set
         'upload_science_logs' to 'False'.
@@ -29,6 +30,9 @@ class Mnemosyne(Component):
         We need to specify 'upload_science_logs' as an argument here, so
         that we can inject it on time to prevent the uploader thread from
         starting.
+
+        See also 'how to write a new frontend' in the docs for more
+        information on startup and configuration of libmnemosyne.
 
         """
         
@@ -100,11 +104,17 @@ class Mnemosyne(Component):
          ("mnemosyne.libmnemosyne.statistics_pages.current_card",
           "CurrentCard"),
          ("mnemosyne.libmnemosyne.file_formats.mnemosyne1_mem",
-          "Mnemosyne1Mem")]
+          "Mnemosyne1Mem")]           
         self.extra_components_for_plugin = {}
         
     def initialise(self, data_dir=None, filename=None,
                    automatic_upgrades=True):
+        
+        """The automatic upgrades of the database can be turned off by setting
+        'automatic_upgrade' to False. This is mainly useful for the testsuite.
+
+        """
+    
         self.register_components()
         if data_dir:
             self.config().data_dir = data_dir

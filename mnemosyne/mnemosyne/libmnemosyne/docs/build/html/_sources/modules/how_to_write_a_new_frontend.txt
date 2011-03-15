@@ -23,13 +23,13 @@ When the user activates the menu option or icon to add cards, it will fire up a 
 The implementation of this function is rather trivial, it just calls the controller::
 
     def add_cards(self):
-        self.controller().add_cards()
+        self.controller().show_add_cards_dialog()
 
 The code above is code you need to implement for your new frontend, but as you can see, it's rather trivial.
 
-The controller's ``add_cards`` function looks like this::
+The controller's ``show_add_cards_dialog`` function looks like this::
 
-    def add_cards(self):
+    def show_add_cards_dialog(self):
         self.stopwatch().pause()
         self.component_manager.get_current("add_cards_dialog")\
             (self.component_manager).activate()
@@ -55,9 +55,9 @@ Finally, you need to register the ``AddCardsDlg`` component. That is what the fo
 
 Inside the ``AddCardsDlg``, there is of course lots of UI specific code, but once the dialog has enough data to create the cards, it simply calls::
 
-    self.controller().create_new_cards(fact_data, card_type, grade, cat_names)
+    self.controller().create_new_cards(fact_data, card_type, grade, tag_names)
 
-So, the ``AddCardsDlg`` should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the ui controller's ``create_new_cards()`` method.
+So, the ``AddCardsDlg`` should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the controller's ``create_new_cards()`` method.
 
 If you feel like you need to override the review or the main controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.
 
@@ -71,6 +71,7 @@ Tips for creating a responsive client:
 
     ("mnemosyne.libmnemosyne.databases.SQLite_no_pregenerated_data",
      "SQLite_NoPregeneratedData")
+* If your mobile client does not include graphical statistics using the revision history, it does not make sense to store this history on your device. 
 * If save operations are slow on your mobile device, you might want to consider setting a larger default value instead of ``save_after_n_reps = 1`` in ``config.py``
 
 
@@ -79,4 +80,4 @@ Notes:
 
 * If you need access to the main widget when you are constructing the review widget, e.g. to specify it's parent, you can access it using `self.main_widget()``
 * If you need access to some components of libmnemosyne to construct your widget (e.g. the configuration), these might not yet be available inside your ``__init__()`` method. In this case, you need to move that code to your widget's ``activate()`` method, at which time all the other compoments will already be active.
-* The same philosophy applies for frontends not written in Python, but which access libmnemosyne through an UDP socket or through the Python-embedded-in-C bridge.
+* Everything described here applies not only for Python frontends, but also for frontends not written in Python, which access libmnemosyne through an UDP socket or through the Python-embedded-in-C bridge.

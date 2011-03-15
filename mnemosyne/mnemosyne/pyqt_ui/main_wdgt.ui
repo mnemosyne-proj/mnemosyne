@@ -38,7 +38,7 @@
      <string>&amp;Settings</string>
     </property>
     <addaction name="actionConfigure"/>
-    <addaction name="actionCardAppearance"/>
+    <addaction name="actionSetCardAppearance"/>
     <addaction name="actionActivatePlugins"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -60,7 +60,6 @@
     <addaction name="actionFileSaveAs"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
-    <addaction name="actionExport"/>
     <addaction name="actionSync"/>
     <addaction name="separator"/>
     <addaction name="actionFileExit"/>
@@ -263,9 +262,9 @@
     <string>&amp;Tip of the day</string>
    </property>
   </action>
-  <action name="actionCardAppearance">
+  <action name="actionSetCardAppearance">
    <property name="text">
-    <string>Card &amp;appearance...</string>
+    <string>Set card &amp;appearance...</string>
    </property>
   </action>
   <action name="actionActivatePlugins">
@@ -420,10 +419,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCardAppearance</sender>
+   <sender>actionSetCardAppearance</sender>
    <signal>triggered()</signal>
    <receiver>MainWdgt</receiver>
-   <slot>card_appearance</slot>
+   <slot>set_card_appearance</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

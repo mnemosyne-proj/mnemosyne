@@ -56,33 +56,11 @@
 <dd><p>A collection of logic used by the GUI.  The logic related to the
 review process is split out in a separated controller class, to
 allow that to be swapped out easily.</p>
-<p>The are basically two types of functions here. Functions like &#8216;add_card&#8217;,
-&#8216;edit_current_card&#8217;, ... will be called by the GUI immediately when the
-user selects that option from the menu or toolbar. These functions will
-then create the corresponding dialogs, which in turn should call functions
-like &#8216;create_new_cards&#8217;, &#8216;edit_sister_cards&#8217; to achieve the desired
-functionality.</p>
-<p>See &#8216;How to write a new frontend&#8217; in documentation for more information.</p>
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.activate_plugins">
-<tt class="descname">activate_plugins</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.activate_plugins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.add_cards">
-<tt class="descname">add_cards</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.add_cards" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.browse_cards">
-<tt class="descname">browse_cards</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.browse_cards" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.card_appearance">
-<tt class="descname">card_appearance</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.card_appearance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>There are two classes of functions here: &#8216;show_XXX_dialog&#8217;, which needs
+to be called by the GUI to set everything up to show a certain dialog,
+and then the other functions, which the implementation of the actual
+dialog can use to perform GUI-independent operations.</p>
+<p>See also &#8216;How to write a new frontend&#8217; in the docs.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.change_card_type">
 <tt class="descname">change_card_type</tt><big>(</big><em>facts</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.change_card_type" title="Permalink to this definition">¶</a></dt>
@@ -91,11 +69,6 @@ functionality.</p>
 <dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.clone_card_type">
 <tt class="descname">clone_card_type</tt><big>(</big><em>card_type</em>, <em>clone_name</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.clone_card_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.configure">
-<tt class="descname">configure</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.configure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -119,18 +92,8 @@ functionality.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.edit_current_card">
-<tt class="descname">edit_current_card</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.edit_current_card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.edit_sister_cards">
 <tt class="descname">edit_sister_cards</tt><big>(</big><em>fact</em>, <em>new_fact_data</em>, <em>old_card_type</em>, <em>new_card_type</em>, <em>new_tag_names</em>, <em>correspondence</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.edit_sister_cards" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.export_file">
-<tt class="descname">export_file</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.export_file" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -139,61 +102,96 @@ functionality.</p>
 <dd>For code that needs to run periodically.</dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.import_file">
-<tt class="descname">import_file</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.import_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.insert_img">
-<tt class="descname">insert_img</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.insert_img" title="Permalink to this definition">¶</a></dt>
-<dd>Filter contains the file dialog filter with the supported
-filetypes.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.insert_sound">
-<tt class="descname">insert_sound</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.insert_sound" title="Permalink to this definition">¶</a></dt>
-<dd>Filter contains the file dialog filter with the supported
-filetypes.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.insert_video">
-<tt class="descname">insert_video</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.insert_video" title="Permalink to this definition">¶</a></dt>
-<dd>Filter contains the file dialog filter with the supported
-filetypes.</dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.manage_card_types">
-<tt class="descname">manage_card_types</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.manage_card_types" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.new_file">
-<tt class="descname">new_file</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.new_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.open_file">
-<tt class="descname">open_file</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.open_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mnemosyne.libmnemosyne.controller.Controller.save_file">
 <tt class="descname">save_file</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.save_file" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.save_file_as">
-<tt class="descname">save_file_as</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.save_file_as" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_activate_plugins_dialog">
+<tt class="descname">show_activate_plugins_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_activate_plugins_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.show_statistics">
-<tt class="descname">show_statistics</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_statistics" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_add_cards_dialog">
+<tt class="descname">show_add_cards_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_add_cards_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mnemosyne.libmnemosyne.controller.Controller.sync">
-<tt class="descname">sync</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.sync" title="Permalink to this definition">¶</a></dt>
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_browse_cards_dialog">
+<tt class="descname">show_browse_cards_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_browse_cards_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_card_appearance_dialog">
+<tt class="descname">show_card_appearance_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_card_appearance_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_configuration_dialog">
+<tt class="descname">show_configuration_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_configuration_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_edit_card_dialog">
+<tt class="descname">show_edit_card_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_edit_card_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_export_file_dialog">
+<tt class="descname">show_export_file_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_export_file_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_import_file_dialog">
+<tt class="descname">show_import_file_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_import_file_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_insert_img_dialog">
+<tt class="descname">show_insert_img_dialog</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_img_dialog" title="Permalink to this definition">¶</a></dt>
+<dd>Filter contains the file dialog filter with the supported
+filetypes.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_insert_sound_dialog">
+<tt class="descname">show_insert_sound_dialog</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_sound_dialog" title="Permalink to this definition">¶</a></dt>
+<dd>Filter contains the file dialog filter with the supported
+filetypes.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_insert_video_dialog">
+<tt class="descname">show_insert_video_dialog</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_insert_video_dialog" title="Permalink to this definition">¶</a></dt>
+<dd>Filter contains the file dialog filter with the supported
+filetypes.</dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_manage_card_types_dialog">
+<tt class="descname">show_manage_card_types_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_manage_card_types_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_new_file_dialog">
+<tt class="descname">show_new_file_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_new_file_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_open_file_dialog">
+<tt class="descname">show_open_file_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_open_file_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_save_file_as_dialog">
+<tt class="descname">show_save_file_as_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_save_file_as_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_statistics_dialog">
+<tt class="descname">show_statistics_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_statistics_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mnemosyne.libmnemosyne.controller.Controller.show_sync_dialog">
+<tt class="descname">show_sync_dialog</tt><big>(</big><big>)</big><a class="headerlink" href="#mnemosyne.libmnemosyne.controller.Controller.show_sync_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -216,7 +214,7 @@ filetypes.</dd></dl>
                                   title="previous chapter"><tt class="docutils literal"><span class="pre">Renderer</span></tt></a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="review_controller.html"
-                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">ReviewController</span></tt></a></p>
+                                  title="next chapter"><tt class="docutils literal"><span class="pre">ReviewController</span></tt></a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/modules/controller.txt"
@@ -259,7 +257,7 @@ filetypes.</dd></dl>
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 10, 2011.
+      Last updated on Mar 15, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

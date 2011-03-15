@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     "mnemosyne.components.append((\"mnemosyne.embedded_in_C.dlgs\", \"SyncDlg\"))\n"
     "mnemosyne.initialise(data_dir=\"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne/dot_mnemosyne2\", filename=\"default.db\")\n"
     "mnemosyne.start_review()\n"
-    "mnemosyne.controller().add_cards()\n"
+    "mnemosyne.controller().show_add_cards_dialog()\n"
     "mnemosyne.review_controller().show_answer()\n"
     "mnemosyne.review_controller().grade_answer(0)\n"    
     "mnemosyne.controller().sync()\n"
@@ -45,4 +45,3 @@ int main(int argc, char* argv[])
   run_python("mnemosyne.finalise()");
   stop_python_bridge();
 }
-

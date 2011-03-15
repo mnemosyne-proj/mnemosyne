@@ -16,25 +16,30 @@ config_py = \
 # Science server. Only change when prompted by the developers.
 science_server = "mnemosyne-proj.dyndns.org:80"
 
-# Set to True to prevent you from accidentally revealing the answer
-# when clicking the edit button.
+# Set to True to prevent you from accidentally revealing the answer when
+# clicking the edit button.
 only_editable_when_answer_shown = False
 
 # The number of daily backups to keep. Set to -1 for no limit.
 backups_to_keep = 5
 
-# The moment the new day starts. Defaults to 3 am. Could be useful to
-# change if you are a night bird. You can only set the hours, not
-# minutes, and midnight corresponds to 0.
+# The moment the new day starts. Defaults to 3 am. Could be useful to change
+# if you are a night bird. You can only set the hours, not minutes, and
+# midnight corresponds to 0.
 day_starts_at = 3
 
 # The number of repetitions that need to happen before autosave.
 # Setting this to 1 means saving after every repetition.
 save_after_n_reps = 1
 
-# Latex preamble. Note that for the pre- and postamble you need to
-# use double slashes instead of single slashes here, to have them
-# escaped when Python reads them in.
+# On mobile clients with slow SD cards copying a large database for the backup
+# before sync can take longer than the sync itself, so we offer reckless users
+# the possibility to skip this.
+backup_before_sync = True
+
+# Latex preamble. Note that for the pre- and postamble you need to use double
+# slashes instead of single slashes here, to have them escaped when Python
+# reads them in.
 latex_preamble = \"\"\"\\\\documentclass[12pt]{article}
 \\\\pagestyle{empty}
 \\\\begin{document}\"\"\"
@@ -102,6 +107,7 @@ class Configuration(Component, dict):
              "show_daily_tips": True,
              "tip": 0,
              "backups_to_keep": 10,
+             "backup_before_sync": True,
              "day_starts_at": 3,
              "save_after_n_reps": 1,
              "latex_preamble": "\\documentclass[12pt]{article}\n"+

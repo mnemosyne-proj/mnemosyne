@@ -55,22 +55,22 @@ class QTextEdit2(QtGui.QTextEdit):
     def insert_img(self):
         filter = "(*.png *.gif *.jpg *.bmp *.jpeg" + \
                  " *.PNG *.GIF *.jpg *.BMP *.JPEG)"
-        fname = self.parent().controller().insert_img(filter)
-        if fname:
-            self.insertPlainText("<img src=\"" + fname + "\">")
+        filename = self.parent().controller().show_insert_img_dialog(filter)
+        if filename:
+            self.insertPlainText("<img src=\"" + filename + "\">")
 
     def insert_sound(self):
         filter = "(*.wav *.mp3 *.ogg *.WAV *.MP3 *.OGG)"
-        fname = self.parent().controller().insert_sound(filter)
-        if fname:
-            self.insertPlainText("<audio src=\"" + fname + "\">")
+        filename = self.parent().controller().show_insert_sound_dialog(filter)
+        if filename:
+            self.insertPlainText("<audio src=\"" + filename + "\">")
         
     def insert_video(self):
         filter = "(*.mov *.ogg *.ogv *.mp4 *.qt" + \
                  " *.MOV *.OGG *.OGV *.MP4 *.QT)"
-        fname = self.parent().controller().insert_video(filter)
-        if fname:
-            self.insertPlainText("<video src=\"" + fname + "\">")
+        filename = self.parent().controller().show_insert_video_dialog(filter)
+        if filename:
+            self.insertPlainText("<video src=\"" + filename + "\">")
 
         
             

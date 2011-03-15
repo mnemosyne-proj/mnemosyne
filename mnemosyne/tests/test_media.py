@@ -33,18 +33,18 @@ class TestMedia(MnemosyneTest):
         global filename
         
         filename = ""
-        self.controller().insert_sound("")
+        self.controller().show_insert_sound_dialog("")
 
     def test_sound_2(self):
         global filename
         
         file("a.ogg", "w")
         filename = os.path.abspath("a.ogg")
-        self.controller().insert_sound("")
+        self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
 
         filename = os.path.join(self.database().media_dir(), "a.ogg")
-        self.controller().insert_sound("")
+        self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
 
     def test_sound_2_unicode(self):
@@ -52,11 +52,11 @@ class TestMedia(MnemosyneTest):
         
         file(unichr(40960) + u"a.ogg", "w")
         filename = os.path.abspath(unichr(40960) + u"a.ogg")
-        self.controller().insert_sound("")
+        self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), unichr(40960) + u"a.ogg"))
 
         filename = os.path.join(self.database().media_dir(), unichr(40960) + u"a.ogg")
-        self.controller().insert_sound("")
+        self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), unichr(40960) + u"a.ogg"))        
         
     def test_sound_3(self):
@@ -65,31 +65,31 @@ class TestMedia(MnemosyneTest):
         file("a.ogg", "w")
         
         filename = os.path.abspath("a.ogg")
-        self.controller().insert_sound("")
+        self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
         
-        self.controller().insert_sound("")
+        self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a_1_.ogg"))
         
-        self.controller().insert_sound("")
+        self.controller().show_insert_sound_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a_2_.ogg"))
         
     def test_img_1(self):
         global filename
         
         filename = ""
-        self.controller().insert_img("")
+        self.controller().show_insert_img_dialog("")
 
     def test_img_2(self):
         global filename
         
         file("a.ogg", "w")
         filename = os.path.abspath("a.ogg")
-        self.controller().insert_img("")
+        self.controller().show_insert_img_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
 
         filename = os.path.join(self.database().media_dir(), "a.ogg")
-        self.controller().insert_img("")
+        self.controller().show_insert_img_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(), "a.ogg"))
 
     def test_media_subdir(self):
@@ -99,7 +99,7 @@ class TestMedia(MnemosyneTest):
         os.mkdir(subdir)
         filename = os.path.join(subdir, "b.ogg")
         os.system("touch %s" % filename)
-        self.controller().insert_img("")
+        self.controller().show_insert_img_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(),
                                            "subdir", "b.ogg"))
 

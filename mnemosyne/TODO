@@ -1,4 +1,29 @@
+-client.check_for_edited_local_media_files = True: config.py
+
+-client.interested_in_old_reps = True: mnemosyne argument, explicity to force frontend writers to consider this.
+
+-make sure all sync options are read from config
+
+-update c and udp client to use controller().sync()
+
+-add test for controller().sync()
+
+-edit card dialog --> edit fact dialog?
+
+-how to write a new frontend: document not having to instantiate all components, updated local media, interested in old reps, backup before sync, 
+
+-make docs
+
+-mail to front end writers: updated local media, interested in old reps, backup before sync, 
+ not all components need to be instantiated,
+ use controller().sync() as opposed to generating your own openSM2 client, read 'how_to_write_a_new_frontend'
+
+-windows
+
+-dog fooding
+
 -right click add tags in card browser
+-prevent adding a tag twice. test.
 
 -right click remove tags in card browser
 
@@ -10,6 +35,11 @@
 -tooltip in preview to explain sister cards
 -better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
+
+-About dialog
+-Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
+ (also make sure they are on webpage)
+-also add option to download source in the info box
 
 -delay matplotlib instantiation
 -profile startup/shutdown
@@ -26,11 +56,6 @@
 -implement duplicate checking. Also synonym checking? Add then standard tags.
 -autorun after import, not sync
 -do review_controller.rebuild_queue, reload counter after clean duplicates?
-
--About dialog
--Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
- (also make sure they are on webpage)
--also add option to download source in the info box
 
 -ask about card browser speed
 

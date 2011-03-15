@@ -66,12 +66,13 @@ class Client(Partner):
     # directly operates at the SQL level. If you don't use this, set to False
     # to reduce the database size.
     store_pregenerated_data = True
-    # On SD cards copying a large database for the backup before sync can take
-    # a long time, so we offer reckless users the possibility to skip this.
+    # On mobile clients with slow SD cards copying a large database for the
+    # backup before sync can take longer than the sync itself, so we offer
+    # reckless users the possibility to skip this.
     do_backup = True
     # Setting this to False will leave all the uploading of anonymous science
     # logs to the sync server. Recommended to set this to False for mobile
-    # clients, which are not always guaranteed to have internet connection.
+    # clients, which are not always guaranteed to have an internet connection.
     upload_science_logs = True
     
     def __init__(self, machine_id, database, ui):
@@ -87,8 +88,8 @@ class Client(Partner):
             if self.do_backup:
                 backup_file = self.database.backup()
             # We check if files were edited outside of the program. This can
-            # generate MEDIA_EDITED log entries, so it should be
-            # done first.
+            # generate EDITED_MEDIA_FILES log entries, so it should be done
+            # first.
             self.ui.set_progress_text("Checking for edited media files...")  
             if self.check_for_edited_local_media_files:
                 self.database.check_for_edited_media_files()

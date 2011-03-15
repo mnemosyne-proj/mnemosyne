@@ -61,12 +61,12 @@
 </div>
 <p>The implementation of this function is rather trivial, it just calls the controller:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">()</span><span class="o">.</span><span class="n">add_cards</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">()</span><span class="o">.</span><span class="n">show_add_cards_dialog</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The code above is code you need to implement for your new frontend, but as you can see, it&#8217;s rather trivial.</p>
-<p>The controller&#8217;s <tt class="docutils literal"><span class="pre">add_cards</span></tt> function looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<p>The controller&#8217;s <tt class="docutils literal"><span class="pre">show_add_cards_dialog</span></tt> function looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">show_add_cards_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">stopwatch</span><span class="p">()</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="o">.</span><span class="n">get_current</span><span class="p">(</span><span class="s">&quot;add_cards_dialog&quot;</span><span class="p">)</span>\
         <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component_manager</span><span class="p">)</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
@@ -91,10 +91,10 @@
 </pre></div>
 </div>
 <p>Inside the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt>, there is of course lots of UI specific code, but once the dialog has enough data to create the cards, it simply calls:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">()</span><span class="o">.</span><span class="n">create_new_cards</span><span class="p">(</span><span class="n">fact_data</span><span class="p">,</span> <span class="n">card_type</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">cat_names</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">()</span><span class="o">.</span><span class="n">create_new_cards</span><span class="p">(</span><span class="n">fact_data</span><span class="p">,</span> <span class="n">card_type</span><span class="p">,</span> <span class="n">grade</span><span class="p">,</span> <span class="n">tag_names</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>So, the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the ui controller&#8217;s <tt class="docutils literal"><span class="pre">create_new_cards()</span></tt> method.</p>
+<p>So, the <tt class="docutils literal"><span class="pre">AddCardsDlg</span></tt> should almost entirely consist of GUI dependent code. All the GUI indepedent code to actually create the cards is contained within the controller&#8217;s <tt class="docutils literal"><span class="pre">create_new_cards()</span></tt> method.</p>
 <p>If you feel like you need to override the review or the main controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.</p>
 <p>Tips for creating a responsive client:</p>
 <ul>
@@ -111,6 +111,8 @@
 </pre></div>
 </div>
 </li>
+<li><p class="first">If your mobile client does not include graphical statistics using the revision history, it does not make sense to store this history on your device.</p>
+</li>
 <li><p class="first">If save operations are slow on your mobile device, you might want to consider setting a larger default value instead of <tt class="docutils literal"><span class="pre">save_after_n_reps</span> <span class="pre">=</span> <span class="pre">1</span></tt> in <tt class="docutils literal"><span class="pre">config.py</span></tt></p>
 </li>
 </ul>
@@ -118,7 +120,7 @@
 <ul class="simple">
 <li>If you need access to the main widget when you are constructing the review widget, e.g. to specify it&#8217;s parent, you can access it using <cite>self.main_widget()`</cite></li>
 <li>If you need access to some components of libmnemosyne to construct your widget (e.g. the configuration), these might not yet be available inside your <tt class="docutils literal"><span class="pre">__init__()</span></tt> method. In this case, you need to move that code to your widget&#8217;s <tt class="docutils literal"><span class="pre">activate()</span></tt> method, at which time all the other compoments will already be active.</li>
-<li>The same philosophy applies for frontends not written in Python, but which access libmnemosyne through an UDP socket or through the Python-embedded-in-C bridge.</li>
+<li>Everything described here applies not only for Python frontends, but also for frontends not written in Python, which access libmnemosyne through an UDP socket or through the Python-embedded-in-C bridge.</li>
 </ul>
 </div>
 
@@ -170,7 +172,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 14, 2011.
+      Last updated on Mar 15, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

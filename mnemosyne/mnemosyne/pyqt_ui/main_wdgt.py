@@ -117,96 +117,53 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
             self.status_bar.removeWidget(widget)
         self.status_bar_widgets = []
         
-    def add_cards(self):
-        self.controller().add_cards()
-
-    def edit_current_card(self):
-        self.controller().edit_current_card()
-        
-    def delete_current_card(self):
-        self.controller().delete_current_card()
-        
-    def browse_cards(self):
-        self.controller().browse_cards()
-        
-    def activate_cards(self):
-        self.controller().activate_cards()
-        
     def file_new(self):
-        self.controller().new_file()
+        self.controller().show_new_file_dialog()
 
     def file_open(self):
-        self.controller().open_file()
+        self.controller().show_open_file_dialog()
         
     def file_save(self):
         self.controller().save_file()
         
     def file_save_as(self):
-        self.controller().save_file_as()
-        
-    def manage_card_types(self):
-        self.controller().manage_card_types()
-        
-    def card_appearance(self):
-        self.controller().card_appearance()
-        
-    def activate_plugins(self):
-        self.controller().activate_plugins()
+        self.controller().show_save_file_as_dialog()
 
-    def show_statistics(self):
-        self.controller().show_statistics()
-        
     def import_file(self):
-        self.controller().import_file()
+        self.controller().show_import_file_dialog()
         
     def export_file(self):
-        self.controller().export_file()
-
+        self.controller().show_export_file_dialog()
+ 
     def sync(self):
-        self.controller().sync()
+        self.controller().show_sync_dialog()
 
+    def add_cards(self):
+        self.controller().show_add_cards_dialog()
+
+    def edit_current_card(self):
+        self.controller().show_edit_card_dialog()
+        
+    def delete_current_card(self):
+        self.controller().delete_current_card()
+        
+    def browse_cards(self):
+        self.controller().show_browse_cards_dialog()
+        
+    def activate_cards(self):
+        self.controller().show_activate_cards_dialog()   
+        
+    def manage_card_types(self):
+        self.controller().show_manage_card_types_dialog()
+        
     def configure(self):
-        self.controller().configure()      
+        self.controller().show_configuration_dialog()
+        
+    def set_card_appearance(self):
+        self.controller().show_card_appearance_dialog()
+        
+    def activate_plugins(self):
+        self.controller().show_activate_plugins_dialog()
 
-    def editCards(self):
-        stopwatch.pause()
-        dlg = EditCardsDlg(self)
-        dlg.exec_()
-        rebuild_queue()
-        if not in_queue(self.card):
-            self.newQuestion()
-        else:
-            remove_from_queue(self.card) # It's already being asked.
-        self.review_controller().update_dialog(redraw_all=True)
-        self.updateDialog()
-        stopwatch.unpause()
-
-    def cleanDuplicates(self):
-        stopwatch.pause()
-        self.status_bar.message(_("Please wait..."))
-        clean_duplicates(self)
-        rebuild_queue()
-        if not in_queue(self.card):
-            self.newQuestion()
-        self.updateDialog()
-        stopwatch.unpause()
-
-    def productTour(self):
-        return
-        stopwatch.pause()
-        dlg = ProductTourDlg(self)
-        dlg.exec_()
-        stopwatch.unpause()
-
-    def Tip(self):
-        return
-        stopwatch.pause()
-        dlg = TipDlg(self)
-        dlg.exec_()
-        stopwatch.unpause()
-
-    def helpAbout(self):
-        stopwatch.pause()
-        dlg = AboutDlg(self)
-        dlg.exec_()
-        stopwatch.unpause()
+    def show_statistics(self):
+        self.controller().show_statistics_dialog()

@@ -23,9 +23,11 @@ mnemosyne = Mnemosyne(upload_science_logs=False)
 # Initialise GUI toolkit.
 app = gui.Application()
 
-# List the components we use. The translator should obviously come first, and
-# the UI components should come in the order they should be instantiated, but
-# apart from that, the order does not matter.
+# List the components we use. We override the default list here, as we don't
+# need al the components specified there.
+# The translator should obviously come first, and the UI components should
+# come in the order they should be instantiated, but apart from that, the
+# order does not matter.
 mnemosyne.components = [
     ("mnemosyne.libmnemosyne.translator",
      "NoTranslation"),
