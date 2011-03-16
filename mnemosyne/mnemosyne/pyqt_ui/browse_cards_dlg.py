@@ -301,7 +301,16 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         for _fact_id in _fact_ids:
             facts.append(self.database().fact(_fact_id, id_is_internal=True))
         return facts
-            
+    
+    def _cards_ids_from_selection(self):
+        _card_ids = set()
+        for index in self.table.selectionModel().selectedRows():
+            _card_id_index = index.model().index(\
+                index.row(), _CARD_ID, index.parent())
+            _card_id = index.model().data(_card_id_index).toInt()[0]
+            _card_ids.add(_card_id)
+        return _card_ids
+    
     def menu_edit(self):
         cards = self.cards_from_single_selection()
         dlg = self.component_manager.current("edit_card_dialog")\
@@ -378,9 +387,21 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.tag_tree_wdgt.rebuild()
         
     def menu_add_tag(self):
-        print 'add tag'
-        self.unload_qt_database()
+        # Get new tag names. Use a dict as backdoor to return values
+        # from the dialog.
+        return_values = {}
+        from mnemosyne.pyqt_ui.add_tags_dlg import AddTagsDlg
+        dlg = AddTagsDlg(self.component_manager, return_values)
+        if dlg.exec_() != QtGui.QDialog.Accepted:
+            return
 
+        # Add the tags.
+        # TODO: division of labour between controller and database.
+        _card_ids = self._card_ids_from_selection()
+        self.unload_qt_database()
+        for tag_name in return_values["tag_names"].split(","):
+            tag = self.database().get_or_create_tag_with_name(tag_name)
+            self.database().add_tag_to_cards(tag, _card_ids)
         self.display_card_table()
         self.tag_tree_wdgt.rebuild()
         

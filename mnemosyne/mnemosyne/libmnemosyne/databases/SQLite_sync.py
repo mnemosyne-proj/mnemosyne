@@ -172,6 +172,8 @@ class SQLiteSync(object):
                 # grade. However, we send the entire state of the card across
                 # because it could be that there is no valid previous state
                 # because of conflict resolution.
+                # Note that we deliberately do not send across 'active', as
+                # this is controlled by the remote client.
                 card = self.card(log_entry["o_id"], id_is_internal=False)
                 if self.sync_partner_info.get("capabilities") == "cards":
                     log_entry["f"] = card.question("sync_to_card_only_client")
@@ -376,6 +378,9 @@ class SQLiteSync(object):
                 # about it now, this will be corrected by a later
                 # EDITED_CARD event.
                 pass
+        # Construct rest of card. The 'active' property does not need to be
+        # handled here, as default criterion will be applied to the card
+        # in the database functions.
         card.id = log_entry["o_id"]
         if log_entry["type"] != EventTypes.ADDED_CARD:
             card._id = self.con.execute("select _id from cards where id=?",

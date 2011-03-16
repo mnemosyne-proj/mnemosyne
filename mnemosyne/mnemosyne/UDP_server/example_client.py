@@ -87,6 +87,8 @@ if __name__ == "__main__":
     c.send_command("print mnemosyne.database().card_count()")        
     c.send_command("mnemosyne.finalise()")
     c.send_command("exit()")
+    # For syncing, the python code looks something like this:
+    # mnemosyne.controller().sync(server, port, username, password)
 
 # This results in the following exchange:
 
@@ -149,19 +151,3 @@ if __name__ == "__main__":
 #>>exit()
 
 
-# For syncing, the python code looks something like this:
-
-#    from openSM2sync.client import Client
-#    import mnemosyne.version
-#    client = Client(self.machine_id, self.database, self)
-#    client.program_name = "Mnemosyne"
-#    client.program_version = mnemosyne.version.version
-#    client.capabilities = "mnemosyne_dynamic_cards"
-#    client.check_for_edited_local_media_files = False
-#    client.interested_in_old_reps = False
-#    client.do_backup = True
-#    client.upload_science_logs = False
-#    try:
-#        client.sync(self.server, self.port, self.username, self.password)
-#    finally:
-#        client.database.release_connection()

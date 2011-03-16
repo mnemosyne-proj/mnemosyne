@@ -620,18 +620,22 @@ class DefaultController(Controller):
         self.review_controller().update_dialog(redraw_all=True)
         self.stopwatch().unpause()
 
-    def sync(self, server, port, username, password, ui):
-        import mnemosyne.version        
+    def sync(self, server, port, username, password, ui=None):      
+        if ui is None:
+            ui = self.main_widget()
         from openSM2sync.client import Client
         client = Client(self.config().machine_id(), self.database(), ui)
         client.program_name = "Mnemosyne"
+        import mnemosyne.version  
         client.program_version = mnemosyne.version.version
         client.capabilities = "mnemosyne_dynamic_cards"
-        client.check_for_edited_local_media_files = True
-        client.interested_in_old_reps = True
+        client.check_for_edited_local_media_files = \
+            self.config()["check_for_edited_local_media_files"]
+        client.interested_in_old_reps = \
+            self.config()["interested_in_old_reps"]
         client.store_pregenerated_data = \
             self.database().store_pregenerated_data
-        client.do_backup = self.config()["backup_befor_sync"]
+        client.do_backup = self.config()["backup_before_sync"]
         client.upload_science_logs = self.config()["upload_science_logs"]
         try:
             client.sync(server, port, username, password)

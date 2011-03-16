@@ -15,28 +15,29 @@ class Mnemosyne(Component):
 
     """This class groups the functionality needed to initialise and finalise
     Mnemosyne in a typical scenario.
+
+    See also 'how to write a new frontend' in the docs for more information
+    on startup and configuration of libmnemosyne.
+    
     """
 
-    def __init__(self, upload_science_logs):
-
-        #client.check_for_edited_local_media_files = True: config
-        #client.interested_in_old_reps = True
-
-        # Made explicit in order to force frontend writers to think about this.
+    def __init__(self, upload_science_logs, interested_in_old_reps):
 
         """For mobile clients, it is recommended that you set
-        'upload_science_logs' to 'False'.
+        'upload_science_logs' to 'False'. We need to specify this as an
+        argument here, so that we can inject it on time to prevent the
+        uploader thread from starting.
+
+        'interested_in_old_reps' can be set to 'False' on a mobile client
+        which does not show historical statistical data, in order to speed
+        up the initial sync and save disk space. We've specified this as a
+        non-default argument here, in order to force front-end writers to
+        consider it.
         
-        We need to specify 'upload_science_logs' as an argument here, so
-        that we can inject it on time to prevent the uploader thread from
-        starting.
-
-        See also 'how to write a new frontend' in the docs for more
-        information on startup and configuration of libmnemosyne.
-
         """
         
         self.upload_science_logs = upload_science_logs
+        self.interested_in_old_reps = interested_in_old_reps
         self.component_manager = new_component_manager()
         self.components = [
          ("mnemosyne.libmnemosyne.databases.SQLite",
@@ -179,6 +180,7 @@ class Mnemosyne(Component):
         except RuntimeError, e:
             self.main_widget().show_error(unicode(e))
         self.config()["upload_science_logs"] = self.upload_science_logs
+        self.config()["interested_in_old_reps"] = self.interested_in_old_reps        
         # Activate other components.
         for component in ["log", "database", "scheduler", "controller"]:
             try:

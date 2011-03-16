@@ -764,6 +764,19 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.log().deleted_card(card)
         del card
 
+    def add_tag_to_cards(self, tag, _card_ids):
+        # TODO: execute many?
+        # TODO: Make sure card does not already have this tag.
+        for _card_id in _card_ids:
+            self.con.execute("""insert into tags_for_card(_tag_id,
+                _card_id) values(?,?)""", (tag._id, _card_id))
+            # Check: need card anyhow?
+            if self.store_pregenerated_data:
+                self.con.execute("update cards set tags=? where _id=?",
+                    (card.tag_string(), _card_id))
+            # Check: need card anyhow.
+            self.log.edited_card(card)
+
     #
     # Fact views.
     #

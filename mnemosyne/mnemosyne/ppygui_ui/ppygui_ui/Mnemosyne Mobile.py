@@ -18,7 +18,7 @@ from mnemosyne.libmnemosyne import Mnemosyne
 data_dir = "\SDMMC\mnemosyne2"
 
 # Load the Mnemosyne library.
-mnemosyne = Mnemosyne(upload_science_logs=False)
+mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False)
 
 # Initialise GUI toolkit.
 app = gui.Application()

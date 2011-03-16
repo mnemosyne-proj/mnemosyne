@@ -98,22 +98,23 @@
 <p>If you feel like you need to override the review or the main controller provided by libmnemosyne, please let the developpers know. Either its design is not general enough, or you are trying to work against libmnemosyne rather than with it.</p>
 <p>Tips for creating a responsive client:</p>
 <ul>
-<li><p class="first">libmnemosyne does some optimisation by trying to show the next question before the grading of the previous question is completed. This improves the perceived responsiveness of the client. However, some GUI toolkits (e.g. Qt) queue widget updates and only excecute them when there is no more processing going on, thereby defeating libmnemosyne&#8217;s optimisation. For that reason, there is a function <tt class="docutils literal"><span class="pre">review_widget.repaint_now</span></tt> which is used to tell the GUI toolkit to do the repaint now. If your toolkit also has similar behaviour, implementing this function can really help to mask slow database access.</p>
+<li><p class="first">When instantiating a <tt class="docutils literal"><span class="pre">libmnemosyne.Mnemosyne</span></tt> object, there are two parameters you need to provide: <tt class="docutils literal"><span class="pre">upload_science_logs</span></tt> and <tt class="docutils literal"><span class="pre">interested_in_old_reps</span></tt>. If you are writing a mobile client which syncs to a desktop version of mnemosyne, it is recommended that you don&#8217;t deal with uploading the science logs yourself, but let the desktop client deal with that. As for <tt class="docutils literal"><span class="pre">interested_in_old_reps</span></tt>, if your mobile client does not include graphical statistics using the revision history, it does not make sense to store this history on your device.</p>
 </li>
-<li><p class="first">If you are writing a mobile client which syncs to a desktop version of mnemosyne, it is recommended that you don&#8217;t deal with uploading the science logs yourself, but let the desktop client deal with that. This can be achieved by instantiating <tt class="docutils literal"><span class="pre">libmnemosyne</span></tt> as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mnemosyne</span> <span class="o">=</span> <span class="n">Mnemosyne</span><span class="p">(</span><span class="n">upload_science_logs</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-</pre></div>
-</div>
+<li><p class="first">The standard instantiation of a <tt class="docutils literal"><span class="pre">libmnemosyne.Mnemosyne</span></tt> object includes all components in libmnemosyne. If you are writing a mobile client with e.g. only review capabilities, it does not make sense to include all these components. See the example of the Windows Mobile ppygui_ui frontend for a client which only uses the bare minimum of components to improve startup time.</p>
 </li>
-<li><p class="first">If your mobile client does not include a card browser, you can save some disk space by not storing pregenerated questions or answers. To achieve this, make sure you do not include the regular &#8216;SQLite&#8217; component, but this one:</p>
+<li><p class="first">If your mobile client does not include a card browser, you can save some disk space by not storing pregenerated questions or answers. To achieve this, make sure you do not include the regular <tt class="docutils literal"><span class="pre">SQLite</span></tt> component, but this one:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="s">&quot;mnemosyne.libmnemosyne.databases.SQLite_no_pregenerated_data&quot;</span><span class="p">,</span>
  <span class="s">&quot;SQLite_NoPregeneratedData&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">If your mobile client does not include graphical statistics using the revision history, it does not make sense to store this history on your device.</p>
+<li><p class="first">libmnemosyne does some optimisation by trying to show the next question before the grading of the previous question is completed. This improves the perceived responsiveness of the client. However, some GUI toolkits (e.g. Qt) queue widget updates and only excecute them when there is no more processing going on, thereby defeating libmnemosyne&#8217;s optimisation. For that reason, there is a function <tt class="docutils literal"><span class="pre">review_widget.repaint_now</span></tt> which is used to tell the GUI toolkit to do the repaint now. If your toolkit also has similar behaviour, implementing this function can really help to mask slow database access.</p>
 </li>
-<li><p class="first">If save operations are slow on your mobile device, you might want to consider setting a larger default value instead of <tt class="docutils literal"><span class="pre">save_after_n_reps</span> <span class="pre">=</span> <span class="pre">1</span></tt> in <tt class="docutils literal"><span class="pre">config.py</span></tt></p>
+<li><p class="first">If save operations are slow on your mobile device, you might want to consider setting a larger default value instead of <tt class="docutils literal"><span class="pre">save_after_n_reps</span> <span class="pre">=</span> <span class="pre">1</span></tt> in <tt class="docutils literal"><span class="pre">config.py</span></tt>.</p>
+</li>
+<li><p class="first">If media files will never be edited outside of Mnemosyne on your mobile device, you can save time during sync by setting <tt class="docutils literal"><span class="pre">check_for_updated_media_files</span> <span class="pre">=</span> <span class="pre">False</span></tt> in <tt class="docutils literal"><span class="pre">config.py</span></tt>.</p>
+</li>
+<li><p class="first">If you are really adventurous, you can set <tt class="docutils literal"><span class="pre">backup_before_sync</span> <span class="pre">=</span> <span class="pre">True</span></tt> in <tt class="docutils literal"><span class="pre">config.py</span></tt>.</p>
 </li>
 </ul>
 <p>Notes:</p>
@@ -172,7 +173,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 15, 2011.
+      Last updated on Mar 16, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

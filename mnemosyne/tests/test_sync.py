@@ -61,7 +61,7 @@ class MyServer(Server, Thread):
         Thread.__init__(self)
         if erase_previous:
             os.system("rm -fr " + data_dir)
-        self.mnemosyne = Mnemosyne(upload_science_logs=False)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
@@ -139,7 +139,7 @@ class MyClient(Client):
             filename="default.db", erase_previous=True):
         if erase_previous:
             os.system("rm -fr " + data_dir)
-        self.mnemosyne = Mnemosyne(upload_science_logs=False)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
@@ -206,6 +206,41 @@ class TestSync(object):
         assert type(self.server.tag_added_timestamp) == int
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()[0] == 1
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 8
+        
+    def test_add_tag_controller(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            assert tag.id == self.client_tag_id
+            assert tag.name == unichr(0x628) + u">&<abcd"
+            sql_res = db.con.execute("select * from log where event_type=?",
+               (EventTypes.ADDED_TAG, )).fetchone()
+            assert self.tag_added_timestamp == sql_res["timestamp"]
+            assert type(sql_res["timestamp"]) == int
+            assert db.con.execute("select count() from log").fetchone()[0] == 8 
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.server.client_tag_id = tag.id
+        sql_res = self.client.mnemosyne.database().con.execute(\
+            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()
+        self.server.tag_added_timestamp = sql_res["timestamp"]
+        assert type(self.server.tag_added_timestamp) == int
+        self.client.mnemosyne.controller().save_file()
+        self.client.mnemosyne.controller().sync("localhost", PORT,
+             self.client.user, self.client.password)
         assert self.client.mnemosyne.database().con.execute(\
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1

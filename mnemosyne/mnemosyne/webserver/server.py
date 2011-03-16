@@ -46,7 +46,8 @@ class Server(WSGIServer):
         WSGIServer.__init__(self, ("", port), WSGIRequestHandler)
         self.set_app(self.wsgi_app)
         self.stopped = False
-        self.mnemosyne = Mnemosyne(upload_science_logs=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=True,
+                                   interested_in_old_reps=True)
         self.mnemosyne.components.insert(0,
             ("mnemosyne.libmnemosyne.translator", "GetTextTranslator"))
         self.mnemosyne.components.append(\

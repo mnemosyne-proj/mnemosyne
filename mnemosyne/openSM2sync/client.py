@@ -51,8 +51,8 @@ class Client(Partner):
     # server supports "mnemosyne_dynamic_cards".
     capabilities = "mnemosyne_dynamic_cards"  # "facts", "cards"
     # The following setting can be set to False to speed up the syncing
-    # process on e.g. read only mobile clients where the media files don't get
-    # updated anyway.
+    # process on e.g. mobile clients where the media files don't get edited
+    # externally.
     check_for_edited_local_media_files = True
     # Setting the following to False will speed up the initial sync, but in that
     # case the client will not have access to all of the review history in order

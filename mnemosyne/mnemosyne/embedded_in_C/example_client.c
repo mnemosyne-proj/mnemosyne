@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
     "import sys\n"
     "sys.path.insert(0, \"/home/pbienst/source/mnemosyne-proj-pbienst/mnemosyne\")\n"
     "from mnemosyne.libmnemosyne import Mnemosyne\n"
-    "mnemosyne = Mnemosyne(upload_science_logs=False)\n"
+    "mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False)\n"
     "mnemosyne.components.insert(0, (\"mnemosyne.libmnemosyne.translator\", \"GetTextTranslator\"))\n"
     "mnemosyne.components.append((\"mnemosyne.embedded_in_C.main_wdgt\", \"MainWdgt\"))\n"
     "mnemosyne.components.append((\"mnemosyne.embedded_in_C.review_wdgt\", \"ReviewWdgt\"))\n"
@@ -31,9 +31,11 @@ int main(int argc, char* argv[])
     "mnemosyne.start_review()\n"
     "mnemosyne.controller().show_add_cards_dialog()\n"
     "mnemosyne.review_controller().show_answer()\n"
-    "mnemosyne.review_controller().grade_answer(0)\n"    
-    "mnemosyne.controller().sync()\n"
+    "mnemosyne.review_controller().grade_answer(0)\n"
 );
+
+  // For syncing, the python code looks something like this:
+  // mnemosyne.controller().sync(server, port, username, password)
 
   // Illustration on how to get data from Python to C.
   char result[256];
