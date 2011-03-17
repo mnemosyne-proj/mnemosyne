@@ -65,8 +65,7 @@ class MyServer(Server, Thread):
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(("mnemosyne_test", "TestReviewWidget"))
         global server_is_initialised
         server_is_initialised = None
         self.passed_tests = None        
@@ -143,8 +142,7 @@ class MyClient(Client):
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
         self.mnemosyne.components.append(("test_sync", "Widget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.initialise(data_dir, filename,  automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()        

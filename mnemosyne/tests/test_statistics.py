@@ -117,3 +117,23 @@ class TestStatistics(MnemosyneTest):
 
     def test_card_count_for_tags(self):
         assert self.database().card_count_for_tags([], active_only=False) == 0
+
+
+    def test_component_manager(self):
+
+        from mnemosyne.libmnemosyne.statistics_page import HtmlStatisticsPage
+        from mnemosyne.libmnemosyne.ui_components.statistics_widget import \
+             StatisticsWidget
+
+        class MyHtmlStatisticsWdgt(StatisticsWidget):
+            used_for = HtmlStatisticsPage
+
+        self.mnemosyne.component_manager.register(MyHtmlStatisticsWdgt)
+
+        class MyPage(HtmlStatisticsPage):
+            pass
+        
+        widget_class = self.mnemosyne.component_manager.current(\
+                "statistics_widget", used_for=MyPage)
+
+        assert widget_class == MyHtmlStatisticsWdgt

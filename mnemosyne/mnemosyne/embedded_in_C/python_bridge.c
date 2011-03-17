@@ -406,9 +406,9 @@ static PyObject* _review_wdgt_update_status_bar_counters(PyObject* self,
 }
 
 
-static PyObject* _review_wdgt_repaint_now(PyObject* self, PyObject* args)
+static PyObject* _review_wdgt_redraw_now(PyObject* self, PyObject* args)
 {
-  review_wdgt_repaint_now();
+  review_wdgt_redraw_now();
   Py_INCREF(Py_None);
   return Py_None;
 }
@@ -445,7 +445,7 @@ static PyMethodDef review_wdgt_methods[] = {
    METH_VARARGS, ""},  
   {"update_status_bar_counters", _review_wdgt_update_status_bar_counters, 
    METH_VARARGS, ""},  
-  {"repaint_now",                _review_wdgt_repaint_now, 
+  {"redraw_now",                 _review_wdgt_redraw_now, 
    METH_VARARGS, ""},
   {NULL, NULL, 0, NULL}
 };

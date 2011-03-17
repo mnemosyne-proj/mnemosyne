@@ -104,7 +104,7 @@ class StatisticsPageWdgt(QtGui.QWidget, Component):
         # Create widget if it has not been shown before.
         if not self.variant_widgets[variant_index]:
             self.statistics_page.prepare_statistics\
-                (self.variant_ids[variant_index])
+                (self.variant_ids[variant_index])            
             widget_class = self.component_manager.current(\
                 "statistics_widget", used_for=self.statistics_page.__class__)
             widget = widget_class(self.component_manager, self,

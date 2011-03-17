@@ -165,11 +165,11 @@ class Configuration(Component, dict):
         join = os.path.join
         if sys.platform == "win32":
             import ctypes
-            n = ctypes.windll.kernel32.GetEnvironmentVariableW(\
-                "APPDATA", None, 0)
-            buf = ctypes.create_unicode_buffer(u'\0'*n)
-            ctypes.windll.kernel32.GetEnvironmentVariableW("APPDATA", buf, n)
-            self.data_dir = join(buf.value, "Mnemosyne2")
+            n = ctypes.windll.kernel32.GetEnvironmentVariableW\
+                (u"APPDATA", None, 0)
+            buf = ctypes.create_unicode_buffer(u"\0"*n)
+            ctypes.windll.kernel32.GetEnvironmentVariableW(u"APPDATA", buf, n)
+            self.data_dir = join(buf.value, "mnemosyne2")
             self.config_dir = self.data_dir
         elif sys.platform == "darwin":
             home = os.path.expanduser("~")

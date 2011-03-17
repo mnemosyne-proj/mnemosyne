@@ -108,7 +108,7 @@
 </pre></div>
 </div>
 </li>
-<li><p class="first">libmnemosyne does some optimisation by trying to show the next question before the grading of the previous question is completed. This improves the perceived responsiveness of the client. However, some GUI toolkits (e.g. Qt) queue widget updates and only excecute them when there is no more processing going on, thereby defeating libmnemosyne&#8217;s optimisation. For that reason, there is a function <tt class="docutils literal"><span class="pre">review_widget.repaint_now</span></tt> which is used to tell the GUI toolkit to do the repaint now. If your toolkit also has similar behaviour, implementing this function can really help to mask slow database access.</p>
+<li><p class="first">libmnemosyne does some optimisation by trying to show the next question before the grading of the previous question is completed. This improves the perceived responsiveness of the client. However, some GUI toolkits (e.g. Qt) queue widget updates and only excecute them when there is no more processing going on, thereby defeating libmnemosyne&#8217;s optimisation. For that reason, there is a function <tt class="docutils literal"><span class="pre">review_widget.redraw_now</span></tt> which is used to tell the GUI toolkit to do the repaint now. If your toolkit also has similar behaviour, implementing this function can really help to mask slow database access.</p>
 </li>
 <li><p class="first">If save operations are slow on your mobile device, you might want to consider setting a larger default value instead of <tt class="docutils literal"><span class="pre">save_after_n_reps</span> <span class="pre">=</span> <span class="pre">1</span></tt> in <tt class="docutils literal"><span class="pre">config.py</span></tt>.</p>
 </li>

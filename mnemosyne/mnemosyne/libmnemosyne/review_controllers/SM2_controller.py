@@ -146,22 +146,30 @@ class SM2Controller(ReviewController):
         self.update_counters(old_grade, grade)
         self.rep_count += 1
         if self.scheduler().is_prefetch_allowed():
+            print 'prefetch'
+            
             self.new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
         else:
+            print 'no prefetch'
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
-            self.new_question()     
+            self.new_question()  
         if self.config()["show_intervals"] == "status_bar":
             import math
             days = int(math.ceil(interval / (24.0 * 60 * 60)))
             self.main_widget().set_status_bar_message(_("Returns in") + \
                 " " + str(interval) + _(" day(s)."))
+
+        print '----'
+        for _id in self.scheduler().card__ids_in_queue:
+            card = self.database().card(_id, id_is_internal=True)
+            print card.question(render_chain="plain_text")
         
     def next_rep_string(self, days):
         if days == 0:
@@ -197,7 +205,7 @@ class SM2Controller(ReviewController):
         self.update_grades_area()
         self.widget.update_status_bar_counters()
         self.update_menu_bar()
-        self.widget.repaint_now()  # Don't wait until disk activity dies down.
+        self.widget.redraw_now()  # Don't wait until disk activity dies down.
                    
     def update_qa_area(self, redraw_all=False):
         w = self.widget

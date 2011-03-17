@@ -79,11 +79,12 @@ class ComponentManager(object):
             # See if there is a component registered for the parent class.
             # We need to do this both for the case where 'used_for' is a
             # tuple and a single class.
-            class_keys = [_key for _key in self.components.keys() if \
-                not isinstance(_key, str) and not (_key == None) \
-                and isinstance(_key, tuple)]            
             if isinstance(used_for, tuple):
-                for key in class_keys:                   
+                tuple_class_keys = \
+                    [_key for _key in self.components.keys() if \
+                    not isinstance(_key, str) and not (_key == None) \
+                    and isinstance(_key, tuple)]
+                for key in tuple_class_keys:                   
                     if issubclass(used_for[0], key[0]) and \
                        issubclass(used_for[1], key[1]):
                         try:
@@ -92,7 +93,11 @@ class ComponentManager(object):
                             return []
                 return []
             else:
-                for key in class_keys:
+                non_tuple_class_keys = \
+                    [_key for _key in self.components.keys() if \
+                    not isinstance(_key, str) and not (_key == None) \
+                    and not isinstance(_key, tuple)]
+                for key in non_tuple_class_keys:
                     if issubclass(used_for, key):
                         try:
                             return self.components[key][comp_type]

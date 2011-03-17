@@ -62,6 +62,6 @@ class ReviewWdgt(ReviewWidget, UDP_Widget):
     def update_status_bar_counters(self):
         self.callback()
 
-    def repaint_now(self):
+    def redraw_now(self):
         self.callback()
        

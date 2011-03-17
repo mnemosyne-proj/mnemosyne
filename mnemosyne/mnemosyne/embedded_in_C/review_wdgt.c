@@ -97,7 +97,7 @@ void review_wdgt_update_status_bar_counters()
 }
 
 
-void review_wdgt_repaint_now()
+void review_wdgt_redraw_now()
 {
-  printf("repaint_now\n");
+  printf("redraw_now\n");
 }

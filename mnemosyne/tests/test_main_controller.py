@@ -32,7 +32,7 @@ class TestMainController(MnemosyneTest):
         self.mnemosyne.components.append(\
             ("test_main_controller", "Widget"))
         self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+            ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.components.append(\
             ("mnemosyne.libmnemosyne.ui_components.dialogs", "AddCardsDialog"))
         self.mnemosyne.components.append(\

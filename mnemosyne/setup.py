@@ -1,4 +1,4 @@
-import os, sys, shutil
+import os, sys, shutil, glob
 
 from distutils.core import Extension
 from setuptools import setup
@@ -92,17 +92,17 @@ class build_installer(py2exe):
         dist_dir = self.dist_dir
         # Prepare to install translations. These need to be installed outside of
         # the zipped archive.
-        join = os.path.join
-        pyqt_ui_dir = join("mnemosyne", "pyqt_ui")
-        locale_dir = join(pyqt_ui_dir, "locale")
-        os.mkdir(join(dist_dir, "locale"))
+        #join = os.path.join
+        #pyqt_ui_dir = join("mnemosyne", "pyqt_ui")
+        #locale_dir = join(pyqt_ui_dir, "locale")
+        #os.mkdir(join(dist_dir, "locale"))
         self.qm_files = []
-        for p in os.listdir(locale_dir):
-            if p.endswith(".qm"):
-                 src = join(os.path.abspath(locale_dir), p)
-                 dest = join(join(dist_dir, "locale"), p)
-                 shutil.copy(src, dest)
-                 self.qm_files.append(dest)
+        #for p in os.listdir(locale_dir):
+        #    if p.endswith(".qm"):
+        #         src = join(os.path.abspath(locale_dir), p)
+        #         dest = join(join(dist_dir, "locale"), p)
+        #         shutil.copy(src, dest)
+        #         self.qm_files.append(dest)
         # Create the Installer, using the files py2exe has created.
         script = InnoScript("Mnemosyne", lib_dir, dist_dir,
                             self.windows_exe_files, self.lib_files,
@@ -113,8 +113,19 @@ class build_installer(py2exe):
 
 
 if sys.platform == "win32": # For py2exe.
+    import matplotlib
+    sys.path.append("C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\redist\\x86\\Microsoft.VC90.CRT")
     base_path = ""
-    data_files = None
+    data_files = [("Microsoft.VC90.CRT", glob.glob(r'C:\Program Files\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\*.*')),
+                  (r'mpl-data', glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\*.*')),
+                  # Because matplotlibrc does not have an extension, glob does not find it (at least I think that's why)
+                  # So add it manually here:
+                  (r'mpl-data', [r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\matplotlibrc']),
+                  (r'mpl-data\images',glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\images\*.*')),
+                  (r'mpl-data\fonts\ttf',glob.glob(r'C:\Python27\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\*.*')),
+                  ('phonon_backend', ['C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll']),
+                  ('sqldrivers', ['C:\Python27\Lib\site-packages\PyQt4\plugins\sqldrivers\qsqlite4.dll'])
+                  ]    
 elif sys.platform == "darwin": # For py2app.
     base_path = ""
     data_files = []
@@ -181,7 +192,7 @@ setup (name = "Mnemosyne",
                    "openSM2sync.text_formats",
                    "mnemosyne.webserver"
                    ],
-       package_data = {"mnemosyne.pyqt_ui": ['locale/*.qm', 'mnemosyne.qrc'],
+       package_data = {"mnemosyne.pyqt_ui": ['mnemosyne.qrc'],
                        "mnemosyne": ['mnemosyne.qrc']},
        data_files = data_files,
        scripts = ['mnemosyne/pyqt_ui/mnemosyne', 'mnemosyne/webserver/mnemosyne-webserver'],

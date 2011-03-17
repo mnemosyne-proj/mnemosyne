@@ -1,6 +1,11 @@
--windows
+-after incoming sync, server review widget does not get updated (counters are OK, though)
+ reset_but_try_to_keep fails if current card fails?
 
--dog fooding
+-dog fooding: failed cards seem to keep showing up?
+-remove queue dump in review controller
+
+-dog fooding: organise cards
+
 
 -right click add tags in card browser
 -prevent adding a tag twice. test.
@@ -16,6 +21,7 @@
 -better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
 
+
 -About dialog
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
  (also make sure they are on webpage)
@@ -25,8 +31,10 @@
 -profile startup/shutdown
 
 -make distrib
+-new binary directory for windows?
 -reenable datadir in setup.py
--add 'mnemosyne/webserver/review_page.html'
+-add 'mnemosyne/webserver/review_page.html
+-test sound on windows
 
 -first run wizard and tip of the day.
 -startup tips: right click to add cards or sound, comma to separate tag names, 
@@ -39,6 +47,16 @@
 
 -ask about card browser speed
 
+-activate cards: 'having any of these tags:' is not aligned with tag with tag tree
+
+-Windows makefile: ln -s pyuic4.bat pyuic, full path to python, py2exe needed, rename mnemosyne to mnemosyne.py, numpy
+-py2exe: downloads 64 bit by default
+-py2exe: download: http://www.microsoft.com/downloads/en/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf&displaylang=en
+-put __init__.py in numpy.distutils.test
+-set default matplotlib backend: http://www.py2exe.org/index.cgi/MatPlotLib
+-more cleaner version, where options are moved from the makefile to setup.py def build_windist(): 
+-installing over an old version does not seem to work. Move to different directory?
+
 -add plugin example on card type specific renderer
 -add doc on how to write plugin to sfinx doc
 
@@ -46,6 +64,7 @@
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
 -Qt bug? Cntl+a select all in card browser only selects all the prefetched entries
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
+-Qt bug? QWebView nofocus does not work
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files

@@ -50,7 +50,10 @@ class CardModel(QtSql.QSqlTableModel, Component):
         Component.__init__(self, component_manager)
         self.search_string = ""
         self.adjusted_now = self.scheduler().adjusted_now()
-        self.date_format = locale.nl_langinfo(locale.D_FMT)
+        try:
+            self.date_format = locale.nl_langinfo(locale.D_FMT)
+        except:
+            self.date_format = "%m/%d/%y"
         self.background_colour_for_card_type_id = {}
         for card_type_id, rgb in \
             self.config()["background_colour"].iteritems():
@@ -536,7 +539,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         query.first()
         active = query.value(0).toInt()[0]
         self.counter_label.setText(\
-            _("%d cards shown, of which %d are active.") % (selected, active))   
+            _("%d cards shown, of which %d active.") % (selected, active))   
         
     def closeEvent(self, event):
         self.unload_qt_database()                

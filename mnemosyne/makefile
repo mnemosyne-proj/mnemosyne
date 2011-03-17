@@ -53,7 +53,7 @@ windows:
 	rmdir /S /Q dist
 	rmdir /S /Q build
 	python setup.py build
-	python setup.py py2exe --packages=xml.sax --includes=sip
+	python setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
 
 clean:
 	rm -f *~ *.pyc *.tgz process_profile.py 

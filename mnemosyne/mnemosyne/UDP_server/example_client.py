@@ -142,12 +142,11 @@ if __name__ == "__main__":
 #@@main_widget.enable_edit_current_card("""True""")
 #@@main_widget.enable_delete_current_card("""True""")
 #@@main_widget.enable_browse_cards("""True""")
-#@@review_widget.repaint_now()
+#@@review_widget.redraw_now()
 #>>print mnemosyne.database().card_count()
 #8960
 #>>mnemosyne.finalise()
 #Waiting for uploader thread to stop...
 #Done!
 #>>exit()
-
 

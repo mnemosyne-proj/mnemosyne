@@ -71,14 +71,17 @@ class ReviewWidget(UiComponent):
     def update_status_bar_counters(self):
         pass
 
-    def repaint_now(self):
+    def redraw_now(self):
 
-        """Tell the widget that now would be a good time to repaint
-        immediately. Some toolkits queue repaint events until there is no more
+        """Tell the widget that now would be a good time to redraw
+        immediately. Some toolkits queue redraw events until there is no more
         processing going on, but this defeats libmnemosyne's optimisation of
         trying to show the next question before the grading of the previous
         question is completed.
 
+        We don't provide a default 'pass' implementation, to force front-end
+        writers to think about this.
+
         """
-        
-        pass
+
+        raise NotImplementedError

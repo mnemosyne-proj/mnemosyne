@@ -44,14 +44,14 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
         self.setWindowTitle(text)
         
     def show_information(self, text):
-        QtGui.QMessageBox.information(None, _("Mnemosyne"), text, _("&OK"))
+        QtGui.QMessageBox.information(self, _("Mnemosyne"), text, _("&OK"))
 
     def show_question(self, text, option0, option1, option2):
-        return QtGui.QMessageBox.question(None,  _("Mnemosyne"),
+        return QtGui.QMessageBox.question(self,  _("Mnemosyne"),
             text, option0, option1, option2, 0, -1)
 
     def show_error(self, text):
-        QtGui.QMessageBox.critical(None, _("Mnemosyne"), text,
+        QtGui.QMessageBox.critical(self, _("Mnemosyne"), text,
             _("&OK"), "", "", 0, -1)
         
     def get_filename_to_open(self, path, filter, caption=""):
