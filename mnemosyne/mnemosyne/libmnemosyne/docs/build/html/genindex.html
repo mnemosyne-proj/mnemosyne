@@ -238,11 +238,11 @@
 <table width="100%" class="indextable"><tr><td width="33%" valign="top">
 <dl>
 
-<dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.in_queue">in_queue() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt>
 <dt><a href="modules/card.html#mnemosyne.libmnemosyne.card.Card.interval">interval (mnemosyne.libmnemosyne.card.Card attribute)</a></dt>
 <dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.is_answer_showing">is_answer_showing() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
 <dt><a href="modules/card_type.html#mnemosyne.libmnemosyne.card_type.CardType.is_data_valid">is_data_valid() (mnemosyne.libmnemosyne.card_type.CardType method)</a></dt>
-<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.is_empty">is_empty() (mnemosyne.libmnemosyne.database.Database method)</a></dt></dl></td><td width="33%" valign="top"><dl>
+<dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.is_empty">is_empty() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
+<dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.is_in_queue">is_in_queue() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt></dl></td><td width="33%" valign="top"><dl>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.is_loaded">is_loaded() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.is_prefetch_allowed">is_prefetch_allowed() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt>
 <dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.is_question_showing">is_question_showing() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
@@ -313,7 +313,6 @@
 
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.name">name() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
 <dt><a href="modules/database.html#mnemosyne.libmnemosyne.database.Database.new">new() (mnemosyne.libmnemosyne.database.Database method)</a></dt>
-<dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.new_question">new_question() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
 <dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.next_card">next_card() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt></dl></td><td width="33%" valign="top"><dl>
 <dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.next_rep_to_interval_string">next_rep_to_interval_string() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt>
 <dt><a href="modules/scheduler.html#mnemosyne.libmnemosyne.scheduler.Scheduler.non_memorised_count">non_memorised_count() (mnemosyne.libmnemosyne.scheduler.Scheduler method)</a></dt>
@@ -410,8 +409,8 @@
 <dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.show_answer">show_answer() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_browse_cards_dialog">show_browse_cards_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_card_appearance_dialog">show_card_appearance_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
-<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_configuration_dialog">show_configuration_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt></dl></td><td width="33%" valign="top"><dl>
-<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_edit_card_dialog">show_edit_card_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
+<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_configuration_dialog">show_configuration_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
+<dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_edit_card_dialog">show_edit_card_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt></dl></td><td width="33%" valign="top"><dl>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_export_file_dialog">show_export_file_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_import_file_dialog">show_import_file_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_insert_img_dialog">show_insert_img_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
@@ -419,6 +418,7 @@
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_insert_video_dialog">show_insert_video_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_manage_card_types_dialog">show_manage_card_types_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_new_file_dialog">show_new_file_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
+<dt><a href="modules/review_controller.html#mnemosyne.libmnemosyne.review_controller.ReviewController.show_new_question">show_new_question() (mnemosyne.libmnemosyne.review_controller.ReviewController method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_open_file_dialog">show_open_file_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_save_file_as_dialog">show_save_file_as_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
 <dt><a href="modules/controller.html#mnemosyne.libmnemosyne.controller.Controller.show_statistics_dialog">show_statistics_dialog() (mnemosyne.libmnemosyne.controller.Controller method)</a></dt>
@@ -513,7 +513,7 @@
     </div>
     <div class="footer">
       &copy; Copyright 2008, Peter Bienstman.
-      Last updated on Mar 16, 2011.
+      Last updated on Mar 18, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
     </div>
   </body>

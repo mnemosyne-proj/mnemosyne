@@ -666,15 +666,14 @@ class TestMemImport(MnemosyneTest):
                "dvipng -D 300 -T tight tmp.dvi\necho"
         assert "14pt" in self.config()["latex_preamble"]
         assert self.config()["user_id"] == "f3fb13c7"
-        assert self.config()["log_index"] == 3
+        assert self.config()["next_log_index"] == 3
         assert os.path.exists(os.path.join(old_data_dir,
             "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2"))
         assert os.path.exists(os.path.join(self.mnemosyne.config().data_dir,
                                            "history", "a_2.bz2"))
         log = file(os.path.join(self.mnemosyne.config().data_dir, "log.txt"))
         assert log.readline().strip() == \
-               "2005-11-01 09:29:08 : Imported item 82f2ed0d 0 0 0 0 0"
-
+               "2005-11-01 09:29:08 : Imported item 82f2ed0d 0 0 0 0 0"  
         
     def teardown(self):
         filename = os.path.join(os.getcwd(), "tests", "files", "basedir_bz2",

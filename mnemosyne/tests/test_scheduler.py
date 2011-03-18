@@ -153,7 +153,7 @@ class TestScheduler(MnemosyneTest):
         card_2 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.review_controller().grade_answer(0)
         self.review_controller().grade_answer(0)
 
@@ -176,7 +176,7 @@ class TestScheduler(MnemosyneTest):
             self.database().update_card(card)
             if i == 0:
                 card_1 = card
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(0)
         card_1_new = self.database().card(card_1._id, id_is_internal=True)
@@ -187,11 +187,11 @@ class TestScheduler(MnemosyneTest):
         fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.review_controller().grade_answer(5)    
         self.review_controller().learning_ahead = True
         for i in range(10):
-            self.review_controller().new_question()
+            self.review_controller().show_new_question()
             assert self.review_controller().card is not None
             self.review_controller().grade_answer(2)
 
@@ -201,7 +201,7 @@ class TestScheduler(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=5, tag_names=["default"])[0]
         self.review_controller().learning_ahead = True
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.review_controller().grade_answer(0)
         assert self.review_controller().scheduled_count == 0
                     
@@ -215,7 +215,7 @@ class TestScheduler(MnemosyneTest):
             fact_data = {"f": str(i), "b": "b"}
             self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(5)
         cards = set()
@@ -234,7 +234,7 @@ class TestScheduler(MnemosyneTest):
             fact_data = {"f": str(i), "b": "b"}
             self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(5)
         cards = set()
@@ -250,7 +250,7 @@ class TestScheduler(MnemosyneTest):
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(5)
         cards = set()
@@ -282,11 +282,11 @@ class TestScheduler(MnemosyneTest):
         fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=[])[0]     
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert self.review_controller().card == card
         self.review_controller().grade_answer(2)
         self.review_controller().learning_ahead = True
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert self.review_controller().card == card
 
     def test_next_rep_to_interval_string(self):
@@ -405,3 +405,4 @@ class TestScheduler(MnemosyneTest):
             calendar.timegm(last_rep.timetuple()),
             calendar.timegm(now.timetuple())) == \
             "1.0 years ago"
+         

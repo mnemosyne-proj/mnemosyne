@@ -75,7 +75,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
 
     def set_question(self, text):
         self.question.setHtml(text)
-
+        
     def set_answer(self, text):
         self.answer.setHtml(text)
 
@@ -84,6 +84,13 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         
     def clear_answer(self):
         self.answer.setHtml(self._empty)
+
+    def restore_focus(self):
+        # After clicking on the question or the answer, that widget grabs the
+        # focus, so that the keyboard shortcuts no longer work. This functions
+        # is used to set the focus back to the correct widget.
+        self.focus_widget.setDefault(True)
+        self.focus_widget.setFocus()
         
     def update_show_button(self, text, is_default, is_enabled):
         self.show_button.setText(text)
@@ -91,6 +98,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         if is_default:
             self.show_button.setDefault(True)
             self.show_button.setFocus()
+            self.focus_widget = self.show_button
 
     def set_grades_enabled(self, is_enabled):
         self.grades.setEnabled(is_enabled)
@@ -102,6 +110,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         if self.auto_focus_grades:
             self.grade_buttons.button(grade).setDefault(True)
             self.grade_buttons.button(grade).setFocus()
+            self.focus_widget = self.grade_buttons.button(grade)
  
     def set_grades_title(self, text):
         self.grades.setTitle(text)

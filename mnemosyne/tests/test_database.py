@@ -363,7 +363,7 @@ class TestDatabase(MnemosyneTest):
                      "b": "answer2"}
         card_3, card_4 = self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default"])        
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert card_1 == self.review_controller().card
         assert self.database().sister_card_count_scheduled_between(card_1, 0, DAY) == 0
         self.review_controller().grade_answer(2)

@@ -397,14 +397,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         dlg = AddTagsDlg(self.component_manager, return_values)
         if dlg.exec_() != QtGui.QDialog.Accepted:
             return
-
         # Add the tags.
-        # TODO: division of labour between controller and database.
         _card_ids = self._card_ids_from_selection()
         self.unload_qt_database()
         for tag_name in return_values["tag_names"].split(","):
             tag = self.database().get_or_create_tag_with_name(tag_name)
-            self.database().add_tag_to_cards(tag, _card_ids)
+            self.database().add_tag_to_cards_with__ids(tag, _card_ids)
         self.display_card_table()
         self.tag_tree_wdgt.rebuild()
         

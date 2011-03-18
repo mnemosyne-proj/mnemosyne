@@ -94,7 +94,7 @@ class MyClient(Client):
         card = self.mnemosyne.controller().create_new_cards(fact_data, card_type,
                 grade=-1, tag_names=["default"])[0]
         self.mnemosyne.database().save()
-        self.mnemosyne.review_controller().new_question()
+        self.mnemosyne.review_controller().show_new_question()
         for i in range(200):
             self.mnemosyne.review_controller().show_answer()
             self.mnemosyne.review_controller().grade_answer(0)

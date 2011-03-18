@@ -58,7 +58,7 @@ def queue():
 
 def new_question():
     # Note that this actually also happened in startup().
-    mnemosyne.review_controller().new_question()
+    mnemosyne.review_controller().show_new_question()
 
 def display():
     mnemosyne.review_controller().card.question()

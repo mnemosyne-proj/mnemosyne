@@ -61,7 +61,7 @@ class DefaultController(Controller):
         review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:
-            review_controller.new_question()
+            review_controller.show_new_question()
         else:
             review_controller.update_status_bar_counters()
         self.stopwatch().unpause()
@@ -146,13 +146,13 @@ class DefaultController(Controller):
         # e.g. when converting a front-to-back card to a cloze card, which
         # deletes the old cards and their learning history.
         if review_controller.card is None:
-            review_controller.new_question()
+            review_controller.show_new_question()
         else:
             review_controller.card = self.database().card(\
                 review_controller.card._id, id_is_internal=True)
             # Our current card could have picked up a forbidden tag.
             if review_controller.card.active == False: 
-                review_controller.new_question()
+                review_controller.show_new_question()
             review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         
@@ -326,7 +326,7 @@ class DefaultController(Controller):
             return
         self.delete_facts_and_their_cards([fact])
         review_controller.reload_counters()
-        review_controller.new_question()
+        review_controller.show_new_question()
         self.stopwatch().unpause()
 
     def delete_facts_and_their_cards(self, facts):
@@ -597,7 +597,7 @@ class DefaultController(Controller):
         review_controller = self.review_controller()
         review_controller.reload_counters()
         if review_controller.card is None:
-            review_controller.new_question()
+            review_controller.show_new_question()
         else:
             review_controller.update_status_bar_counters()
         self.stopwatch().unpause()

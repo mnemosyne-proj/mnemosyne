@@ -2,9 +2,7 @@
 # qpushbutton2.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtCore, QtGui
-
-from mnemosyne.libmnemosyne.translator import _
+from PyQt4 import QtGui
 
 
 class QPushButton2(QtGui.QPushButton):

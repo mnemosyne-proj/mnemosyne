@@ -117,6 +117,10 @@ class Mnemosyne(Component):
         """
     
         self.register_components()
+        # Upgrade if needed.
+        if automatic_upgrades:
+            from mnemosyne.libmnemosyne.upgrades.upgrade1 import Upgrade1
+            Upgrade1(self.component_manager).backup_old_dir()        
         if data_dir:
             self.config().data_dir = data_dir
         self.activate_components()
@@ -190,7 +194,7 @@ class Mnemosyne(Component):
         server = self.component_manager.current("sync_server")
         if server:
             server.activate()
-
+        
     def initialise_error_handling(self):
         if sys.platform == "win32":
             error_log = os.path.join(self.config().data_dir, "error_log.txt")

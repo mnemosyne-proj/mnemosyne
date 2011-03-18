@@ -143,10 +143,10 @@ class Logger(Component):
             log_size = os.stat(log_name).st_size
         except:
             log_size = 0
-        if log_size > 64000:
+        if log_size > self.config()["max_log_size_before_upload"]:
             user = self.config()["user_id"]
             machine = self.config().machine_id()
-            index = self.config()["log_index"]
+            index = self.config()["next_log_index"]
             archive_name = "%s_%s_%05d.bz2" % (user, machine, index)
             import bz2  # Not all platforms have bz.
             f = bz2.BZ2File(os.path.join(data_dir, "history",
@@ -155,7 +155,7 @@ class Logger(Component):
                 f.write(l)
             f.close()
             os.remove(log_name)
-            self.config()["log_index"] = index + 1
+            self.config()["next_log_index"] = index + 1
 
     def deactivate(self):
         if self.upload_thread:

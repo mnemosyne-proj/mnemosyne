@@ -6,11 +6,11 @@ import os
 import time
 import random
 import urllib2
-import traceback
 from threading import Thread
 
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.component import Component
+from mnemosyne.libmnemosyne.utils import traceback_string
 
 
 class LogUploader(Thread, Component):
@@ -29,7 +29,7 @@ class LogUploader(Thread, Component):
         # Note: we could make the following code a lot cleaner by doing a HTTP
         # PUT, but then we need to change the server side script which would
         # cause problems with backwards compatibility.
-    
+
         host, port = self.config()["science_server"].split(":")
         uri = '/cgi-bin/cgiupload.py'
         boundary = '%s%s_%s_%s' % \
@@ -87,6 +87,6 @@ class LogUploader(Thread, Component):
                 print _("done!")           
         except:
             print _("Upload failed")
-            traceback.print_exc()
+            print traceback_string()
         upload_log.close()
         

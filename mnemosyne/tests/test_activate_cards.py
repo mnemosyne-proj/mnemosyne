@@ -109,7 +109,7 @@ class TestActivateCards(MnemosyneTest):
         card_type_1 = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["tag1"])[0]
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         
         assert self.review_controller().card == card
         assert self.review_controller().counters() == (0, 1, 1)
@@ -137,7 +137,7 @@ class TestActivateCards(MnemosyneTest):
         card_type_1 = self.card_type_by_id("1")
         card = self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["tag"])[0]
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         
         assert self.review_controller().card == card
         assert self.review_controller().counters() == (0, 1, 1)
@@ -267,7 +267,7 @@ class TestActivateCards(MnemosyneTest):
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["tag"])
         assert self.database().active_count() == 1
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert self.review_controller().active_count == 1        
 
         c = DefaultCriterion(self.mnemosyne.component_manager)

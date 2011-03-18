@@ -14,6 +14,6 @@ class PlainText(Renderer):
         for field in fields:
             if field in data and data[field]:
                 text += data[field] + "\n"
-        return text
+        return text[:-1]
 
     

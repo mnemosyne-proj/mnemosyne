@@ -88,7 +88,7 @@ class TestCrammingScheduler(MnemosyneTest):
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.controller().delete_current_card()
         assert self.review_controller().card == None
 
@@ -99,7 +99,7 @@ class TestCrammingScheduler(MnemosyneTest):
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.review_controller().show_answer()        
         self.review_controller().grade_answer(0)
         self.review_controller().counters()        
@@ -116,7 +116,7 @@ class TestCrammingScheduler(MnemosyneTest):
         card_1 = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
 
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.database().unload()
         self.review_controller().reset()
         self.restart()

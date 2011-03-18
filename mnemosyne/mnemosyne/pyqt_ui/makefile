@@ -14,7 +14,10 @@ default: $(WIDGETS) ui_review_wdgt.py
 ui_review_wdgt.py: review_wdgt.ui
 	pyuic4 $< > $@
 	echo "from qpushbutton2 import *" > tmp
+	echo "from qwebview2 import *" >> tmp
 	sed 's/QtGui.QPushButton(/QPushButton2(/' $@ >> tmp
+
+	sed 's/QtWebKit.QWebView(/QWebView2(/' $@ >> tmp
 	mv tmp $@
 
 $(WIDGETS): ui_%.py: %.ui

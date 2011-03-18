@@ -24,7 +24,7 @@ class Upgrade1(Component):
         # Determine old data_dir.
         home = os.path.expanduser("~")
         if sys.platform == "darwin":
-            old_data_dir = join(unicode(home), "Library", "Mnemosyne")
+            old_data_dir = join(unicode(home), "Library", "Mnemosyne_1")
         else:
             try:
                 home = home.decode(locale.getdefaultlocale()[1])
@@ -34,6 +34,15 @@ class Upgrade1(Component):
         # We split off the rest to a separate function for testability.
         if os.path.exists(old_data_dir):
             self.upgrade_from_old_data_dir(old_data_dir)
+
+    def backup_old_dir(self):  # pragma: no cover
+        # We only do this on OSX, since on the other platforms, we use a
+        # different directory anyway.
+        if sys.platform == "darwin":
+            old_data_dir = join(unicode(home), "Library", "Mnemosyne")
+            backup_dir = join(unicode(home), "Library", "Mnemosyne_1")
+            if not os.path.exists(backup_dir):
+                shutil.move(old_data_dir, backup_dir)
 
     def upgrade_from_old_data_dir(self, old_data_dir):
         join = os.path.join
@@ -47,7 +56,7 @@ class Upgrade1(Component):
             old_config[key] = value
         # Migrate configuration settings.
         self.config()["user_id"] = old_config["user_id"]
-        self.config()["log_index"] = old_config["log_index"]
+        self.config()["next_log_index"] = old_config["log_index"]
         self.config()["upload_science_logs"] = old_config["upload_logs"]
         for card_type in self.card_types():
             self.config().set_card_type_property("font",

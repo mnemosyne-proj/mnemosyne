@@ -1,5 +1,5 @@
 #
-# test_main_controller.py <Peter.Bienstman@UGent.be>
+# test_controller.py <Peter.Bienstman@UGent.be>
 #
 
 import os
@@ -21,7 +21,7 @@ class Widget(MainWidget):
         return os.path.join(os.getcwd(), "dot_test", "default.db")
 
 
-class TestMainController(MnemosyneTest):
+class TestController(MnemosyneTest):
 
     def setup(self):
         os.system("rm -fr dot_test")
@@ -30,7 +30,7 @@ class TestMainController(MnemosyneTest):
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
         self.mnemosyne.components.append(\
-            ("test_main_controller", "Widget"))
+            ("test_controller", "Widget"))
         self.mnemosyne.components.append(\
             ("mnemosyne_test", "TestReviewWidget"))
         self.mnemosyne.components.append(\
@@ -66,7 +66,7 @@ class TestMainController(MnemosyneTest):
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
-        self.review_controller().new_question()        
+        self.review_controller().show_new_question()        
         self.controller().show_edit_card_dialog()        
         self.controller().show_new_file_dialog()
         self.controller().show_open_file_dialog()

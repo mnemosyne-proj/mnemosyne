@@ -300,7 +300,7 @@ class SM2Mnemosyne(Scheduler):
         # Relearn cards which we got wrong during learn ahead.
         self.stage = 2
 
-    def in_queue(self, card):
+    def is_in_queue(self, card):
         return card._id in self.card__ids_in_queue
     
     def remove_from_queue_if_present(self, card):

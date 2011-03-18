@@ -604,7 +604,7 @@ class TestSync(object):
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.review_controller().learning_ahead = True
-        self.client.mnemosyne.review_controller().new_question()
+        self.client.mnemosyne.review_controller().show_new_question()
         self.client.mnemosyne.review_controller().grade_answer(5)
         self.client.mnemosyne.controller().save_file()
         self.server.client_card = self.client.mnemosyne.database().\
@@ -1061,7 +1061,7 @@ class TestSync(object):
             self.card.question()
             self.card.answer()
             self.mnemosyne.review_controller().learning_ahead = True
-            self.mnemosyne.review_controller().new_question()
+            self.mnemosyne.review_controller().show_new_question()
             self.mnemosyne.review_controller().grade_answer(5)
             self.mnemosyne.controller().save_file()
             new_fact_data = {"f": "<latex>b^2</latex>",
@@ -1137,7 +1137,7 @@ class TestSync(object):
             self.card.question()
             self.card.answer()
             self.mnemosyne.review_controller().learning_ahead = True
-            self.mnemosyne.review_controller().new_question()
+            self.mnemosyne.review_controller().show_new_question()
             self.mnemosyne.review_controller().grade_answer(5)
             self.mnemosyne.controller().save_file()
             new_fact_data = {"f": "<latex>b^2</latex>",
@@ -1215,7 +1215,7 @@ class TestSync(object):
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["my_tag"])[0]
             self.mnemosyne.review_controller().learning_ahead = True
-            self.mnemosyne.review_controller().new_question()
+            self.mnemosyne.review_controller().show_new_question()
             self.mnemosyne.review_controller().grade_answer(5)
             self.mnemosyne.controller().save_file()
 
@@ -1266,7 +1266,7 @@ class TestSync(object):
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["my_tag"])[0]
             self.mnemosyne.review_controller().learning_ahead = True
-            self.mnemosyne.review_controller().new_question()
+            self.mnemosyne.review_controller().show_new_question()
             self.mnemosyne.review_controller().grade_answer(5)
             self.mnemosyne.controller().save_file()
 
@@ -1343,7 +1343,7 @@ class TestSync(object):
         self.client = MyClient(os.path.abspath("dot_sync_B"), erase_previous=False)
         self.client.mnemosyne.review_controller().reset()
         self.client.mnemosyne.review_controller().learning_ahead = True
-        self.client.mnemosyne.review_controller().new_question()
+        self.client.mnemosyne.review_controller().show_new_question()
         self.client.mnemosyne.review_controller().grade_answer(5)
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
@@ -1363,7 +1363,7 @@ class TestSync(object):
         self.client = MyClient(os.path.abspath("dot_sync_C"), erase_previous=False)
         self.client.mnemosyne.review_controller().reset()
         self.client.mnemosyne.review_controller().learning_ahead = True
-        self.client.mnemosyne.review_controller().new_question()
+        self.client.mnemosyne.review_controller().show_new_question()
         self.client.mnemosyne.review_controller().grade_answer(5)
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
@@ -2441,4 +2441,100 @@ class TestSync(object):
         self.client.do_sync()
         
         assert self.client.mnemosyne.database().active_count() == 1
+
+    def test_remove_from_queue_after_sync(self):
+
+        # First sync.
+        def test_server(self):
+            pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]
+
+        self.client.do_sync()        
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        # Second sync.
+
+        def fill_server_database(self):
+            self.mnemosyne.review_controller().learning_ahead = True
+            self.mnemosyne.review_controller().show_new_question()
+            assert self.mnemosyne.review_controller().card is not None
+            self.mnemosyne.review_controller().learning_ahead = False
+
+        def test_server(self):
+            self.mnemosyne.review_controller().reset_but_try_to_keep_current_card()
+            assert self.mnemosyne.review_controller().card is None
+        
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        self.server.card_id = card.id
+
+        self.client = MyClient(erase_previous=False)
+        
+        self.client.mnemosyne.review_controller().learning_ahead = True
+        self.client.mnemosyne.review_controller().show_new_question()
+        self.client.mnemosyne.review_controller().grade_answer(5)
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
+
+    def test_remove_from_queue_after_sync_2(self):
+
+        # First sync.
+        def test_server(self):
+            pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]
+
+        self.client.do_sync()        
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        # Second sync.
+
+        def fill_server_database(self):
+            self.mnemosyne.review_controller().learning_ahead = True
+            self.mnemosyne.review_controller().show_new_question()
+            assert self.mnemosyne.review_controller().card is not None
+            self.mnemosyne.review_controller().learning_ahead = False
+
+        def test_server(self):
+            self.mnemosyne.review_controller().reset_but_try_to_keep_current_card()
+            assert self.mnemosyne.review_controller().card is None
+        
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        self.server.card_id = card.id
+
+        self.client = MyClient(erase_previous=False)
+
+        self.client.mnemosyne.database().delete_card(card)
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
    

@@ -55,7 +55,7 @@ class Scheduler(Component):
         
         raise NotImplementedError
 
-    def in_queue(self, card):
+    def is_in_queue(self, card):
 
         """To check whether the queue needs to be rebuilt, e.g. if it contains
         a card that was deleted in the GUI.

@@ -52,7 +52,7 @@ class ReviewController(Component):
         
         pass
 
-    def new_question(self):
+    def show_new_question(self):
         raise NotImplementedError    
         
     def show_answer(self):

@@ -17,7 +17,7 @@ class SM2ControllerCramming(SM2Controller):
         self.update_counters(old_grade, grade)
         self.rep_count += 1
         if self.scheduler().is_prefetch_allowed():
-            self.new_question()
+            self.show_new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
@@ -27,7 +27,7 @@ class SM2ControllerCramming(SM2Controller):
             self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
-            self.new_question()
+            self.show_new_question()
         self.widget.update_status_bar_counters()
         if self.config()["show_intervals"] == "status_bar":
             self.main_widget().update_status_bar_message(_("Returns in") + \

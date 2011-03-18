@@ -64,7 +64,7 @@ class SM2Controller(ReviewController):
                       (self.component_manager)
         self.widget.activate()
         self.scheduler().reset()
-        self.new_question()
+        self.show_new_question()
 
     def reset_but_try_to_keep_current_card(self):
 
@@ -74,30 +74,22 @@ class SM2Controller(ReviewController):
         possible.
 
         """
-        
+
         sch = self.scheduler()
         sch.reset()
         sch.rebuild_queue()
         self.reload_counters()
-        # If previously there was no card active, perhaps there is one now.
-        if self.card is None:
-            self.new_question()
-            return
-        # Reload the card, as its data might have changed or deleted, e.g.
-        # during sync.
-        try:
-            self.card = self.database().card(self.card._id,
-                id_is_internal=True)
-        except TypeError: # The card was deleted.
-            self.new_question()
-            return
-        # 'Activate cards' might have turned this card off.
-        if self.card and not self.card.active:
-            self.new_question()
+        # Try to get a new card in case there was previously no card active,
+        # or the previous card is no longer in the queue.
+        if self.card is None or not sch.is_in_queue(self.card):
+            self.show_new_question()
+        # Otherwise, it's already being asked and we need to remove it from
+        # the queue. For robustness reasons, we also remove the second grade
+        # 0 copy if needed.
         else:
-            # It's already being asked.
             sch.remove_from_queue_if_present(self.card)
-
+            sch.remove_from_queue_if_present(self.card)
+            
     def heartbeat(self):
 
         """To be called several times during the day, to make sure that
@@ -112,7 +104,7 @@ class SM2Controller(ReviewController):
         if self.card is None or self.learning_ahead:
             self.reset()
 
-    def new_question(self):
+    def show_new_question(self):
         if not self.active_count:
             self.reload_counters()
         if not self.database().is_loaded() or self.active_count == 0:
@@ -130,7 +122,7 @@ class SM2Controller(ReviewController):
     def show_answer(self):
         if self.state == "SELECT AHEAD":
             self.learning_ahead = True
-            self.new_question()
+            self.show_new_question()
         else:
             self.stopwatch().stop()
             self.state = "SELECT GRADE"
@@ -145,31 +137,23 @@ class SM2Controller(ReviewController):
         old_grade = card_to_grade.grade
         self.update_counters(old_grade, grade)
         self.rep_count += 1
-        if self.scheduler().is_prefetch_allowed():
-            print 'prefetch'
-            
-            self.new_question()
+        if self.scheduler().is_prefetch_allowed():            
+            self.show_new_question()
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
         else:
-            print 'no prefetch'
             interval = self.scheduler().grade_answer(card_to_grade, grade)
             self.database().update_card(card_to_grade, repetition_only=True)
             if self.rep_count % self.config()["save_after_n_reps"] == 0:
                 self.database().save()
-            self.new_question()  
+            self.show_new_question()  
         if self.config()["show_intervals"] == "status_bar":
             import math
             days = int(math.ceil(interval / (24.0 * 60 * 60)))
             self.main_widget().set_status_bar_message(_("Returns in") + \
                 " " + str(interval) + _(" day(s)."))
-
-        print '----'
-        for _id in self.scheduler().card__ids_in_queue:
-            card = self.database().card(_id, id_is_internal=True)
-            print card.question(render_chain="plain_text")
         
     def next_rep_string(self, days):
         if days == 0:

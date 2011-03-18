@@ -1,14 +1,20 @@
--after incoming sync, server review widget does not get updated (counters are OK, though)
- reset_but_try_to_keep fails if current card fails?
+-dog food test: after incoming sync, server review widget does not get updated
 
--dog fooding: failed cards seem to keep showing up?
--remove queue dump in review controller
+-initial sync: bad.png shows up empty
+
+- _fact_id (name in database, obvious that it's internal) vs fact__id
+- self._fact_ids_in_queue instead fo self.fact__ids_in_queue: 
+  not internal variable in itself, but that probably no problem
+- affected__card_ids i.o. affected_card__ids? or even _card_ids_affected
 
 -dog fooding: organise cards
 
-
 -right click add tags in card browser
+-add tags dialog
 -prevent adding a tag twice. test.
+-test if edited card events are correct
+-add function to database.py
+-see what part goes in controller
 
 -right click remove tags in card browser
 
@@ -29,6 +35,13 @@
 
 -delay matplotlib instantiation
 -profile startup/shutdown
+
+-best default for failed cards, 0 or 4? Probably 0, since 2-5 have different meanings now.
+
+-purge old html files in bzr
+
+-test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
+ after upgrade there should be 2.0 files in library/Mnemosyne and a backup in librabry/Mnemosyne_1
 
 -make distrib
 -new binary directory for windows?
@@ -64,13 +77,13 @@
 -Qt bug? Cannot restore scroll_to column in card browser after tag rename.
 -Qt bug? Cntl+a select all in card browser only selects all the prefetched entries
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
--Qt bug? QWebView nofocus does not work
+-Qt bug? '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files
  are in distrib.
 
--windows: test auto upgrade
+
 -windows: test unicode filenames in sync protocol
 -test running from usb, update instructions
 -add tests with unicode in data_dir

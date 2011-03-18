@@ -37,9 +37,9 @@ class TestLogging(MnemosyneTest):
         fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.review_controller().grade_answer(0)
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.review_controller().grade_answer(1)
         self.review_controller().grade_answer(4)
 
@@ -49,7 +49,7 @@ class TestLogging(MnemosyneTest):
         fact_data = {"f": "2", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
-        self.review_controller().new_question()        
+        self.review_controller().show_new_question()        
         self.controller().delete_current_card()
 
         self.log().dump_to_science_log()
@@ -179,5 +179,94 @@ class TestLogging(MnemosyneTest):
                                               grade=-1, tag_names=["default"])        
         assert self.database().con.execute(\
             """select _id from log order by _id limit 1""").fetchone()[0] \
-            == log_index      
+            == log_index
+
+    def test_correct_config(self):
+
+        for filename in ["user_001.bz2", "user_machine_2.bz2"]:
+            file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
+
+        self.config()["user_id"] = "lost"
+        self.config()["next_log_index"] = 1
+        self.config().correct_config()
         
+        assert self.config()["user_id"] == "user"
+        assert self.config()["next_log_index"] == 3
+
+    def test_log_upload(self):
+        machine_id_file = os.path.join(self.mnemosyne.config().config_dir, "machine.id")
+        f = file(machine_id_file, "w")
+        print >> f, "TESTMACHINE"
+        f.close()
+        self.config().change_user_id("UPLOADTEST")
+        self.config()["max_log_size_before_upload"] = 1   
+        MnemosyneTest.teardown(self)
+
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+            "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_logging", "MyMainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.mnemosyne.start_review()       
+        MnemosyneTest.teardown(self)
+
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+            "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_logging", "MyMainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.mnemosyne.start_review()         
+        MnemosyneTest.teardown(self)
+        
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+            "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_logging", "MyMainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.mnemosyne.start_review()  
+
+    def test_log_upload_bad_server(self):
+        # Most reliable way of setting this variable is throug config.py, otherwise
+        # it will stay alive in a dangling imported userconfig.
+        config_py_file = os.path.join(self.mnemosyne.config().config_dir, "config.py")
+        f = file(config_py_file, "w")
+        print >> f, "science_server = \"noserver:80\""
+        f.close()
+        
+        machine_id_file = os.path.join(self.mnemosyne.config().config_dir, "machine.id")
+        f = file(machine_id_file, "w")
+        print >> f, "TESTMACHINE"
+        f.close()
+        self.config().change_user_id("UPLOADTEST")
+        self.config()["max_log_size_before_upload"] = 1
+        MnemosyneTest.teardown(self)
+
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+            "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_logging", "MyMainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))   
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.mnemosyne.start_review()       
+        MnemosyneTest.teardown(self)
+
+        self.mnemosyne = Mnemosyne(upload_science_logs=True, interested_in_old_reps=True)
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+            "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_logging", "MyMainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+        self.mnemosyne.start_review()         

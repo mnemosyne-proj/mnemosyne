@@ -50,6 +50,8 @@ Other changes:
 -Vhen importing a sound or an image, a copy is made to the 
  .mnemosyne directory. This saves some confusing explaining to new users about
  the difference between relative and absolute paths.
+-When learning new or failed cards, the default is grade 0 as opposed to 
+ grade 4.
 -Mnemosyne now saves after each reviewed card.
 -Avoid showing the same card twice in a row during review.
 -Added option "learn new related cards in same session".

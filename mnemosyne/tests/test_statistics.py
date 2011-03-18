@@ -22,7 +22,7 @@ class TestStatistics(MnemosyneTest):
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         assert self.database().card_count_for_fact_view\
                (card_type.fact_views[0], active_only=True) == 1   
         page.prepare_statistics(0)
@@ -42,7 +42,7 @@ class TestStatistics(MnemosyneTest):
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
-        self.review_controller().new_question()
+        self.review_controller().show_new_question()
         self.review_controller().grade_answer(1)
         page = Easiness(self.mnemosyne.component_manager)
         

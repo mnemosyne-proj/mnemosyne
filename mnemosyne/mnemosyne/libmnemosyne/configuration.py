@@ -73,7 +73,7 @@ class Configuration(Component, dict):
         self.load()
         self.load_user_config()
         self.correct_config()
-
+        
     def set_defaults(self):
 
         """Fill the config with default values.  Is called after every load,
@@ -95,7 +95,8 @@ class Configuration(Component, dict):
              "user_id": None,
              "upload_science_logs": True,
              "science_server": "mnemosyne-proj.dyndns.org:80",
-             "log_index": 1,
+             "next_log_index": 1,
+             "max_log_size_before_upload": 64000, # For testability.
              "font": {}, # [card_type.id][fact_key]
              "font_colour": {}, # [card_type.id][fact_key]
              "background_colour": {}, # [card_type.id]
@@ -129,7 +130,7 @@ class Configuration(Component, dict):
              "sync_server_username": "",
              "sync_server_password": ""
             }.items():
-            self.setdefault(key, value)
+            self.setdefault(key, value)        
         if not self["user_id"]:
             self["user_id"] = rand_uuid()
         # Allow other plugins or frontend to set their configuration data.
@@ -169,11 +170,11 @@ class Configuration(Component, dict):
                 (u"APPDATA", None, 0)
             buf = ctypes.create_unicode_buffer(u"\0"*n)
             ctypes.windll.kernel32.GetEnvironmentVariableW(u"APPDATA", buf, n)
-            self.data_dir = join(buf.value, "mnemosyne2")
+            self.data_dir = join(buf.value, "mnemosyne")
             self.config_dir = self.data_dir
         elif sys.platform == "darwin":
             home = os.path.expanduser("~")
-            self.data_dir = join(home, "Library", "Mnemosyne2")
+            self.data_dir = join(home, "Library", "Mnemosyne")
             self.config_dir = self.data_dir
         else:
             # Follow the freedesktop standards:
@@ -184,12 +185,12 @@ class Configuration(Component, dict):
                 self.data_dir = os.environ["XDG_DATA_HOME"]
             else:
                 self.data_dir = join(home, ".local", "share")
-            self.data_dir = join(self.data_dir, "mnemosyne2")
+            self.data_dir = join(self.data_dir, "mnemosyne")
             if "XDG_CONFIG_HOME" in os.environ:
                 self.config_dir = os.environ["XDG_CONFIG_HOME"]
             else:
                 self.config_dir = join(home, ".config")
-            self.config_dir = join(self.config_dir, "mnemosyne2")
+            self.config_dir = join(self.config_dir, "mnemosyne")
 
     def fill_dirs(self):
 
@@ -280,10 +281,11 @@ class Configuration(Component, dict):
         config_file = os.path.join(self.config_dir, "config.py")
         if os.path.exists(config_file):
             try:
-                import config as user_config
-                for var in dir(user_config):
+                import config
+                config = reload(config)
+                for var in dir(config):
                     if var in self:
-                        self[var] = getattr(user_config, var)
+                        self[var] = getattr(config, var)
             except:
                 raise RuntimeError, _("Error in config.py:") \
                           + "\n" + traceback_string()
@@ -291,17 +293,23 @@ class Configuration(Component, dict):
     def correct_config(self):
         # Recreate user id and log index from history folder in case the
         # config file was accidentally deleted.
-        if self["log_index"] == 1:
+        # History files can take the form userid_logindex.bz2 or
+        # userid_machineid_logindex.bz2.
+        if self["next_log_index"] == 1:
             join = os.path.join
             _dir = os.listdir(unicode(join(self.data_dir, "history")))
             history_files = [x for x in _dir if x[-4:] == ".bz2"]
-            history_files.sort()
+            # Recover user_id.
             if history_files:
-                last = history_files[-1]
-                user_id, log_index = last.rsplit("_", 1)
-                log_index = int(log_index.split(".")[0]) + 1
-                self["user_id"] = user_id
-                self["log_index"] = log_index
+                self["user_id"] = history_files[0].split("_", 1)[0]
+            # Recover next_log_index.
+            max_log_index = 0
+            for history_file in history_files:
+                log_index_and_suffix = history_file.rsplit("_", 1)[1]
+                log_index = int(log_index_and_suffix.split(".")[0])
+                if log_index > max_log_index:
+                    max_log_index = log_index
+            self["next_log_index"] = max_log_index + 1
 
     def change_user_id(self, new_user_id):
 
@@ -315,7 +323,7 @@ class Configuration(Component, dict):
         if new_user_id == self["user_id"]:
             return
         db = self.database()
-        if self["log_index"] > 1 or not db.is_empty():
+        if self["next_log_index"] > 1 or not db.is_empty():
             raise RuntimeError, "Unable to change user id."
         old_user_id = self["user_id"]
         self["user_id"] = new_user_id
