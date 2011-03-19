@@ -39,6 +39,7 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         self.grade_buttons.addButton(self.grade_4_button, 4)
         self.grade_buttons.addButton(self.grade_5_button, 5)
         self.grade_buttons.buttonClicked[int].connect(self.grade_answer)
+        self.focus_widget = None
         self.sched = QtGui.QLabel("", parent.status_bar)
         self.notmem = QtGui.QLabel("", parent.status_bar)
         self.act = QtGui.QLabel("", parent.status_bar)
@@ -89,8 +90,9 @@ class ReviewWdgt(QtGui.QWidget, Ui_ReviewWdgt, ReviewWidget):
         # After clicking on the question or the answer, that widget grabs the
         # focus, so that the keyboard shortcuts no longer work. This functions
         # is used to set the focus back to the correct widget.
-        self.focus_widget.setDefault(True)
-        self.focus_widget.setFocus()
+        if self.focus_widget:
+            self.focus_widget.setDefault(True)
+            self.focus_widget.setFocus()
         
     def update_show_button(self, text, is_default, is_enabled):
         self.show_button.setText(text)

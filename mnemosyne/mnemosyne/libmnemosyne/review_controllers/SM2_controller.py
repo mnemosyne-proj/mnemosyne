@@ -241,7 +241,7 @@ class SM2Controller(ReviewController):
         # Update grade buttons.
         if self.card and self.card.grade < 2:
             phase = ACQ_PHASE
-            default_grade = 0
+            default_grade = 2
         else:
             phase = RET_PHASE
             default_grade = 4
