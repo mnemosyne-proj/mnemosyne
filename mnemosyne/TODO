@@ -1,13 +1,15 @@
--dog food test: after incoming sync, server review widget does not get updated
-
--initial sync: bad.png shows up empty
-
-- _fact_id (name in database, obvious that it's internal) vs fact__id
-- self._fact_ids_in_queue instead fo self.fact__ids_in_queue: 
-  not internal variable in itself, but that probably no problem
-- affected__card_ids i.o. affected_card__ids? or even _card_ids_affected
+-id_is_interal --> is_id_internal?
 
 -dog fooding: organise cards
+-fix conversion bug
+-update fact in _change_card_type or not? Note that in edit_cards fact edits can happen not related to card type changes.
+-converting 2000 cards from front-to-back to vocabulary does take a while. Profile + add progress bar?
+-sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
+ does not restore database in sync client.
+
+-grade key still seem to autorepeat
+-initial sync: bad.png shows up empty
+
 
 -right click add tags in card browser
 -add tags dialog
@@ -17,6 +19,16 @@
 -see what part goes in controller
 
 -right click remove tags in card browser
+
+-make config copyable (e.g. remove next log index)
+-parametrise numerical values in controllers, scheduler to make it easier to customise them in a plugin
+-leech detection + Changelog
+
+
+-card browser: cards in cloned card types seem to be counted with their parent card type as well
+
+-delete cards from card type: upon reload, the old card type still seems to be listed in the
+ card browser
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -33,10 +45,11 @@
  (also make sure they are on webpage)
 -also add option to download source in the info box
 
+-example script to import cards from a text file
+
 -delay matplotlib instantiation
 -profile startup/shutdown
 
--best default for failed cards, 0 or 4? Probably 0, since 2-5 have different meanings now.
 
 -purge old html files in bzr
 
@@ -55,7 +68,7 @@
  not having to do all your scheduled repetitions in one sitting
 
 -implement duplicate checking. Also synonym checking? Add then standard tags.
--autorun after import, not sync
+-autorun after import, browse with edit, but not sync
 -do review_controller.rebuild_queue, reload counter after clean duplicates?
 
 -ask about card browser speed
@@ -183,8 +196,6 @@
 
 -more plugin examples: file format, custom tag, activate all cards,
  last grade filter
-
--leech detection (mod 15)
 
 -ask people about biggest gripe in Mnemosyne, things that did not behave as expected
 

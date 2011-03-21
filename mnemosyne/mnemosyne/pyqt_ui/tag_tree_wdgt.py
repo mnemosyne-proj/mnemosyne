@@ -201,7 +201,7 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         if criterion is None:
             criterion = DefaultCriterion(self.component_manager)
             for tag in self.database().tags():
-                criterion.active_tag__ids.add(tag._id)            
+                criterion._tag_ids_active.add(tag._id)            
         # Create tree.
         self.tag_tree_wdgt.clear()
         self.tag_for_node_item = {}
@@ -216,16 +216,16 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
         root_item.setCheckState(0, QtCore.Qt.Checked)
         self.create_tree(self.tag_tree[node], qt_parent=root_item)
         # Set forbidden tags.
-        if len(criterion.forbidden_tag__ids):
+        if len(criterion._tag_ids_forbidden):
             for node_item, tag in self.tag_for_node_item.iteritems():
-                if tag._id in criterion.forbidden_tag__ids:
+                if tag._id in criterion._tag_ids_forbidden:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
                 else:
                     node_item.setCheckState(0, QtCore.Qt.Unchecked)  
         # Set active tags.
         else:
             for node_item, tag in self.tag_for_node_item.iteritems():
-                if tag._id in criterion.active_tag__ids:
+                if tag._id in criterion._tag_ids_active:
                     node_item.setCheckState(0, QtCore.Qt.Checked)
                 else:
                     node_item.setCheckState(0, QtCore.Qt.Unchecked)
@@ -235,14 +235,14 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def checked_to_active_tags_in_criterion(self, criterion):
         for item, tag in self.tag_for_node_item.iteritems():
             if item.checkState(0) == QtCore.Qt.Checked:
-                criterion.active_tag__ids.add(tag._id)
+                criterion._tag_ids_active.add(tag._id)
         criterion.forbidden_tags = set()
         return criterion
 
     def checked_to_forbidden_tags_in_criterion(self, criterion):
         for item, tag in self.tag_for_node_item.iteritems():
             if item.checkState(0) == QtCore.Qt.Checked:
-                criterion.forbidden_tag__ids.add(tag._id)
+                criterion._tag_ids_forbidden.add(tag._id)
         criterion.active_tags = set(self.tag_for_node_item.values())
         return criterion
 
@@ -259,8 +259,8 @@ class TagsTreeWdgt(QtGui.QWidget, Component):
     def restore_criterion(self):
         new_criterion = DefaultCriterion(self.component_manager)
         for tag in self.database().tags():
-            if tag._id in self.saved_criterion.active_tag__ids:
-                new_criterion.active_tag__ids.add(tag._id)  
+            if tag._id in self.saved_criterion._tag_ids_active:
+                new_criterion._tag_ids_active.add(tag._id)  
         self.display(new_criterion)
         
     def hibernate(self):

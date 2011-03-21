@@ -11,12 +11,12 @@ class DefaultCriterionApplier(CriterionApplier):
     used_for = DefaultCriterion
 
     def apply_to_database(self, criterion):
-        if len(criterion.forbidden_tag__ids) != 0:
-            assert len(criterion.active_tag__ids) != 0
+        if len(criterion._tag_ids_forbidden) != 0:
+            assert len(criterion._tag_ids_active) != 0
         db = self.database()
         # If every tag is active, take a shortcut.
         tag_count = db.con.execute("select count() from tags").fetchone()[0]
-        if len(criterion.active_tag__ids) == tag_count:
+        if len(criterion._tag_ids_active) == tag_count:
             db.con.execute("update cards set active=1")
         else:     
             # Turn off everything.
@@ -25,11 +25,11 @@ class DefaultCriterionApplier(CriterionApplier):
             command = """update cards set active=1 where _id in
                 (select _card_id from tags_for_card where """
             args = []
-            for _tag_id in criterion.active_tag__ids:
+            for _tag_id in criterion._tag_ids_active:
                 command += "_tag_id=? or "
                 args.append(_tag_id)
             command = command.rsplit("or ", 1)[0] + ")"
-            if criterion.active_tag__ids:
+            if criterion._tag_ids_active:
                 db.con.execute(command, args)                
         # Turn off inactive card types and views.
         command = "update cards set active=0 where "
@@ -47,9 +47,9 @@ class DefaultCriterionApplier(CriterionApplier):
         command = """update cards set active=0 where _id in (select _card_id
             from tags_for_card where """       
         args = []
-        for _tag_id in criterion.forbidden_tag__ids:
+        for _tag_id in criterion._tag_ids_forbidden:
             command += "_tag_id=? or "
             args.append(_tag_id)
         command = command.rsplit("or ", 1)[0] + ")"
-        if criterion.forbidden_tag__ids:
+        if criterion._tag_ids_forbidden:
             db.con.execute(command, args)

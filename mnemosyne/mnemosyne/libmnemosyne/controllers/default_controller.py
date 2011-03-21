@@ -285,10 +285,12 @@ class DefaultController(Controller):
                 clean_orphaned_static_media_files_needed = True
         warn = True
         for fact in facts:
-            new_fact_data = {}
             if correspondence:
+                new_fact_data = {}
                 for old_key, new_key in correspondence.iteritems():
                     new_fact_data[new_key] = fact[old_key]
+                fact.data = new_fact_data
+                db.update_fact(fact)
             else:
                 new_fact_data = fact.data
             assert new_card_type.is_data_valid(new_fact_data)
@@ -409,6 +411,9 @@ class DefaultController(Controller):
                 _("Do you want to restore from this backup?"),
                 _("Yes"), _("No"), "")
             if result == 0:  # Yes.
+                # Note that we don't save the current database first in this
+                # case, as the user wants to throw it away. This mainly
+                # prohibits dumping to the science log.
                 db.restore(filename)
                 self.review_controller().reset()
                 self.update_title()

@@ -21,7 +21,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Card type:</string>
+          <string>New card type:</string>
          </property>
         </widget>
        </item>

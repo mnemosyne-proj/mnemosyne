@@ -333,8 +333,8 @@ class TestTagTree(MnemosyneTest):
         
         c = DefaultCriterion(self.mnemosyne.component_manager)
         c.deactivated_card_type_fact_view_ids = set()
-        c.active_tag__ids = set([self.database().get_or_create_tag_with_name("active")._id])
-        c.forbidden_tag__ids = set([self.database().get_or_create_tag_with_name("forbidden")._id])
+        c._tag_ids_active = set([self.database().get_or_create_tag_with_name("active")._id])
+        c._tag_ids_forbidden = set([self.database().get_or_create_tag_with_name("forbidden")._id])
         self.database().set_current_criterion(c)
         assert self.database().active_count() == 0
         

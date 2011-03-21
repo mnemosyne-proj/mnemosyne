@@ -1998,9 +1998,9 @@ class TestSync(object):
         c.name = "My criterion"
         c.deactivated_card_type_fact_view_ids = \
             set([(card_type_1.id, card_type_1.fact_views[0].id)])
-        c.active_tag__ids = set([self.client.mnemosyne.database().\
+        c._tag_ids_active = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_1")._id])
-        c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
+        c._tag_ids_forbidden = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_2")._id])
         self.client.mnemosyne.database().add_criterion(c)
         self.client.mnemosyne.database().set_current_criterion(c)
@@ -2051,14 +2051,14 @@ class TestSync(object):
         c.name = "My criterion"
         c.deactivated_card_type_fact_view_ids = \
             set([(card_type_1.id, card_type_1.fact_views[0].id)])
-        c.active_tag__ids = set([self.client.mnemosyne.database().\
+        c._tag_ids_active = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_1")._id])
-        c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
+        c._tag_ids_forbidden = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_2")._id])
         self.client.mnemosyne.database().add_criterion(c)
         self.client.mnemosyne.database().set_current_criterion(c)
 
-        c.forbidden_tag__ids = set()
+        c._tag_ids_forbidden = set()
         self.client.mnemosyne.database().update_criterion(c)        
 
         self.server.criterion_id = c.id
@@ -2110,9 +2110,9 @@ class TestSync(object):
         c.name = "My criterion"
         c.deactivated_card_type_fact_view_ids = \
             set([(card_type_1.id, card_type_1.fact_views[0].id)])
-        c.active_tag__ids = set([self.client.mnemosyne.database().\
+        c._tag_ids_active = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_1")._id])
-        c.forbidden_tag__ids = set([self.client.mnemosyne.database().\
+        c._tag_ids_forbidden = set([self.client.mnemosyne.database().\
             get_or_create_tag_with_name("tag_2")._id])
         self.client.mnemosyne.database().add_criterion(c)
         self.client.mnemosyne.database().set_current_criterion(c)
@@ -2406,8 +2406,8 @@ class TestSync(object):
         
         c = DefaultCriterion(self.client.mnemosyne.component_manager)
         c.deactivated_card_type_fact_view_ids = set()
-        c.active_tag__ids = set([self.client.mnemosyne.database().get_or_create_tag_with_name("active")._id])
-        c.forbidden_tag__ids = set([self.client.mnemosyne.database().get_or_create_tag_with_name("forbidden")._id])
+        c._tag_ids_active = set([self.client.mnemosyne.database().get_or_create_tag_with_name("active")._id])
+        c._tag_ids_forbidden = set([self.client.mnemosyne.database().get_or_create_tag_with_name("forbidden")._id])
         self.client.mnemosyne.database().set_current_criterion(c)
         assert self.client.mnemosyne.database().active_count() == 0
 

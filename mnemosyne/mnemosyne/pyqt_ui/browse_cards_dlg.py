@@ -402,7 +402,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.unload_qt_database()
         for tag_name in return_values["tag_names"].split(","):
             tag = self.database().get_or_create_tag_with_name(tag_name)
-            self.database().add_tag_to_cards_with__ids(tag, _card_ids)
+            self.database().add_tag_to_cards_with_internal_ids(tag, _card_ids)
         self.display_card_table()
         self.tag_tree_wdgt.rebuild()
         
@@ -498,13 +498,13 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         filter = filter.rsplit("and ", 1)[0]
         # Tags.
         self.tag_tree_wdgt.checked_to_active_tags_in_criterion(criterion)
-        if len(criterion.active_tag__ids) == 0:
+        if len(criterion._tag_ids_active) == 0:
             filter = "_id='not_there'"
-        elif len(criterion.active_tag__ids) != self.tag_count:
+        elif len(criterion._tag_ids_active) != self.tag_count:
             if filter:
                 filter += "and "
             filter += "_id in (select _card_id from tags_for_card where "
-            for _tag_id in criterion.active_tag__ids:
+            for _tag_id in criterion._tag_ids_active:
                 filter += "_tag_id='%s' or " % (_tag_id, )
             filter = filter.rsplit("or ", 1)[0] + ")"
         # Search string.

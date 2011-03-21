@@ -521,14 +521,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             _existing_tag_id = self.con.execute("""select _id from tags where
             name=?""", (new_name, )).fetchone()[0]
             if self.store_pregenerated_data:
-                affected_card__ids = [cursor[0] for cursor in \
+                _card_ids_affected = [cursor[0] for cursor in \
                     self.con.execute(
                     "select _card_id from tags_for_card where _tag_id=?",
                     (tag._id, ))]
             self.con.execute("""update tags_for_card set _tag_id=? where
                 _tag_id=?""", (_existing_tag_id, tag._id))
             if self.store_pregenerated_data:
-                self._update_tag_strings(affected_card__ids)
+                self._update_tag_strings(_card_ids_affected)
             self.delete_tag_if_unused(tag)
             return
         # Regular case.
@@ -536,15 +536,15 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             _id=?""", (tag.name, self._repr_extra_data(tag.extra_data),
              tag._id))
         if self.store_pregenerated_data:
-            affected_card__ids = [cursor[0] for cursor in self.con.execute(
+            _card_ids_affected = [cursor[0] for cursor in self.con.execute(
                 "select _card_id from tags_for_card where _tag_id=?",
                 (tag._id, ))]
-            self._update_tag_strings(affected_card__ids)
+            self._update_tag_strings(_card_ids_affected)
 
-    def _update_tag_strings(self, card__ids):
+    def _update_tag_strings(self, _card_ids):
         # To speed up the process, we don't construct the entire card object,
         # but take shortcuts.
-        for _card_id in card__ids:
+        for _card_id in _card_ids:
             tag_names = []
             for cursor in self.con.execute("""select _tag_id from
                 tags_for_card where _card_id=?""", (_card_id, )):
@@ -560,19 +560,19 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     
     def delete_tag(self, tag):
         self.con.execute("delete from tags where _id=?", (tag._id, ))
-        affected_card__ids = [cursor[0] for cursor in self.con.execute(
+        _card_ids_affected = [cursor[0] for cursor in self.con.execute(
             "select _card_id from tags_for_card where _tag_id=?",
             (tag._id, ))]
         self.con.execute("delete from tags_for_card where _tag_id=?",
             (tag._id, ))
-        for _card_id in affected_card__ids:
+        for _card_id in _card_ids_affected:
             if self.con.execute("""select count() from tags_for_card where
                 _card_id=?""", (_card_id, )).fetchone()[0] == 0:
                 untagged = self.get_or_create_tag_with_name("__UNTAGGED__")
                 self.con.execute("""insert into tags_for_card(_tag_id,
                     _card_id) values(?,?)""", (untagged._id, _card_id))
         if self.store_pregenerated_data:
-            self._update_tag_strings(affected_card__ids)
+            self._update_tag_strings(_card_ids_affected)
         # Update criteria, as e.g. deleting a forbidden tag needs to
         # reactive the cards having this tag.
         # TODO: some speed-up could be had here be only running the applier
@@ -764,20 +764,20 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.log().deleted_card(card)
         del card
 
-    def add_tag_to_cards_with__ids(self, tag, card__ids):
+    def add_tag_to_cards_with_internal_ids(self, tag, _card_ids):
         # To make sure we don't insert the tag twice, we delete it first.
-        arguments = ((tag._id, card__id) for card__id in card__ids)
+        arguments = ((tag._id, _card_id) for _card_id in _card_ids)
         self.con.executemany("""delete from tags_for_card where _tag_id=?
             and _card_id=?""", arguments)
         self.con.executemany("""insert into tags_for_card(_tag_id, _card_id)
             values(?,?)""", arguments)
         if self.store_pregenerated_data:
-            self._update_tag_strings(card__ids)
+            self._update_tag_strings(_card_ids)
         # We don't call 'self.log.edited_card(card)', which would require us to
         # construct the entire card object, but take a short cut.
-        for card__id in card__ids:
+        for _card_id in _card_ids:
             card_id = self.con.execute("select id from cards where _id=?",
-                (card__id, )).fetchone()[0]
+                (_card_id, )).fetchone()[0]
             self.con.execute(\
                 "insert into log(event_type, timestamp, object_id) values(?,?,?)",
                 (EventTypes.EDITED_CARD, int(time.time()), card_id))

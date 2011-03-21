@@ -21,7 +21,7 @@ science_server = "mnemosyne-proj.dyndns.org:80"
 only_editable_when_answer_shown = False
 
 # The number of daily backups to keep. Set to -1 for no limit.
-backups_to_keep = 5
+backups_to_keep = 10
 
 # The moment the new day starts. Defaults to 3 am. Could be useful to change
 # if you are a night bird. You can only set the hours, not minutes, and

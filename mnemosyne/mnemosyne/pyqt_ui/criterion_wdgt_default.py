@@ -34,7 +34,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
         self.parent_saved_sets = parent.saved_sets
         criterion = DefaultCriterion(self.component_manager)
         for tag in self.database().tags():
-            criterion.active_tag__ids.add(tag._id)
+            criterion._tag_ids_active.add(tag._id)
         self.display_criterion(criterion)
         self.card_type_tree_wdgt.card_type_tree.\
             itemChanged.connect(self.criterion_changed)
@@ -44,7 +44,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
     def display_criterion(self, criterion):
         self.card_type_tree_wdgt.display(criterion)
         self.tag_tree_wdgt.display(criterion)
-        if len(criterion.forbidden_tag__ids):
+        if len(criterion._tag_ids_forbidden):
             self.active_or_forbidden.setCurrentIndex(1)
         else:
             self.active_or_forbidden.setCurrentIndex(0)            
@@ -66,7 +66,7 @@ class DefaultCriterionWdgt(QtGui.QWidget, Ui_DefaultCriterionWdgt,
             self.tag_tree_wdgt.\
                 checked_to_forbidden_tags_in_criterion(criterion)
             for tag in self.database().tags():
-                criterion.active_tag__ids.add(tag._id)
+                criterion._tag_ids_active.add(tag._id)
         return criterion
 
     def criterion_changed(self):        

@@ -89,12 +89,12 @@ def activate():
      DefaultCriterion
     card_type_2 = mnemosyne.card_type_by_id("2")
     c = DefaultCriterion(mnemosyne.component_manager)
-    c.active_tags__ids = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
-    c.forbidden_tag__ids = set()
+    c._tag_ids_active = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
+    c._tag_ids_forbidden = set()
     c.deactivated_card_type_fact_view_ids = \
         set([(card_type_2.id, card_type_2.fact_views[0].id)])
-    c.active_tag__ids = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
-    c.forbidden_tags__ids = set()
+    c._tag_ids_active = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
+    c._tag_ids_forbidden = set()
     mnemosyne.database().set_current_criterion(c)
 
 def finalise():
