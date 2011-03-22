@@ -174,7 +174,7 @@ class SQLiteSync(object):
                 # because of conflict resolution.
                 # Note that we deliberately do not send across 'active', as
                 # this is controlled by the remote client.
-                card = self.card(log_entry["o_id"], id_is_internal=False)
+                card = self.card(log_entry["o_id"], is_id_internal=False)
                 if self.sync_partner_info.get("capabilities") == "cards":
                     log_entry["f"] = card.question("sync_to_card_only_client")
                     log_entry["b"] = card.answer("sync_to_card_only_client")
@@ -216,7 +216,7 @@ class SQLiteSync(object):
             log_entry["sch_data"] = sql_res["scheduler_data"]
         elif event_type in (EventTypes.ADDED_TAG, EventTypes.EDITED_TAG):
             try:
-                tag = self.tag(log_entry["o_id"], id_is_internal=False)
+                tag = self.tag(log_entry["o_id"], is_id_internal=False)
                 log_entry["name"] = tag.name
                 if tag.extra_data:
                     log_entry["extra"] = repr(tag.extra_data)
@@ -231,7 +231,7 @@ class SQLiteSync(object):
                 # The accompanying ADDED_CARD and EDITED_CARD events suffice.
                 return None
             try:
-                fact = self.fact(log_entry["o_id"], id_is_internal=False)
+                fact = self.fact(log_entry["o_id"], is_id_internal=False)
                 for key, value in fact.data.iteritems():
                     log_entry[key] = value
             except TypeError: # The object has been deleted at a later stage.
@@ -240,7 +240,7 @@ class SQLiteSync(object):
             EventTypes.EDITED_FACT_VIEW):
             try:
                 fact_view = self.fact_view(log_entry["o_id"],
-                    id_is_internal=False)
+                    is_id_internal=False)
                 log_entry["name"] = fact_view.name
                 log_entry["q_fields"] = repr(fact_view.q_fields)
                 log_entry["a_fields"] = repr(fact_view.a_fields)
@@ -258,7 +258,7 @@ class SQLiteSync(object):
             EventTypes.EDITED_CARD_TYPE):
             try:
                 card_type = self.card_type(log_entry["o_id"],
-                    id_is_internal=False)
+                    is_id_internal=False)
                 log_entry["name"] = card_type.name
                 log_entry["fields"] = repr(card_type.fields)
                 log_entry["fact_views"] = repr([fact_view.id for fact_view \
@@ -275,7 +275,7 @@ class SQLiteSync(object):
             EventTypes.EDITED_CRITERION):
             try:
                 criterion = self.criterion(log_entry["o_id"],
-                    id_is_internal=False)
+                    is_id_internal=False)
                 log_entry["name"] = criterion.name
                 log_entry["criterion_type"] = criterion.criterion_type
                 log_entry["data"] = criterion.data_to_sync_string()
@@ -289,7 +289,7 @@ class SQLiteSync(object):
         # in harmless missing fields, but it is more robust against future
         # side effects of tag deletion.
         if log_entry["type"] == EventTypes.DELETED_TAG:
-            return self.tag(log_entry["o_id"], id_is_internal=False)
+            return self.tag(log_entry["o_id"], is_id_internal=False)
         # If we are creating a tag that will be deleted at a later stage
         # during this sync, we are missing some (irrelevant) information
         # needed to properly create a tag object.
@@ -309,7 +309,7 @@ class SQLiteSync(object):
     def fact_from_log_entry(self, log_entry):
         # Get fact object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT:
-            return self.fact(log_entry["o_id"], id_is_internal=False)
+            return self.fact(log_entry["o_id"], is_id_internal=False)
         # Create fact object.
         data = {}
         for key, value in log_entry.iteritems():
@@ -333,7 +333,7 @@ class SQLiteSync(object):
                 # However, this will fail if after the last sync the other
                 # partner created and deleted this card, so that there is no
                 # fact information.
-                return self.card(log_entry["o_id"], id_is_internal=False)
+                return self.card(log_entry["o_id"], is_id_internal=False)
             except TypeError:
                 # Less future-proof version which just returns an empty shell.
                 # Make sure to set _id, though, as that will be used in
@@ -364,7 +364,7 @@ class SQLiteSync(object):
                 self.component_manager.card_type_by_id:
                 self._activate_plugin_for_card_type(log_entry["card_t"])
             card_type = self.card_type_by_id(log_entry["card_t"])       
-        fact = self.fact(log_entry["fact"], id_is_internal=False)
+        fact = self.fact(log_entry["fact"], is_id_internal=False)
         for fact_view in card_type.fact_views:
             if fact_view.id == log_entry["fact_v"]:
                 card = Card(card_type, fact, fact_view,
@@ -372,7 +372,7 @@ class SQLiteSync(object):
                 break
         for tag_id in log_entry["tags"].split(","):
             try:
-                card.tags.add(self.tag(tag_id, id_is_internal=False))
+                card.tags.add(self.tag(tag_id, is_id_internal=False))
             except TypeError:
                 # The tag has been later later during the log. Don't worry
                 # about it now, this will be corrected by a later
@@ -455,7 +455,7 @@ class SQLiteSync(object):
     def fact_view_from_log_entry(self, log_entry):
         # Get fact view object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_FACT_VIEW:
-            return self.fact_view(log_entry["o_id"], id_is_internal=False)
+            return self.fact_view(log_entry["o_id"], is_id_internal=False)
         # Create an empty shell of fact view object that will be deleted later
         # during this sync.
         if "name" not in log_entry:
@@ -475,7 +475,7 @@ class SQLiteSync(object):
     def card_type_from_log_entry(self, log_entry):
         # Get card type object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CARD_TYPE:
-            return self.card_type(log_entry["o_id"], id_is_internal=False)
+            return self.card_type(log_entry["o_id"], is_id_internal=False)
         # Create an empty shell of card type object that will be deleted later
         # during this sync.
         if "fact_views" not in log_entry:
@@ -491,7 +491,7 @@ class SQLiteSync(object):
         card_type.fact_views = []
         for fact_view_id in eval(log_entry["fact_views"]):
             card_type.fact_views.append(self.fact_view(fact_view_id,
-                id_is_internal=False))
+                is_id_internal=False))
         card_type.unique_fields = eval(log_entry["unique_fields"])
         card_type.required_fields = eval(log_entry["required_fields"])        
         card_type.keyboard_shortcuts = eval(log_entry["keyboard_shortcuts"])                    
@@ -502,7 +502,7 @@ class SQLiteSync(object):
     def criterion_from_log_entry(self, log_entry):
         # Get criterion object to be deleted now.
         if log_entry["type"] == EventTypes.DELETED_CRITERION:
-            return self.criterion(log_entry["o_id"], id_is_internal=False)
+            return self.criterion(log_entry["o_id"], is_id_internal=False)
         # Create an empty shell of criterion object that will be deleted later
         # during this sync.
         if "criterion_type" not in log_entry:

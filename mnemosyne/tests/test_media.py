@@ -113,7 +113,7 @@ class TestMedia(MnemosyneTest):
                                               grade=-1, tag_names=["default"])[0]
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         # Make sure we don't reuse existing objects.
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         assert os.path.exists(full_path_in_media_dir)
         assert full_path not in card.fact.data["f"]
         assert full_path_in_media_dir not in card.fact.data["f"]
@@ -130,7 +130,7 @@ class TestMedia(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         assert os.path.join(self.database().media_dir(), "a.ogg") \
                not in card.question()
 
@@ -150,7 +150,7 @@ class TestMedia(MnemosyneTest):
         self.controller().edit_sister_cards(card.fact, fact_data, card.card_type, 
            card_type, new_tag_names=["bla"], correspondence=None)
         # Make sure we don't reuse existing objects.
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         assert os.path.exists(full_path_in_media_dir)
         assert full_path not in card.fact.data["f"]
         assert full_path_in_media_dir not in card.fact.data["f"]
@@ -170,7 +170,7 @@ class TestMedia(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         os.system("touch b.ogg")
         full_path = os.path.abspath("b.ogg")
         fact_data = {"f": "edited <img src=\"%s\"> <img src=\"%s\">" \
@@ -198,7 +198,7 @@ class TestMedia(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         fact_data = {"f": "edited ",
                      "b": "answer"}
         self.controller().edit_sister_cards(card.fact, fact_data,
@@ -223,7 +223,7 @@ class TestMedia(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         fact_data = {"f": "2 <img src=\'%s\'>" % "a.ogg",
                      "b": "answer"}        
         self.controller().create_new_cards(fact_data, card_type,
@@ -249,7 +249,7 @@ class TestMedia(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         self.controller().delete_facts_and_their_cards([card.fact])
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
         assert not os.path.exists(full_path_in_media_dir) # Autodelete.
@@ -267,7 +267,7 @@ class TestMedia(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         fact_data = {"f": "2 <img src=\"%s\">" % "a.ogg",
                      "b": "answer"}
         self.controller().create_new_cards(fact_data, card_type,

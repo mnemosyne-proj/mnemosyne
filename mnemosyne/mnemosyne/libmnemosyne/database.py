@@ -97,7 +97,7 @@ class Database(Component):
     def add_tag(self, tag):
         raise NotImplementedError
 
-    def tag(self, id, id_is_internal):
+    def tag(self, id, is_id_internal):
         raise NotImplementedError
     
     def update_tag(self, tag):
@@ -123,7 +123,7 @@ class Database(Component):
     def add_fact(self, fact):
         raise NotImplementedError
     
-    def fact(self, id, id_is_internal):
+    def fact(self, id, is_id_internal):
         raise NotImplementedError
     
     def update_fact(self, fact):
@@ -137,7 +137,7 @@ class Database(Component):
     def add_card(self, card):
         raise NotImplementedError
         
-    def card(self, id, id_is_internal):
+    def card(self, id, is_id_internal):
         raise NotImplementedError
     
     def update_card(self, card, repetition_only=False):
@@ -151,7 +151,7 @@ class Database(Component):
     def add_fact_view(self, fact_view):
         raise NotImplementedError
 
-    def fact_view(self, id, id_is_internal):
+    def fact_view(self, id, is_id_internal):
         raise NotImplementedError
     
     def update_fact_view(self, fact_view):
@@ -165,7 +165,7 @@ class Database(Component):
     def add_card_type(self, card_type):
         raise NotImplementedError
 
-    def card_type(self, id, id_is_internal):
+    def card_type(self, id, is_id_internal):
         raise NotImplementedError
     
     def update_card_type(self, card_type):
@@ -179,7 +179,7 @@ class Database(Component):
     def add_criterion(self, criterion):
         raise NotImplementedError
 
-    def criterion(self, id, id_is_internal):
+    def criterion(self, id, is_id_internal):
         raise NotImplementedError
     
     def update_criterion(self, criterion):

@@ -70,7 +70,7 @@ class TestCardType(MnemosyneTest):
         self.database().update_card_type(card_type)
         self.mnemosyne.component_manager.unregister(card_type)
         card_type_out = self.database().card_type(card_type.id,
-                                                      id_is_internal=False)
+                                                      is_id_internal=False)
         assert card_type_out.key_with_name("Front") == "f"
         assert card_type_out.required_fields == ["f"]
         assert card_type_out.is_data_valid({"f": "foo"}) == True
@@ -109,7 +109,7 @@ class TestCardType(MnemosyneTest):
         self.controller().delete_card_type(card_type_1)
 
         card_type_out = self.database().card_type(card_type_2.id,
-                                                      id_is_internal=False)
+                                                      is_id_internal=False)
 
         assert card_type_out.fact_views[0].id == \
                card_type.fact_views[0].id
@@ -134,7 +134,7 @@ class TestCardType(MnemosyneTest):
         self.database().update_card_type(card_type)
         self.mnemosyne.component_manager.unregister(card_type)
         card_type_out = self.database().card_type(card_type.id,
-                                                      id_is_internal=False)
+                                                      is_id_internal=False)
         assert card_type_out.key_with_name("Front") == "f"
         assert card_type_out.required_fields == ["f"]
         assert card_type_out.is_data_valid({"f": "foo"}) == True

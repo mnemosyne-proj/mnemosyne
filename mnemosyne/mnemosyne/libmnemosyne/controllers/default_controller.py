@@ -149,7 +149,7 @@ class DefaultController(Controller):
             review_controller.show_new_question()
         else:
             review_controller.card = self.database().card(\
-                review_controller.card._id, id_is_internal=True)
+                review_controller.card._id, is_id_internal=True)
             # Our current card could have picked up a forbidden tag.
             if review_controller.card.active == False: 
                 review_controller.show_new_question()
@@ -213,7 +213,7 @@ class DefaultController(Controller):
           _("and not just deactivate cards in the 'Activate cards' dialog?"),
                  _("&Proceed and delete"), _("&Cancel"), "")
                 if answer == 1:  # Cancel.
-                    return -1  
+                    return -1
             for card in deleted_cards:
                 if self.review_controller().card == card:
                     self.review_controller().card = None
@@ -294,6 +294,7 @@ class DefaultController(Controller):
             else:
                 new_fact_data = fact.data
             assert new_card_type.is_data_valid(new_fact_data)
+            print 'change card type'
             result = self._change_card_type(fact, old_card_type,
                 new_card_type, correspondence, new_fact_data, warn)
             if result == -1:

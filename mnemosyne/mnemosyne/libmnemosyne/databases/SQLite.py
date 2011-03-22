@@ -329,7 +329,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # Instantiate card types stored in this database.
         for cursor in self.con.execute("select id from card_types"):
             id = cursor[0]
-            card_type = self.card_type(id, id_is_internal=-1)
+            card_type = self.card_type(id, is_id_internal=-1)
             self.component_manager.register(card_type)
         # Identify missing plugins for card types and their parents.
         plugin_needed = set()
@@ -350,7 +350,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 self._connection.close()
                 self._connection = None
                 raise exception
-        self._current_criterion = self.criterion(1, id_is_internal=True)
+        self._current_criterion = self.criterion(1, is_id_internal=True)
         self.config()["path"] = contract_path(path, self.config().data_dir)
         for f in self.component_manager.all("hook", "after_load"):
             f.run()
@@ -498,8 +498,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             criterion.tag_created(tag)
             self.update_criterion(criterion)
 
-    def tag(self, id, id_is_internal):
-        if id_is_internal:
+    def tag(self, id, is_id_internal):
+        if is_id_internal:
             sql_res = self.con.execute("select * from tags where _id=?",
                                        (id, )).fetchone()
         else:
@@ -599,7 +599,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
         """
         
-        result = [self.tag(cursor[0], id_is_internal=True) for cursor in \
+        result = [self.tag(cursor[0], is_id_internal=True) for cursor in \
             self.con.execute("select _id from tags")]
         result.sort(key=lambda x: x.name, cmp=numeric_string_cmp)
         if result and result[0].name == "__UNTAGGED__":
@@ -624,8 +624,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # Process media files.
         self._process_media(fact)
 
-    def fact(self, id, id_is_internal):
-        if id_is_internal:
+    def fact(self, id, is_id_internal):
+        if is_id_internal:
             sql_res = self.con.execute("select * from facts where _id=?",
                                        (id, )).fetchone()
         else:
@@ -694,14 +694,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 _card_id) values(?,?)""", (tag._id, _card_id))
         self.log().added_card(card)
 
-    def card(self, id, id_is_internal):
-        if id_is_internal:
+    def card(self, id, is_id_internal):
+        if is_id_internal:
             sql_res = self.con.execute("select * from cards where _id=?",
                                        (id, )).fetchone()
         else:
             sql_res = self.con.execute("select * from cards where id=?",
                                        (id, )).fetchone()
-        fact = self.fact(sql_res["_fact_id"], id_is_internal=True)
+        fact = self.fact(sql_res["_fact_id"], is_id_internal=True)
         card_type = self.card_type_by_id(sql_res["card_type_id"])
         for fact_view in card_type.fact_views:
             if fact_view.id == sql_res["fact_view_id"]:
@@ -716,7 +716,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._get_extra_data(sql_res, card)
         for cursor in self.con.execute("""select _tag_id from tags_for_card
             where _card_id=?""", (sql_res["_id"], )):
-            card.tags.add(self.tag(cursor["_tag_id"], id_is_internal=True))
+            card.tags.add(self.tag(cursor["_tag_id"], is_id_internal=True))
         return card
     
     def update_card(self, card, repetition_only=False):
@@ -800,8 +800,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         fact_view._id = _fact_view_id
         self.log().added_fact_view(fact_view)
 
-    def fact_view(self, id, id_is_internal):
-        if id_is_internal:
+    def fact_view(self, id, is_id_internal):
+        if is_id_internal:
             sql_res = self.con.execute("select * from fact_views where _id=?",
                 (id, )).fetchone()
         else:
@@ -855,7 +855,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.component_manager.register(card_type)
         self.log().added_card_type(card_type)
 
-    def card_type(self, id, id_is_internal):
+    def card_type(self, id, is_id_internal):
         # Since there are so few of them, we don't use internal _ids.
         # ids should be unique too.
         if id in self.component_manager.card_type_by_id:
@@ -863,7 +863,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         parent_id, child_id = "", id
         if "::" in id:
             parent_id, child_id = id.rsplit("::", 1)
-            parent = self.card_type(parent_id, id_is_internal=-1)
+            parent = self.card_type(parent_id, is_id_internal=-1)
         else:
             parent = CardType(self.component_manager)
         sql_res = self.con.execute("select * from card_types where id=?",
@@ -878,7 +878,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for cursor in self.con.execute("""select _fact_view_id from
             fact_views_for_card_type where card_type_id=?""", (id, )):
             card_type.fact_views.append(self.fact_view(\
-                cursor["_fact_view_id"], id_is_internal=True))
+                cursor["_fact_view_id"], is_id_internal=True))
         return card_type
         
     def update_card_type(self, card_type):
@@ -893,7 +893,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for cursor in self.con.execute("""select _fact_view_id from
             fact_views_for_card_type where card_type_id=?""",
             (card_type.id, )):
-            fact_view = self.fact_view(cursor[0], id_is_internal=True)
+            fact_view = self.fact_view(cursor[0], is_id_internal=True)
             self.delete_fact_view(fact_view)
         self.con.execute("""delete from fact_views_for_card_type where
             card_type_id=?""", (card_type.id, ))
@@ -930,8 +930,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if criterion.name:
             self.log().added_criterion(criterion)
         
-    def criterion(self, id, id_is_internal):
-        if id_is_internal:
+    def criterion(self, id, is_id_internal):
+        if is_id_internal:
             sql_res = self.con.execute("select * from criteria where _id=?",
                 (id, )).fetchone()
         else:
@@ -977,7 +977,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return self._current_criterion
     
     def criteria(self):
-        return (self.criterion(cursor[0], id_is_internal=True) \
+        return (self.criterion(cursor[0], is_id_internal=True) \
             for cursor in self.con.execute("select _id from criteria"))
 
     #
@@ -985,7 +985,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
 
     def cards_from_fact(self, fact):
-        return list(self.card(cursor[0], id_is_internal=True) for cursor
+        return list(self.card(cursor[0], is_id_internal=True) for cursor
             in self.con.execute("select _id from cards where _fact_id=?",
                                 (fact._id, )))
 
@@ -1016,7 +1016,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             this_card_type_id = self.con.execute("""select card_type_id
                 from cards where _fact_id=?""", (_fact_id, )).fetchone()[0]
             if this_card_type_id == card_type.id:
-                facts.append(self.fact(_fact_id, id_is_internal=True))
+                facts.append(self.fact(_fact_id, is_id_internal=True))
         return facts
 
     def card_types_in_use(self):

@@ -325,15 +325,21 @@ class SM2Mnemosyne(Scheduler):
                       self._card_id_last == _card_id:
                 _card_id = self._card_ids_in_queue.pop(0)
         self._card_id_last = _card_id
-        return self.database().card(_card_id, id_is_internal=True)
+        return self.database().card(_card_id, is_id_internal=True)
 
-    def is_prefetch_allowed(self):
+    def is_prefetch_allowed(self, card_to_grade):
 
         """Can we display a new card before having processed the grading of
         the previous one?
 
         """
-                
+
+        # The grading of a card which previously had grade 0 will remove the
+        # second copy from the queue in 'grade_answer', so we can't prefetch
+        # if that second copy happens to be the one coming up.
+        if self._card_ids_in_queue and \
+            card_to_grade._id == self._card_ids_in_queue[0]:
+            return False
         # Make sure there are enough cards left to find one which is not a
         # duplicate.
         return len(self._card_ids_in_queue) >= 3

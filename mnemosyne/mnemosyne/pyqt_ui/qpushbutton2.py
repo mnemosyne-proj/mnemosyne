@@ -7,7 +7,7 @@ from PyQt4 import QtGui
 
 class QPushButton2(QtGui.QPushButton):
 
-    """QPushButton which throws away key repeats.""" 
+    """QPushButton which throws away key repeats."""
 
     def keyPressEvent(self, event):
         if not event.isAutoRepeat():

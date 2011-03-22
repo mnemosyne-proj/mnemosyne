@@ -179,7 +179,7 @@ class TestScheduler(MnemosyneTest):
         self.review_controller().show_new_question()
         assert self.review_controller().card == card_1
         self.review_controller().grade_answer(0)
-        card_1_new = self.database().card(card_1._id, id_is_internal=True)
+        card_1_new = self.database().card(card_1._id, is_id_internal=True)
         assert card_1_new.grade == 0
 
     def test_learn_ahead_3(self):
@@ -405,4 +405,19 @@ class TestScheduler(MnemosyneTest):
             calendar.timegm(last_rep.timetuple()),
             calendar.timegm(now.timetuple())) == \
             "1.0 years ago"
+
+    def test_prefetch(self):
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
+        card_type = self.card_type_by_id("1")
+        card_0 = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+        fact_data = {"f": "question2",
+                     "b": "answer2"}
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+
+        self.scheduler()._card_ids_in_queue = [card_0._id, card_1._id, card_1._id]
+        assert self.scheduler().is_prefetch_allowed(card_to_grade=card_0) == False
+        
          

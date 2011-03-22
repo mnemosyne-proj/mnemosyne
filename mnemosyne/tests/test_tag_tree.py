@@ -235,7 +235,7 @@ class TestTagTree(MnemosyneTest):
         
         self.tree.delete_subtree("b::c")
 
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         assert card.tag_string() == ""
         self.database().con.execute("select tags from cards where _id=?",
             (card._id, )).fetchone()[0] == ""
@@ -280,7 +280,7 @@ class TestTagTree(MnemosyneTest):
         assert self.tree.card_count_for_node["b::c::d"] == 1
         
         self.tree.delete_subtree("b::c")
-        card = self.database().card(card._id, id_is_internal=True)
+        card = self.database().card(card._id, is_id_internal=True)
         assert card.tag_string() == "b"
         self.database().con.execute("select tags from cards where _id=?",
             (card._id, )).fetchone()[0] == "b"

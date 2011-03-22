@@ -47,7 +47,7 @@ class TestDatabase(MnemosyneTest):
 
         self.database().load(self.config()["path"])
         assert self.database().fact_count() == 1
-        card = self.database().card(old_card._id, id_is_internal=True)
+        card = self.database().card(old_card._id, is_id_internal=True)
         fact = card.fact
         
         assert fact.data["f"] == "question"
@@ -110,7 +110,7 @@ class TestDatabase(MnemosyneTest):
         fact = card.fact
         self.controller().edit_sister_cards(fact, fact_data, card.card_type, card_type,
             new_tag_names=["default1"], correspondence=[])
-        new_card = self.database().card(card._id, id_is_internal=True)
+        new_card = self.database().card(card._id, is_id_internal=True)
         tag_names = [tag.name for tag in new_card.tags]
         assert len(tag_names) == 1
         assert "default1" in tag_names
@@ -134,7 +134,7 @@ class TestDatabase(MnemosyneTest):
         self.restart()
         assert self.database().fact_count() == 1
         _card_id, _fact_id = list(self.database().cards_unseen())[0]
-        fact = self.database().fact(_fact_id, id_is_internal=True)
+        fact = self.database().fact(_fact_id, is_id_internal=True)
         card_type = self.card_type_by_id("1::my_1")        
         assert card_type.id == "1::my_1"
         assert card_type == card_type
@@ -167,7 +167,7 @@ class TestDatabase(MnemosyneTest):
         
         assert self.database().fact_count() == 1
         _card_id, _fact_id = list(self.database().cards_unseen())[0]
-        fact = self.database().fact(_fact_id, id_is_internal=True)
+        fact = self.database().fact(_fact_id, is_id_internal=True)
         card_type = self.card_type_by_id("4")           
         card_type = self.card_type_by_id("4::my_4")        
         assert card_type.id == "4::my_4"
@@ -367,7 +367,7 @@ class TestDatabase(MnemosyneTest):
         assert card_1 == self.review_controller().card
         assert self.database().sister_card_count_scheduled_between(card_1, 0, DAY) == 0
         self.review_controller().grade_answer(2)
-        card_1 = self.database().card(card_1._id, id_is_internal=True)
+        card_1 = self.database().card(card_1._id, is_id_internal=True)
         card_3.next_rep = card_1.next_rep
         card_3.grade = 2
         self.database().update_card(card_3)
@@ -377,10 +377,10 @@ class TestDatabase(MnemosyneTest):
 
     def test_purge_backups(self):
         backup_dir = os.path.join(self.config().data_dir, "backups")
-        for count in range(10):
+        for count in range(15):
             f = file(os.path.join(backup_dir, "default-%d.db" % count), "w")
         self.mnemosyne.finalise()
         backups = [f for f in os.listdir(backup_dir)]
-        assert len(backups) == 5
+        assert len(backups) == 10
         assert "default-0.db" not in backups
         self.restart()

@@ -620,7 +620,7 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_CARD, )).fetchone()[0] == 2
-        card = self.database().card("4c8fff73", id_is_internal=False)
+        card = self.database().card("4c8fff73", is_id_internal=False)
         assert self.database().average_thinking_time(card) == 1.5
         assert self.database().total_thinking_time(card) == 3.0
         assert self.database().card_count_for_grade(0, active_only=True) == 2

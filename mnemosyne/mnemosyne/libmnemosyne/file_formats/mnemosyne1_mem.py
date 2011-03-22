@@ -89,7 +89,7 @@ class Mnemosyne1Mem(FileFormat):
         # See if the file was imported before.
         try:
             card = self.database().card(self.items[0].id,
-                id_is_internal=False)
+                is_id_internal=False)
         except:
             card = None
         if card:

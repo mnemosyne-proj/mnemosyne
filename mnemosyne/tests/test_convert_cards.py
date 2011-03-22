@@ -695,18 +695,25 @@ class TestConvertCards(MnemosyneTest):
             card_type, grade=2, tag_names=["default"])[0]
         
         new_card_type = self.controller().\
-                        clone_card_type(card_type, "my_language")
+                        clone_card_type(self.card_type_by_id("3"), "my_language")
         correspondence = {"f": "m_1", "b": "f"}
         self.controller().change_card_type([card.fact], card_type, new_card_type,
                          correspondence=correspondence)
 
-        fact = self.database().fact(card.fact._id, id_is_internal=True)
+        fact = self.database().fact(card.fact._id, is_id_internal=True)
         assert fact["f"] == "foreign"        
         card_1, card_2 = self.database().cards_from_fact(fact)
-        assert "foreign" in  card_1.question()
-        assert "translation" in card_2.question()
-        assert card_1.grade == -1
-        assert card_2.grade == 2
+        
+        if card_1.fact_view.id == "3::1": # Recognition     
+            assert "foreign" in  card_1.question()
+            assert "translation" in card_2.question()
+            assert card_1.grade == -1
+            assert card_2.grade == 2
+        else:
+            assert "foreign" in  card_2.question()
+            assert "translation" in card_1.question()
+            assert card_2.grade == -1
+            assert card_1.grade == 2            
 
     def teardown(self):
         if os.path.exists("a.ogg"):

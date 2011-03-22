@@ -178,7 +178,7 @@ class TestAddCards(MnemosyneTest):
         self.review_controller().show_new_question()
         self.controller().edit_sister_cards(card.fact, fact_data, card.card_type, 
             card_type, ["new"], correspondence={})     
-        new_card = self.database().card(card._id, id_is_internal=True)
+        new_card = self.database().card(card._id, is_id_internal=True)
         tag_names = [tag.name for tag in new_card.tags]
         assert len(tag_names) == 1
         assert "new" in tag_names
@@ -192,7 +192,7 @@ class TestAddCards(MnemosyneTest):
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
-        new_card = self.database().card(card._id, id_is_internal=True)
+        new_card = self.database().card(card._id, is_id_internal=True)
         assert len(new_card.tags) == 1
         
     def test_edit_untagged(self):
@@ -204,13 +204,13 @@ class TestAddCards(MnemosyneTest):
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
-        new_card = self.database().card(card._id, id_is_internal=True)
+        new_card = self.database().card(card._id, is_id_internal=True)
         assert len(new_card.tags) == 1
 
         self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
            card.card_type,  new_card.card_type, [" "], [])    
 
-        new_card = self.database().card(card._id, id_is_internal=True)
+        new_card = self.database().card(card._id, is_id_internal=True)
         assert len(new_card.tags) == 1
 
     def test_edit_untagged_2(self):
@@ -222,13 +222,13 @@ class TestAddCards(MnemosyneTest):
         assert self.database().fact_count() == 1
         assert self.database().card_count() == 1
 
-        new_card = self.database().card(card._id, id_is_internal=True)
+        new_card = self.database().card(card._id, is_id_internal=True)
         _untagged_id =  list(new_card.tags)[0]._id
 
         self.controller().edit_sister_cards(new_card.fact, new_card.fact.data,
            card.card_type,  new_card.card_type, ["tag"], [])    
 
-        new_card = self.database().card(card._id, id_is_internal=True)
+        new_card = self.database().card(card._id, is_id_internal=True)
         assert list(new_card.tags)[0]._id != _untagged_id 
         
     def test_duplicate(self):

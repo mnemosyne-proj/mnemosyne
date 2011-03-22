@@ -1,15 +1,13 @@
--id_is_interal --> is_id_internal?
-
 -dog fooding: organise cards
--fix conversion bug
+-make sure new cards in 'convert card type' get correct tags, tag strings, and are set to active
 -update fact in _change_card_type or not? Note that in edit_cards fact edits can happen not related to card type changes.
 -converting 2000 cards from front-to-back to vocabulary does take a while. Profile + add progress bar?
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
 
--grade key still seem to autorepeat
 -initial sync: bad.png shows up empty
 
+-don't warn twice when learning 15 new cards
 
 -right click add tags in card browser
 -add tags dialog

@@ -152,7 +152,7 @@ class QA_Delegate(QtGui.QStyledItemDelegate, Component):
         ignore_text_colour = bool(optionV4.state & QtGui.QStyle.State_Selected)
         search_string = index.model().search_string
         card = self.component_manager.current("database").\
-            card(_id, id_is_internal=True)
+            card(_id, is_id_internal=True)
         if self.Q_or_A == QUESTION:
             self.doc.setHtml(card.question(render_chain="card_browser",
                 ignore_text_colour=ignore_text_colour,
@@ -290,7 +290,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         _fact_id_index = index.model().index(\
             index.row(), _FACT_ID, index.parent())
         _fact_id = index.model().data(_fact_id_index).toInt()[0]
-        fact = self.database().fact(_fact_id, id_is_internal=True)
+        fact = self.database().fact(_fact_id, is_id_internal=True)
         return self.database().cards_from_fact(fact)
 
     def facts_from_selection(self):
@@ -302,7 +302,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             _fact_ids.add(_fact_id)
         facts = []
         for _fact_id in _fact_ids:
-            facts.append(self.database().fact(_fact_id, id_is_internal=True))
+            facts.append(self.database().fact(_fact_id, is_id_internal=True))
         return facts
     
     def _cards_ids_from_selection(self):
@@ -342,7 +342,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             _fact_id_index = index.model().index(\
                 index.row(), _FACT_ID, index.parent())
             _fact_id = index.model().data(_fact_id_index).toInt()[0]
-            facts.append(self.database().fact(_fact_id, id_is_internal=True))
+            facts.append(self.database().fact(_fact_id, is_id_internal=True))
         self.unload_qt_database()
         self.saved_selection = []
         self.controller().delete_facts_and_their_cards(facts)        
