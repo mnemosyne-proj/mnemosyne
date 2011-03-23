@@ -477,15 +477,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return tag
 
     def get_or_create_tags_with_names(self, names):
-        # If there are no tags, use an artificial __UNTAGGED__ tag. This
-        # allows for an easy and fast implementation of applying criteria.
         tags = set()
         for name in names:
             name = name.strip()
-            if name and name != "__UNTAGGED__":
+            if name:
                 tags.add(self.get_or_create_tag_with_name(name))
-        if len(tags) == 0:
-            tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
         return tags
     
     def add_tag(self, tag):
@@ -666,6 +662,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
     
     def add_card(self, card):
+        # If there are no tags, use an artificial __UNTAGGED__ tag. This
+        # allows for an easy and fast implementation of applying criteria.
+        if len(card.tags) == 0:
+            card.tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
         self.current_criterion().apply_to_card(card)
         _card_id = self.con.execute("""insert into cards(id, card_type_id,
             _fact_id, fact_view_id, grade, next_rep, last_rep, easiness,
@@ -720,6 +720,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return card
     
     def update_card(self, card, repetition_only=False):
+        # If there are no tags, use an artificial __UNTAGGED__ tag. This
+        # allows for an easy and fast implementation of applying criteria.
+        if len(card.tags) == 0:
+            card.tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
         if not repetition_only:
             self.current_criterion().apply_to_card(card)
         self.con.execute("""update cards set grade=?, next_rep=?, last_rep=?,

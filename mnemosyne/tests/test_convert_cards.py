@@ -703,6 +703,21 @@ class TestConvertCards(MnemosyneTest):
         fact = self.database().fact(card.fact._id, is_id_internal=True)
         assert fact["f"] == "foreign"        
         card_1, card_2 = self.database().cards_from_fact(fact)
+
+        assert len(card_1.tags) == 1
+        assert len(card_2.tags) == 1        
+        for tag in card_1.tags:
+            assert tag.name == "default"
+        for tag in card_2.tags:
+            assert tag.name == "default"
+
+        assert self.database().con.execute("select tags from cards where _id=?",
+            (card_1._id, )).fetchone()[0] == "default"
+        assert self.database().con.execute("select tags from cards where _id=?",
+            (card_2._id, )).fetchone()[0] == "default"
+
+        assert card_1.active == True
+        assert card_2.active == True
         
         if card_1.fact_view.id == "3::1": # Recognition     
             assert "foreign" in  card_1.question()
@@ -713,8 +728,55 @@ class TestConvertCards(MnemosyneTest):
             assert "foreign" in  card_2.question()
             assert "translation" in card_1.question()
             assert card_2.grade == -1
-            assert card_1.grade == 2            
+            assert card_1.grade == 2
+            
+    def test_1_to_3_clone_bis(self):
+        card_type = self.card_type_by_id("1") # Production only.
+        fact_data = {"f": "translation",
+                     "b": "foreign"}      
+        card = self.controller().create_new_cards(fact_data,
+            card_type, grade=2, tag_names=["default"])[0]
+        
+        new_card_type = self.controller().\
+                        clone_card_type(self.card_type_by_id("3"), "my_language")
+        correspondence = {"f": "m_1", "b": "f"}
 
+
+        new_fact_data = {"m_1": "translation", "f": "foreign"}   
+        
+        self.controller().edit_sister_cards(card.fact, new_fact_data, card_type,
+            new_card_type, new_tag_names=["default"], correspondence=correspondence)
+        
+        fact = self.database().fact(card.fact._id, is_id_internal=True)
+        assert fact["f"] == "foreign"        
+        card_1, card_2 = self.database().cards_from_fact(fact)
+
+        assert len(card_1.tags) == 1
+        assert len(card_2.tags) == 1
+        for tag in card_1.tags:
+            assert tag.name == "default"
+        for tag in card_2.tags:
+            assert tag.name == "default"
+
+        assert self.database().con.execute("select tags from cards where _id=?",
+            (card_1._id, )).fetchone()[0] == "default"
+        assert self.database().con.execute("select tags from cards where _id=?",
+            (card_2._id, )).fetchone()[0] == "default"
+
+        assert card_1.active == True
+        assert card_2.active == True
+        
+        if card_1.fact_view.id == "3::1": # Recognition     
+            assert "foreign" in  card_1.question()
+            assert "translation" in card_2.question()
+            assert card_1.grade == -1
+            assert card_2.grade == 2
+        else:
+            assert "foreign" in  card_2.question()
+            assert "translation" in card_1.question()
+            assert card_2.grade == -1
+            assert card_1.grade == 2
+            
     def teardown(self):
         if os.path.exists("a.ogg"):
             os.remove("a.ogg")   

@@ -1,7 +1,14 @@
--dog fooding: organise cards
--make sure new cards in 'convert card type' get correct tags, tag strings, and are set to active
--update fact in _change_card_type or not? Note that in edit_cards fact edits can happen not related to card type changes.
+-way we shifted untagged check from get and create tags to add/edit cards creates extra sync events.
+ document this.
+-add asserts to check if tags is not empty
+-card browser: cards in cloned card types are counted with their parent card type as well
+-delete cards from card type: upon reload, the old card type still seems to be listed in the
+ card browser
 -converting 2000 cards from front-to-back to vocabulary does take a while. Profile + add progress bar?
+-browse cards: load current criterion first?
+-total count or active count in tag tree and card type widget? In 'activate cards' only total? Or not display at all?
+-dog fooding organise cards
+
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
 
@@ -21,12 +28,6 @@
 -make config copyable (e.g. remove next log index)
 -parametrise numerical values in controllers, scheduler to make it easier to customise them in a plugin
 -leech detection + Changelog
-
-
--card browser: cards in cloned card types seem to be counted with their parent card type as well
-
--delete cards from card type: upon reload, the old card type still seems to be listed in the
- card browser
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -52,7 +53,7 @@
 -purge old html files in bzr
 
 -test upgrade on OSX: remove library/Mnemosyne2, make sure you have 1.x in library/Mnemosyne.
- after upgrade there should be 2.0 files in library/Mnemosyne and a backup in librabry/Mnemosyne_1
+ after upgrade there should be 2.0 files in library/Mnemosyne and a backup in library/Mnemosyne_1
 
 -make distrib
 -new binary directory for windows?

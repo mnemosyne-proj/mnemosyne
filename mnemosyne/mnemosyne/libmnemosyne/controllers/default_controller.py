@@ -168,6 +168,7 @@ class DefaultController(Controller):
         db = self.database()
         cards_from_fact = db.cards_from_fact(fact)
         assert cards_from_fact[0].card_type == old_card_type
+        assert new_card_type.is_data_valid(new_fact_data)
         if old_card_type == new_card_type:
             return 0
         converter = self.component_manager.current\
@@ -220,6 +221,7 @@ class DefaultController(Controller):
                 self.scheduler().remove_from_queue_if_present(card)
                 db.delete_card(card)
             for card in new_cards:
+                card.tags = cards_from_fact[0].tags
                 db.add_card(card)
             for card in edited_cards:
                 db.update_card(card)
@@ -289,12 +291,11 @@ class DefaultController(Controller):
                 new_fact_data = {}
                 for old_key, new_key in correspondence.iteritems():
                     new_fact_data[new_key] = fact[old_key]
+                assert new_card_type.is_data_valid(new_fact_data)
                 fact.data = new_fact_data
                 db.update_fact(fact)
             else:
                 new_fact_data = fact.data
-            assert new_card_type.is_data_valid(new_fact_data)
-            print 'change card type'
             result = self._change_card_type(fact, old_card_type,
                 new_card_type, correspondence, new_fact_data, warn)
             if result == -1:
