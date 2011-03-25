@@ -1,3 +1,5 @@
+
+
 -way we shifted untagged check from get and create tags to add/edit cards creates extra sync events.
  document this.
 -add asserts to check if tags is not empty
@@ -25,6 +27,10 @@
 
 -right click remove tags in card browser
 
+-crash after sync finish on Windows?
+-windows dialogs have ? in upper right corner
+-painting pictures don't show up on windows
+
 -make config copyable (e.g. remove next log index)
 -parametrise numerical values in controllers, scheduler to make it easier to customise them in a plugin
 -leech detection + Changelog
@@ -39,12 +45,15 @@
 -tip on double-click to edit cards and tag names in browser
 
 
+
 -About dialog
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
  (also make sure they are on webpage)
 -also add option to download source in the info box
 
 -example script to import cards from a text file
+
+-card type clone: rename and delete
 
 -delay matplotlib instantiation
 -profile startup/shutdown
@@ -70,7 +79,7 @@
 -autorun after import, browse with edit, but not sync
 -do review_controller.rebuild_queue, reload counter after clean duplicates?
 
--ask about card browser speed
+-ask about card browser speed. Try with decoration. shulgi: Core Duo 2.1 Ghz
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 
