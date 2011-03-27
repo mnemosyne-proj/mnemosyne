@@ -322,7 +322,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 _("Continuing is impossible and will lead to data loss!"))
             sys.exit()
         except:
-            raise RuntimeError, _("Unable to load file.") + traceback_string()    
+            raise RuntimeError, _("Unable to load file.") + traceback_string()
+        if sql_res is None:
+            raise RuntimeError, _("Unable to load file, query failed")
         if sql_res["value"] != self.version:
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
