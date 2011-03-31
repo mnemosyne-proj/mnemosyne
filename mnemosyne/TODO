@@ -1,5 +1,7 @@
+-sync client Windows crash
+-sheduler bug 1 last card, failed
 
-
+-card browser: add / remove tagS instead of tag
 -way we shifted untagged check from get and create tags to add/edit cards creates extra sync events.
  document this.
 -add asserts to check if tags is not empty
@@ -27,13 +29,15 @@
 
 -right click remove tags in card browser
 
--crash after sync finish on Windows?
 -windows dialogs have ? in upper right corner
 -painting pictures don't show up on windows
 
 -make config copyable (e.g. remove next log index)
 -parametrise numerical values in controllers, scheduler to make it easier to customise them in a plugin
 -leech detection + Changelog
+
+-add cards dialog, add tag. Then 'tab' moves to grades area as opposed to card fields.
+-editing current card in card browser does not update view. add test?
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
