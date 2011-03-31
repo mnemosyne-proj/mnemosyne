@@ -36,9 +36,11 @@ class Upgrade1(Component):
             self.upgrade_from_old_data_dir(old_data_dir)
 
     def backup_old_dir(self):  # pragma: no cover
+        join = os.path.join
         # We only do this on OSX, since on the other platforms, we use a
         # different directory anyway.
         if sys.platform == "darwin":
+            home = os.path.expanduser("~")
             old_data_dir = join(unicode(home), "Library", "Mnemosyne")
             backup_dir = join(unicode(home), "Library", "Mnemosyne_1")
             if not os.path.exists(backup_dir):
