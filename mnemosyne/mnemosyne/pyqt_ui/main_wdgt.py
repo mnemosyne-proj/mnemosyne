@@ -93,7 +93,9 @@ class MainWdgt(QtGui.QMainWindow, Ui_MainWdgt, MainWidget):
     def set_progress_value(self, value):
         if value % self.progress_bar_update_interval == 0:
             self.progress_bar.setValue(value)
-        QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)        
+            # This automatically processes events too. Calling processEvents
+            # explictly here might even cause some crashes.
+        
     def close_progress(self):
         if self.progress_bar:
             self.progress_bar.close()

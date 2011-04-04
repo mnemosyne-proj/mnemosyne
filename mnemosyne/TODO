@@ -1,4 +1,5 @@
--sync client Windows crash
+-windows client and server: sync from empty server: bad database format
+-windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
 -sheduler bug 1 last card, failed
 
 -card browser: add / remove tagS instead of tag
