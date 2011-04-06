@@ -344,6 +344,7 @@ class SQLiteSync(object):
                 fact = Fact({"f": "f", "b": "b"}, id="")
                 card = Card(card_type, fact, card_type.fact_views[0],
                     creation_time=0)
+                card.tags = [self.get_or_create_tag_with_name("__UNTAGGED__")]
                 card._id = sql_res["_id"]
                 return card
         # Create an empty shell of card object that will be deleted later
@@ -354,6 +355,7 @@ class SQLiteSync(object):
             card = Card(card_type, fact, card_type.fact_views[0],
                 creation_time=0)
             card.id = log_entry["o_id"]
+            card.tags = [self.get_or_create_tag_with_name("__UNTAGGED__")]
             return card
         # Create card object.
         if "card_t" not in log_entry:
@@ -374,10 +376,10 @@ class SQLiteSync(object):
             try:
                 card.tags.add(self.tag(tag_id, is_id_internal=False))
             except TypeError:
-                # The tag has been later later during the log. Don't worry
-                # about it now, this will be corrected by a later
+                # The tag has been deleted later later during the log. Don't
+                # worry about it now, this will be corrected by a later
                 # EDITED_CARD event.
-                pass
+                card.tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
         # Construct rest of card. The 'active' property does not need to be
         # handled here, as default criterion will be applied to the card
         # in the database functions.

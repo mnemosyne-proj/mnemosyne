@@ -1,11 +1,17 @@
+-way we shifted untagged check from get and create tags to add/edit cards creates extra sync events.
+ document this. Relationship with spurious added_media events
+
+-scheduler bug 1 last card, failed
+
 -windows client and server: sync from empty server: bad database format
 -windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
--sheduler bug 1 last card, failed
 
--card browser: add / remove tagS instead of tag
--way we shifted untagged check from get and create tags to add/edit cards creates extra sync events.
- document this.
--add asserts to check if tags is not empty
+-adding a card grade 4 does not immediately decrease the scheduled counter, but only after 'show answer'. add test
+
+-sending entire binary database does not give a moving progress bar
+
+-make testsuite Windows compatible
+
 -card browser: cards in cloned card types are counted with their parent card type as well
 -delete cards from card type: upon reload, the old card type still seems to be listed in the
  card browser
@@ -31,6 +37,7 @@
 -right click remove tags in card browser
 
 -windows dialogs have ? in upper right corner
+, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 -painting pictures don't show up on windows
 
 -make config copyable (e.g. remove next log index)
@@ -210,6 +217,8 @@
 -more plugin examples: file format, custom tag, activate all cards,
  last grade filter
 
+-when pasting from a webpage, font formatting in 'add cards' is inconsistent.
+
 -ask people about biggest gripe in Mnemosyne, things that did not behave as expected
 
 -copy card and create a new one that way
@@ -218,9 +227,8 @@
 
 -grep through TODO's in source code
 
--alt tabbing gives low res icon.
 
--modality of dialogs (mail by Nosai), Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
+-modality of dialogs (mail by Nosai)
 
 -allow edit current card and add card to be open at the same time?
 

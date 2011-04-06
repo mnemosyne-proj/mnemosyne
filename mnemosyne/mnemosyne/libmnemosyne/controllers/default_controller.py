@@ -82,6 +82,12 @@ class DefaultController(Controller):
         assert grade in [-1, 2, 3, 4, 5] # Use -1 for yet to learn cards.
         assert card_type.is_data_valid(fact_data)
         db = self.database()
+        # Create tags. If there are no tags, use an artificial __UNTAGGED__
+        # tag. This allows for an easy and fast implementation of applying
+        # criteria.
+        tags = db.get_or_create_tags_with_names(tag_names)
+        if len(tags) == 0:
+            tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))
         fact = Fact(fact_data)
         if check_for_duplicates:
             duplicates = db.duplicates_for_fact(fact, card_type)
@@ -99,6 +105,7 @@ class DefaultController(Controller):
                 if answer == 0: # Merge and edit.
                     db.add_fact(fact)
                     for card in card_type.create_sister_cards(fact):
+                        card.tags = tags
                         db.add_card(card)
                         if grade >= 2:
                             self.scheduler().set_initial_grade(card, grade)
@@ -120,7 +127,6 @@ class DefaultController(Controller):
         db.add_fact(fact)
         # Create cards.
         cards = []
-        tags = db.get_or_create_tags_with_names(tag_names)
         for card in card_type.create_sister_cards(fact):
             card.tags = tags
             db.add_card(card)
@@ -241,7 +247,7 @@ class DefaultController(Controller):
         result = self._change_card_type(fact, old_card_type, new_card_type,
             correspondence, new_fact_data)
         if result == -1:  # Aborted.
-            return -1
+            return -1  
         # Update fact and create or delete cards.
         new_cards, edited_cards, deleted_cards = \
             new_card_type.edit_sister_cards(fact, new_fact_data)
@@ -253,15 +259,22 @@ class DefaultController(Controller):
             sch.remove_from_queue_if_present(card)
             db.delete_card(card)
         for card in new_cards:
+            # Temporary tag.
+            card.tags = [db.get_or_create_tag_with_name("__UNTAGGED__")]
             db.add_card(card)
         if new_cards and self.review_controller().learning_ahead == True:
             self.review_controller().reset()
+        # Create tags. If there are no tags, use an artificial __UNTAGGED__
+        # tag. This allows for an easy and fast implementation of applying
+        # criteria.
+        tags = db.get_or_create_tags_with_names(new_tag_names)
+        if len(tags) == 0:
+            tags.add(db.get_or_create_tag_with_name("__UNTAGGED__"))      
         # Apply new tags and modification time to cards and save them back to
         # the database. Note that this makes sure there is an EDITED_CARD log
         # entry for each sister card, which is needed when syncing with a
         # partner that does not have the concept of facts.
         old_tags = set()
-        tags = db.get_or_create_tags_with_names(new_tag_names)
         modification_time = int(time.time())
         for card in self.database().cards_from_fact(fact):
             card.modification_time = modification_time

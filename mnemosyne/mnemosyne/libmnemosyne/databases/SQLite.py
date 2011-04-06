@@ -664,10 +664,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
     
     def add_card(self, card):
-        # If there are no tags, use an artificial __UNTAGGED__ tag. This
-        # allows for an easy and fast implementation of applying criteria.
-        if len(card.tags) == 0:
-            card.tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
+        # The card should at least have the __UNTAGGED__ tag. It is tempting
+        # to add this tag here if needed. However, in interaction with the way
+        # syncing works, that would result in an extra ADDED_TAG events in the
+        # sync partner.
+        assert len(card.tags) != 0
         self.current_criterion().apply_to_card(card)
         _card_id = self.con.execute("""insert into cards(id, card_type_id,
             _fact_id, fact_view_id, grade, next_rep, last_rep, easiness,
@@ -722,10 +723,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return card
     
     def update_card(self, card, repetition_only=False):
-        # If there are no tags, use an artificial __UNTAGGED__ tag. This
-        # allows for an easy and fast implementation of applying criteria.
-        if len(card.tags) == 0:
-            card.tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
+        # The card should at least have the __UNTAGGED__ tag. It is tempting
+        # to add this tag here if needed. However, in interaction with the way
+        # syncing works, that would result in an extra ADDED_TAG events in the
+        # sync partner.
+        assert len(card.tags) != 0
         if not repetition_only:
             self.current_criterion().apply_to_card(card)
         self.con.execute("""update cards set grade=?, next_rep=?, last_rep=?,

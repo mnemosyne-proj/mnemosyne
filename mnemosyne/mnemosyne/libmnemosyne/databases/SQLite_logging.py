@@ -16,7 +16,7 @@ class SQLiteLogging(object):
     The interface here is a bit low level, as it needs to serve both for
     logging when the program is running and for manipulating the log when
     doing a sync or importing pre-2.0 logs. (A higher level interface for the
-    former use case is in logging.sql_logger.)
+    former use case is in logging.database_logger.)
 
     """
                             

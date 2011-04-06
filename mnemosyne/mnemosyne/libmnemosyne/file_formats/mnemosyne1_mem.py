@@ -143,7 +143,7 @@ class Mnemosyne1Mem(FileFormat):
         w.set_progress_value(len(filenames))
 
     def _create_card_from_item(self, item):
-        if item.cat.name == "<default>":
+        if item.cat.name == "<default>" or item.cat.name == "":
             item.cat.name = "__UNTAGGED__"
         # Don't create 'secondary' cards here, but create them together with
         # the 'main' card, except when the 'main' card has been deleted.

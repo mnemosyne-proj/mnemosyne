@@ -266,12 +266,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         change_card_type_action.triggered.connect(self.menu_change_card_type)
         menu.addAction(change_card_type_action)
         menu.addSeparator()
-        add_tag_action = QtGui.QAction(_("&Add tag"), menu)
-        add_tag_action.triggered.connect(self.menu_add_tag)
-        menu.addAction(add_tag_action)
-        remove_tag_action = QtGui.QAction(_("&Remove tag"), menu)
-        remove_tag_action.triggered.connect(self.menu_remove_tag)
-        menu.addAction(remove_tag_action)
+        add_tags_action = QtGui.QAction(_("&Add tags"), menu)
+        add_tags_action.triggered.connect(self.menu_add_tags)
+        menu.addAction(add_tags_action)
+        remove_tags_action = QtGui.QAction(_("&Remove tags"), menu)
+        remove_tags_action.triggered.connect(self.menu_remove_tags)
+        menu.addAction(remove_tags_action)
         indexes = self.table.selectionModel().selectedRows()
         if len(indexes) > 1:
             edit_action.setEnabled(False)
@@ -389,7 +389,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.card_type_tree_wdgt.rebuild()
         self.tag_tree_wdgt.rebuild()
         
-    def menu_add_tag(self):
+    def menu_add_tags(self):
         # Get new tag names. Use a dict as backdoor to return values
         # from the dialog.
         return_values = {}
@@ -406,8 +406,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.display_card_table()
         self.tag_tree_wdgt.rebuild()
         
-    def menu_remove_tag(self):
-        print 'remove_tag'
+    def menu_remove_tags(self):
+        print 'remove_tags'
         self.unload_qt_database()
 
         self.display_card_table()
