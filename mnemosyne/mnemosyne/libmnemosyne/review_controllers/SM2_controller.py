@@ -99,13 +99,13 @@ class SM2Controller(ReviewController):
         
         self.flush_sync_server() 
         self.reload_counters()
-        self.widget.update_status_bar_counters()
+        self.update_status_bar_counters()
         self.scheduler().heartbeat()
         if self.card is None or self.learning_ahead:
             self.reset()
 
     def show_new_question(self):
-        if not self.active_count:
+        if self.active_count in [None, 0]:
             self.reload_counters()
         if not self.database().is_loaded() or self.active_count == 0:
             self.state = "EMPTY"
@@ -164,7 +164,7 @@ class SM2Controller(ReviewController):
             return '\n' + _("Next repetition in ") + str(days) + _(" days.")
 
     def counters(self):
-        if not self.non_memorised_count:
+        if self.non_memorised_count is None:
             self.reload_counters()
         return self.scheduled_count, self.non_memorised_count, self.active_count
 
@@ -187,7 +187,7 @@ class SM2Controller(ReviewController):
     def update_dialog(self, redraw_all=False):
         self.update_qa_area(redraw_all)
         self.update_grades_area()
-        self.widget.update_status_bar_counters()
+        self.update_status_bar_counters()
         self.update_menu_bar()
         self.widget.redraw_now()  # Don't wait until disk activity dies down.
                    

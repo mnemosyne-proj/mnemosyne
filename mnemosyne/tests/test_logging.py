@@ -68,15 +68,15 @@ class TestLogging(MnemosyneTest):
         assert sql_res["acq_reps"] == 0
         assert sql_res["ret_reps"] == 0
         assert sql_res["lapses"] == 0
-        
+
         sql_res = self.database().con.execute(\
             "select * from log where _id=4").fetchone()
-        assert sql_res["event_type"] == EventTypes.ADDED_FACT
+        assert sql_res["event_type"] == EventTypes.ADDED_TAG
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
             "select * from log where _id=5").fetchone()
-        assert sql_res["event_type"] == EventTypes.ADDED_TAG
+        assert sql_res["event_type"] == EventTypes.ADDED_FACT
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\

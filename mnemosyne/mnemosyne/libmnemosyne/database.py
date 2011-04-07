@@ -225,7 +225,7 @@ class Database(Component):
     def cards_due_for_ret_rep(self, now, sort_key="", limit=-1):
         raise NotImplementedError
 
-    def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
+    def cards_to_relearn(self, grade, sort_key="", limit=-1):
         raise NotImplementedError
 
     def cards_new_memorising(self, grade, sort_key="", limit=-1):

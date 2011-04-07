@@ -1,12 +1,9 @@
--way we shifted untagged check from get and create tags to add/edit cards creates extra sync events.
- document this. Relationship with spurious added_media events
-
--scheduler bug 1 last card, failed
+    def show_new_question(self):
+        if self.active_count in [None, 0]:
+            self.reload_counters()
 
 -windows client and server: sync from empty server: bad database format
 -windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
-
--adding a card grade 4 does not immediately decrease the scheduled counter, but only after 'show answer'. add test
 
 -sending entire binary database does not give a moving progress bar
 
@@ -24,6 +21,8 @@
  does not restore database in sync client.
 
 -initial sync: bad.png shows up empty
+
+-migrate science server machine
 
 -don't warn twice when learning 15 new cards
 

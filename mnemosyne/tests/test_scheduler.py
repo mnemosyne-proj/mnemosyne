@@ -420,4 +420,45 @@ class TestScheduler(MnemosyneTest):
         self.scheduler()._card_ids_in_queue = [card_0._id, card_1._id, card_1._id]
         assert self.scheduler().is_prefetch_allowed(card_to_grade=card_0) == False
         
-         
+    def test_prefetch_2(self):
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
+        card_type = self.card_type_by_id("1")
+        card_0 = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+        fact_data = {"f": "question2",
+                     "b": "answer2"}
+        card_1 = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=-1, tag_names=["default"])[0]
+
+        self.scheduler()._card_ids_in_queue = [card_0._id, card_1._id, card_0._id]
+        self.review_controller().show_new_question()
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(0)
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(2)
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(0)
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(0)
+    
+    def test_relearn(self):
+        fact_data = {"f": "question1",
+                     "b": "answer1"}
+        card_type = self.card_type_by_id("1")
+        card_0 = self.controller().create_new_cards(fact_data, card_type,
+                                              grade=5, tag_names=["default"])[0]
+        card_0.next_rep = 0
+        self.database().update_card(card_0)
+        self.review_controller().reset()
+        self.review_controller().show_new_question()        
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(0)
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(0)
+        self.review_controller().show_answer()
+        self.review_controller().grade_answer(0)
+        self.review_controller().show_answer()
+        assert self.review_controller().card is not None
+        self.review_controller().grade_answer(0)        
+        assert self.review_controller().card is not None

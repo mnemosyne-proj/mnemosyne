@@ -187,7 +187,7 @@ class SM2Mnemosyne(Scheduler):
         limit = self.config()["non_memorised_cards_in_hand"]
         non_memorised_in_queue = 0
         if self.stage == 2:
-            for _card_id, _fact_id in db.cards_due_for_final_review(grade=1):
+            for _card_id, _fact_id in db.cards_to_relearn(grade=1):
                 if _fact_id not in self._fact_ids_in_queue:
                     if non_memorised_in_queue < limit:
                         self._card_ids_in_queue.append(_card_id)
@@ -195,7 +195,7 @@ class SM2Mnemosyne(Scheduler):
                         non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
                         break  
-            for _card_id, _fact_id in db.cards_due_for_final_review(grade=0):
+            for _card_id, _fact_id in db.cards_to_relearn(grade=0):
                 if _fact_id not in self._fact_ids_in_queue:
                     if non_memorised_in_queue < limit:
                         self._card_ids_in_queue.append(_card_id)
@@ -203,7 +203,7 @@ class SM2Mnemosyne(Scheduler):
                         self._fact_ids_in_queue.append(_fact_id)
                         non_memorised_in_queue += 1
                     if non_memorised_in_queue == limit:
-                            break                 
+                        break                 
             random.shuffle(self._card_ids_in_queue)
             # Only stop when we reach the non memorised limit. Otherwise, keep
             # going to add some extra cards to get more spread.
@@ -292,7 +292,7 @@ class SM2Mnemosyne(Scheduler):
         # earliest scheduled cards first. We only put 50 cards at the same
         # time into the queue, in order to save memory.
         if learn_ahead == False:
-            self.stage = 3
+            self.stage = 2
             return
         for _card_id, _fact_id in db.cards_learn_ahead(self.adjusted_now(),
                 sort_key="next_rep", limit=50):

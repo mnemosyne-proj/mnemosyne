@@ -222,7 +222,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
         self._current_criterion = None # Cached for performance reasons.
-        self.syncing = False # Controls whether _process_media should log.
+        # Some operations have side-effects which cause  additional log
+        # events, like ins _process_media, or when creating an __UNTAGGED__
+        # category in case the use did not specify one. In order to prevent
+        # duplicate log events from turning up in the sync partner's log, we
+        # use the following flag to prevent these side effects from generating
+        # log events while syncing.
+        self.syncing = False
 
     #
     # File operations.
@@ -234,8 +240,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         """Connection to the database, lazily created."""
 
         if not self._connection:
-            self._connection = sqlite3.connect(self._path, timeout=0.1,
-                               isolation_level="EXCLUSIVE")
+            self._connection = sqlite3.connect(\
+                self._path, timeout=0.1, isolation_level="EXCLUSIVE")
             self._connection.row_factory = sqlite3.Row
         return self._connection
 
@@ -455,7 +461,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         else:
             return repr(extra_data)
 
-    def _get_extra_data(self, sql_res, obj):
+    def _construct_extra_data(self, sql_res, obj):
         if sql_res["extra_data"] == "":
             obj.extra_data = {}
         else:
@@ -466,16 +472,25 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
 
     def get_or_create_tag_with_name(self, name):
+        # This can get called from add_card or edit_card to create an
+        # __UNTAGGED__ tag, thereby creating an extra log entry. In order
+        # to prevent this causing duplicate log entries at the remote partner
+        # during sync (especially when syncing cards that have been created
+        # and deleting during the same session), we don't create extra log
+        # entries for these side effect during syncing. Slightly ugly, but
+        # much less ugly and less error prone then the alternative of making
+        # sure that all necessary creations of __UNTAGGED__ happen in the
+        # controller.
         name = name.strip()
         sql_res = self.con.execute("select * from tags where name=?",
             (name, )).fetchone()
         if sql_res:
             tag = Tag(sql_res["name"], sql_res["id"])
             tag._id = sql_res["_id"]
-            self._get_extra_data(sql_res, tag)
+            self._construct_extra_data(sql_res, tag)
         else:
             tag = Tag(name)
-            self.add_tag(tag)
+            self.add_tag(tag, do_logging=not self.syncing)
         return tag
 
     def get_or_create_tags_with_names(self, names):
@@ -486,12 +501,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 tags.add(self.get_or_create_tag_with_name(name))
         return tags
     
-    def add_tag(self, tag):
+    def add_tag(self, tag, do_logging=True):
         _id = self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
-        self.log().added_tag(tag)
+        if do_logging:
+            self.log().added_tag(tag)
         for criterion in self.criteria():
             criterion.tag_created(tag)
             self.update_criterion(criterion)
@@ -505,7 +521,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                                        (id, )).fetchone()            
         tag = Tag(sql_res["name"], sql_res["id"])
         tag._id = sql_res["_id"]
-        self._get_extra_data(sql_res, tag)
+        self._construct_extra_data(sql_res, tag)
         return tag
 
     def update_tag(self, tag):
@@ -638,7 +654,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # built-in system card types.
         fact = Fact(data, id=sql_res["id"])
         fact._id = sql_res["_id"]
-        self._get_extra_data(sql_res, fact)
+        self._construct_extra_data(sql_res, fact)
         return fact
     
     def update_fact(self, fact):
@@ -664,11 +680,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
     
     def add_card(self, card):
-        # The card should at least have the __UNTAGGED__ tag. It is tempting
-        # to add this tag here if needed. However, in interaction with the way
-        # syncing works, that would result in an extra ADDED_TAG events in the
-        # sync partner.
-        assert len(card.tags) != 0
+        # The card should at least have the __UNTAGGED__ tag. This allows for
+        # an easy and fast implementation of applying criteria.
+        if len(card.tags) == 0:
+           card.tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
         self.current_criterion().apply_to_card(card)
         _card_id = self.con.execute("""insert into cards(id, card_type_id,
             _fact_id, fact_view_id, grade, next_rep, last_rep, easiness,
@@ -716,18 +731,17 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             "ret_reps_since_lapse", "modification_time", "scheduler_data",
             "active"):
             setattr(card, attr, sql_res[attr])
-        self._get_extra_data(sql_res, card)
+        self._construct_extra_data(sql_res, card)
         for cursor in self.con.execute("""select _tag_id from tags_for_card
             where _card_id=?""", (sql_res["_id"], )):
             card.tags.add(self.tag(cursor["_tag_id"], is_id_internal=True))
         return card
     
     def update_card(self, card, repetition_only=False):
-        # The card should at least have the __UNTAGGED__ tag. It is tempting
-        # to add this tag here if needed. However, in interaction with the way
-        # syncing works, that would result in an extra ADDED_TAG events in the
-        # sync partner.
-        assert len(card.tags) != 0
+        # The card should at least have the __UNTAGGED__ tag. This allows for
+        # an easy and fast implementation of applying criteria.
+        if len(card.tags) == 0:
+           card.tags.add(self.get_or_create_tag_with_name("__UNTAGGED__"))
         if not repetition_only:
             self.current_criterion().apply_to_card(card)
         self.con.execute("""update cards set grade=?, next_rep=?, last_rep=?,
@@ -822,7 +836,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             setattr(fact_view, attr, eval(sql_res[attr]))
         for attr in ["a_on_top_of_q", "type_answer"]:
             setattr(fact_view, attr, bool(sql_res[attr]))
-        self._get_extra_data(sql_res, fact_view)
+        self._construct_extra_data(sql_res, fact_view)
         return fact_view
 
     def update_fact_view(self, fact_view):
@@ -881,7 +895,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         for attr in ("fields", "unique_fields", "required_fields",
                      "keyboard_shortcuts"):
             setattr(card_type, attr, eval(sql_res[attr]))
-        self._get_extra_data(sql_res, card_type)
+        self._construct_extra_data(sql_res, card_type)
         card_type.fact_views = []
         for cursor in self.con.execute("""select _fact_view_id from
             fact_views_for_card_type where card_type_id=?""", (id, )):
@@ -1052,7 +1066,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             active=1 and grade>=2 and ?>=next_rep order by %s limit ?"""
             % sort_key, (timestamp, limit)))
     
-    def cards_due_for_final_review(self, grade, sort_key="", limit=-1):
+    def cards_to_relearn(self, grade, sort_key="", limit=-1):
         sort_key = self._process_sort_key(sort_key)
         return ((cursor[0], cursor[1]) for cursor in self.con.execute("""
             select _id, _fact_id from cards where

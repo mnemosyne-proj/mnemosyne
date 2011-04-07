@@ -12,6 +12,8 @@ from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
 
 save_file = ""
 
+answer = None
+
 class Widget(MainWidget):
 
     def get_filename_to_save(self, path, filter, caption=""):
@@ -19,6 +21,9 @@ class Widget(MainWidget):
     
     def get_filename_to_open(self, path, filter, caption=""):
         return os.path.join(os.getcwd(), "dot_test", "default.db")
+
+    def show_question(self, question, option0, option1, option2):
+        return answer
 
 
 class TestController(MnemosyneTest):
@@ -119,3 +124,32 @@ class TestController(MnemosyneTest):
         self.controller().show_import_file_dialog()
         self.controller().show_export_file_dialog()
         self.controller().heartbeat()
+
+    def test_delete_current(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"f": "1", "b": "1"}
+        self.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[])
+        fact_data = {"f": "2", "b": "2"}
+        self.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[])
+        self.review_controller().show_new_question()
+        self.review_controller().grade_answer(0)
+        self.review_controller().grade_answer(0)
+        self.review_controller().grade_answer(2)
+        global answer
+        answer = 0
+        self.controller().delete_current_card()
+        
+    def test_delete_current_2(self):
+        card_type = self.card_type_by_id("1")
+        fact_data = {"f": "1", "b": "1"}
+        self.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[])
+        fact_data = {"f": "2", "b": "2"}
+        self.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[])
+        self.review_controller().show_new_question()
+        self.review_controller().grade_answer(0)
+        self.review_controller().grade_answer(0)
+        self.review_controller().grade_answer(0)
+        self.review_controller().grade_answer(2)
+        global answer
+        answer = 0
+        self.controller().delete_current_card()        
