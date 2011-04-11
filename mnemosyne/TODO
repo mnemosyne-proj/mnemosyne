@@ -1,17 +1,15 @@
-    def show_new_question(self):
-        if self.active_count in [None, 0]:
-            self.reload_counters()
-
--windows client and server: sync from empty server: bad database format
--windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
-
--sending entire binary database does not give a moving progress bar
-
--make testsuite Windows compatible
-
--card browser: cards in cloned card types are counted with their parent card type as well
+-do we want inherited/cloned card types to have the same factviews or not? Probably not, because e.g. type answer could be different for each of them.
+-do factview id's really need to be unique? Could save database size... Probably uniqueness is required because of syncing. added 'unique' in schema.
+-Does creating 2 clones of the same card type will cause sync trouble anyhow. see 'unique' in schema
+-possible to shorten cloned card type ids for space in database?
+-sqlite database does not store order of fact views!
+-fix test suite
+-test cloned cards further in card browser, edit, ...
+-card type clone: rename and delete
+-clone card type, create new database, cloned card type is still listed
 -delete cards from card type: upon reload, the old card type still seems to be listed in the
  card browser
+
 -converting 2000 cards from front-to-back to vocabulary does take a while. Profile + add progress bar?
 -browse cards: load current criterion first?
 -total count or active count in tag tree and card type widget? In 'activate cards' only total? Or not display at all?
@@ -35,9 +33,11 @@
 
 -right click remove tags in card browser
 
--windows dialogs have ? in upper right corner
-, Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
+-windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 -painting pictures don't show up on windows
+-windows client and server: sync from empty server: bad database format
+-windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
+-run test suite under windows
 
 -make config copyable (e.g. remove next log index)
 -parametrise numerical values in controllers, scheduler to make it easier to customise them in a plugin
@@ -45,6 +45,7 @@
 
 -add cards dialog, add tag. Then 'tab' moves to grades area as opposed to card fields.
 -editing current card in card browser does not update view. add test?
+-sending entire binary database does not give a moving progress bar
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -63,8 +64,6 @@
 -also add option to download source in the info box
 
 -example script to import cards from a text file
-
--card type clone: rename and delete
 
 -delay matplotlib instantiation
 -profile startup/shutdown

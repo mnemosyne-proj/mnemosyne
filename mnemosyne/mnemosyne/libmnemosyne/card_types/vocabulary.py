@@ -21,12 +21,12 @@ class Vocabulary(CardType):
               ("n", _("Notes"))]
 
     # Recognition.
-    v1 = FactView(_("Recognition"), "3::1")
+    v1 = FactView(_("Recognition"), "3.1")
     v1.q_fields = ["f"]
     v1.a_fields = ["p_1", "m_1", "n"]
 
     # Production.
-    v2 = FactView(_("Production"), "3::2")
+    v2 = FactView(_("Production"), "3.2")
     v2.q_fields = ["m_1"]
     v2.a_fields = ["f", "p_1", "n"]
     

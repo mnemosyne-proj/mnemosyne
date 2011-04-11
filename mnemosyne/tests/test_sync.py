@@ -4,6 +4,7 @@
 
 import os
 import sys
+import shutil
 import httplib
 from nose.tools import raises
 from threading import Thread, Condition
@@ -60,7 +61,7 @@ class MyServer(Server, Thread):
         self.filename = filename
         Thread.__init__(self)
         if erase_previous:
-            os.system("rm -fr " + data_dir)
+            shutil.rmtree(data_dir)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
@@ -137,7 +138,7 @@ class MyClient(Client):
     def __init__(self, data_dir=os.path.abspath("dot_sync_client"),
             filename="default.db", erase_previous=True):
         if erase_previous:
-            os.system("rm -fr " + data_dir)
+            shutil.rmtree(data_dir)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
@@ -1963,7 +1964,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([('5', '5::1')]), set([2]), set([3]))"
+            assert criterion.data_to_string() == "(set([('5', '5.1')]), set([2]), set([3]))"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2016,7 +2017,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([('5', '5::1')]), set([2]), set([]))"
+            assert criterion.data_to_string() == "(set([('5', '5.1')]), set([2]), set([]))"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2128,7 +2129,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             fact_view = db.fact_view(self.fact_view_id,
                 is_id_internal=False)
-            assert fact_view.id == "1::1"
+            assert fact_view.id == "1.1"
             assert fact_view.name == "Front-to-back"
             assert fact_view.q_fields == ["f"]
             assert fact_view.a_fields == ["b"]
@@ -2231,7 +2232,7 @@ class TestSync(object):
             assert card_type.keyboard_shortcuts == {}
             assert len(card_type.fact_views) == 1
             fact_view = card_type.fact_views[0]
-            assert fact_view.id == "1::1"
+            assert fact_view.id == "1.1"
             assert fact_view.name == "Front-to-back"
             assert fact_view.q_fields == ["f"]
             assert fact_view.a_fields == ["b"]
@@ -2268,7 +2269,7 @@ class TestSync(object):
             assert card_type.extra_data[1] == 1
             assert len(card_type.fact_views) == 1
             fact_view = card_type.fact_views[0]
-            assert fact_view.id == "1::1"
+            assert fact_view.id == "1.1"
             assert fact_view.name == "Front-to-back"
             assert fact_view.q_fields == ["f"]
             assert fact_view.a_fields == ["b"]

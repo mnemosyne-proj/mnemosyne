@@ -105,6 +105,9 @@ class SM2Controller(ReviewController):
             self.reset()
 
     def show_new_question(self):
+        # Reload the counters if they have not yet been initialised. Also do
+        # this if the active counter is zero, make sure it is really zero to
+        # get a correct test for no more cards.
         if self.active_count in [None, 0]:
             self.reload_counters()
         if not self.database().is_loaded() or self.active_count == 0:
@@ -175,7 +178,7 @@ class SM2Controller(ReviewController):
         self.active_count = sch.active_count()
 
     def update_counters(self, old_grade, new_grade):
-        if not self.scheduled_count:
+        if self.scheduled_count is None:
             self.reload_counters()        
         if old_grade >= 2 and not self.learning_ahead:
             self.scheduled_count -= 1

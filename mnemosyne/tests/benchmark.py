@@ -105,7 +105,7 @@ def do_import():
         do_import("/home/pbienst/dot_mnemosyne/default.mem")
 
 def test_setup():
-    os.system("rm -fr dot_test")
+    shutil.rmtree("dot_test", ignore_errors=True)
     global mnemosyne
     mnemosyne = Mnemosyne(upload_science_logs=False)
     mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",

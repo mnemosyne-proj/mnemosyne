@@ -4,6 +4,7 @@
 
 import os
 import copy
+import shutil
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -33,7 +34,7 @@ class TestConverter:
 class TestConvertCards(MnemosyneTest):
 
     def setup(self):
-        os.system("rm -fr dot_test")
+        shutil.rmtree("dot_test", ignore_errors=True)
         
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
@@ -69,7 +70,7 @@ class TestConvertCards(MnemosyneTest):
         assert new_card_1.card_type.id == "2"
         assert new_card_2.card_type.id == "2"
 
-        if new_card_1.fact_view.id == "2::1":
+        if new_card_1.fact_view.id == "2.1":
             assert new_card_1 == old_card
             assert new_card_2 != old_card
             assert new_card_2.grade == -1
@@ -111,7 +112,7 @@ class TestConvertCards(MnemosyneTest):
         assert new_card_1.card_type.id == "2"
         assert new_card_2.card_type.id == "2"
 
-        if new_card_1.fact_view.id == "2::1":
+        if new_card_1.fact_view.id == "2.1":
             assert new_card_1 == old_card
             assert new_card_2 != old_card
             assert new_card_2.grade == -1
@@ -150,7 +151,7 @@ class TestConvertCards(MnemosyneTest):
         assert new_card_1.card_type.id == "2"
         assert new_card_2.card_type.id == "2"
 
-        if new_card_1.fact_view.id == "2::1":
+        if new_card_1.fact_view.id == "2.1":
             assert new_card_1 == old_card
             assert new_card_2 != old_card
             assert new_card_2.grade == -1
@@ -188,7 +189,7 @@ class TestConvertCards(MnemosyneTest):
         new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.card_type.id == "1"
         
-        if old_card_1.fact_view.id == "2::1":
+        if old_card_1.fact_view.id == "2.1":
             assert new_card == old_card_1
             assert new_card != old_card_2            
         else:
@@ -224,7 +225,7 @@ class TestConvertCards(MnemosyneTest):
         assert new_card_1.card_type.id == "3"
         assert new_card_2.card_type.id == "3"
 
-        if new_card_1.fact_view.id == "3::1":
+        if new_card_1.fact_view.id == "3.1":
             assert new_card_1 == old_card
             assert new_card_2 != old_card            
         else:
@@ -262,7 +263,7 @@ class TestConvertCards(MnemosyneTest):
         assert new_card_1.card_type.id == "3"
         assert new_card_2.card_type.id == "3"
 
-        if new_card_1.fact_view.id == "3::2":
+        if new_card_1.fact_view.id == "3.2":
             assert new_card_1 == old_card
             assert new_card_2 != old_card
         else:
@@ -301,7 +302,7 @@ class TestConvertCards(MnemosyneTest):
         new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.card_type.id == "1"
         
-        if old_card_1.fact_view.id == "3::1":
+        if old_card_1.fact_view.id == "3.1":
             assert new_card == old_card_1
             assert new_card != old_card_2            
         else:
@@ -338,7 +339,7 @@ class TestConvertCards(MnemosyneTest):
         new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.card_type.id == "1"
         
-        if old_card_1.fact_view.id == "3::2":
+        if old_card_1.fact_view.id == "3.2":
             assert new_card == old_card_1
             assert new_card != old_card_2            
         else:
@@ -379,8 +380,8 @@ class TestConvertCards(MnemosyneTest):
         for old in [old_card_1, old_card_2]:
             for new in [new_card_1, new_card_2]:
                 if old == new:
-                    assert old.fact_view.id.split("::")[1] == \
-                           new.fact_view.id.split("::")[1]
+                    assert old.fact_view.id.split(".")[1] == \
+                           new.fact_view.id.split(".")[1]
 
         new_card_1.question()
         new_card_1.answer()        
@@ -457,8 +458,8 @@ class TestConvertCards(MnemosyneTest):
         for old in [old_card_1, old_card_2]:
             for new in [new_card_1, new_card_2]:
                 if old == new:
-                    assert old.fact_view.id.split("::")[1] == \
-                           new.fact_view.id.split("::")[1]
+                    assert old.fact_view.id.split(".")[1] == \
+                           new.fact_view.id.split(".")[1]
 
         new_card_1.question()
         new_card_1.answer()        
@@ -534,7 +535,7 @@ class TestConvertCards(MnemosyneTest):
         new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.card_type.id == "1"
         
-        if old_card_1.fact_view.id == "3::1":
+        if old_card_1.fact_view.id == "3::my_3.3.1":
             assert new_card == old_card_1
             assert new_card != old_card_2            
         else:
@@ -576,7 +577,7 @@ class TestConvertCards(MnemosyneTest):
         assert new_card.fact.data["f"] == "question"
         assert new_card.fact.data["b"] == "answer"
         
-        if old_card_1.fact_view.id == "3::1":
+        if old_card_1.fact_view.id == "3.1":
             assert new_card == old_card_1
             assert new_card != old_card_2 
         else:
@@ -619,7 +620,7 @@ class TestConvertCards(MnemosyneTest):
         new_card = self.database().cards_from_fact(fact)[0]
         assert new_card.card_type.id == "1::my_1"
         
-        if old_card_1.fact_view.id == "3::1":
+        if old_card_1.fact_view.id == "3::my_3.3.1":
             assert new_card == old_card_1
             assert new_card != old_card_2
         else:
@@ -719,7 +720,7 @@ class TestConvertCards(MnemosyneTest):
         assert card_1.active == True
         assert card_2.active == True
         
-        if card_1.fact_view.id == "3::1": # Recognition     
+        if card_1.fact_view.id == "3.1": # Recognition     
             assert "foreign" in  card_1.question()
             assert "translation" in card_2.question()
             assert card_1.grade == -1
@@ -766,7 +767,7 @@ class TestConvertCards(MnemosyneTest):
         assert card_1.active == True
         assert card_2.active == True
         
-        if card_1.fact_view.id == "3::1": # Recognition     
+        if card_1.fact_view.id == "3.1": # Recognition     
             assert "foreign" in  card_1.question()
             assert "translation" in card_2.question()
             assert card_1.grade == -1

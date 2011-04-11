@@ -4,6 +4,7 @@ import os
 import sys
 import time
 import pstats
+import shutil
 import cProfile
 
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -38,7 +39,7 @@ class MyServer(Server):
     capabilities = "TODO"
 
     def __init__(self):
-        os.system("rm -rf sync_from_here")
+        shutil.rmtree("sync_from_here")
         self.mnemosyne = Mnemosyne()
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))

@@ -3,6 +3,7 @@
 #
 
 import os
+import shutil
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -98,7 +99,7 @@ class TestMedia(MnemosyneTest):
         subdir = os.path.join(self.database().media_dir(), "subdir")
         os.mkdir(subdir)
         filename = os.path.join(subdir, "b.ogg")
-        os.system("touch %s" % filename)
+        file(filename, "w")
         self.controller().show_insert_img_dialog("")
         assert os.path.exists(os.path.join(self.database().media_dir(),
                                            "subdir", "b.ogg"))
@@ -171,7 +172,7 @@ class TestMedia(MnemosyneTest):
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
         card = self.database().card(card._id, is_id_internal=True)
-        os.system("touch b.ogg")
+        file("b.ogg", "w")
         full_path = os.path.abspath("b.ogg")
         fact_data = {"f": "edited <img src=\"%s\"> <img src=\"%s\">" \
                      % ("a.ogg", full_path),

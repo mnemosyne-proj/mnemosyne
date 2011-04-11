@@ -17,7 +17,7 @@ class FrontToBack(CardType):
               ("b", _("Back"))]
     
     # Front-to-back.
-    v = FactView(_("Front-to-back"), "1::1")
+    v = FactView(_("Front-to-back"), "1.1")
     v.q_fields = ["f"]
     v.a_fields = ["b"]
 

@@ -41,7 +41,7 @@ class Cloze(CardType):
     fields = [("text", _("Text"))]
     unique_fields = ["text"]
 
-    v = FactView(_("Cloze"), "5::1")
+    v = FactView(_("Cloze"), "5.1")
     v.q_fields = ["f"]  # Generated on the fly. 
     v.a_fields = ["b"]  # Generated on the fly. 
     fact_views = [v]

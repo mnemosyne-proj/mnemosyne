@@ -181,8 +181,13 @@ class DefaultController(Controller):
             parents_new = new_card_type.id.split("::")
             if parents_old[0] == parents_new[0]: 
                 edited_cards = cards_from_fact
+                new_fact_view_for = {}
+                for index, old_fact_view in enumerate(old_card_type.fact_views):
+                    new_fact_view_for[old_fact_view] = \
+                        new_card_type.fact_views[index]
                 for card in edited_cards:
                     card.card_type = new_card_type
+                    card.fact_view = new_fact_view_for[card.fact_view]
                     db.update_card(card)
             else:
                 if warn:
@@ -357,8 +362,12 @@ class DefaultController(Controller):
         card_type_class = type(mangle(clone_name), (card_type.__class__, ),
             {"name": clone_name, "id": clone_id})
         cloned_card_type = card_type_class(self.component_manager)
-        for fact_view in cloned_card_type.fact_views:
-            self.database().add_fact_view(fact_view)
+        cloned_card_type.fact_views = []
+        for fact_view in card_type.fact_views:
+            cloned_fact_view = copy.copy(fact_view)
+            cloned_fact_view.id = clone_id + "." + fact_view.id
+            cloned_card_type.fact_views.append(cloned_fact_view)
+            self.database().add_fact_view(cloned_fact_view)         
         self.database().add_card_type(cloned_card_type)
         self.database().save()
         return cloned_card_type

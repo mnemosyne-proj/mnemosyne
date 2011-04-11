@@ -3,6 +3,7 @@
 #
 
 import os
+import shutil
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -39,7 +40,7 @@ class DecoratedThreeSided(CardType):
 class TestCardType(MnemosyneTest):
 
     def setup(self):
-        os.system("rm -fr dot_test")
+        shutil.rmtree("dot_test", ignore_errors=True)
         
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
@@ -109,8 +110,10 @@ class TestCardType(MnemosyneTest):
         self.controller().delete_card_type(card_type_1)
 
         card_type_out = self.database().card_type(card_type_2.id,
-                                                      is_id_internal=False)
+            is_id_internal=False)
 
+        if card_type_out.fact_views[0].id == \
+               card_type.fact_views[0].id:  
         assert card_type_out.fact_views[0].id == \
                card_type.fact_views[0].id
         assert card_type_out.fact_views[0].name == \
@@ -121,6 +124,16 @@ class TestCardType(MnemosyneTest):
                card_type.fact_views[0].a_fields
         assert card_type_out.fact_views[0].a_on_top_of_q == \
                card_type.fact_views[0].a_on_top_of_q        
+        assert card_type_out.fact_views[1].id == \
+               card_type.fact_views[1].id
+        assert card_type_out.fact_views[1].name == \
+               card_type.fact_views[1].name
+        assert card_type_out.fact_views[1].q_fields == \
+               card_type.fact_views[1].q_fields
+        assert card_type_out.fact_views[1].a_fields == \
+               card_type.fact_views[1].a_fields
+        assert card_type_out.fact_views[1].a_on_top_of_q == \
+               card_type.fact_views[1].a_on_top_of_q
         
     def test_clone_of_clone(self):
         card_type = self.card_type_by_id("1")

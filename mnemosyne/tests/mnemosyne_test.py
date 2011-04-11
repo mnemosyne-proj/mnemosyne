@@ -3,6 +3,7 @@
 #
 
 import os
+import shutil
 
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.utils import expand_path
@@ -17,7 +18,7 @@ class TestReviewWidget(ReviewWidget):
 class MnemosyneTest():
     
     def setup(self):
-        os.system("rm -fr dot_test")
+        shutil.rmtree("dot_test", ignore_errors=True)
         self.restart()
 
     def restart(self):

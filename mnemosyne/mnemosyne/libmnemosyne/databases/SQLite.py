@@ -158,7 +158,7 @@ $pregenerated_data
 
     create table fact_views(
         _id integer primary key,
-        id text,
+        id text unique,
         name text,
         q_fields text,
         a_fields text,

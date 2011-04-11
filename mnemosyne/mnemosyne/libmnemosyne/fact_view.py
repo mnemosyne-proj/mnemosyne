@@ -11,8 +11,9 @@ class FactView(CompareOnId):
     A fact view needs an id string as well as a name, because the name can
     change for different translations.
 
-    Note that id's should be unique, so a good naming convention is
-    'card_type_id::fact_view_id'.
+    Note that id's should be unique to distinguish them during sync, so a
+    good naming convention is 'card_type_id.fact_view_id'. (We don't use
+    '::' so as not to interfere with the '::' in inherited card types.)
 
     The purpose of the decorator dictionaries is to allow for cards that read
     'What is the answer to $question', as opposed to just '$question'.

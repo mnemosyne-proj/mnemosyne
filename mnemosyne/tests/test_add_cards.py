@@ -3,6 +3,7 @@
 #
 
 import os
+import shutil
 
 from mnemosyne_test import MnemosyneTest
 from mnemosyne.libmnemosyne import Mnemosyne
@@ -28,7 +29,7 @@ class Widget(MainWidget):
 class TestAddCards(MnemosyneTest):
 
     def setup(self):
-        os.system("rm -fr dot_test")
+        shutil.rmtree("dot_test", ignore_errors=True)
         
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
