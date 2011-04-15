@@ -25,9 +25,9 @@ from mnemosyne.libmnemosyne.utils import expand_path, contract_path
 
 # All ids beginning with an underscore refer to primary keys in the SQL
 # database. All other id's correspond to the id's used in libmnemosyne.
-# We don't use libmnemosyne id's as primary keys for speed reasons
-# (100 times slowdown in joins). We add indexes on id's as well, since
-# the is the only handle we have during the sync process.
+# For large tables, we don't use libmnemosyne id's as primary keys for
+# speed reasons (100 times slowdown in joins). We add indexes on id's
+# as well, since the is the only handle we have during the sync process.
 
 # All times are Posix timestamps.
 
@@ -140,7 +140,7 @@ $pregenerated_data
        still need to be synced. Also avoids issues with clock drift. */
     
     create table partnerships(
-        partner text,
+        partner text unique,
         _last_log_id integer
     );
     
@@ -154,11 +154,14 @@ $pregenerated_data
        plugin. For columns containing lists, dicts, ...  like 'fields',
        'unique_fields', ... we store the __repr__ representations of the
        Python objects.
+       Since these are small tables which only get used during load to create
+       card types, we only use id's instead of _ids.
+       We store card_types.fact_view_ids as a repr of a list instead of as a
+       separate table, because order is important.
     */
 
     create table fact_views(
-        _id integer primary key,
-        id text unique,
+        id text primary key,
         name text,
         q_fields text,
         a_fields text,
@@ -170,18 +173,14 @@ $pregenerated_data
     );
 
     create table card_types(
-        id text unique,
+        id text primary key,
         name text,
         fields text,
         unique_fields text,
         required_fields text,
+        fact_view_ids text,
         keyboard_shortcuts text,
         extra_data text default ""
-    );
-
-    create table fact_views_for_card_type(
-        _fact_view_id integer,
-        card_type_id text
     );
     
     commit;

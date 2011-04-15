@@ -365,7 +365,7 @@ class DefaultController(Controller):
         cloned_card_type.fact_views = []
         for fact_view in card_type.fact_views:
             cloned_fact_view = copy.copy(fact_view)
-            cloned_fact_view.id = clone_id + "." + fact_view.id
+            cloned_fact_view.id = clone_id + "." + fact_view.id.rsplit(".", 1)[1]
             cloned_card_type.fact_views.append(cloned_fact_view)
             self.database().add_fact_view(cloned_fact_view)         
         self.database().add_card_type(cloned_card_type)

@@ -22,7 +22,6 @@ class FactView(CompareOnId):
 
     def __init__(self, name, id):
         self.id = id
-        self._id = None
         self.name = name
         self.q_fields = []
         self.a_fields = []
