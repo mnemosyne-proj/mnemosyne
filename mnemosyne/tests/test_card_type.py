@@ -72,6 +72,7 @@ class TestCardType(MnemosyneTest):
         self.mnemosyne.component_manager.unregister(card_type)
         card_type_out = self.database().card_type(card_type.id,
                                                       is_id_internal=False)
+        assert card_type_out.id == "1::1 clone"
         assert card_type_out.key_with_name("Front") == "f"
         assert card_type_out.required_fields == ["f"]
         assert card_type_out.is_data_valid({"f": "foo"}) == True
@@ -96,8 +97,14 @@ class TestCardType(MnemosyneTest):
                card_type.fact_views[0].a_on_top_of_q
         
         # Reset global variables.
+        card_type = self.card_type_by_id("1")
         card_type.fact_views[0].type_answer = False
         card_type.fact_views[0].extra_data = {}
+
+        card_type_orig = self.database().card_type("1",
+                                                      is_id_internal=False)
+        assert card_type_orig.fact_views[0].type_answer == False
+        
         
     def test_delete(self):
         card_type = self.card_type_by_id("1")
@@ -112,28 +119,26 @@ class TestCardType(MnemosyneTest):
         card_type_out = self.database().card_type(card_type_2.id,
             is_id_internal=False)
 
-        if card_type_out.fact_views[0].id == \
-               card_type.fact_views[0].id:  
         assert card_type_out.fact_views[0].id == \
-               card_type.fact_views[0].id
+               card_type_2.fact_views[0].id
         assert card_type_out.fact_views[0].name == \
-               card_type.fact_views[0].name
+               card_type_2.fact_views[0].name
         assert card_type_out.fact_views[0].q_fields == \
-               card_type.fact_views[0].q_fields
+               card_type_2.fact_views[0].q_fields
         assert card_type_out.fact_views[0].a_fields == \
-               card_type.fact_views[0].a_fields
+               card_type_2.fact_views[0].a_fields
         assert card_type_out.fact_views[0].a_on_top_of_q == \
-               card_type.fact_views[0].a_on_top_of_q        
+               card_type_2.fact_views[0].a_on_top_of_q        
         assert card_type_out.fact_views[1].id == \
-               card_type.fact_views[1].id
+               card_type_2.fact_views[1].id
         assert card_type_out.fact_views[1].name == \
-               card_type.fact_views[1].name
+               card_type_2.fact_views[1].name
         assert card_type_out.fact_views[1].q_fields == \
-               card_type.fact_views[1].q_fields
+               card_type_2.fact_views[1].q_fields
         assert card_type_out.fact_views[1].a_fields == \
-               card_type.fact_views[1].a_fields
+               card_type_2.fact_views[1].a_fields
         assert card_type_out.fact_views[1].a_on_top_of_q == \
-               card_type.fact_views[1].a_on_top_of_q
+               card_type_2.fact_views[1].a_on_top_of_q
         
     def test_clone_of_clone(self):
         card_type = self.card_type_by_id("1")

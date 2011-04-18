@@ -809,27 +809,22 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
 
     def add_fact_view(self, fact_view):
-        _fact_view_id = self.con.execute("""insert into fact_views(id, name,
-            q_fields, a_fields, q_field_decorators, a_field_decorators,
-            a_on_top_of_q, type_answer, extra_data)
-            values(?,?,?,?,?,?,?,?,?)""", (fact_view.id, fact_view.name,
-            repr(fact_view.q_fields), repr(fact_view.a_fields),
-            repr(fact_view.q_field_decorators),
+        self.con.execute("""insert into fact_views(id, name, q_fields,
+            a_fields, q_field_decorators, a_field_decorators, a_on_top_of_q,
+            type_answer, extra_data) values(?,?,?,?,?,?,?,?,?)""",
+            (fact_view.id, fact_view.name, repr(fact_view.q_fields),
+            repr(fact_view.a_fields), repr(fact_view.q_field_decorators),
             repr(fact_view.a_field_decorators), fact_view.a_on_top_of_q,
             fact_view.type_answer,
-            self._repr_extra_data(fact_view.extra_data))).lastrowid
-        fact_view._id = _fact_view_id
+            self._repr_extra_data(fact_view.extra_data)))
         self.log().added_fact_view(fact_view)
 
     def fact_view(self, id, is_id_internal):
-        if is_id_internal:
-            sql_res = self.con.execute("select * from fact_views where _id=?",
-                (id, )).fetchone()
-        else:
-            sql_res = self.con.execute("select * from fact_views where id=?",
+        # Since there are so few of them, we don't use internal _ids.
+        # ids should be unique too.
+        sql_res = self.con.execute("select * from fact_views where id=?",
                  (id, )).fetchone()            
         fact_view = FactView(sql_res["name"], sql_res["id"])
-        fact_view._id = sql_res["_id"]
         for attr in ("q_fields", "a_fields", "q_field_decorators",
             "a_field_decorators"):
             setattr(fact_view, attr, eval(sql_res[attr]))
@@ -841,17 +836,17 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def update_fact_view(self, fact_view):
         self.con.execute("""update fact_views set name=?, q_fields=?,
             a_fields=?, q_field_decorators=?, a_field_decorators=?,
-            a_on_top_of_q=?, type_answer=?, extra_data=? where _id=?""",
+            a_on_top_of_q=?, type_answer=?, extra_data=? where id=?""",
             (fact_view.name, repr(fact_view.q_fields),
             repr(fact_view.a_fields), repr(fact_view.q_field_decorators),
             repr(fact_view.a_field_decorators), fact_view.a_on_top_of_q,
             fact_view.type_answer,
-            self._repr_extra_data(fact_view.extra_data), fact_view._id))
+            self._repr_extra_data(fact_view.extra_data), fact_view.id))
         self.log().edited_fact_view(fact_view)
         
     def delete_fact_view(self, fact_view):
-        self.con.execute("delete from fact_views where _id=?",
-            (fact_view._id, ))
+        self.con.execute("delete from fact_views where id=?",
+            (fact_view.id, ))
         self.log().deleted_fact_view(fact_view)
         del fact_view
     
@@ -861,18 +856,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         
     def add_card_type(self, card_type):
         self.con.execute("""insert into card_types(id, name, fields,
-            unique_fields, required_fields, keyboard_shortcuts, extra_data)
-            values (?,?,?,?,?,?,?)""", (card_type.id, card_type.name,
-            repr(card_type.fields), repr(card_type.unique_fields),
-            repr(card_type.required_fields),
+            unique_fields, required_fields, fact_view_ids, keyboard_shortcuts,
+            extra_data) values (?,?,?,?,?,?,?,?)""", (card_type.id,
+            card_type.name, repr(card_type.fields),
+            repr(card_type.unique_fields), repr(card_type.required_fields),
+            repr([fact_view.id for fact_view in card_type.fact_views]),
             repr(card_type.keyboard_shortcuts),
             self._repr_extra_data(card_type.extra_data)))
-        for fact_view in card_type.fact_views:
-            # The fact views themselves have been added by the controller.
-            # (Doing it here would upset the sync protocol.)
-            self.con.execute("""insert into fact_views_for_card_type
-                (_fact_view_id, card_type_id) values(?,?)""",
-                (fact_view._id, card_type.id))
         self.component_manager.register(card_type)
         self.log().added_card_type(card_type)
 
@@ -895,43 +885,29 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                      "keyboard_shortcuts"):
             setattr(card_type, attr, eval(sql_res[attr]))
         self._construct_extra_data(sql_res, card_type)
-        card_type.fact_views = []
-        for cursor in self.con.execute("""select _fact_view_id from
-            fact_views_for_card_type where card_type_id=?""", (id, )):
-            card_type.fact_views.append(self.fact_view(\
-                cursor["_fact_view_id"], is_id_internal=True))
+        card_type.fact_views = [self.fact_view(fact_view_id,
+            is_id_internal=False) for fact_view_id in \
+            eval(sql_res["fact_view_ids"])]
         return card_type
         
     def update_card_type(self, card_type):
+        # Updating of the fact views should happen at the controller level,
+        # so as not to upset the sync protocol.
         self.con.execute("""update card_types set name=?, fields=?,
-            unique_fields=?, required_fields=?, keyboard_shortcuts=?,
-            extra_data=? where id=?""",
+            unique_fields=?, required_fields=?, fact_view_ids=?,
+            keyboard_shortcuts=?, extra_data=? where id=?""",
             (card_type.name, repr(card_type.fields),
             repr(card_type.unique_fields), repr(card_type.required_fields),
+            repr([fact_view.id for fact_view in card_type.fact_views]),
             repr(card_type.keyboard_shortcuts),
             self._repr_extra_data(card_type.extra_data), card_type.id))
-        # Delete fact views and recreate them.
-        for cursor in self.con.execute("""select _fact_view_id from
-            fact_views_for_card_type where card_type_id=?""",
-            (card_type.id, )):
-            fact_view = self.fact_view(cursor[0], is_id_internal=True)
-            self.delete_fact_view(fact_view)
-        self.con.execute("""delete from fact_views_for_card_type where
-            card_type_id=?""", (card_type.id, ))
-        for fact_view in card_type.fact_views:
-            self.add_fact_view(fact_view)
-            self.con.execute("""insert into fact_views_for_card_type
-                (_fact_view_id, card_type_id) values(?,?)""",
-                (fact_view._id, card_type.id))
         self.component_manager.unregister(card_type)
         self.component_manager.register(card_type)
         self.log().edited_card_type(card_type)
 
     def delete_card_type(self, card_type):
-        # The deletion of the fact views should happen at the controller
-        # level, so as not to upset the sync protocol.
-        self.con.execute("""delete from fact_views_for_card_type where
-            card_type_id=?""", (card_type.id, ))
+        # Deleting of the fact views should happen at the controller level,
+        # so as not to upset the sync protocol.
         self.con.execute("delete from card_types where id=?",
             (card_type.id, ))
         self.component_manager.unregister(card_type)

@@ -61,7 +61,7 @@ class MyServer(Server, Thread):
         self.filename = filename
         Thread.__init__(self)
         if erase_previous:
-            shutil.rmtree(data_dir)
+            shutil.rmtree(data_dir, ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
             "GetTextTranslator"))
@@ -138,7 +138,7 @@ class MyClient(Client):
     def __init__(self, data_dir=os.path.abspath("dot_sync_client"),
             filename="default.db", erase_previous=True):
         if erase_previous:
-            shutil.rmtree(data_dir)
+            shutil.rmtree(data_dir, ignore_errors=True)
         self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=False)
         self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
                              "GetTextTranslator"))
@@ -2232,12 +2232,12 @@ class TestSync(object):
             assert card_type.keyboard_shortcuts == {}
             assert len(card_type.fact_views) == 1
             fact_view = card_type.fact_views[0]
-            assert fact_view.id == "1.1"
+            assert fact_view.id == "1::1 cloned.1"
             assert fact_view.name == "Front-to-back"
             assert fact_view.q_fields == ["f"]
             assert fact_view.a_fields == ["b"]
             assert fact_view.a_on_top_of_q == False
-            assert type(fact_view.a_on_top_of_q) == type(False)
+            assert type(fact_view.a_on_top_of_q) == type(False)            
             assert fact_view.type_answer == False
             assert type(fact_view.type_answer) == type(False)
 
@@ -2268,8 +2268,8 @@ class TestSync(object):
             assert card_type.keyboard_shortcuts == {}
             assert card_type.extra_data[1] == 1
             assert len(card_type.fact_views) == 1
-            fact_view = card_type.fact_views[0]
-            assert fact_view.id == "1.1"
+            fact_view = card_type.fact_views[0]            
+            assert fact_view.id == "1::1 cloned.1"
             assert fact_view.name == "Front-to-back"
             assert fact_view.q_fields == ["f"]
             assert fact_view.a_fields == ["b"]

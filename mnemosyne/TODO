@@ -1,9 +1,6 @@
--sqlite database does not store order of fact views!
--make _id vs _id consistent in python and sql, specifically for card type and fact_view
--store card factview id or _fact_view_id? only 20k size gain.
--fix test suite
--test cloned cards further in card browser, edit, ...
--card type clone: rename and delete
+-update my database format
+-clone: try to change card type through the browser back to parent: parent is not listed in drop down
+ (Qt sql does not seem to pick up correct card type id)
 -clone card type, create new database, cloned card type is still listed
 -delete cards from card type: upon reload, the old card type still seems to be listed in the
  card browser
@@ -90,6 +87,8 @@
 -do review_controller.rebuild_queue, reload counter after clean duplicates?
 
 -ask about card browser speed. Try with decoration. shulgi: Core Duo 2.1 Ghz
+
+-card type clone: rename and delete, both in card browser and card type browser
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 

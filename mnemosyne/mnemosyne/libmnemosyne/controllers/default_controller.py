@@ -165,13 +165,13 @@ class DefaultController(Controller):
         itself, otherwise the database will not be saved.
 
         """
-        
+
+        if old_card_type == new_card_type:
+            return 0
         db = self.database()
         cards_from_fact = db.cards_from_fact(fact)
         assert cards_from_fact[0].card_type == old_card_type
         assert new_card_type.is_data_valid(new_fact_data)
-        if old_card_type == new_card_type:
-            return 0
         converter = self.component_manager.current\
               ("card_type_converter", used_for=(old_card_type.__class__,
                                                 new_card_type.__class__))
@@ -373,6 +373,7 @@ class DefaultController(Controller):
         return cloned_card_type
     
     def delete_card_type(self, card_type):
+        # TODO: check if card type in use.
         fact_views = card_type.fact_views
         self.database().delete_card_type(card_type)
         # Correct ordering for the sync protocol is deleting the fact views

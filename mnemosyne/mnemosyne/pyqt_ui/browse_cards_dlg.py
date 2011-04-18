@@ -363,6 +363,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 self.main_widget().show_error\
                     (_("The selected cards should have the same card type."))
                 return
+        print current_card_type_ids
         current_card_type = self.card_type_by_id(current_card_type_ids.pop())
         # Get new card type. Use a dict as backdoor to return values
         # from the dialog.
