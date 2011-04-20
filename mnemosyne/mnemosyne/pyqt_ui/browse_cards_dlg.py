@@ -23,7 +23,7 @@ _ID = 0
 ID = 1
 CARD_TYPE_ID = 2
 _FACT_ID = 3
-_FACT_VIEW_ID = 4
+FACT_VIEW_ID = 4
 QUESTION = 5
 ANSWER = 6
 TAGS = 7
@@ -357,13 +357,12 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             card_type_id_index = index.model().index(\
                 index.row(), CARD_TYPE_ID, index.parent())
             card_type_id = \
-                unicode(index.model().data(card_type_id_index).toString()[0])
+                unicode(index.model().data(card_type_id_index).toString())
             current_card_type_ids.add(card_type_id)
             if len(current_card_type_ids) > 1:
                 self.main_widget().show_error\
                     (_("The selected cards should have the same card type."))
                 return
-        print current_card_type_ids
         current_card_type = self.card_type_by_id(current_card_type_ids.pop())
         # Get new card type. Use a dict as backdoor to return values
         # from the dialog.
@@ -457,7 +456,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.table.doubleClicked.connect(self.menu_edit)
         self.table.verticalHeader().hide()
-        for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, _FACT_VIEW_ID,
+        for column in (_ID, ID, CARD_TYPE_ID, _FACT_ID, FACT_VIEW_ID,
             ACQ_REPS_SINCE_LAPSE, RET_REPS_SINCE_LAPSE,
             EXTRA_DATA, ACTIVE, SCHEDULER_DATA):
             self.table.setColumnHidden(column, True)

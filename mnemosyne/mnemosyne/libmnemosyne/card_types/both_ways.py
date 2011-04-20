@@ -61,6 +61,8 @@ class BothWaysToFrontToBack(CardTypeConverter):
                 card.fact_view = new_card_type.fact_views[0]
                 edited_cards = [card]
             # Delete back-to-front view.
-            if card.fact_view == old_card_type.fact_views[1]:
+            elif card.fact_view == old_card_type.fact_views[1]:
                 deleted_cards = [card]
+            else:
+                raise ArgumentError, "Invalid fact view."
         return new_cards, edited_cards, deleted_cards

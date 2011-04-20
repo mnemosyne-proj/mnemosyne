@@ -421,6 +421,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def unload(self):
         if not self._connection:
             return
+                # Instantiate card types stored in this database.
+        # Unregister card types in this database.
+        for cursor in self.con.execute("select id from card_types"):
+            id = cursor[0]
+            card_type = self.card_type(id, is_id_internal=-1)
+            self.component_manager.unregister(card_type)
         # This could fail if the database got corrupted and we are trying to
         # create a new, temporary one.
         try:

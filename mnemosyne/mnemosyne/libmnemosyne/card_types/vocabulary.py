@@ -91,12 +91,14 @@ class VocabularyToFrontToBack(CardTypeConverter):
                     edited_cards.append(card)
                 else:
                     deleted_cards.append(card)
-            if card.fact_view == old_card_type.fact_views[1]:
+            elif card.fact_view == old_card_type.fact_views[1]:
                 if "f" in correspondence and correspondence["f"] == "f":
                     deleted_cards.append(card)
                 else:
                     card.fact_view = new_card_type.fact_views[0]
                     edited_cards.append(card)
+            else:
+                raise ArgumentError, "Invalid fact view."
         return new_cards, edited_cards, deleted_cards
 
 
@@ -111,10 +113,12 @@ class VocabularyToBothWays(CardTypeConverter):
                     card.fact_view = new_card_type.fact_views[0]
                 else:
                     card.fact_view = new_card_type.fact_views[1]                    
-            if card.fact_view == old_card_type.fact_views[1]:
+            elif card.fact_view == old_card_type.fact_views[1]:
                 if "f" in correspondence and correspondence["f"] == "f":
                     card.fact_view = new_card_type.fact_views[1]
                 else:
                     card.fact_view = new_card_type.fact_views[0]
+            else:
+                raise ArgumentError, "Invalid fact view."
         new_cards, edited_cards, deleted_cards = [], cards, []
         return new_cards, edited_cards, deleted_cards

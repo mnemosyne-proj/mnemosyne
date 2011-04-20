@@ -1,16 +1,10 @@
--update my database format
--clone: try to change card type through the browser back to parent: parent is not listed in drop down
- (Qt sql does not seem to pick up correct card type id)
--clone card type, create new database, cloned card type is still listed
--delete cards from card type: upon reload, the old card type still seems to be listed in the
- card browser
+-also capture escape key
+-add card which is a duplicate, choose merge and edit, then cancel results in card being deleted.
 
 -converting 2000 cards from front-to-back to vocabulary does take a while. Profile + add progress bar?
 -browse cards: load current criterion first?
 -total count or active count in tag tree and card type widget? In 'activate cards' only total? Or not display at all?
 -dog fooding organise cards
-
--add card which is a duplicate, choose merge and edit, then cancel results in card being deleted.
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
@@ -18,6 +12,9 @@
 -initial sync: bad.png shows up empty
 
 -migrate science server machine
+
+-use saveGeometry and saveState as opposed to manually saving width and height?
+-check close event: make sure sure geometry is written on accept too, as well as close event
 
 -don't warn twice when learning 15 new cards
 

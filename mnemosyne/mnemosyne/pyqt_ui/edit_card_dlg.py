@@ -30,8 +30,16 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             self.resize(width, height)
             
     def closeEvent(self, event):
+        print 'close event'
         self.config()["edit_widget_size"] = (self.width(), self.height())
-    
+        if self.allow_cancel:
+            print 'accepting it'
+            event.accept()
+            QtGui.QDialog.reject(self)
+        else:
+            print 'not allowed to cancel'
+            event.ignore()
+ 
     def set_valid(self, valid):
         self.OK_button.setEnabled(valid)    
         self.preview_button.setEnabled(valid)
@@ -51,9 +59,9 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         if status == 0:
             tag_text = ", ".join(new_tag_names)
             self.config()["tags_of_last_added"] = tag_text
+            self.config()["edit_widget_size"] = (self.width(), self.height())
             QtGui.QDialog.accept(self)
 
     def reject(self):  # Override 'add cards' behaviour.
         self.config()["edit_widget_size"] = (self.width(), self.height())
         QtGui.QDialog.reject(self)
-        
