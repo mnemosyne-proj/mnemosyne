@@ -108,14 +108,15 @@ class DefaultController(Controller):
                     merged_fact_data = copy.copy(fact.data)
                     for duplicate in duplicates:
                         for key in fact_data:
-                            if key not in card_type.required_fields:
+                            if key not in card_type.required_fields \
+                                and key in duplicate.data:
                                 merged_fact_data[key] += " / " + duplicate[key]
                     self.delete_facts_and_their_cards(duplicates)
                     card = db.cards_from_fact(fact)[0]
                     card.fact.data = merged_fact_data
                     self.component_manager.current("edit_card_dialog")\
-                      (card, self.component_manager, allow_cancel=False).\
-                      activate()
+                        (card, self.component_manager, allow_cancel=False).\
+                        activate()
                     return
                 if answer == 2:  # Don't add.
                     return
@@ -292,6 +293,12 @@ class DefaultController(Controller):
             if db.fact_contains_static_media_files(fact):
                 clean_orphaned_static_media_files_needed = True
         warn = True
+        w = self.main_widget()
+        w.set_progress_text(_("Converting cards..."))
+        w.set_progress_range(0, len(facts))
+        w.set_progress_update_interval(len(facts)/50)
+        count = 0
+        w.set_progress_value(0)
         for fact in facts:
             if correspondence:
                 new_fact_data = {}
@@ -307,9 +314,12 @@ class DefaultController(Controller):
             if result == -1:
                 return
             warn = False
+            count += 1
+            w.set_progress_value(count)
         if clean_orphaned_static_media_files_needed:
             db.clean_orphaned_static_media_files()        
-        db.save()        
+        db.save()
+        w.close_progress()
 
     def delete_current_card(self):
         self.stopwatch().pause()

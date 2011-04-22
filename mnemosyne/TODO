@@ -1,7 +1,3 @@
--also capture escape key
--add card which is a duplicate, choose merge and edit, then cancel results in card being deleted.
-
--converting 2000 cards from front-to-back to vocabulary does take a while. Profile + add progress bar?
 -browse cards: load current criterion first?
 -total count or active count in tag tree and card type widget? In 'activate cards' only total? Or not display at all?
 -dog fooding organise cards
@@ -12,9 +8,6 @@
 -initial sync: bad.png shows up empty
 
 -migrate science server machine
-
--use saveGeometry and saveState as opposed to manually saving width and height?
--check close event: make sure sure geometry is written on accept too, as well as close event
 
 -don't warn twice when learning 15 new cards
 
@@ -28,6 +21,8 @@
 -right click remove tags in card browser
 
 -windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
+-use saveGeometry and saveState as opposed to manually saving width and height?
+-check close event: make sure sure geometry is written on accept too, as well as close event
 -painting pictures don't show up on windows
 -windows client and server: sync from empty server: bad database format
 -windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
@@ -49,8 +44,6 @@
 -tooltip in preview to explain sister cards
 -better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
-
-
 
 -About dialog
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini
@@ -319,6 +312,7 @@ a good alternative, as it does not obey selection coloring
 -editing names of card type clones, also in browser
 -tag browser editor of tag names does not capture focus out event, so card count is not redrawn.
 -save selection state (not checkstate) in tag and card type browser through hibernation
+-Qt performance problem with selectRow
 
 -send across cards as pictures (see stubs in client.py and server.py). Add resolution to filename? (device rotation)
 -Tim's gogorender plugin

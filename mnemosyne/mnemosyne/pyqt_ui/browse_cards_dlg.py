@@ -478,8 +478,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             # Restore selection.
             old_selection_mode = self.table.selectionMode()
             self.table.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
-            for index in self.saved_selection:
-                self.table.selectRow(index.row())
+            # Note that there seem to be serious Qt preformance problems with
+            # selectRow, so we only do this for a small number of rows.
+            if len(self.saved_selection) < 10:
+                for index in self.saved_selection:
+                    self.table.selectRow(index.row())
             self.table.setSelectionMode(old_selection_mode)
             
     def activate(self):

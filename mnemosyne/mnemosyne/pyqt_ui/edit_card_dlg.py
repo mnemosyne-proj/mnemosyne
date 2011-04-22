@@ -2,8 +2,9 @@
 # edit_card_dlg.py <Peter.Bienstman@UGent.be>
 #
 
-from PyQt4 import QtGui
+from PyQt4 import QtCore, QtGui
 
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.pyqt_ui.add_cards_dlg import AddEditCards
 from mnemosyne.pyqt_ui.ui_edit_card_dlg import Ui_EditCardDlg
 from mnemosyne.libmnemosyne.ui_components.dialogs import EditCardDialog
@@ -20,6 +21,7 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
         self.before_apply_hook = None
+        self.allow_cancel = allow_cancel
         if not allow_cancel:
             self.exit_button.setVisible(False)  
         self.card = card
@@ -30,15 +32,23 @@ class EditCardDlg(QtGui.QDialog, Ui_EditCardDlg, AddEditCards,
             self.resize(width, height)
             
     def closeEvent(self, event):
-        print 'close event'
         self.config()["edit_widget_size"] = (self.width(), self.height())
         if self.allow_cancel:
-            print 'accepting it'
             event.accept()
             QtGui.QDialog.reject(self)
         else:
-            print 'not allowed to cancel'
+            self.main_widget().show_information(\
+                _("You are not allowed to cancel the merging."))
             event.ignore()
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Escape:
+            if self.allow_cancel:
+                self.reject()
+            else:
+                self.main_widget().show_information(\
+                    _("You are not allowed to cancel the merging."))
+                event.ignore()                
  
     def set_valid(self, valid):
         self.OK_button.setEnabled(valid)    
