@@ -109,7 +109,7 @@ class TestMedia(MnemosyneTest):
         full_path = os.path.abspath("a.ogg")
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
@@ -127,7 +127,7 @@ class TestMedia(MnemosyneTest):
     def test_card_2(self):
         fact_data = {"f": "<img src=\"a.ogg>", # Missing closing "
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
@@ -141,7 +141,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         full_path_in_media_dir = os.path.join(self.database().media_dir(), "a.ogg")
@@ -167,7 +167,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
@@ -195,7 +195,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
@@ -220,7 +220,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
@@ -246,7 +246,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
@@ -264,7 +264,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         # Make sure we don't reuse existing objects.
@@ -293,7 +293,7 @@ class TestMedia(MnemosyneTest):
 
         fact_data = {"f": "<img src=\"%s\">" % full_path,
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                               grade=-1, tag_names=["default"])[0]
         

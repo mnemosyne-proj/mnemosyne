@@ -42,9 +42,9 @@ def create_database():
         fact_data = {"f": "question" + str(i),
                      "b": "answer" + str(i)}
         if i % 2:
-            card_type = mnemosyne.card_type_by_id("1")
+            card_type = mnemosyne.card_type_with_id("1")
         else:
-            card_type = mnemosyne.card_type_by_id("2")
+            card_type = mnemosyne.card_type_with_id("2")
         card = mnemosyne.controller().create_new_cards(\
             fact_data, card_type, grade=4, tag_names=["default"],
             check_for_duplicates=False, save=False)[0]
@@ -87,7 +87,7 @@ def count_not_memorised():
 def activate():
     from mnemosyne.libmnemosyne.criteria.default_criterion import \
      DefaultCriterion
-    card_type_2 = mnemosyne.card_type_by_id("2")
+    card_type_2 = mnemosyne.card_type_with_id("2")
     c = DefaultCriterion(mnemosyne.component_manager)
     c._tag_ids_active = set([mnemosyne.database().get_or_create_tag_with_name("default")._id])
     c._tag_ids_forbidden = set()
@@ -122,7 +122,7 @@ def test_setup():
 def test_run():
     fact_data = {"f": "question",
                  "b": "answer"}
-    card_type = mnemosyne.card_type_by_id("1")
+    card_type = mnemosyne.card_type_with_id("1")
     card = mnemosyne.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
     mnemosyne.controller().save_file()

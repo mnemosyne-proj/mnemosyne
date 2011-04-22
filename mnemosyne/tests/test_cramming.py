@@ -42,7 +42,7 @@ class TestCrammingScheduler(MnemosyneTest):
     def test_1(self):
         from mnemosyne.libmnemosyne.schedulers.cramming import Cramming
         
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
@@ -83,7 +83,7 @@ class TestCrammingScheduler(MnemosyneTest):
             self.database().update_card(card)
  
     def test_2(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
@@ -94,7 +94,7 @@ class TestCrammingScheduler(MnemosyneTest):
         assert self.review_controller().card == None
 
     def test_3(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,
@@ -111,7 +111,7 @@ class TestCrammingScheduler(MnemosyneTest):
         assert self.scheduler().name == "cramming"
         
     def test_4(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         
         fact_data = {"f": "1", "b": "b"}
         card_1 = self.controller().create_new_cards(fact_data, card_type,

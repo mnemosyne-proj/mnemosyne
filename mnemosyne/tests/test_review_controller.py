@@ -51,9 +51,9 @@ class TestReviewController(MnemosyneTest):
             fact_data = {"f": "question" + str(i),
                          "b": "answer" + str(i)}
             if i % 2:
-                card_type = self.card_type_by_id("1")
+                card_type = self.card_type_with_id("1")
             else:
-                card_type = self.card_type_by_id("2")            
+                card_type = self.card_type_with_id("2")            
             card = self.controller().create_new_cards(fact_data, card_type,
                     grade=4, tag_names=["default" + str(i)])[0]
             if i == 0:
@@ -81,9 +81,9 @@ class TestReviewController(MnemosyneTest):
             fact_data = {"f": "question" + str(i),
                          "b": "answer" + str(i)}
             if i % 2:
-                card_type = self.card_type_by_id("1")
+                card_type = self.card_type_with_id("1")
             else:
-                card_type = self.card_type_by_id("2")            
+                card_type = self.card_type_with_id("2")            
             card = self.controller().create_new_cards(fact_data, card_type,
                     grade=4, tag_names=["default" + str(i)])[0]
             if i == 0:
@@ -104,7 +104,7 @@ class TestReviewController(MnemosyneTest):
         self.mnemosyne.review_widget().set_grade_enabled(1, True)
 
     def test_reset_but_try_to_keep_current_card_turned_inactive(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["forbidden"])[0]     
@@ -123,7 +123,7 @@ class TestReviewController(MnemosyneTest):
         assert self.review_controller().card is None
 
     def test_last_card(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         for data in ["1", "2", "3"]:
             fact_data = {"f": data, "b": data}
             self.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[])
@@ -141,7 +141,7 @@ class TestReviewController(MnemosyneTest):
             
     def test_counters(self):
         global expected_scheduled_count
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         fact_data = {"f": '1', "b": '1'}
         card = self.controller().create_new_cards(fact_data, card_type, grade=5, tag_names=[])[0]
         card.next_rep = 0
@@ -158,7 +158,7 @@ class TestReviewController(MnemosyneTest):
         
     def test_counters_prefetch(self):
         global expected_scheduled_count
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         for data in ['1', '2', '3', '4']:
             fact_data = {"f": data, "b": data}
             card = self.controller().create_new_cards(fact_data, card_type, grade=5, tag_names=[])[0]

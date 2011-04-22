@@ -12,14 +12,14 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_1(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
                                               grade=-1, tag_names=["default"])
         assert self.database().active_count() == 1
         
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_2 = self.card_type_by_id("2")
+        card_type_2 = self.card_type_with_id("2")
         self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default"])
         assert self.database().active_count() == 3
@@ -84,7 +84,7 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_2(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["active", "forbidden"])
         assert self.database().active_count() == 1
@@ -106,7 +106,7 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_3(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["tag1"])[0]
         self.review_controller().show_new_question()
@@ -116,7 +116,7 @@ class TestActivateCards(MnemosyneTest):
         
         fact_data = {"f": "question2",
                      "b": "answer2"}
-        card_type_2 = self.card_type_by_id("2")
+        card_type_2 = self.card_type_with_id("2")
         cards = self.controller().create_new_cards(fact_data, card_type_2,
            grade=-1, tag_names=["tag2"])
         
@@ -134,7 +134,7 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_4(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["tag"])[0]
         self.review_controller().show_new_question()
@@ -167,7 +167,7 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_new(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["forbidden"])
         assert self.database().active_count() == 1
@@ -181,7 +181,7 @@ class TestActivateCards(MnemosyneTest):
         
         fact_data = {"f": "question2",
                      "b": "answer2"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["forbidden"])
         assert self.database().active_count() == 0
@@ -189,7 +189,7 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_new_2(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["default"])
         assert self.database().active_count() == 1
@@ -204,7 +204,7 @@ class TestActivateCards(MnemosyneTest):
         
         fact_data = {"f": "question2",
                      "b": "answer2"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["default"])
         assert self.database().active_count() == 0
@@ -212,7 +212,7 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_edit(self):
         fact_data = {"f": "question3",
                      "b": "answer3"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["forbidden"])[0]
         assert self.database().active_count() == 1
@@ -224,7 +224,7 @@ class TestActivateCards(MnemosyneTest):
         self.database().set_current_criterion(c)
         assert self.database().active_count() == 0
         
-        card_type_2 = self.card_type_by_id("2")
+        card_type_2 = self.card_type_with_id("2")
         self.controller().edit_sister_cards(card.fact, card.fact.data, card.card_type, 
                card_type_2, new_tag_names=["allowed"], correspondence=[])
         assert self.database().active_count() == 2
@@ -242,7 +242,7 @@ class TestActivateCards(MnemosyneTest):
                 break
         
         fact_data = {"text": "[foo]"}
-        card_type_1 = self.card_type_by_id("5")
+        card_type_1 = self.card_type_with_id("5")
         card = self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["default"])[0]
         assert self.database().active_count() == 1
@@ -263,7 +263,7 @@ class TestActivateCards(MnemosyneTest):
     def test_cached_scheduler_count(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["tag"])
         assert self.database().active_count() == 1
@@ -282,7 +282,7 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_5(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["b"])
         
@@ -304,7 +304,7 @@ class TestActivateCards(MnemosyneTest):
     def test_activate_cards_6(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         self.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["a"])
         

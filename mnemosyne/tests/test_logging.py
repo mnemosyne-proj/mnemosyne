@@ -33,7 +33,7 @@ class TestLogging(MnemosyneTest):
         self.mnemosyne.start_review()
         
     def test_logging(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         fact_data = {"f": "1", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
@@ -45,7 +45,7 @@ class TestLogging(MnemosyneTest):
 
         self.mnemosyne.finalise()
         self.restart()
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         fact_data = {"f": "2", "b": "b"}
         card = self.controller().create_new_cards(fact_data, card_type,
                      grade=-1, tag_names=["default"])[0]
@@ -163,7 +163,7 @@ class TestLogging(MnemosyneTest):
     def test_unique_index(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_2 = self.card_type_by_id("2")
+        card_type_2 = self.card_type_with_id("2")
         card_1, card_2 = self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default"])
         log_index = self.database().con.execute(\
@@ -174,7 +174,7 @@ class TestLogging(MnemosyneTest):
         self.database().con.execute("""vacuum""")        
         fact_data = {"f": "question2",
                      "b": "answer2"}
-        card_type_2 = self.card_type_by_id("1")
+        card_type_2 = self.card_type_with_id("1")
         card_1  = self.controller().create_new_cards(fact_data, card_type_2,
                                               grade=-1, tag_names=["default"])        
         assert self.database().con.execute(\

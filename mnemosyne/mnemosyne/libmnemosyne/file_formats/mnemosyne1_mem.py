@@ -149,7 +149,7 @@ class Mnemosyne1Mem(FileFormat):
         # the 'main' card, except when the 'main' card has been deleted.
         if item.id.endswith(".inv") or item.id.endswith(".tr.1"):
             if not item.id.split(".", 1)[0] in self.items_by_id:
-                card_type = self.card_type_by_id("1")
+                card_type = self.card_type_with_id("1")
                 fact_data = {"f": item.q, "b": item.a}
                 self._preprocess_media(fact_data) 
                 card = self.controller().create_new_cards(fact_data,
@@ -169,7 +169,7 @@ class Mnemosyne1Mem(FileFormat):
             if self.map_plugin_activated == False:
                 self._activate_map_plugin()
                 self.map_plugin_activated = True
-            card_type = self.card_type_by_id("4")
+            card_type = self.card_type_with_id("4")
             fact_data = {"loc": loc, "marked": marked, "blank": blank}
             self._preprocess_media(fact_data) 
             card_1, card_2 = self.controller().create_new_cards(fact_data,
@@ -180,7 +180,7 @@ class Mnemosyne1Mem(FileFormat):
         # Front-to-back.
         elif item.id + ".inv" not in self.items_by_id and \
            item.id + ".tr.1" not in self.items_by_id:
-            card_type = self.card_type_by_id("1")
+            card_type = self.card_type_with_id("1")
             fact_data = {"f": item.q, "b": item.a}
             self._preprocess_media(fact_data) 
             card = self.controller().create_new_cards(fact_data,
@@ -189,7 +189,7 @@ class Mnemosyne1Mem(FileFormat):
             self._set_card_attributes(card, item)
         # Front-to-back and back-to-front.         
         elif item.id + ".inv" in self.items_by_id:
-            card_type = self.card_type_by_id("2")
+            card_type = self.card_type_with_id("2")
             fact_data = {"f": item.q, "b": item.a}
             self._preprocess_media(fact_data) 
             card_1, card_2 = self.controller().create_new_cards(fact_data,
@@ -200,7 +200,7 @@ class Mnemosyne1Mem(FileFormat):
                                       self.items_by_id[item.id + ".inv"])               
         # Vocabulary.
         elif item.id + ".tr.1" in self.items_by_id:
-            card_type = self.card_type_by_id("3")
+            card_type = self.card_type_with_id("3")
             try:
                 p_1, m_1 = item.a.split("\n", 1)
             except:

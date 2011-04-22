@@ -309,7 +309,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         fact = Fact({"f": "f"})
         self.client.mnemosyne.database().add_fact(fact)
         self.server.client_fact_id = fact.id
@@ -331,7 +331,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         fact = Fact({"f": "f", "b": "b"})
         self.client.mnemosyne.database().add_fact(fact)
         fact.data = {"f": "f", "b": "AA"}
@@ -358,7 +358,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         fact = Fact({"f": "f", "b": "b"})
         self.client.mnemosyne.database().add_fact(fact)
         self.client.mnemosyne.controller().save_file()
@@ -382,7 +382,7 @@ class TestSync(object):
             assert db.get_or_create_tag_with_name("tag_1").id in tag_ids
             assert db.get_or_create_tag_with_name("tag_2").id in tag_ids
             assert len(card.tags) == 2
-            assert card.card_type == self.mnemosyne.card_type_by_id("1")
+            assert card.card_type == self.mnemosyne.card_type_with_id("1")
             assert card.creation_time == self.client_card.creation_time
             assert card.modification_time == self.client_card.modification_time
             assert card.scheduler_data == 0
@@ -406,7 +406,7 @@ class TestSync(object):
         self.client = MyClient()
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.server.client_card = card
@@ -422,7 +422,7 @@ class TestSync(object):
             card = db.card(self.client_card.id, is_id_internal=False)
             assert card.extra_data == {"A": "B"}
             assert db.con.execute("select count() from log").fetchone()[0] == 13
-            assert card.card_type == self.mnemosyne.card_type_by_id("1")
+            assert card.card_type == self.mnemosyne.card_type_with_id("1")
             assert card.creation_time == self.client_card.creation_time
             assert card.modification_time == self.client_card.modification_time
             
@@ -433,7 +433,7 @@ class TestSync(object):
         self.client = MyClient()
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.server.client_card = card
@@ -457,7 +457,7 @@ class TestSync(object):
         self.client = MyClient()
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().save_file()
@@ -500,7 +500,7 @@ class TestSync(object):
         self.client = MyClient()
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().save_file()
@@ -551,7 +551,7 @@ class TestSync(object):
         self.client = MyClient()
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.server.client_card = card
@@ -601,7 +601,7 @@ class TestSync(object):
         self.client = MyClient()
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.review_controller().learning_ahead = True
@@ -627,7 +627,7 @@ class TestSync(object):
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
                          "b": "answer"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.mnemosyne.controller().save_file()
@@ -665,7 +665,7 @@ class TestSync(object):
         f.close()
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().save_file()
@@ -699,7 +699,7 @@ class TestSync(object):
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
                          "b": "answer"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
@@ -725,7 +725,7 @@ class TestSync(object):
         f.close()
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().delete_facts_and_their_cards([card.fact])
@@ -756,7 +756,7 @@ class TestSync(object):
         f.close()
         fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]
 
@@ -821,7 +821,7 @@ class TestSync(object):
         
         fact_data = {"f": "question <img src=\"%s\">" % (filename),
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         self.client.mnemosyne.controller().save_file()
@@ -928,7 +928,7 @@ class TestSync(object):
         def fill_server_database(self):
             fact_data = {"f": "question",
                          "b": "answer"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.mnemosyne.controller().save_file()
@@ -951,7 +951,7 @@ class TestSync(object):
         def fill_server_database(self):
             fact_data = {"f": "<latex>a^2</latex><$>b^2</$><$$>c^2</$$>",
                          "b": "answer"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.mnemosyne.controller().save_file()
@@ -984,7 +984,7 @@ class TestSync(object):
         def fill_server_database(self):
             fact_data = {"f": "<latex>a^2</latex>",
                          "b": "<latex>c^2</latex>"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.card.question()
@@ -1020,7 +1020,7 @@ class TestSync(object):
         def fill_server_database(self):
             fact_data = {"f": "<latex>a^2</latex>",
                          "b": "<latex>c^2</latex>"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.card.question()
@@ -1056,7 +1056,7 @@ class TestSync(object):
         def fill_server_database(self):
             fact_data = {"f": "<latex>a^2</latex>",
                          "b": "<latex>c^2</latex>"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.card.question()
@@ -1101,7 +1101,7 @@ class TestSync(object):
         def fill_server_database(self):
             fact_data = {"f": "a^2",
                          "b": "b^2"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
           
@@ -1132,7 +1132,7 @@ class TestSync(object):
         def fill_server_database(self):
             fact_data = {"f": "<latex>a^2</latex>",
                          "b": "<latex>c^2</latex>"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
             self.card.question()
@@ -1212,7 +1212,7 @@ class TestSync(object):
             self.mnemosyne.config()["upload_science_logs"] = True  
             fact_data = {"f": "a^2",
                          "b": "c^2"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["my_tag"])[0]
             self.mnemosyne.review_controller().learning_ahead = True
@@ -1239,7 +1239,7 @@ class TestSync(object):
         self.client.mnemosyne.config()["upload_science_logs"] = False
         fact_data = {"f": "a^2",
                      "b": "b^2"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["my_tag"])[0]
         self.client.mnemosyne.controller().save_file()
@@ -1263,7 +1263,7 @@ class TestSync(object):
             self.mnemosyne.config()["upload_science_logs"] = True  
             fact_data = {"f": "a^2",
                          "b": "c^2"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             self.card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["my_tag"])[0]
             self.mnemosyne.review_controller().learning_ahead = True
@@ -1290,7 +1290,7 @@ class TestSync(object):
         self.client.mnemosyne.config()["upload_science_logs"] = True
         fact_data = {"f": "a^2",
                      "b": "b^2"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["my_tag"])[0]
         self.client.mnemosyne.controller().save_file()
@@ -1323,7 +1323,7 @@ class TestSync(object):
         self.client = MyClient(os.path.abspath("dot_sync_A"))
         fact_data = {"f": "a^2",
                      "b": "b^2"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["my_tag"])[0]
         self.client.mnemosyne.controller().save_file()
@@ -1731,7 +1731,7 @@ class TestSync(object):
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
                          "b": "answer"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
 
@@ -1813,7 +1813,7 @@ class TestSync(object):
             f.close()
             fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
                          "b": "answer"}
-            card_type = self.mnemosyne.card_type_by_id("1")
+            card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
                card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
 
@@ -1950,7 +1950,7 @@ class TestSync(object):
                 break
         
         fact_data = {"text": "[foo]"}
-        card_type_1 = self.client.mnemosyne.card_type_by_id("5")
+        card_type_1 = self.client.mnemosyne.card_type_with_id("5")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["default"])[0]
         self.client.mnemosyne.controller().save_file()
@@ -1980,13 +1980,13 @@ class TestSync(object):
                 break
         
         fact_data = {"text": "[foo]"}
-        card_type_1 = self.client.mnemosyne.card_type_by_id("5")
+        card_type_1 = self.client.mnemosyne.card_type_with_id("5")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["default"])[0]
 
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1"])[0]
 
@@ -2033,13 +2033,13 @@ class TestSync(object):
                 break
         
         fact_data = {"text": "[foo]"}
-        card_type_1 = self.client.mnemosyne.card_type_by_id("5")
+        card_type_1 = self.client.mnemosyne.card_type_with_id("5")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["default"])[0]
 
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1"])[0]
 
@@ -2092,13 +2092,13 @@ class TestSync(object):
                 break
         
         fact_data = {"text": "[foo]"}
-        card_type_1 = self.client.mnemosyne.card_type_by_id("5")
+        card_type_1 = self.client.mnemosyne.card_type_with_id("5")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type_1,
            grade=-1, tag_names=["default"])[0]
 
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1"])[0]
 
@@ -2147,7 +2147,7 @@ class TestSync(object):
 
         self.client = MyClient()
         
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         
         fact_view = card_type.fact_views[0]
         fact_view.q_field_decorators = {"f": 'question is: $f'}
@@ -2177,7 +2177,7 @@ class TestSync(object):
 
         self.client = MyClient()
         
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         
         fact_view = card_type.fact_views[0]
         fact_view.extra_data = {'1': 2}
@@ -2208,7 +2208,7 @@ class TestSync(object):
 
         self.client = MyClient()
         
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         
         fact_view = card_type.fact_views[0]
         self.server.fact_view_id = fact_view.id
@@ -2247,7 +2247,7 @@ class TestSync(object):
 
         self.client = MyClient()
         
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
             card_type, "1 cloned")
         self.server.card_type_id = card_type_1.id
@@ -2284,7 +2284,7 @@ class TestSync(object):
 
         self.client = MyClient()
         
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
             card_type, "1 cloned")
         self.server.card_type_id = card_type_1.id
@@ -2312,14 +2312,14 @@ class TestSync(object):
 
         self.client = MyClient()
 
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card_type_1 = self.client.mnemosyne.controller().clone_card_type(\
             card_type, "1 cloned")
         self.server.card_type_id = card_type_1.id
         
         self.client.mnemosyne.controller().delete_card_type(card_type_1)
         assert self.server.card_type_id not in \
-               self.client.mnemosyne.component_manager.card_type_by_id
+               self.client.mnemosyne.component_manager.card_type_with_id
 
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
@@ -2399,7 +2399,7 @@ class TestSync(object):
 
         self.client = MyClient()
 
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         fact_data = {"f": "question",  "b": "answer"}
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["forbidden"])[0]
@@ -2457,7 +2457,7 @@ class TestSync(object):
 
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]
 
@@ -2506,7 +2506,7 @@ class TestSync(object):
 
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.client.mnemosyne.card_type_by_id("1")
+        card_type = self.client.mnemosyne.card_type_with_id("1")
         card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
             grade=-1, tag_names=["a"])[0]
 

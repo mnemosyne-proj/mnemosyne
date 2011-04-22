@@ -23,15 +23,15 @@ class TestHtmlCss(MnemosyneTest):
 
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]    
-        card_type = self.card_type_by_id("2")
+        card_type = self.card_type_with_id("2")
         card2 = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         fact_data = {"f": "question", "p_1": "",
                      "m_1": "answer"}
-        card_type = self.card_type_by_id("3")
+        card_type = self.card_type_with_id("3")
         card3 = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         
@@ -56,15 +56,15 @@ class TestHtmlCss(MnemosyneTest):
     def test_2(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]    
-        card_type = self.card_type_by_id("2")
+        card_type = self.card_type_with_id("2")
         card2 = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         fact_data = {"f": "question", "p_1": "",
                      "m_1": "answer"}
-        card_type = self.card_type_by_id("3")
+        card_type = self.card_type_with_id("3")
         card3 = self.controller().create_new_cards(fact_data, card_type,
                                           grade=-1, tag_names=["default"])[0]
         

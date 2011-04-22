@@ -12,7 +12,7 @@ class TestRenderChain(MnemosyneTest):
     def test_add_filter(self):      
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type_1,
             grade=-1, tag_names=["default"])[0]
 
@@ -29,7 +29,7 @@ class TestRenderChain(MnemosyneTest):
     def test_add_filter_2(self):      
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type_1,
             grade=-1, tag_names=["default"])[0]
 
@@ -46,7 +46,7 @@ class TestRenderChain(MnemosyneTest):
     def test_add_card_type_renderer(self):
         fact_data = {"f": "question",
                      "b": "answer"}
-        card_type_1 = self.card_type_by_id("1")
+        card_type_1 = self.card_type_with_id("1")
         card = self.controller().create_new_cards(fact_data, card_type_1,
             grade=-1, tag_names=["default"])[0]
 
@@ -58,7 +58,7 @@ class TestRenderChain(MnemosyneTest):
         self.render_chain().register_renderer(MyRenderer)
         assert "666" in card.question()
         
-        card_type_2 = self.card_type_by_id("2")
+        card_type_2 = self.card_type_with_id("2")
         card = self.controller().create_new_cards(fact_data, card_type_2,
             grade=-1, tag_names=["default"])[0]
         assert "666" not in card.question()

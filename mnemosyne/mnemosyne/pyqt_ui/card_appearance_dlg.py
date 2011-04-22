@@ -134,7 +134,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         # Determine current font.
         if len(self.affected_card_types) > 1:
             font_string = self.config().card_type_property(\
-                "font", self.card_type_by_id("1"), "f")
+                "font", self.card_type_with_id("1"), "f")
         else:
             font_string = self.config().card_type_property(\
                 "font", self.affected_card_types[0], affected_key)
@@ -159,7 +159,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         # Determine current colour.
         if len(self.affected_card_types) > 1:
             current_rgb = self.config().card_type_property(\
-                "font_colour", self.card_type_by_id("1"), "f")
+                "font_colour", self.card_type_with_id("1"), "f")
         else:
             current_rgb = self.config().card_type_property(\
                 "font_colour", self.affected_card_types[0], affected_key)

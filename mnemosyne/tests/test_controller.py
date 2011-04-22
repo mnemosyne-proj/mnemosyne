@@ -68,7 +68,7 @@ class TestController(MnemosyneTest):
         
         self.controller().heartbeat()
         self.controller().show_add_cards_dialog()
-        card_type = self.card_type_by_id("2")
+        card_type = self.card_type_with_id("2")
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
@@ -95,7 +95,7 @@ class TestController(MnemosyneTest):
         global save_file
         os.path.join(os.getcwd(), "dot_test", "default.db")
 
-        card_type = self.card_type_by_id("2")
+        card_type = self.card_type_with_id("2")
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
@@ -127,7 +127,7 @@ class TestController(MnemosyneTest):
         self.controller().heartbeat()
 
     def test_delete_current(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         fact_data = {"f": "1", "b": "1"}
         self.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[])
         fact_data = {"f": "2", "b": "2"}
@@ -141,7 +141,7 @@ class TestController(MnemosyneTest):
         self.controller().delete_current_card()
         
     def test_delete_current_2(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         fact_data = {"f": "1", "b": "1"}
         self.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[])
         fact_data = {"f": "2", "b": "2"}

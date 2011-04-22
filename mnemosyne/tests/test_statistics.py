@@ -18,7 +18,7 @@ class TestStatistics(MnemosyneTest):
         page = CurrentCard(self.mnemosyne.component_manager)
         page.prepare_statistics(0)
         assert "No current card." in page.html       
-        card_type = self.card_type_by_id("2")
+        card_type = self.card_type_with_id("2")
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])
@@ -38,7 +38,7 @@ class TestStatistics(MnemosyneTest):
         page.prepare_statistics(-1)
         assert len(page.data) == 0
         
-        card_type = self.card_type_by_id("2")
+        card_type = self.card_type_with_id("2")
         fact_data = {"f": "f", "b": "b"}
         card_1, card_2 = self.controller().create_new_cards(fact_data,
           card_type, grade=-1, tag_names=["default"])

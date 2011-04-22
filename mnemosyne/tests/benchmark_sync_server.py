@@ -50,7 +50,7 @@ class MyServer(Server):
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
         # Add 20 cards to database.
-        card_type = self.mnemosyne.card_type_by_id("1")
+        card_type = self.mnemosyne.card_type_with_id("1")
         for i in range (20):
             fact_data = {"f": "question %d" % (i,),
                          "b": "answer"}

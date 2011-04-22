@@ -333,11 +333,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if sql_res["value"] != self.version:
             raise RuntimeError, \
                 _("Unable to load file: database version mismatch.")
-        # Instantiate card types stored in this database.
-        for cursor in self.con.execute("select id from card_types"):
-            id = cursor[0]
-            card_type = self.card_type(id, is_id_internal=-1)
-            self.component_manager.register(card_type)
         # Identify missing plugins for card types and their parents.
         plugin_needed = set()
         active_ids = set(card_type.id for card_type in self.card_types())
@@ -357,6 +352,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 self._connection.close()
                 self._connection = None
                 raise exception
+        # Instantiate card types stored in this database.
+        for cursor in self.con.execute("select id from card_types"):
+            id = cursor[0]
+            card_type = self.card_type(id, is_id_internal=False)
+            self.component_manager.register(card_type)
         self._current_criterion = self.criterion(1, is_id_internal=True)
         self.config()["path"] = contract_path(path, self.config().data_dir)
         for f in self.component_manager.all("hook", "after_load"):
@@ -421,7 +421,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def unload(self):
         if not self._connection:
             return
-                # Instantiate card types stored in this database.
         # Unregister card types in this database.
         for cursor in self.con.execute("select id from card_types"):
             id = cursor[0]
@@ -725,7 +724,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             sql_res = self.con.execute("select * from cards where id=?",
                                        (id, )).fetchone()
         fact = self.fact(sql_res["_fact_id"], is_id_internal=True)
-        card_type = self.card_type_by_id(sql_res["card_type_id"])
+        card_type = self.card_type_with_id(sql_res["card_type_id"])
         for fact_view in card_type.fact_views:
             if fact_view.id == sql_res["fact_view_id"]:
                 card = Card(card_type, fact, fact_view,
@@ -875,8 +874,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def card_type(self, id, is_id_internal):
         # Since there are so few of them, we don't use internal _ids.
         # ids should be unique too.
-        if id in self.component_manager.card_type_by_id:
-            return self.component_manager.card_type_by_id[id]
+        if id in self.component_manager.card_type_with_id:
+            return self.component_manager.card_type_with_id[id]
         parent_id, child_id = "", id
         if "::" in id:
             parent_id, child_id = id.rsplit("::", 1)
@@ -1023,7 +1022,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return facts
 
     def card_types_in_use(self):
-        return [self.card_type_by_id(cursor[0]) for cursor in \
+        return [self.card_type_with_id(cursor[0]) for cursor in \
             self.con.execute ("select distinct card_type_id from cards")]
 
     #

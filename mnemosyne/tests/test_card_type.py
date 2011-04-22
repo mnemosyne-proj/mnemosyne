@@ -22,13 +22,13 @@ class DecoratedThreeSided(CardType):
               ("m_1", "Translation")]
 
     # Recognition.
-    v1 = FactView("Recognition", "3::1")
+    v1 = FactView("Recognition", "3.1")
     v1.q_fields = ["f"]
     v1.a_fields = ["p_1", "m_1"]
     v1.q_field_decorators = {"f": "What is the translation of ${f}?"}
     
     # Production.
-    v2 = FactView("Production", "3::2")
+    v2 = FactView("Production", "3.2")
     v2.q_fields = ["m_1"]
     v2.a_fields = ["f", "p_1"]
     v2.q_field_decorators = {"m_1": "How do you say ${t}?"}
@@ -55,14 +55,14 @@ class TestCardType(MnemosyneTest):
         self.review_controller().reset()
 
     def test_card_types(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         assert card_type.key_with_name("Front") == "f"
         assert card_type.is_data_valid({"f": "foo"}) == True
-        assert self.card_type_by_id("1") == self.card_type_by_id("1")
-        assert self.card_type_by_id("1") != None        
+        assert self.card_type_with_id("1") == self.card_type_with_id("1")
+        assert self.card_type_with_id("1") != None        
 
     def test_database(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card_type.fact_views[0].type_answer = True
         card_type.fact_views[0].extra_data = {"b": "b"}        
         card_type = self.controller().clone_card_type(\
@@ -97,7 +97,8 @@ class TestCardType(MnemosyneTest):
                card_type.fact_views[0].a_on_top_of_q
         
         # Reset global variables.
-        card_type = self.card_type_by_id("1")
+        self.mnemosyne.component_manager.register(card_type)
+        card_type = self.card_type_with_id("1")
         card_type.fact_views[0].type_answer = False
         card_type.fact_views[0].extra_data = {}
 
@@ -105,12 +106,11 @@ class TestCardType(MnemosyneTest):
                                                       is_id_internal=False)
         assert card_type_orig.fact_views[0].type_answer == False
         
-        
     def test_delete(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card_type_1 = self.controller().clone_card_type(\
             card_type, "1 clone")
-        card_type = self.card_type_by_id("2")
+        card_type = self.card_type_with_id("2")
         card_type_2 = self.controller().clone_card_type(\
                       card_type, "2 clone")
 
@@ -141,7 +141,7 @@ class TestCardType(MnemosyneTest):
                card_type_2.fact_views[1].a_on_top_of_q
         
     def test_clone_of_clone(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         card_type.fact_views[0].type_answer = True
         card_type.fact_views[0].extra_data = {"b": "b"}        
         card_type = self.controller().clone_card_type(\
@@ -177,6 +177,7 @@ class TestCardType(MnemosyneTest):
                card_type.fact_views[0].a_on_top_of_q
 
         # Reset global variables.
+        self.mnemosyne.component_manager.register(card_type)        
         card_type.fact_views[0].type_answer = False
         card_type.fact_views[0].extra_data = {}   
 
@@ -184,7 +185,7 @@ class TestCardType(MnemosyneTest):
         fact_data = {"f": "foreign word",
                      "p_1": "pronunciation",
                      "m_1": "translation"}
-        card_type = self.card_type_by_id("3_decorated")
+        card_type = self.card_type_with_id("3_decorated")
         card = self.controller().create_new_cards(fact_data, card_type,
                   grade=-1, tag_names=["default"])[0]
         assert "What is the translation of foreign word?" in card.question()

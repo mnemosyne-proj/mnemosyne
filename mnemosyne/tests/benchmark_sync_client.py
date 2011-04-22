@@ -88,7 +88,7 @@ class MyClient(Client):
         self.mnemosyne.config().change_user_id("user_id")
         self.mnemosyne.review_controller().reset()
         # Do 200 reviews.
-        card_type = self.mnemosyne.card_type_by_id("1")
+        card_type = self.mnemosyne.card_type_with_id("1")
         fact_data = {"f": "question",
                      "b": "answer"}
         card = self.mnemosyne.controller().create_new_cards(fact_data, card_type,

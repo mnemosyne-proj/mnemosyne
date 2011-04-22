@@ -22,6 +22,6 @@ class TestTranslator(object):
         
 class TestTranslator2(MnemosyneTest):
     def test_translator_3(self):
-        card_type = self.card_type_by_id("1")
+        card_type = self.card_type_with_id("1")
         assert card_type._()
         

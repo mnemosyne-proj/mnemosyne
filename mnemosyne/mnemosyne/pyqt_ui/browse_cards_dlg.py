@@ -61,7 +61,7 @@ class CardModel(QtSql.QSqlTableModel, Component):
                 QtGui.QColor(rgb)    
         self.font_colour_for_card_type_id = {}
         for card_type_id in self.config()["font_colour"]:
-            first_key = self.card_type_by_id(card_type_id).fields[0][0]
+            first_key = self.card_type_with_id(card_type_id).fields[0][0]
             self.font_colour_for_card_type_id[card_type_id] = QtGui.QColor(\
                 self.config()["font_colour"][card_type_id][first_key])
         
@@ -223,9 +223,11 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
         self.layout_2.addWidget(self.search_box)
         self.splitter_1.insertWidget(1, self.container_2)
         # Fill tree widgets.
-        self.card_type_tree_wdgt.display()
-        self.tag_tree_wdgt.display()
+        criterion = self.database().current_criterion()
+        self.card_type_tree_wdgt.display(criterion)
+        self.tag_tree_wdgt.display(criterion)
         self.display_card_table()
+        self.update_filter()
         self.card_type_tree_wdgt.card_type_tree.\
             itemClicked.connect(self.update_filter)
         self.tag_tree_wdgt.tag_tree_wdgt.\
@@ -280,6 +282,8 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             menu.exec_(self.table.mapToGlobal(point))
             
     def keyPressEvent(self, event):
+        if len(self.table.selectionModel().selectedRows()) == 0:
+            return
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_edit()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
@@ -363,7 +367,7 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
                 self.main_widget().show_error\
                     (_("The selected cards should have the same card type."))
                 return
-        current_card_type = self.card_type_by_id(current_card_type_ids.pop())
+        current_card_type = self.card_type_with_id(current_card_type_ids.pop())
         # Get new card type. Use a dict as backdoor to return values
         # from the dialog.
         return_values = {}

@@ -16,7 +16,7 @@ void add_cards_dlg_activate()
   // Simple example with hard coded data instead of user input.
   run_python(
     "fact_data = {\"q\": \"question\", \"a\": \"answer\"}\n"
-    "card_type = mnemosyne.card_type_by_id(\"1\")\n"
+    "card_type = mnemosyne.card_type_with_id(\"1\")\n"
     "mnemosyne.controller().create_new_cards(fact_data, card_type, grade=-1, tag_names=[\"default\"])\n");
   printf("Added a card\n");  
 }

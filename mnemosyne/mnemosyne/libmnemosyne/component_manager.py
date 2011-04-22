@@ -20,7 +20,7 @@ class ComponentManager(object):
         
     def __init__(self):
         self.components = {} # {used_for: {type: [component]} }
-        self.card_type_by_id = {}
+        self.card_type_with_id = {}
         self.render_chain_by_id = {}
         
     def register(self, component):
@@ -36,7 +36,7 @@ class ComponentManager(object):
         # (We could abuse the component's used_for as the id here, but that
         # would hamper readability.)
         if comp_type == "card_type":
-            self.card_type_by_id[component.id] = component
+            self.card_type_with_id[component.id] = component
         elif comp_type == "render_chain":
             self.render_chain_by_id[component.id] = component
             
@@ -45,7 +45,7 @@ class ComponentManager(object):
         used_for = component.used_for
         self.components[used_for][comp_type].remove(component)
         if component.component_type == "card_type":
-            del self.card_type_by_id[component.id]
+            del self.card_type_with_id[component.id]
         elif component.component_type == "render_chain":
             del self.render_chain_by_id[component.id]
             
@@ -125,7 +125,7 @@ class ComponentManager(object):
                     if not isinstance(component, type):
                         component.deactivate()  
         self.components = {}
-        self.card_type_by_id = {}
+        self.card_type_with_id = {}
 
 
 # A component manager stores the entire session state of a user through the

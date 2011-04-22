@@ -72,7 +72,7 @@ class MnemosyneTest():
     def render_chain(self, id="default"):
         return self.mnemosyne.component_manager.render_chain_by_id[id]  
 
-    def card_type_by_id(self, id): 
-        return self.mnemosyne.component_manager.card_type_by_id[id]
+    def card_type_with_id(self, id): 
+        return self.mnemosyne.component_manager.card_type_with_id[id]
 
         

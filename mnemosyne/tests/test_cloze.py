@@ -39,7 +39,7 @@ class TestCloze(MnemosyneTest):
                 break
 
     def test_validate(self):
-        card_type = self.card_type_by_id("5")
+        card_type = self.card_type_with_id("5")
         
         fact_data = {"text": "incomplete"}
         assert card_type.is_data_valid(fact_data) == False
@@ -57,7 +57,7 @@ class TestCloze(MnemosyneTest):
         assert card_type.is_data_valid(fact_data) == True
 
     def test_add(self):
-        card_type = self.card_type_by_id("5")
+        card_type = self.card_type_with_id("5")
         
         fact_data = {"text": "a [b] c"}
 
@@ -74,7 +74,7 @@ class TestCloze(MnemosyneTest):
         assert "div#b { text-align: center; }" in card.answer()
         
     def test_edit(self):
-        card_type = self.card_type_by_id("5")
+        card_type = self.card_type_with_id("5")
         
         fact_data = {"text": "a [b] [c]"}
 
@@ -109,7 +109,7 @@ class TestCloze(MnemosyneTest):
         assert self.database().card_count() == 3
 
     def test_convert(self):
-        card_type = self.card_type_by_id("5")
+        card_type = self.card_type_with_id("5")
         
         fact_data = {"text": "a [b] [c]"}
 
@@ -119,7 +119,7 @@ class TestCloze(MnemosyneTest):
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]
 
-        new_card_type = self.card_type_by_id("1")
+        new_card_type = self.card_type_with_id("1")
 
         global answer
         answer = 0 # OK.
@@ -130,7 +130,7 @@ class TestCloze(MnemosyneTest):
         assert self.database().card_count() == 1
         
     def test_convert_abort(self):
-        card_type = self.card_type_by_id("5")
+        card_type = self.card_type_with_id("5")
         
         fact_data = {"text": "a [b] [c]"}
 
@@ -140,7 +140,7 @@ class TestCloze(MnemosyneTest):
         fact = card.fact
         card = self.database().cards_from_fact(fact)[0]
 
-        new_card_type = self.card_type_by_id("1")
+        new_card_type = self.card_type_with_id("1")
 
         global answer
         answer = 1 # Cancel.
