@@ -12,6 +12,7 @@ from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne.tag import Tag
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.card import Card
+from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.utils import expand_path
 from mnemosyne.libmnemosyne.card_type import CardType
 from mnemosyne.libmnemosyne.fact_view import FactView
@@ -37,6 +38,14 @@ class SQLiteSync(object):
 
     def set_sync_partner_info(self, info):
         self.sync_partner_info = info
+        # At the beginning of the sync process, we install a mechanism to make
+        # make sure that all card types used during sync can actually be
+        # instantiated. This is complicated by the fact that in one sync
+        # session, a card can be created, followed by a creation of a new card
+        # type, followed by a conversion of that card to that new card type.
+        # In this case, the card creation event will already list the new card
+        # type, which will only be created later during sync.
+        self.card_types_to_instantiate_later = set()
     
     def partners(self):
         return [cursor[0] for cursor in self.con.execute("""select partner
@@ -73,6 +82,10 @@ class SQLiteSync(object):
            where partner=?""", (partner, )).fetchone()[0]
 
     def update_last_log_index_synced_for(self, partner):
+        # At the end of the sync, see if we were able to actually instantiate
+        # all card types.
+        if len(self.card_types_to_instantiate_later) != 0:
+            raise RuntimeError, _("Missing plugins for card types.")     
         self.con.execute(\
             "update partnerships set _last_log_id=? where partner=?",
             (self.current_log_index(), partner))
@@ -359,11 +372,25 @@ class SQLiteSync(object):
         if "card_t" not in log_entry:
             # Client only supports simple cards.
             card_type = self.card_type_with_id("1")
-        else:
+        else:            
             if log_entry["card_t"] not in \
                 self.component_manager.card_type_with_id:
-                self._activate_plugin_for_card_type(log_entry["card_t"])
-            card_type = self.card_type_with_id(log_entry["card_t"])       
+                # Try to activate a plugin for the card type. If this fails,
+                # it's possible that the data for this card type will follow
+                # later during the sync. In that case, create a dummy card
+                # type here, which will be corrected by a later edit event.
+                # Hovewer, make note that we still need to instantiate this
+                # card type later, so that we can catch errors, e.g. due to
+                # bad plugins.
+                try:
+                    self._activate_plugin_for_card_type(log_entry["card_t"])
+                    card_type = self.card_type_with_id(log_entry["card_t"])
+                except RuntimeError:
+                    self.card_types_to_instantiate_later.add(log_entry["card_t"])
+                    card_type = self.card_type_with_id("1")
+                    log_entry["fact_v"] = card_type.fact_views[0].id
+            else:
+                card_type = self.card_type_with_id(log_entry["card_t"])
         fact = self.fact(log_entry["fact"], is_id_internal=False)
         for fact_view in card_type.fact_views:
             if fact_view.id == log_entry["fact_v"]:
@@ -572,6 +599,7 @@ class SQLiteSync(object):
                 self.delete_fact_view(self.fact_view_from_log_entry(log_entry))
             elif event_type == EventTypes.ADDED_CARD_TYPE:
                 self.add_card_type(self.card_type_from_log_entry(log_entry))
+                self.card_types_to_instantiate_later.discard(log_entry["o_id"])
             elif event_type == EventTypes.EDITED_CARD_TYPE:
                 self.update_card_type(self.card_type_from_log_entry(log_entry))
             elif event_type == EventTypes.DELETED_CARD_TYPE:

@@ -2538,4 +2538,72 @@ class TestSync(object):
         self.client.mnemosyne.database().delete_card(card)
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
+
+    def test_convert_card_to_clone(self):
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.card(self.card_id, is_id_internal=False).card_type.id == "1::1 cloned"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]
+        self.server.card_id = card.id
+        card_type_clone = self.client.mnemosyne.controller().clone_card_type(\
+            card_type, "1 cloned")
+        self.client.mnemosyne.controller().change_card_type([card.fact],
+            card_type, card_type_clone, correspondence={})
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
+
+    def test_convert_card_to_clone_2(self):
+        
+        def test_server(self):
+            pass
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data, card_type,
+            grade=-1, tag_names=["a"])[0]
+
+        self.client.do_sync()        
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+
+        # Second sync.
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            assert db.card(self.card_id, is_id_internal=False).card_type.id == "1::1 cloned"
+            
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.test_server = test_server
+        self.server.start()
+        self.server.card_id = card.id
+
+        self.client = MyClient(erase_previous=False)
+        
+        self.server.card_id = card.id
+        card_type_clone = self.client.mnemosyne.controller().clone_card_type(\
+            card_type, "1 cloned")
+        self.client.mnemosyne.controller().change_card_type([card.fact],
+            card_type, card_type_clone, correspondence={})
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
    
