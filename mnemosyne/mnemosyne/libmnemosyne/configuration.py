@@ -268,6 +268,21 @@ class Configuration(Component, dict):
                 return self[property_name][card_type.id][fact_key]
             except KeyError:
                 return default
+
+    def clone_card_type_properties(self, old_card_type, new_card_type):
+        for property_name in ["font", "font_colour"]:
+            for key in new_card_type.keys():
+                old_value = \
+                    self.card_type_property(property_name, old_card_type, key)
+                if old_value:
+                    self.setcard_type_property(property_name, old_value, \
+                        new_card_type, key)                                       
+        for property_name in ["background_colour", "alignment",
+                             "hide_pronunciation_field"]:
+            old_value = self.card_type_property(property_name, old_card_type)
+            if old_value:
+                self.setcard_type_property(\
+                    property_name, old_value, new_card_type)
             
     def machine_id(self):
         return file(os.path.join(self.config_dir, "machine.id")).\

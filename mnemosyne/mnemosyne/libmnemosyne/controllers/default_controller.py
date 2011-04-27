@@ -379,6 +379,7 @@ class DefaultController(Controller):
             cloned_card_type.fact_views.append(cloned_fact_view)
             self.database().add_fact_view(cloned_fact_view)         
         self.database().add_card_type(cloned_card_type)
+        self.config().clone_card_type_properties(card_type, cloned_card_type)
         self.database().save()
         return cloned_card_type
     

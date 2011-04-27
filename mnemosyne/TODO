@@ -1,3 +1,6 @@
+-clone card type: copy appearance from parent, test and coverage
+-fact key vs key
+
 -dog fooding organise cards
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
@@ -77,9 +80,6 @@
 -ask about card browser speed. Try with decoration. shulgi: Core Duo 2.1 Ghz
 
 -card type clone: rename and delete, both in card browser and card type browser
--clone card type: copy appearance from parent
--choose named colours: crash
--changing background colour does not redraw current card
 
 -activate cards: 'having any of these tags:' is not aligned with tag with tag tree
 
@@ -99,6 +99,7 @@
 -Qt bug? Cntl+a select all in card browser only selects all the prefetched entries
 -Qt bug? insertAtTop on tags combobox in add_cards does not seem to work
 -Qt bug? '(arabic) arabic' in lineedit shows up as 'arabic) arabic)' in webkit
+-Qt bug? choose named colours: crash
 -coverage bug?: default_controller().sync() does not seem to get picked up.
 
 -workaround for short ogg files. Make short mp3 workaround linux only. Test if silence files
