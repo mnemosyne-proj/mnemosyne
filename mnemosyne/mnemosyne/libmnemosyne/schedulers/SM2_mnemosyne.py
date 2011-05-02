@@ -101,6 +101,7 @@ class SM2Mnemosyne(Scheduler):
         self._fact_ids_memorised_expires_at = int(time.time()) + DAY
         self._card_id_last = None
         self.stage = 1
+        self.warned_about_too_many_cards = False
 
     def heartbeat(self):
         if time.time() > self._fact_ids_memorised_expires_at:
@@ -458,10 +459,12 @@ class SM2Mnemosyne(Scheduler):
             card.next_rep = int(time.time())
             new_interval = 0
         # Warn if we learned a lot of new cards.
-        if len(self._fact_ids_memorised) == 15:
+        if len(self._fact_ids_memorised) == 15 and \
+            self.warned_about_too_many_cards == False:
             self.main_widget().show_information(\
         _("You've memorised 15 new or failed cards.") + " " +\
         _("If you do this for many days, you could get a big workload later."))
+            self.warned_about_too_many_cards = True
         # Run hooks.
         self.database().current_criterion().apply_to_card(card)
         for f in self.component_manager.all("hook", "after_repetition"):

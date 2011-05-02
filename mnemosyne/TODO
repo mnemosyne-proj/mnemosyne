@@ -1,6 +1,3 @@
--clone card type: copy appearance from parent, test and coverage
--fact key vs key
-
 -dog fooding organise cards
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
@@ -9,8 +6,6 @@
 -initial sync: bad.png shows up empty
 
 -migrate science server machine
-
--don't warn twice when learning 15 new cards
 
 -right click add tags in card browser
 -add tags dialog
@@ -30,8 +25,6 @@
 -run test suite under windows
 
 -make config copyable (e.g. remove next log index)
--parametrise numerical values in controllers, scheduler to make it easier to customise them in a plugin
--leech detection + Changelog
 
 -add cards dialog, add tag. Then 'tab' moves to grades area as opposed to card fields.
 -editing current card in card browser does not update view. add test?
@@ -109,6 +102,8 @@
 -windows: test unicode filenames in sync protocol
 -test running from usb, update instructions
 -add tests with unicode in data_dir
+
+-leech detection + Changelog
 
 -Faq about how to pronounce Mnemosyne
 

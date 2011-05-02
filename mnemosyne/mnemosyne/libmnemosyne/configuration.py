@@ -271,17 +271,17 @@ class Configuration(Component, dict):
 
     def clone_card_type_properties(self, old_card_type, new_card_type):
         for property_name in ["font", "font_colour"]:
-            for key in new_card_type.keys():
-                old_value = \
-                    self.card_type_property(property_name, old_card_type, key)
+            for fact_key in new_card_type.keys():
+                old_value = self.card_type_property(property_name,
+                    old_card_type, fact_key)
                 if old_value:
-                    self.setcard_type_property(property_name, old_value, \
-                        new_card_type, key)                                       
+                    self.set_card_type_property(property_name, old_value, \
+                        new_card_type, fact_key)                                       
         for property_name in ["background_colour", "alignment",
                              "hide_pronunciation_field"]:
             old_value = self.card_type_property(property_name, old_card_type)
             if old_value:
-                self.setcard_type_property(\
+                self.set_card_type_property(\
                     property_name, old_value, new_card_type)
             
     def machine_id(self):

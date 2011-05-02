@@ -189,3 +189,12 @@ class TestCardType(MnemosyneTest):
         card = self.controller().create_new_cards(fact_data, card_type,
                   grade=-1, tag_names=["default"])[0]
         assert "What is the translation of foreign word?" in card.question()
+
+    def test_properties(self):
+        card_type = self.card_type_with_id("1")
+        self.config().set_card_type_property("font", "myfont", card_type)
+        self.config().set_card_type_property("background_colour", "mycolour", card_type)
+        card_type = self.controller().clone_card_type(\
+            card_type, ("1 clone"))
+        assert self.config().card_type_property("font", card_type, 'f') == "myfont"
+        assert self.config().card_type_property("background_colour", card_type) == "mycolour"
