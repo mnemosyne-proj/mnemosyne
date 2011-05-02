@@ -75,21 +75,5 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>tab_widget</sender>
-   <signal>currentChanged(int)</signal>
-   <receiver>StatisticsDlg</receiver>
-   <slot>display_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>118</x>
-     <y>62</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>118</x>
-     <y>77</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

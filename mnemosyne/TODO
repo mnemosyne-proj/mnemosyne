@@ -3,6 +3,8 @@
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
 
+-make config copyable (e.g. remove next log index)
+
 -initial sync: bad.png shows up empty
 
 -migrate science server machine
@@ -24,10 +26,6 @@
 -windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
 -run test suite under windows
 
--make config copyable (e.g. remove next log index)
-
--add cards dialog, add tag. Then 'tab' moves to grades area as opposed to card fields.
--editing current card in card browser does not update view. add test?
 -sending entire binary database does not give a moving progress bar
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
@@ -45,10 +43,6 @@
 -also add option to download source in the info box
 
 -example script to import cards from a text file
-
--delay matplotlib instantiation
--profile startup/shutdown
-
 
 -purge old html files in bzr
 

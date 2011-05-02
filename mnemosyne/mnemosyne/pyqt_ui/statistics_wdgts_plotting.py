@@ -4,10 +4,6 @@
 
 from PyQt4 import QtGui
 
-from matplotlib.figure import Figure
-from matplotlib.ticker import FuncFormatter
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-
 from mnemosyne.libmnemosyne.translator import _
 from mnemosyne.libmnemosyne.statistics_pages.grades import Grades
 from mnemosyne.libmnemosyne.statistics_pages.schedule import Schedule
@@ -17,7 +13,7 @@ from mnemosyne.libmnemosyne.statistics_pages.retention_score import RetentionSco
 from mnemosyne.libmnemosyne.ui_components.statistics_widget import StatisticsWidget
 
 
-class PlotStatisticsWdgt(FigureCanvas, StatisticsWidget):
+class PlotStatisticsWdgt(QtGui.QWidget, StatisticsWidget):
 
     """A canvas to plot graphs according to the data and display contained in a
     statistics page.
@@ -25,16 +21,25 @@ class PlotStatisticsWdgt(FigureCanvas, StatisticsWidget):
     """
     
     def __init__(self, component_manager, parent, page):
+        QtGui.QWidget.__init__(self, parent)
         StatisticsWidget.__init__(self, component_manager)
+        self.parent = parent
         self.page = page
-        colour = self._background_colour(parent)
+
+    def activate(self):
+        self.vbox_layout = QtGui.QVBoxLayout(self)        
+        from matplotlib.figure import Figure
+        from matplotlib.backends.backend_qt4agg import \
+             FigureCanvasQTAgg as FigureCanvas
+        colour = self._background_colour(self.parent)
         fig = Figure(figsize=(6.5, 5.2), facecolor=colour, edgecolor=colour)
-        FigureCanvas.__init__(self, fig)
-        FigureCanvas.setSizePolicy(self, QtGui.QSizePolicy.MinimumExpanding, 
-                                   QtGui.QSizePolicy.MinimumExpanding)
-        self.setParent(parent)
+        self.canvas = FigureCanvas(fig)
+        self.vbox_layout.addWidget(self.canvas)
+        self.canvas.setSizePolicy(QtGui.QSizePolicy.MinimumExpanding, 
+                                  QtGui.QSizePolicy.MinimumExpanding)
+        self.canvas.setParent(self)
         self.axes = fig.add_subplot(111)
-        FigureCanvas.updateGeometry(self)
+        self.canvas.updateGeometry()
 
     def display_message(self, text):
         self.axes.clear()
@@ -76,6 +81,7 @@ class BarChartDaysWdgt(PlotStatisticsWdgt):
     colour = "blue"
     
     def show_statistics(self, variant):
+        self.activate()
         # Determine variant-dependent formatting.
         if not self.page.y:
             self.display_message(_("No stats available."))
@@ -154,6 +160,7 @@ class BarChartDaysWdgt(PlotStatisticsWdgt):
         xmin, xmax = min(self.page.x), max(self.page.x)
         self.axes.set_xlim(xmin=xmin - 0.5, xmax=xmax + 0.5)
         self.axes.set_ylim(ymax=int(max(self.page.y) *  1.1) + 1)
+        from matplotlib.ticker import FuncFormatter
         self.axes.yaxis.set_major_formatter(FuncFormatter(self.integers_only))
         # Add exact numeric value above each bar. The text padding is based 
         # on the average height of non-zero bars. This gives a reasonable
@@ -202,6 +209,7 @@ class GradesWdgt(PlotStatisticsWdgt):
     used_for = Grades
     
     def show_statistics(self, variant):
+        self.activate()   
         if not self.page.y:
             self.display_message(_("No stats available."))
             return
@@ -214,6 +222,7 @@ class GradesWdgt(PlotStatisticsWdgt):
         xmin, xmax = min(self.page.x), max(self.page.x)
         self.axes.set_xlim(xmin=xmin - 0.5, xmax=xmax + 0.5)
         self.axes.set_ylim(ymax=int(max(self.page.y) *  1.1) + 1)
+        from matplotlib.ticker import FuncFormatter
         self.axes.yaxis.set_major_formatter(FuncFormatter(self.integers_only))
 
 
@@ -222,6 +231,7 @@ class EasinessWdgt(PlotStatisticsWdgt):
     used_for = Easiness
     
     def show_statistics(self, variant):
+        self.activate()     
         if not self.page.data:
             self.display_message(_("No stats available."))
             return
@@ -231,4 +241,5 @@ class EasinessWdgt(PlotStatisticsWdgt):
         self.axes.set_xlabel(_("Easiness"))
         self.axes.set_xlim(xmin=1.3, xmax=3.7)
         self.axes.set_ylim(ymax=int(max(n) *  1.1) + 1)
+        from matplotlib.ticker import FuncFormatter
         self.axes.yaxis.set_major_formatter(FuncFormatter(self.integers_only))

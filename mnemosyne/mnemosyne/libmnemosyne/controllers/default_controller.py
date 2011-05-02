@@ -569,6 +569,8 @@ class DefaultController(Controller):
             (self.component_manager).activate()
         review_controller = self.review_controller()
         review_controller.reset_but_try_to_keep_current_card()
+        review_controller.card = self.database().card(\
+            review_controller.card._id, is_id_internal=True)
         review_controller.update_dialog(redraw_all=True)
         self.stopwatch().unpause()
         

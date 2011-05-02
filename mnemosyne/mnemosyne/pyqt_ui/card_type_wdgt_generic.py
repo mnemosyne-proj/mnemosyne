@@ -28,6 +28,7 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             pronunciation_hiding = self.config().card_type_property(\
                 "hide_pronunciation_field", self.card_type, default=False)
         # Construct the rest of the dialog.
+        parent.setTabOrder(parent.card_types_widget, parent.tags)
         for fact_key, fact_key_name in self.card_type.fields:
             l = QtGui.QLabel(fact_key_name + ":", self)
             self.vboxlayout.addWidget(l)
@@ -46,6 +47,10 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
             self.fact_key_for_edit_box[t] = fact_key
             if not self.top_edit_box:
                 self.top_edit_box = t
+                parent.setTabOrder(parent.tags, t)
+                previous_box = t
+            else:
+                parent.setTabOrder(previous_box, t)                
             if fact_key == "p_1":
                 self.pronunciation_box = t
                 self.pronunciation_box.setVisible(not pronunciation_hiding)
@@ -55,6 +60,19 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
         self.hboxlayout.addLayout(self.vboxlayout)
         self.resize(QtCore.QSize(QtCore.QRect(0,0,325,264).size()).\
                     expandedTo(self.minimumSizeHint()))
+        if parent.component_type == "add_cards_dialog":
+            parent.setTabOrder(t, parent.yet_to_learn_button)
+            parent.setTabOrder(parent.yet_to_learn_button,
+                               parent.grade_2_button)          
+            parent.setTabOrder(parent.grade_2_button, parent.grade_3_button)
+            parent.setTabOrder(parent.grade_3_button, parent.grade_4_button)
+            parent.setTabOrder(parent.grade_4_button, parent.grade_5_button)
+            parent.setTabOrder(parent.grade_5_button, parent.preview_button)
+            parent.setTabOrder(parent.preview_button, parent.exit_button)
+        else:
+            parent.setTabOrder(t, parent.OK_button)
+            parent.setTabOrder(parent.OK_button, parent.preview_button)
+            parent.setTabOrder(parent.preview_button, parent.exit_button)            
         self.top_edit_box.setFocus()
 
     def pronunciation_hiding_toggled(self, checked):

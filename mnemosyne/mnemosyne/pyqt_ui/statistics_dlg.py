@@ -35,6 +35,9 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
             previous_page_index = 0
         self.tab_widget.setCurrentIndex(previous_page_index)
         self.display_page(previous_page_index)
+        # Only now do we connect the signal in order to have lazy
+        # instantiation.
+        self.tab_widget.currentChanged[int].connect(self.display_page)
         self.exec_()
 
     def closeEvent(self, event):
@@ -56,9 +59,8 @@ class StatisticsDlg(QtGui.QDialog, Ui_StatisticsDlg, StatisticsDialog):
         page.display_variant(variant_index)
         self.config()["previous_statistics_page"] = page_index
         width, height = self.config()["statistics_dlg_size"]
-        # Disabled, seems to cause corruption with current Matplotlib.
-        #if width:
-        #    self.resize(width, height)
+        if width:
+            self.resize(width, height)
 
 
 class StatisticsPageWdgt(QtGui.QWidget, Component):
