@@ -130,7 +130,29 @@ class Logger(Component):
     
     def dump_to_science_log(self):
         pass
+
+    def log_index_of_last_upload(self):
+
+        """We don't store this info in the configuration, but determine it on
+        the fly, so that users can copy configuration files between their
+        machines.
+
+        """
         
+        _dir = os.listdir(unicode(\
+            os.path.join(self.config().data_dir, "history")))
+        history_files = [x for x in _dir if x[-4:] == ".bz2"]        
+        max_log_index = 0
+        # TODO: remove
+        if history_files:
+                assert self.config()["user_id"] == history_files[0].split("_", 1)[0]
+        for history_file in history_files:
+            log_index_and_suffix = history_file.rsplit("_", 1)[1]
+            log_index = int(log_index_and_suffix.split(".")[0])
+            if log_index > max_log_index:
+                max_log_index = log_index
+        return max_log_index
+                    
     def archive_old_log(self):
         
         """Archive log to history folder if it's large enough."""
@@ -146,16 +168,15 @@ class Logger(Component):
         if log_size > self.config()["max_log_size_before_upload"]:
             user = self.config()["user_id"]
             machine = self.config().machine_id()
-            index = self.config()["next_log_index"]
+            index = self.log_index_of_last_upload() + 1
             archive_name = "%s_%s_%05d.bz2" % (user, machine, index)
             import bz2  # Not all platforms have bz.
             f = bz2.BZ2File(os.path.join(data_dir, "history",
-                archive_name), 'w')
+                archive_name), "w")
             for l in file(log_name):
                 f.write(l)
             f.close()
             os.remove(log_name)
-            self.config()["next_log_index"] = index + 1
 
     def deactivate(self):
         if self.upload_thread:

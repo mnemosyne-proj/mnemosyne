@@ -666,7 +666,8 @@ class TestMemImport(MnemosyneTest):
                "dvipng -D 300 -T tight tmp.dvi\necho"
         assert "14pt" in self.config()["latex_preamble"]
         assert self.config()["user_id"] == "f3fb13c7"
-        assert self.config()["next_log_index"] == 3
+        assert self.log().log_index_of_last_upload() == 2
+        
         assert os.path.exists(os.path.join(old_data_dir,
             "DIRECTORY_NO_LONGER_USED_BY_MNEMOSYNE2"))
         assert os.path.exists(os.path.join(self.mnemosyne.config().data_dir,

@@ -1,9 +1,11 @@
+-make log_index_of_last_upload() aware of machine id. add tests
+-recovering of user id needed, otherwise people cannot delete config, remove assert
+-test live
+
 -dog fooding organise cards
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
-
--make config copyable (e.g. remove next log index)
 
 -initial sync: bad.png shows up empty
 
@@ -27,6 +29,8 @@
 -run test suite under windows
 
 -sending entire binary database does not give a moving progress bar
+
+-vocabulary type with production only to save space? Or make use of Front to back only, but then duplicate checking needs to happen on the answer
 
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
@@ -143,6 +147,7 @@
 
 -hoop up dialogs in UDP
 
+-can the sync client always reconnect to a sync server if an error occured?
 
 -new translation infrastructure
 -handle deferred translation

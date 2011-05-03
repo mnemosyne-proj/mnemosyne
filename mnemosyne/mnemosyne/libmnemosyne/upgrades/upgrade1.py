@@ -58,7 +58,6 @@ class Upgrade1(Component):
             old_config[key] = value
         # Migrate configuration settings.
         self.config()["user_id"] = old_config["user_id"]
-        self.config()["next_log_index"] = old_config["log_index"]
         self.config()["upload_science_logs"] = old_config["upload_logs"]
         for card_type in self.card_types():
             self.config().set_card_type_property("font",

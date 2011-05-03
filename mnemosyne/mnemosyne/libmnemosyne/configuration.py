@@ -72,7 +72,6 @@ class Configuration(Component, dict):
         self.fill_dirs()
         self.load()
         self.load_user_config()
-        self.correct_config()
         
     def set_defaults(self):
 
@@ -95,7 +94,6 @@ class Configuration(Component, dict):
              "user_id": None,
              "upload_science_logs": True,
              "science_server": "mnemosyne-proj.dyndns.org:80",
-             "next_log_index": 1,
              "max_log_size_before_upload": 64000, # For testability.
              "font": {}, # [card_type.id][fact_key]
              "font_colour": {}, # [card_type.id][fact_key]
@@ -305,27 +303,6 @@ class Configuration(Component, dict):
                 raise RuntimeError, _("Error in config.py:") \
                           + "\n" + traceback_string()
 
-    def correct_config(self):
-        # Recreate user id and log index from history folder in case the
-        # config file was accidentally deleted.
-        # History files can take the form userid_logindex.bz2 or
-        # userid_machineid_logindex.bz2.
-        if self["next_log_index"] == 1:
-            join = os.path.join
-            _dir = os.listdir(unicode(join(self.data_dir, "history")))
-            history_files = [x for x in _dir if x[-4:] == ".bz2"]
-            # Recover user_id.
-            if history_files:
-                self["user_id"] = history_files[0].split("_", 1)[0]
-            # Recover next_log_index.
-            max_log_index = 0
-            for history_file in history_files:
-                log_index_and_suffix = history_file.rsplit("_", 1)[1]
-                log_index = int(log_index_and_suffix.split(".")[0])
-                if log_index > max_log_index:
-                    max_log_index = log_index
-            self["next_log_index"] = max_log_index + 1
-
     def change_user_id(self, new_user_id):
 
         """When a client syncs for the first time with a server, we need to
@@ -338,7 +315,7 @@ class Configuration(Component, dict):
         if new_user_id == self["user_id"]:
             return
         db = self.database()
-        if self["next_log_index"] > 1 or not db.is_empty():
+        if self.log().log_index_of_last_upload() > 1 or not db.is_empty():
             raise RuntimeError, "Unable to change user id."
         old_user_id = self["user_id"]
         self["user_id"] = new_user_id

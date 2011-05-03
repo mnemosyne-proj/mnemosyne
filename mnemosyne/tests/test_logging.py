@@ -187,11 +187,12 @@ class TestLogging(MnemosyneTest):
             file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
 
         self.config()["user_id"] = "lost"
+        assert self.log().log_index_of_last_upload() == 0
         self.config()["next_log_index"] = 1
         self.config().correct_config()
         
         assert self.config()["user_id"] == "user"
-        assert self.config()["next_log_index"] == 3
+        assert self.log().log_index_of_last_upload() == 2
 
     def test_log_upload(self):
         machine_id_file = os.path.join(self.mnemosyne.config().config_dir, "machine.id")
