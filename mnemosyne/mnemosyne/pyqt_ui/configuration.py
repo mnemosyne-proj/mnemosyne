@@ -12,8 +12,8 @@ class PyQtConfiguration(Hook):
     def run(self):
         for key, value in \
             {"list_font": None,
-             "card_type_name_of_last_added": "",
-             "tags_of_last_added": "",
+             "last_used_card_type_id": "",
+             "last_used_tags_for_card_type_id": {},
              "sort_column": None,
              "sort_order": None,
              "previous_statistics_page": 0,

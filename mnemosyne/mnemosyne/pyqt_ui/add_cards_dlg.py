@@ -99,8 +99,14 @@ class AddEditCards(Component):
 
     def card_type_changed(self, new_card_type_name):
         new_card_type_name = unicode(new_card_type_name)
-        self.config()["card_type_name_of_last_added"] = new_card_type_name
         new_card_type = self.card_type_by_name[new_card_type_name]
+        self.config()["last_used_card_type_id"] = new_card_type.id
+        if new_card_type.id not in \
+            self.config()["last_used_tags_for_card_type_id"]:
+            self.config()["last_used_tags_for_card_type_id"]\
+                [new_card_type.id] = "" 
+        self.update_tags_combobox(self.config()\
+           ["last_used_tags_for_card_type_id"][new_card_type.id])
         if self.card_type.keys().issubset(new_card_type.keys()) or \
                not self.card_type_widget.contains_data():
             self.update_card_widget()            
@@ -132,10 +138,17 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         AddEditCards.__init__(self, component_manager)
         QtGui.QDialog.__init__(self, self.main_widget())
         self.setupUi(self)
-        self.initialise_card_types_combobox(\
-            self.config()["card_type_name_of_last_added"])
-        self.update_tags_combobox(\
-            self.config()["tags_of_last_added"])  
+        last_used_card_type_id = self.config()["last_used_card_type_id"]
+        if not last_used_card_type_id:
+            last_used_card_type_id = "1"
+        last_used_card_type = self.card_type_with_id(last_used_card_type_id)
+        self.initialise_card_types_combobox(last_used_card_type.name)
+        if last_used_card_type.id not in \
+            self.config()["last_used_tags_for_card_type_id"]:
+            self.config()["last_used_tags_for_card_type_id"]\
+                [last_used_card_type.id] = "" 
+        self.update_tags_combobox(self.config()\
+           ["last_used_tags_for_card_type_id"][last_used_card_type.id]) 
         self.grades = QtGui.QButtonGroup()
         # Negative indexes have special meanings in Qt, so we can't use -1 for
         # 'yet to learn'.
@@ -144,7 +157,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.grades.addButton(self.grade_3_button, 3)
         self.grades.addButton(self.grade_4_button, 4)
         self.grades.addButton(self.grade_5_button, 5)
-        self.grades.buttonClicked[int].connect(self.new_cards)
+        self.grades.buttonClicked[int].connect(self.create_new_cards)
         self.set_valid(False)
         width, height = self.config()["add_widget_size"]
         if width:
@@ -161,7 +174,7 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         self.grade_buttons.setEnabled(valid)
         self.preview_button.setEnabled(valid)
         
-    def new_cards(self, grade):
+    def create_new_cards(self, grade):
         if grade == 0:
             grade = -1
         fact_data = self.card_type_widget.data()
@@ -173,7 +186,8 @@ class AddCardsDlg(QtGui.QDialog, Ui_AddCardsDlg, AddEditCards, AddCardsDialog):
         c.create_new_cards(fact_data, card_type, grade, tag_names, save=True)
         tag_text = ", ".join(tag_names)
         self.update_tags_combobox(tag_text)
-        self.config()["tags_of_last_added"] = tag_text
+        self.config()["last_used_tags_for_card_type_id"][card_type.id] \
+            = tag_text      
         self.card_type_widget.clear()
 
     def reject(self):

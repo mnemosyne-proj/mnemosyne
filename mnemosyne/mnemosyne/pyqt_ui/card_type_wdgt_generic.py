@@ -45,12 +45,12 @@ class GenericCardTypeWdgt(QtGui.QWidget, GenericCardTypeWidget):
                 t.setMinimumSize(QtCore.QSize(0, 106))
             self.vboxlayout.addWidget(t)
             self.fact_key_for_edit_box[t] = fact_key
-            if not self.top_edit_box:
+            if self.top_edit_box is None:
                 self.top_edit_box = t
                 parent.setTabOrder(parent.tags, t)
-                previous_box = t
             else:
-                parent.setTabOrder(previous_box, t)                
+                parent.setTabOrder(previous_box, t)
+            previous_box = t
             if fact_key == "p_1":
                 self.pronunciation_box = t
                 self.pronunciation_box.setVisible(not pronunciation_hiding)

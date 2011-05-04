@@ -128,9 +128,17 @@ class Configuration(Component, dict):
              "sync_server_username": "",
              "sync_server_password": ""
             }.items():
-            self.setdefault(key, value)        
-        if not self["user_id"]:
-            self["user_id"] = rand_uuid()
+            self.setdefault(key, value)
+        # If the user id is not set, it's either because this is the first run
+        # of the program, or because the user deleted the config file. In the
+        # latter case, we try to recuperate the id from the history files.
+        if self["user_id"] is None:
+            _dir = os.listdir(unicode(os.path.join(self.data_dir, "history")))
+            history_files = [x for x in _dir if x[-4:] == ".bz2"]
+            if not history_files:
+                self["user_id"] = rand_uuid()
+            else:
+                self["user_id"] = history_files[0].split("_", 1)[0]
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook", "configuration_defaults"):
             f.run()

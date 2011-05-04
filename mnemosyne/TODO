@@ -1,6 +1,14 @@
--make log_index_of_last_upload() aware of machine id. add tests
--recovering of user id needed, otherwise people cannot delete config, remove assert
--test live
+-test log index of last upload live
+
+-allow resetting default appearance per card type, add confirmation dialog
+
+-auto vice versa detection
+
+-sync default criterion
+
+-reviewing card from card type A, change display settings for card type A and B, the current card is not updated
+
+-sync (display) settings, add option to sync dialog and to sync protocol
 
 -dog fooding organise cards
 

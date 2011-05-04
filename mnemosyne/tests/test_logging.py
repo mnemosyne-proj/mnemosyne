@@ -180,20 +180,82 @@ class TestLogging(MnemosyneTest):
         assert self.database().con.execute(\
             """select _id from log order by _id limit 1""").fetchone()[0] \
             == log_index
-
-    def test_correct_config(self):
-
-        for filename in ["user_001.bz2", "user_machine_2.bz2"]:
-            file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
-
-        self.config()["user_id"] = "lost"
-        assert self.log().log_index_of_last_upload() == 0
-        self.config()["next_log_index"] = 1
-        self.config().correct_config()
         
-        assert self.config()["user_id"] == "user"
+    def test_recover_user_id(self):
+        assert self.config()["user_id"] is not None
+        MnemosyneTest.teardown(self)
+            
+        file(os.path.join(os.getcwd(), "dot_test", "history", "userid_001.bz2"), "w")
+        os.remove(os.path.join(os.getcwd(), "dot_test", "config"))
+
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+            "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_logging", "MyMainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+
+        assert self.config()["user_id"] == "userid"
+        
+    def test_recover_user_id_2(self):
+        assert self.config()["user_id"] is not None
+        MnemosyneTest.teardown(self)
+            
+        file(os.path.join(os.getcwd(), "dot_test", "history", "userid_machine_001.bz2"), "w")
+        os.remove(os.path.join(os.getcwd(), "dot_test", "config"))
+
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
+        self.mnemosyne.components.insert(0, ("mnemosyne.libmnemosyne.translator",
+            "GetTextTranslator"))
+        self.mnemosyne.components.append(\
+            ("test_logging", "MyMainWidget"))
+        self.mnemosyne.components.append(\
+            ("mnemosyne_test", "TestReviewWidget"))
+        self.mnemosyne.initialise(os.path.abspath("dot_test"), automatic_upgrades=False)
+
+        assert self.config()["user_id"] == "userid"
+        
+    def test_log_index_of_last_upload_1(self):
+        assert self.log().log_index_of_last_upload() == 0
+        
+    def test_log_index_of_last_upload_2(self):
+        machine_id = self.config().machine_id()
+        for filename in ["user_001.bz2", "user_%s_2.bz2" % machine_id]:
+            file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
         assert self.log().log_index_of_last_upload() == 2
 
+    def test_log_index_of_last_upload_3(self):
+        machine_id = self.config().machine_id()
+        for filename in ["user_001.bz2"]:
+            file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
+        assert self.log().log_index_of_last_upload() == 1
+        
+    def test_log_index_of_last_upload_4(self):
+        machine_id = self.config().machine_id()
+        for filename in ["user_005.bz2"]:
+            file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
+        assert self.log().log_index_of_last_upload() == 5
+        
+    def test_log_index_of_last_upload_5(self):
+        machine_id = self.config().machine_id()
+        for filename in ["user_othermachine_005.bz2"]:
+            file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
+        assert self.log().log_index_of_last_upload() == 0
+        
+    def test_log_index_of_last_upload_6(self):
+        machine_id = self.config().machine_id()
+        for filename in ["user_othermachine_005.bz2", "user_%s_2.bz2" % machine_id]:
+            file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
+        assert self.log().log_index_of_last_upload() == 2
+        
+    def test_log_index_of_last_upload_7(self):
+        machine_id = self.config().machine_id()
+        for filename in ["user_001.bz2", "user_othermachine_005.bz2", "user_%s_2.bz2" % machine_id]:
+            file(os.path.join(os.getcwd(), "dot_test", "history", filename), "w")
+        assert self.log().log_index_of_last_upload() == 2
+        
     def test_log_upload(self):
         machine_id_file = os.path.join(self.mnemosyne.config().config_dir, "machine.id")
         f = file(machine_id_file, "w")

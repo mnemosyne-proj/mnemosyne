@@ -137,17 +137,24 @@ class Logger(Component):
         the fly, so that users can copy configuration files between their
         machines.
 
+        1.x log names have the format userid_index.bz2.
+        2.x log names have the format userid_machineid_index.bz2
+
+        Obviously, we should only consider the logs from our own machine.
+
         """
         
         _dir = os.listdir(unicode(\
             os.path.join(self.config().data_dir, "history")))
         history_files = [x for x in _dir if x[-4:] == ".bz2"]        
         max_log_index = 0
-        # TODO: remove
-        if history_files:
-                assert self.config()["user_id"] == history_files[0].split("_", 1)[0]
+        this_machine_id = self.config().machine_id()
         for history_file in history_files:
-            log_index_and_suffix = history_file.rsplit("_", 1)[1]
+            user_and_machine, log_index_and_suffix = history_file.rsplit("_", 1)
+            if "_" in user_and_machine:
+                user, machine = user_and_machine.split("_")
+                if machine != this_machine_id:
+                    continue
             log_index = int(log_index_and_suffix.split(".")[0])
             if log_index > max_log_index:
                 max_log_index = log_index
