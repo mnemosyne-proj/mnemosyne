@@ -928,9 +928,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             values(?,?,?,?)""", (criterion.id, criterion.name,
             criterion.criterion_type, criterion.data_to_string())).lastrowid
         criterion._id = _id
-        # Only log the named criteria for syncing purposes.
-        if criterion.name:
-            self.log().added_criterion(criterion)
+        self.log().added_criterion(criterion)
         
     def criterion(self, id, is_id_internal):
         if is_id_internal:
@@ -955,16 +953,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             criterion.data_to_string(), criterion.id))
         if criterion._id == 1:
             self._current_criterion = criterion
-        if criterion.name:
-            self.log().edited_criterion(criterion)
-        # Note that by design, the sync procedure never touches the current
-        # criterion: you could have different cards active on different
-        # devices.
- 
+        self.log().edited_criterion(criterion)
+        
     def delete_criterion(self, criterion):
         self.con.execute("delete from criteria where _id=?", (criterion._id, ))
-        if criterion.name:
-            self.log().deleted_criterion(criterion)
+        self.log().deleted_criterion(criterion)
         del criterion
         
     def set_current_criterion(self, criterion):

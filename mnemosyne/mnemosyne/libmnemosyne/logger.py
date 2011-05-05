@@ -184,6 +184,7 @@ class Logger(Component):
                 f.write(l)
             f.close()
             os.remove(log_name)
+            
 
     def deactivate(self):
         if self.upload_thread:

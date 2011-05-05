@@ -1,19 +1,17 @@
--test log index of last upload live
-
--allow resetting default appearance per card type, add confirmation dialog
-
--auto vice versa detection
-
--sync default criterion
-
--reviewing card from card type A, change display settings for card type A and B, the current card is not updated
+-sync default criterion, add test
+-make sure default criterion has id, not it only has _id=-1. or use empty id?
+-update set_current_criterion to generate correct log event
+-don't have conflicts on changing the default criterion?
+-remove if log_entry["type"] > 5: 
 
 -sync (display) settings, add option to sync dialog and to sync protocol
 
--dog fooding organise cards
-
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
+
+-auto vice versa detection
+
+-dog fooding organise cards
 
 -initial sync: bad.png shows up empty
 

@@ -189,7 +189,7 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         self.changed = True
         
     def accept(self):
-        for card_type in self.affected_card_types:
+        for card_type in self.card_types():
             for render_chain in self.component_manager.all("render_chain"):
                 render_chain.renderer_for_card_type(card_type).\
                     update(card_type)
@@ -209,10 +209,26 @@ class CardAppearanceDlg(QtGui.QDialog, Ui_CardAppearanceDlg,
         dlg.exec_()
         
     def defaults(self):
-        self.config()["font"] = {}
-        self.config()["background_colour"] = {}
-        self.config()["font_colour"] = {}
-        self.config()["alignment"] = {}
+        if len(self.affected_card_types) > 1:
+            message = _("Reset all card types to default?")
+        else:
+            message = _("Reset '%s' to default?") \
+                % (self.affected_card_types[0].name)
+        result = QtGui.QMessageBox.question(None, _("Mnemosyne"), message,
+            _("&Yes"), _("&No"), "", 0, -1)
+        if result == 1:
+            return
+        if len(self.affected_card_types) > 1:        
+            self.config()["font"] = {}
+            self.config()["background_colour"] = {}
+            self.config()["font_colour"] = {}
+            self.config()["alignment"] = {}
+        else:
+            card_type_id = self.affected_card_types[0].id
+            self.config()["font"].pop(card_type_id, None)
+            self.config()["background_colour"].pop(card_type_id, None)
+            self.config()["font_colour"].pop(card_type_id, None)
+            self.config()["alignment"].pop(card_type_id, None)
         self.alignment.setCurrentIndex(1)
 
     def reject(self):
