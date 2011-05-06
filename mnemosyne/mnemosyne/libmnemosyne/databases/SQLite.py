@@ -5,6 +5,7 @@
 import os
 import sys
 import time
+import copy
 import string
 import shutil
 import sqlite3
@@ -961,9 +962,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         del criterion
         
     def set_current_criterion(self, criterion):
-        self.con.execute("update criteria set type=?, data=? where _id=1",
-            (criterion.criterion_type, criterion.data_to_string()))
-        self._current_criterion = criterion
+        criterion = copy.copy(criterion)
+        criterion._id = 1
+        criterion.name = ""
+        self.update_criterion(criterion)        
         applier = self.component_manager.current("criterion_applier",
             used_for=criterion.__class__)
         applier.apply_to_database(criterion)

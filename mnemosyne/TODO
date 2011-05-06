@@ -1,4 +1,6 @@
 -sync default criterion, add test
+-postpone create default criterion event?
+-see if we need more 'empty shell' creation. Possible to get rid of it? Document design decision.
 -make sure default criterion has id, not it only has _id=-1. or use empty id?
 -update set_current_criterion to generate correct log event
 -don't have conflicts on changing the default criterion?

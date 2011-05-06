@@ -7,7 +7,7 @@ from mnemosyne.libmnemosyne.criterion import Criterion
 
 class DefaultCriterion(Criterion):
 
-    criterion_type = "Default"
+    criterion_type = "default"
     
     def __init__(self, component_manager, id=None):
         Criterion.__init__(self, component_manager, id)

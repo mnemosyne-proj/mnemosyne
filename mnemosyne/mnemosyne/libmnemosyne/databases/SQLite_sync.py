@@ -542,7 +542,14 @@ class SQLiteSync(object):
                 criterion = \
                     criterion_class(self.component_manager, log_entry["o_id"])
                 criterion.name = log_entry["name"]
-                criterion.set_data_from_sync_string(log_entry["data"])
+                # Try to apply the data to the criterion. If this fails, it
+                # means that the data to do this is not yet available at this
+                # stage of the sync, and will be corrected by a later
+                # EDITED_CRITERION event.
+                try:
+                    criterion.set_data_from_sync_string(log_entry["data"])
+                except TypeError:
+                    pass
         if log_entry["type"] != EventTypes.ADDED_CRITERION:
             criterion._id = self.con.execute("""select _id from criteria where
                 id=?""", (criterion.id, )).fetchone()[0]
