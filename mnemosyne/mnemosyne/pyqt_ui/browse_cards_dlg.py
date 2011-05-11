@@ -283,11 +283,13 @@ class BrowseCardsDlg(QtGui.QDialog, Ui_BrowseCardsDlg, BrowseCardsDialog):
             
     def keyPressEvent(self, event):
         if len(self.table.selectionModel().selectedRows()) == 0:
-            return
+            return QtGui.QDialog.keyPressEvent(event)
         if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.menu_edit()
         elif event.key() in [QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace]:
             self.menu_delete()
+        else:
+            return QtGui.QDialog.keyPressEvent(event)
 
     def cards_from_single_selection(self):
         index = self.table.selectionModel().selectedRows()[0]

@@ -1,10 +1,12 @@
+-test what happens when editing card through browser: no criterion present
+
 -sync default criterion, add test
--postpone create default criterion event?
--see if we need more 'empty shell' creation. Possible to get rid of it? Document design decision.
 -make sure default criterion has id, not it only has _id=-1. or use empty id?
 -update set_current_criterion to generate correct log event
--don't have conflicts on changing the default criterion?
+-don't cause sync conflicts on changing the default criterion?
 -remove if log_entry["type"] > 5: 
+
+-check if fixed: editing through double click in card browser does not end
 
 -sync (display) settings, add option to sync dialog and to sync protocol
 
@@ -186,6 +188,9 @@
 -plugin to store backups on dropbox
 
 -larger interval for initial grade 5?
+
+-condition coverage
+ http://lautaportti.wordpress.com/2011/05/07/test-coverage-analysis/
 
 -have hierarchy in plugin names
 
