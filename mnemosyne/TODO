@@ -1,12 +1,10 @@
--test what happens when editing card through browser: no criterion present
+-fix testsuite: keyerror in put_log_entries, why are multiple criteria created as opposed to just 1?
 
 -sync default criterion, add test
 -make sure default criterion has id, not it only has _id=-1. or use empty id?
 -update set_current_criterion to generate correct log event
 -don't cause sync conflicts on changing the default criterion?
 -remove if log_entry["type"] > 5: 
-
--check if fixed: editing through double click in card browser does not end
 
 -sync (display) settings, add option to sync dialog and to sync protocol
 

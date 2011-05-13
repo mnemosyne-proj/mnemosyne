@@ -30,6 +30,14 @@ class SQLiteSync(object):
     """Code to be injected into the SQLite database class through inheritance,
     so that SQLite.py does not becomes too large.
 
+    Note that we only store events like EDITED_CARD, not the data itself that
+    was edited. This is filled out during the actual sync with the latest data
+    for that card. This needs special care, e.g. if objects are created and
+    immediately destroyed, or if information is needed that only becomes
+    available later during the sync protocol. It does however save considerable
+    space, and since backing up the file before sync can on some platforms be
+    the most time consuming step of the sync, we have chosen this option.
+
     """
 
     def append_to_sync_partner_info(self, partner_info):

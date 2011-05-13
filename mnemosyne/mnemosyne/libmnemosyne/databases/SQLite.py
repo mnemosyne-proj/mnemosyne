@@ -291,6 +291,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         from mnemosyne.libmnemosyne.criteria.default_criterion import \
              DefaultCriterion
         self._current_criterion = DefaultCriterion(self.component_manager)
+        self._current_criterion._id = 1
+        self._current_criterion.id = "default"
         self.add_criterion(self._current_criterion)
         # Create media directory.
         media_dir = self.media_dir()
@@ -964,7 +966,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def set_current_criterion(self, criterion):
         criterion = copy.copy(criterion)
         criterion._id = 1
-        criterion.name = ""
+        criterion.id = "default"
         self.update_criterion(criterion)        
         applier = self.component_manager.current("criterion_applier",
             used_for=criterion.__class__)
