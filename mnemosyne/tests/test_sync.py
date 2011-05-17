@@ -37,7 +37,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        sys.stderr.write(error)
+        #sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         return answer
@@ -516,8 +516,7 @@ class TestSync(object):
                 (card._id,)).fetchone()[0]
             assert "TAG_1" in tag_string
             assert "tag_1" not in tag_string
-            print db.con.execute("select count() from log").fetchone()[0]
-            assert db.con.execute("select count() from log").fetchone()[0] == 21
+            assert db.con.execute("select count() from log").fetchone()[0] == 23
         
         self.server = MyServer()
         self.server.test_server = test_server
@@ -531,10 +530,8 @@ class TestSync(object):
         tag.name = "TAG_1"
         self.client.mnemosyne.database().update_tag(tag)
         self.client.do_sync()
-        print self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0]
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 21
+            "select count() from log").fetchone()[0] == 23
       
     def test_delete_cards(self):
 

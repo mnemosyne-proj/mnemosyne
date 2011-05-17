@@ -222,12 +222,13 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._connection = None
         self._path = None # Needed for lazy creation of connection.
         self._current_criterion = None # Cached for performance reasons.
-        # Some operations have side-effects which cause  additional log
-        # events, like ins _process_media, or when creating an __UNTAGGED__
-        # category in case the use did not specify one. In order to prevent
-        # duplicate log events from turning up in the sync partner's log, we
-        # use the following flag to prevent these side effects from generating
-        # log events while syncing.
+        # Some operations have side-effects which cause additional log events,
+        # like in _process_media, or when creating an __UNTAGGED__ tag when
+        # the user did not specify one, or when updating criteria as side
+        # effects of e.g. adding tags.
+        # In order to prevent duplicate log events from turning up in the sync
+        # partner's log, we use the following flag to prevent these side
+        # effects from generating log events while syncing.
         self.syncing = False
 
     #
@@ -515,6 +516,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         tag._id = _id
         if do_logging:
             self.log().added_tag(tag)
+        # When syncing, don't bother to check for updates to criteria here, as
+        # there will be separate log events coming later to deal with this.
+        if self.syncing:
+            return
         for criterion in self.criteria():
             criterion.tag_created(tag)
             self.update_criterion(criterion)
@@ -931,7 +936,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             values(?,?,?,?)""", (criterion.id, criterion.name,
             criterion.criterion_type, criterion.data_to_string())).lastrowid
         criterion._id = _id
-        self.log().added_criterion(criterion)
+        # No need to log creation of the default criterion during sync. Each
+        # client will have done so automatically
+        if criterion.id != "default":
+            self.log().added_criterion(criterion)
         
     def criterion(self, id, is_id_internal):
         if is_id_internal:
