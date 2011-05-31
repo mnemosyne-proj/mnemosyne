@@ -37,7 +37,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        #sys.stderr.write(error)
+        sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         return answer
@@ -2606,4 +2606,49 @@ class TestSync(object):
             card_type, card_type_clone, correspondence={})
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
+
+    def test_three_partners_untagged(self):
+
+        # client A --> server B
+
+        def test_server(self):
+            pass
+                    
+        self.server = MyServer(os.path.abspath("dot_sync_B"))
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_A"))
+        fact_data = {"f": "a^2",
+                     "b": "b^2"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=[])[0]
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        # client C --> server B
+
+        def test_server(self):
+            assert len(self.mnemosyne.database().tags()) == 1
+                    
+        self.server = MyServer(os.path.abspath("dot_sync_B"), erase_previous=False)
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_C"))
+        self.client.mnemosyne.review_controller().reset()
+        
+        fact_data = {"f": "c^2",
+                     "b": "d^2"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        self.card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=[])[0]
+        self.client.mnemosyne.controller().save_file()
+
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().fact_count() == 1
    

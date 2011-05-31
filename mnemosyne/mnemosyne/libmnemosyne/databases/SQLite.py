@@ -484,7 +484,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # __UNTAGGED__ tag, thereby creating an extra log entry. In order
         # to prevent this causing duplicate log entries at the remote partner
         # during sync (especially when syncing cards that have been created
-        # and deleting during the same session), we don't create extra log
+        # and deleted during the same session), we don't create extra log
         # entries for these side effect during syncing. Slightly ugly, but
         # much less ugly and less error prone then the alternative of making
         # sure that all necessary creations of __UNTAGGED__ happen in the
