@@ -95,7 +95,7 @@ class DefaultController(Controller):
                         return
                 answer = self.main_widget().show_question(\
                   _("There is already data present for:\n\n") +
-                  "".join(fact[k] for k in card_type.required_fields),
+                  "/".join(fact[k] for k in card_type.required_fields),
                   _("&Merge and edit"), _("&Add as is"), _("&Do not add"))
                 if answer == 0: # Merge and edit.
                     db.add_fact(fact)

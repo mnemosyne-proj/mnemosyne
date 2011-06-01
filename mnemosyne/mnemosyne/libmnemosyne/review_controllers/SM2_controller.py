@@ -79,6 +79,7 @@ class SM2Controller(ReviewController):
         sch.reset()
         sch.rebuild_queue()
         self.reload_counters()
+        self.update_status_bar_counters()
         # Try to get a new card in case there was previously no card active,
         # or the previous card is no longer in the queue.
         if self.card is None or not sch.is_in_queue(self.card):
@@ -98,11 +99,7 @@ class SM2Controller(ReviewController):
         """
         
         self.flush_sync_server() 
-        self.reload_counters()
-        self.update_status_bar_counters()
-        self.scheduler().heartbeat()
-        if self.card is None or self.learning_ahead:
-            self.reset()
+        self.reset_but_try_to_keep_current_card()
 
     def show_new_question(self):
         # Reload the counters if they have not yet been initialised. Also do

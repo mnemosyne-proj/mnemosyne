@@ -295,6 +295,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._current_criterion._id = 1
         self._current_criterion.id = "default"
         self.add_criterion(self._current_criterion)
+        # Create __UNTAGGED__ tag
+        self.add_tag(Tag("__UNTAGGED__", "__UNTAGGED__"))
         # Create media directory.
         media_dir = self.media_dir()
         if not os.path.exists(media_dir):
@@ -455,7 +457,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return self._connection is not None
 
     def is_empty(self):
-        return self.tag_count() == 0 and self.fact_count() == 0 and \
+        return self.tag_count() == 1 and self.fact_count() == 0 and \
             self.con.execute("""select count() from log where event_type=? or
             event_type=? or event_type=? or event_type=?""",
             (EventTypes.ADDED_TAG, EventTypes.ADDED_FACT,
@@ -480,15 +482,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     #
 
     def get_or_create_tag_with_name(self, name):
-        # This can get called from add_card or edit_card to create an
-        # __UNTAGGED__ tag, thereby creating an extra log entry. In order
-        # to prevent this causing duplicate log entries at the remote partner
-        # during sync (especially when syncing cards that have been created
-        # and deleted during the same session), we don't create extra log
-        # entries for these side effect during syncing. Slightly ugly, but
-        # much less ugly and less error prone then the alternative of making
-        # sure that all necessary creations of __UNTAGGED__ happen in the
-        # controller.
         name = name.strip()
         sql_res = self.con.execute("select * from tags where name=?",
             (name, )).fetchone()
@@ -498,7 +491,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self._construct_extra_data(sql_res, tag)
         else:
             tag = Tag(name)
-            self.add_tag(tag, do_logging=not self.syncing)
+            self.add_tag(tag)
         return tag
 
     def get_or_create_tags_with_names(self, names):
@@ -509,12 +502,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 tags.add(self.get_or_create_tag_with_name(name))
         return tags
     
-    def add_tag(self, tag, do_logging=True):
+    def add_tag(self, tag):
         _id = self.con.execute("""insert into tags(name, extra_data, id)
             values(?,?,?)""", (tag.name,
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
-        if do_logging:
+        # No need to log creation of the __UNTAGGED__ tag during sync. Each
+        # client will have done so automatically.
+        if tag.id != "__UNTAGGED__":
             self.log().added_tag(tag)
         # When syncing, don't bother to check for updates to criteria here, as
         # there will be separate log events coming later to deal with this.
@@ -585,6 +580,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
                 (tag_string, _card_id))            
     
     def delete_tag(self, tag):
+        if tag.id == "__UNTAGGED__":
+            return
         self.con.execute("delete from tags where _id=?", (tag._id, ))
         _card_ids_affected = [cursor[0] for cursor in self.con.execute(
             "select _card_id from tags_for_card where _tag_id=?",
@@ -614,6 +611,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         del tag
         
     def delete_tag_if_unused(self, tag):
+        if tag.id == "__UNTAGGED__":
+            return
         if self.con.execute("""select count() from tags as cat,
             tags_for_card as cat_c where cat_c._tag_id=cat._id and
             cat._id=?""", (tag._id, )).fetchone()[0] == 0:
@@ -937,7 +936,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             criterion.criterion_type, criterion.data_to_string())).lastrowid
         criterion._id = _id
         # No need to log creation of the default criterion during sync. Each
-        # client will have done so automatically
+        # client will have done so automatically.
         if criterion.id != "default":
             self.log().added_criterion(criterion)
         

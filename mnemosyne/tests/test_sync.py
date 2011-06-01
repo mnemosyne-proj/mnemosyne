@@ -2619,6 +2619,7 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(os.path.abspath("dot_sync_A"))
+        
         fact_data = {"f": "a^2",
                      "b": "b^2"}
         card_type = self.client.mnemosyne.card_type_with_id("1")
@@ -2640,7 +2641,8 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(os.path.abspath("dot_sync_C"))
-        self.client.mnemosyne.review_controller().reset()
+        
+        self.client.mnemosyne.review_controller().reset()       
         
         fact_data = {"f": "c^2",
                      "b": "d^2"}

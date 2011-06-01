@@ -1,5 +1,4 @@
--fix testsuite and make sure it exposes the untagged bug
--fix duplicate __UNTAGGED__ tags by giving them a global id. creating it from the start of the database? getting rid of the sideeffect suppresion in 'get_or_create_tags_with_name', making sure there are no sync conflicts with '__UNTAGGED__'? (not really nice, exposes internal kitchen)
+-fix interplay between creating a default criterion and adding the default tag. Add existing tags when creating a new criterion?
 -fix databases on my 3 machines to make sure there is ony one __UNTAGGED__
 
 -sync default criterion, add test
