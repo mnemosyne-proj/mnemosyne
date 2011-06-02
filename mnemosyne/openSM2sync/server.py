@@ -14,6 +14,7 @@ import httplib
 import tempfile
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
+from log_entry import EventTypes
 from utils import traceback_string, rand_uuid
 from text_formats.xml_format import XMLFormat
 from partner import Partner, UnsizedLogEntryStreamReader, BUFFER_SIZE
@@ -88,6 +89,11 @@ class Server(WSGIServer, Partner):
 
     program_name = "unknown-SRS-app"
     program_version = "unknown"
+
+    dont_cause_conflict = set([EventTypes.STARTED_PROGRAM,
+        EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER,
+        EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE,
+        EventTypes.EDITED_CRITERION])
 
     def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
@@ -331,9 +337,7 @@ class Server(WSGIServer, Partner):
             client_o_ids = []
             def callback(context, log_entry):
                 context["session_client_log"].append(log_entry)
-                if log_entry["type"] > 5: # not STARTED_PROGRAM,
-                    # STOPPED_PROGRAM, STARTED_SCHEDULER, LOADED_DATABASE,
-                    # SAVED_DATABASE
+                if log_entry["type"] not in self.dont_cause_conflict:
                     if "fname" in log_entry:
                         log_entry["o_id"] = log_entry["fname"]
                     context["client_o_ids"].append(log_entry["o_id"])
@@ -349,7 +353,7 @@ class Server(WSGIServer, Partner):
                     continue  # Irrelevent entry for card-based clients.
                 if "fname" in log_entry:
                     log_entry["o_id"] = log_entry["fname"]
-                if log_entry["type"] > 5 and \
+                if log_entry["type"] not in self.dont_cause_conflict and \
                     log_entry["o_id"] in client_o_ids:
                     return [self.text_format.repr_message("Conflict")]
             return [self.text_format.repr_message("OK")]

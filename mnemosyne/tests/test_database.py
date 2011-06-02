@@ -29,11 +29,11 @@ class TestDatabase(MnemosyneTest):
     def test_tags(self):
         tag = Tag("test")
         self.database().add_tag(tag)
-        assert len(self.database().tags()) == 1
+        assert len(self.database().tags()) == 2
         assert self.database().tags()[0].name == u"test"
         tag.name = "test2"
         self.database().update_tag(tag)
-        assert len(self.database().tags()) == 1
+        assert len(self.database().tags()) == 2
         assert self.database().tags()[0].name == u"test2"      
 
     def test_new_cards(self):
@@ -199,7 +199,7 @@ class TestDatabase(MnemosyneTest):
         
         assert self.database().fact_count() == 0
         assert self.database().card_count() == 0
-        assert len(self.database().tags()) == 0
+        assert len(self.database().tags()) == 1
         
     @raises(RuntimeError)
     def test_missing_plugin(self):

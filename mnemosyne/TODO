@@ -1,11 +1,9 @@
--fix interplay between creating a default criterion and adding the default tag. Add existing tags when creating a new criterion?
+-fix testsuite
 -fix databases on my 3 machines to make sure there is ony one __UNTAGGED__
 
 -sync default criterion, add test
 -there are side effect to 'add tag' in 'update criteria'. Remove those. Where do we apply those to the database?
  card type creation and deletion does not trigger criteria updates in the database?
--don't cause sync conflicts on changing the default criterion. Add documentation + test
--remove if log_entry["type"] > 5:
 
 -sync (display) settings, add option to sync dialog and to sync protocol
 

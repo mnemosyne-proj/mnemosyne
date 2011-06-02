@@ -396,7 +396,7 @@ class TestSync(object):
             assert card.ret_reps_since_lapse == 0
             assert card.last_rep != -1
             assert card.next_rep != -1
-            assert db.con.execute("select count() from log").fetchone()[0] == 12
+            assert db.con.execute("select count() from log").fetchone()[0] == 14
             assert card.id == self.client_card.id
             
         self.server = MyServer()
@@ -413,8 +413,8 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 12
-
+            "select count() from log").fetchone()[0] == 14
+        
     def test_edit_cards(self):
 
         def test_server(self):
@@ -638,7 +638,7 @@ class TestSync(object):
                 "default.db_media", "a", unichr(0x628) + u"a.ogg")
             assert os.path.exists(filename)
             assert file(filename).read() == "A"
-            assert db.con.execute("select count() from log").fetchone()[0] == 20
+            assert db.con.execute("select count() from log").fetchone()[0] == 24
             assert db.con.execute("select count() from log where event_type=?",
                 (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2      
             assert db.con.execute("""select object_id from log where event_type=?
@@ -678,7 +678,7 @@ class TestSync(object):
         assert os.path.exists(filename)
         assert file(filename).read() == "B"
         db = self.client.mnemosyne.database()
-        assert db.con.execute("select count() from log").fetchone()[0] == 20
+        assert db.con.execute("select count() from log").fetchone()[0] == 24
         assert db.con.execute("select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
         assert db.con.execute("select count() from media").fetchone()[0] == 2  
@@ -1964,7 +1964,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([('5', '5.1')]), set([2]), set([3]))"
+            assert criterion.data_to_string() == "(set([('5', '5.1')]), set([3]), set([4]))"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2373,7 +2373,7 @@ class TestSync(object):
             tag = self.mnemosyne.database().get_or_create_tag_with_name("tag2")
 
         def test_server(self):
-            assert len(self.mnemosyne.database().tags()) == 2
+            assert len(self.mnemosyne.database().tags()) == 3
             assert len(self.mnemosyne.database().partners()) == 1
         
         self.server = MyServer(erase_previous=False, binary_download=True)
@@ -2383,7 +2383,7 @@ class TestSync(object):
 
         self.client = MyClient(erase_previous=False)
         self.client.do_sync()
-        assert len(self.client.mnemosyne.database().tags()) == 2
+        assert len(self.client.mnemosyne.database().tags()) == 3
         assert len(self.client.mnemosyne.database().partners()) == 1
 
     def test_delete_forbidden_tag(self):
@@ -2652,5 +2652,5 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
 
         self.client.do_sync()
-        assert self.client.mnemosyne.database().fact_count() == 1
+        assert self.client.mnemosyne.database().fact_count() == 2
    

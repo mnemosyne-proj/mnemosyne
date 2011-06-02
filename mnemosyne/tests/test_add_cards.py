@@ -297,12 +297,12 @@ class TestAddCards(MnemosyneTest):
         self.controller().save_file()
 
         sql_res = self.database().con.execute(\
-            "select * from log where _id=6").fetchone()
+            "select * from log where _id=7").fetchone()
         assert sql_res["event_type"] == EventTypes.ADDED_CARD
         assert sql_res["object_id"] is not None
         
         sql_res = self.database().con.execute(\
-            "select * from log where _id=7").fetchone()
+            "select * from log where _id=8").fetchone()
         assert sql_res["event_type"] == EventTypes.REPETITION
         
     def test_optional_fields(self):

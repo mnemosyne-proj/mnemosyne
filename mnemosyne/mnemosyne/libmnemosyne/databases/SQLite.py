@@ -288,15 +288,17 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self.con.execute("""insert into partnerships(partner, _last_log_id)
             values(?,?)""", ("log.txt", 0))
         self.config()["path"] = contract_path(self._path, self.config().data_dir)
+        # Create __UNTAGGED__ tag
+        tag = Tag("__UNTAGGED__", "__UNTAGGED__")
+        self.add_tag(tag)      
         # Create default criterion.
         from mnemosyne.libmnemosyne.criteria.default_criterion import \
              DefaultCriterion
         self._current_criterion = DefaultCriterion(self.component_manager)
         self._current_criterion._id = 1
         self._current_criterion.id = "default"
+        self._current_criterion._tag_ids_active.add(tag._id)
         self.add_criterion(self._current_criterion)
-        # Create __UNTAGGED__ tag
-        self.add_tag(Tag("__UNTAGGED__", "__UNTAGGED__"))
         # Create media directory.
         media_dir = self.media_dir()
         if not os.path.exists(media_dir):
@@ -507,10 +509,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             values(?,?,?)""", (tag.name,
             self._repr_extra_data(tag.extra_data), tag.id)).lastrowid
         tag._id = _id
-        # No need to log creation of the __UNTAGGED__ tag during sync. Each
-        # client will have done so automatically.
-        if tag.id != "__UNTAGGED__":
-            self.log().added_tag(tag)
+        # No need to log creation of the __UNTAGGED__ tag during sync, nor the
+        # adding of this tag to the default criterion. Each client will have
+        # done so automatically.
+        if tag.id == "__UNTAGGED__":
+            return
+        self.log().added_tag(tag)
         # When syncing, don't bother to check for updates to criteria here, as
         # there will be separate log events coming later to deal with this.
         if self.syncing:
