@@ -295,7 +295,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
              DefaultCriterion
         self._current_criterion = DefaultCriterion(self.component_manager)
         self._current_criterion._id = 1
-        self._current_criterion.id = "default"
+        self._current_criterion.id = "__DEFAULT__"
+        self._current_criterion.name = "__DEFAULT__"
         self._current_criterion._tag_ids_active.add(tag._id)
         self.add_criterion(self._current_criterion)
         # Create media directory.
@@ -964,7 +965,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         criterion._id = _id
         # No need to log creation of the default criterion during sync. Each
         # client will have done so automatically.
-        if criterion.id != "default":
+        if criterion.id != "__DEFAULT__":
             self.log().added_criterion(criterion)
         
     def criterion(self, id, is_id_internal):
@@ -1000,7 +1001,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def set_current_criterion(self, criterion):
         criterion = copy.copy(criterion)
         criterion._id = 1
-        criterion.id = "default"
+        criterion.id = "__DEFAULT__"
+        criterion.name = "__DEFAULT__"
         self.update_criterion(criterion)        
         applier = self.component_manager.current("criterion_applier",
             used_for=criterion.__class__)

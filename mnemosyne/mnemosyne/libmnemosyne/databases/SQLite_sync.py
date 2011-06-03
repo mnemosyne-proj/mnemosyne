@@ -637,8 +637,8 @@ class SQLiteSync(object):
             elif event_type == EventTypes.EDITED_CRITERION:
                 criterion = self.criterion_from_log_entry(log_entry)
                 self.update_criterion(criterion)
-                if criterion.id == "default":
-                    self.reapply_default_criterion_needed = True             
+                if criterion.id == "__DEFAULT__":
+                    self.reapply_default_criterion_needed = True
             elif event_type == EventTypes.DELETED_CRITERION:
                 self.delete_criterion(self.criterion_from_log_entry(log_entry))
         finally:

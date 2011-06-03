@@ -1,7 +1,3 @@
--fix testsuite
--add test for sync default criterion
--fix databases on my 3 machines to make sure there is ony one __UNTAGGED__
-
 -sync (display) settings, add option to sync dialog and to sync protocol
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 

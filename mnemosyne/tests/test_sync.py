@@ -37,7 +37,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        sys.stderr.write(error)
+        #sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         return answer
@@ -188,7 +188,7 @@ class TestSync(object):
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res["timestamp"]
             assert type(sql_res["timestamp"]) == int
-            assert db.con.execute("select count() from log").fetchone()[0] == 8 
+            assert db.con.execute("select count() from log").fetchone()[0] == 9
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -209,7 +209,7 @@ class TestSync(object):
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 8
+            "select count() from log").fetchone()[0] == 9
         
     def test_add_tag_controller(self):
 
@@ -222,7 +222,7 @@ class TestSync(object):
                (EventTypes.ADDED_TAG, )).fetchone()
             assert self.tag_added_timestamp == sql_res["timestamp"]
             assert type(sql_res["timestamp"]) == int
-            assert db.con.execute("select count() from log").fetchone()[0] == 8 
+            assert db.con.execute("select count() from log").fetchone()[0] == 9
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -244,7 +244,7 @@ class TestSync(object):
             "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
              )).fetchone()[0] == 1
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 8
+            "select count() from log").fetchone()[0] == 9
         
     def test_edit_tag(self):
  
@@ -279,7 +279,7 @@ class TestSync(object):
             except TypeError:
                 pass
             assert db.con.execute("select count() from log").\
-                   fetchone()[0] == 10
+                   fetchone()[0] == 12
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -294,7 +294,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
-                "select count() from log").fetchone()[0] == 10
+                "select count() from log").fetchone()[0] == 12
 
     def test_add_fact(self):
 
@@ -542,7 +542,7 @@ class TestSync(object):
                 assert 1 == 0
             except TypeError:
                 pass
-            assert db.con.execute("select count() from log").fetchone()[0] == 16
+            assert db.con.execute("select count() from log").fetchone()[0] == 20
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -559,7 +559,7 @@ class TestSync(object):
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
         assert self.client.mnemosyne.database().con.execute(\
-            "select count() from log").fetchone()[0] == 16
+            "select count() from log").fetchone()[0] == 20
 
     def test_repetition(self):
 
@@ -1605,7 +1605,7 @@ class TestSync(object):
         def test_server(self):
             partners = self.mnemosyne.database().partners()
             assert len(partners) == 1
-            assert self.mnemosyne.database().last_log_index_synced_for(partners[0]) == 8
+            assert self.mnemosyne.database().last_log_index_synced_for(partners[0]) == 9
             
         self.server = MyServer()
         self.server.test_server = test_server
@@ -1635,7 +1635,7 @@ class TestSync(object):
                    self.mnemosyne.database().partners()
             partners = self.mnemosyne.database().partners()
             assert len(partners) == 1
-            assert self.mnemosyne.database().last_log_index_synced_for(partners[0]) > 8
+            assert self.mnemosyne.database().last_log_index_synced_for(partners[0]) > 9
         
         self.server = MyServer(erase_previous=False)
         self.server.tag_id = tag.id
@@ -2017,7 +2017,7 @@ class TestSync(object):
             db = self.mnemosyne.database()
             criterion = db.criterion(self.criterion_id,
                 is_id_internal=False)
-            assert criterion.data_to_string() == "(set([('5', '5.1')]), set([2]), set([]))"
+            assert criterion.data_to_string() == "(set([('5', '5.1')]), set([3]), set([]))"
 
         self.server = MyServer()
         self.server.test_server = test_server
@@ -2407,7 +2407,7 @@ class TestSync(object):
         
         c = DefaultCriterion(self.client.mnemosyne.component_manager)
         c.deactivated_card_type_fact_view_ids = set()
-        c._tag_ids_active = set([self.client.mnemosyne.database().get_or_create_tag_with_name("active")._id])
+        c._tag_ids_active = set([self.client.mnemosyne.database().get_or_create_tag_with_name("active")._id, 1])
         c._tag_ids_forbidden = set([self.client.mnemosyne.database().get_or_create_tag_with_name("forbidden")._id])
         self.client.mnemosyne.database().set_current_criterion(c)
         assert self.client.mnemosyne.database().active_count() == 0
@@ -2654,3 +2654,30 @@ class TestSync(object):
         self.client.do_sync()
         assert self.client.mnemosyne.database().fact_count() == 2
    
+    def test_sync_current_criterion(self):
+        
+        def test_server(self):
+            assert self.mnemosyne.database().active_count() == 0
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=[])[0]
+
+        assert self.client.mnemosyne.database().active_count() == 1
+
+        c = DefaultCriterion(self.client.mnemosyne.component_manager)
+        c._tag_ids_active = set([1])
+        c._tag_ids_forbidden = set([1])
+        self.client.mnemosyne.database().set_current_criterion(c)
+        assert self.client.mnemosyne.database().active_count() == 0
+        
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
