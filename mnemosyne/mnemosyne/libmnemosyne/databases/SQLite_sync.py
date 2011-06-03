@@ -46,6 +46,9 @@ class SQLiteSync(object):
 
     def set_sync_partner_info(self, info):
         self.sync_partner_info = info
+        # We also use this function to set some variables at the beginning of
+        # the sync process.
+        self.reapply_default_criterion_needed = False
         # At the beginning of the sync process, we install a mechanism to make
         # make sure that all card types used during sync can actually be
         # instantiated. This is complicated by the fact that in one sync
@@ -90,10 +93,20 @@ class SQLiteSync(object):
            where partner=?""", (partner, )).fetchone()[0]
 
     def update_last_log_index_synced_for(self, partner):
+        # We use this function to do some cleaning up at the end of the sync
+        # process as well.
+        #
         # At the end of the sync, see if we were able to actually instantiate
         # all card types.
         if len(self.card_types_to_instantiate_later) != 0:
-            raise RuntimeError, _("Missing plugins for card types.")     
+            raise RuntimeError, _("Missing plugins for card types.")
+        # See if we need to reapply the default criterion.
+        if self.reapply_default_criterion_needed:
+            criterion = self.current_criterion()
+            applier = self.component_manager.current("criterion_applier",
+                used_for=criterion.__class__)
+            applier.apply_to_database(criterion)
+        # Now we can update the last log index.
         self.con.execute(\
             "update partnerships set _last_log_id=? where partner=?",
             (self.current_log_index(), partner))
@@ -622,7 +635,10 @@ class SQLiteSync(object):
             elif event_type == EventTypes.ADDED_CRITERION:
                 self.add_criterion(self.criterion_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_CRITERION:
-                self.update_criterion(self.criterion_from_log_entry(log_entry))
+                criterion = self.criterion_from_log_entry(log_entry)
+                self.update_criterion(criterion)
+                if criterion.id == "default":
+                    self.reapply_default_criterion_needed = True             
             elif event_type == EventTypes.DELETED_CRITERION:
                 self.delete_criterion(self.criterion_from_log_entry(log_entry))
         finally:

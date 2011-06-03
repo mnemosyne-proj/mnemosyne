@@ -223,9 +223,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         self._path = None # Needed for lazy creation of connection.
         self._current_criterion = None # Cached for performance reasons.
         # Some operations have side-effects which cause additional log events,
-        # like in _process_media, or when creating an __UNTAGGED__ tag when
-        # the user did not specify one, or when updating criteria as side
-        # effects of e.g. adding tags.
+        # like in _process_media, or when updating criteria as side effects of
+        # e.g. adding tags.
         # In order to prevent duplicate log events from turning up in the sync
         # partner's log, we use the following flag to prevent these side
         # effects from generating log events while syncing.
@@ -520,8 +519,12 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         if self.syncing:
             return
         for criterion in self.criteria():
-            criterion.tag_created(tag)
+            criterion.tag_added(tag)
             self.update_criterion(criterion)
+        # Strictly speaking, we should reapply the default criterion here,
+        # just as we do in delete_tag. However, the behaviour for new tags is
+        # they are enabled by default, so we don't reapply the criterion and
+        # save some time.
 
     def tag(self, id, is_id_internal):
         if is_id_internal:
@@ -605,6 +608,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # TODO: some speed-up could be had here be only running the applier
         # if the tag was relevant for the current criterion.
         self.log().deleted_tag(tag)
+        # When syncing, don't bother to check for updates to criteria here, as
+        # there will be separate log events coming later to deal with this.
+        if self.syncing:
+            del tag
+            return
         for criterion in self.criteria():
             criterion.tag_deleted(tag)
             self.update_criterion(criterion)
@@ -881,7 +889,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self._repr_extra_data(card_type.extra_data)))
         self.component_manager.register(card_type)
         self.log().added_card_type(card_type)
-
+        # When syncing, don't bother to check for updates to criteria here, as
+        # there will be separate log events coming later to deal with this.
+        if self.syncing:
+            return
+        for criterion in self.criteria():
+            criterion.card_type_added(card_type)
+            self.update_criterion(criterion)
+            
     def card_type(self, id, is_id_internal):
         # Since there are so few of them, we don't use internal _ids.
         # ids should be unique too.
@@ -928,6 +943,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             (card_type.id, ))
         self.component_manager.unregister(card_type)
         self.log().deleted_card_type(card_type)
+        # When syncing, don't bother to check for updates to criteria here, as
+        # there will be separate log events coming later to deal with this.
+        if self.syncing:
+            del card_type
+            return
+        for criterion in self.criteria():
+            criterion.card_type_deleted(card_type)
+            self.update_criterion(criterion)
         del card_type
 
     #

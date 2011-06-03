@@ -43,13 +43,13 @@ class Criterion(Component):
         
         raise NotImplementedError
 
-    def tag_created(self, tag):
+    def tag_added(self, tag):
         pass
 
     def tag_deleted(self, tag):
         pass
 
-    def card_type_created(self, card_type):
+    def card_type_added(self, card_type):
         pass
 
     def card_type_deleted(self, card_type):

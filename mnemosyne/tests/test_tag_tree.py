@@ -147,9 +147,10 @@ class TestTagTree(MnemosyneTest):
             grade=-1, tag_names=["tag2"])[0]
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
+        assert len(self.database().tags()) == 3
         self.tree.rename_node("tag1", "tag2")
         assert self.tree.card_count_for_node["tag2"] == 2
-        assert len(self.database().tags()) == 1
+        assert len(self.database().tags()) == 2
         
     def test_rename_to_empty(self):
         card_type = self.card_type_with_id("1")
@@ -173,9 +174,8 @@ class TestTagTree(MnemosyneTest):
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
         self.tree.rename_node("A", "")
-        assert "__UNTAGGED__" not in self.tree.card_count_for_node
         assert self.tree.card_count_for_node["tag1"] == 1
-        assert len(self.database().tags()) == 1
+        assert len(self.database().tags()) == 2
 
     def test_rename_to_empty_3(self):
         card_type = self.card_type_with_id("1")
@@ -203,7 +203,7 @@ class TestTagTree(MnemosyneTest):
         from mnemosyne.libmnemosyne.tag_tree import TagTree
         self.tree = TagTree(self.mnemosyne.component_manager)
         self.tree.rename_node("A", "__UNTAGGED__")
-        assert "__UNTAGGED__" not in self.tree.card_count_for_node
+        assert "__UNTAGGED__" in self.tree.card_count_for_node
         
     def test_delete(self):
         card_type = self.card_type_with_id("1")
@@ -333,7 +333,7 @@ class TestTagTree(MnemosyneTest):
         
         c = DefaultCriterion(self.mnemosyne.component_manager)
         c.deactivated_card_type_fact_view_ids = set()
-        c._tag_ids_active = set([self.database().get_or_create_tag_with_name("active")._id])
+        c._tag_ids_active = set([self.database().get_or_create_tag_with_name("active")._id, 1])
         c._tag_ids_forbidden = set([self.database().get_or_create_tag_with_name("forbidden")._id])
         self.database().set_current_criterion(c)
         assert self.database().active_count() == 0

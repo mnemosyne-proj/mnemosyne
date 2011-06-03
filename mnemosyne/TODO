@@ -1,9 +1,6 @@
 -fix testsuite
+-add test for sync default criterion
 -fix databases on my 3 machines to make sure there is ony one __UNTAGGED__
-
--sync default criterion, add test
--there are side effect to 'add tag' in 'update criteria'. Remove those. Where do we apply those to the database?
- card type creation and deletion does not trigger criteria updates in the database?
 
 -sync (display) settings, add option to sync dialog and to sync protocol
 

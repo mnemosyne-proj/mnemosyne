@@ -31,14 +31,14 @@ class DefaultCriterion(Criterion):
                 card.active = False
                 break
     
-    def tag_created(self, tag):
+    def tag_added(self, tag):
         self._tag_ids_active.add(tag._id)
 
     def tag_deleted(self, tag):
         self._tag_ids_active.discard(tag._id)
         self._tag_ids_forbidden.discard(tag._id)
 
-    def card_type_created(self, card_type):
+    def card_type_added(self, card_type):
         pass
 
     def card_type_deleted(self, card_type):
