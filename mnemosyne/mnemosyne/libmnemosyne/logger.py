@@ -12,6 +12,10 @@ class Logger(Component):
 
     component_type = "log"
 
+    def __init__(self, component_manager):
+        self.active = False
+        Component.__init__(self, component_manager)
+
     def activate(self):
         self._timestamp = None
         self.upload_thread = None
@@ -21,6 +25,7 @@ class Logger(Component):
             from mnemosyne.libmnemosyne.log_uploader import LogUploader
             self.upload_thread = LogUploader(self.component_manager)
             self.upload_thread.start()
+        self.active = True
 
     def get_timestamp(self):
 
@@ -126,6 +131,9 @@ class Logger(Component):
         pass
     
     def deleted_criterion(self, criterion):
+        pass
+    
+    def edited_setting(self, key):
         pass
     
     def dump_to_science_log(self):

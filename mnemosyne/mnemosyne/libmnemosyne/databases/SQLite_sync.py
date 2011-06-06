@@ -315,6 +315,8 @@ class SQLiteSync(object):
                 log_entry["data"] = criterion.data_to_sync_string()
             except TypeError: # The object has been deleted at a later stage.
                 pass
+        elif event_type == EventTypes.EDITED_SETTING:
+            log_entry["value"] = repr(self.config()[log_entry["o_id"]])
         return log_entry
 
     def tag_from_log_entry(self, log_entry):
@@ -641,6 +643,8 @@ class SQLiteSync(object):
                     self.reapply_default_criterion_needed = True
             elif event_type == EventTypes.DELETED_CRITERION:
                 self.delete_criterion(self.criterion_from_log_entry(log_entry))
+            elif event_type == EventTypes.EDITED_SETTING:
+                self.config()[log_entry["id"]] = eval(log_entry["value"])
         finally:
             self.log().timestamp = None
             self.syncing = False

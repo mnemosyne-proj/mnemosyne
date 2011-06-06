@@ -1,4 +1,5 @@
--sync (display) settings, add option to sync dialog and to sync protocol
+-sync settings: fix testsuite
+-add option to ignore these settings to sync dialog and to sync protocol
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
@@ -40,6 +41,7 @@
 -tooltip in preview to explain sister cards
 -better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
+-tip/docs to defragment disk
 
 -About dialog
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini

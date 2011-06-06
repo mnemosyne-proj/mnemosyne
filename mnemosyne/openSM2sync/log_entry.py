@@ -45,6 +45,10 @@ class EventTypes(object):
     EDITED_CRITERION = 26
     DELETED_CRITERION = 27
 
+    # Optional.
+
+    EDITED_SETTING = 28
+
 
 class LogEntry(dict):
 
@@ -145,6 +149,9 @@ class LogEntry(dict):
         name (string)
         criterion_type (string)
         data (string)
+
+    Keys specific to EDITED_SETTING:
+        value (string)
     
     Any other keys in LogEntry that don't appear in the list above will be
     synced as string.

@@ -172,6 +172,11 @@ class SQLiteLogging(object):
             "insert into log(event_type, timestamp, object_id) values(?,?,?)",
             (EventTypes.DELETED_CRITERION, int(timestamp), criterion_id))
         
+    def log_edited_setting(self, timestamp, key):
+        self.con.execute(\
+            "insert into log(event_type, timestamp, object_id) values(?,?,?)",
+            (EventTypes.EDITED_SETTING, int(timestamp), key))
+        
     def current_log_index(self):
         return self.con.execute(\
             "select _id from log order by _id desc limit 1").fetchone()[0]

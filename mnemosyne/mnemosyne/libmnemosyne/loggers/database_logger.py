@@ -115,7 +115,10 @@ class DatabaseLogger(Logger):
     
     def deleted_criterion(self, criterion):
         self.database().log_deleted_criterion(self.timestamp, criterion.id)
-            
+        
+    def edited_setting(self, key):
+        self.database().log_edited_setting(self.timestamp, key)
+        
     def dump_to_science_log(self):
         self.database().dump_to_science_log()
         

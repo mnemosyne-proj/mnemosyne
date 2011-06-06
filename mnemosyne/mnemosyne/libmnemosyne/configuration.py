@@ -107,8 +107,6 @@ class Configuration(Component, dict):
              "show_intervals": "never",
              "only_editable_when_answer_shown": False,
              "ui_language": None,
-             "show_daily_tips": True,
-             "tip": 0,
              "backups_to_keep": 10,
              "backup_before_sync": True,
              "check_for_edited_local_media_files": True,
@@ -129,6 +127,13 @@ class Configuration(Component, dict):
              "sync_server_password": ""
             }.items():
             self.setdefault(key, value)
+        # These keys will be shared in the sync protocol.
+        self.keys_to_sync = ["font", "font_colour", "background_colour",
+             "alignment", "hide_pronunciation_field",
+             "non_memorised_cards_in_hand", "randomise_new_cards",
+             "randomise_scheduled_cards", "memorise_sister_cards_on_same_day",
+             "ui_language", "day_starts_at", "latex_preamble",
+             "latex_postamble", "latex", "dvipng"]        
         # If the user id is not set, it's either because this is the first run
         # of the program, or because the user deleted the config file. In the
         # latter case, we try to recuperate the id from the history files.
@@ -142,6 +147,13 @@ class Configuration(Component, dict):
         # Allow other plugins or frontend to set their configuration data.
         for f in self.component_manager.all("hook", "configuration_defaults"):
             f.run()
+
+    def __setitem__(self, key, value):
+        if key in self.keys_to_sync:
+            # Don't log when reading the settings from file during startup.
+            if self.log().active:
+                self.log().edited_setting(key)
+        dict.__setitem__(self, key, value)
 
     def load(self):
         try:

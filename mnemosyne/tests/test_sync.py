@@ -37,7 +37,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        #sys.stderr.write(error)
+        sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         return answer
@@ -2681,3 +2681,18 @@ class TestSync(object):
         
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
+
+    def test_setting(self):
+
+        def test_server(self):
+            assert self.mnemosyne.config()["font"] == "my_font"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        self.client.mnemosyne.config()["font"] = "my_font"
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()        
