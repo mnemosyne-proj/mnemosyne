@@ -2693,6 +2693,15 @@ class TestSync(object):
 
         self.client = MyClient()
 
+        # Make sure database is not empty, otherwise we copy over the server
+        # database as initial sync.
+        
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        
         self.client.mnemosyne.config()["font"] = "my_font"
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()        

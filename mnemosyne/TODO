@@ -1,5 +1,7 @@
--sync settings: fix testsuite
--add option to ignore these settings to sync dialog and to sync protocol
+-fix testsuite
+-document 'exchange_settings'?
+-add gui option for 'exchange settings' during sync'
+-add 3 tests, also see if log entry gets sent across even though not interested
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.

@@ -124,7 +124,8 @@ class Configuration(Component, dict):
              "run_sync_server": False,
              "sync_server_port": 8512,
              "sync_server_username": "",
-             "sync_server_password": ""
+             "sync_server_password": "",
+             "exchange_settings_during_sync": True
             }.items():
             self.setdefault(key, value)
         # These keys will be shared in the sync protocol.
