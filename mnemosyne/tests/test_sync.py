@@ -134,6 +134,7 @@ class MyClient(Client):
     capabilities = "mnemosyne_dynamic_cards"
     user = "user"
     password = "pass"
+    exchange_settings = False
     
     def __init__(self, data_dir=os.path.abspath("dot_sync_client"),
             filename="default.db", erase_previous=True):
@@ -2703,5 +2704,79 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         
         self.client.mnemosyne.config()["font"] = "my_font"
+        self.client.exchange_settings = True
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()        
+
+    def test_setting_2(self):
+
+        def test_server(self):
+            assert self.mnemosyne.config()["font"] != "my_font"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+
+        # Make sure database is not empty, otherwise we copy over the server
+        # database as initial sync.
+        
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        
+        self.client.mnemosyne.config()["font"] = "my_font"
+        self.client.exchange_settings = False
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
+        
+    def test_setting_3(self):
+
+        def test_server(self):
+            pass
+
+        def fill_server_database(self):
+            fact_data = {"f": "question",
+                     "b": "answer"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.config()["font"] = "my_font"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.exchange_settings = True
+        self.client.do_sync()
+
+        assert self.client.mnemosyne.config()["font"] == "my_font"
+        
+    def test_setting_4(self):
+
+        def test_server(self):
+            pass
+
+        def fill_server_database(self):
+            fact_data = {"f": "question",
+                     "b": "answer"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.config()["font"] = "my_font"
+
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.exchange_settings = False
+        self.client.do_sync()
+
+        assert self.client.mnemosyne.config()["font"] != "my_font"

@@ -66,6 +66,7 @@ class Configuration(Component, dict):
         Component.__init__(self, component_manager)
         self.data_dir = None
         self.config_dir = None
+        self.keys_to_sync = []
 
     def activate(self):
         self.determine_dirs()

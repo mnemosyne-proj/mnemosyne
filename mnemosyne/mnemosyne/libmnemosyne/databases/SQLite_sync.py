@@ -643,7 +643,7 @@ class SQLiteSync(object):
             elif event_type == EventTypes.DELETED_CRITERION:
                 self.delete_criterion(self.criterion_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_SETTING:
-                if self.partner_info["exchange_settings"] == True:
+                if self.sync_partner_info["exchange_settings"] == True:
                     self.config()[log_entry["o_id"]] = eval(log_entry["value"])
                 else:
                     self.log_edited_setting(log_entry["time"], log_entry["o_id"])
