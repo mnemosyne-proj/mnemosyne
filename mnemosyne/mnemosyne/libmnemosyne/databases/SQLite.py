@@ -371,6 +371,33 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
+
+
+        return
+
+        # tmp tryout to detect vice versa cards.
+
+        import time
+        t = time.time()
+        for cursor in self.con.execute(\
+            "select _id, _fact_id from cards where card_type_id=1"):
+            _id, _fact_id = cursor
+            data = dict([(cursor["key"], cursor["value"]) for cursor in
+                self.con.execute("select * from data_for_fact where _fact_id=?",
+                (_fact_id, ))])
+            for cursor_2 in self.con.execute(\
+                "select _id, _fact_id from cards where card_type_id=1 and _id>?", (_id, )):
+                _id_2, _fact_id_2 = cursor_2
+                data_2 = dict([(cursor["key"], cursor["value"]) for cursor in
+                    self.con.execute("select * from data_for_fact where _fact_id=?",
+                    (_fact_id_2, ))])
+                if data["f"] == data_2["b"] and data["b"] == data_2["f"]:
+                    print _id, _id_2
+                    # remove fact 2, set card_2 to use fact_2
+                    # change both card types to 2
+                    # check tags
+        print time.time()-t
+        
         
     def save(self, path=None):
         # Update format.

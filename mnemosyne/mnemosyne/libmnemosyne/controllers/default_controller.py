@@ -670,8 +670,6 @@ class DefaultController(Controller):
             self.database().store_pregenerated_data
         client.do_backup = self.config()["backup_before_sync"]
         client.upload_science_logs = self.config()["upload_science_logs"]
-        client.exchange_settings = \
-            self.config()["exchange_settings_during_sync"]
         try:
             client.sync(server, port, username, password)
         finally:

@@ -126,10 +126,10 @@ class Configuration(Component, dict):
              "sync_server_port": 8512,
              "sync_server_username": "",
              "sync_server_password": "",
-             "exchange_settings_during_sync": True
             }.items():
             self.setdefault(key, value)
-        # These keys will be shared in the sync protocol.
+        # These keys will be shared in the sync protocol. Front-ends can
+        # modify this list, e.g. if they don't want to override the fonts.
         self.keys_to_sync = ["font", "font_colour", "background_colour",
              "alignment", "hide_pronunciation_field",
              "non_memorised_cards_in_hand", "randomise_new_cards",

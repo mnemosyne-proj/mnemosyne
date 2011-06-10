@@ -74,10 +74,6 @@ class Client(Partner):
     # logs to the sync server. Recommended to set this to False for mobile
     # clients, which are not always guaranteed to have an internet connection.
     upload_science_logs = True
-    # Is the client interested in some configuration settings from the server,
-    # like fonts, colours, ... ? Which settings generate EDITED_SETTING events
-    # is up to the main program to decide.
-    exchange_settings = False
     
     def __init__(self, machine_id, database, ui):
         Partner.__init__(self, ui)
@@ -179,8 +175,7 @@ class Client(Partner):
         client_info["partners"] = self.database.partners()
         client_info["interested_in_old_reps"] = self.interested_in_old_reps
         client_info["store_pregenerated_data"] = self.store_pregenerated_data
-        client_info["upload_science_logs"] = self.upload_science_logs
-        client_info["exchange_settings"] = self.exchange_settings        
+        client_info["upload_science_logs"] = self.upload_science_logs     
         # Signal if the database is empty, so that the server does not give a
         # spurious sync cycle warning if the client database was reset.
         client_info["database_is_empty"] = self.database.is_empty()

@@ -643,10 +643,11 @@ class SQLiteSync(object):
             elif event_type == EventTypes.DELETED_CRITERION:
                 self.delete_criterion(self.criterion_from_log_entry(log_entry))
             elif event_type == EventTypes.EDITED_SETTING:
-                if self.sync_partner_info["exchange_settings"] == True:
-                    self.config()[log_entry["o_id"]] = eval(log_entry["value"])
+                key, value = log_entry["o_id"], eval(log_entry["value"])
+                if key in self.config().keys_to_sync:
+                    self.config()[key] = value
                 else:
-                    self.log_edited_setting(log_entry["time"], log_entry["o_id"])
+                    self.log_edited_setting(log_entry["time"], key)
         finally:
             self.log().timestamp = None
             self.syncing = False

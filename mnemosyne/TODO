@@ -1,12 +1,7 @@
--fix testsuite
--document 'exchange_settings'?
--add gui option for 'exchange settings' during sync'
--add 3 tests, also see if log entry gets sent across even though not interested
+-auto vice versa detection on import, add test
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
-
--auto vice versa detection
 
 -dog fooding organise cards
 

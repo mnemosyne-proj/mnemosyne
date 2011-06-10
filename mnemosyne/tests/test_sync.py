@@ -37,7 +37,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        sys.stderr.write(error)
+        #sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         return answer
@@ -1299,8 +1299,7 @@ class TestSync(object):
         self.client.database.dump_to_science_log()
         assert self.client.database.con.execute(\
             "select _last_log_id from partnerships where partner=?",
-            ("log.txt", )).fetchone()[0]  != 0        
-        
+            ("log.txt", )).fetchone()[0] != 0
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.REPETITION, )).fetchone()[0] == 1
@@ -2704,17 +2703,23 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         
         self.client.mnemosyne.config()["font"] = "my_font"
-        self.client.exchange_settings = True
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()        
 
     def test_setting_2(self):
 
+        def fill_server_database(self):
+            self.mnemosyne.config().keys_to_sync.remove("font")           
+
         def test_server(self):
             assert self.mnemosyne.config()["font"] != "my_font"
+            assert self.mnemosyne.database().con.execute(\
+                "select count() from log where event_type=?",
+                (EventTypes.EDITED_SETTING, )).fetchone()[0] == 1              
 
         self.server = MyServer()
         self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
         self.server.start()
 
         self.client = MyClient()
@@ -2729,7 +2734,7 @@ class TestSync(object):
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
         
         self.client.mnemosyne.config()["font"] = "my_font"
-        self.client.exchange_settings = False
+
         self.client.mnemosyne.controller().save_file()
         self.client.do_sync()
         
@@ -2740,7 +2745,7 @@ class TestSync(object):
 
         def fill_server_database(self):
             fact_data = {"f": "question",
-                     "b": "answer"}
+                         "b": "answer"}
             card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
@@ -2752,7 +2757,6 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
-        self.client.exchange_settings = True
         self.client.do_sync()
 
         assert self.client.mnemosyne.config()["font"] == "my_font"
@@ -2764,7 +2768,7 @@ class TestSync(object):
 
         def fill_server_database(self):
             fact_data = {"f": "question",
-                     "b": "answer"}
+                         "b": "answer"}
             card_type = self.mnemosyne.card_type_with_id("1")
             card = self.mnemosyne.controller().create_new_cards(fact_data,
             card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
@@ -2776,7 +2780,10 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
-        self.client.exchange_settings = False
+        self.client.mnemosyne.config().keys_to_sync.remove("font")
         self.client.do_sync()
 
         assert self.client.mnemosyne.config()["font"] != "my_font"
+        db = self.client.database
+        assert db.con.execute("select count() from log where event_type=?",
+               (EventTypes.EDITED_SETTING, )).fetchone()[0] == 1
