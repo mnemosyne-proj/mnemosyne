@@ -372,32 +372,36 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
 
-
         return
-
         # tmp tryout to detect vice versa cards.
 
+        # TODO: refactor
         import time
         t = time.time()
-        for cursor in self.con.execute(\
-            "select _id, _fact_id from cards where card_type_id=1"):
-            _id, _fact_id = cursor
-            data = dict([(cursor["key"], cursor["value"]) for cursor in
-                self.con.execute("select * from data_for_fact where _fact_id=?",
-                (_fact_id, ))])
-            for cursor_2 in self.con.execute(\
-                "select _id, _fact_id from cards where card_type_id=1 and _id>?", (_id, )):
-                _id_2, _fact_id_2 = cursor_2
-                data_2 = dict([(cursor["key"], cursor["value"]) for cursor in
-                    self.con.execute("select * from data_for_fact where _fact_id=?",
-                    (_fact_id_2, ))])
-                if data["f"] == data_2["b"] and data["b"] == data_2["f"]:
-                    print _id, _id_2
-                    # remove fact 2, set card_2 to use fact_2
-                    # change both card types to 2
-                    # check tags
+        _fact_id_for_f = dict([(cursor["value"], cursor["_fact_id"]) \
+            for cursor in self.con.execute(\
+            "select value, _fact_id from data_for_fact where key='f'")])
+        _fact_id_for_b = dict([(cursor["value"], cursor["_fact_id"]) \
+            for cursor in self.con.execute(\
+            "select value, _fact_id from data_for_fact where key='b'")])
+        card_for_fact = dict([(cursor["_fact_id"], cursor["_id"]) for cursor in \
+            self.con.execute("select _id, _fact_id from cards where card_type_id='1'")])
+        card_type_2 = self.card_type_with_id("2")
+        for candidate in set(_fact_id_for_f.keys()).intersection(_fact_id_for_b.keys()):
+            if _fact_id_for_f[candidate] in card_for_fact and \
+                _fact_id_for_b[candidate] in card_for_fact:
+                #print card_for_fact[_fact_id_for_f[candidate]], card_for_fact[_fact_id_for_b[candidate]]
+                card_1 = self.card(card_for_fact[_fact_id_for_f[candidate]], is_id_internal=True)
+                card_2 = self.card(card_for_fact[_fact_id_for_b[candidate]], is_id_internal=True)
+                if card_1.tag_string() != card_2.tag_string():
+                    continue
+                card_1.card_type = card_type_2
+                card_2.card_type = card_type_2
+                card_2.fact = card_1.fact
+                card_2.fact_view = card_type_2.fact_views[1]
+                # delete fact 2
+                # update card 1 and card 2
         print time.time()-t
-        
         
     def save(self, path=None):
         # Update format.

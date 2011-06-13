@@ -1,4 +1,4 @@
--auto vice versa detection on import, add test
+-auto vice versa detection on import, refactor, add test
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
