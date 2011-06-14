@@ -393,3 +393,59 @@ class TestDatabase(MnemosyneTest):
         assert len(backups) == 10
         assert "default-0.db" not in backups
         self.restart()
+
+    def test_link_inverse_cards(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type_1 = self.card_type_with_id("1")
+        card_type_2 = self.card_type_with_id("2")
+        card_1 = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["tag_1"])[0]
+        
+        fact_data = {"f": "answer",
+                     "b": "question"}
+        card_2 = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["tag_1"])[0]
+
+        self.database().save()
+        self.database().link_inverse_cards()
+
+        card_1 = self.database().card(card_1._id, is_id_internal=True)
+        assert card_1.card_type == card_type_2
+        print card_1.fact_view.id, card_type_2.fact_views[0].id
+        assert card_1.fact_view == card_type_2.fact_views[0]
+        card_1.fact['f'] = "Question"
+        self.database().update_fact(card_1.fact)
+        
+        card_2 = self.database().card(card_1._id, is_id_internal=True)
+        assert card_2.card_type == card_type_2
+        print card_2.fact_view.id, card_type_2.fact_views[1].id
+        assert card_2.fact_view == card_type_2.fact_views[1]
+        assert "Question" in card_2.answer()
+
+    def test_link_inverse_cards_2(self):
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_type_1 = self.card_type_with_id("1")
+        card_type_2 = self.card_type_with_id("2")
+        card_1 = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["tag_1"])[0]
+        
+        fact_data = {"f": "answer",
+                     "b": "question"}
+        card_2 = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["tag_2"])[0]
+
+        self.database().save()
+        self.database().link_inverse_cards()
+
+        card_1 = self.database().card(card_1._id, is_id_internal=True)
+        assert card_1.card_type == card_type_1
+        assert card_1.fact_view == card_type_1.fact_views[0]
+        card_1.fact['f'] = "Question"
+        self.database().update_fact(card_1.fact)
+        
+        card_2 = self.database().card(card_1._id, is_id_internal=True)
+        assert card_2.card_type == card_type_1
+        assert card_2.fact_view == card_type_1.fact_views[0]
+        assert "Question" not in card_2.answer()

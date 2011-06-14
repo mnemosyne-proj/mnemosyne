@@ -371,37 +371,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
-
-        return
-        # tmp tryout to detect vice versa cards.
-
-        # TODO: refactor
-        import time
-        t = time.time()
-        _fact_id_for_f = dict([(cursor["value"], cursor["_fact_id"]) \
-            for cursor in self.con.execute(\
-            "select value, _fact_id from data_for_fact where key='f'")])
-        _fact_id_for_b = dict([(cursor["value"], cursor["_fact_id"]) \
-            for cursor in self.con.execute(\
-            "select value, _fact_id from data_for_fact where key='b'")])
-        card_for_fact = dict([(cursor["_fact_id"], cursor["_id"]) for cursor in \
-            self.con.execute("select _id, _fact_id from cards where card_type_id='1'")])
-        card_type_2 = self.card_type_with_id("2")
-        for candidate in set(_fact_id_for_f.keys()).intersection(_fact_id_for_b.keys()):
-            if _fact_id_for_f[candidate] in card_for_fact and \
-                _fact_id_for_b[candidate] in card_for_fact:
-                #print card_for_fact[_fact_id_for_f[candidate]], card_for_fact[_fact_id_for_b[candidate]]
-                card_1 = self.card(card_for_fact[_fact_id_for_f[candidate]], is_id_internal=True)
-                card_2 = self.card(card_for_fact[_fact_id_for_b[candidate]], is_id_internal=True)
-                if card_1.tag_string() != card_2.tag_string():
-                    continue
-                card_1.card_type = card_type_2
-                card_2.card_type = card_type_2
-                card_2.fact = card_1.fact
-                card_2.fact_view = card_type_2.fact_views[1]
-                # delete fact 2
-                # update card 1 and card 2
-        print time.time()-t
         
     def save(self, path=None):
         # Update format.
@@ -1088,6 +1057,60 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
     def card_types_in_use(self):
         return [self.card_type_with_id(cursor[0]) for cursor in \
             self.con.execute ("select distinct card_type_id from cards")]
+
+    def link_inverse_cards(self):
+
+        """Identify two single-sided cards which are each other's inverse and
+        convert them to use the same fact.
+
+        """
+
+        import time
+        t = time.time()
+        # Make a set of dictionaries to speed up the detection process.
+        _fact_id_for_front = dict([(cursor["value"], cursor["_fact_id"]) \
+            for cursor in self.con.execute(\
+            "select value, _fact_id from data_for_fact where key='f'")])
+        _fact_id_for_back = dict([(cursor["value"], cursor["_fact_id"]) \
+            for cursor in self.con.execute(\
+            "select value, _fact_id from data_for_fact where key='b'")])
+        _card_id_for__fact_id = dict([(cursor["_fact_id"], cursor["_id"]) \
+            for cursor in self.con.execute(\
+            "select _id, _fact_id from cards where card_type_id='1'")])
+        # Detect candidate inverses, see if they fullfill all the criteria,
+        # and do the conversion.
+        card_type_2 = self.card_type_with_id("2")
+        _fact_ids_dealt_with = []
+        for key in set(_fact_id_for_front.keys()).\
+            intersection(_fact_id_for_back.keys()):
+            _fact_id_1 = _fact_id_for_front[key]
+            _fact_id_2 = _fact_id_for_back[key]
+            # Try to keep ordering consistent.
+            if _fact_id_1 > _fact_id_2:
+                _fact_id_1, _fact_id_2 = _fact_id_2, _fact_id_1   
+            if _fact_id_1 in _fact_ids_dealt_with:
+                continue
+            _fact_ids_dealt_with.extend([_fact_id_1, _fact_id_2])
+            if _fact_id_1 not in _card_id_for__fact_id or \
+                _fact_id_2 not in _card_id_for__fact_id:
+                continue
+            _card_id_1 = _card_id_for__fact_id[_fact_id_1]
+            _card_id_2 = _card_id_for__fact_id[_fact_id_2]                
+            card_1 = self.card(_card_id_1, is_id_internal=True)
+            card_2 = self.card(_card_id_2, is_id_internal=True)
+            if card_1.tag_string() != card_2.tag_string():
+                continue
+            card_1.card_type = card_type_2
+            card_1.fact_view = card_type_2.fact_views[0]
+            card_2.fact = card_1.fact
+            card_2.card_type = card_type_2
+            card_2.fact_view = card_type_2.fact_views[1]
+            fact_2 = self.fact(_fact_id_2, is_id_internal=True)
+            self.delete_fact(fact_2)
+            self.update_card(card_1)
+            self.update_card(card_2)
+        print time.time()-t
+
 
     #
     # Card queries used by the scheduler.

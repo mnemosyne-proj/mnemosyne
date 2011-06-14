@@ -1,4 +1,6 @@
--auto vice versa detection on import, refactor, add test
+-fix testsuite auto vice versa detection
+-time for full operation
+-add to import
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
