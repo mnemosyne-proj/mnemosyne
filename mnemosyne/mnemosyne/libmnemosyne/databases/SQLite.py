@@ -371,6 +371,10 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
+
+        print "TMP"
+        self.link_inverse_cards()
+
         
     def save(self, path=None):
         # Update format.
@@ -1065,9 +1069,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
 
         """
 
-        import time
-        t = time.time()
         # Make a set of dictionaries to speed up the detection process.
+        # This does not allow fool-proof detection of inverses, as in some
+        # cases there could be more than one _fact_id for the same value.
+        # However, it can quickly give us a set of candidates which can be
+        # refined later.
         _fact_id_for_front = dict([(cursor["value"], cursor["_fact_id"]) \
             for cursor in self.con.execute(\
             "select value, _fact_id from data_for_fact where key='f'")])
@@ -1077,7 +1083,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         _card_id_for__fact_id = dict([(cursor["_fact_id"], cursor["_id"]) \
             for cursor in self.con.execute(\
             "select _id, _fact_id from cards where card_type_id='1'")])
-        # Detect candidate inverses, see if they fullfill all the criteria,
+        # First do a quick and dirty detection of candidate inverses, then
+        # test them in more detail to see if they fullfill all the criteria,
         # and do the conversion.
         card_type_2 = self.card_type_with_id("2")
         _fact_ids_dealt_with = []
@@ -1088,7 +1095,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             # Try to keep ordering consistent.
             if _fact_id_1 > _fact_id_2:
                 _fact_id_1, _fact_id_2 = _fact_id_2, _fact_id_1   
-            if _fact_id_1 in _fact_ids_dealt_with:
+            if _fact_id_1 in _fact_ids_dealt_with or \
+                _fact_id_2 in _fact_ids_dealt_with:
                 continue
             _fact_ids_dealt_with.extend([_fact_id_1, _fact_id_2])
             if _fact_id_1 not in _card_id_for__fact_id or \
@@ -1098,6 +1106,9 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             _card_id_2 = _card_id_for__fact_id[_fact_id_2]                
             card_1 = self.card(_card_id_1, is_id_internal=True)
             card_2 = self.card(_card_id_2, is_id_internal=True)
+            if card_1.fact["f"] != card_2.fact["b"] or \
+                card_1.fact["b"] != card_2.fact["f"]:
+                continue
             if card_1.tag_string() != card_2.tag_string():
                 continue
             card_1.card_type = card_type_2
@@ -1109,8 +1120,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.delete_fact(fact_2)
             self.update_card(card_1)
             self.update_card(card_2)
-        print time.time()-t
-
+            
 
     #
     # Card queries used by the scheduler.

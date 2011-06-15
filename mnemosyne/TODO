@@ -1,5 +1,6 @@
--fix testsuite auto vice versa detection
--time for full operation
+-auto vice versa
+-number of front-to-back and back-to-front cards are not equal
+-try on own database
 -add to import
 
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 

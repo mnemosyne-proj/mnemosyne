@@ -412,14 +412,12 @@ class TestDatabase(MnemosyneTest):
 
         card_1 = self.database().card(card_1._id, is_id_internal=True)
         assert card_1.card_type == card_type_2
-        print card_1.fact_view.id, card_type_2.fact_views[0].id
         assert card_1.fact_view == card_type_2.fact_views[0]
         card_1.fact['f'] = "Question"
         self.database().update_fact(card_1.fact)
         
-        card_2 = self.database().card(card_1._id, is_id_internal=True)
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
         assert card_2.card_type == card_type_2
-        print card_2.fact_view.id, card_type_2.fact_views[1].id
         assert card_2.fact_view == card_type_2.fact_views[1]
         assert "Question" in card_2.answer()
 
@@ -445,7 +443,60 @@ class TestDatabase(MnemosyneTest):
         card_1.fact['f'] = "Question"
         self.database().update_fact(card_1.fact)
         
-        card_2 = self.database().card(card_1._id, is_id_internal=True)
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
         assert card_2.card_type == card_type_1
         assert card_2.fact_view == card_type_1.fact_views[0]
         assert "Question" not in card_2.answer()
+
+    def test_link_inverse_cards_3(self):
+        fact_data = {"b": "question",
+                     "f": "answer"}
+        card_type_1 = self.card_type_with_id("1")
+        card_type_2 = self.card_type_with_id("2")
+        card_1 = self.controller().create_new_cards(fact_data, card_type_2,
+            grade=-1, tag_names=["tag_1"])[0]
+        
+        fact_data = {"f": "question",
+                     "b": "answer"}
+        card_2 = self.controller().create_new_cards(fact_data, card_type_2,
+            grade=-1, tag_names=["tag_2"])[0]
+
+        self.database().save()
+        self.database().link_inverse_cards()
+
+        card_1 = self.database().card(card_1._id, is_id_internal=True)
+        card_1.fact['f'] = "Question"
+        self.database().update_fact(card_1.fact)
+        
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
+        assert "Question" not in card_2.answer()
+        
+    def test_link_inverse_cards_4(self):
+        fact_data = {"f": "sukuun",
+                     "b": "zien"}
+        card_type_1 = self.card_type_with_id("1")
+        card_type_2 = self.card_type_with_id("2")
+        card_1 = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["tag_1"])[0]
+        
+        fact_data = {"f": "no sukuun",
+                     "b": "zien"}
+        card_2 = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["tag_1"])[0]
+        
+        fact_data = {"f": "zien",
+                     "b": "sukuun"}
+        card_3 = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["tag_1"])[0]
+        
+        self.database().save()
+        self.database().link_inverse_cards()
+
+        card_1 = self.database().card(card_1._id, is_id_internal=True)
+        assert card_1.card_type == card_type_2
+        
+        card_2 = self.database().card(card_2._id, is_id_internal=True)
+        assert card_2.card_type == card_type_1
+        
+        card_3 = self.database().card(card_3._id, is_id_internal=True)
+        assert card_3.card_type == card_type_2
