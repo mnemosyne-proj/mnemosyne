@@ -1,12 +1,5 @@
--auto vice versa
--number of front-to-back and back-to-front cards are not equal
--try on own database
--add to import
-
 -sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
-
--dog fooding organise cards
 
 -initial sync: bad.png shows up empty
 
@@ -29,10 +22,6 @@
 -windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
 -run test suite under windows
 
--sending entire binary database does not give a moving progress bar
-
--vocabulary type with production only to save space? Or make use of Front to back only, but then duplicate checking needs to happen on the answer
-
 -warn when creating a new database that this is not the recommended way to organise your cards.
 -right click to add cards or sound, comma to separate tag names, :: to separate hierarchies
 -tooltip for hiding pronunciation field on language card type
@@ -42,6 +31,8 @@
 -better tips on start of 'clone card type'
 -tip on double-click to edit cards and tag names in browser
 -tip/docs to defragment disk
+
+-sending entire binary database does not give a moving progress bar
 
 -About dialog
 -Contributors: Konrad Wojas, Laurent Mauron, Ed Bartosh, Mike Appleby, Max Usachev, Ullrich Martini

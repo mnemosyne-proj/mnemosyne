@@ -500,3 +500,17 @@ class TestDatabase(MnemosyneTest):
         
         card_3 = self.database().card(card_3._id, is_id_internal=True)
         assert card_3.card_type == card_type_2
+
+    def test_link_inverse_cards_5(self):
+        fact_data = {"f": "a",
+                     "b": "a"}
+        card_type_1 = self.card_type_with_id("1")
+        card_type_2 = self.card_type_with_id("2")
+        card_1 = self.controller().create_new_cards(fact_data, card_type_1,
+            grade=-1, tag_names=["tag_1"])[0]
+        
+        self.database().save()
+        self.database().link_inverse_cards()
+
+        card_1 = self.database().card(card_1._id, is_id_internal=True)
+        assert card_1.card_type == card_type_1

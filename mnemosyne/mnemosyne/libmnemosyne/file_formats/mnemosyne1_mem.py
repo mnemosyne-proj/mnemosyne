@@ -61,6 +61,8 @@ class Mnemosyne1Mem(FileFormat):
             db.log_edited_card(timestamp, item.id)
         # Mananage database indexes.
         db.after_mem_import()
+        # Detect inverses.
+        db.link_inverse_cards()
         db.save()
             
     def _import_mem_file(self, filename, tag_name=None,

@@ -371,10 +371,6 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
-
-        print "TMP"
-        self.link_inverse_cards()
-
         
     def save(self, path=None):
         # Update format.
@@ -1092,25 +1088,34 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             intersection(_fact_id_for_back.keys()):
             _fact_id_1 = _fact_id_for_front[key]
             _fact_id_2 = _fact_id_for_back[key]
+            # Deal only once with a pair.
+            if _fact_id_1 in _fact_ids_dealt_with or \
+                _fact_id_2 in _fact_ids_dealt_with:               
+                continue
             # Try to keep ordering consistent.
             if _fact_id_1 > _fact_id_2:
-                _fact_id_1, _fact_id_2 = _fact_id_2, _fact_id_1   
-            if _fact_id_1 in _fact_ids_dealt_with or \
-                _fact_id_2 in _fact_ids_dealt_with:
+                _fact_id_1, _fact_id_2 = _fact_id_2, _fact_id_1
+            # Corner case where front and back are the same.
+            if _fact_id_1 == _fact_id_2:
                 continue
-            _fact_ids_dealt_with.extend([_fact_id_1, _fact_id_2])
+            # Check if they correspond to the right card type.
             if _fact_id_1 not in _card_id_for__fact_id or \
-                _fact_id_2 not in _card_id_for__fact_id:
+                _fact_id_2 not in _card_id_for__fact_id:                   
                 continue
             _card_id_1 = _card_id_for__fact_id[_fact_id_1]
             _card_id_2 = _card_id_for__fact_id[_fact_id_2]                
             card_1 = self.card(_card_id_1, is_id_internal=True)
             card_2 = self.card(_card_id_2, is_id_internal=True)
+            # Make sure they are truly duplicates, and not coming
+            # from two values for the same key in 'fact_id_for_front' and
+            # 'fact_id_for_back'.
             if card_1.fact["f"] != card_2.fact["b"] or \
                 card_1.fact["b"] != card_2.fact["f"]:
                 continue
+            # Tags should be equal.
             if card_1.tag_string() != card_2.tag_string():
                 continue
+            # Now we can do the actual conversion.
             card_1.card_type = card_type_2
             card_1.fact_view = card_type_2.fact_views[0]
             card_2.fact = card_1.fact
@@ -1120,6 +1125,8 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             self.delete_fact(fact_2)
             self.update_card(card_1)
             self.update_card(card_2)
+            # Only now is it safe to mark these cards as dealt with.
+            _fact_ids_dealt_with.extend([_fact_id_1, _fact_id_2])
             
 
     #

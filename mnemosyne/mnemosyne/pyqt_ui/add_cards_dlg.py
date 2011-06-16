@@ -2,6 +2,8 @@
 # add_cards_dlg.py <Peter.Bienstman@UGent.be>
 #
 
+import copy
+
 from PyQt4 import QtCore, QtGui
 
 from mnemosyne.libmnemosyne.fact import Fact
@@ -60,10 +62,12 @@ class AddEditCards(Component):
                 prefill_data = None          
         # Transform keys in dictionary if the card type has changed, but don't
         # edit the fact just yet.
-        if prefill_data:
-            for key in prefill_data:
+        if prefill_data and self.correspondence:
+            old_prefill_data = copy.copy(prefill_data)
+            prefill_data = {}
+            for key in old_prefill_data:
                 if key in self.correspondence:
-                    value = prefill_data.pop(key)
+                    value = old_prefill_data[key]
                     prefill_data[self.correspondence[key]] = value
         # Show new card type widget.
         card_type_name = unicode(self.card_types_widget.currentText())
