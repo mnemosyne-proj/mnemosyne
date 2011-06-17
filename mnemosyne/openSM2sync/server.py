@@ -14,6 +14,13 @@ import httplib
 import tempfile
 from wsgiref.simple_server import WSGIServer, WSGIRequestHandler
 
+
+
+
+from cherrypy import wsgiserver
+
+
+
 from log_entry import EventTypes
 from utils import traceback_string, rand_uuid
 from text_formats.xml_format import XMLFormat
@@ -85,8 +92,9 @@ class Session(object):
         self.database.restore(self.backup_file)
         
 
-class Server(WSGIServer, Partner):
-
+#class Server(WSGIServer, Partner):
+class Server(Partner):
+    
     program_name = "unknown-SRS-app"
     program_version = "unknown"
 
@@ -97,15 +105,26 @@ class Server(WSGIServer, Partner):
 
     def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
-        WSGIServer.__init__(self, ("", port), WSGIRequestHandler)
-        self.set_app(self.wsgi_app)
+        
+        #WSGIServer.__init__(self, ("", port), WSGIRequestHandler)
+        #self.set_app(self.wsgi_app)
+        self.wsgi_server = wsgiserver.CherryPyWSGIServer\
+            (("0.0.0.0", port), self.wsgi_app, server_name="localhost")
+        
         Partner.__init__(self, ui)
         self.text_format = XMLFormat()
         self.stopped = False
         self.sessions = {} # {session_token: session}
         self.session_token_for_user = {} # {user_name: session_token}
 
-    def serve_until_stopped(self):
+    def serve_until_stopped(self): 
+        try:
+            self.wsgi_server.start()
+        except KeyboardInterrupt:
+            self.wsgi_server.stop()
+        # TODO: implement self.stopped
+        return
+    
         while not self.stopped:
             # We time out every 0.25 seconds, so that changing
             # self.stopped can have an effect.
@@ -456,7 +475,7 @@ class Server(WSGIServer, Partner):
                                redownload_all=False):
         try:
             session = self.sessions[session_token]
-            # Note that for media files, we use tar stream directy for efficiency
+            # Note that for media files, we use tar stream directly for efficiency
             # reasons, and bypass the routines in Partner.
             self.ui.set_progress_text("Sending media files...")
             # Determine files to send across.

@@ -1,4 +1,7 @@
--sync all, abort convert operated, restoring from backup backup before sync, then resyncing 
+-fix testsuite to be compatible with cherrypy threading
+-fix cherrypy errors in streaming binary files
+
+-sync all, abort convert operation, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
 
 -initial sync: bad.png shows up empty
