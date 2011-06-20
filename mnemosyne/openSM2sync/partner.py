@@ -48,9 +48,9 @@ class Partner(object):
 
     def download_log_entries(self, stream, callback, context):
         element_loop = self.text_format.parse_log_entries(stream)        
-        if 1:
+        try:
             number_of_entries = int(element_loop.next())
-        else:
+        except:
             raise SyncError("Downloading log entries: error on remote side.")
         if number_of_entries == 0:
             return

@@ -111,7 +111,6 @@ class XMLFormat(object):
         See http://effbot.org/zone/element-iterparse.htm
 
         """
-
         context = iter(cElementTree.iterparse(xml, events=("start", "end")))
         event, root = context.next()  # 'start' event on openSM2 tag.
         for key, value in root.attrib.iteritems():

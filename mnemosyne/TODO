@@ -1,5 +1,5 @@
--fix testsuite to be compatible with cherrypy threading
--fix cherrypy errors in streaming binary files
+-multiple known size requests
+-urllib3 (add to setup.py)? urllib.getproxies?
 
 -sync all, abort convert operation, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.

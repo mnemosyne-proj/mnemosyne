@@ -37,7 +37,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        sys.stderr.write(error)
+        #sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         return answer
@@ -75,11 +75,7 @@ class MyServer(Server, Thread):
         return login == "user" and password == "pass"
 
     def load_database(self, database_name):
-        
-        self.mnemosyne.database().load(database_name) ###
-
-
-        
+        self.mnemosyne.database().load(database_name)
         return self.mnemosyne.database()
     
     def run(self):
@@ -94,15 +90,9 @@ class MyServer(Server, Thread):
         self.mnemosyne.review_controller().reset()
         if hasattr(self, "fill_server_database"):
             self.fill_server_database(self)
+        self.mnemosyne.database().release_connection()
         Server.__init__(self, self.mnemosyne.config().machine_id(),
-                        PORT, self.mnemosyne.main_widget())
-
-        
-        self.mnemosyne.database().release_connection() ###
-
-
-
-        
+                        PORT, self.mnemosyne.main_widget())        
         if not self.binary_download:
             self.supports_binary_transfer = lambda x : False
         global server_is_initialised
