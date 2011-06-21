@@ -1,5 +1,15 @@
 -multiple known size requests
--urllib3 (add to setup.py)? urllib.getproxies?
+-server side of put_client_log_entries
+-document new way of streaming
+-make client and server as symmetric as possible
+-make buffer size settable by client
+-check if we need al the newlines
+-proxy dection through urllib.getproxies
+  pool = HTTPConnectionPool('myproxy.com')
+ pool.urlopen('GET', 'http://google.com' assert_same_host=False) # Will be fetched via myproxy.com
+
+
+-searching for '(niet ' gives empty question and answer fields
 
 -sync all, abort convert operation, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.

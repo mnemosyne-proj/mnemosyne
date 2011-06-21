@@ -208,6 +208,13 @@ class Client(Partner):
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
+
+    def _send_buffer(self, buffer):
+        self.con.request("PUT", "/client_log_entries?session_token=%s" \
+            % (self.server_info["session_token"], buffer.encode("utf-8")))
+        message, traceback = self.text_format.parse_message(\
+            self.con.getresponse().read())
+        return message.lower()        
         
     def put_client_log_entries(self):
         self.ui.set_progress_text("Sending log entries...")
@@ -215,17 +222,23 @@ class Client(Partner):
             self.server_info["machine_id"])
         if number_of_entries == 0:
             return
-        self.con.putrequest("PUT", "/client_log_entries?session_token=%s" \
-            % (self.server_info["session_token"], ))
-        self.con.endheaders()
-        log_entries = self.database.log_entries_to_sync_for(\
-            self.server_info["machine_id"])
-        for buffer in self.stream_log_entries(log_entries, number_of_entries):
-            self.con.send(buffer)        
+        self.ui.set_progress_range(0, number_of_entries)
+        self.ui.set_progress_update_interval(number_of_entries/50)
+        buffer = self.text_format.log_entries_header(number_of_entries)
+        count = 0
+        for log_entry in self.database.log_entries_to_sync_for(\
+                self.server_info["machine_id"]):
+            count += 1
+            self.ui.set_progress_value(count)
+            buffer += self.text_format.repr_log_entry(log_entry)
+            if len(buffer) > BUFFER_SIZE:
+                message = self._send_buffer(buffer)
+                if message != "continue":
+                    raise SyncError(message)
+                buffer = ""
         self.ui.set_progress_text("Waiting for server...")
-        message, traceback = self.text_format.parse_message(\
-            self.con.getresponse().read())
-        message = message.lower()
+        buffer += self.text_format.log_entries_footer()
+        message = self._send_buffer(buffer)
         if "server error" in message:
             raise SyncError(message)
         if "conflict" in message:

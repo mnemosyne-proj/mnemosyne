@@ -362,9 +362,11 @@ class Server(Partner):
                     context["client_o_ids"].append(log_entry["o_id"])
             context = {"session_client_log": session.client_log,
                        "client_o_ids": client_o_ids}
-            adapted_stream = UnsizedLogEntryStreamReader(socket,
-                self.text_format.log_entries_footer())
-            self.download_log_entries(adapted_stream, callback, context)
+            self.download_log_entries(socket, callback, context)
+            # If we haven't downloaded all entries yet, tell the client
+            # it's OK to continue.
+            if len(session.client_log) < TODO:
+                return [self.text_format.repr_message("Continue")]                
             # Now we can determine whether there are conflicts.
             for log_entry in session.database.log_entries_to_sync_for(\
                 session.client_info["machine_id"]):

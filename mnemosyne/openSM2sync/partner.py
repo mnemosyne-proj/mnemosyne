@@ -16,14 +16,7 @@ class Partner(object):
 
     def stream_log_entries(self, log_entries, number_of_entries):
 
-        """Send log entries across in a streaming manner.
-        Normally, one would use "Transfer-Encoding: chunked" for that, but
-        chunked requests are not supported by the WSGI 1.x standard.
-        However, it seems we can get around sending a Content-Length header if
-        the server knows when the datastream ends. We use the data format
-        footer as a terminator for that. The server then uses the class
-        UnsizedLogEntryStreamReader to read that stream.
-        As the first line in the stream, we send across the number of log
+        """As the first line in the stream, we send across the number of log
         entries, so that the other side can track progress. We also buffer the
         stream until we have sufficient data to send, in order to improve
         throughput.
@@ -94,33 +87,3 @@ class Partner(object):
             self.ui.set_progress_value(file_size - remaining)
         self.ui.set_progress_value(file_size)
         downloaded_file.close()
-
-
-class UnsizedLogEntryStreamReader(object):
-
-    """Since chunked requests are not supported by the WSGI 1.x standard, the
-    client does not set Content-Length in order to be able to stream the log
-    entries. Therefore, it is our responsability that we consume the entire
-    stream, nothing more and nothing less. In practice, that means replacing
-    reads with readlines and watching for a terminator string.
-    
-    """
-
-    def __init__(self, stream, terminator):
-        self.stream = stream
-        self.terminator = terminator.rstrip()
-        self.finished = False
-
-    def read(self, size):
-        if self.finished:
-            return ""
-        buffer = []
-        buffer_length = 0
-        while True:
-            line = self.stream.readline()
-            buffer_length += len(line)
-            buffer.append(line)
-            if line.rstrip().endswith(self.terminator):
-                self.finished = True
-            if self.finished or buffer_length > size:
-                return "".join(buffer)
