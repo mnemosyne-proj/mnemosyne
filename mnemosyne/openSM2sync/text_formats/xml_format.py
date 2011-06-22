@@ -33,7 +33,7 @@ class XMLFormat(object):
     mime_type = "text/xml"
 
     def repr_partner_info(self, info):
-        repr_info = " <partner "
+        repr_info = "<partner "
         for key, value in info.iteritems():
             if key.lower() == "partners":
                 if value:
@@ -73,7 +73,7 @@ class XMLFormat(object):
     float_keys = ["e"]
 
     def log_entries_header(self, number_of_entries):
-        return "<openSM2sync number_of_entries='%d'>" % (number_of_entries, )
+        return "<openSM2sync number_of_entries=\"%d\">" % (number_of_entries, )
 
     def log_entries_footer(self):
         return "</openSM2sync>\n"    
@@ -111,6 +111,14 @@ class XMLFormat(object):
         See http://effbot.org/zone/element-iterparse.htm
 
         """
+
+        #TODO: tmp
+        #import sys; sys.stderr.write(str(xml))
+        #xml = xml.read()
+        #import sys; sys.stderr.write("|||" + str(xml) + '|||' + str(len(xml)) + '\n')
+        #from cStringIO import StringIO
+        #xml = StringIO(xml)
+        
         context = iter(cElementTree.iterparse(xml, events=("start", "end")))
         event, root = context.next()  # 'start' event on openSM2 tag.
         for key, value in root.attrib.iteritems():

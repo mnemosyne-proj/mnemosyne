@@ -210,8 +210,9 @@ class Client(Partner):
         self.database.merge_partners(self.server_info["partners"])
 
     def _send_buffer(self, buffer):
+        # TODO: clean up
         self.con.request("PUT", "/client_log_entries?session_token=%s" \
-            % (self.server_info["session_token"], buffer.encode("utf-8")))
+            % (self.server_info["session_token"],), buffer.encode("utf-8"))
         message, traceback = self.text_format.parse_message(\
             self.con.getresponse().read())
         return message.lower()        
@@ -339,7 +340,7 @@ class Client(Partner):
         size = tar_file_size(self.database.media_dir(), filenames)
         if size == 0:
             return
-        self.con.putrequest("PUT", "/client_media_files?session_token=%s" \
+        self.con.request("PUT", "/client_media_files?session_token=%s" \
             % (self.server_info["session_token"], ))
         self.con.endheaders()     
         socket = self.con.sock.makefile("wb", bufsize=BUFFER_SIZE)

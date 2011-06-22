@@ -24,7 +24,7 @@ from cherrypy import wsgiserver
 from log_entry import EventTypes
 from utils import traceback_string, rand_uuid
 from text_formats.xml_format import XMLFormat
-from partner import Partner, UnsizedLogEntryStreamReader, BUFFER_SIZE
+from partner import Partner, BUFFER_SIZE
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -65,6 +65,10 @@ class Session(object):
     once, it does not yet support the locking mechanisms to make this
     thread-safe.
 
+    In order to do conflict resolution easily, one of the sync partners has to
+    have both logs in memory. We do this at the server side, as the client
+    could be a resource-limited mobile device.
+
     """
 
     def __init__(self, client_info, database):
@@ -72,6 +76,8 @@ class Session(object):
         self.client_info = client_info
         self.database = database
         self.client_log = []
+        self.client_o_ids = []
+        self.number_of_client_entries = None
         self.apply_error = None
         self.expires = time.time() + 60*60
         self.backup_file = self.database.backup()
@@ -145,9 +151,13 @@ class Server(Partner):
         # function 'wsgi_app'. Any exceptions that occur then will no longer
         # be caught here. Therefore, we need to catch all of our exceptions
         # ourselves at the lowest level.
-        response_headers = [("Content-type", self.text_format.mime_type)]
+
+        data = getattr(self, method)(environ, **args)
+        response_headers = [("Content-Type", self.text_format.mime_type),
+                            ("Content-Length", str(len(data[0])))]
         start_response("200 OK", response_headers)
-        return getattr(self, method)(environ, **args)
+        # TODO: return [data]
+        return data
         
     def get_method(self, environ):
         # Convert e.g. GET /foo_bar into get_foo_bar.
@@ -171,7 +181,7 @@ class Server(Partner):
         else:
             return "404 Not Found", None, None
 
-    # The following functions are not yet thread safe.
+    # The following functions are not yet thread-safe.
 
     def create_session(self, client_info):
         database = self.load_database(client_info["database_name"])
@@ -348,26 +358,27 @@ class Server(Partner):
             session = self.sessions[session_token]
             self.ui.set_progress_text("Receiving log entries...")
             socket = environ["wsgi.input"]
-            # In order to do conflict resolution easily, one of the sync
-            # partners has to have both logs in memory. We do this at the
-            # server side, as the client could be a resource-limited mobile
-            # device.
-            session.client_log = []
-            client_o_ids = []
-            def callback(context, log_entry):
-                context["session_client_log"].append(log_entry)
+            element_loop = self.text_format.parse_log_entries(socket)
+            if session.number_of_client_entries is None:
+                session.number_of_client_entries = int(element_loop.next())
+            if session.number_of_client_entries == 0:
+                return [self.text_format.repr_message("OK")]
+            self.ui.set_progress_range(0, session.number_of_client_entries)
+            self.ui.set_progress_update_interval(\
+                session.number_of_client_entries/50)
+            for log_entry in element_loop:
+                session.client_log.append(log_entry)
                 if log_entry["type"] not in self.dont_cause_conflict:
                     if "fname" in log_entry:
                         log_entry["o_id"] = log_entry["fname"]
-                    context["client_o_ids"].append(log_entry["o_id"])
-            context = {"session_client_log": session.client_log,
-                       "client_o_ids": client_o_ids}
-            self.download_log_entries(socket, callback, context)
+                    session.client_o_ids.append(log_entry["o_id"])                
+                self.ui.set_progress_value(len(session.client_log))
             # If we haven't downloaded all entries yet, tell the client
             # it's OK to continue.
-            if len(session.client_log) < TODO:
+            if len(session.client_log) < session.number_of_client_entries:
                 return [self.text_format.repr_message("Continue")]                
-            # Now we can determine whether there are conflicts.
+            # Now we have all the data from the client and we can determine
+            # whether there are conflicts.
             for log_entry in session.database.log_entries_to_sync_for(\
                 session.client_info["machine_id"]):
                 if not log_entry:
@@ -375,7 +386,7 @@ class Server(Partner):
                 if "fname" in log_entry:
                     log_entry["o_id"] = log_entry["fname"]
                 if log_entry["type"] not in self.dont_cause_conflict and \
-                    log_entry["o_id"] in client_o_ids:
+                    log_entry["o_id"] in session.client_o_ids:
                     return [self.text_format.repr_message("Conflict")]
             return [self.text_format.repr_message("OK")]
         except:
@@ -407,15 +418,24 @@ class Server(Partner):
                 number_of_log_entries_to_sync_for(\
                 session.client_info["machine_id"],
                 session.client_info["interested_in_old_reps"])
+
+            # TODO: reinstate streaming?
+            message = ""
             for buffer in self.stream_log_entries(log_entries,
                 number_of_entries):
-                yield buffer        
+                message += buffer
         except:
-            yield self.handle_error(session, traceback_string())
+            return [self.handle_error(session, traceback_string())]
+
+        # TODO: send data here as opposed to waiting until we processed everything.
+        # will happen automatically somehow by splitting up in different messages?
+        
         # Now that all the data is underway to the client, we can already
         # start applying the client log entries. If there are errors that
         # occur, we save them and communicate them to the client in
         # 'get_sync_finish'.
+        # TODO: still needed?
+        
         try:    
             self.ui.set_progress_text("Applying log entries...")
             # First, dump to the science log, so that we can skip over the new
@@ -428,6 +448,7 @@ class Server(Partner):
                 session.database.skip_science_log()
         except:
             session.apply_error = traceback_string()
+        return [message]
 
     def get_server_entire_database(self, environ, session_token):
         try:
@@ -487,8 +508,7 @@ class Server(Partner):
                 filenames = list(session.database.media_filenames_to_sync_for(\
                     session.client_info["machine_id"]))
             if len(filenames) == 0:
-                yield "0\n"
-                return
+                return ["0\n"]
             # Create a temporary tar file with the files.
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
             tmp_file_name = tmp_file.name
@@ -502,12 +522,18 @@ class Server(Partner):
             # Stream tar file across.
             tmp_file = file(tmp_file_name, "rb")
             file_size = os.path.getsize(tmp_file_name)
+
+
+            # TODO: reinstate streaming.
+
+            message = ""
             for buffer in self.stream_binary_file(tmp_file, file_size):
-                yield buffer            
+                message += buffer            
             os.remove(tmp_file_name)
             os.chdir(saved_path)
+            return [buffer]
         except:
-            yield self.handle_error(session, traceback_string())
+            return [self.handle_error(session, traceback_string())]
 
     def get_sync_cancel(self, environ, session_token):
         try:
