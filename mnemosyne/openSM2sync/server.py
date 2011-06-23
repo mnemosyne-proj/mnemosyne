@@ -238,6 +238,9 @@ class Server(Partner):
         self.terminate_all_sessions()
         self.stopped = True
         self.ui.close_progress()
+
+        # TODO: check
+        self.wsgi_server.stop()
         
     def binary_format_for(self, session):
         for BinaryFormat in BinaryFormats:
@@ -508,7 +511,7 @@ class Server(Partner):
                 filenames = list(session.database.media_filenames_to_sync_for(\
                     session.client_info["machine_id"]))
             if len(filenames) == 0:
-                return ["0\n"]
+                return [""]
             # Create a temporary tar file with the files.
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
             tmp_file_name = tmp_file.name

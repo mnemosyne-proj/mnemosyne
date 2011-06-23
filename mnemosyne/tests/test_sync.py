@@ -29,9 +29,11 @@ class Widget(MainWidget):
     
     def set_progress_text(self, message):
         print message
+        #sys.stderr.write(message+'\n')        
         
     def show_information(self, info):
         print info
+        #sys.stderr.write(info+'\n')
         
     def show_error(self, error):
         global last_error
@@ -77,6 +79,9 @@ class MyServer(Server, Thread):
     def load_database(self, database_name):
         self.mnemosyne.database().load(database_name)
         return self.mnemosyne.database()
+
+    def unload_database(self, database):
+        self.mnemosyne.database().release_connection()
     
     def run(self):
         # We only open the database connection inside the thread to prevent
@@ -111,20 +116,22 @@ class MyServer(Server, Thread):
             self.test_server(self)
             self.passed_tests = True
         finally:
+            self.mnemosyne.database().release_connection()
             self.mnemosyne.finalise()
             tests_done.notify()
             tests_done.release()
 
     def stop(self):
         Server.stop(self)
+        # (WSGI ref server)
         # Make an extra request so that we don't need to wait for the server
         # timeout. This could fail if the server has already shut down.
-        try:
-            con = httplib.HTTPConnection("localhost", PORT)
-            con.request("GET", "dummy_request")
-            con.getresponse().read()
-        except:
-            pass
+        #try:
+        #    con = httplib.HTTPConnection("localhost", PORT)
+        #    con.request("GET", "dummy_request")
+        #    con.getresponse().read()
+        #except:
+        #    pass
         global server_is_initialised
         server_is_initialised = None
 

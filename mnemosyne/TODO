@@ -1,8 +1,24 @@
--multiple known size requests
--response not ready: make sure we've consumed all previous data, try turning off some requests
--document new way of streaming
+-test_add_media: add content-length header
+-get server database binary: don't rely on sending sizes in the body, make use of (custom?) header for that
+
+
+-send closing <openSM2sync tag> at the end of each message
+-document new way of streaming, caused by wsgi and squid older than 3.1 not supporting chunked transfer encoding
+
+xml client to server: generated on the fly, length not known in advance: break up in many messages
+xml server to client: one could hope the server has enough memory to tackle this, but breaking up in many messages
+ makes client and server more symmetrical. Or just use 'yield', and collect it if needed.
+binary (known size) client to server: just incrementally dump to/read from socket
+binary (knows size) server to client: can server dump in wsgi socket? Probably not..., so memory penalty... reading in client no problem. 
+Or we can chunk it up in many messages like we did for xml. No, because then the client cannot decode the tar file on the fly.
+-for tar files, the issue with wrong size estimation needs to be fixed
+
+-use 'yields' in server side, but collect them in one place in the request handler, for easy upgrade if http 1.0 becomes obsolete
+
+
 -make client and server as symmetric as possible
 -make buffer size settable by client and sent across during handshaking
+-add tests for breaking up log into different messages
 -check if we need al the newlines
 -proxy dection through urllib.getproxies
   pool = HTTPConnectionPool('myproxy.com')
@@ -11,6 +27,9 @@
 -python wsgi ref server is http/1.0, so no connection reuse
 -do we need all progress messages?
 -grep through TODOs
+-need dummy request to shut down the server?
+-(fix illegal end of headers when closing down the connection and the server?)
+-add cherrypy to requirements
 
 
 -searching for '(niet ' gives empty question and answer fields

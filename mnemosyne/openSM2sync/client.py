@@ -28,9 +28,10 @@ socket.socket = socketwrap
 
 # Buffer the response socket.
 # http://mail.python.org/pipermail/python-bugs-list/2006-September/035156.html
+# Fix included here for systems running Python 2.5.
 
 class HTTPResponse(httplib.HTTPResponse):
-               
+    
     def __init__(self, sock, **kw):
         httplib.HTTPResponse.__init__(self, sock, **kw)
         self.fp = sock.makefile("rb") # Was unbuffered: sock.makefile("rb", 0)
@@ -148,13 +149,15 @@ class Client(Partner):
                 self.ui.show_error(traceback_string())
             if self.do_backup:
                 self.database.restore(backup_file)
+            self.con.close()
         else:
+            self.con.close()
             self.ui.close_progress()
             self.ui.show_information("Sync finished!")
 
     def _check_response_for_errors(self):
-        message, traceback = self.text_format.parse_message(\
-            self.con.getresponse().read())
+        response = self.con.getresponse().read()
+        message, traceback = self.text_format.parse_message(response)        
         if "server error" in message.lower():
             raise SyncError(message)
         # We don't scare the client user with server log traces here, those
@@ -213,8 +216,8 @@ class Client(Partner):
         # TODO: clean up
         self.con.request("PUT", "/client_log_entries?session_token=%s" \
             % (self.server_info["session_token"],), buffer.encode("utf-8"))
-        message, traceback = self.text_format.parse_message(\
-            self.con.getresponse().read())
+        response = self.con.getresponse().read()
+        message, traceback = self.text_format.parse_message(response)        
         return message.lower()        
         
     def put_client_log_entries(self):
@@ -291,7 +294,7 @@ class Client(Partner):
         def callback(context, log_entry):
             context.database.apply_log_entry(log_entry)
         self.download_log_entries(self.con.getresponse(), callback,
-            context=self)            
+            context=self)   
         # The server will always upload the science logs of the log events
         # which originated at the server side.
         self.database.skip_science_log()
@@ -366,17 +369,10 @@ class Client(Partner):
         if redownload_all:
             url += "&redownload_all=1"
         self.con.request("GET", url)
-        response = self.con.getresponse()
-        try:
-            size = int(response.fp.readline())
-        except:
-            raise SyncError("Internal server error.")
-        if size == 0:
-            return
-        tar_pipe = tarfile.open(mode="r|", fileobj=response)
+        tar_pipe = tarfile.open(mode="r|", fileobj=self.con.getresponse())
         # Work around http://bugs.python.org/issue7693.
         tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
-        
+
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")
         self.con.request("GET", "/sync_cancel?session_token=%s" \
