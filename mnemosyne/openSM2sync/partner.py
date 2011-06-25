@@ -59,7 +59,8 @@ class Partner(object):
     def stream_binary_file(self, binary_file, file_size):
         self.ui.set_progress_range(0, file_size)
         self.ui.set_progress_update_interval(file_size/50)
-        buffer = str(file_size) + "\n" + binary_file.read(BUFFER_SIZE)
+        #buffer = str(file_size) + "\n" + binary_file.read(BUFFER_SIZE)
+        buffer = binary_file.read(BUFFER_SIZE)
         count = BUFFER_SIZE
         while buffer:
             self.ui.set_progress_value(count)
@@ -68,12 +69,12 @@ class Partner(object):
             count += BUFFER_SIZE
         self.ui.set_progress_value(file_size)
 
-    def download_binary_file(self, filename, stream):
+    def download_binary_file(self, filename, stream, file_size):
         downloaded_file = file(filename, "wb")
-        try:
-            file_size = int(stream.readline())
-        except:
-            raise SyncError("Downloading binary file: error on remote side.")
+        #try:
+        #    file_size = int(stream.readline())
+        #except:
+        #    raise SyncError("Downloading binary file: error on remote side.")
         self.ui.set_progress_range(0, file_size)
         self.ui.set_progress_update_interval(file_size/50)
         remaining = file_size

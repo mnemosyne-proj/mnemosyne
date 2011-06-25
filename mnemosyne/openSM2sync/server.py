@@ -142,7 +142,7 @@ class Server(Partner):
         # Catch badly formed requests.
         status, method, args  = self.get_method(environ)
         if status != "200 OK":
-            response_headers = [("Content-type", "text/plain")]
+            response_headers = [("content-type", "text/plain")]
             start_response(status, response_headers)
             return [status]
         # Note that it is no use to wrap the function call in a try/except
@@ -153,29 +153,43 @@ class Server(Partner):
         # ourselves at the lowest level.
 
         data = getattr(self, method)(environ, **args)
-        response_headers = [("Content-Type", self.text_format.mime_type),
-                            ("Content-Length", str(len(data[0])))]
+        response_headers = [("content-type", self.text_format.mime_type),
+                            ("content-length", str(len(data[0])))]
         start_response("200 OK", response_headers)
         # TODO: return [data]
         return data
         
     def get_method(self, environ):
+
+        # dont use: 'ACTUAL_SERVER_PROTOCOL': 'HTTP/1.1',
+        #'SERVER_PROTOCOL': 'HTTP/1.1'
+        
         # Convert e.g. GET /foo_bar into get_foo_bar.
         method = (environ["REQUEST_METHOD"] + \
                   environ["PATH_INFO"].replace("/", "_")).lower()
         args = cgi.parse_qs(environ["QUERY_STRING"])
         args = dict([(key, val[0]) for key, val in args.iteritems()])
+        
+        #import sys; sys.stderr.write(str(environ) + "\n")
+        #import sys; sys.stderr.write(method + str(args) + "\n")
+        
         # Login method.
         if method == "put_login" or method == "get_status":
             if len(args) == 0:
                 return "200 OK", method, args
             else:
-                return "400 Bad Request", None, None             
+                return "400 Bad Request", None, None
+        #import sys; sys.stderr.write("check token\n")
         # See if the token matches.
         if not "session_token" in args or args["session_token"] \
             not in self.sessions:
             return "403 Forbidden", None, None
         # See if the method exists.
+        #import sys; sys.stderr.write("done check token\n")
+        #import sys; sys.stderr.write(method + " ")
+        #import sys; sys.stderr.write(str(hasattr(self, method)))
+        #import sys; sys.stderr.write(" " + str(callable(getattr(self, method)))+"\n")
+        
         if hasattr(self, method) and callable(getattr(self, method)):
             return "200 OK", method, args
         else:
@@ -401,7 +415,8 @@ class Server(Partner):
             self.ui.set_progress_text("Getting entire binary database...")
             filename = session.database.path()
             session.database.abandon()
-            self.download_binary_file(filename, environ["wsgi.input"])
+            size = int(environ["CONTENT_LENGTH"])
+            self.download_binary_file(filename, environ["wsgi.input"], size)
             session.database.load(filename)
             session.database.create_if_needed_partnership_with(\
                 session.client_info["machine_id"])
@@ -475,7 +490,7 @@ class Server(Partner):
             binary_format = self.binary_format_for(session)
             binary_file, file_size = binary_format.binary_file_and_size(\
                 session.client_info["store_pregenerated_data"],
-                session.client_info["interested_in_old_reps"])
+                session.client_info["interested_in_old_reps"])            
             for buffer in self.stream_binary_file(binary_file, file_size):
                 yield buffer
             binary_format.clean_up()
@@ -489,7 +504,7 @@ class Server(Partner):
             session = self.sessions[session_token]
             self.ui.set_progress_text("Getting media files...")
             socket = environ["wsgi.input"]
-            size = int(socket.readline())
+            size = int(environ["CONTENT_LENGTH"])
             tar_pipe = tarfile.open(mode="r|", fileobj=socket)
             # Work around http://bugs.python.org/issue7693.
             tar_pipe.extractall(session.database.media_dir().encode("utf-8"))
@@ -498,7 +513,7 @@ class Server(Partner):
             return [self.handle_error(session, traceback_string())]        
 
     def get_server_media_files(self, environ, session_token,
-                               redownload_all=False):
+                               redownload_all=False):        
         try:
             session = self.sessions[session_token]
             # Note that for media files, we use tar stream directly for efficiency

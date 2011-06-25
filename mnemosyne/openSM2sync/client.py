@@ -326,7 +326,9 @@ class Client(Partner):
         self.database.abandon()
         self.con.request("GET", "/server_entire_database_binary?" + \
             "session_token=%s" % (self.server_info["session_token"], ))
-        self.download_binary_file(filename, self.con.getresponse().fp)
+        response = self.con.getresponse()
+        size = int(response.getheader("content-length"))
+        self.download_binary_file(filename, response.fp, size)
         self.database.load(filename)
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
@@ -343,11 +345,12 @@ class Client(Partner):
         size = tar_file_size(self.database.media_dir(), filenames)
         if size == 0:
             return
-        self.con.request("PUT", "/client_media_files?session_token=%s" \
+        self.con.putrequest("PUT", "/client_media_files?session_token=%s" \
             % (self.server_info["session_token"], ))
+        self.con.putheader("content-length", size)
         self.con.endheaders()     
         socket = self.con.sock.makefile("wb", bufsize=BUFFER_SIZE)
-        socket.write(str(size) + "\n")
+        #socket.write(str(size) + "\n")
         # Bundle the media files in a single tar stream, and send it over a
         # buffered socket in order to save memory. Note that this is a short
         # cut for efficiency reasons and bypasses the routines in Partner, and
