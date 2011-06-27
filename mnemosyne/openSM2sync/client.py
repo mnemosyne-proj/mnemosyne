@@ -372,7 +372,11 @@ class Client(Partner):
         if redownload_all:
             url += "&redownload_all=1"
         self.con.request("GET", url)
-        tar_pipe = tarfile.open(mode="r|", fileobj=self.con.getresponse())
+        response = self.con.getresponse()
+        size = int(response.getheader("mnemosyne-content-length"))
+        if size == 0:
+            return
+        tar_pipe = tarfile.open(mode="r|", fileobj=getresponse)
         # Work around http://bugs.python.org/issue7693.
         tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
 

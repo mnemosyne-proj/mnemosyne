@@ -159,6 +159,11 @@ class MyClient(Client):
         self.mnemosyne.review_controller().reset()        
         Client.__init__(self, self.mnemosyne.config().machine_id(),
                         self.mnemosyne.database(), self.mnemosyne.main_widget())
+
+        httplib.HTTPConnection._http_vsn = 11
+        httplib.HTTPConnection._http_vsn_str = 'HTTP/1.1'
+        #httplib.HTTPConnection._http_vsn = 10
+        #httplib.HTTPConnection._http_vsn_str = 'HTTP/1.0'        
         
     def do_sync(self):
         server_initialised.acquire()

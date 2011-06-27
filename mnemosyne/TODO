@@ -1,13 +1,16 @@
-
--use 'yields' in server side, but collect them in one place in the request handler, for easy upgrade if http 1.0 becomes obsolete
-
--test_binary_download fails because it returns a generator
+-./bin/nosetests tests/test_sync.py:TestSync.test_add_tag: response not ready
 
 -for tar files, different size for file storage as opposed to streaming
  need to add padding when streaming from serverside? (timeout in test_add_media)
--get server/server database binary: don't rely on sending sizes in the body? Can we then still use progress bar while streaming? Use own content length header then? rework wsgi app to return headers as well
 
 -send closing <openSM2sync tag> at the end of each message
+
+-add tests for http 1.0
+
+-rework get_binary database to be similar to get media
+
+-check if we really stream for get_server_media_files
+
 -document new way of streaming, caused by wsgi and squid older than 3.1 not supporting chunked transfer encoding
 
 xml client to server: generated on the fly, length not known in advance: break up in many messages
@@ -38,7 +41,7 @@ Or we can chunk it up in many messages like we did for xml. No, because then the
 -need dummy request to shut down the server?
 -(fix illegal end of headers when closing down the connection and the server?)
 -add cherrypy to requirements
-
+-deal with WSGIRequestHandler.address_string = not_insane_address_string
 
 -searching for '(niet ' gives empty question and answer fields
 
