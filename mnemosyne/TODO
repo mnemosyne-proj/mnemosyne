@@ -1,15 +1,12 @@
--./bin/nosetests tests/test_sync.py:TestSync.test_add_tag: response not ready
+-test_sync.TestSync.test_conflict_keep_local_binary
 
--for tar files, different size for file storage as opposed to streaming
- need to add padding when streaming from serverside? (timeout in test_add_media)
+-test_sync.TestSync.test_binary_download: need for dummy read at the end? Document.
+ Cherrypy worker threads don't exit cleanly..
+ need similar things for media?
 
 -send closing <openSM2sync tag> at the end of each message
 
 -add tests for http 1.0
-
--rework get_binary database to be similar to get media
-
--check if we really stream for get_server_media_files
 
 -document new way of streaming, caused by wsgi and squid older than 3.1 not supporting chunked transfer encoding
 
@@ -47,6 +44,8 @@ Or we can chunk it up in many messages like we did for xml. No, because then the
 
 -memorise sister cards in the same day --> same setting
 -still got 2 sister cards next to each other
+
+-when only 1 failed card is in the queue, new to memorise cards are never added
 
 -sync all, abort convert operation, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.

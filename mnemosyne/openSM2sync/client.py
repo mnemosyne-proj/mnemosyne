@@ -327,8 +327,8 @@ class Client(Partner):
         self.con.request("GET", "/server_entire_database_binary?" + \
             "session_token=%s" % (self.server_info["session_token"], ))
         response = self.con.getresponse()
-        size = int(response.getheader("content-length"))
-        self.download_binary_file(filename, response.fp, size)
+        size = int(response.getheader("mnemosyne-content-length"))
+        self.download_binary_file(filename, response, size)
         self.database.load(filename)
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
@@ -350,7 +350,6 @@ class Client(Partner):
         self.con.putheader("content-length", size)
         self.con.endheaders()     
         socket = self.con.sock.makefile("wb", bufsize=BUFFER_SIZE)
-        #socket.write(str(size) + "\n")
         # Bundle the media files in a single tar stream, and send it over a
         # buffered socket in order to save memory. Note that this is a short
         # cut for efficiency reasons and bypasses the routines in Partner, and
@@ -375,8 +374,11 @@ class Client(Partner):
         response = self.con.getresponse()
         size = int(response.getheader("mnemosyne-content-length"))
         if size == 0:
+            # Make sure to read the full message, even if it's empty,
+            # since we reuse our connection.
+            response.read()
             return
-        tar_pipe = tarfile.open(mode="r|", fileobj=getresponse)
+        tar_pipe = tarfile.open(mode="r|", fileobj=response)
         # Work around http://bugs.python.org/issue7693.
         tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
 

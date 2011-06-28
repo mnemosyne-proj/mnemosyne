@@ -110,7 +110,8 @@ class Server(Partner):
     def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
         self.wsgi_server = wsgiserver.CherryPyWSGIServer\
-            (("0.0.0.0", port), self.wsgi_app, server_name="localhost")
+            (("0.0.0.0", port), self.wsgi_app, server_name="localhost",
+             shutdown_timeout=0.0001)
         Partner.__init__(self, ui)
         self.text_format = XMLFormat()
         self.sessions = {} # {session_token: session}
@@ -468,13 +469,18 @@ class Server(Partner):
                 session.client_info["interested_in_old_reps"])
             global mnemosyne_content_length
             mnemosyne_content_length = file_size
-            for buffer in self.stream_binary_file(binary_file, file_size):
-                yield buffer
-            binary_format.clean_up()
+            # Since we want to modify the headers in this function, we cannot
+            # use 'yield' directly to stream content, but have to add one layer
+            # of indirection: http://www.cherrypy.org/wiki/ReturnVsYield
+            def content():
+                for buffer in self.stream_binary_file(binary_file, file_size):
+                    yield buffer
+                binary_format.clean_up()
+            return content()
             # This is a full sync, we don't need to apply client log
             # entries here.
         except:
-            yield self.handle_error(session, traceback_string())        
+            return self.handle_error(session, traceback_string())        
 
     def put_client_media_files(self, environ, session_token):
         try:
@@ -524,7 +530,7 @@ class Server(Partner):
             mnemosyne_content_length = file_size
             # Since we want to modify the headers in this function, we cannot
             # use 'yield' directly to stream content, but have to add one layer
-            # of indiretion: http://www.cherrypy.org/wiki/ReturnVsYield
+            # of indirection: http://www.cherrypy.org/wiki/ReturnVsYield
             def content():
                 for buffer in self.stream_binary_file(tmp_file, file_size):
                     yield buffer            

@@ -191,7 +191,7 @@ class TestSync(object):
             assert self.server.passed_tests == True
         finally:
             self.client.mnemosyne.finalise()
-        
+         
     def test_add_tag(self):
 
         def test_server(self):

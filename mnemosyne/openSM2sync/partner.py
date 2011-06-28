@@ -83,8 +83,21 @@ class Partner(object):
                 downloaded_file.write(stream.read(remaining))
                 remaining = 0
             else:
-                downloaded_file.write(stream.read(BUFFER_SIZE))
+                data = stream.read(BUFFER_SIZE)
+                #import sys; sys.stderr.write("---"+data+"---")
+                downloaded_file.write(data)                
+                #downloaded_file.write(stream.read(BUFFER_SIZE))
                 remaining -= BUFFER_SIZE
             self.ui.set_progress_value(file_size - remaining)
+
+
+        # TODO: tmp hack, times out but saves the day.
+        data = stream.read(0)
+        #data = stream.read(BUFFER_SIZE)
+        #import sys; sys.stderr.write("---"+data+"---")
+        #downloaded_file.write(data)          
+
+
+        
         self.ui.set_progress_value(file_size)
         downloaded_file.close()
