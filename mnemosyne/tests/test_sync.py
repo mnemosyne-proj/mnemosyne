@@ -39,7 +39,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        sys.stderr.write(error)
+        #sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         return answer
@@ -159,11 +159,6 @@ class MyClient(Client):
         self.mnemosyne.review_controller().reset()        
         Client.__init__(self, self.mnemosyne.config().machine_id(),
                         self.mnemosyne.database(), self.mnemosyne.main_widget())
-
-        httplib.HTTPConnection._http_vsn = 11
-        httplib.HTTPConnection._http_vsn_str = 'HTTP/1.1'
-        #httplib.HTTPConnection._http_vsn = 10
-        #httplib.HTTPConnection._http_vsn_str = 'HTTP/1.0'        
         
     def do_sync(self):
         server_initialised.acquire()

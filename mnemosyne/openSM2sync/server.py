@@ -109,9 +109,11 @@ class Server(Partner):
 
     def __init__(self, machine_id, port, ui):        
         self.machine_id = machine_id
+        # We only use 1 thread, such that subsequent requests don't run into
+        # SQLite access problems.
         self.wsgi_server = wsgiserver.CherryPyWSGIServer\
             (("0.0.0.0", port), self.wsgi_app, server_name="localhost",
-             shutdown_timeout=0.0001)
+            numthreads=1, timeout=120)
         Partner.__init__(self, ui)
         self.text_format = XMLFormat()
         self.sessions = {} # {session_token: session}

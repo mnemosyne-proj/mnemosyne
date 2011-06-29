@@ -1,15 +1,12 @@
--test_sync.TestSync.test_conflict_keep_local_binary
-
 -test_sync.TestSync.test_binary_download: need for dummy read at the end? Document.
- Cherrypy worker threads don't exit cleanly..
  need similar things for media?
 
 -send closing <openSM2sync tag> at the end of each message
-
--add tests for http 1.0
+-make buffer size settable by client and sent across during handshaking
+-add tests for breaking up log into different messages
+-find optimal buffer length
 
 -document new way of streaming, caused by wsgi and squid older than 3.1 not supporting chunked transfer encoding
-
 xml client to server: generated on the fly, length not known in advance: break up in many messages
 xml server to client: one could hope the server has enough memory to tackle this, but breaking up in many messages
  makes client and server more symmetrical. Or just use 'yield', and collect it if needed.
@@ -17,28 +14,18 @@ binary (known size) client to server: just incrementally dump to/read from socke
 binary (knows size) server to client: can server dump in wsgi socket? Probably not..., so memory penalty... reading in client no problem. 
 Or we can chunk it up in many messages like we did for xml. No, because then the client cannot decode the tar file on the fly.
 
-
 -make client and server as symmetric as possible. do we still need partner.py?
--make buffer size settable by client and sent across during handshaking
--add tests for breaking up log into different messages
+
 -check if we need all the newlines
 -proxy dection through urllib.getproxies
   pool = HTTPConnectionPool('myproxy.com')
  pool.urlopen('GET', 'http://google.com' assert_same_host=False) # Will be fetched via myproxy.com
--revisit need for try/except at the lowest levels
--python wsgi ref server is http/1.0, so no connection reuse
-
--for testsuite: class HTTPConnection:
-
-    _http_vsn = 11
-    _http_vsn_str = 'HTTP/1.1'
-
+-add selected tests for cases with http 1.0, do coverage
 -do we need all progress messages?
 -grep through TODOs
--need dummy request to shut down the server?
--(fix illegal end of headers when closing down the connection and the server?)
 -add cherrypy to requirements
 -deal with WSGIRequestHandler.address_string = not_insane_address_string
+-time on WM
 
 -searching for '(niet ' gives empty question and answer fields
 

@@ -82,9 +82,29 @@ class Client(Partner):
         self.database = database
         self.text_format = XMLFormat()
         self.server_info = {}
+        self.con = None
+
+        # TODO: determine automatically
+        self.behind_proxy = False
+        
+    def request_connection(self):
+
+        """If we are not behind a proxy, create the connection once and reuse
+        it for all requests. If we are behind a proxy, we need to revert to
+        HTTP 1.0 and use a separate connection for each request.
+        
+        """
+
+        if self.behind_proxy:
+            httplib.HTTPConnection._http_vsn = 10
+            httplib.HTTPConnection._http_vsn_str = 'HTTP/1.0' 
+        if self.behind_proxy or (not self.behind_proxy and not self.con):
+            self.con = httplib.HTTPConnection(self.server, self.port)
 
     def sync(self, server, port, username, password):
-        try:            
+        try:
+            self.server = socket.gethostbyname(server)
+            self.port = port
             self.ui.set_progress_text("Creating backup...")            
             if self.do_backup:
                 backup_file = self.database.backup()
@@ -94,7 +114,7 @@ class Client(Partner):
             self.ui.set_progress_text("Checking for edited media files...")  
             if self.check_for_edited_local_media_files:
                 self.database.check_for_edited_media_files()
-            self.login(socket.gethostbyname(server), port, username, password)
+            self.login(username, password)
             # First sync.
             if self.database.is_empty():
                 self.get_server_media_files()
@@ -103,38 +123,33 @@ class Client(Partner):
                 else:
                     self.get_server_entire_database()
                 self.get_sync_finish()
-                self.ui.close_progress()
-                self.ui.show_information("Sync finished!")
-                return
-            # Upload local changes and check for conflicts.
-            result = self.put_client_log_entries()            
-            # No conflicts.
-            if result == "OK":
-                self.put_client_media_files()
-                self.get_server_media_files()
-                self.get_server_log_entries()
-                self.get_sync_finish()
-            # Conflicts, keep remote.
-            elif result == "KEEP_REMOTE":
-                self.get_server_media_files(redownload_all=True)                
-                if self.server_info["supports_binary_transfer"]:
-                    self.get_server_entire_database_binary()
-                else:
-                    self.get_server_entire_database()
-                self.get_sync_finish()
-            # Conflicts, keep local. Only becomes a valid option when binary
-            # transfer is possible too. All the conditions are checked in
-            # 'put_client_log_entries'.
-            elif result == "KEEP_LOCAL":
-                self.put_client_media_files(reupload_all=True) 
-                self.put_client_entire_database_binary()
-                self.get_sync_finish()
-            # Conflict, cancel.
-            elif result == "CANCEL":
-                self.get_sync_cancel()
-                self.ui.close_progress()
-                self.ui.show_information("Sync cancelled!")
-                return
+            else:
+                # Upload local changes and check for conflicts.
+                result = self.put_client_log_entries()            
+                # No conflicts.
+                if result == "OK":
+                    self.put_client_media_files()
+                    self.get_server_media_files()
+                    self.get_server_log_entries()
+                    self.get_sync_finish()
+                # Conflicts, keep remote.
+                elif result == "KEEP_REMOTE":
+                    self.get_server_media_files(redownload_all=True)                
+                    if self.server_info["supports_binary_transfer"]:
+                        self.get_server_entire_database_binary()
+                    else:
+                        self.get_server_entire_database()
+                    self.get_sync_finish()
+                # Conflicts, keep local. Only becomes a valid option when
+                # binary transfer is possible too. All the conditions are
+                # checked in 'put_client_log_entries'.
+                elif result == "KEEP_LOCAL":
+                    self.put_client_media_files(reupload_all=True) 
+                    self.put_client_entire_database_binary()
+                    self.get_sync_finish()
+                # Conflict, cancel.
+                elif result == "CANCEL":
+                    self.get_sync_cancel()
         except Exception, exception:
             self.ui.close_progress()
             if type(exception) == type(socket.gaierror()):
@@ -149,8 +164,7 @@ class Client(Partner):
                 self.ui.show_error(traceback_string())
             if self.do_backup:
                 self.database.restore(backup_file)
-            self.con.close()
-        else:
+        finally:
             self.con.close()
             self.ui.close_progress()
             self.ui.show_information("Sync finished!")
@@ -163,7 +177,7 @@ class Client(Partner):
         # We don't scare the client user with server log traces here, those
         # should have already been logged at the server side.
 
-    def login(self, server, port, username, password):
+    def login(self, username, password):
         self.ui.set_progress_text("Logging in...")
         client_info = {}
         client_info["username"] = username
@@ -186,10 +200,10 @@ class Client(Partner):
         client_info["render_chain"] = ""
         # Add optional program-specific information.
         client_info = self.database.append_to_sync_partner_info(client_info)
-        self.con = httplib.HTTPConnection(server, port)
+        self.request_connection()
         self.con.request("PUT", "/login",
             self.text_format.repr_partner_info(client_info).\
-                encode("utf-8") + "\n")
+            encode("utf-8") + "\n")
         response = self.con.getresponse().read()
         if "message" in response:
             message, traceback = self.text_format.parse_message(response)
@@ -214,6 +228,7 @@ class Client(Partner):
 
     def _send_buffer(self, buffer):
         # TODO: clean up
+        self.request_connection()
         self.con.request("PUT", "/client_log_entries?session_token=%s" \
             % (self.server_info["session_token"],), buffer.encode("utf-8"))
         response = self.con.getresponse().read()
@@ -267,9 +282,6 @@ class Client(Partner):
 
     def put_client_entire_database_binary(self):
         self.ui.set_progress_text("Sending entire binary database...")
-        self.con.request("PUT",
-                "/client_entire_database_binary?session_token=%s" \
-                % (self.server_info["session_token"], ))
         for BinaryFormat in BinaryFormats:
             binary_format = BinaryFormat(self.database)
             if binary_format.supports(self.server_info["program_name"],
@@ -280,6 +292,12 @@ class Client(Partner):
                 binary_file, file_size = binary_format.binary_file_and_size(\
                     self.store_pregenerated_data, self.interested_in_old_reps)
                 break
+        self.request_connection()
+        self.con.putrequest("PUT",
+                "/client_entire_database_binary?session_token=%s" \
+                % (self.server_info["session_token"], ))
+        self.con.putheader("content-length", file_size)
+        self.con.endheaders()   
         for buffer in self.stream_binary_file(binary_file, file_size):
             self.con.send(buffer)
         binary_format.clean_up()
@@ -289,6 +307,7 @@ class Client(Partner):
         self.ui.set_progress_text("Getting log entries...")
         if self.upload_science_logs:
             self.database.dump_to_science_log()
+        self.request_connection()
         self.con.request("GET", "/server_log_entries?session_token=%s" \
             % (self.server_info["session_token"], ))
         def callback(context, log_entry):
@@ -305,6 +324,7 @@ class Client(Partner):
         # Create a new database. Note that this also resets the
         # partnerships, as required.
         self.database.new(filename)
+        self.request_connection()
         self.con.request("GET", "/server_entire_database?" + \
             "session_token=%s" % (self.server_info["session_token"], ))
         def callback(context, log_entry):
@@ -324,6 +344,7 @@ class Client(Partner):
         self.ui.set_progress_text("Getting entire binary database...")
         filename = self.database.path()
         self.database.abandon()
+        self.request_connection()
         self.con.request("GET", "/server_entire_database_binary?" + \
             "session_token=%s" % (self.server_info["session_token"], ))
         response = self.con.getresponse()
@@ -345,6 +366,7 @@ class Client(Partner):
         size = tar_file_size(self.database.media_dir(), filenames)
         if size == 0:
             return
+        self.request_connection()
         self.con.putrequest("PUT", "/client_media_files?session_token=%s" \
             % (self.server_info["session_token"], ))
         self.con.putheader("content-length", size)
@@ -370,6 +392,7 @@ class Client(Partner):
             % (self.server_info["session_token"], )
         if redownload_all:
             url += "&redownload_all=1"
+        self.request_connection()
         self.con.request("GET", url)
         response = self.con.getresponse()
         size = int(response.getheader("mnemosyne-content-length"))
@@ -384,14 +407,18 @@ class Client(Partner):
 
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")
+        self.request_connection()
         self.con.request("GET", "/sync_cancel?session_token=%s" \
-            % (self.server_info["session_token"], ))
+            % (self.server_info["session_token"], ),
+            headers={"connection": "close"})
         self._check_response_for_errors()
-        
+                
     def get_sync_finish(self):
         self.ui.set_progress_text("Finishing sync...")
+        self.request_connection()
         self.con.request("GET", "/sync_finish?session_token=%s" \
-            % (self.server_info["session_token"], ))
+            % (self.server_info["session_token"], ),
+            headers={"connection": "close"})
         self._check_response_for_errors()
         # Only update after we are sure there have been no errors.
         self.database.update_last_log_index_synced_for(\
