@@ -23,6 +23,8 @@ class Partner(object):
         We also tried compression here, but for typical scenarios that seems
         to be slightly slower on a WLAN and mobile phone.
 
+        NOT USED IN CLIENT
+
         """
         
         self.ui.set_progress_range(0, number_of_entries)
@@ -71,33 +73,14 @@ class Partner(object):
 
     def download_binary_file(self, filename, stream, file_size):
         downloaded_file = file(filename, "wb")
-        #try:
-        #    file_size = int(stream.readline())
-        #except:
-        #    raise SyncError("Downloading binary file: error on remote side.")
         self.ui.set_progress_range(0, file_size)
         self.ui.set_progress_update_interval(file_size/50)
-        remaining = file_size
-        while remaining:
-            if remaining < BUFFER_SIZE:
-                downloaded_file.write(stream.read(remaining))
-                remaining = 0
-            else:
-                data = stream.read(BUFFER_SIZE)
-                #import sys; sys.stderr.write("---"+data+"---")
-                downloaded_file.write(data)                
-                #downloaded_file.write(stream.read(BUFFER_SIZE))
-                remaining -= BUFFER_SIZE
-            self.ui.set_progress_value(file_size - remaining)
-
-
-        # TODO: tmp hack, times out but saves the day.
-        data = stream.read(0)
-        #data = stream.read(BUFFER_SIZE)
-        #import sys; sys.stderr.write("---"+data+"---")
-        #downloaded_file.write(data)          
-
-
-        
+        bytes_read = 0
+        data = stream.read(BUFFER_SIZE)
+        while data:
+            downloaded_file.write(data)
+            bytes_read += len(data)
+            self.ui.set_progress_value(bytes_read)
+            data = stream.read(BUFFER_SIZE)        
         self.ui.set_progress_value(file_size)
         downloaded_file.close()

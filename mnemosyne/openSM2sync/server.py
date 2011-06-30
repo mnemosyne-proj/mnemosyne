@@ -502,9 +502,6 @@ class Server(Partner):
         try:
             global mnemosyne_content_length
             session = self.sessions[session_token]
-            # Note that for media files, we use tar stream directly for efficiency
-            # reasons, and bypass the routines in Partner.
-            self.ui.set_progress_text("Sending media files...")
             # Determine files to send across.
             if redownload_all in ["1", "True", "true"]:
                 filenames = list(session.database.all_media_filenames())
@@ -514,11 +511,14 @@ class Server(Partner):
             if len(filenames) == 0:
                 mnemosyne_content_length = 0
                 return ""
+            self.ui.set_progress_text("Sending media files...")
             # Create a temporary tar file with the files.
             tmp_file = tempfile.NamedTemporaryFile(delete=False)
             tmp_file_name = tmp_file.name
             saved_path = os.getcwdu()
             os.chdir(session.database.media_dir())
+            # Note that for media files, we use tar stream directly for efficiency
+            # reasons, and bypass the routines in Partner.
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
                 bufsize=BUFFER_SIZE, format=tarfile.PAX_FORMAT)
             for filename in filenames:

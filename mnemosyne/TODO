@@ -1,9 +1,5 @@
--test_sync.TestSync.test_binary_download: need for dummy read at the end? Document.
- need similar things for media?
-
--send closing <openSM2sync tag> at the end of each message
--make buffer size settable by client and sent across during handshaking
 -add tests for breaking up log into different messages
+-make buffer size settable by client and sent across during handshaking?
 -find optimal buffer length
 
 -document new way of streaming, caused by wsgi and squid older than 3.1 not supporting chunked transfer encoding
@@ -14,15 +10,17 @@ binary (known size) client to server: just incrementally dump to/read from socke
 binary (knows size) server to client: can server dump in wsgi socket? Probably not..., so memory penalty... reading in client no problem. 
 Or we can chunk it up in many messages like we did for xml. No, because then the client cannot decode the tar file on the fly.
 
+-add selected tests for cases with http 1.0, do coverage
+
 -make client and server as symmetric as possible. do we still need partner.py?
 
 -check if we need all the newlines
+
+-grep through TODOs
+
 -proxy dection through urllib.getproxies
   pool = HTTPConnectionPool('myproxy.com')
  pool.urlopen('GET', 'http://google.com' assert_same_host=False) # Will be fetched via myproxy.com
--add selected tests for cases with http 1.0, do coverage
--do we need all progress messages?
--grep through TODOs
 -add cherrypy to requirements
 -deal with WSGIRequestHandler.address_string = not_insane_address_string
 -time on WM

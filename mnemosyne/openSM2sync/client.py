@@ -104,15 +104,15 @@ class Client(Partner):
     def sync(self, server, port, username, password):
         try:
             self.server = socket.gethostbyname(server)
-            self.port = port
-            self.ui.set_progress_text("Creating backup...")            
+            self.port = port           
             if self.do_backup:
+                self.ui.set_progress_text("Creating backup...") 
                 backup_file = self.database.backup()
             # We check if files were edited outside of the program. This can
             # generate EDITED_MEDIA_FILES log entries, so it should be done
-            # first.
-            self.ui.set_progress_text("Checking for edited media files...")  
+            # first. 
             if self.check_for_edited_local_media_files:
+                self.ui.set_progress_text("Checking for edited media files...")
                 self.database.check_for_edited_media_files()
             self.login(username, password)
             # First sync.
@@ -225,39 +225,32 @@ class Client(Partner):
         self.database.create_if_needed_partnership_with(\
             self.server_info["machine_id"])
         self.database.merge_partners(self.server_info["partners"])
-
-    def _send_buffer(self, buffer):
-        # TODO: clean up
-        self.request_connection()
-        self.con.request("PUT", "/client_log_entries?session_token=%s" \
-            % (self.server_info["session_token"],), buffer.encode("utf-8"))
-        response = self.con.getresponse().read()
-        message, traceback = self.text_format.parse_message(response)        
-        return message.lower()        
         
     def put_client_log_entries(self):
-        self.ui.set_progress_text("Sending log entries...")
         number_of_entries = self.database.number_of_log_entries_to_sync_for(\
             self.server_info["machine_id"])
         if number_of_entries == 0:
             return
+        self.ui.set_progress_text("Sending log entries...")
         self.ui.set_progress_range(0, number_of_entries)
         self.ui.set_progress_update_interval(number_of_entries/50)
-        buffer = self.text_format.log_entries_header(number_of_entries)
+        buffer = ""
         count = 0
         for log_entry in self.database.log_entries_to_sync_for(\
                 self.server_info["machine_id"]):
+            buffer += self.text_format.repr_log_entry(log_entry)
             count += 1
             self.ui.set_progress_value(count)
-            buffer += self.text_format.repr_log_entry(log_entry)
-            if len(buffer) > BUFFER_SIZE:
-                message = self._send_buffer(buffer)
-                if message != "continue":
-                    raise SyncError(message)
-                buffer = ""
-        self.ui.set_progress_text("Waiting for server...")
-        buffer += self.text_format.log_entries_footer()
-        message = self._send_buffer(buffer)
+            if len(buffer) > BUFFER_SIZE or count == number_of_entries:
+                buffer = \
+                    self.text_format.log_entries_header(number_of_entries) \
+                    + buffer + self.text_format.log_entries_footer()
+                self.request_connection()
+                self.con.request("PUT", "/client_log_entries?session_token=%s" \
+                    % (self.server_info["session_token"],), buffer.encode("utf-8"))
+                response = self.con.getresponse().read()
+                message, traceback = self.text_format.parse_message(response)        
+                message = message.lower()     
         if "server error" in message:
             raise SyncError(message)
         if "conflict" in message:
@@ -356,7 +349,6 @@ class Client(Partner):
         self.database.remove_partnership_with(self.machine_id)
         
     def put_client_media_files(self, reupload_all=False):
-        self.ui.set_progress_text("Sending media files...")
         # Size of tar archive.
         if reupload_all:
             filenames = self.database.all_media_filenames()
@@ -366,6 +358,7 @@ class Client(Partner):
         size = tar_file_size(self.database.media_dir(), filenames)
         if size == 0:
             return
+        self.ui.set_progress_text("Sending media files...")
         self.request_connection()
         self.con.putrequest("PUT", "/client_media_files?session_token=%s" \
             % (self.server_info["session_token"], ))
@@ -387,7 +380,6 @@ class Client(Partner):
         self._check_response_for_errors()
 
     def get_server_media_files(self, redownload_all=False):
-        self.ui.set_progress_text("Getting media files...")
         url = "/server_media_files?session_token=%s" \
             % (self.server_info["session_token"], )
         if redownload_all:
@@ -401,6 +393,7 @@ class Client(Partner):
             # since we reuse our connection.
             response.read()
             return
+        self.ui.set_progress_text("Getting media files...")
         tar_pipe = tarfile.open(mode="r|", fileobj=response)
         # Work around http://bugs.python.org/issue7693.
         tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
