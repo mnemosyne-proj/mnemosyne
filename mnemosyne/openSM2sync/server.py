@@ -364,8 +364,7 @@ class Server(Partner):
             self.ui.set_progress_text("Receiving log entries...")
             socket = environ["wsgi.input"]
             element_loop = self.text_format.parse_log_entries(socket)
-            if session.number_of_client_entries is None:
-                session.number_of_client_entries = int(element_loop.next())
+            session.number_of_client_entries = int(element_loop.next())
             if session.number_of_client_entries == 0:
                 return self.text_format.repr_message("OK")
             self.ui.set_progress_range(0, session.number_of_client_entries)

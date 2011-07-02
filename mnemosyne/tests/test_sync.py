@@ -39,7 +39,7 @@ class Widget(MainWidget):
         global last_error
         last_error = error
         # Activate this for debugging.
-        #sys.stderr.write(error)
+        sys.stderr.write(error)
 
     def show_question(self, question, option0, option1, option2):
         return answer
@@ -205,6 +205,42 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient()
+        tag = self.client.mnemosyne.database().\
+              get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
+        self.server.client_tag_id = tag.id
+        sql_res = self.client.mnemosyne.database().con.execute(\
+            "select * from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()
+        self.server.tag_added_timestamp = sql_res["timestamp"]
+        assert type(self.server.tag_added_timestamp) == int
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log where event_type=?", (EventTypes.ADDED_TAG,
+             )).fetchone()[0] == 1
+        assert self.client.mnemosyne.database().con.execute(\
+            "select count() from log").fetchone()[0] == 9
+        
+    def test_add_tag_behind_proxy(self):
+
+        def test_server(self):
+            db = self.mnemosyne.database()
+            tag = db.get_or_create_tag_with_name(unichr(0x628) + u'>&<abcd')
+            assert tag.id == self.client_tag_id
+            assert tag.name == unichr(0x628) + u">&<abcd"
+            sql_res = db.con.execute("select * from log where event_type=?",
+               (EventTypes.ADDED_TAG, )).fetchone()
+            assert self.tag_added_timestamp == sql_res["timestamp"]
+            assert type(sql_res["timestamp"]) == int
+            assert db.con.execute("select count() from log").fetchone()[0] == 9
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.behind_proxy = True
+        self.client.BUFFER_SIZE = 1
         tag = self.client.mnemosyne.database().\
               get_or_create_tag_with_name(unichr(0x628) + u">&<abcd")
         self.server.client_tag_id = tag.id
@@ -696,6 +732,79 @@ class TestSync(object):
             order by _id desc limit 1""", (EventTypes.ADDED_MEDIA_FILE, )).\
             fetchone()[0].startswith("b/")
 
+    def test_add_media_behind_proxy(self):
+
+        def fill_server_database(self):
+            os.mkdir(os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b"))
+                     
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "b", unichr(0x628) + u"b.ogg")
+            f = file(filename, "w")
+            f.write("B")
+            f.close()
+            fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
+                         "b": "answer"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.mnemosyne.controller().save_file()
+        
+        def test_server(self):
+            db = self.mnemosyne.database()
+            filename = os.path.join(os.path.abspath("dot_sync_server"),
+                "default.db_media", "a", unichr(0x628) + u"a.ogg")
+            assert os.path.exists(filename)
+            assert file(filename).read() == "A"
+            assert db.con.execute("select count() from log").fetchone()[0] == 24
+            assert db.con.execute("select count() from log where event_type=?",
+                (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2      
+            assert db.con.execute("""select object_id from log where event_type=?
+                order by _id desc limit 1""", (EventTypes.ADDED_MEDIA_FILE, )).\
+                fetchone()[0].startswith("a/")
+            assert db.con.execute("select count() from media").fetchone()[0] == 2
+            card = db.card(self.client_card.id, is_id_internal=False)
+            assert card.fact["f"].startswith("question\n<img src=")
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.behind_proxy = True
+
+        os.mkdir(os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a"))
+                     
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "a", unichr(0x628) + u"a.ogg")        
+        f = file(filename, "w")
+        f.write("A")
+        f.close()
+        fact_data = {"f": "question\n<img src=\"%s\">" % (filename),
+                     "b": "answer"}
+        card_type = self.client.mnemosyne.card_type_with_id("1")
+        card = self.client.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+        self.client.mnemosyne.controller().save_file()
+        self.server.client_card = self.client.mnemosyne.database().\
+            card(card.id, is_id_internal=False)  
+        self.client.do_sync()
+
+        filename = os.path.join(os.path.abspath("dot_sync_client"),
+            "default.db_media", "b", unichr(0x628) + u"b.ogg")
+        assert os.path.exists(filename)
+        assert file(filename).read() == "B"
+        db = self.client.mnemosyne.database()
+        assert db.con.execute("select count() from log").fetchone()[0] == 24
+        assert db.con.execute("select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
+        assert db.con.execute("select count() from media").fetchone()[0] == 2  
+        assert db.con.execute("""select object_id from log where event_type=?
+            order by _id desc limit 1""", (EventTypes.ADDED_MEDIA_FILE, )).\
+            fetchone()[0].startswith("b/")
+
     def test_delete_card_with_media(self):
 
         def fill_server_database(self):
@@ -1052,6 +1161,43 @@ class TestSync(object):
         self.server.start()
         
         self.client = MyClient()
+        self.client.do_sync()
+
+        card = self.client.database.card(self.server.card.id, is_id_internal=False)
+        assert len(card.tags) == 1
+        assert list(card.tags)[0].name == "default1"
+
+        assert self.client.database.con.execute("select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 3
+        
+    def test_binary_download_behind_proxy(self):
+        
+        def fill_server_database(self):
+            fact_data = {"f": "<latex>a^2</latex>",
+                         "b": "<latex>c^2</latex>"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            self.card = self.mnemosyne.controller().create_new_cards(fact_data,
+               card_type, grade=4, tag_names=["tag_1", "tag_2"])[0]
+            self.card.question()
+            self.card.answer()
+            self.mnemosyne.controller().save_file()
+            new_fact_data = {"f": "<latex>b^2</latex>",
+                             "b": "<latex>c^2</latex>"}            
+            self.mnemosyne.controller().edit_sister_cards(self.card.fact,
+              new_fact_data, self.card.card_type, card_type,
+            new_tag_names=["default1"], correspondence=[])
+            self.mnemosyne.controller().save_file()
+          
+        def test_server(self):
+            pass
+            
+        self.server = MyServer(binary_download=True)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+        
+        self.client = MyClient()
+        self.client.behind_proxy = True
         self.client.do_sync()
 
         card = self.client.database.card(self.server.card.id, is_id_internal=False)
@@ -1712,6 +1858,66 @@ class TestSync(object):
         self.server.start()
 
         self.client = MyClient(erase_previous=False)
+        tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
+        tag.name = "client"
+        self.client.mnemosyne.database().update_tag(tag)
+        self.client.mnemosyne.database().save()
+
+        global answer
+        answer = 0 # keep local
+        self.client.do_sync()
+        
+        tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
+        assert tag.name == "client"
+
+        assert self.client.mnemosyne.config().machine_id() not in \
+            self.client.mnemosyne.database().partners()
+        assert len(self.client.mnemosyne.database().partners()) == 1
+
+    def test_conflict_keep_local_binary_behind_proxy(self):
+
+        # First sync.
+
+        def test_server(self):
+            pass
+            
+        self.server = MyServer()
+        self.server.test_server = test_server
+        self.server.start()
+
+        self.client = MyClient()
+        self.client.behind_proxy = True
+        tag = self.client.mnemosyne.database().get_or_create_tag_with_name("tag")
+        self.client.mnemosyne.controller().save_file()
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        # Second sync.
+
+        def fill_server_database(self):
+            tag = self.mnemosyne.database().tag(self.tag_id, is_id_internal=False)
+            tag.name = "server"
+            self.mnemosyne.database().update_tag(tag)
+            self.mnemosyne.database().save()
+
+        def test_server(self):
+            tag = self.mnemosyne.database().tag(self.tag_id, is_id_internal=False)
+            assert tag.name == "client"
+
+            assert self.mnemosyne.config().machine_id() not in \
+                   self.mnemosyne.database().partners()
+            assert len(self.mnemosyne.database().partners()) == 1
+        
+        self.server = MyServer(erase_previous=False, binary_download=True)
+        self.server.tag_id = tag.id
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(erase_previous=False)
+        self.client.behind_proxy = True
         tag = self.client.mnemosyne.database().tag(tag.id, is_id_internal=False)
         tag.name = "client"
         self.client.mnemosyne.database().update_tag(tag)

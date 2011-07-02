@@ -10,7 +10,7 @@ import tarfile
 import httplib
 from xml.etree import cElementTree
 
-from partner import Partner, BUFFER_SIZE
+from partner import Partner
 from text_formats.xml_format import XMLFormat
 from utils import tar_file_size, traceback_string, SyncError
 
@@ -48,6 +48,7 @@ class Client(Partner):
     
     program_name = "unknown-SRS-app"
     program_version = "unknown"
+    BUFFER_SIZE = 8192
     # The capabilities supported by the client. Note that we assume that the
     # server supports "mnemosyne_dynamic_cards".
     capabilities = "mnemosyne_dynamic_cards"  # "facts", "cards"
@@ -83,9 +84,7 @@ class Client(Partner):
         self.text_format = XMLFormat()
         self.server_info = {}
         self.con = None
-
-        # TODO: determine automatically
-        self.behind_proxy = False
+        self.behind_proxy = None  # Explicit variable for testability.
         
     def request_connection(self):
 
@@ -95,6 +94,9 @@ class Client(Partner):
         
         """
 
+        if self.behind_proxy is None:
+            # TODO: determine automatically
+            self.behind_proxy = False
         if self.behind_proxy:
             httplib.HTTPConnection._http_vsn = 10
             httplib.HTTPConnection._http_vsn_str = 'HTTP/1.0' 
@@ -241,13 +243,15 @@ class Client(Partner):
             buffer += self.text_format.repr_log_entry(log_entry)
             count += 1
             self.ui.set_progress_value(count)
-            if len(buffer) > BUFFER_SIZE or count == number_of_entries:
+            if len(buffer) > self.BUFFER_SIZE or count == number_of_entries:
                 buffer = \
                     self.text_format.log_entries_header(number_of_entries) \
                     + buffer + self.text_format.log_entries_footer()
                 self.request_connection()
                 self.con.request("PUT", "/client_log_entries?session_token=%s" \
-                    % (self.server_info["session_token"],), buffer.encode("utf-8"))
+                    % (self.server_info["session_token"],),
+                    buffer.encode("utf-8"))
+                buffer = ""
                 response = self.con.getresponse().read()
                 message, traceback = self.text_format.parse_message(response)        
                 message = message.lower()     
@@ -364,7 +368,7 @@ class Client(Partner):
             % (self.server_info["session_token"], ))
         self.con.putheader("content-length", size)
         self.con.endheaders()     
-        socket = self.con.sock.makefile("wb", bufsize=BUFFER_SIZE)
+        socket = self.con.sock.makefile("wb", bufsize=self.BUFFER_SIZE)
         # Bundle the media files in a single tar stream, and send it over a
         # buffered socket in order to save memory. Note that this is a short
         # cut for efficiency reasons and bypasses the routines in Partner, and

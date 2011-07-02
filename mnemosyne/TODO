@@ -1,6 +1,5 @@
--add tests for breaking up log into different messages
--make buffer size settable by client and sent across during handshaking?
--find optimal buffer length
+-add selected tests for cases with http 1.0: test run in isolation, but not in sequence
+- do coverage
 
 -document new way of streaming, caused by wsgi and squid older than 3.1 not supporting chunked transfer encoding
 xml client to server: generated on the fly, length not known in advance: break up in many messages
@@ -9,8 +8,6 @@ xml server to client: one could hope the server has enough memory to tackle this
 binary (known size) client to server: just incrementally dump to/read from socket
 binary (knows size) server to client: can server dump in wsgi socket? Probably not..., so memory penalty... reading in client no problem. 
 Or we can chunk it up in many messages like we did for xml. No, because then the client cannot decode the tar file on the fly.
-
--add selected tests for cases with http 1.0, do coverage
 
 -make client and server as symmetric as possible. do we still need partner.py?
 
@@ -24,6 +21,7 @@ Or we can chunk it up in many messages like we did for xml. No, because then the
 -add cherrypy to requirements
 -deal with WSGIRequestHandler.address_string = not_insane_address_string
 -time on WM
+-find optimal client buffer length
 
 -searching for '(niet ' gives empty question and answer fields
 
