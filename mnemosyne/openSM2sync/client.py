@@ -99,7 +99,10 @@ class Client(Partner):
             self.behind_proxy = False
         if self.behind_proxy:
             httplib.HTTPConnection._http_vsn = 10
-            httplib.HTTPConnection._http_vsn_str = 'HTTP/1.0' 
+            httplib.HTTPConnection._http_vsn_str = 'HTTP/1.0'
+        else:
+            httplib.HTTPConnection._http_vsn = 11
+            httplib.HTTPConnection._http_vsn_str = 'HTTP/1.1'            
         if self.behind_proxy or (not self.behind_proxy and not self.con):
             self.con = httplib.HTTPConnection(self.server, self.port)
 

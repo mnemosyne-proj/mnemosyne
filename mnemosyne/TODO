@@ -1,5 +1,4 @@
--add selected tests for cases with http 1.0: test run in isolation, but not in sequence
-- do coverage
+-make client and server as symmetric as possible. do we still need partner.py?
 
 -document new way of streaming, caused by wsgi and squid older than 3.1 not supporting chunked transfer encoding
 xml client to server: generated on the fly, length not known in advance: break up in many messages
@@ -9,7 +8,6 @@ binary (known size) client to server: just incrementally dump to/read from socke
 binary (knows size) server to client: can server dump in wsgi socket? Probably not..., so memory penalty... reading in client no problem. 
 Or we can chunk it up in many messages like we did for xml. No, because then the client cannot decode the tar file on the fly.
 
--make client and server as symmetric as possible. do we still need partner.py?
 
 -check if we need all the newlines
 
@@ -50,6 +48,7 @@ Or we can chunk it up in many messages like we did for xml. No, because then the
 -use saveGeometry and saveState as opposed to manually saving width and height?
 -check close event: make sure sure geometry is written on accept too, as well as close event
 -painting pictures don't show up on windows
+-windows: both 2 and 5 seem to be default grade at the same time
 -windows client and server: sync from empty server: bad database format
 -windows client and server: import mem file from scratch, new sync, complains about not being able to access tmp file when downloading media 
 -run test suite under windows

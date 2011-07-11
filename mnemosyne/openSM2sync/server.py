@@ -15,10 +15,11 @@ import tempfile
 
 from cherrypy import wsgiserver
 
+from partner import Partner
 from log_entry import EventTypes
 from utils import traceback_string, rand_uuid
 from text_formats.xml_format import XMLFormat
-from partner import Partner, BUFFER_SIZE
+
 
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
@@ -101,7 +102,8 @@ class Server(Partner):
     
     program_name = "unknown-SRS-app"
     program_version = "unknown"
-
+    BUFFER_SIZE = 8192
+    
     dont_cause_conflict = set([EventTypes.STARTED_PROGRAM,
         EventTypes.STOPPED_PROGRAM, EventTypes.STARTED_SCHEDULER,
         EventTypes.LOADED_DATABASE, EventTypes.SAVED_DATABASE,
@@ -425,7 +427,7 @@ class Server(Partner):
                 session.client_info["interested_in_old_reps"])
             for buffer in self.stream_log_entries(log_entries,
                 number_of_entries):
-                yield buffer 
+                yield buffer
         except:
             yield self.handle_error(session, traceback_string())
         # Now that all the data is underway to the client, we can already
@@ -519,7 +521,7 @@ class Server(Partner):
             # Note that for media files, we use tar stream directly for efficiency
             # reasons, and bypass the routines in Partner.
             tar_pipe = tarfile.open(mode="w|", fileobj=tmp_file,
-                bufsize=BUFFER_SIZE, format=tarfile.PAX_FORMAT)
+                bufsize=self.BUFFER_SIZE, format=tarfile.PAX_FORMAT)
             for filename in filenames:
                 tar_pipe.add(filename)
             tar_pipe.close()
