@@ -1,25 +1,9 @@
--make client and server as symmetric as possible. do we still need partner.py?
-
--document new way of streaming, caused by wsgi and squid older than 3.1 not supporting chunked transfer encoding
-xml client to server: generated on the fly, length not known in advance: break up in many messages
-xml server to client: one could hope the server has enough memory to tackle this, but breaking up in many messages
- makes client and server more symmetrical. Or just use 'yield', and collect it if needed.
-binary (known size) client to server: just incrementally dump to/read from socket
-binary (knows size) server to client: can server dump in wsgi socket? Probably not..., so memory penalty... reading in client no problem. 
-Or we can chunk it up in many messages like we did for xml. No, because then the client cannot decode the tar file on the fly.
-
-
--check if we need all the newlines
-
--grep through TODOs
-
--proxy dection through urllib.getproxies
-  pool = HTTPConnectionPool('myproxy.com')
- pool.urlopen('GET', 'http://google.com' assert_same_host=False) # Will be fetched via myproxy.com
--add cherrypy to requirements
--deal with WSGIRequestHandler.address_string = not_insane_address_string
 -time on WM
 -find optimal client buffer length
+
+-test sync protocol behind real proxy
+
+-update trunk
 
 -searching for '(niet ' gives empty question and answer fields
 

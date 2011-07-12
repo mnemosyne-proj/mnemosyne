@@ -42,7 +42,7 @@ class XMLFormat(object):
                 if type(value) != str and type(value) != unicode:
                     value = repr(value)
                 repr_info += "%s=%s " % (key, saxutils.quoteattr(value))
-        repr_info += "protocol_version=\"%s\"></partner>" % (PROTOCOL_VERSION, )
+        repr_info += "protocol_version=\"%s\"></partner>\n" % (PROTOCOL_VERSION, )
         #import sys; sys.stderr.write(repr_info)
         return repr_info
 
@@ -111,13 +111,6 @@ class XMLFormat(object):
         See http://effbot.org/zone/element-iterparse.htm
 
         """
-
-        #TODO: tmp
-        #import sys; sys.stderr.write(str(xml))
-        #xml = xml.read()
-        #import sys; sys.stderr.write("|||" + str(xml) + '|||' + str(len(xml)) + '\n')
-        #from cStringIO import StringIO
-        #xml = StringIO(xml)
         
         context = iter(cElementTree.iterparse(xml, events=("start", "end")))
         event, root = context.next()  # 'start' event on openSM2 tag.
@@ -146,7 +139,7 @@ class XMLFormat(object):
         xml = "<openSM2sync message=\"%s\">" % (message, )
         if traceback:
             xml += "<traceback>%s</traceback>" % saxutils.escape(traceback)
-        xml += "</openSM2sync>"
+        xml += "</openSM2sync>\n"
         return xml
 
     def parse_message(self, xml):

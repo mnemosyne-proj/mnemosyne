@@ -85,6 +85,7 @@ class Client(Partner):
         self.server_info = {}
         self.con = None
         self.behind_proxy = None  # Explicit variable for testability.
+        self.proxy = None
         
     def request_connection(self):
 
@@ -93,18 +94,35 @@ class Client(Partner):
         HTTP 1.0 and use a separate connection for each request.
         
         """
-
+        
+        # If we haven't done so, determine whether we're behind a proxy.
         if self.behind_proxy is None:
-            # TODO: determine automatically
-            self.behind_proxy = False
+            import urllib
+            proxies = urllib.getproxies() 
+            if "http" in proxies:
+                self.behind_proxy = True
+                self.proxy = proxies["http"]
+            else:
+                self.behind_proxy = False
+        # Create a new connection or reuse an existing one.
         if self.behind_proxy:
             httplib.HTTPConnection._http_vsn = 10
-            httplib.HTTPConnection._http_vsn_str = 'HTTP/1.0'
+            httplib.HTTPConnection._http_vsn_str = "HTTP/1.0"
+            if self.proxy is not None:
+                self.con = httplib.HTTPConnection(self.proxy, self.port)
+            else:  # Testsuite has set self.behind_proxy to True to simulate
+                # being behind a proxy.
+                self.con = httplib.HTTPConnection(self.server, self.port)                
         else:
             httplib.HTTPConnection._http_vsn = 11
-            httplib.HTTPConnection._http_vsn_str = 'HTTP/1.1'            
-        if self.behind_proxy or (not self.behind_proxy and not self.con):
-            self.con = httplib.HTTPConnection(self.server, self.port)
+            httplib.HTTPConnection._http_vsn_str = "HTTP/1.1"            
+            if not self.con:
+                self.con = httplib.HTTPConnection(self.server, self.port)
+
+    def url(self, url_string):
+        if self.behind_proxy and self.proxy:
+            url_string = self.server + ":/" + url_string
+        return url_string
 
     def sync(self, server, port, username, password):
         try:
@@ -206,7 +224,7 @@ class Client(Partner):
         # Add optional program-specific information.
         client_info = self.database.append_to_sync_partner_info(client_info)
         self.request_connection()
-        self.con.request("PUT", "/login",
+        self.con.request("PUT", self.url("/login"),
             self.text_format.repr_partner_info(client_info).\
             encode("utf-8") + "\n")
         response = self.con.getresponse().read()
@@ -232,6 +250,18 @@ class Client(Partner):
         self.database.merge_partners(self.server_info["partners"])
         
     def put_client_log_entries(self):
+
+        """Contrary to binary files, the size of the log is not known until we
+        create it. In order to save memory on mobile devices, we don't want to
+        construct the entire log in memory before sending it on to the server.
+        However, chunked uploads are in the grey area of the WSGI spec and are
+        also not supported by older HTTP 1.0 proxies (e.g. Squid before 3.1).
+        Therefore, as a compromise, rather then streaming chunks in a single
+        message, we break up the entire log in different messages of size
+        self.BUFFER_SIZE.
+
+        """
+        
         number_of_entries = self.database.number_of_log_entries_to_sync_for(\
             self.server_info["machine_id"])
         if number_of_entries == 0:
@@ -251,8 +281,9 @@ class Client(Partner):
                     self.text_format.log_entries_header(number_of_entries) \
                     + buffer + self.text_format.log_entries_footer()
                 self.request_connection()
-                self.con.request("PUT", "/client_log_entries?session_token=%s" \
-                    % (self.server_info["session_token"],),
+                self.con.request("PUT", self.url(\
+                    "/client_log_entries?session_token=%s" \
+                    % (self.server_info["session_token"],)),
                     buffer.encode("utf-8"))
                 buffer = ""
                 response = self.con.getresponse().read()
@@ -294,26 +325,38 @@ class Client(Partner):
                 break
         self.request_connection()
         self.con.putrequest("PUT",
-                "/client_entire_database_binary?session_token=%s" \
-                % (self.server_info["session_token"], ))
+                self.url("/client_entire_database_binary?session_token=%s" \
+                % (self.server_info["session_token"], )))
         self.con.putheader("content-length", file_size)
         self.con.endheaders()   
         for buffer in self.stream_binary_file(binary_file, file_size):
             self.con.send(buffer)
         binary_format.clean_up()
         self._check_response_for_errors()
+
+    def _download_log_entries(self, stream):
+        element_loop = self.text_format.parse_log_entries(stream)        
+        number_of_entries = int(element_loop.next())
+        if number_of_entries == 0:
+            return
+        self.ui.set_progress_range(0, number_of_entries)
+        self.ui.set_progress_update_interval(number_of_entries/50)
+        count = 0
+        for log_entry in element_loop:
+            self.database.apply_log_entry(log_entry)
+            count += 1
+            self.ui.set_progress_value(count)
+        self.ui.set_progress_value(number_of_entries)
         
     def get_server_log_entries(self):
         self.ui.set_progress_text("Getting log entries...")
         if self.upload_science_logs:
             self.database.dump_to_science_log()
         self.request_connection()
-        self.con.request("GET", "/server_log_entries?session_token=%s" \
-            % (self.server_info["session_token"], ))
-        def callback(context, log_entry):
-            context.database.apply_log_entry(log_entry)
-        self.download_log_entries(self.con.getresponse(), callback,
-            context=self)   
+        self.con.request("GET", self.url(\
+            "/server_log_entries?session_token=%s" \
+            % (self.server_info["session_token"], )))
+        self._download_log_entries(self.con.getresponse())
         # The server will always upload the science logs of the log events
         # which originated at the server side.
         self.database.skip_science_log()
@@ -325,12 +368,9 @@ class Client(Partner):
         # partnerships, as required.
         self.database.new(filename)
         self.request_connection()
-        self.con.request("GET", "/server_entire_database?" + \
-            "session_token=%s" % (self.server_info["session_token"], ))
-        def callback(context, log_entry):
-            context.database.apply_log_entry(log_entry)
-        self.download_log_entries(self.con.getresponse(), callback,
-            context=self)            
+        self.con.request("GET", self.url("/server_entire_database?" + \
+            "session_token=%s" % (self.server_info["session_token"], )))
+        self._download_log_entries(self.con.getresponse())
         self.database.load(filename)
         # The server will always upload the science logs of the log events
         # which originated at the server side.
@@ -345,8 +385,9 @@ class Client(Partner):
         filename = self.database.path()
         self.database.abandon()
         self.request_connection()
-        self.con.request("GET", "/server_entire_database_binary?" + \
-            "session_token=%s" % (self.server_info["session_token"], ))
+        self.con.request("GET", self.url(\
+            "/server_entire_database_binary?" + \
+            "session_token=%s" % (self.server_info["session_token"], )))
         response = self.con.getresponse()
         size = int(response.getheader("mnemosyne-content-length"))
         self.download_binary_file(filename, response, size)
@@ -367,8 +408,9 @@ class Client(Partner):
             return
         self.ui.set_progress_text("Sending media files...")
         self.request_connection()
-        self.con.putrequest("PUT", "/client_media_files?session_token=%s" \
-            % (self.server_info["session_token"], ))
+        self.con.putrequest("PUT", self.url(\
+            "/client_media_files?session_token=%s" \
+            % (self.server_info["session_token"], )))
         self.con.putheader("content-length", size)
         self.con.endheaders()     
         socket = self.con.sock.makefile("wb", bufsize=self.BUFFER_SIZE)
@@ -387,12 +429,12 @@ class Client(Partner):
         self._check_response_for_errors()
 
     def get_server_media_files(self, redownload_all=False):
-        url = "/server_media_files?session_token=%s" \
+        media_url = "/server_media_files?session_token=%s" \
             % (self.server_info["session_token"], )
         if redownload_all:
-            url += "&redownload_all=1"
+             media_url += "&redownload_all=1"
         self.request_connection()
-        self.con.request("GET", url)
+        self.con.request("GET", self.url(media_url))
         response = self.con.getresponse()
         size = int(response.getheader("mnemosyne-content-length"))
         if size == 0:
@@ -408,16 +450,16 @@ class Client(Partner):
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")
         self.request_connection()
-        self.con.request("GET", "/sync_cancel?session_token=%s" \
-            % (self.server_info["session_token"], ),
+        self.con.request("GET", self.url("/sync_cancel?session_token=%s" \
+            % (self.server_info["session_token"], )),
             headers={"connection": "close"})
         self._check_response_for_errors()
                 
     def get_sync_finish(self):
         self.ui.set_progress_text("Finishing sync...")
         self.request_connection()
-        self.con.request("GET", "/sync_finish?session_token=%s" \
-            % (self.server_info["session_token"], ),
+        self.con.request("GET", self.url("/sync_finish?session_token=%s" \
+            % (self.server_info["session_token"], )),
             headers={"connection": "close"})
         self._check_response_for_errors()
         # Only update after we are sure there have been no errors.

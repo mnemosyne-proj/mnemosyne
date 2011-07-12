@@ -31,20 +31,6 @@ def socketwrap(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0):
     return sockobj
 socket.socket = socketwrap
 
-# Work around http://bugs.python.org/issue6085.
-
-#def not_insane_address_string(self):
-#    host, port = self.client_address[:2]
-#    return "%s (no getfqdn)" % host
-
-#WSGIRequestHandler.address_string = not_insane_address_string
-
-# Don't pollute our testsuite output.
-
-#def dont_log(*kwargs):
-#    pass
-
-#WSGIRequestHandler.log_message = dont_log
 
 # Register binary formats.
 
@@ -154,7 +140,8 @@ class Server(Partner):
         else:  # We have an iterator. With a HTTP/1.0 client (i.e. a Mnemosyne
         # client behind an HTTP/1.0 proxy like Squid pre 3.1) we cannot use
         # chunked encoding, so we need to assemble the entire message
-        # beforehand.
+        # beforehand. The obviously results in higher memory requirements for
+        # the server and less concurrent processing between client and server.
             if environ["SERVER_PROTOCOL"] == "HTTP/1.0":
                 message = ""
                 for buffer in data:
@@ -414,6 +401,21 @@ class Server(Partner):
         except:
             return self.handle_error(session, traceback_string())
 
+    def _stream_log_entries(self, log_entries, number_of_entries):
+        self.ui.set_progress_range(0, number_of_entries)
+        self.ui.set_progress_update_interval(number_of_entries/50)
+        buffer = self.text_format.log_entries_header(number_of_entries)
+        count = 0
+        for log_entry in log_entries:
+            count += 1
+            self.ui.set_progress_value(count)
+            buffer += self.text_format.repr_log_entry(log_entry)
+            if len(buffer) > self.BUFFER_SIZE:
+                yield buffer.encode("utf-8")
+                buffer = ""
+        buffer += self.text_format.log_entries_footer()
+        yield buffer.encode("utf-8")
+
     def get_server_log_entries(self, environ, session_token):
         try:
             session = self.sessions[session_token]
@@ -425,7 +427,7 @@ class Server(Partner):
                 number_of_log_entries_to_sync_for(\
                 session.client_info["machine_id"],
                 session.client_info["interested_in_old_reps"])
-            for buffer in self.stream_log_entries(log_entries,
+            for buffer in self._stream_log_entries(log_entries,
                 number_of_entries):
                 yield buffer
         except:
@@ -456,7 +458,7 @@ class Server(Partner):
                 session.client_info["interested_in_old_reps"])
             number_of_entries = session.database.number_of_log_entries(\
                 session.client_info["interested_in_old_reps"])
-            for buffer in self.stream_log_entries(log_entries,
+            for buffer in self._stream_log_entries(log_entries,
                 number_of_entries):
                 yield buffer
         except:
