@@ -1,5 +1,5 @@
 -time on WM
--find optimal client buffer length
+-find optimal client buffer length (6 times default?)
 
 -test sync protocol behind real proxy
 

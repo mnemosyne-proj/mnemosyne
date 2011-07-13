@@ -3,13 +3,13 @@
 import os
 import time
 import pstats
+import shutil
 import cProfile
 
 from mnemosyne.libmnemosyne import Mnemosyne
 
-number_of_calls = 20 # Number of calls to display in profile
+number_of_calls = 50 # Number of calls to display in profile
 number_of_facts = 6000
-
 
 from openSM2sync.server import Server
 from openSM2sync.client import Client
@@ -18,6 +18,7 @@ from openSM2sync.log_entry import EventTypes
 from mnemosyne.libmnemosyne import Mnemosyne
 from mnemosyne.libmnemosyne.fact import Fact
 from mnemosyne.libmnemosyne.ui_components.main_widget import MainWidget
+from mnemosyne.libmnemosyne.ui_components.review_widget import ReviewWidget
 
 class Widget(MainWidget):
     
@@ -29,6 +30,11 @@ class Widget(MainWidget):
         
     def show_error(self, error):
         print error
+        
+class MyReviewWidget(ReviewWidget):
+    
+    def redraw_now(self):
+        pass
 
         
 class MyClient(Client):
@@ -38,7 +44,8 @@ class MyClient(Client):
     capabilities = "TODO"
     
     def __init__(self):
-        self.mnemosyne = Mnemosyne()
+        shutil.rmtree(os.path.abspath("dot_sync_client"), ignore_errors=True)
+        self.mnemosyne = Mnemosyne(upload_science_logs=False, interested_in_old_reps=True)
         self.mnemosyne.components = [
             ("mnemosyne.libmnemosyne.translator",
              "NoTranslation"),    
@@ -56,8 +63,8 @@ class MyClient(Client):
              "FrontToBack"),
             ("mnemosyne.libmnemosyne.card_types.both_ways",
              "BothWays"),
-            ("mnemosyne.libmnemosyne.card_types.three_sided",
-             "ThreeSided"),
+            ("mnemosyne.libmnemosyne.card_types.vocabulary",
+             "Vocabulary"),
             ("mnemosyne.libmnemosyne.renderers.html_css",
              "HtmlCss"),
             ("mnemosyne.libmnemosyne.filters.escape_to_html",
@@ -66,6 +73,10 @@ class MyClient(Client):
              "ExpandPaths"),
             ("mnemosyne.libmnemosyne.filters.latex",
              "Latex"),
+            ("mnemosyne.libmnemosyne.render_chains.default_render_chain",
+             "DefaultRenderChain"),
+            ("mnemosyne.libmnemosyne.render_chains.plain_text_chain",
+             "PlainTextChain"), 
             ("mnemosyne.libmnemosyne.controllers.default_controller",
              "DefaultController"),
             ("mnemosyne.libmnemosyne.review_controllers.SM2_controller",
@@ -81,11 +92,12 @@ class MyClient(Client):
             ("mnemosyne.libmnemosyne.plugins.cramming_plugin",
              "CrammingPlugin") ]
         self.mnemosyne.components.append(("benchmark_sync_client", "Widget"))
-        self.mnemosyne.components.append(\
-            ("mnemosyne.libmnemosyne.ui_components.review_widget", "ReviewWidget"))
+        self.mnemosyne.components.append(("benchmark_sync_client", "MyReviewWidget"))
         self.mnemosyne.initialise(os.path.abspath(os.path.join(os.getcwdu(),
-                                  "dot_benchmark")),  automatic_upgrades=False)
+                                  "dot_sync_client")), automatic_upgrades=False)
         self.mnemosyne.config().change_user_id("user_id")
+        self.check_for_edited_local_media_files = False
+        self.do_backup = False     
         self.mnemosyne.review_controller().reset()
         # Do 200 reviews.
         card_type = self.mnemosyne.card_type_with_id("1")
@@ -101,8 +113,10 @@ class MyClient(Client):
         Client.__init__(self, "client_machine_id", self.mnemosyne.database(),
                         self.mnemosyne.main_widget())
         
-    def sync(self):
-        self.sync("192.168.2.60", 8186, "user", "pass")
+    def do_sync(self):
+        #self.BUFFER_SIZE = 10*8192
+        #self.behind_proxy = True
+        self.sync("localhost", 8186, "user", "pass")
         self.mnemosyne.database().save()
 
 if __name__== '__main__':
@@ -110,7 +124,7 @@ if __name__== '__main__':
     client = MyClient()
     
     def sync():
-        client.sync()
+        client.do_sync()
 
     tests = ["sync()"]
 
