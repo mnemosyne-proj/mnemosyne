@@ -1,11 +1,7 @@
 -time on WM
 -find optimal client buffer length (6 times default?)
-
+-try initial sync over high-latency link
 -test sync protocol behind real proxy
-
--update trunk
-
--searching for '(niet ' gives empty question and answer fields
 
 -memorise sister cards in the same day --> same setting
 -still got 2 sister cards next to each other
@@ -26,8 +22,12 @@
 -add function to database.py
 -see what part goes in controller
 
+-remove auto-link inverse cards from database load
+
 -right click remove tags in card browser
 
+-/cygdrive/c/python2.7/python.exe setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
+-dist/Output/setup.exe
 -windows dialogs have ? in upper right corner (Qt.WStyle_MinMax | Qt.WStyle_SysMenu))?
 -use saveGeometry and saveState as opposed to manually saving width and height?
 -check close event: make sure sure geometry is written on accept too, as well as close event

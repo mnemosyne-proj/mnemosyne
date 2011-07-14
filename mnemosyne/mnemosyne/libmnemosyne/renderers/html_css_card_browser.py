@@ -66,8 +66,10 @@ class HtmlCssCardBrowser(HtmlCss):
             render_args["ignore_text_colour"] == True:
             css = colour_re.sub("", css)
         if "search_string" in render_args and render_args["search_string"]:
-            search_re = re.compile("(" + render_args["search_string"] + ")",
-                re.IGNORECASE)
+            search_string = render_args["search_string"]
+            for symbol in ["(", ")", "?", ".", "^", "*", "$", "+"]:
+                search_string = search_string.replace(symbol, "\\" + symbol)
+            search_re = re.compile("(" + search_string + ")", re.IGNORECASE)
             for field in fields:
                 if field in data and data[field]:
                     data[field] = search_re.sub(\

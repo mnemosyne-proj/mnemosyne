@@ -101,7 +101,7 @@ class Server(Partner):
         # SQLite access problems.
         self.wsgi_server = wsgiserver.CherryPyWSGIServer\
             (("0.0.0.0", port), self.wsgi_app, server_name="localhost",
-            numthreads=1, timeout=120)
+            numthreads=1, timeout=1000)
         Partner.__init__(self, ui)
         self.text_format = XMLFormat()
         self.sessions = {} # {session_token: session}

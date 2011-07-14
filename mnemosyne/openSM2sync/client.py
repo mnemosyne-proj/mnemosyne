@@ -14,8 +14,6 @@ from partner import Partner
 from text_formats.xml_format import XMLFormat
 from utils import tar_file_size, traceback_string, SyncError
 
-socket.setdefaulttimeout(60)
-
 # Avoid delays caused by Nagle's algorithm.
 # http://www.cmlenz.net/archives/2008/03/python-httplib-performance-problems
 
@@ -137,7 +135,11 @@ class Client(Partner):
             if self.check_for_edited_local_media_files:
                 self.ui.set_progress_text("Checking for edited media files...")
                 self.database.check_for_edited_media_files()
+            # If the server is down, you want to know quickly.
+            socket.setdefaulttimeout(10)
             self.login(username, password)
+            # Full syncs could take a while.  
+            socket.setdefaulttimeout(10000)          
             # First sync.
             if self.database.is_empty():
                 self.get_server_media_files()

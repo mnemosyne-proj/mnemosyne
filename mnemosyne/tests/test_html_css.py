@@ -52,7 +52,8 @@ class TestHtmlCss(MnemosyneTest):
         card3.question("sync_to_card_only_client")
         card3.question("card_browser")        
         card3.question("card_browser", ignore_text_colour=True)
-
+        card3.question("card_browser", search_string="(")
+        
     def test_2(self):
         fact_data = {"f": "question",
                      "b": "answer"}

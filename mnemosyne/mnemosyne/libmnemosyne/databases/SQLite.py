@@ -371,6 +371,11 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
             f.run()
         # We don't log the database load here, but in libmnemosyne.__init__,
         # as we prefer to log the start of the program first.
+
+
+        # TODO: tmp
+
+        self.link_inverse_cards()
         
     def save(self, path=None):
         # Update format.
