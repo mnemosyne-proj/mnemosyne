@@ -62,8 +62,8 @@ class ConfigurationWdgtSyncServer(QtGui.QWidget,
         self.config()["run_sync_server"] = self.run_sync_server.isChecked()
         self.config()["port_for_sync_as_server"] = self.port.value()
         self.config()["remote_access_username"] = unicode(self.username.text())
-        self.config()["remote_access_password"] = unicode(self.password.text())    
-        self.component_manager.current("sync_server").deactivate() 
+        self.config()["remote_access_password"] = unicode(self.password.text())   
+        self.component_manager.current("sync_server").deactivate()
         if self.config()["run_sync_server"]:
             self.component_manager.current("sync_server").activate()
             if not self.initially_running and self.is_server_running():

@@ -455,9 +455,7 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         return True
 
     def abandon(self):
-        if self._connection:        
-            self._connection.close()
-            self._connection = None
+        self._connection = None
         self._path = None
         
     def is_loaded(self):

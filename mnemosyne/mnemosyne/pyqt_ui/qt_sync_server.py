@@ -59,7 +59,10 @@ class ServerThread(QtCore.QThread, SyncServer):
         self.server_has_connection = False
 
     def run(self):
-        self.serve_until_stopped()
+        try:
+            self.serve_until_stopped()
+        except socket.error:
+            self.show_error(_("Unable to start sync server."))          
         # Clean up after stopping.
         mutex.lock()
         server_hanging = (len(self.sessions) != 0)
@@ -90,8 +93,8 @@ class ServerThread(QtCore.QThread, SyncServer):
             self.database().release_connection()
             self.server_has_connection = False
             database_released.wakeAll()
-        self.sync_ended_signal.emit()
         mutex.unlock()
+        self.sync_ended_signal.emit()
         
     def show_error(self, error):
         self.error_signal.emit(error)
@@ -167,7 +170,7 @@ class QtSyncServer(Component, QtCore.QObject):
             self.database().release_connection()
             self.thread.server_has_connection = True
             database_released.wakeAll()
-        mutex.unlock()        
+        mutex.unlock()
             
     def unload_database(self):
         self.previous_database = self.config()["path"]
@@ -200,9 +203,7 @@ class QtSyncServer(Component, QtCore.QObject):
         if not self.thread:
             return
         self.release_database_if_needed()
-        mutex.lock()
-        self.thread.stopped = True
-        mutex.unlock()
+        self.thread.stop()
         self.thread.wait()
         self.thread = None
 

@@ -1,8 +1,3 @@
--time on WM
--find optimal client buffer length (6 times default?)
--try initial sync over high-latency link
--test sync protocol behind real proxy
-
 -memorise sister cards in the same day --> same setting
 -still got 2 sister cards next to each other
 
@@ -10,8 +5,6 @@
 
 -sync all, abort convert operation, restoring from backup backup before sync, then resyncing 
  does not restore database in sync client.
-
--initial sync: bad.png shows up empty
 
 -migrate science server machine
 

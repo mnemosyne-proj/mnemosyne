@@ -211,7 +211,7 @@ class Server(Partner):
 
         session = self.sessions[session_token]
         session.terminate()
-        self.unload_database(session.database)      
+        self.unload_database(session.database)
         del self.session_token_for_user[session.client_info["username"]]
         del self.sessions[session_token]
         self.ui.close_progress()
@@ -272,7 +272,7 @@ class Server(Partner):
         after sync cleanup.
 
         """
-        
+
         pass
     
     # The following are methods that are supported by the server through GET

@@ -175,6 +175,7 @@ class Client(Partner):
                 # Conflict, cancel.
                 elif result == "CANCEL":
                     self.get_sync_cancel()
+            self.ui.show_information("Sync finished!")
         except Exception, exception:
             self.ui.close_progress()
             if type(exception) == type(socket.gaierror()):
@@ -192,7 +193,6 @@ class Client(Partner):
         finally:
             self.con.close()
             self.ui.close_progress()
-            self.ui.show_information("Sync finished!")
 
     def _check_response_for_errors(self):
         response = self.con.getresponse().read()
@@ -448,6 +448,11 @@ class Client(Partner):
         tar_pipe = tarfile.open(mode="r|", fileobj=response)
         # Work around http://bugs.python.org/issue7693.
         tar_pipe.extractall(self.database.media_dir().encode("utf-8"))
+        # When downloading with chunked transfer encoding, there might still
+        # be some end-of-chunk delimiters left, which tar does not know
+        # anything about. We need to consume these if we want to reuse the
+        # connection.
+        response.read()
 
     def get_sync_cancel(self):
         self.ui.set_progress_text("Cancelling sync...")
