@@ -1,10 +1,4 @@
--memorise sister cards in the same day --> same setting
--still got 2 sister cards next to each other
-
--when only 1 failed card is in the queue, new to memorise cards are never added
-
--sync all, abort convert operation, restoring from backup backup before sync, then resyncing 
- does not restore database in sync client.
+-server add card A, sync, client exit to create backup, server add card B, sync, client restore to backup, sync: card B is not synced. Need to log sync events? Code to reset partnerships after restore seems to be missing (probably removed because we relied on conflicts to occur to resolve this, but there are no conflicts here. Add this in SQLite.py). Add test
 
 -migrate science server machine
 
@@ -15,9 +9,21 @@
 -add function to database.py
 -see what part goes in controller
 
+-right click remove tags in card browser
+
 -remove auto-link inverse cards from database load
 
--right click remove tags in card browser
+-memorise sister cards in the same day --> same setting
+-still got 2 sister cards next to each other
+
+-when only 1 failed card is in the queue, new to memorise cards are never added
+
+-syncing an empty database twice results in a spurious sync cycle detection. Also happens after syncing empty client and empty server database, then adding data to the server, and resyncing
+
+-if the server is empty, allow sync from non-empty client and change server user id.
+
+-column width in browser not saved?
+-make sure you can't run Mnemosyne twice
 
 -/cygdrive/c/python2.7/python.exe setup.py py2exe --packages=mnemosyne,numpy,xml.sax,xml.etree --includes=sip,PyQt4.QtNetwork
 -dist/Output/setup.exe

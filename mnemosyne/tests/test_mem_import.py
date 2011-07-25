@@ -199,7 +199,18 @@ class TestMemImport(MnemosyneTest):
         assert self.database().con.execute(\
             "select count() from log where event_type=?",
             (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 2
-
+        
+    def test_media_missing_2(self):
+        filename = os.path.join(os.getcwd(), "tests", "files", "media.mem")
+        self.mem_importer().do_import(filename)
+        assert not os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "a.png"))
+        assert not os.path.exists(os.path.join(\
+            os.path.abspath("dot_test"), "default.db_media", "figs", "a.png"))
+        assert self.database().con.execute(\
+            "select count() from log where event_type=?",
+            (EventTypes.ADDED_MEDIA_FILE, )).fetchone()[0] == 0
+        
     def test_media_slashes(self):
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs"))
         os.mkdir(os.path.join(os.getcwd(), "tests", "files", "figs", "figs"))       
