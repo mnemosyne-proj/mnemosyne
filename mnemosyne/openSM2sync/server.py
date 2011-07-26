@@ -329,6 +329,10 @@ class Server(Partner):
                 "session_token": session.token,
                 "supports_binary_transfer": \
                     self.supports_binary_transfer(session)}
+            # Signal if we need a sync reset after restoring from a backup.
+            server_info["sync_reset_needed"] = \
+                session.database.is_sync_reset_needed(\
+                client_info["machine_id"])
             # Add optional program-specific information.
             server_info = \
                 session.database.append_to_sync_partner_info(server_info)

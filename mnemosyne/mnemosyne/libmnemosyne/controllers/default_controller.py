@@ -433,7 +433,7 @@ class DefaultController(Controller):
             return
         if filename.startswith(os.path.join(data_dir, "backups")):
             result = self.main_widget().show_question(\
-                _("Do you want to restore from this backup?"),
+                _("Do you want to restore from this backup?\nNote that this will result in conflicts during the next sync, which need to be resolved by a full sync."),
                 _("Yes"), _("No"), "")
             if result == 0:  # Yes.
                 # Note that we don't save the current database first in this

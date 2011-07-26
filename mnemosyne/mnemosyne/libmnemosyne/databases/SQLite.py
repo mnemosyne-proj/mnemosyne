@@ -430,7 +430,14 @@ class SQLite(Database, SQLiteSync, SQLiteMedia, SQLiteLogging,
         db_path = expand_path(self.config()["path"], self.config().data_dir)
         shutil.copy(path, db_path)
         self.load(db_path)
-
+        # We need to indicate that a full sync needs to happen on the next
+        # sync. Unfortunately, we can't do anything about the logs that have
+        # already been sent to the science server, but the size of the science
+        # database should mitigate that effect.
+        self.con.execute(\
+            "update partnerships set _last_log_id=? where partner!=?",
+            (-666, "log.txt"))
+        
     def unload(self):
         if not self._connection:
             return

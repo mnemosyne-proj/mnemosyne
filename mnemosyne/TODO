@@ -1,4 +1,4 @@
--server add card A, sync, client exit to create backup, server add card B, sync, client restore to backup, sync: card B is not synced. Need to log sync events? Code to reset partnerships after restore seems to be missing (probably removed because we relied on conflicts to occur to resolve this, but there are no conflicts here. Add this in SQLite.py). Add test
+-fix test suite, check coverage for interaction between sync and restore from backup.
 
 -migrate science server machine
 

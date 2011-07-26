@@ -139,9 +139,15 @@ class Client(Partner):
             socket.setdefaulttimeout(10)
             self.login(username, password)
             # Full syncs could take a while.  
-            socket.setdefaulttimeout(10000)          
+            socket.setdefaulttimeout(10000)
+            # Do a full sync after either the client or the server has restored
+            # from a backup.
+            if self.database.is_sync_reset_needed(\
+                self.server_info["machine_id"]) or \
+                server_info["sync_reset_needed"] == True:
+                self.resolve_conflicts()                    
             # First sync.
-            if self.database.is_empty():
+            elif self.database.is_empty():
                 self.get_server_media_files()
                 if self.server_info["supports_binary_transfer"]:
                     self.get_server_entire_database_binary()
@@ -151,30 +157,13 @@ class Client(Partner):
             else:
                 # Upload local changes and check for conflicts.
                 result = self.put_client_log_entries()            
-                # No conflicts.
                 if result == "OK":
                     self.put_client_media_files()
                     self.get_server_media_files()
                     self.get_server_log_entries()
                     self.get_sync_finish()
-                # Conflicts, keep remote.
-                elif result == "KEEP_REMOTE":
-                    self.get_server_media_files(redownload_all=True)                
-                    if self.server_info["supports_binary_transfer"]:
-                        self.get_server_entire_database_binary()
-                    else:
-                        self.get_server_entire_database()
-                    self.get_sync_finish()
-                # Conflicts, keep local. Only becomes a valid option when
-                # binary transfer is possible too. All the conditions are
-                # checked in 'put_client_log_entries'.
-                elif result == "KEEP_LOCAL":
-                    self.put_client_media_files(reupload_all=True) 
-                    self.put_client_entire_database_binary()
-                    self.get_sync_finish()
-                # Conflict, cancel.
-                elif result == "CANCEL":
-                    self.get_sync_cancel()
+                else:
+                    self.resolve_conflicts()
             self.ui.show_information("Sync finished!")
         except Exception, exception:
             self.ui.close_progress()
@@ -193,6 +182,42 @@ class Client(Partner):
         finally:
             self.con.close()
             self.ui.close_progress()
+
+    def resolve_conflicts(self):
+        # Ask for conflict resolution direction.
+        if self.capabilities == "mnemosyne_dynamic_cards" and \
+            self.interested_in_old_reps and self.store_pregenerated_data \
+            and self.program_name == self.server_info["program_name"] and \
+            self.program_version == self.server_info["program_version"]: 
+            result = self.ui.show_question(\
+                "Conflicts detected during sync!",
+                "Keep local version", "Fetch remote version", "Cancel")
+            results = {0: "KEEP_LOCAL", 1: "KEEP_REMOTE", 2: "CANCEL"}
+            result = results[result]
+        else:
+            result = self.ui.show_question(\
+                "Conflicts detected during sync! Your client only " +\
+                "stores part of the server database, so you can only " +\
+                "fetch the remote version.",
+                "Fetch remote version", "Cancel", "")
+            results = {0: "KEEP_REMOTE", 1: "CANCEL"}
+            result = results[result]
+        # Keep remote.
+        if result == "KEEP_REMOTE":
+            self.get_server_media_files(redownload_all=True)                
+            if self.server_info["supports_binary_transfer"]:
+                self.get_server_entire_database_binary()
+            else:
+                self.get_server_entire_database()
+            self.get_sync_finish()
+        # Keep local.
+        elif result == "KEEP_LOCAL":
+            self.put_client_media_files(reupload_all=True) 
+            self.put_client_entire_database_binary()
+            self.get_sync_finish()
+        # Cancel.
+        elif result == "CANCEL":
+            self.get_sync_cancel()
 
     def _check_response_for_errors(self):
         response = self.con.getresponse().read()
@@ -294,23 +319,7 @@ class Client(Partner):
         if "server error" in message:
             raise SyncError(message)
         if "conflict" in message:
-            if self.capabilities == "mnemosyne_dynamic_cards" and \
-               self.interested_in_old_reps and self.store_pregenerated_data \
-               and self.program_name == self.server_info["program_name"] and \
-               self.program_version == self.server_info["program_version"]:
-                result = self.ui.show_question(\
-                    "Conflicts detected during sync!",
-                    "Keep local version", "Fetch remote version", "Cancel")
-                results = {0: "KEEP_LOCAL", 1: "KEEP_REMOTE", 2: "CANCEL"}
-                return results[result]
-            else:
-                result = self.ui.show_question(\
-                    "Conflicts detected during sync! Your client only " +\
-                    "stores part of the server database, so you can only " +\
-                    "fetch the remote version.",
-                    "Fetch remote version", "Cancel", "")
-                results = {0: "KEEP_REMOTE", 1: "CANCEL"}
-                return results[result]
+            return "conflict"           
         return "OK"
 
     def put_client_entire_database_binary(self):

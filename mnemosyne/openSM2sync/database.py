@@ -161,7 +161,10 @@ class Database(object):
         
     def merge_partners(self, remote_partners):
         raise NotImplementedError
-    
+
+    def is_sync_reset_needed(self, partner):
+        raise NotImplementedError        
+
     def append_to_sync_partner_info(self, partner_info):
         return partner_info
 

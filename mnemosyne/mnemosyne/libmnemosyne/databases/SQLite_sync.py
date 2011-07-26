@@ -87,6 +87,15 @@ class SQLiteSync(object):
                 self.con.execute("""insert into partnerships(partner, 
                      _last_log_id) values(?,?)""", (partner, -1))
 
+    def is_sync_reset_needed(self, partner):
+
+        """When restoring from a earlier backup, the partnership indices
+        have been set to -666, and we need to do a full sync.
+
+        """
+        
+        return self.last_log_index_synced_for(partner) == -666
+
     def last_log_index_synced_for(self, partner):
         return self.con.execute("""select _last_log_id from partnerships 
            where partner=?""", (partner, )).fetchone()[0]

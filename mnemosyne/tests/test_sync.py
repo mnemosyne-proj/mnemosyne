@@ -3002,3 +3002,108 @@ class TestSync(object):
         db = self.client.database
         assert db.con.execute("select count() from log where event_type=?",
                (EventTypes.EDITED_SETTING, )).fetchone()[0] == 1
+
+    def test_restore_backup(self):
+
+        # Sync 1.
+
+        def test_server(self):
+            pass
+        
+        def fill_server_database(self):
+            fact_data = {"f": "question",
+                         "b": "answer"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=[])[0]
+            
+        self.server = MyServer(os.path.abspath("dot_sync_server"))
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_client"))
+        self.client.do_sync()
+        self.client.database.save(os.path.join(os.path.abspath("dot_sync_client"), "backup.db"))
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        # Sync 2.
+        
+        def test_server(self):
+            pass
+        
+        def fill_server_database(self):
+            fact_data = {"f": "question2",
+                         "b": "answer2"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=[])[0]
+            
+        self.server = MyServer(os.path.abspath("dot_sync_server"), erase_previous=False)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_client"), erase_previous=False)
+        self.client.do_sync()
+        self.client.database.restore(os.path.join(os.path.abspath("dot_sync_client"), "backup.db"))
+        assert self.client.mnemosyne.database().fact_count() == 1
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().fact_count() == 2
+
+    def test_restore_backup_2(self):
+
+        # Sync 1.
+
+        def test_server(self):
+            pass
+        
+        def fill_server_database(self):
+            fact_data = {"f": "question",
+                         "b": "answer"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=[])[0]
+            
+        self.server = MyServer(os.path.abspath("dot_sync_server"))
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_client"))
+        self.client.do_sync()
+        self.client.mnemosyne.finalise()
+        self.server.stop()
+        self._wait_for_server_shutdown()
+        
+        # Sync 2.
+        
+        def test_server(self):
+            pass
+        
+        def fill_server_database(self):
+            self.mnemosyne.database().save(\
+                os.path.join(os.path.abspath("dot_sync_server"), "backup.db"))
+            fact_data = {"f": "question2",
+                         "b": "answer2"}
+            card_type = self.mnemosyne.card_type_with_id("1")
+            card = self.mnemosyne.controller().create_new_cards(fact_data,
+            card_type, grade=4, tag_names=[])[0]
+            assert self.mnemosyne.database().fact_count() == 2
+            self.mnemosyne.database().restore(os.path.join(\
+                os.path.abspath("dot_sync_server"), "backup.db"))
+            assert self.mnemosyne.database().fact_count() == 1            
+            
+        self.server = MyServer(os.path.abspath("dot_sync_server"), erase_previous=False)
+        self.server.test_server = test_server
+        self.server.fill_server_database = fill_server_database
+        self.server.start()
+
+        self.client = MyClient(os.path.abspath("dot_sync_client"), erase_previous=False)
+        self.client.do_sync()
+        assert self.client.mnemosyne.database().fact_count() == 1
+
+        
+
