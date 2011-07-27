@@ -3025,6 +3025,7 @@ class TestSync(object):
         self.client = MyClient(os.path.abspath("dot_sync_client"))
         self.client.do_sync()
         self.client.database.save(os.path.join(os.path.abspath("dot_sync_client"), "backup.db"))
+        assert self.client.mnemosyne.database().fact_count() == 1
         self.client.mnemosyne.finalise()
         self.server.stop()
         self._wait_for_server_shutdown()
@@ -3050,6 +3051,8 @@ class TestSync(object):
         self.client.do_sync()
         self.client.database.restore(os.path.join(os.path.abspath("dot_sync_client"), "backup.db"))
         assert self.client.mnemosyne.database().fact_count() == 1
+        global answer
+        answer = 1 # keep remote
         self.client.do_sync()
         assert self.client.mnemosyne.database().fact_count() == 2
 
@@ -3084,8 +3087,10 @@ class TestSync(object):
             pass
         
         def fill_server_database(self):
+            old_path = self.mnemosyne.config()["path"]
             self.mnemosyne.database().save(\
                 os.path.join(os.path.abspath("dot_sync_server"), "backup.db"))
+            self.mnemosyne.config()["path"] = old_path
             fact_data = {"f": "question2",
                          "b": "answer2"}
             card_type = self.mnemosyne.card_type_with_id("1")
@@ -3096,12 +3101,16 @@ class TestSync(object):
                 os.path.abspath("dot_sync_server"), "backup.db"))
             assert self.mnemosyne.database().fact_count() == 1            
             
-        self.server = MyServer(os.path.abspath("dot_sync_server"), erase_previous=False)
+        self.server = MyServer(os.path.abspath("dot_sync_server"),
+            filename="default.db", erase_previous=False)
         self.server.test_server = test_server
         self.server.fill_server_database = fill_server_database
         self.server.start()
 
-        self.client = MyClient(os.path.abspath("dot_sync_client"), erase_previous=False)
+        self.client = MyClient(os.path.abspath("dot_sync_client"),
+            filename="default.db", erase_previous=False)
+        global answer
+        answer = 0 # keep local
         self.client.do_sync()
         assert self.client.mnemosyne.database().fact_count() == 1
 

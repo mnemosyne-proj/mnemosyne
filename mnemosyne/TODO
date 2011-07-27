@@ -1,6 +1,5 @@
--fix test suite, check coverage for interaction between sync and restore from backup.
-
--migrate science server machine
+-sync conflict after restore from backup: check if warning for sync conflict is really given
+-when restoring from backup after failed sync, the partnership table is reset. Desired?
 
 -right click add tags in card browser
 -add tags dialog
@@ -11,16 +10,18 @@
 
 -right click remove tags in card browser
 
+-migrate science server machine
+
+-syncing an empty database twice results in a spurious sync cycle detection. Also happens after syncing empty client and empty server database, then adding data to the server, and resyncing
+
+-if the server is empty, allow sync from non-empty client and change server user id.
+
 -remove auto-link inverse cards from database load
 
 -memorise sister cards in the same day --> same setting
 -still got 2 sister cards next to each other
 
 -when only 1 failed card is in the queue, new to memorise cards are never added
-
--syncing an empty database twice results in a spurious sync cycle detection. Also happens after syncing empty client and empty server database, then adding data to the server, and resyncing
-
--if the server is empty, allow sync from non-empty client and change server user id.
 
 -column width in browser not saved?
 -make sure you can't run Mnemosyne twice

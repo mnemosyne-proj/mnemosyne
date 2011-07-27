@@ -144,7 +144,7 @@ class Client(Partner):
             # from a backup.
             if self.database.is_sync_reset_needed(\
                 self.server_info["machine_id"]) or \
-                server_info["sync_reset_needed"] == True:
+                self.server_info["sync_reset_needed"] == True:
                 self.resolve_conflicts()                    
             # First sync.
             elif self.database.is_empty():
